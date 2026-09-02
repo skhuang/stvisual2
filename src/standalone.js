@@ -129584,6 +129584,2590 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "use-case-derivation": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a use case is",
+            "text": "<p>In use-case-based testing, what is a <strong>use case</strong>?</p>",
+            "answers": [
+              {
+                "text": "A description of how an actor interacts with the system to achieve a particular goal, told as a sequence of steps",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a use case captures a goal-directed interaction between an actor and the system."
+              },
+              {
+                "text": "A single line of source code exercised by a test",
+                "fraction": 0,
+                "feedback": "That is a code statement; a use case is a black-box description of an interaction, not code."
+              },
+              {
+                "text": "A table of boolean conditions mapped to actions",
+                "fraction": 0,
+                "feedback": "That describes a decision table; a use case is a narrative of goal-directed steps."
+              },
+              {
+                "text": "A measure of how much of the code a test suite covers",
+                "fraction": 0,
+                "feedback": "That is code coverage; a use case describes user-visible behaviour, not coverage."
+              }
+            ],
+            "generalFeedback": "A use case describes, from the outside, how an actor uses the system to reach a goal. It is a black-box, requirements-level artifact and the basis for deriving acceptance/system tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an actor is",
+            "text": "<p>In a use case, what is an <strong>actor</strong>?</p>",
+            "answers": [
+              {
+                "text": "An external entity (a person, role, or other system) that interacts with the system under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an actor is an external role that participates in the use case."
+              },
+              {
+                "text": "An internal function or method inside the system",
+                "fraction": 0,
+                "feedback": "An actor is external to the system; internal functions are implementation, not actors."
+              },
+              {
+                "text": "A test case that drives the use case",
+                "fraction": 0,
+                "feedback": "A test case is derived from the use case; the actor is the external participant it represents."
+              },
+              {
+                "text": "A defect discovered during system testing",
+                "fraction": 0,
+                "feedback": "A defect is a fault; an actor is an external role interacting with the system."
+              }
+            ],
+            "generalFeedback": "An actor is any external entity \u2014 a human role, an external device, or another system \u2014 that interacts with the system to help achieve (or support) the use case's goal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Primary vs secondary actor",
+            "text": "<p>What distinguishes the <strong>primary actor</strong> from a <strong>secondary actor</strong> in a use case?</p>",
+            "answers": [
+              {
+                "text": "The primary actor initiates the use case to achieve its goal; a secondary actor is one the system calls on to help complete the use case",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the primary actor drives the goal; secondary actors provide supporting services."
+              },
+              {
+                "text": "The primary actor is a human and the secondary actor is always a machine",
+                "fraction": 0,
+                "feedback": "Either can be a person or a system; the distinction is who initiates versus who supports."
+              },
+              {
+                "text": "The primary actor is optional and the secondary actor is mandatory",
+                "fraction": 0,
+                "feedback": "The primary actor is the one whose goal the use case serves; it is not optional."
+              },
+              {
+                "text": "The primary actor writes the tests; the secondary actor runs them",
+                "fraction": 0,
+                "feedback": "Actors are roles in the interaction, not testing responsibilities."
+              }
+            ],
+            "generalFeedback": "The primary actor has the goal that the use case satisfies and triggers it; secondary (supporting) actors \u2014 such as a payment gateway or an email service \u2014 are contacted by the system to help fulfil that goal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a precondition is",
+            "text": "<p>What does a <strong>precondition</strong> of a use case state?</p>",
+            "answers": [
+              {
+                "text": "What must already be true before the use case can begin",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a precondition is a guaranteed starting state assumed at the outset."
+              },
+              {
+                "text": "What will be true after the use case finishes successfully",
+                "fraction": 0,
+                "feedback": "That is a postcondition (success guarantee), not a precondition."
+              },
+              {
+                "text": "The event that starts the use case",
+                "fraction": 0,
+                "feedback": "That is the trigger; a precondition is a state that must hold beforehand."
+              },
+              {
+                "text": "The list of steps in the main flow",
+                "fraction": 0,
+                "feedback": "Those are the basic-flow steps; a precondition is a state assumed before the flow starts."
+              }
+            ],
+            "generalFeedback": 'A precondition is a condition guaranteed to hold before the use case starts (e.g. "the user is logged in"). It is assumed, not checked, within the flow \u2014 and it maps directly to test setup.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a postcondition is",
+            "text": "<p>What does the <strong>postcondition</strong> (success guarantee) of a use case describe?</p>",
+            "answers": [
+              {
+                "text": "The state that must hold after the use case completes successfully",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the success guarantee is what is true once the goal is achieved."
+              },
+              {
+                "text": "The state that must hold before the use case can start",
+                "fraction": 0,
+                "feedback": "That is a precondition, not a postcondition."
+              },
+              {
+                "text": "The external event that triggers the use case",
+                "fraction": 0,
+                "feedback": "That is the trigger; the postcondition is the guaranteed outcome."
+              },
+              {
+                "text": "The list of actors involved",
+                "fraction": 0,
+                "feedback": "Actors are participants; the postcondition is the resulting state after success."
+              }
+            ],
+            "generalFeedback": `The postcondition (success guarantee) states what the system guarantees once the use case ends successfully (e.g. "the order is recorded and payment captured"). It is the natural source of a test's expected result.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the main/basic flow is",
+            "text": "<p>What is the <strong>main (basic) success flow</strong> of a use case?</p>",
+            "answers": [
+              {
+                "text": 'The most common, straightforward sequence of steps in which everything goes right and the goal is achieved \u2014 the "happy path"',
+                "fraction": 100,
+                "feedback": "Correct \u2014 the basic flow is the normal, no-error path to success."
+              },
+              {
+                "text": "The sequence of steps taken when an error occurs",
+                "fraction": 0,
+                "feedback": "That is an exception flow; the basic flow is the error-free path."
+              },
+              {
+                "text": "An optional way to reach the goal used only under special conditions",
+                "fraction": 0,
+                "feedback": "That is an alternative flow; the basic flow is the primary path."
+              },
+              {
+                "text": "The list of preconditions that must hold first",
+                "fraction": 0,
+                "feedback": "Preconditions are assumed state; the basic flow is the step sequence itself."
+              }
+            ],
+            "generalFeedback": "The main (basic) flow is the typical success scenario \u2014 the happy path \u2014 where the actor and system proceed step by step with no errors and the goal is reached.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an alternative flow is",
+            "text": "<p>What is an <strong>alternative flow</strong> in a use case?</p>",
+            "answers": [
+              {
+                "text": "Another valid way the goal can still be achieved, differing from the basic flow at some point",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an alternative flow is a different but still successful path to the goal."
+              },
+              {
+                "text": "A path that always ends in failure without reaching the goal",
+                "fraction": 0,
+                "feedback": "A path that fails to reach the goal is an exception flow, not an alternative flow."
+              },
+              {
+                "text": "The state assumed before the use case starts",
+                "fraction": 0,
+                "feedback": "That is a precondition, not a flow."
+              },
+              {
+                "text": "The single most common sequence of steps",
+                "fraction": 0,
+                "feedback": "That is the basic flow; alternatives branch away from it."
+              }
+            ],
+            "generalFeedback": "An alternative flow is a variation that still reaches the goal successfully \u2014 for example paying by a different method. It branches from the basic flow and may rejoin it or reach the same success guarantee by another route.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an exception flow is",
+            "text": "<p>What is an <strong>exception (error) flow</strong> in a use case?</p>",
+            "answers": [
+              {
+                "text": "The path taken when something goes wrong, describing how the failure is handled",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an exception flow captures error handling when the goal cannot proceed normally."
+              },
+              {
+                "text": "Another successful route to the same goal",
+                "fraction": 0,
+                "feedback": "A successful variation is an alternative flow; an exception flow handles a failure."
+              },
+              {
+                "text": "The guaranteed state after a successful completion",
+                "fraction": 0,
+                "feedback": "That is the postcondition, not an exception flow."
+              },
+              {
+                "text": "The normal happy-path sequence of steps",
+                "fraction": 0,
+                "feedback": "That is the basic flow; the exception flow is the error path."
+              }
+            ],
+            "generalFeedback": "An exception (error) flow describes what happens when a step cannot complete normally \u2014 e.g. payment declined, item out of stock \u2014 and how the system responds (often ending without the success guarantee).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'What "include" means',
+            "text": "<p>What does an <strong>include</strong> relationship between use cases mean?</p>",
+            "answers": [
+              {
+                "text": "The included sub-use-case is always executed as a mandatory part of the base use case",
+                "fraction": 100,
+                "feedback": "Correct \u2014 include factors out common behaviour that always runs."
+              },
+              {
+                "text": "The included use case runs only under a special condition",
+                "fraction": 0,
+                "feedback": "Conditional insertion is extend, not include; an included use case always runs."
+              },
+              {
+                "text": "The included use case is an error-handling path",
+                "fraction": 0,
+                "feedback": "Include is about mandatory shared behaviour, not error handling."
+              },
+              {
+                "text": "The included use case replaces the base use case",
+                "fraction": 0,
+                "feedback": "Include supplements the base use case with mandatory shared steps; it does not replace it."
+              }
+            ],
+            "generalFeedback": 'Include means a base use case always invokes the included sub-use-case \u2014 a way to factor out common, mandatory behaviour (e.g. "Checkout" includes "Validate Payment", which always runs).',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'What "extend" means',
+            "text": "<p>What does an <strong>extend</strong> relationship between use cases mean?</p>",
+            "answers": [
+              {
+                "text": "The extending use case adds optional behaviour inserted at an extension point only when a condition holds",
+                "fraction": 100,
+                "feedback": "Correct \u2014 extend is conditional, optional behaviour at a defined extension point."
+              },
+              {
+                "text": "The extending use case always runs as a mandatory part of the base",
+                "fraction": 0,
+                "feedback": "Always-runs mandatory behaviour is include, not extend."
+              },
+              {
+                "text": "The extending use case lists the preconditions of the base",
+                "fraction": 0,
+                "feedback": "Extend inserts conditional behaviour; it is not a list of preconditions."
+              },
+              {
+                "text": "The extending use case is the primary actor of the base",
+                "fraction": 0,
+                "feedback": "An actor is a role, not a relationship between use cases."
+              }
+            ],
+            "generalFeedback": 'Extend inserts optional/conditional behaviour into a base use case at a named extension point, and only when its condition is met (e.g. "Apply Coupon" extends "Checkout" when the shopper enters a code).',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a scenario is",
+            "text": "<p>In use-case testing, what is a <strong>scenario</strong>?</p>",
+            "answers": [
+              {
+                "text": "One specific path through the use case \u2014 the basic flow, or the basic flow combined with a particular alternative or exception",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a scenario is a single concrete route through the use case."
+              },
+              {
+                "text": "The complete set of all flows of the use case at once",
+                "fraction": 0,
+                "feedback": "That is the whole use case; a scenario is one path through it."
+              },
+              {
+                "text": "A single input value used by a test",
+                "fraction": 0,
+                "feedback": "An input value is test data; a scenario is an end-to-end path."
+              },
+              {
+                "text": "The precondition of the use case",
+                "fraction": 0,
+                "feedback": "A precondition is assumed state; a scenario is a traversal of the flows."
+              }
+            ],
+            "generalFeedback": "A scenario is one instance/path through the use case: the happy path is one scenario, and each alternative or exception taken (with the rest of the flow) gives another. Scenarios are the unit from which use-case tests are derived.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the trigger",
+            "text": '<p>A "Withdraw Cash" use case says: <em>"The customer must have an active account (precondition). When the customer inserts their card and requests a withdrawal, the system verifies the balance and dispenses cash; afterwards the balance is reduced."</em> Which part is the <strong>trigger</strong>?</p>',
+            "answers": [
+              {
+                "text": "The customer inserts their card and requests a withdrawal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that event initiates the use case, so it is the trigger."
+              },
+              {
+                "text": "The customer must have an active account",
+                "fraction": 0,
+                "feedback": "That is the precondition \u2014 a state assumed beforehand, not the initiating event."
+              },
+              {
+                "text": "The system verifies the balance and dispenses cash",
+                "fraction": 0,
+                "feedback": "Those are basic-flow steps, not the trigger that starts the use case."
+              },
+              {
+                "text": "Afterwards the balance is reduced",
+                "fraction": 0,
+                "feedback": "That is the postcondition \u2014 the state after success."
+              }
+            ],
+            "generalFeedback": "The trigger is the event that starts the use case. Here it is the customer inserting the card and requesting a withdrawal; the active account is a precondition and the reduced balance is a postcondition.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the precondition",
+            "text": '<p>In a "Place Order" use case, which of the following is best described as a <strong>precondition</strong>?</p>',
+            "answers": [
+              {
+                "text": "The customer is logged in and has at least one item in the cart",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that state must already hold before the use case can begin."
+              },
+              {
+                "text": "The system displays an order confirmation number",
+                "fraction": 0,
+                "feedback": "That is an outcome after success \u2014 a postcondition, not a precondition."
+              },
+              {
+                "text": 'The customer clicks the "Place Order" button',
+                "fraction": 0,
+                "feedback": "That is the trigger that starts the use case, not a precondition."
+              },
+              {
+                "text": "The system charges the saved payment method",
+                "fraction": 0,
+                "feedback": "That is a step in the basic flow, not a precondition."
+              }
+            ],
+            "generalFeedback": 'A precondition is state assumed to be true before the flow runs. "Logged in with a non-empty cart" must hold before ordering can start; the confirmation number is a postcondition and clicking the button is the trigger.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the basic flow",
+            "text": '<p>Which of these is the <strong>basic (main success) flow</strong> of a "Log In" use case?</p>',
+            "answers": [
+              {
+                "text": "The user enters valid credentials, the system verifies them, and the user is granted access",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is the straightforward success path."
+              },
+              {
+                "text": "The user enters a wrong password three times and the account is locked",
+                "fraction": 0,
+                "feedback": "That is an exception flow describing failure handling."
+              },
+              {
+                "text": "The user resets a forgotten password via email",
+                "fraction": 0,
+                "feedback": "That is an alternative/exception path, not the main success flow."
+              },
+              {
+                "text": "The user is already logged in before the use case starts",
+                "fraction": 0,
+                "feedback": "That is a precondition/state, not a step sequence."
+              }
+            ],
+            "generalFeedback": "The basic flow is the error-free success path: valid credentials entered, verified, access granted. Wrong-password lockout is an exception flow, and password reset is a separate alternative/exception path.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Use-case testing is black-box",
+            "text": "<p>Use-case-based test derivation is a black-box technique: tests are designed from the described interactions and goals, not from the source code.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 use-case testing works from the specification of behaviour, so it is black-box."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Use-case testing derives tests from the described flows and goals (the specification), which makes it black-box, not code-based."
+              }
+            ],
+            "generalFeedback": "Use-case testing is a black-box, specification-based technique operating at the system/acceptance level: tests come from the actor-goal interactions and their flows, independent of the internal code."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Classify: Checkout and Validate Payment",
+            "text": '<p>"Checkout" <em>always</em> performs "Validate Payment" as part of completing every checkout. What relationship is this?</p>',
+            "answers": [
+              {
+                "text": "Include \u2014 Validate Payment is mandatory shared behaviour that always runs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 behaviour that always runs as part of the base is an include."
+              },
+              {
+                "text": "Extend \u2014 Validate Payment runs only under a condition",
+                "fraction": 0,
+                "feedback": 'The phrase "always performs" means it is not conditional, so it is include, not extend.'
+              },
+              {
+                "text": "Generalization \u2014 Validate Payment is a kind of Checkout",
+                "fraction": 0,
+                "feedback": "This is a part-of/always-runs relationship, not an is-a specialization."
+              },
+              {
+                "text": "An alternative flow of Checkout",
+                "fraction": 0,
+                "feedback": "It is a separate, always-invoked sub-use-case (include), not a branch within Checkout that reaches the goal another way."
+              }
+            ],
+            "generalFeedback": "Because Validate Payment always runs as part of every Checkout, it is factored out with an include relationship (mandatory, common behaviour).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: Apply Coupon and Checkout",
+            "text": '<p>"Apply Coupon" runs during "Checkout" <em>only when</em> the shopper enters a coupon code, inserted at a defined point in the checkout flow. What relationship is this?</p>',
+            "answers": [
+              {
+                "text": "Extend \u2014 Apply Coupon is optional behaviour inserted at an extension point when the condition holds",
+                "fraction": 100,
+                "feedback": "Correct \u2014 conditional, optional insertion at an extension point is extend."
+              },
+              {
+                "text": "Include \u2014 Apply Coupon always runs during Checkout",
+                "fraction": 0,
+                "feedback": "It runs only when a code is entered, so it is conditional (extend), not always-run (include)."
+              },
+              {
+                "text": "Generalization \u2014 Apply Coupon is a kind of Checkout",
+                "fraction": 0,
+                "feedback": "This is a conditional insertion, not an is-a specialization."
+              },
+              {
+                "text": "A precondition of Checkout",
+                "fraction": 0,
+                "feedback": "It is behaviour inserted conditionally, not a state assumed before Checkout starts."
+              }
+            ],
+            "generalFeedback": "Apply Coupon happens only if the shopper supplies a code, inserted at an extension point in Checkout \u2014 the defining shape of an extend relationship (optional/conditional).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario count: 1 basic + 3 alt + 2 exception",
+            "text": "<p>A use case has 1 basic flow, 3 alternative flows, and 2 exception flows, each an independent path taken on its own. Using use-case scenario coverage (one test per scenario), how many test cases are needed?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 + 3 + 2 = 6 independent scenarios, one test each."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 omits one flow; count the basic flow too: 1 + 3 + 2 = 6."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 counts only the alternatives; the basic and exception flows are also scenarios."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "The flows are independent single paths, so they add (=6); they do not multiply."
+              }
+            ],
+            "generalFeedback": "Each independent flow is one scenario: the basic flow plus each alternative plus each exception. That is 1 + 3 + 2 = 6 scenarios, hence 6 tests for scenario coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario count: 1 basic + 2 alt + 1 exception",
+            "text": "<p>A use case has 1 basic flow, 2 alternative flows, and 1 exception flow, each an independent path. How many scenarios must be covered?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 + 2 + 1 = 4 independent scenarios."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 omits one flow; include the basic flow: 1 + 2 + 1 = 4."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 counts only the alternatives; add the basic and exception flows."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Independent single paths add to 4, not multiply."
+              }
+            ],
+            "generalFeedback": "Scenario coverage needs one test per scenario: basic (1) + alternatives (2) + exception (1) = 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario count: 1 basic + 4 exception",
+            "text": '<p>A "Log In" use case has 1 basic success flow and 4 distinct exception flows (wrong password, locked account, expired password, network error), each an independent path. How many scenarios are there?</p>',
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 basic + 4 exceptions = 5 scenarios."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 counts only the exceptions; the basic success flow is also a scenario."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Each exception is its own scenario, so there are 5, not 1."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "These are independent single paths that add to 5, not multiply."
+              }
+            ],
+            "generalFeedback": "The basic flow is one scenario and each of the 4 exception flows is another, giving 1 + 4 = 5 scenarios for coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Precondition maps to test setup",
+            "text": "<p>When turning a use-case scenario into a concrete test case, a <strong>precondition</strong> most directly becomes which part of the test?</p>",
+            "answers": [
+              {
+                "text": "The test setup / initial state established before the test steps run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 preconditions define the arranged starting state of the test."
+              },
+              {
+                "text": "The expected result checked at the end",
+                "fraction": 0,
+                "feedback": "The expected result comes from the postcondition, not the precondition."
+              },
+              {
+                "text": "The sequence of user actions (test steps)",
+                "fraction": 0,
+                "feedback": "The steps come from the flow; the precondition is the state arranged before them."
+              },
+              {
+                "text": "The name of the test case",
+                "fraction": 0,
+                "feedback": "The name is a label; the precondition defines the setup state."
+              }
+            ],
+            "generalFeedback": "A precondition specifies what must be true before the scenario runs, so it maps to the test's setup/arrange step \u2014 establishing the initial state before executing the flow.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Postcondition maps to expected result",
+            "text": "<p>When deriving a test from a use-case scenario, the scenario's <strong>postcondition</strong> most directly becomes which part of the test?</p>",
+            "answers": [
+              {
+                "text": "The expected result / assertion verified after the steps run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the postcondition states the guaranteed outcome, which is what the test checks."
+              },
+              {
+                "text": "The setup performed before the steps",
+                "fraction": 0,
+                "feedback": "Setup comes from the precondition; the postcondition is the expected outcome."
+              },
+              {
+                "text": "The trigger event",
+                "fraction": 0,
+                "feedback": "The trigger starts the flow; the postcondition is the result to verify."
+              },
+              {
+                "text": "The list of actors",
+                "fraction": 0,
+                "feedback": "Actors are participants; the postcondition is the checked outcome."
+              }
+            ],
+            "generalFeedback": "The postcondition (success guarantee) is exactly what the system promises after the scenario succeeds, so it becomes the test's expected result / assertion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Primary actor in a scenario",
+            "text": '<p>In a "Pay by Card" scenario, the shopper initiates the purchase and a bank payment gateway authorises the charge. Who is the <strong>primary actor</strong>?</p>',
+            "answers": [
+              {
+                "text": "The shopper \u2014 they initiate the use case and hold the goal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the primary actor drives the use case toward their goal."
+              },
+              {
+                "text": "The payment gateway \u2014 it does the important work",
+                "fraction": 0,
+                "feedback": "The gateway is a secondary/supporting actor the system calls on; it is not the initiator."
+              },
+              {
+                "text": "The system under test itself",
+                "fraction": 0,
+                "feedback": "The system is not an actor; actors are external participants."
+              },
+              {
+                "text": "Both are equally the primary actor",
+                "fraction": 0,
+                "feedback": "There is one primary actor (the goal-holder); the gateway is secondary."
+              }
+            ],
+            "generalFeedback": "The shopper initiates the interaction and owns the goal, so the shopper is the primary actor; the payment gateway is a secondary (supporting) actor that the system contacts to fulfil the goal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Secondary actor in a scenario",
+            "text": '<p>In a "Register Account" use case, the visitor signs up and the system asks an external email service to send a confirmation message. Which is the <strong>secondary actor</strong>?</p>',
+            "answers": [
+              {
+                "text": "The external email service \u2014 the system calls on it to help complete the goal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a supporting actor invoked by the system is secondary."
+              },
+              {
+                "text": "The visitor \u2014 they signed up",
+                "fraction": 0,
+                "feedback": "The visitor initiates and owns the goal, so they are the primary actor."
+              },
+              {
+                "text": "The confirmation message",
+                "fraction": 0,
+                "feedback": "A message is data, not an actor."
+              },
+              {
+                "text": "The database table",
+                "fraction": 0,
+                "feedback": "Internal storage is part of the system, not an external actor."
+              }
+            ],
+            "generalFeedback": "The visitor is the primary actor (initiator, goal-holder); the external email service is a secondary/supporting actor the system contacts to help fulfil the goal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Derive a test from a described scenario",
+            "text": "<p>Scenario: <em>the shopper's saved card is <strong>declined</strong>, so the order is not placed and an error is shown.</em> Which test best matches this exception scenario?</p>",
+            "answers": [
+              {
+                "text": "Set up an account whose card will be declined, attempt checkout, and verify no order is created and a decline error is displayed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the setup, action, and expected result all follow the declined-payment exception scenario."
+              },
+              {
+                "text": "Set up a valid card, checkout, and verify the order is confirmed",
+                "fraction": 0,
+                "feedback": "That tests the basic success flow, not the declined-payment exception."
+              },
+              {
+                "text": "Unit-test the card-number Luhn-check function in isolation",
+                "fraction": 0,
+                "feedback": "That is a low-level unit test, not the end-to-end exception scenario described."
+              },
+              {
+                "text": "Verify the coupon field accepts a code",
+                "fraction": 0,
+                "feedback": "That concerns a different (coupon) behaviour, not the declined-payment scenario."
+              }
+            ],
+            "generalFeedback": "The scenario dictates the test: arrange a card that will be declined (setup), run checkout (steps), and assert the order is not created and a decline error appears (expected result from the failure guarantee).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Included use case always runs",
+            "text": "<p>An included use case is executed every time the base use case runs, whereas an extending use case runs only when its condition is met.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 include is mandatory/always-run; extend is conditional/optional."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Include is always executed; extend is conditional. The statement states this correctly."
+              }
+            ],
+            "generalFeedback": "Include factors out behaviour that always runs as part of the base use case; extend inserts optional behaviour at an extension point only when a condition holds."
+          },
+          {
+            "type": "multichoice",
+            "name": "Trigger vs precondition applied",
+            "text": '<p>A use case states: "The account must be in good standing. The use case begins when the customer submits a transfer request." Which statement is correct?</p>',
+            "answers": [
+              {
+                "text": '"Account in good standing" is a precondition; "customer submits a transfer request" is the trigger',
+                "fraction": 100,
+                "feedback": "Correct \u2014 assumed state is the precondition; the initiating event is the trigger."
+              },
+              {
+                "text": "Both are triggers",
+                "fraction": 0,
+                "feedback": "Only the initiating event is the trigger; the good-standing status is assumed state."
+              },
+              {
+                "text": "Both are preconditions",
+                "fraction": 0,
+                "feedback": "Submitting the request is the initiating event (trigger), not a precondition."
+              },
+              {
+                "text": '"Account in good standing" is the trigger; the submission is a postcondition',
+                "fraction": 0,
+                "feedback": "This reverses the roles; good standing is assumed beforehand and the submission starts the use case."
+              }
+            ],
+            "generalFeedback": 'A precondition is assumed state before the use case begins ("account in good standing"); the trigger is the event that starts it ("customer submits a transfer request").',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Tests needed for scenario coverage",
+            "text": "<p>Under use-case <strong>scenario coverage</strong>, the minimum number of test cases needed for a use case equals which of the following?</p>",
+            "answers": [
+              {
+                "text": "The number of scenarios (basic flow plus each alternative and each exception)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 scenario coverage requires at least one test per scenario."
+              },
+              {
+                "text": "The number of actors in the use case",
+                "fraction": 0,
+                "feedback": "Actor count does not determine scenario coverage; the number of scenarios does."
+              },
+              {
+                "text": "Exactly one, for the basic flow",
+                "fraction": 0,
+                "feedback": "Covering only the basic flow leaves alternatives and exceptions untested."
+              },
+              {
+                "text": "The number of preconditions",
+                "fraction": 0,
+                "feedback": "Preconditions become setup, not the count of required tests."
+              }
+            ],
+            "generalFeedback": "Scenario coverage asks for at least one test per scenario, so the minimum test count equals the number of scenarios = basic + each alternative + each exception (when each is an independent path).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Include contributes no separate happy-path scenario",
+            "text": `<p>"Checkout" <em>includes</em> "Validate Payment" (always runs). When counting the scenarios of Checkout's basic flow, how is the included Validate Payment treated?</p>`,
+            "answers": [
+              {
+                "text": 'It is part of every Checkout scenario, so on the happy path it does not add a separate "with/without" scenario',
+                "fraction": 100,
+                "feedback": "Correct \u2014 because it always runs, it is baked into each scenario rather than being an optional branch."
+              },
+              {
+                "text": "It doubles the scenario count, one with and one without validation",
+                "fraction": 0,
+                "feedback": 'A "without" case does not exist for an always-run include; that with/without split belongs to extend.'
+              },
+              {
+                "text": "It is ignored entirely and never tested",
+                "fraction": 0,
+                "feedback": "It runs on every path, so it is exercised by those tests \u2014 it just is not an optional branch."
+              },
+              {
+                "text": "It becomes a precondition of Checkout",
+                "fraction": 0,
+                "feedback": "It is invoked behaviour, not assumed prior state."
+              }
+            ],
+            "generalFeedback": "Because an included use case always runs, it appears in every scenario of the base rather than creating an optional with/without split. (Validate Payment may of course have its own internal alternatives/exceptions, which are separate.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: generalization",
+            "text": '<p>"Pay by Card" and "Pay by Cash" are both special kinds of a more general "Make Payment" use case, each refining how payment is made. What relationship is this?</p>',
+            "answers": [
+              {
+                "text": "Generalization \u2014 the specialised use cases are variants (is-a) of the general one",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an is-a relationship between a general use case and its variants is generalization."
+              },
+              {
+                "text": "Include \u2014 Make Payment always runs both",
+                "fraction": 0,
+                "feedback": "Include is mandatory shared behaviour that always runs, not an is-a variant relationship."
+              },
+              {
+                "text": "Extend \u2014 the variants are conditional insertions",
+                "fraction": 0,
+                "feedback": "Extend inserts optional behaviour at an extension point; here the variants specialise a general use case (is-a)."
+              },
+              {
+                "text": "Trigger \u2014 the variants start Make Payment",
+                "fraction": 0,
+                "feedback": "A trigger is an initiating event, not a relationship between use cases."
+              }
+            ],
+            "generalFeedback": 'Generalization is an is-a relationship: "Pay by Card" and "Pay by Cash" are specialised forms of the general "Make Payment", inheriting its structure and refining specific steps.',
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Count paths with two independent optional extends",
+            "text": '<p>A "Checkout" use case has two <em>independent, optional</em> extensions, each of which may or may not occur: "Apply Coupon" and "Add Gift Wrap". If we want to cover every combination of taken/not-taken (and both are truly independent), how many distinct end-to-end paths exist?</p>',
+            "answers": [
+              {
+                "text": "4 \u2014 each extension is present or absent independently, so 2 x 2 = 4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 two independent optional insertions give 2^2 = 4 combinations."
+              },
+              {
+                "text": "2 \u2014 one path with extensions, one without",
+                "fraction": 0,
+                "feedback": "Two independent options give four combinations, not two."
+              },
+              {
+                "text": "3 \u2014 basic plus one path per extension",
+                "fraction": 0,
+                "feedback": "That counts each extension once but misses the both-taken and both-absent combinations; independent options multiply to 4."
+              },
+              {
+                "text": "1 \u2014 extensions do not create new paths",
+                "fraction": 0,
+                "feedback": "Optional extensions do create branches; two independent ones yield 4 paths."
+              }
+            ],
+            "generalFeedback": "Each independent optional extension contributes a factor of 2 (taken or not). With two, the number of combinations is 2 x 2 = 4. (Basic scenario coverage might use fewer \u2014 one per extension plus the plain path \u2014 but full combination coverage of two independent options is 4.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count scenarios with a branching alternative",
+            "text": "<p>A use case has 1 basic flow. At one step the payment method branches into exactly one of 3 mutually exclusive choices (cash, card, coupon), and there are additionally 2 independent exception flows. Counting one scenario per distinct payment branch plus each exception, how many scenarios are there?</p>",
+            "answers": [
+              {
+                "text": "5 \u2014 3 mutually exclusive payment branches + 2 exceptions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the 3 branches are alternatives to one another (3 scenarios) plus 2 exceptions = 5."
+              },
+              {
+                "text": "6 \u2014 1 basic + 3 branches + 2 exceptions",
+                "fraction": 0,
+                "feedback": 'The 3 branchesthe payment step of the basic flow (one is the "main" one), so they are not counted on top of a separate basic scenario; the count is 3 + 2 = 5.'
+              },
+              {
+                "text": "3 \u2014 only the payment branches matter",
+                "fraction": 0,
+                "feedback": "The 2 exception flows are also scenarios; 3 + 2 = 5."
+              },
+              {
+                "text": "12 \u2014 multiply 3 branches by 2 exceptions by 2",
+                "fraction": 0,
+                "feedback": "Mutually exclusive branches and independent exceptions add, not multiply."
+              }
+            ],
+            "generalFeedback": "The three payment methods are mutually exclusive variants of the same step, giving 3 successful scenarios (one is effectively the basic flow, the others alternatives). Adding the 2 independent exceptions gives 3 + 2 = 5 scenarios.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Include vs extend: subtle mandatory case",
+            "text": '<p>Every time "Transfer Funds" runs, the system records an audit-log entry \u2014 no exceptions. The audit behaviour is factored into its own use case. Which relationship fits, and why?</p>',
+            "answers": [
+              {
+                "text": "Include \u2014 the audit entry is written on every run, so it is mandatory factored-out behaviour",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "on every run, no exceptions" is the signature of include.'
+              },
+              {
+                "text": "Extend \u2014 auditing is extra behaviour added to the base",
+                "fraction": 0,
+                "feedback": "Extend is conditional; here the audit always runs, which is include."
+              },
+              {
+                "text": "Extend \u2014 because auditing is not the primary goal",
+                "fraction": 0,
+                "feedback": "Whether it is the primary goal is irrelevant; what matters is that it always runs, making it include."
+              },
+              {
+                "text": "Generalization \u2014 auditing is a kind of transfer",
+                "fraction": 0,
+                "feedback": "It is shared always-run behaviour, not an is-a specialization."
+              }
+            ],
+            "generalFeedback": "The deciding factor is unconditional execution. Because the audit entry is written on every run without exception, it is mandatory common behaviour \u2014 an include \u2014 not a conditional extend.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Include vs extend: subtle conditional case",
+            "text": '<p>During "Withdraw Cash", <em>if</em> the balance would drop below a threshold, the system also runs "Send Low-Balance Alert" at a defined point. Which relationship fits, and why?</p>',
+            "answers": [
+              {
+                "text": "Extend \u2014 the alert runs only when the low-balance condition holds, inserted at an extension point",
+                "fraction": 100,
+                "feedback": "Correct \u2014 conditional insertion at an extension point is extend."
+              },
+              {
+                "text": "Include \u2014 the alert is part of the withdrawal",
+                "fraction": 0,
+                "feedback": "It runs only under a condition, so it is conditional (extend), not always-run (include)."
+              },
+              {
+                "text": "Include \u2014 because it is a separate factored-out use case",
+                "fraction": 0,
+                "feedback": "Being factored out does not make it include; include additionally requires that it always runs, which it does not."
+              },
+              {
+                "text": "A precondition of Withdraw Cash",
+                "fraction": 0,
+                "feedback": "It is behaviour triggered mid-flow by a condition, not assumed prior state."
+              }
+            ],
+            "generalFeedback": 'The "if the balance would drop below a threshold" guard means the alert is conditional, inserted at an extension point \u2014 the defining shape of extend, regardless of it being factored into its own use case.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the postcondition is the expected outcome",
+            "text": "<p>Why is a scenario's <strong>postcondition</strong> the natural source of a use-case test's expected outcome?</p>",
+            "answers": [
+              {
+                "text": "It states the guarantee the system must deliver on that scenario, so verifying it confirms the goal was achieved",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the postcondition is exactly the promised end-state, which is what the test must assert."
+              },
+              {
+                "text": "It lists the inputs the test must supply",
+                "fraction": 0,
+                "feedback": "Inputs relate to setup/steps; the postcondition is the guaranteed result."
+              },
+              {
+                "text": "It names the internal functions the code should call",
+                "fraction": 0,
+                "feedback": "Use-case testing is black-box; the postcondition describes observable outcome, not internal calls."
+              },
+              {
+                "text": "It counts how many scenarios exist",
+                "fraction": 0,
+                "feedback": "That is unrelated; the postcondition describes the end-state to verify."
+              }
+            ],
+            "generalFeedback": "A postcondition is the observable guarantee the system promises when the scenario completes. Asserting it is precisely how a test confirms the scenario's goal was met, which is why it maps to the expected outcome.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Coverage adequacy of basic-flow-only tests",
+            "text": "<p>A team writes only one test per use case, always exercising the basic (happy-path) flow. What is the main adequacy problem?</p>",
+            "answers": [
+              {
+                "text": "Alternative and exception flows are never exercised, so error handling and less-common paths go untested",
+                "fraction": 100,
+                "feedback": "Correct \u2014 happy-path-only testing misses the alternative and exception scenarios."
+              },
+              {
+                "text": "The basic flow is tested too many times, wasting effort",
+                "fraction": 0,
+                "feedback": "The problem is missing coverage of other scenarios, not over-testing the happy path."
+              },
+              {
+                "text": "Preconditions can no longer be set up",
+                "fraction": 0,
+                "feedback": "Preconditions are still set up for the happy path; the gap is the untested alternative/exception scenarios."
+              },
+              {
+                "text": "It achieves full statement coverage automatically",
+                "fraction": 0,
+                "feedback": "Happy-path tests rarely reach error-handling code, so statement coverage is not guaranteed."
+              }
+            ],
+            "generalFeedback": "Scenario coverage requires the basic flow plus each alternative and each exception. Testing only the happy path leaves every alternative and error-handling scenario unexercised \u2014 where many real defects hide.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Map a use-case path to a concrete test case",
+            "text": "<p>You are turning one use-case scenario into a concrete test case. Which mapping of use-case parts to test parts is correct?</p>",
+            "answers": [
+              {
+                "text": "Preconditions \u2192 setup; the chosen flow's steps \u2192 test steps; postcondition \u2192 expected result",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is the standard mapping from a scenario to a test case."
+              },
+              {
+                "text": "Postcondition \u2192 setup; preconditions \u2192 expected result; trigger \u2192 teardown",
+                "fraction": 0,
+                "feedback": "This swaps the roles; preconditions are setup and the postcondition is the expected result."
+              },
+              {
+                "text": "Actors \u2192 setup; preconditions \u2192 steps; postcondition \u2192 test name",
+                "fraction": 0,
+                "feedback": "Preconditions are setup and the flow's steps are the test steps; this mapping is wrong."
+              },
+              {
+                "text": "Trigger \u2192 expected result; steps \u2192 setup; postcondition \u2192 inputs",
+                "fraction": 0,
+                "feedback": "The postcondition is the expected result, not the inputs; this is incorrect."
+              }
+            ],
+            "generalFeedback": "A scenario maps cleanly onto a test case: preconditions establish the initial state (setup), the scenario's flow becomes the ordered test steps, and the postcondition becomes the expected result to assert.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Use-case testing strengths and limits vs unit testing",
+            "text": "<p>Compared with unit testing, what best describes the strengths and limits of use-case-based testing?</p>",
+            "answers": [
+              {
+                "text": "It validates realistic end-to-end user goals and finds integration/workflow defects, but does not systematically exercise low-level internal code paths",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is strong at system/acceptance level but weak at deep code-path coverage."
+              },
+              {
+                "text": "It guarantees full branch coverage of every function, unlike unit testing",
+                "fraction": 0,
+                "feedback": "Being black-box and end-to-end, it does not systematically cover internal branches."
+              },
+              {
+                "text": "It replaces unit testing entirely because it is higher-level",
+                "fraction": 0,
+                "feedback": "The two are complementary; use-case tests miss low-level paths that unit tests target."
+              },
+              {
+                "text": "It is a white-box technique that inspects the control-flow graph",
+                "fraction": 0,
+                "feedback": "Use-case testing is black-box; it does not analyse the control-flow graph."
+              }
+            ],
+            "generalFeedback": "Use-case testing excels at validating end-to-end, realistic user goals and surfacing integration/workflow problems at the system/acceptance level. Because it is black-box, it does not systematically exercise low-level code paths, so it complements rather than replaces unit testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Combining an alternative with an exception",
+            "text": "<p>A use case has a basic flow, 1 alternative flow (pay by coupon instead of card), and 1 exception (payment declined) that can occur on <em>either</em> the card path or the coupon path. If you cover the basic (card) success, the coupon success, and the decline on each path separately, how many scenarios is that?</p>",
+            "answers": [
+              {
+                "text": "4 \u2014 card-success, coupon-success, card-decline, coupon-decline",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the exception combines with each of the two success paths, giving 2 + 2 = 4."
+              },
+              {
+                "text": "3 \u2014 basic, alternative, exception",
+                "fraction": 0,
+                "feedback": "Because the decline can happen on either path, it yields two distinct exception scenarios, not one; total is 4."
+              },
+              {
+                "text": "2 \u2014 one success and one failure",
+                "fraction": 0,
+                "feedback": "There are two success paths and the failure applies to each, giving 4 scenarios."
+              },
+              {
+                "text": "6 \u2014 every flow times every other",
+                "fraction": 0,
+                "feedback": "The decline attaches to each of the 2 payment paths only, giving 4, not 6."
+              }
+            ],
+            "generalFeedback": "Two success paths (card, coupon) plus the decline exception occurring on each give 2 successes + 2 declines = 4 scenarios. When an exception can arise on multiple paths, it multiplies with those paths rather than counting once.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why use-case tests miss low-level paths",
+            "text": "<p>Why does use-case-based testing typically fail to exercise many low-level code paths (such as a rare internal branch inside a helper function)?</p>",
+            "answers": [
+              {
+                "text": "It derives tests from external user goals and flows, not from the code structure, so internal branches are only hit incidentally",
+                "fraction": 100,
+                "feedback": "Correct \u2014 being black-box and goal-driven, it does not target internal structure."
+              },
+              {
+                "text": "Because use cases forbid running any code during testing",
+                "fraction": 0,
+                "feedback": "Use-case tests do run the system; they simply are not designed around internal code structure."
+              },
+              {
+                "text": "Because use-case tests can only be run manually",
+                "fraction": 0,
+                "feedback": "They can be automated; the issue is that their design ignores code structure, not the run mode."
+              },
+              {
+                "text": "Because low-level branches are always dead code",
+                "fraction": 0,
+                "feedback": "Internal branches are usually live; use-case tests just are not designed to target them."
+              }
+            ],
+            "generalFeedback": "Use-case testing is black-box: tests come from actor goals and observable flows, not from the control-flow graph. Deep or rare internal branches are exercised only by coincidence, which is why structural (white-box) techniques are needed alongside it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal scenario-coverage test set",
+            "text": "<p>A use case has 1 basic flow, 2 alternative flows, and 3 exception flows, each an independent single path. What is the minimum number of tests to achieve use-case scenario coverage?</p>",
+            "answers": [
+              {
+                "text": "6 \u2014 one test per scenario (1 + 2 + 3)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 scenario coverage needs at least one test per scenario, so 1 + 2 + 3 = 6."
+              },
+              {
+                "text": "5 \u2014 omit the basic flow since alternatives cover it",
+                "fraction": 0,
+                "feedback": "The basic flow is its own scenario and must be covered; the total is 6."
+              },
+              {
+                "text": "3 \u2014 only the exceptions need dedicated tests",
+                "fraction": 0,
+                "feedback": "The basic and alternative flows are scenarios too; the total is 6."
+              },
+              {
+                "text": "36 \u2014 every flow combined with every other",
+                "fraction": 0,
+                "feedback": "Independent single paths add to 6; they are not combined pairwise."
+              }
+            ],
+            "generalFeedback": "Scenario coverage requires at least one test per scenario. With independent paths that is 1 basic + 2 alternatives + 3 exceptions = 6 tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Success guarantee vs minimal (failure) guarantee",
+            "text": '<p>An exception scenario ("payment declined") ends without achieving the goal. Which postcondition should the derived test assert?</p>',
+            "answers": [
+              {
+                "text": "The failure/minimal guarantee \u2014 e.g. no order is created and the account is left unchanged with an error shown",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a failure scenario's expected result is its minimal (failure) guarantee, not the success guarantee."
+              },
+              {
+                "text": "The success guarantee \u2014 the order is placed and payment captured",
+                "fraction": 0,
+                "feedback": "The scenario failed, so the success guarantee must not hold; assert the failure guarantee instead."
+              },
+              {
+                "text": "No postcondition at all, since it failed",
+                "fraction": 0,
+                "feedback": "Even failed scenarios have a guaranteed safe end-state (the minimal guarantee) that the test should verify."
+              },
+              {
+                "text": "The precondition, re-checked at the end",
+                "fraction": 0,
+                "feedback": "The expected result is the failure guarantee, not the precondition."
+              }
+            ],
+            "generalFeedback": "Use cases specify a success guarantee (for successful paths) and a minimal/failure guarantee (the safe state left after failure). An exception scenario's test asserts the failure guarantee \u2014 e.g. no order created, no charge, an error shown.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concrete test from preconditions, steps, postcondition",
+            "text": '<p>Use case "Return Item": <em>Precondition: the customer has a delivered order within the return window. Basic flow: customer selects the item, chooses a reason, and submits the return; the system issues a return label and marks the item as pending return. Postcondition: a return is recorded and a label is issued.</em> Which concrete test correctly realises this scenario?</p>',
+            "answers": [
+              {
+                "text": "Setup: an account with a delivered, in-window order. Steps: select the item, choose a reason, submit. Expected: a return record exists and a return label is issued",
+                "fraction": 100,
+                "feedback": "Correct \u2014 preconditions become setup, the flow becomes steps, and the postcondition becomes the expected result."
+              },
+              {
+                "text": "Setup: an account with no orders. Steps: submit a return. Expected: a label is issued",
+                "fraction": 0,
+                "feedback": "The precondition (a delivered in-window order) is not satisfied, so this does not realise the scenario."
+              },
+              {
+                "text": "Setup: a delivered in-window order. Steps: submit a return. Expected: nothing changes",
+                "fraction": 0,
+                "feedback": 'The postcondition promises a recorded return and issued label, so "nothing changes" is the wrong expected result.'
+              },
+              {
+                "text": "Setup: none. Steps: call the label-printing function directly. Expected: a PDF is produced",
+                "fraction": 0,
+                "feedback": "That is a unit test of one function, not the end-to-end use-case scenario with its preconditions and postcondition."
+              }
+            ],
+            "generalFeedback": "The scenario maps directly: the precondition (delivered, in-window order) is the setup; the basic-flow steps are the test steps; and the postcondition (return recorded, label issued) is the expected result to assert.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Extend adds a with/without scenario split",
+            "text": '<p>"Book Flight" is <em>extended</em> by "Add Extra Baggage" (optional, at an extension point). For scenario coverage of this single optional extension, how many scenarios must you cover, and why?</p>',
+            "answers": [
+              {
+                "text": "2 \u2014 one scenario where the extension is taken and one where it is not, because it is conditional",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a conditional extension needs both the with-extension and without-extension paths covered."
+              },
+              {
+                "text": "1 \u2014 the extension is always part of Book Flight",
+                "fraction": 0,
+                "feedback": "An extension is conditional, so it is not always part of the flow; both with and without must be covered."
+              },
+              {
+                "text": "0 \u2014 optional behaviour need not be tested",
+                "fraction": 0,
+                "feedback": "Optional behaviour still needs testing; both branches (taken and not) are scenarios."
+              },
+              {
+                "text": "4 \u2014 every combination of two conditions",
+                "fraction": 0,
+                "feedback": "There is a single optional extension, giving 2 scenarios (taken / not taken), not 4."
+              }
+            ],
+            "generalFeedback": "Because an extend is conditional, covering it means testing both the path where the extension occurs and the path where it does not \u2014 two scenarios for a single optional extension. (Contrast include, which always runs and adds no such split.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario coverage vs exhaustive path testing",
+            "text": "<p>A complex use case has many optional extensions and exceptions, so the number of ways to combine every flow is enormous. Why does use-case <strong>scenario coverage</strong> normally test one path per scenario (basic + each alternative + each exception) rather than every possible combination of flows?</p>",
+            "answers": [
+              {
+                "text": "Combining every flow explodes combinatorially, so scenario coverage takes each flow at least once as a practical, bounded criterion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one-path-per-scenario is a tractable compromise against combinatorial explosion."
+              },
+              {
+                "text": "Because alternative and exception flows never contain defects",
+                "fraction": 0,
+                "feedback": "They often do contain defects \u2014 scenario coverage tests each precisely because they matter; it just avoids the full combination explosion."
+              },
+              {
+                "text": "Because only the basic flow is worth testing",
+                "fraction": 0,
+                "feedback": "Scenario coverage tests every flow at least once, not just the basic flow."
+              },
+              {
+                "text": "Because testing every combination is required and always feasible",
+                "fraction": 0,
+                "feedback": "Testing every combination is usually infeasible due to combinatorial explosion, which is why scenario coverage is used."
+              }
+            ],
+            "generalFeedback": "The number of full flow combinations grows multiplicatively and quickly becomes intractable. Scenario coverage exercises each flow (basic, each alternative, each exception) at least once \u2014 a bounded, cost-effective criterion \u2014 accepting that not every combination of flows is tried.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u4F7F\u7528\u6848\u4F8B",
+            "text": "<p>\u5728\u4EE5\u4F7F\u7528\u6848\u4F8B\u70BA\u57FA\u790E\u7684\u6E2C\u8A66\u4E2D\uFF0C<strong>\u4F7F\u7528\u6848\u4F8B\uFF08use case\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63CF\u8FF0\u53C3\u8207\u8005\u5982\u4F55\u8207\u7CFB\u7D71\u4E92\u52D5\u4EE5\u9054\u6210\u67D0\u500B\u76EE\u6A19\u7684\u8AAA\u660E\uFF0C\u4EE5\u4E00\u9023\u4E32\u6B65\u9A5F\u5448\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F7F\u7528\u6848\u4F8B\u63CF\u8FF0\u53C3\u8207\u8005\u8207\u7CFB\u7D71\u4E4B\u9593\u4EE5\u76EE\u6A19\u70BA\u5C0E\u5411\u7684\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u6E2C\u8A66\u6240\u57F7\u884C\u5230\u7684\u4E00\u884C\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u884C\u7A0B\u5F0F\u78BC\uFF1B\u4F7F\u7528\u6848\u4F8B\u662F\u5C0D\u4E92\u52D5\u7684\u9ED1\u7BB1\u63CF\u8FF0\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5C07\u5E03\u6797\u689D\u4EF6\u5C0D\u61C9\u5230\u52D5\u4F5C\u7684\u8868\u683C",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6C7A\u7B56\u8868\uFF1B\u4F7F\u7528\u6848\u4F8B\u662F\u4EE5\u76EE\u6A19\u70BA\u5C0E\u5411\u7684\u6B65\u9A5F\u6558\u4E8B\u3002"
+              },
+              {
+                "text": "\u8861\u91CF\u6E2C\u8A66\u5957\u4EF6\u6DB5\u84CB\u591A\u5C11\u7A0B\u5F0F\u78BC\u7684\u6307\u6A19",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u6DB5\u84CB\u7387\uFF1B\u4F7F\u7528\u6848\u4F8B\u63CF\u8FF0\u7684\u662F\u4F7F\u7528\u8005\u53EF\u898B\u7684\u884C\u70BA\uFF0C\u800C\u975E\u6DB5\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u6848\u4F8B\u5F9E\u5916\u90E8\u63CF\u8FF0\u53C3\u8207\u8005\u5982\u4F55\u4F7F\u7528\u7CFB\u7D71\u9054\u6210\u76EE\u6A19\u3002\u5B83\u662F\u9ED1\u7BB1\u3001\u9700\u6C42\u5C64\u7D1A\u7684\u7522\u7269\uFF0C\u662F\u63A8\u5C0E\u9A57\u6536\uFF0F\u7CFB\u7D71\u6E2C\u8A66\u7684\u4F9D\u64DA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u53C3\u8207\u8005",
+            "text": "<p>\u5728\u4F7F\u7528\u6848\u4F8B\u4E2D\uFF0C<strong>\u53C3\u8207\u8005\uFF08actor\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8207\u53D7\u6E2C\u7CFB\u7D71\u4E92\u52D5\u7684\u5916\u90E8\u5BE6\u9AD4\uFF08\u4EBA\u3001\u89D2\u8272\uFF0C\u6216\u5176\u4ED6\u7CFB\u7D71\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53C3\u8207\u8005\u662F\u53C3\u8207\u4F7F\u7528\u6848\u4F8B\u7684\u5916\u90E8\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u5167\u90E8\u7684\u67D0\u500B\u51FD\u5F0F\u6216\u65B9\u6CD5",
+                "fraction": 0,
+                "feedback": "\u53C3\u8207\u8005\u5C0D\u7CFB\u7D71\u800C\u8A00\u662F\u5916\u90E8\u7684\uFF1B\u5167\u90E8\u51FD\u5F0F\u5C6C\u65BC\u5BE6\u4F5C\uFF0C\u800C\u975E\u53C3\u8207\u8005\u3002"
+              },
+              {
+                "text": "\u9A45\u52D5\u8A72\u4F7F\u7528\u6848\u4F8B\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6848\u4F8B\u662F\u7531\u4F7F\u7528\u6848\u4F8B\u63A8\u5C0E\u800C\u4F86\uFF1B\u53C3\u8207\u8005\u662F\u5B83\u6240\u4EE3\u8868\u7684\u5916\u90E8\u53C3\u8207\u8005\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66\u671F\u9593\u767C\u73FE\u7684\u4E00\u500B\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u662F\u6545\u969C\uFF1B\u53C3\u8207\u8005\u662F\u8207\u7CFB\u7D71\u4E92\u52D5\u7684\u5916\u90E8\u89D2\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u53C3\u8207\u8005\u662F\u4EFB\u4F55\u8207\u7CFB\u7D71\u4E92\u52D5\u3001\u4EE5\u5354\u52A9\u9054\u6210\uFF08\u6216\u652F\u63F4\uFF09\u4F7F\u7528\u6848\u4F8B\u76EE\u6A19\u7684\u5916\u90E8\u5BE6\u9AD4\u2014\u2014\u53EF\u80FD\u662F\u4EBA\u985E\u89D2\u8272\u3001\u5916\u90E8\u88DD\u7F6E\u6216\u53E6\u4E00\u500B\u7CFB\u7D71\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u8981\u53C3\u8207\u8005\u8207\u6B21\u8981\u53C3\u8207\u8005",
+            "text": "<p>\u5728\u4F7F\u7528\u6848\u4F8B\u4E2D\uFF0C<strong>\u4E3B\u8981\u53C3\u8207\u8005\uFF08primary actor\uFF09</strong>\u8207<strong>\u6B21\u8981\u53C3\u8207\u8005\uFF08secondary actor\uFF09</strong>\u6709\u4F55\u5340\u5225\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E3B\u8981\u53C3\u8207\u8005\u767C\u8D77\u4F7F\u7528\u6848\u4F8B\u4EE5\u9054\u6210\u5176\u76EE\u6A19\uFF1B\u6B21\u8981\u53C3\u8207\u8005\u5247\u662F\u7CFB\u7D71\u70BA\u5B8C\u6210\u4F7F\u7528\u6848\u4F8B\u800C\u6C42\u52A9\u7684\u5C0D\u8C61",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E3B\u8981\u53C3\u8207\u8005\u63A8\u52D5\u76EE\u6A19\uFF0C\u6B21\u8981\u53C3\u8207\u8005\u63D0\u4F9B\u652F\u63F4\u670D\u52D9\u3002"
+              },
+              {
+                "text": "\u4E3B\u8981\u53C3\u8207\u8005\u4E00\u5B9A\u662F\u4EBA\uFF0C\u6B21\u8981\u53C3\u8207\u8005\u4E00\u5B9A\u662F\u6A5F\u5668",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u53EF\u80FD\u662F\u4EBA\u6216\u7CFB\u7D71\uFF1B\u5340\u5225\u5728\u65BC\u8AB0\u767C\u8D77\u3001\u8AB0\u652F\u63F4\u3002"
+              },
+              {
+                "text": "\u4E3B\u8981\u53C3\u8207\u8005\u662F\u9078\u7528\u7684\uFF0C\u6B21\u8981\u53C3\u8207\u8005\u662F\u5FC5\u8981\u7684",
+                "fraction": 0,
+                "feedback": "\u4E3B\u8981\u53C3\u8207\u8005\u662F\u4F7F\u7528\u6848\u4F8B\u6240\u670D\u52D9\u76EE\u6A19\u7684\u64C1\u6709\u8005\uFF0C\u4E26\u975E\u9078\u7528\u3002"
+              },
+              {
+                "text": "\u4E3B\u8981\u53C3\u8207\u8005\u64B0\u5BEB\u6E2C\u8A66\uFF0C\u6B21\u8981\u53C3\u8207\u8005\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u53C3\u8207\u8005\u662F\u4E92\u52D5\u4E2D\u7684\u89D2\u8272\uFF0C\u800C\u975E\u6E2C\u8A66\u8077\u8CAC\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E3B\u8981\u53C3\u8207\u8005\u64C1\u6709\u4F7F\u7528\u6848\u4F8B\u6240\u6EFF\u8DB3\u7684\u76EE\u6A19\u4E26\u89F8\u767C\u5B83\uFF1B\u6B21\u8981\uFF08\u652F\u63F4\uFF09\u53C3\u8207\u8005\u2014\u2014\u4F8B\u5982\u91D1\u6D41\u9598\u9053\u6216\u96FB\u5B50\u90F5\u4EF6\u670D\u52D9\u2014\u2014\u662F\u7CFB\u7D71\u70BA\u9054\u6210\u76EE\u6A19\u800C\u806F\u7E6B\u7684\u5C0D\u8C61\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u524D\u7F6E\u689D\u4EF6",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u7684<strong>\u524D\u7F6E\u689D\u4EF6\uFF08precondition\uFF09</strong>\u9673\u8FF0\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u4F7F\u7528\u6848\u4F8B\u958B\u59CB\u4E4B\u524D\u5FC5\u9808\u5DF2\u7D93\u6210\u7ACB\u7684\u4E8B\u9805",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u524D\u7F6E\u689D\u4EF6\u662F\u958B\u59CB\u6642\u6240\u5047\u5B9A\u3001\u5DF2\u4FDD\u8B49\u6210\u7ACB\u7684\u8D77\u59CB\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u6848\u4F8B\u6210\u529F\u7D50\u675F\u5F8C\u5C07\u6703\u6210\u7ACB\u7684\u4E8B\u9805",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F8C\u7F6E\u689D\u4EF6\uFF08\u6210\u529F\u4FDD\u8B49\uFF09\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u555F\u52D5\u4F7F\u7528\u6848\u4F8B\u7684\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u89F8\u767C\u4E8B\u4EF6\uFF1B\u524D\u7F6E\u689D\u4EF6\u662F\u4E8B\u524D\u5FC5\u9808\u6210\u7ACB\u7684\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u4E3B\u8981\u6D41\u7A0B\u4E2D\u7684\u6B65\u9A5F\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u57FA\u672C\u6D41\u7A0B\u7684\u6B65\u9A5F\uFF1B\u524D\u7F6E\u689D\u4EF6\u662F\u6D41\u7A0B\u958B\u59CB\u524D\u6240\u5047\u5B9A\u7684\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u524D\u7F6E\u689D\u4EF6\u662F\u4F7F\u7528\u6848\u4F8B\u958B\u59CB\u524D\u4FDD\u8B49\u6210\u7ACB\u7684\u72C0\u614B\uFF08\u4F8B\u5982\u300C\u4F7F\u7528\u8005\u5DF2\u767B\u5165\u300D\uFF09\u3002\u5B83\u5728\u6D41\u7A0B\u4E2D\u88AB\u5047\u5B9A\u800C\u975E\u6AA2\u67E5\u2014\u2014\u4E26\u76F4\u63A5\u5C0D\u61C9\u5230\u6E2C\u8A66\u7684\u524D\u7F6E\u8A2D\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u5F8C\u7F6E\u689D\u4EF6",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u7684<strong>\u5F8C\u7F6E\u689D\u4EF6\uFF08postcondition\uFF0C\u6210\u529F\u4FDD\u8B49\uFF09</strong>\u63CF\u8FF0\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u6848\u4F8B\u6210\u529F\u5B8C\u6210\u5F8C\u5FC5\u9808\u6210\u7ACB\u7684\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6210\u529F\u4FDD\u8B49\u5C31\u662F\u9054\u6210\u76EE\u6A19\u5F8C\u6240\u6210\u7ACB\u7684\u4E8B\u9805\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u6848\u4F8B\u5F97\u4EE5\u958B\u59CB\u524D\u5FC5\u9808\u6210\u7ACB\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u524D\u7F6E\u689D\u4EF6\uFF0C\u800C\u975E\u5F8C\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u4F7F\u7528\u6848\u4F8B\u7684\u5916\u90E8\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u89F8\u767C\u4E8B\u4EF6\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u662F\u4FDD\u8B49\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u53C3\u8207\u5176\u4E2D\u7684\u53C3\u8207\u8005\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u53C3\u8207\u8005\u662F\u53C3\u8207\u8005\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u662F\u6210\u529F\u5F8C\u7522\u751F\u7684\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F8C\u7F6E\u689D\u4EF6\uFF08\u6210\u529F\u4FDD\u8B49\uFF09\u9673\u8FF0\u4F7F\u7528\u6848\u4F8B\u6210\u529F\u7D50\u675F\u5F8C\u7CFB\u7D71\u6240\u4FDD\u8B49\u7684\u4E8B\u9805\uFF08\u4F8B\u5982\u300C\u8A02\u55AE\u5DF2\u8A18\u9304\u4E14\u4ED8\u6B3E\u5DF2\u6536\u53D6\u300D\uFF09\u3002\u5B83\u662F\u6E2C\u8A66\u9810\u671F\u7D50\u679C\u7684\u81EA\u7136\u4F86\u6E90\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u4E3B\u8981\uFF0F\u57FA\u672C\u6D41\u7A0B",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u7684<strong>\u4E3B\u8981\uFF08\u57FA\u672C\uFF09\u6210\u529F\u6D41\u7A0B</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6700\u5E38\u898B\u3001\u6700\u76F4\u63A5\u3001\u4E00\u5207\u9806\u5229\u4E26\u9054\u6210\u76EE\u6A19\u7684\u6B65\u9A5F\u5E8F\u5217\u2014\u2014\u4E5F\u5C31\u662F\u300C\u5FEB\u6A02\u8DEF\u5F91\uFF08happy path\uFF09\u300D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57FA\u672C\u6D41\u7A0B\u662F\u6B63\u5E38\u3001\u7121\u932F\u8AA4\u800C\u9054\u6210\u6210\u529F\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u767C\u751F\u932F\u8AA4\u6642\u6240\u8D70\u7684\u6B65\u9A5F\u5E8F\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F8B\u5916\u6D41\u7A0B\uFF1B\u57FA\u672C\u6D41\u7A0B\u662F\u7121\u932F\u8AA4\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u7279\u6B8A\u689D\u4EF6\u4E0B\u7528\u4F86\u9054\u6210\u76EE\u6A19\u7684\u9078\u7528\u65B9\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u66FF\u4EE3\u6D41\u7A0B\uFF1B\u57FA\u672C\u6D41\u7A0B\u662F\u4E3B\u8981\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u5148\u6210\u7ACB\u7684\u524D\u7F6E\u689D\u4EF6\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u689D\u4EF6\u662F\u5047\u5B9A\u7684\u72C0\u614B\uFF1B\u57FA\u672C\u6D41\u7A0B\u662F\u6B65\u9A5F\u5E8F\u5217\u672C\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E3B\u8981\uFF08\u57FA\u672C\uFF09\u6D41\u7A0B\u662F\u5178\u578B\u7684\u6210\u529F\u60C5\u5883\u2014\u2014\u5FEB\u6A02\u8DEF\u5F91\u2014\u2014\u53C3\u8207\u8005\u8207\u7CFB\u7D71\u9010\u6B65\u9032\u884C\u3001\u6C92\u6709\u932F\u8AA4\uFF0C\u4E26\u9054\u6210\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u66FF\u4EE3\u6D41\u7A0B",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u4E2D\u7684<strong>\u66FF\u4EE3\u6D41\u7A0B\uFF08alternative flow\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4ECD\u80FD\u9054\u6210\u76EE\u6A19\u3001\u4F46\u5728\u67D0\u8655\u8207\u57FA\u672C\u6D41\u7A0B\u4E0D\u540C\u7684\u53E6\u4E00\u7A2E\u6709\u6548\u65B9\u5F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u66FF\u4EE3\u6D41\u7A0B\u662F\u9054\u6210\u76EE\u6A19\u7684\u53E6\u4E00\u689D\u4ECD\u7136\u6210\u529F\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u7E3D\u662F\u4EE5\u5931\u6557\u544A\u7D42\u3001\u7121\u6CD5\u9054\u6210\u76EE\u6A19\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7121\u6CD5\u9054\u6210\u76EE\u6A19\u7684\u8DEF\u5F91\u662F\u4F8B\u5916\u6D41\u7A0B\uFF0C\u800C\u975E\u66FF\u4EE3\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u6848\u4F8B\u958B\u59CB\u524D\u6240\u5047\u5B9A\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u524D\u7F6E\u689D\u4EF6\uFF0C\u800C\u975E\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u6700\u5E38\u898B\u7684\u55AE\u4E00\u6B65\u9A5F\u5E8F\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u57FA\u672C\u6D41\u7A0B\uFF1B\u66FF\u4EE3\u6D41\u7A0B\u662F\u5F9E\u5B83\u5206\u5C94\u800C\u4F86\u3002"
+              }
+            ],
+            "generalFeedback": "\u66FF\u4EE3\u6D41\u7A0B\u662F\u4ECD\u80FD\u6210\u529F\u9054\u6210\u76EE\u6A19\u7684\u8B8A\u5316\u2014\u2014\u4F8B\u5982\u4EE5\u4E0D\u540C\u65B9\u5F0F\u4ED8\u6B3E\u3002\u5B83\u5F9E\u57FA\u672C\u6D41\u7A0B\u5206\u5C94\uFF0C\u4E4B\u5F8C\u53EF\u80FD\u91CD\u65B0\u4F75\u56DE\uFF0C\u6216\u4EE5\u53E6\u4E00\u689D\u8DEF\u5F91\u9054\u5230\u76F8\u540C\u7684\u6210\u529F\u4FDD\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u4F8B\u5916\u6D41\u7A0B",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u4E2D\u7684<strong>\u4F8B\u5916\uFF08\u932F\u8AA4\uFF09\u6D41\u7A0B</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u67D0\u8655\u51FA\u932F\u6642\u6240\u8D70\u7684\u8DEF\u5F91\uFF0C\u63CF\u8FF0\u5982\u4F55\u8655\u7406\u8A72\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5916\u6D41\u7A0B\u63CF\u8FF0\u7576\u7121\u6CD5\u6B63\u5E38\u9032\u884C\u76EE\u6A19\u6642\u7684\u932F\u8AA4\u8655\u7406\u3002"
+              },
+              {
+                "text": "\u901A\u5F80\u76F8\u540C\u76EE\u6A19\u7684\u53E6\u4E00\u689D\u6210\u529F\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u6210\u529F\u7684\u8B8A\u5316\u662F\u66FF\u4EE3\u6D41\u7A0B\uFF1B\u4F8B\u5916\u6D41\u7A0B\u8655\u7406\u7684\u662F\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u6210\u529F\u5B8C\u6210\u5F8C\u6240\u4FDD\u8B49\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F8C\u7F6E\u689D\u4EF6\uFF0C\u800C\u975E\u4F8B\u5916\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u6B63\u5E38\u5FEB\u6A02\u8DEF\u5F91\u7684\u6B65\u9A5F\u5E8F\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u57FA\u672C\u6D41\u7A0B\uFF1B\u4F8B\u5916\u6D41\u7A0B\u662F\u932F\u8AA4\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F8B\u5916\uFF08\u932F\u8AA4\uFF09\u6D41\u7A0B\u63CF\u8FF0\u7576\u67D0\u6B65\u9A5F\u7121\u6CD5\u6B63\u5E38\u5B8C\u6210\u6642\uFF08\u4F8B\u5982\u4ED8\u6B3E\u88AB\u62D2\u3001\u5546\u54C1\u7F3A\u8CA8\uFF09\u6703\u767C\u751F\u4EC0\u9EBC\uFF0C\u4EE5\u53CA\u7CFB\u7D71\u5982\u4F55\u56DE\u61C9\uFF08\u5E38\u5728\u672A\u9054\u6210\u6210\u529F\u4FDD\u8B49\u4E0B\u7D50\u675F\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300Cinclude\uFF08\u5305\u542B\uFF09\u300D\u7684\u610F\u7FA9",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u4E4B\u9593\u7684<strong>include\uFF08\u5305\u542B\uFF09</strong>\u95DC\u4FC2\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u5305\u542B\u7684\u5B50\u4F7F\u7528\u6848\u4F8B\u662F\u57FA\u790E\u4F7F\u7528\u6848\u4F8B\u4E2D\u300C\u5FC5\u5B9A\u300D\u57F7\u884C\u7684\u5F37\u5236\u6027\u90E8\u5206",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014include \u628A\u300C\u7E3D\u662F\u57F7\u884C\u300D\u7684\u5171\u7528\u884C\u70BA\u62BD\u51FA\u3002"
+              },
+              {
+                "text": "\u88AB\u5305\u542B\u7684\u4F7F\u7528\u6848\u4F8B\u53EA\u5728\u7279\u6B8A\u689D\u4EF6\u4E0B\u624D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u6709\u689D\u4EF6\u7684\u63D2\u5165\u662F extend \u800C\u975E include\uFF1B\u88AB\u5305\u542B\u7684\u4F7F\u7528\u6848\u4F8B\u7E3D\u662F\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u88AB\u5305\u542B\u7684\u4F7F\u7528\u6848\u4F8B\u662F\u932F\u8AA4\u8655\u7406\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "include \u8AC7\u7684\u662F\u5F37\u5236\u6027\u7684\u5171\u7528\u884C\u70BA\uFF0C\u800C\u975E\u932F\u8AA4\u8655\u7406\u3002"
+              },
+              {
+                "text": "\u88AB\u5305\u542B\u7684\u4F7F\u7528\u6848\u4F8B\u6703\u53D6\u4EE3\u57FA\u790E\u4F7F\u7528\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "include \u662F\u4EE5\u5F37\u5236\u6027\u7684\u5171\u7528\u6B65\u9A5F\u88DC\u5145\u57FA\u790E\u4F7F\u7528\u6848\u4F8B\uFF0C\u4E26\u4E0D\u53D6\u4EE3\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "include \u8868\u793A\u57FA\u790E\u4F7F\u7528\u6848\u4F8B\u7E3D\u662F\u6703\u547C\u53EB\u88AB\u5305\u542B\u7684\u5B50\u4F7F\u7528\u6848\u4F8B\u2014\u2014\u7528\u4F86\u62BD\u51FA\u5171\u7528\u3001\u5F37\u5236\u7684\u884C\u70BA\uFF08\u4F8B\u5982\u300C\u7D50\u5E33\u300D\u5305\u542B\u300C\u9A57\u8B49\u4ED8\u6B3E\u300D\uFF0C\u5F8C\u8005\u7E3D\u662F\u57F7\u884C\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300Cextend\uFF08\u5EF6\u4F38\uFF09\u300D\u7684\u610F\u7FA9",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u4E4B\u9593\u7684<strong>extend\uFF08\u5EF6\u4F38\uFF09</strong>\u95DC\u4FC2\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5EF6\u4F38\u7684\u4F7F\u7528\u6848\u4F8B\u5728\u5EF6\u4F38\u9EDE\uFF08extension point\uFF09\u63D2\u5165\u9078\u7528\u884C\u70BA\uFF0C\u53EA\u6709\u5728\u689D\u4EF6\u6210\u7ACB\u6642\u624D\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014extend \u662F\u5728\u5EF6\u4F38\u9EDE\u63D2\u5165\u3001\u6709\u689D\u4EF6\u3001\u9078\u7528\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u5EF6\u4F38\u7684\u4F7F\u7528\u6848\u4F8B\u7E3D\u662F\u4F5C\u70BA\u57FA\u790E\u7684\u5F37\u5236\u6027\u90E8\u5206\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u7E3D\u662F\u57F7\u884C\u7684\u5F37\u5236\u884C\u70BA\u662F include\uFF0C\u800C\u975E extend\u3002"
+              },
+              {
+                "text": "\u5EF6\u4F38\u7684\u4F7F\u7528\u6848\u4F8B\u5217\u51FA\u57FA\u790E\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "extend \u662F\u6709\u689D\u4EF6\u5730\u63D2\u5165\u884C\u70BA\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u6E05\u55AE\u3002"
+              },
+              {
+                "text": "\u5EF6\u4F38\u7684\u4F7F\u7528\u6848\u4F8B\u662F\u57FA\u790E\u7684\u4E3B\u8981\u53C3\u8207\u8005",
+                "fraction": 0,
+                "feedback": "\u53C3\u8207\u8005\u662F\u89D2\u8272\uFF0C\u800C\u975E\u4F7F\u7528\u6848\u4F8B\u4E4B\u9593\u7684\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "extend \u5728\u57FA\u790E\u4F7F\u7528\u6848\u4F8B\u7684\u5177\u540D\u5EF6\u4F38\u9EDE\u63D2\u5165\u9078\u7528\uFF0F\u6709\u689D\u4EF6\u7684\u884C\u70BA\uFF0C\u4E14\u50C5\u5728\u5176\u689D\u4EF6\u6210\u7ACB\u6642\u624D\u57F7\u884C\uFF08\u4F8B\u5982\u7576\u8CFC\u7269\u8005\u8F38\u5165\u6298\u6263\u78BC\u6642\uFF0C\u300C\u5957\u7528\u6298\u6263\u300D\u5EF6\u4F38\u300C\u7D50\u5E33\u300D\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u60C5\u5883\uFF08scenario\uFF09",
+            "text": "<p>\u5728\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u4E2D\uFF0C<strong>\u60C5\u5883\uFF08scenario\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A7F\u904E\u4F7F\u7528\u6848\u4F8B\u7684\u4E00\u689D\u7279\u5B9A\u8DEF\u5F91\u2014\u2014\u57FA\u672C\u6D41\u7A0B\uFF0C\u6216\u57FA\u672C\u6D41\u7A0B\u52A0\u4E0A\u67D0\u4E00\u500B\u66FF\u4EE3\u6216\u4F8B\u5916",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u60C5\u5883\u662F\u7A7F\u904E\u4F7F\u7528\u6848\u4F8B\u7684\u4E00\u689D\u5177\u9AD4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u6848\u4F8B\u6240\u6709\u6D41\u7A0B\u540C\u6642\u69CB\u6210\u7684\u5B8C\u6574\u96C6\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6574\u500B\u4F7F\u7528\u6848\u4F8B\uFF1B\u60C5\u5883\u662F\u7A7F\u904E\u5B83\u7684\u4E00\u689D\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6240\u4F7F\u7528\u7684\u55AE\u4E00\u8F38\u5165\u503C",
+                "fraction": 0,
+                "feedback": "\u8F38\u5165\u503C\u662F\u6E2C\u8A66\u8CC7\u6599\uFF1B\u60C5\u5883\u662F\u7AEF\u5230\u7AEF\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u6848\u4F8B\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u689D\u4EF6\u662F\u5047\u5B9A\u7684\u72C0\u614B\uFF1B\u60C5\u5883\u662F\u5C0D\u6D41\u7A0B\u7684\u4E00\u6B21\u8D70\u8A2A\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u662F\u7A7F\u904E\u4F7F\u7528\u6848\u4F8B\u7684\u4E00\u500B\u5BE6\u4F8B\uFF0F\u8DEF\u5F91\uFF1A\u5FEB\u6A02\u8DEF\u5F91\u662F\u4E00\u500B\u60C5\u5883\uFF0C\u800C\u6BCF\u63A1\u7528\u4E00\u500B\u66FF\u4EE3\u6216\u4F8B\u5916\uFF08\u9023\u540C\u6D41\u7A0B\u5176\u9918\u90E8\u5206\uFF09\u5C31\u5F97\u5230\u53E6\u4E00\u500B\u3002\u60C5\u5883\u662F\u63A8\u5C0E\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u7684\u55AE\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u89F8\u767C\u4E8B\u4EF6",
+            "text": "<p>\u300C\u63D0\u6B3E\u300D\u4F7F\u7528\u6848\u4F8B\u5BEB\u9053\uFF1A<em>\u300C\u9867\u5BA2\u5FC5\u9808\u64C1\u6709\u6709\u6548\u5E33\u6236\uFF08\u524D\u7F6E\u689D\u4EF6\uFF09\u3002\u7576\u9867\u5BA2\u63D2\u5165\u5361\u7247\u4E26\u8981\u6C42\u63D0\u6B3E\u6642\uFF0C\u7CFB\u7D71\u6703\u6838\u5C0D\u9918\u984D\u4E26\u5410\u9214\uFF1B\u4E4B\u5F8C\u9918\u984D\u6703\u6E1B\u5C11\u3002\u300D</em>\u5176\u4E2D\u54EA\u4E00\u90E8\u5206\u662F<strong>\u89F8\u767C\u4E8B\u4EF6\uFF08trigger\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9867\u5BA2\u63D2\u5165\u5361\u7247\u4E26\u8981\u6C42\u63D0\u6B3E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u4E8B\u4EF6\u767C\u8D77\u4E86\u4F7F\u7528\u6848\u4F8B\uFF0C\u56E0\u6B64\u662F\u89F8\u767C\u4E8B\u4EF6\u3002"
+              },
+              {
+                "text": "\u9867\u5BA2\u5FC5\u9808\u64C1\u6709\u6709\u6548\u5E33\u6236",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u524D\u7F6E\u689D\u4EF6\u2014\u2014\u4E8B\u524D\u5047\u5B9A\u7684\u72C0\u614B\uFF0C\u800C\u975E\u767C\u8D77\u4E8B\u4EF6\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6838\u5C0D\u9918\u984D\u4E26\u5410\u9214",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u57FA\u672C\u6D41\u7A0B\u7684\u6B65\u9A5F\uFF0C\u800C\u975E\u555F\u52D5\u4F7F\u7528\u6848\u4F8B\u7684\u89F8\u767C\u4E8B\u4EF6\u3002"
+              },
+              {
+                "text": "\u4E4B\u5F8C\u9918\u984D\u6703\u6E1B\u5C11",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F8C\u7F6E\u689D\u4EF6\u2014\u2014\u6210\u529F\u5F8C\u7684\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u89F8\u767C\u4E8B\u4EF6\u662F\u555F\u52D5\u4F7F\u7528\u6848\u4F8B\u7684\u4E8B\u4EF6\u3002\u6B64\u8655\u662F\u9867\u5BA2\u63D2\u5165\u5361\u7247\u4E26\u8981\u6C42\u63D0\u6B3E\uFF1B\u6709\u6548\u5E33\u6236\u662F\u524D\u7F6E\u689D\u4EF6\uFF0C\u800C\u6E1B\u5C11\u7684\u9918\u984D\u662F\u5F8C\u7F6E\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u524D\u7F6E\u689D\u4EF6",
+            "text": "<p>\u5728\u300C\u4E0B\u8A02\u55AE\u300D\u4F7F\u7528\u6848\u4F8B\u4E2D\uFF0C\u4E0B\u5217\u4F55\u8005\u6700\u9069\u5408\u63CF\u8FF0\u70BA<strong>\u524D\u7F6E\u689D\u4EF6</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9867\u5BA2\u5DF2\u767B\u5165\uFF0C\u4E14\u8CFC\u7269\u8ECA\u4E2D\u81F3\u5C11\u6709\u4E00\u4EF6\u5546\u54C1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u4F7F\u7528\u6848\u4F8B\u958B\u59CB\u524D\uFF0C\u8A72\u72C0\u614B\u5FC5\u9808\u5DF2\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u986F\u793A\u8A02\u55AE\u78BA\u8A8D\u7DE8\u865F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6210\u529F\u5F8C\u7684\u7D50\u679C\u2014\u2014\u5F8C\u7F6E\u689D\u4EF6\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u9867\u5BA2\u9EDE\u64CA\u300C\u4E0B\u8A02\u55AE\u300D\u6309\u9215",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u555F\u52D5\u4F7F\u7528\u6848\u4F8B\u7684\u89F8\u767C\u4E8B\u4EF6\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u5411\u5DF2\u5132\u5B58\u7684\u4ED8\u6B3E\u65B9\u5F0F\u6536\u6B3E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u57FA\u672C\u6D41\u7A0B\u4E2D\u7684\u6B65\u9A5F\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u524D\u7F6E\u689D\u4EF6\u662F\u6D41\u7A0B\u57F7\u884C\u524D\u5047\u5B9A\u70BA\u771F\u7684\u72C0\u614B\u3002\u300C\u5DF2\u767B\u5165\u4E14\u8CFC\u7269\u8ECA\u975E\u7A7A\u300D\u5FC5\u9808\u5728\u4E0B\u8A02\u55AE\u958B\u59CB\u524D\u6210\u7ACB\uFF1B\u78BA\u8A8D\u7DE8\u865F\u662F\u5F8C\u7F6E\u689D\u4EF6\uFF0C\u9EDE\u64CA\u6309\u9215\u662F\u89F8\u767C\u4E8B\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u57FA\u672C\u6D41\u7A0B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u300C\u767B\u5165\u300D\u4F7F\u7528\u6848\u4F8B\u7684<strong>\u57FA\u672C\uFF08\u4E3B\u8981\u6210\u529F\uFF09\u6D41\u7A0B</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u8F38\u5165\u6709\u6548\u6191\u8B49\uFF0C\u7CFB\u7D71\u9A57\u8B49\u901A\u904E\uFF0C\u4F7F\u7528\u8005\u53D6\u5F97\u5B58\u53D6\u6B0A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u662F\u76F4\u63A5\u7684\u6210\u529F\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u9023\u7E8C\u8F38\u5165\u4E09\u6B21\u932F\u8AA4\u5BC6\u78BC\uFF0C\u5E33\u6236\u88AB\u9396\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u63CF\u8FF0\u5931\u6557\u8655\u7406\u7684\u4F8B\u5916\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u900F\u904E\u96FB\u5B50\u90F5\u4EF6\u91CD\u8A2D\u907A\u5FD8\u7684\u5BC6\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u66FF\u4EE3\uFF0F\u4F8B\u5916\u8DEF\u5F91\uFF0C\u800C\u975E\u4E3B\u8981\u6210\u529F\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u5728\u4F7F\u7528\u6848\u4F8B\u958B\u59CB\u524D\u5C31\u5DF2\u7D93\u767B\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u524D\u7F6E\u689D\u4EF6\uFF0F\u72C0\u614B\uFF0C\u800C\u975E\u6B65\u9A5F\u5E8F\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u672C\u6D41\u7A0B\u662F\u7121\u932F\u8AA4\u7684\u6210\u529F\u8DEF\u5F91\uFF1A\u8F38\u5165\u6709\u6548\u6191\u8B49\u3001\u9A57\u8B49\u901A\u904E\u3001\u53D6\u5F97\u5B58\u53D6\u6B0A\u3002\u932F\u8AA4\u5BC6\u78BC\u9396\u5B9A\u662F\u4F8B\u5916\u6D41\u7A0B\uFF0C\u5BC6\u78BC\u91CD\u8A2D\u662F\u53E6\u4E00\u689D\u66FF\u4EE3\uFF0F\u4F8B\u5916\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u662F\u9ED1\u7BB1",
+            "text": "<p>\u4EE5\u4F7F\u7528\u6848\u4F8B\u70BA\u57FA\u790E\u7684\u6E2C\u8A66\u63A8\u5C0E\u662F\u4E00\u7A2E\u9ED1\u7BB1\u6280\u8853\uFF1A\u6E2C\u8A66\u662F\u4F9D\u64DA\u6240\u63CF\u8FF0\u7684\u4E92\u52D5\u8207\u76EE\u6A19\u8A2D\u8A08\uFF0C\u800C\u975E\u4F9D\u64DA\u539F\u59CB\u78BC\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u4F9D\u64DA\u884C\u70BA\u898F\u683C\u8A2D\u8A08\u6E2C\u8A66\uFF0C\u56E0\u6B64\u5C6C\u65BC\u9ED1\u7BB1\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u4F9D\u64DA\u6240\u63CF\u8FF0\u7684\u6D41\u7A0B\u8207\u76EE\u6A19\uFF08\u898F\u683C\uFF09\u63A8\u5C0E\u6E2C\u8A66\uFF0C\u56E0\u6B64\u662F\u9ED1\u7BB1\uFF0C\u800C\u975E\u4EE5\u7A0B\u5F0F\u78BC\u70BA\u57FA\u790E\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u662F\u5728\u7CFB\u7D71\uFF0F\u9A57\u6536\u5C64\u7D1A\u904B\u4F5C\u7684\u9ED1\u7BB1\u3001\u4EE5\u898F\u683C\u70BA\u57FA\u790E\u7684\u6280\u8853\uFF1A\u6E2C\u8A66\u4F86\u81EA\u53C3\u8207\u8005\u2014\u76EE\u6A19\u7684\u4E92\u52D5\u53CA\u5176\u6D41\u7A0B\uFF0C\u8207\u5167\u90E8\u7A0B\u5F0F\u78BC\u7121\u95DC\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7D50\u5E33\u8207\u9A57\u8B49\u4ED8\u6B3E",
+            "text": "<p>\u300C\u7D50\u5E33\u300D\u5728\u5B8C\u6210\u6BCF\u4E00\u6B21\u7D50\u5E33\u6642<em>\u7E3D\u662F</em>\u57F7\u884C\u300C\u9A57\u8B49\u4ED8\u6B3E\u300D\u3002\u9019\u662F\u4EC0\u9EBC\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "include\uFF08\u5305\u542B\uFF09\u2014\u2014\u9A57\u8B49\u4ED8\u6B3E\u662F\u7E3D\u662F\u57F7\u884C\u7684\u5F37\u5236\u6027\u5171\u7528\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E3D\u662F\u4F5C\u70BA\u57FA\u790E\u4E00\u90E8\u5206\u57F7\u884C\u7684\u884C\u70BA\u5C6C\u65BC include\u3002"
+              },
+              {
+                "text": "extend\uFF08\u5EF6\u4F38\uFF09\u2014\u2014\u9A57\u8B49\u4ED8\u6B3E\u53EA\u5728\u67D0\u689D\u4EF6\u4E0B\u624D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u300C\u7E3D\u662F\u57F7\u884C\u300D\u4EE3\u8868\u5B83\u4E26\u975E\u6709\u689D\u4EF6\uFF0C\u56E0\u6B64\u662F include\uFF0C\u800C\u975E extend\u3002"
+              },
+              {
+                "text": "generalization\uFF08\u4E00\u822C\u5316\uFF09\u2014\u2014\u9A57\u8B49\u4ED8\u6B3E\u662F\u7D50\u5E33\u7684\u4E00\u7A2E",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u300C\u90E8\u5206\uFF0F\u7E3D\u662F\u57F7\u884C\u300D\u7684\u95DC\u4FC2\uFF0C\u800C\u975E is-a \u7684\u7279\u5316\u3002"
+              },
+              {
+                "text": "\u7D50\u5E33\u7684\u66FF\u4EE3\u6D41\u7A0B",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u4E00\u500B\u7368\u7ACB\u3001\u7E3D\u662F\u88AB\u547C\u53EB\u7684\u5B50\u4F7F\u7528\u6848\u4F8B\uFF08include\uFF09\uFF0C\u800C\u975E\u7D50\u5E33\u5167\u90E8\u4EE5\u53E6\u4E00\u7A2E\u65B9\u5F0F\u9054\u6210\u76EE\u6A19\u7684\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u9A57\u8B49\u4ED8\u6B3E\u5728\u6BCF\u6B21\u7D50\u5E33\u4E2D\u90FD\u6703\u57F7\u884C\uFF0C\u6545\u4EE5 include \u95DC\u4FC2\u62BD\u51FA\uFF08\u5F37\u5236\u3001\u5171\u7528\u7684\u884C\u70BA\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5957\u7528\u6298\u6263\u8207\u7D50\u5E33",
+            "text": "<p>\u300C\u5957\u7528\u6298\u6263\u300D\u53EA\u6709<em>\u7576</em>\u8CFC\u7269\u8005\u8F38\u5165\u6298\u6263\u78BC\u6642\u624D\u5728\u300C\u7D50\u5E33\u300D\u904E\u7A0B\u4E2D\u57F7\u884C\uFF0C\u4E14\u63D2\u5165\u65BC\u7D50\u5E33\u6D41\u7A0B\u7684\u4E00\u500B\u5B9A\u9EDE\u3002\u9019\u662F\u4EC0\u9EBC\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "extend\uFF08\u5EF6\u4F38\uFF09\u2014\u2014\u5957\u7528\u6298\u6263\u662F\u5728\u5EF6\u4F38\u9EDE\u63D2\u5165\u3001\u65BC\u689D\u4EF6\u6210\u7ACB\u6642\u624D\u57F7\u884C\u7684\u9078\u7528\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u5EF6\u4F38\u9EDE\u6709\u689D\u4EF6\u3001\u9078\u7528\u5730\u63D2\u5165\u5373\u70BA extend\u3002"
+              },
+              {
+                "text": "include\uFF08\u5305\u542B\uFF09\u2014\u2014\u5957\u7528\u6298\u6263\u5728\u7D50\u5E33\u6642\u7E3D\u662F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EA\u5728\u8F38\u5165\u6298\u6263\u78BC\u6642\u624D\u57F7\u884C\uFF0C\u6545\u70BA\u6709\u689D\u4EF6\uFF08extend\uFF09\uFF0C\u800C\u975E\u7E3D\u662F\u57F7\u884C\uFF08include\uFF09\u3002"
+              },
+              {
+                "text": "generalization\uFF08\u4E00\u822C\u5316\uFF09\u2014\u2014\u5957\u7528\u6298\u6263\u662F\u7D50\u5E33\u7684\u4E00\u7A2E",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u6709\u689D\u4EF6\u7684\u63D2\u5165\uFF0C\u800C\u975E is-a \u7684\u7279\u5316\u3002"
+              },
+              {
+                "text": "\u7D50\u5E33\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u6709\u689D\u4EF6\u63D2\u5165\u7684\u884C\u70BA\uFF0C\u800C\u975E\u7D50\u5E33\u958B\u59CB\u524D\u6240\u5047\u5B9A\u7684\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5957\u7528\u6298\u6263\u53EA\u6709\u5728\u8CFC\u7269\u8005\u63D0\u4F9B\u6298\u6263\u78BC\u6642\u624D\u6703\u767C\u751F\uFF0C\u63D2\u5165\u65BC\u7D50\u5E33\u7684\u5EF6\u4F38\u9EDE\u2014\u2014\u6B63\u662F extend \u95DC\u4FC2\uFF08\u9078\u7528\uFF0F\u6709\u689D\u4EF6\uFF09\u7684\u7279\u5FB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u8A08\u6578\uFF1A1 \u57FA\u672C + 3 \u66FF\u4EE3 + 2 \u4F8B\u5916",
+            "text": "<p>\u67D0\u4F7F\u7528\u6848\u4F8B\u6709 1 \u500B\u57FA\u672C\u6D41\u7A0B\u30013 \u500B\u66FF\u4EE3\u6D41\u7A0B\u8207 2 \u500B\u4F8B\u5916\u6D41\u7A0B\uFF0C\u6BCF\u4E00\u500B\u90FD\u662F\u5404\u81EA\u7368\u7ACB\u57F7\u884C\u7684\u8DEF\u5F91\u3002\u4EE5\u4F7F\u7528\u6848\u4F8B\u60C5\u5883\u6DB5\u84CB\uFF08\u6BCF\u500B\u60C5\u5883\u4E00\u500B\u6E2C\u8A66\uFF09\u800C\u8A00\uFF0C\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\u6848\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 + 3 + 2 = 6 \u500B\u7368\u7ACB\u60C5\u5883\uFF0C\u5404\u4E00\u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u6F0F\u6389\u4E86\u4E00\u500B\u6D41\u7A0B\uFF1B\u5225\u5FD8\u4E86\u57FA\u672C\u6D41\u7A0B\u4E5F\u8981\u7B97\uFF1A1 + 3 + 2 = 6\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u53EA\u7B97\u4E86\u66FF\u4EE3\u6D41\u7A0B\uFF1B\u57FA\u672C\u6D41\u7A0B\u8207\u4F8B\u5916\u6D41\u7A0B\u4E5F\u662F\u60C5\u5883\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u6D41\u7A0B\u662F\u5404\u81EA\u7368\u7ACB\u7684\u55AE\u4E00\u8DEF\u5F91\uFF0C\u56E0\u6B64\u76F8\u52A0\uFF08\uFF1D6\uFF09\uFF0C\u800C\u975E\u76F8\u4E58\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u7368\u7ACB\u6D41\u7A0B\u90FD\u662F\u4E00\u500B\u60C5\u5883\uFF1A\u57FA\u672C\u6D41\u7A0B\u52A0\u4E0A\u6BCF\u500B\u66FF\u4EE3\u8207\u6BCF\u500B\u4F8B\u5916\u3002\u5373 1 + 3 + 2 = 6 \u500B\u60C5\u5883\uFF0C\u6545\u60C5\u5883\u6DB5\u84CB\u9700 6 \u500B\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u8A08\u6578\uFF1A1 \u57FA\u672C + 2 \u66FF\u4EE3 + 1 \u4F8B\u5916",
+            "text": "<p>\u67D0\u4F7F\u7528\u6848\u4F8B\u6709 1 \u500B\u57FA\u672C\u6D41\u7A0B\u30012 \u500B\u66FF\u4EE3\u6D41\u7A0B\u8207 1 \u500B\u4F8B\u5916\u6D41\u7A0B\uFF0C\u6BCF\u4E00\u500B\u90FD\u662F\u5404\u81EA\u7368\u7ACB\u7684\u8DEF\u5F91\u3002\u5FC5\u9808\u6DB5\u84CB\u5E7E\u500B\u60C5\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 + 2 + 1 = 4 \u500B\u7368\u7ACB\u60C5\u5883\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u6F0F\u6389\u4E86\u4E00\u500B\u6D41\u7A0B\uFF1B\u628A\u57FA\u672C\u6D41\u7A0B\u7B97\u9032\u4F86\uFF1A1 + 2 + 1 = 4\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u53EA\u7B97\u4E86\u66FF\u4EE3\u6D41\u7A0B\uFF1B\u9084\u8981\u52A0\u4E0A\u57FA\u672C\u6D41\u7A0B\u8207\u4F8B\u5916\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u7368\u7ACB\u7684\u55AE\u4E00\u8DEF\u5F91\u76F8\u52A0\u70BA 4\uFF0C\u800C\u975E\u76F8\u4E58\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u6DB5\u84CB\u9700\u6BCF\u500B\u60C5\u5883\u4E00\u500B\u6E2C\u8A66\uFF1A\u57FA\u672C\uFF081\uFF09\uFF0B\u66FF\u4EE3\uFF082\uFF09\uFF0B\u4F8B\u5916\uFF081\uFF09\uFF1D 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u8A08\u6578\uFF1A1 \u57FA\u672C + 4 \u4F8B\u5916",
+            "text": "<p>\u67D0\u300C\u767B\u5165\u300D\u4F7F\u7528\u6848\u4F8B\u6709 1 \u500B\u57FA\u672C\u6210\u529F\u6D41\u7A0B\u8207 4 \u500B\u76F8\u7570\u7684\u4F8B\u5916\u6D41\u7A0B\uFF08\u5BC6\u78BC\u932F\u8AA4\u3001\u5E33\u6236\u9396\u5B9A\u3001\u5BC6\u78BC\u904E\u671F\u3001\u7DB2\u8DEF\u932F\u8AA4\uFF09\uFF0C\u6BCF\u4E00\u500B\u90FD\u662F\u5404\u81EA\u7368\u7ACB\u7684\u8DEF\u5F91\u3002\u5171\u6709\u5E7E\u500B\u60C5\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 \u500B\u57FA\u672C + 4 \u500B\u4F8B\u5916 = 5 \u500B\u60C5\u5883\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u53EA\u7B97\u4E86\u4F8B\u5916\uFF1B\u57FA\u672C\u6210\u529F\u6D41\u7A0B\u4E5F\u662F\u4E00\u500B\u60C5\u5883\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u4F8B\u5916\u90FD\u662F\u5404\u81EA\u7684\u60C5\u5883\uFF0C\u6240\u4EE5\u662F 5\uFF0C\u800C\u975E 1\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u662F\u5404\u81EA\u7368\u7ACB\u7684\u55AE\u4E00\u8DEF\u5F91\uFF0C\u76F8\u52A0\u70BA 5\uFF0C\u800C\u975E\u76F8\u4E58\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u672C\u6D41\u7A0B\u662F\u4E00\u500B\u60C5\u5883\uFF0C4 \u500B\u4F8B\u5916\u6D41\u7A0B\u5404\u662F\u4E00\u500B\uFF0C\u5408\u8A08 1 + 4 = 5 \u500B\u60C5\u5883\u9700\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u524D\u7F6E\u689D\u4EF6\u5C0D\u61C9\u5230\u6E2C\u8A66\u524D\u7F6E\u8A2D\u5B9A",
+            "text": "<p>\u5C07\u4F7F\u7528\u6848\u4F8B\u60C5\u5883\u8F49\u70BA\u5177\u9AD4\u6E2C\u8A66\u6848\u4F8B\u6642\uFF0C<strong>\u524D\u7F6E\u689D\u4EF6</strong>\u6700\u76F4\u63A5\u5C0D\u61C9\u5230\u6E2C\u8A66\u7684\u54EA\u4E00\u90E8\u5206\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u524D\u7F6E\u8A2D\u5B9A\uFF0F\u5728\u6E2C\u8A66\u6B65\u9A5F\u57F7\u884C\u524D\u5EFA\u7ACB\u7684\u521D\u59CB\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u524D\u7F6E\u689D\u4EF6\u5B9A\u7FA9\u6E2C\u8A66\u6240\u5B89\u6392\u7684\u8D77\u59CB\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u6700\u5F8C\u6AA2\u67E5\u7684\u9810\u671F\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u9810\u671F\u7D50\u679C\u4F86\u81EA\u5F8C\u7F6E\u689D\u4EF6\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u52D5\u4F5C\u5E8F\u5217\uFF08\u6E2C\u8A66\u6B65\u9A5F\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B65\u9A5F\u4F86\u81EA\u6D41\u7A0B\uFF1B\u524D\u7F6E\u689D\u4EF6\u662F\u6B65\u9A5F\u524D\u6240\u5B89\u6392\u7684\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6848\u4F8B\u7684\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u540D\u7A31\u53EA\u662F\u6A19\u7C64\uFF1B\u524D\u7F6E\u689D\u4EF6\u5B9A\u7FA9\u7684\u662F\u524D\u7F6E\u8A2D\u5B9A\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u524D\u7F6E\u689D\u4EF6\u6307\u5B9A\u60C5\u5883\u57F7\u884C\u524D\u5FC5\u9808\u6210\u7ACB\u7684\u4E8B\u9805\uFF0C\u56E0\u6B64\u5C0D\u61C9\u5230\u6E2C\u8A66\u7684\u524D\u7F6E\u8A2D\u5B9A\uFF0F\u5B89\u6392\uFF08arrange\uFF09\u6B65\u9A5F\u2014\u2014\u5728\u57F7\u884C\u6D41\u7A0B\u524D\u5EFA\u7ACB\u521D\u59CB\u72C0\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F8C\u7F6E\u689D\u4EF6\u5C0D\u61C9\u5230\u9810\u671F\u7D50\u679C",
+            "text": "<p>\u7531\u4F7F\u7528\u6848\u4F8B\u60C5\u5883\u63A8\u5C0E\u6E2C\u8A66\u6642\uFF0C\u60C5\u5883\u7684<strong>\u5F8C\u7F6E\u689D\u4EF6</strong>\u6700\u76F4\u63A5\u5C0D\u61C9\u5230\u6E2C\u8A66\u7684\u54EA\u4E00\u90E8\u5206\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6B65\u9A5F\u57F7\u884C\u5F8C\u6240\u9A57\u8B49\u7684\u9810\u671F\u7D50\u679C\uFF0F\u65B7\u8A00",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F8C\u7F6E\u689D\u4EF6\u9673\u8FF0\u6240\u4FDD\u8B49\u7684\u7D50\u679C\uFF0C\u6B63\u662F\u6E2C\u8A66\u8981\u6AA2\u67E5\u7684\u3002"
+              },
+              {
+                "text": "\u6B65\u9A5F\u524D\u6240\u505A\u7684\u524D\u7F6E\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u8A2D\u5B9A\u4F86\u81EA\u524D\u7F6E\u689D\u4EF6\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u662F\u9810\u671F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u89F8\u767C\u4E8B\u4EF6\u555F\u52D5\u6D41\u7A0B\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u662F\u8981\u9A57\u8B49\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u53C3\u8207\u8005\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u53C3\u8207\u8005\u662F\u53C3\u8207\u8005\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u662F\u8981\u6AA2\u67E5\u7684\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F8C\u7F6E\u689D\u4EF6\uFF08\u6210\u529F\u4FDD\u8B49\uFF09\u6B63\u662F\u60C5\u5883\u6210\u529F\u5F8C\u7CFB\u7D71\u6240\u627F\u8AFE\u7684\u4E8B\u9805\uFF0C\u56E0\u6B64\u5C0D\u61C9\u5230\u6E2C\u8A66\u7684\u9810\u671F\u7D50\u679C\uFF0F\u65B7\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u4E2D\u7684\u4E3B\u8981\u53C3\u8207\u8005",
+            "text": "<p>\u5728\u300C\u4EE5\u5361\u7247\u4ED8\u6B3E\u300D\u60C5\u5883\u4E2D\uFF0C\u8CFC\u7269\u8005\u767C\u8D77\u8CFC\u8CB7\uFF0C\u800C\u9280\u884C\u91D1\u6D41\u9598\u9053\u6388\u6B0A\u8A72\u7B46\u6263\u6B3E\u3002\u8AB0\u662F<strong>\u4E3B\u8981\u53C3\u8207\u8005</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8CFC\u7269\u8005\u2014\u2014\u4ED6\u767C\u8D77\u4F7F\u7528\u6848\u4F8B\u4E26\u64C1\u6709\u76EE\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E3B\u8981\u53C3\u8207\u8005\u63A8\u52D5\u4F7F\u7528\u6848\u4F8B\u671D\u5176\u76EE\u6A19\u524D\u9032\u3002"
+              },
+              {
+                "text": "\u91D1\u6D41\u9598\u9053\u2014\u2014\u5B83\u505A\u4E86\u91CD\u8981\u7684\u5DE5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u9598\u9053\u662F\u7CFB\u7D71\u6C42\u52A9\u7684\u6B21\u8981\uFF0F\u652F\u63F4\u53C3\u8207\u8005\uFF1B\u5B83\u4E26\u975E\u767C\u8D77\u8005\u3002"
+              },
+              {
+                "text": "\u53D7\u6E2C\u7CFB\u7D71\u672C\u8EAB",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u4E0D\u662F\u53C3\u8207\u8005\uFF1B\u53C3\u8207\u8005\u662F\u5916\u90E8\u7684\u53C3\u8207\u8005\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u540C\u70BA\u4E3B\u8981\u53C3\u8207\u8005",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u500B\u4E3B\u8981\u53C3\u8207\u8005\uFF08\u76EE\u6A19\u64C1\u6709\u8005\uFF09\uFF1B\u9598\u9053\u662F\u6B21\u8981\u53C3\u8207\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CFC\u7269\u8005\u767C\u8D77\u4E92\u52D5\u4E26\u64C1\u6709\u76EE\u6A19\uFF0C\u6545\u70BA\u4E3B\u8981\u53C3\u8207\u8005\uFF1B\u91D1\u6D41\u9598\u9053\u662F\u7CFB\u7D71\u70BA\u9054\u6210\u76EE\u6A19\u800C\u806F\u7E6B\u7684\u6B21\u8981\uFF08\u652F\u63F4\uFF09\u53C3\u8207\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u4E2D\u7684\u6B21\u8981\u53C3\u8207\u8005",
+            "text": "<p>\u5728\u300C\u8A3B\u518A\u5E33\u6236\u300D\u4F7F\u7528\u6848\u4F8B\u4E2D\uFF0C\u8A2A\u5BA2\u5B8C\u6210\u8A3B\u518A\uFF0C\u7CFB\u7D71\u8ACB\u4E00\u500B\u5916\u90E8\u96FB\u5B50\u90F5\u4EF6\u670D\u52D9\u5BC4\u9001\u78BA\u8A8D\u8A0A\u606F\u3002\u4F55\u8005\u662F<strong>\u6B21\u8981\u53C3\u8207\u8005</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5916\u90E8\u96FB\u5B50\u90F5\u4EF6\u670D\u52D9\u2014\u2014\u7CFB\u7D71\u6C42\u52A9\u65BC\u5B83\u4EE5\u5354\u52A9\u5B8C\u6210\u76EE\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u7CFB\u7D71\u547C\u53EB\u7684\u652F\u63F4\u53C3\u8207\u8005\u70BA\u6B21\u8981\u53C3\u8207\u8005\u3002"
+              },
+              {
+                "text": "\u8A2A\u5BA2\u2014\u2014\u662F\u4ED6\u5B8C\u6210\u4E86\u8A3B\u518A",
+                "fraction": 0,
+                "feedback": "\u8A2A\u5BA2\u767C\u8D77\u4E26\u64C1\u6709\u76EE\u6A19\uFF0C\u6545\u70BA\u4E3B\u8981\u53C3\u8207\u8005\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u8A0A\u606F",
+                "fraction": 0,
+                "feedback": "\u8A0A\u606F\u662F\u8CC7\u6599\uFF0C\u800C\u975E\u53C3\u8207\u8005\u3002"
+              },
+              {
+                "text": "\u8CC7\u6599\u5EAB\u8CC7\u6599\u8868",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u5132\u5B58\u662F\u7CFB\u7D71\u7684\u4E00\u90E8\u5206\uFF0C\u800C\u975E\u5916\u90E8\u53C3\u8207\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A2A\u5BA2\u662F\u4E3B\u8981\u53C3\u8207\u8005\uFF08\u767C\u8D77\u8005\u3001\u76EE\u6A19\u64C1\u6709\u8005\uFF09\uFF1B\u5916\u90E8\u96FB\u5B50\u90F5\u4EF6\u670D\u52D9\u662F\u7CFB\u7D71\u70BA\u5354\u52A9\u9054\u6210\u76EE\u6A19\u800C\u806F\u7E6B\u7684\u6B21\u8981\uFF0F\u652F\u63F4\u53C3\u8207\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u63CF\u8FF0\u7684\u60C5\u5883\u63A8\u5C0E\u6E2C\u8A66",
+            "text": "<p>\u60C5\u5883\uFF1A<em>\u8CFC\u7269\u8005\u5DF2\u5132\u5B58\u7684\u5361\u7247\u88AB<strong>\u62D2\u7D55</strong>\uFF0C\u56E0\u6B64\u8A02\u55AE\u672A\u6210\u7ACB\u4E26\u986F\u793A\u932F\u8AA4\u8A0A\u606F\u3002</em>\u4E0B\u5217\u54EA\u500B\u6E2C\u8A66\u6700\u7B26\u5408\u6B64\u4F8B\u5916\u60C5\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5EFA\u7ACB\u4E00\u500B\u5361\u7247\u6703\u88AB\u62D2\u7D55\u7684\u5E33\u6236\uFF0C\u5617\u8A66\u7D50\u5E33\uFF0C\u4E26\u9A57\u8B49\u672A\u5EFA\u7ACB\u4EFB\u4F55\u8A02\u55AE\u4E14\u986F\u793A\u62D2\u7D55\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u524D\u7F6E\u8A2D\u5B9A\u3001\u52D5\u4F5C\u8207\u9810\u671F\u7D50\u679C\u90FD\u4F9D\u5FAA\u300C\u4ED8\u6B3E\u88AB\u62D2\u300D\u7684\u4F8B\u5916\u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u8A2D\u5B9A\u4E00\u5F35\u6709\u6548\u5361\u7247\u3001\u7D50\u5E33\uFF0C\u4E26\u9A57\u8B49\u8A02\u55AE\u5DF2\u78BA\u8A8D",
+                "fraction": 0,
+                "feedback": "\u90A3\u6E2C\u8A66\u7684\u662F\u57FA\u672C\u6210\u529F\u6D41\u7A0B\uFF0C\u800C\u975E\u4ED8\u6B3E\u88AB\u62D2\u7684\u4F8B\u5916\u3002"
+              },
+              {
+                "text": "\u55AE\u7368\u5C0D\u5361\u865F\u7684 Luhn \u6AA2\u67E5\u51FD\u5F0F\u505A\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F4E\u968E\u7684\u55AE\u5143\u6E2C\u8A66\uFF0C\u800C\u975E\u6240\u63CF\u8FF0\u7684\u7AEF\u5230\u7AEF\u4F8B\u5916\u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u6298\u6263\u6B04\u4F4D\u53EF\u63A5\u53D7\u4E00\u7D44\u6298\u6263\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u6D89\u53CA\u53E6\u4E00\u9805\uFF08\u6298\u6263\uFF09\u884C\u70BA\uFF0C\u800C\u975E\u4ED8\u6B3E\u88AB\u62D2\u7684\u60C5\u5883\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u6C7A\u5B9A\u6E2C\u8A66\uFF1A\u5B89\u6392\u4E00\u5F35\u6703\u88AB\u62D2\u7D55\u7684\u5361\u7247\uFF08\u524D\u7F6E\u8A2D\u5B9A\uFF09\uFF0C\u57F7\u884C\u7D50\u5E33\uFF08\u6B65\u9A5F\uFF09\uFF0C\u4E26\u65B7\u8A00\u672A\u5EFA\u7ACB\u8A02\u55AE\u4E14\u986F\u793A\u62D2\u7D55\u932F\u8AA4\uFF08\u4F86\u81EA\u5931\u6557\u4FDD\u8B49\u7684\u9810\u671F\u7D50\u679C\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u88AB\u5305\u542B\u7684\u4F7F\u7528\u6848\u4F8B\u7E3D\u662F\u57F7\u884C",
+            "text": "<p>\u88AB\u5305\u542B\uFF08include\uFF09\u7684\u4F7F\u7528\u6848\u4F8B\u5728\u57FA\u790E\u4F7F\u7528\u6848\u4F8B\u6BCF\u6B21\u57F7\u884C\u6642\u90FD\u6703\u57F7\u884C\uFF0C\u800C\u5EF6\u4F38\uFF08extend\uFF09\u7684\u4F7F\u7528\u6848\u4F8B\u53EA\u5728\u5176\u689D\u4EF6\u6210\u7ACB\u6642\u624D\u57F7\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014include \u662F\u5F37\u5236\uFF0F\u7E3D\u662F\u57F7\u884C\uFF1Bextend \u662F\u6709\u689D\u4EF6\uFF0F\u9078\u7528\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "include \u7E3D\u662F\u57F7\u884C\uFF1Bextend \u662F\u6709\u689D\u4EF6\u7684\u3002\u6B64\u6558\u8FF0\u63CF\u8FF0\u6B63\u78BA\u3002"
+              }
+            ],
+            "generalFeedback": "include \u628A\u7E3D\u662F\u4F5C\u70BA\u57FA\u790E\u4E00\u90E8\u5206\u57F7\u884C\u7684\u884C\u70BA\u62BD\u51FA\uFF1Bextend \u53EA\u5728\u689D\u4EF6\u6210\u7ACB\u6642\u65BC\u5EF6\u4F38\u9EDE\u63D2\u5165\u9078\u7528\u884C\u70BA\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89F8\u767C\u4E8B\u4EF6\u8207\u524D\u7F6E\u689D\u4EF6\u7684\u61C9\u7528",
+            "text": "<p>\u67D0\u4F7F\u7528\u6848\u4F8B\u5BEB\u9053\uFF1A\u300C\u5E33\u6236\u5FC5\u9808\u4FE1\u7528\u826F\u597D\u3002\u7576\u9867\u5BA2\u9001\u51FA\u8F49\u5E33\u8ACB\u6C42\u6642\uFF0C\u6B64\u4F7F\u7528\u6848\u4F8B\u958B\u59CB\u3002\u300D\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u300C\u5E33\u6236\u4FE1\u7528\u826F\u597D\u300D\u662F\u524D\u7F6E\u689D\u4EF6\uFF1B\u300C\u9867\u5BA2\u9001\u51FA\u8F49\u5E33\u8ACB\u6C42\u300D\u662F\u89F8\u767C\u4E8B\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5047\u5B9A\u7684\u72C0\u614B\u662F\u524D\u7F6E\u689D\u4EF6\uFF1B\u767C\u8D77\u7684\u4E8B\u4EF6\u662F\u89F8\u767C\u4E8B\u4EF6\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u89F8\u767C\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u767C\u8D77\u4E8B\u4EF6\u624D\u662F\u89F8\u767C\u4E8B\u4EF6\uFF1B\u4FE1\u7528\u826F\u597D\u72C0\u614B\u662F\u5047\u5B9A\u7684\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u9001\u51FA\u8ACB\u6C42\u662F\u767C\u8D77\u4E8B\u4EF6\uFF08\u89F8\u767C\u4E8B\u4EF6\uFF09\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u300C\u5E33\u6236\u4FE1\u7528\u826F\u597D\u300D\u662F\u89F8\u767C\u4E8B\u4EF6\uFF1B\u9001\u51FA\u8ACB\u6C42\u662F\u5F8C\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u9019\u5F04\u53CD\u4E86\u89D2\u8272\uFF1B\u4FE1\u7528\u826F\u597D\u662F\u4E8B\u524D\u5047\u5B9A\uFF0C\u800C\u9001\u51FA\u8ACB\u6C42\u555F\u52D5\u4F7F\u7528\u6848\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u524D\u7F6E\u689D\u4EF6\u662F\u4F7F\u7528\u6848\u4F8B\u958B\u59CB\u524D\u5047\u5B9A\u7684\u72C0\u614B\uFF08\u300C\u5E33\u6236\u4FE1\u7528\u826F\u597D\u300D\uFF09\uFF1B\u89F8\u767C\u4E8B\u4EF6\u662F\u555F\u52D5\u5B83\u7684\u4E8B\u4EF6\uFF08\u300C\u9867\u5BA2\u9001\u51FA\u8F49\u5E33\u8ACB\u6C42\u300D\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u6DB5\u84CB\u6240\u9700\u7684\u6E2C\u8A66\u6578",
+            "text": "<p>\u5728\u4F7F\u7528\u6848\u4F8B<strong>\u60C5\u5883\u6DB5\u84CB</strong>\u4E4B\u4E0B\uFF0C\u4E00\u500B\u4F7F\u7528\u6848\u4F8B\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u6848\u4F8B\u6578\u7B49\u65BC\u4E0B\u5217\u4F55\u8005\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u60C5\u5883\u7684\u6578\u91CF\uFF08\u57FA\u672C\u6D41\u7A0B\u52A0\u4E0A\u6BCF\u500B\u66FF\u4EE3\u8207\u6BCF\u500B\u4F8B\u5916\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u60C5\u5883\u6DB5\u84CB\u8981\u6C42\u6BCF\u500B\u60C5\u5883\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u6848\u4F8B\u4E2D\u7684\u53C3\u8207\u8005\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u53C3\u8207\u8005\u6578\u91CF\u4E0D\u6C7A\u5B9A\u60C5\u5883\u6DB5\u84CB\uFF1B\u6C7A\u5B9A\u5B83\u7684\u662F\u60C5\u5883\u6578\u91CF\u3002"
+              },
+              {
+                "text": "\u6070\u597D\u4E00\u500B\uFF0C\u5C0D\u61C9\u57FA\u672C\u6D41\u7A0B",
+                "fraction": 0,
+                "feedback": "\u53EA\u6DB5\u84CB\u57FA\u672C\u6D41\u7A0B\u6703\u6F0F\u6389\u66FF\u4EE3\u8207\u4F8B\u5916\u672A\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u689D\u4EF6\u7684\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u689D\u4EF6\u8B8A\u6210\u524D\u7F6E\u8A2D\u5B9A\uFF0C\u800C\u975E\u6240\u9700\u6E2C\u8A66\u7684\u6578\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u6DB5\u84CB\u8981\u6C42\u6BCF\u500B\u60C5\u5883\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\uFF0C\u56E0\u6B64\u6700\u5C11\u6E2C\u8A66\u6578\u7B49\u65BC\u60C5\u5883\u6578\u91CF = \u57FA\u672C + \u6BCF\u500B\u66FF\u4EE3 + \u6BCF\u500B\u4F8B\u5916\uFF08\u7576\u6BCF\u500B\u90FD\u662F\u7368\u7ACB\u8DEF\u5F91\u6642\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "include \u4E0D\u53E6\u589E\u5FEB\u6A02\u8DEF\u5F91\u60C5\u5883",
+            "text": "<p>\u300C\u7D50\u5E33\u300D<em>\u5305\u542B\uFF08include\uFF09</em>\u300C\u9A57\u8B49\u4ED8\u6B3E\u300D\uFF08\u7E3D\u662F\u57F7\u884C\uFF09\u3002\u5728\u8A08\u7B97\u7D50\u5E33\u57FA\u672C\u6D41\u7A0B\u7684\u60C5\u5883\u6642\uFF0C\u88AB\u5305\u542B\u7684\u9A57\u8B49\u4ED8\u6B3E\u5982\u4F55\u8655\u7406\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u662F\u6BCF\u500B\u7D50\u5E33\u60C5\u5883\u7684\u4E00\u90E8\u5206\uFF0C\u56E0\u6B64\u5728\u5FEB\u6A02\u8DEF\u5F91\u4E0A\u4E0D\u6703\u53E6\u5916\u65B0\u589E\u300C\u6709\uFF0F\u7121\u300D\u7684\u60C5\u5883",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u65BC\u5B83\u7E3D\u662F\u57F7\u884C\uFF0C\u56E0\u6B64\u5167\u5EFA\u65BC\u6BCF\u500B\u60C5\u5883\u4E2D\uFF0C\u800C\u975E\u6210\u70BA\u9078\u7528\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u5B83\u4F7F\u60C5\u5883\u6578\u7FFB\u500D\u2014\u2014\u4E00\u500B\u6709\u9A57\u8B49\u3001\u4E00\u500B\u7121\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "\u7E3D\u662F\u57F7\u884C\u7684 include \u4E0D\u5B58\u5728\u300C\u7121\u300D\u7684\u60C5\u5F62\uFF1B\u90A3\u7A2E\u6709\uFF0F\u7121\u7684\u5206\u88C2\u5C6C\u65BC extend\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u5B8C\u5168\u5FFD\u7565\uFF0C\u6C38\u9060\u4E0D\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728\u6BCF\u689D\u8DEF\u5F91\u4E0A\u90FD\u6703\u57F7\u884C\uFF0C\u56E0\u6B64\u6703\u88AB\u90A3\u4E9B\u6E2C\u8A66\u6240\u57F7\u884C\u2014\u2014\u53EA\u662F\u5B83\u4E0D\u662F\u9078\u7528\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u5B83\u8B8A\u6210\u7D50\u5E33\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u88AB\u547C\u53EB\u7684\u884C\u70BA\uFF0C\u800C\u975E\u4E8B\u524D\u5047\u5B9A\u7684\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u88AB\u5305\u542B\u7684\u4F7F\u7528\u6848\u4F8B\u7E3D\u662F\u57F7\u884C\uFF0C\u5B83\u51FA\u73FE\u5728\u57FA\u790E\u7684\u6BCF\u500B\u60C5\u5883\u4E2D\uFF0C\u800C\u975E\u88FD\u9020\u6709\uFF0F\u7121\u7684\u9078\u7528\u5206\u88C2\u3002\uFF08\u9A57\u8B49\u4ED8\u6B3E\u7576\u7136\u53EF\u80FD\u6709\u81EA\u5DF1\u5167\u90E8\u7684\u66FF\u4EE3\uFF0F\u4F8B\u5916\uFF0C\u90A3\u662F\u53E6\u4E00\u56DE\u4E8B\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u4E00\u822C\u5316\uFF08generalization\uFF09",
+            "text": "<p>\u300C\u4EE5\u5361\u7247\u4ED8\u6B3E\u300D\u8207\u300C\u4EE5\u73FE\u91D1\u4ED8\u6B3E\u300D\u90FD\u662F\u66F4\u4E00\u822C\u7684\u300C\u9032\u884C\u4ED8\u6B3E\u300D\u4F7F\u7528\u6848\u4F8B\u7684\u7279\u6B8A\u7A2E\u985E\uFF0C\u5404\u81EA\u7D30\u5316\u4ED8\u6B3E\u65B9\u5F0F\u3002\u9019\u662F\u4EC0\u9EBC\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "generalization\uFF08\u4E00\u822C\u5316\uFF09\u2014\u2014\u7279\u5316\u7684\u4F7F\u7528\u6848\u4F8B\u662F\u4E00\u822C\u8005\u7684\u8B8A\u9AD4\uFF08is-a\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u822C\u4F7F\u7528\u6848\u4F8B\u8207\u5176\u8B8A\u9AD4\u4E4B\u9593\u7684 is-a \u95DC\u4FC2\u5373\u70BA\u4E00\u822C\u5316\u3002"
+              },
+              {
+                "text": "include\uFF08\u5305\u542B\uFF09\u2014\u2014\u9032\u884C\u4ED8\u6B3E\u7E3D\u662F\u540C\u6642\u57F7\u884C\u5169\u8005",
+                "fraction": 0,
+                "feedback": "include \u662F\u7E3D\u662F\u57F7\u884C\u7684\u5F37\u5236\u5171\u7528\u884C\u70BA\uFF0C\u800C\u975E is-a \u7684\u8B8A\u9AD4\u95DC\u4FC2\u3002"
+              },
+              {
+                "text": "extend\uFF08\u5EF6\u4F38\uFF09\u2014\u2014\u9019\u4E9B\u8B8A\u9AD4\u662F\u6709\u689D\u4EF6\u7684\u63D2\u5165",
+                "fraction": 0,
+                "feedback": "extend \u5728\u5EF6\u4F38\u9EDE\u63D2\u5165\u9078\u7528\u884C\u70BA\uFF1B\u6B64\u8655\u8B8A\u9AD4\u662F\u7279\u5316\u4E00\u822C\u4F7F\u7528\u6848\u4F8B\uFF08is-a\uFF09\u3002"
+              },
+              {
+                "text": "trigger\uFF08\u89F8\u767C\u4E8B\u4EF6\uFF09\u2014\u2014\u9019\u4E9B\u8B8A\u9AD4\u555F\u52D5\u9032\u884C\u4ED8\u6B3E",
+                "fraction": 0,
+                "feedback": "\u89F8\u767C\u4E8B\u4EF6\u662F\u767C\u8D77\u4E8B\u4EF6\uFF0C\u800C\u975E\u4F7F\u7528\u6848\u4F8B\u4E4B\u9593\u7684\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u822C\u5316\u662F is-a \u95DC\u4FC2\uFF1A\u300C\u4EE5\u5361\u7247\u4ED8\u6B3E\u300D\u8207\u300C\u4EE5\u73FE\u91D1\u4ED8\u6B3E\u300D\u662F\u4E00\u822C\u300C\u9032\u884C\u4ED8\u6B3E\u300D\u7684\u7279\u5316\u5F62\u5F0F\uFF0C\u7E7C\u627F\u5176\u7D50\u69CB\u4E26\u7D30\u5316\u7279\u5B9A\u6B65\u9A5F\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u7368\u7ACB\u9078\u7528\u5EF6\u4F38\u7684\u8DEF\u5F91\u8A08\u6578",
+            "text": "<p>\u67D0\u300C\u7D50\u5E33\u300D\u4F7F\u7528\u6848\u4F8B\u6709\u5169\u500B<em>\u7368\u7ACB\u3001\u9078\u7528</em>\u7684\u5EF6\u4F38\uFF0C\u5404\u81EA\u53EF\u80FD\u767C\u751F\u6216\u4E0D\u767C\u751F\uFF1A\u300C\u5957\u7528\u6298\u6263\u300D\u8207\u300C\u52A0\u8CFC\u79AE\u54C1\u5305\u88DD\u300D\u3002\u82E5\u8981\u6DB5\u84CB\u300C\u63A1\u7528\uFF0F\u4E0D\u63A1\u7528\u300D\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\uFF08\u4E14\u5169\u8005\u78BA\u5BE6\u7368\u7ACB\uFF09\uFF0C\u5171\u6709\u5E7E\u689D\u76F8\u7570\u7684\u7AEF\u5230\u7AEF\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u6BCF\u500B\u5EF6\u4F38\u5404\u81EA\u7368\u7ACB\u5730\u5B58\u5728\u6216\u4E0D\u5B58\u5728\uFF0C\u6545 2 x 2 = 4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u7368\u7ACB\u7684\u9078\u7528\u63D2\u5165\u5F97\u5230 2^2 = 4 \u7A2E\u7D44\u5408\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u4E00\u689D\u6709\u5EF6\u4F38\u3001\u4E00\u689D\u7121\u5EF6\u4F38",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u7368\u7ACB\u9078\u9805\u5F97\u5230\u56DB\u7A2E\u7D44\u5408\uFF0C\u800C\u975E\u5169\u7A2E\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u57FA\u672C\u518D\u52A0\u4E0A\u6BCF\u500B\u5EF6\u4F38\u5404\u4E00\u689D",
+                "fraction": 0,
+                "feedback": "\u90A3\u6A23\u6BCF\u500B\u5EF6\u4F38\u5404\u7B97\u4E00\u6B21\uFF0C\u537B\u6F0F\u6389\u300C\u5169\u8005\u7686\u63A1\u7528\u300D\u8207\u300C\u5169\u8005\u7686\u4E0D\u63A1\u7528\u300D\u7684\u7D44\u5408\uFF1B\u7368\u7ACB\u9078\u9805\u76F8\u4E58\u70BA 4\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u5EF6\u4F38\u4E0D\u6703\u7522\u751F\u65B0\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u9078\u7528\u5EF6\u4F38\u78BA\u5BE6\u6703\u7522\u751F\u5206\u652F\uFF1B\u5169\u500B\u7368\u7ACB\u5EF6\u4F38\u5F97\u5230 4 \u689D\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u7368\u7ACB\u7684\u9078\u7528\u5EF6\u4F38\u8CA2\u737B\u4E00\u500B 2 \u7684\u56E0\u5B50\uFF08\u63A1\u7528\u6216\u4E0D\u63A1\u7528\uFF09\u3002\u5169\u500B\u5EF6\u4F38\u7684\u7D44\u5408\u6578\u70BA 2 x 2 = 4\u3002\uFF08\u57FA\u672C\u60C5\u5883\u6DB5\u84CB\u6216\u8A31\u7528\u8F03\u5C11\u2014\u2014\u6BCF\u500B\u5EF6\u4F38\u4E00\u689D\u52A0\u4E0A\u4E0D\u542B\u5EF6\u4F38\u7684\u4E00\u689D\u2014\u2014\u4F46\u5C0D\u5169\u500B\u7368\u7ACB\u9078\u9805\u7684\u5B8C\u6574\u7D44\u5408\u6DB5\u84CB\u662F 4\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u542B\u5206\u5C94\u66FF\u4EE3\u7684\u60C5\u5883\u8A08\u6578",
+            "text": "<p>\u67D0\u4F7F\u7528\u6848\u4F8B\u6709 1 \u500B\u57FA\u672C\u6D41\u7A0B\u3002\u5728\u67D0\u4E00\u6B65\u9A5F\uFF0C\u4ED8\u6B3E\u65B9\u5F0F\u5206\u5C94\u70BA\u6070\u597D 3 \u500B\u4E92\u65A5\u9078\u9805\u4E4B\u4E00\uFF08\u73FE\u91D1\u3001\u5361\u7247\u3001\u6298\u6263\u5238\uFF09\uFF0C\u6B64\u5916\u53E6\u6709 2 \u500B\u7368\u7ACB\u7684\u4F8B\u5916\u6D41\u7A0B\u3002\u4EE5\u6BCF\u500B\u76F8\u7570\u4ED8\u6B3E\u5206\u652F\u4E00\u500B\u60C5\u5883\u3001\u518D\u52A0\u4E0A\u6BCF\u500B\u4F8B\u5916\u8A08\u7B97\uFF0C\u5171\u6709\u5E7E\u500B\u60C5\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5\u2014\u20143 \u500B\u4E92\u65A5\u4ED8\u6B3E\u5206\u652F + 2 \u500B\u4F8B\u5916",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 \u500B\u5206\u652F\u4E92\u70BA\u66FF\u4EE3\uFF083 \u500B\u60C5\u5883\uFF09\u52A0\u4E0A 2 \u500B\u4F8B\u5916 = 5\u3002"
+              },
+              {
+                "text": "6\u2014\u20141 \u500B\u57FA\u672C + 3 \u500B\u5206\u652F + 2 \u500B\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u9019 3 \u500B\u5206\u652F\u57FA\u672C\u6D41\u7A0B\u7684\u4ED8\u6B3E\u6B65\u9A5F\uFF08\u5176\u4E2D\u4E00\u500B\u662F\u300C\u4E3B\u8981\u300D\u5206\u652F\uFF09\uFF0C\u6545\u4E0D\u6703\u53E6\u5916\u518D\u52A0\u4E00\u500B\u7368\u7ACB\u7684\u57FA\u672C\u60C5\u5883\uFF1B\u8A08\u6578\u70BA 3 + 2 = 5\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u53EA\u6709\u4ED8\u6B3E\u5206\u652F\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u90A3 2 \u500B\u4F8B\u5916\u6D41\u7A0B\u4E5F\u662F\u60C5\u5883\uFF1B3 + 2 = 5\u3002"
+              },
+              {
+                "text": "12\u2014\u20143 \u500B\u5206\u652F\u4E58\u4EE5 2 \u500B\u4F8B\u5916\u518D\u4E58\u4EE5 2",
+                "fraction": 0,
+                "feedback": "\u4E92\u65A5\u5206\u652F\u8207\u7368\u7ACB\u4F8B\u5916\u662F\u76F8\u52A0\uFF0C\u800C\u975E\u76F8\u4E58\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E09\u7A2E\u4ED8\u6B3E\u65B9\u5F0F\u662F\u540C\u4E00\u6B65\u9A5F\u7684\u4E92\u65A5\u8B8A\u9AD4\uFF0C\u5F97\u5230 3 \u500B\u6210\u529F\u60C5\u5883\uFF08\u5176\u4E2D\u4E00\u500B\u5BE6\u969B\u4E0A\u5C31\u662F\u57FA\u672C\u6D41\u7A0B\uFF0C\u5176\u9918\u70BA\u66FF\u4EE3\uFF09\u3002\u52A0\u4E0A 2 \u500B\u7368\u7ACB\u4F8B\u5916\uFF0C\u5171 3 + 2 = 5 \u500B\u60C5\u5883\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "include \u8207 extend\uFF1A\u5FAE\u5999\u7684\u5F37\u5236\u60C5\u5F62",
+            "text": "<p>\u6BCF\u6B21\u300C\u8F49\u5E33\u300D\u57F7\u884C\u6642\uFF0C\u7CFB\u7D71\u90FD\u6703\u5BEB\u5165\u4E00\u7B46\u7A3D\u6838\u7D00\u9304\u2014\u2014\u6BEB\u7121\u4F8B\u5916\u3002\u6B64\u7A3D\u6838\u884C\u70BA\u88AB\u62BD\u6210\u81EA\u5DF1\u7684\u4F7F\u7528\u6848\u4F8B\u3002\u4F55\u8005\u95DC\u4FC2\u6700\u9069\u5408\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "include\uFF08\u5305\u542B\uFF09\u2014\u2014\u7A3D\u6838\u7D00\u9304\u6BCF\u6B21\u57F7\u884C\u90FD\u6703\u5BEB\u5165\uFF0C\u6545\u70BA\u5F37\u5236\u62BD\u51FA\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u6BCF\u6B21\u57F7\u884C\u3001\u6BEB\u7121\u4F8B\u5916\u300D\u6B63\u662F include \u7684\u7279\u5FB5\u3002"
+              },
+              {
+                "text": "extend\uFF08\u5EF6\u4F38\uFF09\u2014\u2014\u7A3D\u6838\u662F\u9644\u52A0\u5230\u57FA\u790E\u7684\u984D\u5916\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "extend \u662F\u6709\u689D\u4EF6\u7684\uFF1B\u6B64\u8655\u7A3D\u6838\u7E3D\u662F\u57F7\u884C\uFF0C\u6545\u70BA include\u3002"
+              },
+              {
+                "text": "extend\uFF08\u5EF6\u4F38\uFF09\u2014\u2014\u56E0\u70BA\u7A3D\u6838\u4E0D\u662F\u4E3B\u8981\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "\u662F\u5426\u70BA\u4E3B\u8981\u76EE\u6A19\u4E26\u4E0D\u76F8\u5E72\uFF1B\u95DC\u9375\u662F\u5B83\u7E3D\u662F\u57F7\u884C\uFF0C\u6545\u70BA include\u3002"
+              },
+              {
+                "text": "generalization\uFF08\u4E00\u822C\u5316\uFF09\u2014\u2014\u7A3D\u6838\u662F\u8F49\u5E33\u7684\u4E00\u7A2E",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u5171\u7528\u3001\u7E3D\u662F\u57F7\u884C\u7684\u884C\u70BA\uFF0C\u800C\u975E is-a \u7684\u7279\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C7A\u5B9A\u56E0\u7D20\u662F\u7121\u689D\u4EF6\u57F7\u884C\u3002\u7531\u65BC\u7A3D\u6838\u7D00\u9304\u6BCF\u6B21\u57F7\u884C\u90FD\u6703\u5BEB\u5165\u3001\u6BEB\u7121\u4F8B\u5916\uFF0C\u5B83\u662F\u5F37\u5236\u7684\u5171\u7528\u884C\u70BA\u2014\u2014\u5C6C\u65BC include\uFF0C\u800C\u975E\u6709\u689D\u4EF6\u7684 extend\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "include \u8207 extend\uFF1A\u5FAE\u5999\u7684\u6709\u689D\u4EF6\u60C5\u5F62",
+            "text": "<p>\u5728\u300C\u63D0\u6B3E\u300D\u904E\u7A0B\u4E2D\uFF0C<em>\u82E5</em>\u9918\u984D\u5C07\u4F4E\u65BC\u67D0\u9580\u6ABB\uFF0C\u7CFB\u7D71\u6703\u5728\u4E00\u500B\u5B9A\u9EDE\u53E6\u5916\u57F7\u884C\u300C\u5BC4\u9001\u4F4E\u9918\u984D\u8B66\u793A\u300D\u3002\u4F55\u8005\u95DC\u4FC2\u6700\u9069\u5408\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "extend\uFF08\u5EF6\u4F38\uFF09\u2014\u2014\u8B66\u793A\u53EA\u5728\u4F4E\u9918\u984D\u689D\u4EF6\u6210\u7ACB\u6642\u624D\u57F7\u884C\uFF0C\u63D2\u5165\u65BC\u5EF6\u4F38\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u5EF6\u4F38\u9EDE\u7684\u6709\u689D\u4EF6\u63D2\u5165\u5373\u70BA extend\u3002"
+              },
+              {
+                "text": "include\uFF08\u5305\u542B\uFF09\u2014\u2014\u8B66\u793A\u662F\u63D0\u6B3E\u7684\u4E00\u90E8\u5206",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EA\u5728\u689D\u4EF6\u6210\u7ACB\u6642\u624D\u57F7\u884C\uFF0C\u6545\u70BA\u6709\u689D\u4EF6\uFF08extend\uFF09\uFF0C\u800C\u975E\u7E3D\u662F\u57F7\u884C\uFF08include\uFF09\u3002"
+              },
+              {
+                "text": "include\uFF08\u5305\u542B\uFF09\u2014\u2014\u56E0\u70BA\u5B83\u88AB\u62BD\u6210\u7368\u7ACB\u7684\u4F7F\u7528\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u88AB\u62BD\u51FA\u4E26\u4E0D\u4F7F\u5176\u6210\u70BA include\uFF1Binclude \u9084\u8981\u6C42\u5B83\u7E3D\u662F\u57F7\u884C\uFF0C\u800C\u6B64\u8655\u4E26\u975E\u5982\u6B64\u3002"
+              },
+              {
+                "text": "\u63D0\u6B3E\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u6D41\u7A0B\u4E2D\u9014\u7531\u689D\u4EF6\u89F8\u767C\u7684\u884C\u70BA\uFF0C\u800C\u975E\u4E8B\u524D\u5047\u5B9A\u7684\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u82E5\u9918\u984D\u5C07\u4F4E\u65BC\u9580\u6ABB\u300D\u9019\u500B\u5B88\u885B\u689D\u4EF6\u4EE3\u8868\u8B66\u793A\u662F\u6709\u689D\u4EF6\u7684\uFF0C\u63D2\u5165\u65BC\u5EF6\u4F38\u9EDE\u2014\u2014\u6B63\u662F extend \u7684\u7279\u5FB5\uFF0C\u5373\u4F7F\u5B83\u88AB\u62BD\u6210\u81EA\u5DF1\u7684\u4F7F\u7528\u6848\u4F8B\u4E5F\u4E00\u6A23\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5F8C\u7F6E\u689D\u4EF6\u662F\u9810\u671F\u7D50\u679C",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u60C5\u5883\u7684<strong>\u5F8C\u7F6E\u689D\u4EF6</strong>\u662F\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u9810\u671F\u7D50\u679C\u7684\u81EA\u7136\u4F86\u6E90\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u9673\u8FF0\u7CFB\u7D71\u5728\u8A72\u60C5\u5883\u4E0B\u5FC5\u9808\u4EA4\u4ED8\u7684\u4FDD\u8B49\uFF0C\u6545\u9A57\u8B49\u5B83\u5373\u53EF\u78BA\u8A8D\u76EE\u6A19\u5DF2\u9054\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F8C\u7F6E\u689D\u4EF6\u6B63\u662F\u6240\u627F\u8AFE\u7684\u7D50\u675F\u72C0\u614B\uFF0C\u4E5F\u5C31\u662F\u6E2C\u8A66\u5FC5\u9808\u65B7\u8A00\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u5217\u51FA\u6E2C\u8A66\u5FC5\u9808\u63D0\u4F9B\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u8F38\u5165\u8207\u524D\u7F6E\u8A2D\u5B9A\uFF0F\u6B65\u9A5F\u6709\u95DC\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u662F\u6240\u4FDD\u8B49\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5B83\u6307\u51FA\u7A0B\u5F0F\u78BC\u61C9\u547C\u53EB\u7684\u5167\u90E8\u51FD\u5F0F",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u662F\u9ED1\u7BB1\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u63CF\u8FF0\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\uFF0C\u800C\u975E\u5167\u90E8\u547C\u53EB\u3002"
+              },
+              {
+                "text": "\u5B83\u8A08\u7B97\u5171\u6709\u5E7E\u500B\u60C5\u5883",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u76F8\u5E72\uFF1B\u5F8C\u7F6E\u689D\u4EF6\u63CF\u8FF0\u7684\u662F\u8981\u9A57\u8B49\u7684\u7D50\u675F\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F8C\u7F6E\u689D\u4EF6\u662F\u60C5\u5883\u5B8C\u6210\u6642\u7CFB\u7D71\u6240\u627F\u8AFE\u7684\u53EF\u89C0\u5BDF\u4FDD\u8B49\u3002\u65B7\u8A00\u5B83\u6B63\u662F\u6E2C\u8A66\u78BA\u8A8D\u60C5\u5883\u76EE\u6A19\u5DF2\u9054\u6210\u7684\u65B9\u5F0F\uFF0C\u56E0\u6B64\u5B83\u5C0D\u61C9\u5230\u9810\u671F\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EA\u6E2C\u57FA\u672C\u6D41\u7A0B\u7684\u6DB5\u84CB\u5145\u5206\u6027",
+            "text": "<p>\u67D0\u5718\u968A\u6BCF\u500B\u4F7F\u7528\u6848\u4F8B\u53EA\u5BEB\u4E00\u500B\u6E2C\u8A66\uFF0C\u4E14\u7E3D\u662F\u57F7\u884C\u57FA\u672C\uFF08\u5FEB\u6A02\u8DEF\u5F91\uFF09\u6D41\u7A0B\u3002\u4E3B\u8981\u7684\u5145\u5206\u6027\u554F\u984C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u66FF\u4EE3\u8207\u4F8B\u5916\u6D41\u7A0B\u5F9E\u672A\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u932F\u8AA4\u8655\u7406\u8207\u8F03\u4E0D\u5E38\u898B\u7684\u8DEF\u5F91\u90FD\u672A\u88AB\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6E2C\u5FEB\u6A02\u8DEF\u5F91\u6703\u6F0F\u6389\u66FF\u4EE3\u8207\u4F8B\u5916\u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u57FA\u672C\u6D41\u7A0B\u88AB\u6E2C\u8A66\u592A\u591A\u6B21\uFF0C\u6D6A\u8CBB\u5FC3\u529B",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u6F0F\u6389\u5176\u4ED6\u60C5\u5883\u7684\u6DB5\u84CB\uFF0C\u800C\u975E\u904E\u5EA6\u6E2C\u8A66\u5FEB\u6A02\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u689D\u4EF6\u518D\u4E5F\u7121\u6CD5\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u5FEB\u6A02\u8DEF\u5F91\u4ECD\u6703\u8A2D\u5B9A\u524D\u7F6E\u689D\u4EF6\uFF1B\u7F3A\u53E3\u5728\u65BC\u672A\u6E2C\u8A66\u7684\u66FF\u4EE3\uFF0F\u4F8B\u5916\u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u81EA\u52D5\u9054\u6210\u5B8C\u6574\u7684\u6558\u8FF0\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u5FEB\u6A02\u8DEF\u5F91\u6E2C\u8A66\u5F88\u5C11\u89F8\u53CA\u932F\u8AA4\u8655\u7406\u7A0B\u5F0F\u78BC\uFF0C\u6545\u7121\u6CD5\u4FDD\u8B49\u6558\u8FF0\u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u6DB5\u84CB\u8981\u6C42\u57FA\u672C\u6D41\u7A0B\u52A0\u4E0A\u6BCF\u500B\u66FF\u4EE3\u8207\u6BCF\u500B\u4F8B\u5916\u3002\u53EA\u6E2C\u5FEB\u6A02\u8DEF\u5F91\u6703\u4F7F\u6BCF\u500B\u66FF\u4EE3\u8207\u932F\u8AA4\u8655\u7406\u60C5\u5883\u672A\u88AB\u57F7\u884C\u2014\u2014\u800C\u8A31\u591A\u771F\u5BE6\u7F3A\u9677\u6B63\u85CF\u5728\u5176\u4E2D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C07\u4F7F\u7528\u6848\u4F8B\u8DEF\u5F91\u5C0D\u61C9\u5230\u5177\u9AD4\u6E2C\u8A66\u6848\u4F8B",
+            "text": "<p>\u4F60\u8981\u628A\u4E00\u500B\u4F7F\u7528\u6848\u4F8B\u60C5\u5883\u8F49\u70BA\u5177\u9AD4\u6E2C\u8A66\u6848\u4F8B\u3002\u4E0B\u5217\u54EA\u500B\u300C\u4F7F\u7528\u6848\u4F8B\u90E8\u5206\u5C0D\u61C9\u5230\u6E2C\u8A66\u90E8\u5206\u300D\u7684\u5C0D\u7167\u662F\u6B63\u78BA\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u524D\u7F6E\u689D\u4EF6 \u2192 \u524D\u7F6E\u8A2D\u5B9A\uFF1B\u6240\u9078\u6D41\u7A0B\u7684\u6B65\u9A5F \u2192 \u6E2C\u8A66\u6B65\u9A5F\uFF1B\u5F8C\u7F6E\u689D\u4EF6 \u2192 \u9810\u671F\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u5F9E\u60C5\u5883\u5230\u6E2C\u8A66\u6848\u4F8B\u7684\u6A19\u6E96\u5C0D\u61C9\u3002"
+              },
+              {
+                "text": "\u5F8C\u7F6E\u689D\u4EF6 \u2192 \u524D\u7F6E\u8A2D\u5B9A\uFF1B\u524D\u7F6E\u689D\u4EF6 \u2192 \u9810\u671F\u7D50\u679C\uFF1B\u89F8\u767C\u4E8B\u4EF6 \u2192 \u6536\u5C3E",
+                "fraction": 0,
+                "feedback": "\u9019\u5F04\u53CD\u4E86\u89D2\u8272\uFF1B\u524D\u7F6E\u689D\u4EF6\u662F\u524D\u7F6E\u8A2D\u5B9A\uFF0C\u5F8C\u7F6E\u689D\u4EF6\u662F\u9810\u671F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u53C3\u8207\u8005 \u2192 \u524D\u7F6E\u8A2D\u5B9A\uFF1B\u524D\u7F6E\u689D\u4EF6 \u2192 \u6B65\u9A5F\uFF1B\u5F8C\u7F6E\u689D\u4EF6 \u2192 \u6E2C\u8A66\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u689D\u4EF6\u662F\u524D\u7F6E\u8A2D\u5B9A\uFF0C\u6D41\u7A0B\u7684\u6B65\u9A5F\u624D\u662F\u6E2C\u8A66\u6B65\u9A5F\uFF1B\u6B64\u5C0D\u61C9\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u4E8B\u4EF6 \u2192 \u9810\u671F\u7D50\u679C\uFF1B\u6B65\u9A5F \u2192 \u524D\u7F6E\u8A2D\u5B9A\uFF1B\u5F8C\u7F6E\u689D\u4EF6 \u2192 \u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u5F8C\u7F6E\u689D\u4EF6\u662F\u9810\u671F\u7D50\u679C\uFF0C\u800C\u975E\u8F38\u5165\uFF1B\u6B64\u5C0D\u61C9\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u53EF\u4E7E\u6DE8\u5730\u5C0D\u61C9\u5230\u6E2C\u8A66\u6848\u4F8B\uFF1A\u524D\u7F6E\u689D\u4EF6\u5EFA\u7ACB\u521D\u59CB\u72C0\u614B\uFF08\u524D\u7F6E\u8A2D\u5B9A\uFF09\uFF0C\u60C5\u5883\u7684\u6D41\u7A0B\u6210\u70BA\u6709\u5E8F\u7684\u6E2C\u8A66\u6B65\u9A5F\uFF0C\u5F8C\u7F6E\u689D\u4EF6\u6210\u70BA\u8981\u65B7\u8A00\u7684\u9810\u671F\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u76F8\u5C0D\u55AE\u5143\u6E2C\u8A66\u7684\u512A\u52E2\u8207\u9650\u5236",
+            "text": "<p>\u8207\u55AE\u5143\u6E2C\u8A66\u76F8\u6BD4\uFF0C\u4F55\u8005\u6700\u80FD\u63CF\u8FF0\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u7684\u512A\u52E2\u8207\u9650\u5236\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u9A57\u8B49\u771F\u5BE6\u7684\u7AEF\u5230\u7AEF\u4F7F\u7528\u8005\u76EE\u6A19\u4E26\u767C\u73FE\u6574\u5408\uFF0F\u5DE5\u4F5C\u6D41\u7A0B\u7F3A\u9677\uFF0C\u4F46\u4E0D\u6703\u6709\u7CFB\u7D71\u5730\u57F7\u884C\u4F4E\u968E\u5167\u90E8\u7A0B\u5F0F\u78BC\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5728\u7CFB\u7D71\uFF0F\u9A57\u6536\u5C64\u7D1A\u5F88\u5F37\uFF0C\u4F46\u5728\u6DF1\u5C64\u7A0B\u5F0F\u78BC\u8DEF\u5F91\u6DB5\u84CB\u4E0A\u8F03\u5F31\u3002"
+              },
+              {
+                "text": "\u4E0D\u540C\u65BC\u55AE\u5143\u6E2C\u8A66\uFF0C\u5B83\u4FDD\u8B49\u6BCF\u500B\u51FD\u5F0F\u7684\u5B8C\u6574\u5206\u652F\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u7531\u65BC\u5B83\u662F\u9ED1\u7BB1\u4E14\u7AEF\u5230\u7AEF\uFF0C\u4E26\u4E0D\u6703\u6709\u7CFB\u7D71\u5730\u6DB5\u84CB\u5167\u90E8\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5C64\u7D1A\u8F03\u9AD8\uFF0C\u5B83\u53EF\u5B8C\u5168\u53D6\u4EE3\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4E92\u88DC\uFF1B\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u6703\u6F0F\u6389\u55AE\u5143\u6E2C\u8A66\u6240\u91DD\u5C0D\u7684\u4F4E\u968E\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u6AA2\u8996\u63A7\u5236\u6D41\u7A0B\u5716\u7684\u767D\u7BB1\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u662F\u9ED1\u7BB1\uFF1B\u5B83\u4E0D\u5206\u6790\u63A7\u5236\u6D41\u7A0B\u5716\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u64C5\u9577\u9A57\u8B49\u7AEF\u5230\u7AEF\u3001\u771F\u5BE6\u7684\u4F7F\u7528\u8005\u76EE\u6A19\uFF0C\u4E26\u5728\u7CFB\u7D71\uFF0F\u9A57\u6536\u5C64\u7D1A\u63ED\u9732\u6574\u5408\uFF0F\u5DE5\u4F5C\u6D41\u7A0B\u554F\u984C\u3002\u7531\u65BC\u5B83\u662F\u9ED1\u7BB1\uFF0C\u4E26\u4E0D\u6703\u6709\u7CFB\u7D71\u5730\u57F7\u884C\u4F4E\u968E\u7A0B\u5F0F\u78BC\u8DEF\u5F91\uFF0C\u56E0\u6B64\u8207\u55AE\u5143\u6E2C\u8A66\u4E92\u88DC\uFF0C\u800C\u975E\u53D6\u4EE3\u4E4B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u66FF\u4EE3\u8207\u4F8B\u5916\u7684\u7D44\u5408",
+            "text": "<p>\u67D0\u4F7F\u7528\u6848\u4F8B\u6709\u4E00\u500B\u57FA\u672C\u6D41\u7A0B\u30011 \u500B\u66FF\u4EE3\u6D41\u7A0B\uFF08\u4EE5\u6298\u6263\u5238\u53D6\u4EE3\u5361\u7247\u4ED8\u6B3E\uFF09\uFF0C\u4EE5\u53CA 1 \u500B\u4F8B\u5916\uFF08\u4ED8\u6B3E\u88AB\u62D2\uFF09\uFF0C\u800C\u8A72\u4F8B\u5916\u53EF\u80FD\u767C\u751F\u5728<em>\u5361\u7247\u8DEF\u5F91\u6216\u6298\u6263\u5238\u8DEF\u5F91</em>\u4EFB\u4E00\u8005\u4E0A\u3002\u82E5\u4F60\u5206\u5225\u6DB5\u84CB\u57FA\u672C\uFF08\u5361\u7247\uFF09\u6210\u529F\u3001\u6298\u6263\u5238\u6210\u529F\uFF0C\u4EE5\u53CA\u5404\u8DEF\u5F91\u4E0A\u7684\u88AB\u62D2\uFF0C\u5171\u6709\u5E7E\u500B\u60C5\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u5361\u7247\u6210\u529F\u3001\u6298\u6263\u5238\u6210\u529F\u3001\u5361\u7247\u88AB\u62D2\u3001\u6298\u6263\u5238\u88AB\u62D2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5916\u8207\u5169\u689D\u6210\u529F\u8DEF\u5F91\u5404\u81EA\u7D44\u5408\uFF0C\u5F97\u5230 2 + 2 = 4\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u57FA\u672C\u3001\u66FF\u4EE3\u3001\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u7531\u65BC\u88AB\u62D2\u53EF\u80FD\u767C\u751F\u5728\u4EFB\u4E00\u8DEF\u5F91\uFF0C\u5B83\u7522\u751F\u5169\u500B\u76F8\u7570\u7684\u4F8B\u5916\u60C5\u5883\uFF0C\u800C\u975E\u4E00\u500B\uFF1B\u7E3D\u6578\u70BA 4\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u4E00\u500B\u6210\u529F\u3001\u4E00\u500B\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6709\u5169\u689D\u6210\u529F\u8DEF\u5F91\uFF0C\u800C\u5931\u6557\u9069\u7528\u65BC\u6BCF\u4E00\u689D\uFF0C\u5F97\u5230 4 \u500B\u60C5\u5883\u3002"
+              },
+              {
+                "text": "6\u2014\u2014\u6BCF\u500B\u6D41\u7A0B\u4E58\u4EE5\u6BCF\u500B\u5176\u4ED6\u6D41\u7A0B",
+                "fraction": 0,
+                "feedback": "\u88AB\u62D2\u53EA\u9644\u8457\u65BC\u9019 2 \u689D\u4ED8\u6B3E\u8DEF\u5F91\uFF0C\u5F97\u5230 4\uFF0C\u800C\u975E 6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u689D\u6210\u529F\u8DEF\u5F91\uFF08\u5361\u7247\u3001\u6298\u6263\u5238\uFF09\u52A0\u4E0A\u88AB\u62D2\u4F8B\u5916\u5728\u5404\u8DEF\u5F91\u4E0A\u767C\u751F\uFF0C\u5F97\u5230 2 \u500B\u6210\u529F + 2 \u500B\u88AB\u62D2 = 4 \u500B\u60C5\u5883\u3002\u7576\u4F8B\u5916\u53EF\u767C\u751F\u5728\u591A\u689D\u8DEF\u5F91\u4E0A\u6642\uFF0C\u5B83\u8207\u90A3\u4E9B\u8DEF\u5F91\u76F8\u4E58\uFF0C\u800C\u975E\u53EA\u7B97\u4E00\u6B21\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u6F0F\u6389\u4F4E\u968E\u8DEF\u5F91",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u901A\u5E38\u7121\u6CD5\u57F7\u884C\u8A31\u591A\u4F4E\u968E\u7A0B\u5F0F\u78BC\u8DEF\u5F91\uFF08\u4F8B\u5982\u67D0\u8F14\u52A9\u51FD\u5F0F\u5167\u90E8\u7684\u7F55\u898B\u5206\u652F\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4F9D\u5916\u90E8\u4F7F\u7528\u8005\u76EE\u6A19\u8207\u6D41\u7A0B\u63A8\u5C0E\u6E2C\u8A66\uFF0C\u800C\u975E\u4F9D\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF0C\u56E0\u6B64\u5167\u90E8\u5206\u652F\u53EA\u662F\u5076\u7136\u88AB\u89F8\u53CA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u65BC\u5B83\u662F\u9ED1\u7BB1\u4E14\u4EE5\u76EE\u6A19\u70BA\u5C0E\u5411\uFF0C\u4E26\u4E0D\u91DD\u5C0D\u5167\u90E8\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F7F\u7528\u6848\u4F8B\u7981\u6B62\u5728\u6E2C\u8A66\u6642\u57F7\u884C\u4EFB\u4F55\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u78BA\u5BE6\u6703\u57F7\u884C\u7CFB\u7D71\uFF1B\u53EA\u662F\u5176\u8A2D\u8A08\u4E0D\u4EE5\u5167\u90E8\u7A0B\u5F0F\u78BC\u7D50\u69CB\u70BA\u4F9D\u64DA\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u53EA\u80FD\u624B\u52D5\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EF\u4EE5\u81EA\u52D5\u5316\uFF1B\u554F\u984C\u5728\u65BC\u5176\u8A2D\u8A08\u5FFD\u7565\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF0C\u800C\u975E\u57F7\u884C\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F4E\u968E\u5206\u652F\u6C38\u9060\u90FD\u662F\u6B7B\u78BC",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u5206\u652F\u901A\u5E38\u662F\u6D3B\u7684\uFF1B\u53EA\u662F\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u4E26\u975E\u70BA\u91DD\u5C0D\u5B83\u5011\u800C\u8A2D\u8A08\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u6848\u4F8B\u6E2C\u8A66\u662F\u9ED1\u7BB1\uFF1A\u6E2C\u8A66\u4F86\u81EA\u53C3\u8207\u8005\u76EE\u6A19\u8207\u53EF\u89C0\u5BDF\u7684\u6D41\u7A0B\uFF0C\u800C\u975E\u63A7\u5236\u6D41\u7A0B\u5716\u3002\u6DF1\u5C64\u6216\u7F55\u898B\u7684\u5167\u90E8\u5206\u652F\u53EA\u662F\u78B0\u5DE7\u88AB\u57F7\u884C\uFF0C\u9019\u4E5F\u662F\u70BA\u4F55\u9700\u8981\u642D\u914D\u7D50\u69CB\uFF08\u767D\u7BB1\uFF09\u6280\u8853\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u6DB5\u84CB\u7684\u6700\u5C0F\u6E2C\u8A66\u96C6",
+            "text": "<p>\u67D0\u4F7F\u7528\u6848\u4F8B\u6709 1 \u500B\u57FA\u672C\u6D41\u7A0B\u30012 \u500B\u66FF\u4EE3\u6D41\u7A0B\u8207 3 \u500B\u4F8B\u5916\u6D41\u7A0B\uFF0C\u6BCF\u4E00\u500B\u90FD\u662F\u5404\u81EA\u7368\u7ACB\u7684\u55AE\u4E00\u8DEF\u5F91\u3002\u8981\u9054\u6210\u4F7F\u7528\u6848\u4F8B\u60C5\u5883\u6DB5\u84CB\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6\u2014\u2014\u6BCF\u500B\u60C5\u5883\u4E00\u500B\u6E2C\u8A66\uFF081 + 2 + 3\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u60C5\u5883\u6DB5\u84CB\u9700\u6BCF\u500B\u60C5\u5883\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\uFF0C\u6545 1 + 2 + 3 = 6\u3002"
+              },
+              {
+                "text": "5\u2014\u2014\u7701\u7565\u57FA\u672C\u6D41\u7A0B\uFF0C\u56E0\u70BA\u66FF\u4EE3\u5DF2\u6DB5\u84CB\u5B83",
+                "fraction": 0,
+                "feedback": "\u57FA\u672C\u6D41\u7A0B\u662F\u81EA\u5DF1\u7684\u60C5\u5883\uFF0C\u5FC5\u9808\u6DB5\u84CB\uFF1B\u7E3D\u6578\u70BA 6\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u53EA\u6709\u4F8B\u5916\u9700\u8981\u5C08\u5C6C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u57FA\u672C\u8207\u66FF\u4EE3\u6D41\u7A0B\u4E5F\u662F\u60C5\u5883\uFF1B\u7E3D\u6578\u70BA 6\u3002"
+              },
+              {
+                "text": "36\u2014\u2014\u6BCF\u500B\u6D41\u7A0B\u8207\u6BCF\u500B\u5176\u4ED6\u6D41\u7A0B\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u7368\u7ACB\u7684\u55AE\u4E00\u8DEF\u5F91\u76F8\u52A0\u70BA 6\uFF1B\u4E0D\u6703\u5169\u5169\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u6DB5\u84CB\u9700\u6BCF\u500B\u60C5\u5883\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u3002\u4EE5\u7368\u7ACB\u8DEF\u5F91\u800C\u8A00\u5373 1 \u500B\u57FA\u672C + 2 \u500B\u66FF\u4EE3 + 3 \u500B\u4F8B\u5916 = 6 \u500B\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6210\u529F\u4FDD\u8B49\u8207\u6700\u5C0F\uFF08\u5931\u6557\uFF09\u4FDD\u8B49",
+            "text": "<p>\u67D0\u4F8B\u5916\u60C5\u5883\uFF08\u300C\u4ED8\u6B3E\u88AB\u62D2\u300D\uFF09\u5728\u672A\u9054\u6210\u76EE\u6A19\u7684\u60C5\u6CC1\u4E0B\u7D50\u675F\u3002\u6240\u63A8\u5C0E\u7684\u6E2C\u8A66\u61C9\u65B7\u8A00\u54EA\u500B\u5F8C\u7F6E\u689D\u4EF6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5931\u6557\uFF0F\u6700\u5C0F\u4FDD\u8B49\u2014\u2014\u4F8B\u5982\u672A\u5EFA\u7ACB\u8A02\u55AE\u3001\u5E33\u6236\u7DAD\u6301\u4E0D\u8B8A\u4E14\u986F\u793A\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5931\u6557\u60C5\u5883\u7684\u9810\u671F\u7D50\u679C\u662F\u5176\u6700\u5C0F\uFF08\u5931\u6557\uFF09\u4FDD\u8B49\uFF0C\u800C\u975E\u6210\u529F\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u6210\u529F\u4FDD\u8B49\u2014\u2014\u8A02\u55AE\u5DF2\u6210\u7ACB\u4E14\u4ED8\u6B3E\u5DF2\u6536\u53D6",
+                "fraction": 0,
+                "feedback": "\u60C5\u5883\u5931\u6557\u4E86\uFF0C\u56E0\u6B64\u6210\u529F\u4FDD\u8B49\u4E0D\u61C9\u6210\u7ACB\uFF1B\u6539\u70BA\u65B7\u8A00\u5931\u6557\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u6C92\u6709\u5F8C\u7F6E\u689D\u4EF6\uFF0C\u56E0\u70BA\u5B83\u5931\u6557\u4E86",
+                "fraction": 0,
+                "feedback": "\u5373\u4F7F\u5931\u6557\u7684\u60C5\u5883\u4E5F\u6709\u4E00\u500B\u4FDD\u8B49\u7684\u5B89\u5168\u7D50\u675F\u72C0\u614B\uFF08\u6700\u5C0F\u4FDD\u8B49\uFF09\uFF0C\u6E2C\u8A66\u61C9\u52A0\u4EE5\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u689D\u4EF6\uFF0C\u5728\u7D50\u675F\u6642\u91CD\u65B0\u6AA2\u67E5",
+                "fraction": 0,
+                "feedback": "\u9810\u671F\u7D50\u679C\u662F\u5931\u6557\u4FDD\u8B49\uFF0C\u800C\u975E\u524D\u7F6E\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u6848\u4F8B\u6703\u6307\u5B9A\u6210\u529F\u4FDD\u8B49\uFF08\u6210\u529F\u8DEF\u5F91\u7528\uFF09\u8207\u6700\u5C0F\uFF0F\u5931\u6557\u4FDD\u8B49\uFF08\u5931\u6557\u5F8C\u6240\u7559\u4E0B\u7684\u5B89\u5168\u72C0\u614B\uFF09\u3002\u4F8B\u5916\u60C5\u5883\u7684\u6E2C\u8A66\u61C9\u65B7\u8A00\u5931\u6557\u4FDD\u8B49\u2014\u2014\u4F8B\u5982\u672A\u5EFA\u7ACB\u8A02\u55AE\u3001\u672A\u6263\u6B3E\u3001\u986F\u793A\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u524D\u7F6E\u689D\u4EF6\u3001\u6B65\u9A5F\u3001\u5F8C\u7F6E\u689D\u4EF6\u7522\u751F\u5177\u9AD4\u6E2C\u8A66",
+            "text": "<p>\u4F7F\u7528\u6848\u4F8B\u300C\u9000\u8CA8\u300D\uFF1A<em>\u524D\u7F6E\u689D\u4EF6\uFF1A\u9867\u5BA2\u6709\u4E00\u7B46\u5728\u9000\u8CA8\u671F\u9650\u5167\u3001\u5DF2\u9001\u9054\u7684\u8A02\u55AE\u3002\u57FA\u672C\u6D41\u7A0B\uFF1A\u9867\u5BA2\u9078\u53D6\u5546\u54C1\u3001\u9078\u64C7\u539F\u56E0\u4E26\u9001\u51FA\u9000\u8CA8\uFF1B\u7CFB\u7D71\u958B\u7ACB\u9000\u8CA8\u6A19\u7C64\u4E26\u5C07\u5546\u54C1\u6A19\u8A18\u70BA\u5F85\u9000\u3002\u5F8C\u7F6E\u689D\u4EF6\uFF1A\u9000\u8CA8\u5DF2\u8A18\u9304\u4E14\u6A19\u7C64\u5DF2\u958B\u7ACB\u3002</em>\u4E0B\u5217\u54EA\u500B\u5177\u9AD4\u6E2C\u8A66\u6B63\u78BA\u5BE6\u73FE\u6B64\u60C5\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u524D\u7F6E\u8A2D\u5B9A\uFF1A\u4E00\u500B\u64C1\u6709\u5DF2\u9001\u9054\u3001\u671F\u9650\u5167\u8A02\u55AE\u7684\u5E33\u6236\u3002\u6B65\u9A5F\uFF1A\u9078\u53D6\u5546\u54C1\u3001\u9078\u64C7\u539F\u56E0\u3001\u9001\u51FA\u3002\u9810\u671F\uFF1A\u5B58\u5728\u4E00\u7B46\u9000\u8CA8\u7D00\u9304\u4E14\u5DF2\u958B\u7ACB\u9000\u8CA8\u6A19\u7C64",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u524D\u7F6E\u689D\u4EF6\u6210\u70BA\u524D\u7F6E\u8A2D\u5B9A\uFF0C\u6D41\u7A0B\u6210\u70BA\u6B65\u9A5F\uFF0C\u5F8C\u7F6E\u689D\u4EF6\u6210\u70BA\u9810\u671F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u8A2D\u5B9A\uFF1A\u4E00\u500B\u6C92\u6709\u4EFB\u4F55\u8A02\u55AE\u7684\u5E33\u6236\u3002\u6B65\u9A5F\uFF1A\u9001\u51FA\u9000\u8CA8\u3002\u9810\u671F\uFF1A\u958B\u7ACB\u6A19\u7C64",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u689D\u4EF6\uFF08\u4E00\u7B46\u5DF2\u9001\u9054\u3001\u671F\u9650\u5167\u7684\u8A02\u55AE\uFF09\u672A\u88AB\u6EFF\u8DB3\uFF0C\u6545\u7121\u6CD5\u5BE6\u73FE\u6B64\u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u8A2D\u5B9A\uFF1A\u4E00\u7B46\u5DF2\u9001\u9054\u3001\u671F\u9650\u5167\u7684\u8A02\u55AE\u3002\u6B65\u9A5F\uFF1A\u9001\u51FA\u9000\u8CA8\u3002\u9810\u671F\uFF1A\u4E0D\u767C\u751F\u4EFB\u4F55\u8B8A\u5316",
+                "fraction": 0,
+                "feedback": "\u5F8C\u7F6E\u689D\u4EF6\u627F\u8AFE\u5DF2\u8A18\u9304\u9000\u8CA8\u4E26\u958B\u7ACB\u6A19\u7C64\uFF0C\u6545\u300C\u4E0D\u767C\u751F\u4EFB\u4F55\u8B8A\u5316\u300D\u662F\u932F\u8AA4\u7684\u9810\u671F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u8A2D\u5B9A\uFF1A\u7121\u3002\u6B65\u9A5F\uFF1A\u76F4\u63A5\u547C\u53EB\u6A19\u7C64\u5217\u5370\u51FD\u5F0F\u3002\u9810\u671F\uFF1A\u7522\u751F\u4E00\u4EFD PDF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C0D\u55AE\u4E00\u51FD\u5F0F\u7684\u55AE\u5143\u6E2C\u8A66\uFF0C\u800C\u975E\u5E36\u6709\u524D\u7F6E\u689D\u4EF6\u8207\u5F8C\u7F6E\u689D\u4EF6\u7684\u7AEF\u5230\u7AEF\u4F7F\u7528\u6848\u4F8B\u60C5\u5883\u3002"
+              }
+            ],
+            "generalFeedback": "\u60C5\u5883\u53EF\u76F4\u63A5\u5C0D\u61C9\uFF1A\u524D\u7F6E\u689D\u4EF6\uFF08\u5DF2\u9001\u9054\u3001\u671F\u9650\u5167\u7684\u8A02\u55AE\uFF09\u662F\u524D\u7F6E\u8A2D\u5B9A\uFF1B\u57FA\u672C\u6D41\u7A0B\u7684\u6B65\u9A5F\u662F\u6E2C\u8A66\u6B65\u9A5F\uFF1B\u5F8C\u7F6E\u689D\u4EF6\uFF08\u9000\u8CA8\u5DF2\u8A18\u9304\u3001\u6A19\u7C64\u5DF2\u958B\u7ACB\uFF09\u662F\u8981\u65B7\u8A00\u7684\u9810\u671F\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "extend \u65B0\u589E\u300C\u6709\uFF0F\u7121\u300D\u7684\u60C5\u5883\u5206\u88C2",
+            "text": "<p>\u300C\u8A02\u6A5F\u7968\u300D\u88AB\u300C\u52A0\u8CFC\u984D\u5916\u884C\u674E\u300D<em>\u5EF6\u4F38\uFF08extend\uFF09</em>\uFF08\u9078\u7528\uFF0C\u4F4D\u65BC\u5EF6\u4F38\u9EDE\uFF09\u3002\u8981\u5C0D\u6B64\u55AE\u4E00\u9078\u7528\u5EF6\u4F38\u505A\u60C5\u5883\u6DB5\u84CB\uFF0C\u5FC5\u9808\u6DB5\u84CB\u5E7E\u500B\u60C5\u5883\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2\u2014\u2014\u4E00\u500B\u63A1\u7528\u5EF6\u4F38\u3001\u4E00\u500B\u4E0D\u63A1\u7528\uFF0C\u56E0\u70BA\u5B83\u662F\u6709\u689D\u4EF6\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6709\u689D\u4EF6\u7684\u5EF6\u4F38\u9700\u540C\u6642\u6DB5\u84CB\u300C\u6709\u5EF6\u4F38\u300D\u8207\u300C\u7121\u5EF6\u4F38\u300D\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u8A72\u5EF6\u4F38\u7E3D\u662F\u8A02\u6A5F\u7968\u7684\u4E00\u90E8\u5206",
+                "fraction": 0,
+                "feedback": "\u5EF6\u4F38\u662F\u6709\u689D\u4EF6\u7684\uFF0C\u6545\u4E26\u975E\u7E3D\u662F\u6D41\u7A0B\u7684\u4E00\u90E8\u5206\uFF1B\u300C\u6709\u300D\u8207\u300C\u7121\u300D\u90FD\u5FC5\u9808\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u9078\u7528\u884C\u70BA\u7121\u9700\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9078\u7528\u884C\u70BA\u4ECD\u9700\u6E2C\u8A66\uFF1B\u5169\u500B\u5206\u652F\uFF08\u63A1\u7528\u8207\u4E0D\u63A1\u7528\uFF09\u90FD\u662F\u60C5\u5883\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u5169\u500B\u689D\u4EF6\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E00\u500B\u9078\u7528\u5EF6\u4F38\uFF0C\u5F97\u5230 2 \u500B\u60C5\u5883\uFF08\u63A1\u7528\uFF0F\u4E0D\u63A1\u7528\uFF09\uFF0C\u800C\u975E 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC extend \u662F\u6709\u689D\u4EF6\u7684\uFF0C\u6DB5\u84CB\u5B83\u610F\u8B02\u540C\u6642\u6E2C\u8A66\u300C\u5EF6\u4F38\u767C\u751F\u300D\u8207\u300C\u5EF6\u4F38\u4E0D\u767C\u751F\u300D\u5169\u689D\u8DEF\u5F91\u2014\u2014\u55AE\u4E00\u9078\u7528\u5EF6\u4F38\u5373\u5169\u500B\u60C5\u5883\u3002\uFF08\u5C0D\u6BD4 include\uFF0C\u5B83\u7E3D\u662F\u57F7\u884C\uFF0C\u4E26\u4E0D\u65B0\u589E\u9019\u7A2E\u5206\u88C2\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\u6DB5\u84CB\u8207\u7AAE\u8209\u8DEF\u5F91\u6E2C\u8A66",
+            "text": "<p>\u67D0\u8907\u96DC\u4F7F\u7528\u6848\u4F8B\u6709\u8A31\u591A\u9078\u7528\u5EF6\u4F38\u8207\u4F8B\u5916\uFF0C\u56E0\u6B64\u300C\u628A\u6BCF\u500B\u6D41\u7A0B\u90FD\u7D44\u5408\u8D77\u4F86\u300D\u7684\u65B9\u5F0F\u6578\u76EE\u9F90\u5927\u3002\u70BA\u4EC0\u9EBC\u4F7F\u7528\u6848\u4F8B<strong>\u60C5\u5883\u6DB5\u84CB</strong>\u901A\u5E38\u662F\u6BCF\u500B\u60C5\u5883\u6E2C\u4E00\u689D\u8DEF\u5F91\uFF08\u57FA\u672C + \u6BCF\u500B\u66FF\u4EE3 + \u6BCF\u500B\u4F8B\u5916\uFF09\uFF0C\u800C\u975E\u6E2C\u8A66\u6BCF\u4E00\u7A2E\u53EF\u80FD\u7684\u6D41\u7A0B\u7D44\u5408\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D44\u5408\u6BCF\u500B\u6D41\u7A0B\u6703\u9020\u6210\u7D44\u5408\u7206\u70B8\uFF0C\u56E0\u6B64\u60C5\u5883\u6DB5\u84CB\u4EE5\u300C\u6BCF\u500B\u6D41\u7A0B\u81F3\u5C11\u4E00\u6B21\u300D\u4F5C\u70BA\u52D9\u5BE6\u3001\u6709\u754C\u7684\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u60C5\u5883\u4E00\u689D\u8DEF\u5F91\u662F\u5C0D\u6297\u7D44\u5408\u7206\u70B8\u7684\u53EF\u884C\u6298\u8877\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u66FF\u4EE3\u8207\u4F8B\u5916\u6D41\u7A0B\u5F9E\u4E0D\u542B\u6709\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5F80\u5F80\u542B\u6709\u7F3A\u9677\u2014\u2014\u60C5\u5883\u6DB5\u84CB\u6B63\u56E0\u5B83\u5011\u91CD\u8981\u800C\u5404\u6E2C\u4E00\u6B21\uFF1B\u5B83\u53EA\u662F\u907F\u514D\u5B8C\u6574\u7684\u7D44\u5408\u7206\u70B8\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u53EA\u6709\u57FA\u672C\u6D41\u7A0B\u503C\u5F97\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u60C5\u5883\u6DB5\u84CB\u6703\u628A\u6BCF\u500B\u6D41\u7A0B\u90FD\u6E2C\u81F3\u5C11\u4E00\u6B21\uFF0C\u800C\u975E\u53EA\u6E2C\u57FA\u672C\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6E2C\u8A66\u6BCF\u4E00\u7A2E\u7D44\u5408\u662F\u5FC5\u9700\u7684\uFF0C\u4E14\u7E3D\u662F\u53EF\u884C",
+                "fraction": 0,
+                "feedback": "\u56E0\u7D44\u5408\u7206\u70B8\uFF0C\u6E2C\u8A66\u6BCF\u4E00\u7A2E\u7D44\u5408\u901A\u5E38\u4E0D\u53EF\u884C\uFF0C\u9019\u6B63\u662F\u63A1\u7528\u60C5\u5883\u6DB5\u84CB\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6574\u6D41\u7A0B\u7D44\u5408\u7684\u6578\u76EE\u5448\u4E58\u6CD5\u6210\u9577\uFF0C\u5F88\u5FEB\u8B8A\u5F97\u96E3\u4EE5\u8655\u7406\u3002\u60C5\u5883\u6DB5\u84CB\u5C07\u6BCF\u500B\u6D41\u7A0B\uFF08\u57FA\u672C\u3001\u6BCF\u500B\u66FF\u4EE3\u3001\u6BCF\u500B\u4F8B\u5916\uFF09\u81F3\u5C11\u57F7\u884C\u4E00\u6B21\u2014\u2014\u4E00\u500B\u6709\u754C\u3001\u6210\u672C\u6548\u76CA\u4F73\u7684\u6E96\u5247\u2014\u2014\u4E26\u63A5\u53D7\u672A\u5617\u8A66\u6BCF\u4E00\u7A2E\u6D41\u7A0B\u7D44\u5408\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "v-model": {
       "en": {
         "easy": [

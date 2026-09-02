@@ -83577,6 +83577,2590 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "use-case-derivation": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a use case is",
+          "text": "<p>In use-case-based testing, what is a <strong>use case</strong>?</p>",
+          "answers": [
+            {
+              "text": "A description of how an actor interacts with the system to achieve a particular goal, told as a sequence of steps",
+              "fraction": 100,
+              "feedback": "Correct — a use case captures a goal-directed interaction between an actor and the system."
+            },
+            {
+              "text": "A single line of source code exercised by a test",
+              "fraction": 0,
+              "feedback": "That is a code statement; a use case is a black-box description of an interaction, not code."
+            },
+            {
+              "text": "A table of boolean conditions mapped to actions",
+              "fraction": 0,
+              "feedback": "That describes a decision table; a use case is a narrative of goal-directed steps."
+            },
+            {
+              "text": "A measure of how much of the code a test suite covers",
+              "fraction": 0,
+              "feedback": "That is code coverage; a use case describes user-visible behaviour, not coverage."
+            }
+          ],
+          "generalFeedback": "A use case describes, from the outside, how an actor uses the system to reach a goal. It is a black-box, requirements-level artifact and the basis for deriving acceptance/system tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an actor is",
+          "text": "<p>In a use case, what is an <strong>actor</strong>?</p>",
+          "answers": [
+            {
+              "text": "An external entity (a person, role, or other system) that interacts with the system under test",
+              "fraction": 100,
+              "feedback": "Correct — an actor is an external role that participates in the use case."
+            },
+            {
+              "text": "An internal function or method inside the system",
+              "fraction": 0,
+              "feedback": "An actor is external to the system; internal functions are implementation, not actors."
+            },
+            {
+              "text": "A test case that drives the use case",
+              "fraction": 0,
+              "feedback": "A test case is derived from the use case; the actor is the external participant it represents."
+            },
+            {
+              "text": "A defect discovered during system testing",
+              "fraction": 0,
+              "feedback": "A defect is a fault; an actor is an external role interacting with the system."
+            }
+          ],
+          "generalFeedback": "An actor is any external entity — a human role, an external device, or another system — that interacts with the system to help achieve (or support) the use case's goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary vs secondary actor",
+          "text": "<p>What distinguishes the <strong>primary actor</strong> from a <strong>secondary actor</strong> in a use case?</p>",
+          "answers": [
+            {
+              "text": "The primary actor initiates the use case to achieve its goal; a secondary actor is one the system calls on to help complete the use case",
+              "fraction": 100,
+              "feedback": "Correct — the primary actor drives the goal; secondary actors provide supporting services."
+            },
+            {
+              "text": "The primary actor is a human and the secondary actor is always a machine",
+              "fraction": 0,
+              "feedback": "Either can be a person or a system; the distinction is who initiates versus who supports."
+            },
+            {
+              "text": "The primary actor is optional and the secondary actor is mandatory",
+              "fraction": 0,
+              "feedback": "The primary actor is the one whose goal the use case serves; it is not optional."
+            },
+            {
+              "text": "The primary actor writes the tests; the secondary actor runs them",
+              "fraction": 0,
+              "feedback": "Actors are roles in the interaction, not testing responsibilities."
+            }
+          ],
+          "generalFeedback": "The primary actor has the goal that the use case satisfies and triggers it; secondary (supporting) actors — such as a payment gateway or an email service — are contacted by the system to help fulfil that goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a precondition is",
+          "text": "<p>What does a <strong>precondition</strong> of a use case state?</p>",
+          "answers": [
+            {
+              "text": "What must already be true before the use case can begin",
+              "fraction": 100,
+              "feedback": "Correct — a precondition is a guaranteed starting state assumed at the outset."
+            },
+            {
+              "text": "What will be true after the use case finishes successfully",
+              "fraction": 0,
+              "feedback": "That is a postcondition (success guarantee), not a precondition."
+            },
+            {
+              "text": "The event that starts the use case",
+              "fraction": 0,
+              "feedback": "That is the trigger; a precondition is a state that must hold beforehand."
+            },
+            {
+              "text": "The list of steps in the main flow",
+              "fraction": 0,
+              "feedback": "Those are the basic-flow steps; a precondition is a state assumed before the flow starts."
+            }
+          ],
+          "generalFeedback": "A precondition is a condition guaranteed to hold before the use case starts (e.g. \"the user is logged in\"). It is assumed, not checked, within the flow — and it maps directly to test setup.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a postcondition is",
+          "text": "<p>What does the <strong>postcondition</strong> (success guarantee) of a use case describe?</p>",
+          "answers": [
+            {
+              "text": "The state that must hold after the use case completes successfully",
+              "fraction": 100,
+              "feedback": "Correct — the success guarantee is what is true once the goal is achieved."
+            },
+            {
+              "text": "The state that must hold before the use case can start",
+              "fraction": 0,
+              "feedback": "That is a precondition, not a postcondition."
+            },
+            {
+              "text": "The external event that triggers the use case",
+              "fraction": 0,
+              "feedback": "That is the trigger; the postcondition is the guaranteed outcome."
+            },
+            {
+              "text": "The list of actors involved",
+              "fraction": 0,
+              "feedback": "Actors are participants; the postcondition is the resulting state after success."
+            }
+          ],
+          "generalFeedback": "The postcondition (success guarantee) states what the system guarantees once the use case ends successfully (e.g. \"the order is recorded and payment captured\"). It is the natural source of a test's expected result.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the main/basic flow is",
+          "text": "<p>What is the <strong>main (basic) success flow</strong> of a use case?</p>",
+          "answers": [
+            {
+              "text": "The most common, straightforward sequence of steps in which everything goes right and the goal is achieved — the \"happy path\"",
+              "fraction": 100,
+              "feedback": "Correct — the basic flow is the normal, no-error path to success."
+            },
+            {
+              "text": "The sequence of steps taken when an error occurs",
+              "fraction": 0,
+              "feedback": "That is an exception flow; the basic flow is the error-free path."
+            },
+            {
+              "text": "An optional way to reach the goal used only under special conditions",
+              "fraction": 0,
+              "feedback": "That is an alternative flow; the basic flow is the primary path."
+            },
+            {
+              "text": "The list of preconditions that must hold first",
+              "fraction": 0,
+              "feedback": "Preconditions are assumed state; the basic flow is the step sequence itself."
+            }
+          ],
+          "generalFeedback": "The main (basic) flow is the typical success scenario — the happy path — where the actor and system proceed step by step with no errors and the goal is reached.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an alternative flow is",
+          "text": "<p>What is an <strong>alternative flow</strong> in a use case?</p>",
+          "answers": [
+            {
+              "text": "Another valid way the goal can still be achieved, differing from the basic flow at some point",
+              "fraction": 100,
+              "feedback": "Correct — an alternative flow is a different but still successful path to the goal."
+            },
+            {
+              "text": "A path that always ends in failure without reaching the goal",
+              "fraction": 0,
+              "feedback": "A path that fails to reach the goal is an exception flow, not an alternative flow."
+            },
+            {
+              "text": "The state assumed before the use case starts",
+              "fraction": 0,
+              "feedback": "That is a precondition, not a flow."
+            },
+            {
+              "text": "The single most common sequence of steps",
+              "fraction": 0,
+              "feedback": "That is the basic flow; alternatives branch away from it."
+            }
+          ],
+          "generalFeedback": "An alternative flow is a variation that still reaches the goal successfully — for example paying by a different method. It branches from the basic flow and may rejoin it or reach the same success guarantee by another route.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an exception flow is",
+          "text": "<p>What is an <strong>exception (error) flow</strong> in a use case?</p>",
+          "answers": [
+            {
+              "text": "The path taken when something goes wrong, describing how the failure is handled",
+              "fraction": 100,
+              "feedback": "Correct — an exception flow captures error handling when the goal cannot proceed normally."
+            },
+            {
+              "text": "Another successful route to the same goal",
+              "fraction": 0,
+              "feedback": "A successful variation is an alternative flow; an exception flow handles a failure."
+            },
+            {
+              "text": "The guaranteed state after a successful completion",
+              "fraction": 0,
+              "feedback": "That is the postcondition, not an exception flow."
+            },
+            {
+              "text": "The normal happy-path sequence of steps",
+              "fraction": 0,
+              "feedback": "That is the basic flow; the exception flow is the error path."
+            }
+          ],
+          "generalFeedback": "An exception (error) flow describes what happens when a step cannot complete normally — e.g. payment declined, item out of stock — and how the system responds (often ending without the success guarantee).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"include\" means",
+          "text": "<p>What does an <strong>include</strong> relationship between use cases mean?</p>",
+          "answers": [
+            {
+              "text": "The included sub-use-case is always executed as a mandatory part of the base use case",
+              "fraction": 100,
+              "feedback": "Correct — include factors out common behaviour that always runs."
+            },
+            {
+              "text": "The included use case runs only under a special condition",
+              "fraction": 0,
+              "feedback": "Conditional insertion is extend, not include; an included use case always runs."
+            },
+            {
+              "text": "The included use case is an error-handling path",
+              "fraction": 0,
+              "feedback": "Include is about mandatory shared behaviour, not error handling."
+            },
+            {
+              "text": "The included use case replaces the base use case",
+              "fraction": 0,
+              "feedback": "Include supplements the base use case with mandatory shared steps; it does not replace it."
+            }
+          ],
+          "generalFeedback": "Include means a base use case always invokes the included sub-use-case — a way to factor out common, mandatory behaviour (e.g. \"Checkout\" includes \"Validate Payment\", which always runs).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"extend\" means",
+          "text": "<p>What does an <strong>extend</strong> relationship between use cases mean?</p>",
+          "answers": [
+            {
+              "text": "The extending use case adds optional behaviour inserted at an extension point only when a condition holds",
+              "fraction": 100,
+              "feedback": "Correct — extend is conditional, optional behaviour at a defined extension point."
+            },
+            {
+              "text": "The extending use case always runs as a mandatory part of the base",
+              "fraction": 0,
+              "feedback": "Always-runs mandatory behaviour is include, not extend."
+            },
+            {
+              "text": "The extending use case lists the preconditions of the base",
+              "fraction": 0,
+              "feedback": "Extend inserts conditional behaviour; it is not a list of preconditions."
+            },
+            {
+              "text": "The extending use case is the primary actor of the base",
+              "fraction": 0,
+              "feedback": "An actor is a role, not a relationship between use cases."
+            }
+          ],
+          "generalFeedback": "Extend inserts optional/conditional behaviour into a base use case at a named extension point, and only when its condition is met (e.g. \"Apply Coupon\" extends \"Checkout\" when the shopper enters a code).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a scenario is",
+          "text": "<p>In use-case testing, what is a <strong>scenario</strong>?</p>",
+          "answers": [
+            {
+              "text": "One specific path through the use case — the basic flow, or the basic flow combined with a particular alternative or exception",
+              "fraction": 100,
+              "feedback": "Correct — a scenario is a single concrete route through the use case."
+            },
+            {
+              "text": "The complete set of all flows of the use case at once",
+              "fraction": 0,
+              "feedback": "That is the whole use case; a scenario is one path through it."
+            },
+            {
+              "text": "A single input value used by a test",
+              "fraction": 0,
+              "feedback": "An input value is test data; a scenario is an end-to-end path."
+            },
+            {
+              "text": "The precondition of the use case",
+              "fraction": 0,
+              "feedback": "A precondition is assumed state; a scenario is a traversal of the flows."
+            }
+          ],
+          "generalFeedback": "A scenario is one instance/path through the use case: the happy path is one scenario, and each alternative or exception taken (with the rest of the flow) gives another. Scenarios are the unit from which use-case tests are derived.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the trigger",
+          "text": "<p>A \"Withdraw Cash\" use case says: <em>\"The customer must have an active account (precondition). When the customer inserts their card and requests a withdrawal, the system verifies the balance and dispenses cash; afterwards the balance is reduced.\"</em> Which part is the <strong>trigger</strong>?</p>",
+          "answers": [
+            {
+              "text": "The customer inserts their card and requests a withdrawal",
+              "fraction": 100,
+              "feedback": "Correct — that event initiates the use case, so it is the trigger."
+            },
+            {
+              "text": "The customer must have an active account",
+              "fraction": 0,
+              "feedback": "That is the precondition — a state assumed beforehand, not the initiating event."
+            },
+            {
+              "text": "The system verifies the balance and dispenses cash",
+              "fraction": 0,
+              "feedback": "Those are basic-flow steps, not the trigger that starts the use case."
+            },
+            {
+              "text": "Afterwards the balance is reduced",
+              "fraction": 0,
+              "feedback": "That is the postcondition — the state after success."
+            }
+          ],
+          "generalFeedback": "The trigger is the event that starts the use case. Here it is the customer inserting the card and requesting a withdrawal; the active account is a precondition and the reduced balance is a postcondition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the precondition",
+          "text": "<p>In a \"Place Order\" use case, which of the following is best described as a <strong>precondition</strong>?</p>",
+          "answers": [
+            {
+              "text": "The customer is logged in and has at least one item in the cart",
+              "fraction": 100,
+              "feedback": "Correct — that state must already hold before the use case can begin."
+            },
+            {
+              "text": "The system displays an order confirmation number",
+              "fraction": 0,
+              "feedback": "That is an outcome after success — a postcondition, not a precondition."
+            },
+            {
+              "text": "The customer clicks the \"Place Order\" button",
+              "fraction": 0,
+              "feedback": "That is the trigger that starts the use case, not a precondition."
+            },
+            {
+              "text": "The system charges the saved payment method",
+              "fraction": 0,
+              "feedback": "That is a step in the basic flow, not a precondition."
+            }
+          ],
+          "generalFeedback": "A precondition is state assumed to be true before the flow runs. \"Logged in with a non-empty cart\" must hold before ordering can start; the confirmation number is a postcondition and clicking the button is the trigger.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the basic flow",
+          "text": "<p>Which of these is the <strong>basic (main success) flow</strong> of a \"Log In\" use case?</p>",
+          "answers": [
+            {
+              "text": "The user enters valid credentials, the system verifies them, and the user is granted access",
+              "fraction": 100,
+              "feedback": "Correct — that is the straightforward success path."
+            },
+            {
+              "text": "The user enters a wrong password three times and the account is locked",
+              "fraction": 0,
+              "feedback": "That is an exception flow describing failure handling."
+            },
+            {
+              "text": "The user resets a forgotten password via email",
+              "fraction": 0,
+              "feedback": "That is an alternative/exception path, not the main success flow."
+            },
+            {
+              "text": "The user is already logged in before the use case starts",
+              "fraction": 0,
+              "feedback": "That is a precondition/state, not a step sequence."
+            }
+          ],
+          "generalFeedback": "The basic flow is the error-free success path: valid credentials entered, verified, access granted. Wrong-password lockout is an exception flow, and password reset is a separate alternative/exception path.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Use-case testing is black-box",
+          "text": "<p>Use-case-based test derivation is a black-box technique: tests are designed from the described interactions and goals, not from the source code.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — use-case testing works from the specification of behaviour, so it is black-box."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Use-case testing derives tests from the described flows and goals (the specification), which makes it black-box, not code-based."
+            }
+          ],
+          "generalFeedback": "Use-case testing is a black-box, specification-based technique operating at the system/acceptance level: tests come from the actor-goal interactions and their flows, independent of the internal code."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Classify: Checkout and Validate Payment",
+          "text": "<p>\"Checkout\" <em>always</em> performs \"Validate Payment\" as part of completing every checkout. What relationship is this?</p>",
+          "answers": [
+            {
+              "text": "Include — Validate Payment is mandatory shared behaviour that always runs",
+              "fraction": 100,
+              "feedback": "Correct — behaviour that always runs as part of the base is an include."
+            },
+            {
+              "text": "Extend — Validate Payment runs only under a condition",
+              "fraction": 0,
+              "feedback": "The phrase \"always performs\" means it is not conditional, so it is include, not extend."
+            },
+            {
+              "text": "Generalization — Validate Payment is a kind of Checkout",
+              "fraction": 0,
+              "feedback": "This is a part-of/always-runs relationship, not an is-a specialization."
+            },
+            {
+              "text": "An alternative flow of Checkout",
+              "fraction": 0,
+              "feedback": "It is a separate, always-invoked sub-use-case (include), not a branch within Checkout that reaches the goal another way."
+            }
+          ],
+          "generalFeedback": "Because Validate Payment always runs as part of every Checkout, it is factored out with an include relationship (mandatory, common behaviour).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: Apply Coupon and Checkout",
+          "text": "<p>\"Apply Coupon\" runs during \"Checkout\" <em>only when</em> the shopper enters a coupon code, inserted at a defined point in the checkout flow. What relationship is this?</p>",
+          "answers": [
+            {
+              "text": "Extend — Apply Coupon is optional behaviour inserted at an extension point when the condition holds",
+              "fraction": 100,
+              "feedback": "Correct — conditional, optional insertion at an extension point is extend."
+            },
+            {
+              "text": "Include — Apply Coupon always runs during Checkout",
+              "fraction": 0,
+              "feedback": "It runs only when a code is entered, so it is conditional (extend), not always-run (include)."
+            },
+            {
+              "text": "Generalization — Apply Coupon is a kind of Checkout",
+              "fraction": 0,
+              "feedback": "This is a conditional insertion, not an is-a specialization."
+            },
+            {
+              "text": "A precondition of Checkout",
+              "fraction": 0,
+              "feedback": "It is behaviour inserted conditionally, not a state assumed before Checkout starts."
+            }
+          ],
+          "generalFeedback": "Apply Coupon happens only if the shopper supplies a code, inserted at an extension point in Checkout — the defining shape of an extend relationship (optional/conditional).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario count: 1 basic + 3 alt + 2 exception",
+          "text": "<p>A use case has 1 basic flow, 3 alternative flows, and 2 exception flows, each an independent path taken on its own. Using use-case scenario coverage (one test per scenario), how many test cases are needed?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1 + 3 + 2 = 6 independent scenarios, one test each."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 omits one flow; count the basic flow too: 1 + 3 + 2 = 6."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 counts only the alternatives; the basic and exception flows are also scenarios."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "The flows are independent single paths, so they add (=6); they do not multiply."
+            }
+          ],
+          "generalFeedback": "Each independent flow is one scenario: the basic flow plus each alternative plus each exception. That is 1 + 3 + 2 = 6 scenarios, hence 6 tests for scenario coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario count: 1 basic + 2 alt + 1 exception",
+          "text": "<p>A use case has 1 basic flow, 2 alternative flows, and 1 exception flow, each an independent path. How many scenarios must be covered?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 1 + 2 + 1 = 4 independent scenarios."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 omits one flow; include the basic flow: 1 + 2 + 1 = 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 counts only the alternatives; add the basic and exception flows."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Independent single paths add to 4, not multiply."
+            }
+          ],
+          "generalFeedback": "Scenario coverage needs one test per scenario: basic (1) + alternatives (2) + exception (1) = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario count: 1 basic + 4 exception",
+          "text": "<p>A \"Log In\" use case has 1 basic success flow and 4 distinct exception flows (wrong password, locked account, expired password, network error), each an independent path. How many scenarios are there?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1 basic + 4 exceptions = 5 scenarios."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 counts only the exceptions; the basic success flow is also a scenario."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Each exception is its own scenario, so there are 5, not 1."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "These are independent single paths that add to 5, not multiply."
+            }
+          ],
+          "generalFeedback": "The basic flow is one scenario and each of the 4 exception flows is another, giving 1 + 4 = 5 scenarios for coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Precondition maps to test setup",
+          "text": "<p>When turning a use-case scenario into a concrete test case, a <strong>precondition</strong> most directly becomes which part of the test?</p>",
+          "answers": [
+            {
+              "text": "The test setup / initial state established before the test steps run",
+              "fraction": 100,
+              "feedback": "Correct — preconditions define the arranged starting state of the test."
+            },
+            {
+              "text": "The expected result checked at the end",
+              "fraction": 0,
+              "feedback": "The expected result comes from the postcondition, not the precondition."
+            },
+            {
+              "text": "The sequence of user actions (test steps)",
+              "fraction": 0,
+              "feedback": "The steps come from the flow; the precondition is the state arranged before them."
+            },
+            {
+              "text": "The name of the test case",
+              "fraction": 0,
+              "feedback": "The name is a label; the precondition defines the setup state."
+            }
+          ],
+          "generalFeedback": "A precondition specifies what must be true before the scenario runs, so it maps to the test's setup/arrange step — establishing the initial state before executing the flow.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Postcondition maps to expected result",
+          "text": "<p>When deriving a test from a use-case scenario, the scenario's <strong>postcondition</strong> most directly becomes which part of the test?</p>",
+          "answers": [
+            {
+              "text": "The expected result / assertion verified after the steps run",
+              "fraction": 100,
+              "feedback": "Correct — the postcondition states the guaranteed outcome, which is what the test checks."
+            },
+            {
+              "text": "The setup performed before the steps",
+              "fraction": 0,
+              "feedback": "Setup comes from the precondition; the postcondition is the expected outcome."
+            },
+            {
+              "text": "The trigger event",
+              "fraction": 0,
+              "feedback": "The trigger starts the flow; the postcondition is the result to verify."
+            },
+            {
+              "text": "The list of actors",
+              "fraction": 0,
+              "feedback": "Actors are participants; the postcondition is the checked outcome."
+            }
+          ],
+          "generalFeedback": "The postcondition (success guarantee) is exactly what the system promises after the scenario succeeds, so it becomes the test's expected result / assertion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary actor in a scenario",
+          "text": "<p>In a \"Pay by Card\" scenario, the shopper initiates the purchase and a bank payment gateway authorises the charge. Who is the <strong>primary actor</strong>?</p>",
+          "answers": [
+            {
+              "text": "The shopper — they initiate the use case and hold the goal",
+              "fraction": 100,
+              "feedback": "Correct — the primary actor drives the use case toward their goal."
+            },
+            {
+              "text": "The payment gateway — it does the important work",
+              "fraction": 0,
+              "feedback": "The gateway is a secondary/supporting actor the system calls on; it is not the initiator."
+            },
+            {
+              "text": "The system under test itself",
+              "fraction": 0,
+              "feedback": "The system is not an actor; actors are external participants."
+            },
+            {
+              "text": "Both are equally the primary actor",
+              "fraction": 0,
+              "feedback": "There is one primary actor (the goal-holder); the gateway is secondary."
+            }
+          ],
+          "generalFeedback": "The shopper initiates the interaction and owns the goal, so the shopper is the primary actor; the payment gateway is a secondary (supporting) actor that the system contacts to fulfil the goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Secondary actor in a scenario",
+          "text": "<p>In a \"Register Account\" use case, the visitor signs up and the system asks an external email service to send a confirmation message. Which is the <strong>secondary actor</strong>?</p>",
+          "answers": [
+            {
+              "text": "The external email service — the system calls on it to help complete the goal",
+              "fraction": 100,
+              "feedback": "Correct — a supporting actor invoked by the system is secondary."
+            },
+            {
+              "text": "The visitor — they signed up",
+              "fraction": 0,
+              "feedback": "The visitor initiates and owns the goal, so they are the primary actor."
+            },
+            {
+              "text": "The confirmation message",
+              "fraction": 0,
+              "feedback": "A message is data, not an actor."
+            },
+            {
+              "text": "The database table",
+              "fraction": 0,
+              "feedback": "Internal storage is part of the system, not an external actor."
+            }
+          ],
+          "generalFeedback": "The visitor is the primary actor (initiator, goal-holder); the external email service is a secondary/supporting actor the system contacts to help fulfil the goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Derive a test from a described scenario",
+          "text": "<p>Scenario: <em>the shopper's saved card is <strong>declined</strong>, so the order is not placed and an error is shown.</em> Which test best matches this exception scenario?</p>",
+          "answers": [
+            {
+              "text": "Set up an account whose card will be declined, attempt checkout, and verify no order is created and a decline error is displayed",
+              "fraction": 100,
+              "feedback": "Correct — the setup, action, and expected result all follow the declined-payment exception scenario."
+            },
+            {
+              "text": "Set up a valid card, checkout, and verify the order is confirmed",
+              "fraction": 0,
+              "feedback": "That tests the basic success flow, not the declined-payment exception."
+            },
+            {
+              "text": "Unit-test the card-number Luhn-check function in isolation",
+              "fraction": 0,
+              "feedback": "That is a low-level unit test, not the end-to-end exception scenario described."
+            },
+            {
+              "text": "Verify the coupon field accepts a code",
+              "fraction": 0,
+              "feedback": "That concerns a different (coupon) behaviour, not the declined-payment scenario."
+            }
+          ],
+          "generalFeedback": "The scenario dictates the test: arrange a card that will be declined (setup), run checkout (steps), and assert the order is not created and a decline error appears (expected result from the failure guarantee).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Included use case always runs",
+          "text": "<p>An included use case is executed every time the base use case runs, whereas an extending use case runs only when its condition is met.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — include is mandatory/always-run; extend is conditional/optional."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Include is always executed; extend is conditional. The statement states this correctly."
+            }
+          ],
+          "generalFeedback": "Include factors out behaviour that always runs as part of the base use case; extend inserts optional behaviour at an extension point only when a condition holds."
+        },
+        {
+          "type": "multichoice",
+          "name": "Trigger vs precondition applied",
+          "text": "<p>A use case states: \"The account must be in good standing. The use case begins when the customer submits a transfer request.\" Which statement is correct?</p>",
+          "answers": [
+            {
+              "text": "\"Account in good standing\" is a precondition; \"customer submits a transfer request\" is the trigger",
+              "fraction": 100,
+              "feedback": "Correct — assumed state is the precondition; the initiating event is the trigger."
+            },
+            {
+              "text": "Both are triggers",
+              "fraction": 0,
+              "feedback": "Only the initiating event is the trigger; the good-standing status is assumed state."
+            },
+            {
+              "text": "Both are preconditions",
+              "fraction": 0,
+              "feedback": "Submitting the request is the initiating event (trigger), not a precondition."
+            },
+            {
+              "text": "\"Account in good standing\" is the trigger; the submission is a postcondition",
+              "fraction": 0,
+              "feedback": "This reverses the roles; good standing is assumed beforehand and the submission starts the use case."
+            }
+          ],
+          "generalFeedback": "A precondition is assumed state before the use case begins (\"account in good standing\"); the trigger is the event that starts it (\"customer submits a transfer request\").",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Tests needed for scenario coverage",
+          "text": "<p>Under use-case <strong>scenario coverage</strong>, the minimum number of test cases needed for a use case equals which of the following?</p>",
+          "answers": [
+            {
+              "text": "The number of scenarios (basic flow plus each alternative and each exception)",
+              "fraction": 100,
+              "feedback": "Correct — scenario coverage requires at least one test per scenario."
+            },
+            {
+              "text": "The number of actors in the use case",
+              "fraction": 0,
+              "feedback": "Actor count does not determine scenario coverage; the number of scenarios does."
+            },
+            {
+              "text": "Exactly one, for the basic flow",
+              "fraction": 0,
+              "feedback": "Covering only the basic flow leaves alternatives and exceptions untested."
+            },
+            {
+              "text": "The number of preconditions",
+              "fraction": 0,
+              "feedback": "Preconditions become setup, not the count of required tests."
+            }
+          ],
+          "generalFeedback": "Scenario coverage asks for at least one test per scenario, so the minimum test count equals the number of scenarios = basic + each alternative + each exception (when each is an independent path).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Include contributes no separate happy-path scenario",
+          "text": "<p>\"Checkout\" <em>includes</em> \"Validate Payment\" (always runs). When counting the scenarios of Checkout's basic flow, how is the included Validate Payment treated?</p>",
+          "answers": [
+            {
+              "text": "It is part of every Checkout scenario, so on the happy path it does not add a separate \"with/without\" scenario",
+              "fraction": 100,
+              "feedback": "Correct — because it always runs, it is baked into each scenario rather than being an optional branch."
+            },
+            {
+              "text": "It doubles the scenario count, one with and one without validation",
+              "fraction": 0,
+              "feedback": "A \"without\" case does not exist for an always-run include; that with/without split belongs to extend."
+            },
+            {
+              "text": "It is ignored entirely and never tested",
+              "fraction": 0,
+              "feedback": "It runs on every path, so it is exercised by those tests — it just is not an optional branch."
+            },
+            {
+              "text": "It becomes a precondition of Checkout",
+              "fraction": 0,
+              "feedback": "It is invoked behaviour, not assumed prior state."
+            }
+          ],
+          "generalFeedback": "Because an included use case always runs, it appears in every scenario of the base rather than creating an optional with/without split. (Validate Payment may of course have its own internal alternatives/exceptions, which are separate.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: generalization",
+          "text": "<p>\"Pay by Card\" and \"Pay by Cash\" are both special kinds of a more general \"Make Payment\" use case, each refining how payment is made. What relationship is this?</p>",
+          "answers": [
+            {
+              "text": "Generalization — the specialised use cases are variants (is-a) of the general one",
+              "fraction": 100,
+              "feedback": "Correct — an is-a relationship between a general use case and its variants is generalization."
+            },
+            {
+              "text": "Include — Make Payment always runs both",
+              "fraction": 0,
+              "feedback": "Include is mandatory shared behaviour that always runs, not an is-a variant relationship."
+            },
+            {
+              "text": "Extend — the variants are conditional insertions",
+              "fraction": 0,
+              "feedback": "Extend inserts optional behaviour at an extension point; here the variants specialise a general use case (is-a)."
+            },
+            {
+              "text": "Trigger — the variants start Make Payment",
+              "fraction": 0,
+              "feedback": "A trigger is an initiating event, not a relationship between use cases."
+            }
+          ],
+          "generalFeedback": "Generalization is an is-a relationship: \"Pay by Card\" and \"Pay by Cash\" are specialised forms of the general \"Make Payment\", inheriting its structure and refining specific steps.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Count paths with two independent optional extends",
+          "text": "<p>A \"Checkout\" use case has two <em>independent, optional</em> extensions, each of which may or may not occur: \"Apply Coupon\" and \"Add Gift Wrap\". If we want to cover every combination of taken/not-taken (and both are truly independent), how many distinct end-to-end paths exist?</p>",
+          "answers": [
+            {
+              "text": "4 — each extension is present or absent independently, so 2 x 2 = 4",
+              "fraction": 100,
+              "feedback": "Correct — two independent optional insertions give 2^2 = 4 combinations."
+            },
+            {
+              "text": "2 — one path with extensions, one without",
+              "fraction": 0,
+              "feedback": "Two independent options give four combinations, not two."
+            },
+            {
+              "text": "3 — basic plus one path per extension",
+              "fraction": 0,
+              "feedback": "That counts each extension once but misses the both-taken and both-absent combinations; independent options multiply to 4."
+            },
+            {
+              "text": "1 — extensions do not create new paths",
+              "fraction": 0,
+              "feedback": "Optional extensions do create branches; two independent ones yield 4 paths."
+            }
+          ],
+          "generalFeedback": "Each independent optional extension contributes a factor of 2 (taken or not). With two, the number of combinations is 2 x 2 = 4. (Basic scenario coverage might use fewer — one per extension plus the plain path — but full combination coverage of two independent options is 4.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count scenarios with a branching alternative",
+          "text": "<p>A use case has 1 basic flow. At one step the payment method branches into exactly one of 3 mutually exclusive choices (cash, card, coupon), and there are additionally 2 independent exception flows. Counting one scenario per distinct payment branch plus each exception, how many scenarios are there?</p>",
+          "answers": [
+            {
+              "text": "5 — 3 mutually exclusive payment branches + 2 exceptions",
+              "fraction": 100,
+              "feedback": "Correct — the 3 branches are alternatives to one another (3 scenarios) plus 2 exceptions = 5."
+            },
+            {
+              "text": "6 — 1 basic + 3 branches + 2 exceptions",
+              "fraction": 0,
+              "feedback": "The 3 branchesthe payment step of the basic flow (one is the \"main\" one), so they are not counted on top of a separate basic scenario; the count is 3 + 2 = 5."
+            },
+            {
+              "text": "3 — only the payment branches matter",
+              "fraction": 0,
+              "feedback": "The 2 exception flows are also scenarios; 3 + 2 = 5."
+            },
+            {
+              "text": "12 — multiply 3 branches by 2 exceptions by 2",
+              "fraction": 0,
+              "feedback": "Mutually exclusive branches and independent exceptions add, not multiply."
+            }
+          ],
+          "generalFeedback": "The three payment methods are mutually exclusive variants of the same step, giving 3 successful scenarios (one is effectively the basic flow, the others alternatives). Adding the 2 independent exceptions gives 3 + 2 = 5 scenarios.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Include vs extend: subtle mandatory case",
+          "text": "<p>Every time \"Transfer Funds\" runs, the system records an audit-log entry — no exceptions. The audit behaviour is factored into its own use case. Which relationship fits, and why?</p>",
+          "answers": [
+            {
+              "text": "Include — the audit entry is written on every run, so it is mandatory factored-out behaviour",
+              "fraction": 100,
+              "feedback": "Correct — \"on every run, no exceptions\" is the signature of include."
+            },
+            {
+              "text": "Extend — auditing is extra behaviour added to the base",
+              "fraction": 0,
+              "feedback": "Extend is conditional; here the audit always runs, which is include."
+            },
+            {
+              "text": "Extend — because auditing is not the primary goal",
+              "fraction": 0,
+              "feedback": "Whether it is the primary goal is irrelevant; what matters is that it always runs, making it include."
+            },
+            {
+              "text": "Generalization — auditing is a kind of transfer",
+              "fraction": 0,
+              "feedback": "It is shared always-run behaviour, not an is-a specialization."
+            }
+          ],
+          "generalFeedback": "The deciding factor is unconditional execution. Because the audit entry is written on every run without exception, it is mandatory common behaviour — an include — not a conditional extend.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Include vs extend: subtle conditional case",
+          "text": "<p>During \"Withdraw Cash\", <em>if</em> the balance would drop below a threshold, the system also runs \"Send Low-Balance Alert\" at a defined point. Which relationship fits, and why?</p>",
+          "answers": [
+            {
+              "text": "Extend — the alert runs only when the low-balance condition holds, inserted at an extension point",
+              "fraction": 100,
+              "feedback": "Correct — conditional insertion at an extension point is extend."
+            },
+            {
+              "text": "Include — the alert is part of the withdrawal",
+              "fraction": 0,
+              "feedback": "It runs only under a condition, so it is conditional (extend), not always-run (include)."
+            },
+            {
+              "text": "Include — because it is a separate factored-out use case",
+              "fraction": 0,
+              "feedback": "Being factored out does not make it include; include additionally requires that it always runs, which it does not."
+            },
+            {
+              "text": "A precondition of Withdraw Cash",
+              "fraction": 0,
+              "feedback": "It is behaviour triggered mid-flow by a condition, not assumed prior state."
+            }
+          ],
+          "generalFeedback": "The \"if the balance would drop below a threshold\" guard means the alert is conditional, inserted at an extension point — the defining shape of extend, regardless of it being factored into its own use case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the postcondition is the expected outcome",
+          "text": "<p>Why is a scenario's <strong>postcondition</strong> the natural source of a use-case test's expected outcome?</p>",
+          "answers": [
+            {
+              "text": "It states the guarantee the system must deliver on that scenario, so verifying it confirms the goal was achieved",
+              "fraction": 100,
+              "feedback": "Correct — the postcondition is exactly the promised end-state, which is what the test must assert."
+            },
+            {
+              "text": "It lists the inputs the test must supply",
+              "fraction": 0,
+              "feedback": "Inputs relate to setup/steps; the postcondition is the guaranteed result."
+            },
+            {
+              "text": "It names the internal functions the code should call",
+              "fraction": 0,
+              "feedback": "Use-case testing is black-box; the postcondition describes observable outcome, not internal calls."
+            },
+            {
+              "text": "It counts how many scenarios exist",
+              "fraction": 0,
+              "feedback": "That is unrelated; the postcondition describes the end-state to verify."
+            }
+          ],
+          "generalFeedback": "A postcondition is the observable guarantee the system promises when the scenario completes. Asserting it is precisely how a test confirms the scenario's goal was met, which is why it maps to the expected outcome.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage adequacy of basic-flow-only tests",
+          "text": "<p>A team writes only one test per use case, always exercising the basic (happy-path) flow. What is the main adequacy problem?</p>",
+          "answers": [
+            {
+              "text": "Alternative and exception flows are never exercised, so error handling and less-common paths go untested",
+              "fraction": 100,
+              "feedback": "Correct — happy-path-only testing misses the alternative and exception scenarios."
+            },
+            {
+              "text": "The basic flow is tested too many times, wasting effort",
+              "fraction": 0,
+              "feedback": "The problem is missing coverage of other scenarios, not over-testing the happy path."
+            },
+            {
+              "text": "Preconditions can no longer be set up",
+              "fraction": 0,
+              "feedback": "Preconditions are still set up for the happy path; the gap is the untested alternative/exception scenarios."
+            },
+            {
+              "text": "It achieves full statement coverage automatically",
+              "fraction": 0,
+              "feedback": "Happy-path tests rarely reach error-handling code, so statement coverage is not guaranteed."
+            }
+          ],
+          "generalFeedback": "Scenario coverage requires the basic flow plus each alternative and each exception. Testing only the happy path leaves every alternative and error-handling scenario unexercised — where many real defects hide.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Map a use-case path to a concrete test case",
+          "text": "<p>You are turning one use-case scenario into a concrete test case. Which mapping of use-case parts to test parts is correct?</p>",
+          "answers": [
+            {
+              "text": "Preconditions → setup; the chosen flow's steps → test steps; postcondition → expected result",
+              "fraction": 100,
+              "feedback": "Correct — that is the standard mapping from a scenario to a test case."
+            },
+            {
+              "text": "Postcondition → setup; preconditions → expected result; trigger → teardown",
+              "fraction": 0,
+              "feedback": "This swaps the roles; preconditions are setup and the postcondition is the expected result."
+            },
+            {
+              "text": "Actors → setup; preconditions → steps; postcondition → test name",
+              "fraction": 0,
+              "feedback": "Preconditions are setup and the flow's steps are the test steps; this mapping is wrong."
+            },
+            {
+              "text": "Trigger → expected result; steps → setup; postcondition → inputs",
+              "fraction": 0,
+              "feedback": "The postcondition is the expected result, not the inputs; this is incorrect."
+            }
+          ],
+          "generalFeedback": "A scenario maps cleanly onto a test case: preconditions establish the initial state (setup), the scenario's flow becomes the ordered test steps, and the postcondition becomes the expected result to assert.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Use-case testing strengths and limits vs unit testing",
+          "text": "<p>Compared with unit testing, what best describes the strengths and limits of use-case-based testing?</p>",
+          "answers": [
+            {
+              "text": "It validates realistic end-to-end user goals and finds integration/workflow defects, but does not systematically exercise low-level internal code paths",
+              "fraction": 100,
+              "feedback": "Correct — it is strong at system/acceptance level but weak at deep code-path coverage."
+            },
+            {
+              "text": "It guarantees full branch coverage of every function, unlike unit testing",
+              "fraction": 0,
+              "feedback": "Being black-box and end-to-end, it does not systematically cover internal branches."
+            },
+            {
+              "text": "It replaces unit testing entirely because it is higher-level",
+              "fraction": 0,
+              "feedback": "The two are complementary; use-case tests miss low-level paths that unit tests target."
+            },
+            {
+              "text": "It is a white-box technique that inspects the control-flow graph",
+              "fraction": 0,
+              "feedback": "Use-case testing is black-box; it does not analyse the control-flow graph."
+            }
+          ],
+          "generalFeedback": "Use-case testing excels at validating end-to-end, realistic user goals and surfacing integration/workflow problems at the system/acceptance level. Because it is black-box, it does not systematically exercise low-level code paths, so it complements rather than replaces unit testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combining an alternative with an exception",
+          "text": "<p>A use case has a basic flow, 1 alternative flow (pay by coupon instead of card), and 1 exception (payment declined) that can occur on <em>either</em> the card path or the coupon path. If you cover the basic (card) success, the coupon success, and the decline on each path separately, how many scenarios is that?</p>",
+          "answers": [
+            {
+              "text": "4 — card-success, coupon-success, card-decline, coupon-decline",
+              "fraction": 100,
+              "feedback": "Correct — the exception combines with each of the two success paths, giving 2 + 2 = 4."
+            },
+            {
+              "text": "3 — basic, alternative, exception",
+              "fraction": 0,
+              "feedback": "Because the decline can happen on either path, it yields two distinct exception scenarios, not one; total is 4."
+            },
+            {
+              "text": "2 — one success and one failure",
+              "fraction": 0,
+              "feedback": "There are two success paths and the failure applies to each, giving 4 scenarios."
+            },
+            {
+              "text": "6 — every flow times every other",
+              "fraction": 0,
+              "feedback": "The decline attaches to each of the 2 payment paths only, giving 4, not 6."
+            }
+          ],
+          "generalFeedback": "Two success paths (card, coupon) plus the decline exception occurring on each give 2 successes + 2 declines = 4 scenarios. When an exception can arise on multiple paths, it multiplies with those paths rather than counting once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why use-case tests miss low-level paths",
+          "text": "<p>Why does use-case-based testing typically fail to exercise many low-level code paths (such as a rare internal branch inside a helper function)?</p>",
+          "answers": [
+            {
+              "text": "It derives tests from external user goals and flows, not from the code structure, so internal branches are only hit incidentally",
+              "fraction": 100,
+              "feedback": "Correct — being black-box and goal-driven, it does not target internal structure."
+            },
+            {
+              "text": "Because use cases forbid running any code during testing",
+              "fraction": 0,
+              "feedback": "Use-case tests do run the system; they simply are not designed around internal code structure."
+            },
+            {
+              "text": "Because use-case tests can only be run manually",
+              "fraction": 0,
+              "feedback": "They can be automated; the issue is that their design ignores code structure, not the run mode."
+            },
+            {
+              "text": "Because low-level branches are always dead code",
+              "fraction": 0,
+              "feedback": "Internal branches are usually live; use-case tests just are not designed to target them."
+            }
+          ],
+          "generalFeedback": "Use-case testing is black-box: tests come from actor goals and observable flows, not from the control-flow graph. Deep or rare internal branches are exercised only by coincidence, which is why structural (white-box) techniques are needed alongside it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal scenario-coverage test set",
+          "text": "<p>A use case has 1 basic flow, 2 alternative flows, and 3 exception flows, each an independent single path. What is the minimum number of tests to achieve use-case scenario coverage?</p>",
+          "answers": [
+            {
+              "text": "6 — one test per scenario (1 + 2 + 3)",
+              "fraction": 100,
+              "feedback": "Correct — scenario coverage needs at least one test per scenario, so 1 + 2 + 3 = 6."
+            },
+            {
+              "text": "5 — omit the basic flow since alternatives cover it",
+              "fraction": 0,
+              "feedback": "The basic flow is its own scenario and must be covered; the total is 6."
+            },
+            {
+              "text": "3 — only the exceptions need dedicated tests",
+              "fraction": 0,
+              "feedback": "The basic and alternative flows are scenarios too; the total is 6."
+            },
+            {
+              "text": "36 — every flow combined with every other",
+              "fraction": 0,
+              "feedback": "Independent single paths add to 6; they are not combined pairwise."
+            }
+          ],
+          "generalFeedback": "Scenario coverage requires at least one test per scenario. With independent paths that is 1 basic + 2 alternatives + 3 exceptions = 6 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Success guarantee vs minimal (failure) guarantee",
+          "text": "<p>An exception scenario (\"payment declined\") ends without achieving the goal. Which postcondition should the derived test assert?</p>",
+          "answers": [
+            {
+              "text": "The failure/minimal guarantee — e.g. no order is created and the account is left unchanged with an error shown",
+              "fraction": 100,
+              "feedback": "Correct — a failure scenario's expected result is its minimal (failure) guarantee, not the success guarantee."
+            },
+            {
+              "text": "The success guarantee — the order is placed and payment captured",
+              "fraction": 0,
+              "feedback": "The scenario failed, so the success guarantee must not hold; assert the failure guarantee instead."
+            },
+            {
+              "text": "No postcondition at all, since it failed",
+              "fraction": 0,
+              "feedback": "Even failed scenarios have a guaranteed safe end-state (the minimal guarantee) that the test should verify."
+            },
+            {
+              "text": "The precondition, re-checked at the end",
+              "fraction": 0,
+              "feedback": "The expected result is the failure guarantee, not the precondition."
+            }
+          ],
+          "generalFeedback": "Use cases specify a success guarantee (for successful paths) and a minimal/failure guarantee (the safe state left after failure). An exception scenario's test asserts the failure guarantee — e.g. no order created, no charge, an error shown.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concrete test from preconditions, steps, postcondition",
+          "text": "<p>Use case \"Return Item\": <em>Precondition: the customer has a delivered order within the return window. Basic flow: customer selects the item, chooses a reason, and submits the return; the system issues a return label and marks the item as pending return. Postcondition: a return is recorded and a label is issued.</em> Which concrete test correctly realises this scenario?</p>",
+          "answers": [
+            {
+              "text": "Setup: an account with a delivered, in-window order. Steps: select the item, choose a reason, submit. Expected: a return record exists and a return label is issued",
+              "fraction": 100,
+              "feedback": "Correct — preconditions become setup, the flow becomes steps, and the postcondition becomes the expected result."
+            },
+            {
+              "text": "Setup: an account with no orders. Steps: submit a return. Expected: a label is issued",
+              "fraction": 0,
+              "feedback": "The precondition (a delivered in-window order) is not satisfied, so this does not realise the scenario."
+            },
+            {
+              "text": "Setup: a delivered in-window order. Steps: submit a return. Expected: nothing changes",
+              "fraction": 0,
+              "feedback": "The postcondition promises a recorded return and issued label, so \"nothing changes\" is the wrong expected result."
+            },
+            {
+              "text": "Setup: none. Steps: call the label-printing function directly. Expected: a PDF is produced",
+              "fraction": 0,
+              "feedback": "That is a unit test of one function, not the end-to-end use-case scenario with its preconditions and postcondition."
+            }
+          ],
+          "generalFeedback": "The scenario maps directly: the precondition (delivered, in-window order) is the setup; the basic-flow steps are the test steps; and the postcondition (return recorded, label issued) is the expected result to assert.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extend adds a with/without scenario split",
+          "text": "<p>\"Book Flight\" is <em>extended</em> by \"Add Extra Baggage\" (optional, at an extension point). For scenario coverage of this single optional extension, how many scenarios must you cover, and why?</p>",
+          "answers": [
+            {
+              "text": "2 — one scenario where the extension is taken and one where it is not, because it is conditional",
+              "fraction": 100,
+              "feedback": "Correct — a conditional extension needs both the with-extension and without-extension paths covered."
+            },
+            {
+              "text": "1 — the extension is always part of Book Flight",
+              "fraction": 0,
+              "feedback": "An extension is conditional, so it is not always part of the flow; both with and without must be covered."
+            },
+            {
+              "text": "0 — optional behaviour need not be tested",
+              "fraction": 0,
+              "feedback": "Optional behaviour still needs testing; both branches (taken and not) are scenarios."
+            },
+            {
+              "text": "4 — every combination of two conditions",
+              "fraction": 0,
+              "feedback": "There is a single optional extension, giving 2 scenarios (taken / not taken), not 4."
+            }
+          ],
+          "generalFeedback": "Because an extend is conditional, covering it means testing both the path where the extension occurs and the path where it does not — two scenarios for a single optional extension. (Contrast include, which always runs and adds no such split.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario coverage vs exhaustive path testing",
+          "text": "<p>A complex use case has many optional extensions and exceptions, so the number of ways to combine every flow is enormous. Why does use-case <strong>scenario coverage</strong> normally test one path per scenario (basic + each alternative + each exception) rather than every possible combination of flows?</p>",
+          "answers": [
+            {
+              "text": "Combining every flow explodes combinatorially, so scenario coverage takes each flow at least once as a practical, bounded criterion",
+              "fraction": 100,
+              "feedback": "Correct — one-path-per-scenario is a tractable compromise against combinatorial explosion."
+            },
+            {
+              "text": "Because alternative and exception flows never contain defects",
+              "fraction": 0,
+              "feedback": "They often do contain defects — scenario coverage tests each precisely because they matter; it just avoids the full combination explosion."
+            },
+            {
+              "text": "Because only the basic flow is worth testing",
+              "fraction": 0,
+              "feedback": "Scenario coverage tests every flow at least once, not just the basic flow."
+            },
+            {
+              "text": "Because testing every combination is required and always feasible",
+              "fraction": 0,
+              "feedback": "Testing every combination is usually infeasible due to combinatorial explosion, which is why scenario coverage is used."
+            }
+          ],
+          "generalFeedback": "The number of full flow combinations grows multiplicatively and quickly becomes intractable. Scenario coverage exercises each flow (basic, each alternative, each exception) at least once — a bounded, cost-effective criterion — accepting that not every combination of flows is tried.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是使用案例",
+          "text": "<p>在以使用案例為基礎的測試中，<strong>使用案例（use case）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "描述參與者如何與系統互動以達成某個目標的說明，以一連串步驟呈現",
+              "fraction": 100,
+              "feedback": "正確——使用案例描述參與者與系統之間以目標為導向的互動。"
+            },
+            {
+              "text": "某個測試所執行到的一行原始碼",
+              "fraction": 0,
+              "feedback": "那是一行程式碼；使用案例是對互動的黑箱描述，而非程式碼。"
+            },
+            {
+              "text": "將布林條件對應到動作的表格",
+              "fraction": 0,
+              "feedback": "那描述的是決策表；使用案例是以目標為導向的步驟敘事。"
+            },
+            {
+              "text": "衡量測試套件涵蓋多少程式碼的指標",
+              "fraction": 0,
+              "feedback": "那是程式碼涵蓋率；使用案例描述的是使用者可見的行為，而非涵蓋率。"
+            }
+          ],
+          "generalFeedback": "使用案例從外部描述參與者如何使用系統達成目標。它是黑箱、需求層級的產物，是推導驗收／系統測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是參與者",
+          "text": "<p>在使用案例中，<strong>參與者（actor）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "與受測系統互動的外部實體（人、角色，或其他系統）",
+              "fraction": 100,
+              "feedback": "正確——參與者是參與使用案例的外部角色。"
+            },
+            {
+              "text": "系統內部的某個函式或方法",
+              "fraction": 0,
+              "feedback": "參與者對系統而言是外部的；內部函式屬於實作，而非參與者。"
+            },
+            {
+              "text": "驅動該使用案例的測試案例",
+              "fraction": 0,
+              "feedback": "測試案例是由使用案例推導而來；參與者是它所代表的外部參與者。"
+            },
+            {
+              "text": "系統測試期間發現的一個缺陷",
+              "fraction": 0,
+              "feedback": "缺陷是故障；參與者是與系統互動的外部角色。"
+            }
+          ],
+          "generalFeedback": "參與者是任何與系統互動、以協助達成（或支援）使用案例目標的外部實體——可能是人類角色、外部裝置或另一個系統。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要參與者與次要參與者",
+          "text": "<p>在使用案例中，<strong>主要參與者（primary actor）</strong>與<strong>次要參與者（secondary actor）</strong>有何區別？</p>",
+          "answers": [
+            {
+              "text": "主要參與者發起使用案例以達成其目標；次要參與者則是系統為完成使用案例而求助的對象",
+              "fraction": 100,
+              "feedback": "正確——主要參與者推動目標，次要參與者提供支援服務。"
+            },
+            {
+              "text": "主要參與者一定是人，次要參與者一定是機器",
+              "fraction": 0,
+              "feedback": "兩者都可能是人或系統；區別在於誰發起、誰支援。"
+            },
+            {
+              "text": "主要參與者是選用的，次要參與者是必要的",
+              "fraction": 0,
+              "feedback": "主要參與者是使用案例所服務目標的擁有者，並非選用。"
+            },
+            {
+              "text": "主要參與者撰寫測試，次要參與者執行測試",
+              "fraction": 0,
+              "feedback": "參與者是互動中的角色，而非測試職責。"
+            }
+          ],
+          "generalFeedback": "主要參與者擁有使用案例所滿足的目標並觸發它；次要（支援）參與者——例如金流閘道或電子郵件服務——是系統為達成目標而聯繫的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是前置條件",
+          "text": "<p>使用案例的<strong>前置條件（precondition）</strong>陳述什麼？</p>",
+          "answers": [
+            {
+              "text": "在使用案例開始之前必須已經成立的事項",
+              "fraction": 100,
+              "feedback": "正確——前置條件是開始時所假定、已保證成立的起始狀態。"
+            },
+            {
+              "text": "使用案例成功結束後將會成立的事項",
+              "fraction": 0,
+              "feedback": "那是後置條件（成功保證），而非前置條件。"
+            },
+            {
+              "text": "啟動使用案例的事件",
+              "fraction": 0,
+              "feedback": "那是觸發事件；前置條件是事前必須成立的狀態。"
+            },
+            {
+              "text": "主要流程中的步驟清單",
+              "fraction": 0,
+              "feedback": "那是基本流程的步驟；前置條件是流程開始前所假定的狀態。"
+            }
+          ],
+          "generalFeedback": "前置條件是使用案例開始前保證成立的狀態（例如「使用者已登入」）。它在流程中被假定而非檢查——並直接對應到測試的前置設定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是後置條件",
+          "text": "<p>使用案例的<strong>後置條件（postcondition，成功保證）</strong>描述什麼？</p>",
+          "answers": [
+            {
+              "text": "使用案例成功完成後必須成立的狀態",
+              "fraction": 100,
+              "feedback": "正確——成功保證就是達成目標後所成立的事項。"
+            },
+            {
+              "text": "使用案例得以開始前必須成立的狀態",
+              "fraction": 0,
+              "feedback": "那是前置條件，而非後置條件。"
+            },
+            {
+              "text": "觸發使用案例的外部事件",
+              "fraction": 0,
+              "feedback": "那是觸發事件；後置條件是保證的結果。"
+            },
+            {
+              "text": "參與其中的參與者清單",
+              "fraction": 0,
+              "feedback": "參與者是參與者；後置條件是成功後產生的狀態。"
+            }
+          ],
+          "generalFeedback": "後置條件（成功保證）陳述使用案例成功結束後系統所保證的事項（例如「訂單已記錄且付款已收取」）。它是測試預期結果的自然來源。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是主要／基本流程",
+          "text": "<p>使用案例的<strong>主要（基本）成功流程</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "最常見、最直接、一切順利並達成目標的步驟序列——也就是「快樂路徑（happy path）」",
+              "fraction": 100,
+              "feedback": "正確——基本流程是正常、無錯誤而達成成功的路徑。"
+            },
+            {
+              "text": "發生錯誤時所走的步驟序列",
+              "fraction": 0,
+              "feedback": "那是例外流程；基本流程是無錯誤的路徑。"
+            },
+            {
+              "text": "只在特殊條件下用來達成目標的選用方式",
+              "fraction": 0,
+              "feedback": "那是替代流程；基本流程是主要路徑。"
+            },
+            {
+              "text": "必須先成立的前置條件清單",
+              "fraction": 0,
+              "feedback": "前置條件是假定的狀態；基本流程是步驟序列本身。"
+            }
+          ],
+          "generalFeedback": "主要（基本）流程是典型的成功情境——快樂路徑——參與者與系統逐步進行、沒有錯誤，並達成目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是替代流程",
+          "text": "<p>使用案例中的<strong>替代流程（alternative flow）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "仍能達成目標、但在某處與基本流程不同的另一種有效方式",
+              "fraction": 100,
+              "feedback": "正確——替代流程是達成目標的另一條仍然成功的路徑。"
+            },
+            {
+              "text": "總是以失敗告終、無法達成目標的路徑",
+              "fraction": 0,
+              "feedback": "無法達成目標的路徑是例外流程，而非替代流程。"
+            },
+            {
+              "text": "使用案例開始前所假定的狀態",
+              "fraction": 0,
+              "feedback": "那是前置條件，而非流程。"
+            },
+            {
+              "text": "最常見的單一步驟序列",
+              "fraction": 0,
+              "feedback": "那是基本流程；替代流程是從它分岔而來。"
+            }
+          ],
+          "generalFeedback": "替代流程是仍能成功達成目標的變化——例如以不同方式付款。它從基本流程分岔，之後可能重新併回，或以另一條路徑達到相同的成功保證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是例外流程",
+          "text": "<p>使用案例中的<strong>例外（錯誤）流程</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "當某處出錯時所走的路徑，描述如何處理該失敗",
+              "fraction": 100,
+              "feedback": "正確——例外流程描述當無法正常進行目標時的錯誤處理。"
+            },
+            {
+              "text": "通往相同目標的另一條成功路徑",
+              "fraction": 0,
+              "feedback": "成功的變化是替代流程；例外流程處理的是失敗。"
+            },
+            {
+              "text": "成功完成後所保證的狀態",
+              "fraction": 0,
+              "feedback": "那是後置條件，而非例外流程。"
+            },
+            {
+              "text": "正常快樂路徑的步驟序列",
+              "fraction": 0,
+              "feedback": "那是基本流程；例外流程是錯誤路徑。"
+            }
+          ],
+          "generalFeedback": "例外（錯誤）流程描述當某步驟無法正常完成時（例如付款被拒、商品缺貨）會發生什麼，以及系統如何回應（常在未達成成功保證下結束）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「include（包含）」的意義",
+          "text": "<p>使用案例之間的<strong>include（包含）</strong>關係代表什麼？</p>",
+          "answers": [
+            {
+              "text": "被包含的子使用案例是基礎使用案例中「必定」執行的強制性部分",
+              "fraction": 100,
+              "feedback": "正確——include 把「總是執行」的共用行為抽出。"
+            },
+            {
+              "text": "被包含的使用案例只在特殊條件下才執行",
+              "fraction": 0,
+              "feedback": "有條件的插入是 extend 而非 include；被包含的使用案例總是執行。"
+            },
+            {
+              "text": "被包含的使用案例是錯誤處理路徑",
+              "fraction": 0,
+              "feedback": "include 談的是強制性的共用行為，而非錯誤處理。"
+            },
+            {
+              "text": "被包含的使用案例會取代基礎使用案例",
+              "fraction": 0,
+              "feedback": "include 是以強制性的共用步驟補充基礎使用案例，並不取代它。"
+            }
+          ],
+          "generalFeedback": "include 表示基礎使用案例總是會呼叫被包含的子使用案例——用來抽出共用、強制的行為（例如「結帳」包含「驗證付款」，後者總是執行）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「extend（延伸）」的意義",
+          "text": "<p>使用案例之間的<strong>extend（延伸）</strong>關係代表什麼？</p>",
+          "answers": [
+            {
+              "text": "延伸的使用案例在延伸點（extension point）插入選用行為，只有在條件成立時才執行",
+              "fraction": 100,
+              "feedback": "正確——extend 是在延伸點插入、有條件、選用的行為。"
+            },
+            {
+              "text": "延伸的使用案例總是作為基礎的強制性部分執行",
+              "fraction": 0,
+              "feedback": "總是執行的強制行為是 include，而非 extend。"
+            },
+            {
+              "text": "延伸的使用案例列出基礎的前置條件",
+              "fraction": 0,
+              "feedback": "extend 是有條件地插入行為，而非前置條件清單。"
+            },
+            {
+              "text": "延伸的使用案例是基礎的主要參與者",
+              "fraction": 0,
+              "feedback": "參與者是角色，而非使用案例之間的關係。"
+            }
+          ],
+          "generalFeedback": "extend 在基礎使用案例的具名延伸點插入選用／有條件的行為，且僅在其條件成立時才執行（例如當購物者輸入折扣碼時，「套用折扣」延伸「結帳」）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是情境（scenario）",
+          "text": "<p>在使用案例測試中，<strong>情境（scenario）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "穿過使用案例的一條特定路徑——基本流程，或基本流程加上某一個替代或例外",
+              "fraction": 100,
+              "feedback": "正確——情境是穿過使用案例的一條具體路徑。"
+            },
+            {
+              "text": "使用案例所有流程同時構成的完整集合",
+              "fraction": 0,
+              "feedback": "那是整個使用案例；情境是穿過它的一條路徑。"
+            },
+            {
+              "text": "測試所使用的單一輸入值",
+              "fraction": 0,
+              "feedback": "輸入值是測試資料；情境是端到端的路徑。"
+            },
+            {
+              "text": "使用案例的前置條件",
+              "fraction": 0,
+              "feedback": "前置條件是假定的狀態；情境是對流程的一次走訪。"
+            }
+          ],
+          "generalFeedback": "情境是穿過使用案例的一個實例／路徑：快樂路徑是一個情境，而每採用一個替代或例外（連同流程其餘部分）就得到另一個。情境是推導使用案例測試的單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識觸發事件",
+          "text": "<p>「提款」使用案例寫道：<em>「顧客必須擁有有效帳戶（前置條件）。當顧客插入卡片並要求提款時，系統會核對餘額並吐鈔；之後餘額會減少。」</em>其中哪一部分是<strong>觸發事件（trigger）</strong>？</p>",
+          "answers": [
+            {
+              "text": "顧客插入卡片並要求提款",
+              "fraction": 100,
+              "feedback": "正確——該事件發起了使用案例，因此是觸發事件。"
+            },
+            {
+              "text": "顧客必須擁有有效帳戶",
+              "fraction": 0,
+              "feedback": "那是前置條件——事前假定的狀態，而非發起事件。"
+            },
+            {
+              "text": "系統核對餘額並吐鈔",
+              "fraction": 0,
+              "feedback": "那是基本流程的步驟，而非啟動使用案例的觸發事件。"
+            },
+            {
+              "text": "之後餘額會減少",
+              "fraction": 0,
+              "feedback": "那是後置條件——成功後的狀態。"
+            }
+          ],
+          "generalFeedback": "觸發事件是啟動使用案例的事件。此處是顧客插入卡片並要求提款；有效帳戶是前置條件，而減少的餘額是後置條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識前置條件",
+          "text": "<p>在「下訂單」使用案例中，下列何者最適合描述為<strong>前置條件</strong>？</p>",
+          "answers": [
+            {
+              "text": "顧客已登入，且購物車中至少有一件商品",
+              "fraction": 100,
+              "feedback": "正確——在使用案例開始前，該狀態必須已成立。"
+            },
+            {
+              "text": "系統顯示訂單確認編號",
+              "fraction": 0,
+              "feedback": "那是成功後的結果——後置條件，而非前置條件。"
+            },
+            {
+              "text": "顧客點擊「下訂單」按鈕",
+              "fraction": 0,
+              "feedback": "那是啟動使用案例的觸發事件，而非前置條件。"
+            },
+            {
+              "text": "系統向已儲存的付款方式收款",
+              "fraction": 0,
+              "feedback": "那是基本流程中的步驟，而非前置條件。"
+            }
+          ],
+          "generalFeedback": "前置條件是流程執行前假定為真的狀態。「已登入且購物車非空」必須在下訂單開始前成立；確認編號是後置條件，點擊按鈕是觸發事件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識基本流程",
+          "text": "<p>下列何者是「登入」使用案例的<strong>基本（主要成功）流程</strong>？</p>",
+          "answers": [
+            {
+              "text": "使用者輸入有效憑證，系統驗證通過，使用者取得存取權",
+              "fraction": 100,
+              "feedback": "正確——那是直接的成功路徑。"
+            },
+            {
+              "text": "使用者連續輸入三次錯誤密碼，帳戶被鎖定",
+              "fraction": 0,
+              "feedback": "那是描述失敗處理的例外流程。"
+            },
+            {
+              "text": "使用者透過電子郵件重設遺忘的密碼",
+              "fraction": 0,
+              "feedback": "那是替代／例外路徑，而非主要成功流程。"
+            },
+            {
+              "text": "使用者在使用案例開始前就已經登入",
+              "fraction": 0,
+              "feedback": "那是前置條件／狀態，而非步驟序列。"
+            }
+          ],
+          "generalFeedback": "基本流程是無錯誤的成功路徑：輸入有效憑證、驗證通過、取得存取權。錯誤密碼鎖定是例外流程，密碼重設是另一條替代／例外路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "使用案例測試是黑箱",
+          "text": "<p>以使用案例為基礎的測試推導是一種黑箱技術：測試是依據所描述的互動與目標設計，而非依據原始碼。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——使用案例測試依據行為規格設計測試，因此屬於黑箱。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "使用案例測試依據所描述的流程與目標（規格）推導測試，因此是黑箱，而非以程式碼為基礎。"
+            }
+          ],
+          "generalFeedback": "使用案例測試是在系統／驗收層級運作的黑箱、以規格為基礎的技術：測試來自參與者—目標的互動及其流程，與內部程式碼無關。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "分類：結帳與驗證付款",
+          "text": "<p>「結帳」在完成每一次結帳時<em>總是</em>執行「驗證付款」。這是什麼關係？</p>",
+          "answers": [
+            {
+              "text": "include（包含）——驗證付款是總是執行的強制性共用行為",
+              "fraction": 100,
+              "feedback": "正確——總是作為基礎一部分執行的行為屬於 include。"
+            },
+            {
+              "text": "extend（延伸）——驗證付款只在某條件下才執行",
+              "fraction": 0,
+              "feedback": "「總是執行」代表它並非有條件，因此是 include，而非 extend。"
+            },
+            {
+              "text": "generalization（一般化）——驗證付款是結帳的一種",
+              "fraction": 0,
+              "feedback": "這是「部分／總是執行」的關係，而非 is-a 的特化。"
+            },
+            {
+              "text": "結帳的替代流程",
+              "fraction": 0,
+              "feedback": "它是一個獨立、總是被呼叫的子使用案例（include），而非結帳內部以另一種方式達成目標的分支。"
+            }
+          ],
+          "generalFeedback": "由於驗證付款在每次結帳中都會執行，故以 include 關係抽出（強制、共用的行為）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：套用折扣與結帳",
+          "text": "<p>「套用折扣」只有<em>當</em>購物者輸入折扣碼時才在「結帳」過程中執行，且插入於結帳流程的一個定點。這是什麼關係？</p>",
+          "answers": [
+            {
+              "text": "extend（延伸）——套用折扣是在延伸點插入、於條件成立時才執行的選用行為",
+              "fraction": 100,
+              "feedback": "正確——在延伸點有條件、選用地插入即為 extend。"
+            },
+            {
+              "text": "include（包含）——套用折扣在結帳時總是執行",
+              "fraction": 0,
+              "feedback": "它只在輸入折扣碼時才執行，故為有條件（extend），而非總是執行（include）。"
+            },
+            {
+              "text": "generalization（一般化）——套用折扣是結帳的一種",
+              "fraction": 0,
+              "feedback": "這是有條件的插入，而非 is-a 的特化。"
+            },
+            {
+              "text": "結帳的前置條件",
+              "fraction": 0,
+              "feedback": "它是有條件插入的行為，而非結帳開始前所假定的狀態。"
+            }
+          ],
+          "generalFeedback": "套用折扣只有在購物者提供折扣碼時才會發生，插入於結帳的延伸點——正是 extend 關係（選用／有條件）的特徵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境計數：1 基本 + 3 替代 + 2 例外",
+          "text": "<p>某使用案例有 1 個基本流程、3 個替代流程與 2 個例外流程，每一個都是各自獨立執行的路徑。以使用案例情境涵蓋（每個情境一個測試）而言，需要幾個測試案例？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1 + 3 + 2 = 6 個獨立情境，各一個測試。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 漏掉了一個流程；別忘了基本流程也要算：1 + 3 + 2 = 6。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 只算了替代流程；基本流程與例外流程也是情境。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "這些流程是各自獨立的單一路徑，因此相加（＝6），而非相乘。"
+            }
+          ],
+          "generalFeedback": "每個獨立流程都是一個情境：基本流程加上每個替代與每個例外。即 1 + 3 + 2 = 6 個情境，故情境涵蓋需 6 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境計數：1 基本 + 2 替代 + 1 例外",
+          "text": "<p>某使用案例有 1 個基本流程、2 個替代流程與 1 個例外流程，每一個都是各自獨立的路徑。必須涵蓋幾個情境？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——1 + 2 + 1 = 4 個獨立情境。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 漏掉了一個流程；把基本流程算進來：1 + 2 + 1 = 4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只算了替代流程；還要加上基本流程與例外流程。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "獨立的單一路徑相加為 4，而非相乘。"
+            }
+          ],
+          "generalFeedback": "情境涵蓋需每個情境一個測試：基本（1）＋替代（2）＋例外（1）＝ 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境計數：1 基本 + 4 例外",
+          "text": "<p>某「登入」使用案例有 1 個基本成功流程與 4 個相異的例外流程（密碼錯誤、帳戶鎖定、密碼過期、網路錯誤），每一個都是各自獨立的路徑。共有幾個情境？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1 個基本 + 4 個例外 = 5 個情境。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 只算了例外；基本成功流程也是一個情境。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "每個例外都是各自的情境，所以是 5，而非 1。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "這些是各自獨立的單一路徑，相加為 5，而非相乘。"
+            }
+          ],
+          "generalFeedback": "基本流程是一個情境，4 個例外流程各是一個，合計 1 + 4 = 5 個情境需涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "前置條件對應到測試前置設定",
+          "text": "<p>將使用案例情境轉為具體測試案例時，<strong>前置條件</strong>最直接對應到測試的哪一部分？</p>",
+          "answers": [
+            {
+              "text": "測試前置設定／在測試步驟執行前建立的初始狀態",
+              "fraction": 100,
+              "feedback": "正確——前置條件定義測試所安排的起始狀態。"
+            },
+            {
+              "text": "最後檢查的預期結果",
+              "fraction": 0,
+              "feedback": "預期結果來自後置條件，而非前置條件。"
+            },
+            {
+              "text": "使用者動作序列（測試步驟）",
+              "fraction": 0,
+              "feedback": "步驟來自流程；前置條件是步驟前所安排的狀態。"
+            },
+            {
+              "text": "測試案例的名稱",
+              "fraction": 0,
+              "feedback": "名稱只是標籤；前置條件定義的是前置設定狀態。"
+            }
+          ],
+          "generalFeedback": "前置條件指定情境執行前必須成立的事項，因此對應到測試的前置設定／安排（arrange）步驟——在執行流程前建立初始狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "後置條件對應到預期結果",
+          "text": "<p>由使用案例情境推導測試時，情境的<strong>後置條件</strong>最直接對應到測試的哪一部分？</p>",
+          "answers": [
+            {
+              "text": "步驟執行後所驗證的預期結果／斷言",
+              "fraction": 100,
+              "feedback": "正確——後置條件陳述所保證的結果，正是測試要檢查的。"
+            },
+            {
+              "text": "步驟前所做的前置設定",
+              "fraction": 0,
+              "feedback": "前置設定來自前置條件；後置條件是預期結果。"
+            },
+            {
+              "text": "觸發事件",
+              "fraction": 0,
+              "feedback": "觸發事件啟動流程；後置條件是要驗證的結果。"
+            },
+            {
+              "text": "參與者清單",
+              "fraction": 0,
+              "feedback": "參與者是參與者；後置條件是要檢查的結果。"
+            }
+          ],
+          "generalFeedback": "後置條件（成功保證）正是情境成功後系統所承諾的事項，因此對應到測試的預期結果／斷言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境中的主要參與者",
+          "text": "<p>在「以卡片付款」情境中，購物者發起購買，而銀行金流閘道授權該筆扣款。誰是<strong>主要參與者</strong>？</p>",
+          "answers": [
+            {
+              "text": "購物者——他發起使用案例並擁有目標",
+              "fraction": 100,
+              "feedback": "正確——主要參與者推動使用案例朝其目標前進。"
+            },
+            {
+              "text": "金流閘道——它做了重要的工作",
+              "fraction": 0,
+              "feedback": "閘道是系統求助的次要／支援參與者；它並非發起者。"
+            },
+            {
+              "text": "受測系統本身",
+              "fraction": 0,
+              "feedback": "系統不是參與者；參與者是外部的參與者。"
+            },
+            {
+              "text": "兩者同為主要參與者",
+              "fraction": 0,
+              "feedback": "只有一個主要參與者（目標擁有者）；閘道是次要參與者。"
+            }
+          ],
+          "generalFeedback": "購物者發起互動並擁有目標，故為主要參與者；金流閘道是系統為達成目標而聯繫的次要（支援）參與者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境中的次要參與者",
+          "text": "<p>在「註冊帳戶」使用案例中，訪客完成註冊，系統請一個外部電子郵件服務寄送確認訊息。何者是<strong>次要參與者</strong>？</p>",
+          "answers": [
+            {
+              "text": "外部電子郵件服務——系統求助於它以協助完成目標",
+              "fraction": 100,
+              "feedback": "正確——被系統呼叫的支援參與者為次要參與者。"
+            },
+            {
+              "text": "訪客——是他完成了註冊",
+              "fraction": 0,
+              "feedback": "訪客發起並擁有目標，故為主要參與者。"
+            },
+            {
+              "text": "確認訊息",
+              "fraction": 0,
+              "feedback": "訊息是資料，而非參與者。"
+            },
+            {
+              "text": "資料庫資料表",
+              "fraction": 0,
+              "feedback": "內部儲存是系統的一部分，而非外部參與者。"
+            }
+          ],
+          "generalFeedback": "訪客是主要參與者（發起者、目標擁有者）；外部電子郵件服務是系統為協助達成目標而聯繫的次要／支援參與者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由描述的情境推導測試",
+          "text": "<p>情境：<em>購物者已儲存的卡片被<strong>拒絕</strong>，因此訂單未成立並顯示錯誤訊息。</em>下列哪個測試最符合此例外情境？</p>",
+          "answers": [
+            {
+              "text": "建立一個卡片會被拒絕的帳戶，嘗試結帳，並驗證未建立任何訂單且顯示拒絕錯誤",
+              "fraction": 100,
+              "feedback": "正確——前置設定、動作與預期結果都依循「付款被拒」的例外情境。"
+            },
+            {
+              "text": "設定一張有效卡片、結帳，並驗證訂單已確認",
+              "fraction": 0,
+              "feedback": "那測試的是基本成功流程，而非付款被拒的例外。"
+            },
+            {
+              "text": "單獨對卡號的 Luhn 檢查函式做單元測試",
+              "fraction": 0,
+              "feedback": "那是低階的單元測試，而非所描述的端到端例外情境。"
+            },
+            {
+              "text": "驗證折扣欄位可接受一組折扣碼",
+              "fraction": 0,
+              "feedback": "那涉及另一項（折扣）行為，而非付款被拒的情境。"
+            }
+          ],
+          "generalFeedback": "情境決定測試：安排一張會被拒絕的卡片（前置設定），執行結帳（步驟），並斷言未建立訂單且顯示拒絕錯誤（來自失敗保證的預期結果）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "被包含的使用案例總是執行",
+          "text": "<p>被包含（include）的使用案例在基礎使用案例每次執行時都會執行，而延伸（extend）的使用案例只在其條件成立時才執行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——include 是強制／總是執行；extend 是有條件／選用。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "include 總是執行；extend 是有條件的。此敘述描述正確。"
+            }
+          ],
+          "generalFeedback": "include 把總是作為基礎一部分執行的行為抽出；extend 只在條件成立時於延伸點插入選用行為。"
+        },
+        {
+          "type": "multichoice",
+          "name": "觸發事件與前置條件的應用",
+          "text": "<p>某使用案例寫道：「帳戶必須信用良好。當顧客送出轉帳請求時，此使用案例開始。」下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "「帳戶信用良好」是前置條件；「顧客送出轉帳請求」是觸發事件",
+              "fraction": 100,
+              "feedback": "正確——假定的狀態是前置條件；發起的事件是觸發事件。"
+            },
+            {
+              "text": "兩者都是觸發事件",
+              "fraction": 0,
+              "feedback": "只有發起事件才是觸發事件；信用良好狀態是假定的狀態。"
+            },
+            {
+              "text": "兩者都是前置條件",
+              "fraction": 0,
+              "feedback": "送出請求是發起事件（觸發事件），而非前置條件。"
+            },
+            {
+              "text": "「帳戶信用良好」是觸發事件；送出請求是後置條件",
+              "fraction": 0,
+              "feedback": "這弄反了角色；信用良好是事前假定，而送出請求啟動使用案例。"
+            }
+          ],
+          "generalFeedback": "前置條件是使用案例開始前假定的狀態（「帳戶信用良好」）；觸發事件是啟動它的事件（「顧客送出轉帳請求」）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境涵蓋所需的測試數",
+          "text": "<p>在使用案例<strong>情境涵蓋</strong>之下，一個使用案例所需的最少測試案例數等於下列何者？</p>",
+          "answers": [
+            {
+              "text": "情境的數量（基本流程加上每個替代與每個例外）",
+              "fraction": 100,
+              "feedback": "正確——情境涵蓋要求每個情境至少一個測試。"
+            },
+            {
+              "text": "使用案例中的參與者數量",
+              "fraction": 0,
+              "feedback": "參與者數量不決定情境涵蓋；決定它的是情境數量。"
+            },
+            {
+              "text": "恰好一個，對應基本流程",
+              "fraction": 0,
+              "feedback": "只涵蓋基本流程會漏掉替代與例外未測試。"
+            },
+            {
+              "text": "前置條件的數量",
+              "fraction": 0,
+              "feedback": "前置條件變成前置設定，而非所需測試的數量。"
+            }
+          ],
+          "generalFeedback": "情境涵蓋要求每個情境至少一個測試，因此最少測試數等於情境數量 = 基本 + 每個替代 + 每個例外（當每個都是獨立路徑時）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "include 不另增快樂路徑情境",
+          "text": "<p>「結帳」<em>包含（include）</em>「驗證付款」（總是執行）。在計算結帳基本流程的情境時，被包含的驗證付款如何處理？</p>",
+          "answers": [
+            {
+              "text": "它是每個結帳情境的一部分，因此在快樂路徑上不會另外新增「有／無」的情境",
+              "fraction": 100,
+              "feedback": "正確——由於它總是執行，因此內建於每個情境中，而非成為選用分支。"
+            },
+            {
+              "text": "它使情境數翻倍——一個有驗證、一個無驗證",
+              "fraction": 0,
+              "feedback": "總是執行的 include 不存在「無」的情形；那種有／無的分裂屬於 extend。"
+            },
+            {
+              "text": "它被完全忽略，永遠不測試",
+              "fraction": 0,
+              "feedback": "它在每條路徑上都會執行，因此會被那些測試所執行——只是它不是選用分支。"
+            },
+            {
+              "text": "它變成結帳的前置條件",
+              "fraction": 0,
+              "feedback": "它是被呼叫的行為，而非事前假定的狀態。"
+            }
+          ],
+          "generalFeedback": "由於被包含的使用案例總是執行，它出現在基礎的每個情境中，而非製造有／無的選用分裂。（驗證付款當然可能有自己內部的替代／例外，那是另一回事。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：一般化（generalization）",
+          "text": "<p>「以卡片付款」與「以現金付款」都是更一般的「進行付款」使用案例的特殊種類，各自細化付款方式。這是什麼關係？</p>",
+          "answers": [
+            {
+              "text": "generalization（一般化）——特化的使用案例是一般者的變體（is-a）",
+              "fraction": 100,
+              "feedback": "正確——一般使用案例與其變體之間的 is-a 關係即為一般化。"
+            },
+            {
+              "text": "include（包含）——進行付款總是同時執行兩者",
+              "fraction": 0,
+              "feedback": "include 是總是執行的強制共用行為，而非 is-a 的變體關係。"
+            },
+            {
+              "text": "extend（延伸）——這些變體是有條件的插入",
+              "fraction": 0,
+              "feedback": "extend 在延伸點插入選用行為；此處變體是特化一般使用案例（is-a）。"
+            },
+            {
+              "text": "trigger（觸發事件）——這些變體啟動進行付款",
+              "fraction": 0,
+              "feedback": "觸發事件是發起事件，而非使用案例之間的關係。"
+            }
+          ],
+          "generalFeedback": "一般化是 is-a 關係：「以卡片付款」與「以現金付款」是一般「進行付款」的特化形式，繼承其結構並細化特定步驟。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "兩個獨立選用延伸的路徑計數",
+          "text": "<p>某「結帳」使用案例有兩個<em>獨立、選用</em>的延伸，各自可能發生或不發生：「套用折扣」與「加購禮品包裝」。若要涵蓋「採用／不採用」的每一種組合（且兩者確實獨立），共有幾條相異的端到端路徑？</p>",
+          "answers": [
+            {
+              "text": "4——每個延伸各自獨立地存在或不存在，故 2 x 2 = 4",
+              "fraction": 100,
+              "feedback": "正確——兩個獨立的選用插入得到 2^2 = 4 種組合。"
+            },
+            {
+              "text": "2——一條有延伸、一條無延伸",
+              "fraction": 0,
+              "feedback": "兩個獨立選項得到四種組合，而非兩種。"
+            },
+            {
+              "text": "3——基本再加上每個延伸各一條",
+              "fraction": 0,
+              "feedback": "那樣每個延伸各算一次，卻漏掉「兩者皆採用」與「兩者皆不採用」的組合；獨立選項相乘為 4。"
+            },
+            {
+              "text": "1——延伸不會產生新路徑",
+              "fraction": 0,
+              "feedback": "選用延伸確實會產生分支；兩個獨立延伸得到 4 條路徑。"
+            }
+          ],
+          "generalFeedback": "每個獨立的選用延伸貢獻一個 2 的因子（採用或不採用）。兩個延伸的組合數為 2 x 2 = 4。（基本情境涵蓋或許用較少——每個延伸一條加上不含延伸的一條——但對兩個獨立選項的完整組合涵蓋是 4。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含分岔替代的情境計數",
+          "text": "<p>某使用案例有 1 個基本流程。在某一步驟，付款方式分岔為恰好 3 個互斥選項之一（現金、卡片、折扣券），此外另有 2 個獨立的例外流程。以每個相異付款分支一個情境、再加上每個例外計算，共有幾個情境？</p>",
+          "answers": [
+            {
+              "text": "5——3 個互斥付款分支 + 2 個例外",
+              "fraction": 100,
+              "feedback": "正確——3 個分支互為替代（3 個情境）加上 2 個例外 = 5。"
+            },
+            {
+              "text": "6——1 個基本 + 3 個分支 + 2 個例外",
+              "fraction": 0,
+              "feedback": "這 3 個分支基本流程的付款步驟（其中一個是「主要」分支），故不會另外再加一個獨立的基本情境；計數為 3 + 2 = 5。"
+            },
+            {
+              "text": "3——只有付款分支重要",
+              "fraction": 0,
+              "feedback": "那 2 個例外流程也是情境；3 + 2 = 5。"
+            },
+            {
+              "text": "12——3 個分支乘以 2 個例外再乘以 2",
+              "fraction": 0,
+              "feedback": "互斥分支與獨立例外是相加，而非相乘。"
+            }
+          ],
+          "generalFeedback": "三種付款方式是同一步驟的互斥變體，得到 3 個成功情境（其中一個實際上就是基本流程，其餘為替代）。加上 2 個獨立例外，共 3 + 2 = 5 個情境。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "include 與 extend：微妙的強制情形",
+          "text": "<p>每次「轉帳」執行時，系統都會寫入一筆稽核紀錄——毫無例外。此稽核行為被抽成自己的使用案例。何者關係最適合，為什麼？</p>",
+          "answers": [
+            {
+              "text": "include（包含）——稽核紀錄每次執行都會寫入，故為強制抽出的行為",
+              "fraction": 100,
+              "feedback": "正確——「每次執行、毫無例外」正是 include 的特徵。"
+            },
+            {
+              "text": "extend（延伸）——稽核是附加到基礎的額外行為",
+              "fraction": 0,
+              "feedback": "extend 是有條件的；此處稽核總是執行，故為 include。"
+            },
+            {
+              "text": "extend（延伸）——因為稽核不是主要目標",
+              "fraction": 0,
+              "feedback": "是否為主要目標並不相干；關鍵是它總是執行，故為 include。"
+            },
+            {
+              "text": "generalization（一般化）——稽核是轉帳的一種",
+              "fraction": 0,
+              "feedback": "它是共用、總是執行的行為，而非 is-a 的特化。"
+            }
+          ],
+          "generalFeedback": "決定因素是無條件執行。由於稽核紀錄每次執行都會寫入、毫無例外，它是強制的共用行為——屬於 include，而非有條件的 extend。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "include 與 extend：微妙的有條件情形",
+          "text": "<p>在「提款」過程中，<em>若</em>餘額將低於某門檻，系統會在一個定點另外執行「寄送低餘額警示」。何者關係最適合，為什麼？</p>",
+          "answers": [
+            {
+              "text": "extend（延伸）——警示只在低餘額條件成立時才執行，插入於延伸點",
+              "fraction": 100,
+              "feedback": "正確——在延伸點的有條件插入即為 extend。"
+            },
+            {
+              "text": "include（包含）——警示是提款的一部分",
+              "fraction": 0,
+              "feedback": "它只在條件成立時才執行，故為有條件（extend），而非總是執行（include）。"
+            },
+            {
+              "text": "include（包含）——因為它被抽成獨立的使用案例",
+              "fraction": 0,
+              "feedback": "被抽出並不使其成為 include；include 還要求它總是執行，而此處並非如此。"
+            },
+            {
+              "text": "提款的前置條件",
+              "fraction": 0,
+              "feedback": "它是流程中途由條件觸發的行為，而非事前假定的狀態。"
+            }
+          ],
+          "generalFeedback": "「若餘額將低於門檻」這個守衛條件代表警示是有條件的，插入於延伸點——正是 extend 的特徵，即使它被抽成自己的使用案例也一樣。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何後置條件是預期結果",
+          "text": "<p>為什麼情境的<strong>後置條件</strong>是使用案例測試預期結果的自然來源？</p>",
+          "answers": [
+            {
+              "text": "它陳述系統在該情境下必須交付的保證，故驗證它即可確認目標已達成",
+              "fraction": 100,
+              "feedback": "正確——後置條件正是所承諾的結束狀態，也就是測試必須斷言的。"
+            },
+            {
+              "text": "它列出測試必須提供的輸入",
+              "fraction": 0,
+              "feedback": "輸入與前置設定／步驟有關；後置條件是所保證的結果。"
+            },
+            {
+              "text": "它指出程式碼應呼叫的內部函式",
+              "fraction": 0,
+              "feedback": "使用案例測試是黑箱；後置條件描述可觀察的結果，而非內部呼叫。"
+            },
+            {
+              "text": "它計算共有幾個情境",
+              "fraction": 0,
+              "feedback": "那不相干；後置條件描述的是要驗證的結束狀態。"
+            }
+          ],
+          "generalFeedback": "後置條件是情境完成時系統所承諾的可觀察保證。斷言它正是測試確認情境目標已達成的方式，因此它對應到預期結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "只測基本流程的涵蓋充分性",
+          "text": "<p>某團隊每個使用案例只寫一個測試，且總是執行基本（快樂路徑）流程。主要的充分性問題是什麼？</p>",
+          "answers": [
+            {
+              "text": "替代與例外流程從未被執行，因此錯誤處理與較不常見的路徑都未被測試",
+              "fraction": 100,
+              "feedback": "正確——只測快樂路徑會漏掉替代與例外情境。"
+            },
+            {
+              "text": "基本流程被測試太多次，浪費心力",
+              "fraction": 0,
+              "feedback": "問題在於漏掉其他情境的涵蓋，而非過度測試快樂路徑。"
+            },
+            {
+              "text": "前置條件再也無法設定",
+              "fraction": 0,
+              "feedback": "快樂路徑仍會設定前置條件；缺口在於未測試的替代／例外情境。"
+            },
+            {
+              "text": "它會自動達成完整的敘述涵蓋",
+              "fraction": 0,
+              "feedback": "快樂路徑測試很少觸及錯誤處理程式碼，故無法保證敘述涵蓋。"
+            }
+          ],
+          "generalFeedback": "情境涵蓋要求基本流程加上每個替代與每個例外。只測快樂路徑會使每個替代與錯誤處理情境未被執行——而許多真實缺陷正藏在其中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "將使用案例路徑對應到具體測試案例",
+          "text": "<p>你要把一個使用案例情境轉為具體測試案例。下列哪個「使用案例部分對應到測試部分」的對照是正確的？</p>",
+          "answers": [
+            {
+              "text": "前置條件 → 前置設定；所選流程的步驟 → 測試步驟；後置條件 → 預期結果",
+              "fraction": 100,
+              "feedback": "正確——這正是從情境到測試案例的標準對應。"
+            },
+            {
+              "text": "後置條件 → 前置設定；前置條件 → 預期結果；觸發事件 → 收尾",
+              "fraction": 0,
+              "feedback": "這弄反了角色；前置條件是前置設定，後置條件是預期結果。"
+            },
+            {
+              "text": "參與者 → 前置設定；前置條件 → 步驟；後置條件 → 測試名稱",
+              "fraction": 0,
+              "feedback": "前置條件是前置設定，流程的步驟才是測試步驟；此對應錯誤。"
+            },
+            {
+              "text": "觸發事件 → 預期結果；步驟 → 前置設定；後置條件 → 輸入",
+              "fraction": 0,
+              "feedback": "後置條件是預期結果，而非輸入；此對應錯誤。"
+            }
+          ],
+          "generalFeedback": "情境可乾淨地對應到測試案例：前置條件建立初始狀態（前置設定），情境的流程成為有序的測試步驟，後置條件成為要斷言的預期結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "使用案例測試相對單元測試的優勢與限制",
+          "text": "<p>與單元測試相比，何者最能描述使用案例測試的優勢與限制？</p>",
+          "answers": [
+            {
+              "text": "它驗證真實的端到端使用者目標並發現整合／工作流程缺陷，但不會有系統地執行低階內部程式碼路徑",
+              "fraction": 100,
+              "feedback": "正確——它在系統／驗收層級很強，但在深層程式碼路徑涵蓋上較弱。"
+            },
+            {
+              "text": "不同於單元測試，它保證每個函式的完整分支涵蓋",
+              "fraction": 0,
+              "feedback": "由於它是黑箱且端到端，並不會有系統地涵蓋內部分支。"
+            },
+            {
+              "text": "因為層級較高，它可完全取代單元測試",
+              "fraction": 0,
+              "feedback": "兩者互補；使用案例測試會漏掉單元測試所針對的低階路徑。"
+            },
+            {
+              "text": "它是檢視控制流程圖的白箱技術",
+              "fraction": 0,
+              "feedback": "使用案例測試是黑箱；它不分析控制流程圖。"
+            }
+          ],
+          "generalFeedback": "使用案例測試擅長驗證端到端、真實的使用者目標，並在系統／驗收層級揭露整合／工作流程問題。由於它是黑箱，並不會有系統地執行低階程式碼路徑，因此與單元測試互補，而非取代之。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "替代與例外的組合",
+          "text": "<p>某使用案例有一個基本流程、1 個替代流程（以折扣券取代卡片付款），以及 1 個例外（付款被拒），而該例外可能發生在<em>卡片路徑或折扣券路徑</em>任一者上。若你分別涵蓋基本（卡片）成功、折扣券成功，以及各路徑上的被拒，共有幾個情境？</p>",
+          "answers": [
+            {
+              "text": "4——卡片成功、折扣券成功、卡片被拒、折扣券被拒",
+              "fraction": 100,
+              "feedback": "正確——例外與兩條成功路徑各自組合，得到 2 + 2 = 4。"
+            },
+            {
+              "text": "3——基本、替代、例外",
+              "fraction": 0,
+              "feedback": "由於被拒可能發生在任一路徑，它產生兩個相異的例外情境，而非一個；總數為 4。"
+            },
+            {
+              "text": "2——一個成功、一個失敗",
+              "fraction": 0,
+              "feedback": "有兩條成功路徑，而失敗適用於每一條，得到 4 個情境。"
+            },
+            {
+              "text": "6——每個流程乘以每個其他流程",
+              "fraction": 0,
+              "feedback": "被拒只附著於這 2 條付款路徑，得到 4，而非 6。"
+            }
+          ],
+          "generalFeedback": "兩條成功路徑（卡片、折扣券）加上被拒例外在各路徑上發生，得到 2 個成功 + 2 個被拒 = 4 個情境。當例外可發生在多條路徑上時，它與那些路徑相乘，而非只算一次。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何使用案例測試漏掉低階路徑",
+          "text": "<p>為什麼使用案例測試通常無法執行許多低階程式碼路徑（例如某輔助函式內部的罕見分支）？</p>",
+          "answers": [
+            {
+              "text": "它依外部使用者目標與流程推導測試，而非依程式碼結構，因此內部分支只是偶然被觸及",
+              "fraction": 100,
+              "feedback": "正確——由於它是黑箱且以目標為導向，並不針對內部結構。"
+            },
+            {
+              "text": "因為使用案例禁止在測試時執行任何程式碼",
+              "fraction": 0,
+              "feedback": "使用案例測試確實會執行系統；只是其設計不以內部程式碼結構為依據。"
+            },
+            {
+              "text": "因為使用案例測試只能手動執行",
+              "fraction": 0,
+              "feedback": "它可以自動化；問題在於其設計忽略程式碼結構，而非執行方式。"
+            },
+            {
+              "text": "因為低階分支永遠都是死碼",
+              "fraction": 0,
+              "feedback": "內部分支通常是活的；只是使用案例測試並非為針對它們而設計。"
+            }
+          ],
+          "generalFeedback": "使用案例測試是黑箱：測試來自參與者目標與可觀察的流程，而非控制流程圖。深層或罕見的內部分支只是碰巧被執行，這也是為何需要搭配結構（白箱）技術。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境涵蓋的最小測試集",
+          "text": "<p>某使用案例有 1 個基本流程、2 個替代流程與 3 個例外流程，每一個都是各自獨立的單一路徑。要達成使用案例情境涵蓋，最少需要幾個測試？</p>",
+          "answers": [
+            {
+              "text": "6——每個情境一個測試（1 + 2 + 3）",
+              "fraction": 100,
+              "feedback": "正確——情境涵蓋需每個情境至少一個測試，故 1 + 2 + 3 = 6。"
+            },
+            {
+              "text": "5——省略基本流程，因為替代已涵蓋它",
+              "fraction": 0,
+              "feedback": "基本流程是自己的情境，必須涵蓋；總數為 6。"
+            },
+            {
+              "text": "3——只有例外需要專屬測試",
+              "fraction": 0,
+              "feedback": "基本與替代流程也是情境；總數為 6。"
+            },
+            {
+              "text": "36——每個流程與每個其他流程組合",
+              "fraction": 0,
+              "feedback": "獨立的單一路徑相加為 6；不會兩兩組合。"
+            }
+          ],
+          "generalFeedback": "情境涵蓋需每個情境至少一個測試。以獨立路徑而言即 1 個基本 + 2 個替代 + 3 個例外 = 6 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成功保證與最小（失敗）保證",
+          "text": "<p>某例外情境（「付款被拒」）在未達成目標的情況下結束。所推導的測試應斷言哪個後置條件？</p>",
+          "answers": [
+            {
+              "text": "失敗／最小保證——例如未建立訂單、帳戶維持不變且顯示錯誤",
+              "fraction": 100,
+              "feedback": "正確——失敗情境的預期結果是其最小（失敗）保證，而非成功保證。"
+            },
+            {
+              "text": "成功保證——訂單已成立且付款已收取",
+              "fraction": 0,
+              "feedback": "情境失敗了，因此成功保證不應成立；改為斷言失敗保證。"
+            },
+            {
+              "text": "完全沒有後置條件，因為它失敗了",
+              "fraction": 0,
+              "feedback": "即使失敗的情境也有一個保證的安全結束狀態（最小保證），測試應加以驗證。"
+            },
+            {
+              "text": "前置條件，在結束時重新檢查",
+              "fraction": 0,
+              "feedback": "預期結果是失敗保證，而非前置條件。"
+            }
+          ],
+          "generalFeedback": "使用案例會指定成功保證（成功路徑用）與最小／失敗保證（失敗後所留下的安全狀態）。例外情境的測試應斷言失敗保證——例如未建立訂單、未扣款、顯示錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由前置條件、步驟、後置條件產生具體測試",
+          "text": "<p>使用案例「退貨」：<em>前置條件：顧客有一筆在退貨期限內、已送達的訂單。基本流程：顧客選取商品、選擇原因並送出退貨；系統開立退貨標籤並將商品標記為待退。後置條件：退貨已記錄且標籤已開立。</em>下列哪個具體測試正確實現此情境？</p>",
+          "answers": [
+            {
+              "text": "前置設定：一個擁有已送達、期限內訂單的帳戶。步驟：選取商品、選擇原因、送出。預期：存在一筆退貨紀錄且已開立退貨標籤",
+              "fraction": 100,
+              "feedback": "正確——前置條件成為前置設定，流程成為步驟，後置條件成為預期結果。"
+            },
+            {
+              "text": "前置設定：一個沒有任何訂單的帳戶。步驟：送出退貨。預期：開立標籤",
+              "fraction": 0,
+              "feedback": "前置條件（一筆已送達、期限內的訂單）未被滿足，故無法實現此情境。"
+            },
+            {
+              "text": "前置設定：一筆已送達、期限內的訂單。步驟：送出退貨。預期：不發生任何變化",
+              "fraction": 0,
+              "feedback": "後置條件承諾已記錄退貨並開立標籤，故「不發生任何變化」是錯誤的預期結果。"
+            },
+            {
+              "text": "前置設定：無。步驟：直接呼叫標籤列印函式。預期：產生一份 PDF",
+              "fraction": 0,
+              "feedback": "那是對單一函式的單元測試，而非帶有前置條件與後置條件的端到端使用案例情境。"
+            }
+          ],
+          "generalFeedback": "情境可直接對應：前置條件（已送達、期限內的訂單）是前置設定；基本流程的步驟是測試步驟；後置條件（退貨已記錄、標籤已開立）是要斷言的預期結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "extend 新增「有／無」的情境分裂",
+          "text": "<p>「訂機票」被「加購額外行李」<em>延伸（extend）</em>（選用，位於延伸點）。要對此單一選用延伸做情境涵蓋，必須涵蓋幾個情境，為什麼？</p>",
+          "answers": [
+            {
+              "text": "2——一個採用延伸、一個不採用，因為它是有條件的",
+              "fraction": 100,
+              "feedback": "正確——有條件的延伸需同時涵蓋「有延伸」與「無延伸」的路徑。"
+            },
+            {
+              "text": "1——該延伸總是訂機票的一部分",
+              "fraction": 0,
+              "feedback": "延伸是有條件的，故並非總是流程的一部分；「有」與「無」都必須涵蓋。"
+            },
+            {
+              "text": "0——選用行為無需測試",
+              "fraction": 0,
+              "feedback": "選用行為仍需測試；兩個分支（採用與不採用）都是情境。"
+            },
+            {
+              "text": "4——兩個條件的每一種組合",
+              "fraction": 0,
+              "feedback": "只有一個選用延伸，得到 2 個情境（採用／不採用），而非 4。"
+            }
+          ],
+          "generalFeedback": "由於 extend 是有條件的，涵蓋它意謂同時測試「延伸發生」與「延伸不發生」兩條路徑——單一選用延伸即兩個情境。（對比 include，它總是執行，並不新增這種分裂。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境涵蓋與窮舉路徑測試",
+          "text": "<p>某複雜使用案例有許多選用延伸與例外，因此「把每個流程都組合起來」的方式數目龐大。為什麼使用案例<strong>情境涵蓋</strong>通常是每個情境測一條路徑（基本 + 每個替代 + 每個例外），而非測試每一種可能的流程組合？</p>",
+          "answers": [
+            {
+              "text": "組合每個流程會造成組合爆炸，因此情境涵蓋以「每個流程至少一次」作為務實、有界的準則",
+              "fraction": 100,
+              "feedback": "正確——每個情境一條路徑是對抗組合爆炸的可行折衷。"
+            },
+            {
+              "text": "因為替代與例外流程從不含有缺陷",
+              "fraction": 0,
+              "feedback": "它們往往含有缺陷——情境涵蓋正因它們重要而各測一次；它只是避免完整的組合爆炸。"
+            },
+            {
+              "text": "因為只有基本流程值得測試",
+              "fraction": 0,
+              "feedback": "情境涵蓋會把每個流程都測至少一次，而非只測基本流程。"
+            },
+            {
+              "text": "因為測試每一種組合是必需的，且總是可行",
+              "fraction": 0,
+              "feedback": "因組合爆炸，測試每一種組合通常不可行，這正是採用情境涵蓋的原因。"
+            }
+          ],
+          "generalFeedback": "完整流程組合的數目呈乘法成長，很快變得難以處理。情境涵蓋將每個流程（基本、每個替代、每個例外）至少執行一次——一個有界、成本效益佳的準則——並接受未嘗試每一種流程組合。",
+          "single": true
+        }
+      ]
+    }
+  },
   "v-model": {
     "en": {
       "easy": [
