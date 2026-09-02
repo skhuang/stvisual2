@@ -66462,6 +66462,2436 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "continuous-testing-pipeline": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What continuous testing is",
+            "text": "<p><em>Continuous testing</em> in a CI/CD pipeline is best described as:</p>",
+            "answers": [
+              {
+                "text": "Running automated tests at every stage of the pipeline so each change gets fast feedback",
+                "fraction": 100,
+                "feedback": "Correct \u2014 continuous testing weaves automated tests into every pipeline stage to give quick feedback on each change."
+              },
+              {
+                "text": "Running the whole test suite once, manually, just before the yearly release",
+                "fraction": 0,
+                "feedback": "That is infrequent manual testing at the end; continuous testing runs automatically throughout the pipeline."
+              },
+              {
+                "text": "Letting a dedicated QA team test after developers have finished all coding",
+                "fraction": 0,
+                "feedback": "That is a late, separate testing phase; continuous testing runs automatically at every stage as changes flow through."
+              },
+              {
+                "text": "Testing only the code paths that a customer has already reported as broken",
+                "fraction": 0,
+                "feedback": "That is narrow reactive testing; continuous testing exercises each change automatically at every stage."
+              }
+            ],
+            "generalFeedback": "Continuous testing means automated tests run at every stage of the CI/CD pipeline, so every change is validated quickly and the team gets fast feedback rather than waiting for a late, separate test phase.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a CI/CD pipeline is",
+            "text": "<p>In this context, a <em>CI/CD pipeline</em> is:</p>",
+            "answers": [
+              {
+                "text": "An automated sequence of stages that a change progresses through, from build and test toward release",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a pipeline is an ordered, automated series of stages a build passes through on its way to release."
+              },
+              {
+                "text": "A single script that only compiles the code and produces no tests or deployment",
+                "fraction": 0,
+                "feedback": "Compiling alone is one step; a CI/CD pipeline is the whole automated sequence of stages toward release."
+              },
+              {
+                "text": "The physical network cable connecting developer laptops to the server",
+                "fraction": 0,
+                "feedback": "That is hardware; a CI/CD pipeline is an automated sequence of build/test/release stages."
+              },
+              {
+                "text": "A backlog of user stories waiting to be prioritised by the product owner",
+                "fraction": 0,
+                "feedback": "That is a product backlog; a pipeline is the automated path a change takes from build to release."
+              }
+            ],
+            "generalFeedback": "A CI/CD pipeline is an ordered, automated sequence of stages \u2014 typically build, test, and deploy steps \u2014 that each change flows through. Continuous integration (CI) covers the early integrate-and-test stages; continuous delivery/deployment (CD) covers the promotion toward release.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a pipeline stage is",
+            "text": "<p>A <em>stage</em> in a pipeline is:</p>",
+            "answers": [
+              {
+                "text": "One step in the sequence, with its own set of checks, that a build must pass before moving on",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a stage is a discrete step with its own checks; the build advances only after it passes."
+              },
+              {
+                "text": "A copy of the source repository kept for backup purposes",
+                "fraction": 0,
+                "feedback": "That is a backup, not a pipeline stage; a stage is a step with checks the build must pass."
+              },
+              {
+                "text": "The final production server where users access the application",
+                "fraction": 0,
+                "feedback": "That may be the target of a deploy stage, but a stage itself is a step with its own checks."
+              },
+              {
+                "text": "A meeting where the team decides which features to build next",
+                "fraction": 0,
+                "feedback": "That is planning; a pipeline stage is an automated step the build must pass."
+              }
+            ],
+            "generalFeedback": "A stage is a discrete step in the pipeline \u2014 for example the commit stage, an integration stage, or an acceptance stage \u2014 that applies its own checks. The build progresses to the next stage only if the current stage passes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a quality gate is",
+            "text": "<p>A <em>quality gate</em> in a pipeline is:</p>",
+            "answers": [
+              {
+                "text": "A pass/fail checkpoint that a build must clear before it is allowed to advance to the next stage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a gate is a checkpoint; only a build that passes its checks is promoted onward."
+              },
+              {
+                "text": "A dashboard that shows how many commits each developer made this week",
+                "fraction": 0,
+                "feedback": "That is an activity report; a quality gate is a pass/fail checkpoint controlling promotion."
+              },
+              {
+                "text": "A rule that automatically increases the version number on every commit",
+                "fraction": 0,
+                "feedback": "That is versioning; a gate decides whether a build may advance based on its checks."
+              },
+              {
+                "text": "A queue that stores builds so they can all be released together at month end",
+                "fraction": 0,
+                "feedback": "That is batching releases; a gate is a checkpoint that blocks a failing build from advancing."
+              }
+            ],
+            "generalFeedback": "Each stage acts as a quality gate: it applies checks (such as its tests) and only a build that passes is promoted to the next stage. A failing gate stops the build, preventing a broken change from moving further down the pipeline.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What fail fast means",
+            "text": "<p>In a pipeline, the principle of <em>failing fast</em> means:</p>",
+            "answers": [
+              {
+                "text": "Detecting and reporting a failure as early and as quickly as possible, so the build stops before wasting more time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fail fast means surfacing failures early so the pipeline stops before running slower, costlier work."
+              },
+              {
+                "text": "Deploying to production as quickly as possible even if some tests have not run",
+                "fraction": 0,
+                "feedback": "That skips gates; failing fast is about detecting failures early, not deploying untested code."
+              },
+              {
+                "text": "Marking a test as failed the moment it runs slower than one second",
+                "fraction": 0,
+                "feedback": "Speed thresholds are unrelated; failing fast means catching real failures early and stopping."
+              },
+              {
+                "text": "Retrying a failing test rapidly until it eventually passes",
+                "fraction": 0,
+                "feedback": "Retrying to force a pass hides failures; failing fast means reporting them early and stopping."
+              }
+            ],
+            "generalFeedback": "Fail fast means arranging the pipeline so that failures are detected as early and cheaply as possible. The moment a stage fails, the build stops, so the team learns quickly and no time is spent running later, slower stages on a change that is already known to be broken.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What happens when a stage fails",
+            "text": "<p>When the automated tests in a pipeline stage fail, what should the pipeline do?</p>",
+            "answers": [
+              {
+                "text": "Stop and refuse to promote the build to the next stage until the failure is fixed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a failing gate halts the build and blocks promotion, so a broken change cannot advance."
+              },
+              {
+                "text": "Ignore the failure and continue promoting the build to production",
+                "fraction": 0,
+                "feedback": "That defeats the gate; a failing stage must stop the build, not wave it through."
+              },
+              {
+                "text": "Delete the failing tests so the stage turns green",
+                "fraction": 0,
+                "feedback": "Deleting tests hides the problem; a failing stage should stop the build until the real failure is fixed."
+              },
+              {
+                "text": "Promote the build but send an email that can be read later",
+                "fraction": 0,
+                "feedback": "Promoting a known-broken build defeats the gate; the pipeline should stop instead."
+              }
+            ],
+            "generalFeedback": "Each stage is a quality gate. If its tests fail, the pipeline stops and the build is not promoted; the change stays blocked until the failure is fixed. This is exactly what prevents a broken build from reaching later stages or production.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contents of the commit stage",
+            "text": "<p>In Humble and Farley's Continuous Delivery, the <em>commit stage</em> typically runs:</p>",
+            "answers": [
+              {
+                "text": "Compilation, unit tests, and fast static checks \u2014 quick checks that give feedback in minutes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the commit stage compiles, runs unit tests and fast checks, aiming for feedback within a few minutes."
+              },
+              {
+                "text": "A full suite of slow end-to-end tests against a production-like environment",
+                "fraction": 0,
+                "feedback": "Slow end-to-end tests belong in a later acceptance stage; the commit stage stays fast."
+              },
+              {
+                "text": "Manual exploratory testing by the whole QA team",
+                "fraction": 0,
+                "feedback": "Manual exploratory testing is a later, human activity; the commit stage runs fast automated checks."
+              },
+              {
+                "text": "A one-hour load test simulating thousands of concurrent users",
+                "fraction": 0,
+                "feedback": "Load testing is slow and comes much later; the commit stage is for quick checks like compile and unit tests."
+              }
+            ],
+            "generalFeedback": "The commit stage is the first gate: it compiles the code, runs the unit tests, and performs fast static checks. It is designed to be quick (ideally minutes) so developers get near-immediate feedback that their commit did not break the basics.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contents of the acceptance stage",
+            "text": "<p>The <em>acceptance stage</em> that comes after the commit stage typically runs:</p>",
+            "answers": [
+              {
+                "text": "Automated acceptance tests that check the system behaves correctly from the user's point of view",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the acceptance stage runs automated acceptance tests against expected user-facing behaviour."
+              },
+              {
+                "text": "The compiler, to check the code still builds",
+                "fraction": 0,
+                "feedback": "Compilation is part of the earlier commit stage; the acceptance stage runs automated acceptance tests."
+              },
+              {
+                "text": "Only the unit tests, re-run a second time for safety",
+                "fraction": 0,
+                "feedback": "Unit tests belong to the commit stage; the acceptance stage validates end-to-end user behaviour."
+              },
+              {
+                "text": "A spell-check of the source-code comments",
+                "fraction": 0,
+                "feedback": "That is not acceptance testing; the acceptance stage runs automated acceptance tests of system behaviour."
+              }
+            ],
+            "generalFeedback": "After the fast commit stage, the acceptance stage runs automated acceptance tests: slower, higher-level tests that verify the system does what users expect, usually against a production-like environment. Because they are slower, they run after \u2014 and only if \u2014 the commit stage has passed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What shift-left means",
+            "text": "<p>The term <em>shift-left</em> testing means:</p>",
+            "answers": [
+              {
+                "text": "Testing earlier in the pipeline (and earlier in development) so defects are caught sooner",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shift-left moves testing to the left, earlier in the flow, to catch defects sooner and cheaper."
+              },
+              {
+                "text": "Testing only after the software has been released to production",
+                "fraction": 0,
+                "feedback": "Testing after release is shift-right; shift-left moves testing earlier."
+              },
+              {
+                "text": "Moving the test files into a folder on the left side of the repository",
+                "fraction": 0,
+                "feedback": "It is about timing in the process, not folder layout; shift-left means testing earlier."
+              },
+              {
+                "text": "Reducing the number of tests so the pipeline finishes faster",
+                "fraction": 0,
+                "feedback": "Shift-left is about when you test, not cutting tests; it means testing earlier to catch defects sooner."
+              }
+            ],
+            "generalFeedback": "Shift-left means moving testing activities earlier \u2014 to the left \u2014 in the development and pipeline flow. Catching defects in the commit stage (or even while writing code) is far cheaper and faster than catching them late, so continuous testing pushes fast checks as early as possible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What shift-right means",
+            "text": "<p>The term <em>shift-right</em> testing means:</p>",
+            "answers": [
+              {
+                "text": "Testing and observing in production \u2014 through monitoring, canary releases, and synthetic checks \u2014 after deployment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shift-right extends validation into production using monitoring, canaries, and synthetic checks."
+              },
+              {
+                "text": "Running the unit tests earlier in the commit stage",
+                "fraction": 0,
+                "feedback": "Running tests earlier is shift-left; shift-right validates in production after deployment."
+              },
+              {
+                "text": "Moving the acceptance tests before the commit stage",
+                "fraction": 0,
+                "feedback": "That is a reordering, not shift-right; shift-right means observing and testing in production."
+              },
+              {
+                "text": "Deleting production monitoring to keep the pipeline simple",
+                "fraction": 0,
+                "feedback": "That removes shift-right practices; shift-right adds monitoring, canaries, and synthetic checks in production."
+              }
+            ],
+            "generalFeedback": "Shift-right means extending validation to the right of release \u2014 into production. Techniques include monitoring and observability, canary releases, synthetic (smoke) checks against live systems, and feature flags. It complements pre-production testing by catching issues that only appear with real traffic and real environments.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "CI means integrate and test frequently",
+            "text": "<p>Continuous integration (CI) means integrating changes into the shared mainline frequently and testing them automatically each time.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 CI is about integrating to mainline often and running automated tests on every integration."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: CI is exactly frequent integration to the mainline with automated testing each time, which is what enables CD."
+              }
+            ],
+            "generalFeedback": "Continuous integration means every developer merges to the shared mainline frequently, and each integration triggers an automated build and test run. Keeping the mainline continuously verified is what makes continuous delivery (promoting builds toward release) possible."
+          },
+          {
+            "type": "truefalse",
+            "name": "Green pipeline means gates passed",
+            "text": `<p>A "green" pipeline run means every stage's quality gate passed and the build was allowed to advance.</p>`,
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 green means each stage's checks passed, so the build progressed through the gates."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: a green run is precisely one where every stage's gate passed and the build advanced."
+              }
+            ],
+            "generalFeedback": "A green pipeline indicates that each stage ran its checks and passed, so the build cleared every gate. A red pipeline means some gate failed, and the build is blocked at that stage. Keeping the pipeline green is the everyday goal of continuous testing."
+          },
+          {
+            "type": "truefalse",
+            "name": "Commit-stage failure blocks later stages",
+            "text": "<p>If the commit stage fails, the pipeline still goes ahead and runs the acceptance stage on that same build anyway.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a failed commit stage stops the build; later stages do not run on a build that already failed a gate."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: a failing gate stops the build, so the acceptance stage is not run on a build the commit stage already rejected."
+              }
+            ],
+            "generalFeedback": "Each stage is a gate. If the commit stage fails, the build is not promoted, so the acceptance stage never runs on it. That is the point of ordering fast checks first: a failure there stops the pipeline before any slower stage is even attempted."
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of a quality gate",
+            "text": "<p>What is the main purpose of putting a quality gate at each stage?</p>",
+            "answers": [
+              {
+                "text": "To prevent a broken build from being promoted any further down the pipeline",
+                "fraction": 100,
+                "feedback": "Correct \u2014 gates stop a failing build from advancing, keeping broken changes out of later stages and production."
+              },
+              {
+                "text": "To make the pipeline take longer so developers commit less often",
+                "fraction": 0,
+                "feedback": "Gates are not meant to slow people down; they stop broken builds from advancing."
+              },
+              {
+                "text": "To count how many lines of code each build contains",
+                "fraction": 0,
+                "feedback": "Line counting is unrelated; a gate's purpose is to block a failing build from being promoted."
+              },
+              {
+                "text": "To guarantee the software has zero defects of any kind forever",
+                "fraction": 0,
+                "feedback": "No gate can guarantee zero defects; its purpose is to stop known failures from being promoted."
+              }
+            ],
+            "generalFeedback": "A quality gate exists so that a build which fails its checks cannot advance. This keeps broken changes from progressing toward production and gives each stage the authority to stop the line, which is the core safety property of continuous testing.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Automated tests at every stage",
+            "text": "<p>Continuous testing aims to run automated tests at every stage of the pipeline so the team gets fast feedback on each change.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is the definition: automated tests at every stage, giving fast feedback on each change."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: running automated tests at every stage for fast feedback is exactly what continuous testing is."
+              }
+            ],
+            "generalFeedback": "The essence of continuous testing is that automated tests are embedded at every stage of the CI/CD pipeline. Every change is validated as it flows through, so problems surface quickly instead of accumulating until a late, separate testing phase."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Why fast cheap tests run first",
+            "text": "<p>Why are fast, cheap, high-confidence tests placed at the very start of the pipeline?</p>",
+            "answers": [
+              {
+                "text": "So the most likely, cheapest-to-detect failures are caught in seconds, before the slow, expensive suites ever run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 running quick checks first gives the fastest feedback and stops the build before costly stages run."
+              },
+              {
+                "text": "Because fast tests are always more important than slow tests, which can be deleted",
+                "fraction": 0,
+                "feedback": "Slow tests still add value; the point of ordering is fast feedback, not deleting the slow suites."
+              },
+              {
+                "text": "Because the pipeline can only run one test at a time and fast tests are alphabetically first",
+                "fraction": 0,
+                "feedback": "Ordering is by speed and cost, not alphabetical, and stages can parallelise; the goal is quick feedback on likely failures."
+              },
+              {
+                "text": "So developers never have to look at the slow test results at all",
+                "fraction": 0,
+                "feedback": "The slow tests still run and matter; fast-first ordering simply surfaces cheap failures sooner."
+              }
+            ],
+            "generalFeedback": "Ordering by speed and cost means the quick, high-signal checks run first. If a change is broken in a basic way, you learn in seconds and the pipeline stops \u2014 you never pay for the slow, expensive acceptance suite. This maximises feedback speed while minimising wasted machine time.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Ordering the pipeline stages",
+            "text": "<p>Which ordering of stages best follows the fail-fast, order-by-speed-and-cost principle?</p>",
+            "answers": [
+              {
+                "text": "Commit (compile + unit) \u2192 integration \u2192 automated acceptance / E2E \u2192 deploy",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fast and cheap first, then progressively slower and costlier stages, then deploy."
+              },
+              {
+                "text": "Automated acceptance / E2E \u2192 integration \u2192 commit (compile + unit) \u2192 deploy",
+                "fraction": 0,
+                "feedback": "This runs the slowest, most expensive suite first \u2014 the opposite of fail-fast ordering."
+              },
+              {
+                "text": "Deploy \u2192 commit (compile + unit) \u2192 integration \u2192 acceptance",
+                "fraction": 0,
+                "feedback": "Deploying before any tests defeats the gates; fast checks must come before deployment."
+              },
+              {
+                "text": "Integration \u2192 deploy \u2192 commit (compile + unit) \u2192 acceptance",
+                "fraction": 0,
+                "feedback": "This scatters fast and slow checks and deploys in the middle; order by increasing speed and cost instead."
+              }
+            ],
+            "generalFeedback": "Stages should be ordered by increasing time and cost: the fast, cheap commit stage first, then integration, then the slower automated acceptance/E2E suite, and finally deploy. This way the cheapest, most likely failures stop the build first and the expensive stages only run on changes that already look healthy.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Commit stage versus acceptance stage",
+            "text": "<p>Which statement correctly contrasts the commit stage with the acceptance stage?</p>",
+            "answers": [
+              {
+                "text": "The commit stage is fast (compile + unit + static checks); the acceptance stage is slower and runs automated acceptance tests of user-facing behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fast, low-level commit stage first; slower, higher-level automated acceptance stage after."
+              },
+              {
+                "text": "The commit stage runs slow end-to-end tests; the acceptance stage just compiles the code",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 compilation is in the commit stage, and end-to-end tests belong to the later acceptance stage."
+              },
+              {
+                "text": "Both stages run exactly the same tests, only on different days",
+                "fraction": 0,
+                "feedback": "They run different kinds of tests: fast unit-level in commit, slower acceptance-level in acceptance."
+              },
+              {
+                "text": "The acceptance stage runs first because it is the most important",
+                "fraction": 0,
+                "feedback": "Importance does not set order; the fast commit stage runs first so failures are caught cheaply."
+              }
+            ],
+            "generalFeedback": "The commit stage is the fast first gate \u2014 compile, unit tests, fast static analysis \u2014 giving feedback in minutes. The acceptance stage runs later with slower, higher-level automated acceptance tests against a production-like environment. Fast and cheap runs first; slow and thorough runs after.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Build once and promote the same artifact",
+            "text": "<p>Continuous Delivery recommends building the deployable artifact once and promoting that same artifact through the stages. Why?</p>",
+            "answers": [
+              {
+                "text": "So every stage tests the exact bytes that will ship, eliminating differences introduced by rebuilding",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one artifact means each stage validates precisely what will be released, with no rebuild drift."
+              },
+              {
+                "text": "Because rebuilding at each stage is faster than reusing the artifact",
+                "fraction": 0,
+                "feedback": "Rebuilding repeatedly is slower and risks drift; the reason to build once is to test the exact shipping bytes."
+              },
+              {
+                "text": "Because the artifact must be recompiled to match each environment's operating system",
+                "fraction": 0,
+                "feedback": "Environment differences are handled by configuration, not by rebuilding; you promote one artifact."
+              },
+              {
+                "text": "So each stage can quietly change the code to fix any failures it finds",
+                "fraction": 0,
+                "feedback": "Stages must not alter the artifact; building once guarantees the tested bytes are the shipped bytes."
+              }
+            ],
+            "generalFeedback": "If you rebuild at every stage, a later stage might test a subtly different binary than the one you release, so passing gates prove nothing about the shipped bytes. Building once and promoting the identical artifact means every gate validates exactly what will reach production; only configuration varies per environment.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the shift-left activity",
+            "text": "<p>Which of these is an example of <em>shift-left</em> testing?</p>",
+            "answers": [
+              {
+                "text": "Running fast unit tests and static analysis in the commit stage, right after each push",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pushing tests early into the commit stage is exactly shift-left."
+              },
+              {
+                "text": "Monitoring error rates on the live service after release",
+                "fraction": 0,
+                "feedback": "Post-release monitoring is shift-right; shift-left is testing early in the pipeline."
+              },
+              {
+                "text": "Running a canary release to a small slice of production traffic",
+                "fraction": 0,
+                "feedback": "Canary releases happen in production \u2014 that is shift-right, not shift-left."
+              },
+              {
+                "text": "Reading synthetic smoke-check results from the production environment",
+                "fraction": 0,
+                "feedback": "Synthetic checks in production are shift-right; shift-left moves testing earlier in the pipeline."
+              }
+            ],
+            "generalFeedback": "Shift-left pushes testing earlier. Running unit tests and static checks in the commit stage \u2014 immediately after a push, before anything is deployed \u2014 is the canonical shift-left practice: cheap, fast, and early.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the shift-right activity",
+            "text": "<p>Which of these is an example of <em>shift-right</em> testing?</p>",
+            "answers": [
+              {
+                "text": "Releasing to a small canary group in production and watching monitoring dashboards before rolling out wider",
+                "fraction": 100,
+                "feedback": "Correct \u2014 canary releases plus production monitoring are classic shift-right practices."
+              },
+              {
+                "text": "Adding more unit tests to the commit stage",
+                "fraction": 0,
+                "feedback": "That is shift-left (testing earlier); shift-right observes and tests in production."
+              },
+              {
+                "text": "Compiling the code and running static analysis on every push",
+                "fraction": 0,
+                "feedback": "Compile-and-static-check is an early, shift-left activity, not shift-right."
+              },
+              {
+                "text": "Writing acceptance tests before the feature is implemented",
+                "fraction": 0,
+                "feedback": "Writing tests early is a shift-left idea; shift-right happens after deployment, in production."
+              }
+            ],
+            "generalFeedback": "Shift-right validates in production. A canary release exposes the new build to a small slice of real traffic while monitoring and synthetic checks watch for problems, so issues that only appear under real conditions are caught before a full rollout. Monitoring, canaries, and synthetic/smoke checks are all shift-right.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why flaky tests are worse in a pipeline",
+            "text": "<p>Why is a flaky test especially damaging when it sits inside a CI/CD pipeline?</p>",
+            "answers": [
+              {
+                "text": "It can fail a gate at random, blocking promotion of good builds and eroding the team's trust in the pipeline",
+                "fraction": 100,
+                "feedback": "Correct \u2014 random failures halt good builds and teach the team to ignore red runs, undermining the gates."
+              },
+              {
+                "text": "It makes the compiler produce a larger binary",
+                "fraction": 0,
+                "feedback": "Flakiness has nothing to do with binary size; the harm is randomly blocking the pipeline and eroding trust."
+              },
+              {
+                "text": "It permanently deletes the build artifact when it fails",
+                "fraction": 0,
+                "feedback": "A flaky test does not delete artifacts; it randomly fails gates and undermines confidence in results."
+              },
+              {
+                "text": "It only affects the developer's local machine, never the pipeline",
+                "fraction": 0,
+                "feedback": "The opposite: in a shared pipeline a flaky test blocks everyone's builds and erodes trust."
+              }
+            ],
+            "generalFeedback": 'In a pipeline a flaky test randomly turns a gate red, so a perfectly good build is blocked and cannot be promoted. Worse, people start re-running or ignoring red pipelines, so a genuine failure can be dismissed as "just flaky". Flakiness therefore both wastes time and destroys the trust the gates depend on.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feedback time from fast-first ordering",
+            "text": "<p>A change contains a basic compile error. The commit stage takes 3 minutes; the acceptance stage takes 40 minutes. With fast-first ordering, how quickly does the team learn the build is broken?</p>",
+            "answers": [
+              {
+                "text": "In about 3 minutes \u2014 the commit stage fails and the pipeline stops before the 40-minute stage runs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fast commit stage catches it first, so feedback arrives in minutes and the slow stage is skipped."
+              },
+              {
+                "text": "In about 43 minutes \u2014 both stages must finish before any result is reported",
+                "fraction": 0,
+                "feedback": "No \u2014 a failed commit stage stops the pipeline immediately; the 40-minute stage never runs."
+              },
+              {
+                "text": "In about 40 minutes \u2014 the acceptance stage always runs first",
+                "fraction": 0,
+                "feedback": "The fast commit stage runs first; it fails in ~3 minutes and the acceptance stage is skipped."
+              },
+              {
+                "text": "Never \u2014 a compile error cannot be detected by a pipeline",
+                "fraction": 0,
+                "feedback": "Compilation is exactly what the commit stage checks; it fails fast in about 3 minutes."
+              }
+            ],
+            "generalFeedback": "Because the cheap commit stage runs first and a failing gate stops the pipeline, a basic compile error is reported in about 3 minutes. The expensive 40-minute acceptance stage is never started on that broken build. This is precisely the payoff of ordering by speed and cost.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Rebuild-per-stage is not recommended",
+            "text": "<p>Recompiling a fresh artifact from source at each pipeline stage is the recommended Continuous Delivery practice.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the recommended practice is to build once and promote the same artifact, not rebuild per stage."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: rebuilding per stage risks drift; you should build the artifact once and promote that identical artifact through the stages."
+              }
+            ],
+            "generalFeedback": "Continuous Delivery says build the deployable artifact once and promote that exact artifact through every stage. Rebuilding at each stage risks testing different bytes than you ship, so a passing gate would no longer guarantee anything about the released binary."
+          },
+          {
+            "type": "multichoice",
+            "name": "Test pyramid inside the pipeline",
+            "text": "<p>How does the test pyramid relate to a well-ordered pipeline?</p>",
+            "answers": [
+              {
+                "text": "Many fast unit tests run earliest and most often, with fewer, slower end-to-end tests running later",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the pyramid's wide base of fast unit tests maps onto the early commit stage; the narrow E2E tip runs later."
+              },
+              {
+                "text": "The pipeline should run mostly end-to-end tests first and only a few unit tests at the end",
+                "fraction": 0,
+                "feedback": "That inverts the pyramid; the wide base of fast unit tests should run first, not the few slow E2E tests."
+              },
+              {
+                "text": "The pyramid says every stage must contain an equal number of each kind of test",
+                "fraction": 0,
+                "feedback": "The pyramid is deliberately unequal: many unit tests, fewer integration, fewest E2E."
+              },
+              {
+                "text": "The pyramid applies only to manual testing and has nothing to do with pipelines",
+                "fraction": 0,
+                "feedback": "It maps directly onto pipeline ordering: the fast base runs early, the slow tip runs late."
+              }
+            ],
+            "generalFeedback": "The test pyramid's wide base of many fast unit tests corresponds to the early commit stage \u2014 these run first and most frequently. The smaller number of slower integration tests, then the few slowest end-to-end tests, run in later stages. The pyramid shape and the fast-first pipeline ordering are the same idea seen two ways.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What promote means",
+            "text": "<p>In a pipeline, to <em>promote</em> a build means to:</p>",
+            "answers": [
+              {
+                "text": "Advance the same build/artifact to the next stage after it passes the current gate",
+                "fraction": 100,
+                "feedback": "Correct \u2014 promotion moves the identical build forward to the next stage once it clears the gate."
+              },
+              {
+                "text": "Give the developer who wrote it a pay rise",
+                "fraction": 0,
+                "feedback": "That is a career sense of the word; here promote means advancing the build to the next stage."
+              },
+              {
+                "text": "Rebuild the code from scratch for the next environment",
+                "fraction": 0,
+                "feedback": "Promotion moves the same artifact forward; rebuilding would defeat build-once-promote-same-artifact."
+              },
+              {
+                "text": "Advertise the release on the company blog",
+                "fraction": 0,
+                "feedback": "That is marketing; promoting a build means advancing it to the next pipeline stage."
+              }
+            ],
+            "generalFeedback": "Promotion is moving a build that has passed one stage's gate onward to the next stage. Combined with build-once, the identical artifact is what advances \u2014 so every gate it clears applies to the exact bytes that may eventually be released.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Acceptance does not run before commit",
+            "text": "<p>To fail fast, the slow automated acceptance stage should run before the fast commit stage.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 failing fast means the fast commit stage runs first; the slow acceptance stage comes after."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: running the slow stage first is the opposite of fail-fast. The cheap commit stage must run first."
+              }
+            ],
+            "generalFeedback": "Fail-fast ordering puts the fast, cheap commit stage first so basic failures are caught in minutes. The slower acceptance stage runs afterward, only on builds that already passed the commit gate. Running acceptance first would waste time and defeat the whole purpose."
+          },
+          {
+            "type": "multichoice",
+            "name": "Parallelising slow suites",
+            "text": "<p>A slow acceptance suite takes too long and delays feedback. Which technique most directly shortens it without dropping coverage?</p>",
+            "answers": [
+              {
+                "text": "Split the suite and run the tests in parallel across several workers",
+                "fraction": 100,
+                "feedback": "Correct \u2014 parallelising the slow suite cuts wall-clock time while keeping all the tests."
+              },
+              {
+                "text": "Delete half of the acceptance tests at random",
+                "fraction": 0,
+                "feedback": "That drops coverage; parallelising keeps every test but runs them concurrently."
+              },
+              {
+                "text": "Run the whole pipeline twice to be sure",
+                "fraction": 0,
+                "feedback": "Running twice makes it slower, not faster; parallelising the suite is the right lever."
+              },
+              {
+                "text": "Move the acceptance tests to the very start of the pipeline",
+                "fraction": 0,
+                "feedback": "Putting the slow suite first breaks fast-first ordering; parallelise it instead to keep it fast where it belongs."
+              }
+            ],
+            "generalFeedback": "Parallelisation distributes a slow suite across multiple workers, cutting the wall-clock time to a fraction while keeping every test. This keeps the pipeline fast and the feedback quick without sacrificing coverage \u2014 a standard way to stop a large acceptance/E2E suite from becoming a bottleneck.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Placing a test in the right stage",
+            "text": "<p>A test drives the full application through its UI, a real database, and an external payment sandbox, taking about 90 seconds. Where does it belong?</p>",
+            "answers": [
+              {
+                "text": "In a later automated acceptance / E2E stage, because it is slow and exercises the whole integrated system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a slow, full-stack, end-to-end test belongs in the later acceptance stage, not the fast commit stage."
+              },
+              {
+                "text": "In the commit stage, so it runs on every push in a few seconds",
+                "fraction": 0,
+                "feedback": "At 90 seconds and full-stack, it is far too slow and broad for the fast commit stage."
+              },
+              {
+                "text": "Nowhere \u2014 such a test should never be written",
+                "fraction": 0,
+                "feedback": "End-to-end tests are valuable; they just belong in a later stage, run in smaller numbers."
+              },
+              {
+                "text": "In the commit stage, but only run it once a month",
+                "fraction": 0,
+                "feedback": "Fast-first ordering keeps the commit stage quick; a slow full-stack test belongs in the acceptance stage."
+              }
+            ],
+            "generalFeedback": "A slow test that drives the UI, a real database, and an external service is an end-to-end/acceptance test. It belongs in a later stage where slower, higher-level tests run, not in the fast commit stage whose job is to give feedback in minutes with quick unit and static checks.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Shift-right complements pre-prod tests",
+            "text": "<p>Shift-right techniques such as production monitoring and canary releases complement pre-production testing rather than replacing the need for it.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shift-right adds production-time confidence on top of, not instead of, pre-production gates."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: shift-right complements pre-prod testing; you still want fast gates before release, plus production observation after."
+              }
+            ],
+            "generalFeedback": "Shift-right catches issues that only surface with real traffic and real environments, but it acts after release. You still want the fast pre-production gates to stop broken builds before they ship. The two are complementary layers of the same continuous-testing strategy."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Diagnose a slow-suite-first pipeline",
+            "text": "<p>A pipeline runs a 35-minute end-to-end suite before it compiles the code or runs any unit tests. Developers wait over half an hour to learn about typos and compile errors. What is the best fix?</p>",
+            "answers": [
+              {
+                "text": "Reorder so compilation and unit tests run first in a fast commit stage, and the E2E suite runs only afterward",
+                "fraction": 100,
+                "feedback": "Correct \u2014 moving the cheap checks earlier restores fast-first ordering, so trivial failures are caught in minutes."
+              },
+              {
+                "text": "Remove the compile and unit-test steps so only the E2E suite remains",
+                "fraction": 0,
+                "feedback": "That destroys the fast feedback layer; the fix is to run the cheap checks first, not delete them."
+              },
+              {
+                "text": "Tell developers to stop making typos so the E2E suite passes first time",
+                "fraction": 0,
+                "feedback": "You cannot eliminate mistakes; the pipeline should catch cheap errors early by ordering fast checks first."
+              },
+              {
+                "text": "Run the 35-minute E2E suite twice to be certain before compiling",
+                "fraction": 0,
+                "feedback": "That doubles the delay; the fix is to put fast compile and unit checks before the slow suite."
+              }
+            ],
+            "generalFeedback": "The pipeline violates order-by-speed-and-cost: it runs the most expensive suite before the cheapest checks. Reordering so a fast commit stage (compile + unit) runs first means compile errors and typos fail in minutes and the 35-minute suite only runs on builds that already passed the cheap gate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "A flaky E2E test blocks every deploy",
+            "text": "<p>One end-to-end test fails intermittently for reasons unrelated to the code, turning the pipeline red and blocking every deploy. What is the best response?</p>",
+            "answers": [
+              {
+                "text": "Quarantine it out of the blocking gate, file a ticket, and fix its root cause \u2014 while keeping the rest of the suite gating deploys",
+                "fraction": 100,
+                "feedback": "Correct \u2014 stop it from blocking good builds, but track and fix it so coverage is restored, not silently lost."
+              },
+              {
+                "text": "Keep it in the gate and re-run the whole pipeline until it happens to pass each time",
+                "fraction": 0,
+                "feedback": "Blindly re-running wastes time and normalises red pipelines; quarantine and fix the flaky test instead."
+              },
+              {
+                "text": "Delete the test permanently and never look at that behaviour again",
+                "fraction": 0,
+                "feedback": "Deleting it loses real coverage; quarantine plus a fix keeps the check once it is made reliable."
+              },
+              {
+                "text": "Disable every gate so no test can ever block a deploy",
+                "fraction": 0,
+                "feedback": "Removing all gates lets broken builds ship; isolate just the flaky test and fix it, keeping the other gates."
+              }
+            ],
+            "generalFeedback": "A flaky test blocking deploys must not stay in the gate as-is, but you also must not lose its coverage or normalise ignoring red builds. Quarantine it (move it out of the blocking set), track it with a ticket, and fix the root cause so it becomes deterministic and can rejoin the gate. Meanwhile the rest of the suite keeps protecting deploys.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Cut feedback time with parallelism",
+            "text": "<p>An acceptance stage of 600 independent tests runs sequentially in 30 minutes and is the main feedback bottleneck. Which change cuts feedback time while preserving coverage?</p>",
+            "answers": [
+              {
+                "text": "Shard the 600 tests across, say, 6 parallel workers so the stage finishes in roughly a sixth of the time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 sharding independent tests across workers cuts wall-clock time without dropping any test."
+              },
+              {
+                "text": "Keep it sequential but reduce logging so it feels faster",
+                "fraction": 0,
+                "feedback": "Less logging barely changes runtime; parallelising the independent tests is what actually cuts feedback time."
+              },
+              {
+                "text": "Move all 600 tests into the commit stage so they run on every push",
+                "fraction": 0,
+                "feedback": "That makes the fast commit stage slow and breaks fast-first ordering; parallelise the acceptance stage instead."
+              },
+              {
+                "text": "Run only the first 100 tests and assume the rest would pass",
+                "fraction": 0,
+                "feedback": "Skipping 500 tests drops coverage; sharding runs all of them, just concurrently."
+              }
+            ],
+            "generalFeedback": "When tests are independent, distributing them across parallel workers cuts the wall-clock time roughly in proportion to the number of workers while running every test. Sharding 600 tests over 6 workers takes the stage from ~30 minutes toward ~5, restoring fast feedback without sacrificing coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why gates stop a broken build",
+            "text": "<p>Why does giving each stage the authority to fail the pipeline actually protect production?</p>",
+            "answers": [
+              {
+                "text": "A build can only reach production by clearing every gate, so any stage that detects a defect stops it before promotion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 because promotion requires passing all gates, a single failing gate is enough to keep a defect out of production."
+              },
+              {
+                "text": "Gates make the code run faster in production",
+                "fraction": 0,
+                "feedback": "Gates do not change runtime performance; they block broken builds from being promoted."
+              },
+              {
+                "text": "Gates guarantee the software is mathematically proven correct",
+                "fraction": 0,
+                "feedback": "Gates catch what their tests cover, not a formal proof; their protection is blocking detected failures from advancing."
+              },
+              {
+                "text": "Gates let broken builds through but log them for later",
+                "fraction": 0,
+                "feedback": "The opposite \u2014 a gate stops a failing build; logging-and-promoting would not protect production."
+              }
+            ],
+            "generalFeedback": "Reaching production requires clearing every gate in sequence. That means any single stage that detects a problem is sufficient to halt promotion, so a defect its tests can catch never advances. The protection is only as good as the checks in the gates, but the stop-the-line authority is what keeps caught failures out of production.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rebuild-per-stage produces a mismatch",
+            "text": "<p>A pipeline recompiles from source at each stage. Acceptance tests pass, but the binary deployed to production behaves differently and fails. What is the most likely root cause and fix?</p>",
+            "answers": [
+              {
+                "text": "Each rebuild produced slightly different bytes, so acceptance tested a different binary than production ran; build the artifact once and promote that same artifact",
+                "fraction": 100,
+                "feedback": "Correct \u2014 rebuilding per stage breaks the guarantee; building once and promoting the identical artifact fixes it."
+              },
+              {
+                "text": "The acceptance tests are too strict; loosen them until production passes",
+                "fraction": 0,
+                "feedback": "Loosening tests hides the mismatch; the real fix is to test and ship the same artifact."
+              },
+              {
+                "text": "Production is simply unlucky; re-deploy until it works",
+                "fraction": 0,
+                "feedback": "Re-deploying the same drifting process will not fix a rebuild mismatch; build once and promote that artifact."
+              },
+              {
+                "text": "Unit tests were skipped; add more unit tests to the deploy stage",
+                "fraction": 0,
+                "feedback": "The issue is artifact drift from rebuilding, not missing unit tests; build once and promote the same bytes."
+              }
+            ],
+            "generalFeedback": "When every stage rebuilds, the artifact tested in acceptance is not guaranteed to be the artifact deployed \u2014 differing dependency versions, timestamps, or build flags can change behaviour. The Continuous Delivery fix is build-once-promote-same-artifact: create the deployable once and pass that identical binary through every gate, so acceptance validates exactly what production runs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Balancing thorough gates against speed",
+            "text": "<p>A team wants very thorough gates but also fast feedback. Which strategy balances the two best?</p>",
+            "answers": [
+              {
+                "text": "Keep a fast, high-signal commit gate for immediate feedback and run the slower, more thorough suites in later stages (parallelised)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 layering fast gates first and thorough suites later keeps feedback quick without giving up depth."
+              },
+              {
+                "text": "Put every test in the commit stage so nothing is ever missed",
+                "fraction": 0,
+                "feedback": "That makes the first gate slow and destroys fast feedback; spread tests across staged gates instead."
+              },
+              {
+                "text": "Drop all slow tests so the pipeline is always fast",
+                "fraction": 0,
+                "feedback": "Dropping thorough tests sacrifices confidence; move them to later stages and parallelise rather than delete them."
+              },
+              {
+                "text": "Run everything manually so a human can judge how thorough to be",
+                "fraction": 0,
+                "feedback": "Manual gating is slow and non-repeatable; use layered automated stages ordered by speed and cost."
+              }
+            ],
+            "generalFeedback": "The tension between thoroughness and speed is resolved by layering: a fast, high-signal commit gate gives feedback in minutes, while slower, more thorough integration and acceptance suites run in later stages and can be parallelised. Fast-first ordering means depth is added progressively without delaying the earliest feedback.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Choosing a shift-right technique",
+            "text": "<p>A failure mode only appears under real production traffic patterns that the team cannot reproduce pre-release. Which approach best guards against it?</p>",
+            "answers": [
+              {
+                "text": "Roll out gradually with a canary plus production monitoring and synthetic checks, so problems are caught on a small slice before full rollout",
+                "fraction": 100,
+                "feedback": "Correct \u2014 canary plus monitoring/synthetic checks is shift-right, aimed precisely at production-only failure modes."
+              },
+              {
+                "text": "Add still more unit tests to the commit stage",
+                "fraction": 0,
+                "feedback": "Unit tests cannot reproduce real production traffic; a shift-right canary with monitoring is the right guard."
+              },
+              {
+                "text": "Assume pre-release gates are enough and skip production observation",
+                "fraction": 0,
+                "feedback": "Pre-release gates cannot see production-only conditions; you need shift-right observation for that."
+              },
+              {
+                "text": "Disable monitoring to reduce noise during the release",
+                "fraction": 0,
+                "feedback": "That removes exactly the shift-right signal you need to catch a production-only failure early."
+              }
+            ],
+            "generalFeedback": "Some failures only manifest with real traffic, scale, or data that cannot be reproduced pre-release. Shift-right techniques address this: a canary release exposes a small slice of production to the new build while monitoring, observability, and synthetic checks watch for regressions, so a problem is caught and rolled back before a full rollout. It complements \u2014 does not replace \u2014 the pre-production gates.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fixing an inverted pyramid in the pipeline",
+            "text": "<p>A pipeline's slowness comes from hundreds of end-to-end tests and very few unit tests \u2014 an inverted pyramid. What is the healthiest long-term fix?</p>",
+            "answers": [
+              {
+                "text": "Push coverage down the pyramid: replace many E2E tests with fast unit/integration tests, keeping a small focused set of E2E tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 rebalancing toward a wide unit base and a thin E2E tip restores speed while keeping key end-to-end coverage."
+              },
+              {
+                "text": "Add even more end-to-end tests so nothing can slip through",
+                "fraction": 0,
+                "feedback": "That worsens the inversion and the slowness; push coverage down to fast unit/integration tests instead."
+              },
+              {
+                "text": "Delete all end-to-end tests and rely solely on unit tests",
+                "fraction": 0,
+                "feedback": "A few E2E tests still provide vital whole-system confidence; keep a small set rather than removing them all."
+              },
+              {
+                "text": "Move all the end-to-end tests into the commit stage",
+                "fraction": 0,
+                "feedback": "That makes the fast first gate slow; the fix is to rebalance the mix, not relocate the slow tests earlier."
+              }
+            ],
+            "generalFeedback": "An inverted pyramid \u2014 too many slow E2E tests, too few fast unit tests \u2014 makes the pipeline slow and brittle. The fix is to push coverage down: express most checks as fast, reliable unit and integration tests (which run first and most often) and keep only a small, focused set of end-to-end tests for whole-system confidence. This restores both speed and the healthy pyramid shape.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Ordering within the commit stage",
+            "text": "<p>Within a single commit stage, why is it sensible to compile first and only then run the unit tests?</p>",
+            "answers": [
+              {
+                "text": "If the code will not even compile, there is no point running unit tests \u2014 reporting the compile failure immediately is the cheapest, fastest signal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 compilation is the cheaper prerequisite; failing on it first is the fastest possible feedback."
+              },
+              {
+                "text": "Unit tests must always modify the source before compilation can succeed",
+                "fraction": 0,
+                "feedback": "Unit tests do not rewrite the source; compilation is simply the cheaper check that must pass first."
+              },
+              {
+                "text": "Compilation is slower than the unit tests, so it should go last",
+                "fraction": 0,
+                "feedback": "Compilation is typically the quicker prerequisite; ordering by speed and dependency puts it first."
+              },
+              {
+                "text": "The order makes no difference at all to feedback time",
+                "fraction": 0,
+                "feedback": "It does: if compilation fails, running unit tests is wasted, so compiling first gives the fastest signal."
+              }
+            ],
+            "generalFeedback": "The same fail-fast logic applies inside a stage. Compilation is a cheap prerequisite for running unit tests \u2014 if the code does not build, the unit tests cannot run meaningfully. Reporting the compile failure immediately is the fastest, cheapest signal, so it goes first.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Quarantine is not a permanent excuse",
+            "text": "<p>Quarantining a flaky test to unblock the pipeline is acceptable as a permanent solution, so the test never needs to be fixed.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 quarantine is a temporary measure; the flaky test must still be fixed and returned to the gate, or coverage is lost."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: leaving a test quarantined forever silently drops coverage; quarantine buys time to fix the root cause, not to abandon it."
+              }
+            ],
+            "generalFeedback": "Quarantine stops a flaky test from blocking good builds, but the coverage it provided is gone until it is fixed. Treating quarantine as permanent means that behaviour is no longer verified, and quarantines tend to pile up. The correct workflow is to quarantine, track, fix the root cause, and restore the test to the gate."
+          },
+          {
+            "type": "multichoice",
+            "name": "Consequence of disabling a gate",
+            "text": '<p>Under deadline pressure, a team disables the failing acceptance gate "just to get this release out". What is the direct risk?</p>',
+            "answers": [
+              {
+                "text": "A build the tests flagged as broken can now be promoted to production, defeating the gate's purpose",
+                "fraction": 100,
+                "feedback": "Correct \u2014 removing the gate lets a known-failing build advance, which is exactly what gates exist to prevent."
+              },
+              {
+                "text": "The pipeline will run faster forever with no downside",
+                "fraction": 0,
+                "feedback": "Speed is not free here: a disabled gate lets a broken build ship, which is a serious risk."
+              },
+              {
+                "text": "The unit tests will automatically cover whatever the acceptance stage missed",
+                "fraction": 0,
+                "feedback": "Unit tests do not replace acceptance coverage; disabling the gate leaves that behaviour unverified before release."
+              },
+              {
+                "text": "Nothing \u2014 gates are only advisory and never block anything",
+                "fraction": 0,
+                "feedback": "Gates are meant to block; disabling one specifically allows a failing build through."
+              }
+            ],
+            "generalFeedback": "A gate's whole job is to stop a broken build from advancing. Disabling it under pressure means a build the acceptance tests flagged as failing can be promoted straight to production. That is precisely the outcome continuous testing is designed to prevent; the right move is to fix the failure (or, if it is a flaky test, quarantine just that test) rather than open the gate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Same artifact, per-environment config",
+            "text": "<p>You promote one built artifact through staging and production, but each environment needs a different database URL and API key. How should this be handled without breaking build-once?</p>",
+            "answers": [
+              {
+                "text": "Keep the same artifact and supply environment-specific settings as external configuration injected at deploy time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 vary configuration per environment, not the artifact, so the identical tested binary still ships."
+              },
+              {
+                "text": "Rebuild the artifact for each environment with the values compiled in",
+                "fraction": 0,
+                "feedback": "Rebuilding breaks build-once and reintroduces drift; inject the differences as configuration instead."
+              },
+              {
+                "text": "Hard-code production values and use them everywhere including staging",
+                "fraction": 0,
+                "feedback": "That points staging at production resources \u2014 unsafe; externalise per-environment config instead."
+              },
+              {
+                "text": "Give up on build-once because configuration differs between environments",
+                "fraction": 0,
+                "feedback": "No need \u2014 build-once still holds when the differences are externalised as configuration, not baked into the artifact."
+              }
+            ],
+            "generalFeedback": "Build-once-promote-same-artifact does not mean every environment is identical \u2014 it means the deployable bytes are. Environment differences (URLs, keys, feature flags) are supplied as external configuration injected at deploy time. The same tested artifact runs everywhere, only its configuration changes, so gates still validate the exact binary that ships.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Keeping the commit stage fast",
+            "text": "<p>Over time a team's commit stage has crept up to 25 minutes because slow browser tests were added to it. What best restores fast feedback?</p>",
+            "answers": [
+              {
+                "text": "Move the slow browser tests out to a later acceptance stage, keeping the commit stage to fast unit and static checks",
+                "fraction": 100,
+                "feedback": "Correct \u2014 returning the commit stage to quick checks restores minutes-level feedback; the slow tests run later."
+              },
+              {
+                "text": "Accept the 25 minutes as normal and ask developers to commit less often",
+                "fraction": 0,
+                "feedback": "Discouraging commits harms CI; keep the commit stage fast by moving the slow tests to a later stage."
+              },
+              {
+                "text": "Delete the browser tests entirely to save time",
+                "fraction": 0,
+                "feedback": "Those tests still add value; relocate them to a later stage rather than losing the coverage."
+              },
+              {
+                "text": "Add even more tests to the commit stage so a single run covers everything",
+                "fraction": 0,
+                "feedback": "That makes the first gate slower still; the commit stage must stay fast, with heavier tests downstream."
+              }
+            ],
+            "generalFeedback": "The commit stage exists to give feedback in minutes with fast unit tests and static checks. Slow browser/E2E tests belong in a later acceptance stage. Moving them out returns the commit stage to its quick, fail-fast role while the slower tests still run downstream (and can be parallelised).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "More E2E in commit stage hurts feedback",
+            "text": "<p>Adding many slow end-to-end tests to the commit stage improves fast feedback because more is tested up front.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 piling slow E2E tests into the commit stage makes it slow, destroying the fast feedback it is meant to provide."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: the commit stage must stay fast; loading it with slow E2E tests delays the very feedback it exists to give."
+              }
+            ],
+            "generalFeedback": "The commit stage's value is speed \u2014 feedback in minutes from fast unit and static checks. Slow end-to-end tests belong in later stages. Adding them to the commit stage inflates its runtime and undermines fast-first ordering, so feedback gets slower, not better."
+          },
+          {
+            "type": "multichoice",
+            "name": "Combining shift-left and shift-right",
+            "text": "<p>A subtle bug slips through the gates and only shows up in production. Which strategy makes future occurrences both less likely and less harmful?</p>",
+            "answers": [
+              {
+                "text": "Add a fast pre-prod test reproducing the bug (shift-left) and strengthen production monitoring/canary rollout (shift-right) to catch and limit any that still slip through",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shift-left reduces recurrence, shift-right limits blast radius; together they cover both sides of release."
+              },
+              {
+                "text": "Only add production monitoring and never touch the pre-prod tests",
+                "fraction": 0,
+                "feedback": "Monitoring alone catches it late; also add a shift-left test so the same bug is blocked before release."
+              },
+              {
+                "text": "Only add a pre-prod test and remove all production monitoring",
+                "fraction": 0,
+                "feedback": "A pre-prod test helps, but removing monitoring loses the safety net for the next production-only surprise."
+              },
+              {
+                "text": "Do nothing, since the bug already reached production once and cannot recur",
+                "fraction": 0,
+                "feedback": "Bugs recur; you should both add a regression test (shift-left) and strengthen production safeguards (shift-right)."
+              }
+            ],
+            "generalFeedback": "The robust response works both sides of release. Shift-left: add a fast, deterministic test that reproduces the bug so the gate blocks it in future \u2014 cheap and early. Shift-right: strengthen monitoring, synthetic checks, and gradual/canary rollout so that anything which still slips through is detected quickly in production and its impact is contained. The two together reduce both the likelihood and the harm.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6301\u7E8C\u6E2C\u8A66",
+            "text": "<p>\u5728 CI/CD \u7BA1\u7DDA\u4E2D\uFF0C<em>\u6301\u7E8C\u6E2C\u8A66\uFF08continuous testing\uFF09</em>\u6700\u9069\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u7BA1\u7DDA\u7684\u6BCF\u4E00\u500B\u968E\u6BB5\u90FD\u57F7\u884C\u81EA\u52D5\u5316\u6E2C\u8A66\uFF0C\u8B93\u6BCF\u6B21\u8B8A\u66F4\u90FD\u80FD\u5F97\u5230\u5FEB\u901F\u56DE\u994B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6301\u7E8C\u6E2C\u8A66\u628A\u81EA\u52D5\u5316\u6E2C\u8A66\u7E54\u5165\u6BCF\u500B\u7BA1\u7DDA\u968E\u6BB5\uFF0C\u5C0D\u6BCF\u6B21\u8B8A\u66F4\u63D0\u4F9B\u5FEB\u901F\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u5E74\u767C\u4F48\u524D\uFF0C\u624B\u52D5\u5730\u628A\u6574\u500B\u6E2C\u8A66\u5957\u4EF6\u8DD1\u904E\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5728\u6700\u5F8C\u624D\u505A\u7684\u3001\u4E0D\u983B\u7E41\u7684\u624B\u52D5\u6E2C\u8A66\uFF1B\u6301\u7E8C\u6E2C\u8A66\u662F\u5728\u6574\u689D\u7BA1\u7DDA\u4E2D\u81EA\u52D5\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u7B49\u958B\u767C\u8005\u628A\u6240\u6709\u7A0B\u5F0F\u78BC\u5BEB\u5B8C\u5F8C\uFF0C\u624D\u4EA4\u7531\u5C08\u8CAC QA \u5718\u968A\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u500B\u8F03\u665A\u3001\u7368\u7ACB\u7684\u6E2C\u8A66\u968E\u6BB5\uFF1B\u6301\u7E8C\u6E2C\u8A66\u662F\u5728\u8B8A\u66F4\u6D41\u52D5\u7684\u6BCF\u500B\u968E\u6BB5\u81EA\u52D5\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u8A66\u5BA2\u6236\u5DF2\u56DE\u5831\u58DE\u6389\u7684\u90A3\u4E9B\u7A0B\u5F0F\u78BC\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u72F9\u9698\u7684\u88AB\u52D5\u6E2C\u8A66\uFF1B\u6301\u7E8C\u6E2C\u8A66\u5728\u6BCF\u500B\u968E\u6BB5\u81EA\u52D5\u5730\u6F14\u7DF4\u6BCF\u6B21\u8B8A\u66F4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6301\u7E8C\u6E2C\u8A66\u662F\u6307\u81EA\u52D5\u5316\u6E2C\u8A66\u5728 CI/CD \u7BA1\u7DDA\u7684\u6BCF\u500B\u968E\u6BB5\u57F7\u884C\uFF0C\u8B93\u6BCF\u6B21\u8B8A\u66F4\u90FD\u80FD\u88AB\u5FEB\u901F\u9A57\u8B49\u3001\u5718\u968A\u5F97\u5230\u5FEB\u901F\u56DE\u994B\uFF0C\u800C\u4E0D\u5FC5\u7B49\u5230\u4E00\u500B\u8F03\u665A\u3001\u7368\u7ACB\u7684\u6E2C\u8A66\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F CI/CD \u7BA1\u7DDA",
+            "text": "<p>\u5728\u6B64\u8108\u7D61\u4E2D\uFF0C<em>CI/CD \u7BA1\u7DDA\uFF08pipeline\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u9023\u4E32\u81EA\u52D5\u5316\u7684\u968E\u6BB5\uFF0C\u8B8A\u66F4\u6703\u4F9D\u5E8F\u901A\u904E\uFF0C\u5F9E\u5EFA\u7F6E\u3001\u6E2C\u8A66\u4E00\u8DEF\u63A8\u9032\u5230\u767C\u4F48",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BA1\u7DDA\u662F\u8B8A\u66F4\u5728\u9081\u5411\u767C\u4F48\u9014\u4E2D\u4F9D\u5E8F\u901A\u904E\u7684\u3001\u6709\u9806\u5E8F\u7684\u81EA\u52D5\u5316\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u53EA\u8CA0\u8CAC\u7DE8\u8B6F\u7A0B\u5F0F\u78BC\u3001\u65E2\u4E0D\u6E2C\u8A66\u4E5F\u4E0D\u90E8\u7F72\u7684\u55AE\u4E00\u8173\u672C",
+                "fraction": 0,
+                "feedback": "\u53EA\u7DE8\u8B6F\u53EA\u662F\u5176\u4E2D\u4E00\u6B65\uFF1BCI/CD \u7BA1\u7DDA\u662F\u9081\u5411\u767C\u4F48\u7684\u6574\u5957\u81EA\u52D5\u5316\u968E\u6BB5\u5E8F\u5217\u3002"
+              },
+              {
+                "text": "\u9023\u63A5\u958B\u767C\u8005\u7B46\u96FB\u5230\u4F3A\u670D\u5668\u7684\u5BE6\u9AD4\u7DB2\u8DEF\u7DDA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u786C\u9AD4\uFF1BCI/CD \u7BA1\u7DDA\u662F\u5EFA\u7F6E\uFF0F\u6E2C\u8A66\uFF0F\u767C\u4F48\u968E\u6BB5\u7684\u81EA\u52D5\u5316\u5E8F\u5217\u3002"
+              },
+              {
+                "text": "\u7B49\u7522\u54C1\u8CA0\u8CAC\u4EBA\u6392\u5E8F\u7684\u4F7F\u7528\u8005\u6545\u4E8B\u5F85\u8FA6\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7522\u54C1\u5F85\u8FA6\u6E05\u55AE\uFF1B\u7BA1\u7DDA\u662F\u8B8A\u66F4\u5F9E\u5EFA\u7F6E\u5230\u767C\u4F48\u6240\u8D70\u7684\u81EA\u52D5\u5316\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "CI/CD \u7BA1\u7DDA\u662F\u4E00\u500B\u6709\u9806\u5E8F\u3001\u81EA\u52D5\u5316\u7684\u968E\u6BB5\u5E8F\u5217\u2014\u2014\u901A\u5E38\u5305\u542B\u5EFA\u7F6E\u3001\u6E2C\u8A66\u8207\u90E8\u7F72\u6B65\u9A5F\u2014\u2014\u6BCF\u6B21\u8B8A\u66F4\u90FD\u6703\u6D41\u7D93\u5176\u4E2D\u3002\u6301\u7E8C\u6574\u5408\uFF08CI\uFF09\u6DB5\u84CB\u524D\u671F\u7684\u6574\u5408\u8207\u6E2C\u8A66\u968E\u6BB5\uFF1B\u6301\u7E8C\u4EA4\u4ED8\uFF0F\u90E8\u7F72\uFF08CD\uFF09\u6DB5\u84CB\u671D\u767C\u4F48\u63A8\u9032\u7684\u63D0\u5347\u904E\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7BA1\u7DDA\u968E\u6BB5",
+            "text": "<p>\u7BA1\u7DDA\u4E2D\u7684\u4E00\u500B<em>\u968E\u6BB5\uFF08stage\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5E8F\u5217\u4E2D\u7684\u4E00\u500B\u6B65\u9A5F\uFF0C\u5E36\u6709\u81EA\u5DF1\u7684\u4E00\u7D44\u6AA2\u67E5\uFF0C\u5EFA\u7F6E\u5FC5\u9808\u901A\u904E\u5F8C\u624D\u80FD\u5F80\u4E0B\u8D70",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u968E\u6BB5\u662F\u5E36\u6709\u81EA\u5DF1\u6AA2\u67E5\u7684\u4E00\u500B\u96E2\u6563\u6B65\u9A5F\uFF1B\u5EFA\u7F6E\u552F\u6709\u901A\u904E\u5F8C\u624D\u524D\u9032\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u5099\u4EFD\u800C\u4FDD\u7559\u7684\u539F\u59CB\u78BC\u5009\u5EAB\u526F\u672C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5099\u4EFD\uFF0C\u4E0D\u662F\u7BA1\u7DDA\u968E\u6BB5\uFF1B\u968E\u6BB5\u662F\u5EFA\u7F6E\u5FC5\u9808\u901A\u904E\u5176\u6AA2\u67E5\u7684\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u5B58\u53D6\u61C9\u7528\u7A0B\u5F0F\u7684\u6700\u7D42\u6B63\u5F0F\u74B0\u5883\u4F3A\u670D\u5668",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EF\u80FD\u662F\u90E8\u7F72\u968E\u6BB5\u7684\u76EE\u6A19\uFF0C\u4F46\u968E\u6BB5\u672C\u8EAB\u662F\u5E36\u6709\u81EA\u5DF1\u6AA2\u67E5\u7684\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u6C7A\u5B9A\u63A5\u4E0B\u4F86\u8981\u958B\u767C\u54EA\u4E9B\u529F\u80FD\u7684\u6703\u8B70",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u898F\u5283\uFF1B\u7BA1\u7DDA\u968E\u6BB5\u662F\u5EFA\u7F6E\u5FC5\u9808\u901A\u904E\u7684\u81EA\u52D5\u5316\u6B65\u9A5F\u3002"
+              }
+            ],
+            "generalFeedback": "\u968E\u6BB5\u662F\u7BA1\u7DDA\u4E2D\u7684\u4E00\u500B\u96E2\u6563\u6B65\u9A5F\u2014\u2014\u4F8B\u5982\u63D0\u4EA4\u968E\u6BB5\u3001\u6574\u5408\u968E\u6BB5\u6216\u9A57\u6536\u968E\u6BB5\u2014\u2014\u4E26\u65BD\u52A0\u81EA\u5DF1\u7684\u4E00\u7D44\u6AA2\u67E5\u3002\u5EFA\u7F6E\u552F\u6709\u5728\u7576\u524D\u968E\u6BB5\u901A\u904E\u6642\uFF0C\u624D\u6703\u524D\u9032\u5230\u4E0B\u4E00\u500B\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u54C1\u8CEA\u9598",
+            "text": "<p>\u7BA1\u7DDA\u4E2D\u7684<em>\u54C1\u8CEA\u9598\uFF08quality gate\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u901A\u904E\uFF0F\u5931\u6557\u7684\u6AA2\u67E5\u9EDE\uFF0C\u5EFA\u7F6E\u5FC5\u9808\u6E05\u95DC\u5F8C\u624D\u88AB\u5141\u8A31\u524D\u9032\u5230\u4E0B\u4E00\u968E\u6BB5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9598\u662F\u6AA2\u67E5\u9EDE\uFF1B\u552F\u6709\u901A\u904E\u5176\u6AA2\u67E5\u7684\u5EFA\u7F6E\u624D\u6703\u88AB\u63D0\u5347\u5F80\u4E0B\u8D70\u3002"
+              },
+              {
+                "text": "\u986F\u793A\u672C\u9031\u6BCF\u4F4D\u958B\u767C\u8005\u63D0\u4EA4\u4E86\u591A\u5C11 commit \u7684\u5100\u8868\u677F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6D3B\u52D5\u5831\u8868\uFF1B\u54C1\u8CEA\u9598\u662F\u63A7\u7BA1\u63D0\u5347\u7684\u901A\u904E\uFF0F\u5931\u6557\u6AA2\u67E5\u9EDE\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u63D0\u4EA4\u90FD\u81EA\u52D5\u905E\u589E\u7248\u672C\u865F\u7684\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7248\u672C\u7BA1\u7406\uFF1B\u9598\u662F\u4F9D\u6AA2\u67E5\u7D50\u679C\u6C7A\u5B9A\u5EFA\u7F6E\u662F\u5426\u53EF\u524D\u9032\u3002"
+              },
+              {
+                "text": "\u628A\u5EFA\u7F6E\u5B58\u8D77\u4F86\u3001\u597D\u5728\u6708\u5E95\u4E00\u8D77\u767C\u4F48\u7684\u4F47\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u767C\u4F48\u6210\u6279\u8655\u7406\uFF1B\u9598\u662F\u6514\u963B\u5931\u6557\u5EFA\u7F6E\u524D\u9032\u7684\u6AA2\u67E5\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u968E\u6BB5\u90FD\u626E\u6F14\u54C1\u8CEA\u9598\uFF1A\u5B83\u65BD\u52A0\u6AA2\u67E5\uFF08\u4F8B\u5982\u81EA\u5DF1\u7684\u6E2C\u8A66\uFF09\uFF0C\u552F\u6709\u901A\u904E\u7684\u5EFA\u7F6E\u624D\u6703\u88AB\u63D0\u5347\u5230\u4E0B\u4E00\u968E\u6BB5\u3002\u5931\u6557\u7684\u9598\u6703\u505C\u4E0B\u5EFA\u7F6E\uFF0C\u9632\u6B62\u58DE\u6389\u7684\u8B8A\u66F4\u7E7C\u7E8C\u5F80\u7BA1\u7DDA\u4E0B\u6E38\u79FB\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5FEB\u901F\u5931\u6557\u662F\u4EC0\u9EBC\u610F\u601D",
+            "text": "<p>\u5728\u7BA1\u7DDA\u4E2D\uFF0C<em>\u5FEB\u901F\u5931\u6557\uFF08fail fast\uFF09</em>\u539F\u5247\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u76E1\u53EF\u80FD\u53CA\u65E9\u4E14\u8FC5\u901F\u5730\u5075\u6E2C\u4E26\u56DE\u5831\u5931\u6557\uFF0C\u8B93\u5EFA\u7F6E\u5728\u6D6A\u8CBB\u66F4\u591A\u6642\u9593\u4E4B\u524D\u5C31\u505C\u4E0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FEB\u901F\u5931\u6557\u662F\u53CA\u65E9\u6D6E\u73FE\u5931\u6557\uFF0C\u8B93\u7BA1\u7DDA\u5728\u8DD1\u66F4\u6162\u3001\u66F4\u6602\u8CB4\u7684\u5DE5\u4F5C\u524D\u5C31\u505C\u4E0B\u3002"
+              },
+              {
+                "text": "\u5373\u4F7F\u6709\u4E9B\u6E2C\u8A66\u9084\u6C92\u8DD1\uFF0C\u4E5F\u8981\u76E1\u5FEB\u90E8\u7F72\u5230\u6B63\u5F0F\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8DF3\u904E\u9598\uFF1B\u5FEB\u901F\u5931\u6557\u662F\u53CA\u65E9\u5075\u6E2C\u5931\u6557\uFF0C\u800C\u4E0D\u662F\u90E8\u7F72\u672A\u6E2C\u904E\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u6E2C\u8A66\u57F7\u884C\u8D85\u904E\u4E00\u79D2\uFF0C\u5C31\u7ACB\u523B\u628A\u5B83\u6A19\u8A18\u70BA\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u9580\u6ABB\u7121\u95DC\uFF1B\u5FEB\u901F\u5931\u6557\u662F\u53CA\u65E9\u6293\u5230\u771F\u6B63\u7684\u5931\u6557\u4E26\u505C\u4E0B\u3002"
+              },
+              {
+                "text": "\u5FEB\u901F\u91CD\u8A66\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u76F4\u5230\u5B83\u6700\u7D42\u901A\u904E\u70BA\u6B62",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u4EE5\u903C\u51FA\u901A\u904E\u6703\u63A9\u84CB\u5931\u6557\uFF1B\u5FEB\u901F\u5931\u6557\u662F\u53CA\u65E9\u56DE\u5831\u5931\u6557\u4E26\u505C\u4E0B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FEB\u901F\u5931\u6557\u662F\u628A\u7BA1\u7DDA\u5B89\u6392\u6210\u8B93\u5931\u6557\u76E1\u53EF\u80FD\u53CA\u65E9\u4E14\u4FBF\u5B9C\u5730\u88AB\u5075\u6E2C\u3002\u4E00\u65E6\u67D0\u968E\u6BB5\u5931\u6557\uFF0C\u5EFA\u7F6E\u7ACB\u5373\u505C\u4E0B\uFF0C\u5718\u968A\u5F88\u5FEB\u5C31\u77E5\u9053\uFF0C\u4E14\u4E0D\u6703\u5728\u4E00\u500B\u5DF2\u77E5\u58DE\u6389\u7684\u8B8A\u66F4\u4E0A\u82B1\u6642\u9593\u8DD1\u5F8C\u7E8C\u8F03\u6162\u7684\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u968E\u6BB5\u5931\u6557\u6642\u6703\u767C\u751F\u4EC0\u9EBC",
+            "text": "<p>\u7576\u7BA1\u7DDA\u67D0\u968E\u6BB5\u7684\u81EA\u52D5\u5316\u6E2C\u8A66\u5931\u6557\u6642\uFF0C\u7BA1\u7DDA\u61C9\u8A72\u505A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u505C\u4E0B\u4E26\u62D2\u7D55\u628A\u5EFA\u7F6E\u63D0\u5347\u5230\u4E0B\u4E00\u968E\u6BB5\uFF0C\u76F4\u5230\u5931\u6557\u88AB\u4FEE\u597D\u70BA\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5931\u6557\u7684\u9598\u6703\u505C\u4E0B\u5EFA\u7F6E\u4E26\u963B\u6B62\u63D0\u5347\uFF0C\u8B93\u58DE\u6389\u7684\u8B8A\u66F4\u7121\u6CD5\u524D\u9032\u3002"
+              },
+              {
+                "text": "\u5FFD\u7565\u5931\u6557\uFF0C\u7E7C\u7E8C\u628A\u5EFA\u7F6E\u63D0\u5347\u5230\u6B63\u5F0F\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u90A3\u4F7F\u9598\u5F62\u540C\u865B\u8A2D\uFF1B\u5931\u6557\u7684\u968E\u6BB5\u5FC5\u9808\u505C\u4E0B\u5EFA\u7F6E\uFF0C\u800C\u4E0D\u662F\u653E\u884C\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u597D\u8B93\u8A72\u968E\u6BB5\u8B8A\u7DA0",
+                "fraction": 0,
+                "feedback": "\u522A\u6E2C\u8A66\u63A9\u84CB\u554F\u984C\uFF1B\u5931\u6557\u7684\u968E\u6BB5\u61C9\u505C\u4E0B\u5EFA\u7F6E\uFF0C\u76F4\u5230\u771F\u6B63\u7684\u5931\u6557\u88AB\u4FEE\u597D\u3002"
+              },
+              {
+                "text": "\u7167\u6A23\u63D0\u5347\u5EFA\u7F6E\uFF0C\u53EA\u662F\u5BC4\u4E00\u5C01\u53EF\u4EE5\u7A0D\u5F8C\u518D\u770B\u7684\u4FE1",
+                "fraction": 0,
+                "feedback": "\u63D0\u5347\u4E00\u500B\u5DF2\u77E5\u58DE\u6389\u7684\u5EFA\u7F6E\u4F7F\u9598\u5931\u6548\uFF1B\u7BA1\u7DDA\u61C9\u8A72\u505C\u4E0B\u624D\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u968E\u6BB5\u90FD\u662F\u54C1\u8CEA\u9598\u3002\u82E5\u5176\u6E2C\u8A66\u5931\u6557\uFF0C\u7BA1\u7DDA\u505C\u4E0B\u3001\u5EFA\u7F6E\u4E0D\u88AB\u63D0\u5347\uFF1B\u8B8A\u66F4\u7DAD\u6301\u5728\u88AB\u963B\u64CB\u72C0\u614B\uFF0C\u76F4\u5230\u5931\u6557\u88AB\u4FEE\u597D\u3002\u9019\u6B63\u662F\u9632\u6B62\u58DE\u6389\u7684\u5EFA\u7F6E\u62B5\u9054\u5F8C\u7E8C\u968E\u6BB5\u6216\u6B63\u5F0F\u74B0\u5883\u7684\u6A5F\u5236\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4EA4\u968E\u6BB5\u7684\u5167\u5BB9",
+            "text": "<p>\u5728 Humble \u8207 Farley \u7684\u6301\u7E8C\u4EA4\u4ED8\u4E2D\uFF0C<em>\u63D0\u4EA4\u968E\u6BB5\uFF08commit stage\uFF09</em>\u901A\u5E38\u57F7\u884C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7DE8\u8B6F\u3001\u55AE\u5143\u6E2C\u8A66\u8207\u5FEB\u901F\u7684\u975C\u614B\u6AA2\u67E5\u2014\u2014\u5728\u6578\u5206\u9418\u5167\u5C31\u7D66\u51FA\u56DE\u994B\u7684\u5FEB\u901F\u6AA2\u67E5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u4EA4\u968E\u6BB5\u7DE8\u8B6F\u3001\u8DD1\u55AE\u5143\u6E2C\u8A66\u8207\u5FEB\u901F\u6AA2\u67E5\uFF0C\u76EE\u6A19\u662F\u5728\u5E7E\u5206\u9418\u5167\u7D66\u51FA\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u91DD\u5C0D\u985E\u6B63\u5F0F\u74B0\u5883\u57F7\u884C\u6574\u5957\u7DE9\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7DE9\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u5C6C\u65BC\u8F03\u665A\u7684\u9A57\u6536\u968E\u6BB5\uFF1B\u63D0\u4EA4\u968E\u6BB5\u8981\u7DAD\u6301\u5FEB\u901F\u3002"
+              },
+              {
+                "text": "\u7531\u6574\u500B QA \u5718\u968A\u9032\u884C\u624B\u52D5\u63A2\u7D22\u5F0F\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u624B\u52D5\u63A2\u7D22\u5F0F\u6E2C\u8A66\u662F\u8F03\u665A\u3001\u7531\u4EBA\u57F7\u884C\u7684\u6D3B\u52D5\uFF1B\u63D0\u4EA4\u968E\u6BB5\u8DD1\u7684\u662F\u5FEB\u901F\u81EA\u52D5\u5316\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u6A21\u64EC\u6578\u5343\u540D\u4E26\u767C\u4F7F\u7528\u8005\u7684\u4E00\u5C0F\u6642\u8CA0\u8F09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u5F88\u6162\u3001\u4F4D\u7F6E\u5728\u5F88\u5F8C\u9762\uFF1B\u63D0\u4EA4\u968E\u6BB5\u662F\u7D66\u7DE8\u8B6F\u3001\u55AE\u5143\u6E2C\u8A66\u9019\u985E\u5FEB\u901F\u6AA2\u67E5\u7528\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u4EA4\u968E\u6BB5\u662F\u7B2C\u4E00\u9053\u9598\uFF1A\u5B83\u7DE8\u8B6F\u7A0B\u5F0F\u78BC\u3001\u8DD1\u55AE\u5143\u6E2C\u8A66\u3001\u505A\u5FEB\u901F\u7684\u975C\u614B\u6AA2\u67E5\u3002\u5B83\u88AB\u8A2D\u8A08\u6210\u5FEB\u901F\uFF08\u7406\u60F3\u4E0A\u6578\u5206\u9418\uFF09\uFF0C\u8B93\u958B\u767C\u8005\u5E7E\u4E4E\u5373\u6642\u5F97\u5230\u300C\u9019\u6B21\u63D0\u4EA4\u6C92\u5F04\u58DE\u57FA\u672C\u529F\u80FD\u300D\u7684\u56DE\u994B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u968E\u6BB5\u7684\u5167\u5BB9",
+            "text": "<p>\u63A5\u5728\u63D0\u4EA4\u968E\u6BB5\u4E4B\u5F8C\u7684<em>\u9A57\u6536\u968E\u6BB5\uFF08acceptance stage\uFF09</em>\u901A\u5E38\u57F7\u884C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66\uFF0C\u5F9E\u4F7F\u7528\u8005\u7684\u89D2\u5EA6\u6AA2\u67E5\u7CFB\u7D71\u884C\u70BA\u662F\u5426\u6B63\u78BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u968E\u6BB5\u91DD\u5C0D\u9810\u671F\u7684\u4F7F\u7528\u8005\u9762\u884C\u70BA\u57F7\u884C\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u7DE8\u8B6F\u5668\uFF0C\u6AA2\u67E5\u7A0B\u5F0F\u78BC\u662F\u5426\u4ECD\u80FD\u5EFA\u7F6E",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u5C6C\u65BC\u8F03\u65E9\u7684\u63D0\u4EA4\u968E\u6BB5\uFF1B\u9A57\u6536\u968E\u6BB5\u57F7\u884C\u7684\u662F\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u53EA\u628A\u55AE\u5143\u6E2C\u8A66\u70BA\u4E86\u4FDD\u96AA\u518D\u8DD1\u7B2C\u4E8C\u6B21",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u5C6C\u65BC\u63D0\u4EA4\u968E\u6BB5\uFF1B\u9A57\u6536\u968E\u6BB5\u9A57\u8B49\u7684\u662F\u7AEF\u5C0D\u7AEF\u7684\u4F7F\u7528\u8005\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u5C0D\u539F\u59CB\u78BC\u8A3B\u89E3\u505A\u62FC\u5B57\u6AA2\u67E5",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F\u9A57\u6536\u6E2C\u8A66\uFF1B\u9A57\u6536\u968E\u6BB5\u57F7\u884C\u7684\u662F\u7CFB\u7D71\u884C\u70BA\u7684\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u4E4B\u5F8C\uFF0C\u9A57\u6536\u968E\u6BB5\u57F7\u884C\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66\uFF1A\u8F03\u6162\u3001\u8F03\u9AD8\u5C64\u6B21\u7684\u6E2C\u8A66\uFF0C\u901A\u5E38\u91DD\u5C0D\u985E\u6B63\u5F0F\u74B0\u5883\uFF0C\u9A57\u8B49\u7CFB\u7D71\u662F\u5426\u7B26\u5408\u4F7F\u7528\u8005\u7684\u671F\u671B\u3002\u56E0\u70BA\u5B83\u5011\u8F03\u6162\uFF0C\u6240\u4EE5\u5728\u63D0\u4EA4\u968E\u6BB5\u901A\u904E\u4E4B\u5F8C\u3001\u4E14\u552F\u6709\u901A\u904E\u6642\u624D\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "shift-left \u662F\u4EC0\u9EBC\u610F\u601D",
+            "text": "<p><em>\u5DE6\u79FB\uFF08shift-left\uFF09</em>\u6E2C\u8A66\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u7BA1\u7DDA\u4E2D\uFF08\u4EE5\u53CA\u958B\u767C\u6D41\u7A0B\u4E2D\uFF09\u66F4\u65E9\u5730\u6E2C\u8A66\uFF0C\u8B93\u7F3A\u9677\u66F4\u65E9\u88AB\u6293\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DE6\u79FB\u628A\u6E2C\u8A66\u5F80\u5DE6\u79FB\u3001\u66F4\u65E9\u9032\u884C\uFF0C\u597D\u8B93\u7F3A\u9677\u66F4\u65E9\u3001\u66F4\u4FBF\u5B9C\u5730\u88AB\u6293\u5230\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u8EDF\u9AD4\u5DF2\u767C\u4F48\u5230\u6B63\u5F0F\u74B0\u5883\u4E4B\u5F8C\u624D\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u767C\u4F48\u5F8C\u624D\u6E2C\u8A66\u662F\u53F3\u79FB\uFF1B\u5DE6\u79FB\u662F\u628A\u6E2C\u8A66\u5F80\u66F4\u65E9\u79FB\u3002"
+              },
+              {
+                "text": "\u628A\u6E2C\u8A66\u6A94\u6848\u642C\u5230\u5009\u5EAB\u5DE6\u5074\u7684\u8CC7\u6599\u593E",
+                "fraction": 0,
+                "feedback": "\u5B83\u8AC7\u7684\u662F\u6D41\u7A0B\u4E2D\u7684\u6642\u6A5F\uFF0C\u4E0D\u662F\u8CC7\u6599\u593E\u914D\u7F6E\uFF1B\u5DE6\u79FB\u662F\u6307\u66F4\u65E9\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E1B\u5C11\u6E2C\u8A66\u6578\u91CF\uFF0C\u597D\u8B93\u7BA1\u7DDA\u66F4\u5FEB\u8DD1\u5B8C",
+                "fraction": 0,
+                "feedback": "\u5DE6\u79FB\u8AC7\u7684\u662F\u4F55\u6642\u6E2C\u8A66\uFF0C\u4E0D\u662F\u780D\u6E2C\u8A66\uFF1B\u5B83\u7684\u610F\u601D\u662F\u66F4\u65E9\u6E2C\u8A66\u4EE5\u66F4\u65E9\u6293\u5230\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE6\u79FB\u662F\u628A\u6E2C\u8A66\u6D3B\u52D5\u5F80\u6D41\u7A0B\u8207\u7BA1\u7DDA\u7684\u66F4\u65E9\u2014\u2014\u66F4\u5DE6\u2014\u2014\u79FB\u52D5\u3002\u5728\u63D0\u4EA4\u968E\u6BB5\uFF08\u751A\u81F3\u5728\u5BEB\u7A0B\u5F0F\u6642\uFF09\u5C31\u6293\u5230\u7F3A\u9677\uFF0C\u9060\u6BD4\u62D6\u5230\u5F88\u665A\u624D\u6293\u4FBF\u5B9C\u53C8\u5FEB\uFF0C\u56E0\u6B64\u6301\u7E8C\u6E2C\u8A66\u76E1\u53EF\u80FD\u628A\u5FEB\u901F\u6AA2\u67E5\u5F80\u524D\u63A8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "shift-right \u662F\u4EC0\u9EBC\u610F\u601D",
+            "text": "<p><em>\u53F3\u79FB\uFF08shift-right\uFF09</em>\u6E2C\u8A66\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6B63\u5F0F\u74B0\u5883\u4E2D\u6E2C\u8A66\u8207\u89C0\u6E2C\u2014\u2014\u900F\u904E\u76E3\u63A7\u3001\u91D1\u7D72\u96C0\u767C\u4F48\u8207\u5408\u6210\u6AA2\u67E5\u2014\u2014\u65BC\u90E8\u7F72\u4E4B\u5F8C\u9032\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53F3\u79FB\u7528\u76E3\u63A7\u3001\u91D1\u7D72\u96C0\u8207\u5408\u6210\u6AA2\u67E5\uFF0C\u628A\u9A57\u8B49\u5EF6\u4F38\u5230\u6B63\u5F0F\u74B0\u5883\u3002"
+              },
+              {
+                "text": "\u5728\u63D0\u4EA4\u968E\u6BB5\u66F4\u65E9\u5730\u57F7\u884C\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u66F4\u65E9\u8DD1\u6E2C\u8A66\u662F\u5DE6\u79FB\uFF1B\u53F3\u79FB\u662F\u5728\u90E8\u7F72\u5F8C\u65BC\u6B63\u5F0F\u74B0\u5883\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u628A\u9A57\u6536\u6E2C\u8A66\u79FB\u5230\u63D0\u4EA4\u968E\u6BB5\u4E4B\u524D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u91CD\u65B0\u6392\u5E8F\uFF0C\u4E0D\u662F\u53F3\u79FB\uFF1B\u53F3\u79FB\u662F\u6307\u5728\u6B63\u5F0F\u74B0\u5883\u4E2D\u89C0\u6E2C\u8207\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u6B63\u5F0F\u74B0\u5883\u76E3\u63A7\uFF0C\u597D\u8B93\u7BA1\u7DDA\u66F4\u7C21\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u53CD\u800C\u79FB\u9664\u4E86\u53F3\u79FB\u5BE6\u52D9\uFF1B\u53F3\u79FB\u662F\u5728\u6B63\u5F0F\u74B0\u5883\u52A0\u5165\u76E3\u63A7\u3001\u91D1\u7D72\u96C0\u8207\u5408\u6210\u6AA2\u67E5\u3002"
+              }
+            ],
+            "generalFeedback": "\u53F3\u79FB\u662F\u628A\u9A57\u8B49\u5EF6\u4F38\u5230\u767C\u4F48\u4E4B\u53F3\u2014\u2014\u9032\u5165\u6B63\u5F0F\u74B0\u5883\u3002\u6280\u8853\u5305\u62EC\u76E3\u63A7\u8207\u53EF\u89C0\u6E2C\u6027\u3001\u91D1\u7D72\u96C0\u767C\u4F48\u3001\u5C0D\u7DDA\u4E0A\u7CFB\u7D71\u7684\u5408\u6210\uFF08\u5192\u7159\uFF09\u6AA2\u67E5\uFF0C\u4EE5\u53CA\u529F\u80FD\u65D7\u6A19\u3002\u5B83\u88DC\u8DB3\u4E86\u4E0A\u7DDA\u524D\u6E2C\u8A66\uFF0C\u6293\u5230\u552F\u6709\u771F\u5BE6\u6D41\u91CF\u8207\u771F\u5BE6\u74B0\u5883\u624D\u6703\u51FA\u73FE\u7684\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "CI \u610F\u6307\u983B\u7E41\u6574\u5408\u4E26\u6E2C\u8A66",
+            "text": "<p>\u6301\u7E8C\u6574\u5408\uFF08CI\uFF09\u662F\u6307\u983B\u7E41\u5730\u628A\u8B8A\u66F4\u6574\u5408\u9032\u5171\u4EAB\u4E3B\u7DDA\uFF0C\u4E26\u5728\u6BCF\u6B21\u6574\u5408\u6642\u81EA\u52D5\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014CI \u5C31\u662F\u983B\u7E41\u6574\u5408\u5230\u4E3B\u7DDA\uFF0C\u4E26\u5728\u6BCF\u6B21\u6574\u5408\u90FD\u8DD1\u81EA\u52D5\u5316\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1ACI \u6B63\u662F\u983B\u7E41\u6574\u5408\u5230\u4E3B\u7DDA\u4E26\u6BCF\u6B21\u90FD\u81EA\u52D5\u6E2C\u8A66\uFF0C\u800C\u9019\u6B63\u662F\u4F7F CD \u6210\u70BA\u53EF\u80FD\u7684\u57FA\u790E\u3002"
+              }
+            ],
+            "generalFeedback": "\u6301\u7E8C\u6574\u5408\u662F\u6307\u6BCF\u4F4D\u958B\u767C\u8005\u983B\u7E41\u5730\u5408\u4F75\u5230\u5171\u4EAB\u4E3B\u7DDA\uFF0C\u800C\u6BCF\u6B21\u6574\u5408\u90FD\u89F8\u767C\u4E00\u6B21\u81EA\u52D5\u5316\u5EFA\u7F6E\u8207\u6E2C\u8A66\u3002\u8B93\u4E3B\u7DDA\u6301\u7E8C\u7DAD\u6301\u5DF2\u9A57\u8B49\u72C0\u614B\uFF0C\u6B63\u662F\u4F7F\u6301\u7E8C\u4EA4\u4ED8\uFF08\u628A\u5EFA\u7F6E\u671D\u767C\u4F48\u63D0\u5347\uFF09\u5F97\u4EE5\u6210\u7ACB\u7684\u57FA\u790E\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7DA0\u8272\u7BA1\u7DDA\u4EE3\u8868\u9598\u90FD\u901A\u904E",
+            "text": "<p>\u4E00\u6B21\u300C\u7DA0\u8272\u300D\u7684\u7BA1\u7DDA\u57F7\u884C\uFF0C\u4EE3\u8868\u6BCF\u500B\u968E\u6BB5\u7684\u54C1\u8CEA\u9598\u90FD\u901A\u904E\u3001\u5EFA\u7F6E\u88AB\u5141\u8A31\u524D\u9032\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DA0\u8272\u4EE3\u8868\u6BCF\u500B\u968E\u6BB5\u7684\u6AA2\u67E5\u90FD\u901A\u904E\uFF0C\u5EFA\u7F6E\u56E0\u6B64\u901A\u904E\u5404\u9053\u9598\u5F80\u524D\u63A8\u9032\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u7DA0\u8272\u57F7\u884C\u6B63\u662F\u6BCF\u500B\u968E\u6BB5\u7684\u9598\u90FD\u901A\u904E\u3001\u5EFA\u7F6E\u5F97\u4EE5\u524D\u9032\u7684\u60C5\u5F62\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DA0\u8272\u7BA1\u7DDA\u4EE3\u8868\u6BCF\u500B\u968E\u6BB5\u90FD\u8DD1\u904E\u5176\u6AA2\u67E5\u4E14\u901A\u904E\uFF0C\u56E0\u6B64\u5EFA\u7F6E\u6E05\u95DC\u4E86\u6BCF\u4E00\u9053\u9598\u3002\u7D05\u8272\u7BA1\u7DDA\u4EE3\u8868\u67D0\u9053\u9598\u5931\u6557\uFF0C\u5EFA\u7F6E\u88AB\u5361\u5728\u8A72\u968E\u6BB5\u3002\u8B93\u7BA1\u7DDA\u7DAD\u6301\u7DA0\u8272\uFF0C\u662F\u6301\u7E8C\u6E2C\u8A66\u7684\u65E5\u5E38\u76EE\u6A19\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u63D0\u4EA4\u968E\u6BB5\u5931\u6557\u6703\u963B\u64CB\u5F8C\u7E8C\u968E\u6BB5",
+            "text": "<p>\u82E5\u63D0\u4EA4\u968E\u6BB5\u5931\u6557\uFF0C\u7BA1\u7DDA\u4ECD\u6703\u7167\u6A23\u7E7C\u7E8C\u3001\u5C0D\u540C\u4E00\u500B\u5EFA\u7F6E\u57F7\u884C\u9A57\u6536\u968E\u6BB5\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5931\u6557\u7684\u63D0\u4EA4\u968E\u6BB5\u6703\u505C\u4E0B\u5EFA\u7F6E\uFF1B\u5F8C\u7E8C\u968E\u6BB5\u4E0D\u6703\u5C0D\u4E00\u500B\u5DF2\u5728\u9598\u5931\u6557\u7684\u5EFA\u7F6E\u57F7\u884C\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u5931\u6557\u7684\u9598\u6703\u505C\u4E0B\u5EFA\u7F6E\uFF0C\u6240\u4EE5\u9A57\u6536\u968E\u6BB5\u4E0D\u6703\u5C0D\u4E00\u500B\u63D0\u4EA4\u968E\u6BB5\u5DF2\u5426\u6C7A\u7684\u5EFA\u7F6E\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u968E\u6BB5\u90FD\u662F\u9598\u3002\u82E5\u63D0\u4EA4\u968E\u6BB5\u5931\u6557\uFF0C\u5EFA\u7F6E\u4E0D\u88AB\u63D0\u5347\uFF0C\u9A57\u6536\u968E\u6BB5\u5C31\u6C38\u4E0D\u6703\u5C0D\u5B83\u57F7\u884C\u3002\u9019\u6B63\u662F\u628A\u5FEB\u901F\u6AA2\u67E5\u6392\u5728\u6700\u524D\u9762\u7684\u7528\u610F\uFF1A\u90A3\u88E1\u4E00\u5931\u6557\uFF0C\u7BA1\u7DDA\u5728\u4EFB\u4F55\u8F03\u6162\u968E\u6BB5\u958B\u59CB\u4E4B\u524D\u5C31\u505C\u4E0B\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54C1\u8CEA\u9598\u7684\u76EE\u7684",
+            "text": "<p>\u5728\u6BCF\u500B\u968E\u6BB5\u8A2D\u7F6E\u54C1\u8CEA\u9598\uFF0C\u4E3B\u8981\u76EE\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9632\u6B62\u58DE\u6389\u7684\u5EFA\u7F6E\u7E7C\u7E8C\u5F80\u7BA1\u7DDA\u4E0B\u6E38\u88AB\u63D0\u5347",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9598\u6703\u963B\u6B62\u5931\u6557\u7684\u5EFA\u7F6E\u524D\u9032\uFF0C\u628A\u58DE\u6389\u7684\u8B8A\u66F4\u64CB\u5728\u5F8C\u7E8C\u968E\u6BB5\u8207\u6B63\u5F0F\u74B0\u5883\u4E4B\u5916\u3002"
+              },
+              {
+                "text": "\u8B93\u7BA1\u7DDA\u82B1\u66F4\u4E45\uFF0C\u597D\u8B93\u958B\u767C\u8005\u5C11\u4E00\u9EDE\u63D0\u4EA4",
+                "fraction": 0,
+                "feedback": "\u9598\u4E0D\u662F\u70BA\u4E86\u62D6\u6162\u4EBA\uFF1B\u5B83\u662F\u70BA\u4E86\u963B\u6B62\u58DE\u6389\u7684\u5EFA\u7F6E\u524D\u9032\u3002"
+              },
+              {
+                "text": "\u8A08\u7B97\u6BCF\u500B\u5EFA\u7F6E\u5305\u542B\u591A\u5C11\u884C\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u884C\u6578\u8A08\u7B97\u7121\u95DC\uFF1B\u9598\u7684\u76EE\u7684\u662F\u963B\u6B62\u5931\u6557\u7684\u5EFA\u7F6E\u88AB\u63D0\u5347\u3002"
+              },
+              {
+                "text": "\u6C38\u4E45\u4FDD\u8B49\u8EDF\u9AD4\u518D\u4E5F\u6C92\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u9598\u80FD\u4FDD\u8B49\u96F6\u7F3A\u9677\uFF1B\u5B83\u7684\u76EE\u7684\u662F\u963B\u6B62\u5DF2\u77E5\u7684\u5931\u6557\u88AB\u63D0\u5347\u3002"
+              }
+            ],
+            "generalFeedback": "\u54C1\u8CEA\u9598\u7684\u5B58\u5728\uFF0C\u662F\u8B93\u4E00\u500B\u672A\u901A\u904E\u6AA2\u67E5\u7684\u5EFA\u7F6E\u7121\u6CD5\u524D\u9032\u3002\u9019\u628A\u58DE\u6389\u7684\u8B8A\u66F4\u64CB\u5728\u671D\u6B63\u5F0F\u74B0\u5883\u63A8\u9032\u7684\u8DEF\u4E0A\uFF0C\u4E26\u8CE6\u4E88\u6BCF\u500B\u968E\u6BB5\u505C\u4E0B\u7522\u7DDA\u7684\u6B0A\u529B\uFF0C\u9019\u6B63\u662F\u6301\u7E8C\u6E2C\u8A66\u7684\u6838\u5FC3\u5B89\u5168\u6027\u8CEA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6BCF\u500B\u968E\u6BB5\u90FD\u6709\u81EA\u52D5\u5316\u6E2C\u8A66",
+            "text": "<p>\u6301\u7E8C\u6E2C\u8A66\u7684\u76EE\u6A19\uFF0C\u662F\u5728\u7BA1\u7DDA\u7684\u6BCF\u500B\u968E\u6BB5\u90FD\u57F7\u884C\u81EA\u52D5\u5316\u6E2C\u8A66\uFF0C\u8B93\u5718\u968A\u5C0D\u6BCF\u6B21\u8B8A\u66F4\u5F97\u5230\u5FEB\u901F\u56DE\u994B\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u5176\u5B9A\u7FA9\uFF1A\u6BCF\u500B\u968E\u6BB5\u90FD\u6709\u81EA\u52D5\u5316\u6E2C\u8A66\uFF0C\u5C0D\u6BCF\u6B21\u8B8A\u66F4\u63D0\u4F9B\u5FEB\u901F\u56DE\u994B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u5728\u6BCF\u500B\u968E\u6BB5\u57F7\u884C\u81EA\u52D5\u5316\u6E2C\u8A66\u4EE5\u53D6\u5F97\u5FEB\u901F\u56DE\u994B\uFF0C\u6B63\u662F\u6301\u7E8C\u6E2C\u8A66\u7684\u672C\u8CEA\u3002"
+              }
+            ],
+            "generalFeedback": "\u6301\u7E8C\u6E2C\u8A66\u7684\u7CBE\u9AD3\u662F\u628A\u81EA\u52D5\u5316\u6E2C\u8A66\u5D4C\u5165 CI/CD \u7BA1\u7DDA\u7684\u6BCF\u500B\u968E\u6BB5\u3002\u6BCF\u6B21\u8B8A\u66F4\u5728\u6D41\u7D93\u6642\u90FD\u88AB\u9A57\u8B49\uFF0C\u65BC\u662F\u554F\u984C\u5F88\u5FEB\u6D6E\u73FE\uFF0C\u800C\u4E0D\u662F\u7D2F\u7A4D\u5230\u4E00\u500B\u8F03\u665A\u3001\u7368\u7ACB\u7684\u6E2C\u8A66\u968E\u6BB5\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5FEB\u901F\u4FBF\u5B9C\u7684\u6E2C\u8A66\u5148\u8DD1",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u628A\u5FEB\u901F\u3001\u4FBF\u5B9C\u3001\u9AD8\u4FE1\u5FC3\u7684\u6E2C\u8A66\u653E\u5728\u7BA1\u7DDA\u6700\u524D\u9762\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u6700\u53EF\u80FD\u767C\u751F\u3001\u6700\u4FBF\u5B9C\u5075\u6E2C\u7684\u5931\u6557\u5728\u6578\u79D2\u5167\u5C31\u88AB\u6293\u5230\uFF0C\u8D95\u5728\u7DE9\u6162\u53C8\u6602\u8CB4\u7684\u5957\u4EF6\u57F7\u884C\u4E4B\u524D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u8DD1\u5FEB\u901F\u6AA2\u67E5\u80FD\u7D66\u51FA\u6700\u5FEB\u56DE\u994B\uFF0C\u4E26\u5728\u6602\u8CB4\u968E\u6BB5\u57F7\u884C\u524D\u5C31\u505C\u4E0B\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5FEB\u901F\u6E2C\u8A66\u6C38\u9060\u6BD4\u6162\u6E2C\u8A66\u91CD\u8981\uFF0C\u6162\u7684\u53EF\u4EE5\u522A\u6389",
+                "fraction": 0,
+                "feedback": "\u6162\u6E2C\u8A66\u4ECD\u6709\u50F9\u503C\uFF1B\u6392\u5E8F\u7684\u91CD\u9EDE\u662F\u5FEB\u901F\u56DE\u994B\uFF0C\u800C\u975E\u522A\u6389\u6162\u7684\u5957\u4EF6\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7BA1\u7DDA\u4E00\u6B21\u53EA\u80FD\u8DD1\u4E00\u500B\u6E2C\u8A66\uFF0C\u800C\u5FEB\u901F\u6E2C\u8A66\u5B57\u6BCD\u6392\u5E8F\u5728\u524D",
+                "fraction": 0,
+                "feedback": "\u6392\u5E8F\u4F9D\u901F\u5EA6\u8207\u6210\u672C\uFF0C\u4E0D\u662F\u5B57\u6BCD\uFF0C\u4E14\u968E\u6BB5\u53EF\u5E73\u884C\u5316\uFF1B\u76EE\u6A19\u662F\u5C0D\u53EF\u80FD\u7684\u5931\u6557\u5FEB\u901F\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u597D\u8B93\u958B\u767C\u8005\u5B8C\u5168\u4E0D\u5FC5\u770B\u6162\u6E2C\u8A66\u7684\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u6162\u6E2C\u8A66\u4ECD\u6703\u8DD1\u4E14\u5F88\u91CD\u8981\uFF1B\u5FEB\u901F\u512A\u5148\u7684\u6392\u5E8F\u53EA\u662F\u8B93\u4FBF\u5B9C\u7684\u5931\u6557\u66F4\u65E9\u6D6E\u73FE\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u901F\u5EA6\u8207\u6210\u672C\u6392\u5E8F\uFF0C\u4EE3\u8868\u5FEB\u901F\u3001\u9AD8\u4FE1\u865F\u7684\u6AA2\u67E5\u5148\u8DD1\u3002\u82E5\u8B8A\u66F4\u4EE5\u67D0\u7A2E\u57FA\u672C\u65B9\u5F0F\u58DE\u4E86\uFF0C\u4F60\u5728\u6578\u79D2\u5167\u5C31\u77E5\u9053\u3001\u7BA1\u7DDA\u505C\u4E0B\u2014\u2014\u4F60\u5B8C\u5168\u4E0D\u5FC5\u4ED8\u51FA\u8DD1\u7DE9\u6162\u53C8\u6602\u8CB4\u7684\u9A57\u6536\u5957\u4EF6\u7684\u4EE3\u50F9\u3002\u9019\u5728\u628A\u56DE\u994B\u901F\u5EA6\u6700\u5927\u5316\u7684\u540C\u6642\uFF0C\u4E5F\u628A\u6D6A\u8CBB\u7684\u6A5F\u5668\u6642\u9593\u6700\u5C0F\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BA1\u7DDA\u968E\u6BB5\u7684\u6392\u5E8F",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u7A2E\u968E\u6BB5\u6392\u5E8F\u6700\u7B26\u5408\u300C\u5FEB\u901F\u5931\u6557\u3001\u4F9D\u901F\u5EA6\u8207\u6210\u672C\u6392\u5E8F\u300D\u7684\u539F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4EA4\uFF08\u7DE8\u8B6F\uFF0B\u55AE\u5143\uFF09\u2192 \u6574\u5408 \u2192 \u81EA\u52D5\u5316\u9A57\u6536\uFF0FE2E \u2192 \u90E8\u7F72",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FEB\u800C\u4FBF\u5B9C\u7684\u5148\u8DD1\uFF0C\u518D\u9010\u6B65\u9032\u5230\u8F03\u6162\u3001\u8F03\u6602\u8CB4\u7684\u968E\u6BB5\uFF0C\u6700\u5F8C\u90E8\u7F72\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u5316\u9A57\u6536\uFF0FE2E \u2192 \u6574\u5408 \u2192 \u63D0\u4EA4\uFF08\u7DE8\u8B6F\uFF0B\u55AE\u5143\uFF09\u2192 \u90E8\u7F72",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u6700\u6162\u3001\u6700\u6602\u8CB4\u7684\u5957\u4EF6\u653E\u6700\u524D\u2014\u2014\u8207\u5FEB\u901F\u5931\u6557\u6392\u5E8F\u6B63\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u90E8\u7F72 \u2192 \u63D0\u4EA4\uFF08\u7DE8\u8B6F\uFF0B\u55AE\u5143\uFF09\u2192 \u6574\u5408 \u2192 \u9A57\u6536",
+                "fraction": 0,
+                "feedback": "\u5728\u4EFB\u4F55\u6E2C\u8A66\u4E4B\u524D\u5C31\u90E8\u7F72\u4F7F\u9598\u5931\u6548\uFF1B\u5FEB\u901F\u6AA2\u67E5\u5FC5\u9808\u5728\u90E8\u7F72\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u6574\u5408 \u2192 \u90E8\u7F72 \u2192 \u63D0\u4EA4\uFF08\u7DE8\u8B6F\uFF0B\u55AE\u5143\uFF09\u2192 \u9A57\u6536",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5FEB\u6162\u6AA2\u67E5\u6253\u6563\u3001\u53C8\u5728\u4E2D\u9593\u90E8\u7F72\uFF1B\u61C9\u4F9D\u901F\u5EA6\u8207\u6210\u672C\u905E\u589E\u6392\u5E8F\u3002"
+              }
+            ],
+            "generalFeedback": "\u968E\u6BB5\u61C9\u4F9D\u6642\u9593\u8207\u6210\u672C\u905E\u589E\u6392\u5E8F\uFF1A\u5148\u662F\u5FEB\u901F\u4FBF\u5B9C\u7684\u63D0\u4EA4\u968E\u6BB5\uFF0C\u518D\u4F86\u6574\u5408\uFF0C\u63A5\u8457\u8F03\u6162\u7684\u81EA\u52D5\u5316\u9A57\u6536\uFF0FE2E \u5957\u4EF6\uFF0C\u6700\u5F8C\u624D\u90E8\u7F72\u3002\u5982\u6B64\u4E00\u4F86\uFF0C\u6700\u4FBF\u5B9C\u3001\u6700\u53EF\u80FD\u7684\u5931\u6557\u5148\u505C\u4E0B\u5EFA\u7F6E\uFF0C\u6602\u8CB4\u7684\u968E\u6BB5\u53EA\u5728\u770B\u8D77\u4F86\u5DF2\u5065\u5EB7\u7684\u8B8A\u66F4\u4E0A\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4EA4\u968E\u6BB5\u5C0D\u6BD4\u9A57\u6536\u968E\u6BB5",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u53E5\u6B63\u78BA\u5730\u5C0D\u6BD4\u63D0\u4EA4\u968E\u6BB5\u8207\u9A57\u6536\u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4EA4\u968E\u6BB5\u5F88\u5FEB\uFF08\u7DE8\u8B6F\uFF0B\u55AE\u5143\uFF0B\u975C\u614B\u6AA2\u67E5\uFF09\uFF1B\u9A57\u6536\u968E\u6BB5\u8F03\u6162\uFF0C\u57F7\u884C\u4F7F\u7528\u8005\u9762\u884C\u70BA\u7684\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u662F\u5FEB\u901F\u3001\u4F4E\u5C64\u6B21\u7684\u63D0\u4EA4\u968E\u6BB5\uFF1B\u4E4B\u5F8C\u662F\u8F03\u6162\u3001\u8F03\u9AD8\u5C64\u6B21\u7684\u81EA\u52D5\u5316\u9A57\u6536\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u63D0\u4EA4\u968E\u6BB5\u8DD1\u7DE9\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\uFF1B\u9A57\u6536\u968E\u6BB5\u53EA\u505A\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u53CD\u4E86\u2014\u2014\u7DE8\u8B6F\u5728\u63D0\u4EA4\u968E\u6BB5\uFF0C\u800C\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u5C6C\u65BC\u8F03\u665A\u7684\u9A57\u6536\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u968E\u6BB5\u8DD1\u5B8C\u5168\u4E00\u6A23\u7684\u6E2C\u8A66\uFF0C\u53EA\u662F\u5728\u4E0D\u540C\u5929",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u8DD1\u4E0D\u540C\u7A2E\u985E\u7684\u6E2C\u8A66\uFF1A\u63D0\u4EA4\u968E\u6BB5\u662F\u5FEB\u901F\u7684\u55AE\u5143\u5C64\u6B21\uFF0C\u9A57\u6536\u968E\u6BB5\u662F\u8F03\u6162\u7684\u9A57\u6536\u5C64\u6B21\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u968E\u6BB5\u5148\u8DD1\uFF0C\u56E0\u70BA\u5B83\u6700\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u91CD\u8981\u6027\u4E0D\u6C7A\u5B9A\u9806\u5E8F\uFF1B\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u5148\u8DD1\uFF0C\u597D\u8B93\u5931\u6557\u88AB\u4FBF\u5B9C\u5730\u6293\u5230\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u4EA4\u968E\u6BB5\u662F\u5FEB\u901F\u7684\u7B2C\u4E00\u9053\u9598\u2014\u2014\u7DE8\u8B6F\u3001\u55AE\u5143\u6E2C\u8A66\u3001\u5FEB\u901F\u975C\u614B\u5206\u6790\u2014\u2014\u5728\u6578\u5206\u9418\u5167\u7D66\u56DE\u994B\u3002\u9A57\u6536\u968E\u6BB5\u8F03\u665A\uFF0C\u4EE5\u8F03\u6162\u3001\u8F03\u9AD8\u5C64\u6B21\u7684\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66\u91DD\u5C0D\u985E\u6B63\u5F0F\u74B0\u5883\u57F7\u884C\u3002\u5FEB\u800C\u4FBF\u5B9C\u7684\u5148\u8DD1\uFF1B\u6162\u800C\u5468\u5168\u7684\u5F8C\u8DD1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EFA\u7F6E\u4E00\u6B21\u4E26\u63D0\u5347\u540C\u4E00\u4EFD\u7522\u7269",
+            "text": "<p>\u6301\u7E8C\u4EA4\u4ED8\u5EFA\u8B70\u628A\u53EF\u90E8\u7F72\u7684\u7522\u7269\u53EA\u5EFA\u7F6E\u4E00\u6B21\uFF0C\u4E26\u628A\u540C\u4E00\u4EFD\u7522\u7269\u63D0\u5347\u901A\u904E\u5404\u968E\u6BB5\u3002\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u6BCF\u500B\u968E\u6BB5\u6E2C\u8A66\u7684\u90FD\u662F\u5C07\u8981\u51FA\u8CA8\u7684\u90A3\u4E00\u4EFD\u4F4D\u5143\u7D44\uFF0C\u6D88\u9664\u91CD\u65B0\u5EFA\u7F6E\u6240\u5F15\u5165\u7684\u5DEE\u7570",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u4E00\u7522\u7269\u4EE3\u8868\u6BCF\u500B\u968E\u6BB5\u9A57\u8B49\u7684\u6B63\u662F\u5C07\u767C\u4F48\u4E4B\u7269\uFF0C\u6C92\u6709\u91CD\u5EFA\u6F02\u79FB\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5728\u6BCF\u500B\u968E\u6BB5\u91CD\u65B0\u5EFA\u7F6E\u6BD4\u91CD\u7528\u7522\u7269\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u53CD\u8986\u91CD\u5EFA\u66F4\u6162\u4E14\u6709\u6F02\u79FB\u98A8\u96AA\uFF1B\u5EFA\u7F6E\u4E00\u6B21\u7684\u7406\u7531\u662F\u6E2C\u8A66\u5C07\u51FA\u8CA8\u7684\u90A3\u4EFD\u4F4D\u5143\u7D44\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7522\u7269\u5FC5\u9808\u91CD\u65B0\u7DE8\u8B6F\u624D\u80FD\u7B26\u5408\u6BCF\u500B\u74B0\u5883\u7684\u4F5C\u696D\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u74B0\u5883\u5DEE\u7570\u7531\u7D44\u614B\u8655\u7406\uFF0C\u800C\u975E\u9760\u91CD\u5EFA\uFF1B\u4F60\u63D0\u5347\u7684\u662F\u540C\u4E00\u4EFD\u7522\u7269\u3002"
+              },
+              {
+                "text": "\u597D\u8B93\u6BCF\u500B\u968E\u6BB5\u80FD\u6084\u6084\u6539\u52D5\u7A0B\u5F0F\u78BC\uFF0C\u4FEE\u6389\u5B83\u627E\u5230\u7684\u4EFB\u4F55\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u968E\u6BB5\u4E0D\u5F97\u66F4\u52D5\u7522\u7269\uFF1B\u5EFA\u7F6E\u4E00\u6B21\u4FDD\u8B49\u88AB\u6E2C\u7684\u4F4D\u5143\u7D44\u5C31\u662F\u88AB\u51FA\u8CA8\u7684\u4F4D\u5143\u7D44\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u5728\u6BCF\u500B\u968E\u6BB5\u90FD\u91CD\u5EFA\uFF0C\u8F03\u665A\u7684\u968E\u6BB5\u53EF\u80FD\u6E2C\u5230\u8207\u4F60\u767C\u4F48\u7684\u7565\u6709\u4E0D\u540C\u7684\u4E8C\u9032\u4F4D\u6A94\uFF0C\u65BC\u662F\u901A\u904E\u9598\u7121\u6CD5\u8B49\u660E\u95DC\u65BC\u51FA\u8CA8\u4F4D\u5143\u7D44\u7684\u4EFB\u4F55\u4E8B\u3002\u5EFA\u7F6E\u4E00\u6B21\u4E26\u63D0\u5347\u540C\u4E00\u4EFD\u7522\u7269\uFF0C\u4EE3\u8868\u6BCF\u9053\u9598\u9A57\u8B49\u7684\u6B63\u662F\u5C07\u62B5\u9054\u6B63\u5F0F\u74B0\u5883\u4E4B\u7269\uFF1B\u53EA\u6709\u7D44\u614B\u96A8\u74B0\u5883\u800C\u7570\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u5DE6\u79FB\u6D3B\u52D5",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F<em>\u5DE6\u79FB\uFF08shift-left\uFF09</em>\u6E2C\u8A66\u7684\u4F8B\u5B50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u63D0\u4EA4\u968E\u6BB5\u3001\u6BCF\u6B21\u63A8\u9001\u4E4B\u5F8C\uFF0C\u7ACB\u5373\u8DD1\u5FEB\u901F\u7684\u55AE\u5143\u6E2C\u8A66\u8207\u975C\u614B\u5206\u6790",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6E2C\u8A66\u5F80\u524D\u63A8\u9032\u5230\u63D0\u4EA4\u968E\u6BB5\uFF0C\u6B63\u662F\u5DE6\u79FB\u3002"
+              },
+              {
+                "text": "\u5728\u767C\u4F48\u5F8C\uFF0C\u76E3\u63A7\u7DDA\u4E0A\u670D\u52D9\u7684\u932F\u8AA4\u7387",
+                "fraction": 0,
+                "feedback": "\u767C\u4F48\u5F8C\u7684\u76E3\u63A7\u662F\u53F3\u79FB\uFF1B\u5DE6\u79FB\u662F\u5728\u7BA1\u7DDA\u65E9\u671F\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5C0D\u4E00\u5C0F\u7247\u6B63\u5F0F\u6D41\u91CF\u505A\u91D1\u7D72\u96C0\u767C\u4F48",
+                "fraction": 0,
+                "feedback": "\u91D1\u7D72\u96C0\u767C\u4F48\u767C\u751F\u5728\u6B63\u5F0F\u74B0\u5883\u2014\u2014\u90A3\u662F\u53F3\u79FB\uFF0C\u4E0D\u662F\u5DE6\u79FB\u3002"
+              },
+              {
+                "text": "\u8B80\u53D6\u6B63\u5F0F\u74B0\u5883\u7684\u5408\u6210\u5192\u7159\u6AA2\u67E5\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u6B63\u5F0F\u74B0\u5883\u7684\u5408\u6210\u6AA2\u67E5\u662F\u53F3\u79FB\uFF1B\u5DE6\u79FB\u662F\u628A\u6E2C\u8A66\u5F80\u7BA1\u7DDA\u66F4\u65E9\u79FB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE6\u79FB\u628A\u6E2C\u8A66\u5F80\u524D\u63A8\u3002\u5728\u63D0\u4EA4\u968E\u6BB5\u2014\u2014\u63A8\u9001\u5F8C\u7ACB\u5373\u3001\u4EFB\u4F55\u90E8\u7F72\u4E4B\u524D\u2014\u2014\u8DD1\u55AE\u5143\u6E2C\u8A66\u8207\u975C\u614B\u6AA2\u67E5\uFF0C\u662F\u5178\u7BC4\u7684\u5DE6\u79FB\u5BE6\u52D9\uFF1A\u4FBF\u5B9C\u3001\u5FEB\u901F\u3001\u53C8\u65E9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u53F3\u79FB\u6D3B\u52D5",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F<em>\u53F3\u79FB\uFF08shift-right\uFF09</em>\u6E2C\u8A66\u7684\u4F8B\u5B50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6B63\u5F0F\u74B0\u5883\u5C0D\u4E00\u5C0F\u7FA4\u91D1\u7D72\u96C0\u767C\u4F48\uFF0C\u4E26\u5728\u64F4\u5927\u63A8\u51FA\u524D\u89C0\u5BDF\u76E3\u63A7\u5100\u8868\u677F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91D1\u7D72\u96C0\u767C\u4F48\u52A0\u4E0A\u6B63\u5F0F\u74B0\u5883\u76E3\u63A7\u662F\u5178\u578B\u7684\u53F3\u79FB\u5BE6\u52D9\u3002"
+              },
+              {
+                "text": "\u5728\u63D0\u4EA4\u968E\u6BB5\u52A0\u5165\u66F4\u591A\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5DE6\u79FB\uFF08\u66F4\u65E9\u6E2C\u8A66\uFF09\uFF1B\u53F3\u79FB\u662F\u5728\u6B63\u5F0F\u74B0\u5883\u89C0\u6E2C\u8207\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u6B21\u63A8\u9001\u6642\u7DE8\u8B6F\u7A0B\u5F0F\u78BC\u4E26\u8DD1\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u52A0\u975C\u614B\u6AA2\u67E5\u662F\u65E9\u671F\u7684\u5DE6\u79FB\u6D3B\u52D5\uFF0C\u4E0D\u662F\u53F3\u79FB\u3002"
+              },
+              {
+                "text": "\u5728\u529F\u80FD\u5BE6\u4F5C\u4E4B\u524D\u5148\u5BEB\u597D\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u53CA\u65E9\u5BEB\u6E2C\u8A66\u662F\u5DE6\u79FB\u7684\u6982\u5FF5\uFF1B\u53F3\u79FB\u767C\u751F\u5728\u90E8\u7F72\u4E4B\u5F8C\u3001\u6B63\u5F0F\u74B0\u5883\u4E2D\u3002"
+              }
+            ],
+            "generalFeedback": "\u53F3\u79FB\u5728\u6B63\u5F0F\u74B0\u5883\u9A57\u8B49\u3002\u91D1\u7D72\u96C0\u767C\u4F48\u628A\u65B0\u5EFA\u7F6E\u66B4\u9732\u7D66\u4E00\u5C0F\u7247\u771F\u5BE6\u6D41\u91CF\uFF0C\u540C\u6642\u7531\u76E3\u63A7\u8207\u5408\u6210\u6AA2\u67E5\u76EF\u8457\u554F\u984C\uFF0C\u65BC\u662F\u552F\u6709\u771F\u5BE6\u689D\u4EF6\u4E0B\u624D\u51FA\u73FE\u7684\u554F\u984C\u80FD\u5728\u5168\u9762\u63A8\u51FA\u524D\u88AB\u6293\u5230\u3002\u76E3\u63A7\u3001\u91D1\u7D72\u96C0\u8207\u5408\u6210\uFF0F\u5192\u7159\u6AA2\u67E5\u90FD\u5C6C\u65BC\u53F3\u79FB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8106\u5F31\u6E2C\u8A66\u5728\u7BA1\u7DDA\u4E2D\u66F4\u7CDF",
+            "text": "<p>\u7576\u8106\u5F31\u6E2C\u8A66\uFF08flaky test\uFF09\u4F4D\u65BC CI/CD \u7BA1\u7DDA\u4E4B\u4E2D\u6642\uFF0C\u70BA\u4F55\u7279\u5225\u5177\u7834\u58DE\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6703\u96A8\u6A5F\u8B93\u67D0\u9053\u9598\u5931\u6557\uFF0C\u963B\u64CB\u597D\u5EFA\u7F6E\u7684\u63D0\u5347\uFF0C\u4E26\u4FB5\u8755\u5718\u968A\u5C0D\u7BA1\u7DDA\u7684\u4FE1\u4EFB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u96A8\u6A5F\u5931\u6557\u6703\u64CB\u4F4F\u597D\u5EFA\u7F6E\uFF0C\u4E26\u6559\u6703\u5718\u968A\u5FFD\u7565\u7D05\u8272\u57F7\u884C\uFF0C\u4F7F\u9598\u5931\u53BB\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u8B93\u7DE8\u8B6F\u5668\u7522\u751F\u66F4\u5927\u7684\u4E8C\u9032\u4F4D\u6A94",
+                "fraction": 0,
+                "feedback": "\u8106\u5F31\u6027\u8207\u4E8C\u9032\u4F4D\u6A94\u5927\u5C0F\u7121\u95DC\uFF1B\u5176\u5371\u5BB3\u662F\u96A8\u6A5F\u963B\u64CB\u7BA1\u7DDA\u4E26\u4FB5\u8755\u4FE1\u4EFB\u3002"
+              },
+              {
+                "text": "\u5B83\u5931\u6557\u6642\u6703\u6C38\u4E45\u522A\u9664\u5EFA\u7F6E\u7522\u7269",
+                "fraction": 0,
+                "feedback": "\u8106\u5F31\u6E2C\u8A66\u4E0D\u6703\u522A\u9664\u7522\u7269\uFF1B\u5B83\u662F\u96A8\u6A5F\u8B93\u9598\u5931\u6557\u3001\u7834\u58DE\u5C0D\u7D50\u679C\u7684\u4FE1\u5FC3\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u5F71\u97FF\u958B\u767C\u8005\u7684\u672C\u6A5F\uFF0C\u7D55\u4E0D\u5F71\u97FF\u7BA1\u7DDA",
+                "fraction": 0,
+                "feedback": "\u6B63\u597D\u76F8\u53CD\uFF1A\u5728\u5171\u4EAB\u7BA1\u7DDA\u4E2D\uFF0C\u8106\u5F31\u6E2C\u8A66\u6703\u64CB\u4F4F\u6BCF\u500B\u4EBA\u7684\u5EFA\u7F6E\u4E26\u4FB5\u8755\u4FE1\u4EFB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u7BA1\u7DDA\u4E2D\uFF0C\u8106\u5F31\u6E2C\u8A66\u6703\u96A8\u6A5F\u628A\u67D0\u9053\u9598\u8B8A\u7D05\uFF0C\u65BC\u662F\u4E00\u500B\u5B8C\u5168\u6C92\u554F\u984C\u7684\u5EFA\u7F6E\u88AB\u64CB\u4F4F\u3001\u7121\u6CD5\u63D0\u5347\u3002\u66F4\u7CDF\u7684\u662F\uFF0C\u5927\u5BB6\u958B\u59CB\u91CD\u8DD1\u6216\u5FFD\u7565\u7D05\u8272\u7BA1\u7DDA\uFF0C\u65BC\u662F\u771F\u6B63\u7684\u5931\u6557\u6703\u88AB\u7576\u6210\u300C\u53EA\u662F\u8106\u5F31\u300D\u800C\u88AB\u6253\u767C\u3002\u56E0\u6B64\u8106\u5F31\u6027\u65E2\u6D6A\u8CBB\u6642\u9593\uFF0C\u53C8\u6467\u6BC0\u9598\u6240\u4EF0\u8CF4\u7684\u4FE1\u4EFB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5FEB\u901F\u512A\u5148\u6392\u5E8F\u5E36\u4F86\u7684\u56DE\u994B\u6642\u9593",
+            "text": "<p>\u67D0\u8B8A\u66F4\u542B\u6709\u4E00\u500B\u57FA\u672C\u7684\u7DE8\u8B6F\u932F\u8AA4\u3002\u63D0\u4EA4\u968E\u6BB5\u82B1 3 \u5206\u9418\uFF1B\u9A57\u6536\u968E\u6BB5\u82B1 40 \u5206\u9418\u3002\u63A1\u7528\u5FEB\u901F\u512A\u5148\u6392\u5E8F\u6642\uFF0C\u5718\u968A\u591A\u5FEB\u5F97\u77E5\u5EFA\u7F6E\u58DE\u4E86\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D04 3 \u5206\u9418\u2014\u2014\u63D0\u4EA4\u968E\u6BB5\u5931\u6557\uFF0C\u7BA1\u7DDA\u5728 40 \u5206\u9418\u7684\u968E\u6BB5\u57F7\u884C\u4E4B\u524D\u5C31\u505C\u4E0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u5148\u6293\u5230\u5B83\uFF0C\u56DE\u994B\u5728\u6578\u5206\u9418\u5167\u5230\u9054\uFF0C\u6162\u968E\u6BB5\u88AB\u7565\u904E\u3002"
+              },
+              {
+                "text": "\u7D04 43 \u5206\u9418\u2014\u2014\u5169\u500B\u968E\u6BB5\u90FD\u5FC5\u9808\u8DD1\u5B8C\u624D\u6703\u56DE\u5831\u4EFB\u4F55\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5931\u6557\u7684\u63D0\u4EA4\u968E\u6BB5\u7ACB\u5373\u505C\u4E0B\u7BA1\u7DDA\uFF1B40 \u5206\u9418\u7684\u968E\u6BB5\u6C38\u4E0D\u6703\u8DD1\u3002"
+              },
+              {
+                "text": "\u7D04 40 \u5206\u9418\u2014\u2014\u9A57\u6536\u968E\u6BB5\u7E3D\u662F\u5148\u8DD1",
+                "fraction": 0,
+                "feedback": "\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u5148\u8DD1\uFF1B\u5B83\u5728\u7D04 3 \u5206\u9418\u5931\u6557\uFF0C\u9A57\u6536\u968E\u6BB5\u88AB\u7565\u904E\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4E0D\u6703\u2014\u2014\u7DE8\u8B6F\u932F\u8AA4\u7121\u6CD5\u88AB\u7BA1\u7DDA\u5075\u6E2C",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u6B63\u662F\u63D0\u4EA4\u968E\u6BB5\u6240\u6AA2\u67E5\u7684\uFF1B\u5B83\u5728\u7D04 3 \u5206\u9418\u5FEB\u901F\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u4FBF\u5B9C\u7684\u63D0\u4EA4\u968E\u6BB5\u5148\u8DD1\u3001\u4E14\u5931\u6557\u7684\u9598\u6703\u505C\u4E0B\u7BA1\u7DDA\uFF0C\u4E00\u500B\u57FA\u672C\u7684\u7DE8\u8B6F\u932F\u8AA4\u6703\u5728\u7D04 3 \u5206\u9418\u5167\u88AB\u56DE\u5831\u3002\u6602\u8CB4\u7684 40 \u5206\u9418\u9A57\u6536\u968E\u6BB5\u6C38\u4E0D\u6703\u5C0D\u90A3\u500B\u58DE\u6389\u7684\u5EFA\u7F6E\u555F\u52D5\u3002\u9019\u6B63\u662F\u4F9D\u901F\u5EA6\u8207\u6210\u672C\u6392\u5E8F\u7684\u56DE\u5831\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6BCF\u968E\u6BB5\u91CD\u5EFA\u4E26\u975E\u5EFA\u8B70\u505A\u6CD5",
+            "text": "<p>\u5728\u6BCF\u500B\u7BA1\u7DDA\u968E\u6BB5\u90FD\u5F9E\u539F\u59CB\u78BC\u91CD\u65B0\u7DE8\u8B6F\u51FA\u4E00\u4EFD\u65B0\u7522\u7269\uFF0C\u662F\u6301\u7E8C\u4EA4\u4ED8\u6240\u5EFA\u8B70\u7684\u505A\u6CD5\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EFA\u8B70\u505A\u6CD5\u662F\u5EFA\u7F6E\u4E00\u6B21\u4E26\u63D0\u5347\u540C\u4E00\u4EFD\u7522\u7269\uFF0C\u800C\u975E\u6BCF\u968E\u6BB5\u91CD\u5EFA\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u6BCF\u968E\u6BB5\u91CD\u5EFA\u6709\u6F02\u79FB\u98A8\u96AA\uFF1B\u4F60\u61C9\u628A\u7522\u7269\u5EFA\u7F6E\u4E00\u6B21\uFF0C\u4E26\u628A\u90A3\u4E00\u4EFD\u76F8\u540C\u7684\u7522\u7269\u63D0\u5347\u901A\u904E\u5404\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "\u6301\u7E8C\u4EA4\u4ED8\u4E3B\u5F35\u628A\u53EF\u90E8\u7F72\u7522\u7269\u53EA\u5EFA\u7F6E\u4E00\u6B21\uFF0C\u4E26\u628A\u90A3\u4EFD\u5B8C\u5168\u76F8\u540C\u7684\u7522\u7269\u63D0\u5347\u901A\u904E\u6BCF\u500B\u968E\u6BB5\u3002\u6BCF\u968E\u6BB5\u91CD\u5EFA\u6709\u6E2C\u5230\u8207\u51FA\u8CA8\u4F4D\u5143\u7D44\u4E0D\u540C\u4E4B\u7269\u7684\u98A8\u96AA\uFF0C\u65BC\u662F\u901A\u904E\u9598\u5C07\u7121\u6CD5\u518D\u4FDD\u8B49\u95DC\u65BC\u5DF2\u767C\u4F48\u4E8C\u9032\u4F4D\u6A94\u7684\u4EFB\u4F55\u4E8B\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BA1\u7DDA\u4E2D\u7684\u6E2C\u8A66\u91D1\u5B57\u5854",
+            "text": "<p>\u6E2C\u8A66\u91D1\u5B57\u5854\u8207\u6392\u5E8F\u826F\u597D\u7684\u7BA1\u7DDA\u6709\u4F55\u95DC\u806F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5927\u91CF\u5FEB\u901F\u7684\u55AE\u5143\u6E2C\u8A66\u6700\u65E9\u8DD1\u3001\u4E5F\u8DD1\u6700\u983B\u7E41\uFF1B\u8F03\u5C11\u3001\u8F03\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u5247\u8F03\u665A\u8DD1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91D1\u5B57\u5854\u5BEC\u5EE3\u7684\u5FEB\u901F\u55AE\u5143\u6E2C\u8A66\u5E95\u5EA7\u5C0D\u61C9\u5230\u65E9\u671F\u7684\u63D0\u4EA4\u968E\u6BB5\uFF1B\u7A84\u5C0F\u7684 E2E \u9802\u7AEF\u8F03\u665A\u8DD1\u3002"
+              },
+              {
+                "text": "\u7BA1\u7DDA\u61C9\u8A72\u6700\u5148\u8DD1\u5927\u90E8\u5206\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\uFF0C\u53EA\u5728\u6700\u5F8C\u8DD1\u5C11\u91CF\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u91D1\u5B57\u5854\u5012\u904E\u4F86\u4E86\uFF1B\u5BEC\u5EE3\u7684\u5FEB\u901F\u55AE\u5143\u6E2C\u8A66\u5E95\u5EA7\u61C9\u5148\u8DD1\uFF0C\u800C\u975E\u5C11\u91CF\u6162\u7684 E2E\u3002"
+              },
+              {
+                "text": "\u91D1\u5B57\u5854\u8AAA\u6BCF\u500B\u968E\u6BB5\u90FD\u5FC5\u9808\u542B\u6709\u6578\u91CF\u76F8\u7B49\u7684\u5404\u7A2E\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u91D1\u5B57\u5854\u523B\u610F\u4E0D\u76F8\u7B49\uFF1A\u5927\u91CF\u55AE\u5143\u3001\u8F03\u5C11\u6574\u5408\u3001\u6700\u5C11 E2E\u3002"
+              },
+              {
+                "text": "\u91D1\u5B57\u5854\u53EA\u9069\u7528\u65BC\u624B\u52D5\u6E2C\u8A66\uFF0C\u8207\u7BA1\u7DDA\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u5B83\u76F4\u63A5\u5C0D\u61C9\u5230\u7BA1\u7DDA\u6392\u5E8F\uFF1A\u5FEB\u901F\u7684\u5E95\u5EA7\u65E9\u8DD1\uFF0C\u6162\u7684\u9802\u7AEF\u665A\u8DD1\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u91D1\u5B57\u5854\u5BEC\u5EE3\u7684\u5E95\u5EA7\u2014\u2014\u5927\u91CF\u5FEB\u901F\u7684\u55AE\u5143\u6E2C\u8A66\u2014\u2014\u5C0D\u61C9\u5230\u65E9\u671F\u7684\u63D0\u4EA4\u968E\u6BB5\uFF0C\u9019\u4E9B\u5148\u8DD1\u4E14\u6700\u983B\u7E41\u8DD1\u3002\u6578\u91CF\u8F03\u5C11\u3001\u8F03\u6162\u7684\u6574\u5408\u6E2C\u8A66\uFF0C\u63A5\u8457\u6700\u5C11\u3001\u6700\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\uFF0C\u5728\u5F8C\u7E8C\u968E\u6BB5\u8DD1\u3002\u91D1\u5B57\u5854\u5F62\u72C0\u8207\u5FEB\u901F\u512A\u5148\u7684\u7BA1\u7DDA\u6392\u5E8F\uFF0C\u662F\u540C\u4E00\u500B\u6982\u5FF5\u7684\u5169\u7A2E\u770B\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u5347\u662F\u4EC0\u9EBC\u610F\u601D",
+            "text": "<p>\u5728\u7BA1\u7DDA\u4E2D\uFF0C<em>\u63D0\u5347\uFF08promote\uFF09</em>\u4E00\u500B\u5EFA\u7F6E\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5EFA\u7F6E\u901A\u904E\u7576\u524D\u9598\u4E4B\u5F8C\uFF0C\u628A\u540C\u4E00\u4EFD\u5EFA\u7F6E\uFF0F\u7522\u7269\u63A8\u9032\u5230\u4E0B\u4E00\u968E\u6BB5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u5347\u662F\u5728\u5EFA\u7F6E\u6E05\u95DC\u5F8C\uFF0C\u628A\u90A3\u4EFD\u5B8C\u5168\u76F8\u540C\u7684\u5EFA\u7F6E\u5F80\u524D\u63A8\u9032\u5230\u4E0B\u4E00\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u5E6B\u5BEB\u5B83\u7684\u958B\u767C\u8005\u52A0\u85AA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8077\u6DAF\u4E0A\u7684\u300C\u5347\u9077\u300D\uFF1B\u9019\u88E1\u7684\u63D0\u5347\u662F\u628A\u5EFA\u7F6E\u63A8\u9032\u5230\u4E0B\u4E00\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u70BA\u4E0B\u4E00\u500B\u74B0\u5883\u5F9E\u982D\u91CD\u5EFA\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u63D0\u5347\u662F\u628A\u540C\u4E00\u4EFD\u7522\u7269\u5F80\u524D\u63A8\uFF1B\u91CD\u5EFA\u6703\u9055\u53CD\u300C\u5EFA\u7F6E\u4E00\u6B21\u3001\u63D0\u5347\u540C\u4E00\u4EFD\u7522\u7269\u300D\u3002"
+              },
+              {
+                "text": "\u5728\u516C\u53F8\u90E8\u843D\u683C\u4E0A\u5BA3\u50B3\u9019\u6B21\u767C\u4F48",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u884C\u92B7\uFF1B\u63D0\u5347\u4E00\u500B\u5EFA\u7F6E\u662F\u628A\u5B83\u63A8\u9032\u5230\u4E0B\u4E00\u500B\u7BA1\u7DDA\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u5347\u662F\u628A\u4E00\u500B\u5DF2\u901A\u904E\u67D0\u968E\u6BB5\u9598\u7684\u5EFA\u7F6E\u5F80\u524D\u63A8\u5230\u4E0B\u4E00\u968E\u6BB5\u3002\u642D\u914D\u300C\u5EFA\u7F6E\u4E00\u6B21\u300D\uFF0C\u5F80\u524D\u63A8\u9032\u7684\u5C31\u662F\u90A3\u4EFD\u5B8C\u5168\u76F8\u540C\u7684\u7522\u7269\u2014\u2014\u65BC\u662F\u5B83\u6E05\u95DC\u7684\u6BCF\u9053\u9598\uFF0C\u90FD\u5957\u7528\u5728\u6700\u7D42\u53EF\u80FD\u88AB\u767C\u4F48\u7684\u90A3\u4EFD\u4F4D\u5143\u7D44\u4E0A\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9A57\u6536\u4E0D\u6703\u5148\u65BC\u63D0\u4EA4",
+            "text": "<p>\u70BA\u4E86\u5FEB\u901F\u5931\u6557\uFF0C\u7DE9\u6162\u7684\u81EA\u52D5\u5316\u9A57\u6536\u968E\u6BB5\u61C9\u8A72\u6392\u5728\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u4E4B\u524D\u57F7\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FEB\u901F\u5931\u6557\u4EE3\u8868\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u5148\u8DD1\uFF1B\u7DE9\u6162\u7684\u9A57\u6536\u968E\u6BB5\u6392\u5728\u5F8C\u9762\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u5148\u8DD1\u6162\u968E\u6BB5\u8207\u5FEB\u901F\u5931\u6557\u6B63\u597D\u76F8\u53CD\u3002\u4FBF\u5B9C\u7684\u63D0\u4EA4\u968E\u6BB5\u5FC5\u9808\u5148\u8DD1\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FEB\u901F\u5931\u6557\u6392\u5E8F\u628A\u5FEB\u901F\u3001\u4FBF\u5B9C\u7684\u63D0\u4EA4\u968E\u6BB5\u653E\u6700\u524D\uFF0C\u597D\u8B93\u57FA\u672C\u5931\u6557\u5728\u6578\u5206\u9418\u5167\u88AB\u6293\u5230\u3002\u8F03\u6162\u7684\u9A57\u6536\u968E\u6BB5\u6392\u5728\u5F8C\u9762\uFF0C\u53EA\u5C0D\u5DF2\u901A\u904E\u63D0\u4EA4\u9598\u7684\u5EFA\u7F6E\u57F7\u884C\u3002\u5148\u8DD1\u9A57\u6536\u6703\u6D6A\u8CBB\u6642\u9593\uFF0C\u4E26\u4F7F\u6574\u500B\u7528\u610F\u843D\u7A7A\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E73\u884C\u5316\u7DE9\u6162\u7684\u5957\u4EF6",
+            "text": "<p>\u67D0\u7DE9\u6162\u7684\u9A57\u6536\u5957\u4EF6\u82B1\u592A\u4E45\u3001\u62D6\u6162\u4E86\u56DE\u994B\u3002\u4E0B\u5217\u54EA\u7A2E\u6280\u8853\u6700\u76F4\u63A5\u5730\u5728\u4E0D\u6E1B\u5C11\u6DB5\u84CB\u7387\u7684\u60C5\u6CC1\u4E0B\u7E2E\u77ED\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u5957\u4EF6\u5207\u5206\uFF0C\u8B93\u6E2C\u8A66\u5728\u6578\u500B\u5DE5\u4F5C\u8005\u4E0A\u5E73\u884C\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5E73\u884C\u5316\u7DE9\u6162\u5957\u4EF6\u80FD\u5728\u4FDD\u7559\u6240\u6709\u6E2C\u8A66\u7684\u540C\u6642\uFF0C\u7E2E\u77ED\u7246\u9418\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u522A\u6389\u4E00\u534A\u7684\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u6E1B\u5C11\u6DB5\u84CB\u7387\uFF1B\u5E73\u884C\u5316\u4FDD\u7559\u6BCF\u500B\u6E2C\u8A66\uFF0C\u53EA\u662F\u8B93\u5B83\u5011\u4E26\u767C\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u628A\u6574\u689D\u7BA1\u7DDA\u8DD1\u5169\u6B21\u4EE5\u6C42\u4FDD\u96AA",
+                "fraction": 0,
+                "feedback": "\u8DD1\u5169\u6B21\u6703\u66F4\u6162\uFF0C\u800C\u975E\u66F4\u5FEB\uFF1B\u5E73\u884C\u5316\u8A72\u5957\u4EF6\u624D\u662F\u6B63\u78BA\u7684\u69D3\u687F\u3002"
+              },
+              {
+                "text": "\u628A\u9A57\u6536\u6E2C\u8A66\u79FB\u5230\u7BA1\u7DDA\u7684\u6700\u524D\u9762",
+                "fraction": 0,
+                "feedback": "\u628A\u6162\u5957\u4EF6\u653E\u6700\u524D\u6703\u7834\u58DE\u5FEB\u901F\u512A\u5148\u6392\u5E8F\uFF1B\u61C9\u8A72\u5E73\u884C\u5316\u5B83\uFF0C\u8B93\u5B83\u7559\u5728\u6070\u7576\u7684\u4F4D\u7F6E\u4E26\u7DAD\u6301\u5FEB\u901F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E73\u884C\u5316\u628A\u7DE9\u6162\u5957\u4EF6\u5206\u6563\u5230\u591A\u500B\u5DE5\u4F5C\u8005\uFF0C\u5728\u4FDD\u7559\u6BCF\u500B\u6E2C\u8A66\u7684\u540C\u6642\uFF0C\u628A\u7246\u9418\u6642\u9593\u7E2E\u5230\u4E00\u5C0F\u90E8\u5206\u3002\u9019\u5728\u4E0D\u72A7\u7272\u6DB5\u84CB\u7387\u4E0B\uFF0C\u8B93\u7BA1\u7DDA\u7DAD\u6301\u5FEB\u901F\u3001\u56DE\u994B\u7DAD\u6301\u8FC5\u901F\u2014\u2014\u662F\u9632\u6B62\u9F90\u5927\u9A57\u6536\uFF0FE2E \u5957\u4EF6\u6210\u70BA\u74F6\u9838\u7684\u6A19\u6E96\u505A\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u628A\u6E2C\u8A66\u653E\u9032\u6B63\u78BA\u7684\u968E\u6BB5",
+            "text": "<p>\u67D0\u6E2C\u8A66\u900F\u904E UI\u3001\u4E00\u500B\u771F\u5BE6\u8CC7\u6599\u5EAB\u8207\u4E00\u500B\u5916\u90E8\u652F\u4ED8\u6C99\u7BB1\u4F86\u9A45\u52D5\u6574\u500B\u61C9\u7528\u7A0B\u5F0F\uFF0C\u7D04\u82B1 90 \u79D2\u3002\u5B83\u8A72\u653E\u5728\u54EA\u88E1\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u653E\u5728\u8F03\u665A\u7684\u81EA\u52D5\u5316\u9A57\u6536\uFF0FE2E \u968E\u6BB5\uFF0C\u56E0\u70BA\u5B83\u5F88\u6162\u4E14\u6F14\u7DF4\u4E86\u6574\u500B\u6574\u5408\u7CFB\u7D71",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u7DE9\u6162\u3001\u5168\u7AEF\u3001\u7AEF\u5C0D\u7AEF\u7684\u6E2C\u8A66\u5C6C\u65BC\u8F03\u665A\u7684\u9A57\u6536\u968E\u6BB5\uFF0C\u800C\u975E\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u653E\u5728\u63D0\u4EA4\u968E\u6BB5\uFF0C\u597D\u8B93\u5B83\u5728\u6BCF\u6B21\u63A8\u9001\u6642\u65BC\u6578\u79D2\u5167\u8DD1\u5B8C",
+                "fraction": 0,
+                "feedback": "\u5B83\u82B1 90 \u79D2\u53C8\u662F\u5168\u7AEF\uFF0C\u5C0D\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u4F86\u8AAA\u592A\u6162\u3001\u592A\u5EE3\u3002"
+              },
+              {
+                "text": "\u54EA\u88E1\u90FD\u4E0D\u653E\u2014\u2014\u9019\u7A2E\u6E2C\u8A66\u6839\u672C\u4E0D\u8A72\u5BEB",
+                "fraction": 0,
+                "feedback": "\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u6709\u50F9\u503C\uFF1B\u5B83\u53EA\u662F\u5C6C\u65BC\u8F03\u665A\u7684\u968E\u6BB5\uFF0C\u4E26\u4EE5\u8F03\u5C11\u7684\u6578\u91CF\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u653E\u5728\u63D0\u4EA4\u968E\u6BB5\uFF0C\u4F46\u4E00\u500B\u6708\u53EA\u8DD1\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u5FEB\u901F\u512A\u5148\u6392\u5E8F\u8B93\u63D0\u4EA4\u968E\u6BB5\u7DAD\u6301\u5FEB\u901F\uFF1B\u7DE9\u6162\u7684\u5168\u7AEF\u6E2C\u8A66\u5C6C\u65BC\u9A57\u6536\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u9A45\u52D5 UI\u3001\u771F\u5BE6\u8CC7\u6599\u5EAB\u8207\u5916\u90E8\u670D\u52D9\u7684\u7DE9\u6162\u6E2C\u8A66\uFF0C\u662F\u7AEF\u5C0D\u7AEF\uFF0F\u9A57\u6536\u6E2C\u8A66\u3002\u5B83\u5C6C\u65BC\u8F03\u665A\u3001\u8DD1\u8F03\u6162\u8207\u8F03\u9AD8\u5C64\u6B21\u6E2C\u8A66\u7684\u968E\u6BB5\uFF0C\u800C\u975E\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u2014\u2014\u5F8C\u8005\u7684\u8077\u8CAC\u662F\u4EE5\u5FEB\u901F\u7684\u55AE\u5143\u8207\u975C\u614B\u6AA2\u67E5\u5728\u6578\u5206\u9418\u5167\u7D66\u51FA\u56DE\u994B\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u53F3\u79FB\u88DC\u8DB3\u4E0A\u7DDA\u524D\u6E2C\u8A66",
+            "text": "<p>\u53F3\u79FB\u6280\u8853\uFF08\u4F8B\u5982\u6B63\u5F0F\u74B0\u5883\u76E3\u63A7\u8207\u91D1\u7D72\u96C0\u767C\u4F48\uFF09\u662F\u88DC\u8DB3\u4E0A\u7DDA\u524D\u6E2C\u8A66\uFF0C\u800C\u975E\u53D6\u4EE3\u5C0D\u5B83\u7684\u9700\u6C42\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53F3\u79FB\u662F\u5728\u4E0A\u7DDA\u524D\u7684\u9598\u4E4B\u4E0A\u3001\u800C\u975E\u53D6\u800C\u4EE3\u4E4B\uFF0C\u589E\u6DFB\u6B63\u5F0F\u74B0\u5883\u6642\u671F\u7684\u4FE1\u5FC3\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u53F3\u79FB\u88DC\u8DB3\u4E0A\u7DDA\u524D\u6E2C\u8A66\uFF1B\u4F60\u4ECD\u7136\u60F3\u5728\u767C\u4F48\u524D\u6709\u5FEB\u901F\u7684\u9598\uFF0C\u4E26\u5728\u767C\u4F48\u5F8C\u6709\u6B63\u5F0F\u74B0\u5883\u89C0\u6E2C\u3002"
+              }
+            ],
+            "generalFeedback": "\u53F3\u79FB\u6293\u5230\u552F\u6709\u771F\u5BE6\u6D41\u91CF\u8207\u771F\u5BE6\u74B0\u5883\u624D\u6703\u6D6E\u73FE\u7684\u554F\u984C\uFF0C\u4F46\u5B83\u4F5C\u7528\u5728\u767C\u4F48\u4E4B\u5F8C\u3002\u4F60\u4ECD\u60F3\u8981\u4E0A\u7DDA\u524D\u7684\u5FEB\u901F\u9598\uFF0C\u5728\u51FA\u8CA8\u524D\u64CB\u4E0B\u58DE\u6389\u7684\u5EFA\u7F6E\u3002\u5169\u8005\u662F\u540C\u4E00\u5957\u6301\u7E8C\u6E2C\u8A66\u7B56\u7565\u4E2D\u4E92\u88DC\u7684\u5C64\u6B21\u3002"
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u4E00\u689D\u6162\u5957\u4EF6\u5148\u8DD1\u7684\u7BA1\u7DDA",
+            "text": "<p>\u67D0\u7BA1\u7DDA\u5728\u7DE8\u8B6F\u7A0B\u5F0F\u78BC\u6216\u8DD1\u4EFB\u4F55\u55AE\u5143\u6E2C\u8A66\u4E4B\u524D\uFF0C\u5148\u8DD1\u4E00\u5957 35 \u5206\u9418\u7684\u7AEF\u5C0D\u7AEF\u5957\u4EF6\u3002\u958B\u767C\u8005\u8981\u7B49\u8D85\u904E\u534A\u5C0F\u6642\uFF0C\u624D\u77E5\u9053\u81EA\u5DF1\u6709\u932F\u5B57\u6216\u7DE8\u8B6F\u932F\u8AA4\u3002\u6700\u4F73\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u65B0\u6392\u5E8F\uFF0C\u8B93\u7DE8\u8B6F\u8207\u55AE\u5143\u6E2C\u8A66\u5728\u4E00\u500B\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u5148\u8DD1\uFF0C\u7AEF\u5C0D\u7AEF\u5957\u4EF6\u4E4B\u5F8C\u624D\u8DD1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u4FBF\u5B9C\u7684\u6AA2\u67E5\u79FB\u5230\u524D\u9762\uFF0C\u6062\u5FA9\u5FEB\u901F\u512A\u5148\u6392\u5E8F\uFF0C\u65BC\u662F\u7463\u788E\u7684\u5931\u6557\u5728\u6578\u5206\u9418\u5167\u88AB\u6293\u5230\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u7DE8\u8B6F\u8207\u55AE\u5143\u6E2C\u8A66\u6B65\u9A5F\uFF0C\u53EA\u7559\u4E0B\u7AEF\u5C0D\u7AEF\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u6467\u6BC0\u5FEB\u901F\u56DE\u994B\u5C64\uFF1B\u4FEE\u6CD5\u662F\u8B93\u4FBF\u5B9C\u7684\u6AA2\u67E5\u5148\u8DD1\uFF0C\u800C\u4E0D\u662F\u522A\u6389\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u8981\u958B\u767C\u8005\u4E0D\u8981\u518D\u6253\u932F\u5B57\uFF0C\u597D\u8B93\u7AEF\u5C0D\u7AEF\u5957\u4EF6\u4E00\u6B21\u5C31\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u4F60\u7121\u6CD5\u6D88\u9664\u5931\u8AA4\uFF1B\u7BA1\u7DDA\u61C9\u8A72\u85C9\u7531\u628A\u5FEB\u901F\u6AA2\u67E5\u6392\u5728\u6700\u524D\uFF0C\u53CA\u65E9\u6293\u5230\u4FBF\u5B9C\u7684\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u628A 35 \u5206\u9418\u7684\u7AEF\u5C0D\u7AEF\u5957\u4EF6\u5728\u7DE8\u8B6F\u524D\u8DD1\u5169\u6B21\u4EE5\u6C42\u78BA\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u8B93\u5EF6\u9072\u52A0\u500D\uFF1B\u4FEE\u6CD5\u662F\u628A\u5FEB\u901F\u7684\u7DE8\u8B6F\u8207\u55AE\u5143\u6AA2\u67E5\u6392\u5728\u6162\u5957\u4EF6\u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u689D\u7BA1\u7DDA\u9055\u53CD\u4E86\u4F9D\u901F\u5EA6\u8207\u6210\u672C\u6392\u5E8F\uFF1A\u5B83\u5728\u6700\u4FBF\u5B9C\u7684\u6AA2\u67E5\u4E4B\u524D\u5148\u8DD1\u6700\u6602\u8CB4\u7684\u5957\u4EF6\u3002\u91CD\u65B0\u6392\u5E8F\u3001\u8B93\u4E00\u500B\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\uFF08\u7DE8\u8B6F\uFF0B\u55AE\u5143\uFF09\u5148\u8DD1\uFF0C\u4EE3\u8868\u7DE8\u8B6F\u932F\u8AA4\u8207\u932F\u5B57\u5728\u6578\u5206\u9418\u5167\u5931\u6557\uFF0C\u800C 35 \u5206\u9418\u7684\u5957\u4EF6\u53EA\u5C0D\u5DF2\u901A\u904E\u4FBF\u5B9C\u9598\u7684\u5EFA\u7F6E\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u500B\u8106\u5F31\u7684 E2E \u6E2C\u8A66\u64CB\u4F4F\u6BCF\u6B21\u90E8\u7F72",
+            "text": "<p>\u67D0\u500B\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u56E0\u8207\u7A0B\u5F0F\u78BC\u7121\u95DC\u7684\u539F\u56E0\u800C\u9593\u6B47\u6027\u5931\u6557\uFF0C\u628A\u7BA1\u7DDA\u8B8A\u7D05\u3001\u64CB\u4F4F\u6BCF\u4E00\u6B21\u90E8\u7F72\u3002\u6700\u4F73\u7684\u56DE\u61C9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u5B83\u5F9E\u963B\u64CB\u6027\u7684\u9598\u4E2D\u9694\u96E2\u3001\u958B\u4E00\u5F35\u5DE5\u55AE\u3001\u4FEE\u6389\u5176\u6839\u56E0\u2014\u2014\u540C\u6642\u8B93\u5957\u4EF6\u7684\u5176\u9918\u90E8\u5206\u7E7C\u7E8C\u5B88\u8457\u90E8\u7F72",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u963B\u6B62\u5B83\u64CB\u4F4F\u597D\u5EFA\u7F6E\uFF0C\u4F46\u540C\u6642\u8FFD\u8E64\u4E26\u4FEE\u597D\u5B83\uFF0C\u597D\u8B93\u6DB5\u84CB\u7387\u6062\u5FA9\u3001\u800C\u975E\u9ED8\u9ED8\u6D41\u5931\u3002"
+              },
+              {
+                "text": "\u628A\u5B83\u7559\u5728\u9598\u4E2D\uFF0C\u4E26\u91CD\u8DD1\u6574\u689D\u7BA1\u7DDA\uFF0C\u76F4\u5230\u5B83\u6BCF\u6B21\u525B\u597D\u901A\u904E\u70BA\u6B62",
+                "fraction": 0,
+                "feedback": "\u76F2\u76EE\u91CD\u8DD1\u6D6A\u8CBB\u6642\u9593\u4E14\u8B93\u7D05\u8272\u7BA1\u7DDA\u8B8A\u6210\u5E38\u614B\uFF1B\u61C9\u8A72\u9694\u96E2\u4E26\u4FEE\u597D\u8106\u5F31\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6C38\u4E45\u522A\u9664\u8A72\u6E2C\u8A66\uFF0C\u518D\u4E5F\u4E0D\u770B\u90A3\u500B\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u522A\u6389\u5B83\u6703\u6D41\u5931\u771F\u5BE6\u6DB5\u84CB\u7387\uFF1B\u9694\u96E2\u52A0\u4FEE\u5FA9\u80FD\u5728\u5B83\u8B8A\u53EF\u9760\u5F8C\u4FDD\u4F4F\u9019\u500B\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u505C\u7528\u6BCF\u4E00\u9053\u9598\uFF0C\u8B93\u4EFB\u4F55\u6E2C\u8A66\u90FD\u518D\u4E5F\u7121\u6CD5\u64CB\u4F4F\u90E8\u7F72",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u6240\u6709\u9598\u6703\u653E\u58DE\u6389\u7684\u5EFA\u7F6E\u51FA\u8CA8\uFF1B\u61C9\u53EA\u9694\u96E2\u90A3\u500B\u8106\u5F31\u6E2C\u8A66\u4E26\u4FEE\u597D\u5B83\uFF0C\u4FDD\u7559\u5176\u4ED6\u9598\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u64CB\u4F4F\u90E8\u7F72\u7684\u8106\u5F31\u6E2C\u8A66\u4E0D\u80FD\u5C31\u9019\u6A23\u7559\u5728\u9598\u88E1\uFF0C\u4F46\u4F60\u4E5F\u4E0D\u80FD\u6D41\u5931\u5B83\u7684\u6DB5\u84CB\u7387\u6216\u8B93\u300C\u5FFD\u7565\u7D05\u8272\u5EFA\u7F6E\u300D\u8B8A\u6210\u5E38\u614B\u3002\u628A\u5B83\u9694\u96E2\uFF08\u79FB\u51FA\u963B\u64CB\u6027\u96C6\u5408\uFF09\u3001\u7528\u5DE5\u55AE\u8FFD\u8E64\u3001\u4FEE\u6389\u6839\u56E0\uFF0C\u597D\u8B93\u5B83\u8B8A\u5F97\u5177\u6C7A\u5B9A\u6027\u3001\u80FD\u91CD\u65B0\u52A0\u56DE\u9598\u3002\u9019\u671F\u9593\u5957\u4EF6\u7684\u5176\u9918\u90E8\u5206\u7E7C\u7E8C\u4FDD\u8B77\u90E8\u7F72\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7528\u5E73\u884C\u5316\u7E2E\u77ED\u56DE\u994B\u6642\u9593",
+            "text": "<p>\u67D0\u9A57\u6536\u968E\u6BB5\u6709 600 \u500B\u5F7C\u6B64\u7368\u7ACB\u7684\u6E2C\u8A66\uFF0C\u5FAA\u5E8F\u57F7\u884C\u9700 30 \u5206\u9418\uFF0C\u662F\u56DE\u994B\u7684\u4E3B\u8981\u74F6\u9838\u3002\u54EA\u500B\u6539\u52D5\u80FD\u5728\u4FDD\u7559\u6DB5\u84CB\u7387\u7684\u540C\u6642\u7E2E\u77ED\u56DE\u994B\u6642\u9593\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u9019 600 \u500B\u6E2C\u8A66\u5207\u5206\uFF08\u4F8B\u5982\uFF09\u5230 6 \u500B\u5E73\u884C\u5DE5\u4F5C\u8005\u4E0A\uFF0C\u8B93\u8A72\u968E\u6BB5\u7D04\u5728\u516D\u5206\u4E4B\u4E00\u7684\u6642\u9593\u5167\u8DD1\u5B8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u7368\u7ACB\u6E2C\u8A66\u5207\u5206\u5230\u591A\u500B\u5DE5\u4F5C\u8005\uFF0C\u80FD\u5728\u4E0D\u522A\u4EFB\u4F55\u6E2C\u8A66\u4E0B\u7E2E\u77ED\u7246\u9418\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u7DAD\u6301\u5FAA\u5E8F\u57F7\u884C\uFF0C\u4F46\u6E1B\u5C11\u65E5\u8A8C\u8F38\u51FA\u597D\u8B93\u5B83\u611F\u89BA\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u6E1B\u5C11\u65E5\u8A8C\u5E7E\u4E4E\u4E0D\u6539\u8B8A\u57F7\u884C\u6642\u9593\uFF1B\u5E73\u884C\u5316\u9019\u4E9B\u7368\u7ACB\u6E2C\u8A66\u624D\u771F\u6B63\u7E2E\u77ED\u56DE\u994B\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u628A\u5168\u90E8 600 \u500B\u6E2C\u8A66\u79FB\u9032\u63D0\u4EA4\u968E\u6BB5\uFF0C\u597D\u8B93\u5B83\u5011\u5728\u6BCF\u6B21\u63A8\u9001\u6642\u8DD1",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u8B93\u5FEB\u901F\u7684\u63D0\u4EA4\u968E\u6BB5\u8B8A\u6162\u3001\u7834\u58DE\u5FEB\u901F\u512A\u5148\u6392\u5E8F\uFF1B\u61C9\u6539\u70BA\u5E73\u884C\u5316\u9A57\u6536\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u53EA\u8DD1\u524D 100 \u500B\u6E2C\u8A66\uFF0C\u5047\u8A2D\u5176\u9918\u6703\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u7565\u904E 500 \u500B\u6E2C\u8A66\u6703\u6D41\u5931\u6DB5\u84CB\u7387\uFF1B\u5207\u5206\u662F\u628A\u5168\u90E8\u90FD\u8DD1\uFF0C\u53EA\u662F\u4E26\u767C\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u5F7C\u6B64\u7368\u7ACB\u6642\uFF0C\u628A\u5B83\u5011\u5206\u6563\u5230\u5E73\u884C\u5DE5\u4F5C\u8005\u4E0A\uFF0C\u80FD\u5927\u81F4\u4F9D\u5DE5\u4F5C\u8005\u6578\u91CF\u6210\u6BD4\u4F8B\u5730\u7E2E\u77ED\u7246\u9418\u6642\u9593\uFF0C\u540C\u6642\u6BCF\u500B\u6E2C\u8A66\u90FD\u6703\u8DD1\u3002\u628A 600 \u500B\u6E2C\u8A66\u5207\u5230 6 \u500B\u5DE5\u4F5C\u8005\uFF0C\u8B93\u8A72\u968E\u6BB5\u5F9E\u7D04 30 \u5206\u9418\u8DA8\u8FD1\u7D04 5 \u5206\u9418\uFF0C\u5728\u4E0D\u72A7\u7272\u6DB5\u84CB\u7387\u4E0B\u6062\u5FA9\u5FEB\u901F\u56DE\u994B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9598\u80FD\u64CB\u4E0B\u58DE\u6389\u7684\u5EFA\u7F6E",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u8CE6\u4E88\u6BCF\u500B\u968E\u6BB5\u300C\u8B93\u7BA1\u7DDA\u5931\u6557\u300D\u7684\u6B0A\u529B\uFF0C\u5BE6\u969B\u4E0A\u80FD\u4FDD\u8B77\u6B63\u5F0F\u74B0\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5EFA\u7F6E\u53EA\u80FD\u9760\u6E05\u95DC\u6BCF\u4E00\u9053\u9598\u624D\u80FD\u62B5\u9054\u6B63\u5F0F\u74B0\u5883\uFF0C\u6240\u4EE5\u4EFB\u4F55\u5075\u6E2C\u5230\u7F3A\u9677\u7684\u968E\u6BB5\u90FD\u80FD\u5728\u63D0\u5347\u524D\u628A\u5B83\u64CB\u4E0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA\u63D0\u5347\u9700\u8981\u901A\u904E\u6240\u6709\u9598\uFF0C\u55AE\u55AE\u4E00\u9053\u5931\u6557\u7684\u9598\u5C31\u8DB3\u4EE5\u628A\u7F3A\u9677\u64CB\u5728\u6B63\u5F0F\u74B0\u5883\u4E4B\u5916\u3002"
+              },
+              {
+                "text": "\u9598\u6703\u8B93\u7A0B\u5F0F\u78BC\u5728\u6B63\u5F0F\u74B0\u5883\u4E2D\u8DD1\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u9598\u4E0D\u6539\u8B8A\u57F7\u884C\u6548\u80FD\uFF1B\u5B83\u662F\u963B\u6B62\u58DE\u6389\u7684\u5EFA\u7F6E\u88AB\u63D0\u5347\u3002"
+              },
+              {
+                "text": "\u9598\u4FDD\u8B49\u8EDF\u9AD4\u5728\u6578\u5B78\u4E0A\u88AB\u8B49\u660E\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u9598\u53EA\u6293\u5230\u5176\u6E2C\u8A66\u6240\u6DB5\u84CB\u4E4B\u7269\uFF0C\u800C\u975E\u5F62\u5F0F\u8B49\u660E\uFF1B\u5176\u4FDD\u8B77\u5728\u65BC\u963B\u6B62\u5DF2\u5075\u6E2C\u7684\u5931\u6557\u524D\u9032\u3002"
+              },
+              {
+                "text": "\u9598\u6703\u653E\u58DE\u6389\u7684\u5EFA\u7F6E\u901A\u904E\uFF0C\u4F46\u628A\u5B83\u8A18\u9304\u4E0B\u4F86\u4EE5\u4FBF\u7A0D\u5F8C\u67E5\u770B",
+                "fraction": 0,
+                "feedback": "\u6B63\u597D\u76F8\u53CD\u2014\u2014\u9598\u6703\u64CB\u4E0B\u5931\u6557\u7684\u5EFA\u7F6E\uFF1B\u653E\u884C\u518D\u8A18\u9304\u7121\u6CD5\u4FDD\u8B77\u6B63\u5F0F\u74B0\u5883\u3002"
+              }
+            ],
+            "generalFeedback": "\u62B5\u9054\u6B63\u5F0F\u74B0\u5883\u9700\u8981\u4F9D\u5E8F\u6E05\u95DC\u6BCF\u4E00\u9053\u9598\u3002\u9019\u4EE3\u8868\u4EFB\u4F55\u5075\u6E2C\u5230\u554F\u984C\u7684\u55AE\u4E00\u968E\u6BB5\uFF0C\u5C31\u8DB3\u4EE5\u4E2D\u6B62\u63D0\u5347\uFF0C\u65BC\u662F\u5176\u6E2C\u8A66\u80FD\u6293\u5230\u7684\u7F3A\u9677\u6C38\u4E0D\u6703\u524D\u9032\u3002\u9019\u4EFD\u4FDD\u8B77\u53EA\u8DDF\u9598\u88E1\u7684\u6AA2\u67E5\u4E00\u6A23\u597D\uFF0C\u4F46\u300C\u505C\u4E0B\u7522\u7DDA\u300D\u7684\u6B0A\u529B\uFF0C\u6B63\u662F\u628A\u5DF2\u6293\u5230\u7684\u5931\u6557\u64CB\u5728\u6B63\u5F0F\u74B0\u5883\u4E4B\u5916\u7684\u95DC\u9375\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BCF\u968E\u6BB5\u91CD\u5EFA\u9020\u6210\u4E0D\u4E00\u81F4",
+            "text": "<p>\u67D0\u7BA1\u7DDA\u5728\u6BCF\u500B\u968E\u6BB5\u90FD\u5F9E\u539F\u59CB\u78BC\u91CD\u65B0\u7DE8\u8B6F\u3002\u9A57\u6536\u6E2C\u8A66\u901A\u904E\uFF0C\u4F46\u90E8\u7F72\u5230\u6B63\u5F0F\u74B0\u5883\u7684\u4E8C\u9032\u4F4D\u6A94\u884C\u70BA\u4E0D\u540C\u3001\u5931\u6557\u4E86\u3002\u6700\u53EF\u80FD\u7684\u6839\u56E0\u8207\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u6B21\u91CD\u5EFA\u90FD\u7522\u751F\u7565\u6709\u4E0D\u540C\u7684\u4F4D\u5143\u7D44\uFF0C\u65BC\u662F\u9A57\u6536\u6E2C\u5230\u7684\u662F\u8207\u6B63\u5F0F\u74B0\u5883\u6240\u8DD1\u4E0D\u540C\u7684\u4E8C\u9032\u4F4D\u6A94\uFF1B\u61C9\u5EFA\u7F6E\u4E00\u6B21\u4E26\u63D0\u5347\u540C\u4E00\u4EFD\u7522\u7269",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u968E\u6BB5\u91CD\u5EFA\u7834\u58DE\u4E86\u4FDD\u8B49\uFF1B\u5EFA\u7F6E\u4E00\u6B21\u4E26\u63D0\u5347\u90A3\u4EFD\u5B8C\u5168\u76F8\u540C\u7684\u7522\u7269\u5373\u53EF\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66\u592A\u56B4\u683C\uFF1B\u628A\u5B83\u5011\u653E\u5BEC\u5230\u6B63\u5F0F\u74B0\u5883\u80FD\u901A\u904E\u70BA\u6B62",
+                "fraction": 0,
+                "feedback": "\u653E\u5BEC\u6E2C\u8A66\u6703\u63A9\u84CB\u4E0D\u4E00\u81F4\uFF1B\u771F\u6B63\u7684\u4FEE\u6CD5\u662F\u6E2C\u8A66\u4E26\u51FA\u8CA8\u540C\u4E00\u4EFD\u7522\u7269\u3002"
+              },
+              {
+                "text": "\u6B63\u5F0F\u74B0\u5883\u53EA\u662F\u904B\u6C23\u4E0D\u597D\uFF1B\u91CD\u8907\u90E8\u7F72\u76F4\u5230\u5B83\u6210\u529F",
+                "fraction": 0,
+                "feedback": "\u5C0D\u540C\u4E00\u500B\u6703\u6F02\u79FB\u7684\u6D41\u7A0B\u91CD\u8907\u90E8\u7F72\uFF0C\u7121\u6CD5\u4FEE\u6B63\u91CD\u5EFA\u9020\u6210\u7684\u4E0D\u4E00\u81F4\uFF1B\u61C9\u5EFA\u7F6E\u4E00\u6B21\u4E26\u63D0\u5347\u90A3\u4EFD\u7522\u7269\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u88AB\u7565\u904E\u4E86\uFF1B\u5728\u90E8\u7F72\u968E\u6BB5\u52A0\u66F4\u591A\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u662F\u91CD\u5EFA\u9020\u6210\u7684\u7522\u7269\u6F02\u79FB\uFF0C\u4E0D\u662F\u7F3A\u5C11\u55AE\u5143\u6E2C\u8A66\uFF1B\u61C9\u5EFA\u7F6E\u4E00\u6B21\u4E26\u63D0\u5347\u540C\u4E00\u4EFD\u4F4D\u5143\u7D44\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6BCF\u500B\u968E\u6BB5\u90FD\u91CD\u5EFA\uFF0C\u9A57\u6536\u6240\u6E2C\u7684\u7522\u7269\u4E0D\u4FDD\u8B49\u7B49\u540C\u88AB\u90E8\u7F72\u7684\u7522\u7269\u2014\u2014\u4E0D\u540C\u7684\u76F8\u4F9D\u7248\u672C\u3001\u6642\u9593\u6233\u6216\u5EFA\u7F6E\u65D7\u6A19\u90FD\u53EF\u80FD\u6539\u8B8A\u884C\u70BA\u3002\u6301\u7E8C\u4EA4\u4ED8\u7684\u4FEE\u6CD5\u662F\u300C\u5EFA\u7F6E\u4E00\u6B21\u3001\u63D0\u5347\u540C\u4E00\u4EFD\u7522\u7269\u300D\uFF1A\u628A\u53EF\u90E8\u7F72\u7269\u53EA\u5EFA\u7F6E\u4E00\u6B21\uFF0C\u4E26\u628A\u90A3\u4EFD\u5B8C\u5168\u76F8\u540C\u7684\u4E8C\u9032\u4F4D\u6A94\u63D0\u5347\u901A\u904E\u6BCF\u4E00\u9053\u9598\uFF0C\u65BC\u662F\u9A57\u6536\u9A57\u8B49\u7684\u6B63\u662F\u6B63\u5F0F\u74B0\u5883\u6240\u8DD1\u4E4B\u7269\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u5468\u5168\u7684\u9598\u8207\u901F\u5EA6\u4E4B\u9593\u53D6\u6368",
+            "text": "<p>\u67D0\u5718\u968A\u65E2\u60F3\u8981\u975E\u5E38\u5468\u5168\u7684\u9598\u3001\u53C8\u60F3\u8981\u5FEB\u901F\u56DE\u994B\u3002\u54EA\u7A2E\u7B56\u7565\u628A\u5169\u8005\u5E73\u8861\u5F97\u6700\u597D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4FDD\u7559\u4E00\u500B\u5FEB\u901F\u3001\u9AD8\u4FE1\u865F\u7684\u63D0\u4EA4\u9598\u4EE5\u53D6\u5F97\u5373\u6642\u56DE\u994B\uFF0C\u4E26\u628A\u8F03\u6162\u3001\u8F03\u5468\u5168\u7684\u5957\u4EF6\uFF08\u5E73\u884C\u5316\uFF09\u653E\u5728\u5F8C\u7E8C\u968E\u6BB5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u5FEB\u901F\u7684\u9598\u653E\u524D\u9762\u3001\u5468\u5168\u7684\u5957\u4EF6\u653E\u5F8C\u9762\uFF0C\u5728\u4E0D\u653E\u68C4\u6DF1\u5EA6\u4E0B\u7DAD\u6301\u56DE\u994B\u8FC5\u901F\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u6E2C\u8A66\u90FD\u653E\u9032\u63D0\u4EA4\u968E\u6BB5\uFF0C\u597D\u8B93\u4EC0\u9EBC\u90FD\u4E0D\u6703\u6F0F\u6389",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u8B93\u7B2C\u4E00\u9053\u9598\u8B8A\u6162\u3001\u6467\u6BC0\u5FEB\u901F\u56DE\u994B\uFF1B\u61C9\u628A\u6E2C\u8A66\u5206\u6563\u5230\u5206\u968E\u6BB5\u7684\u9598\u4E2D\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u6240\u6709\u6162\u6E2C\u8A66\uFF0C\u597D\u8B93\u7BA1\u7DDA\u6C38\u9060\u90FD\u5FEB",
+                "fraction": 0,
+                "feedback": "\u522A\u6389\u5468\u5168\u7684\u6E2C\u8A66\u6703\u72A7\u7272\u4FE1\u5FC3\uFF1B\u61C9\u628A\u5B83\u5011\u79FB\u5230\u5F8C\u7E8C\u968E\u6BB5\u4E26\u5E73\u884C\u5316\uFF0C\u800C\u975E\u522A\u9664\u3002"
+              },
+              {
+                "text": "\u5168\u90E8\u624B\u52D5\u57F7\u884C\uFF0C\u597D\u8B93\u4EBA\u4F86\u5224\u65B7\u8981\u591A\u5468\u5168",
+                "fraction": 0,
+                "feedback": "\u624B\u52D5\u628A\u95DC\u53C8\u6162\u53C8\u4E0D\u53EF\u91CD\u73FE\uFF1B\u61C9\u4F7F\u7528\u4F9D\u901F\u5EA6\u8207\u6210\u672C\u6392\u5E8F\u7684\u5206\u5C64\u81EA\u52D5\u5316\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "\u5468\u5168\u8207\u901F\u5EA6\u4E4B\u9593\u7684\u5F35\u529B\u9760\u5206\u5C64\u4F86\u5316\u89E3\uFF1A\u4E00\u500B\u5FEB\u901F\u3001\u9AD8\u4FE1\u865F\u7684\u63D0\u4EA4\u9598\u5728\u6578\u5206\u9418\u5167\u7D66\u56DE\u994B\uFF0C\u800C\u8F03\u6162\u3001\u8F03\u5468\u5168\u7684\u6574\u5408\u8207\u9A57\u6536\u5957\u4EF6\u653E\u5728\u5F8C\u7E8C\u968E\u6BB5\u3001\u4E26\u53EF\u5E73\u884C\u5316\u3002\u5FEB\u901F\u512A\u5148\u6392\u5E8F\u4EE3\u8868\u6DF1\u5EA6\u662F\u9010\u6B65\u52A0\u4E0A\u53BB\u7684\uFF0C\u800C\u4E0D\u6703\u62D6\u6162\u6700\u65E9\u7684\u56DE\u994B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9078\u64C7\u4E00\u9805\u53F3\u79FB\u6280\u8853",
+            "text": "<p>\u67D0\u7A2E\u5931\u6557\u6A21\u5F0F\u53EA\u5728\u5718\u968A\u7121\u6CD5\u65BC\u767C\u4F48\u524D\u91CD\u73FE\u7684\u771F\u5BE6\u6B63\u5F0F\u6D41\u91CF\u578B\u614B\u4E0B\u624D\u51FA\u73FE\u3002\u54EA\u7A2E\u505A\u6CD5\u6700\u80FD\u9632\u7BC4\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528\u91D1\u7D72\u96C0\u9010\u6B65\u63A8\u51FA\uFF0C\u642D\u914D\u6B63\u5F0F\u74B0\u5883\u76E3\u63A7\u8207\u5408\u6210\u6AA2\u67E5\uFF0C\u597D\u8B93\u554F\u984C\u5728\u5168\u9762\u63A8\u51FA\u524D\u3001\u65BC\u4E00\u5C0F\u7247\u6D41\u91CF\u4E0A\u5C31\u88AB\u6293\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91D1\u7D72\u96C0\u52A0\u4E0A\u76E3\u63A7\uFF0F\u5408\u6210\u6AA2\u67E5\u662F\u53F3\u79FB\uFF0C\u6B63\u662F\u91DD\u5C0D\u53EA\u5728\u6B63\u5F0F\u74B0\u5883\u51FA\u73FE\u7684\u5931\u6557\u6A21\u5F0F\u3002"
+              },
+              {
+                "text": "\u5728\u63D0\u4EA4\u968E\u6BB5\u518D\u52A0\u66F4\u591A\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u7121\u6CD5\u91CD\u73FE\u771F\u5BE6\u6B63\u5F0F\u6D41\u91CF\uFF1B\u53F3\u79FB\u7684\u91D1\u7D72\u96C0\u52A0\u76E3\u63A7\u624D\u662F\u6B63\u78BA\u7684\u9632\u7BC4\u3002"
+              },
+              {
+                "text": "\u5047\u8A2D\u4E0A\u7DDA\u524D\u7684\u9598\u5DF2\u8DB3\u5920\uFF0C\u4E26\u7565\u904E\u6B63\u5F0F\u74B0\u5883\u89C0\u6E2C",
+                "fraction": 0,
+                "feedback": "\u4E0A\u7DDA\u524D\u7684\u9598\u770B\u4E0D\u5230\u53EA\u5728\u6B63\u5F0F\u74B0\u5883\u7684\u689D\u4EF6\uFF1B\u90A3\u9700\u8981\u53F3\u79FB\u7684\u89C0\u6E2C\u3002"
+              },
+              {
+                "text": "\u505C\u7528\u76E3\u63A7\u4EE5\u6E1B\u5C11\u767C\u4F48\u671F\u9593\u7684\u96DC\u8A0A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u597D\u79FB\u9664\u4E86\u4F60\u9700\u8981\u7528\u4F86\u53CA\u65E9\u6293\u5230\u53EA\u5728\u6B63\u5F0F\u74B0\u5883\u5931\u6557\u7684\u53F3\u79FB\u4FE1\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6709\u4E9B\u5931\u6557\u53EA\u5728\u771F\u5BE6\u6D41\u91CF\u3001\u898F\u6A21\u6216\u8CC7\u6599\u4E0B\u624D\u986F\u73FE\uFF0C\u7121\u6CD5\u65BC\u767C\u4F48\u524D\u91CD\u73FE\u3002\u53F3\u79FB\u6280\u8853\u6B63\u597D\u8655\u7406\u9019\u9EDE\uFF1A\u91D1\u7D72\u96C0\u767C\u4F48\u628A\u4E00\u5C0F\u7247\u6B63\u5F0F\u74B0\u5883\u66B4\u9732\u7D66\u65B0\u5EFA\u7F6E\uFF0C\u540C\u6642\u7531\u76E3\u63A7\u3001\u53EF\u89C0\u6E2C\u6027\u8207\u5408\u6210\u6AA2\u67E5\u76EF\u8457\u56DE\u6B78\uFF0C\u65BC\u662F\u554F\u984C\u80FD\u5728\u5168\u9762\u63A8\u51FA\u524D\u88AB\u6293\u5230\u4E26\u56DE\u6EFE\u3002\u5B83\u88DC\u8DB3\u2014\u2014\u800C\u975E\u53D6\u4EE3\u2014\u2014\u4E0A\u7DDA\u524D\u7684\u9598\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4FEE\u6B63\u7BA1\u7DDA\u4E2D\u7684\u5012\u91D1\u5B57\u5854",
+            "text": "<p>\u67D0\u7BA1\u7DDA\u7684\u7DE9\u6162\u4F86\u81EA\u6578\u767E\u500B\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u8207\u6975\u5C11\u7684\u55AE\u5143\u6E2C\u8A66\u2014\u2014\u4E00\u500B\u5012\u91D1\u5B57\u5854\u3002\u6700\u5065\u5EB7\u7684\u9577\u671F\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u6DB5\u84CB\u7387\u5F80\u91D1\u5B57\u5854\u4E0B\u63A8\uFF1A\u4EE5\u5FEB\u901F\u7684\u55AE\u5143\uFF0F\u6574\u5408\u6E2C\u8A66\u53D6\u4EE3\u8A31\u591A E2E \u6E2C\u8A66\uFF0C\u53EA\u4FDD\u7559\u4E00\u5C0F\u7D44\u805A\u7126\u7684 E2E \u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6BD4\u91CD\u91CD\u65B0\u8ABF\u5230\u5BEC\u5EE3\u7684\u55AE\u5143\u5E95\u5EA7\u8207\u8584\u8584\u7684 E2E \u9802\u7AEF\uFF0C\u80FD\u6062\u5FA9\u901F\u5EA6\u53C8\u4FDD\u4F4F\u95DC\u9375\u7684\u7AEF\u5C0D\u7AEF\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u52A0\u5165\u66F4\u591A\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\uFF0C\u597D\u8B93\u4EC0\u9EBC\u90FD\u6F0F\u4E0D\u6389",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u60E1\u5316\u5012\u7F6E\u8207\u7DE9\u6162\uFF1B\u61C9\u628A\u6DB5\u84CB\u7387\u5F80\u4E0B\u63A8\u5230\u5FEB\u901F\u7684\u55AE\u5143\uFF0F\u6574\u5408\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u6240\u6709\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\uFF0C\u53EA\u9760\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5C11\u6578 E2E \u6E2C\u8A66\u4ECD\u63D0\u4F9B\u95DC\u9375\u7684\u6574\u9AD4\u7CFB\u7D71\u4FE1\u5FC3\uFF1B\u61C9\u4FDD\u7559\u4E00\u5C0F\u7D44\uFF0C\u800C\u975E\u5168\u90E8\u79FB\u9664\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u79FB\u9032\u63D0\u4EA4\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u8B93\u5FEB\u901F\u7684\u7B2C\u4E00\u9053\u9598\u8B8A\u6162\uFF1B\u4FEE\u6CD5\u662F\u91CD\u65B0\u8ABF\u6574\u6BD4\u91CD\uFF0C\u800C\u975E\u628A\u6162\u6E2C\u8A66\u79FB\u5230\u66F4\u524D\u9762\u3002"
+              }
+            ],
+            "generalFeedback": "\u5012\u91D1\u5B57\u5854\u2014\u2014\u592A\u591A\u6162\u7684 E2E \u6E2C\u8A66\u3001\u592A\u5C11\u5FEB\u7684\u55AE\u5143\u6E2C\u8A66\u2014\u2014\u6703\u8B93\u7BA1\u7DDA\u53C8\u6162\u53C8\u8106\u3002\u4FEE\u6CD5\u662F\u628A\u6DB5\u84CB\u7387\u5F80\u4E0B\u63A8\uFF1A\u628A\u5927\u591A\u6578\u6AA2\u67E5\u8868\u9054\u6210\u5FEB\u901F\u3001\u53EF\u9760\u7684\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\uFF08\u5B83\u5011\u5148\u8DD1\u3001\u4E5F\u8DD1\u6700\u983B\u7E41\uFF09\uFF0C\u53EA\u4FDD\u7559\u4E00\u5C0F\u7D44\u805A\u7126\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u4EE5\u53D6\u5F97\u6574\u9AD4\u7CFB\u7D71\u4FE1\u5FC3\u3002\u9019\u80FD\u540C\u6642\u6062\u5FA9\u901F\u5EA6\u8207\u5065\u5EB7\u7684\u91D1\u5B57\u5854\u5F62\u72C0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4EA4\u968E\u6BB5\u5167\u90E8\u7684\u6392\u5E8F",
+            "text": "<p>\u5728\u55AE\u4E00\u63D0\u4EA4\u968E\u6BB5\u4E4B\u5167\uFF0C\u70BA\u4EC0\u9EBC\u5408\u7406\u7684\u505A\u6CD5\u662F\u5148\u7DE8\u8B6F\u3001\u7136\u5F8C\u624D\u8DD1\u55AE\u5143\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u82E5\u7A0B\u5F0F\u78BC\u9023\u7DE8\u8B6F\u90FD\u904E\u4E0D\u4E86\uFF0C\u8DD1\u55AE\u5143\u6E2C\u8A66\u5C31\u6C92\u6709\u610F\u7FA9\u2014\u2014\u7ACB\u5373\u56DE\u5831\u7DE8\u8B6F\u5931\u6557\u662F\u6700\u4FBF\u5B9C\u3001\u6700\u5FEB\u7684\u4FE1\u865F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DE8\u8B6F\u662F\u8F03\u4FBF\u5B9C\u7684\u524D\u7F6E\u689D\u4EF6\uFF1B\u5148\u5728\u5B83\u4E0A\u9762\u5931\u6557\u662F\u53EF\u80FD\u4E2D\u6700\u5FEB\u7684\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u5FC5\u9808\u5148\u4FEE\u6539\u539F\u59CB\u78BC\uFF0C\u7DE8\u8B6F\u624D\u80FD\u6210\u529F",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u4E0D\u6703\u6539\u5BEB\u539F\u59CB\u78BC\uFF1B\u7DE8\u8B6F\u53EA\u662F\u5FC5\u9808\u5148\u901A\u904E\u7684\u8F03\u4FBF\u5B9C\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u6BD4\u55AE\u5143\u6E2C\u8A66\u6162\uFF0C\u6240\u4EE5\u61C9\u8A72\u653E\u6700\u5F8C",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u901A\u5E38\u662F\u8F03\u5FEB\u7684\u524D\u7F6E\u689D\u4EF6\uFF1B\u4F9D\u901F\u5EA6\u8207\u76F8\u4F9D\u6027\u6392\u5E8F\u6703\u628A\u5B83\u653E\u6700\u524D\u3002"
+              },
+              {
+                "text": "\u9806\u5E8F\u5C0D\u56DE\u994B\u6642\u9593\u6BEB\u7121\u5DEE\u5225",
+                "fraction": 0,
+                "feedback": "\u6709\u5DEE\u5225\uFF1A\u82E5\u7DE8\u8B6F\u5931\u6557\uFF0C\u8DD1\u55AE\u5143\u6E2C\u8A66\u662F\u6D6A\u8CBB\uFF0C\u6240\u4EE5\u5148\u7DE8\u8B6F\u80FD\u7D66\u51FA\u6700\u5FEB\u7684\u4FE1\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u540C\u6A23\u7684\u5FEB\u901F\u5931\u6557\u908F\u8F2F\u4E5F\u9069\u7528\u65BC\u968E\u6BB5\u4E4B\u5167\u3002\u7DE8\u8B6F\u662F\u8DD1\u55AE\u5143\u6E2C\u8A66\u7684\u4FBF\u5B9C\u524D\u7F6E\u689D\u4EF6\u2014\u2014\u82E5\u7A0B\u5F0F\u78BC\u5EFA\u4E0D\u8D77\u4F86\uFF0C\u55AE\u5143\u6E2C\u8A66\u5C31\u7121\u6CD5\u6709\u610F\u7FA9\u5730\u57F7\u884C\u3002\u7ACB\u5373\u56DE\u5831\u7DE8\u8B6F\u5931\u6557\u662F\u6700\u5FEB\u3001\u6700\u4FBF\u5B9C\u7684\u4FE1\u865F\uFF0C\u6240\u4EE5\u5B83\u6392\u6700\u524D\u9762\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9694\u96E2\u4E0D\u662F\u6C38\u4E45\u7684\u85C9\u53E3",
+            "text": "<p>\u70BA\u4E86\u89E3\u9664\u7BA1\u7DDA\u963B\u585E\u800C\u9694\u96E2\u4E00\u500B\u8106\u5F31\u6E2C\u8A66\uFF0C\u53EF\u4F5C\u70BA\u6C38\u4E45\u89E3\u6CD5\uFF0C\u65BC\u662F\u8A72\u6E2C\u8A66\u6C38\u9060\u4E0D\u5FC5\u4FEE\u597D\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9694\u96E2\u662F\u66AB\u6642\u63AA\u65BD\uFF1B\u8106\u5F31\u6E2C\u8A66\u4ECD\u5FC5\u9808\u4FEE\u597D\u4E26\u56DE\u5230\u9598\u4E2D\uFF0C\u5426\u5247\u6DB5\u84CB\u7387\u6703\u6D41\u5931\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u628A\u6E2C\u8A66\u6C38\u9060\u9694\u96E2\u6703\u9ED8\u9ED8\u6D41\u5931\u6DB5\u84CB\u7387\uFF1B\u9694\u96E2\u662F\u70BA\u4E86\u722D\u53D6\u6642\u9593\u4FEE\u6839\u56E0\uFF0C\u800C\u975E\u653E\u68C4\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u9694\u96E2\u80FD\u963B\u6B62\u8106\u5F31\u6E2C\u8A66\u64CB\u4F4F\u597D\u5EFA\u7F6E\uFF0C\u4F46\u5728\u5B83\u88AB\u4FEE\u597D\u4E4B\u524D\uFF0C\u5B83\u539F\u672C\u63D0\u4F9B\u7684\u6DB5\u84CB\u7387\u5C31\u6C92\u4E86\u3002\u628A\u9694\u96E2\u7576\u6210\u6C38\u4E45\uFF0C\u4EE3\u8868\u90A3\u500B\u884C\u70BA\u4E0D\u518D\u88AB\u9A57\u8B49\uFF0C\u800C\u4E14\u9694\u96E2\u5F80\u5F80\u6703\u8D8A\u7A4D\u8D8A\u591A\u3002\u6B63\u78BA\u7684\u6D41\u7A0B\u662F\uFF1A\u9694\u96E2\u3001\u8FFD\u8E64\u3001\u4FEE\u6389\u6839\u56E0\u3001\u518D\u628A\u6E2C\u8A66\u6062\u5FA9\u5230\u9598\u4E2D\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u505C\u7528\u4E00\u9053\u9598\u7684\u5F8C\u679C",
+            "text": "<p>\u5728\u671F\u9650\u58D3\u529B\u4E0B\uFF0C\u67D0\u5718\u968A\u300C\u53EA\u662F\u70BA\u4E86\u628A\u9019\u6B21\u767C\u4F48\u5F04\u51FA\u53BB\u300D\u800C\u505C\u7528\u4E86\u5931\u6557\u7684\u9A57\u6536\u9598\u3002\u76F4\u63A5\u7684\u98A8\u96AA\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u88AB\u6E2C\u8A66\u6A19\u8A18\u70BA\u58DE\u6389\u7684\u5EFA\u7F6E\uFF0C\u73FE\u5728\u53EF\u4EE5\u88AB\u63D0\u5347\u5230\u6B63\u5F0F\u74B0\u5883\uFF0C\u4F7F\u9598\u7684\u7528\u610F\u843D\u7A7A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u79FB\u9664\u9598\u8B93\u4E00\u500B\u5DF2\u77E5\u5931\u6557\u7684\u5EFA\u7F6E\u524D\u9032\uFF0C\u800C\u9019\u6B63\u662F\u9598\u5B58\u5728\u8981\u9632\u6B62\u7684\u4E8B\u3002"
+              },
+              {
+                "text": "\u7BA1\u7DDA\u5F9E\u6B64\u6C38\u9060\u8DD1\u5F97\u66F4\u5FEB\uFF0C\u4E14\u6BEB\u7121\u58DE\u8655",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u4E0D\u662F\u514D\u8CBB\u7684\uFF1A\u505C\u7528\u7684\u9598\u8B93\u58DE\u6389\u7684\u5EFA\u7F6E\u51FA\u8CA8\uFF0C\u9019\u662F\u56B4\u91CD\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u6703\u81EA\u52D5\u6DB5\u84CB\u9A57\u6536\u968E\u6BB5\u6F0F\u6389\u7684\u4E00\u5207",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u4E0D\u80FD\u53D6\u4EE3\u9A57\u6536\u6DB5\u84CB\uFF1B\u505C\u7528\u9598\u8B93\u90A3\u500B\u884C\u70BA\u5728\u767C\u4F48\u524D\u672A\u88AB\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u6C92\u4E8B\u2014\u2014\u9598\u53EA\u662F\u5EFA\u8B70\u6027\u7684\uFF0C\u5F9E\u4E0D\u64CB\u4EFB\u4F55\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u9598\u672C\u5C31\u8A72\u64CB\uFF1B\u505C\u7528\u4E00\u9053\u9598\u6B63\u662F\u7279\u5730\u653E\u4E00\u500B\u5931\u6557\u7684\u5EFA\u7F6E\u901A\u904E\u3002"
+              }
+            ],
+            "generalFeedback": "\u9598\u7684\u6574\u500B\u8077\u8CAC\u5C31\u662F\u963B\u6B62\u58DE\u6389\u7684\u5EFA\u7F6E\u524D\u9032\u3002\u5728\u58D3\u529B\u4E0B\u505C\u7528\u5B83\uFF0C\u4EE3\u8868\u4E00\u500B\u88AB\u9A57\u6536\u6E2C\u8A66\u6A19\u8A18\u70BA\u5931\u6557\u7684\u5EFA\u7F6E\uFF0C\u53EF\u4EE5\u88AB\u76F4\u63A5\u63D0\u5347\u5230\u6B63\u5F0F\u74B0\u5883\u3002\u90A3\u6B63\u662F\u6301\u7E8C\u6E2C\u8A66\u8A2D\u8A08\u8981\u9632\u6B62\u7684\u7D50\u679C\uFF1B\u6B63\u78BA\u7684\u505A\u6CD5\u662F\u4FEE\u6389\u5931\u6557\uFF08\u82E5\u662F\u8106\u5F31\u6E2C\u8A66\uFF0C\u5C31\u53EA\u9694\u96E2\u90A3\u500B\u6E2C\u8A66\uFF09\uFF0C\u800C\u4E0D\u662F\u6253\u958B\u9598\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u540C\u4E00\u4EFD\u7522\u7269\u3001\u5404\u74B0\u5883\u7D44\u614B",
+            "text": "<p>\u4F60\u628A\u4E00\u4EFD\u5EFA\u597D\u7684\u7522\u7269\u63D0\u5347\u901A\u904E\u6E2C\u8A66\u74B0\u5883\u8207\u6B63\u5F0F\u74B0\u5883\uFF0C\u4F46\u6BCF\u500B\u74B0\u5883\u9700\u8981\u4E0D\u540C\u7684\u8CC7\u6599\u5EAB URL \u8207 API \u91D1\u9470\u3002\u5728\u4E0D\u7834\u58DE\u300C\u5EFA\u7F6E\u4E00\u6B21\u300D\u7684\u524D\u63D0\u4E0B\uFF0C\u9019\u8A72\u5982\u4F55\u8655\u7406\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4FDD\u7559\u540C\u4E00\u4EFD\u7522\u7269\uFF0C\u628A\u5404\u74B0\u5883\u5C08\u5C6C\u7684\u8A2D\u5B9A\u4EE5\u5916\u90E8\u7D44\u614B\u5728\u90E8\u7F72\u6642\u6CE8\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8B93\u7D44\u614B\u96A8\u74B0\u5883\u800C\u7570\uFF0C\u800C\u975E\u7522\u7269\uFF0C\u65BC\u662F\u90A3\u4EFD\u5B8C\u5168\u76F8\u540C\u3001\u5DF2\u6E2C\u904E\u7684\u4E8C\u9032\u4F4D\u6A94\u4ECD\u7167\u6A23\u51FA\u8CA8\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u74B0\u5883\u91CD\u5EFA\u7522\u7269\uFF0C\u628A\u503C\u7DE8\u8B6F\u9032\u53BB",
+                "fraction": 0,
+                "feedback": "\u91CD\u5EFA\u6703\u7834\u58DE\u300C\u5EFA\u7F6E\u4E00\u6B21\u300D\u4E26\u91CD\u65B0\u5F15\u5165\u6F02\u79FB\uFF1B\u61C9\u628A\u5DEE\u7570\u4EE5\u7D44\u614B\u6CE8\u5165\u3002"
+              },
+              {
+                "text": "\u628A\u6B63\u5F0F\u74B0\u5883\u7684\u503C\u5BEB\u6B7B\uFF0C\u4E26\u5728\u5305\u542B\u6E2C\u8A66\u74B0\u5883\u7684\u6240\u6709\u5730\u65B9\u90FD\u7528\u5B83",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u8B93\u6E2C\u8A66\u74B0\u5883\u6307\u5411\u6B63\u5F0F\u8CC7\u6E90\u2014\u2014\u4E0D\u5B89\u5168\uFF1B\u61C9\u628A\u5404\u74B0\u5883\u7D44\u614B\u5916\u90E8\u5316\u3002"
+              },
+              {
+                "text": "\u653E\u68C4\u300C\u5EFA\u7F6E\u4E00\u6B21\u300D\uFF0C\u56E0\u70BA\u5404\u74B0\u5883\u7D44\u614B\u4E0D\u540C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5FC5\u2014\u2014\u7576\u5DEE\u7570\u88AB\u5916\u90E8\u5316\u70BA\u7D44\u614B\u3001\u800C\u975E\u70E4\u9032\u7522\u7269\u6642\uFF0C\u300C\u5EFA\u7F6E\u4E00\u6B21\u300D\u4ECD\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u5EFA\u7F6E\u4E00\u6B21\u3001\u63D0\u5347\u540C\u4E00\u4EFD\u7522\u7269\u300D\u4E0D\u4EE3\u8868\u6BCF\u500B\u74B0\u5883\u90FD\u76F8\u540C\u2014\u2014\u800C\u662F\u4EE3\u8868\u53EF\u90E8\u7F72\u7684\u4F4D\u5143\u7D44\u76F8\u540C\u3002\u74B0\u5883\u5DEE\u7570\uFF08URL\u3001\u91D1\u9470\u3001\u529F\u80FD\u65D7\u6A19\uFF09\u4EE5\u5916\u90E8\u7D44\u614B\u5728\u90E8\u7F72\u6642\u6CE8\u5165\u3002\u540C\u4E00\u4EFD\u5DF2\u6E2C\u904E\u7684\u7522\u7269\u5230\u8655\u90FD\u8DD1\uFF0C\u53EA\u6709\u5B83\u7684\u7D44\u614B\u6539\u8B8A\uFF0C\u65BC\u662F\u9598\u4ECD\u9A57\u8B49\u7684\u6B63\u662F\u5C07\u51FA\u8CA8\u7684\u90A3\u4EFD\u4E8C\u9032\u4F4D\u6A94\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DAD\u6301\u63D0\u4EA4\u968E\u6BB5\u7684\u5FEB\u901F",
+            "text": "<p>\u96A8\u8457\u6642\u9593\uFF0C\u67D0\u5718\u968A\u7684\u63D0\u4EA4\u968E\u6BB5\u56E0\u70BA\u88AB\u52A0\u9032\u7DE9\u6162\u7684\u700F\u89BD\u5668\u6E2C\u8A66\u800C\u6500\u5347\u5230 25 \u5206\u9418\u3002\u4EC0\u9EBC\u6700\u80FD\u6062\u5FA9\u5FEB\u901F\u56DE\u994B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u7DE9\u6162\u7684\u700F\u89BD\u5668\u6E2C\u8A66\u79FB\u51FA\u5230\u8F03\u665A\u7684\u9A57\u6536\u968E\u6BB5\uFF0C\u8B93\u63D0\u4EA4\u968E\u6BB5\u7DAD\u6301\u5728\u5FEB\u901F\u7684\u55AE\u5143\u8207\u975C\u614B\u6AA2\u67E5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u63D0\u4EA4\u968E\u6BB5\u9084\u539F\u70BA\u5FEB\u901F\u6AA2\u67E5\u80FD\u6062\u5FA9\u6578\u5206\u9418\u7B49\u7D1A\u7684\u56DE\u994B\uFF1B\u6162\u6E2C\u8A66\u6539\u5728\u5F8C\u9762\u8DD1\u3002"
+              },
+              {
+                "text": "\u63A5\u53D7 25 \u5206\u9418\u70BA\u5E38\u614B\uFF0C\u4E26\u8981\u958B\u767C\u8005\u5C11\u4E00\u9EDE\u63D0\u4EA4",
+                "fraction": 0,
+                "feedback": "\u6291\u5236\u63D0\u4EA4\u6703\u50B7\u5BB3 CI\uFF1B\u61C9\u628A\u6162\u6E2C\u8A66\u79FB\u5230\u5F8C\u7E8C\u968E\u6BB5\uFF0C\u8B93\u63D0\u4EA4\u968E\u6BB5\u7DAD\u6301\u5FEB\u901F\u3002"
+              },
+              {
+                "text": "\u5FB9\u5E95\u522A\u6389\u9019\u4E9B\u700F\u89BD\u5668\u6E2C\u8A66\u4EE5\u7701\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u6E2C\u8A66\u4ECD\u6709\u50F9\u503C\uFF1B\u61C9\u628A\u5B83\u5011\u79FB\u5230\u5F8C\u7E8C\u968E\u6BB5\uFF0C\u800C\u975E\u6D41\u5931\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u5728\u63D0\u4EA4\u968E\u6BB5\u52A0\u5165\u66F4\u591A\u6E2C\u8A66\uFF0C\u597D\u8B93\u55AE\u4E00\u6B21\u57F7\u884C\u6DB5\u84CB\u4E00\u5207",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u8B93\u7B2C\u4E00\u9053\u9598\u66F4\u6162\uFF1B\u63D0\u4EA4\u968E\u6BB5\u5FC5\u9808\u7DAD\u6301\u5FEB\u901F\uFF0C\u8F03\u91CD\u7684\u6E2C\u8A66\u653E\u5728\u4E0B\u6E38\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u4EA4\u968E\u6BB5\u7684\u5B58\u5728\uFF0C\u662F\u4EE5\u5FEB\u901F\u7684\u55AE\u5143\u6E2C\u8A66\u8207\u975C\u614B\u6AA2\u67E5\u5728\u6578\u5206\u9418\u5167\u7D66\u56DE\u994B\u3002\u7DE9\u6162\u7684\u700F\u89BD\u5668\uFF0FE2E \u6E2C\u8A66\u5C6C\u65BC\u8F03\u665A\u7684\u9A57\u6536\u968E\u6BB5\u3002\u628A\u5B83\u5011\u79FB\u51FA\u53BB\uFF0C\u80FD\u8B93\u63D0\u4EA4\u968E\u6BB5\u56DE\u5230\u5B83\u5FEB\u901F\u3001\u5FEB\u901F\u5931\u6557\u7684\u89D2\u8272\uFF0C\u800C\u6162\u6E2C\u8A66\u4ECD\u5728\u4E0B\u6E38\u8DD1\uFF08\u4E14\u53EF\u5E73\u884C\u5316\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u63D0\u4EA4\u968E\u6BB5\u52A0\u66F4\u591A E2E \u6703\u50B7\u5BB3\u56DE\u994B",
+            "text": "<p>\u628A\u8A31\u591A\u7DE9\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u52A0\u9032\u63D0\u4EA4\u968E\u6BB5\u80FD\u6539\u5584\u5FEB\u901F\u56DE\u994B\uFF0C\u56E0\u70BA\u524D\u9762\u6E2C\u5230\u7684\u66F4\u591A\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u7DE9\u6162\u7684 E2E \u6E2C\u8A66\u5806\u9032\u63D0\u4EA4\u968E\u6BB5\u6703\u8B93\u5B83\u8B8A\u6162\uFF0C\u6467\u6BC0\u5B83\u672C\u8A72\u63D0\u4F9B\u7684\u5FEB\u901F\u56DE\u994B\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u63D0\u4EA4\u968E\u6BB5\u5FC5\u9808\u7DAD\u6301\u5FEB\u901F\uFF1B\u7528\u6162\u7684 E2E \u6E2C\u8A66\u585E\u6EFF\u5B83\uFF0C\u6703\u62D6\u6162\u5B83\u672C\u8A72\u7D66\u7684\u90A3\u500B\u56DE\u994B\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u4EA4\u968E\u6BB5\u7684\u50F9\u503C\u5728\u65BC\u901F\u5EA6\u2014\u2014\u7528\u5FEB\u901F\u7684\u55AE\u5143\u8207\u975C\u614B\u6AA2\u67E5\u5728\u6578\u5206\u9418\u5167\u7D66\u56DE\u994B\u3002\u7DE9\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u5C6C\u65BC\u5F8C\u7E8C\u968E\u6BB5\u3002\u628A\u5B83\u5011\u52A0\u9032\u63D0\u4EA4\u968E\u6BB5\u6703\u81A8\u8139\u5176\u57F7\u884C\u6642\u9593\u3001\u7834\u58DE\u5FEB\u901F\u512A\u5148\u6392\u5E8F\uFF0C\u65BC\u662F\u56DE\u994B\u8B8A\u6162\uFF0C\u800C\u975E\u8B8A\u597D\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u5408\u5DE6\u79FB\u8207\u53F3\u79FB",
+            "text": "<p>\u67D0\u500B\u7D30\u5FAE\u7684\u81ED\u87F2\u6E9C\u904E\u4E86\u5404\u9053\u9598\uFF0C\u53EA\u5728\u6B63\u5F0F\u74B0\u5883\u624D\u73FE\u5F62\u3002\u54EA\u7A2E\u7B56\u7565\u80FD\u540C\u6642\u8B93\u672A\u4F86\u7684\u767C\u751F\u66F4\u4E0D\u53EF\u80FD\u3001\u4E5F\u66F4\u4E0D\u5177\u50B7\u5BB3\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u52A0\u5165\u4E00\u500B\u91CD\u73FE\u8A72\u81ED\u87F2\u7684\u5FEB\u901F\u4E0A\u7DDA\u524D\u6E2C\u8A66\uFF08\u5DE6\u79FB\uFF09\uFF0C\u4E26\u5F37\u5316\u6B63\u5F0F\u74B0\u5883\u76E3\u63A7\uFF0F\u91D1\u7D72\u96C0\u63A8\u51FA\uFF08\u53F3\u79FB\uFF09\uFF0C\u4EE5\u6293\u5230\u4E26\u9650\u5236\u4EFB\u4F55\u4ECD\u6E9C\u904E\u53BB\u7684\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DE6\u79FB\u964D\u4F4E\u518D\u767C\u751F\uFF0C\u53F3\u79FB\u9650\u5236\u5F71\u97FF\u7BC4\u570D\uFF1B\u5169\u8005\u4E00\u8D77\u6DB5\u84CB\u767C\u4F48\u524D\u5F8C\u5169\u5074\u3002"
+              },
+              {
+                "text": "\u53EA\u52A0\u5165\u6B63\u5F0F\u74B0\u5883\u76E3\u63A7\uFF0C\u5B8C\u5168\u4E0D\u52D5\u4E0A\u7DDA\u524D\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u53EA\u9760\u76E3\u63A7\u6703\u592A\u665A\u624D\u6293\u5230\uFF1B\u4E5F\u61C9\u52A0\u5165\u4E00\u500B\u5DE6\u79FB\u6E2C\u8A66\uFF0C\u597D\u8B93\u540C\u4E00\u500B\u81ED\u87F2\u5728\u767C\u4F48\u524D\u88AB\u64CB\u4E0B\u3002"
+              },
+              {
+                "text": "\u53EA\u52A0\u5165\u4E00\u500B\u4E0A\u7DDA\u524D\u6E2C\u8A66\uFF0C\u4E26\u79FB\u9664\u6240\u6709\u6B63\u5F0F\u74B0\u5883\u76E3\u63A7",
+                "fraction": 0,
+                "feedback": "\u4E0A\u7DDA\u524D\u6E2C\u8A66\u6709\u5E6B\u52A9\uFF0C\u4F46\u79FB\u9664\u76E3\u63A7\u6703\u5931\u53BB\u4E0B\u4E00\u6B21\u53EA\u5728\u6B63\u5F0F\u74B0\u5883\u51FA\u73FE\u7684\u610F\u5916\u7684\u5B89\u5168\u7DB2\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u505A\uFF0C\u56E0\u70BA\u9019\u81ED\u87F2\u5DF2\u7D93\u9032\u904E\u4E00\u6B21\u6B63\u5F0F\u74B0\u5883\u3001\u4E0D\u6703\u518D\u767C\u751F",
+                "fraction": 0,
+                "feedback": "\u81ED\u87F2\u6703\u518D\u767C\u751F\uFF1B\u4F60\u61C9\u540C\u6642\u52A0\u5165\u56DE\u6B78\u6E2C\u8A66\uFF08\u5DE6\u79FB\uFF09\u4E26\u5F37\u5316\u6B63\u5F0F\u74B0\u5883\u9632\u8B77\uFF08\u53F3\u79FB\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A69\u5065\u7684\u56DE\u61C9\u6703\u540C\u6642\u8655\u7406\u767C\u4F48\u7684\u5169\u5074\u3002\u5DE6\u79FB\uFF1A\u52A0\u5165\u4E00\u500B\u91CD\u73FE\u8A72\u81ED\u87F2\u7684\u5FEB\u901F\u3001\u5177\u6C7A\u5B9A\u6027\u7684\u6E2C\u8A66\uFF0C\u597D\u8B93\u9598\u5728\u672A\u4F86\u64CB\u4E0B\u5B83\u2014\u2014\u65E2\u4FBF\u5B9C\u53C8\u65E9\u3002\u53F3\u79FB\uFF1A\u5F37\u5316\u76E3\u63A7\u3001\u5408\u6210\u6AA2\u67E5\u8207\u6F38\u9032\uFF0F\u91D1\u7D72\u96C0\u63A8\u51FA\uFF0C\u597D\u8B93\u4EFB\u4F55\u4ECD\u6E9C\u904E\u53BB\u7684\u554F\u984C\u80FD\u5728\u6B63\u5F0F\u74B0\u5883\u88AB\u8FC5\u901F\u5075\u6E2C\u3001\u5176\u5F71\u97FF\u88AB\u63A7\u5236\u3002\u5169\u8005\u4E00\u8D77\u540C\u6642\u964D\u4F4E\u767C\u751F\u7684\u53EF\u80FD\u6027\u8207\u50B7\u5BB3\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "contract-testing": {
       "en": {
         "easy": [

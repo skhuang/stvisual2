@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Continuous Testing Pipeline/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是持續測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 CI/CD 管線中，<em>持續測試（continuous testing）</em>最適切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在管線的每一個階段都執行自動化測試，讓每次變更都能得到快速回饋</text><feedback><text>正確——持續測試把自動化測試織入每個管線階段，對每次變更提供快速回饋。</text></feedback></answer>
+    <answer fraction="0"><text>在每年發佈前，手動地把整個測試套件跑過一次</text><feedback><text>那是在最後才做的、不頻繁的手動測試；持續測試是在整條管線中自動執行。</text></feedback></answer>
+    <answer fraction="0"><text>等開發者把所有程式碼寫完後，才交由專責 QA 團隊測試</text><feedback><text>那是一個較晚、獨立的測試階段；持續測試是在變更流動的每個階段自動執行。</text></feedback></answer>
+    <answer fraction="0"><text>只測試客戶已回報壞掉的那些程式碼路徑</text><feedback><text>那是狹隘的被動測試；持續測試在每個階段自動地演練每次變更。</text></feedback></answer>
+    <generalfeedback><text>持續測試是指自動化測試在 CI/CD 管線的每個階段執行，讓每次變更都能被快速驗證、團隊得到快速回饋，而不必等到一個較晚、獨立的測試階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 CI/CD 管線</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此脈絡中，<em>CI/CD 管線（pipeline）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一連串自動化的階段，變更會依序通過，從建置、測試一路推進到發佈</text><feedback><text>正確——管線是變更在邁向發佈途中依序通過的、有順序的自動化階段。</text></feedback></answer>
+    <answer fraction="0"><text>只負責編譯程式碼、既不測試也不部署的單一腳本</text><feedback><text>只編譯只是其中一步；CI/CD 管線是邁向發佈的整套自動化階段序列。</text></feedback></answer>
+    <answer fraction="0"><text>連接開發者筆電到伺服器的實體網路線</text><feedback><text>那是硬體；CI/CD 管線是建置／測試／發佈階段的自動化序列。</text></feedback></answer>
+    <answer fraction="0"><text>等產品負責人排序的使用者故事待辦清單</text><feedback><text>那是產品待辦清單；管線是變更從建置到發佈所走的自動化路徑。</text></feedback></answer>
+    <generalfeedback><text>CI/CD 管線是一個有順序、自動化的階段序列——通常包含建置、測試與部署步驟——每次變更都會流經其中。持續整合（CI）涵蓋前期的整合與測試階段；持續交付／部署（CD）涵蓋朝發佈推進的提升過程。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是管線階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>管線中的一個<em>階段（stage）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>序列中的一個步驟，帶有自己的一組檢查，建置必須通過後才能往下走</text><feedback><text>正確——階段是帶有自己檢查的一個離散步驟；建置唯有通過後才前進。</text></feedback></answer>
+    <answer fraction="0"><text>為了備份而保留的原始碼倉庫副本</text><feedback><text>那是備份，不是管線階段；階段是建置必須通過其檢查的步驟。</text></feedback></answer>
+    <answer fraction="0"><text>使用者存取應用程式的最終正式環境伺服器</text><feedback><text>那可能是部署階段的目標，但階段本身是帶有自己檢查的步驟。</text></feedback></answer>
+    <answer fraction="0"><text>團隊決定接下來要開發哪些功能的會議</text><feedback><text>那是規劃；管線階段是建置必須通過的自動化步驟。</text></feedback></answer>
+    <generalfeedback><text>階段是管線中的一個離散步驟——例如提交階段、整合階段或驗收階段——並施加自己的一組檢查。建置唯有在當前階段通過時，才會前進到下一個階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是品質閘</text></name>
+    <questiontext format="html"><text><![CDATA[<p>管線中的<em>品質閘（quality gate）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個通過／失敗的檢查點，建置必須清關後才被允許前進到下一階段</text><feedback><text>正確——閘是檢查點；唯有通過其檢查的建置才會被提升往下走。</text></feedback></answer>
+    <answer fraction="0"><text>顯示本週每位開發者提交了多少 commit 的儀表板</text><feedback><text>那是活動報表；品質閘是控管提升的通過／失敗檢查點。</text></feedback></answer>
+    <answer fraction="0"><text>每次提交都自動遞增版本號的規則</text><feedback><text>那是版本管理；閘是依檢查結果決定建置是否可前進。</text></feedback></answer>
+    <answer fraction="0"><text>把建置存起來、好在月底一起發佈的佇列</text><feedback><text>那是把發佈成批處理；閘是攔阻失敗建置前進的檢查點。</text></feedback></answer>
+    <generalfeedback><text>每個階段都扮演品質閘：它施加檢查（例如自己的測試），唯有通過的建置才會被提升到下一階段。失敗的閘會停下建置，防止壞掉的變更繼續往管線下游移動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>快速失敗是什麼意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在管線中，<em>快速失敗（fail fast）</em>原則的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>盡可能及早且迅速地偵測並回報失敗，讓建置在浪費更多時間之前就停下</text><feedback><text>正確——快速失敗是及早浮現失敗，讓管線在跑更慢、更昂貴的工作前就停下。</text></feedback></answer>
+    <answer fraction="0"><text>即使有些測試還沒跑，也要盡快部署到正式環境</text><feedback><text>那是跳過閘；快速失敗是及早偵測失敗，而不是部署未測過的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>只要測試執行超過一秒，就立刻把它標記為失敗</text><feedback><text>速度門檻無關；快速失敗是及早抓到真正的失敗並停下。</text></feedback></answer>
+    <answer fraction="0"><text>快速重試失敗的測試，直到它最終通過為止</text><feedback><text>重試以逼出通過會掩蓋失敗；快速失敗是及早回報失敗並停下。</text></feedback></answer>
+    <generalfeedback><text>快速失敗是把管線安排成讓失敗盡可能及早且便宜地被偵測。一旦某階段失敗，建置立即停下，團隊很快就知道，且不會在一個已知壞掉的變更上花時間跑後續較慢的階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>階段失敗時會發生什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當管線某階段的自動化測試失敗時，管線應該做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>停下並拒絕把建置提升到下一階段，直到失敗被修好為止</text><feedback><text>正確——失敗的閘會停下建置並阻止提升，讓壞掉的變更無法前進。</text></feedback></answer>
+    <answer fraction="0"><text>忽略失敗，繼續把建置提升到正式環境</text><feedback><text>那使閘形同虛設；失敗的階段必須停下建置，而不是放行。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉失敗的測試，好讓該階段變綠</text><feedback><text>刪測試掩蓋問題；失敗的階段應停下建置，直到真正的失敗被修好。</text></feedback></answer>
+    <answer fraction="0"><text>照樣提升建置，只是寄一封可以稍後再看的信</text><feedback><text>提升一個已知壞掉的建置使閘失效；管線應該停下才對。</text></feedback></answer>
+    <generalfeedback><text>每個階段都是品質閘。若其測試失敗，管線停下、建置不被提升；變更維持在被阻擋狀態，直到失敗被修好。這正是防止壞掉的建置抵達後續階段或正式環境的機制。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>提交階段的內容</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Humble 與 Farley 的持續交付中，<em>提交階段（commit stage）</em>通常執行：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>編譯、單元測試與快速的靜態檢查——在數分鐘內就給出回饋的快速檢查</text><feedback><text>正確——提交階段編譯、跑單元測試與快速檢查，目標是在幾分鐘內給出回饋。</text></feedback></answer>
+    <answer fraction="0"><text>針對類正式環境執行整套緩慢的端對端測試</text><feedback><text>緩慢的端對端測試屬於較晚的驗收階段；提交階段要維持快速。</text></feedback></answer>
+    <answer fraction="0"><text>由整個 QA 團隊進行手動探索式測試</text><feedback><text>手動探索式測試是較晚、由人執行的活動；提交階段跑的是快速自動化檢查。</text></feedback></answer>
+    <answer fraction="0"><text>模擬數千名並發使用者的一小時負載測試</text><feedback><text>負載測試很慢、位置在很後面；提交階段是給編譯、單元測試這類快速檢查用的。</text></feedback></answer>
+    <generalfeedback><text>提交階段是第一道閘：它編譯程式碼、跑單元測試、做快速的靜態檢查。它被設計成快速（理想上數分鐘），讓開發者幾乎即時得到「這次提交沒弄壞基本功能」的回饋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收階段的內容</text></name>
+    <questiontext format="html"><text><![CDATA[<p>接在提交階段之後的<em>驗收階段（acceptance stage）</em>通常執行：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>自動化驗收測試，從使用者的角度檢查系統行為是否正確</text><feedback><text>正確——驗收階段針對預期的使用者面行為執行自動化驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>執行編譯器，檢查程式碼是否仍能建置</text><feedback><text>編譯屬於較早的提交階段；驗收階段執行的是自動化驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>只把單元測試為了保險再跑第二次</text><feedback><text>單元測試屬於提交階段；驗收階段驗證的是端對端的使用者行為。</text></feedback></answer>
+    <answer fraction="0"><text>對原始碼註解做拼字檢查</text><feedback><text>那不是驗收測試；驗收階段執行的是系統行為的自動化驗收測試。</text></feedback></answer>
+    <generalfeedback><text>在快速的提交階段之後，驗收階段執行自動化驗收測試：較慢、較高層次的測試，通常針對類正式環境，驗證系統是否符合使用者的期望。因為它們較慢，所以在提交階段通過之後、且唯有通過時才執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>shift-left 是什麼意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>左移（shift-left）</em>測試的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在管線中（以及開發流程中）更早地測試，讓缺陷更早被抓到</text><feedback><text>正確——左移把測試往左移、更早進行，好讓缺陷更早、更便宜地被抓到。</text></feedback></answer>
+    <answer fraction="0"><text>只在軟體已發佈到正式環境之後才測試</text><feedback><text>發佈後才測試是右移；左移是把測試往更早移。</text></feedback></answer>
+    <answer fraction="0"><text>把測試檔案搬到倉庫左側的資料夾</text><feedback><text>它談的是流程中的時機，不是資料夾配置；左移是指更早測試。</text></feedback></answer>
+    <answer fraction="0"><text>減少測試數量，好讓管線更快跑完</text><feedback><text>左移談的是何時測試，不是砍測試；它的意思是更早測試以更早抓到缺陷。</text></feedback></answer>
+    <generalfeedback><text>左移是把測試活動往流程與管線的更早——更左——移動。在提交階段（甚至在寫程式時）就抓到缺陷，遠比拖到很晚才抓便宜又快，因此持續測試盡可能把快速檢查往前推。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>shift-right 是什麼意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>右移（shift-right）</em>測試的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在正式環境中測試與觀測——透過監控、金絲雀發佈與合成檢查——於部署之後進行</text><feedback><text>正確——右移用監控、金絲雀與合成檢查，把驗證延伸到正式環境。</text></feedback></answer>
+    <answer fraction="0"><text>在提交階段更早地執行單元測試</text><feedback><text>更早跑測試是左移；右移是在部署後於正式環境驗證。</text></feedback></answer>
+    <answer fraction="0"><text>把驗收測試移到提交階段之前</text><feedback><text>那是重新排序，不是右移；右移是指在正式環境中觀測與測試。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉正式環境監控，好讓管線更簡單</text><feedback><text>那反而移除了右移實務；右移是在正式環境加入監控、金絲雀與合成檢查。</text></feedback></answer>
+    <generalfeedback><text>右移是把驗證延伸到發佈之右——進入正式環境。技術包括監控與可觀測性、金絲雀發佈、對線上系統的合成（冒煙）檢查，以及功能旗標。它補足了上線前測試，抓到唯有真實流量與真實環境才會出現的問題。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CI 意指頻繁整合並測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>持續整合（CI）是指頻繁地把變更整合進共享主線，並在每次整合時自動測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——CI 就是頻繁整合到主線，並在每次整合都跑自動化測試。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：CI 正是頻繁整合到主線並每次都自動測試，而這正是使 CD 成為可能的基礎。</text></feedback></answer>
+    <generalfeedback><text>持續整合是指每位開發者頻繁地合併到共享主線，而每次整合都觸發一次自動化建置與測試。讓主線持續維持已驗證狀態，正是使持續交付（把建置朝發佈提升）得以成立的基礎。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>綠色管線代表閘都通過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次「綠色」的管線執行，代表每個階段的品質閘都通過、建置被允許前進。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——綠色代表每個階段的檢查都通過，建置因此通過各道閘往前推進。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：綠色執行正是每個階段的閘都通過、建置得以前進的情形。</text></feedback></answer>
+    <generalfeedback><text>綠色管線代表每個階段都跑過其檢查且通過，因此建置清關了每一道閘。紅色管線代表某道閘失敗，建置被卡在該階段。讓管線維持綠色，是持續測試的日常目標。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>提交階段失敗會阻擋後續階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若提交階段失敗，管線仍會照樣繼續、對同一個建置執行驗收階段。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——失敗的提交階段會停下建置；後續階段不會對一個已在閘失敗的建置執行。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為錯誤：失敗的閘會停下建置，所以驗收階段不會對一個提交階段已否決的建置執行。</text></feedback></answer>
+    <generalfeedback><text>每個階段都是閘。若提交階段失敗，建置不被提升，驗收階段就永不會對它執行。這正是把快速檢查排在最前面的用意：那裡一失敗，管線在任何較慢階段開始之前就停下。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>品質閘的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在每個階段設置品質閘，主要目的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>防止壞掉的建置繼續往管線下游被提升</text><feedback><text>正確——閘會阻止失敗的建置前進，把壞掉的變更擋在後續階段與正式環境之外。</text></feedback></answer>
+    <answer fraction="0"><text>讓管線花更久，好讓開發者少一點提交</text><feedback><text>閘不是為了拖慢人；它是為了阻止壞掉的建置前進。</text></feedback></answer>
+    <answer fraction="0"><text>計算每個建置包含多少行程式碼</text><feedback><text>行數計算無關；閘的目的是阻止失敗的建置被提升。</text></feedback></answer>
+    <answer fraction="0"><text>永久保證軟體再也沒有任何缺陷</text><feedback><text>沒有閘能保證零缺陷；它的目的是阻止已知的失敗被提升。</text></feedback></answer>
+    <generalfeedback><text>品質閘的存在，是讓一個未通過檢查的建置無法前進。這把壞掉的變更擋在朝正式環境推進的路上，並賦予每個階段停下產線的權力，這正是持續測試的核心安全性質。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>每個階段都有自動化測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>持續測試的目標，是在管線的每個階段都執行自動化測試，讓團隊對每次變更得到快速回饋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——這正是其定義：每個階段都有自動化測試，對每次變更提供快速回饋。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：在每個階段執行自動化測試以取得快速回饋，正是持續測試的本質。</text></feedback></answer>
+    <generalfeedback><text>持續測試的精髓是把自動化測試嵌入 CI/CD 管線的每個階段。每次變更在流經時都被驗證，於是問題很快浮現，而不是累積到一個較晚、獨立的測試階段。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Continuous Testing Pipeline/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何快速便宜的測試先跑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼把快速、便宜、高信心的測試放在管線最前面？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓最可能發生、最便宜偵測的失敗在數秒內就被抓到，趕在緩慢又昂貴的套件執行之前</text><feedback><text>正確——先跑快速檢查能給出最快回饋，並在昂貴階段執行前就停下建置。</text></feedback></answer>
+    <answer fraction="0"><text>因為快速測試永遠比慢測試重要，慢的可以刪掉</text><feedback><text>慢測試仍有價值；排序的重點是快速回饋，而非刪掉慢的套件。</text></feedback></answer>
+    <answer fraction="0"><text>因為管線一次只能跑一個測試，而快速測試字母排序在前</text><feedback><text>排序依速度與成本，不是字母，且階段可平行化；目標是對可能的失敗快速回饋。</text></feedback></answer>
+    <answer fraction="0"><text>好讓開發者完全不必看慢測試的結果</text><feedback><text>慢測試仍會跑且很重要；快速優先的排序只是讓便宜的失敗更早浮現。</text></feedback></answer>
+    <generalfeedback><text>依速度與成本排序，代表快速、高信號的檢查先跑。若變更以某種基本方式壞了，你在數秒內就知道、管線停下——你完全不必付出跑緩慢又昂貴的驗收套件的代價。這在把回饋速度最大化的同時，也把浪費的機器時間最小化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>管線階段的排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一種階段排序最符合「快速失敗、依速度與成本排序」的原則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>提交（編譯＋單元）→ 整合 → 自動化驗收／E2E → 部署</text><feedback><text>正確——快而便宜的先跑，再逐步進到較慢、較昂貴的階段，最後部署。</text></feedback></answer>
+    <answer fraction="0"><text>自動化驗收／E2E → 整合 → 提交（編譯＋單元）→ 部署</text><feedback><text>這把最慢、最昂貴的套件放最前——與快速失敗排序正好相反。</text></feedback></answer>
+    <answer fraction="0"><text>部署 → 提交（編譯＋單元）→ 整合 → 驗收</text><feedback><text>在任何測試之前就部署使閘失效；快速檢查必須在部署之前。</text></feedback></answer>
+    <answer fraction="0"><text>整合 → 部署 → 提交（編譯＋單元）→ 驗收</text><feedback><text>這把快慢檢查打散、又在中間部署；應依速度與成本遞增排序。</text></feedback></answer>
+    <generalfeedback><text>階段應依時間與成本遞增排序：先是快速便宜的提交階段，再來整合，接著較慢的自動化驗收／E2E 套件，最後才部署。如此一來，最便宜、最可能的失敗先停下建置，昂貴的階段只在看起來已健康的變更上執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>提交階段對比驗收階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一句正確地對比提交階段與驗收階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>提交階段很快（編譯＋單元＋靜態檢查）；驗收階段較慢，執行使用者面行為的自動化驗收測試</text><feedback><text>正確——先是快速、低層次的提交階段；之後是較慢、較高層次的自動化驗收階段。</text></feedback></answer>
+    <answer fraction="0"><text>提交階段跑緩慢的端對端測試；驗收階段只做編譯</text><feedback><text>反了——編譯在提交階段，而端對端測試屬於較晚的驗收階段。</text></feedback></answer>
+    <answer fraction="0"><text>兩個階段跑完全一樣的測試，只是在不同天</text><feedback><text>它們跑不同種類的測試：提交階段是快速的單元層次，驗收階段是較慢的驗收層次。</text></feedback></answer>
+    <answer fraction="0"><text>驗收階段先跑，因為它最重要</text><feedback><text>重要性不決定順序；快速的提交階段先跑，好讓失敗被便宜地抓到。</text></feedback></answer>
+    <generalfeedback><text>提交階段是快速的第一道閘——編譯、單元測試、快速靜態分析——在數分鐘內給回饋。驗收階段較晚，以較慢、較高層次的自動化驗收測試針對類正式環境執行。快而便宜的先跑；慢而周全的後跑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>建置一次並提升同一份產物</text></name>
+    <questiontext format="html"><text><![CDATA[<p>持續交付建議把可部署的產物只建置一次，並把同一份產物提升通過各階段。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓每個階段測試的都是將要出貨的那一份位元組，消除重新建置所引入的差異</text><feedback><text>正確——單一產物代表每個階段驗證的正是將發佈之物，沒有重建漂移。</text></feedback></answer>
+    <answer fraction="0"><text>因為在每個階段重新建置比重用產物更快</text><feedback><text>反覆重建更慢且有漂移風險；建置一次的理由是測試將出貨的那份位元組。</text></feedback></answer>
+    <answer fraction="0"><text>因為產物必須重新編譯才能符合每個環境的作業系統</text><feedback><text>環境差異由組態處理，而非靠重建；你提升的是同一份產物。</text></feedback></answer>
+    <answer fraction="0"><text>好讓每個階段能悄悄改動程式碼，修掉它找到的任何失敗</text><feedback><text>階段不得更動產物；建置一次保證被測的位元組就是被出貨的位元組。</text></feedback></answer>
+    <generalfeedback><text>若在每個階段都重建，較晚的階段可能測到與你發佈的略有不同的二進位檔，於是通過閘無法證明關於出貨位元組的任何事。建置一次並提升同一份產物，代表每道閘驗證的正是將抵達正式環境之物；只有組態隨環境而異。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識左移活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是<em>左移（shift-left）</em>測試的例子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在提交階段、每次推送之後，立即跑快速的單元測試與靜態分析</text><feedback><text>正確——把測試往前推進到提交階段，正是左移。</text></feedback></answer>
+    <answer fraction="0"><text>在發佈後，監控線上服務的錯誤率</text><feedback><text>發佈後的監控是右移；左移是在管線早期測試。</text></feedback></answer>
+    <answer fraction="0"><text>對一小片正式流量做金絲雀發佈</text><feedback><text>金絲雀發佈發生在正式環境——那是右移，不是左移。</text></feedback></answer>
+    <answer fraction="0"><text>讀取正式環境的合成冒煙檢查結果</text><feedback><text>正式環境的合成檢查是右移；左移是把測試往管線更早移。</text></feedback></answer>
+    <generalfeedback><text>左移把測試往前推。在提交階段——推送後立即、任何部署之前——跑單元測試與靜態檢查，是典範的左移實務：便宜、快速、又早。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識右移活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是<em>右移（shift-right）</em>測試的例子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在正式環境對一小群金絲雀發佈，並在擴大推出前觀察監控儀表板</text><feedback><text>正確——金絲雀發佈加上正式環境監控是典型的右移實務。</text></feedback></answer>
+    <answer fraction="0"><text>在提交階段加入更多單元測試</text><feedback><text>那是左移（更早測試）；右移是在正式環境觀測與測試。</text></feedback></answer>
+    <answer fraction="0"><text>在每次推送時編譯程式碼並跑靜態分析</text><feedback><text>編譯加靜態檢查是早期的左移活動，不是右移。</text></feedback></answer>
+    <answer fraction="0"><text>在功能實作之前先寫好驗收測試</text><feedback><text>及早寫測試是左移的概念；右移發生在部署之後、正式環境中。</text></feedback></answer>
+    <generalfeedback><text>右移在正式環境驗證。金絲雀發佈把新建置暴露給一小片真實流量，同時由監控與合成檢查盯著問題，於是唯有真實條件下才出現的問題能在全面推出前被抓到。監控、金絲雀與合成／冒煙檢查都屬於右移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何脆弱測試在管線中更糟</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當脆弱測試（flaky test）位於 CI/CD 管線之中時，為何特別具破壞性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它會隨機讓某道閘失敗，阻擋好建置的提升，並侵蝕團隊對管線的信任</text><feedback><text>正確——隨機失敗會擋住好建置，並教會團隊忽略紅色執行，使閘失去意義。</text></feedback></answer>
+    <answer fraction="0"><text>它會讓編譯器產生更大的二進位檔</text><feedback><text>脆弱性與二進位檔大小無關；其危害是隨機阻擋管線並侵蝕信任。</text></feedback></answer>
+    <answer fraction="0"><text>它失敗時會永久刪除建置產物</text><feedback><text>脆弱測試不會刪除產物；它是隨機讓閘失敗、破壞對結果的信心。</text></feedback></answer>
+    <answer fraction="0"><text>它只影響開發者的本機，絕不影響管線</text><feedback><text>正好相反：在共享管線中，脆弱測試會擋住每個人的建置並侵蝕信任。</text></feedback></answer>
+    <generalfeedback><text>在管線中，脆弱測試會隨機把某道閘變紅，於是一個完全沒問題的建置被擋住、無法提升。更糟的是，大家開始重跑或忽略紅色管線，於是真正的失敗會被當成「只是脆弱」而被打發。因此脆弱性既浪費時間，又摧毀閘所仰賴的信任。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>快速優先排序帶來的回饋時間</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某變更含有一個基本的編譯錯誤。提交階段花 3 分鐘；驗收階段花 40 分鐘。採用快速優先排序時，團隊多快得知建置壞了？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>約 3 分鐘——提交階段失敗，管線在 40 分鐘的階段執行之前就停下</text><feedback><text>正確——快速的提交階段先抓到它，回饋在數分鐘內到達，慢階段被略過。</text></feedback></answer>
+    <answer fraction="0"><text>約 43 分鐘——兩個階段都必須跑完才會回報任何結果</text><feedback><text>不對——失敗的提交階段立即停下管線；40 分鐘的階段永不會跑。</text></feedback></answer>
+    <answer fraction="0"><text>約 40 分鐘——驗收階段總是先跑</text><feedback><text>快速的提交階段先跑；它在約 3 分鐘失敗，驗收階段被略過。</text></feedback></answer>
+    <answer fraction="0"><text>永遠不會——編譯錯誤無法被管線偵測</text><feedback><text>編譯正是提交階段所檢查的；它在約 3 分鐘快速失敗。</text></feedback></answer>
+    <generalfeedback><text>因為便宜的提交階段先跑、且失敗的閘會停下管線，一個基本的編譯錯誤會在約 3 分鐘內被回報。昂貴的 40 分鐘驗收階段永不會對那個壞掉的建置啟動。這正是依速度與成本排序的回報。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>每階段重建並非建議做法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在每個管線階段都從原始碼重新編譯出一份新產物，是持續交付所建議的做法。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——建議做法是建置一次並提升同一份產物，而非每階段重建。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為錯誤：每階段重建有漂移風險；你應把產物建置一次，並把那一份相同的產物提升通過各階段。</text></feedback></answer>
+    <generalfeedback><text>持續交付主張把可部署產物只建置一次，並把那份完全相同的產物提升通過每個階段。每階段重建有測到與出貨位元組不同之物的風險，於是通過閘將無法再保證關於已發佈二進位檔的任何事。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>管線中的測試金字塔</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試金字塔與排序良好的管線有何關聯？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>大量快速的單元測試最早跑、也跑最頻繁；較少、較慢的端對端測試則較晚跑</text><feedback><text>正確——金字塔寬廣的快速單元測試底座對應到早期的提交階段；窄小的 E2E 頂端較晚跑。</text></feedback></answer>
+    <answer fraction="0"><text>管線應該最先跑大部分的端對端測試，只在最後跑少量單元測試</text><feedback><text>那把金字塔倒過來了；寬廣的快速單元測試底座應先跑，而非少量慢的 E2E。</text></feedback></answer>
+    <answer fraction="0"><text>金字塔說每個階段都必須含有數量相等的各種測試</text><feedback><text>金字塔刻意不相等：大量單元、較少整合、最少 E2E。</text></feedback></answer>
+    <answer fraction="0"><text>金字塔只適用於手動測試，與管線無關</text><feedback><text>它直接對應到管線排序：快速的底座早跑，慢的頂端晚跑。</text></feedback></answer>
+    <generalfeedback><text>測試金字塔寬廣的底座——大量快速的單元測試——對應到早期的提交階段，這些先跑且最頻繁跑。數量較少、較慢的整合測試，接著最少、最慢的端對端測試，在後續階段跑。金字塔形狀與快速優先的管線排序，是同一個概念的兩種看法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>提升是什麼意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在管線中，<em>提升（promote）</em>一個建置的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在建置通過當前閘之後，把同一份建置／產物推進到下一階段</text><feedback><text>正確——提升是在建置清關後，把那份完全相同的建置往前推進到下一階段。</text></feedback></answer>
+    <answer fraction="0"><text>幫寫它的開發者加薪</text><feedback><text>那是職涯上的「升遷」；這裡的提升是把建置推進到下一階段。</text></feedback></answer>
+    <answer fraction="0"><text>為下一個環境從頭重建程式碼</text><feedback><text>提升是把同一份產物往前推；重建會違反「建置一次、提升同一份產物」。</text></feedback></answer>
+    <answer fraction="0"><text>在公司部落格上宣傳這次發佈</text><feedback><text>那是行銷；提升一個建置是把它推進到下一個管線階段。</text></feedback></answer>
+    <generalfeedback><text>提升是把一個已通過某階段閘的建置往前推到下一階段。搭配「建置一次」，往前推進的就是那份完全相同的產物——於是它清關的每道閘，都套用在最終可能被發佈的那份位元組上。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>驗收不會先於提交</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為了快速失敗，緩慢的自動化驗收階段應該排在快速的提交階段之前執行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——快速失敗代表快速的提交階段先跑；緩慢的驗收階段排在後面。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為錯誤：先跑慢階段與快速失敗正好相反。便宜的提交階段必須先跑。</text></feedback></answer>
+    <generalfeedback><text>快速失敗排序把快速、便宜的提交階段放最前，好讓基本失敗在數分鐘內被抓到。較慢的驗收階段排在後面，只對已通過提交閘的建置執行。先跑驗收會浪費時間，並使整個用意落空。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>平行化緩慢的套件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某緩慢的驗收套件花太久、拖慢了回饋。下列哪種技術最直接地在不減少涵蓋率的情況下縮短它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把套件切分，讓測試在數個工作者上平行執行</text><feedback><text>正確——平行化緩慢套件能在保留所有測試的同時，縮短牆鐘時間。</text></feedback></answer>
+    <answer fraction="0"><text>隨機刪掉一半的驗收測試</text><feedback><text>那會減少涵蓋率；平行化保留每個測試，只是讓它們並發執行。</text></feedback></answer>
+    <answer fraction="0"><text>把整條管線跑兩次以求保險</text><feedback><text>跑兩次會更慢，而非更快；平行化該套件才是正確的槓桿。</text></feedback></answer>
+    <answer fraction="0"><text>把驗收測試移到管線的最前面</text><feedback><text>把慢套件放最前會破壞快速優先排序；應該平行化它，讓它留在恰當的位置並維持快速。</text></feedback></answer>
+    <generalfeedback><text>平行化把緩慢套件分散到多個工作者，在保留每個測試的同時，把牆鐘時間縮到一小部分。這在不犧牲涵蓋率下，讓管線維持快速、回饋維持迅速——是防止龐大驗收／E2E 套件成為瓶頸的標準做法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把測試放進正確的階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試透過 UI、一個真實資料庫與一個外部支付沙箱來驅動整個應用程式，約花 90 秒。它該放在哪裡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>放在較晚的自動化驗收／E2E 階段，因為它很慢且演練了整個整合系統</text><feedback><text>正確——一個緩慢、全端、端對端的測試屬於較晚的驗收階段，而非快速的提交階段。</text></feedback></answer>
+    <answer fraction="0"><text>放在提交階段，好讓它在每次推送時於數秒內跑完</text><feedback><text>它花 90 秒又是全端，對快速的提交階段來說太慢、太廣。</text></feedback></answer>
+    <answer fraction="0"><text>哪裡都不放——這種測試根本不該寫</text><feedback><text>端對端測試有價值；它只是屬於較晚的階段，並以較少的數量執行。</text></feedback></answer>
+    <answer fraction="0"><text>放在提交階段，但一個月只跑一次</text><feedback><text>快速優先排序讓提交階段維持快速；緩慢的全端測試屬於驗收階段。</text></feedback></answer>
+    <generalfeedback><text>一個驅動 UI、真實資料庫與外部服務的緩慢測試，是端對端／驗收測試。它屬於較晚、跑較慢與較高層次測試的階段，而非快速的提交階段——後者的職責是以快速的單元與靜態檢查在數分鐘內給出回饋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>右移補足上線前測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>右移技術（例如正式環境監控與金絲雀發佈）是補足上線前測試，而非取代對它的需求。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——右移是在上線前的閘之上、而非取而代之，增添正式環境時期的信心。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：右移補足上線前測試；你仍然想在發佈前有快速的閘，並在發佈後有正式環境觀測。</text></feedback></answer>
+    <generalfeedback><text>右移抓到唯有真實流量與真實環境才會浮現的問題，但它作用在發佈之後。你仍想要上線前的快速閘，在出貨前擋下壞掉的建置。兩者是同一套持續測試策略中互補的層次。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Continuous Testing Pipeline/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷一條慢套件先跑的管線</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某管線在編譯程式碼或跑任何單元測試之前，先跑一套 35 分鐘的端對端套件。開發者要等超過半小時，才知道自己有錯字或編譯錯誤。最佳修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重新排序，讓編譯與單元測試在一個快速的提交階段先跑，端對端套件之後才跑</text><feedback><text>正確——把便宜的檢查移到前面，恢復快速優先排序，於是瑣碎的失敗在數分鐘內被抓到。</text></feedback></answer>
+    <answer fraction="0"><text>移除編譯與單元測試步驟，只留下端對端套件</text><feedback><text>那會摧毀快速回饋層；修法是讓便宜的檢查先跑，而不是刪掉它們。</text></feedback></answer>
+    <answer fraction="0"><text>要開發者不要再打錯字，好讓端對端套件一次就通過</text><feedback><text>你無法消除失誤；管線應該藉由把快速檢查排在最前，及早抓到便宜的錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>把 35 分鐘的端對端套件在編譯前跑兩次以求確定</text><feedback><text>那會讓延遲加倍；修法是把快速的編譯與單元檢查排在慢套件之前。</text></feedback></answer>
+    <generalfeedback><text>這條管線違反了依速度與成本排序：它在最便宜的檢查之前先跑最昂貴的套件。重新排序、讓一個快速的提交階段（編譯＋單元）先跑，代表編譯錯誤與錯字在數分鐘內失敗，而 35 分鐘的套件只對已通過便宜閘的建置執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一個脆弱的 E2E 測試擋住每次部署</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個端對端測試因與程式碼無關的原因而間歇性失敗，把管線變紅、擋住每一次部署。最佳的回應是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把它從阻擋性的閘中隔離、開一張工單、修掉其根因——同時讓套件的其餘部分繼續守著部署</text><feedback><text>正確——阻止它擋住好建置，但同時追蹤並修好它，好讓涵蓋率恢復、而非默默流失。</text></feedback></answer>
+    <answer fraction="0"><text>把它留在閘中，並重跑整條管線，直到它每次剛好通過為止</text><feedback><text>盲目重跑浪費時間且讓紅色管線變成常態；應該隔離並修好脆弱測試。</text></feedback></answer>
+    <answer fraction="0"><text>永久刪除該測試，再也不看那個行為</text><feedback><text>刪掉它會流失真實涵蓋率；隔離加修復能在它變可靠後保住這個檢查。</text></feedback></answer>
+    <answer fraction="0"><text>停用每一道閘，讓任何測試都再也無法擋住部署</text><feedback><text>移除所有閘會放壞掉的建置出貨；應只隔離那個脆弱測試並修好它，保留其他閘。</text></feedback></answer>
+    <generalfeedback><text>一個擋住部署的脆弱測試不能就這樣留在閘裡，但你也不能流失它的涵蓋率或讓「忽略紅色建置」變成常態。把它隔離（移出阻擋性集合）、用工單追蹤、修掉根因，好讓它變得具決定性、能重新加回閘。這期間套件的其餘部分繼續保護部署。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>用平行化縮短回饋時間</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某驗收階段有 600 個彼此獨立的測試，循序執行需 30 分鐘，是回饋的主要瓶頸。哪個改動能在保留涵蓋率的同時縮短回饋時間？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把這 600 個測試切分（例如）到 6 個平行工作者上，讓該階段約在六分之一的時間內跑完</text><feedback><text>正確——把獨立測試切分到多個工作者，能在不刪任何測試下縮短牆鐘時間。</text></feedback></answer>
+    <answer fraction="0"><text>維持循序執行，但減少日誌輸出好讓它感覺更快</text><feedback><text>減少日誌幾乎不改變執行時間；平行化這些獨立測試才真正縮短回饋時間。</text></feedback></answer>
+    <answer fraction="0"><text>把全部 600 個測試移進提交階段，好讓它們在每次推送時跑</text><feedback><text>那會讓快速的提交階段變慢、破壞快速優先排序；應改為平行化驗收階段。</text></feedback></answer>
+    <answer fraction="0"><text>只跑前 100 個測試，假設其餘會通過</text><feedback><text>略過 500 個測試會流失涵蓋率；切分是把全部都跑，只是並發執行。</text></feedback></answer>
+    <generalfeedback><text>當測試彼此獨立時，把它們分散到平行工作者上，能大致依工作者數量成比例地縮短牆鐘時間，同時每個測試都會跑。把 600 個測試切到 6 個工作者，讓該階段從約 30 分鐘趨近約 5 分鐘，在不犧牲涵蓋率下恢復快速回饋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何閘能擋下壞掉的建置</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼賦予每個階段「讓管線失敗」的權力，實際上能保護正式環境？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>建置只能靠清關每一道閘才能抵達正式環境，所以任何偵測到缺陷的階段都能在提升前把它擋下</text><feedback><text>正確——因為提升需要通過所有閘，單單一道失敗的閘就足以把缺陷擋在正式環境之外。</text></feedback></answer>
+    <answer fraction="0"><text>閘會讓程式碼在正式環境中跑得更快</text><feedback><text>閘不改變執行效能；它是阻止壞掉的建置被提升。</text></feedback></answer>
+    <answer fraction="0"><text>閘保證軟體在數學上被證明正確</text><feedback><text>閘只抓到其測試所涵蓋之物，而非形式證明；其保護在於阻止已偵測的失敗前進。</text></feedback></answer>
+    <answer fraction="0"><text>閘會放壞掉的建置通過，但把它記錄下來以便稍後查看</text><feedback><text>正好相反——閘會擋下失敗的建置；放行再記錄無法保護正式環境。</text></feedback></answer>
+    <generalfeedback><text>抵達正式環境需要依序清關每一道閘。這代表任何偵測到問題的單一階段，就足以中止提升，於是其測試能抓到的缺陷永不會前進。這份保護只跟閘裡的檢查一樣好，但「停下產線」的權力，正是把已抓到的失敗擋在正式環境之外的關鍵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>每階段重建造成不一致</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某管線在每個階段都從原始碼重新編譯。驗收測試通過，但部署到正式環境的二進位檔行為不同、失敗了。最可能的根因與修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每次重建都產生略有不同的位元組，於是驗收測到的是與正式環境所跑不同的二進位檔；應建置一次並提升同一份產物</text><feedback><text>正確——每階段重建破壞了保證；建置一次並提升那份完全相同的產物即可修正。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試太嚴格；把它們放寬到正式環境能通過為止</text><feedback><text>放寬測試會掩蓋不一致；真正的修法是測試並出貨同一份產物。</text></feedback></answer>
+    <answer fraction="0"><text>正式環境只是運氣不好；重複部署直到它成功</text><feedback><text>對同一個會漂移的流程重複部署，無法修正重建造成的不一致；應建置一次並提升那份產物。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試被略過了；在部署階段加更多單元測試</text><feedback><text>問題是重建造成的產物漂移，不是缺少單元測試；應建置一次並提升同一份位元組。</text></feedback></answer>
+    <generalfeedback><text>當每個階段都重建，驗收所測的產物不保證等同被部署的產物——不同的相依版本、時間戳或建置旗標都可能改變行為。持續交付的修法是「建置一次、提升同一份產物」：把可部署物只建置一次，並把那份完全相同的二進位檔提升通過每一道閘，於是驗收驗證的正是正式環境所跑之物。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在周全的閘與速度之間取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊既想要非常周全的閘、又想要快速回饋。哪種策略把兩者平衡得最好？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>保留一個快速、高信號的提交閘以取得即時回饋，並把較慢、較周全的套件（平行化）放在後續階段</text><feedback><text>正確——把快速的閘放前面、周全的套件放後面，在不放棄深度下維持回饋迅速。</text></feedback></answer>
+    <answer fraction="0"><text>把每個測試都放進提交階段，好讓什麼都不會漏掉</text><feedback><text>那會讓第一道閘變慢、摧毀快速回饋；應把測試分散到分階段的閘中。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉所有慢測試，好讓管線永遠都快</text><feedback><text>刪掉周全的測試會犧牲信心；應把它們移到後續階段並平行化，而非刪除。</text></feedback></answer>
+    <answer fraction="0"><text>全部手動執行，好讓人來判斷要多周全</text><feedback><text>手動把關又慢又不可重現；應使用依速度與成本排序的分層自動化階段。</text></feedback></answer>
+    <generalfeedback><text>周全與速度之間的張力靠分層來化解：一個快速、高信號的提交閘在數分鐘內給回饋，而較慢、較周全的整合與驗收套件放在後續階段、並可平行化。快速優先排序代表深度是逐步加上去的，而不會拖慢最早的回饋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>選擇一項右移技術</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某種失敗模式只在團隊無法於發佈前重現的真實正式流量型態下才出現。哪種做法最能防範它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用金絲雀逐步推出，搭配正式環境監控與合成檢查，好讓問題在全面推出前、於一小片流量上就被抓到</text><feedback><text>正確——金絲雀加上監控／合成檢查是右移，正是針對只在正式環境出現的失敗模式。</text></feedback></answer>
+    <answer fraction="0"><text>在提交階段再加更多單元測試</text><feedback><text>單元測試無法重現真實正式流量；右移的金絲雀加監控才是正確的防範。</text></feedback></answer>
+    <answer fraction="0"><text>假設上線前的閘已足夠，並略過正式環境觀測</text><feedback><text>上線前的閘看不到只在正式環境的條件；那需要右移的觀測。</text></feedback></answer>
+    <answer fraction="0"><text>停用監控以減少發佈期間的雜訊</text><feedback><text>那正好移除了你需要用來及早抓到只在正式環境失敗的右移信號。</text></feedback></answer>
+    <generalfeedback><text>有些失敗只在真實流量、規模或資料下才顯現，無法於發佈前重現。右移技術正好處理這點：金絲雀發佈把一小片正式環境暴露給新建置，同時由監控、可觀測性與合成檢查盯著回歸，於是問題能在全面推出前被抓到並回滾。它補足——而非取代——上線前的閘。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>修正管線中的倒金字塔</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某管線的緩慢來自數百個端對端測試與極少的單元測試——一個倒金字塔。最健康的長期修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把涵蓋率往金字塔下推：以快速的單元／整合測試取代許多 E2E 測試，只保留一小組聚焦的 E2E 測試</text><feedback><text>正確——把比重重新調到寬廣的單元底座與薄薄的 E2E 頂端，能恢復速度又保住關鍵的端對端涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>加入更多端對端測試，好讓什麼都漏不掉</text><feedback><text>那會惡化倒置與緩慢；應把涵蓋率往下推到快速的單元／整合測試。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉所有端對端測試，只靠單元測試</text><feedback><text>少數 E2E 測試仍提供關鍵的整體系統信心；應保留一小組，而非全部移除。</text></feedback></answer>
+    <answer fraction="0"><text>把所有端對端測試移進提交階段</text><feedback><text>那會讓快速的第一道閘變慢；修法是重新調整比重，而非把慢測試移到更前面。</text></feedback></answer>
+    <generalfeedback><text>倒金字塔——太多慢的 E2E 測試、太少快的單元測試——會讓管線又慢又脆。修法是把涵蓋率往下推：把大多數檢查表達成快速、可靠的單元與整合測試（它們先跑、也跑最頻繁），只保留一小組聚焦的端對端測試以取得整體系統信心。這能同時恢復速度與健康的金字塔形狀。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>提交階段內部的排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在單一提交階段之內，為什麼合理的做法是先編譯、然後才跑單元測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>若程式碼連編譯都過不了，跑單元測試就沒有意義——立即回報編譯失敗是最便宜、最快的信號</text><feedback><text>正確——編譯是較便宜的前置條件；先在它上面失敗是可能中最快的回饋。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試必須先修改原始碼，編譯才能成功</text><feedback><text>單元測試不會改寫原始碼；編譯只是必須先通過的較便宜檢查。</text></feedback></answer>
+    <answer fraction="0"><text>編譯比單元測試慢，所以應該放最後</text><feedback><text>編譯通常是較快的前置條件；依速度與相依性排序會把它放最前。</text></feedback></answer>
+    <answer fraction="0"><text>順序對回饋時間毫無差別</text><feedback><text>有差別：若編譯失敗，跑單元測試是浪費，所以先編譯能給出最快的信號。</text></feedback></answer>
+    <generalfeedback><text>同樣的快速失敗邏輯也適用於階段之內。編譯是跑單元測試的便宜前置條件——若程式碼建不起來，單元測試就無法有意義地執行。立即回報編譯失敗是最快、最便宜的信號，所以它排最前面。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>隔離不是永久的藉口</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為了解除管線阻塞而隔離一個脆弱測試，可作為永久解法，於是該測試永遠不必修好。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——隔離是暫時措施；脆弱測試仍必須修好並回到閘中，否則涵蓋率會流失。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為錯誤：把測試永遠隔離會默默流失涵蓋率；隔離是為了爭取時間修根因，而非放棄它。</text></feedback></answer>
+    <generalfeedback><text>隔離能阻止脆弱測試擋住好建置，但在它被修好之前，它原本提供的涵蓋率就沒了。把隔離當成永久，代表那個行為不再被驗證，而且隔離往往會越積越多。正確的流程是：隔離、追蹤、修掉根因、再把測試恢復到閘中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>停用一道閘的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在期限壓力下，某團隊「只是為了把這次發佈弄出去」而停用了失敗的驗收閘。直接的風險是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個被測試標記為壞掉的建置，現在可以被提升到正式環境，使閘的用意落空</text><feedback><text>正確——移除閘讓一個已知失敗的建置前進，而這正是閘存在要防止的事。</text></feedback></answer>
+    <answer fraction="0"><text>管線從此永遠跑得更快，且毫無壞處</text><feedback><text>速度不是免費的：停用的閘讓壞掉的建置出貨，這是嚴重風險。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試會自動涵蓋驗收階段漏掉的一切</text><feedback><text>單元測試不能取代驗收涵蓋；停用閘讓那個行為在發佈前未被驗證。</text></feedback></answer>
+    <answer fraction="0"><text>沒事——閘只是建議性的，從不擋任何東西</text><feedback><text>閘本就該擋；停用一道閘正是特地放一個失敗的建置通過。</text></feedback></answer>
+    <generalfeedback><text>閘的整個職責就是阻止壞掉的建置前進。在壓力下停用它，代表一個被驗收測試標記為失敗的建置，可以被直接提升到正式環境。那正是持續測試設計要防止的結果；正確的做法是修掉失敗（若是脆弱測試，就只隔離那個測試），而不是打開閘。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>同一份產物、各環境組態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你把一份建好的產物提升通過測試環境與正式環境，但每個環境需要不同的資料庫 URL 與 API 金鑰。在不破壞「建置一次」的前提下，這該如何處理？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>保留同一份產物，把各環境專屬的設定以外部組態在部署時注入</text><feedback><text>正確——讓組態隨環境而異，而非產物，於是那份完全相同、已測過的二進位檔仍照樣出貨。</text></feedback></answer>
+    <answer fraction="0"><text>為每個環境重建產物，把值編譯進去</text><feedback><text>重建會破壞「建置一次」並重新引入漂移；應把差異以組態注入。</text></feedback></answer>
+    <answer fraction="0"><text>把正式環境的值寫死，並在包含測試環境的所有地方都用它</text><feedback><text>那會讓測試環境指向正式資源——不安全；應把各環境組態外部化。</text></feedback></answer>
+    <answer fraction="0"><text>放棄「建置一次」，因為各環境組態不同</text><feedback><text>不必——當差異被外部化為組態、而非烤進產物時，「建置一次」仍成立。</text></feedback></answer>
+    <generalfeedback><text>「建置一次、提升同一份產物」不代表每個環境都相同——而是代表可部署的位元組相同。環境差異（URL、金鑰、功能旗標）以外部組態在部署時注入。同一份已測過的產物到處都跑，只有它的組態改變，於是閘仍驗證的正是將出貨的那份二進位檔。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>維持提交階段的快速</text></name>
+    <questiontext format="html"><text><![CDATA[<p>隨著時間，某團隊的提交階段因為被加進緩慢的瀏覽器測試而攀升到 25 分鐘。什麼最能恢復快速回饋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把緩慢的瀏覽器測試移出到較晚的驗收階段，讓提交階段維持在快速的單元與靜態檢查</text><feedback><text>正確——把提交階段還原為快速檢查能恢復數分鐘等級的回饋；慢測試改在後面跑。</text></feedback></answer>
+    <answer fraction="0"><text>接受 25 分鐘為常態，並要開發者少一點提交</text><feedback><text>抑制提交會傷害 CI；應把慢測試移到後續階段，讓提交階段維持快速。</text></feedback></answer>
+    <answer fraction="0"><text>徹底刪掉這些瀏覽器測試以省時間</text><feedback><text>這些測試仍有價值；應把它們移到後續階段，而非流失涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>在提交階段加入更多測試，好讓單一次執行涵蓋一切</text><feedback><text>那會讓第一道閘更慢；提交階段必須維持快速，較重的測試放在下游。</text></feedback></answer>
+    <generalfeedback><text>提交階段的存在，是以快速的單元測試與靜態檢查在數分鐘內給回饋。緩慢的瀏覽器／E2E 測試屬於較晚的驗收階段。把它們移出去，能讓提交階段回到它快速、快速失敗的角色，而慢測試仍在下游跑（且可平行化）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>提交階段加更多 E2E 會傷害回饋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把許多緩慢的端對端測試加進提交階段能改善快速回饋，因為前面測到的更多。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——把緩慢的 E2E 測試堆進提交階段會讓它變慢，摧毀它本該提供的快速回饋。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為錯誤：提交階段必須維持快速；用慢的 E2E 測試塞滿它，會拖慢它本該給的那個回饋。</text></feedback></answer>
+    <generalfeedback><text>提交階段的價值在於速度——用快速的單元與靜態檢查在數分鐘內給回饋。緩慢的端對端測試屬於後續階段。把它們加進提交階段會膨脹其執行時間、破壞快速優先排序，於是回饋變慢，而非變好。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結合左移與右移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個細微的臭蟲溜過了各道閘，只在正式環境才現形。哪種策略能同時讓未來的發生更不可能、也更不具傷害性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>加入一個重現該臭蟲的快速上線前測試（左移），並強化正式環境監控／金絲雀推出（右移），以抓到並限制任何仍溜過去的問題</text><feedback><text>正確——左移降低再發生，右移限制影響範圍；兩者一起涵蓋發佈前後兩側。</text></feedback></answer>
+    <answer fraction="0"><text>只加入正式環境監控，完全不動上線前測試</text><feedback><text>只靠監控會太晚才抓到；也應加入一個左移測試，好讓同一個臭蟲在發佈前被擋下。</text></feedback></answer>
+    <answer fraction="0"><text>只加入一個上線前測試，並移除所有正式環境監控</text><feedback><text>上線前測試有幫助，但移除監控會失去下一次只在正式環境出現的意外的安全網。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不做，因為這臭蟲已經進過一次正式環境、不會再發生</text><feedback><text>臭蟲會再發生；你應同時加入回歸測試（左移）並強化正式環境防護（右移）。</text></feedback></answer>
+    <generalfeedback><text>穩健的回應會同時處理發佈的兩側。左移：加入一個重現該臭蟲的快速、具決定性的測試，好讓閘在未來擋下它——既便宜又早。右移：強化監控、合成檢查與漸進／金絲雀推出，好讓任何仍溜過去的問題能在正式環境被迅速偵測、其影響被控制。兩者一起同時降低發生的可能性與傷害。</text></generalfeedback>
+  </question>
+</quiz>

@@ -20455,6 +20455,2436 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "continuous-testing-pipeline": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What continuous testing is",
+          "text": "<p><em>Continuous testing</em> in a CI/CD pipeline is best described as:</p>",
+          "answers": [
+            {
+              "text": "Running automated tests at every stage of the pipeline so each change gets fast feedback",
+              "fraction": 100,
+              "feedback": "Correct — continuous testing weaves automated tests into every pipeline stage to give quick feedback on each change."
+            },
+            {
+              "text": "Running the whole test suite once, manually, just before the yearly release",
+              "fraction": 0,
+              "feedback": "That is infrequent manual testing at the end; continuous testing runs automatically throughout the pipeline."
+            },
+            {
+              "text": "Letting a dedicated QA team test after developers have finished all coding",
+              "fraction": 0,
+              "feedback": "That is a late, separate testing phase; continuous testing runs automatically at every stage as changes flow through."
+            },
+            {
+              "text": "Testing only the code paths that a customer has already reported as broken",
+              "fraction": 0,
+              "feedback": "That is narrow reactive testing; continuous testing exercises each change automatically at every stage."
+            }
+          ],
+          "generalFeedback": "Continuous testing means automated tests run at every stage of the CI/CD pipeline, so every change is validated quickly and the team gets fast feedback rather than waiting for a late, separate test phase.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a CI/CD pipeline is",
+          "text": "<p>In this context, a <em>CI/CD pipeline</em> is:</p>",
+          "answers": [
+            {
+              "text": "An automated sequence of stages that a change progresses through, from build and test toward release",
+              "fraction": 100,
+              "feedback": "Correct — a pipeline is an ordered, automated series of stages a build passes through on its way to release."
+            },
+            {
+              "text": "A single script that only compiles the code and produces no tests or deployment",
+              "fraction": 0,
+              "feedback": "Compiling alone is one step; a CI/CD pipeline is the whole automated sequence of stages toward release."
+            },
+            {
+              "text": "The physical network cable connecting developer laptops to the server",
+              "fraction": 0,
+              "feedback": "That is hardware; a CI/CD pipeline is an automated sequence of build/test/release stages."
+            },
+            {
+              "text": "A backlog of user stories waiting to be prioritised by the product owner",
+              "fraction": 0,
+              "feedback": "That is a product backlog; a pipeline is the automated path a change takes from build to release."
+            }
+          ],
+          "generalFeedback": "A CI/CD pipeline is an ordered, automated sequence of stages — typically build, test, and deploy steps — that each change flows through. Continuous integration (CI) covers the early integrate-and-test stages; continuous delivery/deployment (CD) covers the promotion toward release.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a pipeline stage is",
+          "text": "<p>A <em>stage</em> in a pipeline is:</p>",
+          "answers": [
+            {
+              "text": "One step in the sequence, with its own set of checks, that a build must pass before moving on",
+              "fraction": 100,
+              "feedback": "Correct — a stage is a discrete step with its own checks; the build advances only after it passes."
+            },
+            {
+              "text": "A copy of the source repository kept for backup purposes",
+              "fraction": 0,
+              "feedback": "That is a backup, not a pipeline stage; a stage is a step with checks the build must pass."
+            },
+            {
+              "text": "The final production server where users access the application",
+              "fraction": 0,
+              "feedback": "That may be the target of a deploy stage, but a stage itself is a step with its own checks."
+            },
+            {
+              "text": "A meeting where the team decides which features to build next",
+              "fraction": 0,
+              "feedback": "That is planning; a pipeline stage is an automated step the build must pass."
+            }
+          ],
+          "generalFeedback": "A stage is a discrete step in the pipeline — for example the commit stage, an integration stage, or an acceptance stage — that applies its own checks. The build progresses to the next stage only if the current stage passes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a quality gate is",
+          "text": "<p>A <em>quality gate</em> in a pipeline is:</p>",
+          "answers": [
+            {
+              "text": "A pass/fail checkpoint that a build must clear before it is allowed to advance to the next stage",
+              "fraction": 100,
+              "feedback": "Correct — a gate is a checkpoint; only a build that passes its checks is promoted onward."
+            },
+            {
+              "text": "A dashboard that shows how many commits each developer made this week",
+              "fraction": 0,
+              "feedback": "That is an activity report; a quality gate is a pass/fail checkpoint controlling promotion."
+            },
+            {
+              "text": "A rule that automatically increases the version number on every commit",
+              "fraction": 0,
+              "feedback": "That is versioning; a gate decides whether a build may advance based on its checks."
+            },
+            {
+              "text": "A queue that stores builds so they can all be released together at month end",
+              "fraction": 0,
+              "feedback": "That is batching releases; a gate is a checkpoint that blocks a failing build from advancing."
+            }
+          ],
+          "generalFeedback": "Each stage acts as a quality gate: it applies checks (such as its tests) and only a build that passes is promoted to the next stage. A failing gate stops the build, preventing a broken change from moving further down the pipeline.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What fail fast means",
+          "text": "<p>In a pipeline, the principle of <em>failing fast</em> means:</p>",
+          "answers": [
+            {
+              "text": "Detecting and reporting a failure as early and as quickly as possible, so the build stops before wasting more time",
+              "fraction": 100,
+              "feedback": "Correct — fail fast means surfacing failures early so the pipeline stops before running slower, costlier work."
+            },
+            {
+              "text": "Deploying to production as quickly as possible even if some tests have not run",
+              "fraction": 0,
+              "feedback": "That skips gates; failing fast is about detecting failures early, not deploying untested code."
+            },
+            {
+              "text": "Marking a test as failed the moment it runs slower than one second",
+              "fraction": 0,
+              "feedback": "Speed thresholds are unrelated; failing fast means catching real failures early and stopping."
+            },
+            {
+              "text": "Retrying a failing test rapidly until it eventually passes",
+              "fraction": 0,
+              "feedback": "Retrying to force a pass hides failures; failing fast means reporting them early and stopping."
+            }
+          ],
+          "generalFeedback": "Fail fast means arranging the pipeline so that failures are detected as early and cheaply as possible. The moment a stage fails, the build stops, so the team learns quickly and no time is spent running later, slower stages on a change that is already known to be broken.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What happens when a stage fails",
+          "text": "<p>When the automated tests in a pipeline stage fail, what should the pipeline do?</p>",
+          "answers": [
+            {
+              "text": "Stop and refuse to promote the build to the next stage until the failure is fixed",
+              "fraction": 100,
+              "feedback": "Correct — a failing gate halts the build and blocks promotion, so a broken change cannot advance."
+            },
+            {
+              "text": "Ignore the failure and continue promoting the build to production",
+              "fraction": 0,
+              "feedback": "That defeats the gate; a failing stage must stop the build, not wave it through."
+            },
+            {
+              "text": "Delete the failing tests so the stage turns green",
+              "fraction": 0,
+              "feedback": "Deleting tests hides the problem; a failing stage should stop the build until the real failure is fixed."
+            },
+            {
+              "text": "Promote the build but send an email that can be read later",
+              "fraction": 0,
+              "feedback": "Promoting a known-broken build defeats the gate; the pipeline should stop instead."
+            }
+          ],
+          "generalFeedback": "Each stage is a quality gate. If its tests fail, the pipeline stops and the build is not promoted; the change stays blocked until the failure is fixed. This is exactly what prevents a broken build from reaching later stages or production.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contents of the commit stage",
+          "text": "<p>In Humble and Farley's Continuous Delivery, the <em>commit stage</em> typically runs:</p>",
+          "answers": [
+            {
+              "text": "Compilation, unit tests, and fast static checks — quick checks that give feedback in minutes",
+              "fraction": 100,
+              "feedback": "Correct — the commit stage compiles, runs unit tests and fast checks, aiming for feedback within a few minutes."
+            },
+            {
+              "text": "A full suite of slow end-to-end tests against a production-like environment",
+              "fraction": 0,
+              "feedback": "Slow end-to-end tests belong in a later acceptance stage; the commit stage stays fast."
+            },
+            {
+              "text": "Manual exploratory testing by the whole QA team",
+              "fraction": 0,
+              "feedback": "Manual exploratory testing is a later, human activity; the commit stage runs fast automated checks."
+            },
+            {
+              "text": "A one-hour load test simulating thousands of concurrent users",
+              "fraction": 0,
+              "feedback": "Load testing is slow and comes much later; the commit stage is for quick checks like compile and unit tests."
+            }
+          ],
+          "generalFeedback": "The commit stage is the first gate: it compiles the code, runs the unit tests, and performs fast static checks. It is designed to be quick (ideally minutes) so developers get near-immediate feedback that their commit did not break the basics.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contents of the acceptance stage",
+          "text": "<p>The <em>acceptance stage</em> that comes after the commit stage typically runs:</p>",
+          "answers": [
+            {
+              "text": "Automated acceptance tests that check the system behaves correctly from the user's point of view",
+              "fraction": 100,
+              "feedback": "Correct — the acceptance stage runs automated acceptance tests against expected user-facing behaviour."
+            },
+            {
+              "text": "The compiler, to check the code still builds",
+              "fraction": 0,
+              "feedback": "Compilation is part of the earlier commit stage; the acceptance stage runs automated acceptance tests."
+            },
+            {
+              "text": "Only the unit tests, re-run a second time for safety",
+              "fraction": 0,
+              "feedback": "Unit tests belong to the commit stage; the acceptance stage validates end-to-end user behaviour."
+            },
+            {
+              "text": "A spell-check of the source-code comments",
+              "fraction": 0,
+              "feedback": "That is not acceptance testing; the acceptance stage runs automated acceptance tests of system behaviour."
+            }
+          ],
+          "generalFeedback": "After the fast commit stage, the acceptance stage runs automated acceptance tests: slower, higher-level tests that verify the system does what users expect, usually against a production-like environment. Because they are slower, they run after — and only if — the commit stage has passed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What shift-left means",
+          "text": "<p>The term <em>shift-left</em> testing means:</p>",
+          "answers": [
+            {
+              "text": "Testing earlier in the pipeline (and earlier in development) so defects are caught sooner",
+              "fraction": 100,
+              "feedback": "Correct — shift-left moves testing to the left, earlier in the flow, to catch defects sooner and cheaper."
+            },
+            {
+              "text": "Testing only after the software has been released to production",
+              "fraction": 0,
+              "feedback": "Testing after release is shift-right; shift-left moves testing earlier."
+            },
+            {
+              "text": "Moving the test files into a folder on the left side of the repository",
+              "fraction": 0,
+              "feedback": "It is about timing in the process, not folder layout; shift-left means testing earlier."
+            },
+            {
+              "text": "Reducing the number of tests so the pipeline finishes faster",
+              "fraction": 0,
+              "feedback": "Shift-left is about when you test, not cutting tests; it means testing earlier to catch defects sooner."
+            }
+          ],
+          "generalFeedback": "Shift-left means moving testing activities earlier — to the left — in the development and pipeline flow. Catching defects in the commit stage (or even while writing code) is far cheaper and faster than catching them late, so continuous testing pushes fast checks as early as possible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What shift-right means",
+          "text": "<p>The term <em>shift-right</em> testing means:</p>",
+          "answers": [
+            {
+              "text": "Testing and observing in production — through monitoring, canary releases, and synthetic checks — after deployment",
+              "fraction": 100,
+              "feedback": "Correct — shift-right extends validation into production using monitoring, canaries, and synthetic checks."
+            },
+            {
+              "text": "Running the unit tests earlier in the commit stage",
+              "fraction": 0,
+              "feedback": "Running tests earlier is shift-left; shift-right validates in production after deployment."
+            },
+            {
+              "text": "Moving the acceptance tests before the commit stage",
+              "fraction": 0,
+              "feedback": "That is a reordering, not shift-right; shift-right means observing and testing in production."
+            },
+            {
+              "text": "Deleting production monitoring to keep the pipeline simple",
+              "fraction": 0,
+              "feedback": "That removes shift-right practices; shift-right adds monitoring, canaries, and synthetic checks in production."
+            }
+          ],
+          "generalFeedback": "Shift-right means extending validation to the right of release — into production. Techniques include monitoring and observability, canary releases, synthetic (smoke) checks against live systems, and feature flags. It complements pre-production testing by catching issues that only appear with real traffic and real environments.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CI means integrate and test frequently",
+          "text": "<p>Continuous integration (CI) means integrating changes into the shared mainline frequently and testing them automatically each time.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — CI is about integrating to mainline often and running automated tests on every integration."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: CI is exactly frequent integration to the mainline with automated testing each time, which is what enables CD."
+            }
+          ],
+          "generalFeedback": "Continuous integration means every developer merges to the shared mainline frequently, and each integration triggers an automated build and test run. Keeping the mainline continuously verified is what makes continuous delivery (promoting builds toward release) possible."
+        },
+        {
+          "type": "truefalse",
+          "name": "Green pipeline means gates passed",
+          "text": "<p>A \"green\" pipeline run means every stage's quality gate passed and the build was allowed to advance.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — green means each stage's checks passed, so the build progressed through the gates."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: a green run is precisely one where every stage's gate passed and the build advanced."
+            }
+          ],
+          "generalFeedback": "A green pipeline indicates that each stage ran its checks and passed, so the build cleared every gate. A red pipeline means some gate failed, and the build is blocked at that stage. Keeping the pipeline green is the everyday goal of continuous testing."
+        },
+        {
+          "type": "truefalse",
+          "name": "Commit-stage failure blocks later stages",
+          "text": "<p>If the commit stage fails, the pipeline still goes ahead and runs the acceptance stage on that same build anyway.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a failed commit stage stops the build; later stages do not run on a build that already failed a gate."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: a failing gate stops the build, so the acceptance stage is not run on a build the commit stage already rejected."
+            }
+          ],
+          "generalFeedback": "Each stage is a gate. If the commit stage fails, the build is not promoted, so the acceptance stage never runs on it. That is the point of ordering fast checks first: a failure there stops the pipeline before any slower stage is even attempted."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of a quality gate",
+          "text": "<p>What is the main purpose of putting a quality gate at each stage?</p>",
+          "answers": [
+            {
+              "text": "To prevent a broken build from being promoted any further down the pipeline",
+              "fraction": 100,
+              "feedback": "Correct — gates stop a failing build from advancing, keeping broken changes out of later stages and production."
+            },
+            {
+              "text": "To make the pipeline take longer so developers commit less often",
+              "fraction": 0,
+              "feedback": "Gates are not meant to slow people down; they stop broken builds from advancing."
+            },
+            {
+              "text": "To count how many lines of code each build contains",
+              "fraction": 0,
+              "feedback": "Line counting is unrelated; a gate's purpose is to block a failing build from being promoted."
+            },
+            {
+              "text": "To guarantee the software has zero defects of any kind forever",
+              "fraction": 0,
+              "feedback": "No gate can guarantee zero defects; its purpose is to stop known failures from being promoted."
+            }
+          ],
+          "generalFeedback": "A quality gate exists so that a build which fails its checks cannot advance. This keeps broken changes from progressing toward production and gives each stage the authority to stop the line, which is the core safety property of continuous testing.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Automated tests at every stage",
+          "text": "<p>Continuous testing aims to run automated tests at every stage of the pipeline so the team gets fast feedback on each change.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — that is the definition: automated tests at every stage, giving fast feedback on each change."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: running automated tests at every stage for fast feedback is exactly what continuous testing is."
+            }
+          ],
+          "generalFeedback": "The essence of continuous testing is that automated tests are embedded at every stage of the CI/CD pipeline. Every change is validated as it flows through, so problems surface quickly instead of accumulating until a late, separate testing phase."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why fast cheap tests run first",
+          "text": "<p>Why are fast, cheap, high-confidence tests placed at the very start of the pipeline?</p>",
+          "answers": [
+            {
+              "text": "So the most likely, cheapest-to-detect failures are caught in seconds, before the slow, expensive suites ever run",
+              "fraction": 100,
+              "feedback": "Correct — running quick checks first gives the fastest feedback and stops the build before costly stages run."
+            },
+            {
+              "text": "Because fast tests are always more important than slow tests, which can be deleted",
+              "fraction": 0,
+              "feedback": "Slow tests still add value; the point of ordering is fast feedback, not deleting the slow suites."
+            },
+            {
+              "text": "Because the pipeline can only run one test at a time and fast tests are alphabetically first",
+              "fraction": 0,
+              "feedback": "Ordering is by speed and cost, not alphabetical, and stages can parallelise; the goal is quick feedback on likely failures."
+            },
+            {
+              "text": "So developers never have to look at the slow test results at all",
+              "fraction": 0,
+              "feedback": "The slow tests still run and matter; fast-first ordering simply surfaces cheap failures sooner."
+            }
+          ],
+          "generalFeedback": "Ordering by speed and cost means the quick, high-signal checks run first. If a change is broken in a basic way, you learn in seconds and the pipeline stops — you never pay for the slow, expensive acceptance suite. This maximises feedback speed while minimising wasted machine time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ordering the pipeline stages",
+          "text": "<p>Which ordering of stages best follows the fail-fast, order-by-speed-and-cost principle?</p>",
+          "answers": [
+            {
+              "text": "Commit (compile + unit) → integration → automated acceptance / E2E → deploy",
+              "fraction": 100,
+              "feedback": "Correct — fast and cheap first, then progressively slower and costlier stages, then deploy."
+            },
+            {
+              "text": "Automated acceptance / E2E → integration → commit (compile + unit) → deploy",
+              "fraction": 0,
+              "feedback": "This runs the slowest, most expensive suite first — the opposite of fail-fast ordering."
+            },
+            {
+              "text": "Deploy → commit (compile + unit) → integration → acceptance",
+              "fraction": 0,
+              "feedback": "Deploying before any tests defeats the gates; fast checks must come before deployment."
+            },
+            {
+              "text": "Integration → deploy → commit (compile + unit) → acceptance",
+              "fraction": 0,
+              "feedback": "This scatters fast and slow checks and deploys in the middle; order by increasing speed and cost instead."
+            }
+          ],
+          "generalFeedback": "Stages should be ordered by increasing time and cost: the fast, cheap commit stage first, then integration, then the slower automated acceptance/E2E suite, and finally deploy. This way the cheapest, most likely failures stop the build first and the expensive stages only run on changes that already look healthy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Commit stage versus acceptance stage",
+          "text": "<p>Which statement correctly contrasts the commit stage with the acceptance stage?</p>",
+          "answers": [
+            {
+              "text": "The commit stage is fast (compile + unit + static checks); the acceptance stage is slower and runs automated acceptance tests of user-facing behaviour",
+              "fraction": 100,
+              "feedback": "Correct — fast, low-level commit stage first; slower, higher-level automated acceptance stage after."
+            },
+            {
+              "text": "The commit stage runs slow end-to-end tests; the acceptance stage just compiles the code",
+              "fraction": 0,
+              "feedback": "Reversed — compilation is in the commit stage, and end-to-end tests belong to the later acceptance stage."
+            },
+            {
+              "text": "Both stages run exactly the same tests, only on different days",
+              "fraction": 0,
+              "feedback": "They run different kinds of tests: fast unit-level in commit, slower acceptance-level in acceptance."
+            },
+            {
+              "text": "The acceptance stage runs first because it is the most important",
+              "fraction": 0,
+              "feedback": "Importance does not set order; the fast commit stage runs first so failures are caught cheaply."
+            }
+          ],
+          "generalFeedback": "The commit stage is the fast first gate — compile, unit tests, fast static analysis — giving feedback in minutes. The acceptance stage runs later with slower, higher-level automated acceptance tests against a production-like environment. Fast and cheap runs first; slow and thorough runs after.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Build once and promote the same artifact",
+          "text": "<p>Continuous Delivery recommends building the deployable artifact once and promoting that same artifact through the stages. Why?</p>",
+          "answers": [
+            {
+              "text": "So every stage tests the exact bytes that will ship, eliminating differences introduced by rebuilding",
+              "fraction": 100,
+              "feedback": "Correct — one artifact means each stage validates precisely what will be released, with no rebuild drift."
+            },
+            {
+              "text": "Because rebuilding at each stage is faster than reusing the artifact",
+              "fraction": 0,
+              "feedback": "Rebuilding repeatedly is slower and risks drift; the reason to build once is to test the exact shipping bytes."
+            },
+            {
+              "text": "Because the artifact must be recompiled to match each environment's operating system",
+              "fraction": 0,
+              "feedback": "Environment differences are handled by configuration, not by rebuilding; you promote one artifact."
+            },
+            {
+              "text": "So each stage can quietly change the code to fix any failures it finds",
+              "fraction": 0,
+              "feedback": "Stages must not alter the artifact; building once guarantees the tested bytes are the shipped bytes."
+            }
+          ],
+          "generalFeedback": "If you rebuild at every stage, a later stage might test a subtly different binary than the one you release, so passing gates prove nothing about the shipped bytes. Building once and promoting the identical artifact means every gate validates exactly what will reach production; only configuration varies per environment.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the shift-left activity",
+          "text": "<p>Which of these is an example of <em>shift-left</em> testing?</p>",
+          "answers": [
+            {
+              "text": "Running fast unit tests and static analysis in the commit stage, right after each push",
+              "fraction": 100,
+              "feedback": "Correct — pushing tests early into the commit stage is exactly shift-left."
+            },
+            {
+              "text": "Monitoring error rates on the live service after release",
+              "fraction": 0,
+              "feedback": "Post-release monitoring is shift-right; shift-left is testing early in the pipeline."
+            },
+            {
+              "text": "Running a canary release to a small slice of production traffic",
+              "fraction": 0,
+              "feedback": "Canary releases happen in production — that is shift-right, not shift-left."
+            },
+            {
+              "text": "Reading synthetic smoke-check results from the production environment",
+              "fraction": 0,
+              "feedback": "Synthetic checks in production are shift-right; shift-left moves testing earlier in the pipeline."
+            }
+          ],
+          "generalFeedback": "Shift-left pushes testing earlier. Running unit tests and static checks in the commit stage — immediately after a push, before anything is deployed — is the canonical shift-left practice: cheap, fast, and early.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the shift-right activity",
+          "text": "<p>Which of these is an example of <em>shift-right</em> testing?</p>",
+          "answers": [
+            {
+              "text": "Releasing to a small canary group in production and watching monitoring dashboards before rolling out wider",
+              "fraction": 100,
+              "feedback": "Correct — canary releases plus production monitoring are classic shift-right practices."
+            },
+            {
+              "text": "Adding more unit tests to the commit stage",
+              "fraction": 0,
+              "feedback": "That is shift-left (testing earlier); shift-right observes and tests in production."
+            },
+            {
+              "text": "Compiling the code and running static analysis on every push",
+              "fraction": 0,
+              "feedback": "Compile-and-static-check is an early, shift-left activity, not shift-right."
+            },
+            {
+              "text": "Writing acceptance tests before the feature is implemented",
+              "fraction": 0,
+              "feedback": "Writing tests early is a shift-left idea; shift-right happens after deployment, in production."
+            }
+          ],
+          "generalFeedback": "Shift-right validates in production. A canary release exposes the new build to a small slice of real traffic while monitoring and synthetic checks watch for problems, so issues that only appear under real conditions are caught before a full rollout. Monitoring, canaries, and synthetic/smoke checks are all shift-right.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why flaky tests are worse in a pipeline",
+          "text": "<p>Why is a flaky test especially damaging when it sits inside a CI/CD pipeline?</p>",
+          "answers": [
+            {
+              "text": "It can fail a gate at random, blocking promotion of good builds and eroding the team's trust in the pipeline",
+              "fraction": 100,
+              "feedback": "Correct — random failures halt good builds and teach the team to ignore red runs, undermining the gates."
+            },
+            {
+              "text": "It makes the compiler produce a larger binary",
+              "fraction": 0,
+              "feedback": "Flakiness has nothing to do with binary size; the harm is randomly blocking the pipeline and eroding trust."
+            },
+            {
+              "text": "It permanently deletes the build artifact when it fails",
+              "fraction": 0,
+              "feedback": "A flaky test does not delete artifacts; it randomly fails gates and undermines confidence in results."
+            },
+            {
+              "text": "It only affects the developer's local machine, never the pipeline",
+              "fraction": 0,
+              "feedback": "The opposite: in a shared pipeline a flaky test blocks everyone's builds and erodes trust."
+            }
+          ],
+          "generalFeedback": "In a pipeline a flaky test randomly turns a gate red, so a perfectly good build is blocked and cannot be promoted. Worse, people start re-running or ignoring red pipelines, so a genuine failure can be dismissed as \"just flaky\". Flakiness therefore both wastes time and destroys the trust the gates depend on.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feedback time from fast-first ordering",
+          "text": "<p>A change contains a basic compile error. The commit stage takes 3 minutes; the acceptance stage takes 40 minutes. With fast-first ordering, how quickly does the team learn the build is broken?</p>",
+          "answers": [
+            {
+              "text": "In about 3 minutes — the commit stage fails and the pipeline stops before the 40-minute stage runs",
+              "fraction": 100,
+              "feedback": "Correct — the fast commit stage catches it first, so feedback arrives in minutes and the slow stage is skipped."
+            },
+            {
+              "text": "In about 43 minutes — both stages must finish before any result is reported",
+              "fraction": 0,
+              "feedback": "No — a failed commit stage stops the pipeline immediately; the 40-minute stage never runs."
+            },
+            {
+              "text": "In about 40 minutes — the acceptance stage always runs first",
+              "fraction": 0,
+              "feedback": "The fast commit stage runs first; it fails in ~3 minutes and the acceptance stage is skipped."
+            },
+            {
+              "text": "Never — a compile error cannot be detected by a pipeline",
+              "fraction": 0,
+              "feedback": "Compilation is exactly what the commit stage checks; it fails fast in about 3 minutes."
+            }
+          ],
+          "generalFeedback": "Because the cheap commit stage runs first and a failing gate stops the pipeline, a basic compile error is reported in about 3 minutes. The expensive 40-minute acceptance stage is never started on that broken build. This is precisely the payoff of ordering by speed and cost.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Rebuild-per-stage is not recommended",
+          "text": "<p>Recompiling a fresh artifact from source at each pipeline stage is the recommended Continuous Delivery practice.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — the recommended practice is to build once and promote the same artifact, not rebuild per stage."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: rebuilding per stage risks drift; you should build the artifact once and promote that identical artifact through the stages."
+            }
+          ],
+          "generalFeedback": "Continuous Delivery says build the deployable artifact once and promote that exact artifact through every stage. Rebuilding at each stage risks testing different bytes than you ship, so a passing gate would no longer guarantee anything about the released binary."
+        },
+        {
+          "type": "multichoice",
+          "name": "Test pyramid inside the pipeline",
+          "text": "<p>How does the test pyramid relate to a well-ordered pipeline?</p>",
+          "answers": [
+            {
+              "text": "Many fast unit tests run earliest and most often, with fewer, slower end-to-end tests running later",
+              "fraction": 100,
+              "feedback": "Correct — the pyramid's wide base of fast unit tests maps onto the early commit stage; the narrow E2E tip runs later."
+            },
+            {
+              "text": "The pipeline should run mostly end-to-end tests first and only a few unit tests at the end",
+              "fraction": 0,
+              "feedback": "That inverts the pyramid; the wide base of fast unit tests should run first, not the few slow E2E tests."
+            },
+            {
+              "text": "The pyramid says every stage must contain an equal number of each kind of test",
+              "fraction": 0,
+              "feedback": "The pyramid is deliberately unequal: many unit tests, fewer integration, fewest E2E."
+            },
+            {
+              "text": "The pyramid applies only to manual testing and has nothing to do with pipelines",
+              "fraction": 0,
+              "feedback": "It maps directly onto pipeline ordering: the fast base runs early, the slow tip runs late."
+            }
+          ],
+          "generalFeedback": "The test pyramid's wide base of many fast unit tests corresponds to the early commit stage — these run first and most frequently. The smaller number of slower integration tests, then the few slowest end-to-end tests, run in later stages. The pyramid shape and the fast-first pipeline ordering are the same idea seen two ways.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What promote means",
+          "text": "<p>In a pipeline, to <em>promote</em> a build means to:</p>",
+          "answers": [
+            {
+              "text": "Advance the same build/artifact to the next stage after it passes the current gate",
+              "fraction": 100,
+              "feedback": "Correct — promotion moves the identical build forward to the next stage once it clears the gate."
+            },
+            {
+              "text": "Give the developer who wrote it a pay rise",
+              "fraction": 0,
+              "feedback": "That is a career sense of the word; here promote means advancing the build to the next stage."
+            },
+            {
+              "text": "Rebuild the code from scratch for the next environment",
+              "fraction": 0,
+              "feedback": "Promotion moves the same artifact forward; rebuilding would defeat build-once-promote-same-artifact."
+            },
+            {
+              "text": "Advertise the release on the company blog",
+              "fraction": 0,
+              "feedback": "That is marketing; promoting a build means advancing it to the next pipeline stage."
+            }
+          ],
+          "generalFeedback": "Promotion is moving a build that has passed one stage's gate onward to the next stage. Combined with build-once, the identical artifact is what advances — so every gate it clears applies to the exact bytes that may eventually be released.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Acceptance does not run before commit",
+          "text": "<p>To fail fast, the slow automated acceptance stage should run before the fast commit stage.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — failing fast means the fast commit stage runs first; the slow acceptance stage comes after."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: running the slow stage first is the opposite of fail-fast. The cheap commit stage must run first."
+            }
+          ],
+          "generalFeedback": "Fail-fast ordering puts the fast, cheap commit stage first so basic failures are caught in minutes. The slower acceptance stage runs afterward, only on builds that already passed the commit gate. Running acceptance first would waste time and defeat the whole purpose."
+        },
+        {
+          "type": "multichoice",
+          "name": "Parallelising slow suites",
+          "text": "<p>A slow acceptance suite takes too long and delays feedback. Which technique most directly shortens it without dropping coverage?</p>",
+          "answers": [
+            {
+              "text": "Split the suite and run the tests in parallel across several workers",
+              "fraction": 100,
+              "feedback": "Correct — parallelising the slow suite cuts wall-clock time while keeping all the tests."
+            },
+            {
+              "text": "Delete half of the acceptance tests at random",
+              "fraction": 0,
+              "feedback": "That drops coverage; parallelising keeps every test but runs them concurrently."
+            },
+            {
+              "text": "Run the whole pipeline twice to be sure",
+              "fraction": 0,
+              "feedback": "Running twice makes it slower, not faster; parallelising the suite is the right lever."
+            },
+            {
+              "text": "Move the acceptance tests to the very start of the pipeline",
+              "fraction": 0,
+              "feedback": "Putting the slow suite first breaks fast-first ordering; parallelise it instead to keep it fast where it belongs."
+            }
+          ],
+          "generalFeedback": "Parallelisation distributes a slow suite across multiple workers, cutting the wall-clock time to a fraction while keeping every test. This keeps the pipeline fast and the feedback quick without sacrificing coverage — a standard way to stop a large acceptance/E2E suite from becoming a bottleneck.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Placing a test in the right stage",
+          "text": "<p>A test drives the full application through its UI, a real database, and an external payment sandbox, taking about 90 seconds. Where does it belong?</p>",
+          "answers": [
+            {
+              "text": "In a later automated acceptance / E2E stage, because it is slow and exercises the whole integrated system",
+              "fraction": 100,
+              "feedback": "Correct — a slow, full-stack, end-to-end test belongs in the later acceptance stage, not the fast commit stage."
+            },
+            {
+              "text": "In the commit stage, so it runs on every push in a few seconds",
+              "fraction": 0,
+              "feedback": "At 90 seconds and full-stack, it is far too slow and broad for the fast commit stage."
+            },
+            {
+              "text": "Nowhere — such a test should never be written",
+              "fraction": 0,
+              "feedback": "End-to-end tests are valuable; they just belong in a later stage, run in smaller numbers."
+            },
+            {
+              "text": "In the commit stage, but only run it once a month",
+              "fraction": 0,
+              "feedback": "Fast-first ordering keeps the commit stage quick; a slow full-stack test belongs in the acceptance stage."
+            }
+          ],
+          "generalFeedback": "A slow test that drives the UI, a real database, and an external service is an end-to-end/acceptance test. It belongs in a later stage where slower, higher-level tests run, not in the fast commit stage whose job is to give feedback in minutes with quick unit and static checks.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Shift-right complements pre-prod tests",
+          "text": "<p>Shift-right techniques such as production monitoring and canary releases complement pre-production testing rather than replacing the need for it.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — shift-right adds production-time confidence on top of, not instead of, pre-production gates."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: shift-right complements pre-prod testing; you still want fast gates before release, plus production observation after."
+            }
+          ],
+          "generalFeedback": "Shift-right catches issues that only surface with real traffic and real environments, but it acts after release. You still want the fast pre-production gates to stop broken builds before they ship. The two are complementary layers of the same continuous-testing strategy."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Diagnose a slow-suite-first pipeline",
+          "text": "<p>A pipeline runs a 35-minute end-to-end suite before it compiles the code or runs any unit tests. Developers wait over half an hour to learn about typos and compile errors. What is the best fix?</p>",
+          "answers": [
+            {
+              "text": "Reorder so compilation and unit tests run first in a fast commit stage, and the E2E suite runs only afterward",
+              "fraction": 100,
+              "feedback": "Correct — moving the cheap checks earlier restores fast-first ordering, so trivial failures are caught in minutes."
+            },
+            {
+              "text": "Remove the compile and unit-test steps so only the E2E suite remains",
+              "fraction": 0,
+              "feedback": "That destroys the fast feedback layer; the fix is to run the cheap checks first, not delete them."
+            },
+            {
+              "text": "Tell developers to stop making typos so the E2E suite passes first time",
+              "fraction": 0,
+              "feedback": "You cannot eliminate mistakes; the pipeline should catch cheap errors early by ordering fast checks first."
+            },
+            {
+              "text": "Run the 35-minute E2E suite twice to be certain before compiling",
+              "fraction": 0,
+              "feedback": "That doubles the delay; the fix is to put fast compile and unit checks before the slow suite."
+            }
+          ],
+          "generalFeedback": "The pipeline violates order-by-speed-and-cost: it runs the most expensive suite before the cheapest checks. Reordering so a fast commit stage (compile + unit) runs first means compile errors and typos fail in minutes and the 35-minute suite only runs on builds that already passed the cheap gate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A flaky E2E test blocks every deploy",
+          "text": "<p>One end-to-end test fails intermittently for reasons unrelated to the code, turning the pipeline red and blocking every deploy. What is the best response?</p>",
+          "answers": [
+            {
+              "text": "Quarantine it out of the blocking gate, file a ticket, and fix its root cause — while keeping the rest of the suite gating deploys",
+              "fraction": 100,
+              "feedback": "Correct — stop it from blocking good builds, but track and fix it so coverage is restored, not silently lost."
+            },
+            {
+              "text": "Keep it in the gate and re-run the whole pipeline until it happens to pass each time",
+              "fraction": 0,
+              "feedback": "Blindly re-running wastes time and normalises red pipelines; quarantine and fix the flaky test instead."
+            },
+            {
+              "text": "Delete the test permanently and never look at that behaviour again",
+              "fraction": 0,
+              "feedback": "Deleting it loses real coverage; quarantine plus a fix keeps the check once it is made reliable."
+            },
+            {
+              "text": "Disable every gate so no test can ever block a deploy",
+              "fraction": 0,
+              "feedback": "Removing all gates lets broken builds ship; isolate just the flaky test and fix it, keeping the other gates."
+            }
+          ],
+          "generalFeedback": "A flaky test blocking deploys must not stay in the gate as-is, but you also must not lose its coverage or normalise ignoring red builds. Quarantine it (move it out of the blocking set), track it with a ticket, and fix the root cause so it becomes deterministic and can rejoin the gate. Meanwhile the rest of the suite keeps protecting deploys.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cut feedback time with parallelism",
+          "text": "<p>An acceptance stage of 600 independent tests runs sequentially in 30 minutes and is the main feedback bottleneck. Which change cuts feedback time while preserving coverage?</p>",
+          "answers": [
+            {
+              "text": "Shard the 600 tests across, say, 6 parallel workers so the stage finishes in roughly a sixth of the time",
+              "fraction": 100,
+              "feedback": "Correct — sharding independent tests across workers cuts wall-clock time without dropping any test."
+            },
+            {
+              "text": "Keep it sequential but reduce logging so it feels faster",
+              "fraction": 0,
+              "feedback": "Less logging barely changes runtime; parallelising the independent tests is what actually cuts feedback time."
+            },
+            {
+              "text": "Move all 600 tests into the commit stage so they run on every push",
+              "fraction": 0,
+              "feedback": "That makes the fast commit stage slow and breaks fast-first ordering; parallelise the acceptance stage instead."
+            },
+            {
+              "text": "Run only the first 100 tests and assume the rest would pass",
+              "fraction": 0,
+              "feedback": "Skipping 500 tests drops coverage; sharding runs all of them, just concurrently."
+            }
+          ],
+          "generalFeedback": "When tests are independent, distributing them across parallel workers cuts the wall-clock time roughly in proportion to the number of workers while running every test. Sharding 600 tests over 6 workers takes the stage from ~30 minutes toward ~5, restoring fast feedback without sacrificing coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why gates stop a broken build",
+          "text": "<p>Why does giving each stage the authority to fail the pipeline actually protect production?</p>",
+          "answers": [
+            {
+              "text": "A build can only reach production by clearing every gate, so any stage that detects a defect stops it before promotion",
+              "fraction": 100,
+              "feedback": "Correct — because promotion requires passing all gates, a single failing gate is enough to keep a defect out of production."
+            },
+            {
+              "text": "Gates make the code run faster in production",
+              "fraction": 0,
+              "feedback": "Gates do not change runtime performance; they block broken builds from being promoted."
+            },
+            {
+              "text": "Gates guarantee the software is mathematically proven correct",
+              "fraction": 0,
+              "feedback": "Gates catch what their tests cover, not a formal proof; their protection is blocking detected failures from advancing."
+            },
+            {
+              "text": "Gates let broken builds through but log them for later",
+              "fraction": 0,
+              "feedback": "The opposite — a gate stops a failing build; logging-and-promoting would not protect production."
+            }
+          ],
+          "generalFeedback": "Reaching production requires clearing every gate in sequence. That means any single stage that detects a problem is sufficient to halt promotion, so a defect its tests can catch never advances. The protection is only as good as the checks in the gates, but the stop-the-line authority is what keeps caught failures out of production.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rebuild-per-stage produces a mismatch",
+          "text": "<p>A pipeline recompiles from source at each stage. Acceptance tests pass, but the binary deployed to production behaves differently and fails. What is the most likely root cause and fix?</p>",
+          "answers": [
+            {
+              "text": "Each rebuild produced slightly different bytes, so acceptance tested a different binary than production ran; build the artifact once and promote that same artifact",
+              "fraction": 100,
+              "feedback": "Correct — rebuilding per stage breaks the guarantee; building once and promoting the identical artifact fixes it."
+            },
+            {
+              "text": "The acceptance tests are too strict; loosen them until production passes",
+              "fraction": 0,
+              "feedback": "Loosening tests hides the mismatch; the real fix is to test and ship the same artifact."
+            },
+            {
+              "text": "Production is simply unlucky; re-deploy until it works",
+              "fraction": 0,
+              "feedback": "Re-deploying the same drifting process will not fix a rebuild mismatch; build once and promote that artifact."
+            },
+            {
+              "text": "Unit tests were skipped; add more unit tests to the deploy stage",
+              "fraction": 0,
+              "feedback": "The issue is artifact drift from rebuilding, not missing unit tests; build once and promote the same bytes."
+            }
+          ],
+          "generalFeedback": "When every stage rebuilds, the artifact tested in acceptance is not guaranteed to be the artifact deployed — differing dependency versions, timestamps, or build flags can change behaviour. The Continuous Delivery fix is build-once-promote-same-artifact: create the deployable once and pass that identical binary through every gate, so acceptance validates exactly what production runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Balancing thorough gates against speed",
+          "text": "<p>A team wants very thorough gates but also fast feedback. Which strategy balances the two best?</p>",
+          "answers": [
+            {
+              "text": "Keep a fast, high-signal commit gate for immediate feedback and run the slower, more thorough suites in later stages (parallelised)",
+              "fraction": 100,
+              "feedback": "Correct — layering fast gates first and thorough suites later keeps feedback quick without giving up depth."
+            },
+            {
+              "text": "Put every test in the commit stage so nothing is ever missed",
+              "fraction": 0,
+              "feedback": "That makes the first gate slow and destroys fast feedback; spread tests across staged gates instead."
+            },
+            {
+              "text": "Drop all slow tests so the pipeline is always fast",
+              "fraction": 0,
+              "feedback": "Dropping thorough tests sacrifices confidence; move them to later stages and parallelise rather than delete them."
+            },
+            {
+              "text": "Run everything manually so a human can judge how thorough to be",
+              "fraction": 0,
+              "feedback": "Manual gating is slow and non-repeatable; use layered automated stages ordered by speed and cost."
+            }
+          ],
+          "generalFeedback": "The tension between thoroughness and speed is resolved by layering: a fast, high-signal commit gate gives feedback in minutes, while slower, more thorough integration and acceptance suites run in later stages and can be parallelised. Fast-first ordering means depth is added progressively without delaying the earliest feedback.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing a shift-right technique",
+          "text": "<p>A failure mode only appears under real production traffic patterns that the team cannot reproduce pre-release. Which approach best guards against it?</p>",
+          "answers": [
+            {
+              "text": "Roll out gradually with a canary plus production monitoring and synthetic checks, so problems are caught on a small slice before full rollout",
+              "fraction": 100,
+              "feedback": "Correct — canary plus monitoring/synthetic checks is shift-right, aimed precisely at production-only failure modes."
+            },
+            {
+              "text": "Add still more unit tests to the commit stage",
+              "fraction": 0,
+              "feedback": "Unit tests cannot reproduce real production traffic; a shift-right canary with monitoring is the right guard."
+            },
+            {
+              "text": "Assume pre-release gates are enough and skip production observation",
+              "fraction": 0,
+              "feedback": "Pre-release gates cannot see production-only conditions; you need shift-right observation for that."
+            },
+            {
+              "text": "Disable monitoring to reduce noise during the release",
+              "fraction": 0,
+              "feedback": "That removes exactly the shift-right signal you need to catch a production-only failure early."
+            }
+          ],
+          "generalFeedback": "Some failures only manifest with real traffic, scale, or data that cannot be reproduced pre-release. Shift-right techniques address this: a canary release exposes a small slice of production to the new build while monitoring, observability, and synthetic checks watch for regressions, so a problem is caught and rolled back before a full rollout. It complements — does not replace — the pre-production gates.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fixing an inverted pyramid in the pipeline",
+          "text": "<p>A pipeline's slowness comes from hundreds of end-to-end tests and very few unit tests — an inverted pyramid. What is the healthiest long-term fix?</p>",
+          "answers": [
+            {
+              "text": "Push coverage down the pyramid: replace many E2E tests with fast unit/integration tests, keeping a small focused set of E2E tests",
+              "fraction": 100,
+              "feedback": "Correct — rebalancing toward a wide unit base and a thin E2E tip restores speed while keeping key end-to-end coverage."
+            },
+            {
+              "text": "Add even more end-to-end tests so nothing can slip through",
+              "fraction": 0,
+              "feedback": "That worsens the inversion and the slowness; push coverage down to fast unit/integration tests instead."
+            },
+            {
+              "text": "Delete all end-to-end tests and rely solely on unit tests",
+              "fraction": 0,
+              "feedback": "A few E2E tests still provide vital whole-system confidence; keep a small set rather than removing them all."
+            },
+            {
+              "text": "Move all the end-to-end tests into the commit stage",
+              "fraction": 0,
+              "feedback": "That makes the fast first gate slow; the fix is to rebalance the mix, not relocate the slow tests earlier."
+            }
+          ],
+          "generalFeedback": "An inverted pyramid — too many slow E2E tests, too few fast unit tests — makes the pipeline slow and brittle. The fix is to push coverage down: express most checks as fast, reliable unit and integration tests (which run first and most often) and keep only a small, focused set of end-to-end tests for whole-system confidence. This restores both speed and the healthy pyramid shape.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ordering within the commit stage",
+          "text": "<p>Within a single commit stage, why is it sensible to compile first and only then run the unit tests?</p>",
+          "answers": [
+            {
+              "text": "If the code will not even compile, there is no point running unit tests — reporting the compile failure immediately is the cheapest, fastest signal",
+              "fraction": 100,
+              "feedback": "Correct — compilation is the cheaper prerequisite; failing on it first is the fastest possible feedback."
+            },
+            {
+              "text": "Unit tests must always modify the source before compilation can succeed",
+              "fraction": 0,
+              "feedback": "Unit tests do not rewrite the source; compilation is simply the cheaper check that must pass first."
+            },
+            {
+              "text": "Compilation is slower than the unit tests, so it should go last",
+              "fraction": 0,
+              "feedback": "Compilation is typically the quicker prerequisite; ordering by speed and dependency puts it first."
+            },
+            {
+              "text": "The order makes no difference at all to feedback time",
+              "fraction": 0,
+              "feedback": "It does: if compilation fails, running unit tests is wasted, so compiling first gives the fastest signal."
+            }
+          ],
+          "generalFeedback": "The same fail-fast logic applies inside a stage. Compilation is a cheap prerequisite for running unit tests — if the code does not build, the unit tests cannot run meaningfully. Reporting the compile failure immediately is the fastest, cheapest signal, so it goes first.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Quarantine is not a permanent excuse",
+          "text": "<p>Quarantining a flaky test to unblock the pipeline is acceptable as a permanent solution, so the test never needs to be fixed.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — quarantine is a temporary measure; the flaky test must still be fixed and returned to the gate, or coverage is lost."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: leaving a test quarantined forever silently drops coverage; quarantine buys time to fix the root cause, not to abandon it."
+            }
+          ],
+          "generalFeedback": "Quarantine stops a flaky test from blocking good builds, but the coverage it provided is gone until it is fixed. Treating quarantine as permanent means that behaviour is no longer verified, and quarantines tend to pile up. The correct workflow is to quarantine, track, fix the root cause, and restore the test to the gate."
+        },
+        {
+          "type": "multichoice",
+          "name": "Consequence of disabling a gate",
+          "text": "<p>Under deadline pressure, a team disables the failing acceptance gate \"just to get this release out\". What is the direct risk?</p>",
+          "answers": [
+            {
+              "text": "A build the tests flagged as broken can now be promoted to production, defeating the gate's purpose",
+              "fraction": 100,
+              "feedback": "Correct — removing the gate lets a known-failing build advance, which is exactly what gates exist to prevent."
+            },
+            {
+              "text": "The pipeline will run faster forever with no downside",
+              "fraction": 0,
+              "feedback": "Speed is not free here: a disabled gate lets a broken build ship, which is a serious risk."
+            },
+            {
+              "text": "The unit tests will automatically cover whatever the acceptance stage missed",
+              "fraction": 0,
+              "feedback": "Unit tests do not replace acceptance coverage; disabling the gate leaves that behaviour unverified before release."
+            },
+            {
+              "text": "Nothing — gates are only advisory and never block anything",
+              "fraction": 0,
+              "feedback": "Gates are meant to block; disabling one specifically allows a failing build through."
+            }
+          ],
+          "generalFeedback": "A gate's whole job is to stop a broken build from advancing. Disabling it under pressure means a build the acceptance tests flagged as failing can be promoted straight to production. That is precisely the outcome continuous testing is designed to prevent; the right move is to fix the failure (or, if it is a flaky test, quarantine just that test) rather than open the gate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Same artifact, per-environment config",
+          "text": "<p>You promote one built artifact through staging and production, but each environment needs a different database URL and API key. How should this be handled without breaking build-once?</p>",
+          "answers": [
+            {
+              "text": "Keep the same artifact and supply environment-specific settings as external configuration injected at deploy time",
+              "fraction": 100,
+              "feedback": "Correct — vary configuration per environment, not the artifact, so the identical tested binary still ships."
+            },
+            {
+              "text": "Rebuild the artifact for each environment with the values compiled in",
+              "fraction": 0,
+              "feedback": "Rebuilding breaks build-once and reintroduces drift; inject the differences as configuration instead."
+            },
+            {
+              "text": "Hard-code production values and use them everywhere including staging",
+              "fraction": 0,
+              "feedback": "That points staging at production resources — unsafe; externalise per-environment config instead."
+            },
+            {
+              "text": "Give up on build-once because configuration differs between environments",
+              "fraction": 0,
+              "feedback": "No need — build-once still holds when the differences are externalised as configuration, not baked into the artifact."
+            }
+          ],
+          "generalFeedback": "Build-once-promote-same-artifact does not mean every environment is identical — it means the deployable bytes are. Environment differences (URLs, keys, feature flags) are supplied as external configuration injected at deploy time. The same tested artifact runs everywhere, only its configuration changes, so gates still validate the exact binary that ships.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Keeping the commit stage fast",
+          "text": "<p>Over time a team's commit stage has crept up to 25 minutes because slow browser tests were added to it. What best restores fast feedback?</p>",
+          "answers": [
+            {
+              "text": "Move the slow browser tests out to a later acceptance stage, keeping the commit stage to fast unit and static checks",
+              "fraction": 100,
+              "feedback": "Correct — returning the commit stage to quick checks restores minutes-level feedback; the slow tests run later."
+            },
+            {
+              "text": "Accept the 25 minutes as normal and ask developers to commit less often",
+              "fraction": 0,
+              "feedback": "Discouraging commits harms CI; keep the commit stage fast by moving the slow tests to a later stage."
+            },
+            {
+              "text": "Delete the browser tests entirely to save time",
+              "fraction": 0,
+              "feedback": "Those tests still add value; relocate them to a later stage rather than losing the coverage."
+            },
+            {
+              "text": "Add even more tests to the commit stage so a single run covers everything",
+              "fraction": 0,
+              "feedback": "That makes the first gate slower still; the commit stage must stay fast, with heavier tests downstream."
+            }
+          ],
+          "generalFeedback": "The commit stage exists to give feedback in minutes with fast unit tests and static checks. Slow browser/E2E tests belong in a later acceptance stage. Moving them out returns the commit stage to its quick, fail-fast role while the slower tests still run downstream (and can be parallelised).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "More E2E in commit stage hurts feedback",
+          "text": "<p>Adding many slow end-to-end tests to the commit stage improves fast feedback because more is tested up front.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — piling slow E2E tests into the commit stage makes it slow, destroying the fast feedback it is meant to provide."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: the commit stage must stay fast; loading it with slow E2E tests delays the very feedback it exists to give."
+            }
+          ],
+          "generalFeedback": "The commit stage's value is speed — feedback in minutes from fast unit and static checks. Slow end-to-end tests belong in later stages. Adding them to the commit stage inflates its runtime and undermines fast-first ordering, so feedback gets slower, not better."
+        },
+        {
+          "type": "multichoice",
+          "name": "Combining shift-left and shift-right",
+          "text": "<p>A subtle bug slips through the gates and only shows up in production. Which strategy makes future occurrences both less likely and less harmful?</p>",
+          "answers": [
+            {
+              "text": "Add a fast pre-prod test reproducing the bug (shift-left) and strengthen production monitoring/canary rollout (shift-right) to catch and limit any that still slip through",
+              "fraction": 100,
+              "feedback": "Correct — shift-left reduces recurrence, shift-right limits blast radius; together they cover both sides of release."
+            },
+            {
+              "text": "Only add production monitoring and never touch the pre-prod tests",
+              "fraction": 0,
+              "feedback": "Monitoring alone catches it late; also add a shift-left test so the same bug is blocked before release."
+            },
+            {
+              "text": "Only add a pre-prod test and remove all production monitoring",
+              "fraction": 0,
+              "feedback": "A pre-prod test helps, but removing monitoring loses the safety net for the next production-only surprise."
+            },
+            {
+              "text": "Do nothing, since the bug already reached production once and cannot recur",
+              "fraction": 0,
+              "feedback": "Bugs recur; you should both add a regression test (shift-left) and strengthen production safeguards (shift-right)."
+            }
+          ],
+          "generalFeedback": "The robust response works both sides of release. Shift-left: add a fast, deterministic test that reproduces the bug so the gate blocks it in future — cheap and early. Shift-right: strengthen monitoring, synthetic checks, and gradual/canary rollout so that anything which still slips through is detected quickly in production and its impact is contained. The two together reduce both the likelihood and the harm.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是持續測試",
+          "text": "<p>在 CI/CD 管線中，<em>持續測試（continuous testing）</em>最適切的描述是：</p>",
+          "answers": [
+            {
+              "text": "在管線的每一個階段都執行自動化測試，讓每次變更都能得到快速回饋",
+              "fraction": 100,
+              "feedback": "正確——持續測試把自動化測試織入每個管線階段，對每次變更提供快速回饋。"
+            },
+            {
+              "text": "在每年發佈前，手動地把整個測試套件跑過一次",
+              "fraction": 0,
+              "feedback": "那是在最後才做的、不頻繁的手動測試；持續測試是在整條管線中自動執行。"
+            },
+            {
+              "text": "等開發者把所有程式碼寫完後，才交由專責 QA 團隊測試",
+              "fraction": 0,
+              "feedback": "那是一個較晚、獨立的測試階段；持續測試是在變更流動的每個階段自動執行。"
+            },
+            {
+              "text": "只測試客戶已回報壞掉的那些程式碼路徑",
+              "fraction": 0,
+              "feedback": "那是狹隘的被動測試；持續測試在每個階段自動地演練每次變更。"
+            }
+          ],
+          "generalFeedback": "持續測試是指自動化測試在 CI/CD 管線的每個階段執行，讓每次變更都能被快速驗證、團隊得到快速回饋，而不必等到一個較晚、獨立的測試階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是 CI/CD 管線",
+          "text": "<p>在此脈絡中，<em>CI/CD 管線（pipeline）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一連串自動化的階段，變更會依序通過，從建置、測試一路推進到發佈",
+              "fraction": 100,
+              "feedback": "正確——管線是變更在邁向發佈途中依序通過的、有順序的自動化階段。"
+            },
+            {
+              "text": "只負責編譯程式碼、既不測試也不部署的單一腳本",
+              "fraction": 0,
+              "feedback": "只編譯只是其中一步；CI/CD 管線是邁向發佈的整套自動化階段序列。"
+            },
+            {
+              "text": "連接開發者筆電到伺服器的實體網路線",
+              "fraction": 0,
+              "feedback": "那是硬體；CI/CD 管線是建置／測試／發佈階段的自動化序列。"
+            },
+            {
+              "text": "等產品負責人排序的使用者故事待辦清單",
+              "fraction": 0,
+              "feedback": "那是產品待辦清單；管線是變更從建置到發佈所走的自動化路徑。"
+            }
+          ],
+          "generalFeedback": "CI/CD 管線是一個有順序、自動化的階段序列——通常包含建置、測試與部署步驟——每次變更都會流經其中。持續整合（CI）涵蓋前期的整合與測試階段；持續交付／部署（CD）涵蓋朝發佈推進的提升過程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是管線階段",
+          "text": "<p>管線中的一個<em>階段（stage）</em>是：</p>",
+          "answers": [
+            {
+              "text": "序列中的一個步驟，帶有自己的一組檢查，建置必須通過後才能往下走",
+              "fraction": 100,
+              "feedback": "正確——階段是帶有自己檢查的一個離散步驟；建置唯有通過後才前進。"
+            },
+            {
+              "text": "為了備份而保留的原始碼倉庫副本",
+              "fraction": 0,
+              "feedback": "那是備份，不是管線階段；階段是建置必須通過其檢查的步驟。"
+            },
+            {
+              "text": "使用者存取應用程式的最終正式環境伺服器",
+              "fraction": 0,
+              "feedback": "那可能是部署階段的目標，但階段本身是帶有自己檢查的步驟。"
+            },
+            {
+              "text": "團隊決定接下來要開發哪些功能的會議",
+              "fraction": 0,
+              "feedback": "那是規劃；管線階段是建置必須通過的自動化步驟。"
+            }
+          ],
+          "generalFeedback": "階段是管線中的一個離散步驟——例如提交階段、整合階段或驗收階段——並施加自己的一組檢查。建置唯有在當前階段通過時，才會前進到下一個階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是品質閘",
+          "text": "<p>管線中的<em>品質閘（quality gate）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一個通過／失敗的檢查點，建置必須清關後才被允許前進到下一階段",
+              "fraction": 100,
+              "feedback": "正確——閘是檢查點；唯有通過其檢查的建置才會被提升往下走。"
+            },
+            {
+              "text": "顯示本週每位開發者提交了多少 commit 的儀表板",
+              "fraction": 0,
+              "feedback": "那是活動報表；品質閘是控管提升的通過／失敗檢查點。"
+            },
+            {
+              "text": "每次提交都自動遞增版本號的規則",
+              "fraction": 0,
+              "feedback": "那是版本管理；閘是依檢查結果決定建置是否可前進。"
+            },
+            {
+              "text": "把建置存起來、好在月底一起發佈的佇列",
+              "fraction": 0,
+              "feedback": "那是把發佈成批處理；閘是攔阻失敗建置前進的檢查點。"
+            }
+          ],
+          "generalFeedback": "每個階段都扮演品質閘：它施加檢查（例如自己的測試），唯有通過的建置才會被提升到下一階段。失敗的閘會停下建置，防止壞掉的變更繼續往管線下游移動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "快速失敗是什麼意思",
+          "text": "<p>在管線中，<em>快速失敗（fail fast）</em>原則的意思是：</p>",
+          "answers": [
+            {
+              "text": "盡可能及早且迅速地偵測並回報失敗，讓建置在浪費更多時間之前就停下",
+              "fraction": 100,
+              "feedback": "正確——快速失敗是及早浮現失敗，讓管線在跑更慢、更昂貴的工作前就停下。"
+            },
+            {
+              "text": "即使有些測試還沒跑，也要盡快部署到正式環境",
+              "fraction": 0,
+              "feedback": "那是跳過閘；快速失敗是及早偵測失敗，而不是部署未測過的程式碼。"
+            },
+            {
+              "text": "只要測試執行超過一秒，就立刻把它標記為失敗",
+              "fraction": 0,
+              "feedback": "速度門檻無關；快速失敗是及早抓到真正的失敗並停下。"
+            },
+            {
+              "text": "快速重試失敗的測試，直到它最終通過為止",
+              "fraction": 0,
+              "feedback": "重試以逼出通過會掩蓋失敗；快速失敗是及早回報失敗並停下。"
+            }
+          ],
+          "generalFeedback": "快速失敗是把管線安排成讓失敗盡可能及早且便宜地被偵測。一旦某階段失敗，建置立即停下，團隊很快就知道，且不會在一個已知壞掉的變更上花時間跑後續較慢的階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "階段失敗時會發生什麼",
+          "text": "<p>當管線某階段的自動化測試失敗時，管線應該做什麼？</p>",
+          "answers": [
+            {
+              "text": "停下並拒絕把建置提升到下一階段，直到失敗被修好為止",
+              "fraction": 100,
+              "feedback": "正確——失敗的閘會停下建置並阻止提升，讓壞掉的變更無法前進。"
+            },
+            {
+              "text": "忽略失敗，繼續把建置提升到正式環境",
+              "fraction": 0,
+              "feedback": "那使閘形同虛設；失敗的階段必須停下建置，而不是放行。"
+            },
+            {
+              "text": "刪掉失敗的測試，好讓該階段變綠",
+              "fraction": 0,
+              "feedback": "刪測試掩蓋問題；失敗的階段應停下建置，直到真正的失敗被修好。"
+            },
+            {
+              "text": "照樣提升建置，只是寄一封可以稍後再看的信",
+              "fraction": 0,
+              "feedback": "提升一個已知壞掉的建置使閘失效；管線應該停下才對。"
+            }
+          ],
+          "generalFeedback": "每個階段都是品質閘。若其測試失敗，管線停下、建置不被提升；變更維持在被阻擋狀態，直到失敗被修好。這正是防止壞掉的建置抵達後續階段或正式環境的機制。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提交階段的內容",
+          "text": "<p>在 Humble 與 Farley 的持續交付中，<em>提交階段（commit stage）</em>通常執行：</p>",
+          "answers": [
+            {
+              "text": "編譯、單元測試與快速的靜態檢查——在數分鐘內就給出回饋的快速檢查",
+              "fraction": 100,
+              "feedback": "正確——提交階段編譯、跑單元測試與快速檢查，目標是在幾分鐘內給出回饋。"
+            },
+            {
+              "text": "針對類正式環境執行整套緩慢的端對端測試",
+              "fraction": 0,
+              "feedback": "緩慢的端對端測試屬於較晚的驗收階段；提交階段要維持快速。"
+            },
+            {
+              "text": "由整個 QA 團隊進行手動探索式測試",
+              "fraction": 0,
+              "feedback": "手動探索式測試是較晚、由人執行的活動；提交階段跑的是快速自動化檢查。"
+            },
+            {
+              "text": "模擬數千名並發使用者的一小時負載測試",
+              "fraction": 0,
+              "feedback": "負載測試很慢、位置在很後面；提交階段是給編譯、單元測試這類快速檢查用的。"
+            }
+          ],
+          "generalFeedback": "提交階段是第一道閘：它編譯程式碼、跑單元測試、做快速的靜態檢查。它被設計成快速（理想上數分鐘），讓開發者幾乎即時得到「這次提交沒弄壞基本功能」的回饋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收階段的內容",
+          "text": "<p>接在提交階段之後的<em>驗收階段（acceptance stage）</em>通常執行：</p>",
+          "answers": [
+            {
+              "text": "自動化驗收測試，從使用者的角度檢查系統行為是否正確",
+              "fraction": 100,
+              "feedback": "正確——驗收階段針對預期的使用者面行為執行自動化驗收測試。"
+            },
+            {
+              "text": "執行編譯器，檢查程式碼是否仍能建置",
+              "fraction": 0,
+              "feedback": "編譯屬於較早的提交階段；驗收階段執行的是自動化驗收測試。"
+            },
+            {
+              "text": "只把單元測試為了保險再跑第二次",
+              "fraction": 0,
+              "feedback": "單元測試屬於提交階段；驗收階段驗證的是端對端的使用者行為。"
+            },
+            {
+              "text": "對原始碼註解做拼字檢查",
+              "fraction": 0,
+              "feedback": "那不是驗收測試；驗收階段執行的是系統行為的自動化驗收測試。"
+            }
+          ],
+          "generalFeedback": "在快速的提交階段之後，驗收階段執行自動化驗收測試：較慢、較高層次的測試，通常針對類正式環境，驗證系統是否符合使用者的期望。因為它們較慢，所以在提交階段通過之後、且唯有通過時才執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "shift-left 是什麼意思",
+          "text": "<p><em>左移（shift-left）</em>測試的意思是：</p>",
+          "answers": [
+            {
+              "text": "在管線中（以及開發流程中）更早地測試，讓缺陷更早被抓到",
+              "fraction": 100,
+              "feedback": "正確——左移把測試往左移、更早進行，好讓缺陷更早、更便宜地被抓到。"
+            },
+            {
+              "text": "只在軟體已發佈到正式環境之後才測試",
+              "fraction": 0,
+              "feedback": "發佈後才測試是右移；左移是把測試往更早移。"
+            },
+            {
+              "text": "把測試檔案搬到倉庫左側的資料夾",
+              "fraction": 0,
+              "feedback": "它談的是流程中的時機，不是資料夾配置；左移是指更早測試。"
+            },
+            {
+              "text": "減少測試數量，好讓管線更快跑完",
+              "fraction": 0,
+              "feedback": "左移談的是何時測試，不是砍測試；它的意思是更早測試以更早抓到缺陷。"
+            }
+          ],
+          "generalFeedback": "左移是把測試活動往流程與管線的更早——更左——移動。在提交階段（甚至在寫程式時）就抓到缺陷，遠比拖到很晚才抓便宜又快，因此持續測試盡可能把快速檢查往前推。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "shift-right 是什麼意思",
+          "text": "<p><em>右移（shift-right）</em>測試的意思是：</p>",
+          "answers": [
+            {
+              "text": "在正式環境中測試與觀測——透過監控、金絲雀發佈與合成檢查——於部署之後進行",
+              "fraction": 100,
+              "feedback": "正確——右移用監控、金絲雀與合成檢查，把驗證延伸到正式環境。"
+            },
+            {
+              "text": "在提交階段更早地執行單元測試",
+              "fraction": 0,
+              "feedback": "更早跑測試是左移；右移是在部署後於正式環境驗證。"
+            },
+            {
+              "text": "把驗收測試移到提交階段之前",
+              "fraction": 0,
+              "feedback": "那是重新排序，不是右移；右移是指在正式環境中觀測與測試。"
+            },
+            {
+              "text": "刪掉正式環境監控，好讓管線更簡單",
+              "fraction": 0,
+              "feedback": "那反而移除了右移實務；右移是在正式環境加入監控、金絲雀與合成檢查。"
+            }
+          ],
+          "generalFeedback": "右移是把驗證延伸到發佈之右——進入正式環境。技術包括監控與可觀測性、金絲雀發佈、對線上系統的合成（冒煙）檢查，以及功能旗標。它補足了上線前測試，抓到唯有真實流量與真實環境才會出現的問題。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "CI 意指頻繁整合並測試",
+          "text": "<p>持續整合（CI）是指頻繁地把變更整合進共享主線，並在每次整合時自動測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——CI 就是頻繁整合到主線，並在每次整合都跑自動化測試。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：CI 正是頻繁整合到主線並每次都自動測試，而這正是使 CD 成為可能的基礎。"
+            }
+          ],
+          "generalFeedback": "持續整合是指每位開發者頻繁地合併到共享主線，而每次整合都觸發一次自動化建置與測試。讓主線持續維持已驗證狀態，正是使持續交付（把建置朝發佈提升）得以成立的基礎。"
+        },
+        {
+          "type": "truefalse",
+          "name": "綠色管線代表閘都通過",
+          "text": "<p>一次「綠色」的管線執行，代表每個階段的品質閘都通過、建置被允許前進。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——綠色代表每個階段的檢查都通過，建置因此通過各道閘往前推進。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：綠色執行正是每個階段的閘都通過、建置得以前進的情形。"
+            }
+          ],
+          "generalFeedback": "綠色管線代表每個階段都跑過其檢查且通過，因此建置清關了每一道閘。紅色管線代表某道閘失敗，建置被卡在該階段。讓管線維持綠色，是持續測試的日常目標。"
+        },
+        {
+          "type": "truefalse",
+          "name": "提交階段失敗會阻擋後續階段",
+          "text": "<p>若提交階段失敗，管線仍會照樣繼續、對同一個建置執行驗收階段。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——失敗的提交階段會停下建置；後續階段不會對一個已在閘失敗的建置執行。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為錯誤：失敗的閘會停下建置，所以驗收階段不會對一個提交階段已否決的建置執行。"
+            }
+          ],
+          "generalFeedback": "每個階段都是閘。若提交階段失敗，建置不被提升，驗收階段就永不會對它執行。這正是把快速檢查排在最前面的用意：那裡一失敗，管線在任何較慢階段開始之前就停下。"
+        },
+        {
+          "type": "multichoice",
+          "name": "品質閘的目的",
+          "text": "<p>在每個階段設置品質閘，主要目的是什麼？</p>",
+          "answers": [
+            {
+              "text": "防止壞掉的建置繼續往管線下游被提升",
+              "fraction": 100,
+              "feedback": "正確——閘會阻止失敗的建置前進，把壞掉的變更擋在後續階段與正式環境之外。"
+            },
+            {
+              "text": "讓管線花更久，好讓開發者少一點提交",
+              "fraction": 0,
+              "feedback": "閘不是為了拖慢人；它是為了阻止壞掉的建置前進。"
+            },
+            {
+              "text": "計算每個建置包含多少行程式碼",
+              "fraction": 0,
+              "feedback": "行數計算無關；閘的目的是阻止失敗的建置被提升。"
+            },
+            {
+              "text": "永久保證軟體再也沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有閘能保證零缺陷；它的目的是阻止已知的失敗被提升。"
+            }
+          ],
+          "generalFeedback": "品質閘的存在，是讓一個未通過檢查的建置無法前進。這把壞掉的變更擋在朝正式環境推進的路上，並賦予每個階段停下產線的權力，這正是持續測試的核心安全性質。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "每個階段都有自動化測試",
+          "text": "<p>持續測試的目標，是在管線的每個階段都執行自動化測試，讓團隊對每次變更得到快速回饋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這正是其定義：每個階段都有自動化測試，對每次變更提供快速回饋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：在每個階段執行自動化測試以取得快速回饋，正是持續測試的本質。"
+            }
+          ],
+          "generalFeedback": "持續測試的精髓是把自動化測試嵌入 CI/CD 管線的每個階段。每次變更在流經時都被驗證，於是問題很快浮現，而不是累積到一個較晚、獨立的測試階段。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何快速便宜的測試先跑",
+          "text": "<p>為什麼把快速、便宜、高信心的測試放在管線最前面？</p>",
+          "answers": [
+            {
+              "text": "讓最可能發生、最便宜偵測的失敗在數秒內就被抓到，趕在緩慢又昂貴的套件執行之前",
+              "fraction": 100,
+              "feedback": "正確——先跑快速檢查能給出最快回饋，並在昂貴階段執行前就停下建置。"
+            },
+            {
+              "text": "因為快速測試永遠比慢測試重要，慢的可以刪掉",
+              "fraction": 0,
+              "feedback": "慢測試仍有價值；排序的重點是快速回饋，而非刪掉慢的套件。"
+            },
+            {
+              "text": "因為管線一次只能跑一個測試，而快速測試字母排序在前",
+              "fraction": 0,
+              "feedback": "排序依速度與成本，不是字母，且階段可平行化；目標是對可能的失敗快速回饋。"
+            },
+            {
+              "text": "好讓開發者完全不必看慢測試的結果",
+              "fraction": 0,
+              "feedback": "慢測試仍會跑且很重要；快速優先的排序只是讓便宜的失敗更早浮現。"
+            }
+          ],
+          "generalFeedback": "依速度與成本排序，代表快速、高信號的檢查先跑。若變更以某種基本方式壞了，你在數秒內就知道、管線停下——你完全不必付出跑緩慢又昂貴的驗收套件的代價。這在把回饋速度最大化的同時，也把浪費的機器時間最小化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "管線階段的排序",
+          "text": "<p>下列哪一種階段排序最符合「快速失敗、依速度與成本排序」的原則？</p>",
+          "answers": [
+            {
+              "text": "提交（編譯＋單元）→ 整合 → 自動化驗收／E2E → 部署",
+              "fraction": 100,
+              "feedback": "正確——快而便宜的先跑，再逐步進到較慢、較昂貴的階段，最後部署。"
+            },
+            {
+              "text": "自動化驗收／E2E → 整合 → 提交（編譯＋單元）→ 部署",
+              "fraction": 0,
+              "feedback": "這把最慢、最昂貴的套件放最前——與快速失敗排序正好相反。"
+            },
+            {
+              "text": "部署 → 提交（編譯＋單元）→ 整合 → 驗收",
+              "fraction": 0,
+              "feedback": "在任何測試之前就部署使閘失效；快速檢查必須在部署之前。"
+            },
+            {
+              "text": "整合 → 部署 → 提交（編譯＋單元）→ 驗收",
+              "fraction": 0,
+              "feedback": "這把快慢檢查打散、又在中間部署；應依速度與成本遞增排序。"
+            }
+          ],
+          "generalFeedback": "階段應依時間與成本遞增排序：先是快速便宜的提交階段，再來整合，接著較慢的自動化驗收／E2E 套件，最後才部署。如此一來，最便宜、最可能的失敗先停下建置，昂貴的階段只在看起來已健康的變更上執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提交階段對比驗收階段",
+          "text": "<p>下列哪一句正確地對比提交階段與驗收階段？</p>",
+          "answers": [
+            {
+              "text": "提交階段很快（編譯＋單元＋靜態檢查）；驗收階段較慢，執行使用者面行為的自動化驗收測試",
+              "fraction": 100,
+              "feedback": "正確——先是快速、低層次的提交階段；之後是較慢、較高層次的自動化驗收階段。"
+            },
+            {
+              "text": "提交階段跑緩慢的端對端測試；驗收階段只做編譯",
+              "fraction": 0,
+              "feedback": "反了——編譯在提交階段，而端對端測試屬於較晚的驗收階段。"
+            },
+            {
+              "text": "兩個階段跑完全一樣的測試，只是在不同天",
+              "fraction": 0,
+              "feedback": "它們跑不同種類的測試：提交階段是快速的單元層次，驗收階段是較慢的驗收層次。"
+            },
+            {
+              "text": "驗收階段先跑，因為它最重要",
+              "fraction": 0,
+              "feedback": "重要性不決定順序；快速的提交階段先跑，好讓失敗被便宜地抓到。"
+            }
+          ],
+          "generalFeedback": "提交階段是快速的第一道閘——編譯、單元測試、快速靜態分析——在數分鐘內給回饋。驗收階段較晚，以較慢、較高層次的自動化驗收測試針對類正式環境執行。快而便宜的先跑；慢而周全的後跑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建置一次並提升同一份產物",
+          "text": "<p>持續交付建議把可部署的產物只建置一次，並把同一份產物提升通過各階段。為什麼？</p>",
+          "answers": [
+            {
+              "text": "讓每個階段測試的都是將要出貨的那一份位元組，消除重新建置所引入的差異",
+              "fraction": 100,
+              "feedback": "正確——單一產物代表每個階段驗證的正是將發佈之物，沒有重建漂移。"
+            },
+            {
+              "text": "因為在每個階段重新建置比重用產物更快",
+              "fraction": 0,
+              "feedback": "反覆重建更慢且有漂移風險；建置一次的理由是測試將出貨的那份位元組。"
+            },
+            {
+              "text": "因為產物必須重新編譯才能符合每個環境的作業系統",
+              "fraction": 0,
+              "feedback": "環境差異由組態處理，而非靠重建；你提升的是同一份產物。"
+            },
+            {
+              "text": "好讓每個階段能悄悄改動程式碼，修掉它找到的任何失敗",
+              "fraction": 0,
+              "feedback": "階段不得更動產物；建置一次保證被測的位元組就是被出貨的位元組。"
+            }
+          ],
+          "generalFeedback": "若在每個階段都重建，較晚的階段可能測到與你發佈的略有不同的二進位檔，於是通過閘無法證明關於出貨位元組的任何事。建置一次並提升同一份產物，代表每道閘驗證的正是將抵達正式環境之物；只有組態隨環境而異。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識左移活動",
+          "text": "<p>下列何者是<em>左移（shift-left）</em>測試的例子？</p>",
+          "answers": [
+            {
+              "text": "在提交階段、每次推送之後，立即跑快速的單元測試與靜態分析",
+              "fraction": 100,
+              "feedback": "正確——把測試往前推進到提交階段，正是左移。"
+            },
+            {
+              "text": "在發佈後，監控線上服務的錯誤率",
+              "fraction": 0,
+              "feedback": "發佈後的監控是右移；左移是在管線早期測試。"
+            },
+            {
+              "text": "對一小片正式流量做金絲雀發佈",
+              "fraction": 0,
+              "feedback": "金絲雀發佈發生在正式環境——那是右移，不是左移。"
+            },
+            {
+              "text": "讀取正式環境的合成冒煙檢查結果",
+              "fraction": 0,
+              "feedback": "正式環境的合成檢查是右移；左移是把測試往管線更早移。"
+            }
+          ],
+          "generalFeedback": "左移把測試往前推。在提交階段——推送後立即、任何部署之前——跑單元測試與靜態檢查，是典範的左移實務：便宜、快速、又早。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識右移活動",
+          "text": "<p>下列何者是<em>右移（shift-right）</em>測試的例子？</p>",
+          "answers": [
+            {
+              "text": "在正式環境對一小群金絲雀發佈，並在擴大推出前觀察監控儀表板",
+              "fraction": 100,
+              "feedback": "正確——金絲雀發佈加上正式環境監控是典型的右移實務。"
+            },
+            {
+              "text": "在提交階段加入更多單元測試",
+              "fraction": 0,
+              "feedback": "那是左移（更早測試）；右移是在正式環境觀測與測試。"
+            },
+            {
+              "text": "在每次推送時編譯程式碼並跑靜態分析",
+              "fraction": 0,
+              "feedback": "編譯加靜態檢查是早期的左移活動，不是右移。"
+            },
+            {
+              "text": "在功能實作之前先寫好驗收測試",
+              "fraction": 0,
+              "feedback": "及早寫測試是左移的概念；右移發生在部署之後、正式環境中。"
+            }
+          ],
+          "generalFeedback": "右移在正式環境驗證。金絲雀發佈把新建置暴露給一小片真實流量，同時由監控與合成檢查盯著問題，於是唯有真實條件下才出現的問題能在全面推出前被抓到。監控、金絲雀與合成／冒煙檢查都屬於右移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何脆弱測試在管線中更糟",
+          "text": "<p>當脆弱測試（flaky test）位於 CI/CD 管線之中時，為何特別具破壞性？</p>",
+          "answers": [
+            {
+              "text": "它會隨機讓某道閘失敗，阻擋好建置的提升，並侵蝕團隊對管線的信任",
+              "fraction": 100,
+              "feedback": "正確——隨機失敗會擋住好建置，並教會團隊忽略紅色執行，使閘失去意義。"
+            },
+            {
+              "text": "它會讓編譯器產生更大的二進位檔",
+              "fraction": 0,
+              "feedback": "脆弱性與二進位檔大小無關；其危害是隨機阻擋管線並侵蝕信任。"
+            },
+            {
+              "text": "它失敗時會永久刪除建置產物",
+              "fraction": 0,
+              "feedback": "脆弱測試不會刪除產物；它是隨機讓閘失敗、破壞對結果的信心。"
+            },
+            {
+              "text": "它只影響開發者的本機，絕不影響管線",
+              "fraction": 0,
+              "feedback": "正好相反：在共享管線中，脆弱測試會擋住每個人的建置並侵蝕信任。"
+            }
+          ],
+          "generalFeedback": "在管線中，脆弱測試會隨機把某道閘變紅，於是一個完全沒問題的建置被擋住、無法提升。更糟的是，大家開始重跑或忽略紅色管線，於是真正的失敗會被當成「只是脆弱」而被打發。因此脆弱性既浪費時間，又摧毀閘所仰賴的信任。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "快速優先排序帶來的回饋時間",
+          "text": "<p>某變更含有一個基本的編譯錯誤。提交階段花 3 分鐘；驗收階段花 40 分鐘。採用快速優先排序時，團隊多快得知建置壞了？</p>",
+          "answers": [
+            {
+              "text": "約 3 分鐘——提交階段失敗，管線在 40 分鐘的階段執行之前就停下",
+              "fraction": 100,
+              "feedback": "正確——快速的提交階段先抓到它，回饋在數分鐘內到達，慢階段被略過。"
+            },
+            {
+              "text": "約 43 分鐘——兩個階段都必須跑完才會回報任何結果",
+              "fraction": 0,
+              "feedback": "不對——失敗的提交階段立即停下管線；40 分鐘的階段永不會跑。"
+            },
+            {
+              "text": "約 40 分鐘——驗收階段總是先跑",
+              "fraction": 0,
+              "feedback": "快速的提交階段先跑；它在約 3 分鐘失敗，驗收階段被略過。"
+            },
+            {
+              "text": "永遠不會——編譯錯誤無法被管線偵測",
+              "fraction": 0,
+              "feedback": "編譯正是提交階段所檢查的；它在約 3 分鐘快速失敗。"
+            }
+          ],
+          "generalFeedback": "因為便宜的提交階段先跑、且失敗的閘會停下管線，一個基本的編譯錯誤會在約 3 分鐘內被回報。昂貴的 40 分鐘驗收階段永不會對那個壞掉的建置啟動。這正是依速度與成本排序的回報。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "每階段重建並非建議做法",
+          "text": "<p>在每個管線階段都從原始碼重新編譯出一份新產物，是持續交付所建議的做法。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——建議做法是建置一次並提升同一份產物，而非每階段重建。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為錯誤：每階段重建有漂移風險；你應把產物建置一次，並把那一份相同的產物提升通過各階段。"
+            }
+          ],
+          "generalFeedback": "持續交付主張把可部署產物只建置一次，並把那份完全相同的產物提升通過每個階段。每階段重建有測到與出貨位元組不同之物的風險，於是通過閘將無法再保證關於已發佈二進位檔的任何事。"
+        },
+        {
+          "type": "multichoice",
+          "name": "管線中的測試金字塔",
+          "text": "<p>測試金字塔與排序良好的管線有何關聯？</p>",
+          "answers": [
+            {
+              "text": "大量快速的單元測試最早跑、也跑最頻繁；較少、較慢的端對端測試則較晚跑",
+              "fraction": 100,
+              "feedback": "正確——金字塔寬廣的快速單元測試底座對應到早期的提交階段；窄小的 E2E 頂端較晚跑。"
+            },
+            {
+              "text": "管線應該最先跑大部分的端對端測試，只在最後跑少量單元測試",
+              "fraction": 0,
+              "feedback": "那把金字塔倒過來了；寬廣的快速單元測試底座應先跑，而非少量慢的 E2E。"
+            },
+            {
+              "text": "金字塔說每個階段都必須含有數量相等的各種測試",
+              "fraction": 0,
+              "feedback": "金字塔刻意不相等：大量單元、較少整合、最少 E2E。"
+            },
+            {
+              "text": "金字塔只適用於手動測試，與管線無關",
+              "fraction": 0,
+              "feedback": "它直接對應到管線排序：快速的底座早跑，慢的頂端晚跑。"
+            }
+          ],
+          "generalFeedback": "測試金字塔寬廣的底座——大量快速的單元測試——對應到早期的提交階段，這些先跑且最頻繁跑。數量較少、較慢的整合測試，接著最少、最慢的端對端測試，在後續階段跑。金字塔形狀與快速優先的管線排序，是同一個概念的兩種看法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提升是什麼意思",
+          "text": "<p>在管線中，<em>提升（promote）</em>一個建置的意思是：</p>",
+          "answers": [
+            {
+              "text": "在建置通過當前閘之後，把同一份建置／產物推進到下一階段",
+              "fraction": 100,
+              "feedback": "正確——提升是在建置清關後，把那份完全相同的建置往前推進到下一階段。"
+            },
+            {
+              "text": "幫寫它的開發者加薪",
+              "fraction": 0,
+              "feedback": "那是職涯上的「升遷」；這裡的提升是把建置推進到下一階段。"
+            },
+            {
+              "text": "為下一個環境從頭重建程式碼",
+              "fraction": 0,
+              "feedback": "提升是把同一份產物往前推；重建會違反「建置一次、提升同一份產物」。"
+            },
+            {
+              "text": "在公司部落格上宣傳這次發佈",
+              "fraction": 0,
+              "feedback": "那是行銷；提升一個建置是把它推進到下一個管線階段。"
+            }
+          ],
+          "generalFeedback": "提升是把一個已通過某階段閘的建置往前推到下一階段。搭配「建置一次」，往前推進的就是那份完全相同的產物——於是它清關的每道閘，都套用在最終可能被發佈的那份位元組上。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "驗收不會先於提交",
+          "text": "<p>為了快速失敗，緩慢的自動化驗收階段應該排在快速的提交階段之前執行。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——快速失敗代表快速的提交階段先跑；緩慢的驗收階段排在後面。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為錯誤：先跑慢階段與快速失敗正好相反。便宜的提交階段必須先跑。"
+            }
+          ],
+          "generalFeedback": "快速失敗排序把快速、便宜的提交階段放最前，好讓基本失敗在數分鐘內被抓到。較慢的驗收階段排在後面，只對已通過提交閘的建置執行。先跑驗收會浪費時間，並使整個用意落空。"
+        },
+        {
+          "type": "multichoice",
+          "name": "平行化緩慢的套件",
+          "text": "<p>某緩慢的驗收套件花太久、拖慢了回饋。下列哪種技術最直接地在不減少涵蓋率的情況下縮短它？</p>",
+          "answers": [
+            {
+              "text": "把套件切分，讓測試在數個工作者上平行執行",
+              "fraction": 100,
+              "feedback": "正確——平行化緩慢套件能在保留所有測試的同時，縮短牆鐘時間。"
+            },
+            {
+              "text": "隨機刪掉一半的驗收測試",
+              "fraction": 0,
+              "feedback": "那會減少涵蓋率；平行化保留每個測試，只是讓它們並發執行。"
+            },
+            {
+              "text": "把整條管線跑兩次以求保險",
+              "fraction": 0,
+              "feedback": "跑兩次會更慢，而非更快；平行化該套件才是正確的槓桿。"
+            },
+            {
+              "text": "把驗收測試移到管線的最前面",
+              "fraction": 0,
+              "feedback": "把慢套件放最前會破壞快速優先排序；應該平行化它，讓它留在恰當的位置並維持快速。"
+            }
+          ],
+          "generalFeedback": "平行化把緩慢套件分散到多個工作者，在保留每個測試的同時，把牆鐘時間縮到一小部分。這在不犧牲涵蓋率下，讓管線維持快速、回饋維持迅速——是防止龐大驗收／E2E 套件成為瓶頸的標準做法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "把測試放進正確的階段",
+          "text": "<p>某測試透過 UI、一個真實資料庫與一個外部支付沙箱來驅動整個應用程式，約花 90 秒。它該放在哪裡？</p>",
+          "answers": [
+            {
+              "text": "放在較晚的自動化驗收／E2E 階段，因為它很慢且演練了整個整合系統",
+              "fraction": 100,
+              "feedback": "正確——一個緩慢、全端、端對端的測試屬於較晚的驗收階段，而非快速的提交階段。"
+            },
+            {
+              "text": "放在提交階段，好讓它在每次推送時於數秒內跑完",
+              "fraction": 0,
+              "feedback": "它花 90 秒又是全端，對快速的提交階段來說太慢、太廣。"
+            },
+            {
+              "text": "哪裡都不放——這種測試根本不該寫",
+              "fraction": 0,
+              "feedback": "端對端測試有價值；它只是屬於較晚的階段，並以較少的數量執行。"
+            },
+            {
+              "text": "放在提交階段，但一個月只跑一次",
+              "fraction": 0,
+              "feedback": "快速優先排序讓提交階段維持快速；緩慢的全端測試屬於驗收階段。"
+            }
+          ],
+          "generalFeedback": "一個驅動 UI、真實資料庫與外部服務的緩慢測試，是端對端／驗收測試。它屬於較晚、跑較慢與較高層次測試的階段，而非快速的提交階段——後者的職責是以快速的單元與靜態檢查在數分鐘內給出回饋。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "右移補足上線前測試",
+          "text": "<p>右移技術（例如正式環境監控與金絲雀發佈）是補足上線前測試，而非取代對它的需求。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——右移是在上線前的閘之上、而非取而代之，增添正式環境時期的信心。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：右移補足上線前測試；你仍然想在發佈前有快速的閘，並在發佈後有正式環境觀測。"
+            }
+          ],
+          "generalFeedback": "右移抓到唯有真實流量與真實環境才會浮現的問題，但它作用在發佈之後。你仍想要上線前的快速閘，在出貨前擋下壞掉的建置。兩者是同一套持續測試策略中互補的層次。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "診斷一條慢套件先跑的管線",
+          "text": "<p>某管線在編譯程式碼或跑任何單元測試之前，先跑一套 35 分鐘的端對端套件。開發者要等超過半小時，才知道自己有錯字或編譯錯誤。最佳修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "重新排序，讓編譯與單元測試在一個快速的提交階段先跑，端對端套件之後才跑",
+              "fraction": 100,
+              "feedback": "正確——把便宜的檢查移到前面，恢復快速優先排序，於是瑣碎的失敗在數分鐘內被抓到。"
+            },
+            {
+              "text": "移除編譯與單元測試步驟，只留下端對端套件",
+              "fraction": 0,
+              "feedback": "那會摧毀快速回饋層；修法是讓便宜的檢查先跑，而不是刪掉它們。"
+            },
+            {
+              "text": "要開發者不要再打錯字，好讓端對端套件一次就通過",
+              "fraction": 0,
+              "feedback": "你無法消除失誤；管線應該藉由把快速檢查排在最前，及早抓到便宜的錯誤。"
+            },
+            {
+              "text": "把 35 分鐘的端對端套件在編譯前跑兩次以求確定",
+              "fraction": 0,
+              "feedback": "那會讓延遲加倍；修法是把快速的編譯與單元檢查排在慢套件之前。"
+            }
+          ],
+          "generalFeedback": "這條管線違反了依速度與成本排序：它在最便宜的檢查之前先跑最昂貴的套件。重新排序、讓一個快速的提交階段（編譯＋單元）先跑，代表編譯錯誤與錯字在數分鐘內失敗，而 35 分鐘的套件只對已通過便宜閘的建置執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個脆弱的 E2E 測試擋住每次部署",
+          "text": "<p>某個端對端測試因與程式碼無關的原因而間歇性失敗，把管線變紅、擋住每一次部署。最佳的回應是什麼？</p>",
+          "answers": [
+            {
+              "text": "把它從阻擋性的閘中隔離、開一張工單、修掉其根因——同時讓套件的其餘部分繼續守著部署",
+              "fraction": 100,
+              "feedback": "正確——阻止它擋住好建置，但同時追蹤並修好它，好讓涵蓋率恢復、而非默默流失。"
+            },
+            {
+              "text": "把它留在閘中，並重跑整條管線，直到它每次剛好通過為止",
+              "fraction": 0,
+              "feedback": "盲目重跑浪費時間且讓紅色管線變成常態；應該隔離並修好脆弱測試。"
+            },
+            {
+              "text": "永久刪除該測試，再也不看那個行為",
+              "fraction": 0,
+              "feedback": "刪掉它會流失真實涵蓋率；隔離加修復能在它變可靠後保住這個檢查。"
+            },
+            {
+              "text": "停用每一道閘，讓任何測試都再也無法擋住部署",
+              "fraction": 0,
+              "feedback": "移除所有閘會放壞掉的建置出貨；應只隔離那個脆弱測試並修好它，保留其他閘。"
+            }
+          ],
+          "generalFeedback": "一個擋住部署的脆弱測試不能就這樣留在閘裡，但你也不能流失它的涵蓋率或讓「忽略紅色建置」變成常態。把它隔離（移出阻擋性集合）、用工單追蹤、修掉根因，好讓它變得具決定性、能重新加回閘。這期間套件的其餘部分繼續保護部署。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "用平行化縮短回饋時間",
+          "text": "<p>某驗收階段有 600 個彼此獨立的測試，循序執行需 30 分鐘，是回饋的主要瓶頸。哪個改動能在保留涵蓋率的同時縮短回饋時間？</p>",
+          "answers": [
+            {
+              "text": "把這 600 個測試切分（例如）到 6 個平行工作者上，讓該階段約在六分之一的時間內跑完",
+              "fraction": 100,
+              "feedback": "正確——把獨立測試切分到多個工作者，能在不刪任何測試下縮短牆鐘時間。"
+            },
+            {
+              "text": "維持循序執行，但減少日誌輸出好讓它感覺更快",
+              "fraction": 0,
+              "feedback": "減少日誌幾乎不改變執行時間；平行化這些獨立測試才真正縮短回饋時間。"
+            },
+            {
+              "text": "把全部 600 個測試移進提交階段，好讓它們在每次推送時跑",
+              "fraction": 0,
+              "feedback": "那會讓快速的提交階段變慢、破壞快速優先排序；應改為平行化驗收階段。"
+            },
+            {
+              "text": "只跑前 100 個測試，假設其餘會通過",
+              "fraction": 0,
+              "feedback": "略過 500 個測試會流失涵蓋率；切分是把全部都跑，只是並發執行。"
+            }
+          ],
+          "generalFeedback": "當測試彼此獨立時，把它們分散到平行工作者上，能大致依工作者數量成比例地縮短牆鐘時間，同時每個測試都會跑。把 600 個測試切到 6 個工作者，讓該階段從約 30 分鐘趨近約 5 分鐘，在不犧牲涵蓋率下恢復快速回饋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何閘能擋下壞掉的建置",
+          "text": "<p>為什麼賦予每個階段「讓管線失敗」的權力，實際上能保護正式環境？</p>",
+          "answers": [
+            {
+              "text": "建置只能靠清關每一道閘才能抵達正式環境，所以任何偵測到缺陷的階段都能在提升前把它擋下",
+              "fraction": 100,
+              "feedback": "正確——因為提升需要通過所有閘，單單一道失敗的閘就足以把缺陷擋在正式環境之外。"
+            },
+            {
+              "text": "閘會讓程式碼在正式環境中跑得更快",
+              "fraction": 0,
+              "feedback": "閘不改變執行效能；它是阻止壞掉的建置被提升。"
+            },
+            {
+              "text": "閘保證軟體在數學上被證明正確",
+              "fraction": 0,
+              "feedback": "閘只抓到其測試所涵蓋之物，而非形式證明；其保護在於阻止已偵測的失敗前進。"
+            },
+            {
+              "text": "閘會放壞掉的建置通過，但把它記錄下來以便稍後查看",
+              "fraction": 0,
+              "feedback": "正好相反——閘會擋下失敗的建置；放行再記錄無法保護正式環境。"
+            }
+          ],
+          "generalFeedback": "抵達正式環境需要依序清關每一道閘。這代表任何偵測到問題的單一階段，就足以中止提升，於是其測試能抓到的缺陷永不會前進。這份保護只跟閘裡的檢查一樣好，但「停下產線」的權力，正是把已抓到的失敗擋在正式環境之外的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每階段重建造成不一致",
+          "text": "<p>某管線在每個階段都從原始碼重新編譯。驗收測試通過，但部署到正式環境的二進位檔行為不同、失敗了。最可能的根因與修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "每次重建都產生略有不同的位元組，於是驗收測到的是與正式環境所跑不同的二進位檔；應建置一次並提升同一份產物",
+              "fraction": 100,
+              "feedback": "正確——每階段重建破壞了保證；建置一次並提升那份完全相同的產物即可修正。"
+            },
+            {
+              "text": "驗收測試太嚴格；把它們放寬到正式環境能通過為止",
+              "fraction": 0,
+              "feedback": "放寬測試會掩蓋不一致；真正的修法是測試並出貨同一份產物。"
+            },
+            {
+              "text": "正式環境只是運氣不好；重複部署直到它成功",
+              "fraction": 0,
+              "feedback": "對同一個會漂移的流程重複部署，無法修正重建造成的不一致；應建置一次並提升那份產物。"
+            },
+            {
+              "text": "單元測試被略過了；在部署階段加更多單元測試",
+              "fraction": 0,
+              "feedback": "問題是重建造成的產物漂移，不是缺少單元測試；應建置一次並提升同一份位元組。"
+            }
+          ],
+          "generalFeedback": "當每個階段都重建，驗收所測的產物不保證等同被部署的產物——不同的相依版本、時間戳或建置旗標都可能改變行為。持續交付的修法是「建置一次、提升同一份產物」：把可部署物只建置一次，並把那份完全相同的二進位檔提升通過每一道閘，於是驗收驗證的正是正式環境所跑之物。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在周全的閘與速度之間取捨",
+          "text": "<p>某團隊既想要非常周全的閘、又想要快速回饋。哪種策略把兩者平衡得最好？</p>",
+          "answers": [
+            {
+              "text": "保留一個快速、高信號的提交閘以取得即時回饋，並把較慢、較周全的套件（平行化）放在後續階段",
+              "fraction": 100,
+              "feedback": "正確——把快速的閘放前面、周全的套件放後面，在不放棄深度下維持回饋迅速。"
+            },
+            {
+              "text": "把每個測試都放進提交階段，好讓什麼都不會漏掉",
+              "fraction": 0,
+              "feedback": "那會讓第一道閘變慢、摧毀快速回饋；應把測試分散到分階段的閘中。"
+            },
+            {
+              "text": "刪掉所有慢測試，好讓管線永遠都快",
+              "fraction": 0,
+              "feedback": "刪掉周全的測試會犧牲信心；應把它們移到後續階段並平行化，而非刪除。"
+            },
+            {
+              "text": "全部手動執行，好讓人來判斷要多周全",
+              "fraction": 0,
+              "feedback": "手動把關又慢又不可重現；應使用依速度與成本排序的分層自動化階段。"
+            }
+          ],
+          "generalFeedback": "周全與速度之間的張力靠分層來化解：一個快速、高信號的提交閘在數分鐘內給回饋，而較慢、較周全的整合與驗收套件放在後續階段、並可平行化。快速優先排序代表深度是逐步加上去的，而不會拖慢最早的回饋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "選擇一項右移技術",
+          "text": "<p>某種失敗模式只在團隊無法於發佈前重現的真實正式流量型態下才出現。哪種做法最能防範它？</p>",
+          "answers": [
+            {
+              "text": "用金絲雀逐步推出，搭配正式環境監控與合成檢查，好讓問題在全面推出前、於一小片流量上就被抓到",
+              "fraction": 100,
+              "feedback": "正確——金絲雀加上監控／合成檢查是右移，正是針對只在正式環境出現的失敗模式。"
+            },
+            {
+              "text": "在提交階段再加更多單元測試",
+              "fraction": 0,
+              "feedback": "單元測試無法重現真實正式流量；右移的金絲雀加監控才是正確的防範。"
+            },
+            {
+              "text": "假設上線前的閘已足夠，並略過正式環境觀測",
+              "fraction": 0,
+              "feedback": "上線前的閘看不到只在正式環境的條件；那需要右移的觀測。"
+            },
+            {
+              "text": "停用監控以減少發佈期間的雜訊",
+              "fraction": 0,
+              "feedback": "那正好移除了你需要用來及早抓到只在正式環境失敗的右移信號。"
+            }
+          ],
+          "generalFeedback": "有些失敗只在真實流量、規模或資料下才顯現，無法於發佈前重現。右移技術正好處理這點：金絲雀發佈把一小片正式環境暴露給新建置，同時由監控、可觀測性與合成檢查盯著回歸，於是問題能在全面推出前被抓到並回滾。它補足——而非取代——上線前的閘。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修正管線中的倒金字塔",
+          "text": "<p>某管線的緩慢來自數百個端對端測試與極少的單元測試——一個倒金字塔。最健康的長期修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "把涵蓋率往金字塔下推：以快速的單元／整合測試取代許多 E2E 測試，只保留一小組聚焦的 E2E 測試",
+              "fraction": 100,
+              "feedback": "正確——把比重重新調到寬廣的單元底座與薄薄的 E2E 頂端，能恢復速度又保住關鍵的端對端涵蓋。"
+            },
+            {
+              "text": "加入更多端對端測試，好讓什麼都漏不掉",
+              "fraction": 0,
+              "feedback": "那會惡化倒置與緩慢；應把涵蓋率往下推到快速的單元／整合測試。"
+            },
+            {
+              "text": "刪掉所有端對端測試，只靠單元測試",
+              "fraction": 0,
+              "feedback": "少數 E2E 測試仍提供關鍵的整體系統信心；應保留一小組，而非全部移除。"
+            },
+            {
+              "text": "把所有端對端測試移進提交階段",
+              "fraction": 0,
+              "feedback": "那會讓快速的第一道閘變慢；修法是重新調整比重，而非把慢測試移到更前面。"
+            }
+          ],
+          "generalFeedback": "倒金字塔——太多慢的 E2E 測試、太少快的單元測試——會讓管線又慢又脆。修法是把涵蓋率往下推：把大多數檢查表達成快速、可靠的單元與整合測試（它們先跑、也跑最頻繁），只保留一小組聚焦的端對端測試以取得整體系統信心。這能同時恢復速度與健康的金字塔形狀。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提交階段內部的排序",
+          "text": "<p>在單一提交階段之內，為什麼合理的做法是先編譯、然後才跑單元測試？</p>",
+          "answers": [
+            {
+              "text": "若程式碼連編譯都過不了，跑單元測試就沒有意義——立即回報編譯失敗是最便宜、最快的信號",
+              "fraction": 100,
+              "feedback": "正確——編譯是較便宜的前置條件；先在它上面失敗是可能中最快的回饋。"
+            },
+            {
+              "text": "單元測試必須先修改原始碼，編譯才能成功",
+              "fraction": 0,
+              "feedback": "單元測試不會改寫原始碼；編譯只是必須先通過的較便宜檢查。"
+            },
+            {
+              "text": "編譯比單元測試慢，所以應該放最後",
+              "fraction": 0,
+              "feedback": "編譯通常是較快的前置條件；依速度與相依性排序會把它放最前。"
+            },
+            {
+              "text": "順序對回饋時間毫無差別",
+              "fraction": 0,
+              "feedback": "有差別：若編譯失敗，跑單元測試是浪費，所以先編譯能給出最快的信號。"
+            }
+          ],
+          "generalFeedback": "同樣的快速失敗邏輯也適用於階段之內。編譯是跑單元測試的便宜前置條件——若程式碼建不起來，單元測試就無法有意義地執行。立即回報編譯失敗是最快、最便宜的信號，所以它排最前面。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "隔離不是永久的藉口",
+          "text": "<p>為了解除管線阻塞而隔離一個脆弱測試，可作為永久解法，於是該測試永遠不必修好。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——隔離是暫時措施；脆弱測試仍必須修好並回到閘中，否則涵蓋率會流失。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為錯誤：把測試永遠隔離會默默流失涵蓋率；隔離是為了爭取時間修根因，而非放棄它。"
+            }
+          ],
+          "generalFeedback": "隔離能阻止脆弱測試擋住好建置，但在它被修好之前，它原本提供的涵蓋率就沒了。把隔離當成永久，代表那個行為不再被驗證，而且隔離往往會越積越多。正確的流程是：隔離、追蹤、修掉根因、再把測試恢復到閘中。"
+        },
+        {
+          "type": "multichoice",
+          "name": "停用一道閘的後果",
+          "text": "<p>在期限壓力下，某團隊「只是為了把這次發佈弄出去」而停用了失敗的驗收閘。直接的風險是什麼？</p>",
+          "answers": [
+            {
+              "text": "一個被測試標記為壞掉的建置，現在可以被提升到正式環境，使閘的用意落空",
+              "fraction": 100,
+              "feedback": "正確——移除閘讓一個已知失敗的建置前進，而這正是閘存在要防止的事。"
+            },
+            {
+              "text": "管線從此永遠跑得更快，且毫無壞處",
+              "fraction": 0,
+              "feedback": "速度不是免費的：停用的閘讓壞掉的建置出貨，這是嚴重風險。"
+            },
+            {
+              "text": "單元測試會自動涵蓋驗收階段漏掉的一切",
+              "fraction": 0,
+              "feedback": "單元測試不能取代驗收涵蓋；停用閘讓那個行為在發佈前未被驗證。"
+            },
+            {
+              "text": "沒事——閘只是建議性的，從不擋任何東西",
+              "fraction": 0,
+              "feedback": "閘本就該擋；停用一道閘正是特地放一個失敗的建置通過。"
+            }
+          ],
+          "generalFeedback": "閘的整個職責就是阻止壞掉的建置前進。在壓力下停用它，代表一個被驗收測試標記為失敗的建置，可以被直接提升到正式環境。那正是持續測試設計要防止的結果；正確的做法是修掉失敗（若是脆弱測試，就只隔離那個測試），而不是打開閘。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "同一份產物、各環境組態",
+          "text": "<p>你把一份建好的產物提升通過測試環境與正式環境，但每個環境需要不同的資料庫 URL 與 API 金鑰。在不破壞「建置一次」的前提下，這該如何處理？</p>",
+          "answers": [
+            {
+              "text": "保留同一份產物，把各環境專屬的設定以外部組態在部署時注入",
+              "fraction": 100,
+              "feedback": "正確——讓組態隨環境而異，而非產物，於是那份完全相同、已測過的二進位檔仍照樣出貨。"
+            },
+            {
+              "text": "為每個環境重建產物，把值編譯進去",
+              "fraction": 0,
+              "feedback": "重建會破壞「建置一次」並重新引入漂移；應把差異以組態注入。"
+            },
+            {
+              "text": "把正式環境的值寫死，並在包含測試環境的所有地方都用它",
+              "fraction": 0,
+              "feedback": "那會讓測試環境指向正式資源——不安全；應把各環境組態外部化。"
+            },
+            {
+              "text": "放棄「建置一次」，因為各環境組態不同",
+              "fraction": 0,
+              "feedback": "不必——當差異被外部化為組態、而非烤進產物時，「建置一次」仍成立。"
+            }
+          ],
+          "generalFeedback": "「建置一次、提升同一份產物」不代表每個環境都相同——而是代表可部署的位元組相同。環境差異（URL、金鑰、功能旗標）以外部組態在部署時注入。同一份已測過的產物到處都跑，只有它的組態改變，於是閘仍驗證的正是將出貨的那份二進位檔。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "維持提交階段的快速",
+          "text": "<p>隨著時間，某團隊的提交階段因為被加進緩慢的瀏覽器測試而攀升到 25 分鐘。什麼最能恢復快速回饋？</p>",
+          "answers": [
+            {
+              "text": "把緩慢的瀏覽器測試移出到較晚的驗收階段，讓提交階段維持在快速的單元與靜態檢查",
+              "fraction": 100,
+              "feedback": "正確——把提交階段還原為快速檢查能恢復數分鐘等級的回饋；慢測試改在後面跑。"
+            },
+            {
+              "text": "接受 25 分鐘為常態，並要開發者少一點提交",
+              "fraction": 0,
+              "feedback": "抑制提交會傷害 CI；應把慢測試移到後續階段，讓提交階段維持快速。"
+            },
+            {
+              "text": "徹底刪掉這些瀏覽器測試以省時間",
+              "fraction": 0,
+              "feedback": "這些測試仍有價值；應把它們移到後續階段，而非流失涵蓋率。"
+            },
+            {
+              "text": "在提交階段加入更多測試，好讓單一次執行涵蓋一切",
+              "fraction": 0,
+              "feedback": "那會讓第一道閘更慢；提交階段必須維持快速，較重的測試放在下游。"
+            }
+          ],
+          "generalFeedback": "提交階段的存在，是以快速的單元測試與靜態檢查在數分鐘內給回饋。緩慢的瀏覽器／E2E 測試屬於較晚的驗收階段。把它們移出去，能讓提交階段回到它快速、快速失敗的角色，而慢測試仍在下游跑（且可平行化）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "提交階段加更多 E2E 會傷害回饋",
+          "text": "<p>把許多緩慢的端對端測試加進提交階段能改善快速回饋，因為前面測到的更多。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——把緩慢的 E2E 測試堆進提交階段會讓它變慢，摧毀它本該提供的快速回饋。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為錯誤：提交階段必須維持快速；用慢的 E2E 測試塞滿它，會拖慢它本該給的那個回饋。"
+            }
+          ],
+          "generalFeedback": "提交階段的價值在於速度——用快速的單元與靜態檢查在數分鐘內給回饋。緩慢的端對端測試屬於後續階段。把它們加進提交階段會膨脹其執行時間、破壞快速優先排序，於是回饋變慢，而非變好。"
+        },
+        {
+          "type": "multichoice",
+          "name": "結合左移與右移",
+          "text": "<p>某個細微的臭蟲溜過了各道閘，只在正式環境才現形。哪種策略能同時讓未來的發生更不可能、也更不具傷害性？</p>",
+          "answers": [
+            {
+              "text": "加入一個重現該臭蟲的快速上線前測試（左移），並強化正式環境監控／金絲雀推出（右移），以抓到並限制任何仍溜過去的問題",
+              "fraction": 100,
+              "feedback": "正確——左移降低再發生，右移限制影響範圍；兩者一起涵蓋發佈前後兩側。"
+            },
+            {
+              "text": "只加入正式環境監控，完全不動上線前測試",
+              "fraction": 0,
+              "feedback": "只靠監控會太晚才抓到；也應加入一個左移測試，好讓同一個臭蟲在發佈前被擋下。"
+            },
+            {
+              "text": "只加入一個上線前測試，並移除所有正式環境監控",
+              "fraction": 0,
+              "feedback": "上線前測試有幫助，但移除監控會失去下一次只在正式環境出現的意外的安全網。"
+            },
+            {
+              "text": "什麼都不做，因為這臭蟲已經進過一次正式環境、不會再發生",
+              "fraction": 0,
+              "feedback": "臭蟲會再發生；你應同時加入回歸測試（左移）並強化正式環境防護（右移）。"
+            }
+          ],
+          "generalFeedback": "穩健的回應會同時處理發佈的兩側。左移：加入一個重現該臭蟲的快速、具決定性的測試，好讓閘在未來擋下它——既便宜又早。右移：強化監控、合成檢查與漸進／金絲雀推出，好讓任何仍溜過去的問題能在正式環境被迅速偵測、其影響被控制。兩者一起同時降低發生的可能性與傷害。",
+          "single": true
+        }
+      ]
+    }
+  },
   "contract-testing": {
     "en": {
       "easy": [
