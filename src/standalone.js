@@ -58798,6 +58798,2480 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "contract-testing": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a contract is",
+            "text": "<p>In contract testing, a <em>contract</em> is:</p>",
+            "answers": [
+              {
+                "text": "An agreement describing the interactions between a service consumer and provider \u2014 for a given request, the expected response (status and the fields the consumer relies on)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a contract pins down the expected request/response interaction between the two parties."
+              },
+              {
+                "text": "A legal document signed by the two development teams",
+                "fraction": 0,
+                "feedback": "The word is borrowed, but a contract here is a machine-checkable description of interactions, not a paper agreement."
+              },
+              {
+                "text": "The full internal source code of the provider",
+                "fraction": 0,
+                "feedback": "A contract only captures the observable interaction, not the provider's implementation."
+              },
+              {
+                "text": "A performance target such as maximum response latency",
+                "fraction": 0,
+                "feedback": "That is a non-functional/SLA concern, not what a contract captures."
+              }
+            ],
+            "generalFeedback": "A contract is an agreement about the interactions between a consumer (client) and a provider (server): for a given request, what response (status, shape, and the fields the consumer depends on) is expected.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who the consumer is",
+            "text": "<p>In a consumer/provider pair, the <em>consumer</em> is:</p>",
+            "answers": [
+              {
+                "text": "The client that sends requests to and depends on the other service's API",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the consumer is the caller that relies on the provider's responses."
+              },
+              {
+                "text": "The service that receives requests and returns responses",
+                "fraction": 0,
+                "feedback": "That is the provider, not the consumer."
+              },
+              {
+                "text": "The database that stores the application's data",
+                "fraction": 0,
+                "feedback": "A database is infrastructure, not the consumer role in the interaction."
+              },
+              {
+                "text": "The CI server that runs the tests",
+                "fraction": 0,
+                "feedback": "CI runs the tests but is not a party to the contract."
+              }
+            ],
+            "generalFeedback": "The consumer (client) is the side that calls the API and depends on the response. The provider (server) is the side that answers.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who the provider is",
+            "text": "<p>In a consumer/provider pair, the <em>provider</em> is:</p>",
+            "answers": [
+              {
+                "text": "The service that receives requests and returns responses (the API being called)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the provider serves the API that the consumer depends on."
+              },
+              {
+                "text": "The client that sends requests and depends on the API",
+                "fraction": 0,
+                "feedback": "That is the consumer, not the provider."
+              },
+              {
+                "text": "The tool that generates the contract file",
+                "fraction": 0,
+                "feedback": "The contract is generated on the consumer side; the provider is the service being verified against it."
+              },
+              {
+                "text": "The end user operating the application",
+                "fraction": 0,
+                "feedback": "The provider is a software service, not a human user."
+              }
+            ],
+            "generalFeedback": "The provider (server) receives requests and returns responses. In consumer-driven contract testing the provider is verified against the contracts its consumers publish.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What consumer-driven contract testing is",
+            "text": "<p><em>Consumer-driven</em> contract testing means:</p>",
+            "answers": [
+              {
+                "text": "The consumer specifies what it actually needs from the API, and the provider is verified against all of its consumers' contracts",
+                "fraction": 100,
+                "feedback": "Correct \u2014 needs flow from the consumers; the provider must satisfy each of them."
+              },
+              {
+                "text": "The provider publishes its full API and consumers must accept whatever it offers",
+                "fraction": 0,
+                "feedback": "That is closer to a provider-driven approach; consumer-driven starts from consumer needs."
+              },
+              {
+                "text": "The consumer and provider must both be deployed live and tested end to end",
+                "fraction": 0,
+                "feedback": "Contract testing avoids requiring both to be live at once; that describes E2E testing."
+              },
+              {
+                "text": "A tool validates the provider's response against a static JSON schema only",
+                "fraction": 0,
+                "feedback": "That is schema validation, not consumer-driven contract testing."
+              }
+            ],
+            "generalFeedback": "In consumer-driven contract testing, each consumer states the interactions it relies on. The provider is then checked against the combined set of its consumers' contracts.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a pact file is",
+            "text": "<p>In Pact-style contract testing, a <em>pact file</em> is:</p>",
+            "answers": [
+              {
+                "text": "A file capturing the expected request/response interactions the consumer relies on, generated by the consumer's tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the pact file is the contract artifact produced on the consumer side."
+              },
+              {
+                "text": "A configuration file that starts the provider's production server",
+                "fraction": 0,
+                "feedback": "A pact file records interactions; it does not launch a server."
+              },
+              {
+                "text": "A log of every real HTTP call made in production",
+                "fraction": 0,
+                "feedback": "A pact file is a curated set of expected interactions from tests, not a production traffic log."
+              },
+              {
+                "text": "The provider's database schema exported to disk",
+                "fraction": 0,
+                "feedback": "It captures interactions between the two services, not a database schema."
+              }
+            ],
+            "generalFeedback": "A pact (contract) file records the requests the consumer makes and the responses it expects. It is generated while the consumer's tests run against a mock provider, then handed to the provider for verification.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a Pact Broker is",
+            "text": "<p>A <em>Pact Broker</em> is used to:</p>",
+            "answers": [
+              {
+                "text": "Share and version contracts between consumers and providers (and support checks such as can-i-deploy)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the broker is the central place where contracts are published, versioned, and retrieved."
+              },
+              {
+                "text": "Execute the provider's business logic in production",
+                "fraction": 0,
+                "feedback": "The broker stores and shares contracts; it does not run business logic."
+              },
+              {
+                "text": "Generate the consumer's application code automatically",
+                "fraction": 0,
+                "feedback": "The broker does not generate application code."
+              },
+              {
+                "text": "Replace the need to write any consumer tests",
+                "fraction": 0,
+                "feedback": "Consumers still write tests to produce contracts; the broker only shares them."
+              }
+            ],
+            "generalFeedback": "A Pact Broker is a repository for sharing and versioning contracts across teams. It lets a provider fetch the contracts to verify and underpins tooling like can-i-deploy.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a mock provider is",
+            "text": "<p>When a consumer's tests run against a <em>mock provider</em>, the mock:</p>",
+            "answers": [
+              {
+                "text": "Stands in for the real provider and returns the responses the consumer expects, so the consumer can be tested in isolation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the mock lets the consumer be exercised without the real provider running."
+              },
+              {
+                "text": "Is the real provider running in production",
+                "fraction": 0,
+                "feedback": "The whole point of a mock is that the real provider need not be running."
+              },
+              {
+                "text": "Verifies the provider against the contract",
+                "fraction": 0,
+                "feedback": "Verification against the contract happens later, on the provider side, not via the consumer's mock."
+              },
+              {
+                "text": "Records production traffic for analytics",
+                "fraction": 0,
+                "feedback": "The mock serves test expectations; it is not a production analytics tool."
+              }
+            ],
+            "generalFeedback": "A mock provider replays the responses the consumer expects during the consumer's own tests, allowing the consumer to be tested independently and producing the contract as a by-product.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who defines the contract",
+            "text": "<p>In consumer-driven contract testing, who <strong>defines / drives</strong> the contract?</p>",
+            "answers": [
+              {
+                "text": "The consumer \u2014 it states the interactions and response fields it actually needs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the consumer drives the contract by declaring its needs."
+              },
+              {
+                "text": "The provider \u2014 it dictates the whole API to consumers",
+                "fraction": 0,
+                "feedback": "In consumer-driven testing the provider does not define the contract; it is verified against it."
+              },
+              {
+                "text": "The Pact Broker \u2014 it authors the contract automatically",
+                "fraction": 0,
+                "feedback": "The broker stores and shares contracts; it does not author them."
+              },
+              {
+                "text": "The QA team writing a separate specification",
+                "fraction": 0,
+                "feedback": "The contract emerges from the consumer's tests, not a separate hand-written spec."
+              }
+            ],
+            "generalFeedback": "Consumer-driven: the consumer defines/drives the contract by expressing what it needs. Remember this pairing \u2014 the consumer defines, the provider verifies.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who verifies the contract",
+            "text": "<p>In consumer-driven contract testing, who <strong>verifies</strong> the contract?</p>",
+            "answers": [
+              {
+                "text": "The provider \u2014 it checks that it satisfies each consumer's contract",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the provider is verified against the contracts its consumers published."
+              },
+              {
+                "text": "The consumer \u2014 it re-checks the contract against the mock",
+                "fraction": 0,
+                "feedback": "The consumer generates the contract; verification against the real service is the provider's job."
+              },
+              {
+                "text": "The Pact Broker \u2014 it runs the verification itself",
+                "fraction": 0,
+                "feedback": "The broker shares contracts and results; the provider's own test suite performs verification."
+              },
+              {
+                "text": "The end user during acceptance testing",
+                "fraction": 0,
+                "feedback": "Contract verification is automated on the provider side, not manual acceptance by users."
+              }
+            ],
+            "generalFeedback": "The provider verifies the contract by replaying the recorded interactions against the real provider and checking the responses match. Consumer defines, provider verifies.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Contract captures expected response for a request",
+            "text": "<p>A contract captures, for a given request, the response the consumer expects (such as status and the fields it relies on).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that request/expected-response pairing is exactly what a contract records."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A contract does record the expected response for each request the consumer relies on."
+              }
+            ],
+            "generalFeedback": "A contract is a set of interactions: each is a request the consumer makes and the response (status/shape/fields) it expects back."
+          },
+          {
+            "type": "truefalse",
+            "name": "Provider verified against all its consumers",
+            "text": "<p>In consumer-driven contract testing, the provider is verified against the contracts of <em>all</em> of its consumers.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the provider must satisfy every consumer's contract, not just one."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A provider typically has several consumers and must be verified against each of their contracts."
+              }
+            ],
+            "generalFeedback": "A single provider often serves many consumers; consumer-driven verification checks the provider against the combined set of all its consumers' contracts."
+          },
+          {
+            "type": "multichoice",
+            "name": "Contract testing tool example",
+            "text": "<p>Which of the following is a well-known contract-testing tool?</p>",
+            "answers": [
+              {
+                "text": "Pact",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Pact is a widely used consumer-driven contract-testing framework (Spring Cloud Contract is another)."
+              },
+              {
+                "text": "Selenium",
+                "fraction": 0,
+                "feedback": "Selenium drives browser UI tests, not contract testing."
+              },
+              {
+                "text": "JMeter",
+                "fraction": 0,
+                "feedback": "JMeter is a load/performance testing tool, not a contract-testing tool."
+              },
+              {
+                "text": "Valgrind",
+                "fraction": 0,
+                "feedback": "Valgrind is a memory/profiling tool, unrelated to contract testing."
+              }
+            ],
+            "generalFeedback": "Pact and Spring Cloud Contract are the common contract-testing tools; Pact also provides a Pact Broker for sharing and versioning contracts.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Consumer is client, provider is server",
+            "text": "<p>The consumer is the client (caller) and the provider is the server (the API being called).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 consumer = client/caller, provider = server/callee."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The consumer really is the client and the provider really is the server; keep this direction straight."
+              }
+            ],
+            "generalFeedback": "Consumer = client that depends on the API; provider = server that supplies it. This role direction is the foundation of everything else in contract testing."
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of contract testing",
+            "text": "<p>The main purpose of contract testing is to:</p>",
+            "answers": [
+              {
+                "text": "Catch API/integration breakage between services early, without spinning up a full end-to-end environment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it detects mismatches between a consumer and provider cheaply and in isolation."
+              },
+              {
+                "text": "Measure how fast the provider responds under heavy load",
+                "fraction": 0,
+                "feedback": "That is performance testing, not contract testing."
+              },
+              {
+                "text": "Prove the provider's business logic is fully correct",
+                "fraction": 0,
+                "feedback": "Contract testing checks the agreed interaction, not the provider's complete business behaviour."
+              },
+              {
+                "text": "Test the consumer's user interface layout",
+                "fraction": 0,
+                "feedback": "Contract testing is about service-to-service interactions, not UI layout."
+              }
+            ],
+            "generalFeedback": "Contract testing verifies that a consumer and provider agree on their interactions, catching breaking API changes early without needing both services live in a full E2E setup.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Consumer tests use a mock provider",
+            "text": "<p>During the consumer's own tests, the consumer runs against a mock provider rather than the real provider.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the consumer is tested against a mock, and the contract is produced from those interactions."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The consumer side uses a mock provider so it can be tested in isolation; the real provider is verified separately later."
+              }
+            ],
+            "generalFeedback": "The consumer's tests exercise a mock provider that returns the expected responses. This keeps the consumer test fast and isolated and generates the contract as output."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Order of the consumer-driven flow",
+            "text": "<p>Put the Pact-style consumer-driven flow in the correct order:</p>",
+            "answers": [
+              {
+                "text": "Consumer tests run against a mock provider and generate the contract, then the provider replays those interactions to verify it satisfies them",
+                "fraction": 100,
+                "feedback": "Correct \u2014 consumer generates the contract first; the provider verifies against it afterwards."
+              },
+              {
+                "text": "The provider writes the contract, then the consumer verifies against it",
+                "fraction": 0,
+                "feedback": "This reverses the roles \u2014 the consumer drives/generates the contract, and the provider verifies."
+              },
+              {
+                "text": "Consumer and provider are deployed together and tested end to end, then a contract is written",
+                "fraction": 0,
+                "feedback": "Contract testing avoids requiring both live at once; the contract comes from the consumer's isolated tests."
+              },
+              {
+                "text": "The broker generates the contract and both sides just read it",
+                "fraction": 0,
+                "feedback": "The broker only stores/shares the contract; the consumer's tests generate it."
+              }
+            ],
+            "generalFeedback": "Flow: consumer test against a mock provider produces the contract, which the provider then replays against the real provider to verify. Consumer generates, provider verifies.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Where the contract is generated",
+            "text": "<p>At which point is the contract (pact file) generated?</p>",
+            "answers": [
+              {
+                "text": "While the consumer's unit tests run against the mock provider",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the contract is a by-product of the consumer's tests against the mock."
+              },
+              {
+                "text": "While the provider replays the interactions against the real service",
+                "fraction": 0,
+                "feedback": "That step consumes the contract to verify it; it does not generate it."
+              },
+              {
+                "text": "When the application is deployed to production",
+                "fraction": 0,
+                "feedback": "The contract is produced during consumer testing, well before deployment."
+              },
+              {
+                "text": "When the broker is first installed",
+                "fraction": 0,
+                "feedback": "The broker stores contracts; it does not create them on installation."
+              }
+            ],
+            "generalFeedback": "The contract is captured on the consumer side, as the consumer's tests interact with the mock provider. It is then published (often to a broker) for the provider to verify.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What provider verification does",
+            "text": "<p>Provider verification in contract testing works by:</p>",
+            "answers": [
+              {
+                "text": "Replaying the interactions recorded in the contract against the real provider and checking each response matches",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the provider re-issues each recorded request and confirms the response satisfies the contract."
+              },
+              {
+                "text": "Re-running the consumer's tests against the mock provider again",
+                "fraction": 0,
+                "feedback": "That is the consumer-side step; provider verification uses the real provider, not the mock."
+              },
+              {
+                "text": "Comparing the provider's source code against the consumer's source code",
+                "fraction": 0,
+                "feedback": "Verification checks observable responses, not source code."
+              },
+              {
+                "text": "Deploying the consumer and provider together and clicking through the UI",
+                "fraction": 0,
+                "feedback": "That is end-to-end testing, which contract testing is designed to avoid."
+              }
+            ],
+            "generalFeedback": "On the provider side, each interaction from the contract is replayed against the real provider; the provider passes only if its responses honour every consumer expectation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why contract testing avoids full E2E",
+            "text": "<p>Contract testing can catch integration problems without a full end-to-end environment because:</p>",
+            "answers": [
+              {
+                "text": "Each side is tested independently \u2014 the consumer against a mock and the provider against the recorded contract \u2014 so both need not be live at once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the contract decouples the two sides so neither requires the other to be running."
+              },
+              {
+                "text": "It ignores the provider entirely and only tests the consumer",
+                "fraction": 0,
+                "feedback": "The provider is still verified \u2014 against the contract \u2014 so it is not ignored."
+              },
+              {
+                "text": "It spins up the whole system but skips the database",
+                "fraction": 0,
+                "feedback": "It does not spin up the whole system at all; that is the point."
+              },
+              {
+                "text": "It only runs in production against live traffic",
+                "fraction": 0,
+                "feedback": "Contract tests run in isolation during development/CI, not against live production traffic."
+              }
+            ],
+            "generalFeedback": "The contract acts as a shared, recorded agreement, letting the consumer and provider be tested separately and quickly. No simultaneous, fully wired-up E2E environment is required.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How a breaking provider change is caught",
+            "text": "<p>A provider makes a change that breaks something a consumer depends on. How does contract testing catch it?</p>",
+            "answers": [
+              {
+                "text": "The provider's verification of that consumer's contract fails",
+                "fraction": 100,
+                "feedback": "Correct \u2014 replaying the consumer's contract against the changed provider no longer matches, so provider-side verification fails."
+              },
+              {
+                "text": "The consumer's tests against the mock immediately fail",
+                "fraction": 0,
+                "feedback": "The consumer's mock still returns the old expected responses, so those tests can still pass; the failure surfaces on the provider side."
+              },
+              {
+                "text": "The broker refuses to store the contract",
+                "fraction": 0,
+                "feedback": "The broker stores contracts and results; it does not itself detect the breakage by refusing storage."
+              },
+              {
+                "text": "Nothing fails until the two services are deployed together",
+                "fraction": 0,
+                "feedback": "The whole benefit is catching this before deployment, via provider verification."
+              }
+            ],
+            "generalFeedback": "A breaking provider change shows up when the provider replays the consumer's contract: the response no longer matches the consumer's expectation, so the provider's verification of that contract fails.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Broker role in the flow",
+            "text": "<p>In the flow, the Pact Broker's role is to:</p>",
+            "answers": [
+              {
+                "text": "Receive the contract published by the consumer and let the provider pull it during verification (storing versions and results)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the broker is the shared exchange point between consumer and provider."
+              },
+              {
+                "text": "Run the consumer's tests and the provider's verification itself",
+                "fraction": 0,
+                "feedback": "The two sides run their own tests; the broker only shares the artifacts and results."
+              },
+              {
+                "text": "Rewrite the provider's API to match the consumer",
+                "fraction": 0,
+                "feedback": "The broker never modifies either service; it stores and shares contracts."
+              },
+              {
+                "text": "Act as the mock provider for the consumer",
+                "fraction": 0,
+                "feedback": "The mock provider is part of the consumer's test setup; the broker is a separate contract repository."
+              }
+            ],
+            "generalFeedback": "The broker stores contracts published by consumers, serves them to providers for verification, and tracks versions and verification results (supporting checks like can-i-deploy).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contract testing vs schema validation",
+            "text": "<p>How does contract testing differ from plain schema validation?</p>",
+            "answers": [
+              {
+                "text": "It checks the actual expected interactions each consumer relies on, not merely whether a payload conforms to a static schema",
+                "fraction": 100,
+                "feedback": "Correct \u2014 contracts encode concrete request/response expectations per consumer, going beyond structural schema conformance."
+              },
+              {
+                "text": "It only checks that JSON is syntactically valid",
+                "fraction": 0,
+                "feedback": "That is even weaker than schema validation; contract testing is about expected interactions."
+              },
+              {
+                "text": "It is exactly the same thing as schema validation",
+                "fraction": 0,
+                "feedback": "They overlap but differ: contracts capture per-consumer expected interactions, not just a shared schema."
+              },
+              {
+                "text": "It validates the provider's database indexes",
+                "fraction": 0,
+                "feedback": "Contract testing concerns service interactions, not database internals."
+              }
+            ],
+            "generalFeedback": 'Schema validation asks "does this payload match a structure?" Contract testing asks "does the provider still satisfy the concrete interactions each consumer actually depends on?" \u2014 a stronger, consumer-specific check.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contract testing vs end-to-end",
+            "text": "<p>Compared with end-to-end (E2E) testing, contract testing:</p>",
+            "answers": [
+              {
+                "text": "Verifies the agreed interaction between two services without needing both live simultaneously in a full environment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that isolation is the key advantage over E2E."
+              },
+              {
+                "text": "Exercises the whole system through the UI like a real user",
+                "fraction": 0,
+                "feedback": "That is E2E testing; contract testing is narrower and does not need the whole system."
+              },
+              {
+                "text": "Guarantees the complete business workflow is correct end to end",
+                "fraction": 0,
+                "feedback": "Only E2E/functional tests cover full workflows; contracts verify the agreed interaction only."
+              },
+              {
+                "text": "Always requires production data and live third-party services",
+                "fraction": 0,
+                "feedback": "Contract tests run in isolation and do not need live production dependencies."
+              }
+            ],
+            "generalFeedback": "E2E wires the whole system together and exercises real workflows; contract testing checks just the agreed consumer/provider interaction, independently, and cheaply. They complement each other.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the mock provider does in the consumer test",
+            "text": "<p>During the consumer's tests, the mock provider's job is to:</p>",
+            "answers": [
+              {
+                "text": "Return the responses the consumer expects, so the consumer can be exercised in isolation and the contract recorded",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the mock supplies expected responses and the interactions become the contract."
+              },
+              {
+                "text": "Verify the real provider satisfies the contract",
+                "fraction": 0,
+                "feedback": "That verification happens later on the provider side, not via the consumer's mock."
+              },
+              {
+                "text": "Load-test the provider's throughput",
+                "fraction": 0,
+                "feedback": "The mock is not a load generator; it returns expected responses for functional interactions."
+              },
+              {
+                "text": "Store contracts for other teams to reuse",
+                "fraction": 0,
+                "feedback": "Sharing/versioning contracts is the broker's job, not the mock's."
+              }
+            ],
+            "generalFeedback": "The mock provider returns the responses the consumer expects, letting the consumer test run without the real provider and producing the contract that captures those interactions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'What "provider verified" means',
+            "text": "<p>A provider is said to have <em>verified</em> a contract when:</p>",
+            "answers": [
+              {
+                "text": "For every recorded request, the real provider produces a response that satisfies the consumer's expectations",
+                "fraction": 100,
+                "feedback": "Correct \u2014 verification passes only if the provider honours each interaction in the contract."
+              },
+              {
+                "text": "The provider's code compiles without errors",
+                "fraction": 0,
+                "feedback": "Compilation says nothing about whether the provider honours the contract."
+              },
+              {
+                "text": "The consumer re-runs its own mock-based tests successfully",
+                "fraction": 0,
+                "feedback": "That is the consumer-side step; verification is on the provider side against the real service."
+              },
+              {
+                "text": "The broker marks the contract as published",
+                "fraction": 0,
+                "feedback": "Publishing is not verification; verification requires replaying the interactions against the provider."
+              }
+            ],
+            "generalFeedback": "Verification means the real provider, when replaying each interaction in the contract, returns responses that meet the consumer's expectations \u2014 status and the fields the consumer relies on.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contract testing complements integration testing",
+            "text": "<p>For microservices, contract testing is best seen as:</p>",
+            "answers": [
+              {
+                "text": "A complement to integration testing that checks consumer/provider agreements independently and fast",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it works alongside integration and other test levels, not as a replacement for all of them."
+              },
+              {
+                "text": "A full replacement for all integration and functional testing",
+                "fraction": 0,
+                "feedback": "Contract testing verifies interactions only; functional and some integration testing are still needed."
+              },
+              {
+                "text": "A kind of performance testing",
+                "fraction": 0,
+                "feedback": "It is functional (interaction) verification, not performance testing."
+              },
+              {
+                "text": "A way to test a single service's internal logic",
+                "fraction": 0,
+                "feedback": "Internal logic is a unit-testing concern; contracts are about interactions between services."
+              }
+            ],
+            "generalFeedback": "Contract testing complements integration testing in a microservices setup: it checks each consumer/provider agreement in isolation, catching API-breakage early, while other levels still cover full behaviour.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Contract tests are fast and isolated",
+            "text": "<p>Because each side is tested against the contract rather than a live counterpart, contract tests are fast and isolated.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no full environment is spun up, so the tests stay quick and independent."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Testing each side against the shared contract, without a live counterpart, is exactly what makes these tests fast and isolated."
+              }
+            ],
+            "generalFeedback": "The consumer runs against a mock and the provider replays the contract; neither needs the other running, so contract tests are fast, isolated, and cheap to run in CI."
+          },
+          {
+            "type": "multichoice",
+            "name": "Which side runs first",
+            "text": "<p>In the normal flow, which happens first?</p>",
+            "answers": [
+              {
+                "text": "The consumer generates the contract, then the provider verifies against it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the contract must exist (from the consumer) before the provider can verify it."
+              },
+              {
+                "text": "The provider verifies first, then the consumer generates the contract",
+                "fraction": 0,
+                "feedback": "The provider cannot verify a contract that has not been generated yet."
+              },
+              {
+                "text": "Both happen simultaneously in one shared test run",
+                "fraction": 0,
+                "feedback": "They run separately and in order; the contract links them asynchronously."
+              },
+              {
+                "text": "Neither has a defined order",
+                "fraction": 0,
+                "feedback": "There is a clear order: consumer generates, then provider verifies."
+              }
+            ],
+            "generalFeedback": "The consumer's tests produce the contract first; only then can the provider replay and verify it. This ordering lets the two teams work and deploy independently.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the contract specifies",
+            "text": "<p>A consumer-driven contract chiefly specifies:</p>",
+            "answers": [
+              {
+                "text": "The requests the consumer sends and the response elements (status and fields) it actually relies on",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it records only the interactions and fields the consumer depends on."
+              },
+              {
+                "text": "Every field the provider is capable of returning",
+                "fraction": 0,
+                "feedback": "The contract need only cover what the consumer uses, not the provider's entire API surface."
+              },
+              {
+                "text": "The provider's internal algorithms",
+                "fraction": 0,
+                "feedback": "Contracts describe observable interactions, not internal algorithms."
+              },
+              {
+                "text": "The deployment topology of the cluster",
+                "fraction": 0,
+                "feedback": "Infrastructure topology is unrelated to what a contract captures."
+              }
+            ],
+            "generalFeedback": "A consumer-driven contract records the interactions and the specific response fields the consumer relies on \u2014 not the provider's whole API. That is why a provider only needs to satisfy the parts its consumers actually use.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Extra provider fields are tolerated",
+            "text": "<p>If the provider's response contains extra fields that no consumer's contract mentions, the consumer's contract can still be satisfied.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a consumer-driven contract only requires the fields the consumer relies on; extra fields are tolerated."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Extra, unrequired fields do not break the contract; only the fields the consumer depends on must be present and correct."
+              }
+            ],
+            "generalFeedback": "Consumer-driven contracts check only what the consumer uses. A provider returning additional fields the consumer ignores still satisfies the contract."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Who owns the contract and why the provider verifies",
+            "text": "<p>In consumer-driven contract testing, who effectively <em>owns/drives</em> the contract, and why must the provider verify against every consumer?</p>",
+            "answers": [
+              {
+                "text": "The consumers drive it by declaring their needs; the provider must verify against all of them because it must not break any consumer that depends on it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 needs come from the consumers, and the provider is the single point that must satisfy every one of them."
+              },
+              {
+                "text": "The provider owns it and each consumer must adapt to whatever the provider verifies",
+                "fraction": 0,
+                "feedback": "That inverts consumer-driven testing; here the consumers express needs and the provider must satisfy them."
+              },
+              {
+                "text": "The broker owns it and decides which consumers matter",
+                "fraction": 0,
+                "feedback": "The broker only stores and shares contracts; it does not own or prioritise them."
+              },
+              {
+                "text": "Whichever team deploys last owns the contract",
+                "fraction": 0,
+                "feedback": "Ownership is by role (consumers drive), not by deployment timing."
+              }
+            ],
+            "generalFeedback": "Consumers drive the contract by stating what they rely on. Because one provider serves many consumers, it must verify against all their contracts so a change does not silently break any dependent consumer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Provider renames a field a consumer uses",
+            "text": "<p>A provider renames a response field from <code>total</code> to <code>totalAmount</code>. A consumer's contract relies on <code>total</code>. What happens?</p>",
+            "answers": [
+              {
+                "text": "The provider's verification of that consumer's contract fails, because replaying the interaction no longer returns the expectedfield",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the consumer depends on; the renamed response breaks provider-side verification of that contract."
+              },
+              {
+                "text": "The consumer's mock-based tests fail first, before any provider check",
+                "fraction": 0,
+                "feedback": "The consumer's mock still returns, so those tests can pass; the failure surfaces during provider verification."
+              },
+              {
+                "text": "Nothing fails, because renaming a field is always backward compatible",
+                "fraction": 0,
+                "feedback": "Renaming a field a consumer relies on is a breaking change, not backward compatible."
+              },
+              {
+                "text": "Only an E2E test could ever detect this",
+                "fraction": 0,
+                "feedback": "Contract testing detects it earlier, via provider verification, without needing E2E."
+              }
+            ],
+            "generalFeedback": "The consumer relies on. When the provider replays that consumer's contract, the response now hasinstead, so the expectation is not met and the provider's verification of that contract fails \u2014 exactly the breaking change contract testing is meant to catch.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Provider changes a field no consumer uses",
+            "text": "<p>A provider removes a response field that <em>no</em> consumer's contract references. Assuming consumer-driven contracts, what is the effect on verification?</p>",
+            "answers": [
+              {
+                "text": "Verification still passes, because no consumer relied on that field",
+                "fraction": 100,
+                "feedback": "Correct \u2014 contracts only cover fields consumers use, so removing an unused field is safe."
+              },
+              {
+                "text": "Verification fails, because any field removal is a breaking change",
+                "fraction": 0,
+                "feedback": "Only changes to fields a consumer relies on break a contract; unused fields can change freely."
+              },
+              {
+                "text": "Verification cannot run until the field is restored",
+                "fraction": 0,
+                "feedback": "The absent field is not in any contract, so verification proceeds and passes."
+              },
+              {
+                "text": "The broker blocks the deployment automatically",
+                "fraction": 0,
+                "feedback": "Nothing in the contracts references the field, so there is nothing to block."
+              }
+            ],
+            "generalFeedback": "Because consumer-driven contracts capture only what consumers actually use, a provider can safely change or remove fields no consumer depends on \u2014 verification is unaffected. This is a key benefit for evolving an API.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What can-i-deploy checks",
+            "text": "<p>Pact's <em>can-i-deploy</em> tool answers the question:</p>",
+            "answers": [
+              {
+                "text": "Is the version I want to deploy compatible with the versions of the other services it interacts with, according to verified contracts?",
+                "fraction": 100,
+                "feedback": "Correct \u2014 can-i-deploy uses recorded verification results to decide whether a version is safe to release."
+              },
+              {
+                "text": "How fast will the new version respond under load?",
+                "fraction": 0,
+                "feedback": "That is a performance question, unrelated to can-i-deploy."
+              },
+              {
+                "text": "Does the code compile on the CI server?",
+                "fraction": 0,
+                "feedback": "can-i-deploy is about contract compatibility between service versions, not compilation."
+              },
+              {
+                "text": "Will the UI pass its accessibility audit?",
+                "fraction": 0,
+                "feedback": "That is unrelated; can-i-deploy checks contract compatibility across service versions."
+              }
+            ],
+            "generalFeedback": "can-i-deploy queries the broker for the verification results between the version you want to deploy and the versions of the services it depends on/serves, telling you whether releasing it would break any contract.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why versioning contracts matters",
+            "text": "<p>Why does the broker version contracts (and their verification results)?</p>",
+            "answers": [
+              {
+                "text": "So it can tell which consumer and provider versions are compatible and support safe, independent deployments",
+                "fraction": 100,
+                "feedback": "Correct \u2014 versioned contracts let tooling reason about compatibility across releases."
+              },
+              {
+                "text": "So it can delete old contracts to save disk space",
+                "fraction": 0,
+                "feedback": "Versioning is about tracking compatibility, not primarily about reclaiming space."
+              },
+              {
+                "text": "So the consumer no longer needs to write tests",
+                "fraction": 0,
+                "feedback": "Consumers still write tests; versioning does not remove that need."
+              },
+              {
+                "text": "So the provider can ignore older consumer versions",
+                "fraction": 0,
+                "feedback": "Versioning helps ensure older consumers are not broken, not that they can be ignored."
+              }
+            ],
+            "generalFeedback": "By versioning contracts and their verification results, the broker (and can-i-deploy) can determine exactly which consumer/provider versions work together, enabling teams to deploy independently and safely.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Independent deployment reasoning",
+            "text": "<p>How does contract testing enable microservices to be deployed <em>independently</em>?</p>",
+            "answers": [
+              {
+                "text": "A team can confirm its change still honours the shared contracts before releasing, without coordinating a synchronized deployment of every service",
+                "fraction": 100,
+                "feedback": "Correct \u2014 verified contracts give each team confidence to release on its own schedule."
+              },
+              {
+                "text": "All services must always be deployed together to stay in sync",
+                "fraction": 0,
+                "feedback": "That is the opposite of independent deployment, which contracts are meant to enable."
+              },
+              {
+                "text": "It removes the need for any versioning of services",
+                "fraction": 0,
+                "feedback": "Independent deployment relies on versioned contracts, not on abandoning versioning."
+              },
+              {
+                "text": "It forces every consumer to redeploy whenever the provider changes",
+                "fraction": 0,
+                "feedback": "Consumers only need to change if a field they rely on changes; unaffected consumers need not redeploy."
+              }
+            ],
+            "generalFeedback": "Because each side is checked against the shared, versioned contract (and can-i-deploy confirms compatibility), a team can deploy its service on its own schedule, confident it will not break the interactions others depend on.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bi-directional vs consumer-driven",
+            "text": "<p>How does <em>bi-directional</em> contract testing differ from classic <em>consumer-driven</em> contract testing?</p>",
+            "answers": [
+              {
+                "text": "In bi-directional, the provider supplies its own API description (e.g. an OpenAPI spec) and the consumer's contract is compared against it, rather than the provider replaying the consumer's interactions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 bi-directional cross-checks a provider-supplied spec with consumer contracts instead of live provider replay."
+              },
+              {
+                "text": "Bi-directional means the consumer verifies the provider's contract while the provider verifies the consumer's",
+                "fraction": 0,
+                "feedback": "That is not what bi-directional means; it compares a provider spec against consumer contracts."
+              },
+              {
+                "text": "Bi-directional removes the consumer from the process entirely",
+                "fraction": 0,
+                "feedback": "The consumer's contract is still involved; it is compared against the provider's own description."
+              },
+              {
+                "text": "They are identical terms for the same technique",
+                "fraction": 0,
+                "feedback": "They differ in how the provider side is checked (replay vs comparing a provider-supplied spec)."
+              }
+            ],
+            "generalFeedback": "Classic consumer-driven testing has the provider replay each consumer's recorded interactions. Bi-directional testing instead compares the consumer's contract against a provider-published API description (such as OpenAPI), which can be convenient when replay is impractical.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Limit of contract testing",
+            "text": "<p>Which statement about the <em>limits</em> of contract testing is correct?</p>",
+            "answers": [
+              {
+                "text": "It verifies the agreed request/response interaction, not the provider's full business logic \u2014 functional tests are still needed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a passing contract does not prove the provider computes the right answers, only that the interaction shape is honoured."
+              },
+              {
+                "text": "It fully replaces the need for functional and end-to-end testing",
+                "fraction": 0,
+                "feedback": "Contract testing does not cover full behaviour; other testing is still required."
+              },
+              {
+                "text": "It proves the entire system works correctly end to end",
+                "fraction": 0,
+                "feedback": "That is beyond its scope; it verifies interactions only."
+              },
+              {
+                "text": "It guarantees performance under load",
+                "fraction": 0,
+                "feedback": "Performance is out of scope for contract testing."
+              }
+            ],
+            "generalFeedback": "Contract testing confirms the two parties agree on the interaction (status, shape, fields). It does not check that the provider's business logic produces correct values, so functional and E2E tests remain necessary.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Consumer adds a new required expectation",
+            "text": "<p>A consumer starts relying on a new field <code>currency</code> and publishes an updated contract, but the provider does not yet return it. What happens?</p>",
+            "answers": [
+              {
+                "text": "The provider's verification of the updated contract fails until the provider adds",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the contract now expects, so the provider fails verification until it supplies that field."
+              },
+              {
+                "text": "The consumer's mock tests fail, so the provider is unaffected",
+                "fraction": 0,
+                "feedback": "The consumer's mock returns, so its tests pass; it is the provider that fails verification."
+              },
+              {
+                "text": "Nothing changes, because adding an expectation is never breaking",
+                "fraction": 0,
+                "feedback": "Adding a required expectation the provider does not meet does cause provider verification to fail."
+              },
+              {
+                "text": "The broker automatically patches the provider to add the field",
+                "fraction": 0,
+                "feedback": "The broker never modifies services; the provider team must implement the field."
+              }
+            ],
+            "generalFeedback": "When a consumer's contract expects a new field, the provider must return it to pass verification. Until the provider adds, replaying the updated contract fails \u2014 signalling the two sides are not yet compatible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Provider adds an optional field",
+            "text": "<p>A provider adds a brand-new optional response field that no existing consumer references. What is the effect on existing consumers' contract verification?</p>",
+            "answers": [
+              {
+                "text": "Existing contracts still verify, because they do not depend on the new field and extra fields are tolerated",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding a field consumers ignore is a non-breaking change."
+              },
+              {
+                "text": "All existing contracts immediately fail",
+                "fraction": 0,
+                "feedback": "Extra, unreferenced fields do not break consumer-driven contracts."
+              },
+              {
+                "text": "Every consumer must republish its contract first",
+                "fraction": 0,
+                "feedback": "Consumers that do not use the new field need not change anything."
+              },
+              {
+                "text": "Verification is blocked until the field is removed",
+                "fraction": 0,
+                "feedback": "The new field is harmless to existing consumers; nothing is blocked."
+              }
+            ],
+            "generalFeedback": "Adding a response field that no consumer relies on is backward compatible. Consumer-driven verification only checks the fields consumers use, so existing contracts continue to pass.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why a provider need not satisfy its whole API",
+            "text": "<p>Why can a provider pass verification while satisfying only <em>part</em> of its API?</p>",
+            "answers": [
+              {
+                "text": "Consumer-driven contracts only encode the interactions and fields consumers actually use, so verification covers just those parts",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the contracts scope verification to what consumers depend on."
+              },
+              {
+                "text": "Because the provider is allowed to ignore half of every contract",
+                "fraction": 0,
+                "feedback": "The provider must satisfy each contract fully; the point is the contracts cover only what consumers use."
+              },
+              {
+                "text": "Because verification samples a random subset of the API",
+                "fraction": 0,
+                "feedback": "Verification is not random sampling; it replays exactly the interactions in the contracts."
+              },
+              {
+                "text": "Because the broker hides the untested endpoints",
+                "fraction": 0,
+                "feedback": "The broker does not hide endpoints; contracts simply cover only what consumers rely on."
+              }
+            ],
+            "generalFeedback": "Since consumers only record what they need, the provider's verification is limited to those interactions. Untouched parts of the API are not part of any contract, so the provider need not satisfy its entire surface to pass.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Detecting a breaking change before deploy",
+            "text": "<p>How does consumer-driven contract testing let a provider team detect a breaking change <em>before</em> deploying, without a staging environment running both services?</p>",
+            "answers": [
+              {
+                "text": "The provider replays each consumer's published contract in its own CI; a failure reveals the breakage before release",
+                "fraction": 100,
+                "feedback": "Correct \u2014 provider verification against stored contracts catches the break in isolation, pre-deploy."
+              },
+              {
+                "text": "It waits for real users to report errors after deployment",
+                "fraction": 0,
+                "feedback": "The goal is to catch the break before deploy, not after users hit it."
+              },
+              {
+                "text": "It requires the consumer to be redeployed alongside the provider first",
+                "fraction": 0,
+                "feedback": "No joint deployment is needed; the provider verifies against the stored contract alone."
+              },
+              {
+                "text": "It relies on a full E2E suite in staging",
+                "fraction": 0,
+                "feedback": "Contract testing avoids needing a full E2E staging environment for this check."
+              }
+            ],
+            "generalFeedback": "The provider's CI pulls each consumer's contract from the broker and replays it against the real provider. A mismatch fails the build, exposing the breaking change before deployment \u2014 no shared staging environment required.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Green verification does not prove correct behaviour",
+            "text": "<p>A provider that passes all its contract verifications is thereby proven to compute the correct business results.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Passing verification only shows the agreed interaction shape is honoured, not that the computed values are correct."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a green contract verification confirms the interaction is honoured, but functional tests are still needed to prove the results are right."
+              }
+            ],
+            "generalFeedback": "Contract testing checks that the provider returns the agreed status and fields for each interaction. It does not check whether the values are business-correct, so passing contracts do not replace functional testing."
+          },
+          {
+            "type": "multichoice",
+            "name": "Two consumers, one provider change",
+            "text": "<p>A provider serves two consumers: consumer X relies on field <code>status</code>, consumer Y does not. The provider removes <code>status</code>. What is the outcome of provider verification?</p>",
+            "answers": [
+              {
+                "text": "Verification of consumer X's contract fails; consumer Y's contract still passes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only the consumer that relies on the removed field is broken."
+              },
+              {
+                "text": "Both consumers' contracts fail",
+                "fraction": 0,
+                "feedback": "Consumer Y never relied on, so its contract is unaffected."
+              },
+              {
+                "text": "Both consumers' contracts pass",
+                "fraction": 0,
+                "feedback": "Consumer X depends on, so its verification must fail."
+              },
+              {
+                "text": "Neither contract can be verified until both consumers agree",
+                "fraction": 0,
+                "feedback": "Each contract is verified independently; consumer agreement is not required to run verification."
+              }
+            ],
+            "generalFeedback": "Because verification is per consumer, removingfails consumer X's contract (which relies on it) but not consumer Y's (which does not). This pinpoints exactly which consumer a change breaks.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "can-i-deploy across versions",
+            "text": "<p>Before releasing a new provider version, a team runs can-i-deploy. It reports a failure against one deployed consumer version. The correct interpretation is:</p>",
+            "answers": [
+              {
+                "text": "The new provider version would break that consumer version's contract, so it is not yet safe to deploy",
+                "fraction": 100,
+                "feedback": "Correct \u2014 can-i-deploy is warning that this release would violate an existing verified contract."
+              },
+              {
+                "text": "The provider version is fine; the consumer must simply upgrade regardless",
+                "fraction": 0,
+                "feedback": "can-i-deploy is flagging a real incompatibility; deploying anyway would break that consumer."
+              },
+              {
+                "text": "The provider's code failed to compile",
+                "fraction": 0,
+                "feedback": "can-i-deploy reports contract compatibility, not compilation status."
+              },
+              {
+                "text": "The broker is offline",
+                "fraction": 0,
+                "feedback": "A reported incompatibility is a contract result, not a broker outage."
+              }
+            ],
+            "generalFeedback": "can-i-deploy consults the broker's verification results between the candidate version and the versions it must work with. A failure means releasing would break a still-deployed consumer's contract, so the deployment should be held.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u5951\u7D04",
+            "text": "<p>\u5728\u5951\u7D04\u6E2C\u8A66\uFF08contract testing\uFF09\u4E2D\uFF0C<em>\u5951\u7D04\uFF08contract\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63CF\u8FF0\u670D\u52D9\u6D88\u8CBB\u8005\uFF08consumer\uFF09\u8207\u63D0\u4F9B\u8005\uFF08provider\uFF09\u4E4B\u9593\u4E92\u52D5\u7684\u5354\u5B9A\u2014\u2014\u5C0D\u65BC\u67D0\u500B\u8ACB\u6C42\uFF0C\u6240\u671F\u671B\u7684\u56DE\u61C9\uFF08\u72C0\u614B\u78BC\uFF0C\u4EE5\u53CA\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u660E\u8A02\u96D9\u65B9\u4E4B\u9593\u6240\u671F\u671B\u7684\u8ACB\u6C42\uFF0F\u56DE\u61C9\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u7531\u5169\u500B\u958B\u767C\u5718\u968A\u7C3D\u7F72\u7684\u6CD5\u5F8B\u6587\u4EF6",
+                "fraction": 0,
+                "feedback": "\u96D6\u501F\u7528\u4E86\u300C\u5951\u7D04\u300D\u4E00\u8A5E\uFF0C\u4F46\u6B64\u8655\u662F\u53EF\u88AB\u6A5F\u5668\u9A57\u8B49\u7684\u4E92\u52D5\u63CF\u8FF0\uFF0C\u800C\u975E\u7D19\u672C\u5354\u8B70\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u7684\u5B8C\u6574\u5167\u90E8\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u53EA\u63CF\u8FF0\u53EF\u89C0\u5BDF\u5230\u7684\u4E92\u52D5\uFF0C\u4E0D\u542B\u63D0\u4F9B\u8005\u7684\u5BE6\u4F5C\u5167\u5BB9\u3002"
+              },
+              {
+                "text": "\u8AF8\u5982\u6700\u5927\u56DE\u61C9\u5EF6\u9072\u7684\u6548\u80FD\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975E\u529F\u80FD\u6027\uFF0FSLA \u7684\u8003\u91CF\uFF0C\u4E26\u975E\u5951\u7D04\u6240\u8A18\u9304\u7684\u5167\u5BB9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5951\u7D04\u662F\u95DC\u65BC\u6D88\u8CBB\u8005\uFF08\u7528\u6236\u7AEF\uFF09\u8207\u63D0\u4F9B\u8005\uFF08\u4F3A\u670D\u5668\uFF09\u4E4B\u9593\u4E92\u52D5\u7684\u5354\u5B9A\uFF1A\u5C0D\u65BC\u67D0\u500B\u8ACB\u6C42\uFF0C\u671F\u671B\u5F97\u5230\u600E\u6A23\u7684\u56DE\u61C9\uFF08\u72C0\u614B\u78BC\u3001\u7D50\u69CB\uFF0C\u4EE5\u53CA\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u662F\u6D88\u8CBB\u8005",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\uFF0F\u63D0\u4F9B\u8005\u9019\u4E00\u5C0D\u95DC\u4FC2\u4E2D\uFF0C<em>\u6D88\u8CBB\u8005\uFF08consumer\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9001\u51FA\u8ACB\u6C42\u4E26\u4F9D\u8CF4\u53E6\u4E00\u500B\u670D\u52D9 API \u7684\u7528\u6236\u7AEF\uFF08client\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u8CBB\u8005\u662F\u767C\u51FA\u547C\u53EB\u3001\u4F9D\u8CF4\u63D0\u4F9B\u8005\u56DE\u61C9\u7684\u4E00\u65B9\u3002"
+              },
+              {
+                "text": "\u63A5\u6536\u8ACB\u6C42\u4E26\u56DE\u50B3\u56DE\u61C9\u7684\u670D\u52D9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u63D0\u4F9B\u8005\uFF0C\u4E0D\u662F\u6D88\u8CBB\u8005\u3002"
+              },
+              {
+                "text": "\u5132\u5B58\u61C9\u7528\u7A0B\u5F0F\u8CC7\u6599\u7684\u8CC7\u6599\u5EAB",
+                "fraction": 0,
+                "feedback": "\u8CC7\u6599\u5EAB\u662F\u57FA\u790E\u8A2D\u65BD\uFF0C\u4E26\u975E\u4E92\u52D5\u4E2D\u7684\u6D88\u8CBB\u8005\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6E2C\u8A66\u7684 CI \u4F3A\u670D\u5668",
+                "fraction": 0,
+                "feedback": "CI \u57F7\u884C\u6E2C\u8A66\uFF0C\u4F46\u4E26\u4E0D\u662F\u5951\u7D04\u7684\u7576\u4E8B\u4E00\u65B9\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\uFF08\u7528\u6236\u7AEF\uFF09\u662F\u547C\u53EB API \u4E26\u4F9D\u8CF4\u5176\u56DE\u61C9\u7684\u4E00\u65B9\uFF1B\u63D0\u4F9B\u8005\uFF08\u4F3A\u670D\u5668\uFF09\u5247\u662F\u56DE\u61C9\u7684\u4E00\u65B9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u662F\u63D0\u4F9B\u8005",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\uFF0F\u63D0\u4F9B\u8005\u9019\u4E00\u5C0D\u95DC\u4FC2\u4E2D\uFF0C<em>\u63D0\u4F9B\u8005\uFF08provider\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u6536\u8ACB\u6C42\u4E26\u56DE\u50B3\u56DE\u61C9\u7684\u670D\u52D9\uFF08\u88AB\u547C\u53EB\u7684 API\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u4F9B\u8005\u63D0\u4F9B\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684 API\u3002"
+              },
+              {
+                "text": "\u9001\u51FA\u8ACB\u6C42\u4E26\u4F9D\u8CF4 API \u7684\u7528\u6236\u7AEF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6D88\u8CBB\u8005\uFF0C\u4E0D\u662F\u63D0\u4F9B\u8005\u3002"
+              },
+              {
+                "text": "\u7522\u751F\u5951\u7D04\u6A94\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u662F\u5728\u6D88\u8CBB\u8005\u7AEF\u7522\u751F\u7684\uFF1B\u63D0\u4F9B\u8005\u662F\u88AB\u62FF\u5951\u7D04\u4F86\u9A57\u8B49\u7684\u670D\u52D9\u3002"
+              },
+              {
+                "text": "\u64CD\u4F5C\u61C9\u7528\u7A0B\u5F0F\u7684\u7D42\u7AEF\u4F7F\u7528\u8005",
+                "fraction": 0,
+                "feedback": "\u63D0\u4F9B\u8005\u662F\u8EDF\u9AD4\u670D\u52D9\uFF0C\u800C\u975E\u4EBA\u985E\u4F7F\u7528\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u4F9B\u8005\uFF08\u4F3A\u670D\u5668\uFF09\u63A5\u6536\u8ACB\u6C42\u4E26\u56DE\u50B3\u56DE\u61C9\u3002\u5728\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u4E2D\uFF0C\u63D0\u4F9B\u8005\u8981\u4EE5\u5176\u5404\u6D88\u8CBB\u8005\u6240\u767C\u5E03\u7684\u5951\u7D04\u4F86\u52A0\u4EE5\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66",
+            "text": "<p><em>\u6D88\u8CBB\u8005\u9A45\u52D5\uFF08consumer-driven\uFF09</em>\u7684\u5951\u7D04\u6E2C\u8A66\u610F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u8CBB\u8005\u660E\u8A02\u5B83\u5BE6\u969B\u9700\u8981 API \u63D0\u4F9B\u4EC0\u9EBC\uFF0C\u800C\u63D0\u4F9B\u8005\u8981\u4EE5\u5176\u6240\u6709\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u4F86\u52A0\u4EE5\u9A57\u8B49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9700\u6C42\u7531\u5404\u6D88\u8CBB\u8005\u63D0\u51FA\uFF0C\u63D0\u4F9B\u8005\u5FC5\u9808\u6EFF\u8DB3\u6BCF\u4E00\u500B\u6D88\u8CBB\u8005\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u767C\u5E03\u5176\u5B8C\u6574 API\uFF0C\u6D88\u8CBB\u8005\u53EA\u80FD\u63A5\u53D7\u5B83\u6240\u63D0\u4F9B\u7684\u4E00\u5207",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u63D0\u4F9B\u8005\u9A45\u52D5\u7684\u4F5C\u6CD5\uFF1B\u6D88\u8CBB\u8005\u9A45\u52D5\u662F\u5F9E\u6D88\u8CBB\u8005\u7684\u9700\u6C42\u51FA\u767C\u3002"
+              },
+              {
+                "text": "\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u90FD\u5FC5\u9808\u5BE6\u969B\u4E0A\u7DDA\u4E26\u505A\u7AEF\u5230\u7AEF\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u6B63\u662F\u8981\u907F\u514D\u540C\u6642\u4E0A\u7DDA\u5169\u8005\uFF1B\u90A3\u662F\u7AEF\u5230\u7AEF\uFF08E2E\uFF09\u6E2C\u8A66\u7684\u4F5C\u6CD5\u3002"
+              },
+              {
+                "text": "\u7531\u5DE5\u5177\u50C5\u5C07\u63D0\u4F9B\u8005\u7684\u56DE\u61C9\u5C0D\u7167\u4E00\u4EFD\u975C\u614B JSON schema \u52A0\u4EE5\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F schema \u9A57\u8B49\uFF0C\u4E26\u975E\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u4E2D\uFF0C\u6BCF\u500B\u6D88\u8CBB\u8005\u9673\u8FF0\u5B83\u6240\u4F9D\u8CF4\u7684\u4E92\u52D5\uFF1B\u63D0\u4F9B\u8005\u63A5\u8457\u8981\u4EE5\u5176\u6240\u6709\u6D88\u8CBB\u8005\u5951\u7D04\u7684\u6574\u9AD4\u96C6\u5408\u4F86\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F pact \u6A94",
+            "text": "<p>\u5728 Pact \u98A8\u683C\u7684\u5951\u7D04\u6E2C\u8A66\u4E2D\uFF0C<em>pact \u6A94\uFF08pact file\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u4EFD\u8A18\u9304\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u4E4B\u671F\u671B\u8ACB\u6C42\uFF0F\u56DE\u61C9\u4E92\u52D5\u7684\u6A94\u6848\uFF0C\u7531\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u7522\u751F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014pact \u6A94\u5C31\u662F\u5728\u6D88\u8CBB\u8005\u7AEF\u7522\u51FA\u7684\u5951\u7D04\u7522\u7269\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u7528\u4F86\u555F\u52D5\u63D0\u4F9B\u8005\u6B63\u5F0F\u4F3A\u670D\u5668\u7684\u8A2D\u5B9A\u6A94",
+                "fraction": 0,
+                "feedback": "pact \u6A94\u8A18\u9304\u4E92\u52D5\uFF0C\u4E26\u4E0D\u6703\u555F\u52D5\u4F3A\u670D\u5668\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u8A18\u9304\u6B63\u5F0F\u74B0\u5883\u4E2D\u6BCF\u4E00\u6B21\u771F\u5BE6 HTTP \u547C\u53EB\u7684\u65E5\u8A8C",
+                "fraction": 0,
+                "feedback": "pact \u6A94\u662F\u5F9E\u6E2C\u8A66\u800C\u4F86\u3001\u7D93\u6574\u7406\u7684\u671F\u671B\u4E92\u52D5\u96C6\u5408\uFF0C\u4E26\u975E\u6B63\u5F0F\u74B0\u5883\u7684\u6D41\u91CF\u65E5\u8A8C\u3002"
+              },
+              {
+                "text": "\u532F\u51FA\u5230\u78C1\u789F\u7684\u63D0\u4F9B\u8005\u8CC7\u6599\u5EAB schema",
+                "fraction": 0,
+                "feedback": "\u5B83\u8A18\u9304\u7684\u662F\u5169\u500B\u670D\u52D9\u4E4B\u9593\u7684\u4E92\u52D5\uFF0C\u800C\u975E\u8CC7\u6599\u5EAB schema\u3002"
+              }
+            ],
+            "generalFeedback": "pact\uFF08\u5951\u7D04\uFF09\u6A94\u8A18\u9304\u6D88\u8CBB\u8005\u9001\u51FA\u7684\u8ACB\u6C42\u4EE5\u53CA\u5B83\u6240\u671F\u671B\u7684\u56DE\u61C9\u3002\u5B83\u662F\u5728\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u5C0D\u8457\u6A21\u64EC\u63D0\u4F9B\u8005\uFF08mock provider\uFF09\u57F7\u884C\u6642\u7522\u751F\uFF0C\u96A8\u5F8C\u4EA4\u7D66\u63D0\u4F9B\u8005\u53BB\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Pact Broker",
+            "text": "<p><em>Pact Broker</em> \u7528\u4F86\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u4E4B\u9593\u5206\u4EAB\u4E26\u7248\u672C\u5316\u5951\u7D04\uFF08\u4E26\u652F\u63F4\u5982 can-i-deploy \u4E4B\u985E\u7684\u6AA2\u67E5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014broker \u662F\u5951\u7D04\u88AB\u767C\u5E03\u3001\u7248\u672C\u5316\u8207\u53D6\u7528\u7684\u96C6\u4E2D\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u5728\u6B63\u5F0F\u74B0\u5883\u57F7\u884C\u63D0\u4F9B\u8005\u7684\u5546\u696D\u908F\u8F2F",
+                "fraction": 0,
+                "feedback": "broker \u5132\u5B58\u4E26\u5206\u4EAB\u5951\u7D04\uFF0C\u4E26\u4E0D\u57F7\u884C\u5546\u696D\u908F\u8F2F\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u7522\u751F\u6D88\u8CBB\u8005\u7684\u61C9\u7528\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "broker \u4E0D\u6703\u7522\u751F\u61C9\u7528\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u8B93\u4EBA\u4E0D\u5FC5\u518D\u64B0\u5BEB\u4EFB\u4F55\u6D88\u8CBB\u8005\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u4ECD\u9808\u64B0\u5BEB\u6E2C\u8A66\u4EE5\u7522\u751F\u5951\u7D04\uFF1Bbroker \u53EA\u8CA0\u8CAC\u5206\u4EAB\u5B83\u5011\u3002"
+              }
+            ],
+            "generalFeedback": "Pact Broker \u662F\u8DE8\u5718\u968A\u5206\u4EAB\u8207\u7248\u672C\u5316\u5951\u7D04\u7684\u5132\u5B58\u5EAB\u3002\u5B83\u8B93\u63D0\u4F9B\u8005\u80FD\u53D6\u5F97\u8981\u9A57\u8B49\u7684\u5951\u7D04\uFF0C\u4E26\u652F\u6490 can-i-deploy \u4E4B\u985E\u7684\u5DE5\u5177\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6A21\u64EC\u63D0\u4F9B\u8005",
+            "text": "<p>\u7576\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u5C0D\u8457<em>\u6A21\u64EC\u63D0\u4F9B\u8005\uFF08mock provider\uFF09</em>\u57F7\u884C\u6642\uFF0C\u8A72\u6A21\u64EC\u7269\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4EE3\u66FF\u771F\u5BE6\u63D0\u4F9B\u8005\u3001\u56DE\u50B3\u6D88\u8CBB\u8005\u6240\u671F\u671B\u7684\u56DE\u61C9\uFF0C\u8B93\u6D88\u8CBB\u8005\u80FD\u88AB\u7368\u7ACB\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A21\u64EC\u7269\u8B93\u6D88\u8CBB\u8005\u4E0D\u5FC5\u555F\u52D5\u771F\u5BE6\u63D0\u4F9B\u8005\u4E5F\u80FD\u88AB\u57F7\u884C\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5C31\u662F\u5728\u6B63\u5F0F\u74B0\u5883\u57F7\u884C\u4E2D\u7684\u771F\u5BE6\u63D0\u4F9B\u8005",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u6A21\u64EC\u7269\u7684\u91CD\u9EDE\u6B63\u662F\u4E0D\u5FC5\u555F\u52D5\u771F\u5BE6\u63D0\u4F9B\u8005\u3002"
+              },
+              {
+                "text": "\u4EE5\u5951\u7D04\u4F86\u9A57\u8B49\u63D0\u4F9B\u8005",
+                "fraction": 0,
+                "feedback": "\u5C0D\u7167\u5951\u7D04\u7684\u9A57\u8B49\u767C\u751F\u5728\u7A0D\u5F8C\u3001\u7531\u63D0\u4F9B\u8005\u7AEF\u9032\u884C\uFF0C\u800C\u975E\u900F\u904E\u6D88\u8CBB\u8005\u7684\u6A21\u64EC\u7269\u3002"
+              },
+              {
+                "text": "\u70BA\u5206\u6790\u7528\u9014\u8A18\u9304\u6B63\u5F0F\u74B0\u5883\u6D41\u91CF",
+                "fraction": 0,
+                "feedback": "\u6A21\u64EC\u7269\u63D0\u4F9B\u6E2C\u8A66\u6240\u9700\u7684\u671F\u671B\u56DE\u61C9\uFF0C\u4E26\u975E\u6B63\u5F0F\u74B0\u5883\u7684\u5206\u6790\u5DE5\u5177\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u64EC\u63D0\u4F9B\u8005\u5728\u6D88\u8CBB\u8005\u81EA\u5DF1\u7684\u6E2C\u8A66\u671F\u9593\u56DE\u653E\u6D88\u8CBB\u8005\u6240\u671F\u671B\u7684\u56DE\u61C9\uFF0C\u8B93\u6D88\u8CBB\u8005\u80FD\u88AB\u7368\u7ACB\u6E2C\u8A66\uFF0C\u4E26\u9806\u5E36\u7522\u751F\u5951\u7D04\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u5B9A\u7FA9\u5951\u7D04",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u4E2D\uFF0C\u662F\u7531\u8AB0<strong>\u5B9A\u7FA9\uFF0F\u9A45\u52D5\uFF08define / drive\uFF09</strong>\u5951\u7D04\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u8CBB\u8005\u2014\u2014\u7531\u5B83\u9673\u8FF0\u81EA\u5DF1\u5BE6\u969B\u9700\u8981\u7684\u4E92\u52D5\u8207\u56DE\u61C9\u6B04\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u8CBB\u8005\u85C9\u7531\u5BA3\u544A\u81EA\u8EAB\u9700\u6C42\u4F86\u9A45\u52D5\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u2014\u2014\u7531\u5B83\u5411\u6D88\u8CBB\u8005\u898F\u5B9A\u6574\u500B API",
+                "fraction": 0,
+                "feedback": "\u5728\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u6E2C\u8A66\u4E2D\uFF0C\u63D0\u4F9B\u8005\u4E26\u4E0D\u5B9A\u7FA9\u5951\u7D04\uFF0C\u800C\u662F\u88AB\u62FF\u5951\u7D04\u4F86\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "Pact Broker\u2014\u2014\u7531\u5B83\u81EA\u52D5\u64B0\u5BEB\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "broker \u5132\u5B58\u4E26\u5206\u4EAB\u5951\u7D04\uFF0C\u4E26\u4E0D\u64B0\u5BEB\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u53E6\u4E00\u4EFD\u898F\u683C\u7684 QA \u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u662F\u5F9E\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u7522\u751F\uFF0C\u800C\u975E\u7531\u53E6\u4E00\u4EFD\u624B\u5BEB\u898F\u683C\u800C\u4F86\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u9A45\u52D5\uFF1A\u7531\u6D88\u8CBB\u8005\u85C9\u7531\u8868\u9054\u5176\u9700\u6C42\u4F86\u5B9A\u7FA9\uFF0F\u9A45\u52D5\u5951\u7D04\u3002\u8A18\u4F4F\u9019\u7D44\u5C0D\u61C9\u2014\u2014\u6D88\u8CBB\u8005\u5B9A\u7FA9\uFF0C\u63D0\u4F9B\u8005\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u9A57\u8B49\u5951\u7D04",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u4E2D\uFF0C\u662F\u7531\u8AB0<strong>\u9A57\u8B49\uFF08verify\uFF09</strong>\u5951\u7D04\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4F9B\u8005\u2014\u2014\u7531\u5B83\u6AA2\u67E5\u81EA\u5DF1\u662F\u5426\u6EFF\u8DB3\u6BCF\u500B\u6D88\u8CBB\u8005\u7684\u5951\u7D04",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u4F9B\u8005\u8981\u4EE5\u5176\u6D88\u8CBB\u8005\u6240\u767C\u5E03\u7684\u5951\u7D04\u4F86\u52A0\u4EE5\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u6D88\u8CBB\u8005\u2014\u2014\u7531\u5B83\u518D\u62FF\u5951\u7D04\u5C0D\u7167\u6A21\u64EC\u7269\u91CD\u65B0\u6AA2\u67E5",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u7522\u751F\u5951\u7D04\uFF1B\u5C0D\u7167\u771F\u5BE6\u670D\u52D9\u7684\u9A57\u8B49\u662F\u63D0\u4F9B\u8005\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "Pact Broker\u2014\u2014\u7531\u5B83\u81EA\u5DF1\u57F7\u884C\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "broker \u5206\u4EAB\u5951\u7D04\u8207\u7D50\u679C\uFF1B\u9A57\u8B49\u7531\u63D0\u4F9B\u8005\u81EA\u5DF1\u7684\u6E2C\u8A66\u5957\u4EF6\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66\u671F\u9593\u7684\u7D42\u7AEF\u4F7F\u7528\u8005",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u9A57\u8B49\u662F\u5728\u63D0\u4F9B\u8005\u7AEF\u81EA\u52D5\u5316\u9032\u884C\uFF0C\u4E26\u975E\u7531\u4F7F\u7528\u8005\u624B\u52D5\u9A57\u6536\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u4F9B\u8005\u85C9\u7531\u628A\u8A18\u9304\u4E0B\u4F86\u7684\u4E92\u52D5\u5C0D\u8457\u771F\u5BE6\u63D0\u4F9B\u8005\u56DE\u653E\u3001\u6AA2\u67E5\u56DE\u61C9\u662F\u5426\u76F8\u7B26\u4F86\u9A57\u8B49\u5951\u7D04\u3002\u6D88\u8CBB\u8005\u5B9A\u7FA9\uFF0C\u63D0\u4F9B\u8005\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5951\u7D04\u8A18\u9304\u67D0\u500B\u8ACB\u6C42\u7684\u671F\u671B\u56DE\u61C9",
+            "text": "<p>\u5951\u7D04\u6703\u91DD\u5C0D\u67D0\u500B\u8ACB\u6C42\uFF0C\u8A18\u9304\u6D88\u8CBB\u8005\u6240\u671F\u671B\u7684\u56DE\u61C9\uFF08\u4F8B\u5982\u72C0\u614B\u78BC\u4EE5\u53CA\u5B83\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u8ACB\u6C42\u5C0D\u61C9\u671F\u671B\u56DE\u61C9\u300D\u6B63\u662F\u5951\u7D04\u6240\u8A18\u9304\u7684\u5167\u5BB9\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u78BA\u5BE6\u6703\u91DD\u5C0D\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6BCF\u500B\u8ACB\u6C42\u8A18\u9304\u5176\u671F\u671B\u56DE\u61C9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5951\u7D04\u662F\u4E00\u7D44\u4E92\u52D5\uFF1A\u6BCF\u4E00\u9805\u90FD\u662F\u6D88\u8CBB\u8005\u9001\u51FA\u7684\u4E00\u500B\u8ACB\u6C42\uFF0C\u4EE5\u53CA\u5B83\u671F\u671B\u6536\u5230\u7684\u56DE\u61C9\uFF08\u72C0\u614B\u78BC\uFF0F\u7D50\u69CB\uFF0F\u6B04\u4F4D\uFF09\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u63D0\u4F9B\u8005\u8981\u5C0D\u5176\u6240\u6709\u6D88\u8CBB\u8005\u9A57\u8B49",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u4E2D\uFF0C\u63D0\u4F9B\u8005\u8981\u4EE5\u5176<em>\u6240\u6709</em>\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u4F86\u52A0\u4EE5\u9A57\u8B49\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u4F9B\u8005\u5FC5\u9808\u6EFF\u8DB3\u6BCF\u4E00\u500B\u6D88\u8CBB\u8005\u7684\u5951\u7D04\uFF0C\u800C\u4E0D\u50C5\u662F\u5176\u4E2D\u4E4B\u4E00\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u63D0\u4F9B\u8005\u901A\u5E38\u6709\u591A\u500B\u6D88\u8CBB\u8005\uFF0C\u4E14\u5FC5\u9808\u5C0D\u5176\u6BCF\u4E00\u4EFD\u5951\u7D04\u52A0\u4EE5\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u4E00\u63D0\u4F9B\u8005\u5F80\u5F80\u670D\u52D9\u8A31\u591A\u6D88\u8CBB\u8005\uFF1B\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u9A57\u8B49\u6703\u4EE5\u5176\u6240\u6709\u6D88\u8CBB\u8005\u5951\u7D04\u7684\u6574\u9AD4\u96C6\u5408\u4F86\u6AA2\u67E5\u63D0\u4F9B\u8005\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u6E2C\u8A66\u5DE5\u5177\u7BC4\u4F8B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u77E5\u540D\u7684\u5951\u7D04\u6E2C\u8A66\u5DE5\u5177\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Pact",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Pact \u662F\u5EE3\u6CDB\u4F7F\u7528\u7684\u6D88\u8CBB\u8005\u9A45\u52D5\u5951\u7D04\u6E2C\u8A66\u6846\u67B6\uFF08Spring Cloud Contract \u662F\u53E6\u4E00\u500B\uFF09\u3002"
+              },
+              {
+                "text": "Selenium",
+                "fraction": 0,
+                "feedback": "Selenium \u7528\u4F86\u9A45\u52D5\u700F\u89BD\u5668 UI \u6E2C\u8A66\uFF0C\u4E26\u975E\u5951\u7D04\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "JMeter",
+                "fraction": 0,
+                "feedback": "JMeter \u662F\u8CA0\u8F09\uFF0F\u6548\u80FD\u6E2C\u8A66\u5DE5\u5177\uFF0C\u4E26\u975E\u5951\u7D04\u6E2C\u8A66\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "Valgrind",
+                "fraction": 0,
+                "feedback": "Valgrind \u662F\u8A18\u61B6\u9AD4\uFF0F\u6548\u80FD\u5256\u6790\u5DE5\u5177\uFF0C\u8207\u5951\u7D04\u6E2C\u8A66\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "Pact \u8207 Spring Cloud Contract \u662F\u5E38\u898B\u7684\u5951\u7D04\u6E2C\u8A66\u5DE5\u5177\uFF1BPact \u53E6\u63D0\u4F9B Pact Broker \u4EE5\u5206\u4EAB\u4E26\u7248\u672C\u5316\u5951\u7D04\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6D88\u8CBB\u8005\u662F\u7528\u6236\u7AEF\uFF0C\u63D0\u4F9B\u8005\u662F\u4F3A\u670D\u5668",
+            "text": "<p>\u6D88\u8CBB\u8005\u662F\u7528\u6236\u7AEF\uFF08\u547C\u53EB\u65B9\uFF09\uFF0C\u63D0\u4F9B\u8005\u662F\u4F3A\u670D\u5668\uFF08\u88AB\u547C\u53EB\u7684 API\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u8CBB\u8005\uFF1D\u7528\u6236\u7AEF\uFF0F\u547C\u53EB\u65B9\uFF0C\u63D0\u4F9B\u8005\uFF1D\u4F3A\u670D\u5668\uFF0F\u88AB\u547C\u53EB\u65B9\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u78BA\u5BE6\u662F\u7528\u6236\u7AEF\uFF0C\u63D0\u4F9B\u8005\u78BA\u5BE6\u662F\u4F3A\u670D\u5668\uFF1B\u52D9\u5FC5\u8A18\u7262\u9019\u500B\u65B9\u5411\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\uFF1D\u4F9D\u8CF4 API \u7684\u7528\u6236\u7AEF\uFF1B\u63D0\u4F9B\u8005\uFF1D\u63D0\u4F9B\u8A72 API \u7684\u4F3A\u670D\u5668\u3002\u9019\u500B\u89D2\u8272\u65B9\u5411\u662F\u5951\u7D04\u6E2C\u8A66\u5176\u9918\u4E00\u5207\u7684\u57FA\u790E\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u6E2C\u8A66\u7684\u76EE\u7684",
+            "text": "<p>\u5951\u7D04\u6E2C\u8A66\u7684\u4E3B\u8981\u76EE\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53CA\u65E9\u6355\u6349\u670D\u52D9\u4E4B\u9593\u7684 API\uFF0F\u6574\u5408\u7834\u58DE\uFF0C\u800C\u4E0D\u5FC5\u67B6\u8D77\u5B8C\u6574\u7684\u7AEF\u5230\u7AEF\u74B0\u5883",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u4EE5\u4F4E\u6210\u672C\u4E14\u7368\u7ACB\u7684\u65B9\u5F0F\u5075\u6E2C\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u4E4B\u9593\u7684\u4E0D\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u63D0\u4F9B\u8005\u5728\u91CD\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u901F\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u6E2C\u8A66\uFF0C\u4E26\u975E\u5951\u7D04\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u63D0\u4F9B\u8005\u7684\u5546\u696D\u908F\u8F2F\u5B8C\u5168\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u6AA2\u67E5\u7684\u662F\u7D04\u5B9A\u597D\u7684\u4E92\u52D5\uFF0C\u800C\u975E\u63D0\u4F9B\u8005\u5B8C\u6574\u7684\u5546\u696D\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6D88\u8CBB\u8005\u7684\u4F7F\u7528\u8005\u4ECB\u9762\u7248\u9762\u914D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u91DD\u5C0D\u670D\u52D9\u5C0D\u670D\u52D9\u7684\u4E92\u52D5\uFF0C\u800C\u975E UI \u7248\u9762\u3002"
+              }
+            ],
+            "generalFeedback": "\u5951\u7D04\u6E2C\u8A66\u9A57\u8B49\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u5C0D\u5176\u4E92\u52D5\u9054\u6210\u4E00\u81F4\uFF0C\u80FD\u53CA\u65E9\u6355\u6349\u7834\u58DE\u6027\u7684 API \u8B8A\u66F4\uFF0C\u800C\u4E0D\u5FC5\u5728\u5B8C\u6574 E2E \u74B0\u5883\u4E2D\u540C\u6642\u555F\u52D5\u5169\u500B\u670D\u52D9\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6D88\u8CBB\u8005\u6E2C\u8A66\u4F7F\u7528\u6A21\u64EC\u63D0\u4F9B\u8005",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\u81EA\u5DF1\u7684\u6E2C\u8A66\u671F\u9593\uFF0C\u6D88\u8CBB\u8005\u662F\u5C0D\u8457\u6A21\u64EC\u63D0\u4F9B\u8005\u57F7\u884C\uFF0C\u800C\u975E\u771F\u5BE6\u63D0\u4F9B\u8005\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u8CBB\u8005\u5C0D\u8457\u6A21\u64EC\u7269\u6E2C\u8A66\uFF0C\u800C\u5951\u7D04\u4FBF\u7531\u9019\u4E9B\u4E92\u52D5\u7522\u751F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u7AEF\u4F7F\u7528\u6A21\u64EC\u63D0\u4F9B\u8005\u4EE5\u4FBF\u7368\u7ACB\u6E2C\u8A66\uFF1B\u771F\u5BE6\u63D0\u4F9B\u8005\u7A0D\u5F8C\u53E6\u884C\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u5C0D\u8457\u56DE\u50B3\u671F\u671B\u56DE\u61C9\u7684\u6A21\u64EC\u63D0\u4F9B\u8005\u57F7\u884C\u3002\u9019\u8B93\u6D88\u8CBB\u8005\u6E2C\u8A66\u5FEB\u901F\u4E14\u7368\u7ACB\uFF0C\u4E26\u7522\u751F\u8A18\u9304\u90A3\u4E9B\u4E92\u52D5\u7684\u5951\u7D04\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u6D88\u8CBB\u8005\u9A45\u52D5\u6D41\u7A0B\u7684\u9806\u5E8F",
+            "text": "<p>\u8ACB\u5C07 Pact \u98A8\u683C\u7684\u6D88\u8CBB\u8005\u9A45\u52D5\u6D41\u7A0B\u6392\u6210\u6B63\u78BA\u9806\u5E8F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u5C0D\u8457\u6A21\u64EC\u63D0\u4F9B\u8005\u57F7\u884C\u4E26\u7522\u751F\u5951\u7D04\uFF0C\u63A5\u8457\u63D0\u4F9B\u8005\u56DE\u653E\u90A3\u4E9B\u4E92\u52D5\u4EE5\u9A57\u8B49\u81EA\u5DF1\u662F\u5426\u6EFF\u8DB3\u5B83\u5011",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u8CBB\u8005\u5148\u7522\u751F\u5951\u7D04\uFF0C\u63D0\u4F9B\u8005\u96A8\u5F8C\u5C0D\u7167\u5B83\u52A0\u4EE5\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u64B0\u5BEB\u5951\u7D04\uFF0C\u63A5\u8457\u6D88\u8CBB\u8005\u5C0D\u7167\u5B83\u52A0\u4EE5\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u89D2\u8272\u985B\u5012\u4E86\u2014\u2014\u6D88\u8CBB\u8005\u9A45\u52D5\uFF0F\u7522\u751F\u5951\u7D04\uFF0C\u63D0\u4F9B\u8005\u624D\u662F\u9A57\u8B49\u65B9\u3002"
+              },
+              {
+                "text": "\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u4E00\u8D77\u90E8\u7F72\u4E26\u505A\u7AEF\u5230\u7AEF\u6E2C\u8A66\uFF0C\u7136\u5F8C\u624D\u64B0\u5BEB\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u6B63\u662F\u8981\u907F\u514D\u540C\u6642\u4E0A\u7DDA\u5169\u8005\uFF1B\u5951\u7D04\u4F86\u81EA\u6D88\u8CBB\u8005\u7684\u7368\u7ACB\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u7531 broker \u7522\u751F\u5951\u7D04\uFF0C\u96D9\u65B9\u53EA\u662F\u8B80\u53D6\u5B83",
+                "fraction": 0,
+                "feedback": "broker \u53EA\u5132\u5B58\uFF0F\u5206\u4EAB\u5951\u7D04\uFF1B\u5951\u7D04\u7531\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u7522\u751F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D41\u7A0B\uFF1A\u6D88\u8CBB\u8005\u5C0D\u8457\u6A21\u64EC\u63D0\u4F9B\u8005\u7684\u6E2C\u8A66\u7522\u751F\u5951\u7D04\uFF0C\u63D0\u4F9B\u8005\u518D\u628A\u5B83\u5C0D\u8457\u771F\u5BE6\u63D0\u4F9B\u8005\u56DE\u653E\u4EE5\u9A57\u8B49\u3002\u6D88\u8CBB\u8005\u7522\u751F\uFF0C\u63D0\u4F9B\u8005\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u5728\u4F55\u6642\u7522\u751F",
+            "text": "<p>\u5951\u7D04\uFF08pact \u6A94\uFF09\u662F\u5728\u54EA\u500B\u6642\u9EDE\u7522\u751F\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u6D88\u8CBB\u8005\u7684\u55AE\u5143\u6E2C\u8A66\u5C0D\u8457\u6A21\u64EC\u63D0\u4F9B\u8005\u57F7\u884C\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u662F\u6D88\u8CBB\u8005\u5C0D\u8457\u6A21\u64EC\u7269\u6E2C\u8A66\u7684\u526F\u7522\u7269\u3002"
+              },
+              {
+                "text": "\u7576\u63D0\u4F9B\u8005\u628A\u4E92\u52D5\u5C0D\u8457\u771F\u5BE6\u670D\u52D9\u56DE\u653E\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E00\u6B65\u662F\u6D88\u8017\u5951\u7D04\u4F86\u9A57\u8B49\u5B83\uFF0C\u4E26\u4E0D\u7522\u751F\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u7576\u61C9\u7528\u7A0B\u5F0F\u90E8\u7F72\u5230\u6B63\u5F0F\u74B0\u5883\u6642",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u662F\u5728\u6D88\u8CBB\u8005\u6E2C\u8A66\u671F\u9593\u7522\u751F\uFF0C\u9060\u65E9\u65BC\u90E8\u7F72\u3002"
+              },
+              {
+                "text": "\u7576 broker \u9996\u6B21\u5B89\u88DD\u6642",
+                "fraction": 0,
+                "feedback": "broker \u5132\u5B58\u5951\u7D04\uFF0C\u4E26\u4E0D\u6703\u5728\u5B89\u88DD\u6642\u5EFA\u7ACB\u5951\u7D04\u3002"
+              }
+            ],
+            "generalFeedback": "\u5951\u7D04\u5728\u6D88\u8CBB\u8005\u7AEF\u7522\u751F\uFF0C\u4E5F\u5C31\u662F\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u8207\u6A21\u64EC\u63D0\u4F9B\u8005\u4E92\u52D5\u6642\u3002\u96A8\u5F8C\u5B83\u6703\u88AB\u767C\u5E03\uFF08\u5E38\u767C\u5E03\u5230 broker\uFF09\u4F9B\u63D0\u4F9B\u8005\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4F9B\u8005\u9A57\u8B49\u505A\u7684\u662F\u4EC0\u9EBC",
+            "text": "<p>\u5951\u7D04\u6E2C\u8A66\u4E2D\u7684\u63D0\u4F9B\u8005\u9A57\u8B49\uFF0C\u5176\u904B\u4F5C\u65B9\u5F0F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u5951\u7D04\u4E2D\u8A18\u9304\u7684\u4E92\u52D5\u5C0D\u8457\u771F\u5BE6\u63D0\u4F9B\u8005\u56DE\u653E\uFF0C\u4E26\u6AA2\u67E5\u6BCF\u500B\u56DE\u61C9\u662F\u5426\u76F8\u7B26",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u4F9B\u8005\u91CD\u65B0\u9001\u51FA\u6BCF\u500B\u8A18\u9304\u4E0B\u4F86\u7684\u8ACB\u6C42\uFF0C\u4E26\u78BA\u8A8D\u56DE\u61C9\u6EFF\u8DB3\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u518D\u6B21\u628A\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u5C0D\u8457\u6A21\u64EC\u63D0\u4F9B\u8005\u91CD\u8DD1\u4E00\u904D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6D88\u8CBB\u8005\u7AEF\u7684\u6B65\u9A5F\uFF1B\u63D0\u4F9B\u8005\u9A57\u8B49\u7528\u7684\u662F\u771F\u5BE6\u63D0\u4F9B\u8005\uFF0C\u800C\u975E\u6A21\u64EC\u7269\u3002"
+              },
+              {
+                "text": "\u628A\u63D0\u4F9B\u8005\u7684\u539F\u59CB\u78BC\u8207\u6D88\u8CBB\u8005\u7684\u539F\u59CB\u78BC\u76F8\u4E92\u6BD4\u5C0D",
+                "fraction": 0,
+                "feedback": "\u9A57\u8B49\u6AA2\u67E5\u7684\u662F\u53EF\u89C0\u5BDF\u5230\u7684\u56DE\u61C9\uFF0C\u800C\u975E\u539F\u59CB\u78BC\u3002"
+              },
+              {
+                "text": "\u628A\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u4E00\u8D77\u90E8\u7F72\u4E26\u9EDE\u64CA\u64CD\u4F5C UI",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7AEF\u5230\u7AEF\u6E2C\u8A66\uFF0C\u6B63\u662F\u5951\u7D04\u6E2C\u8A66\u60F3\u8981\u907F\u514D\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u63D0\u4F9B\u8005\u7AEF\uFF0C\u5951\u7D04\u4E2D\u7684\u6BCF\u4E00\u9805\u4E92\u52D5\u90FD\u6703\u5C0D\u8457\u771F\u5BE6\u63D0\u4F9B\u8005\u56DE\u653E\uFF1B\u552F\u6709\u63D0\u4F9B\u8005\u7684\u56DE\u61C9\u6EFF\u8DB3\u6BCF\u500B\u6D88\u8CBB\u8005\u7684\u671F\u671B\u6642\uFF0C\u63D0\u4F9B\u8005\u624D\u7B97\u901A\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5951\u7D04\u6E2C\u8A66\u80FD\u514D\u53BB\u5B8C\u6574 E2E",
+            "text": "<p>\u5951\u7D04\u6E2C\u8A66\u4E4B\u6240\u4EE5\u80FD\u5728\u6C92\u6709\u5B8C\u6574\u7AEF\u5230\u7AEF\u74B0\u5883\u7684\u60C5\u6CC1\u4E0B\u6355\u6349\u6574\u5408\u554F\u984C\uFF0C\u662F\u56E0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u96D9\u65B9\u5404\u81EA\u7368\u7ACB\u6E2C\u8A66\u2014\u2014\u6D88\u8CBB\u8005\u5C0D\u8457\u6A21\u64EC\u7269\u3001\u63D0\u4F9B\u8005\u5C0D\u8457\u8A18\u9304\u4E0B\u4F86\u7684\u5951\u7D04\u2014\u2014\u56E0\u6B64\u5169\u8005\u4E0D\u5FC5\u540C\u6642\u4E0A\u7DDA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u8B93\u96D9\u65B9\u89E3\u8026\uFF0C\u56E0\u6B64\u4EFB\u4E00\u65B9\u90FD\u4E0D\u9700\u8981\u53E6\u4E00\u65B9\u6B63\u5728\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5B83\u5B8C\u5168\u5FFD\u7565\u63D0\u4F9B\u8005\uFF0C\u53EA\u6E2C\u8A66\u6D88\u8CBB\u8005",
+                "fraction": 0,
+                "feedback": "\u63D0\u4F9B\u8005\u4ECD\u6703\u88AB\u9A57\u8B49\u2014\u2014\u5C0D\u7167\u5951\u7D04\u2014\u2014\u56E0\u6B64\u4E26\u672A\u88AB\u5FFD\u7565\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u67B6\u8D77\u6574\u500B\u7CFB\u7D71\uFF0C\u4F46\u7565\u904E\u8CC7\u6599\u5EAB",
+                "fraction": 0,
+                "feedback": "\u5B83\u6839\u672C\u4E0D\u6703\u67B6\u8D77\u6574\u500B\u7CFB\u7D71\uFF0C\u9019\u6B63\u662F\u91CD\u9EDE\u6240\u5728\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u5728\u6B63\u5F0F\u74B0\u5883\u5C0D\u8457\u5BE6\u969B\u6D41\u91CF\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u5728\u958B\u767C\uFF0FCI \u671F\u9593\u7368\u7ACB\u57F7\u884C\uFF0C\u800C\u975E\u5C0D\u8457\u5BE6\u969B\u7684\u6B63\u5F0F\u6D41\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u5951\u7D04\u5145\u7576\u4E00\u4EFD\u5171\u4EAB\u3001\u8A18\u9304\u4E0B\u4F86\u7684\u5354\u5B9A\uFF0C\u8B93\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u80FD\u5404\u81EA\u5FEB\u901F\u5730\u88AB\u6E2C\u8A66\u3002\u4E0D\u9700\u8981\u4E00\u500B\u540C\u6642\u5B8C\u6574\u4E32\u63A5\u7684 E2E \u74B0\u5883\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7834\u58DE\u6027\u7684\u63D0\u4F9B\u8005\u8B8A\u66F4\u5982\u4F55\u88AB\u6355\u6349",
+            "text": "<p>\u63D0\u4F9B\u8005\u505A\u4E86\u4E00\u9805\u8B8A\u66F4\uFF0C\u7834\u58DE\u4E86\u67D0\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6771\u897F\u3002\u5951\u7D04\u6E2C\u8A66\u5982\u4F55\u6355\u6349\u5230\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4F9B\u8005\u5C0D\u8A72\u6D88\u8CBB\u8005\u5951\u7D04\u7684\u9A57\u8B49\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u8A72\u6D88\u8CBB\u8005\u5951\u7D04\u5C0D\u8457\u5DF2\u8B8A\u66F4\u7684\u63D0\u4F9B\u8005\u56DE\u653E\u6642\u4E0D\u518D\u76F8\u7B26\uFF0C\u56E0\u6B64\u63D0\u4F9B\u8005\u7AEF\u7684\u9A57\u8B49\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u6D88\u8CBB\u8005\u5C0D\u8457\u6A21\u64EC\u7269\u7684\u6E2C\u8A66\u7ACB\u523B\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u7684\u6A21\u64EC\u7269\u4ECD\u56DE\u50B3\u820A\u7684\u671F\u671B\u56DE\u61C9\uFF0C\u56E0\u6B64\u90A3\u4E9B\u6E2C\u8A66\u4ECD\u53EF\u80FD\u901A\u904E\uFF1B\u5931\u6557\u6D6E\u73FE\u5728\u63D0\u4F9B\u8005\u7AEF\u3002"
+              },
+              {
+                "text": "broker \u62D2\u7D55\u5132\u5B58\u8A72\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "broker \u5132\u5B58\u5951\u7D04\u8207\u7D50\u679C\uFF1B\u5B83\u4E0D\u6703\u4EE5\u62D2\u7D55\u5132\u5B58\u7684\u65B9\u5F0F\u81EA\u884C\u5075\u6E2C\u7834\u58DE\u3002"
+              },
+              {
+                "text": "\u5728\u5169\u500B\u670D\u52D9\u4E00\u8D77\u90E8\u7F72\u4E4B\u524D\u4E0D\u6703\u6709\u4EFB\u4F55\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6574\u500B\u597D\u8655\u6B63\u662F\u5728\u90E8\u7F72\u4E4B\u524D\u3001\u900F\u904E\u63D0\u4F9B\u8005\u9A57\u8B49\u5C31\u6355\u6349\u5230\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u7834\u58DE\u6027\u7684\u63D0\u4F9B\u8005\u8B8A\u66F4\u6703\u5728\u63D0\u4F9B\u8005\u56DE\u653E\u6D88\u8CBB\u8005\u5951\u7D04\u6642\u6D6E\u73FE\uFF1A\u56DE\u61C9\u4E0D\u518D\u7B26\u5408\u6D88\u8CBB\u8005\u7684\u671F\u671B\uFF0C\u56E0\u6B64\u63D0\u4F9B\u8005\u5C0D\u8A72\u5951\u7D04\u7684\u9A57\u8B49\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Broker \u5728\u6D41\u7A0B\u4E2D\u7684\u89D2\u8272",
+            "text": "<p>\u5728\u6D41\u7A0B\u4E2D\uFF0CPact Broker \u7684\u89D2\u8272\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u6536\u6D88\u8CBB\u8005\u767C\u5E03\u7684\u5951\u7D04\uFF0C\u4E26\u5728\u9A57\u8B49\u6642\u8B93\u63D0\u4F9B\u8005\u53D6\u7528\u5B83\uFF08\u5132\u5B58\u7248\u672C\u8207\u7D50\u679C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014broker \u662F\u6D88\u8CBB\u8005\u8207\u63D0\u4F9B\u8005\u4E4B\u9593\u5171\u4EAB\u7684\u4EA4\u63DB\u9EDE\u3002"
+              },
+              {
+                "text": "\u81EA\u5DF1\u57F7\u884C\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u8207\u63D0\u4F9B\u8005\u7684\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "\u96D9\u65B9\u5404\u81EA\u57F7\u884C\u81EA\u5DF1\u7684\u6E2C\u8A66\uFF1Bbroker \u53EA\u5206\u4EAB\u7522\u7269\u8207\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u6539\u5BEB\u63D0\u4F9B\u8005\u7684 API \u4EE5\u7B26\u5408\u6D88\u8CBB\u8005",
+                "fraction": 0,
+                "feedback": "broker \u5F9E\u4E0D\u4FEE\u6539\u4EFB\u4E00\u670D\u52D9\uFF1B\u5B83\u5132\u5B58\u4E26\u5206\u4EAB\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u5145\u7576\u6D88\u8CBB\u8005\u7684\u6A21\u64EC\u63D0\u4F9B\u8005",
+                "fraction": 0,
+                "feedback": "\u6A21\u64EC\u63D0\u4F9B\u8005\u662F\u6D88\u8CBB\u8005\u6E2C\u8A66\u8A2D\u5B9A\u7684\u4E00\u90E8\u5206\uFF1Bbroker \u662F\u53E6\u4E00\u500B\u7368\u7ACB\u7684\u5951\u7D04\u5132\u5B58\u5EAB\u3002"
+              }
+            ],
+            "generalFeedback": "broker \u5132\u5B58\u6D88\u8CBB\u8005\u767C\u5E03\u7684\u5951\u7D04\uFF0C\u5C07\u5176\u63D0\u4F9B\u7D66\u63D0\u4F9B\u8005\u9A57\u8B49\uFF0C\u4E26\u8FFD\u8E64\u7248\u672C\u8207\u9A57\u8B49\u7D50\u679C\uFF08\u652F\u63F4\u5982 can-i-deploy \u4E4B\u985E\u7684\u6AA2\u67E5\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u6E2C\u8A66\u5C0D\u6BD4 schema \u9A57\u8B49",
+            "text": "<p>\u5951\u7D04\u6E2C\u8A66\u8207\u55AE\u7D14\u7684 schema \u9A57\u8B49\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6AA2\u67E5\u6BCF\u500B\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u5BE6\u969B\u671F\u671B\u4E92\u52D5\uFF0C\u800C\u4E0D\u53EA\u662F\u67D0\u500B\u8CA0\u8F09\u662F\u5426\u7B26\u5408\u4E00\u4EFD\u975C\u614B schema",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u4EE5\u5177\u9AD4\u7684\u8ACB\u6C42\uFF0F\u56DE\u61C9\u671F\u671B\u9010\u4E00\u91DD\u5C0D\u5404\u6D88\u8CBB\u8005\u7DE8\u78BC\uFF0C\u8D85\u8D8A\u4E86\u7D50\u69CB\u4E0A\u7684 schema \u76F8\u7B26\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u6AA2\u67E5 JSON \u8A9E\u6CD5\u662F\u5426\u6709\u6548",
+                "fraction": 0,
+                "feedback": "\u90A3\u751A\u81F3\u6BD4 schema \u9A57\u8B49\u66F4\u5F31\uFF1B\u5951\u7D04\u6E2C\u8A66\u8B1B\u7684\u662F\u671F\u671B\u7684\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u5B83\u548C schema \u9A57\u8B49\u5B8C\u5168\u662F\u540C\u4E00\u56DE\u4E8B",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u6709\u91CD\u758A\u4F46\u4E0D\u540C\uFF1A\u5951\u7D04\u6355\u6349\u7684\u662F\u5404\u6D88\u8CBB\u8005\u7684\u671F\u671B\u4E92\u52D5\uFF0C\u800C\u4E0D\u53EA\u662F\u4E00\u4EFD\u5171\u7528 schema\u3002"
+              },
+              {
+                "text": "\u5B83\u9A57\u8B49\u63D0\u4F9B\u8005\u7684\u8CC7\u6599\u5EAB\u7D22\u5F15",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u95DC\u6CE8\u7684\u662F\u670D\u52D9\u4E92\u52D5\uFF0C\u800C\u975E\u8CC7\u6599\u5EAB\u5167\u90E8\u3002"
+              }
+            ],
+            "generalFeedback": "schema \u9A57\u8B49\u554F\u7684\u662F\u300C\u9019\u500B\u8CA0\u8F09\u7B26\u5408\u67D0\u500B\u7D50\u69CB\u55CE\uFF1F\u300D\u5951\u7D04\u6E2C\u8A66\u554F\u7684\u662F\u300C\u63D0\u4F9B\u8005\u662F\u5426\u4ECD\u6EFF\u8DB3\u6BCF\u500B\u6D88\u8CBB\u8005\u5BE6\u969B\u4F9D\u8CF4\u7684\u5177\u9AD4\u4E92\u52D5\uFF1F\u300D\u2014\u2014\u9019\u662F\u66F4\u5F37\u3001\u4E14\u91DD\u5C0D\u500B\u5225\u6D88\u8CBB\u8005\u7684\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u6E2C\u8A66\u5C0D\u6BD4\u7AEF\u5230\u7AEF",
+            "text": "<p>\u8207\u7AEF\u5230\u7AEF\uFF08E2E\uFF09\u6E2C\u8A66\u76F8\u6BD4\uFF0C\u5951\u7D04\u6E2C\u8A66\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u5169\u500B\u670D\u52D9\u4E4B\u9593\u7D04\u5B9A\u597D\u7684\u4E92\u52D5\uFF0C\u800C\u4E0D\u9700\u8981\u5169\u8005\u5728\u5B8C\u6574\u74B0\u5883\u4E2D\u540C\u6642\u4E0A\u7DDA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u7A2E\u9694\u96E2\u6027\u6B63\u662F\u76F8\u5C0D\u65BC E2E \u7684\u95DC\u9375\u512A\u52E2\u3002"
+              },
+              {
+                "text": "\u50CF\u771F\u5BE6\u4F7F\u7528\u8005\u90A3\u6A23\u900F\u904E UI \u64CD\u7DF4\u6574\u500B\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F E2E \u6E2C\u8A66\uFF1B\u5951\u7D04\u6E2C\u8A66\u7BC4\u570D\u66F4\u7A84\uFF0C\u4E14\u4E0D\u9700\u8981\u6574\u500B\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u5B8C\u6574\u7684\u5546\u696D\u6D41\u7A0B\u5F9E\u982D\u5230\u5C3E\u90FD\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u552F\u6709 E2E\uFF0F\u529F\u80FD\u6E2C\u8A66\u624D\u6DB5\u84CB\u5B8C\u6574\u6D41\u7A0B\uFF1B\u5951\u7D04\u53EA\u9A57\u8B49\u7D04\u5B9A\u597D\u7684\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u7E3D\u662F\u9700\u8981\u6B63\u5F0F\u8CC7\u6599\u8207\u5BE6\u969B\u7684\u7B2C\u4E09\u65B9\u670D\u52D9",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u7368\u7ACB\u57F7\u884C\uFF0C\u4E0D\u9700\u8981\u5BE6\u969B\u7684\u6B63\u5F0F\u76F8\u4F9D\u670D\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u628A\u6574\u500B\u7CFB\u7D71\u4E32\u63A5\u8D77\u4F86\u4E26\u64CD\u7DF4\u771F\u5BE6\u6D41\u7A0B\uFF1B\u5951\u7D04\u6E2C\u8A66\u53EA\u6AA2\u67E5\u7D04\u5B9A\u597D\u7684\u6D88\u8CBB\u8005\uFF0F\u63D0\u4F9B\u8005\u4E92\u52D5\uFF0C\u4E14\u7368\u7ACB\u3001\u4F4E\u6210\u672C\u3002\u5169\u8005\u4E92\u88DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A21\u64EC\u63D0\u4F9B\u8005\u5728\u6D88\u8CBB\u8005\u6E2C\u8A66\u4E2D\u7684\u4F5C\u7528",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u671F\u9593\uFF0C\u6A21\u64EC\u63D0\u4F9B\u8005\u7684\u8077\u8CAC\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u56DE\u50B3\u6D88\u8CBB\u8005\u6240\u671F\u671B\u7684\u56DE\u61C9\uFF0C\u8B93\u6D88\u8CBB\u8005\u80FD\u88AB\u7368\u7ACB\u64CD\u7DF4\uFF0C\u4E26\u8A18\u9304\u4E0B\u5951\u7D04",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A21\u64EC\u7269\u63D0\u4F9B\u671F\u671B\u56DE\u61C9\uFF0C\u9019\u4E9B\u4E92\u52D5\u4FBF\u6210\u70BA\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u771F\u5BE6\u63D0\u4F9B\u8005\u662F\u5426\u6EFF\u8DB3\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "\u90A3\u9805\u9A57\u8B49\u7A0D\u5F8C\u5728\u63D0\u4F9B\u8005\u7AEF\u9032\u884C\uFF0C\u800C\u975E\u900F\u904E\u6D88\u8CBB\u8005\u7684\u6A21\u64EC\u7269\u3002"
+              },
+              {
+                "text": "\u5C0D\u63D0\u4F9B\u8005\u7684\u541E\u5410\u91CF\u505A\u8CA0\u8F09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6A21\u64EC\u7269\u4E26\u975E\u8CA0\u8F09\u7522\u751F\u5668\uFF1B\u5B83\u70BA\u529F\u80FD\u6027\u4E92\u52D5\u56DE\u50B3\u671F\u671B\u56DE\u61C9\u3002"
+              },
+              {
+                "text": "\u5132\u5B58\u5951\u7D04\u4F9B\u5176\u4ED6\u5718\u968A\u91CD\u7528",
+                "fraction": 0,
+                "feedback": "\u5206\u4EAB\uFF0F\u7248\u672C\u5316\u5951\u7D04\u662F broker \u7684\u5DE5\u4F5C\uFF0C\u800C\u975E\u6A21\u64EC\u7269\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u64EC\u63D0\u4F9B\u8005\u56DE\u50B3\u6D88\u8CBB\u8005\u6240\u671F\u671B\u7684\u56DE\u61C9\uFF0C\u8B93\u6D88\u8CBB\u8005\u6E2C\u8A66\u4E0D\u5FC5\u4F9D\u8CF4\u771F\u5BE6\u63D0\u4F9B\u8005\u5373\u53EF\u57F7\u884C\uFF0C\u4E26\u7522\u751F\u8A18\u9304\u90A3\u4E9B\u4E92\u52D5\u7684\u5951\u7D04\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300C\u63D0\u4F9B\u8005\u5DF2\u9A57\u8B49\u300D\u7684\u610F\u601D",
+            "text": "<p>\u7576\u63D0\u4F9B\u8005<em>\u5DF2\u9A57\u8B49\uFF08verified\uFF09</em>\u67D0\u5951\u7D04\u6642\uFF0C\u610F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u65BC\u6BCF\u500B\u8A18\u9304\u4E0B\u4F86\u7684\u8ACB\u6C42\uFF0C\u771F\u5BE6\u63D0\u4F9B\u8005\u6240\u7522\u751F\u7684\u56DE\u61C9\u90FD\u6EFF\u8DB3\u6D88\u8CBB\u8005\u7684\u671F\u671B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u6709\u63D0\u4F9B\u8005\u6EFF\u8DB3\u5951\u7D04\u4E2D\u7684\u6BCF\u4E00\u9805\u4E92\u52D5\uFF0C\u9A57\u8B49\u624D\u901A\u904E\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u7684\u7A0B\u5F0F\u78BC\u7DE8\u8B6F\u7121\u8AA4",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u8207\u63D0\u4F9B\u8005\u662F\u5426\u6EFF\u8DB3\u5951\u7D04\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u6D88\u8CBB\u8005\u6210\u529F\u5730\u91CD\u8DD1\u81EA\u5DF1\u4EE5\u6A21\u64EC\u7269\u70BA\u57FA\u790E\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6D88\u8CBB\u8005\u7AEF\u7684\u6B65\u9A5F\uFF1B\u9A57\u8B49\u5728\u63D0\u4F9B\u8005\u7AEF\u3001\u5C0D\u8457\u771F\u5BE6\u670D\u52D9\u9032\u884C\u3002"
+              },
+              {
+                "text": "broker \u628A\u5951\u7D04\u6A19\u8A18\u70BA\u5DF2\u767C\u5E03",
+                "fraction": 0,
+                "feedback": "\u767C\u5E03\u4E26\u975E\u9A57\u8B49\uFF1B\u9A57\u8B49\u9700\u8981\u628A\u4E92\u52D5\u5C0D\u8457\u63D0\u4F9B\u8005\u56DE\u653E\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u8B49\u610F\u6307\u771F\u5BE6\u63D0\u4F9B\u8005\u5728\u56DE\u653E\u5951\u7D04\u4E2D\u6BCF\u4E00\u9805\u4E92\u52D5\u6642\uFF0C\u56DE\u50B3\u7684\u56DE\u61C9\u90FD\u7B26\u5408\u6D88\u8CBB\u8005\u7684\u671F\u671B\u2014\u2014\u72C0\u614B\u78BC\u4EE5\u53CA\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u6E2C\u8A66\u662F\u6574\u5408\u6E2C\u8A66\u7684\u88DC\u5145",
+            "text": "<p>\u5C0D\u65BC\u5FAE\u670D\u52D9\uFF0C\u5951\u7D04\u6E2C\u8A66\u6700\u597D\u88AB\u8996\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66\u7684\u88DC\u5145\uFF0C\u80FD\u7368\u7ACB\u4E14\u5FEB\u901F\u5730\u6AA2\u67E5\u6D88\u8CBB\u8005\uFF0F\u63D0\u4F9B\u8005\u7684\u7D04\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u8207\u6574\u5408\u53CA\u5176\u4ED6\u6E2C\u8A66\u5C64\u7D1A\u4E26\u884C\uFF0C\u800C\u975E\u53D6\u4EE3\u5B83\u5011\u5168\u90E8\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u6574\u5408\u8207\u529F\u80FD\u6E2C\u8A66\u7684\u5B8C\u5168\u66FF\u4EE3\u54C1",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u53EA\u9A57\u8B49\u4E92\u52D5\uFF1B\u529F\u80FD\u6E2C\u8A66\u8207\u90E8\u5206\u6574\u5408\u6E2C\u8A66\u4ECD\u5C6C\u5FC5\u8981\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u6548\u80FD\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u529F\u80FD\u6027\uFF08\u4E92\u52D5\uFF09\u9A57\u8B49\uFF0C\u800C\u975E\u6548\u80FD\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u55AE\u4E00\u670D\u52D9\u5167\u90E8\u908F\u8F2F\u7684\u65B9\u5F0F",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u908F\u8F2F\u5C6C\u55AE\u5143\u6E2C\u8A66\u7684\u7BC4\u7587\uFF1B\u5951\u7D04\u95DC\u6CE8\u7684\u662F\u670D\u52D9\u4E4B\u9593\u7684\u4E92\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5FAE\u670D\u52D9\u74B0\u5883\u4E2D\uFF0C\u5951\u7D04\u6E2C\u8A66\u662F\u6574\u5408\u6E2C\u8A66\u7684\u88DC\u5145\uFF1A\u5B83\u7368\u7ACB\u6AA2\u67E5\u6BCF\u500B\u6D88\u8CBB\u8005\uFF0F\u63D0\u4F9B\u8005\u7684\u7D04\u5B9A\u3001\u53CA\u65E9\u6355\u6349 API \u7834\u58DE\uFF0C\u800C\u5176\u4ED6\u5C64\u7D1A\u4ECD\u6DB5\u84CB\u5B8C\u6574\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5951\u7D04\u6E2C\u8A66\u5FEB\u901F\u4E14\u7368\u7ACB",
+            "text": "<p>\u7531\u65BC\u96D9\u65B9\u5404\u81EA\u5C0D\u8457\u5951\u7D04\u800C\u975E\u5BE6\u969B\u7684\u5C0D\u61C9\u65B9\u6E2C\u8A66\uFF0C\u5951\u7D04\u6E2C\u8A66\u65E2\u5FEB\u901F\u53C8\u7368\u7ACB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u5FC5\u67B6\u8D77\u5B8C\u6574\u74B0\u5883\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7DAD\u6301\u5FEB\u901F\u4E14\u7368\u7ACB\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u96D9\u65B9\u5404\u81EA\u5C0D\u8457\u5171\u4EAB\u5951\u7D04\u3001\u800C\u975E\u5BE6\u969B\u5C0D\u61C9\u65B9\u6E2C\u8A66\uFF0C\u6B63\u662F\u8B93\u9019\u4E9B\u6E2C\u8A66\u5FEB\u901F\u4E14\u7368\u7ACB\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u5C0D\u8457\u6A21\u64EC\u7269\u57F7\u884C\uFF0C\u63D0\u4F9B\u8005\u56DE\u653E\u5951\u7D04\uFF1B\u4EFB\u4E00\u65B9\u90FD\u4E0D\u9700\u8981\u53E6\u4E00\u65B9\u6B63\u5728\u57F7\u884C\uFF0C\u56E0\u6B64\u5951\u7D04\u6E2C\u8A66\u5FEB\u901F\u3001\u7368\u7ACB\uFF0C\u4E14\u5728 CI \u4E2D\u57F7\u884C\u6210\u672C\u4F4E\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u65B9\u5148\u57F7\u884C",
+            "text": "<p>\u5728\u6B63\u5E38\u6D41\u7A0B\u4E2D\uFF0C\u4F55\u8005\u5148\u767C\u751F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u8CBB\u8005\u7522\u751F\u5951\u7D04\uFF0C\u63A5\u8457\u63D0\u4F9B\u8005\u5C0D\u7167\u5B83\u52A0\u4EE5\u9A57\u8B49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u5FC5\u9808\u5148\u5B58\u5728\uFF08\u7531\u6D88\u8CBB\u8005\u7522\u751F\uFF09\uFF0C\u63D0\u4F9B\u8005\u624D\u80FD\u9A57\u8B49\u5B83\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u5148\u9A57\u8B49\uFF0C\u63A5\u8457\u6D88\u8CBB\u8005\u624D\u7522\u751F\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "\u63D0\u4F9B\u8005\u7121\u6CD5\u9A57\u8B49\u4E00\u4EFD\u5C1A\u672A\u7522\u751F\u7684\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u5728\u4E00\u6B21\u5171\u4EAB\u7684\u6E2C\u8A66\u57F7\u884C\u4E2D\u540C\u6642\u767C\u751F",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5206\u5225\u3001\u4F9D\u5E8F\u57F7\u884C\uFF1B\u5951\u7D04\u4EE5\u975E\u540C\u6B65\u7684\u65B9\u5F0F\u628A\u5B83\u5011\u4E32\u8D77\u4F86\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u6C92\u6709\u65E2\u5B9A\u9806\u5E8F",
+                "fraction": 0,
+                "feedback": "\u6709\u660E\u78BA\u9806\u5E8F\uFF1A\u6D88\u8CBB\u8005\u7522\u751F\uFF0C\u7136\u5F8C\u63D0\u4F9B\u8005\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u7684\u6E2C\u8A66\u5148\u7522\u751F\u5951\u7D04\uFF1B\u552F\u6709\u5982\u6B64\u63D0\u4F9B\u8005\u624D\u80FD\u56DE\u653E\u4E26\u9A57\u8B49\u5B83\u3002\u9019\u500B\u9806\u5E8F\u8B93\u5169\u500B\u5718\u968A\u5F97\u4EE5\u7368\u7ACB\u4F5C\u696D\u8207\u90E8\u7F72\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u660E\u8A02\u4EC0\u9EBC",
+            "text": "<p>\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u4E3B\u8981\u660E\u8A02\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u8CBB\u8005\u9001\u51FA\u7684\u8ACB\u6C42\uFF0C\u4EE5\u53CA\u5B83\u5BE6\u969B\u4F9D\u8CF4\u7684\u56DE\u61C9\u5143\u7D20\uFF08\u72C0\u614B\u78BC\u8207\u6B04\u4F4D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u53EA\u8A18\u9304\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u4E92\u52D5\u8207\u6B04\u4F4D\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u6240\u80FD\u56DE\u50B3\u7684\u6BCF\u4E00\u500B\u6B04\u4F4D",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u53EA\u9700\u6DB5\u84CB\u6D88\u8CBB\u8005\u6240\u7528\u5230\u7684\u90E8\u5206\uFF0C\u800C\u975E\u63D0\u4F9B\u8005\u7684\u6574\u500B API \u7BC4\u570D\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u7684\u5167\u90E8\u6F14\u7B97\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u63CF\u8FF0\u53EF\u89C0\u5BDF\u5230\u7684\u4E92\u52D5\uFF0C\u800C\u975E\u5167\u90E8\u6F14\u7B97\u6CD5\u3002"
+              },
+              {
+                "text": "\u53E2\u96C6\u7684\u90E8\u7F72\u62D3\u64B2",
+                "fraction": 0,
+                "feedback": "\u57FA\u790E\u8A2D\u65BD\u62D3\u64B2\u8207\u5951\u7D04\u6240\u6355\u6349\u7684\u5167\u5BB9\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u8A18\u9304\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u4E92\u52D5\u8207\u7279\u5B9A\u56DE\u61C9\u6B04\u4F4D\u2014\u2014\u800C\u975E\u63D0\u4F9B\u8005\u7684\u6574\u500B API\u3002\u9019\u6B63\u662F\u70BA\u4F55\u63D0\u4F9B\u8005\u53EA\u9700\u6EFF\u8DB3\u5176\u6D88\u8CBB\u8005\u5BE6\u969B\u7528\u5230\u7684\u90E8\u5206\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u63D0\u4F9B\u8005\u591A\u51FA\u7684\u6B04\u4F4D\u53EF\u88AB\u5BB9\u5FCD",
+            "text": "<p>\u82E5\u63D0\u4F9B\u8005\u7684\u56DE\u61C9\u542B\u6709\u6C92\u6709\u4EFB\u4F55\u6D88\u8CBB\u8005\u5951\u7D04\u63D0\u53CA\u7684\u984D\u5916\u6B04\u4F4D\uFF0C\u8A72\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u4ECD\u80FD\u88AB\u6EFF\u8DB3\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u53EA\u8981\u6C42\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\uFF1B\u984D\u5916\u6B04\u4F4D\u53EF\u88AB\u5BB9\u5FCD\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u984D\u5916\u3001\u672A\u88AB\u8981\u6C42\u7684\u6B04\u4F4D\u4E0D\u6703\u7834\u58DE\u5951\u7D04\uFF1B\u53EA\u6709\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\u5FC5\u9808\u5B58\u5728\u4E14\u6B63\u78BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u53EA\u6AA2\u67E5\u6D88\u8CBB\u8005\u6240\u7528\u5230\u7684\u90E8\u5206\u3002\u63D0\u4F9B\u8005\u56DE\u50B3\u6D88\u8CBB\u8005\u5FFD\u7565\u7684\u984D\u5916\u6B04\u4F4D\uFF0C\u4ECD\u80FD\u6EFF\u8DB3\u5951\u7D04\u3002"
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u64C1\u6709\u5951\u7D04\uFF0C\u4EE5\u53CA\u63D0\u4F9B\u8005\u70BA\u4F55\u8981\u9A57\u8B49",
+            "text": "<p>\u5728\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u4E2D\uFF0C\u5BE6\u969B\u4E0A\u662F\u8AB0<em>\u64C1\u6709\uFF0F\u9A45\u52D5\uFF08owns/drives\uFF09</em>\u5951\u7D04\uFF0C\u800C\u63D0\u4F9B\u8005\u70BA\u4F55\u5FC5\u9808\u5C0D\u6BCF\u500B\u6D88\u8CBB\u8005\u9A57\u8B49\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u8CBB\u8005\u85C9\u7531\u5BA3\u544A\u9700\u6C42\u4F86\u9A45\u52D5\u5B83\uFF1B\u63D0\u4F9B\u8005\u5FC5\u9808\u5C0D\u6240\u6709\u6D88\u8CBB\u8005\u9A57\u8B49\uFF0C\u56E0\u70BA\u5B83\u4E0D\u53EF\u7834\u58DE\u4EFB\u4F55\u4E00\u500B\u4F9D\u8CF4\u5B83\u7684\u6D88\u8CBB\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9700\u6C42\u4F86\u81EA\u5404\u6D88\u8CBB\u8005\uFF0C\u800C\u63D0\u4F9B\u8005\u662F\u90A3\u500B\u5FC5\u9808\u6EFF\u8DB3\u6BCF\u4E00\u500B\u6D88\u8CBB\u8005\u7684\u55AE\u4E00\u7BC0\u9EDE\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u64C1\u6709\u5B83\uFF0C\u6BCF\u500B\u6D88\u8CBB\u8005\u90FD\u5FC5\u9808\u914D\u5408\u63D0\u4F9B\u8005\u6240\u9A57\u8B49\u7684\u5167\u5BB9",
+                "fraction": 0,
+                "feedback": "\u9019\u8207\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u6E2C\u8A66\u76F8\u53CD\uFF1B\u6B64\u8655\u662F\u6D88\u8CBB\u8005\u8868\u9054\u9700\u6C42\uFF0C\u63D0\u4F9B\u8005\u5FC5\u9808\u6EFF\u8DB3\u5B83\u5011\u3002"
+              },
+              {
+                "text": "broker \u64C1\u6709\u5B83\uFF0C\u4E26\u6C7A\u5B9A\u54EA\u4E9B\u6D88\u8CBB\u8005\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "broker \u53EA\u5132\u5B58\u8207\u5206\u4EAB\u5951\u7D04\uFF1B\u5B83\u4E0D\u64C1\u6709\u5951\u7D04\uFF0C\u4E5F\u4E0D\u6392\u5B9A\u5176\u512A\u5148\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "\u8AB0\u6700\u5F8C\u90E8\u7F72\uFF0C\u8AB0\u5C31\u64C1\u6709\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "\u64C1\u6709\u6B0A\u662F\u4F9D\u89D2\u8272\u800C\u5B9A\uFF08\u6D88\u8CBB\u8005\u9A45\u52D5\uFF09\uFF0C\u800C\u975E\u4F9D\u90E8\u7F72\u7684\u6642\u9593\u5148\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u85C9\u7531\u9673\u8FF0\u81EA\u5DF1\u6240\u4F9D\u8CF4\u7684\u5167\u5BB9\u4F86\u9A45\u52D5\u5951\u7D04\u3002\u56E0\u70BA\u4E00\u500B\u63D0\u4F9B\u8005\u670D\u52D9\u8A31\u591A\u6D88\u8CBB\u8005\uFF0C\u5B83\u5FC5\u9808\u5C0D\u5B83\u5011\u7684\u6240\u6709\u5951\u7D04\u52A0\u4EE5\u9A57\u8B49\uFF0C\u4EE5\u514D\u67D0\u9805\u8B8A\u66F4\u6084\u6084\u7834\u58DE\u4EFB\u4F55\u4F9D\u8CF4\u5B83\u7684\u6D88\u8CBB\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4F9B\u8005\u91CD\u65B0\u547D\u540D\u67D0\u6D88\u8CBB\u8005\u4F7F\u7528\u7684\u6B04\u4F4D",
+            "text": "<p>\u63D0\u4F9B\u8005\u628A\u56DE\u61C9\u6B04\u4F4D\u7531 <code>total</code> \u6539\u540D\u70BA <code>totalAmount</code>\u3002\u67D0\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u4F9D\u8CF4 <code>total</code>\u3002\u6703\u767C\u751F\u4EC0\u9EBC\u4E8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4F9B\u8005\u5C0D\u8A72\u6D88\u8CBB\u8005\u5951\u7D04\u7684\u9A57\u8B49\u5931\u6557\uFF0C\u56E0\u70BA\u56DE\u653E\u8A72\u4E92\u52D5\u6642\u4E0D\u518D\u56DE\u50B3\u671F\u671B\u7684\u6B04\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u8CBB\u8005\u4F9D\u8CF4\uFF1B\u6539\u540D\u5F8C\u7684\u56DE\u61C9\u6703\u4F7F\u63D0\u4F9B\u8005\u7AEF\u5C0D\u8A72\u5951\u7D04\u7684\u9A57\u8B49\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u6D88\u8CBB\u8005\u4EE5\u6A21\u64EC\u7269\u70BA\u57FA\u790E\u7684\u6E2C\u8A66\u6703\u5148\u5931\u6557\uFF0C\u65E9\u65BC\u4EFB\u4F55\u63D0\u4F9B\u8005\u7684\u6AA2\u67E5",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u7684\u6A21\u64EC\u7269\u4ECD\u56DE\u50B3\uFF0C\u56E0\u6B64\u90A3\u4E9B\u6E2C\u8A66\u53EF\u901A\u904E\uFF1B\u5931\u6557\u6703\u6D6E\u73FE\u5728\u63D0\u4F9B\u8005\u9A57\u8B49\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u4E0D\u6703\u6709\u4EFB\u4F55\u5931\u6557\uFF0C\u56E0\u70BA\u6539\u540D\u6B04\u4F4D\u7E3D\u662F\u5411\u5F8C\u76F8\u5BB9",
+                "fraction": 0,
+                "feedback": "\u6539\u6389\u67D0\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\u662F\u7834\u58DE\u6027\u8B8A\u66F4\uFF0C\u4E26\u975E\u5411\u5F8C\u76F8\u5BB9\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 E2E \u6E2C\u8A66\u624D\u53EF\u80FD\u5075\u6E2C\u5230\u9019\u4E00\u9EDE",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u6703\u66F4\u65E9\u900F\u904E\u63D0\u4F9B\u8005\u9A57\u8B49\u5075\u6E2C\u5230\u5B83\uFF0C\u4E0D\u9700\u8981 E2E\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u8CBB\u8005\u4F9D\u8CF4\u3002\u7576\u63D0\u4F9B\u8005\u56DE\u653E\u8A72\u6D88\u8CBB\u8005\u5951\u7D04\u6642\uFF0C\u56DE\u61C9\u8B8A\u6210\u800C\u975E\uFF0C\u56E0\u6B64\u671F\u671B\u672A\u88AB\u6EFF\u8DB3\uFF0C\u63D0\u4F9B\u8005\u5C0D\u8A72\u5951\u7D04\u7684\u9A57\u8B49\u5931\u6557\u2014\u2014\u9019\u6B63\u662F\u5951\u7D04\u6E2C\u8A66\u610F\u5728\u6355\u6349\u7684\u7834\u58DE\u6027\u8B8A\u66F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4F9B\u8005\u8B8A\u66F4\u6C92\u6709\u6D88\u8CBB\u8005\u4F7F\u7528\u7684\u6B04\u4F4D",
+            "text": "<p>\u63D0\u4F9B\u8005\u79FB\u9664\u4E00\u500B<em>\u6C92\u6709</em>\u4EFB\u4F55\u6D88\u8CBB\u8005\u5951\u7D04\u53C3\u7167\u7684\u56DE\u61C9\u6B04\u4F4D\u3002\u5047\u8A2D\u662F\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\uFF0C\u5C0D\u9A57\u8B49\u6709\u4F55\u5F71\u97FF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u4ECD\u6703\u901A\u904E\uFF0C\u56E0\u70BA\u6C92\u6709\u6D88\u8CBB\u8005\u4F9D\u8CF4\u8A72\u6B04\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u53EA\u6DB5\u84CB\u6D88\u8CBB\u8005\u4F7F\u7528\u7684\u6B04\u4F4D\uFF0C\u6240\u4EE5\u79FB\u9664\u672A\u4F7F\u7528\u7684\u6B04\u4F4D\u662F\u5B89\u5168\u7684\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u5931\u6557\uFF0C\u56E0\u70BA\u4EFB\u4F55\u6B04\u4F4D\u79FB\u9664\u90FD\u662F\u7834\u58DE\u6027\u8B8A\u66F4",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u66F4\u52D5\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u6B04\u4F4D\u624D\u6703\u7834\u58DE\u5951\u7D04\uFF1B\u672A\u4F7F\u7528\u7684\u6B04\u4F4D\u53EF\u81EA\u7531\u8B8A\u66F4\u3002"
+              },
+              {
+                "text": "\u5728\u6B04\u4F4D\u88AB\u9084\u539F\u4E4B\u524D\u7121\u6CD5\u57F7\u884C\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "\u88AB\u79FB\u9664\u7684\u6B04\u4F4D\u4E0D\u5728\u4EFB\u4F55\u5951\u7D04\u4E2D\uFF0C\u56E0\u6B64\u9A57\u8B49\u7167\u5E38\u9032\u884C\u4E26\u901A\u904E\u3002"
+              },
+              {
+                "text": "broker \u6703\u81EA\u52D5\u5C01\u9396\u8A72\u6B21\u90E8\u7F72",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u5951\u7D04\u53C3\u7167\u8A72\u6B04\u4F4D\uFF0C\u56E0\u6B64\u6C92\u6709\u53EF\u5C01\u9396\u4E4B\u8655\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u53EA\u6355\u6349\u6D88\u8CBB\u8005\u5BE6\u969B\u4F7F\u7528\u7684\u5167\u5BB9\uFF0C\u63D0\u4F9B\u8005\u53EF\u5B89\u5168\u5730\u8B8A\u66F4\u6216\u79FB\u9664\u6C92\u6709\u6D88\u8CBB\u8005\u4F9D\u8CF4\u7684\u6B04\u4F4D\u2014\u2014\u9A57\u8B49\u4E0D\u53D7\u5F71\u97FF\u3002\u9019\u662F\u6F14\u9032 API \u6642\u7684\u4E00\u9805\u95DC\u9375\u597D\u8655\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "can-i-deploy \u6AA2\u67E5\u4EC0\u9EBC",
+            "text": "<p>Pact \u7684 <em>can-i-deploy</em> \u5DE5\u5177\u56DE\u7B54\u7684\u554F\u984C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4F9D\u64DA\u5DF2\u9A57\u8B49\u7684\u5951\u7D04\uFF0C\u6211\u60F3\u90E8\u7F72\u7684\u7248\u672C\u662F\u5426\u8207\u5176\u4E92\u52D5\u4E4B\u5176\u4ED6\u670D\u52D9\u7684\u7248\u672C\u76F8\u5BB9\uFF1F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014can-i-deploy \u4F9D\u64DA\u8A18\u9304\u4E0B\u4F86\u7684\u9A57\u8B49\u7D50\u679C\uFF0C\u5224\u65B7\u67D0\u7248\u672C\u662F\u5426\u53EF\u5B89\u5168\u767C\u5E03\u3002"
+              },
+              {
+                "text": "\u65B0\u7248\u672C\u5728\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u901F\u5EA6\u6709\u591A\u5FEB\uFF1F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u554F\u984C\uFF0C\u8207 can-i-deploy \u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u5728 CI \u4F3A\u670D\u5668\u4E0A\u80FD\u5426\u7DE8\u8B6F\uFF1F",
+                "fraction": 0,
+                "feedback": "can-i-deploy \u8B1B\u7684\u662F\u670D\u52D9\u7248\u672C\u4E4B\u9593\u7684\u5951\u7D04\u76F8\u5BB9\u6027\uFF0C\u800C\u975E\u7DE8\u8B6F\u3002"
+              },
+              {
+                "text": "UI \u80FD\u5426\u901A\u904E\u7121\u969C\u7919\u7A3D\u6838\uFF1F",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E26\u4E0D\u76F8\u95DC\uFF1Bcan-i-deploy \u6AA2\u67E5\u8DE8\u670D\u52D9\u7248\u672C\u7684\u5951\u7D04\u76F8\u5BB9\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "can-i-deploy \u5411 broker \u67E5\u8A62\u300C\u4F60\u60F3\u90E8\u7F72\u7684\u7248\u672C\u300D\u8207\u300C\u5B83\u6240\u4F9D\u8CF4\uFF0F\u670D\u52D9\u4E4B\u7248\u672C\u300D\u4E4B\u9593\u7684\u9A57\u8B49\u7D50\u679C\uFF0C\u544A\u8A34\u4F60\u767C\u5E03\u5B83\u662F\u5426\u6703\u7834\u58DE\u4EFB\u4F55\u5951\u7D04\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8981\u7248\u672C\u5316\u5951\u7D04",
+            "text": "<p>broker \u70BA\u4F55\u8981\u7248\u672C\u5316\u5951\u7D04\uFF08\u53CA\u5176\u9A57\u8B49\u7D50\u679C\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u597D\u8B93\u5B83\u80FD\u5224\u65B7\u54EA\u4E9B\u6D88\u8CBB\u8005\u7248\u672C\u8207\u63D0\u4F9B\u8005\u7248\u672C\u76F8\u5BB9\uFF0C\u4E26\u652F\u63F4\u5B89\u5168\u3001\u7368\u7ACB\u7684\u90E8\u7F72",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7248\u672C\u5316\u7684\u5951\u7D04\u8B93\u5DE5\u5177\u80FD\u5C0D\u8DE8\u7248\u672C\u7684\u76F8\u5BB9\u6027\u9032\u884C\u63A8\u7406\u3002"
+              },
+              {
+                "text": "\u597D\u8B93\u5B83\u80FD\u522A\u9664\u820A\u5951\u7D04\u4EE5\u7BC0\u7701\u78C1\u789F\u7A7A\u9593",
+                "fraction": 0,
+                "feedback": "\u7248\u672C\u5316\u662F\u70BA\u4E86\u8FFD\u8E64\u76F8\u5BB9\u6027\uFF0C\u800C\u975E\u4E3B\u8981\u70BA\u4E86\u56DE\u6536\u7A7A\u9593\u3002"
+              },
+              {
+                "text": "\u597D\u8B93\u6D88\u8CBB\u8005\u4E0D\u5FC5\u518D\u64B0\u5BEB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u4ECD\u9808\u64B0\u5BEB\u6E2C\u8A66\uFF1B\u7248\u672C\u5316\u4E0D\u6703\u514D\u9664\u9019\u9805\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u597D\u8B93\u63D0\u4F9B\u8005\u80FD\u5FFD\u7565\u8F03\u820A\u7684\u6D88\u8CBB\u8005\u7248\u672C",
+                "fraction": 0,
+                "feedback": "\u7248\u672C\u5316\u6709\u52A9\u65BC\u78BA\u4FDD\u8F03\u820A\u7684\u6D88\u8CBB\u8005\u4E0D\u88AB\u7834\u58DE\uFF0C\u800C\u975E\u8B93\u5B83\u5011\u53EF\u88AB\u5FFD\u7565\u3002"
+              }
+            ],
+            "generalFeedback": "\u85C9\u7531\u7248\u672C\u5316\u5951\u7D04\u53CA\u5176\u9A57\u8B49\u7D50\u679C\uFF0Cbroker\uFF08\u8207 can-i-deploy\uFF09\u80FD\u7CBE\u78BA\u5224\u65B7\u54EA\u4E9B\u6D88\u8CBB\u8005\uFF0F\u63D0\u4F9B\u8005\u7248\u672C\u53EF\u5354\u540C\u904B\u4F5C\uFF0C\u8B93\u5718\u968A\u5F97\u4EE5\u7368\u7ACB\u4E14\u5B89\u5168\u5730\u90E8\u7F72\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7368\u7ACB\u90E8\u7F72\u7684\u63A8\u7406",
+            "text": "<p>\u5951\u7D04\u6E2C\u8A66\u5982\u4F55\u8B93\u5FAE\u670D\u52D9\u80FD\u88AB<em>\u7368\u7ACB</em>\u90E8\u7F72\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u67D0\u5718\u968A\u53EF\u5728\u767C\u5E03\u524D\u78BA\u8A8D\u5176\u8B8A\u66F4\u4ECD\u9075\u5B88\u5171\u4EAB\u5951\u7D04\uFF0C\u800C\u4E0D\u5FC5\u5354\u8ABF\u6BCF\u500B\u670D\u52D9\u540C\u6B65\u90E8\u7F72",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DF2\u9A57\u8B49\u7684\u5951\u7D04\u8B93\u5404\u5718\u968A\u6709\u4FE1\u5FC3\u6309\u81EA\u5DF1\u7684\u6642\u7A0B\u767C\u5E03\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u670D\u52D9\u5FC5\u9808\u6C38\u9060\u4E00\u8D77\u90E8\u7F72\u4EE5\u4FDD\u6301\u540C\u6B65",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u7368\u7ACB\u90E8\u7F72\u76F8\u53CD\uFF0C\u800C\u7368\u7ACB\u90E8\u7F72\u6B63\u662F\u5951\u7D04\u610F\u5728\u4FC3\u6210\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u514D\u9664\u4E86\u5C0D\u670D\u52D9\u9032\u884C\u4EFB\u4F55\u7248\u672C\u5316\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u7368\u7ACB\u90E8\u7F72\u4EF0\u8CF4\u7248\u672C\u5316\u7684\u5951\u7D04\uFF0C\u800C\u975E\u653E\u68C4\u7248\u672C\u5316\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u63D0\u4F9B\u8005\u4E00\u6709\u8B8A\u66F4\uFF0C\u5C31\u5F37\u8FEB\u6BCF\u500B\u6D88\u8CBB\u8005\u91CD\u65B0\u90E8\u7F72",
+                "fraction": 0,
+                "feedback": "\u552F\u6709\u7576\u6D88\u8CBB\u8005\u4F9D\u8CF4\u7684\u6B04\u4F4D\u6709\u8B8A\u6642\u5B83\u624D\u9700\u8981\u66F4\u52D5\uFF1B\u672A\u53D7\u5F71\u97FF\u7684\u6D88\u8CBB\u8005\u4E0D\u5FC5\u91CD\u65B0\u90E8\u7F72\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u96D9\u65B9\u90FD\u5C0D\u7167\u5171\u4EAB\u3001\u7248\u672C\u5316\u7684\u5951\u7D04\u6AA2\u67E5\uFF08\u4E14 can-i-deploy \u78BA\u8A8D\u76F8\u5BB9\u6027\uFF09\uFF0C\u5718\u968A\u53EF\u6309\u81EA\u5DF1\u7684\u6642\u7A0B\u90E8\u7F72\u670D\u52D9\uFF0C\u4E26\u6709\u4FE1\u5FC3\u4E0D\u6703\u7834\u58DE\u4ED6\u4EBA\u6240\u4F9D\u8CF4\u7684\u4E92\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96D9\u5411\u5C0D\u6BD4\u6D88\u8CBB\u8005\u9A45\u52D5",
+            "text": "<p><em>\u96D9\u5411\uFF08bi-directional\uFF09</em>\u5951\u7D04\u6E2C\u8A66\u8207\u7D93\u5178\u7684<em>\u6D88\u8CBB\u8005\u9A45\u52D5</em>\u5951\u7D04\u6E2C\u8A66\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u96D9\u5411\u4F5C\u6CD5\u4E2D\uFF0C\u63D0\u4F9B\u8005\u63D0\u4F9B\u81EA\u5DF1\u7684 API \u63CF\u8FF0\uFF08\u4F8B\u5982 OpenAPI \u898F\u683C\uFF09\uFF0C\u4E26\u628A\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u8207\u5B83\u76F8\u4E92\u6BD4\u5C0D\uFF0C\u800C\u975E\u7531\u63D0\u4F9B\u8005\u56DE\u653E\u6D88\u8CBB\u8005\u7684\u4E92\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u96D9\u5411\u4F5C\u6CD5\u4EE5\u63D0\u4F9B\u8005\u63D0\u4F9B\u7684\u898F\u683C\u8207\u6D88\u8CBB\u8005\u5951\u7D04\u4EA4\u53C9\u6BD4\u5C0D\uFF0C\u53D6\u4EE3\u5C0D\u63D0\u4F9B\u8005\u7684\u5BE6\u969B\u56DE\u653E\u3002"
+              },
+              {
+                "text": "\u96D9\u5411\u610F\u6307\u6D88\u8CBB\u8005\u9A57\u8B49\u63D0\u4F9B\u8005\u7684\u5951\u7D04\uFF0C\u540C\u6642\u63D0\u4F9B\u8005\u9A57\u8B49\u6D88\u8CBB\u8005\u7684\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E26\u975E\u96D9\u5411\u7684\u610F\u601D\uFF1B\u5B83\u662F\u628A\u63D0\u4F9B\u8005\u7684\u898F\u683C\u8207\u6D88\u8CBB\u8005\u5951\u7D04\u76F8\u4E92\u6BD4\u5C0D\u3002"
+              },
+              {
+                "text": "\u96D9\u5411\u4F5C\u6CD5\u628A\u6D88\u8CBB\u8005\u5B8C\u5168\u6392\u9664\u5728\u6D41\u7A0B\u4E4B\u5916",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u4ECD\u53C3\u8207\u5176\u4E2D\uFF1B\u5B83\u6703\u8207\u63D0\u4F9B\u8005\u81EA\u5DF1\u7684\u63CF\u8FF0\u76F8\u4E92\u6BD4\u5C0D\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u662F\u540C\u4E00\u6280\u8853\u7684\u76F8\u540C\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5728\u5982\u4F55\u6AA2\u67E5\u63D0\u4F9B\u8005\u7AEF\u4E0A\u4E0D\u540C\uFF08\u5BE6\u969B\u56DE\u653E\uFF0C\u5C0D\u6BD4\u63D0\u4F9B\u8005\u63D0\u4F9B\u7684\u898F\u683C\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D93\u5178\u7684\u6D88\u8CBB\u8005\u9A45\u52D5\u6E2C\u8A66\u7531\u63D0\u4F9B\u8005\u56DE\u653E\u6BCF\u500B\u6D88\u8CBB\u8005\u8A18\u9304\u4E0B\u4F86\u7684\u4E92\u52D5\u3002\u96D9\u5411\u6E2C\u8A66\u5247\u6539\u70BA\u628A\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u8207\u63D0\u4F9B\u8005\u767C\u5E03\u7684 API \u63CF\u8FF0\uFF08\u4F8B\u5982 OpenAPI\uFF09\u76F8\u4E92\u6BD4\u5C0D\uFF0C\u5728\u96E3\u4EE5\u56DE\u653E\u6642\u53EF\u80FD\u8F03\u70BA\u65B9\u4FBF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5951\u7D04\u6E2C\u8A66\u7684\u9650\u5236",
+            "text": "<p>\u95DC\u65BC\u5951\u7D04\u6E2C\u8A66\u7684<em>\u9650\u5236</em>\uFF0C\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u9A57\u8B49\u7D04\u5B9A\u597D\u7684\u8ACB\u6C42\uFF0F\u56DE\u61C9\u4E92\u52D5\uFF0C\u800C\u975E\u63D0\u4F9B\u8005\u5B8C\u6574\u7684\u5546\u696D\u908F\u8F2F\u2014\u2014\u4ECD\u7136\u9700\u8981\u529F\u80FD\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901A\u904E\u5951\u7D04\u4E26\u4E0D\u80FD\u8B49\u660E\u63D0\u4F9B\u8005\u7B97\u51FA\u6B63\u78BA\u7B54\u6848\uFF0C\u53EA\u8B49\u660E\u4E92\u52D5\u7684\u5F62\u614B\u88AB\u9075\u5B88\u3002"
+              },
+              {
+                "text": "\u5B83\u5B8C\u5168\u53D6\u4EE3\u5C0D\u529F\u80FD\u6E2C\u8A66\u8207\u7AEF\u5230\u7AEF\u6E2C\u8A66\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u4E26\u4E0D\u6DB5\u84CB\u5B8C\u6574\u884C\u70BA\uFF1B\u4ECD\u9700\u5176\u4ED6\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E\u6574\u500B\u7CFB\u7D71\u5F9E\u982D\u5230\u5C3E\u90FD\u6B63\u78BA\u904B\u4F5C",
+                "fraction": 0,
+                "feedback": "\u90A3\u8D85\u51FA\u5176\u7BC4\u570D\uFF1B\u5B83\u53EA\u9A57\u8B49\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u8CA0\u8F09\u4E0B\u7684\u6548\u80FD",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u4E0D\u5728\u5951\u7D04\u6E2C\u8A66\u7684\u7BC4\u570D\u5167\u3002"
+              }
+            ],
+            "generalFeedback": "\u5951\u7D04\u6E2C\u8A66\u78BA\u8A8D\u96D9\u65B9\u5C0D\u4E92\u52D5\u9054\u6210\u4E00\u81F4\uFF08\u72C0\u614B\u78BC\u3001\u7D50\u69CB\u3001\u6B04\u4F4D\uFF09\u3002\u5B83\u4E26\u4E0D\u6AA2\u67E5\u63D0\u4F9B\u8005\u7684\u5546\u696D\u908F\u8F2F\u662F\u5426\u7B97\u51FA\u6B63\u78BA\u7684\u503C\uFF0C\u56E0\u6B64\u529F\u80FD\u6E2C\u8A66\u8207 E2E \u6E2C\u8A66\u4ECD\u5C6C\u5FC5\u8981\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6D88\u8CBB\u8005\u65B0\u589E\u4E00\u9805\u5FC5\u9700\u7684\u671F\u671B",
+            "text": "<p>\u67D0\u6D88\u8CBB\u8005\u958B\u59CB\u4F9D\u8CF4\u4E00\u500B\u65B0\u6B04\u4F4D <code>currency</code> \u4E26\u767C\u5E03\u4E86\u66F4\u65B0\u5F8C\u7684\u5951\u7D04\uFF0C\u4F46\u63D0\u4F9B\u8005\u5C1A\u672A\u56DE\u50B3\u5B83\u3002\u6703\u767C\u751F\u4EC0\u9EBC\u4E8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4F9B\u8005\u5C0D\u66F4\u65B0\u5F8C\u5951\u7D04\u7684\u9A57\u8B49\u6703\u5931\u6557\uFF0C\u76F4\u5230\u63D0\u4F9B\u8005\u52A0\u5165\u70BA\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u73FE\u5728\u671F\u671B\uFF0C\u56E0\u6B64\u63D0\u4F9B\u8005\u5728\u63D0\u4F9B\u8A72\u6B04\u4F4D\u4E4B\u524D\u90FD\u7121\u6CD5\u901A\u904E\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u6D88\u8CBB\u8005\u7684\u6A21\u64EC\u7269\u6E2C\u8A66\u6703\u5931\u6557\uFF0C\u56E0\u6B64\u63D0\u4F9B\u8005\u4E0D\u53D7\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005\u7684\u6A21\u64EC\u7269\u6703\u56DE\u50B3\uFF0C\u56E0\u6B64\u5176\u6E2C\u8A66\u901A\u904E\uFF1B\u662F\u63D0\u4F9B\u8005\u7684\u9A57\u8B49\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u4E0D\u6703\u6709\u4EFB\u4F55\u6539\u8B8A\uFF0C\u56E0\u70BA\u65B0\u589E\u4E00\u9805\u671F\u671B\u5F9E\u4E0D\u5177\u7834\u58DE\u6027",
+                "fraction": 0,
+                "feedback": "\u65B0\u589E\u4E00\u9805\u63D0\u4F9B\u8005\u672A\u6EFF\u8DB3\u7684\u5FC5\u9700\u671F\u671B\uFF0C\u78BA\u5BE6\u6703\u5C0E\u81F4\u63D0\u4F9B\u8005\u9A57\u8B49\u5931\u6557\u3002"
+              },
+              {
+                "text": "broker \u6703\u81EA\u52D5\u4FEE\u88DC\u63D0\u4F9B\u8005\u4EE5\u52A0\u5165\u8A72\u6B04\u4F4D",
+                "fraction": 0,
+                "feedback": "broker \u5F9E\u4E0D\u4FEE\u6539\u670D\u52D9\uFF1B\u5FC5\u9808\u7531\u63D0\u4F9B\u8005\u5718\u968A\u5BE6\u4F5C\u8A72\u6B04\u4F4D\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u671F\u671B\u4E00\u500B\u65B0\u6B04\u4F4D\u6642\uFF0C\u63D0\u4F9B\u8005\u5FC5\u9808\u56DE\u50B3\u5B83\u624D\u80FD\u901A\u904E\u9A57\u8B49\u3002\u5728\u63D0\u4F9B\u8005\u52A0\u5165\u4E4B\u524D\uFF0C\u56DE\u653E\u66F4\u65B0\u5F8C\u7684\u5951\u7D04\u6703\u5931\u6557\u2014\u2014\u9019\u8868\u793A\u96D9\u65B9\u5C1A\u672A\u76F8\u5BB9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4F9B\u8005\u65B0\u589E\u4E00\u500B\u9078\u7528\u6B04\u4F4D",
+            "text": "<p>\u63D0\u4F9B\u8005\u65B0\u589E\u4E00\u500B\u5168\u65B0\u7684\u9078\u7528\u56DE\u61C9\u6B04\u4F4D\uFF0C\u4E14\u6C92\u6709\u4EFB\u4F55\u65E2\u6709\u6D88\u8CBB\u8005\u53C3\u7167\u5B83\u3002\u5C0D\u65E2\u6709\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u9A57\u8B49\u6709\u4F55\u5F71\u97FF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u65E2\u6709\u5951\u7D04\u4ECD\u6703\u901A\u904E\u9A57\u8B49\uFF0C\u56E0\u70BA\u5B83\u5011\u4E26\u4E0D\u4F9D\u8CF4\u65B0\u6B04\u4F4D\uFF0C\u4E14\u984D\u5916\u6B04\u4F4D\u53EF\u88AB\u5BB9\u5FCD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65B0\u589E\u4E00\u500B\u6D88\u8CBB\u8005\u5FFD\u7565\u7684\u6B04\u4F4D\u662F\u975E\u7834\u58DE\u6027\u8B8A\u66F4\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u65E2\u6709\u5951\u7D04\u6703\u7ACB\u523B\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u984D\u5916\u3001\u672A\u88AB\u53C3\u7167\u7684\u6B04\u4F4D\u4E0D\u6703\u7834\u58DE\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6D88\u8CBB\u8005\u90FD\u5FC5\u9808\u5148\u91CD\u65B0\u767C\u5E03\u5176\u5951\u7D04",
+                "fraction": 0,
+                "feedback": "\u4E0D\u4F7F\u7528\u65B0\u6B04\u4F4D\u7684\u6D88\u8CBB\u8005\u7121\u9700\u505A\u4EFB\u4F55\u66F4\u52D5\u3002"
+              },
+              {
+                "text": "\u5728\u8A72\u6B04\u4F4D\u88AB\u79FB\u9664\u4E4B\u524D\u9A57\u8B49\u6703\u88AB\u5C01\u9396",
+                "fraction": 0,
+                "feedback": "\u65B0\u6B04\u4F4D\u5C0D\u65E2\u6709\u6D88\u8CBB\u8005\u7121\u5BB3\uFF1B\u4E0D\u6703\u6709\u4EFB\u4F55\u5C01\u9396\u3002"
+              }
+            ],
+            "generalFeedback": "\u65B0\u589E\u4E00\u500B\u6C92\u6709\u6D88\u8CBB\u8005\u4F9D\u8CF4\u7684\u56DE\u61C9\u6B04\u4F4D\u662F\u5411\u5F8C\u76F8\u5BB9\u7684\u3002\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u9A57\u8B49\u53EA\u6AA2\u67E5\u6D88\u8CBB\u8005\u4F7F\u7528\u7684\u6B04\u4F4D\uFF0C\u56E0\u6B64\u65E2\u6709\u5951\u7D04\u6703\u6301\u7E8C\u901A\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63D0\u4F9B\u8005\u70BA\u4F55\u4E0D\u5FC5\u6EFF\u8DB3\u5176\u6574\u500B API",
+            "text": "<p>\u70BA\u4F55\u63D0\u4F9B\u8005\u53EA\u6EFF\u8DB3\u5176 API \u7684<em>\u4E00\u90E8\u5206</em>\u4E5F\u80FD\u901A\u904E\u9A57\u8B49\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u53EA\u7DE8\u78BC\u6D88\u8CBB\u8005\u5BE6\u969B\u4F7F\u7528\u7684\u4E92\u52D5\u8207\u6B04\u4F4D\uFF0C\u56E0\u6B64\u9A57\u8B49\u53EA\u6DB5\u84CB\u90A3\u4E9B\u90E8\u5206",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5951\u7D04\u628A\u9A57\u8B49\u7BC4\u570D\u9650\u7E2E\u5230\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u63D0\u4F9B\u8005\u88AB\u5141\u8A31\u5FFD\u7565\u6BCF\u4EFD\u5951\u7D04\u7684\u4E00\u534A",
+                "fraction": 0,
+                "feedback": "\u63D0\u4F9B\u8005\u5FC5\u9808\u5B8C\u6574\u6EFF\u8DB3\u6BCF\u4EFD\u5951\u7D04\uFF1B\u91CD\u9EDE\u5728\u65BC\u5951\u7D04\u53EA\u6DB5\u84CB\u6D88\u8CBB\u8005\u4F7F\u7528\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9A57\u8B49\u6703\u96A8\u6A5F\u62BD\u6A23 API \u7684\u4E00\u500B\u5B50\u96C6",
+                "fraction": 0,
+                "feedback": "\u9A57\u8B49\u4E26\u975E\u96A8\u6A5F\u62BD\u6A23\uFF1B\u5B83\u7CBE\u78BA\u56DE\u653E\u5951\u7D04\u4E2D\u7684\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA broker \u96B1\u85CF\u4E86\u672A\u88AB\u6E2C\u8A66\u7684\u7AEF\u9EDE",
+                "fraction": 0,
+                "feedback": "broker \u4E0D\u6703\u96B1\u85CF\u7AEF\u9EDE\uFF1B\u53EA\u662F\u5951\u7D04\u50C5\u6DB5\u84CB\u6D88\u8CBB\u8005\u6240\u4F9D\u8CF4\u7684\u90E8\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u6D88\u8CBB\u8005\u53EA\u8A18\u9304\u81EA\u5DF1\u9700\u8981\u7684\u5167\u5BB9\uFF0C\u63D0\u4F9B\u8005\u7684\u9A57\u8B49\u4FBF\u88AB\u9650\u7E2E\u5230\u90A3\u4E9B\u4E92\u52D5\u3002API \u4E2D\u672A\u88AB\u89F8\u53CA\u7684\u90E8\u5206\u4E0D\u5C6C\u65BC\u4EFB\u4F55\u5951\u7D04\uFF0C\u56E0\u6B64\u63D0\u4F9B\u8005\u4E0D\u5FC5\u6EFF\u8DB3\u6574\u500B\u7BC4\u570D\u5373\u53EF\u901A\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u90E8\u7F72\u524D\u5075\u6E2C\u7834\u58DE\u6027\u8B8A\u66F4",
+            "text": "<p>\u6D88\u8CBB\u8005\u9A45\u52D5\u7684\u5951\u7D04\u6E2C\u8A66\u5982\u4F55\u8B93\u63D0\u4F9B\u8005\u5718\u968A\u5728<em>\u90E8\u7F72\u4E4B\u524D</em>\u3001\u4E14\u4E0D\u9700\u4E00\u500B\u540C\u6642\u57F7\u884C\u5169\u500B\u670D\u52D9\u7684\u9810\u5099\u74B0\u5883\uFF0C\u5C31\u5075\u6E2C\u5230\u7834\u58DE\u6027\u8B8A\u66F4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4F9B\u8005\u5728\u81EA\u5DF1\u7684 CI \u4E2D\u56DE\u653E\u6BCF\u500B\u6D88\u8CBB\u8005\u767C\u5E03\u7684\u5951\u7D04\uFF1B\u4E00\u65E6\u5931\u6557\u5373\u5728\u767C\u5E03\u524D\u63ED\u9732\u7834\u58DE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u4F9B\u8005\u5C0D\u7167\u5132\u5B58\u7684\u5951\u7D04\u9A57\u8B49\uFF0C\u80FD\u5728\u9694\u96E2\u72C0\u614B\u4E0B\u3001\u65BC\u90E8\u7F72\u524D\u6355\u6349\u5230\u7834\u58DE\u3002"
+              },
+              {
+                "text": "\u5B83\u7B49\u5230\u90E8\u7F72\u4E4B\u5F8C\u7531\u5BE6\u969B\u4F7F\u7528\u8005\u56DE\u5831\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u76EE\u6A19\u662F\u5728\u90E8\u7F72\u524D\u6355\u6349\u7834\u58DE\uFF0C\u800C\u975E\u5728\u4F7F\u7528\u8005\u8E29\u5230\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u5B83\u8981\u6C42\u6D88\u8CBB\u8005\u5148\u8207\u63D0\u4F9B\u8005\u4E00\u8D77\u91CD\u65B0\u90E8\u7F72",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u8981\u806F\u5408\u90E8\u7F72\uFF1B\u63D0\u4F9B\u8005\u55AE\u7368\u5C0D\u7167\u5132\u5B58\u7684\u5951\u7D04\u9A57\u8B49\u5373\u53EF\u3002"
+              },
+              {
+                "text": "\u5B83\u4EF0\u8CF4\u9810\u5099\u74B0\u5883\u4E2D\u7684\u5B8C\u6574 E2E \u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5951\u7D04\u6E2C\u8A66\u6B63\u662F\u8981\u907F\u514D\u70BA\u6B64\u6AA2\u67E5\u800C\u9700\u8981\u5B8C\u6574\u7684 E2E \u9810\u5099\u74B0\u5883\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u4F9B\u8005\u7684 CI \u5F9E broker \u53D6\u5F97\u6BCF\u500B\u6D88\u8CBB\u8005\u7684\u5951\u7D04\uFF0C\u4E26\u628A\u5B83\u5C0D\u8457\u771F\u5BE6\u63D0\u4F9B\u8005\u56DE\u653E\u3002\u4E00\u65E6\u4E0D\u76F8\u7B26\u5373\u8B93\u5EFA\u7F6E\u5931\u6557\uFF0C\u5728\u90E8\u7F72\u524D\u63ED\u9732\u7834\u58DE\u6027\u8B8A\u66F4\u2014\u2014\u4E0D\u9700\u8981\u5171\u4EAB\u7684\u9810\u5099\u74B0\u5883\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u901A\u904E\u9A57\u8B49\u4E0D\u4EE3\u8868\u884C\u70BA\u6B63\u78BA",
+            "text": "<p>\u63D0\u4F9B\u8005\u901A\u904E\u5176\u6240\u6709\u5951\u7D04\u9A57\u8B49\uFF0C\u5373\u56E0\u6B64\u8B49\u660E\u5B83\u7B97\u51FA\u6B63\u78BA\u7684\u5546\u696D\u7D50\u679C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u901A\u904E\u9A57\u8B49\u53EA\u986F\u793A\u7D04\u5B9A\u597D\u7684\u4E92\u52D5\u5F62\u614B\u88AB\u9075\u5B88\uFF0C\u4E26\u4E0D\u4EE3\u8868\u7B97\u51FA\u7684\u503C\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901A\u904E\u5951\u7D04\u9A57\u8B49\u78BA\u8A8D\u4E92\u52D5\u88AB\u9075\u5B88\uFF0C\u4F46\u4ECD\u9700\u529F\u80FD\u6E2C\u8A66\u4F86\u8B49\u660E\u7D50\u679C\u6B63\u78BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u5951\u7D04\u6E2C\u8A66\u6AA2\u67E5\u63D0\u4F9B\u8005\u5C0D\u6BCF\u9805\u4E92\u52D5\u56DE\u50B3\u7D04\u5B9A\u597D\u7684\u72C0\u614B\u78BC\u8207\u6B04\u4F4D\u3002\u5B83\u4E26\u4E0D\u6AA2\u67E5\u90A3\u4E9B\u503C\u662F\u5426\u7B26\u5408\u5546\u696D\u6B63\u78BA\u6027\uFF0C\u56E0\u6B64\u901A\u904E\u5951\u7D04\u4E26\u4E0D\u80FD\u53D6\u4EE3\u529F\u80FD\u6E2C\u8A66\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u6D88\u8CBB\u8005\uFF0C\u4E00\u9805\u63D0\u4F9B\u8005\u8B8A\u66F4",
+            "text": "<p>\u67D0\u63D0\u4F9B\u8005\u670D\u52D9\u5169\u500B\u6D88\u8CBB\u8005\uFF1A\u6D88\u8CBB\u8005 X \u4F9D\u8CF4\u6B04\u4F4D <code>status</code>\uFF0C\u6D88\u8CBB\u8005 Y \u4E0D\u4F9D\u8CF4\u3002\u63D0\u4F9B\u8005\u79FB\u9664\u4E86 <code>status</code>\u3002\u63D0\u4F9B\u8005\u9A57\u8B49\u7684\u7D50\u679C\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6D88\u8CBB\u8005 X \u5951\u7D04\u7684\u9A57\u8B49\u5931\u6557\uFF1B\u6D88\u8CBB\u8005 Y \u7684\u5951\u7D04\u4ECD\u901A\u904E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709\u4F9D\u8CF4\u88AB\u79FB\u9664\u6B04\u4F4D\u7684\u90A3\u500B\u6D88\u8CBB\u8005\u53D7\u5230\u7834\u58DE\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u90FD\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005 Y \u5F9E\u4E0D\u4F9D\u8CF4\uFF0C\u56E0\u6B64\u5176\u5951\u7D04\u4E0D\u53D7\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u6D88\u8CBB\u8005\u7684\u5951\u7D04\u90FD\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u6D88\u8CBB\u8005 X \u4F9D\u8CF4\uFF0C\u56E0\u6B64\u5176\u9A57\u8B49\u5FC5\u7136\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5728\u5169\u500B\u6D88\u8CBB\u8005\u9054\u6210\u4E00\u81F4\u4E4B\u524D\uFF0C\u5169\u4EFD\u5951\u7D04\u90FD\u7121\u6CD5\u88AB\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "\u6BCF\u4EFD\u5951\u7D04\u5404\u81EA\u7368\u7ACB\u9A57\u8B49\uFF1B\u4E0D\u9700\u8981\u6D88\u8CBB\u8005\u4E4B\u9593\u9054\u6210\u4E00\u81F4\u5373\u53EF\u57F7\u884C\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u9A57\u8B49\u662F\u9010\u4E00\u91DD\u5C0D\u5404\u6D88\u8CBB\u8005\u9032\u884C\uFF0C\u79FB\u9664\u6703\u4F7F\u6D88\u8CBB\u8005 X \u7684\u5951\u7D04\uFF08\u4F9D\u8CF4\u5B83\uFF09\u5931\u6557\uFF0C\u4F46\u4E0D\u5F71\u97FF\u6D88\u8CBB\u8005 Y \u7684\u5951\u7D04\uFF08\u4E0D\u4F9D\u8CF4\u5B83\uFF09\u3002\u9019\u80FD\u7CBE\u78BA\u6307\u51FA\u67D0\u9805\u8B8A\u66F4\u7834\u58DE\u4E86\u54EA\u500B\u6D88\u8CBB\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DE8\u7248\u672C\u7684 can-i-deploy",
+            "text": "<p>\u5728\u767C\u5E03\u65B0\u7684\u63D0\u4F9B\u8005\u7248\u672C\u4E4B\u524D\uFF0C\u67D0\u5718\u968A\u57F7\u884C can-i-deploy\u3002\u5B83\u56DE\u5831\u5C0D\u67D0\u500B\u5DF2\u90E8\u7F72\u7684\u6D88\u8CBB\u8005\u7248\u672C\u6709\u4E00\u9805\u5931\u6557\u3002\u6B63\u78BA\u7684\u89E3\u8B80\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u65B0\u7684\u63D0\u4F9B\u8005\u7248\u672C\u6703\u7834\u58DE\u8A72\u6D88\u8CBB\u8005\u7248\u672C\u7684\u5951\u7D04\uFF0C\u56E0\u6B64\u5C1A\u4E0D\u5B9C\u90E8\u7F72",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014can-i-deploy \u662F\u5728\u8B66\u544A\u6B64\u6B21\u767C\u5E03\u6703\u9055\u53CD\u4E00\u4EFD\u65E2\u6709\u7684\u5DF2\u9A57\u8B49\u5951\u7D04\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u7248\u672C\u6C92\u554F\u984C\uFF1B\u6D88\u8CBB\u8005\u7121\u8AD6\u5982\u4F55\u90FD\u5FC5\u9808\u5347\u7D1A",
+                "fraction": 0,
+                "feedback": "can-i-deploy \u6B63\u5728\u6A19\u793A\u4E00\u9805\u771F\u5BE6\u7684\u4E0D\u76F8\u5BB9\uFF1B\u8CBF\u7136\u90E8\u7F72\u6703\u7834\u58DE\u8A72\u6D88\u8CBB\u8005\u3002"
+              },
+              {
+                "text": "\u63D0\u4F9B\u8005\u7684\u7A0B\u5F0F\u78BC\u7DE8\u8B6F\u5931\u6557",
+                "fraction": 0,
+                "feedback": "can-i-deploy \u56DE\u5831\u7684\u662F\u5951\u7D04\u76F8\u5BB9\u6027\uFF0C\u800C\u975E\u7DE8\u8B6F\u72C0\u614B\u3002"
+              },
+              {
+                "text": "broker \u96E2\u7DDA\u4E86",
+                "fraction": 0,
+                "feedback": "\u56DE\u5831\u7684\u4E0D\u76F8\u5BB9\u662F\u4E00\u9805\u5951\u7D04\u7D50\u679C\uFF0C\u800C\u975E broker \u4E2D\u65B7\u3002"
+              }
+            ],
+            "generalFeedback": "can-i-deploy \u67E5\u8A62 broker \u4E2D\u300C\u5019\u9078\u7248\u672C\u300D\u8207\u300C\u5B83\u5FC5\u9808\u5354\u540C\u7684\u7248\u672C\u300D\u4E4B\u9593\u7684\u9A57\u8B49\u7D50\u679C\u3002\u4E00\u9805\u5931\u6557\u4EE3\u8868\u767C\u5E03\u6703\u7834\u58DE\u4E00\u500B\u4ECD\u5728\u90E8\u7F72\u4E2D\u7684\u6D88\u8CBB\u8005\u5951\u7D04\uFF0C\u56E0\u6B64\u61C9\u66AB\u7DE9\u6B64\u6B21\u90E8\u7F72\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "decision-table": {
       "en": {
         "easy": [

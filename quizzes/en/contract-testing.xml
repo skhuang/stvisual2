@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Contract Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a contract is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In contract testing, a <em>contract</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An agreement describing the interactions between a service consumer and provider — for a given request, the expected response (status and the fields the consumer relies on)</text><feedback><text>Correct — a contract pins down the expected request/response interaction between the two parties.</text></feedback></answer>
+    <answer fraction="0"><text>A legal document signed by the two development teams</text><feedback><text>The word is borrowed, but a contract here is a machine-checkable description of interactions, not a paper agreement.</text></feedback></answer>
+    <answer fraction="0"><text>The full internal source code of the provider</text><feedback><text>A contract only captures the observable interaction, not the provider's implementation.</text></feedback></answer>
+    <answer fraction="0"><text>A performance target such as maximum response latency</text><feedback><text>That is a non-functional/SLA concern, not what a contract captures.</text></feedback></answer>
+    <generalfeedback><text>A contract is an agreement about the interactions between a consumer (client) and a provider (server): for a given request, what response (status, shape, and the fields the consumer depends on) is expected.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Who the consumer is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a consumer/provider pair, the <em>consumer</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The client that sends requests to and depends on the other service's API</text><feedback><text>Correct — the consumer is the caller that relies on the provider's responses.</text></feedback></answer>
+    <answer fraction="0"><text>The service that receives requests and returns responses</text><feedback><text>That is the provider, not the consumer.</text></feedback></answer>
+    <answer fraction="0"><text>The database that stores the application's data</text><feedback><text>A database is infrastructure, not the consumer role in the interaction.</text></feedback></answer>
+    <answer fraction="0"><text>The CI server that runs the tests</text><feedback><text>CI runs the tests but is not a party to the contract.</text></feedback></answer>
+    <generalfeedback><text>The consumer (client) is the side that calls the API and depends on the response. The provider (server) is the side that answers.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Who the provider is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a consumer/provider pair, the <em>provider</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The service that receives requests and returns responses (the API being called)</text><feedback><text>Correct — the provider serves the API that the consumer depends on.</text></feedback></answer>
+    <answer fraction="0"><text>The client that sends requests and depends on the API</text><feedback><text>That is the consumer, not the provider.</text></feedback></answer>
+    <answer fraction="0"><text>The tool that generates the contract file</text><feedback><text>The contract is generated on the consumer side; the provider is the service being verified against it.</text></feedback></answer>
+    <answer fraction="0"><text>The end user operating the application</text><feedback><text>The provider is a software service, not a human user.</text></feedback></answer>
+    <generalfeedback><text>The provider (server) receives requests and returns responses. In consumer-driven contract testing the provider is verified against the contracts its consumers publish.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What consumer-driven contract testing is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Consumer-driven</em> contract testing means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The consumer specifies what it actually needs from the API, and the provider is verified against all of its consumers' contracts</text><feedback><text>Correct — needs flow from the consumers; the provider must satisfy each of them.</text></feedback></answer>
+    <answer fraction="0"><text>The provider publishes its full API and consumers must accept whatever it offers</text><feedback><text>That is closer to a provider-driven approach; consumer-driven starts from consumer needs.</text></feedback></answer>
+    <answer fraction="0"><text>The consumer and provider must both be deployed live and tested end to end</text><feedback><text>Contract testing avoids requiring both to be live at once; that describes E2E testing.</text></feedback></answer>
+    <answer fraction="0"><text>A tool validates the provider's response against a static JSON schema only</text><feedback><text>That is schema validation, not consumer-driven contract testing.</text></feedback></answer>
+    <generalfeedback><text>In consumer-driven contract testing, each consumer states the interactions it relies on. The provider is then checked against the combined set of its consumers' contracts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a pact file is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Pact-style contract testing, a <em>pact file</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A file capturing the expected request/response interactions the consumer relies on, generated by the consumer's tests</text><feedback><text>Correct — the pact file is the contract artifact produced on the consumer side.</text></feedback></answer>
+    <answer fraction="0"><text>A configuration file that starts the provider's production server</text><feedback><text>A pact file records interactions; it does not launch a server.</text></feedback></answer>
+    <answer fraction="0"><text>A log of every real HTTP call made in production</text><feedback><text>A pact file is a curated set of expected interactions from tests, not a production traffic log.</text></feedback></answer>
+    <answer fraction="0"><text>The provider's database schema exported to disk</text><feedback><text>It captures interactions between the two services, not a database schema.</text></feedback></answer>
+    <generalfeedback><text>A pact (contract) file records the requests the consumer makes and the responses it expects. It is generated while the consumer's tests run against a mock provider, then handed to the provider for verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a Pact Broker is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>Pact Broker</em> is used to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Share and version contracts between consumers and providers (and support checks such as can-i-deploy)</text><feedback><text>Correct — the broker is the central place where contracts are published, versioned, and retrieved.</text></feedback></answer>
+    <answer fraction="0"><text>Execute the provider's business logic in production</text><feedback><text>The broker stores and shares contracts; it does not run business logic.</text></feedback></answer>
+    <answer fraction="0"><text>Generate the consumer's application code automatically</text><feedback><text>The broker does not generate application code.</text></feedback></answer>
+    <answer fraction="0"><text>Replace the need to write any consumer tests</text><feedback><text>Consumers still write tests to produce contracts; the broker only shares them.</text></feedback></answer>
+    <generalfeedback><text>A Pact Broker is a repository for sharing and versioning contracts across teams. It lets a provider fetch the contracts to verify and underpins tooling like can-i-deploy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a mock provider is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a consumer's tests run against a <em>mock provider</em>, the mock:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stands in for the real provider and returns the responses the consumer expects, so the consumer can be tested in isolation</text><feedback><text>Correct — the mock lets the consumer be exercised without the real provider running.</text></feedback></answer>
+    <answer fraction="0"><text>Is the real provider running in production</text><feedback><text>The whole point of a mock is that the real provider need not be running.</text></feedback></answer>
+    <answer fraction="0"><text>Verifies the provider against the contract</text><feedback><text>Verification against the contract happens later, on the provider side, not via the consumer's mock.</text></feedback></answer>
+    <answer fraction="0"><text>Records production traffic for analytics</text><feedback><text>The mock serves test expectations; it is not a production analytics tool.</text></feedback></answer>
+    <generalfeedback><text>A mock provider replays the responses the consumer expects during the consumer's own tests, allowing the consumer to be tested independently and producing the contract as a by-product.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Who defines the contract</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In consumer-driven contract testing, who <strong>defines / drives</strong> the contract?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The consumer — it states the interactions and response fields it actually needs</text><feedback><text>Correct — the consumer drives the contract by declaring its needs.</text></feedback></answer>
+    <answer fraction="0"><text>The provider — it dictates the whole API to consumers</text><feedback><text>In consumer-driven testing the provider does not define the contract; it is verified against it.</text></feedback></answer>
+    <answer fraction="0"><text>The Pact Broker — it authors the contract automatically</text><feedback><text>The broker stores and shares contracts; it does not author them.</text></feedback></answer>
+    <answer fraction="0"><text>The QA team writing a separate specification</text><feedback><text>The contract emerges from the consumer's tests, not a separate hand-written spec.</text></feedback></answer>
+    <generalfeedback><text>Consumer-driven: the consumer defines/drives the contract by expressing what it needs. Remember this pairing — the consumer defines, the provider verifies.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Who verifies the contract</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In consumer-driven contract testing, who <strong>verifies</strong> the contract?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The provider — it checks that it satisfies each consumer's contract</text><feedback><text>Correct — the provider is verified against the contracts its consumers published.</text></feedback></answer>
+    <answer fraction="0"><text>The consumer — it re-checks the contract against the mock</text><feedback><text>The consumer generates the contract; verification against the real service is the provider's job.</text></feedback></answer>
+    <answer fraction="0"><text>The Pact Broker — it runs the verification itself</text><feedback><text>The broker shares contracts and results; the provider's own test suite performs verification.</text></feedback></answer>
+    <answer fraction="0"><text>The end user during acceptance testing</text><feedback><text>Contract verification is automated on the provider side, not manual acceptance by users.</text></feedback></answer>
+    <generalfeedback><text>The provider verifies the contract by replaying the recorded interactions against the real provider and checking the responses match. Consumer defines, provider verifies.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Contract captures expected response for a request</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A contract captures, for a given request, the response the consumer expects (such as status and the fields it relies on).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — that request/expected-response pairing is exactly what a contract records.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A contract does record the expected response for each request the consumer relies on.</text></feedback></answer>
+    <generalfeedback><text>A contract is a set of interactions: each is a request the consumer makes and the response (status/shape/fields) it expects back.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Provider verified against all its consumers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In consumer-driven contract testing, the provider is verified against the contracts of <em>all</em> of its consumers.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the provider must satisfy every consumer's contract, not just one.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A provider typically has several consumers and must be verified against each of their contracts.</text></feedback></answer>
+    <generalfeedback><text>A single provider often serves many consumers; consumer-driven verification checks the provider against the combined set of all its consumers' contracts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contract testing tool example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a well-known contract-testing tool?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Pact</text><feedback><text>Correct — Pact is a widely used consumer-driven contract-testing framework (Spring Cloud Contract is another).</text></feedback></answer>
+    <answer fraction="0"><text>Selenium</text><feedback><text>Selenium drives browser UI tests, not contract testing.</text></feedback></answer>
+    <answer fraction="0"><text>JMeter</text><feedback><text>JMeter is a load/performance testing tool, not a contract-testing tool.</text></feedback></answer>
+    <answer fraction="0"><text>Valgrind</text><feedback><text>Valgrind is a memory/profiling tool, unrelated to contract testing.</text></feedback></answer>
+    <generalfeedback><text>Pact and Spring Cloud Contract are the common contract-testing tools; Pact also provides a Pact Broker for sharing and versioning contracts.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Consumer is client, provider is server</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The consumer is the client (caller) and the provider is the server (the API being called).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — consumer = client/caller, provider = server/callee.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The consumer really is the client and the provider really is the server; keep this direction straight.</text></feedback></answer>
+    <generalfeedback><text>Consumer = client that depends on the API; provider = server that supplies it. This role direction is the foundation of everything else in contract testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of contract testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The main purpose of contract testing is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Catch API/integration breakage between services early, without spinning up a full end-to-end environment</text><feedback><text>Correct — it detects mismatches between a consumer and provider cheaply and in isolation.</text></feedback></answer>
+    <answer fraction="0"><text>Measure how fast the provider responds under heavy load</text><feedback><text>That is performance testing, not contract testing.</text></feedback></answer>
+    <answer fraction="0"><text>Prove the provider's business logic is fully correct</text><feedback><text>Contract testing checks the agreed interaction, not the provider's complete business behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Test the consumer's user interface layout</text><feedback><text>Contract testing is about service-to-service interactions, not UI layout.</text></feedback></answer>
+    <generalfeedback><text>Contract testing verifies that a consumer and provider agree on their interactions, catching breaking API changes early without needing both services live in a full E2E setup.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Consumer tests use a mock provider</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During the consumer's own tests, the consumer runs against a mock provider rather than the real provider.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the consumer is tested against a mock, and the contract is produced from those interactions.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The consumer side uses a mock provider so it can be tested in isolation; the real provider is verified separately later.</text></feedback></answer>
+    <generalfeedback><text>The consumer's tests exercise a mock provider that returns the expected responses. This keeps the consumer test fast and isolated and generates the contract as output.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Contract Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of the consumer-driven flow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Put the Pact-style consumer-driven flow in the correct order:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Consumer tests run against a mock provider and generate the contract, then the provider replays those interactions to verify it satisfies them</text><feedback><text>Correct — consumer generates the contract first; the provider verifies against it afterwards.</text></feedback></answer>
+    <answer fraction="0"><text>The provider writes the contract, then the consumer verifies against it</text><feedback><text>This reverses the roles — the consumer drives/generates the contract, and the provider verifies.</text></feedback></answer>
+    <answer fraction="0"><text>Consumer and provider are deployed together and tested end to end, then a contract is written</text><feedback><text>Contract testing avoids requiring both live at once; the contract comes from the consumer's isolated tests.</text></feedback></answer>
+    <answer fraction="0"><text>The broker generates the contract and both sides just read it</text><feedback><text>The broker only stores/shares the contract; the consumer's tests generate it.</text></feedback></answer>
+    <generalfeedback><text>Flow: consumer test against a mock provider produces the contract, which the provider then replays against the real provider to verify. Consumer generates, provider verifies.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where the contract is generated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At which point is the contract (pact file) generated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>While the consumer's unit tests run against the mock provider</text><feedback><text>Correct — the contract is a by-product of the consumer's tests against the mock.</text></feedback></answer>
+    <answer fraction="0"><text>While the provider replays the interactions against the real service</text><feedback><text>That step consumes the contract to verify it; it does not generate it.</text></feedback></answer>
+    <answer fraction="0"><text>When the application is deployed to production</text><feedback><text>The contract is produced during consumer testing, well before deployment.</text></feedback></answer>
+    <answer fraction="0"><text>When the broker is first installed</text><feedback><text>The broker stores contracts; it does not create them on installation.</text></feedback></answer>
+    <generalfeedback><text>The contract is captured on the consumer side, as the consumer's tests interact with the mock provider. It is then published (often to a broker) for the provider to verify.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What provider verification does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Provider verification in contract testing works by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Replaying the interactions recorded in the contract against the real provider and checking each response matches</text><feedback><text>Correct — the provider re-issues each recorded request and confirms the response satisfies the contract.</text></feedback></answer>
+    <answer fraction="0"><text>Re-running the consumer's tests against the mock provider again</text><feedback><text>That is the consumer-side step; provider verification uses the real provider, not the mock.</text></feedback></answer>
+    <answer fraction="0"><text>Comparing the provider's source code against the consumer's source code</text><feedback><text>Verification checks observable responses, not source code.</text></feedback></answer>
+    <answer fraction="0"><text>Deploying the consumer and provider together and clicking through the UI</text><feedback><text>That is end-to-end testing, which contract testing is designed to avoid.</text></feedback></answer>
+    <generalfeedback><text>On the provider side, each interaction from the contract is replayed against the real provider; the provider passes only if its responses honour every consumer expectation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why contract testing avoids full E2E</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Contract testing can catch integration problems without a full end-to-end environment because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each side is tested independently — the consumer against a mock and the provider against the recorded contract — so both need not be live at once</text><feedback><text>Correct — the contract decouples the two sides so neither requires the other to be running.</text></feedback></answer>
+    <answer fraction="0"><text>It ignores the provider entirely and only tests the consumer</text><feedback><text>The provider is still verified — against the contract — so it is not ignored.</text></feedback></answer>
+    <answer fraction="0"><text>It spins up the whole system but skips the database</text><feedback><text>It does not spin up the whole system at all; that is the point.</text></feedback></answer>
+    <answer fraction="0"><text>It only runs in production against live traffic</text><feedback><text>Contract tests run in isolation during development/CI, not against live production traffic.</text></feedback></answer>
+    <generalfeedback><text>The contract acts as a shared, recorded agreement, letting the consumer and provider be tested separately and quickly. No simultaneous, fully wired-up E2E environment is required.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How a breaking provider change is caught</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A provider makes a change that breaks something a consumer depends on. How does contract testing catch it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The provider's verification of that consumer's contract fails</text><feedback><text>Correct — replaying the consumer's contract against the changed provider no longer matches, so provider-side verification fails.</text></feedback></answer>
+    <answer fraction="0"><text>The consumer's tests against the mock immediately fail</text><feedback><text>The consumer's mock still returns the old expected responses, so those tests can still pass; the failure surfaces on the provider side.</text></feedback></answer>
+    <answer fraction="0"><text>The broker refuses to store the contract</text><feedback><text>The broker stores contracts and results; it does not itself detect the breakage by refusing storage.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing fails until the two services are deployed together</text><feedback><text>The whole benefit is catching this before deployment, via provider verification.</text></feedback></answer>
+    <generalfeedback><text>A breaking provider change shows up when the provider replays the consumer's contract: the response no longer matches the consumer's expectation, so the provider's verification of that contract fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Broker role in the flow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the flow, the Pact Broker's role is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Receive the contract published by the consumer and let the provider pull it during verification (storing versions and results)</text><feedback><text>Correct — the broker is the shared exchange point between consumer and provider.</text></feedback></answer>
+    <answer fraction="0"><text>Run the consumer's tests and the provider's verification itself</text><feedback><text>The two sides run their own tests; the broker only shares the artifacts and results.</text></feedback></answer>
+    <answer fraction="0"><text>Rewrite the provider's API to match the consumer</text><feedback><text>The broker never modifies either service; it stores and shares contracts.</text></feedback></answer>
+    <answer fraction="0"><text>Act as the mock provider for the consumer</text><feedback><text>The mock provider is part of the consumer's test setup; the broker is a separate contract repository.</text></feedback></answer>
+    <generalfeedback><text>The broker stores contracts published by consumers, serves them to providers for verification, and tracks versions and verification results (supporting checks like can-i-deploy).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contract testing vs schema validation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does contract testing differ from plain schema validation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It checks the actual expected interactions each consumer relies on, not merely whether a payload conforms to a static schema</text><feedback><text>Correct — contracts encode concrete request/response expectations per consumer, going beyond structural schema conformance.</text></feedback></answer>
+    <answer fraction="0"><text>It only checks that JSON is syntactically valid</text><feedback><text>That is even weaker than schema validation; contract testing is about expected interactions.</text></feedback></answer>
+    <answer fraction="0"><text>It is exactly the same thing as schema validation</text><feedback><text>They overlap but differ: contracts capture per-consumer expected interactions, not just a shared schema.</text></feedback></answer>
+    <answer fraction="0"><text>It validates the provider's database indexes</text><feedback><text>Contract testing concerns service interactions, not database internals.</text></feedback></answer>
+    <generalfeedback><text>Schema validation asks &quot;does this payload match a structure?&quot; Contract testing asks &quot;does the provider still satisfy the concrete interactions each consumer actually depends on?&quot; — a stronger, consumer-specific check.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contract testing vs end-to-end</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with end-to-end (E2E) testing, contract testing:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verifies the agreed interaction between two services without needing both live simultaneously in a full environment</text><feedback><text>Correct — that isolation is the key advantage over E2E.</text></feedback></answer>
+    <answer fraction="0"><text>Exercises the whole system through the UI like a real user</text><feedback><text>That is E2E testing; contract testing is narrower and does not need the whole system.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees the complete business workflow is correct end to end</text><feedback><text>Only E2E/functional tests cover full workflows; contracts verify the agreed interaction only.</text></feedback></answer>
+    <answer fraction="0"><text>Always requires production data and live third-party services</text><feedback><text>Contract tests run in isolation and do not need live production dependencies.</text></feedback></answer>
+    <generalfeedback><text>E2E wires the whole system together and exercises real workflows; contract testing checks just the agreed consumer/provider interaction, independently, and cheaply. They complement each other.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the mock provider does in the consumer test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During the consumer's tests, the mock provider's job is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Return the responses the consumer expects, so the consumer can be exercised in isolation and the contract recorded</text><feedback><text>Correct — the mock supplies expected responses and the interactions become the contract.</text></feedback></answer>
+    <answer fraction="0"><text>Verify the real provider satisfies the contract</text><feedback><text>That verification happens later on the provider side, not via the consumer's mock.</text></feedback></answer>
+    <answer fraction="0"><text>Load-test the provider's throughput</text><feedback><text>The mock is not a load generator; it returns expected responses for functional interactions.</text></feedback></answer>
+    <answer fraction="0"><text>Store contracts for other teams to reuse</text><feedback><text>Sharing/versioning contracts is the broker's job, not the mock's.</text></feedback></answer>
+    <generalfeedback><text>The mock provider returns the responses the consumer expects, letting the consumer test run without the real provider and producing the contract that captures those interactions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "provider verified" means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A provider is said to have <em>verified</em> a contract when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For every recorded request, the real provider produces a response that satisfies the consumer's expectations</text><feedback><text>Correct — verification passes only if the provider honours each interaction in the contract.</text></feedback></answer>
+    <answer fraction="0"><text>The provider's code compiles without errors</text><feedback><text>Compilation says nothing about whether the provider honours the contract.</text></feedback></answer>
+    <answer fraction="0"><text>The consumer re-runs its own mock-based tests successfully</text><feedback><text>That is the consumer-side step; verification is on the provider side against the real service.</text></feedback></answer>
+    <answer fraction="0"><text>The broker marks the contract as published</text><feedback><text>Publishing is not verification; verification requires replaying the interactions against the provider.</text></feedback></answer>
+    <generalfeedback><text>Verification means the real provider, when replaying each interaction in the contract, returns responses that meet the consumer's expectations — status and the fields the consumer relies on.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contract testing complements integration testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For microservices, contract testing is best seen as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A complement to integration testing that checks consumer/provider agreements independently and fast</text><feedback><text>Correct — it works alongside integration and other test levels, not as a replacement for all of them.</text></feedback></answer>
+    <answer fraction="0"><text>A full replacement for all integration and functional testing</text><feedback><text>Contract testing verifies interactions only; functional and some integration testing are still needed.</text></feedback></answer>
+    <answer fraction="0"><text>A kind of performance testing</text><feedback><text>It is functional (interaction) verification, not performance testing.</text></feedback></answer>
+    <answer fraction="0"><text>A way to test a single service's internal logic</text><feedback><text>Internal logic is a unit-testing concern; contracts are about interactions between services.</text></feedback></answer>
+    <generalfeedback><text>Contract testing complements integration testing in a microservices setup: it checks each consumer/provider agreement in isolation, catching API-breakage early, while other levels still cover full behaviour.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Contract tests are fast and isolated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because each side is tested against the contract rather than a live counterpart, contract tests are fast and isolated.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — no full environment is spun up, so the tests stay quick and independent.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Testing each side against the shared contract, without a live counterpart, is exactly what makes these tests fast and isolated.</text></feedback></answer>
+    <generalfeedback><text>The consumer runs against a mock and the provider replays the contract; neither needs the other running, so contract tests are fast, isolated, and cheap to run in CI.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which side runs first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the normal flow, which happens first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The consumer generates the contract, then the provider verifies against it</text><feedback><text>Correct — the contract must exist (from the consumer) before the provider can verify it.</text></feedback></answer>
+    <answer fraction="0"><text>The provider verifies first, then the consumer generates the contract</text><feedback><text>The provider cannot verify a contract that has not been generated yet.</text></feedback></answer>
+    <answer fraction="0"><text>Both happen simultaneously in one shared test run</text><feedback><text>They run separately and in order; the contract links them asynchronously.</text></feedback></answer>
+    <answer fraction="0"><text>Neither has a defined order</text><feedback><text>There is a clear order: consumer generates, then provider verifies.</text></feedback></answer>
+    <generalfeedback><text>The consumer's tests produce the contract first; only then can the provider replay and verify it. This ordering lets the two teams work and deploy independently.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the contract specifies</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A consumer-driven contract chiefly specifies:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The requests the consumer sends and the response elements (status and fields) it actually relies on</text><feedback><text>Correct — it records only the interactions and fields the consumer depends on.</text></feedback></answer>
+    <answer fraction="0"><text>Every field the provider is capable of returning</text><feedback><text>The contract need only cover what the consumer uses, not the provider's entire API surface.</text></feedback></answer>
+    <answer fraction="0"><text>The provider's internal algorithms</text><feedback><text>Contracts describe observable interactions, not internal algorithms.</text></feedback></answer>
+    <answer fraction="0"><text>The deployment topology of the cluster</text><feedback><text>Infrastructure topology is unrelated to what a contract captures.</text></feedback></answer>
+    <generalfeedback><text>A consumer-driven contract records the interactions and the specific response fields the consumer relies on — not the provider's whole API. That is why a provider only needs to satisfy the parts its consumers actually use.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Extra provider fields are tolerated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If the provider's response contains extra fields that no consumer's contract mentions, the consumer's contract can still be satisfied.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a consumer-driven contract only requires the fields the consumer relies on; extra fields are tolerated.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Extra, unrequired fields do not break the contract; only the fields the consumer depends on must be present and correct.</text></feedback></answer>
+    <generalfeedback><text>Consumer-driven contracts check only what the consumer uses. A provider returning additional fields the consumer ignores still satisfies the contract.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Contract Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Who owns the contract and why the provider verifies</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In consumer-driven contract testing, who effectively <em>owns/drives</em> the contract, and why must the provider verify against every consumer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The consumers drive it by declaring their needs; the provider must verify against all of them because it must not break any consumer that depends on it</text><feedback><text>Correct — needs come from the consumers, and the provider is the single point that must satisfy every one of them.</text></feedback></answer>
+    <answer fraction="0"><text>The provider owns it and each consumer must adapt to whatever the provider verifies</text><feedback><text>That inverts consumer-driven testing; here the consumers express needs and the provider must satisfy them.</text></feedback></answer>
+    <answer fraction="0"><text>The broker owns it and decides which consumers matter</text><feedback><text>The broker only stores and shares contracts; it does not own or prioritise them.</text></feedback></answer>
+    <answer fraction="0"><text>Whichever team deploys last owns the contract</text><feedback><text>Ownership is by role (consumers drive), not by deployment timing.</text></feedback></answer>
+    <generalfeedback><text>Consumers drive the contract by stating what they rely on. Because one provider serves many consumers, it must verify against all their contracts so a change does not silently break any dependent consumer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Provider renames a field a consumer uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A provider renames a response field from <code>total</code> to <code>totalAmount</code>. A consumer's contract relies on <code>total</code>. What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The provider's verification of that consumer's contract fails, because replaying the interaction no longer returns the expected <code>total</code> field</text><feedback><text>Correct — the consumer depends on <code>total</code>; the renamed response breaks provider-side verification of that contract.</text></feedback></answer>
+    <answer fraction="0"><text>The consumer's mock-based tests fail first, before any provider check</text><feedback><text>The consumer's mock still returns <code>total</code>, so those tests can pass; the failure surfaces during provider verification.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing fails, because renaming a field is always backward compatible</text><feedback><text>Renaming a field a consumer relies on is a breaking change, not backward compatible.</text></feedback></answer>
+    <answer fraction="0"><text>Only an E2E test could ever detect this</text><feedback><text>Contract testing detects it earlier, via provider verification, without needing E2E.</text></feedback></answer>
+    <generalfeedback><text>The consumer relies on <code>total</code>. When the provider replays that consumer's contract, the response now has <code>totalAmount</code> instead, so the expectation is not met and the provider's verification of that contract fails — exactly the breaking change contract testing is meant to catch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Provider changes a field no consumer uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A provider removes a response field that <em>no</em> consumer's contract references. Assuming consumer-driven contracts, what is the effect on verification?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verification still passes, because no consumer relied on that field</text><feedback><text>Correct — contracts only cover fields consumers use, so removing an unused field is safe.</text></feedback></answer>
+    <answer fraction="0"><text>Verification fails, because any field removal is a breaking change</text><feedback><text>Only changes to fields a consumer relies on break a contract; unused fields can change freely.</text></feedback></answer>
+    <answer fraction="0"><text>Verification cannot run until the field is restored</text><feedback><text>The absent field is not in any contract, so verification proceeds and passes.</text></feedback></answer>
+    <answer fraction="0"><text>The broker blocks the deployment automatically</text><feedback><text>Nothing in the contracts references the field, so there is nothing to block.</text></feedback></answer>
+    <generalfeedback><text>Because consumer-driven contracts capture only what consumers actually use, a provider can safely change or remove fields no consumer depends on — verification is unaffected. This is a key benefit for evolving an API.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What can-i-deploy checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Pact's <em>can-i-deploy</em> tool answers the question:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Is the version I want to deploy compatible with the versions of the other services it interacts with, according to verified contracts?</text><feedback><text>Correct — can-i-deploy uses recorded verification results to decide whether a version is safe to release.</text></feedback></answer>
+    <answer fraction="0"><text>How fast will the new version respond under load?</text><feedback><text>That is a performance question, unrelated to can-i-deploy.</text></feedback></answer>
+    <answer fraction="0"><text>Does the code compile on the CI server?</text><feedback><text>can-i-deploy is about contract compatibility between service versions, not compilation.</text></feedback></answer>
+    <answer fraction="0"><text>Will the UI pass its accessibility audit?</text><feedback><text>That is unrelated; can-i-deploy checks contract compatibility across service versions.</text></feedback></answer>
+    <generalfeedback><text>can-i-deploy queries the broker for the verification results between the version you want to deploy and the versions of the services it depends on/serves, telling you whether releasing it would break any contract.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why versioning contracts matters</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the broker version contracts (and their verification results)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So it can tell which consumer and provider versions are compatible and support safe, independent deployments</text><feedback><text>Correct — versioned contracts let tooling reason about compatibility across releases.</text></feedback></answer>
+    <answer fraction="0"><text>So it can delete old contracts to save disk space</text><feedback><text>Versioning is about tracking compatibility, not primarily about reclaiming space.</text></feedback></answer>
+    <answer fraction="0"><text>So the consumer no longer needs to write tests</text><feedback><text>Consumers still write tests; versioning does not remove that need.</text></feedback></answer>
+    <answer fraction="0"><text>So the provider can ignore older consumer versions</text><feedback><text>Versioning helps ensure older consumers are not broken, not that they can be ignored.</text></feedback></answer>
+    <generalfeedback><text>By versioning contracts and their verification results, the broker (and can-i-deploy) can determine exactly which consumer/provider versions work together, enabling teams to deploy independently and safely.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Independent deployment reasoning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does contract testing enable microservices to be deployed <em>independently</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A team can confirm its change still honours the shared contracts before releasing, without coordinating a synchronized deployment of every service</text><feedback><text>Correct — verified contracts give each team confidence to release on its own schedule.</text></feedback></answer>
+    <answer fraction="0"><text>All services must always be deployed together to stay in sync</text><feedback><text>That is the opposite of independent deployment, which contracts are meant to enable.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for any versioning of services</text><feedback><text>Independent deployment relies on versioned contracts, not on abandoning versioning.</text></feedback></answer>
+    <answer fraction="0"><text>It forces every consumer to redeploy whenever the provider changes</text><feedback><text>Consumers only need to change if a field they rely on changes; unaffected consumers need not redeploy.</text></feedback></answer>
+    <generalfeedback><text>Because each side is checked against the shared, versioned contract (and can-i-deploy confirms compatibility), a team can deploy its service on its own schedule, confident it will not break the interactions others depend on.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bi-directional vs consumer-driven</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <em>bi-directional</em> contract testing differ from classic <em>consumer-driven</em> contract testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In bi-directional, the provider supplies its own API description (e.g. an OpenAPI spec) and the consumer's contract is compared against it, rather than the provider replaying the consumer's interactions</text><feedback><text>Correct — bi-directional cross-checks a provider-supplied spec with consumer contracts instead of live provider replay.</text></feedback></answer>
+    <answer fraction="0"><text>Bi-directional means the consumer verifies the provider's contract while the provider verifies the consumer's</text><feedback><text>That is not what bi-directional means; it compares a provider spec against consumer contracts.</text></feedback></answer>
+    <answer fraction="0"><text>Bi-directional removes the consumer from the process entirely</text><feedback><text>The consumer's contract is still involved; it is compared against the provider's own description.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical terms for the same technique</text><feedback><text>They differ in how the provider side is checked (replay vs comparing a provider-supplied spec).</text></feedback></answer>
+    <generalfeedback><text>Classic consumer-driven testing has the provider replay each consumer's recorded interactions. Bi-directional testing instead compares the consumer's contract against a provider-published API description (such as OpenAPI), which can be convenient when replay is impractical.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Limit of contract testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about the <em>limits</em> of contract testing is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It verifies the agreed request/response interaction, not the provider's full business logic — functional tests are still needed</text><feedback><text>Correct — a passing contract does not prove the provider computes the right answers, only that the interaction shape is honoured.</text></feedback></answer>
+    <answer fraction="0"><text>It fully replaces the need for functional and end-to-end testing</text><feedback><text>Contract testing does not cover full behaviour; other testing is still required.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the entire system works correctly end to end</text><feedback><text>That is beyond its scope; it verifies interactions only.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees performance under load</text><feedback><text>Performance is out of scope for contract testing.</text></feedback></answer>
+    <generalfeedback><text>Contract testing confirms the two parties agree on the interaction (status, shape, fields). It does not check that the provider's business logic produces correct values, so functional and E2E tests remain necessary.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consumer adds a new required expectation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A consumer starts relying on a new field <code>currency</code> and publishes an updated contract, but the provider does not yet return it. What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The provider's verification of the updated contract fails until the provider adds <code>currency</code></text><feedback><text>Correct — the contract now expects <code>currency</code>, so the provider fails verification until it supplies that field.</text></feedback></answer>
+    <answer fraction="0"><text>The consumer's mock tests fail, so the provider is unaffected</text><feedback><text>The consumer's mock returns <code>currency</code>, so its tests pass; it is the provider that fails verification.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing changes, because adding an expectation is never breaking</text><feedback><text>Adding a required expectation the provider does not meet does cause provider verification to fail.</text></feedback></answer>
+    <answer fraction="0"><text>The broker automatically patches the provider to add the field</text><feedback><text>The broker never modifies services; the provider team must implement the field.</text></feedback></answer>
+    <generalfeedback><text>When a consumer's contract expects a new field, the provider must return it to pass verification. Until the provider adds <code>currency</code>, replaying the updated contract fails — signalling the two sides are not yet compatible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Provider adds an optional field</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A provider adds a brand-new optional response field that no existing consumer references. What is the effect on existing consumers' contract verification?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Existing contracts still verify, because they do not depend on the new field and extra fields are tolerated</text><feedback><text>Correct — adding a field consumers ignore is a non-breaking change.</text></feedback></answer>
+    <answer fraction="0"><text>All existing contracts immediately fail</text><feedback><text>Extra, unreferenced fields do not break consumer-driven contracts.</text></feedback></answer>
+    <answer fraction="0"><text>Every consumer must republish its contract first</text><feedback><text>Consumers that do not use the new field need not change anything.</text></feedback></answer>
+    <answer fraction="0"><text>Verification is blocked until the field is removed</text><feedback><text>The new field is harmless to existing consumers; nothing is blocked.</text></feedback></answer>
+    <generalfeedback><text>Adding a response field that no consumer relies on is backward compatible. Consumer-driven verification only checks the fields consumers use, so existing contracts continue to pass.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a provider need not satisfy its whole API</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can a provider pass verification while satisfying only <em>part</em> of its API?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Consumer-driven contracts only encode the interactions and fields consumers actually use, so verification covers just those parts</text><feedback><text>Correct — the contracts scope verification to what consumers depend on.</text></feedback></answer>
+    <answer fraction="0"><text>Because the provider is allowed to ignore half of every contract</text><feedback><text>The provider must satisfy each contract fully; the point is the contracts cover only what consumers use.</text></feedback></answer>
+    <answer fraction="0"><text>Because verification samples a random subset of the API</text><feedback><text>Verification is not random sampling; it replays exactly the interactions in the contracts.</text></feedback></answer>
+    <answer fraction="0"><text>Because the broker hides the untested endpoints</text><feedback><text>The broker does not hide endpoints; contracts simply cover only what consumers rely on.</text></feedback></answer>
+    <generalfeedback><text>Since consumers only record what they need, the provider's verification is limited to those interactions. Untouched parts of the API are not part of any contract, so the provider need not satisfy its entire surface to pass.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Detecting a breaking change before deploy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does consumer-driven contract testing let a provider team detect a breaking change <em>before</em> deploying, without a staging environment running both services?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The provider replays each consumer's published contract in its own CI; a failure reveals the breakage before release</text><feedback><text>Correct — provider verification against stored contracts catches the break in isolation, pre-deploy.</text></feedback></answer>
+    <answer fraction="0"><text>It waits for real users to report errors after deployment</text><feedback><text>The goal is to catch the break before deploy, not after users hit it.</text></feedback></answer>
+    <answer fraction="0"><text>It requires the consumer to be redeployed alongside the provider first</text><feedback><text>No joint deployment is needed; the provider verifies against the stored contract alone.</text></feedback></answer>
+    <answer fraction="0"><text>It relies on a full E2E suite in staging</text><feedback><text>Contract testing avoids needing a full E2E staging environment for this check.</text></feedback></answer>
+    <generalfeedback><text>The provider's CI pulls each consumer's contract from the broker and replays it against the real provider. A mismatch fails the build, exposing the breaking change before deployment — no shared staging environment required.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Green verification does not prove correct behaviour</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A provider that passes all its contract verifications is thereby proven to compute the correct business results.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Passing verification only shows the agreed interaction shape is honoured, not that the computed values are correct.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — a green contract verification confirms the interaction is honoured, but functional tests are still needed to prove the results are right.</text></feedback></answer>
+    <generalfeedback><text>Contract testing checks that the provider returns the agreed status and fields for each interaction. It does not check whether the values are business-correct, so passing contracts do not replace functional testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Two consumers, one provider change</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A provider serves two consumers: consumer X relies on field <code>status</code>, consumer Y does not. The provider removes <code>status</code>. What is the outcome of provider verification?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verification of consumer X's contract fails; consumer Y's contract still passes</text><feedback><text>Correct — only the consumer that relies on the removed field is broken.</text></feedback></answer>
+    <answer fraction="0"><text>Both consumers' contracts fail</text><feedback><text>Consumer Y never relied on <code>status</code>, so its contract is unaffected.</text></feedback></answer>
+    <answer fraction="0"><text>Both consumers' contracts pass</text><feedback><text>Consumer X depends on <code>status</code>, so its verification must fail.</text></feedback></answer>
+    <answer fraction="0"><text>Neither contract can be verified until both consumers agree</text><feedback><text>Each contract is verified independently; consumer agreement is not required to run verification.</text></feedback></answer>
+    <generalfeedback><text>Because verification is per consumer, removing <code>status</code> fails consumer X's contract (which relies on it) but not consumer Y's (which does not). This pinpoints exactly which consumer a change breaks.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>can-i-deploy across versions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Before releasing a new provider version, a team runs can-i-deploy. It reports a failure against one deployed consumer version. The correct interpretation is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The new provider version would break that consumer version's contract, so it is not yet safe to deploy</text><feedback><text>Correct — can-i-deploy is warning that this release would violate an existing verified contract.</text></feedback></answer>
+    <answer fraction="0"><text>The provider version is fine; the consumer must simply upgrade regardless</text><feedback><text>can-i-deploy is flagging a real incompatibility; deploying anyway would break that consumer.</text></feedback></answer>
+    <answer fraction="0"><text>The provider's code failed to compile</text><feedback><text>can-i-deploy reports contract compatibility, not compilation status.</text></feedback></answer>
+    <answer fraction="0"><text>The broker is offline</text><feedback><text>A reported incompatibility is a contract result, not a broker outage.</text></feedback></answer>
+    <generalfeedback><text>can-i-deploy consults the broker's verification results between the candidate version and the versions it must work with. A failure means releasing would break a still-deployed consumer's contract, so the deployment should be held.</text></generalfeedback>
+  </question>
+</quiz>

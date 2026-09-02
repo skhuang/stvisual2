@@ -12791,6 +12791,2480 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "contract-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a contract is",
+          "text": "<p>In contract testing, a <em>contract</em> is:</p>",
+          "answers": [
+            {
+              "text": "An agreement describing the interactions between a service consumer and provider — for a given request, the expected response (status and the fields the consumer relies on)",
+              "fraction": 100,
+              "feedback": "Correct — a contract pins down the expected request/response interaction between the two parties."
+            },
+            {
+              "text": "A legal document signed by the two development teams",
+              "fraction": 0,
+              "feedback": "The word is borrowed, but a contract here is a machine-checkable description of interactions, not a paper agreement."
+            },
+            {
+              "text": "The full internal source code of the provider",
+              "fraction": 0,
+              "feedback": "A contract only captures the observable interaction, not the provider's implementation."
+            },
+            {
+              "text": "A performance target such as maximum response latency",
+              "fraction": 0,
+              "feedback": "That is a non-functional/SLA concern, not what a contract captures."
+            }
+          ],
+          "generalFeedback": "A contract is an agreement about the interactions between a consumer (client) and a provider (server): for a given request, what response (status, shape, and the fields the consumer depends on) is expected.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who the consumer is",
+          "text": "<p>In a consumer/provider pair, the <em>consumer</em> is:</p>",
+          "answers": [
+            {
+              "text": "The client that sends requests to and depends on the other service's API",
+              "fraction": 100,
+              "feedback": "Correct — the consumer is the caller that relies on the provider's responses."
+            },
+            {
+              "text": "The service that receives requests and returns responses",
+              "fraction": 0,
+              "feedback": "That is the provider, not the consumer."
+            },
+            {
+              "text": "The database that stores the application's data",
+              "fraction": 0,
+              "feedback": "A database is infrastructure, not the consumer role in the interaction."
+            },
+            {
+              "text": "The CI server that runs the tests",
+              "fraction": 0,
+              "feedback": "CI runs the tests but is not a party to the contract."
+            }
+          ],
+          "generalFeedback": "The consumer (client) is the side that calls the API and depends on the response. The provider (server) is the side that answers.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who the provider is",
+          "text": "<p>In a consumer/provider pair, the <em>provider</em> is:</p>",
+          "answers": [
+            {
+              "text": "The service that receives requests and returns responses (the API being called)",
+              "fraction": 100,
+              "feedback": "Correct — the provider serves the API that the consumer depends on."
+            },
+            {
+              "text": "The client that sends requests and depends on the API",
+              "fraction": 0,
+              "feedback": "That is the consumer, not the provider."
+            },
+            {
+              "text": "The tool that generates the contract file",
+              "fraction": 0,
+              "feedback": "The contract is generated on the consumer side; the provider is the service being verified against it."
+            },
+            {
+              "text": "The end user operating the application",
+              "fraction": 0,
+              "feedback": "The provider is a software service, not a human user."
+            }
+          ],
+          "generalFeedback": "The provider (server) receives requests and returns responses. In consumer-driven contract testing the provider is verified against the contracts its consumers publish.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What consumer-driven contract testing is",
+          "text": "<p><em>Consumer-driven</em> contract testing means:</p>",
+          "answers": [
+            {
+              "text": "The consumer specifies what it actually needs from the API, and the provider is verified against all of its consumers' contracts",
+              "fraction": 100,
+              "feedback": "Correct — needs flow from the consumers; the provider must satisfy each of them."
+            },
+            {
+              "text": "The provider publishes its full API and consumers must accept whatever it offers",
+              "fraction": 0,
+              "feedback": "That is closer to a provider-driven approach; consumer-driven starts from consumer needs."
+            },
+            {
+              "text": "The consumer and provider must both be deployed live and tested end to end",
+              "fraction": 0,
+              "feedback": "Contract testing avoids requiring both to be live at once; that describes E2E testing."
+            },
+            {
+              "text": "A tool validates the provider's response against a static JSON schema only",
+              "fraction": 0,
+              "feedback": "That is schema validation, not consumer-driven contract testing."
+            }
+          ],
+          "generalFeedback": "In consumer-driven contract testing, each consumer states the interactions it relies on. The provider is then checked against the combined set of its consumers' contracts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a pact file is",
+          "text": "<p>In Pact-style contract testing, a <em>pact file</em> is:</p>",
+          "answers": [
+            {
+              "text": "A file capturing the expected request/response interactions the consumer relies on, generated by the consumer's tests",
+              "fraction": 100,
+              "feedback": "Correct — the pact file is the contract artifact produced on the consumer side."
+            },
+            {
+              "text": "A configuration file that starts the provider's production server",
+              "fraction": 0,
+              "feedback": "A pact file records interactions; it does not launch a server."
+            },
+            {
+              "text": "A log of every real HTTP call made in production",
+              "fraction": 0,
+              "feedback": "A pact file is a curated set of expected interactions from tests, not a production traffic log."
+            },
+            {
+              "text": "The provider's database schema exported to disk",
+              "fraction": 0,
+              "feedback": "It captures interactions between the two services, not a database schema."
+            }
+          ],
+          "generalFeedback": "A pact (contract) file records the requests the consumer makes and the responses it expects. It is generated while the consumer's tests run against a mock provider, then handed to the provider for verification.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a Pact Broker is",
+          "text": "<p>A <em>Pact Broker</em> is used to:</p>",
+          "answers": [
+            {
+              "text": "Share and version contracts between consumers and providers (and support checks such as can-i-deploy)",
+              "fraction": 100,
+              "feedback": "Correct — the broker is the central place where contracts are published, versioned, and retrieved."
+            },
+            {
+              "text": "Execute the provider's business logic in production",
+              "fraction": 0,
+              "feedback": "The broker stores and shares contracts; it does not run business logic."
+            },
+            {
+              "text": "Generate the consumer's application code automatically",
+              "fraction": 0,
+              "feedback": "The broker does not generate application code."
+            },
+            {
+              "text": "Replace the need to write any consumer tests",
+              "fraction": 0,
+              "feedback": "Consumers still write tests to produce contracts; the broker only shares them."
+            }
+          ],
+          "generalFeedback": "A Pact Broker is a repository for sharing and versioning contracts across teams. It lets a provider fetch the contracts to verify and underpins tooling like can-i-deploy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a mock provider is",
+          "text": "<p>When a consumer's tests run against a <em>mock provider</em>, the mock:</p>",
+          "answers": [
+            {
+              "text": "Stands in for the real provider and returns the responses the consumer expects, so the consumer can be tested in isolation",
+              "fraction": 100,
+              "feedback": "Correct — the mock lets the consumer be exercised without the real provider running."
+            },
+            {
+              "text": "Is the real provider running in production",
+              "fraction": 0,
+              "feedback": "The whole point of a mock is that the real provider need not be running."
+            },
+            {
+              "text": "Verifies the provider against the contract",
+              "fraction": 0,
+              "feedback": "Verification against the contract happens later, on the provider side, not via the consumer's mock."
+            },
+            {
+              "text": "Records production traffic for analytics",
+              "fraction": 0,
+              "feedback": "The mock serves test expectations; it is not a production analytics tool."
+            }
+          ],
+          "generalFeedback": "A mock provider replays the responses the consumer expects during the consumer's own tests, allowing the consumer to be tested independently and producing the contract as a by-product.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who defines the contract",
+          "text": "<p>In consumer-driven contract testing, who <strong>defines / drives</strong> the contract?</p>",
+          "answers": [
+            {
+              "text": "The consumer — it states the interactions and response fields it actually needs",
+              "fraction": 100,
+              "feedback": "Correct — the consumer drives the contract by declaring its needs."
+            },
+            {
+              "text": "The provider — it dictates the whole API to consumers",
+              "fraction": 0,
+              "feedback": "In consumer-driven testing the provider does not define the contract; it is verified against it."
+            },
+            {
+              "text": "The Pact Broker — it authors the contract automatically",
+              "fraction": 0,
+              "feedback": "The broker stores and shares contracts; it does not author them."
+            },
+            {
+              "text": "The QA team writing a separate specification",
+              "fraction": 0,
+              "feedback": "The contract emerges from the consumer's tests, not a separate hand-written spec."
+            }
+          ],
+          "generalFeedback": "Consumer-driven: the consumer defines/drives the contract by expressing what it needs. Remember this pairing — the consumer defines, the provider verifies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who verifies the contract",
+          "text": "<p>In consumer-driven contract testing, who <strong>verifies</strong> the contract?</p>",
+          "answers": [
+            {
+              "text": "The provider — it checks that it satisfies each consumer's contract",
+              "fraction": 100,
+              "feedback": "Correct — the provider is verified against the contracts its consumers published."
+            },
+            {
+              "text": "The consumer — it re-checks the contract against the mock",
+              "fraction": 0,
+              "feedback": "The consumer generates the contract; verification against the real service is the provider's job."
+            },
+            {
+              "text": "The Pact Broker — it runs the verification itself",
+              "fraction": 0,
+              "feedback": "The broker shares contracts and results; the provider's own test suite performs verification."
+            },
+            {
+              "text": "The end user during acceptance testing",
+              "fraction": 0,
+              "feedback": "Contract verification is automated on the provider side, not manual acceptance by users."
+            }
+          ],
+          "generalFeedback": "The provider verifies the contract by replaying the recorded interactions against the real provider and checking the responses match. Consumer defines, provider verifies.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Contract captures expected response for a request",
+          "text": "<p>A contract captures, for a given request, the response the consumer expects (such as status and the fields it relies on).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — that request/expected-response pairing is exactly what a contract records."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A contract does record the expected response for each request the consumer relies on."
+            }
+          ],
+          "generalFeedback": "A contract is a set of interactions: each is a request the consumer makes and the response (status/shape/fields) it expects back."
+        },
+        {
+          "type": "truefalse",
+          "name": "Provider verified against all its consumers",
+          "text": "<p>In consumer-driven contract testing, the provider is verified against the contracts of <em>all</em> of its consumers.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the provider must satisfy every consumer's contract, not just one."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A provider typically has several consumers and must be verified against each of their contracts."
+            }
+          ],
+          "generalFeedback": "A single provider often serves many consumers; consumer-driven verification checks the provider against the combined set of all its consumers' contracts."
+        },
+        {
+          "type": "multichoice",
+          "name": "Contract testing tool example",
+          "text": "<p>Which of the following is a well-known contract-testing tool?</p>",
+          "answers": [
+            {
+              "text": "Pact",
+              "fraction": 100,
+              "feedback": "Correct — Pact is a widely used consumer-driven contract-testing framework (Spring Cloud Contract is another)."
+            },
+            {
+              "text": "Selenium",
+              "fraction": 0,
+              "feedback": "Selenium drives browser UI tests, not contract testing."
+            },
+            {
+              "text": "JMeter",
+              "fraction": 0,
+              "feedback": "JMeter is a load/performance testing tool, not a contract-testing tool."
+            },
+            {
+              "text": "Valgrind",
+              "fraction": 0,
+              "feedback": "Valgrind is a memory/profiling tool, unrelated to contract testing."
+            }
+          ],
+          "generalFeedback": "Pact and Spring Cloud Contract are the common contract-testing tools; Pact also provides a Pact Broker for sharing and versioning contracts.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Consumer is client, provider is server",
+          "text": "<p>The consumer is the client (caller) and the provider is the server (the API being called).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — consumer = client/caller, provider = server/callee."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The consumer really is the client and the provider really is the server; keep this direction straight."
+            }
+          ],
+          "generalFeedback": "Consumer = client that depends on the API; provider = server that supplies it. This role direction is the foundation of everything else in contract testing."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of contract testing",
+          "text": "<p>The main purpose of contract testing is to:</p>",
+          "answers": [
+            {
+              "text": "Catch API/integration breakage between services early, without spinning up a full end-to-end environment",
+              "fraction": 100,
+              "feedback": "Correct — it detects mismatches between a consumer and provider cheaply and in isolation."
+            },
+            {
+              "text": "Measure how fast the provider responds under heavy load",
+              "fraction": 0,
+              "feedback": "That is performance testing, not contract testing."
+            },
+            {
+              "text": "Prove the provider's business logic is fully correct",
+              "fraction": 0,
+              "feedback": "Contract testing checks the agreed interaction, not the provider's complete business behaviour."
+            },
+            {
+              "text": "Test the consumer's user interface layout",
+              "fraction": 0,
+              "feedback": "Contract testing is about service-to-service interactions, not UI layout."
+            }
+          ],
+          "generalFeedback": "Contract testing verifies that a consumer and provider agree on their interactions, catching breaking API changes early without needing both services live in a full E2E setup.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Consumer tests use a mock provider",
+          "text": "<p>During the consumer's own tests, the consumer runs against a mock provider rather than the real provider.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the consumer is tested against a mock, and the contract is produced from those interactions."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The consumer side uses a mock provider so it can be tested in isolation; the real provider is verified separately later."
+            }
+          ],
+          "generalFeedback": "The consumer's tests exercise a mock provider that returns the expected responses. This keeps the consumer test fast and isolated and generates the contract as output."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Order of the consumer-driven flow",
+          "text": "<p>Put the Pact-style consumer-driven flow in the correct order:</p>",
+          "answers": [
+            {
+              "text": "Consumer tests run against a mock provider and generate the contract, then the provider replays those interactions to verify it satisfies them",
+              "fraction": 100,
+              "feedback": "Correct — consumer generates the contract first; the provider verifies against it afterwards."
+            },
+            {
+              "text": "The provider writes the contract, then the consumer verifies against it",
+              "fraction": 0,
+              "feedback": "This reverses the roles — the consumer drives/generates the contract, and the provider verifies."
+            },
+            {
+              "text": "Consumer and provider are deployed together and tested end to end, then a contract is written",
+              "fraction": 0,
+              "feedback": "Contract testing avoids requiring both live at once; the contract comes from the consumer's isolated tests."
+            },
+            {
+              "text": "The broker generates the contract and both sides just read it",
+              "fraction": 0,
+              "feedback": "The broker only stores/shares the contract; the consumer's tests generate it."
+            }
+          ],
+          "generalFeedback": "Flow: consumer test against a mock provider produces the contract, which the provider then replays against the real provider to verify. Consumer generates, provider verifies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where the contract is generated",
+          "text": "<p>At which point is the contract (pact file) generated?</p>",
+          "answers": [
+            {
+              "text": "While the consumer's unit tests run against the mock provider",
+              "fraction": 100,
+              "feedback": "Correct — the contract is a by-product of the consumer's tests against the mock."
+            },
+            {
+              "text": "While the provider replays the interactions against the real service",
+              "fraction": 0,
+              "feedback": "That step consumes the contract to verify it; it does not generate it."
+            },
+            {
+              "text": "When the application is deployed to production",
+              "fraction": 0,
+              "feedback": "The contract is produced during consumer testing, well before deployment."
+            },
+            {
+              "text": "When the broker is first installed",
+              "fraction": 0,
+              "feedback": "The broker stores contracts; it does not create them on installation."
+            }
+          ],
+          "generalFeedback": "The contract is captured on the consumer side, as the consumer's tests interact with the mock provider. It is then published (often to a broker) for the provider to verify.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What provider verification does",
+          "text": "<p>Provider verification in contract testing works by:</p>",
+          "answers": [
+            {
+              "text": "Replaying the interactions recorded in the contract against the real provider and checking each response matches",
+              "fraction": 100,
+              "feedback": "Correct — the provider re-issues each recorded request and confirms the response satisfies the contract."
+            },
+            {
+              "text": "Re-running the consumer's tests against the mock provider again",
+              "fraction": 0,
+              "feedback": "That is the consumer-side step; provider verification uses the real provider, not the mock."
+            },
+            {
+              "text": "Comparing the provider's source code against the consumer's source code",
+              "fraction": 0,
+              "feedback": "Verification checks observable responses, not source code."
+            },
+            {
+              "text": "Deploying the consumer and provider together and clicking through the UI",
+              "fraction": 0,
+              "feedback": "That is end-to-end testing, which contract testing is designed to avoid."
+            }
+          ],
+          "generalFeedback": "On the provider side, each interaction from the contract is replayed against the real provider; the provider passes only if its responses honour every consumer expectation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why contract testing avoids full E2E",
+          "text": "<p>Contract testing can catch integration problems without a full end-to-end environment because:</p>",
+          "answers": [
+            {
+              "text": "Each side is tested independently — the consumer against a mock and the provider against the recorded contract — so both need not be live at once",
+              "fraction": 100,
+              "feedback": "Correct — the contract decouples the two sides so neither requires the other to be running."
+            },
+            {
+              "text": "It ignores the provider entirely and only tests the consumer",
+              "fraction": 0,
+              "feedback": "The provider is still verified — against the contract — so it is not ignored."
+            },
+            {
+              "text": "It spins up the whole system but skips the database",
+              "fraction": 0,
+              "feedback": "It does not spin up the whole system at all; that is the point."
+            },
+            {
+              "text": "It only runs in production against live traffic",
+              "fraction": 0,
+              "feedback": "Contract tests run in isolation during development/CI, not against live production traffic."
+            }
+          ],
+          "generalFeedback": "The contract acts as a shared, recorded agreement, letting the consumer and provider be tested separately and quickly. No simultaneous, fully wired-up E2E environment is required.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How a breaking provider change is caught",
+          "text": "<p>A provider makes a change that breaks something a consumer depends on. How does contract testing catch it?</p>",
+          "answers": [
+            {
+              "text": "The provider's verification of that consumer's contract fails",
+              "fraction": 100,
+              "feedback": "Correct — replaying the consumer's contract against the changed provider no longer matches, so provider-side verification fails."
+            },
+            {
+              "text": "The consumer's tests against the mock immediately fail",
+              "fraction": 0,
+              "feedback": "The consumer's mock still returns the old expected responses, so those tests can still pass; the failure surfaces on the provider side."
+            },
+            {
+              "text": "The broker refuses to store the contract",
+              "fraction": 0,
+              "feedback": "The broker stores contracts and results; it does not itself detect the breakage by refusing storage."
+            },
+            {
+              "text": "Nothing fails until the two services are deployed together",
+              "fraction": 0,
+              "feedback": "The whole benefit is catching this before deployment, via provider verification."
+            }
+          ],
+          "generalFeedback": "A breaking provider change shows up when the provider replays the consumer's contract: the response no longer matches the consumer's expectation, so the provider's verification of that contract fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Broker role in the flow",
+          "text": "<p>In the flow, the Pact Broker's role is to:</p>",
+          "answers": [
+            {
+              "text": "Receive the contract published by the consumer and let the provider pull it during verification (storing versions and results)",
+              "fraction": 100,
+              "feedback": "Correct — the broker is the shared exchange point between consumer and provider."
+            },
+            {
+              "text": "Run the consumer's tests and the provider's verification itself",
+              "fraction": 0,
+              "feedback": "The two sides run their own tests; the broker only shares the artifacts and results."
+            },
+            {
+              "text": "Rewrite the provider's API to match the consumer",
+              "fraction": 0,
+              "feedback": "The broker never modifies either service; it stores and shares contracts."
+            },
+            {
+              "text": "Act as the mock provider for the consumer",
+              "fraction": 0,
+              "feedback": "The mock provider is part of the consumer's test setup; the broker is a separate contract repository."
+            }
+          ],
+          "generalFeedback": "The broker stores contracts published by consumers, serves them to providers for verification, and tracks versions and verification results (supporting checks like can-i-deploy).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contract testing vs schema validation",
+          "text": "<p>How does contract testing differ from plain schema validation?</p>",
+          "answers": [
+            {
+              "text": "It checks the actual expected interactions each consumer relies on, not merely whether a payload conforms to a static schema",
+              "fraction": 100,
+              "feedback": "Correct — contracts encode concrete request/response expectations per consumer, going beyond structural schema conformance."
+            },
+            {
+              "text": "It only checks that JSON is syntactically valid",
+              "fraction": 0,
+              "feedback": "That is even weaker than schema validation; contract testing is about expected interactions."
+            },
+            {
+              "text": "It is exactly the same thing as schema validation",
+              "fraction": 0,
+              "feedback": "They overlap but differ: contracts capture per-consumer expected interactions, not just a shared schema."
+            },
+            {
+              "text": "It validates the provider's database indexes",
+              "fraction": 0,
+              "feedback": "Contract testing concerns service interactions, not database internals."
+            }
+          ],
+          "generalFeedback": "Schema validation asks \"does this payload match a structure?\" Contract testing asks \"does the provider still satisfy the concrete interactions each consumer actually depends on?\" — a stronger, consumer-specific check.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contract testing vs end-to-end",
+          "text": "<p>Compared with end-to-end (E2E) testing, contract testing:</p>",
+          "answers": [
+            {
+              "text": "Verifies the agreed interaction between two services without needing both live simultaneously in a full environment",
+              "fraction": 100,
+              "feedback": "Correct — that isolation is the key advantage over E2E."
+            },
+            {
+              "text": "Exercises the whole system through the UI like a real user",
+              "fraction": 0,
+              "feedback": "That is E2E testing; contract testing is narrower and does not need the whole system."
+            },
+            {
+              "text": "Guarantees the complete business workflow is correct end to end",
+              "fraction": 0,
+              "feedback": "Only E2E/functional tests cover full workflows; contracts verify the agreed interaction only."
+            },
+            {
+              "text": "Always requires production data and live third-party services",
+              "fraction": 0,
+              "feedback": "Contract tests run in isolation and do not need live production dependencies."
+            }
+          ],
+          "generalFeedback": "E2E wires the whole system together and exercises real workflows; contract testing checks just the agreed consumer/provider interaction, independently, and cheaply. They complement each other.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the mock provider does in the consumer test",
+          "text": "<p>During the consumer's tests, the mock provider's job is to:</p>",
+          "answers": [
+            {
+              "text": "Return the responses the consumer expects, so the consumer can be exercised in isolation and the contract recorded",
+              "fraction": 100,
+              "feedback": "Correct — the mock supplies expected responses and the interactions become the contract."
+            },
+            {
+              "text": "Verify the real provider satisfies the contract",
+              "fraction": 0,
+              "feedback": "That verification happens later on the provider side, not via the consumer's mock."
+            },
+            {
+              "text": "Load-test the provider's throughput",
+              "fraction": 0,
+              "feedback": "The mock is not a load generator; it returns expected responses for functional interactions."
+            },
+            {
+              "text": "Store contracts for other teams to reuse",
+              "fraction": 0,
+              "feedback": "Sharing/versioning contracts is the broker's job, not the mock's."
+            }
+          ],
+          "generalFeedback": "The mock provider returns the responses the consumer expects, letting the consumer test run without the real provider and producing the contract that captures those interactions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"provider verified\" means",
+          "text": "<p>A provider is said to have <em>verified</em> a contract when:</p>",
+          "answers": [
+            {
+              "text": "For every recorded request, the real provider produces a response that satisfies the consumer's expectations",
+              "fraction": 100,
+              "feedback": "Correct — verification passes only if the provider honours each interaction in the contract."
+            },
+            {
+              "text": "The provider's code compiles without errors",
+              "fraction": 0,
+              "feedback": "Compilation says nothing about whether the provider honours the contract."
+            },
+            {
+              "text": "The consumer re-runs its own mock-based tests successfully",
+              "fraction": 0,
+              "feedback": "That is the consumer-side step; verification is on the provider side against the real service."
+            },
+            {
+              "text": "The broker marks the contract as published",
+              "fraction": 0,
+              "feedback": "Publishing is not verification; verification requires replaying the interactions against the provider."
+            }
+          ],
+          "generalFeedback": "Verification means the real provider, when replaying each interaction in the contract, returns responses that meet the consumer's expectations — status and the fields the consumer relies on.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contract testing complements integration testing",
+          "text": "<p>For microservices, contract testing is best seen as:</p>",
+          "answers": [
+            {
+              "text": "A complement to integration testing that checks consumer/provider agreements independently and fast",
+              "fraction": 100,
+              "feedback": "Correct — it works alongside integration and other test levels, not as a replacement for all of them."
+            },
+            {
+              "text": "A full replacement for all integration and functional testing",
+              "fraction": 0,
+              "feedback": "Contract testing verifies interactions only; functional and some integration testing are still needed."
+            },
+            {
+              "text": "A kind of performance testing",
+              "fraction": 0,
+              "feedback": "It is functional (interaction) verification, not performance testing."
+            },
+            {
+              "text": "A way to test a single service's internal logic",
+              "fraction": 0,
+              "feedback": "Internal logic is a unit-testing concern; contracts are about interactions between services."
+            }
+          ],
+          "generalFeedback": "Contract testing complements integration testing in a microservices setup: it checks each consumer/provider agreement in isolation, catching API-breakage early, while other levels still cover full behaviour.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Contract tests are fast and isolated",
+          "text": "<p>Because each side is tested against the contract rather than a live counterpart, contract tests are fast and isolated.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — no full environment is spun up, so the tests stay quick and independent."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Testing each side against the shared contract, without a live counterpart, is exactly what makes these tests fast and isolated."
+            }
+          ],
+          "generalFeedback": "The consumer runs against a mock and the provider replays the contract; neither needs the other running, so contract tests are fast, isolated, and cheap to run in CI."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which side runs first",
+          "text": "<p>In the normal flow, which happens first?</p>",
+          "answers": [
+            {
+              "text": "The consumer generates the contract, then the provider verifies against it",
+              "fraction": 100,
+              "feedback": "Correct — the contract must exist (from the consumer) before the provider can verify it."
+            },
+            {
+              "text": "The provider verifies first, then the consumer generates the contract",
+              "fraction": 0,
+              "feedback": "The provider cannot verify a contract that has not been generated yet."
+            },
+            {
+              "text": "Both happen simultaneously in one shared test run",
+              "fraction": 0,
+              "feedback": "They run separately and in order; the contract links them asynchronously."
+            },
+            {
+              "text": "Neither has a defined order",
+              "fraction": 0,
+              "feedback": "There is a clear order: consumer generates, then provider verifies."
+            }
+          ],
+          "generalFeedback": "The consumer's tests produce the contract first; only then can the provider replay and verify it. This ordering lets the two teams work and deploy independently.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the contract specifies",
+          "text": "<p>A consumer-driven contract chiefly specifies:</p>",
+          "answers": [
+            {
+              "text": "The requests the consumer sends and the response elements (status and fields) it actually relies on",
+              "fraction": 100,
+              "feedback": "Correct — it records only the interactions and fields the consumer depends on."
+            },
+            {
+              "text": "Every field the provider is capable of returning",
+              "fraction": 0,
+              "feedback": "The contract need only cover what the consumer uses, not the provider's entire API surface."
+            },
+            {
+              "text": "The provider's internal algorithms",
+              "fraction": 0,
+              "feedback": "Contracts describe observable interactions, not internal algorithms."
+            },
+            {
+              "text": "The deployment topology of the cluster",
+              "fraction": 0,
+              "feedback": "Infrastructure topology is unrelated to what a contract captures."
+            }
+          ],
+          "generalFeedback": "A consumer-driven contract records the interactions and the specific response fields the consumer relies on — not the provider's whole API. That is why a provider only needs to satisfy the parts its consumers actually use.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Extra provider fields are tolerated",
+          "text": "<p>If the provider's response contains extra fields that no consumer's contract mentions, the consumer's contract can still be satisfied.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a consumer-driven contract only requires the fields the consumer relies on; extra fields are tolerated."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Extra, unrequired fields do not break the contract; only the fields the consumer depends on must be present and correct."
+            }
+          ],
+          "generalFeedback": "Consumer-driven contracts check only what the consumer uses. A provider returning additional fields the consumer ignores still satisfies the contract."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Who owns the contract and why the provider verifies",
+          "text": "<p>In consumer-driven contract testing, who effectively <em>owns/drives</em> the contract, and why must the provider verify against every consumer?</p>",
+          "answers": [
+            {
+              "text": "The consumers drive it by declaring their needs; the provider must verify against all of them because it must not break any consumer that depends on it",
+              "fraction": 100,
+              "feedback": "Correct — needs come from the consumers, and the provider is the single point that must satisfy every one of them."
+            },
+            {
+              "text": "The provider owns it and each consumer must adapt to whatever the provider verifies",
+              "fraction": 0,
+              "feedback": "That inverts consumer-driven testing; here the consumers express needs and the provider must satisfy them."
+            },
+            {
+              "text": "The broker owns it and decides which consumers matter",
+              "fraction": 0,
+              "feedback": "The broker only stores and shares contracts; it does not own or prioritise them."
+            },
+            {
+              "text": "Whichever team deploys last owns the contract",
+              "fraction": 0,
+              "feedback": "Ownership is by role (consumers drive), not by deployment timing."
+            }
+          ],
+          "generalFeedback": "Consumers drive the contract by stating what they rely on. Because one provider serves many consumers, it must verify against all their contracts so a change does not silently break any dependent consumer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Provider renames a field a consumer uses",
+          "text": "<p>A provider renames a response field from <code>total</code> to <code>totalAmount</code>. A consumer's contract relies on <code>total</code>. What happens?</p>",
+          "answers": [
+            {
+              "text": "The provider's verification of that consumer's contract fails, because replaying the interaction no longer returns the expectedfield",
+              "fraction": 100,
+              "feedback": "Correct — the consumer depends on; the renamed response breaks provider-side verification of that contract."
+            },
+            {
+              "text": "The consumer's mock-based tests fail first, before any provider check",
+              "fraction": 0,
+              "feedback": "The consumer's mock still returns, so those tests can pass; the failure surfaces during provider verification."
+            },
+            {
+              "text": "Nothing fails, because renaming a field is always backward compatible",
+              "fraction": 0,
+              "feedback": "Renaming a field a consumer relies on is a breaking change, not backward compatible."
+            },
+            {
+              "text": "Only an E2E test could ever detect this",
+              "fraction": 0,
+              "feedback": "Contract testing detects it earlier, via provider verification, without needing E2E."
+            }
+          ],
+          "generalFeedback": "The consumer relies on. When the provider replays that consumer's contract, the response now hasinstead, so the expectation is not met and the provider's verification of that contract fails — exactly the breaking change contract testing is meant to catch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Provider changes a field no consumer uses",
+          "text": "<p>A provider removes a response field that <em>no</em> consumer's contract references. Assuming consumer-driven contracts, what is the effect on verification?</p>",
+          "answers": [
+            {
+              "text": "Verification still passes, because no consumer relied on that field",
+              "fraction": 100,
+              "feedback": "Correct — contracts only cover fields consumers use, so removing an unused field is safe."
+            },
+            {
+              "text": "Verification fails, because any field removal is a breaking change",
+              "fraction": 0,
+              "feedback": "Only changes to fields a consumer relies on break a contract; unused fields can change freely."
+            },
+            {
+              "text": "Verification cannot run until the field is restored",
+              "fraction": 0,
+              "feedback": "The absent field is not in any contract, so verification proceeds and passes."
+            },
+            {
+              "text": "The broker blocks the deployment automatically",
+              "fraction": 0,
+              "feedback": "Nothing in the contracts references the field, so there is nothing to block."
+            }
+          ],
+          "generalFeedback": "Because consumer-driven contracts capture only what consumers actually use, a provider can safely change or remove fields no consumer depends on — verification is unaffected. This is a key benefit for evolving an API.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What can-i-deploy checks",
+          "text": "<p>Pact's <em>can-i-deploy</em> tool answers the question:</p>",
+          "answers": [
+            {
+              "text": "Is the version I want to deploy compatible with the versions of the other services it interacts with, according to verified contracts?",
+              "fraction": 100,
+              "feedback": "Correct — can-i-deploy uses recorded verification results to decide whether a version is safe to release."
+            },
+            {
+              "text": "How fast will the new version respond under load?",
+              "fraction": 0,
+              "feedback": "That is a performance question, unrelated to can-i-deploy."
+            },
+            {
+              "text": "Does the code compile on the CI server?",
+              "fraction": 0,
+              "feedback": "can-i-deploy is about contract compatibility between service versions, not compilation."
+            },
+            {
+              "text": "Will the UI pass its accessibility audit?",
+              "fraction": 0,
+              "feedback": "That is unrelated; can-i-deploy checks contract compatibility across service versions."
+            }
+          ],
+          "generalFeedback": "can-i-deploy queries the broker for the verification results between the version you want to deploy and the versions of the services it depends on/serves, telling you whether releasing it would break any contract.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why versioning contracts matters",
+          "text": "<p>Why does the broker version contracts (and their verification results)?</p>",
+          "answers": [
+            {
+              "text": "So it can tell which consumer and provider versions are compatible and support safe, independent deployments",
+              "fraction": 100,
+              "feedback": "Correct — versioned contracts let tooling reason about compatibility across releases."
+            },
+            {
+              "text": "So it can delete old contracts to save disk space",
+              "fraction": 0,
+              "feedback": "Versioning is about tracking compatibility, not primarily about reclaiming space."
+            },
+            {
+              "text": "So the consumer no longer needs to write tests",
+              "fraction": 0,
+              "feedback": "Consumers still write tests; versioning does not remove that need."
+            },
+            {
+              "text": "So the provider can ignore older consumer versions",
+              "fraction": 0,
+              "feedback": "Versioning helps ensure older consumers are not broken, not that they can be ignored."
+            }
+          ],
+          "generalFeedback": "By versioning contracts and their verification results, the broker (and can-i-deploy) can determine exactly which consumer/provider versions work together, enabling teams to deploy independently and safely.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Independent deployment reasoning",
+          "text": "<p>How does contract testing enable microservices to be deployed <em>independently</em>?</p>",
+          "answers": [
+            {
+              "text": "A team can confirm its change still honours the shared contracts before releasing, without coordinating a synchronized deployment of every service",
+              "fraction": 100,
+              "feedback": "Correct — verified contracts give each team confidence to release on its own schedule."
+            },
+            {
+              "text": "All services must always be deployed together to stay in sync",
+              "fraction": 0,
+              "feedback": "That is the opposite of independent deployment, which contracts are meant to enable."
+            },
+            {
+              "text": "It removes the need for any versioning of services",
+              "fraction": 0,
+              "feedback": "Independent deployment relies on versioned contracts, not on abandoning versioning."
+            },
+            {
+              "text": "It forces every consumer to redeploy whenever the provider changes",
+              "fraction": 0,
+              "feedback": "Consumers only need to change if a field they rely on changes; unaffected consumers need not redeploy."
+            }
+          ],
+          "generalFeedback": "Because each side is checked against the shared, versioned contract (and can-i-deploy confirms compatibility), a team can deploy its service on its own schedule, confident it will not break the interactions others depend on.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bi-directional vs consumer-driven",
+          "text": "<p>How does <em>bi-directional</em> contract testing differ from classic <em>consumer-driven</em> contract testing?</p>",
+          "answers": [
+            {
+              "text": "In bi-directional, the provider supplies its own API description (e.g. an OpenAPI spec) and the consumer's contract is compared against it, rather than the provider replaying the consumer's interactions",
+              "fraction": 100,
+              "feedback": "Correct — bi-directional cross-checks a provider-supplied spec with consumer contracts instead of live provider replay."
+            },
+            {
+              "text": "Bi-directional means the consumer verifies the provider's contract while the provider verifies the consumer's",
+              "fraction": 0,
+              "feedback": "That is not what bi-directional means; it compares a provider spec against consumer contracts."
+            },
+            {
+              "text": "Bi-directional removes the consumer from the process entirely",
+              "fraction": 0,
+              "feedback": "The consumer's contract is still involved; it is compared against the provider's own description."
+            },
+            {
+              "text": "They are identical terms for the same technique",
+              "fraction": 0,
+              "feedback": "They differ in how the provider side is checked (replay vs comparing a provider-supplied spec)."
+            }
+          ],
+          "generalFeedback": "Classic consumer-driven testing has the provider replay each consumer's recorded interactions. Bi-directional testing instead compares the consumer's contract against a provider-published API description (such as OpenAPI), which can be convenient when replay is impractical.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Limit of contract testing",
+          "text": "<p>Which statement about the <em>limits</em> of contract testing is correct?</p>",
+          "answers": [
+            {
+              "text": "It verifies the agreed request/response interaction, not the provider's full business logic — functional tests are still needed",
+              "fraction": 100,
+              "feedback": "Correct — a passing contract does not prove the provider computes the right answers, only that the interaction shape is honoured."
+            },
+            {
+              "text": "It fully replaces the need for functional and end-to-end testing",
+              "fraction": 0,
+              "feedback": "Contract testing does not cover full behaviour; other testing is still required."
+            },
+            {
+              "text": "It proves the entire system works correctly end to end",
+              "fraction": 0,
+              "feedback": "That is beyond its scope; it verifies interactions only."
+            },
+            {
+              "text": "It guarantees performance under load",
+              "fraction": 0,
+              "feedback": "Performance is out of scope for contract testing."
+            }
+          ],
+          "generalFeedback": "Contract testing confirms the two parties agree on the interaction (status, shape, fields). It does not check that the provider's business logic produces correct values, so functional and E2E tests remain necessary.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Consumer adds a new required expectation",
+          "text": "<p>A consumer starts relying on a new field <code>currency</code> and publishes an updated contract, but the provider does not yet return it. What happens?</p>",
+          "answers": [
+            {
+              "text": "The provider's verification of the updated contract fails until the provider adds",
+              "fraction": 100,
+              "feedback": "Correct — the contract now expects, so the provider fails verification until it supplies that field."
+            },
+            {
+              "text": "The consumer's mock tests fail, so the provider is unaffected",
+              "fraction": 0,
+              "feedback": "The consumer's mock returns, so its tests pass; it is the provider that fails verification."
+            },
+            {
+              "text": "Nothing changes, because adding an expectation is never breaking",
+              "fraction": 0,
+              "feedback": "Adding a required expectation the provider does not meet does cause provider verification to fail."
+            },
+            {
+              "text": "The broker automatically patches the provider to add the field",
+              "fraction": 0,
+              "feedback": "The broker never modifies services; the provider team must implement the field."
+            }
+          ],
+          "generalFeedback": "When a consumer's contract expects a new field, the provider must return it to pass verification. Until the provider adds, replaying the updated contract fails — signalling the two sides are not yet compatible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Provider adds an optional field",
+          "text": "<p>A provider adds a brand-new optional response field that no existing consumer references. What is the effect on existing consumers' contract verification?</p>",
+          "answers": [
+            {
+              "text": "Existing contracts still verify, because they do not depend on the new field and extra fields are tolerated",
+              "fraction": 100,
+              "feedback": "Correct — adding a field consumers ignore is a non-breaking change."
+            },
+            {
+              "text": "All existing contracts immediately fail",
+              "fraction": 0,
+              "feedback": "Extra, unreferenced fields do not break consumer-driven contracts."
+            },
+            {
+              "text": "Every consumer must republish its contract first",
+              "fraction": 0,
+              "feedback": "Consumers that do not use the new field need not change anything."
+            },
+            {
+              "text": "Verification is blocked until the field is removed",
+              "fraction": 0,
+              "feedback": "The new field is harmless to existing consumers; nothing is blocked."
+            }
+          ],
+          "generalFeedback": "Adding a response field that no consumer relies on is backward compatible. Consumer-driven verification only checks the fields consumers use, so existing contracts continue to pass.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a provider need not satisfy its whole API",
+          "text": "<p>Why can a provider pass verification while satisfying only <em>part</em> of its API?</p>",
+          "answers": [
+            {
+              "text": "Consumer-driven contracts only encode the interactions and fields consumers actually use, so verification covers just those parts",
+              "fraction": 100,
+              "feedback": "Correct — the contracts scope verification to what consumers depend on."
+            },
+            {
+              "text": "Because the provider is allowed to ignore half of every contract",
+              "fraction": 0,
+              "feedback": "The provider must satisfy each contract fully; the point is the contracts cover only what consumers use."
+            },
+            {
+              "text": "Because verification samples a random subset of the API",
+              "fraction": 0,
+              "feedback": "Verification is not random sampling; it replays exactly the interactions in the contracts."
+            },
+            {
+              "text": "Because the broker hides the untested endpoints",
+              "fraction": 0,
+              "feedback": "The broker does not hide endpoints; contracts simply cover only what consumers rely on."
+            }
+          ],
+          "generalFeedback": "Since consumers only record what they need, the provider's verification is limited to those interactions. Untouched parts of the API are not part of any contract, so the provider need not satisfy its entire surface to pass.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Detecting a breaking change before deploy",
+          "text": "<p>How does consumer-driven contract testing let a provider team detect a breaking change <em>before</em> deploying, without a staging environment running both services?</p>",
+          "answers": [
+            {
+              "text": "The provider replays each consumer's published contract in its own CI; a failure reveals the breakage before release",
+              "fraction": 100,
+              "feedback": "Correct — provider verification against stored contracts catches the break in isolation, pre-deploy."
+            },
+            {
+              "text": "It waits for real users to report errors after deployment",
+              "fraction": 0,
+              "feedback": "The goal is to catch the break before deploy, not after users hit it."
+            },
+            {
+              "text": "It requires the consumer to be redeployed alongside the provider first",
+              "fraction": 0,
+              "feedback": "No joint deployment is needed; the provider verifies against the stored contract alone."
+            },
+            {
+              "text": "It relies on a full E2E suite in staging",
+              "fraction": 0,
+              "feedback": "Contract testing avoids needing a full E2E staging environment for this check."
+            }
+          ],
+          "generalFeedback": "The provider's CI pulls each consumer's contract from the broker and replays it against the real provider. A mismatch fails the build, exposing the breaking change before deployment — no shared staging environment required.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Green verification does not prove correct behaviour",
+          "text": "<p>A provider that passes all its contract verifications is thereby proven to compute the correct business results.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Passing verification only shows the agreed interaction shape is honoured, not that the computed values are correct."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a green contract verification confirms the interaction is honoured, but functional tests are still needed to prove the results are right."
+            }
+          ],
+          "generalFeedback": "Contract testing checks that the provider returns the agreed status and fields for each interaction. It does not check whether the values are business-correct, so passing contracts do not replace functional testing."
+        },
+        {
+          "type": "multichoice",
+          "name": "Two consumers, one provider change",
+          "text": "<p>A provider serves two consumers: consumer X relies on field <code>status</code>, consumer Y does not. The provider removes <code>status</code>. What is the outcome of provider verification?</p>",
+          "answers": [
+            {
+              "text": "Verification of consumer X's contract fails; consumer Y's contract still passes",
+              "fraction": 100,
+              "feedback": "Correct — only the consumer that relies on the removed field is broken."
+            },
+            {
+              "text": "Both consumers' contracts fail",
+              "fraction": 0,
+              "feedback": "Consumer Y never relied on, so its contract is unaffected."
+            },
+            {
+              "text": "Both consumers' contracts pass",
+              "fraction": 0,
+              "feedback": "Consumer X depends on, so its verification must fail."
+            },
+            {
+              "text": "Neither contract can be verified until both consumers agree",
+              "fraction": 0,
+              "feedback": "Each contract is verified independently; consumer agreement is not required to run verification."
+            }
+          ],
+          "generalFeedback": "Because verification is per consumer, removingfails consumer X's contract (which relies on it) but not consumer Y's (which does not). This pinpoints exactly which consumer a change breaks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "can-i-deploy across versions",
+          "text": "<p>Before releasing a new provider version, a team runs can-i-deploy. It reports a failure against one deployed consumer version. The correct interpretation is:</p>",
+          "answers": [
+            {
+              "text": "The new provider version would break that consumer version's contract, so it is not yet safe to deploy",
+              "fraction": 100,
+              "feedback": "Correct — can-i-deploy is warning that this release would violate an existing verified contract."
+            },
+            {
+              "text": "The provider version is fine; the consumer must simply upgrade regardless",
+              "fraction": 0,
+              "feedback": "can-i-deploy is flagging a real incompatibility; deploying anyway would break that consumer."
+            },
+            {
+              "text": "The provider's code failed to compile",
+              "fraction": 0,
+              "feedback": "can-i-deploy reports contract compatibility, not compilation status."
+            },
+            {
+              "text": "The broker is offline",
+              "fraction": 0,
+              "feedback": "A reported incompatibility is a contract result, not a broker outage."
+            }
+          ],
+          "generalFeedback": "can-i-deploy consults the broker's verification results between the candidate version and the versions it must work with. A failure means releasing would break a still-deployed consumer's contract, so the deployment should be held.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是契約",
+          "text": "<p>在契約測試（contract testing）中，<em>契約（contract）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "描述服務消費者（consumer）與提供者（provider）之間互動的協定——對於某個請求，所期望的回應（狀態碼，以及消費者所依賴的欄位）",
+              "fraction": 100,
+              "feedback": "正確——契約明訂雙方之間所期望的請求／回應互動。"
+            },
+            {
+              "text": "由兩個開發團隊簽署的法律文件",
+              "fraction": 0,
+              "feedback": "雖借用了「契約」一詞，但此處是可被機器驗證的互動描述，而非紙本協議。"
+            },
+            {
+              "text": "提供者的完整內部原始碼",
+              "fraction": 0,
+              "feedback": "契約只描述可觀察到的互動，不含提供者的實作內容。"
+            },
+            {
+              "text": "諸如最大回應延遲的效能目標",
+              "fraction": 0,
+              "feedback": "那是非功能性／SLA 的考量，並非契約所記錄的內容。"
+            }
+          ],
+          "generalFeedback": "契約是關於消費者（用戶端）與提供者（伺服器）之間互動的協定：對於某個請求，期望得到怎樣的回應（狀態碼、結構，以及消費者所依賴的欄位）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰是消費者",
+          "text": "<p>在消費者／提供者這一對關係中，<em>消費者（consumer）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "送出請求並依賴另一個服務 API 的用戶端（client）",
+              "fraction": 100,
+              "feedback": "正確——消費者是發出呼叫、依賴提供者回應的一方。"
+            },
+            {
+              "text": "接收請求並回傳回應的服務",
+              "fraction": 0,
+              "feedback": "那是提供者，不是消費者。"
+            },
+            {
+              "text": "儲存應用程式資料的資料庫",
+              "fraction": 0,
+              "feedback": "資料庫是基礎設施，並非互動中的消費者角色。"
+            },
+            {
+              "text": "執行測試的 CI 伺服器",
+              "fraction": 0,
+              "feedback": "CI 執行測試，但並不是契約的當事一方。"
+            }
+          ],
+          "generalFeedback": "消費者（用戶端）是呼叫 API 並依賴其回應的一方；提供者（伺服器）則是回應的一方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰是提供者",
+          "text": "<p>在消費者／提供者這一對關係中，<em>提供者（provider）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "接收請求並回傳回應的服務（被呼叫的 API）",
+              "fraction": 100,
+              "feedback": "正確——提供者提供消費者所依賴的 API。"
+            },
+            {
+              "text": "送出請求並依賴 API 的用戶端",
+              "fraction": 0,
+              "feedback": "那是消費者，不是提供者。"
+            },
+            {
+              "text": "產生契約檔的工具",
+              "fraction": 0,
+              "feedback": "契約是在消費者端產生的；提供者是被拿契約來驗證的服務。"
+            },
+            {
+              "text": "操作應用程式的終端使用者",
+              "fraction": 0,
+              "feedback": "提供者是軟體服務，而非人類使用者。"
+            }
+          ],
+          "generalFeedback": "提供者（伺服器）接收請求並回傳回應。在消費者驅動的契約測試中，提供者要以其各消費者所發布的契約來加以驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是消費者驅動的契約測試",
+          "text": "<p><em>消費者驅動（consumer-driven）</em>的契約測試意指：</p>",
+          "answers": [
+            {
+              "text": "消費者明訂它實際需要 API 提供什麼，而提供者要以其所有消費者的契約來加以驗證",
+              "fraction": 100,
+              "feedback": "正確——需求由各消費者提出，提供者必須滿足每一個消費者。"
+            },
+            {
+              "text": "提供者發布其完整 API，消費者只能接受它所提供的一切",
+              "fraction": 0,
+              "feedback": "那較接近提供者驅動的作法；消費者驅動是從消費者的需求出發。"
+            },
+            {
+              "text": "消費者與提供者都必須實際上線並做端到端測試",
+              "fraction": 0,
+              "feedback": "契約測試正是要避免同時上線兩者；那是端到端（E2E）測試的作法。"
+            },
+            {
+              "text": "由工具僅將提供者的回應對照一份靜態 JSON schema 加以驗證",
+              "fraction": 0,
+              "feedback": "那是 schema 驗證，並非消費者驅動的契約測試。"
+            }
+          ],
+          "generalFeedback": "在消費者驅動的契約測試中，每個消費者陳述它所依賴的互動；提供者接著要以其所有消費者契約的整體集合來檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是 pact 檔",
+          "text": "<p>在 Pact 風格的契約測試中，<em>pact 檔（pact file）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一份記錄消費者所依賴之期望請求／回應互動的檔案，由消費者的測試產生",
+              "fraction": 100,
+              "feedback": "正確——pact 檔就是在消費者端產出的契約產物。"
+            },
+            {
+              "text": "一份用來啟動提供者正式伺服器的設定檔",
+              "fraction": 0,
+              "feedback": "pact 檔記錄互動，並不會啟動伺服器。"
+            },
+            {
+              "text": "一份記錄正式環境中每一次真實 HTTP 呼叫的日誌",
+              "fraction": 0,
+              "feedback": "pact 檔是從測試而來、經整理的期望互動集合，並非正式環境的流量日誌。"
+            },
+            {
+              "text": "匯出到磁碟的提供者資料庫 schema",
+              "fraction": 0,
+              "feedback": "它記錄的是兩個服務之間的互動，而非資料庫 schema。"
+            }
+          ],
+          "generalFeedback": "pact（契約）檔記錄消費者送出的請求以及它所期望的回應。它是在消費者的測試對著模擬提供者（mock provider）執行時產生，隨後交給提供者去驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是 Pact Broker",
+          "text": "<p><em>Pact Broker</em> 用來：</p>",
+          "answers": [
+            {
+              "text": "在消費者與提供者之間分享並版本化契約（並支援如 can-i-deploy 之類的檢查）",
+              "fraction": 100,
+              "feedback": "正確——broker 是契約被發布、版本化與取用的集中之處。"
+            },
+            {
+              "text": "在正式環境執行提供者的商業邏輯",
+              "fraction": 0,
+              "feedback": "broker 儲存並分享契約，並不執行商業邏輯。"
+            },
+            {
+              "text": "自動產生消費者的應用程式碼",
+              "fraction": 0,
+              "feedback": "broker 不會產生應用程式碼。"
+            },
+            {
+              "text": "讓人不必再撰寫任何消費者測試",
+              "fraction": 0,
+              "feedback": "消費者仍須撰寫測試以產生契約；broker 只負責分享它們。"
+            }
+          ],
+          "generalFeedback": "Pact Broker 是跨團隊分享與版本化契約的儲存庫。它讓提供者能取得要驗證的契約，並支撐 can-i-deploy 之類的工具。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是模擬提供者",
+          "text": "<p>當消費者的測試對著<em>模擬提供者（mock provider）</em>執行時，該模擬物：</p>",
+          "answers": [
+            {
+              "text": "代替真實提供者、回傳消費者所期望的回應，讓消費者能被獨立測試",
+              "fraction": 100,
+              "feedback": "正確——模擬物讓消費者不必啟動真實提供者也能被執行測試。"
+            },
+            {
+              "text": "就是在正式環境執行中的真實提供者",
+              "fraction": 0,
+              "feedback": "使用模擬物的重點正是不必啟動真實提供者。"
+            },
+            {
+              "text": "以契約來驗證提供者",
+              "fraction": 0,
+              "feedback": "對照契約的驗證發生在稍後、由提供者端進行，而非透過消費者的模擬物。"
+            },
+            {
+              "text": "為分析用途記錄正式環境流量",
+              "fraction": 0,
+              "feedback": "模擬物提供測試所需的期望回應，並非正式環境的分析工具。"
+            }
+          ],
+          "generalFeedback": "模擬提供者在消費者自己的測試期間回放消費者所期望的回應，讓消費者能被獨立測試，並順帶產生契約。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰定義契約",
+          "text": "<p>在消費者驅動的契約測試中，是由誰<strong>定義／驅動（define / drive）</strong>契約？</p>",
+          "answers": [
+            {
+              "text": "消費者——由它陳述自己實際需要的互動與回應欄位",
+              "fraction": 100,
+              "feedback": "正確——消費者藉由宣告自身需求來驅動契約。"
+            },
+            {
+              "text": "提供者——由它向消費者規定整個 API",
+              "fraction": 0,
+              "feedback": "在消費者驅動的測試中，提供者並不定義契約，而是被拿契約來驗證。"
+            },
+            {
+              "text": "Pact Broker——由它自動撰寫契約",
+              "fraction": 0,
+              "feedback": "broker 儲存並分享契約，並不撰寫契約。"
+            },
+            {
+              "text": "撰寫另一份規格的 QA 團隊",
+              "fraction": 0,
+              "feedback": "契約是從消費者的測試產生，而非由另一份手寫規格而來。"
+            }
+          ],
+          "generalFeedback": "消費者驅動：由消費者藉由表達其需求來定義／驅動契約。記住這組對應——消費者定義，提供者驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰驗證契約",
+          "text": "<p>在消費者驅動的契約測試中，是由誰<strong>驗證（verify）</strong>契約？</p>",
+          "answers": [
+            {
+              "text": "提供者——由它檢查自己是否滿足每個消費者的契約",
+              "fraction": 100,
+              "feedback": "正確——提供者要以其消費者所發布的契約來加以驗證。"
+            },
+            {
+              "text": "消費者——由它再拿契約對照模擬物重新檢查",
+              "fraction": 0,
+              "feedback": "消費者產生契約；對照真實服務的驗證是提供者的工作。"
+            },
+            {
+              "text": "Pact Broker——由它自己執行驗證",
+              "fraction": 0,
+              "feedback": "broker 分享契約與結果；驗證由提供者自己的測試套件執行。"
+            },
+            {
+              "text": "驗收測試期間的終端使用者",
+              "fraction": 0,
+              "feedback": "契約驗證是在提供者端自動化進行，並非由使用者手動驗收。"
+            }
+          ],
+          "generalFeedback": "提供者藉由把記錄下來的互動對著真實提供者回放、檢查回應是否相符來驗證契約。消費者定義，提供者驗證。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "契約記錄某個請求的期望回應",
+          "text": "<p>契約會針對某個請求，記錄消費者所期望的回應（例如狀態碼以及它所依賴的欄位）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——「請求對應期望回應」正是契約所記錄的內容。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "契約確實會針對消費者所依賴的每個請求記錄其期望回應。"
+            }
+          ],
+          "generalFeedback": "契約是一組互動：每一項都是消費者送出的一個請求，以及它期望收到的回應（狀態碼／結構／欄位）。"
+        },
+        {
+          "type": "truefalse",
+          "name": "提供者要對其所有消費者驗證",
+          "text": "<p>在消費者驅動的契約測試中，提供者要以其<em>所有</em>消費者的契約來加以驗證。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——提供者必須滿足每一個消費者的契約，而不僅是其中之一。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "一個提供者通常有多個消費者，且必須對其每一份契約加以驗證。"
+            }
+          ],
+          "generalFeedback": "單一提供者往往服務許多消費者；消費者驅動的驗證會以其所有消費者契約的整體集合來檢查提供者。"
+        },
+        {
+          "type": "multichoice",
+          "name": "契約測試工具範例",
+          "text": "<p>下列何者是知名的契約測試工具？</p>",
+          "answers": [
+            {
+              "text": "Pact",
+              "fraction": 100,
+              "feedback": "正確——Pact 是廣泛使用的消費者驅動契約測試框架（Spring Cloud Contract 是另一個）。"
+            },
+            {
+              "text": "Selenium",
+              "fraction": 0,
+              "feedback": "Selenium 用來驅動瀏覽器 UI 測試，並非契約測試。"
+            },
+            {
+              "text": "JMeter",
+              "fraction": 0,
+              "feedback": "JMeter 是負載／效能測試工具，並非契約測試工具。"
+            },
+            {
+              "text": "Valgrind",
+              "fraction": 0,
+              "feedback": "Valgrind 是記憶體／效能剖析工具，與契約測試無關。"
+            }
+          ],
+          "generalFeedback": "Pact 與 Spring Cloud Contract 是常見的契約測試工具；Pact 另提供 Pact Broker 以分享並版本化契約。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "消費者是用戶端，提供者是伺服器",
+          "text": "<p>消費者是用戶端（呼叫方），提供者是伺服器（被呼叫的 API）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——消費者＝用戶端／呼叫方，提供者＝伺服器／被呼叫方。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "消費者確實是用戶端，提供者確實是伺服器；務必記牢這個方向。"
+            }
+          ],
+          "generalFeedback": "消費者＝依賴 API 的用戶端；提供者＝提供該 API 的伺服器。這個角色方向是契約測試其餘一切的基礎。"
+        },
+        {
+          "type": "multichoice",
+          "name": "契約測試的目的",
+          "text": "<p>契約測試的主要目的是：</p>",
+          "answers": [
+            {
+              "text": "及早捕捉服務之間的 API／整合破壞，而不必架起完整的端到端環境",
+              "fraction": 100,
+              "feedback": "正確——它以低成本且獨立的方式偵測消費者與提供者之間的不一致。"
+            },
+            {
+              "text": "量測提供者在重負載下的回應速度",
+              "fraction": 0,
+              "feedback": "那是效能測試，並非契約測試。"
+            },
+            {
+              "text": "證明提供者的商業邏輯完全正確",
+              "fraction": 0,
+              "feedback": "契約測試檢查的是約定好的互動，而非提供者完整的商業行為。"
+            },
+            {
+              "text": "測試消費者的使用者介面版面配置",
+              "fraction": 0,
+              "feedback": "契約測試針對服務對服務的互動，而非 UI 版面。"
+            }
+          ],
+          "generalFeedback": "契約測試驗證消費者與提供者對其互動達成一致，能及早捕捉破壞性的 API 變更，而不必在完整 E2E 環境中同時啟動兩個服務。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "消費者測試使用模擬提供者",
+          "text": "<p>在消費者自己的測試期間，消費者是對著模擬提供者執行，而非真實提供者。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——消費者對著模擬物測試，而契約便由這些互動產生。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "消費者端使用模擬提供者以便獨立測試；真實提供者稍後另行驗證。"
+            }
+          ],
+          "generalFeedback": "消費者的測試對著回傳期望回應的模擬提供者執行。這讓消費者測試快速且獨立，並產生記錄那些互動的契約。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "消費者驅動流程的順序",
+          "text": "<p>請將 Pact 風格的消費者驅動流程排成正確順序：</p>",
+          "answers": [
+            {
+              "text": "消費者的測試對著模擬提供者執行並產生契約，接著提供者回放那些互動以驗證自己是否滿足它們",
+              "fraction": 100,
+              "feedback": "正確——消費者先產生契約，提供者隨後對照它加以驗證。"
+            },
+            {
+              "text": "提供者撰寫契約，接著消費者對照它加以驗證",
+              "fraction": 0,
+              "feedback": "這把角色顛倒了——消費者驅動／產生契約，提供者才是驗證方。"
+            },
+            {
+              "text": "消費者與提供者一起部署並做端到端測試，然後才撰寫契約",
+              "fraction": 0,
+              "feedback": "契約測試正是要避免同時上線兩者；契約來自消費者的獨立測試。"
+            },
+            {
+              "text": "由 broker 產生契約，雙方只是讀取它",
+              "fraction": 0,
+              "feedback": "broker 只儲存／分享契約；契約由消費者的測試產生。"
+            }
+          ],
+          "generalFeedback": "流程：消費者對著模擬提供者的測試產生契約，提供者再把它對著真實提供者回放以驗證。消費者產生，提供者驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "契約在何時產生",
+          "text": "<p>契約（pact 檔）是在哪個時點產生的？</p>",
+          "answers": [
+            {
+              "text": "當消費者的單元測試對著模擬提供者執行時",
+              "fraction": 100,
+              "feedback": "正確——契約是消費者對著模擬物測試的副產物。"
+            },
+            {
+              "text": "當提供者把互動對著真實服務回放時",
+              "fraction": 0,
+              "feedback": "那一步是消耗契約來驗證它，並不產生契約。"
+            },
+            {
+              "text": "當應用程式部署到正式環境時",
+              "fraction": 0,
+              "feedback": "契約是在消費者測試期間產生，遠早於部署。"
+            },
+            {
+              "text": "當 broker 首次安裝時",
+              "fraction": 0,
+              "feedback": "broker 儲存契約，並不會在安裝時建立契約。"
+            }
+          ],
+          "generalFeedback": "契約在消費者端產生，也就是消費者的測試與模擬提供者互動時。隨後它會被發布（常發布到 broker）供提供者驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提供者驗證做的是什麼",
+          "text": "<p>契約測試中的提供者驗證，其運作方式是：</p>",
+          "answers": [
+            {
+              "text": "把契約中記錄的互動對著真實提供者回放，並檢查每個回應是否相符",
+              "fraction": 100,
+              "feedback": "正確——提供者重新送出每個記錄下來的請求，並確認回應滿足契約。"
+            },
+            {
+              "text": "再次把消費者的測試對著模擬提供者重跑一遍",
+              "fraction": 0,
+              "feedback": "那是消費者端的步驟；提供者驗證用的是真實提供者，而非模擬物。"
+            },
+            {
+              "text": "把提供者的原始碼與消費者的原始碼相互比對",
+              "fraction": 0,
+              "feedback": "驗證檢查的是可觀察到的回應，而非原始碼。"
+            },
+            {
+              "text": "把消費者與提供者一起部署並點擊操作 UI",
+              "fraction": 0,
+              "feedback": "那是端到端測試，正是契約測試想要避免的。"
+            }
+          ],
+          "generalFeedback": "在提供者端，契約中的每一項互動都會對著真實提供者回放；唯有提供者的回應滿足每個消費者的期望時，提供者才算通過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何契約測試能免去完整 E2E",
+          "text": "<p>契約測試之所以能在沒有完整端到端環境的情況下捕捉整合問題，是因為：</p>",
+          "answers": [
+            {
+              "text": "雙方各自獨立測試——消費者對著模擬物、提供者對著記錄下來的契約——因此兩者不必同時上線",
+              "fraction": 100,
+              "feedback": "正確——契約讓雙方解耦，因此任一方都不需要另一方正在執行。"
+            },
+            {
+              "text": "它完全忽略提供者，只測試消費者",
+              "fraction": 0,
+              "feedback": "提供者仍會被驗證——對照契約——因此並未被忽略。"
+            },
+            {
+              "text": "它會架起整個系統，但略過資料庫",
+              "fraction": 0,
+              "feedback": "它根本不會架起整個系統，這正是重點所在。"
+            },
+            {
+              "text": "它只在正式環境對著實際流量執行",
+              "fraction": 0,
+              "feedback": "契約測試在開發／CI 期間獨立執行，而非對著實際的正式流量。"
+            }
+          ],
+          "generalFeedback": "契約充當一份共享、記錄下來的協定，讓消費者與提供者能各自快速地被測試。不需要一個同時完整串接的 E2E 環境。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "破壞性的提供者變更如何被捕捉",
+          "text": "<p>提供者做了一項變更，破壞了某消費者所依賴的東西。契約測試如何捕捉到它？</p>",
+          "answers": [
+            {
+              "text": "提供者對該消費者契約的驗證失敗",
+              "fraction": 100,
+              "feedback": "正確——把該消費者契約對著已變更的提供者回放時不再相符，因此提供者端的驗證失敗。"
+            },
+            {
+              "text": "消費者對著模擬物的測試立刻失敗",
+              "fraction": 0,
+              "feedback": "消費者的模擬物仍回傳舊的期望回應，因此那些測試仍可能通過；失敗浮現在提供者端。"
+            },
+            {
+              "text": "broker 拒絕儲存該契約",
+              "fraction": 0,
+              "feedback": "broker 儲存契約與結果；它不會以拒絕儲存的方式自行偵測破壞。"
+            },
+            {
+              "text": "在兩個服務一起部署之前不會有任何失敗",
+              "fraction": 0,
+              "feedback": "整個好處正是在部署之前、透過提供者驗證就捕捉到它。"
+            }
+          ],
+          "generalFeedback": "破壞性的提供者變更會在提供者回放消費者契約時浮現：回應不再符合消費者的期望，因此提供者對該契約的驗證失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Broker 在流程中的角色",
+          "text": "<p>在流程中，Pact Broker 的角色是：</p>",
+          "answers": [
+            {
+              "text": "接收消費者發布的契約，並在驗證時讓提供者取用它（儲存版本與結果）",
+              "fraction": 100,
+              "feedback": "正確——broker 是消費者與提供者之間共享的交換點。"
+            },
+            {
+              "text": "自己執行消費者的測試與提供者的驗證",
+              "fraction": 0,
+              "feedback": "雙方各自執行自己的測試；broker 只分享產物與結果。"
+            },
+            {
+              "text": "改寫提供者的 API 以符合消費者",
+              "fraction": 0,
+              "feedback": "broker 從不修改任一服務；它儲存並分享契約。"
+            },
+            {
+              "text": "充當消費者的模擬提供者",
+              "fraction": 0,
+              "feedback": "模擬提供者是消費者測試設定的一部分；broker 是另一個獨立的契約儲存庫。"
+            }
+          ],
+          "generalFeedback": "broker 儲存消費者發布的契約，將其提供給提供者驗證，並追蹤版本與驗證結果（支援如 can-i-deploy 之類的檢查）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "契約測試對比 schema 驗證",
+          "text": "<p>契約測試與單純的 schema 驗證有何不同？</p>",
+          "answers": [
+            {
+              "text": "它檢查每個消費者所依賴的實際期望互動，而不只是某個負載是否符合一份靜態 schema",
+              "fraction": 100,
+              "feedback": "正確——契約以具體的請求／回應期望逐一針對各消費者編碼，超越了結構上的 schema 相符。"
+            },
+            {
+              "text": "它只檢查 JSON 語法是否有效",
+              "fraction": 0,
+              "feedback": "那甚至比 schema 驗證更弱；契約測試講的是期望的互動。"
+            },
+            {
+              "text": "它和 schema 驗證完全是同一回事",
+              "fraction": 0,
+              "feedback": "兩者有重疊但不同：契約捕捉的是各消費者的期望互動，而不只是一份共用 schema。"
+            },
+            {
+              "text": "它驗證提供者的資料庫索引",
+              "fraction": 0,
+              "feedback": "契約測試關注的是服務互動，而非資料庫內部。"
+            }
+          ],
+          "generalFeedback": "schema 驗證問的是「這個負載符合某個結構嗎？」契約測試問的是「提供者是否仍滿足每個消費者實際依賴的具體互動？」——這是更強、且針對個別消費者的檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "契約測試對比端到端",
+          "text": "<p>與端到端（E2E）測試相比，契約測試：</p>",
+          "answers": [
+            {
+              "text": "驗證兩個服務之間約定好的互動，而不需要兩者在完整環境中同時上線",
+              "fraction": 100,
+              "feedback": "正確——這種隔離性正是相對於 E2E 的關鍵優勢。"
+            },
+            {
+              "text": "像真實使用者那樣透過 UI 操練整個系統",
+              "fraction": 0,
+              "feedback": "那是 E2E 測試；契約測試範圍更窄，且不需要整個系統。"
+            },
+            {
+              "text": "保證完整的商業流程從頭到尾都正確",
+              "fraction": 0,
+              "feedback": "唯有 E2E／功能測試才涵蓋完整流程；契約只驗證約定好的互動。"
+            },
+            {
+              "text": "總是需要正式資料與實際的第三方服務",
+              "fraction": 0,
+              "feedback": "契約測試獨立執行，不需要實際的正式相依服務。"
+            }
+          ],
+          "generalFeedback": "E2E 把整個系統串接起來並操練真實流程；契約測試只檢查約定好的消費者／提供者互動，且獨立、低成本。兩者互補。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模擬提供者在消費者測試中的作用",
+          "text": "<p>在消費者的測試期間，模擬提供者的職責是：</p>",
+          "answers": [
+            {
+              "text": "回傳消費者所期望的回應，讓消費者能被獨立操練，並記錄下契約",
+              "fraction": 100,
+              "feedback": "正確——模擬物提供期望回應，這些互動便成為契約。"
+            },
+            {
+              "text": "驗證真實提供者是否滿足契約",
+              "fraction": 0,
+              "feedback": "那項驗證稍後在提供者端進行，而非透過消費者的模擬物。"
+            },
+            {
+              "text": "對提供者的吞吐量做負載測試",
+              "fraction": 0,
+              "feedback": "模擬物並非負載產生器；它為功能性互動回傳期望回應。"
+            },
+            {
+              "text": "儲存契約供其他團隊重用",
+              "fraction": 0,
+              "feedback": "分享／版本化契約是 broker 的工作，而非模擬物的。"
+            }
+          ],
+          "generalFeedback": "模擬提供者回傳消費者所期望的回應，讓消費者測試不必依賴真實提供者即可執行，並產生記錄那些互動的契約。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「提供者已驗證」的意思",
+          "text": "<p>當提供者<em>已驗證（verified）</em>某契約時，意指：</p>",
+          "answers": [
+            {
+              "text": "對於每個記錄下來的請求，真實提供者所產生的回應都滿足消費者的期望",
+              "fraction": 100,
+              "feedback": "正確——唯有提供者滿足契約中的每一項互動，驗證才通過。"
+            },
+            {
+              "text": "提供者的程式碼編譯無誤",
+              "fraction": 0,
+              "feedback": "編譯與提供者是否滿足契約無關。"
+            },
+            {
+              "text": "消費者成功地重跑自己以模擬物為基礎的測試",
+              "fraction": 0,
+              "feedback": "那是消費者端的步驟；驗證在提供者端、對著真實服務進行。"
+            },
+            {
+              "text": "broker 把契約標記為已發布",
+              "fraction": 0,
+              "feedback": "發布並非驗證；驗證需要把互動對著提供者回放。"
+            }
+          ],
+          "generalFeedback": "驗證意指真實提供者在回放契約中每一項互動時，回傳的回應都符合消費者的期望——狀態碼以及消費者所依賴的欄位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "契約測試是整合測試的補充",
+          "text": "<p>對於微服務，契約測試最好被視為：</p>",
+          "answers": [
+            {
+              "text": "整合測試的補充，能獨立且快速地檢查消費者／提供者的約定",
+              "fraction": 100,
+              "feedback": "正確——它與整合及其他測試層級並行，而非取代它們全部。"
+            },
+            {
+              "text": "所有整合與功能測試的完全替代品",
+              "fraction": 0,
+              "feedback": "契約測試只驗證互動；功能測試與部分整合測試仍屬必要。"
+            },
+            {
+              "text": "一種效能測試",
+              "fraction": 0,
+              "feedback": "它是功能性（互動）驗證，而非效能測試。"
+            },
+            {
+              "text": "測試單一服務內部邏輯的方式",
+              "fraction": 0,
+              "feedback": "內部邏輯屬單元測試的範疇；契約關注的是服務之間的互動。"
+            }
+          ],
+          "generalFeedback": "在微服務環境中，契約測試是整合測試的補充：它獨立檢查每個消費者／提供者的約定、及早捕捉 API 破壞，而其他層級仍涵蓋完整行為。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "契約測試快速且獨立",
+          "text": "<p>由於雙方各自對著契約而非實際的對應方測試，契約測試既快速又獨立。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——不必架起完整環境，因此測試維持快速且獨立。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "雙方各自對著共享契約、而非實際對應方測試，正是讓這些測試快速且獨立的原因。"
+            }
+          ],
+          "generalFeedback": "消費者對著模擬物執行，提供者回放契約；任一方都不需要另一方正在執行，因此契約測試快速、獨立，且在 CI 中執行成本低。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一方先執行",
+          "text": "<p>在正常流程中，何者先發生？</p>",
+          "answers": [
+            {
+              "text": "消費者產生契約，接著提供者對照它加以驗證",
+              "fraction": 100,
+              "feedback": "正確——契約必須先存在（由消費者產生），提供者才能驗證它。"
+            },
+            {
+              "text": "提供者先驗證，接著消費者才產生契約",
+              "fraction": 0,
+              "feedback": "提供者無法驗證一份尚未產生的契約。"
+            },
+            {
+              "text": "兩者在一次共享的測試執行中同時發生",
+              "fraction": 0,
+              "feedback": "兩者分別、依序執行；契約以非同步的方式把它們串起來。"
+            },
+            {
+              "text": "兩者沒有既定順序",
+              "fraction": 0,
+              "feedback": "有明確順序：消費者產生，然後提供者驗證。"
+            }
+          ],
+          "generalFeedback": "消費者的測試先產生契約；唯有如此提供者才能回放並驗證它。這個順序讓兩個團隊得以獨立作業與部署。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "契約明訂什麼",
+          "text": "<p>消費者驅動的契約主要明訂：</p>",
+          "answers": [
+            {
+              "text": "消費者送出的請求，以及它實際依賴的回應元素（狀態碼與欄位）",
+              "fraction": 100,
+              "feedback": "正確——它只記錄消費者所依賴的互動與欄位。"
+            },
+            {
+              "text": "提供者所能回傳的每一個欄位",
+              "fraction": 0,
+              "feedback": "契約只需涵蓋消費者所用到的部分，而非提供者的整個 API 範圍。"
+            },
+            {
+              "text": "提供者的內部演算法",
+              "fraction": 0,
+              "feedback": "契約描述可觀察到的互動，而非內部演算法。"
+            },
+            {
+              "text": "叢集的部署拓撲",
+              "fraction": 0,
+              "feedback": "基礎設施拓撲與契約所捕捉的內容無關。"
+            }
+          ],
+          "generalFeedback": "消費者驅動的契約記錄消費者所依賴的互動與特定回應欄位——而非提供者的整個 API。這正是為何提供者只需滿足其消費者實際用到的部分。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "提供者多出的欄位可被容忍",
+          "text": "<p>若提供者的回應含有沒有任何消費者契約提及的額外欄位，該消費者的契約仍能被滿足。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——消費者驅動的契約只要求消費者所依賴的欄位；額外欄位可被容忍。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "額外、未被要求的欄位不會破壞契約；只有消費者所依賴的欄位必須存在且正確。"
+            }
+          ],
+          "generalFeedback": "消費者驅動的契約只檢查消費者所用到的部分。提供者回傳消費者忽略的額外欄位，仍能滿足契約。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "誰擁有契約，以及提供者為何要驗證",
+          "text": "<p>在消費者驅動的契約測試中，實際上是誰<em>擁有／驅動（owns/drives）</em>契約，而提供者為何必須對每個消費者驗證？</p>",
+          "answers": [
+            {
+              "text": "消費者藉由宣告需求來驅動它；提供者必須對所有消費者驗證，因為它不可破壞任何一個依賴它的消費者",
+              "fraction": 100,
+              "feedback": "正確——需求來自各消費者，而提供者是那個必須滿足每一個消費者的單一節點。"
+            },
+            {
+              "text": "提供者擁有它，每個消費者都必須配合提供者所驗證的內容",
+              "fraction": 0,
+              "feedback": "這與消費者驅動的測試相反；此處是消費者表達需求，提供者必須滿足它們。"
+            },
+            {
+              "text": "broker 擁有它，並決定哪些消費者重要",
+              "fraction": 0,
+              "feedback": "broker 只儲存與分享契約；它不擁有契約，也不排定其優先順序。"
+            },
+            {
+              "text": "誰最後部署，誰就擁有契約",
+              "fraction": 0,
+              "feedback": "擁有權是依角色而定（消費者驅動），而非依部署的時間先後。"
+            }
+          ],
+          "generalFeedback": "消費者藉由陳述自己所依賴的內容來驅動契約。因為一個提供者服務許多消費者，它必須對它們的所有契約加以驗證，以免某項變更悄悄破壞任何依賴它的消費者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提供者重新命名某消費者使用的欄位",
+          "text": "<p>提供者把回應欄位由 <code>total</code> 改名為 <code>totalAmount</code>。某消費者的契約依賴 <code>total</code>。會發生什麼事？</p>",
+          "answers": [
+            {
+              "text": "提供者對該消費者契約的驗證失敗，因為回放該互動時不再回傳期望的欄位",
+              "fraction": 100,
+              "feedback": "正確——消費者依賴；改名後的回應會使提供者端對該契約的驗證失敗。"
+            },
+            {
+              "text": "消費者以模擬物為基礎的測試會先失敗，早於任何提供者的檢查",
+              "fraction": 0,
+              "feedback": "消費者的模擬物仍回傳，因此那些測試可通過；失敗會浮現在提供者驗證階段。"
+            },
+            {
+              "text": "不會有任何失敗，因為改名欄位總是向後相容",
+              "fraction": 0,
+              "feedback": "改掉某消費者所依賴的欄位是破壞性變更，並非向後相容。"
+            },
+            {
+              "text": "只有 E2E 測試才可能偵測到這一點",
+              "fraction": 0,
+              "feedback": "契約測試會更早透過提供者驗證偵測到它，不需要 E2E。"
+            }
+          ],
+          "generalFeedback": "消費者依賴。當提供者回放該消費者契約時，回應變成而非，因此期望未被滿足，提供者對該契約的驗證失敗——這正是契約測試意在捕捉的破壞性變更。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提供者變更沒有消費者使用的欄位",
+          "text": "<p>提供者移除一個<em>沒有</em>任何消費者契約參照的回應欄位。假設是消費者驅動的契約，對驗證有何影響？</p>",
+          "answers": [
+            {
+              "text": "驗證仍會通過，因為沒有消費者依賴該欄位",
+              "fraction": 100,
+              "feedback": "正確——契約只涵蓋消費者使用的欄位，所以移除未使用的欄位是安全的。"
+            },
+            {
+              "text": "驗證失敗，因為任何欄位移除都是破壞性變更",
+              "fraction": 0,
+              "feedback": "只有更動消費者所依賴的欄位才會破壞契約；未使用的欄位可自由變更。"
+            },
+            {
+              "text": "在欄位被還原之前無法執行驗證",
+              "fraction": 0,
+              "feedback": "被移除的欄位不在任何契約中，因此驗證照常進行並通過。"
+            },
+            {
+              "text": "broker 會自動封鎖該次部署",
+              "fraction": 0,
+              "feedback": "沒有任何契約參照該欄位，因此沒有可封鎖之處。"
+            }
+          ],
+          "generalFeedback": "因為消費者驅動的契約只捕捉消費者實際使用的內容，提供者可安全地變更或移除沒有消費者依賴的欄位——驗證不受影響。這是演進 API 時的一項關鍵好處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "can-i-deploy 檢查什麼",
+          "text": "<p>Pact 的 <em>can-i-deploy</em> 工具回答的問題是：</p>",
+          "answers": [
+            {
+              "text": "依據已驗證的契約，我想部署的版本是否與其互動之其他服務的版本相容？",
+              "fraction": 100,
+              "feedback": "正確——can-i-deploy 依據記錄下來的驗證結果，判斷某版本是否可安全發布。"
+            },
+            {
+              "text": "新版本在負載下的回應速度有多快？",
+              "fraction": 0,
+              "feedback": "那是效能問題，與 can-i-deploy 無關。"
+            },
+            {
+              "text": "程式碼在 CI 伺服器上能否編譯？",
+              "fraction": 0,
+              "feedback": "can-i-deploy 講的是服務版本之間的契約相容性，而非編譯。"
+            },
+            {
+              "text": "UI 能否通過無障礙稽核？",
+              "fraction": 0,
+              "feedback": "那並不相關；can-i-deploy 檢查跨服務版本的契約相容性。"
+            }
+          ],
+          "generalFeedback": "can-i-deploy 向 broker 查詢「你想部署的版本」與「它所依賴／服務之版本」之間的驗證結果，告訴你發布它是否會破壞任何契約。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要版本化契約",
+          "text": "<p>broker 為何要版本化契約（及其驗證結果）？</p>",
+          "answers": [
+            {
+              "text": "好讓它能判斷哪些消費者版本與提供者版本相容，並支援安全、獨立的部署",
+              "fraction": 100,
+              "feedback": "正確——版本化的契約讓工具能對跨版本的相容性進行推理。"
+            },
+            {
+              "text": "好讓它能刪除舊契約以節省磁碟空間",
+              "fraction": 0,
+              "feedback": "版本化是為了追蹤相容性，而非主要為了回收空間。"
+            },
+            {
+              "text": "好讓消費者不必再撰寫測試",
+              "fraction": 0,
+              "feedback": "消費者仍須撰寫測試；版本化不會免除這項需求。"
+            },
+            {
+              "text": "好讓提供者能忽略較舊的消費者版本",
+              "fraction": 0,
+              "feedback": "版本化有助於確保較舊的消費者不被破壞，而非讓它們可被忽略。"
+            }
+          ],
+          "generalFeedback": "藉由版本化契約及其驗證結果，broker（與 can-i-deploy）能精確判斷哪些消費者／提供者版本可協同運作，讓團隊得以獨立且安全地部署。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "獨立部署的推理",
+          "text": "<p>契約測試如何讓微服務能被<em>獨立</em>部署？</p>",
+          "answers": [
+            {
+              "text": "某團隊可在發布前確認其變更仍遵守共享契約，而不必協調每個服務同步部署",
+              "fraction": 100,
+              "feedback": "正確——已驗證的契約讓各團隊有信心按自己的時程發布。"
+            },
+            {
+              "text": "所有服務必須永遠一起部署以保持同步",
+              "fraction": 0,
+              "feedback": "那與獨立部署相反，而獨立部署正是契約意在促成的。"
+            },
+            {
+              "text": "它免除了對服務進行任何版本化的需要",
+              "fraction": 0,
+              "feedback": "獨立部署仰賴版本化的契約，而非放棄版本化。"
+            },
+            {
+              "text": "只要提供者一有變更，就強迫每個消費者重新部署",
+              "fraction": 0,
+              "feedback": "唯有當消費者依賴的欄位有變時它才需要更動；未受影響的消費者不必重新部署。"
+            }
+          ],
+          "generalFeedback": "因為雙方都對照共享、版本化的契約檢查（且 can-i-deploy 確認相容性），團隊可按自己的時程部署服務，並有信心不會破壞他人所依賴的互動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "雙向對比消費者驅動",
+          "text": "<p><em>雙向（bi-directional）</em>契約測試與經典的<em>消費者驅動</em>契約測試有何不同？</p>",
+          "answers": [
+            {
+              "text": "在雙向作法中，提供者提供自己的 API 描述（例如 OpenAPI 規格），並把消費者的契約與它相互比對，而非由提供者回放消費者的互動",
+              "fraction": 100,
+              "feedback": "正確——雙向作法以提供者提供的規格與消費者契約交叉比對，取代對提供者的實際回放。"
+            },
+            {
+              "text": "雙向意指消費者驗證提供者的契約，同時提供者驗證消費者的契約",
+              "fraction": 0,
+              "feedback": "那並非雙向的意思；它是把提供者的規格與消費者契約相互比對。"
+            },
+            {
+              "text": "雙向作法把消費者完全排除在流程之外",
+              "fraction": 0,
+              "feedback": "消費者的契約仍參與其中；它會與提供者自己的描述相互比對。"
+            },
+            {
+              "text": "兩者是同一技術的相同名稱",
+              "fraction": 0,
+              "feedback": "兩者在如何檢查提供者端上不同（實際回放，對比提供者提供的規格）。"
+            }
+          ],
+          "generalFeedback": "經典的消費者驅動測試由提供者回放每個消費者記錄下來的互動。雙向測試則改為把消費者的契約與提供者發布的 API 描述（例如 OpenAPI）相互比對，在難以回放時可能較為方便。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "契約測試的限制",
+          "text": "<p>關於契約測試的<em>限制</em>，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "它驗證約定好的請求／回應互動，而非提供者完整的商業邏輯——仍然需要功能測試",
+              "fraction": 100,
+              "feedback": "正確——通過契約並不能證明提供者算出正確答案，只證明互動的形態被遵守。"
+            },
+            {
+              "text": "它完全取代對功能測試與端到端測試的需要",
+              "fraction": 0,
+              "feedback": "契約測試並不涵蓋完整行為；仍需其他測試。"
+            },
+            {
+              "text": "它證明整個系統從頭到尾都正確運作",
+              "fraction": 0,
+              "feedback": "那超出其範圍；它只驗證互動。"
+            },
+            {
+              "text": "它保證負載下的效能",
+              "fraction": 0,
+              "feedback": "效能不在契約測試的範圍內。"
+            }
+          ],
+          "generalFeedback": "契約測試確認雙方對互動達成一致（狀態碼、結構、欄位）。它並不檢查提供者的商業邏輯是否算出正確的值，因此功能測試與 E2E 測試仍屬必要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "消費者新增一項必需的期望",
+          "text": "<p>某消費者開始依賴一個新欄位 <code>currency</code> 並發布了更新後的契約，但提供者尚未回傳它。會發生什麼事？</p>",
+          "answers": [
+            {
+              "text": "提供者對更新後契約的驗證會失敗，直到提供者加入為止",
+              "fraction": 100,
+              "feedback": "正確——契約現在期望，因此提供者在提供該欄位之前都無法通過驗證。"
+            },
+            {
+              "text": "消費者的模擬物測試會失敗，因此提供者不受影響",
+              "fraction": 0,
+              "feedback": "消費者的模擬物會回傳，因此其測試通過；是提供者的驗證失敗。"
+            },
+            {
+              "text": "不會有任何改變，因為新增一項期望從不具破壞性",
+              "fraction": 0,
+              "feedback": "新增一項提供者未滿足的必需期望，確實會導致提供者驗證失敗。"
+            },
+            {
+              "text": "broker 會自動修補提供者以加入該欄位",
+              "fraction": 0,
+              "feedback": "broker 從不修改服務；必須由提供者團隊實作該欄位。"
+            }
+          ],
+          "generalFeedback": "當消費者的契約期望一個新欄位時，提供者必須回傳它才能通過驗證。在提供者加入之前，回放更新後的契約會失敗——這表示雙方尚未相容。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提供者新增一個選用欄位",
+          "text": "<p>提供者新增一個全新的選用回應欄位，且沒有任何既有消費者參照它。對既有消費者的契約驗證有何影響？</p>",
+          "answers": [
+            {
+              "text": "既有契約仍會通過驗證，因為它們並不依賴新欄位，且額外欄位可被容忍",
+              "fraction": 100,
+              "feedback": "正確——新增一個消費者忽略的欄位是非破壞性變更。"
+            },
+            {
+              "text": "所有既有契約會立刻失敗",
+              "fraction": 0,
+              "feedback": "額外、未被參照的欄位不會破壞消費者驅動的契約。"
+            },
+            {
+              "text": "每個消費者都必須先重新發布其契約",
+              "fraction": 0,
+              "feedback": "不使用新欄位的消費者無需做任何更動。"
+            },
+            {
+              "text": "在該欄位被移除之前驗證會被封鎖",
+              "fraction": 0,
+              "feedback": "新欄位對既有消費者無害；不會有任何封鎖。"
+            }
+          ],
+          "generalFeedback": "新增一個沒有消費者依賴的回應欄位是向後相容的。消費者驅動的驗證只檢查消費者使用的欄位，因此既有契約會持續通過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "提供者為何不必滿足其整個 API",
+          "text": "<p>為何提供者只滿足其 API 的<em>一部分</em>也能通過驗證？</p>",
+          "answers": [
+            {
+              "text": "消費者驅動的契約只編碼消費者實際使用的互動與欄位，因此驗證只涵蓋那些部分",
+              "fraction": 100,
+              "feedback": "正確——契約把驗證範圍限縮到消費者所依賴的部分。"
+            },
+            {
+              "text": "因為提供者被允許忽略每份契約的一半",
+              "fraction": 0,
+              "feedback": "提供者必須完整滿足每份契約；重點在於契約只涵蓋消費者使用的部分。"
+            },
+            {
+              "text": "因為驗證會隨機抽樣 API 的一個子集",
+              "fraction": 0,
+              "feedback": "驗證並非隨機抽樣；它精確回放契約中的互動。"
+            },
+            {
+              "text": "因為 broker 隱藏了未被測試的端點",
+              "fraction": 0,
+              "feedback": "broker 不會隱藏端點；只是契約僅涵蓋消費者所依賴的部分。"
+            }
+          ],
+          "generalFeedback": "由於消費者只記錄自己需要的內容，提供者的驗證便被限縮到那些互動。API 中未被觸及的部分不屬於任何契約，因此提供者不必滿足整個範圍即可通過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在部署前偵測破壞性變更",
+          "text": "<p>消費者驅動的契約測試如何讓提供者團隊在<em>部署之前</em>、且不需一個同時執行兩個服務的預備環境，就偵測到破壞性變更？</p>",
+          "answers": [
+            {
+              "text": "提供者在自己的 CI 中回放每個消費者發布的契約；一旦失敗即在發布前揭露破壞",
+              "fraction": 100,
+              "feedback": "正確——提供者對照儲存的契約驗證，能在隔離狀態下、於部署前捕捉到破壞。"
+            },
+            {
+              "text": "它等到部署之後由實際使用者回報錯誤",
+              "fraction": 0,
+              "feedback": "目標是在部署前捕捉破壞，而非在使用者踩到之後。"
+            },
+            {
+              "text": "它要求消費者先與提供者一起重新部署",
+              "fraction": 0,
+              "feedback": "不需要聯合部署；提供者單獨對照儲存的契約驗證即可。"
+            },
+            {
+              "text": "它仰賴預備環境中的完整 E2E 套件",
+              "fraction": 0,
+              "feedback": "契約測試正是要避免為此檢查而需要完整的 E2E 預備環境。"
+            }
+          ],
+          "generalFeedback": "提供者的 CI 從 broker 取得每個消費者的契約，並把它對著真實提供者回放。一旦不相符即讓建置失敗，在部署前揭露破壞性變更——不需要共享的預備環境。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "通過驗證不代表行為正確",
+          "text": "<p>提供者通過其所有契約驗證，即因此證明它算出正確的商業結果。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "通過驗證只顯示約定好的互動形態被遵守，並不代表算出的值正確。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——通過契約驗證確認互動被遵守，但仍需功能測試來證明結果正確。"
+            }
+          ],
+          "generalFeedback": "契約測試檢查提供者對每項互動回傳約定好的狀態碼與欄位。它並不檢查那些值是否符合商業正確性，因此通過契約並不能取代功能測試。"
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個消費者，一項提供者變更",
+          "text": "<p>某提供者服務兩個消費者：消費者 X 依賴欄位 <code>status</code>，消費者 Y 不依賴。提供者移除了 <code>status</code>。提供者驗證的結果為何？</p>",
+          "answers": [
+            {
+              "text": "對消費者 X 契約的驗證失敗；消費者 Y 的契約仍通過",
+              "fraction": 100,
+              "feedback": "正確——只有依賴被移除欄位的那個消費者受到破壞。"
+            },
+            {
+              "text": "兩個消費者的契約都失敗",
+              "fraction": 0,
+              "feedback": "消費者 Y 從不依賴，因此其契約不受影響。"
+            },
+            {
+              "text": "兩個消費者的契約都通過",
+              "fraction": 0,
+              "feedback": "消費者 X 依賴，因此其驗證必然失敗。"
+            },
+            {
+              "text": "在兩個消費者達成一致之前，兩份契約都無法被驗證",
+              "fraction": 0,
+              "feedback": "每份契約各自獨立驗證；不需要消費者之間達成一致即可執行驗證。"
+            }
+          ],
+          "generalFeedback": "由於驗證是逐一針對各消費者進行，移除會使消費者 X 的契約（依賴它）失敗，但不影響消費者 Y 的契約（不依賴它）。這能精確指出某項變更破壞了哪個消費者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "跨版本的 can-i-deploy",
+          "text": "<p>在發布新的提供者版本之前，某團隊執行 can-i-deploy。它回報對某個已部署的消費者版本有一項失敗。正確的解讀是：</p>",
+          "answers": [
+            {
+              "text": "新的提供者版本會破壞該消費者版本的契約，因此尚不宜部署",
+              "fraction": 100,
+              "feedback": "正確——can-i-deploy 是在警告此次發布會違反一份既有的已驗證契約。"
+            },
+            {
+              "text": "提供者版本沒問題；消費者無論如何都必須升級",
+              "fraction": 0,
+              "feedback": "can-i-deploy 正在標示一項真實的不相容；貿然部署會破壞該消費者。"
+            },
+            {
+              "text": "提供者的程式碼編譯失敗",
+              "fraction": 0,
+              "feedback": "can-i-deploy 回報的是契約相容性，而非編譯狀態。"
+            },
+            {
+              "text": "broker 離線了",
+              "fraction": 0,
+              "feedback": "回報的不相容是一項契約結果，而非 broker 中斷。"
+            }
+          ],
+          "generalFeedback": "can-i-deploy 查詢 broker 中「候選版本」與「它必須協同的版本」之間的驗證結果。一項失敗代表發布會破壞一個仍在部署中的消費者契約，因此應暫緩此次部署。",
+          "single": true
+        }
+      ]
+    }
+  },
   "decision-table": {
     "en": {
       "easy": [
