@@ -397,11 +397,11 @@ B -> b</code></pre><p>What is the minimum number of test strings needed for Prod
     <questiontext format="html"><text><![CDATA[<p>Given the grammar (treat <code>if</code>, <code>then</code>, <code>s</code>, <code>t</code>, <code>f</code> as terminals):</p><pre><code>S -> if C then S | s
 C -> t | f</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>2</text><feedback><text>Correct — "if t then s" and "if f then s" together use all four productions.</text></feedback></answer>
-    <answer fraction="0"><text>1</text><feedback><text>One string fixes C to either t or f, so it cannot cover both C -> t and C -> f.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Incorrect — this assumes C -> t and C -> f cannot both occur in one derivation, but the recursion lets both occur in a single nested string such as "if t then if f then s", so one test suffices.</text></feedback></answer>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — S is recursive (S -> if C then S), so one nested string like "if t then if f then s" covers all four productions: two uses of S -> if C then S, plus C -> t, C -> f, and S -> s.</text></feedback></answer>
     <answer fraction="0"><text>3</text><feedback><text>Two suffice: the two strings above cover S -> if C then S, S -> s, C -> t, C -> f.</text></feedback></answer>
     <answer fraction="0"><text>4</text><feedback><text>4 is the production count; a single string covers several productions, so two suffice.</text></feedback></answer>
-    <generalfeedback><text>Four productions. "if t then s" covers S -> if C then S, C -> t, S -> s; "if f then s" adds C -> f. Because C -> t and C -> f cannot both occur in one derivation here, the minimum is 2.</text></generalfeedback>
+    <generalfeedback><text>Four productions: S -> if C then S, S -> s, C -> t, C -> f. Because S is recursive (S -> if C then S), a single nested string such as "if t then if f then s" uses S -> if C then S twice plus C -> t, C -> f, and S -> s — all four productions in one string. So the minimum is 1.</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>Mutation to accept an invalid string</text></name>

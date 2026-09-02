@@ -62359,13 +62359,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "answers": [
               {
                 "text": "2",
-                "fraction": 100,
-                "feedback": 'Correct \u2014 "if t then s" and "if f then s" together use all four productions.'
+                "fraction": 0,
+                "feedback": 'Incorrect \u2014 this assumes C -> t and C -> f cannot both occur in one derivation, but the recursion lets both occur in a single nested string such as "if t then if f then s", so one test suffices.'
               },
               {
                 "text": "1",
-                "fraction": 0,
-                "feedback": "One string fixes C to either t or f, so it cannot cover both C -> t and C -> f."
+                "fraction": 100,
+                "feedback": 'Correct \u2014 S is recursive (S -> if C then S), so one nested string like "if t then if f then s" covers all four productions: two uses of S -> if C then S, plus C -> t, C -> f, and S -> s.'
               },
               {
                 "text": "3",
@@ -62378,7 +62378,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "4 is the production count; a single string covers several productions, so two suffice."
               }
             ],
-            "generalFeedback": 'Four productions. "if t then s" covers S -> if C then S, C -> t, S -> s; "if f then s" adds C -> f. Because C -> t and C -> f cannot both occur in one derivation here, the minimum is 2.',
+            "generalFeedback": 'Four productions: S -> if C then S, S -> s, C -> t, C -> f. Because S is recursive (S -> if C then S), a single nested string such as "if t then if f then s" uses S -> if C then S twice plus C -> t, C -> f, and S -> s \u2014 all four productions in one string. So the minimum is 1.',
             "single": true
           },
           {
@@ -63639,13 +63639,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "answers": [
               {
                 "text": "2",
-                "fraction": 100,
-                "feedback": "\u6B63\u78BA\u2014\u2014\u300Cif t then s\u300D\u8207\u300Cif f then s\u300D\u5408\u8D77\u4F86\u4F7F\u7528\u5168\u90E8\u56DB\u689D\u7522\u751F\u5F0F\u3002"
+                "fraction": 0,
+                "feedback": "\u932F\u8AA4\u2014\u2014\u6B64\u9078\u9805\u8AA4\u4EE5\u70BA C -> t \u8207 C -> f \u4E0D\u80FD\u540C\u6642\u51FA\u73FE\u5728\u4E00\u6B21\u63A8\u5C0E\u4E2D\uFF0C\u4F46\u905E\u8FF4\u4F7F\u5F97\u5169\u8005\u80FD\u540C\u6642\u51FA\u73FE\u5728\u55AE\u4E00\u5DE2\u72C0\u5B57\u4E32\u88E1\uFF0C\u4F8B\u5982\u300Cif t then if f then s\u300D\uFF0C\u56E0\u6B64\u4E00\u500B\u6E2C\u8A66\u5B57\u4E32\u5C31\u8DB3\u5920\u3002"
               },
               {
                 "text": "1",
-                "fraction": 0,
-                "feedback": "\u55AE\u4E00\u5B57\u4E32\u628A C \u56FA\u5B9A\u70BA t \u6216 f\uFF0C\u6545\u7121\u6CD5\u540C\u6642\u6DB5\u84CB C -> t \u8207 C -> f\u3002"
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA S \u5177\u905E\u8FF4\u6027\uFF08S -> if C then S\uFF09\uFF0C\u50CF\u300Cif t then if f then s\u300D\u9019\u6A23\u7684\u5DE2\u72C0\u5B57\u4E32\u53EF\u4E00\u6B21\u6DB5\u84CB\u5168\u90E8\u56DB\u689D\u7522\u751F\u5F0F\uFF1A\u5169\u6B21\u4F7F\u7528 S -> if C then S\uFF0C\u52A0\u4E0A C -> t\u3001C -> f\u3001S -> s\u3002"
               },
               {
                 "text": "3",
@@ -63658,7 +63658,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "4 \u662F\u7522\u751F\u5F0F\u6578\uFF1B\u55AE\u4E00\u5B57\u4E32\u53EF\u6DB5\u84CB\u591A\u689D\uFF0C\u6545\u5169\u500B\u5C31\u8DB3\u5920\u3002"
               }
             ],
-            "generalFeedback": "\u56DB\u689D\u7522\u751F\u5F0F\u3002\u300Cif t then s\u300D\u6DB5\u84CB S -> if C then S\u3001C -> t\u3001S -> s\uFF1B\u300Cif f then s\u300D\u518D\u52A0\u4E0A C -> f\u3002\u7531\u65BC\u6B64\u8655 C -> t \u8207 C -> f \u4E0D\u80FD\u540C\u6642\u51FA\u73FE\u5728\u4E00\u6B21\u63A8\u5C0E\u4E2D\uFF0C\u6545\u6700\u5C11\u70BA 2\u3002",
+            "generalFeedback": "\u5171\u56DB\u689D\u7522\u751F\u5F0F\uFF1AS -> if C then S\u3001S -> s\u3001C -> t\u3001C -> f\u3002\u7531\u65BC S \u5177\u905E\u8FF4\u6027\uFF08S -> if C then S\uFF09\uFF0C\u55AE\u4E00\u5DE2\u72C0\u5B57\u4E32\u5982\u300Cif t then if f then s\u300D\u53EF\u4F7F\u7528\u5169\u6B21 S -> if C then S\uFF0C\u518D\u52A0\u4E0A C -> t\u3001C -> f\u3001S -> s\u2014\u2014\u4E00\u6B21\u5B57\u4E32\u5373\u6DB5\u84CB\u5168\u90E8\u56DB\u689D\u7522\u751F\u5F0F\u3002\u6545\u6700\u5C11\u9700\u8981 1 \u500B\u6E2C\u8A66\u5B57\u4E32\u3002",
             "single": true
           },
           {

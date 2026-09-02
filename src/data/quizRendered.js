@@ -16352,13 +16352,13 @@ export const QUIZ_RENDERED = {
           "answers": [
             {
               "text": "2",
-              "fraction": 100,
-              "feedback": "Correct — \"if t then s\" and \"if f then s\" together use all four productions."
+              "fraction": 0,
+              "feedback": "Incorrect — this assumes C -> t and C -> f cannot both occur in one derivation, but the recursion lets both occur in a single nested string such as \"if t then if f then s\", so one test suffices."
             },
             {
               "text": "1",
-              "fraction": 0,
-              "feedback": "One string fixes C to either t or f, so it cannot cover both C -> t and C -> f."
+              "fraction": 100,
+              "feedback": "Correct — S is recursive (S -> if C then S), so one nested string like \"if t then if f then s\" covers all four productions: two uses of S -> if C then S, plus C -> t, C -> f, and S -> s."
             },
             {
               "text": "3",
@@ -16371,7 +16371,7 @@ export const QUIZ_RENDERED = {
               "feedback": "4 is the production count; a single string covers several productions, so two suffice."
             }
           ],
-          "generalFeedback": "Four productions. \"if t then s\" covers S -> if C then S, C -> t, S -> s; \"if f then s\" adds C -> f. Because C -> t and C -> f cannot both occur in one derivation here, the minimum is 2.",
+          "generalFeedback": "Four productions: S -> if C then S, S -> s, C -> t, C -> f. Because S is recursive (S -> if C then S), a single nested string such as \"if t then if f then s\" uses S -> if C then S twice plus C -> t, C -> f, and S -> s — all four productions in one string. So the minimum is 1.",
           "single": true
         },
         {
@@ -17632,13 +17632,13 @@ export const QUIZ_RENDERED = {
           "answers": [
             {
               "text": "2",
-              "fraction": 100,
-              "feedback": "正確——「if t then s」與「if f then s」合起來使用全部四條產生式。"
+              "fraction": 0,
+              "feedback": "錯誤——此選項誤以為 C -> t 與 C -> f 不能同時出現在一次推導中，但遞迴使得兩者能同時出現在單一巢狀字串裡，例如「if t then if f then s」，因此一個測試字串就足夠。"
             },
             {
               "text": "1",
-              "fraction": 0,
-              "feedback": "單一字串把 C 固定為 t 或 f，故無法同時涵蓋 C -> t 與 C -> f。"
+              "fraction": 100,
+              "feedback": "正確——因為 S 具遞迴性（S -> if C then S），像「if t then if f then s」這樣的巢狀字串可一次涵蓋全部四條產生式：兩次使用 S -> if C then S，加上 C -> t、C -> f、S -> s。"
             },
             {
               "text": "3",
@@ -17651,7 +17651,7 @@ export const QUIZ_RENDERED = {
               "feedback": "4 是產生式數；單一字串可涵蓋多條，故兩個就足夠。"
             }
           ],
-          "generalFeedback": "四條產生式。「if t then s」涵蓋 S -> if C then S、C -> t、S -> s；「if f then s」再加上 C -> f。由於此處 C -> t 與 C -> f 不能同時出現在一次推導中，故最少為 2。",
+          "generalFeedback": "共四條產生式：S -> if C then S、S -> s、C -> t、C -> f。由於 S 具遞迴性（S -> if C then S），單一巢狀字串如「if t then if f then s」可使用兩次 S -> if C then S，再加上 C -> t、C -> f、S -> s——一次字串即涵蓋全部四條產生式。故最少需要 1 個測試字串。",
           "single": true
         },
         {

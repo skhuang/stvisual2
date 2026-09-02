@@ -397,11 +397,11 @@ B -> b</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串�
     <questiontext format="html"><text><![CDATA[<p>給定文法（把 <code>if</code>、<code>then</code>、<code>s</code>、<code>t</code>、<code>f</code> 視為終端）：</p><pre><code>S -> if C then S | s
 C -> t | f</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>2</text><feedback><text>正確——「if t then s」與「if f then s」合起來使用全部四條產生式。</text></feedback></answer>
-    <answer fraction="0"><text>1</text><feedback><text>單一字串把 C 固定為 t 或 f，故無法同時涵蓋 C -> t 與 C -> f。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>錯誤——此選項誤以為 C -> t 與 C -> f 不能同時出現在一次推導中，但遞迴使得兩者能同時出現在單一巢狀字串裡，例如「if t then if f then s」，因此一個測試字串就足夠。</text></feedback></answer>
+    <answer fraction="100"><text>1</text><feedback><text>正確——因為 S 具遞迴性（S -> if C then S），像「if t then if f then s」這樣的巢狀字串可一次涵蓋全部四條產生式：兩次使用 S -> if C then S，加上 C -> t、C -> f、S -> s。</text></feedback></answer>
     <answer fraction="0"><text>3</text><feedback><text>兩個就足夠：上述兩個字串涵蓋 S -> if C then S、S -> s、C -> t、C -> f。</text></feedback></answer>
     <answer fraction="0"><text>4</text><feedback><text>4 是產生式數；單一字串可涵蓋多條，故兩個就足夠。</text></feedback></answer>
-    <generalfeedback><text>四條產生式。「if t then s」涵蓋 S -> if C then S、C -> t、S -> s；「if f then s」再加上 C -> f。由於此處 C -> t 與 C -> f 不能同時出現在一次推導中，故最少為 2。</text></generalfeedback>
+    <generalfeedback><text>共四條產生式：S -> if C then S、S -> s、C -> t、C -> f。由於 S 具遞迴性（S -> if C then S），單一巢狀字串如「if t then if f then s」可使用兩次 S -> if C then S，再加上 C -> t、C -> f、S -> s——一次字串即涵蓋全部四條產生式。故最少需要 1 個測試字串。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>使無效字串被接受的突變</text></name>
