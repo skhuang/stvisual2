@@ -1,1 +1,24 @@
-[]
+[
+  "mbt-workflow",
+  "fsm-test-generation",
+  "w-method-conformance",
+  "efsm-guarded-transition",
+  "usage-model-statistical",
+  "model-mutation",
+  "program-slicing",
+  "slice-dicing",
+  "slice-coverage",
+  "slice-regression",
+  "tdd-cycle",
+  "tdd-rules",
+  "exploit-overflow",
+  "exploit-sqli",
+  "exploit-cmdi",
+  "exploit-path",
+  "sbst-branch",
+  "sbst-compare",
+  "sbst-suite",
+  "exploratory-testing",
+  "test-doubles",
+  "group-theory"
+]
