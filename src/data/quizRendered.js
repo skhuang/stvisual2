@@ -36861,7 +36861,7 @@ export const QUIZ_RENDERED = {
               "feedback": "範例對照發生在開發前的精煉階段，而非部署時。"
             }
           ],
-          "generalFeedback": "範例對照（由 Matt Wynne 提出）是在待辦精煉（backlog refinement）期間進行的簡單、有時間盒的對話。團隊取一個使用者故事，用四種顏色的索引卡梳理出商業規則、illustrate 這些規則的具體範例，以及任何未解的問題。它在撰寫程式前建立共同理解。",
+          "generalFeedback": "範例對照（由 Matt Wynne 提出）是在待辦精煉（backlog refinement）期間進行的簡單、有時間盒的對話。團隊取一個使用者故事，用四種顏色的索引卡梳理出商業規則、說明這些規則的具體範例，以及任何未解的問題。它在撰寫程式前建立共同理解。",
           "single": true
         },
         {
@@ -36880,7 +36880,7 @@ export const QUIZ_RENDERED = {
               "feedback": "規則是藍色卡；黃色卡是故事本身。"
             },
             {
-              "text": "illustrate 某條規則的具體範例",
+              "text": "說明某條規則的具體範例",
               "fraction": 0,
               "feedback": "具體範例是綠色卡；黃色卡是故事。"
             },
@@ -36911,7 +36911,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "帶有具體資料與結果的具體範例",
               "fraction": 0,
-              "feedback": "具體範例是綠色卡；藍色卡是它們所 illustrate 的一般規則。"
+              "feedback": "具體範例是綠色卡；藍色卡是它們所說明的一般規則。"
             },
             {
               "text": "團隊此刻無法回答的事情",
@@ -36919,7 +36919,7 @@ export const QUIZ_RENDERED = {
               "feedback": "未解事項是紅色問題卡；藍色卡是必須成立的規則。"
             }
           ],
-          "generalFeedback": "藍色卡承載規則：故事必須滿足的驗收準則、商業規則與限制。每條藍色規則都是一般性陳述，接著由綠色範例卡以具體案例加以 illustrate。",
+          "generalFeedback": "藍色卡承載規則：故事必須滿足的驗收準則、商業規則與限制。每條藍色規則都是一般性陳述，接著由綠色範例卡以具體案例加以說明。",
           "single": true
         },
         {
@@ -36928,9 +36928,9 @@ export const QUIZ_RENDERED = {
           "text": "<p>在範例對照中，<strong>綠色</strong>卡代表什麼？</p>",
           "answers": [
             {
-              "text": "範例——某條規則的具體 illustrate，一個帶有具體資料與結果的特定案例",
+              "text": "範例——某條規則的具體例示，一個帶有具體資料與結果的特定案例",
               "fraction": 100,
-              "feedback": "正確——綠色卡是 illustrate 某條藍色規則的具體範例。"
+              "feedback": "正確——綠色卡是說明某條藍色規則的具體範例。"
             },
             {
               "text": "一般性的商業規則或驗收準則",
@@ -36945,10 +36945,10 @@ export const QUIZ_RENDERED = {
             {
               "text": "團隊之後必須解決的未解事項",
               "fraction": 0,
-              "feedback": "未解事項是紅色問題卡；綠色是某條規則的具體 illustrate。"
+              "feedback": "未解事項是紅色問題卡；綠色是某條規則的具體例示。"
             }
           ],
-          "generalFeedback": "綠色卡給出具體範例：一個帶有真實資料與預期結果、用來 illustrate 某條藍色規則的特定案例。由於它們是具體的，綠色範例之後會餵入 BDD/ATDD 情境（每個範例對應一個 Given-When-Then 案例）。",
+          "generalFeedback": "綠色卡給出具體範例：一個帶有真實資料與預期結果、用來說明某條藍色規則的特定案例。由於它們是具體的，綠色範例之後會餵入 BDD/ATDD 情境（每個範例對應一個 Given-When-Then 案例）。",
           "single": true
         },
         {
@@ -36967,7 +36967,7 @@ export const QUIZ_RENDERED = {
               "feedback": "規則是藍色；紅色記錄團隊尚無法回答的事情。"
             },
             {
-              "text": "illustrate 某條規則的具體範例",
+              "text": "說明某條規則的具體範例",
               "fraction": 0,
               "feedback": "具體範例是綠色；紅色是未解問題。"
             },
@@ -37006,7 +37006,7 @@ export const QUIZ_RENDERED = {
               "feedback": "它是在每個故事被建置前的精煉階段逐一使用的。"
             }
           ],
-          "generalFeedback": "範例對照在待辦精煉的「討論」階段進行，於故事開始開發之前。它的整個目的是及早達成共同理解，讓團隊帶著清楚的規則、illustrate 的範例與已知的問題進入開發。",
+          "generalFeedback": "範例對照在待辦精煉的「討論」階段進行，於故事開始開發之前。它的整個目的是及早達成共同理解，讓團隊帶著清楚的規則、已說明的範例與已知的問題進入開發。",
           "single": true
         },
         {
@@ -37151,7 +37151,7 @@ export const QUIZ_RENDERED = {
               "feedback": "黃色是故事，而非具體範例。"
             }
           ],
-          "generalFeedback": "綠色卡承載具體範例——帶有真實資料與預期結果、用來 illustrate 某條藍色規則的特定案例。請記住：黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。",
+          "generalFeedback": "綠色卡承載具體範例——帶有真實資料與預期結果、用來說明某條藍色規則的特定案例。請記住：黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。",
           "single": true
         },
         {
@@ -37185,8 +37185,8 @@ export const QUIZ_RENDERED = {
         },
         {
           "type": "truefalse",
-          "name": "綠色 illustrate 一條規則",
-          "text": "<p>綠色卡是一個 illustrate 某條（藍色）規則的具體範例。</p>",
+          "name": "綠色說明一條規則",
+          "text": "<p>綠色卡是一個說明某條（藍色）規則的具體範例。</p>",
           "answers": [
             {
               "text": "true",
@@ -37196,10 +37196,10 @@ export const QUIZ_RENDERED = {
             {
               "text": "false",
               "fraction": 0,
-              "feedback": "綠色卡是 illustrate 藍色規則的具體範例，因此此敘述為真。"
+              "feedback": "綠色卡是說明藍色規則的具體範例，因此此敘述為真。"
             }
           ],
-          "generalFeedback": "規則（藍色）是一般性陳述；範例（綠色）以具體特定案例 illustrate 它們。每個綠色範例都坐落在它所示範的藍色規則之下。"
+          "generalFeedback": "規則（藍色）是一般性陳述；範例（綠色）以具體特定案例說明它們。每個綠色範例都坐落在它所示範的藍色規則之下。"
         },
         {
           "type": "multichoice",
@@ -37297,7 +37297,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "紅色——它是一個未解問題",
               "fraction": 0,
-              "feedback": "這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。"
+              "feedback": "這裡沒有任何未知；它是一個具體例示，因此是綠色。"
             },
             {
               "text": "黃色——它是故事",
@@ -37305,7 +37305,7 @@ export const QUIZ_RENDERED = {
               "feedback": "故事是主題；這是某條規則的具體範例，因此是綠色。"
             }
           ],
-          "generalFeedback": "具體資料（$100、10%、$90）與特定結果使它成為綠色範例。它 illustrate 一條底層藍色規則，例如「百分比折價券依該百分比降低訂單總額」。",
+          "generalFeedback": "具體資料（$100、10%、$90）與特定結果使它成為綠色範例。它說明一條底層藍色規則，例如「百分比折價券依該百分比降低訂單總額」。",
           "single": true
         },
         {
@@ -37372,27 +37372,27 @@ export const QUIZ_RENDERED = {
           "text": "<p>在對照圖上，綠色範例卡與藍色規則卡之間有什麼關係？</p>",
           "answers": [
             {
-              "text": "每個綠色範例以一個具體案例 illustrate 某條藍色規則，因此範例坐落在它所示範的規則之下",
+              "text": "每個綠色範例以一個具體案例說明某條藍色規則，因此範例坐落在它所示範的規則之下",
               "fraction": 100,
-              "feedback": "正確——範例讓規則變得具體；它們掛在所 illustrate 的規則下方。"
+              "feedback": "正確——範例讓規則變得具體；它們掛在所說明的規則下方。"
             },
             {
               "text": "綠色範例取代藍色規則，因此有範例的規則可以丟棄",
               "fraction": 0,
-              "feedback": "範例不會取代規則；它們 illustrate 規則，且兩者都留在對照圖上。"
+              "feedback": "範例不會取代規則；它們說明規則，且兩者都留在對照圖上。"
             },
             {
               "text": "綠色範例與規則無關，是隨機擺放的",
               "fraction": 0,
-              "feedback": "每個範例都 illustrate 某條特定規則；它們是刻意分組的，而非隨機。"
+              "feedback": "每個範例都說明某條特定規則；它們是刻意分組的，而非隨機。"
             },
             {
               "text": "綠色範例定義故事，而藍色規則定義問題",
               "fraction": 0,
-              "feedback": "故事是黃色、問題是紅色；綠色範例 illustrate 藍色規則。"
+              "feedback": "故事是黃色、問題是紅色；綠色範例說明藍色規則。"
             }
           ],
-          "generalFeedback": "規則是一般性陳述；範例是展示規則實際運作的具體案例。在對照圖上，綠色範例擺在它所 illustrate 的藍色規則之下，因此你可以看到每條規則都有具體案例支撐。",
+          "generalFeedback": "規則是一般性陳述；範例是展示規則實際運作的具體案例。在對照圖上，綠色範例擺在它所說明的藍色規則之下，因此你可以看到每條規則都有具體案例支撐。",
           "single": true
         },
         {
@@ -37517,19 +37517,19 @@ export const QUIZ_RENDERED = {
           "text": "<p>有人說：<em>「一位已有 3 個工作階段的使用者開啟第 4 個時，會看到『已達工作階段上限』。」</em>這屬於哪個卡片顏色？</p>",
           "answers": [
             {
-              "text": "綠色——它是一個 illustrate 某條規則的具體範例",
+              "text": "綠色——它是一個說明某條規則的具體範例",
               "fraction": 100,
               "feedback": "正確——一個帶有具體結果的特定情況是綠色範例。"
             },
             {
               "text": "藍色——它是一般性規則",
               "fraction": 0,
-              "feedback": "它是帶有具體結果的特定案例，用來 illustrate 某條規則；那是綠色。"
+              "feedback": "它是帶有具體結果的特定案例，用來說明某條規則；那是綠色。"
             },
             {
               "text": "紅色——它是一個未解問題",
               "fraction": 0,
-              "feedback": "這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。"
+              "feedback": "這裡沒有任何未知；它是一個具體例示，因此是綠色。"
             },
             {
               "text": "黃色——它是故事",
@@ -37537,7 +37537,7 @@ export const QUIZ_RENDERED = {
               "feedback": "故事是主題；這是某條規則的具體範例，因此是綠色。"
             }
           ],
-          "generalFeedback": "這是一個特定情境（已有 3 個工作階段、第 4 次嘗試、一則特定訊息），因此是綠色範例。它 illustrate 藍色規則「一位使用者最多可同時擁有 3 個有效工作階段」。",
+          "generalFeedback": "這是一個特定情境（已有 3 個工作階段、第 4 次嘗試、一則特定訊息），因此是綠色範例。它說明藍色規則「一位使用者最多可同時擁有 3 個有效工作階段」。",
           "single": true
         },
         {
@@ -37576,7 +37576,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "紅色——它是一個未解問題",
               "fraction": 0,
-              "feedback": "這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。"
+              "feedback": "這裡沒有任何未知；它是一個具體例示，因此是綠色。"
             },
             {
               "text": "黃色——它是故事",
@@ -37584,7 +37584,7 @@ export const QUIZ_RENDERED = {
               "feedback": "故事是主題；這個具體案例是綠色範例。"
             }
           ],
-          "generalFeedback": "具體資料（SAVE10、一個 $200 購物車、$180 的結果）使它成為綠色範例，illustrate 一條藍色規則，例如「代碼 SAVE10 給予購物車總額 10% 折扣」。具體案例一律是綠色。",
+          "generalFeedback": "具體資料（SAVE10、一個 $200 購物車、$180 的結果）使它成為綠色範例，說明一條藍色規則，例如「代碼 SAVE10 給予購物車總額 10% 折扣」。具體案例一律是綠色。",
           "single": true
         },
         {
@@ -37737,12 +37737,12 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "讀圖：均衡且就緒",
-          "text": "<p>一場對話結束時有<strong>三條規則、每條各由幾個範例 illustrate，且沒有未解問題</strong>。這張圖代表什麼？</p>",
+          "text": "<p>一場對話結束時有<strong>三條規則、每條各由幾個範例說明，且沒有未解問題</strong>。這張圖代表什麼？</p>",
           "answers": [
             {
               "text": "故事已被充分理解，且已就緒可開發",
               "fraction": 100,
-              "feedback": "正確——清楚的規則、illustrate 的範例，以及沒有未解問題，代表就緒。"
+              "feedback": "正確——清楚的規則、已說明的範例，以及沒有未解問題，代表就緒。"
             },
             {
               "text": "故事尚未就緒，應予延後",
@@ -37752,7 +37752,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "故事太大，必須拆分",
               "fraction": 0,
-              "feedback": "三條有充分 illustrate 的規則是合理大小；這裡沒有拆分訊號。"
+              "feedback": "三條有充分說明的規則是合理大小；這裡沒有拆分訊號。"
             },
             {
               "text": "這張圖無效，因為就緒的故事必定要有一些紅色卡",
@@ -37800,7 +37800,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "A——它是一般性限制；B 是它的一個具體實例",
               "fraction": 100,
-              "feedback": "正確——A 陳述一般性規則；B 是 illustrate 它的特定範例。"
+              "feedback": "正確——A 陳述一般性規則；B 是說明它的特定範例。"
             },
             {
               "text": "B——因為它提到特定日期，所以它必定是規則",
@@ -37905,7 +37905,7 @@ export const QUIZ_RENDERED = {
               "feedback": "問題是待解決的未知，而非拆分過大故事的依據。"
             }
           ],
-          "generalFeedback": "當大量規則指出故事過大時，天然的切割線就是規則本身。拆分成大致每條規則一個故事（或每組相關規則一個），會產生較小的故事，每個都有自己的規則以及 illustrate 它的綠色範例——更易理解、估算與交付。",
+          "generalFeedback": "當大量規則指出故事過大時，天然的切割線就是規則本身。拆分成大致每條規則一個故事（或每組相關規則一個），會產生較小的故事，每個都有自己的規則以及說明它的綠色範例——更易理解、估算與交付。",
           "single": true
         },
         {
@@ -37940,12 +37940,12 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "讀圖：一條規則、多個範例、無問題",
-          "text": "<p>一張對照圖有單一條清楚的規則、四個 illustrate 它的具體範例，以及沒有紅色卡。最佳解讀是什麼？</p>",
+          "text": "<p>一張對照圖有單一條清楚的規則、四個說明它的具體範例，以及沒有紅色卡。最佳解讀是什麼？</p>",
           "answers": [
             {
               "text": "故事小、被充分理解，且已就緒可建置",
               "fraction": 100,
-              "feedback": "正確——單一條有充分 illustrate 的規則且無未解問題，代表就緒且大小適中。"
+              "feedback": "正確——單一條有充分說明的規則且無未解問題，代表就緒且大小適中。"
             },
             {
               "text": "故事太大，必須拆分成四個故事，每個範例一個",
@@ -37958,12 +37958,12 @@ export const QUIZ_RENDERED = {
               "feedback": "一條規則有多個範例是健康的；沒有未解問題時故事已就緒。"
             },
             {
-              "text": "應刪除範例，因為單一條規則不需要 illustrate",
+              "text": "應刪除範例，因為單一條規則不需要例示",
               "fraction": 0,
-              "feedback": "以具體範例 illustrate 規則正是重點；它們應保留。"
+              "feedback": "以具體範例說明規則正是重點；它們應保留。"
             }
           ],
-          "generalFeedback": "一條清楚的規則、由數個具體範例充分 illustrate、且沒有未解問題，是一個小而被徹底理解的故事——已就緒可開發。一條規則有多個範例是好訊號，而非拆分觸發條件；拆分是由大量規則驅動，而非大量範例。",
+          "generalFeedback": "一條清楚的規則、由數個具體範例充分說明、且沒有未解問題，是一個小而被徹底理解的故事——已就緒可開發。一條規則有多個範例是好訊號，而非拆分觸發條件；拆分是由大量規則驅動，而非大量範例。",
           "single": true
         },
         {
@@ -38085,12 +38085,12 @@ export const QUIZ_RENDERED = {
         {
           "type": "truefalse",
           "name": "少問題加清楚規則代表就緒",
-          "text": "<p>一個故事若有清楚的規則、每條都由具體範例 illustrate，且很少或沒有未解問題，通常被視為已就緒可開發。</p>",
+          "text": "<p>一個故事若有清楚的規則、每條都由具體範例說明，且很少或沒有未解問題，通常被視為已就緒可開發。</p>",
           "answers": [
             {
               "text": "true",
               "fraction": 100,
-              "feedback": "正確——清楚的規則、illustrate 的範例，以及很少／沒有問題，就是就緒的訊號。"
+              "feedback": "正確——清楚的規則、已說明的範例，以及很少／沒有問題，就是就緒的訊號。"
             },
             {
               "text": "false",

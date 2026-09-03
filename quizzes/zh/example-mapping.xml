@@ -11,7 +11,7 @@
     <answer fraction="0"><text>一個能從 UML 圖自動產生測試腳本的工具</text><feedback><text>範例對照是人與人之間以索引卡進行的對話，而非產生程式或腳本的工具。</text></feedback></answer>
     <answer fraction="0"><text>一種量測每個函式執行速度的效能剖析方法</text><feedback><text>那是效能剖析；範例對照是用來理解故事的精煉技術。</text></feedback></answer>
     <answer fraction="0"><text>一個把程式發佈到正式環境的部署管線階段</text><feedback><text>範例對照發生在開發前的精煉階段，而非部署時。</text></feedback></answer>
-    <generalfeedback><text>範例對照（由 Matt Wynne 提出）是在待辦精煉（backlog refinement）期間進行的簡單、有時間盒的對話。團隊取一個使用者故事，用四種顏色的索引卡梳理出商業規則、illustrate 這些規則的具體範例，以及任何未解的問題。它在撰寫程式前建立共同理解。</text></generalfeedback>
+    <generalfeedback><text>範例對照（由 Matt Wynne 提出）是在待辦精煉（backlog refinement）期間進行的簡單、有時間盒的對話。團隊取一個使用者故事，用四種顏色的索引卡梳理出商業規則、說明這些規則的具體範例，以及任何未解的問題。它在撰寫程式前建立共同理解。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>黃色卡的意義</text></name>
@@ -19,7 +19,7 @@
     <single>true</single>
     <answer fraction="100"><text>故事——正在討論的主題，每場只有一張</text><feedback><text>正確——黃色卡是正被拆解的使用者故事，每場只有一張。</text></feedback></answer>
     <answer fraction="0"><text>故事必須滿足的一條商業規則</text><feedback><text>規則是藍色卡；黃色卡是故事本身。</text></feedback></answer>
-    <answer fraction="0"><text>illustrate 某條規則的具體範例</text><feedback><text>具體範例是綠色卡；黃色卡是故事。</text></feedback></answer>
+    <answer fraction="0"><text>說明某條規則的具體範例</text><feedback><text>具體範例是綠色卡；黃色卡是故事。</text></feedback></answer>
     <answer fraction="0"><text>團隊目前還無法回答的未解問題</text><feedback><text>未解問題是紅色卡；黃色卡是故事。</text></feedback></answer>
     <generalfeedback><text>黃色卡標示故事（正在討論的主題）。一場對話聚焦於單一黃色卡，而藍色規則、綠色範例與紅色問題都是相對於這張卡擺放的。</text></generalfeedback>
   </question>
@@ -29,19 +29,19 @@
     <single>true</single>
     <answer fraction="100"><text>規則——一條驗收準則、商業規則，或必須成立的限制</text><feedback><text>正確——藍色卡記錄故事的規則／驗收準則。</text></feedback></answer>
     <answer fraction="0"><text>正在討論的故事</text><feedback><text>故事是黃色卡；藍色卡記錄規則。</text></feedback></answer>
-    <answer fraction="0"><text>帶有具體資料與結果的具體範例</text><feedback><text>具體範例是綠色卡；藍色卡是它們所 illustrate 的一般規則。</text></feedback></answer>
+    <answer fraction="0"><text>帶有具體資料與結果的具體範例</text><feedback><text>具體範例是綠色卡；藍色卡是它們所說明的一般規則。</text></feedback></answer>
     <answer fraction="0"><text>團隊此刻無法回答的事情</text><feedback><text>未解事項是紅色問題卡；藍色卡是必須成立的規則。</text></feedback></answer>
-    <generalfeedback><text>藍色卡承載規則：故事必須滿足的驗收準則、商業規則與限制。每條藍色規則都是一般性陳述，接著由綠色範例卡以具體案例加以 illustrate。</text></generalfeedback>
+    <generalfeedback><text>藍色卡承載規則：故事必須滿足的驗收準則、商業規則與限制。每條藍色規則都是一般性陳述，接著由綠色範例卡以具體案例加以說明。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>綠色卡的意義</text></name>
     <questiontext format="html"><text><![CDATA[<p>在範例對照中，<strong>綠色</strong>卡代表什麼？</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>範例——某條規則的具體 illustrate，一個帶有具體資料與結果的特定案例</text><feedback><text>正確——綠色卡是 illustrate 某條藍色規則的具體範例。</text></feedback></answer>
+    <answer fraction="100"><text>範例——某條規則的具體例示，一個帶有具體資料與結果的特定案例</text><feedback><text>正確——綠色卡是說明某條藍色規則的具體範例。</text></feedback></answer>
     <answer fraction="0"><text>一般性的商業規則或驗收準則</text><feedback><text>一般性規則是藍色；綠色是某條規則的具體案例。</text></feedback></answer>
     <answer fraction="0"><text>正在討論的故事</text><feedback><text>故事是黃色卡；綠色是具體範例。</text></feedback></answer>
-    <answer fraction="0"><text>團隊之後必須解決的未解事項</text><feedback><text>未解事項是紅色問題卡；綠色是某條規則的具體 illustrate。</text></feedback></answer>
-    <generalfeedback><text>綠色卡給出具體範例：一個帶有真實資料與預期結果、用來 illustrate 某條藍色規則的特定案例。由於它們是具體的，綠色範例之後會餵入 BDD/ATDD 情境（每個範例對應一個 Given-When-Then 案例）。</text></generalfeedback>
+    <answer fraction="0"><text>團隊之後必須解決的未解事項</text><feedback><text>未解事項是紅色問題卡；綠色是某條規則的具體例示。</text></feedback></answer>
+    <generalfeedback><text>綠色卡給出具體範例：一個帶有真實資料與預期結果、用來說明某條藍色規則的特定案例。由於它們是具體的，綠色範例之後會餵入 BDD/ATDD 情境（每個範例對應一個 Given-When-Then 案例）。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>紅色卡的意義</text></name>
@@ -49,7 +49,7 @@
     <single>true</single>
     <answer fraction="100"><text>問題——團隊此刻無法回答的未解事項（一項假設、需要決策的邊界情況，或一項相依）</text><feedback><text>正確——紅色卡記錄對話中浮現的未解問題與未知事項。</text></feedback></answer>
     <answer fraction="0"><text>故事必須滿足的一條商業規則</text><feedback><text>規則是藍色；紅色記錄團隊尚無法回答的事情。</text></feedback></answer>
-    <answer fraction="0"><text>illustrate 某條規則的具體範例</text><feedback><text>具體範例是綠色；紅色是未解問題。</text></feedback></answer>
+    <answer fraction="0"><text>說明某條規則的具體範例</text><feedback><text>具體範例是綠色；紅色是未解問題。</text></feedback></answer>
     <answer fraction="0"><text>正在討論的故事</text><feedback><text>故事是黃色；紅色是需要決策的未解事項。</text></feedback></answer>
     <generalfeedback><text>紅色卡記錄問題：對話中團隊無法回答的事情——假設、需要決策的邊界情況，或外部相依。把它們暫存在紅色卡上能讓對話持續推進，同時讓未知事項清楚可見。</text></generalfeedback>
   </question>
@@ -61,7 +61,7 @@
     <answer fraction="0"><text>在故事已經完成撰寫程式之後，作為撰寫發佈說明的方式</text><feedback><text>範例對照在開發前進行，而非撰寫程式之後。</text></feedback></answer>
     <answer fraction="0"><text>在正式環境事故處理期間</text><feedback><text>它是開發前的精煉技術，而非事故處理工具。</text></feedback></answer>
     <answer fraction="0"><text>只在專案最末期、最終驗收時進行</text><feedback><text>它是在每個故事被建置前的精煉階段逐一使用的。</text></feedback></answer>
-    <generalfeedback><text>範例對照在待辦精煉的「討論」階段進行，於故事開始開發之前。它的整個目的是及早達成共同理解，讓團隊帶著清楚的規則、illustrate 的範例與已知的問題進入開發。</text></generalfeedback>
+    <generalfeedback><text>範例對照在待辦精煉的「討論」階段進行，於故事開始開發之前。它的整個目的是及早達成共同理解，讓團隊帶著清楚的規則、已說明的範例與已知的問題進入開發。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>誰參與</text></name>
@@ -111,7 +111,7 @@
     <answer fraction="0"><text>藍色</text><feedback><text>藍色用於一般性規則；具體案例是綠色。</text></feedback></answer>
     <answer fraction="0"><text>紅色</text><feedback><text>紅色用於未解問題，而非具體範例。</text></feedback></answer>
     <answer fraction="0"><text>黃色</text><feedback><text>黃色是故事，而非具體範例。</text></feedback></answer>
-    <generalfeedback><text>綠色卡承載具體範例——帶有真實資料與預期結果、用來 illustrate 某條藍色規則的特定案例。請記住：黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。</text></generalfeedback>
+    <generalfeedback><text>綠色卡承載具體範例——帶有真實資料與預期結果、用來說明某條藍色規則的特定案例。請記住：黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>哪個顏色是未解問題</text></name>
@@ -124,11 +124,11 @@
     <generalfeedback><text>紅色卡用於問題：未知事項、假設、需要決策的邊界情況，或相依。口訣是黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。</text></generalfeedback>
   </question>
   <question type="truefalse">
-    <name><text>綠色 illustrate 一條規則</text></name>
-    <questiontext format="html"><text><![CDATA[<p>綠色卡是一個 illustrate 某條（藍色）規則的具體範例。</p>]]></text></questiontext>
+    <name><text>綠色說明一條規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>綠色卡是一個說明某條（藍色）規則的具體範例。</p>]]></text></questiontext>
     <answer fraction="100"><text>true</text><feedback><text>正確——綠色範例讓藍色規則變得具體。</text></feedback></answer>
-    <answer fraction="0"><text>false</text><feedback><text>綠色卡是 illustrate 藍色規則的具體範例，因此此敘述為真。</text></feedback></answer>
-    <generalfeedback><text>規則（藍色）是一般性陳述；範例（綠色）以具體特定案例 illustrate 它們。每個綠色範例都坐落在它所示範的藍色規則之下。</text></generalfeedback>
+    <answer fraction="0"><text>false</text><feedback><text>綠色卡是說明藍色規則的具體範例，因此此敘述為真。</text></feedback></answer>
+    <generalfeedback><text>規則（藍色）是一般性陳述；範例（綠色）以具體特定案例說明它們。每個綠色範例都坐落在它所示範的藍色規則之下。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>四種卡片顏色</text></name>
@@ -166,9 +166,9 @@
     <single>true</single>
     <answer fraction="100"><text>綠色——它是一個帶有具體資料與結果的具體範例</text><feedback><text>正確——具體的數字與最終金額使它成為一個具體範例。</text></feedback></answer>
     <answer fraction="0"><text>藍色——它是一般性規則</text><feedback><text>它用到特定數值（$100、10%、$90）；一般性規則不會列出具體數字。</text></feedback></answer>
-    <answer fraction="0"><text>紅色——它是一個未解問題</text><feedback><text>這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。</text></feedback></answer>
+    <answer fraction="0"><text>紅色——它是一個未解問題</text><feedback><text>這裡沒有任何未知；它是一個具體例示，因此是綠色。</text></feedback></answer>
     <answer fraction="0"><text>黃色——它是故事</text><feedback><text>故事是主題；這是某條規則的具體範例，因此是綠色。</text></feedback></answer>
-    <generalfeedback><text>具體資料（$100、10%、$90）與特定結果使它成為綠色範例。它 illustrate 一條底層藍色規則，例如「百分比折價券依該百分比降低訂單總額」。</text></generalfeedback>
+    <generalfeedback><text>具體資料（$100、10%、$90）與特定結果使它成為綠色範例。它說明一條底層藍色規則，例如「百分比折價券依該百分比降低訂單總額」。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>分類一個未知</text></name>
@@ -194,11 +194,11 @@
     <name><text>範例與規則的關係</text></name>
     <questiontext format="html"><text><![CDATA[<p>在對照圖上，綠色範例卡與藍色規則卡之間有什麼關係？</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>每個綠色範例以一個具體案例 illustrate 某條藍色規則，因此範例坐落在它所示範的規則之下</text><feedback><text>正確——範例讓規則變得具體；它們掛在所 illustrate 的規則下方。</text></feedback></answer>
-    <answer fraction="0"><text>綠色範例取代藍色規則，因此有範例的規則可以丟棄</text><feedback><text>範例不會取代規則；它們 illustrate 規則，且兩者都留在對照圖上。</text></feedback></answer>
-    <answer fraction="0"><text>綠色範例與規則無關，是隨機擺放的</text><feedback><text>每個範例都 illustrate 某條特定規則；它們是刻意分組的，而非隨機。</text></feedback></answer>
-    <answer fraction="0"><text>綠色範例定義故事，而藍色規則定義問題</text><feedback><text>故事是黃色、問題是紅色；綠色範例 illustrate 藍色規則。</text></feedback></answer>
-    <generalfeedback><text>規則是一般性陳述；範例是展示規則實際運作的具體案例。在對照圖上，綠色範例擺在它所 illustrate 的藍色規則之下，因此你可以看到每條規則都有具體案例支撐。</text></generalfeedback>
+    <answer fraction="100"><text>每個綠色範例以一個具體案例說明某條藍色規則，因此範例坐落在它所示範的規則之下</text><feedback><text>正確——範例讓規則變得具體；它們掛在所說明的規則下方。</text></feedback></answer>
+    <answer fraction="0"><text>綠色範例取代藍色規則，因此有範例的規則可以丟棄</text><feedback><text>範例不會取代規則；它們說明規則，且兩者都留在對照圖上。</text></feedback></answer>
+    <answer fraction="0"><text>綠色範例與規則無關，是隨機擺放的</text><feedback><text>每個範例都說明某條特定規則；它們是刻意分組的，而非隨機。</text></feedback></answer>
+    <answer fraction="0"><text>綠色範例定義故事，而藍色規則定義問題</text><feedback><text>故事是黃色、問題是紅色；綠色範例說明藍色規則。</text></feedback></answer>
+    <generalfeedback><text>規則是一般性陳述；範例是展示規則實際運作的具體案例。在對照圖上，綠色範例擺在它所說明的藍色規則之下，因此你可以看到每條規則都有具體案例支撐。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>綠色範例餵入 BDD</text></name>
@@ -244,11 +244,11 @@
     <name><text>分類一個特定結果</text></name>
     <questiontext format="html"><text><![CDATA[<p>有人說：<em>「一位已有 3 個工作階段的使用者開啟第 4 個時，會看到『已達工作階段上限』。」</em>這屬於哪個卡片顏色？</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>綠色——它是一個 illustrate 某條規則的具體範例</text><feedback><text>正確——一個帶有具體結果的特定情況是綠色範例。</text></feedback></answer>
-    <answer fraction="0"><text>藍色——它是一般性規則</text><feedback><text>它是帶有具體結果的特定案例，用來 illustrate 某條規則；那是綠色。</text></feedback></answer>
-    <answer fraction="0"><text>紅色——它是一個未解問題</text><feedback><text>這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。</text></feedback></answer>
+    <answer fraction="100"><text>綠色——它是一個說明某條規則的具體範例</text><feedback><text>正確——一個帶有具體結果的特定情況是綠色範例。</text></feedback></answer>
+    <answer fraction="0"><text>藍色——它是一般性規則</text><feedback><text>它是帶有具體結果的特定案例，用來說明某條規則；那是綠色。</text></feedback></answer>
+    <answer fraction="0"><text>紅色——它是一個未解問題</text><feedback><text>這裡沒有任何未知；它是一個具體例示，因此是綠色。</text></feedback></answer>
     <answer fraction="0"><text>黃色——它是故事</text><feedback><text>故事是主題；這是某條規則的具體範例，因此是綠色。</text></feedback></answer>
-    <generalfeedback><text>這是一個特定情境（已有 3 個工作階段、第 4 次嘗試、一則特定訊息），因此是綠色範例。它 illustrate 藍色規則「一位使用者最多可同時擁有 3 個有效工作階段」。</text></generalfeedback>
+    <generalfeedback><text>這是一個特定情境（已有 3 個工作階段、第 4 次嘗試、一則特定訊息），因此是綠色範例。它說明藍色規則「一位使用者最多可同時擁有 3 個有效工作階段」。</text></generalfeedback>
   </question>
   <question type="truefalse">
     <name><text>紅色記錄未知</text></name>
@@ -263,9 +263,9 @@
     <single>true</single>
     <answer fraction="100"><text>綠色——它是一個帶有具體資料與結果的具體範例</text><feedback><text>正確——特定的代碼、購物車金額與最終總額使它成為綠色範例。</text></feedback></answer>
     <answer fraction="0"><text>藍色——它是一般性規則</text><feedback><text>它列出具體數值（SAVE10、$200、$180）；規則會是一般性的，因此這是綠色。</text></feedback></answer>
-    <answer fraction="0"><text>紅色——它是一個未解問題</text><feedback><text>這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。</text></feedback></answer>
+    <answer fraction="0"><text>紅色——它是一個未解問題</text><feedback><text>這裡沒有任何未知；它是一個具體例示，因此是綠色。</text></feedback></answer>
     <answer fraction="0"><text>黃色——它是故事</text><feedback><text>故事是主題；這個具體案例是綠色範例。</text></feedback></answer>
-    <generalfeedback><text>具體資料（SAVE10、一個 $200 購物車、$180 的結果）使它成為綠色範例，illustrate 一條藍色規則，例如「代碼 SAVE10 給予購物車總額 10% 折扣」。具體案例一律是綠色。</text></generalfeedback>
+    <generalfeedback><text>具體資料（SAVE10、一個 $200 購物車、$180 的結果）使它成為綠色範例，說明一條藍色規則，例如「代碼 SAVE10 給予購物車總額 10% 折扣」。具體案例一律是綠色。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>哪一個儀式</text></name>
@@ -322,11 +322,11 @@
   </question>
   <question type="multichoice">
     <name><text>讀圖：均衡且就緒</text></name>
-    <questiontext format="html"><text><![CDATA[<p>一場對話結束時有<strong>三條規則、每條各由幾個範例 illustrate，且沒有未解問題</strong>。這張圖代表什麼？</p>]]></text></questiontext>
+    <questiontext format="html"><text><![CDATA[<p>一場對話結束時有<strong>三條規則、每條各由幾個範例說明，且沒有未解問題</strong>。這張圖代表什麼？</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>故事已被充分理解，且已就緒可開發</text><feedback><text>正確——清楚的規則、illustrate 的範例，以及沒有未解問題，代表就緒。</text></feedback></answer>
+    <answer fraction="100"><text>故事已被充分理解，且已就緒可開發</text><feedback><text>正確——清楚的規則、已說明的範例，以及沒有未解問題，代表就緒。</text></feedback></answer>
     <answer fraction="0"><text>故事尚未就緒，應予延後</text><feedback><text>沒有未解問題且規則／範例清楚，代表就緒，而非受阻。</text></feedback></answer>
-    <answer fraction="0"><text>故事太大，必須拆分</text><feedback><text>三條有充分 illustrate 的規則是合理大小；這裡沒有拆分訊號。</text></feedback></answer>
+    <answer fraction="0"><text>故事太大，必須拆分</text><feedback><text>三條有充分說明的規則是合理大小；這裡沒有拆分訊號。</text></feedback></answer>
     <answer fraction="0"><text>這張圖無效，因為就緒的故事必定要有一些紅色卡</text><feedback><text>就緒的故事通常紅色卡很少或沒有；這裡沒有紅色卡是好訊號。</text></feedback></answer>
     <generalfeedback><text>一個故事若有少數清楚的規則、每條都由具體範例支撐，且很少或沒有未解問題，就是被充分理解且大小適中——這正是一場對話的理想結果。團隊可以放心地把它帶入開發。</text></generalfeedback>
   </question>
@@ -344,7 +344,7 @@
     <name><text>規則與範例：挑出規則</text></name>
     <questiontext format="html"><text><![CDATA[<p>桌上有兩張卡。哪一張是<strong>規則</strong>（藍色），而非範例（綠色）？</p><p>A：「購買後 30 天內允許退款。」</p><p>B：「3 月 1 日購買、3 月 20 日退回的商品獲得退款。」</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>A——它是一般性限制；B 是它的一個具體實例</text><feedback><text>正確——A 陳述一般性規則；B 是 illustrate 它的特定範例。</text></feedback></answer>
+    <answer fraction="100"><text>A——它是一般性限制；B 是它的一個具體實例</text><feedback><text>正確——A 陳述一般性規則；B 是說明它的特定範例。</text></feedback></answer>
     <answer fraction="0"><text>B——因為它提到特定日期，所以它必定是規則</text><feedback><text>特定日期使 B 成為具體範例（綠色）；一般性陳述 A 才是規則。</text></feedback></answer>
     <answer fraction="0"><text>兩者都是規則</text><feedback><text>只有 A 是一般性的；B 是具體案例，因此 B 是範例，而非規則。</text></feedback></answer>
     <answer fraction="0"><text>兩者都是範例</text><feedback><text>只有 B 是具體的；A 是一般性限制，因此 A 是規則。</text></feedback></answer>
@@ -378,7 +378,7 @@
     <answer fraction="0"><text>把同一個故事分給每位開發者一部分來拆分</text><feedback><text>拆分關乎範圍，而非把一個故事分給多人；應沿規則拆分。</text></feedback></answer>
     <answer fraction="0"><text>把一半綠色範例移到新故事，而把所有規則留在原故事來拆分</text><feedback><text>範例跟隨其規則；你依規則拆分，並讓每條規則帶著它的範例一起走。</text></feedback></answer>
     <answer fraction="0"><text>把每個紅色問題各自變成一個故事來拆分</text><feedback><text>問題是待解決的未知，而非拆分過大故事的依據。</text></feedback></answer>
-    <generalfeedback><text>當大量規則指出故事過大時，天然的切割線就是規則本身。拆分成大致每條規則一個故事（或每組相關規則一個），會產生較小的故事，每個都有自己的規則以及 illustrate 它的綠色範例——更易理解、估算與交付。</text></generalfeedback>
+    <generalfeedback><text>當大量規則指出故事過大時，天然的切割線就是規則本身。拆分成大致每條規則一個故事（或每組相關規則一個），會產生較小的故事，每個都有自己的規則以及說明它的綠色範例——更易理解、估算與交付。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>細膩分類：運費規則對案例</text></name>
@@ -392,13 +392,13 @@
   </question>
   <question type="multichoice">
     <name><text>讀圖：一條規則、多個範例、無問題</text></name>
-    <questiontext format="html"><text><![CDATA[<p>一張對照圖有單一條清楚的規則、四個 illustrate 它的具體範例，以及沒有紅色卡。最佳解讀是什麼？</p>]]></text></questiontext>
+    <questiontext format="html"><text><![CDATA[<p>一張對照圖有單一條清楚的規則、四個說明它的具體範例，以及沒有紅色卡。最佳解讀是什麼？</p>]]></text></questiontext>
     <single>true</single>
-    <answer fraction="100"><text>故事小、被充分理解，且已就緒可建置</text><feedback><text>正確——單一條有充分 illustrate 的規則且無未解問題，代表就緒且大小適中。</text></feedback></answer>
+    <answer fraction="100"><text>故事小、被充分理解，且已就緒可建置</text><feedback><text>正確——單一條有充分說明的規則且無未解問題，代表就緒且大小適中。</text></feedback></answer>
     <answer fraction="0"><text>故事太大，必須拆分成四個故事，每個範例一個</text><feedback><text>範例不會驅動拆分；一條規則配範例是一個小而就緒的故事。</text></feedback></answer>
     <answer fraction="0"><text>故事尚未就緒，因為四個範例太多了</text><feedback><text>一條規則有多個範例是健康的；沒有未解問題時故事已就緒。</text></feedback></answer>
-    <answer fraction="0"><text>應刪除範例，因為單一條規則不需要 illustrate</text><feedback><text>以具體範例 illustrate 規則正是重點；它們應保留。</text></feedback></answer>
-    <generalfeedback><text>一條清楚的規則、由數個具體範例充分 illustrate、且沒有未解問題，是一個小而被徹底理解的故事——已就緒可開發。一條規則有多個範例是好訊號，而非拆分觸發條件；拆分是由大量規則驅動，而非大量範例。</text></generalfeedback>
+    <answer fraction="0"><text>應刪除範例，因為單一條規則不需要例示</text><feedback><text>以具體範例說明規則正是重點；它們應保留。</text></feedback></answer>
+    <generalfeedback><text>一條清楚的規則、由數個具體範例充分說明、且沒有未解問題，是一個小而被徹底理解的故事——已就緒可開發。一條規則有多個範例是好訊號，而非拆分觸發條件；拆分是由大量規則驅動，而非大量範例。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>對尚未就緒故事的行動</text></name>
@@ -442,8 +442,8 @@
   </question>
   <question type="truefalse">
     <name><text>少問題加清楚規則代表就緒</text></name>
-    <questiontext format="html"><text><![CDATA[<p>一個故事若有清楚的規則、每條都由具體範例 illustrate，且很少或沒有未解問題，通常被視為已就緒可開發。</p>]]></text></questiontext>
-    <answer fraction="100"><text>true</text><feedback><text>正確——清楚的規則、illustrate 的範例，以及很少／沒有問題，就是就緒的訊號。</text></feedback></answer>
+    <questiontext format="html"><text><![CDATA[<p>一個故事若有清楚的規則、每條都由具體範例說明，且很少或沒有未解問題，通常被視為已就緒可開發。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——清楚的規則、已說明的範例，以及很少／沒有問題，就是就緒的訊號。</text></feedback></answer>
     <answer fraction="0"><text>false</text><feedback><text>該組合正是被充分理解、就緒之故事的特徵，因此此敘述為真。</text></feedback></answer>
     <generalfeedback><text>讀圖：大量紅色問題代表尚未就緒；大量藍色規則代表太大；但清楚的規則由具體範例支撐、且很少或沒有未解問題，則代表故事被充分理解且已就緒可建置。這種均衡的形狀正是一場對話的目標。</text></generalfeedback>
   </question>
