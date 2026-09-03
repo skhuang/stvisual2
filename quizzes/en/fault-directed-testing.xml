@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Fault-Directed Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Goal of coverage-directed testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The goal of a <strong>coverage-directed</strong> (blind) test-generation strategy is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Execute (cover) more lines or branches of the program</text><feedback><text>Correct — a coverage-directed strategy optimises for how much code is exercised.</text></feedback></answer>
+    <answer fraction="0"><text>Kill as many injected faults (mutants) as possible</text><feedback><text>That is the goal of fault-directed testing, not coverage-directed testing.</text></feedback></answer>
+    <answer fraction="0"><text>Minimise the number of assertions in each test</text><feedback><text>Neither strategy aims to reduce assertions; coverage-directed testing simply targets executed code.</text></feedback></answer>
+    <answer fraction="0"><text>Prove the program is free of all defects</text><feedback><text>No test-generation strategy proves the absence of all defects.</text></feedback></answer>
+    <generalfeedback><text>Coverage-directed generation optimises a structural coverage metric — it aims to run more lines and branches. It says nothing about whether those executed lines are actually checked for faults.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Goal of fault-directed testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The goal of a <strong>fault-directed</strong> (mutation-guided) test-generation strategy is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Kill mutants — detect injected faults by asserting behaviour a fault would break</text><feedback><text>Correct — fault-directed testing targets specific faults and adds assertions that fail on the faulty code.</text></feedback></answer>
+    <answer fraction="0"><text>Execute the largest possible fraction of lines and branches</text><feedback><text>That is coverage-directed testing; fault-directed testing measures fault detection instead.</text></feedback></answer>
+    <answer fraction="0"><text>Run the fastest tests regardless of what they check</text><feedback><text>Speed is not the objective; detecting faults is.</text></feedback></answer>
+    <answer fraction="0"><text>Generate as many random inputs as possible</text><feedback><text>Random input volume is not the aim; killing mutants is.</text></feedback></answer>
+    <generalfeedback><text>Fault-directed (mutation-guided) generation targets specific fault classes and writes assertions that a seeded fault would violate, so the test fails on the mutated program (kills the mutant).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Coverage equals fault detection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Executing (covering) a line of code is the same thing as detecting a fault in that line.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Coverage only means the line ran; a test can execute a line without asserting anything that a fault in it would break.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — coverage measures execution, not fault detection; the two are distinct.</text></feedback></answer>
+    <generalfeedback><text>Coverage counts whether code was executed. Fault detection requires an assertion that the faulty behaviour actually violates. A test can add covered lines yet assert nothing meaningful — coverage is not the same as fault detection.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a mutant is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this context, a <em>mutant</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A version of the program with one deliberately injected fault</text><feedback><text>Correct — a mutant is the program with a small seeded fault.</text></feedback></answer>
+    <answer fraction="0"><text>A test case that increases code coverage</text><feedback><text>That is a test, not a mutant; a mutant is an altered program.</text></feedback></answer>
+    <answer fraction="0"><text>A line of code that is never executed</text><feedback><text>Unexecuted code is a coverage gap, not a mutant.</text></feedback></answer>
+    <answer fraction="0"><text>A production bug reported by a user</text><feedback><text>Mutants are injected on purpose to evaluate tests, not field-reported defects.</text></feedback></answer>
+    <generalfeedback><text>A mutant is the program with one injected fault. Fault-directed testing uses mutants to represent the faults a good test should catch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What killing a mutant means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To <em>kill a mutant</em> means that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test detects the injected fault — it fails on the mutated program</text><feedback><text>Correct — killing a mutant is exactly detecting the seeded fault.</text></feedback></answer>
+    <answer fraction="0"><text>A test executes the mutated line without checking its result</text><feedback><text>Merely executing the line is coverage; killing requires the test to actually fail on the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The mutated program is deleted from the repository</text><feedback><text>Killing is about test detection, not removing code.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation is proven to be harmless</text><feedback><text>That is the opposite — a killed mutant is one whose fault a test caught.</text></feedback></answer>
+    <generalfeedback><text>Killing a mutant means a test detects the injected fault: the test passes on the original but fails on the mutant. Killing a mutant is the operational definition of detecting that fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The 49% finding: what it says</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An empirical finding from the Meta ACH study is that 49% of the generated tests:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Kill a mutant without adding a single newly-covered line</text><feedback><text>Correct — nearly half the tests caught a fault while covering no new code.</text></feedback></answer>
+    <answer fraction="0"><text>Add new covered lines but kill no mutant</text><feedback><text>That is the reverse; the finding is about tests that kill mutants while adding no coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Cover every line of the program under test</text><feedback><text>The finding is not about achieving total coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Are duplicates of existing tests</text><feedback><text>They are new, fault-catching tests — not duplicates.</text></feedback></answer>
+    <generalfeedback><text>About 49% of the generated tests killed a mutant without adding any newly-covered line. They strengthened assertions on already-covered code, catching real faults that a coverage metric would score as adding nothing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The 49% finding: what it proves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The finding that 49% of tests kill a mutant with no new covered line demonstrates that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage and fault detection are distinct — a test can catch a fault while adding zero coverage</text><feedback><text>Correct — that is exactly what those tests show.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage always predicts how many faults a test catches</text><feedback><text>The finding shows the opposite: these tests add no coverage yet catch faults.</text></feedback></answer>
+    <answer fraction="0"><text>Assertions are irrelevant to catching faults</text><feedback><text>It is precisely the strengthened assertions that catch these faults.</text></feedback></answer>
+    <answer fraction="0"><text>Tests that add no coverage never find bugs</text><feedback><text>These tests add no coverage yet find bugs, contradicting this claim.</text></feedback></answer>
+    <generalfeedback><text>Because these tests strengthen assertions on already-covered code, they kill mutants while a coverage metric records no new lines. This proves coverage and fault detection are distinct measures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the goal: a line-chasing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test runs a previously-unexecuted branch but only checks that the function "returns without error", asserting nothing about the result. Its effective goal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage-directed — it adds covered code but asserts nothing a fault would break</text><feedback><text>Correct — it raises coverage without targeting any fault.</text></feedback></answer>
+    <answer fraction="0"><text>Fault-directed — it kills a mutant</text><feedback><text>With no meaningful assertion it cannot fail on a mutated result, so it kills no mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — it is an equivalent mutant</text><feedback><text>Equivalent mutant is a property of a mutant, not of a test.</text></feedback></answer>
+    <answer fraction="0"><text>Both equally</text><feedback><text>It serves coverage only; without an assertion it detects no fault.</text></feedback></answer>
+    <generalfeedback><text>Executing a branch while asserting nothing meaningful raises coverage but detects no fault. That is a coverage-directed outcome — coverage without fault detection.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the goal: an assertion-strengthening test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test runs the same lines as an existing test but adds an assertion that fails when a boundary index is computed with <code>&lt;=</code> instead of <code>&lt;</code>. Its goal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fault-directed — it kills a mutant even though it adds no new coverage</text><feedback><text>Correct — the new assertion detects the injected off-by-one fault.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage-directed — it adds newly-covered lines</text><feedback><text>It runs the same lines as before, so it adds no new coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Pointless — it changes nothing measurable</text><feedback><text>It changes fault detection: it kills a mutant a coverage metric would miss.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage-directed — it deletes an assertion</text><feedback><text>It adds an assertion; it does not delete one.</text></feedback></answer>
+    <generalfeedback><text>Strengthening an assertion on already-covered code adds no coverage but can kill a mutant. That is a fault-directed test — exactly the kind the 49% finding describes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The four fault classes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The app illustrates fault-directed testing across four annotated fault classes. Which of the following is <strong>not</strong> one of them?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Race condition on a shared counter</text><feedback><text>Correct — a data race is not one of the four illustrated classes.</text></feedback></answer>
+    <answer fraction="0"><text>Null / resource leak</text><feedback><text>This is one of the four fault classes.</text></feedback></answer>
+    <answer fraction="0"><text>Off-by-one</text><feedback><text>This is one of the four fault classes.</text></feedback></answer>
+    <answer fraction="0"><text>Missing cleanup</text><feedback><text>This is one of the four fault classes.</text></feedback></answer>
+    <generalfeedback><text>The four illustrated fault classes are: null / resource leak, off-by-one, missing cleanup, and unchecked exception. A race condition is not among them.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A covering test can assert nothing meaningful</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test can add newly-covered lines and yet assert nothing meaningful about whether those lines are correct.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — coverage records execution, not the strength of the assertions.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Coverage only requires the line to run; the test need not check the result, so this is true.</text></feedback></answer>
+    <generalfeedback><text>Coverage credits a line the moment it executes, regardless of whether the test checks its behaviour. So a test can raise coverage while detecting no fault — coverage and fault detection are distinct.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Another name for fault-directed testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fault-directed test generation is also described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mutation-guided testing</text><feedback><text>Correct — it is guided by whether tests kill mutants (injected faults).</text></feedback></answer>
+    <answer fraction="0"><text>Coverage-maximising testing</text><feedback><text>That describes the coverage-directed goal, the contrast to fault-directed testing.</text></feedback></answer>
+    <answer fraction="0"><text>Random (fuzz) testing</text><feedback><text>Fuzzing generates random inputs; fault-directed testing targets specific faults.</text></feedback></answer>
+    <answer fraction="0"><text>Load testing</text><feedback><text>Load testing measures performance under load, unrelated to killing mutants.</text></feedback></answer>
+    <generalfeedback><text>Fault-directed testing is mutation-guided: it uses mutants (injected faults) as the target, generating tests whose assertions kill them.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Strengthening an assertion adds no coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding a stronger assertion to a test that already executes the relevant code can kill a mutant while adding zero newly-covered lines.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the code was already covered, so only fault detection improves, not coverage.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The lines already ran, so no new coverage is added; the stronger assertion still catches the fault, so this is true.</text></feedback></answer>
+    <generalfeedback><text>When the code is already covered, a stronger assertion adds no new lines but can make the test fail on a mutant. This is why 49% of ACH tests killed a mutant with no new coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How a coverage metric scores the 49% tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How would a pure coverage metric score the 49% of tests that kill a mutant with no new covered line?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>As adding nothing — even though they catch real faults</text><feedback><text>Correct — coverage sees no new lines, so it undervalues these fault-catching tests.</text></feedback></answer>
+    <answer fraction="0"><text>As the most valuable tests in the suite</text><feedback><text>Coverage records no new lines for them, so it would not rank them highly.</text></feedback></answer>
+    <answer fraction="0"><text>As failing to compile</text><feedback><text>They are valid tests; coverage simply credits them with no new lines.</text></feedback></answer>
+    <answer fraction="0"><text>As equivalent mutants</text><feedback><text>Equivalent mutant is a property of a mutant, not a coverage score of a test.</text></feedback></answer>
+    <generalfeedback><text>A coverage metric sees no newly-covered line and therefore scores these tests as "adding nothing", even though each one catches a real fault — the central reason coverage alone under-measures test quality.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contrast the two goals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing correctly contrasts the two test-generation goals?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage-directed = execute more lines; fault-directed = kill mutants (detect injected faults)</text><feedback><text>Correct — one optimises execution, the other optimises fault detection.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage-directed = kill mutants; fault-directed = execute more lines</text><feedback><text>This reverses the two goals.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage-directed = detect faults; fault-directed = ignore faults</text><feedback><text>Coverage-directed does not directly target faults, and fault-directed is all about faults.</text></feedback></answer>
+    <answer fraction="0"><text>Both aim only to reduce test runtime</text><feedback><text>Neither goal is defined by runtime.</text></feedback></answer>
+    <generalfeedback><text>Coverage-directed generation aims to execute more code; fault-directed generation aims to kill mutants — detect injected faults. Because coverage is not fault detection, the two goals genuinely diverge.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fault-Directed Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: null / resource leak — why coverage misses it</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function opens a file handle and releases it only on the success path; an error path returns without releasing it (a resource leak). A happy-path test covers the function. Why does it miss the fault, and what does a fault-directed test add?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The happy path never exercises the leaking error path, and even when reached nothing asserts the handle was released — a fault-directed test drives the error path and asserts the handle is closed</text><feedback><text>Correct — it needs both the error path and an assertion on release.</text></feedback></answer>
+    <answer fraction="0"><text>The happy path is uncovered, so more coverage alone would fix it</text><feedback><text>The happy path is covered; the missing piece is exercising the error path and asserting release.</text></feedback></answer>
+    <answer fraction="0"><text>The leak is impossible to detect by any test</text><feedback><text>A test that reaches the error path and checks release detects it fine.</text></feedback></answer>
+    <answer fraction="0"><text>Adding any assertion on the success path would kill the mutant</text><feedback><text>The fault is on the error path; asserting only on the success path does not reach it.</text></feedback></answer>
+    <generalfeedback><text>The happy-path test never runs the leaking branch, and covering it would still not assert that the handle was released. A fault-directed test drives the error path and asserts the resource is freed, killing the leak mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: off-by-one — why coverage misses it</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A loop uses <code>i &lt;= n</code> where it should use <code>i &lt; n</code>, reading one element past the end. A test runs the whole loop and only asserts the running total is non-negative. Why does it miss the fault?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Covering the loop executes every iteration but the assertion never checks the boundary element or the exact result the extra iteration corrupts</text><feedback><text>Correct — coverage of the loop body does not assert the boundary behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>The loop body is never executed</text><feedback><text>The loop is fully covered; the problem is the weak assertion, not reachability.</text></feedback></answer>
+    <answer fraction="0"><text>Off-by-one faults cannot be detected by assertions</text><feedback><text>Asserting the exact boundary result detects them precisely.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant is equivalent</text><feedback><text>Reading past the end changes behaviour, so it is not equivalent.</text></feedback></answer>
+    <generalfeedback><text>Executing the loop gives full coverage, but a vague assertion (non-negative total) does not catch the corrupted boundary. A fault-directed test asserts the exact expected result or the last valid index so the extra iteration is caught.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: missing cleanup — why coverage misses it</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function creates a temporary resource and deletes it at the end, but an early <code>return</code> on invalid input skips the deletion (missing cleanup). A test that passes valid input covers the normal path. Why does it miss the fault?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The normal path runs cleanup, so only the early-return path leaves the resource behind; the covering test never triggers that path or asserts cleanup</text><feedback><text>Correct — the fault lives only on the skipped-cleanup error path.</text></feedback></answer>
+    <answer fraction="0"><text>Cleanup is never reached on any path</text><feedback><text>Cleanup runs fine on the normal path; it is skipped only on the early return.</text></feedback></answer>
+    <answer fraction="0"><text>The temporary resource is never created</text><feedback><text>It is created; the fault is that it is not deleted on the early-return path.</text></feedback></answer>
+    <answer fraction="0"><text>The fault appears on every input</text><feedback><text>It appears only on the invalid-input early-return path.</text></feedback></answer>
+    <generalfeedback><text>On valid input the cleanup runs, so the covering test sees nothing wrong. A fault-directed test supplies invalid input to force the early return and asserts the temporary resource was cleaned up, killing the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: unchecked exception — why coverage misses it</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A parser throws on a malformed input, but nothing handles or asserts that exception. A test with well-formed input covers the parser. Why does it miss the fault, and what does a fault-directed test add?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Well-formed input never triggers the exceptional path; a fault-directed test feeds malformed input and asserts the expected exception (or its handling)</text><feedback><text>Correct — the exceptional behaviour surfaces only with exceptional input plus an assertion on it.</text></feedback></answer>
+    <answer fraction="0"><text>The parser code is unreachable</text><feedback><text>It is reached with well-formed input; the exceptional branch simply is not exercised.</text></feedback></answer>
+    <answer fraction="0"><text>Exceptions can never be asserted in a test</text><feedback><text>Tests routinely assert that a specific exception is thrown.</text></feedback></answer>
+    <answer fraction="0"><text>The fault only matters for performance</text><feedback><text>It is a correctness fault on the exceptional path, not a performance issue.</text></feedback></answer>
+    <generalfeedback><text>Well-formed input runs the parser but never the exceptional path. A fault-directed test supplies malformed input and asserts the expected exception is thrown (or correctly handled), catching the unchecked-exception fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the defect: index past the end</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A routine iterates with <code>for (i = 0; i &lt;= len; i++)</code> and accesses <code>a[i]</code>, reading one slot beyond the array. Which fault class is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Off-by-one</text><feedback><text>Correct — the boundary condition is wrong by one (<code>&lt;=</code> vs <code>&lt;</code>).</text></feedback></answer>
+    <answer fraction="0"><text>Missing cleanup</text><feedback><text>No teardown is skipped here; the fault is a boundary index error.</text></feedback></answer>
+    <answer fraction="0"><text>Unchecked exception</text><feedback><text>The root cause is a boundary error; any exception is a symptom, not the class.</text></feedback></answer>
+    <answer fraction="0"><text>Null / resource leak</text><feedback><text>No resource or null is involved; the fault is a boundary index error.</text></feedback></answer>
+    <generalfeedback><text>Using <code>&lt;=</code> where <code>&lt;</code> is needed reads one element past the end — the textbook off-by-one fault class.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the defect: early return skips teardown</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function begins a database transaction, and on an early <code>return</code> for a validation error it neither commits nor rolls back, leaving the transaction open. Which fault class is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Missing cleanup</text><feedback><text>Correct — the teardown (rollback/commit) is skipped on the early-return path.</text></feedback></answer>
+    <answer fraction="0"><text>Off-by-one</text><feedback><text>No boundary index is involved.</text></feedback></answer>
+    <answer fraction="0"><text>Unchecked exception</text><feedback><text>The issue is a skipped teardown step on early return, not an unhandled exception.</text></feedback></answer>
+    <answer fraction="0"><text>Null / resource leak</text><feedback><text>Although related, the defining feature here is that the cleanup/teardown step is skipped on an error path — the missing-cleanup class.</text></feedback></answer>
+    <generalfeedback><text>An early return that skips the transaction teardown is the missing-cleanup class: cleanup runs on the normal path but is skipped on an error/early-return path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the defect: unchecked null return</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>lookup(key)</code> may return <code>null</code> when the key is absent, and the caller immediately does <code>lookup(key).name</code> with no null check. Which fault class is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Null / resource leak</text><feedback><text>Correct — dereferencing a possibly-null value is the null part of this class.</text></feedback></answer>
+    <answer fraction="0"><text>Off-by-one</text><feedback><text>No boundary index is involved.</text></feedback></answer>
+    <answer fraction="0"><text>Missing cleanup</text><feedback><text>Nothing needs to be cleaned up; the fault is an unguarded null dereference.</text></feedback></answer>
+    <answer fraction="0"><text>Unchecked exception</text><feedback><text>While a null dereference may throw, the modelled class here is the null / resource-leak class (an unguarded null).</text></feedback></answer>
+    <generalfeedback><text>Dereferencing a value that may be null without a guard is the null / resource-leak fault class (its null side).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the defect: throws on bad input, nobody catches</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>Integer.parseInt(s)</code> throws when <code>s</code> is non-numeric, and neither the code nor any test handles or asserts that case. Which fault class is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unchecked exception</text><feedback><text>Correct — an exceptional path that is neither handled nor asserted.</text></feedback></answer>
+    <answer fraction="0"><text>Off-by-one</text><feedback><text>No boundary index is involved.</text></feedback></answer>
+    <answer fraction="0"><text>Missing cleanup</text><feedback><text>No teardown step is skipped here.</text></feedback></answer>
+    <answer fraction="0"><text>Null / resource leak</text><feedback><text>No null dereference or leaked resource; the fault is an unhandled/ unasserted exception.</text></feedback></answer>
+    <generalfeedback><text>An exception path that is neither handled nor asserted is the unchecked-exception class: the code runs on normal input but the fault surfaces only when the exceptional input is supplied and asserted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why 100% coverage can still miss a fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite achieves 100% line coverage yet a mutant survives. What is the most likely reason?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The faulty line executed, but no assertion checked the behaviour the fault changes</text><feedback><text>Correct — coverage guarantees execution, not that the corrupted result is observed.</text></feedback></answer>
+    <answer fraction="0"><text>The faulty line was never executed</text><feedback><text>With 100% line coverage the line did execute; the gap is in the assertions.</text></feedback></answer>
+    <answer fraction="0"><text>100% coverage makes every mutant equivalent</text><feedback><text>Coverage has no effect on whether a mutant is equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>The suite has too many assertions</text><feedback><text>Surviving mutants indicate too-weak assertions, not too many.</text></feedback></answer>
+    <generalfeedback><text>Full line coverage only means every line ran. If no assertion observes the value the fault corrupts, the mutant survives — coverage is necessary but not sufficient for fault detection.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Covering a line asserts its correctness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reaching (covering) a line in a test guarantees that the test also asserts the line behaves correctly.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Reaching a line only executes it; the test may check nothing about its result.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — execution and assertion are independent; covering a line does not assert it.</text></feedback></answer>
+    <generalfeedback><text>Coverage records that a line ran, not that the test checked its output. A covered line with no relevant assertion still lets a fault in that line survive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Killing assertion for off-by-one</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To kill a mutant that changes a loop bound from <code>i &lt; n</code> to <code>i &lt;= n</code>, which assertion is most effective?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Assert the exact expected result (or that no read occurs at index <code>n</code>), so the extra iteration is caught</text><feedback><text>Correct — checking the precise boundary outcome fails on the extra iteration.</text></feedback></answer>
+    <answer fraction="0"><text>Assert only that the function returns something</text><feedback><text>The mutant still returns a value; a mere existence check does not catch it.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the loop variable is an integer</text><feedback><text>The type is unchanged by the fault, so this never fails.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the input array is non-empty</text><feedback><text>That checks the input, not the corrupted boundary behaviour.</text></feedback></answer>
+    <generalfeedback><text>Only an assertion on the exact result affected by the boundary — the precise value or that index <code>n</code> is not read — distinguishes <code>i &lt; n</code> from <code>i &lt;= n</code> and kills the off-by-one mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Killing approach for missing cleanup</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To kill a missing-cleanup mutant where teardown is skipped on an error path, a fault-directed test should:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Drive the error/early-return path and assert that the cleanup actually happened (resource freed, transaction closed)</text><feedback><text>Correct — it must reach the faulty path and check the teardown.</text></feedback></answer>
+    <answer fraction="0"><text>Run the normal path and assert the return value</text><feedback><text>The normal path already performs cleanup, so it never exposes the fault.</text></feedback></answer>
+    <answer fraction="0"><text>Increase overall line coverage without new assertions</text><feedback><text>Coverage without asserting cleanup will not catch a skipped teardown.</text></feedback></answer>
+    <answer fraction="0"><text>Assert only that the error was returned</text><feedback><text>The error is returned in both versions; only the cleanup differs.</text></feedback></answer>
+    <generalfeedback><text>The fault lives on the error path, so the test must trigger that path and assert the cleanup was performed. Only then does the missing-teardown mutant fail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Killing approach for unchecked exception</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To kill an unchecked-exception mutant, a fault-directed test should:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Supply the exceptional input and assert the expected exception is thrown (or correctly handled)</text><feedback><text>Correct — the exceptional path must be exercised and asserted.</text></feedback></answer>
+    <answer fraction="0"><text>Supply only normal input and assert the happy-path result</text><feedback><text>Normal input never reaches the exceptional path.</text></feedback></answer>
+    <answer fraction="0"><text>Wrap the whole test in a try/catch and ignore any exception</text><feedback><text>Swallowing the exception means the test asserts nothing about it, so it cannot fail on the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the function name is spelled correctly</text><feedback><text>That checks nothing about the exceptional behaviour.</text></feedback></answer>
+    <generalfeedback><text>The exceptional behaviour surfaces only with exceptional input plus an explicit assertion (assertThrows or that the handler ran). That is what kills an unchecked-exception mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Killing approach for a null dereference</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To kill a null-dereference mutant where a missing guard lets an absent value be dereferenced, a fault-directed test should:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exercise the case where the value is null/absent and assert the guarded behaviour (a default, or a specific handled outcome)</text><feedback><text>Correct — only the null/absent case triggers the missing guard, and the assertion pins the expected behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Exercise only the case where the value is present and assert its field</text><feedback><text>A present value never triggers the missing null guard.</text></feedback></answer>
+    <answer fraction="0"><text>Increase coverage of unrelated methods</text><feedback><text>That does not reach or assert the null path.</text></feedback></answer>
+    <answer fraction="0"><text>Assert that the value has the correct type</text><feedback><text>The type is unchanged by the fault; the null case is what matters.</text></feedback></answer>
+    <generalfeedback><text>The fault surfaces only when the value is null/absent, so the test must exercise that case and assert the guarded outcome — the missing guard then makes the mutant dereference null and fail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>An assertion-only test that adds no coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A new test executes exactly the same lines as an existing passing test but adds an assertion that fails on a seeded off-by-one mutant. The coverage tool reports zero new lines. Is the test worthless?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — it is a fault-directed test that kills a mutant coverage alone would score as adding nothing</text><feedback><text>Correct — it improves fault detection without changing coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — adding no new lines means it adds no value</text><feedback><text>It kills a mutant; catching a real fault is value coverage cannot see.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — only tests that raise coverage matter</text><feedback><text>The 49% finding directly refutes this.</text></feedback></answer>
+    <answer fraction="0"><text>No — but only because it raised coverage</text><feedback><text>It raised no coverage; its value is the killing assertion.</text></feedback></answer>
+    <generalfeedback><text>This is exactly the 49% case: same lines, stronger assertion, a killed mutant. A coverage metric records nothing, yet the test catches a real fault — showing coverage and fault detection are distinct.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fault-Directed Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why coverage and mutation score diverge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can a suite's line coverage be high while its mutation score is low?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage only requires the faulty code to execute, while killing a mutant additionally requires the corrupted result to be observed by an assertion</text><feedback><text>Correct — coverage measures execution; killing a mutant needs execution plus an observing assertion.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation score counts only lines that were never executed</text><feedback><text>Mutation score is about killed mutants, not unexecuted lines.</text></feedback></answer>
+    <answer fraction="0"><text>High coverage forces a high mutation score</text><feedback><text>The premise of the question shows this is false; the two can diverge.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage and mutation score always measure the same thing</text><feedback><text>They do not — that is precisely why they can diverge.</text></feedback></answer>
+    <generalfeedback><text>Coverage credits execution alone. Killing a mutant needs the mutated line to run, corrupt the state, and have that corruption observed by an assertion. Weak assertions leave high coverage but low mutation score.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which test is fault-directed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Test A raises line coverage but kills no mutant. Test B kills a mutant without raising coverage. Which is fault-directed, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test B — it detects an injected fault, which is the fault-directed goal, regardless of coverage</text><feedback><text>Correct — killing a mutant is fault detection; coverage is beside the point.</text></feedback></answer>
+    <answer fraction="0"><text>Test A — it raises coverage, which is what fault-directed testing optimises</text><feedback><text>Raising coverage is the coverage-directed goal, not the fault-directed one.</text></feedback></answer>
+    <answer fraction="0"><text>Both equally, because both are tests</text><feedback><text>Only Test B detects a fault; only it is fault-directed.</text></feedback></answer>
+    <answer fraction="0"><text>Neither, because a fault-directed test must do both</text><feedback><text>A fault-directed test need not add coverage; killing a mutant suffices.</text></feedback></answer>
+    <generalfeedback><text>Fault-directed means detecting injected faults (killing mutants). Test B does that with no new coverage — the 49% case. Test A adds coverage but detects nothing, the coverage-directed outcome.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pick the assertion that kills a leak mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A resource-leak mutant removes the <code>close()</code> on the error path. Which assertion most directly kills it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>After driving the error path, assert the handle is closed (e.g. open-handle count returned to zero)</text><feedback><text>Correct — this observes the release the mutant skipped.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the function returned an error code</text><feedback><text>Both versions return the same error code; only the release differs.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the happy path returns the right value</text><feedback><text>The happy path still closes the handle, so it never exposes the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Assert total line coverage increased</text><feedback><text>Coverage is not an assertion and does not observe the leaked handle.</text></feedback></answer>
+    <generalfeedback><text>The mutant differs only in whether the handle is released on the error path, so the killing assertion must reach that path and check the handle was actually closed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pick the assertion that kills an unchecked-exception mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A mutant removes a guard so that malformed input now throws instead of returning an error result. Which assertion kills it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Feed malformed input and assert the specified graceful result (so a thrown exception fails the test)</text><feedback><text>Correct — asserting the expected non-throwing behaviour on bad input catches the change.</text></feedback></answer>
+    <answer fraction="0"><text>Feed valid input and assert the normal result</text><feedback><text>Valid input never triggers the guarded path.</text></feedback></answer>
+    <answer fraction="0"><text>Catch and ignore all exceptions in the test</text><feedback><text>Swallowing the exception hides the change, so the mutant survives.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the test file compiles</text><feedback><text>Compilation says nothing about the exceptional behaviour.</text></feedback></answer>
+    <generalfeedback><text>The mutant changes behaviour on malformed input from a graceful result to a thrown exception. Only a test that supplies that input and asserts the specified behaviour distinguishes the two and kills the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pick the assertion that kills a null-guard mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A mutant deletes a null check so that an absent lookup now dereferences <code>null</code> instead of returning a default. Which assertion kills it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Call with a key that is absent and assert the documented default is returned (so a null dereference fails the test)</text><feedback><text>Correct — exercising the absent-key case and asserting the guarded default catches the missing check.</text></feedback></answer>
+    <answer fraction="0"><text>Call with a present key and assert the value</text><feedback><text>A present key never triggers the deleted null guard.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the lookup table is non-empty</text><feedback><text>That checks the fixture, not the guarded behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the method signature is unchanged</text><feedback><text>The signature is unaffected by the fault.</text></feedback></answer>
+    <generalfeedback><text>The guard matters only for the absent-key case, so the killing test uses an absent key and asserts the documented default — the deleted guard then makes the mutant dereference null and fail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why fault-directed testing complements coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is fault-directed testing best seen as complementing rather than replacing coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage ensures code is reached; fault-directed assertions ensure the reached code is actually checked for faults — both are needed</text><feedback><text>Correct — reachability and fault detection are complementary requirements.</text></feedback></answer>
+    <answer fraction="0"><text>Fault-directed testing makes coverage measurement impossible</text><feedback><text>The two can be measured together; one does not preclude the other.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage already guarantees fault detection, so fault-directed testing is redundant</text><feedback><text>Coverage does not guarantee fault detection — that is the whole point of this app.</text></feedback></answer>
+    <answer fraction="0"><text>Fault-directed testing only works when coverage is 0%</text><feedback><text>It works at any coverage level; it strengthens assertions on whatever code is reached.</text></feedback></answer>
+    <generalfeedback><text>You still need coverage to reach the faulty code, and you need fault-directed assertions to detect faults in it. A mutant cannot be killed if its line is never executed, and it survives if the executed line is never checked — so the two are complementary.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which test demonstrates the 49% finding</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two tests each kill a mutant. Test X reaches a brand-new branch and asserts its result; Test Y adds an assertion to an already-covered branch. Which one demonstrates the 49% finding, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test Y — it kills a mutant without adding any newly-covered line, exactly the 49% case</text><feedback><text>Correct — the finding is about kills that add no coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Test X — it adds both coverage and a killing assertion</text><feedback><text>Test X adds new coverage, so it is not the no-new-coverage case the finding describes.</text></feedback></answer>
+    <answer fraction="0"><text>Both, because both kill a mutant</text><feedback><text>Only Test Y kills a mutant with zero new coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Neither, because the finding is about tests that kill no mutant</text><feedback><text>The finding is precisely about tests that do kill a mutant while adding no coverage.</text></feedback></answer>
+    <generalfeedback><text>The 49% finding is about tests that kill a mutant while adding no newly-covered line. Test Y does that by strengthening an assertion on already-covered code; Test X instead adds coverage too, so it is not the illustrative case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>100% branch coverage, surviving mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite has 100% branch coverage but a non-equivalent mutant survives. What must be added to kill it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A stronger assertion that observes the value the mutant corrupts (and, if needed, an input that makes the corruption propagate)</text><feedback><text>Correct — the branch runs, so the gap is in observing the corrupted result.</text></feedback></answer>
+    <answer fraction="0"><text>More branches to cover</text><feedback><text>Branch coverage is already 100%, so there are no uncovered branches to add.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting the surviving mutant</text><feedback><text>The mutant is a fault model; the fix is a better test, not deleting the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — 100% branch coverage means the suite is complete</text><feedback><text>A surviving non-equivalent mutant proves the suite is not fault-adequate.</text></feedback></answer>
+    <generalfeedback><text>With full branch coverage the faulty branch runs, so what is missing is an assertion that observes the corrupted output (and possibly an input that makes it propagate). Coverage is maxed; fault detection is not.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the 49% specifically proves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does "49% of tests kill a mutant with no new covered line" specifically prove coverage &#8800; fault detection?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>These tests increase fault detection (a kill) while the coverage measure records no change, so the two measures move independently</text><feedback><text>Correct — fault detection rose while coverage did not, so they are not the same measure.</text></feedback></answer>
+    <answer fraction="0"><text>Because they raise coverage without killing mutants</text><feedback><text>That reverses the finding; they kill mutants without raising coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Because they neither raise coverage nor kill mutants</text><feedback><text>They do kill mutants; that is the point.</text></feedback></answer>
+    <answer fraction="0"><text>Because coverage tools are broken</text><feedback><text>The tools work correctly; there genuinely are no new lines to credit.</text></feedback></answer>
+    <generalfeedback><text>If coverage and fault detection were the same, no test could improve one without the other. Nearly half the tests improved fault detection with zero coverage change, so the two measures are provably distinct.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Blind spot of a coverage-directed generator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generator that only rewards tests adding new lines would deprioritise a test that adds no coverage. What kind of fault does this blind spot let through?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Faults in already-covered code that need only a stronger assertion to detect</text><feedback><text>Correct — those are exactly the tests a coverage-only reward discards.</text></feedback></answer>
+    <answer fraction="0"><text>Faults in unreachable dead code</text><feedback><text>Dead code cannot be covered or killed by any test, so it is not the blind spot here.</text></feedback></answer>
+    <answer fraction="0"><text>Faults that only a new branch could reveal</text><feedback><text>A coverage-directed generator actually rewards reaching new branches, so those are not its blind spot.</text></feedback></answer>
+    <answer fraction="0"><text>Compilation errors</text><feedback><text>Those are caught by the compiler, not a testing blind spot.</text></feedback></answer>
+    <generalfeedback><text>Rewarding only new coverage discards assertion-strengthening tests on already-covered code — precisely the 49% that catch faults with no new lines. That is the coverage-directed blind spot fault-directed testing fills.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Off-by-one: from weak assertion to killing assertion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test loops fully over an array (full coverage) but only asserts the sum is positive; an <code>i &lt;= n</code> off-by-one mutant that reads a trailing zero survives. What single change makes the test fault-directed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Assert the exact expected sum (or that the element at index <code>n</code> is never read), which the extra iteration violates</text><feedback><text>Correct — a precise assertion on the affected value kills the mutant without new coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Add another test that covers a different function</text><feedback><text>That does not address the surviving mutant in this loop.</text></feedback></answer>
+    <answer fraction="0"><text>Assert the sum is a number</text><feedback><text>The mutant still yields a number, so this never fails.</text></feedback></answer>
+    <answer fraction="0"><text>Loop one more time to increase coverage</text><feedback><text>Coverage is already full; the problem is the weak assertion.</text></feedback></answer>
+    <generalfeedback><text>If reading the trailing zero leaves the sum unchanged, "sum positive" cannot catch it; but the exact expected sum (or checking index <code>n</code> is never read) does. This is a fault-directed fix that adds no coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Missing cleanup on a non-finally error branch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Cleanup is written inline at the end of the normal path (not in a <code>finally</code>), and an error branch returns before it. A happy-path test runs the cleanup line and passes. Why does mutation still reveal a fault here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mutant/error path skips the inline cleanup, and only a test that drives the error path and asserts cleanup detects it — the happy path never exercises the skip</text><feedback><text>Correct — the skipped-cleanup behaviour lives on the error path the happy-path test never takes.</text></feedback></answer>
+    <answer fraction="0"><text>The cleanup line is unreachable on every path</text><feedback><text>It is reached on the normal path; it is skipped only on the error branch.</text></feedback></answer>
+    <answer fraction="0"><text>A happy-path test already exercises the skip</text><feedback><text>The happy path runs cleanup; it never triggers the early-return skip.</text></feedback></answer>
+    <answer fraction="0"><text>Moving cleanup into finally would create the fault</text><feedback><text>A <code>finally</code> would in fact prevent the skip; the fault is that cleanup is not guaranteed on the error path.</text></feedback></answer>
+    <generalfeedback><text>Because cleanup is not in a <code>finally</code>, the early-return error branch skips it. The happy-path test runs the inline cleanup and never sees the skip. A fault-directed test must drive the error path and assert cleanup happened.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why covering normal input is insufficient for an exception fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For an unchecked-exception fault, why is covering the function with normal input insufficient even at 100% line coverage of the normal path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fault surfaces only on exceptional input, which normal-input coverage never supplies or asserts</text><feedback><text>Correct — the exceptional path and its assertion are what expose the fault.</text></feedback></answer>
+    <answer fraction="0"><text>Line coverage of the normal path already exercises the exceptional path</text><feedback><text>It does not; the exceptional path requires exceptional input.</text></feedback></answer>
+    <answer fraction="0"><text>Exceptions are always caught automatically by the runtime</text><feedback><text>An unchecked exception is precisely one that is not handled.</text></feedback></answer>
+    <answer fraction="0"><text>100% line coverage guarantees killing all mutants</text><feedback><text>It does not — coverage is not fault detection.</text></feedback></answer>
+    <generalfeedback><text>Normal input covers the normal path but never triggers the exceptional behaviour. Detecting the fault requires exceptional input plus an explicit assertion on how the exception is thrown or handled.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subtle case: coverage gain and killing assertion differ</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A single new test reaches a never-before-covered error branch <em>and</em> asserts that a resource is released there, killing a leak mutant. Which statement about its two contributions is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reaching the branch is the coverage gain; the release assertion is what kills the mutant — reaching it alone would not have</text><feedback><text>Correct — coverage and the killing assertion are separate contributions, even in one test.</text></feedback></answer>
+    <answer fraction="0"><text>Reaching the new branch alone kills the mutant, so the assertion is unnecessary</text><feedback><text>Merely reaching the branch (coverage) does not observe whether the resource was released.</text></feedback></answer>
+    <answer fraction="0"><text>The assertion adds the coverage; reaching the branch kills the mutant</text><feedback><text>This swaps the roles — coverage comes from reaching the branch, the kill from the assertion.</text></feedback></answer>
+    <answer fraction="0"><text>The two contributions are the same measurement</text><feedback><text>They are distinct: one is execution, the other is fault detection.</text></feedback></answer>
+    <generalfeedback><text>Even when one test does both, the contributions are separable: reaching the branch raises coverage, but the mutant is killed only by the assertion that observes the release. Without the assertion, the added coverage would leave the leak mutant alive.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>High line coverage guarantees a high mutation score</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite with high line coverage is guaranteed to also have a high mutation score.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>High coverage means code runs, but with weak assertions many mutants can still survive, so the mutation score can be low.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — coverage measures execution, not fault detection; weak assertions can leave a low mutation score despite high coverage.</text></feedback></answer>
+    <generalfeedback><text>Coverage credits execution; killing mutants also needs assertions that observe the corrupted results. A high-coverage suite with weak assertions can have a low mutation score — the two measures are distinct, which is the core lesson of fault-directed testing.</text></generalfeedback>
+  </question>
+</quiz>

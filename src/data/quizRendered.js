@@ -38103,6 +38103,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "fault-directed-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Goal of coverage-directed testing",
+          "text": "<p>The goal of a <strong>coverage-directed</strong> (blind) test-generation strategy is to:</p>",
+          "answers": [
+            {
+              "text": "Execute (cover) more lines or branches of the program",
+              "fraction": 100,
+              "feedback": "Correct — a coverage-directed strategy optimises for how much code is exercised."
+            },
+            {
+              "text": "Kill as many injected faults (mutants) as possible",
+              "fraction": 0,
+              "feedback": "That is the goal of fault-directed testing, not coverage-directed testing."
+            },
+            {
+              "text": "Minimise the number of assertions in each test",
+              "fraction": 0,
+              "feedback": "Neither strategy aims to reduce assertions; coverage-directed testing simply targets executed code."
+            },
+            {
+              "text": "Prove the program is free of all defects",
+              "fraction": 0,
+              "feedback": "No test-generation strategy proves the absence of all defects."
+            }
+          ],
+          "generalFeedback": "Coverage-directed generation optimises a structural coverage metric — it aims to run more lines and branches. It says nothing about whether those executed lines are actually checked for faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Goal of fault-directed testing",
+          "text": "<p>The goal of a <strong>fault-directed</strong> (mutation-guided) test-generation strategy is to:</p>",
+          "answers": [
+            {
+              "text": "Kill mutants — detect injected faults by asserting behaviour a fault would break",
+              "fraction": 100,
+              "feedback": "Correct — fault-directed testing targets specific faults and adds assertions that fail on the faulty code."
+            },
+            {
+              "text": "Execute the largest possible fraction of lines and branches",
+              "fraction": 0,
+              "feedback": "That is coverage-directed testing; fault-directed testing measures fault detection instead."
+            },
+            {
+              "text": "Run the fastest tests regardless of what they check",
+              "fraction": 0,
+              "feedback": "Speed is not the objective; detecting faults is."
+            },
+            {
+              "text": "Generate as many random inputs as possible",
+              "fraction": 0,
+              "feedback": "Random input volume is not the aim; killing mutants is."
+            }
+          ],
+          "generalFeedback": "Fault-directed (mutation-guided) generation targets specific fault classes and writes assertions that a seeded fault would violate, so the test fails on the mutated program (kills the mutant).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Coverage equals fault detection",
+          "text": "<p>Executing (covering) a line of code is the same thing as detecting a fault in that line.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Coverage only means the line ran; a test can execute a line without asserting anything that a fault in it would break."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution, not fault detection; the two are distinct."
+            }
+          ],
+          "generalFeedback": "Coverage counts whether code was executed. Fault detection requires an assertion that the faulty behaviour actually violates. A test can add covered lines yet assert nothing meaningful — coverage is not the same as fault detection."
+        },
+        {
+          "type": "multichoice",
+          "name": "What a mutant is",
+          "text": "<p>In this context, a <em>mutant</em> is:</p>",
+          "answers": [
+            {
+              "text": "A version of the program with one deliberately injected fault",
+              "fraction": 100,
+              "feedback": "Correct — a mutant is the program with a small seeded fault."
+            },
+            {
+              "text": "A test case that increases code coverage",
+              "fraction": 0,
+              "feedback": "That is a test, not a mutant; a mutant is an altered program."
+            },
+            {
+              "text": "A line of code that is never executed",
+              "fraction": 0,
+              "feedback": "Unexecuted code is a coverage gap, not a mutant."
+            },
+            {
+              "text": "A production bug reported by a user",
+              "fraction": 0,
+              "feedback": "Mutants are injected on purpose to evaluate tests, not field-reported defects."
+            }
+          ],
+          "generalFeedback": "A mutant is the program with one injected fault. Fault-directed testing uses mutants to represent the faults a good test should catch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What killing a mutant means",
+          "text": "<p>To <em>kill a mutant</em> means that:</p>",
+          "answers": [
+            {
+              "text": "A test detects the injected fault — it fails on the mutated program",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant is exactly detecting the seeded fault."
+            },
+            {
+              "text": "A test executes the mutated line without checking its result",
+              "fraction": 0,
+              "feedback": "Merely executing the line is coverage; killing requires the test to actually fail on the mutant."
+            },
+            {
+              "text": "The mutated program is deleted from the repository",
+              "fraction": 0,
+              "feedback": "Killing is about test detection, not removing code."
+            },
+            {
+              "text": "The mutation is proven to be harmless",
+              "fraction": 0,
+              "feedback": "That is the opposite — a killed mutant is one whose fault a test caught."
+            }
+          ],
+          "generalFeedback": "Killing a mutant means a test detects the injected fault: the test passes on the original but fails on the mutant. Killing a mutant is the operational definition of detecting that fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The 49% finding: what it says",
+          "text": "<p>An empirical finding from the Meta ACH study is that 49% of the generated tests:</p>",
+          "answers": [
+            {
+              "text": "Kill a mutant without adding a single newly-covered line",
+              "fraction": 100,
+              "feedback": "Correct — nearly half the tests caught a fault while covering no new code."
+            },
+            {
+              "text": "Add new covered lines but kill no mutant",
+              "fraction": 0,
+              "feedback": "That is the reverse; the finding is about tests that kill mutants while adding no coverage."
+            },
+            {
+              "text": "Cover every line of the program under test",
+              "fraction": 0,
+              "feedback": "The finding is not about achieving total coverage."
+            },
+            {
+              "text": "Are duplicates of existing tests",
+              "fraction": 0,
+              "feedback": "They are new, fault-catching tests — not duplicates."
+            }
+          ],
+          "generalFeedback": "About 49% of the generated tests killed a mutant without adding any newly-covered line. They strengthened assertions on already-covered code, catching real faults that a coverage metric would score as adding nothing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The 49% finding: what it proves",
+          "text": "<p>The finding that 49% of tests kill a mutant with no new covered line demonstrates that:</p>",
+          "answers": [
+            {
+              "text": "Coverage and fault detection are distinct — a test can catch a fault while adding zero coverage",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly what those tests show."
+            },
+            {
+              "text": "Coverage always predicts how many faults a test catches",
+              "fraction": 0,
+              "feedback": "The finding shows the opposite: these tests add no coverage yet catch faults."
+            },
+            {
+              "text": "Assertions are irrelevant to catching faults",
+              "fraction": 0,
+              "feedback": "It is precisely the strengthened assertions that catch these faults."
+            },
+            {
+              "text": "Tests that add no coverage never find bugs",
+              "fraction": 0,
+              "feedback": "These tests add no coverage yet find bugs, contradicting this claim."
+            }
+          ],
+          "generalFeedback": "Because these tests strengthen assertions on already-covered code, they kill mutants while a coverage metric records no new lines. This proves coverage and fault detection are distinct measures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the goal: a line-chasing test",
+          "text": "<p>A generated test runs a previously-unexecuted branch but only checks that the function \"returns without error\", asserting nothing about the result. Its effective goal is:</p>",
+          "answers": [
+            {
+              "text": "Coverage-directed — it adds covered code but asserts nothing a fault would break",
+              "fraction": 100,
+              "feedback": "Correct — it raises coverage without targeting any fault."
+            },
+            {
+              "text": "Fault-directed — it kills a mutant",
+              "fraction": 0,
+              "feedback": "With no meaningful assertion it cannot fail on a mutated result, so it kills no mutant."
+            },
+            {
+              "text": "Neither — it is an equivalent mutant",
+              "fraction": 0,
+              "feedback": "Equivalent mutant is a property of a mutant, not of a test."
+            },
+            {
+              "text": "Both equally",
+              "fraction": 0,
+              "feedback": "It serves coverage only; without an assertion it detects no fault."
+            }
+          ],
+          "generalFeedback": "Executing a branch while asserting nothing meaningful raises coverage but detects no fault. That is a coverage-directed outcome — coverage without fault detection.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the goal: an assertion-strengthening test",
+          "text": "<p>A generated test runs the same lines as an existing test but adds an assertion that fails when a boundary index is computed with <code>&lt;=</code> instead of <code>&lt;</code>. Its goal is:</p>",
+          "answers": [
+            {
+              "text": "Fault-directed — it kills a mutant even though it adds no new coverage",
+              "fraction": 100,
+              "feedback": "Correct — the new assertion detects the injected off-by-one fault."
+            },
+            {
+              "text": "Coverage-directed — it adds newly-covered lines",
+              "fraction": 0,
+              "feedback": "It runs the same lines as before, so it adds no new coverage."
+            },
+            {
+              "text": "Pointless — it changes nothing measurable",
+              "fraction": 0,
+              "feedback": "It changes fault detection: it kills a mutant a coverage metric would miss."
+            },
+            {
+              "text": "Coverage-directed — it deletes an assertion",
+              "fraction": 0,
+              "feedback": "It adds an assertion; it does not delete one."
+            }
+          ],
+          "generalFeedback": "Strengthening an assertion on already-covered code adds no coverage but can kill a mutant. That is a fault-directed test — exactly the kind the 49% finding describes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four fault classes",
+          "text": "<p>The app illustrates fault-directed testing across four annotated fault classes. Which of the following is <strong>not</strong> one of them?</p>",
+          "answers": [
+            {
+              "text": "Race condition on a shared counter",
+              "fraction": 100,
+              "feedback": "Correct — a data race is not one of the four illustrated classes."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "This is one of the four fault classes."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "This is one of the four fault classes."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "This is one of the four fault classes."
+            }
+          ],
+          "generalFeedback": "The four illustrated fault classes are: null / resource leak, off-by-one, missing cleanup, and unchecked exception. A race condition is not among them.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A covering test can assert nothing meaningful",
+          "text": "<p>A test can add newly-covered lines and yet assert nothing meaningful about whether those lines are correct.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — coverage records execution, not the strength of the assertions."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Coverage only requires the line to run; the test need not check the result, so this is true."
+            }
+          ],
+          "generalFeedback": "Coverage credits a line the moment it executes, regardless of whether the test checks its behaviour. So a test can raise coverage while detecting no fault — coverage and fault detection are distinct."
+        },
+        {
+          "type": "multichoice",
+          "name": "Another name for fault-directed testing",
+          "text": "<p>Fault-directed test generation is also described as:</p>",
+          "answers": [
+            {
+              "text": "Mutation-guided testing",
+              "fraction": 100,
+              "feedback": "Correct — it is guided by whether tests kill mutants (injected faults)."
+            },
+            {
+              "text": "Coverage-maximising testing",
+              "fraction": 0,
+              "feedback": "That describes the coverage-directed goal, the contrast to fault-directed testing."
+            },
+            {
+              "text": "Random (fuzz) testing",
+              "fraction": 0,
+              "feedback": "Fuzzing generates random inputs; fault-directed testing targets specific faults."
+            },
+            {
+              "text": "Load testing",
+              "fraction": 0,
+              "feedback": "Load testing measures performance under load, unrelated to killing mutants."
+            }
+          ],
+          "generalFeedback": "Fault-directed testing is mutation-guided: it uses mutants (injected faults) as the target, generating tests whose assertions kill them.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Strengthening an assertion adds no coverage",
+          "text": "<p>Adding a stronger assertion to a test that already executes the relevant code can kill a mutant while adding zero newly-covered lines.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the code was already covered, so only fault detection improves, not coverage."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The lines already ran, so no new coverage is added; the stronger assertion still catches the fault, so this is true."
+            }
+          ],
+          "generalFeedback": "When the code is already covered, a stronger assertion adds no new lines but can make the test fail on a mutant. This is why 49% of ACH tests killed a mutant with no new coverage."
+        },
+        {
+          "type": "multichoice",
+          "name": "How a coverage metric scores the 49% tests",
+          "text": "<p>How would a pure coverage metric score the 49% of tests that kill a mutant with no new covered line?</p>",
+          "answers": [
+            {
+              "text": "As adding nothing — even though they catch real faults",
+              "fraction": 100,
+              "feedback": "Correct — coverage sees no new lines, so it undervalues these fault-catching tests."
+            },
+            {
+              "text": "As the most valuable tests in the suite",
+              "fraction": 0,
+              "feedback": "Coverage records no new lines for them, so it would not rank them highly."
+            },
+            {
+              "text": "As failing to compile",
+              "fraction": 0,
+              "feedback": "They are valid tests; coverage simply credits them with no new lines."
+            },
+            {
+              "text": "As equivalent mutants",
+              "fraction": 0,
+              "feedback": "Equivalent mutant is a property of a mutant, not a coverage score of a test."
+            }
+          ],
+          "generalFeedback": "A coverage metric sees no newly-covered line and therefore scores these tests as \"adding nothing\", even though each one catches a real fault — the central reason coverage alone under-measures test quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contrast the two goals",
+          "text": "<p>Which pairing correctly contrasts the two test-generation goals?</p>",
+          "answers": [
+            {
+              "text": "Coverage-directed = execute more lines; fault-directed = kill mutants (detect injected faults)",
+              "fraction": 100,
+              "feedback": "Correct — one optimises execution, the other optimises fault detection."
+            },
+            {
+              "text": "Coverage-directed = kill mutants; fault-directed = execute more lines",
+              "fraction": 0,
+              "feedback": "This reverses the two goals."
+            },
+            {
+              "text": "Coverage-directed = detect faults; fault-directed = ignore faults",
+              "fraction": 0,
+              "feedback": "Coverage-directed does not directly target faults, and fault-directed is all about faults."
+            },
+            {
+              "text": "Both aim only to reduce test runtime",
+              "fraction": 0,
+              "feedback": "Neither goal is defined by runtime."
+            }
+          ],
+          "generalFeedback": "Coverage-directed generation aims to execute more code; fault-directed generation aims to kill mutants — detect injected faults. Because coverage is not fault detection, the two goals genuinely diverge.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Scenario: null / resource leak — why coverage misses it",
+          "text": "<p>A function opens a file handle and releases it only on the success path; an error path returns without releasing it (a resource leak). A happy-path test covers the function. Why does it miss the fault, and what does a fault-directed test add?</p>",
+          "answers": [
+            {
+              "text": "The happy path never exercises the leaking error path, and even when reached nothing asserts the handle was released — a fault-directed test drives the error path and asserts the handle is closed",
+              "fraction": 100,
+              "feedback": "Correct — it needs both the error path and an assertion on release."
+            },
+            {
+              "text": "The happy path is uncovered, so more coverage alone would fix it",
+              "fraction": 0,
+              "feedback": "The happy path is covered; the missing piece is exercising the error path and asserting release."
+            },
+            {
+              "text": "The leak is impossible to detect by any test",
+              "fraction": 0,
+              "feedback": "A test that reaches the error path and checks release detects it fine."
+            },
+            {
+              "text": "Adding any assertion on the success path would kill the mutant",
+              "fraction": 0,
+              "feedback": "The fault is on the error path; asserting only on the success path does not reach it."
+            }
+          ],
+          "generalFeedback": "The happy-path test never runs the leaking branch, and covering it would still not assert that the handle was released. A fault-directed test drives the error path and asserts the resource is freed, killing the leak mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: off-by-one — why coverage misses it",
+          "text": "<p>A loop uses <code>i &lt;= n</code> where it should use <code>i &lt; n</code>, reading one element past the end. A test runs the whole loop and only asserts the running total is non-negative. Why does it miss the fault?</p>",
+          "answers": [
+            {
+              "text": "Covering the loop executes every iteration but the assertion never checks the boundary element or the exact result the extra iteration corrupts",
+              "fraction": 100,
+              "feedback": "Correct — coverage of the loop body does not assert the boundary behaviour."
+            },
+            {
+              "text": "The loop body is never executed",
+              "fraction": 0,
+              "feedback": "The loop is fully covered; the problem is the weak assertion, not reachability."
+            },
+            {
+              "text": "Off-by-one faults cannot be detected by assertions",
+              "fraction": 0,
+              "feedback": "Asserting the exact boundary result detects them precisely."
+            },
+            {
+              "text": "The mutant is equivalent",
+              "fraction": 0,
+              "feedback": "Reading past the end changes behaviour, so it is not equivalent."
+            }
+          ],
+          "generalFeedback": "Executing the loop gives full coverage, but a vague assertion (non-negative total) does not catch the corrupted boundary. A fault-directed test asserts the exact expected result or the last valid index so the extra iteration is caught.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: missing cleanup — why coverage misses it",
+          "text": "<p>A function creates a temporary resource and deletes it at the end, but an early <code>return</code> on invalid input skips the deletion (missing cleanup). A test that passes valid input covers the normal path. Why does it miss the fault?</p>",
+          "answers": [
+            {
+              "text": "The normal path runs cleanup, so only the early-return path leaves the resource behind; the covering test never triggers that path or asserts cleanup",
+              "fraction": 100,
+              "feedback": "Correct — the fault lives only on the skipped-cleanup error path."
+            },
+            {
+              "text": "Cleanup is never reached on any path",
+              "fraction": 0,
+              "feedback": "Cleanup runs fine on the normal path; it is skipped only on the early return."
+            },
+            {
+              "text": "The temporary resource is never created",
+              "fraction": 0,
+              "feedback": "It is created; the fault is that it is not deleted on the early-return path."
+            },
+            {
+              "text": "The fault appears on every input",
+              "fraction": 0,
+              "feedback": "It appears only on the invalid-input early-return path."
+            }
+          ],
+          "generalFeedback": "On valid input the cleanup runs, so the covering test sees nothing wrong. A fault-directed test supplies invalid input to force the early return and asserts the temporary resource was cleaned up, killing the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: unchecked exception — why coverage misses it",
+          "text": "<p>A parser throws on a malformed input, but nothing handles or asserts that exception. A test with well-formed input covers the parser. Why does it miss the fault, and what does a fault-directed test add?</p>",
+          "answers": [
+            {
+              "text": "Well-formed input never triggers the exceptional path; a fault-directed test feeds malformed input and asserts the expected exception (or its handling)",
+              "fraction": 100,
+              "feedback": "Correct — the exceptional behaviour surfaces only with exceptional input plus an assertion on it."
+            },
+            {
+              "text": "The parser code is unreachable",
+              "fraction": 0,
+              "feedback": "It is reached with well-formed input; the exceptional branch simply is not exercised."
+            },
+            {
+              "text": "Exceptions can never be asserted in a test",
+              "fraction": 0,
+              "feedback": "Tests routinely assert that a specific exception is thrown."
+            },
+            {
+              "text": "The fault only matters for performance",
+              "fraction": 0,
+              "feedback": "It is a correctness fault on the exceptional path, not a performance issue."
+            }
+          ],
+          "generalFeedback": "Well-formed input runs the parser but never the exceptional path. A fault-directed test supplies malformed input and asserts the expected exception is thrown (or correctly handled), catching the unchecked-exception fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: index past the end",
+          "text": "<p>A routine iterates with <code>for (i = 0; i &lt;= len; i++)</code> and accesses <code>a[i]</code>, reading one slot beyond the array. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Off-by-one",
+              "fraction": 100,
+              "feedback": "Correct — the boundary condition is wrong by one (vs)."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "No teardown is skipped here; the fault is a boundary index error."
+            },
+            {
+              "text": "Unchecked exception",
+              "fraction": 0,
+              "feedback": "The root cause is a boundary error; any exception is a symptom, not the class."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "No resource or null is involved; the fault is a boundary index error."
+            }
+          ],
+          "generalFeedback": "Usingwhereis needed reads one element past the end — the textbook off-by-one fault class.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: early return skips teardown",
+          "text": "<p>A function begins a database transaction, and on an early <code>return</code> for a validation error it neither commits nor rolls back, leaving the transaction open. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Missing cleanup",
+              "fraction": 100,
+              "feedback": "Correct — the teardown (rollback/commit) is skipped on the early-return path."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "No boundary index is involved."
+            },
+            {
+              "text": "Unchecked exception",
+              "fraction": 0,
+              "feedback": "The issue is a skipped teardown step on early return, not an unhandled exception."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "Although related, the defining feature here is that the cleanup/teardown step is skipped on an error path — the missing-cleanup class."
+            }
+          ],
+          "generalFeedback": "An early return that skips the transaction teardown is the missing-cleanup class: cleanup runs on the normal path but is skipped on an error/early-return path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: unchecked null return",
+          "text": "<p><code>lookup(key)</code> may return <code>null</code> when the key is absent, and the caller immediately does <code>lookup(key).name</code> with no null check. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Null / resource leak",
+              "fraction": 100,
+              "feedback": "Correct — dereferencing a possibly-null value is the null part of this class."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "No boundary index is involved."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "Nothing needs to be cleaned up; the fault is an unguarded null dereference."
+            },
+            {
+              "text": "Unchecked exception",
+              "fraction": 0,
+              "feedback": "While a null dereference may throw, the modelled class here is the null / resource-leak class (an unguarded null)."
+            }
+          ],
+          "generalFeedback": "Dereferencing a value that may be null without a guard is the null / resource-leak fault class (its null side).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: throws on bad input, nobody catches",
+          "text": "<p><code>Integer.parseInt(s)</code> throws when <code>s</code> is non-numeric, and neither the code nor any test handles or asserts that case. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Unchecked exception",
+              "fraction": 100,
+              "feedback": "Correct — an exceptional path that is neither handled nor asserted."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "No boundary index is involved."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "No teardown step is skipped here."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "No null dereference or leaked resource; the fault is an unhandled/ unasserted exception."
+            }
+          ],
+          "generalFeedback": "An exception path that is neither handled nor asserted is the unchecked-exception class: the code runs on normal input but the fault surfaces only when the exceptional input is supplied and asserted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 100% coverage can still miss a fault",
+          "text": "<p>A suite achieves 100% line coverage yet a mutant survives. What is the most likely reason?</p>",
+          "answers": [
+            {
+              "text": "The faulty line executed, but no assertion checked the behaviour the fault changes",
+              "fraction": 100,
+              "feedback": "Correct — coverage guarantees execution, not that the corrupted result is observed."
+            },
+            {
+              "text": "The faulty line was never executed",
+              "fraction": 0,
+              "feedback": "With 100% line coverage the line did execute; the gap is in the assertions."
+            },
+            {
+              "text": "100% coverage makes every mutant equivalent",
+              "fraction": 0,
+              "feedback": "Coverage has no effect on whether a mutant is equivalent."
+            },
+            {
+              "text": "The suite has too many assertions",
+              "fraction": 0,
+              "feedback": "Surviving mutants indicate too-weak assertions, not too many."
+            }
+          ],
+          "generalFeedback": "Full line coverage only means every line ran. If no assertion observes the value the fault corrupts, the mutant survives — coverage is necessary but not sufficient for fault detection.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Covering a line asserts its correctness",
+          "text": "<p>Reaching (covering) a line in a test guarantees that the test also asserts the line behaves correctly.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Reaching a line only executes it; the test may check nothing about its result."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — execution and assertion are independent; covering a line does not assert it."
+            }
+          ],
+          "generalFeedback": "Coverage records that a line ran, not that the test checked its output. A covered line with no relevant assertion still lets a fault in that line survive."
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing assertion for off-by-one",
+          "text": "<p>To kill a mutant that changes a loop bound from <code>i &lt; n</code> to <code>i &lt;= n</code>, which assertion is most effective?</p>",
+          "answers": [
+            {
+              "text": "Assert the exact expected result (or that no read occurs at index), so the extra iteration is caught",
+              "fraction": 100,
+              "feedback": "Correct — checking the precise boundary outcome fails on the extra iteration."
+            },
+            {
+              "text": "Assert only that the function returns something",
+              "fraction": 0,
+              "feedback": "The mutant still returns a value; a mere existence check does not catch it."
+            },
+            {
+              "text": "Assert the loop variable is an integer",
+              "fraction": 0,
+              "feedback": "The type is unchanged by the fault, so this never fails."
+            },
+            {
+              "text": "Assert the input array is non-empty",
+              "fraction": 0,
+              "feedback": "That checks the input, not the corrupted boundary behaviour."
+            }
+          ],
+          "generalFeedback": "Only an assertion on the exact result affected by the boundary — the precise value or that indexis not read — distinguishesfromand kills the off-by-one mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing approach for missing cleanup",
+          "text": "<p>To kill a missing-cleanup mutant where teardown is skipped on an error path, a fault-directed test should:</p>",
+          "answers": [
+            {
+              "text": "Drive the error/early-return path and assert that the cleanup actually happened (resource freed, transaction closed)",
+              "fraction": 100,
+              "feedback": "Correct — it must reach the faulty path and check the teardown."
+            },
+            {
+              "text": "Run the normal path and assert the return value",
+              "fraction": 0,
+              "feedback": "The normal path already performs cleanup, so it never exposes the fault."
+            },
+            {
+              "text": "Increase overall line coverage without new assertions",
+              "fraction": 0,
+              "feedback": "Coverage without asserting cleanup will not catch a skipped teardown."
+            },
+            {
+              "text": "Assert only that the error was returned",
+              "fraction": 0,
+              "feedback": "The error is returned in both versions; only the cleanup differs."
+            }
+          ],
+          "generalFeedback": "The fault lives on the error path, so the test must trigger that path and assert the cleanup was performed. Only then does the missing-teardown mutant fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing approach for unchecked exception",
+          "text": "<p>To kill an unchecked-exception mutant, a fault-directed test should:</p>",
+          "answers": [
+            {
+              "text": "Supply the exceptional input and assert the expected exception is thrown (or correctly handled)",
+              "fraction": 100,
+              "feedback": "Correct — the exceptional path must be exercised and asserted."
+            },
+            {
+              "text": "Supply only normal input and assert the happy-path result",
+              "fraction": 0,
+              "feedback": "Normal input never reaches the exceptional path."
+            },
+            {
+              "text": "Wrap the whole test in a try/catch and ignore any exception",
+              "fraction": 0,
+              "feedback": "Swallowing the exception means the test asserts nothing about it, so it cannot fail on the mutant."
+            },
+            {
+              "text": "Assert the function name is spelled correctly",
+              "fraction": 0,
+              "feedback": "That checks nothing about the exceptional behaviour."
+            }
+          ],
+          "generalFeedback": "The exceptional behaviour surfaces only with exceptional input plus an explicit assertion (assertThrows or that the handler ran). That is what kills an unchecked-exception mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing approach for a null dereference",
+          "text": "<p>To kill a null-dereference mutant where a missing guard lets an absent value be dereferenced, a fault-directed test should:</p>",
+          "answers": [
+            {
+              "text": "Exercise the case where the value is null/absent and assert the guarded behaviour (a default, or a specific handled outcome)",
+              "fraction": 100,
+              "feedback": "Correct — only the null/absent case triggers the missing guard, and the assertion pins the expected behaviour."
+            },
+            {
+              "text": "Exercise only the case where the value is present and assert its field",
+              "fraction": 0,
+              "feedback": "A present value never triggers the missing null guard."
+            },
+            {
+              "text": "Increase coverage of unrelated methods",
+              "fraction": 0,
+              "feedback": "That does not reach or assert the null path."
+            },
+            {
+              "text": "Assert that the value has the correct type",
+              "fraction": 0,
+              "feedback": "The type is unchanged by the fault; the null case is what matters."
+            }
+          ],
+          "generalFeedback": "The fault surfaces only when the value is null/absent, so the test must exercise that case and assert the guarded outcome — the missing guard then makes the mutant dereference null and fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "An assertion-only test that adds no coverage",
+          "text": "<p>A new test executes exactly the same lines as an existing passing test but adds an assertion that fails on a seeded off-by-one mutant. The coverage tool reports zero new lines. Is the test worthless?</p>",
+          "answers": [
+            {
+              "text": "No — it is a fault-directed test that kills a mutant coverage alone would score as adding nothing",
+              "fraction": 100,
+              "feedback": "Correct — it improves fault detection without changing coverage."
+            },
+            {
+              "text": "Yes — adding no new lines means it adds no value",
+              "fraction": 0,
+              "feedback": "It kills a mutant; catching a real fault is value coverage cannot see."
+            },
+            {
+              "text": "Yes — only tests that raise coverage matter",
+              "fraction": 0,
+              "feedback": "The 49% finding directly refutes this."
+            },
+            {
+              "text": "No — but only because it raised coverage",
+              "fraction": 0,
+              "feedback": "It raised no coverage; its value is the killing assertion."
+            }
+          ],
+          "generalFeedback": "This is exactly the 49% case: same lines, stronger assertion, a killed mutant. A coverage metric records nothing, yet the test catches a real fault — showing coverage and fault detection are distinct.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why coverage and mutation score diverge",
+          "text": "<p>Why can a suite's line coverage be high while its mutation score is low?</p>",
+          "answers": [
+            {
+              "text": "Coverage only requires the faulty code to execute, while killing a mutant additionally requires the corrupted result to be observed by an assertion",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution; killing a mutant needs execution plus an observing assertion."
+            },
+            {
+              "text": "Mutation score counts only lines that were never executed",
+              "fraction": 0,
+              "feedback": "Mutation score is about killed mutants, not unexecuted lines."
+            },
+            {
+              "text": "High coverage forces a high mutation score",
+              "fraction": 0,
+              "feedback": "The premise of the question shows this is false; the two can diverge."
+            },
+            {
+              "text": "Coverage and mutation score always measure the same thing",
+              "fraction": 0,
+              "feedback": "They do not — that is precisely why they can diverge."
+            }
+          ],
+          "generalFeedback": "Coverage credits execution alone. Killing a mutant needs the mutated line to run, corrupt the state, and have that corruption observed by an assertion. Weak assertions leave high coverage but low mutation score.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which test is fault-directed",
+          "text": "<p>Test A raises line coverage but kills no mutant. Test B kills a mutant without raising coverage. Which is fault-directed, and why?</p>",
+          "answers": [
+            {
+              "text": "Test B — it detects an injected fault, which is the fault-directed goal, regardless of coverage",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant is fault detection; coverage is beside the point."
+            },
+            {
+              "text": "Test A — it raises coverage, which is what fault-directed testing optimises",
+              "fraction": 0,
+              "feedback": "Raising coverage is the coverage-directed goal, not the fault-directed one."
+            },
+            {
+              "text": "Both equally, because both are tests",
+              "fraction": 0,
+              "feedback": "Only Test B detects a fault; only it is fault-directed."
+            },
+            {
+              "text": "Neither, because a fault-directed test must do both",
+              "fraction": 0,
+              "feedback": "A fault-directed test need not add coverage; killing a mutant suffices."
+            }
+          ],
+          "generalFeedback": "Fault-directed means detecting injected faults (killing mutants). Test B does that with no new coverage — the 49% case. Test A adds coverage but detects nothing, the coverage-directed outcome.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the assertion that kills a leak mutant",
+          "text": "<p>A resource-leak mutant removes the <code>close()</code> on the error path. Which assertion most directly kills it?</p>",
+          "answers": [
+            {
+              "text": "After driving the error path, assert the handle is closed (e.g. open-handle count returned to zero)",
+              "fraction": 100,
+              "feedback": "Correct — this observes the release the mutant skipped."
+            },
+            {
+              "text": "Assert the function returned an error code",
+              "fraction": 0,
+              "feedback": "Both versions return the same error code; only the release differs."
+            },
+            {
+              "text": "Assert the happy path returns the right value",
+              "fraction": 0,
+              "feedback": "The happy path still closes the handle, so it never exposes the mutant."
+            },
+            {
+              "text": "Assert total line coverage increased",
+              "fraction": 0,
+              "feedback": "Coverage is not an assertion and does not observe the leaked handle."
+            }
+          ],
+          "generalFeedback": "The mutant differs only in whether the handle is released on the error path, so the killing assertion must reach that path and check the handle was actually closed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the assertion that kills an unchecked-exception mutant",
+          "text": "<p>A mutant removes a guard so that malformed input now throws instead of returning an error result. Which assertion kills it?</p>",
+          "answers": [
+            {
+              "text": "Feed malformed input and assert the specified graceful result (so a thrown exception fails the test)",
+              "fraction": 100,
+              "feedback": "Correct — asserting the expected non-throwing behaviour on bad input catches the change."
+            },
+            {
+              "text": "Feed valid input and assert the normal result",
+              "fraction": 0,
+              "feedback": "Valid input never triggers the guarded path."
+            },
+            {
+              "text": "Catch and ignore all exceptions in the test",
+              "fraction": 0,
+              "feedback": "Swallowing the exception hides the change, so the mutant survives."
+            },
+            {
+              "text": "Assert the test file compiles",
+              "fraction": 0,
+              "feedback": "Compilation says nothing about the exceptional behaviour."
+            }
+          ],
+          "generalFeedback": "The mutant changes behaviour on malformed input from a graceful result to a thrown exception. Only a test that supplies that input and asserts the specified behaviour distinguishes the two and kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the assertion that kills a null-guard mutant",
+          "text": "<p>A mutant deletes a null check so that an absent lookup now dereferences <code>null</code> instead of returning a default. Which assertion kills it?</p>",
+          "answers": [
+            {
+              "text": "Call with a key that is absent and assert the documented default is returned (so a null dereference fails the test)",
+              "fraction": 100,
+              "feedback": "Correct — exercising the absent-key case and asserting the guarded default catches the missing check."
+            },
+            {
+              "text": "Call with a present key and assert the value",
+              "fraction": 0,
+              "feedback": "A present key never triggers the deleted null guard."
+            },
+            {
+              "text": "Assert the lookup table is non-empty",
+              "fraction": 0,
+              "feedback": "That checks the fixture, not the guarded behaviour."
+            },
+            {
+              "text": "Assert the method signature is unchanged",
+              "fraction": 0,
+              "feedback": "The signature is unaffected by the fault."
+            }
+          ],
+          "generalFeedback": "The guard matters only for the absent-key case, so the killing test uses an absent key and asserts the documented default — the deleted guard then makes the mutant dereference null and fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why fault-directed testing complements coverage",
+          "text": "<p>Why is fault-directed testing best seen as complementing rather than replacing coverage?</p>",
+          "answers": [
+            {
+              "text": "Coverage ensures code is reached; fault-directed assertions ensure the reached code is actually checked for faults — both are needed",
+              "fraction": 100,
+              "feedback": "Correct — reachability and fault detection are complementary requirements."
+            },
+            {
+              "text": "Fault-directed testing makes coverage measurement impossible",
+              "fraction": 0,
+              "feedback": "The two can be measured together; one does not preclude the other."
+            },
+            {
+              "text": "Coverage already guarantees fault detection, so fault-directed testing is redundant",
+              "fraction": 0,
+              "feedback": "Coverage does not guarantee fault detection — that is the whole point of this app."
+            },
+            {
+              "text": "Fault-directed testing only works when coverage is 0%",
+              "fraction": 0,
+              "feedback": "It works at any coverage level; it strengthens assertions on whatever code is reached."
+            }
+          ],
+          "generalFeedback": "You still need coverage to reach the faulty code, and you need fault-directed assertions to detect faults in it. A mutant cannot be killed if its line is never executed, and it survives if the executed line is never checked — so the two are complementary.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which test demonstrates the 49% finding",
+          "text": "<p>Two tests each kill a mutant. Test X reaches a brand-new branch and asserts its result; Test Y adds an assertion to an already-covered branch. Which one demonstrates the 49% finding, and why?</p>",
+          "answers": [
+            {
+              "text": "Test Y — it kills a mutant without adding any newly-covered line, exactly the 49% case",
+              "fraction": 100,
+              "feedback": "Correct — the finding is about kills that add no coverage."
+            },
+            {
+              "text": "Test X — it adds both coverage and a killing assertion",
+              "fraction": 0,
+              "feedback": "Test X adds new coverage, so it is not the no-new-coverage case the finding describes."
+            },
+            {
+              "text": "Both, because both kill a mutant",
+              "fraction": 0,
+              "feedback": "Only Test Y kills a mutant with zero new coverage."
+            },
+            {
+              "text": "Neither, because the finding is about tests that kill no mutant",
+              "fraction": 0,
+              "feedback": "The finding is precisely about tests that do kill a mutant while adding no coverage."
+            }
+          ],
+          "generalFeedback": "The 49% finding is about tests that kill a mutant while adding no newly-covered line. Test Y does that by strengthening an assertion on already-covered code; Test X instead adds coverage too, so it is not the illustrative case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% branch coverage, surviving mutant",
+          "text": "<p>A suite has 100% branch coverage but a non-equivalent mutant survives. What must be added to kill it?</p>",
+          "answers": [
+            {
+              "text": "A stronger assertion that observes the value the mutant corrupts (and, if needed, an input that makes the corruption propagate)",
+              "fraction": 100,
+              "feedback": "Correct — the branch runs, so the gap is in observing the corrupted result."
+            },
+            {
+              "text": "More branches to cover",
+              "fraction": 0,
+              "feedback": "Branch coverage is already 100%, so there are no uncovered branches to add."
+            },
+            {
+              "text": "Deleting the surviving mutant",
+              "fraction": 0,
+              "feedback": "The mutant is a fault model; the fix is a better test, not deleting the mutant."
+            },
+            {
+              "text": "Nothing — 100% branch coverage means the suite is complete",
+              "fraction": 0,
+              "feedback": "A surviving non-equivalent mutant proves the suite is not fault-adequate."
+            }
+          ],
+          "generalFeedback": "With full branch coverage the faulty branch runs, so what is missing is an assertion that observes the corrupted output (and possibly an input that makes it propagate). Coverage is maxed; fault detection is not.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the 49% specifically proves",
+          "text": "<p>Why does \"49% of tests kill a mutant with no new covered line\" specifically prove coverage &#8800; fault detection?</p>",
+          "answers": [
+            {
+              "text": "These tests increase fault detection (a kill) while the coverage measure records no change, so the two measures move independently",
+              "fraction": 100,
+              "feedback": "Correct — fault detection rose while coverage did not, so they are not the same measure."
+            },
+            {
+              "text": "Because they raise coverage without killing mutants",
+              "fraction": 0,
+              "feedback": "That reverses the finding; they kill mutants without raising coverage."
+            },
+            {
+              "text": "Because they neither raise coverage nor kill mutants",
+              "fraction": 0,
+              "feedback": "They do kill mutants; that is the point."
+            },
+            {
+              "text": "Because coverage tools are broken",
+              "fraction": 0,
+              "feedback": "The tools work correctly; there genuinely are no new lines to credit."
+            }
+          ],
+          "generalFeedback": "If coverage and fault detection were the same, no test could improve one without the other. Nearly half the tests improved fault detection with zero coverage change, so the two measures are provably distinct.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Blind spot of a coverage-directed generator",
+          "text": "<p>A generator that only rewards tests adding new lines would deprioritise a test that adds no coverage. What kind of fault does this blind spot let through?</p>",
+          "answers": [
+            {
+              "text": "Faults in already-covered code that need only a stronger assertion to detect",
+              "fraction": 100,
+              "feedback": "Correct — those are exactly the tests a coverage-only reward discards."
+            },
+            {
+              "text": "Faults in unreachable dead code",
+              "fraction": 0,
+              "feedback": "Dead code cannot be covered or killed by any test, so it is not the blind spot here."
+            },
+            {
+              "text": "Faults that only a new branch could reveal",
+              "fraction": 0,
+              "feedback": "A coverage-directed generator actually rewards reaching new branches, so those are not its blind spot."
+            },
+            {
+              "text": "Compilation errors",
+              "fraction": 0,
+              "feedback": "Those are caught by the compiler, not a testing blind spot."
+            }
+          ],
+          "generalFeedback": "Rewarding only new coverage discards assertion-strengthening tests on already-covered code — precisely the 49% that catch faults with no new lines. That is the coverage-directed blind spot fault-directed testing fills.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off-by-one: from weak assertion to killing assertion",
+          "text": "<p>A test loops fully over an array (full coverage) but only asserts the sum is positive; an <code>i &lt;= n</code> off-by-one mutant that reads a trailing zero survives. What single change makes the test fault-directed?</p>",
+          "answers": [
+            {
+              "text": "Assert the exact expected sum (or that the element at indexis never read), which the extra iteration violates",
+              "fraction": 100,
+              "feedback": "Correct — a precise assertion on the affected value kills the mutant without new coverage."
+            },
+            {
+              "text": "Add another test that covers a different function",
+              "fraction": 0,
+              "feedback": "That does not address the surviving mutant in this loop."
+            },
+            {
+              "text": "Assert the sum is a number",
+              "fraction": 0,
+              "feedback": "The mutant still yields a number, so this never fails."
+            },
+            {
+              "text": "Loop one more time to increase coverage",
+              "fraction": 0,
+              "feedback": "Coverage is already full; the problem is the weak assertion."
+            }
+          ],
+          "generalFeedback": "If reading the trailing zero leaves the sum unchanged, \"sum positive\" cannot catch it; but the exact expected sum (or checking indexis never read) does. This is a fault-directed fix that adds no coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missing cleanup on a non-finally error branch",
+          "text": "<p>Cleanup is written inline at the end of the normal path (not in a <code>finally</code>), and an error branch returns before it. A happy-path test runs the cleanup line and passes. Why does mutation still reveal a fault here?</p>",
+          "answers": [
+            {
+              "text": "The mutant/error path skips the inline cleanup, and only a test that drives the error path and asserts cleanup detects it — the happy path never exercises the skip",
+              "fraction": 100,
+              "feedback": "Correct — the skipped-cleanup behaviour lives on the error path the happy-path test never takes."
+            },
+            {
+              "text": "The cleanup line is unreachable on every path",
+              "fraction": 0,
+              "feedback": "It is reached on the normal path; it is skipped only on the error branch."
+            },
+            {
+              "text": "A happy-path test already exercises the skip",
+              "fraction": 0,
+              "feedback": "The happy path runs cleanup; it never triggers the early-return skip."
+            },
+            {
+              "text": "Moving cleanup into finally would create the fault",
+              "fraction": 0,
+              "feedback": "Awould in fact prevent the skip; the fault is that cleanup is not guaranteed on the error path."
+            }
+          ],
+          "generalFeedback": "Because cleanup is not in a, the early-return error branch skips it. The happy-path test runs the inline cleanup and never sees the skip. A fault-directed test must drive the error path and assert cleanup happened.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why covering normal input is insufficient for an exception fault",
+          "text": "<p>For an unchecked-exception fault, why is covering the function with normal input insufficient even at 100% line coverage of the normal path?</p>",
+          "answers": [
+            {
+              "text": "The fault surfaces only on exceptional input, which normal-input coverage never supplies or asserts",
+              "fraction": 100,
+              "feedback": "Correct — the exceptional path and its assertion are what expose the fault."
+            },
+            {
+              "text": "Line coverage of the normal path already exercises the exceptional path",
+              "fraction": 0,
+              "feedback": "It does not; the exceptional path requires exceptional input."
+            },
+            {
+              "text": "Exceptions are always caught automatically by the runtime",
+              "fraction": 0,
+              "feedback": "An unchecked exception is precisely one that is not handled."
+            },
+            {
+              "text": "100% line coverage guarantees killing all mutants",
+              "fraction": 0,
+              "feedback": "It does not — coverage is not fault detection."
+            }
+          ],
+          "generalFeedback": "Normal input covers the normal path but never triggers the exceptional behaviour. Detecting the fault requires exceptional input plus an explicit assertion on how the exception is thrown or handled.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle case: coverage gain and killing assertion differ",
+          "text": "<p>A single new test reaches a never-before-covered error branch <em>and</em> asserts that a resource is released there, killing a leak mutant. Which statement about its two contributions is correct?</p>",
+          "answers": [
+            {
+              "text": "Reaching the branch is the coverage gain; the release assertion is what kills the mutant — reaching it alone would not have",
+              "fraction": 100,
+              "feedback": "Correct — coverage and the killing assertion are separate contributions, even in one test."
+            },
+            {
+              "text": "Reaching the new branch alone kills the mutant, so the assertion is unnecessary",
+              "fraction": 0,
+              "feedback": "Merely reaching the branch (coverage) does not observe whether the resource was released."
+            },
+            {
+              "text": "The assertion adds the coverage; reaching the branch kills the mutant",
+              "fraction": 0,
+              "feedback": "This swaps the roles — coverage comes from reaching the branch, the kill from the assertion."
+            },
+            {
+              "text": "The two contributions are the same measurement",
+              "fraction": 0,
+              "feedback": "They are distinct: one is execution, the other is fault detection."
+            }
+          ],
+          "generalFeedback": "Even when one test does both, the contributions are separable: reaching the branch raises coverage, but the mutant is killed only by the assertion that observes the release. Without the assertion, the added coverage would leave the leak mutant alive.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "High line coverage guarantees a high mutation score",
+          "text": "<p>A suite with high line coverage is guaranteed to also have a high mutation score.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "High coverage means code runs, but with weak assertions many mutants can still survive, so the mutation score can be low."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution, not fault detection; weak assertions can leave a low mutation score despite high coverage."
+            }
+          ],
+          "generalFeedback": "Coverage credits execution; killing mutants also needs assertions that observe the corrupted results. A high-coverage suite with weak assertions can have a low mutation score — the two measures are distinct, which is the core lesson of fault-directed testing."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "涵蓋率導向測試的目標",
+          "text": "<p><strong>涵蓋率導向</strong>（盲目）測試產生策略的目標是：</p>",
+          "answers": [
+            {
+              "text": "執行（涵蓋）程式中更多的行或分支",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率導向策略以「執行了多少程式碼」為最佳化目標。"
+            },
+            {
+              "text": "盡可能殺死更多注入的缺陷（變異體）",
+              "fraction": 0,
+              "feedback": "那是缺陷導向測試的目標，不是涵蓋率導向測試。"
+            },
+            {
+              "text": "盡量減少每個測試中的斷言數量",
+              "fraction": 0,
+              "feedback": "兩種策略都不以減少斷言為目標；涵蓋率導向只針對被執行的程式碼。"
+            },
+            {
+              "text": "證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何測試產生策略能證明缺陷完全不存在。"
+            }
+          ],
+          "generalFeedback": "涵蓋率導向的產生方式以某個結構涵蓋率指標為最佳化目標——它力求執行更多的行與分支，但並不說明那些被執行的行是否真的被檢查出缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷導向測試的目標",
+          "text": "<p><strong>缺陷導向</strong>（變異引導）測試產生策略的目標是：</p>",
+          "answers": [
+            {
+              "text": "殺死變異體——透過斷言缺陷會破壞的行為來偵測注入的缺陷",
+              "fraction": 100,
+              "feedback": "正確——缺陷導向測試鎖定特定缺陷，並加入在被改動的程式碼上會失敗的斷言。"
+            },
+            {
+              "text": "執行盡可能大比例的行與分支",
+              "fraction": 0,
+              "feedback": "那是涵蓋率導向測試；缺陷導向測試衡量的是缺陷偵測。"
+            },
+            {
+              "text": "不論檢查什麼，都跑最快的測試",
+              "fraction": 0,
+              "feedback": "速度不是目標；偵測缺陷才是。"
+            },
+            {
+              "text": "產生盡可能多的隨機輸入",
+              "fraction": 0,
+              "feedback": "目標不是隨機輸入的數量，而是殺死變異體。"
+            }
+          ],
+          "generalFeedback": "缺陷導向（變異引導）的產生方式鎖定特定缺陷類別，並撰寫植入的缺陷會違反的斷言，使測試在被改動的程式上失敗（殺死變異體）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "涵蓋率等同於缺陷偵測",
+          "text": "<p>執行（涵蓋）一行程式碼，就等於偵測到那一行中的缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "涵蓋率只代表該行被執行；一個測試可以執行某行卻不斷言任何該行缺陷會破壞的事。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率衡量的是執行，而非缺陷偵測；兩者是不同的。"
+            }
+          ],
+          "generalFeedback": "涵蓋率計算的是程式碼是否被執行。偵測缺陷則需要一個會被該缺陷行為違反的斷言。一個測試可以增加被涵蓋的行卻毫無有意義的斷言——涵蓋率與缺陷偵測並不相同。"
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是變異體",
+          "text": "<p>在此脈絡下，<em>變異體（mutant）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "一個被刻意注入單一缺陷的程式版本",
+              "fraction": 100,
+              "feedback": "正確——變異體就是被植入一個小缺陷的程式。"
+            },
+            {
+              "text": "一個能提高程式碼涵蓋率的測試案例",
+              "fraction": 0,
+              "feedback": "那是測試，不是變異體；變異體是被改動過的程式。"
+            },
+            {
+              "text": "一行從未被執行的程式碼",
+              "fraction": 0,
+              "feedback": "未執行的程式碼是涵蓋率缺口，不是變異體。"
+            },
+            {
+              "text": "使用者回報的一個正式環境臭蟲",
+              "fraction": 0,
+              "feedback": "變異體是為了評估測試而刻意注入的，並非現場回報的缺陷。"
+            }
+          ],
+          "generalFeedback": "變異體是被注入一個缺陷的程式。缺陷導向測試以變異體來代表一個好測試應當抓到的缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死變異體的意義",
+          "text": "<p><em>殺死變異體</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "某個測試偵測到注入的缺陷——它在被改動的程式上失敗",
+              "fraction": 100,
+              "feedback": "正確——殺死變異體正是偵測到植入的缺陷。"
+            },
+            {
+              "text": "某個測試執行了被改動的那一行卻沒有檢查其結果",
+              "fraction": 0,
+              "feedback": "只執行該行是涵蓋率；殺死需要測試在變異體上真的失敗。"
+            },
+            {
+              "text": "被改動的程式從版本庫中被刪除",
+              "fraction": 0,
+              "feedback": "殺死講的是測試的偵測，不是刪除程式碼。"
+            },
+            {
+              "text": "該變異被證明是無害的",
+              "fraction": 0,
+              "feedback": "那正好相反——被殺死的變異體是其缺陷被測試抓到的變異體。"
+            }
+          ],
+          "generalFeedback": "殺死變異體代表某測試偵測到注入的缺陷：測試在原始程式上通過，在變異體上失敗。殺死變異體就是偵測該缺陷的操作型定義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "49% 發現：它說了什麼",
+          "text": "<p>Meta ACH 研究的一項實證發現是：所產生的測試中有 49% 會：</p>",
+          "answers": [
+            {
+              "text": "殺死一個變異體，卻沒有增加任何一行新涵蓋的程式碼",
+              "fraction": 100,
+              "feedback": "正確——近半數的測試在未涵蓋任何新程式碼的情況下抓到了缺陷。"
+            },
+            {
+              "text": "增加了新涵蓋的行，卻沒有殺死任何變異體",
+              "fraction": 0,
+              "feedback": "那是相反的情況；這項發現講的是殺死變異體卻不增加涵蓋率的測試。"
+            },
+            {
+              "text": "涵蓋受測程式的每一行",
+              "fraction": 0,
+              "feedback": "這項發現與達成完整涵蓋率無關。"
+            },
+            {
+              "text": "是既有測試的重複",
+              "fraction": 0,
+              "feedback": "它們是全新、能抓缺陷的測試——不是重複。"
+            }
+          ],
+          "generalFeedback": "約 49% 所產生的測試在未增加任何新涵蓋行的情況下殺死了變異體。它們在已被涵蓋的程式碼上強化斷言，抓到了涵蓋率指標會判定為「毫無貢獻」的真實缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "49% 發現：它證明了什麼",
+          "text": "<p>49% 的測試在沒有新涵蓋行的情況下殺死變異體，這項發現證明了：</p>",
+          "answers": [
+            {
+              "text": "涵蓋率與缺陷偵測是不同的——一個測試可以在完全不增加涵蓋率的情況下抓到缺陷",
+              "fraction": 100,
+              "feedback": "正確——那正是這些測試所展現的。"
+            },
+            {
+              "text": "涵蓋率總能預測一個測試會抓到多少缺陷",
+              "fraction": 0,
+              "feedback": "這項發現顯示相反：這些測試不增加涵蓋率卻抓到缺陷。"
+            },
+            {
+              "text": "斷言與抓缺陷無關",
+              "fraction": 0,
+              "feedback": "正是被強化的斷言抓到了這些缺陷。"
+            },
+            {
+              "text": "不增加涵蓋率的測試永遠找不到臭蟲",
+              "fraction": 0,
+              "feedback": "這些測試不增加涵蓋率卻找到臭蟲，與此說法矛盾。"
+            }
+          ],
+          "generalFeedback": "由於這些測試在已被涵蓋的程式碼上強化斷言，它們在殺死變異體的同時，涵蓋率指標卻記錄不到任何新的行。這證明涵蓋率與缺陷偵測是不同的度量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識目標：追行數的測試",
+          "text": "<p>某個產生的測試執行了先前未被執行的分支，但只檢查函式「有沒有出錯地返回」，對結果毫無斷言。它實際的目標是：</p>",
+          "answers": [
+            {
+              "text": "涵蓋率導向——它增加了被涵蓋的程式碼，卻沒有斷言任何缺陷會破壞的事",
+              "fraction": 100,
+              "feedback": "正確——它提高了涵蓋率，卻沒有鎖定任何缺陷。"
+            },
+            {
+              "text": "缺陷導向——它殺死了一個變異體",
+              "fraction": 0,
+              "feedback": "沒有有意義的斷言，它無法在被改動的結果上失敗，因此殺不死任何變異體。"
+            },
+            {
+              "text": "都不是——它是一個等價變異體",
+              "fraction": 0,
+              "feedback": "等價變異體是變異體的性質，不是測試的性質。"
+            },
+            {
+              "text": "兩者兼具",
+              "fraction": 0,
+              "feedback": "它只服務於涵蓋率；沒有斷言，它偵測不到任何缺陷。"
+            }
+          ],
+          "generalFeedback": "執行一個分支卻不做任何有意義的斷言，只會提高涵蓋率而偵測不到缺陷。那是涵蓋率導向的結果——有涵蓋率而無缺陷偵測。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識目標：強化斷言的測試",
+          "text": "<p>某個產生的測試執行的行數與既有測試相同，但加入了一個斷言：當邊界索引用 <code>&lt;=</code> 而非 <code>&lt;</code> 計算時會失敗。它的目標是：</p>",
+          "answers": [
+            {
+              "text": "缺陷導向——即使沒有增加新涵蓋率，它仍殺死了一個變異體",
+              "fraction": 100,
+              "feedback": "正確——新斷言偵測到注入的差一缺陷。"
+            },
+            {
+              "text": "涵蓋率導向——它增加了新涵蓋的行",
+              "fraction": 0,
+              "feedback": "它執行的行與之前相同，因此沒有增加新涵蓋率。"
+            },
+            {
+              "text": "毫無意義——它沒有改變任何可衡量的東西",
+              "fraction": 0,
+              "feedback": "它改變了缺陷偵測：它殺死了一個涵蓋率指標會漏掉的變異體。"
+            },
+            {
+              "text": "涵蓋率導向——它刪除了一個斷言",
+              "fraction": 0,
+              "feedback": "它加入了一個斷言，並未刪除。"
+            }
+          ],
+          "generalFeedback": "在已被涵蓋的程式碼上強化斷言不會增加涵蓋率，卻能殺死變異體。那是缺陷導向的測試——正是 49% 發現所描述的那一種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四種缺陷類別",
+          "text": "<p>本應用以四種標註的缺陷類別來說明缺陷導向測試。以下哪一項<strong>不是</strong>其中之一？</p>",
+          "answers": [
+            {
+              "text": "共享計數器上的競態條件（race condition）",
+              "fraction": 100,
+              "feedback": "正確——資料競態不是所說明的四種類別之一。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "這是四種缺陷類別之一。"
+            },
+            {
+              "text": "差一錯誤（off-by-one）",
+              "fraction": 0,
+              "feedback": "這是四種缺陷類別之一。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "這是四種缺陷類別之一。"
+            }
+          ],
+          "generalFeedback": "所說明的四種缺陷類別為：空值／資源洩漏、差一錯誤、缺少清理，以及未檢查的例外。競態條件不在其中。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "涵蓋型測試可以毫無有意義的斷言",
+          "text": "<p>一個測試可以增加新涵蓋的行，卻對那些行是否正確毫無有意義的斷言。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率記錄的是執行，而非斷言的強度。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "涵蓋率只要求該行被執行；測試不必檢查結果，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "只要某行被執行，涵蓋率就會記上這一行，不管測試是否檢查其行為。因此一個測試可以提高涵蓋率卻偵測不到缺陷——涵蓋率與缺陷偵測是不同的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷導向測試的別稱",
+          "text": "<p>缺陷導向測試產生也被描述為：</p>",
+          "answers": [
+            {
+              "text": "變異引導測試（mutation-guided testing）",
+              "fraction": 100,
+              "feedback": "正確——它由測試是否殺死變異體（注入的缺陷）來引導。"
+            },
+            {
+              "text": "涵蓋率最大化測試",
+              "fraction": 0,
+              "feedback": "那描述的是涵蓋率導向的目標，正是缺陷導向測試的對照。"
+            },
+            {
+              "text": "隨機（模糊）測試",
+              "fraction": 0,
+              "feedback": "模糊測試產生隨機輸入；缺陷導向測試鎖定特定缺陷。"
+            },
+            {
+              "text": "負載測試",
+              "fraction": 0,
+              "feedback": "負載測試衡量負載下的效能，與殺死變異體無關。"
+            }
+          ],
+          "generalFeedback": "缺陷導向測試就是變異引導：它以變異體（注入的缺陷）為目標，產生斷言能殺死它們的測試。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "強化斷言不會增加涵蓋率",
+          "text": "<p>對一個已經執行了相關程式碼的測試加入更強的斷言，可以在完全不增加任何新涵蓋行的情況下殺死一個變異體。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——程式碼已被涵蓋，因此只有缺陷偵測改善，涵蓋率沒有。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "那些行已經執行過，所以沒有增加新涵蓋率；更強的斷言仍抓到缺陷，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "當程式碼已被涵蓋時，更強的斷言不會增加新的行，卻能讓測試在變異體上失敗。這正是為什麼 49% 的 ACH 測試在沒有新涵蓋率的情況下殺死變異體。"
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋率指標如何評分那 49% 的測試",
+          "text": "<p>純涵蓋率指標會如何評分那 49% 在沒有新涵蓋行的情況下殺死變異體的測試？</p>",
+          "answers": [
+            {
+              "text": "視為毫無貢獻——即使它們抓到了真實的缺陷",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率看不到新的行，因此低估了這些能抓缺陷的測試。"
+            },
+            {
+              "text": "視為套件中最有價值的測試",
+              "fraction": 0,
+              "feedback": "涵蓋率記錄不到任何新的行，因此不會將它們評為高分。"
+            },
+            {
+              "text": "視為無法編譯",
+              "fraction": 0,
+              "feedback": "它們是有效的測試；涵蓋率只是記不到任何新的行。"
+            },
+            {
+              "text": "視為等價變異體",
+              "fraction": 0,
+              "feedback": "等價變異體是變異體的性質，不是測試的涵蓋率評分。"
+            }
+          ],
+          "generalFeedback": "涵蓋率指標看不到任何新涵蓋的行，因此把這些測試評為「毫無貢獻」，即使每一個都抓到了真實的缺陷——這正是涵蓋率單獨低估測試品質的核心原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對照兩種目標",
+          "text": "<p>下列哪一組正確對照了兩種測試產生目標？</p>",
+          "answers": [
+            {
+              "text": "涵蓋率導向＝執行更多的行；缺陷導向＝殺死變異體（偵測注入的缺陷）",
+              "fraction": 100,
+              "feedback": "正確——一個以執行為最佳化目標，另一個以缺陷偵測為最佳化目標。"
+            },
+            {
+              "text": "涵蓋率導向＝殺死變異體；缺陷導向＝執行更多的行",
+              "fraction": 0,
+              "feedback": "這把兩個目標弄反了。"
+            },
+            {
+              "text": "涵蓋率導向＝偵測缺陷；缺陷導向＝忽略缺陷",
+              "fraction": 0,
+              "feedback": "涵蓋率導向並不直接鎖定缺陷，而缺陷導向完全以缺陷為核心。"
+            },
+            {
+              "text": "兩者都只求縮短測試執行時間",
+              "fraction": 0,
+              "feedback": "兩種目標都不是由執行時間定義的。"
+            }
+          ],
+          "generalFeedback": "涵蓋率導向的產生方式力求執行更多程式碼；缺陷導向的產生方式力求殺死變異體——偵測注入的缺陷。由於涵蓋率不等於缺陷偵測，這兩個目標確實會分歧。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "情境：空值／資源洩漏——為何涵蓋率漏掉它",
+          "text": "<p>某函式開啟一個檔案控制代碼（handle），只在成功路徑上釋放它；錯誤路徑不釋放就返回（資源洩漏）。一個走順利路徑的測試涵蓋了該函式。它為何漏掉這個缺陷？缺陷導向測試又加入了什麼？</p>",
+          "answers": [
+            {
+              "text": "順利路徑從未走到會洩漏的錯誤路徑，且即使走到也沒有任何斷言檢查控制代碼是否被釋放——缺陷導向測試會驅動錯誤路徑並斷言控制代碼已關閉",
+              "fraction": 100,
+              "feedback": "正確——它同時需要走到錯誤路徑並斷言釋放。"
+            },
+            {
+              "text": "順利路徑未被涵蓋，所以單純提高涵蓋率就能修好",
+              "fraction": 0,
+              "feedback": "順利路徑已被涵蓋；缺的是走到錯誤路徑並斷言釋放。"
+            },
+            {
+              "text": "這個洩漏不可能被任何測試偵測到",
+              "fraction": 0,
+              "feedback": "一個走到錯誤路徑並檢查釋放的測試就能輕鬆偵測。"
+            },
+            {
+              "text": "在成功路徑上加任何斷言都會殺死這個變異體",
+              "fraction": 0,
+              "feedback": "缺陷在錯誤路徑上；只在成功路徑上斷言走不到它。"
+            }
+          ],
+          "generalFeedback": "順利路徑的測試從不執行會洩漏的分支，即使涵蓋了它也不會斷言控制代碼已被釋放。缺陷導向測試會驅動錯誤路徑並斷言資源已被釋放，殺死這個洩漏變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：差一錯誤——為何涵蓋率漏掉它",
+          "text": "<p>某迴圈用了 <code>i &lt;= n</code>，但應該用 <code>i &lt; n</code>，因而讀到超出結尾一個的元素。一個測試跑完整個迴圈，卻只斷言累加總和為非負。它為何漏掉這個缺陷？</p>",
+          "answers": [
+            {
+              "text": "涵蓋迴圈會執行每一次迭代，但斷言從未檢查邊界元素或那次多出的迭代所破壞的確切結果",
+              "fraction": 100,
+              "feedback": "正確——涵蓋迴圈本體並不斷言邊界行為。"
+            },
+            {
+              "text": "迴圈本體從未被執行",
+              "fraction": 0,
+              "feedback": "迴圈已被完整涵蓋；問題在於斷言太弱，而非可達性。"
+            },
+            {
+              "text": "差一錯誤無法被斷言偵測",
+              "fraction": 0,
+              "feedback": "斷言確切的邊界結果就能精準偵測它們。"
+            },
+            {
+              "text": "這個變異體是等價的",
+              "fraction": 0,
+              "feedback": "讀到超出結尾會改變行為，因此它不是等價的。"
+            }
+          ],
+          "generalFeedback": "執行迴圈能達到完整涵蓋率，但模糊的斷言（總和非負）抓不到被破壞的邊界。缺陷導向測試會斷言確切的預期結果或最後的有效索引，讓那次多出的迭代被抓到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：缺少清理——為何涵蓋率漏掉它",
+          "text": "<p>某函式建立一個暫時資源，並在結尾刪除它，但在無效輸入時提早 <code>return</code> 會跳過刪除（缺少清理）。一個傳入有效輸入的測試涵蓋了正常路徑。它為何漏掉這個缺陷？</p>",
+          "answers": [
+            {
+              "text": "正常路徑會執行清理，因此只有提早返回的路徑才會留下資源；涵蓋型測試從未觸發該路徑，也未斷言清理",
+              "fraction": 100,
+              "feedback": "正確——缺陷只存在於被跳過清理的錯誤路徑上。"
+            },
+            {
+              "text": "清理在任何路徑上都不會被走到",
+              "fraction": 0,
+              "feedback": "清理在正常路徑上會正常執行；只有在提早返回時才被跳過。"
+            },
+            {
+              "text": "那個暫時資源從未被建立",
+              "fraction": 0,
+              "feedback": "它有被建立；缺陷在於提早返回的路徑上未刪除它。"
+            },
+            {
+              "text": "這個缺陷在每一種輸入上都會出現",
+              "fraction": 0,
+              "feedback": "它只在無效輸入的提早返回路徑上出現。"
+            }
+          ],
+          "generalFeedback": "在有效輸入下清理會執行，因此涵蓋型測試看不出問題。缺陷導向測試會提供無效輸入以強制提早返回，並斷言暫時資源已被清理，殺死這個變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：未檢查的例外——為何涵蓋率漏掉它",
+          "text": "<p>某剖析器在遇到格式錯誤的輸入時會拋出例外，但沒有任何地方處理或斷言該例外。一個用格式正確輸入的測試涵蓋了剖析器。它為何漏掉這個缺陷？缺陷導向測試又加入了什麼？</p>",
+          "answers": [
+            {
+              "text": "格式正確的輸入從不觸發例外路徑；缺陷導向測試會餵入格式錯誤的輸入，並斷言預期的例外（或其處理）",
+              "fraction": 100,
+              "feedback": "正確——例外行為只有在提供例外輸入並對其斷言時才會浮現。"
+            },
+            {
+              "text": "剖析器程式碼不可達",
+              "fraction": 0,
+              "feedback": "用格式正確的輸入就能走到它；只是例外分支未被執行。"
+            },
+            {
+              "text": "例外永遠無法在測試中被斷言",
+              "fraction": 0,
+              "feedback": "測試經常斷言某個特定例外是否被拋出。"
+            },
+            {
+              "text": "這個缺陷只對效能有影響",
+              "fraction": 0,
+              "feedback": "它是例外路徑上的正確性缺陷，不是效能問題。"
+            }
+          ],
+          "generalFeedback": "格式正確的輸入會執行剖析器，卻從不走例外路徑。缺陷導向測試會提供格式錯誤的輸入，並斷言預期的例外被拋出（或被正確處理），抓到未檢查的例外缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：讀到超出結尾",
+          "text": "<p>某程序以 <code>for (i = 0; i &lt;= len; i++)</code> 迭代並存取 <code>a[i]</code>，讀到陣列結尾之外一格。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "差一錯誤",
+              "fraction": 100,
+              "feedback": "正確——邊界條件差了一（對）。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "這裡沒有跳過任何拆卸步驟；缺陷是邊界索引錯誤。"
+            },
+            {
+              "text": "未檢查的例外",
+              "fraction": 0,
+              "feedback": "根本原因是邊界錯誤；任何例外都是徵狀，不是類別本身。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "這裡不涉及資源或空值；缺陷是邊界索引錯誤。"
+            }
+          ],
+          "generalFeedback": "在需要的地方用了，會讀到超出結尾一個元素——這是典型的差一錯誤類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：提早返回跳過拆卸",
+          "text": "<p>某函式開啟一個資料庫交易，在因驗證錯誤而提早 <code>return</code> 時，既不提交也不回復，留下一個未關閉的交易。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "缺少清理",
+              "fraction": 100,
+              "feedback": "正確——拆卸步驟（回復／提交）在提早返回的路徑上被跳過。"
+            },
+            {
+              "text": "差一錯誤",
+              "fraction": 0,
+              "feedback": "這裡不涉及邊界索引。"
+            },
+            {
+              "text": "未檢查的例外",
+              "fraction": 0,
+              "feedback": "問題是提早返回時跳過了拆卸步驟，而非未處理的例外。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "雖然相關，但這裡的定義特徵是清理／拆卸步驟在錯誤路徑上被跳過——屬於缺少清理類別。"
+            }
+          ],
+          "generalFeedback": "提早返回而跳過交易拆卸屬於缺少清理類別：清理在正常路徑上會執行，卻在錯誤／提早返回的路徑上被跳過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：未檢查的空值回傳",
+          "text": "<p><code>lookup(key)</code> 在鍵不存在時可能回傳 <code>null</code>，而呼叫端未做空值檢查就直接執行 <code>lookup(key).name</code>。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 100,
+              "feedback": "正確——對可能為空的值進行解參考，就是此類別的「空值」面向。"
+            },
+            {
+              "text": "差一錯誤",
+              "fraction": 0,
+              "feedback": "這裡不涉及邊界索引。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "沒有需要清理的東西；缺陷是未加防護的空值解參考。"
+            },
+            {
+              "text": "未檢查的例外",
+              "fraction": 0,
+              "feedback": "雖然空值解參考可能拋出例外，但這裡建模的類別是空值／資源洩漏類別（未加防護的空值）。"
+            }
+          ],
+          "generalFeedback": "未加防護就對可能為空的值進行解參考，屬於空值／資源洩漏缺陷類別（其空值面向）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：壞輸入拋例外、無人接手",
+          "text": "<p><code>Integer.parseInt(s)</code> 在 <code>s</code> 非數字時會拋出例外，而程式與任何測試都未處理或斷言該情況。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "未檢查的例外",
+              "fraction": 100,
+              "feedback": "正確——一條既未處理也未斷言的例外路徑。"
+            },
+            {
+              "text": "差一錯誤",
+              "fraction": 0,
+              "feedback": "這裡不涉及邊界索引。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "這裡沒有跳過任何拆卸步驟。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "沒有空值解參考或洩漏的資源；缺陷是未處理／未斷言的例外。"
+            }
+          ],
+          "generalFeedback": "一條既未處理也未斷言的例外路徑屬於未檢查的例外類別：程式在正常輸入下能執行，缺陷只有在提供例外輸入並對其斷言時才浮現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 100% 涵蓋率仍可能漏掉缺陷",
+          "text": "<p>某套件達成 100% 行涵蓋率，卻仍有一個變異體存活。最可能的原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "有缺陷的那一行被執行了，但沒有任何斷言檢查該缺陷所改變的行為",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率保證執行，卻不保證被破壞的結果被觀察到。"
+            },
+            {
+              "text": "有缺陷的那一行從未被執行",
+              "fraction": 0,
+              "feedback": "在 100% 行涵蓋率下該行確實被執行了；缺口在斷言。"
+            },
+            {
+              "text": "100% 涵蓋率使每個變異體都變成等價的",
+              "fraction": 0,
+              "feedback": "涵蓋率對變異體是否等價毫無影響。"
+            },
+            {
+              "text": "該套件的斷言太多了",
+              "fraction": 0,
+              "feedback": "存活的變異體代表斷言太弱，而非太多。"
+            }
+          ],
+          "generalFeedback": "完整行涵蓋率只代表每一行都執行了。若沒有任何斷言觀察到缺陷所破壞的值，變異體就會存活——涵蓋率對缺陷偵測是必要但不充分的。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "涵蓋一行就等於斷言它正確",
+          "text": "<p>在測試中走到（涵蓋）某一行，就保證該測試也斷言了那一行行為正確。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "走到某行只是執行它；測試可能對其結果毫無檢查。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——執行與斷言是彼此獨立的；涵蓋一行並不等於斷言它。"
+            }
+          ],
+          "generalFeedback": "涵蓋率記錄的是某行有被執行，而非測試檢查了它的輸出。一條被涵蓋卻沒有相關斷言的行，仍會讓該行的缺陷存活。"
+        },
+        {
+          "type": "multichoice",
+          "name": "差一錯誤的殺手斷言",
+          "text": "<p>要殺死一個把迴圈邊界從 <code>i &lt; n</code> 改成 <code>i &lt;= n</code> 的變異體，下列哪個斷言最有效？</p>",
+          "answers": [
+            {
+              "text": "斷言確切的預期結果（或斷言不會在索引處發生讀取），使那次多出的迭代被抓到",
+              "fraction": 100,
+              "feedback": "正確——檢查精確的邊界結果會在多出的那次迭代上失敗。"
+            },
+            {
+              "text": "只斷言函式有回傳某個東西",
+              "fraction": 0,
+              "feedback": "變異體仍會回傳一個值；單純檢查存在抓不到它。"
+            },
+            {
+              "text": "斷言迴圈變數是整數",
+              "fraction": 0,
+              "feedback": "型別不因缺陷而改變，因此這永遠不會失敗。"
+            },
+            {
+              "text": "斷言輸入陣列非空",
+              "fraction": 0,
+              "feedback": "那檢查的是輸入，而非被破壞的邊界行為。"
+            }
+          ],
+          "generalFeedback": "只有針對受邊界影響的確切結果——精確的值，或斷言索引不會被讀取——的斷言，才能區分與，殺死這個差一變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺少清理的殺法",
+          "text": "<p>要殺死一個在錯誤路徑上跳過拆卸的缺少清理變異體，缺陷導向測試應當：</p>",
+          "answers": [
+            {
+              "text": "驅動錯誤／提早返回路徑，並斷言清理確實發生了（資源已釋放、交易已關閉）",
+              "fraction": 100,
+              "feedback": "正確——它必須走到有缺陷的路徑並檢查拆卸。"
+            },
+            {
+              "text": "跑正常路徑並斷言回傳值",
+              "fraction": 0,
+              "feedback": "正常路徑本來就會執行清理，因此永遠不會暴露缺陷。"
+            },
+            {
+              "text": "在不加新斷言的情況下提高整體行涵蓋率",
+              "fraction": 0,
+              "feedback": "沒有斷言清理的涵蓋率抓不到被跳過的拆卸。"
+            },
+            {
+              "text": "只斷言錯誤有被回傳",
+              "fraction": 0,
+              "feedback": "兩個版本都會回傳錯誤；只有清理不同。"
+            }
+          ],
+          "generalFeedback": "缺陷在錯誤路徑上，因此測試必須觸發該路徑並斷言清理已執行。唯有如此，跳過拆卸的變異體才會失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "未檢查例外的殺法",
+          "text": "<p>要殺死一個未檢查的例外變異體，缺陷導向測試應當：</p>",
+          "answers": [
+            {
+              "text": "提供例外輸入，並斷言預期的例外被拋出（或被正確處理）",
+              "fraction": 100,
+              "feedback": "正確——例外路徑必須被執行並被斷言。"
+            },
+            {
+              "text": "只提供正常輸入並斷言順利路徑的結果",
+              "fraction": 0,
+              "feedback": "正常輸入從不走到例外路徑。"
+            },
+            {
+              "text": "用 try/catch 把整個測試包起來並忽略任何例外",
+              "fraction": 0,
+              "feedback": "吞掉例外代表測試對它毫無斷言，因此無法在變異體上失敗。"
+            },
+            {
+              "text": "斷言函式名稱拼寫正確",
+              "fraction": 0,
+              "feedback": "那對例外行為毫無檢查。"
+            }
+          ],
+          "generalFeedback": "例外行為只有在提供例外輸入並加上明確斷言（assertThrows，或斷言處理常式有執行）時才會浮現。那才能殺死未檢查的例外變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "空值解參考的殺法",
+          "text": "<p>要殺死一個因缺少防護、使不存在的值被解參考的空值解參考變異體，缺陷導向測試應當：</p>",
+          "answers": [
+            {
+              "text": "操作值為 null／不存在的情況，並斷言受防護的行為（預設值，或某個特定的處理結果）",
+              "fraction": 100,
+              "feedback": "正確——只有 null／不存在的情況會觸發缺少的防護，而斷言則釘住預期的行為。"
+            },
+            {
+              "text": "只操作值存在的情況並斷言其欄位",
+              "fraction": 0,
+              "feedback": "值存在時從不觸發缺少的空值防護。"
+            },
+            {
+              "text": "提高不相關方法的涵蓋率",
+              "fraction": 0,
+              "feedback": "那既走不到也斷言不了空值路徑。"
+            },
+            {
+              "text": "斷言該值的型別正確",
+              "fraction": 0,
+              "feedback": "型別不因缺陷而改變；重點是 null 的情況。"
+            }
+          ],
+          "generalFeedback": "缺陷只有在值為 null／不存在時才浮現，因此測試必須操作該情況並斷言受防護的結果——缺少的防護就會讓變異體解參考 null 而失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個不增加涵蓋率、只加斷言的測試",
+          "text": "<p>某個新測試執行的行數與既有的通過測試完全相同，卻加入一個會在植入的差一變異體上失敗的斷言。涵蓋率工具回報零新行。這個測試毫無價值嗎？</p>",
+          "answers": [
+            {
+              "text": "不——它是一個缺陷導向測試，殺死了一個涵蓋率單獨會判定為毫無貢獻的變異體",
+              "fraction": 100,
+              "feedback": "正確——它在不改變涵蓋率的情況下改善了缺陷偵測。"
+            },
+            {
+              "text": "是——不增加新行就代表毫無價值",
+              "fraction": 0,
+              "feedback": "它殺死了一個變異體；抓到真實缺陷是涵蓋率看不到的價值。"
+            },
+            {
+              "text": "是——只有提高涵蓋率的測試才重要",
+              "fraction": 0,
+              "feedback": "49% 的發現直接反駁了這一點。"
+            },
+            {
+              "text": "不——但只是因為它提高了涵蓋率",
+              "fraction": 0,
+              "feedback": "它沒有提高任何涵蓋率；它的價值在於那個殺手斷言。"
+            }
+          ],
+          "generalFeedback": "這正是 49% 的情況：相同的行、更強的斷言、一個被殺死的變異體。涵蓋率指標記不到任何東西，測試卻抓到了真實的缺陷——顯示涵蓋率與缺陷偵測是不同的。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何涵蓋率與變異分數會分歧",
+          "text": "<p>為什麼一個套件的行涵蓋率可以很高，而其變異分數卻很低？</p>",
+          "answers": [
+            {
+              "text": "涵蓋率只要求有缺陷的程式碼被執行，而殺死變異體還額外要求被破壞的結果被某個斷言觀察到",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率衡量執行；殺死變異體需要執行加上觀察的斷言。"
+            },
+            {
+              "text": "變異分數只計算從未被執行的行",
+              "fraction": 0,
+              "feedback": "變異分數講的是被殺死的變異體，而非未執行的行。"
+            },
+            {
+              "text": "高涵蓋率會強制產生高變異分數",
+              "fraction": 0,
+              "feedback": "題目的前提就顯示這是錯的；兩者會分歧。"
+            },
+            {
+              "text": "涵蓋率與變異分數永遠衡量相同的東西",
+              "fraction": 0,
+              "feedback": "它們並不相同——這正是它們會分歧的原因。"
+            }
+          ],
+          "generalFeedback": "涵蓋率只記執行本身。殺死變異體需要被改動的行被執行、破壞狀態，並讓該破壞被斷言觀察到。斷言太弱就會留下高涵蓋率卻低變異分數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個測試是缺陷導向的",
+          "text": "<p>測試 A 提高了行涵蓋率卻殺不死任何變異體。測試 B 在不提高涵蓋率的情況下殺死了一個變異體。哪一個是缺陷導向的？為什麼？</p>",
+          "answers": [
+            {
+              "text": "測試 B——它偵測到注入的缺陷，這正是缺陷導向的目標，與涵蓋率無關",
+              "fraction": 100,
+              "feedback": "正確——殺死變異體就是缺陷偵測；涵蓋率無關緊要。"
+            },
+            {
+              "text": "測試 A——它提高了涵蓋率，而那正是缺陷導向測試所最佳化的",
+              "fraction": 0,
+              "feedback": "提高涵蓋率是涵蓋率導向的目標，不是缺陷導向的目標。"
+            },
+            {
+              "text": "兩者一樣，因為兩者都是測試",
+              "fraction": 0,
+              "feedback": "只有測試 B 偵測到缺陷；只有它是缺陷導向的。"
+            },
+            {
+              "text": "都不是，因為缺陷導向測試必須兩者兼具",
+              "fraction": 0,
+              "feedback": "缺陷導向測試不必增加涵蓋率；殺死變異體就足夠。"
+            }
+          ],
+          "generalFeedback": "缺陷導向代表偵測注入的缺陷（殺死變異體）。測試 B 在零新涵蓋率下做到這件事——正是 49% 的情況。測試 A 增加涵蓋率卻偵測不到任何東西，是涵蓋率導向的結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出殺死洩漏變異體的斷言",
+          "text": "<p>某個資源洩漏變異體移除了錯誤路徑上的 <code>close()</code>。哪個斷言最直接殺死它？</p>",
+          "answers": [
+            {
+              "text": "驅動錯誤路徑後，斷言控制代碼已關閉（例如開啟中的控制代碼數已歸零）",
+              "fraction": 100,
+              "feedback": "正確——這觀察到變異體所跳過的釋放。"
+            },
+            {
+              "text": "斷言函式回傳了一個錯誤碼",
+              "fraction": 0,
+              "feedback": "兩個版本都回傳相同的錯誤碼；只有釋放不同。"
+            },
+            {
+              "text": "斷言順利路徑回傳正確的值",
+              "fraction": 0,
+              "feedback": "順利路徑仍會關閉控制代碼，因此永遠不會暴露這個變異體。"
+            },
+            {
+              "text": "斷言整體行涵蓋率提高了",
+              "fraction": 0,
+              "feedback": "涵蓋率不是斷言，也不會觀察到被洩漏的控制代碼。"
+            }
+          ],
+          "generalFeedback": "變異體的唯一差別在於錯誤路徑上控制代碼是否被釋放，因此殺手斷言必須走到該路徑並檢查控制代碼確實已被關閉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出殺死未檢查例外變異體的斷言",
+          "text": "<p>某個變異體移除了一個防護，使格式錯誤的輸入現在會拋出例外，而非回傳一個錯誤結果。哪個斷言能殺死它？</p>",
+          "answers": [
+            {
+              "text": "餵入格式錯誤的輸入，並斷言規格所定義的優雅結果（如此被拋出的例外會讓測試失敗）",
+              "fraction": 100,
+              "feedback": "正確——對壞輸入斷言預期的「不拋出」行為就能抓到這個改動。"
+            },
+            {
+              "text": "餵入有效輸入並斷言正常結果",
+              "fraction": 0,
+              "feedback": "有效輸入從不觸發受防護的路徑。"
+            },
+            {
+              "text": "在測試中攔截並忽略所有例外",
+              "fraction": 0,
+              "feedback": "吞掉例外會隱藏這個改動，變異體因此存活。"
+            },
+            {
+              "text": "斷言測試檔案能編譯",
+              "fraction": 0,
+              "feedback": "能否編譯對例外行為毫無說明。"
+            }
+          ],
+          "generalFeedback": "變異體把格式錯誤輸入的行為從優雅結果改成拋出例外。唯有一個提供該輸入並斷言規格所定義行為的測試，才能區分兩者並殺死變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出殺死空值防護變異體的斷言",
+          "text": "<p>某個變異體刪除了一個空值檢查，使得查不到的鍵現在會解參考 <code>null</code>，而非回傳一個預設值。哪個斷言能殺死它？</p>",
+          "answers": [
+            {
+              "text": "用一個不存在的鍵呼叫，並斷言回傳了文件所載的預設值（如此空值解參考會讓測試失敗）",
+              "fraction": 100,
+              "feedback": "正確——操作不存在鍵的情況並斷言受防護的預設值，就能抓到被刪除的檢查。"
+            },
+            {
+              "text": "用一個存在的鍵呼叫並斷言其值",
+              "fraction": 0,
+              "feedback": "存在的鍵從不觸發被刪除的空值防護。"
+            },
+            {
+              "text": "斷言查找表非空",
+              "fraction": 0,
+              "feedback": "那檢查的是測試夾具，而非受防護的行為。"
+            },
+            {
+              "text": "斷言方法簽章未變",
+              "fraction": 0,
+              "feedback": "簽章不因這個缺陷而改變。"
+            }
+          ],
+          "generalFeedback": "該防護只在不存在鍵的情況下才有意義，因此殺手測試會用不存在的鍵並斷言文件所載的預設值——被刪除的防護就會讓變異體解參考 null 而失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何缺陷導向測試是補足涵蓋率",
+          "text": "<p>為什麼缺陷導向測試最好被視為補足涵蓋率、而非取代它？</p>",
+          "answers": [
+            {
+              "text": "涵蓋率確保程式碼被走到；缺陷導向的斷言確保被走到的程式碼真的被檢查缺陷——兩者都需要",
+              "fraction": 100,
+              "feedback": "正確——可達性與缺陷偵測是互補的需求。"
+            },
+            {
+              "text": "缺陷導向測試使涵蓋率量測變得不可能",
+              "fraction": 0,
+              "feedback": "兩者可以一起量測；其一不排斥另一。"
+            },
+            {
+              "text": "涵蓋率已經保證缺陷偵測，所以缺陷導向測試是多餘的",
+              "fraction": 0,
+              "feedback": "涵蓋率並不保證缺陷偵測——那正是本應用的重點。"
+            },
+            {
+              "text": "缺陷導向測試只在涵蓋率為 0% 時才有效",
+              "fraction": 0,
+              "feedback": "它在任何涵蓋率水準都有效；它在被走到的任何程式碼上強化斷言。"
+            }
+          ],
+          "generalFeedback": "你仍需要涵蓋率走到有缺陷的程式碼，也需要缺陷導向的斷言在其中偵測缺陷。變異體所在的行若從不被執行就殺不死，被執行的行若從不被檢查則會存活——因此兩者互補。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個測試展現了 49% 發現",
+          "text": "<p>兩個測試各殺死一個變異體。測試 X 走到一個全新的分支並斷言其結果；測試 Y 對一個已被涵蓋的分支加入斷言。哪一個展現了 49% 發現？為什麼？</p>",
+          "answers": [
+            {
+              "text": "測試 Y——它在未增加任何新涵蓋行的情況下殺死變異體，正是 49% 的情況",
+              "fraction": 100,
+              "feedback": "正確——這項發現講的是不增加涵蓋率的殺死。"
+            },
+            {
+              "text": "測試 X——它同時增加涵蓋率與殺手斷言",
+              "fraction": 0,
+              "feedback": "測試 X 增加了新涵蓋率，因此不是該發現所描述的「零新涵蓋率」情況。"
+            },
+            {
+              "text": "兩者，因為兩者都殺死一個變異體",
+              "fraction": 0,
+              "feedback": "只有測試 Y 在零新涵蓋率下殺死變異體。"
+            },
+            {
+              "text": "都不是，因為該發現講的是殺不死變異體的測試",
+              "fraction": 0,
+              "feedback": "該發現恰恰講的是確實殺死變異體卻不增加涵蓋率的測試。"
+            }
+          ],
+          "generalFeedback": "49% 發現講的是殺死變異體卻不增加任何新涵蓋行的測試。測試 Y 藉由在已被涵蓋的程式碼上強化斷言做到這件事；測試 X 則還增加了涵蓋率，因此不是這個代表性情況。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% 分支涵蓋率、變異體卻存活",
+          "text": "<p>某套件有 100% 分支涵蓋率，卻有一個非等價變異體存活。要殺死它必須加入什麼？</p>",
+          "answers": [
+            {
+              "text": "一個能觀察到變異體所破壞之值的更強斷言（若有需要，再加一個能讓破壞傳播的輸入）",
+              "fraction": 100,
+              "feedback": "正確——分支已被執行，因此缺口在於觀察被破壞的結果。"
+            },
+            {
+              "text": "更多要涵蓋的分支",
+              "fraction": 0,
+              "feedback": "分支涵蓋率已是 100%，沒有未涵蓋的分支可加。"
+            },
+            {
+              "text": "刪除那個存活的變異體",
+              "fraction": 0,
+              "feedback": "變異體是缺陷模型；解方是更好的測試，而非刪除變異體。"
+            },
+            {
+              "text": "什麼都不用——100% 分支涵蓋率代表套件已完備",
+              "fraction": 0,
+              "feedback": "一個存活的非等價變異體證明套件並非缺陷適當。"
+            }
+          ],
+          "generalFeedback": "在完整分支涵蓋率下，有缺陷的分支已被執行，因此缺的是一個觀察被破壞輸出的斷言（可能還要一個讓它傳播的輸入）。涵蓋率已達上限；缺陷偵測則否。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "49% 具體證明了什麼",
+          "text": "<p>為什麼「49% 的測試在沒有新涵蓋行的情況下殺死變異體」具體證明了涵蓋率 &#8800; 缺陷偵測？</p>",
+          "answers": [
+            {
+              "text": "這些測試提升了缺陷偵測（一次殺死），而涵蓋率度量卻毫無變化，因此這兩個度量是各自獨立變動的",
+              "fraction": 100,
+              "feedback": "正確——缺陷偵測上升而涵蓋率沒有，因此它們不是同一個度量。"
+            },
+            {
+              "text": "因為它們提高涵蓋率卻殺不死變異體",
+              "fraction": 0,
+              "feedback": "那把發現弄反了；它們是殺死變異體卻不提高涵蓋率。"
+            },
+            {
+              "text": "因為它們既不提高涵蓋率也不殺死變異體",
+              "fraction": 0,
+              "feedback": "它們確實殺死變異體；那正是重點。"
+            },
+            {
+              "text": "因為涵蓋率工具壞了",
+              "fraction": 0,
+              "feedback": "工具運作正常；確實沒有新的行可記。"
+            }
+          ],
+          "generalFeedback": "若涵蓋率與缺陷偵測是同一件事，就不可能有測試在改善其一時不動另一。近半數的測試在涵蓋率零變化下改善了缺陷偵測，因此這兩個度量可被證明是不同的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋率導向產生器的盲點",
+          "text": "<p>一個只獎勵「增加新行」的測試產生器，會把不增加涵蓋率的測試降級。這個盲點會放過哪一種缺陷？</p>",
+          "answers": [
+            {
+              "text": "在已被涵蓋的程式碼中、只需一個更強斷言就能偵測的缺陷",
+              "fraction": 100,
+              "feedback": "正確——那些正是只獎勵涵蓋率的做法會丟棄的測試。"
+            },
+            {
+              "text": "不可達的死碼中的缺陷",
+              "fraction": 0,
+              "feedback": "死碼無法被任何測試涵蓋或殺死，因此不是這裡的盲點。"
+            },
+            {
+              "text": "只有新分支才能揭露的缺陷",
+              "fraction": 0,
+              "feedback": "涵蓋率導向產生器其實會獎勵走到新分支，因此那不是它的盲點。"
+            },
+            {
+              "text": "編譯錯誤",
+              "fraction": 0,
+              "feedback": "那些由編譯器抓到，不是測試的盲點。"
+            }
+          ],
+          "generalFeedback": "只獎勵新涵蓋率會丟棄在已被涵蓋程式碼上強化斷言的測試——正是那 49% 在沒有新行的情況下抓到缺陷的測試。那就是缺陷導向測試所填補的涵蓋率導向盲點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差一錯誤：從弱斷言到殺手斷言",
+          "text": "<p>某個測試完整走遍一個陣列（完整涵蓋率），卻只斷言總和為正；一個讀到尾端零值的 <code>i &lt;= n</code> 差一變異體存活了。哪一個單一改動能讓這個測試變成缺陷導向？</p>",
+          "answers": [
+            {
+              "text": "斷言確切的預期總和（或斷言索引處的元素從不被讀取），那次多出的迭代會違反它",
+              "fraction": 100,
+              "feedback": "正確——對受影響值的精確斷言能在不增加涵蓋率的情況下殺死變異體。"
+            },
+            {
+              "text": "再加一個涵蓋不同函式的測試",
+              "fraction": 0,
+              "feedback": "那並未處理這個迴圈中存活的變異體。"
+            },
+            {
+              "text": "斷言總和是一個數字",
+              "fraction": 0,
+              "feedback": "變異體仍會產生一個數字，因此這永遠不會失敗。"
+            },
+            {
+              "text": "多跑一次迴圈以增加涵蓋率",
+              "fraction": 0,
+              "feedback": "涵蓋率已經完整；問題在於斷言太弱。"
+            }
+          ],
+          "generalFeedback": "若讀到尾端零值不改變總和，「總和為正」就抓不到它；但確切的預期總和（或檢查索引從不被讀取）就能。這是一個不增加涵蓋率的缺陷導向修正。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非 finally 錯誤分支上的缺少清理",
+          "text": "<p>清理被寫在正常路徑的結尾（不在 <code>finally</code> 裡），而一個錯誤分支在它之前就返回。一個順利路徑的測試會執行到清理那一行並通過。為什麼變異測試在這裡仍能揭露缺陷？</p>",
+          "answers": [
+            {
+              "text": "變異體／錯誤路徑會跳過內嵌的清理，唯有驅動錯誤路徑並斷言清理的測試才能偵測——順利路徑從不執行那個跳過",
+              "fraction": 100,
+              "feedback": "正確——被跳過清理的行為存在於順利路徑測試從不走的錯誤路徑上。"
+            },
+            {
+              "text": "那行清理在每一條路徑上都不可達",
+              "fraction": 0,
+              "feedback": "它在正常路徑上會被走到；只有在錯誤分支上才被跳過。"
+            },
+            {
+              "text": "一個順利路徑的測試已經執行了那個跳過",
+              "fraction": 0,
+              "feedback": "順利路徑會執行清理；它從不觸發提早返回的跳過。"
+            },
+            {
+              "text": "把清理搬進 finally 會製造出這個缺陷",
+              "fraction": 0,
+              "feedback": "其實會避免這個跳過；缺陷在於清理在錯誤路徑上沒有被保證執行。"
+            }
+          ],
+          "generalFeedback": "由於清理不在裡，提早返回的錯誤分支會跳過它。順利路徑的測試會執行內嵌的清理，從不看到那個跳過。缺陷導向測試必須驅動錯誤路徑並斷言清理已發生。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何涵蓋正常輸入不足以應付例外缺陷",
+          "text": "<p>對於一個未檢查的例外缺陷，為何即使對正常路徑達成 100% 行涵蓋率，用正常輸入涵蓋該函式仍不足？</p>",
+          "answers": [
+            {
+              "text": "缺陷只在例外輸入下才浮現，而正常輸入的涵蓋從不提供或斷言它",
+              "fraction": 100,
+              "feedback": "正確——例外路徑與其斷言才是揭露缺陷的關鍵。"
+            },
+            {
+              "text": "正常路徑的行涵蓋率已經執行了例外路徑",
+              "fraction": 0,
+              "feedback": "並沒有；例外路徑需要例外輸入。"
+            },
+            {
+              "text": "例外總是被執行環境自動攔截",
+              "fraction": 0,
+              "feedback": "未檢查的例外正是沒有被處理的例外。"
+            },
+            {
+              "text": "100% 行涵蓋率保證殺死所有變異體",
+              "fraction": 0,
+              "feedback": "並不會——涵蓋率不等於缺陷偵測。"
+            }
+          ],
+          "generalFeedback": "正常輸入涵蓋正常路徑，卻從不觸發例外行為。偵測缺陷需要例外輸入，加上對例外如何被拋出或處理的明確斷言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "微妙情況：涵蓋率增益與殺手斷言是兩回事",
+          "text": "<p>某個單一的新測試走到一個前所未涵蓋的錯誤分支，<em>並且</em>斷言該處的資源已被釋放，殺死了一個洩漏變異體。關於它的兩項貢獻，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "走到該分支是涵蓋率增益；釋放斷言才是殺死變異體的東西——光走到它並不會殺死",
+              "fraction": 100,
+              "feedback": "正確——即使在同一個測試裡，涵蓋率與殺手斷言仍是分開的貢獻。"
+            },
+            {
+              "text": "光走到那個新分支就殺死變異體，所以斷言是多餘的",
+              "fraction": 0,
+              "feedback": "光走到該分支（涵蓋率）並不會觀察到資源是否被釋放。"
+            },
+            {
+              "text": "斷言帶來涵蓋率；走到該分支殺死變異體",
+              "fraction": 0,
+              "feedback": "這把角色弄反了——涵蓋率來自走到分支，殺死來自斷言。"
+            },
+            {
+              "text": "這兩項貢獻是同一個度量",
+              "fraction": 0,
+              "feedback": "它們是不同的：一個是執行，另一個是缺陷偵測。"
+            }
+          ],
+          "generalFeedback": "即使一個測試兩者都做，貢獻仍可分離：走到分支提高涵蓋率，但變異體唯有靠觀察釋放的斷言才被殺死。少了斷言，增加的涵蓋率會讓洩漏變異體存活。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "高行涵蓋率保證高變異分數",
+          "text": "<p>一個具有高行涵蓋率的套件，保證也會有高變異分數。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "高涵蓋率代表程式碼有被執行，但斷言若太弱，許多變異體仍會存活，因此變異分數可能很低。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率衡量執行，而非缺陷偵測；弱斷言可以在高涵蓋率下留下低變異分數。"
+            }
+          ],
+          "generalFeedback": "涵蓋率記的是執行；殺死變異體還需要觀察被破壞結果的斷言。一個高涵蓋率但斷言薄弱的套件可以有低變異分數——這兩個度量是不同的，正是缺陷導向測試的核心教訓。"
+        }
+      ]
+    }
+  },
   "flaky-diagnosis": {
     "en": {
       "easy": [

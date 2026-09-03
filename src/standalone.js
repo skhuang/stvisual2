@@ -84110,6 +84110,2524 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "fault-directed-testing": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Goal of coverage-directed testing",
+            "text": "<p>The goal of a <strong>coverage-directed</strong> (blind) test-generation strategy is to:</p>",
+            "answers": [
+              {
+                "text": "Execute (cover) more lines or branches of the program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a coverage-directed strategy optimises for how much code is exercised."
+              },
+              {
+                "text": "Kill as many injected faults (mutants) as possible",
+                "fraction": 0,
+                "feedback": "That is the goal of fault-directed testing, not coverage-directed testing."
+              },
+              {
+                "text": "Minimise the number of assertions in each test",
+                "fraction": 0,
+                "feedback": "Neither strategy aims to reduce assertions; coverage-directed testing simply targets executed code."
+              },
+              {
+                "text": "Prove the program is free of all defects",
+                "fraction": 0,
+                "feedback": "No test-generation strategy proves the absence of all defects."
+              }
+            ],
+            "generalFeedback": "Coverage-directed generation optimises a structural coverage metric \u2014 it aims to run more lines and branches. It says nothing about whether those executed lines are actually checked for faults.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Goal of fault-directed testing",
+            "text": "<p>The goal of a <strong>fault-directed</strong> (mutation-guided) test-generation strategy is to:</p>",
+            "answers": [
+              {
+                "text": "Kill mutants \u2014 detect injected faults by asserting behaviour a fault would break",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fault-directed testing targets specific faults and adds assertions that fail on the faulty code."
+              },
+              {
+                "text": "Execute the largest possible fraction of lines and branches",
+                "fraction": 0,
+                "feedback": "That is coverage-directed testing; fault-directed testing measures fault detection instead."
+              },
+              {
+                "text": "Run the fastest tests regardless of what they check",
+                "fraction": 0,
+                "feedback": "Speed is not the objective; detecting faults is."
+              },
+              {
+                "text": "Generate as many random inputs as possible",
+                "fraction": 0,
+                "feedback": "Random input volume is not the aim; killing mutants is."
+              }
+            ],
+            "generalFeedback": "Fault-directed (mutation-guided) generation targets specific fault classes and writes assertions that a seeded fault would violate, so the test fails on the mutated program (kills the mutant).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Coverage equals fault detection",
+            "text": "<p>Executing (covering) a line of code is the same thing as detecting a fault in that line.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Coverage only means the line ran; a test can execute a line without asserting anything that a fault in it would break."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage measures execution, not fault detection; the two are distinct."
+              }
+            ],
+            "generalFeedback": "Coverage counts whether code was executed. Fault detection requires an assertion that the faulty behaviour actually violates. A test can add covered lines yet assert nothing meaningful \u2014 coverage is not the same as fault detection."
+          },
+          {
+            "type": "multichoice",
+            "name": "What a mutant is",
+            "text": "<p>In this context, a <em>mutant</em> is:</p>",
+            "answers": [
+              {
+                "text": "A version of the program with one deliberately injected fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a mutant is the program with a small seeded fault."
+              },
+              {
+                "text": "A test case that increases code coverage",
+                "fraction": 0,
+                "feedback": "That is a test, not a mutant; a mutant is an altered program."
+              },
+              {
+                "text": "A line of code that is never executed",
+                "fraction": 0,
+                "feedback": "Unexecuted code is a coverage gap, not a mutant."
+              },
+              {
+                "text": "A production bug reported by a user",
+                "fraction": 0,
+                "feedback": "Mutants are injected on purpose to evaluate tests, not field-reported defects."
+              }
+            ],
+            "generalFeedback": "A mutant is the program with one injected fault. Fault-directed testing uses mutants to represent the faults a good test should catch.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What killing a mutant means",
+            "text": "<p>To <em>kill a mutant</em> means that:</p>",
+            "answers": [
+              {
+                "text": "A test detects the injected fault \u2014 it fails on the mutated program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killing a mutant is exactly detecting the seeded fault."
+              },
+              {
+                "text": "A test executes the mutated line without checking its result",
+                "fraction": 0,
+                "feedback": "Merely executing the line is coverage; killing requires the test to actually fail on the mutant."
+              },
+              {
+                "text": "The mutated program is deleted from the repository",
+                "fraction": 0,
+                "feedback": "Killing is about test detection, not removing code."
+              },
+              {
+                "text": "The mutation is proven to be harmless",
+                "fraction": 0,
+                "feedback": "That is the opposite \u2014 a killed mutant is one whose fault a test caught."
+              }
+            ],
+            "generalFeedback": "Killing a mutant means a test detects the injected fault: the test passes on the original but fails on the mutant. Killing a mutant is the operational definition of detecting that fault.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The 49% finding: what it says",
+            "text": "<p>An empirical finding from the Meta ACH study is that 49% of the generated tests:</p>",
+            "answers": [
+              {
+                "text": "Kill a mutant without adding a single newly-covered line",
+                "fraction": 100,
+                "feedback": "Correct \u2014 nearly half the tests caught a fault while covering no new code."
+              },
+              {
+                "text": "Add new covered lines but kill no mutant",
+                "fraction": 0,
+                "feedback": "That is the reverse; the finding is about tests that kill mutants while adding no coverage."
+              },
+              {
+                "text": "Cover every line of the program under test",
+                "fraction": 0,
+                "feedback": "The finding is not about achieving total coverage."
+              },
+              {
+                "text": "Are duplicates of existing tests",
+                "fraction": 0,
+                "feedback": "They are new, fault-catching tests \u2014 not duplicates."
+              }
+            ],
+            "generalFeedback": "About 49% of the generated tests killed a mutant without adding any newly-covered line. They strengthened assertions on already-covered code, catching real faults that a coverage metric would score as adding nothing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The 49% finding: what it proves",
+            "text": "<p>The finding that 49% of tests kill a mutant with no new covered line demonstrates that:</p>",
+            "answers": [
+              {
+                "text": "Coverage and fault detection are distinct \u2014 a test can catch a fault while adding zero coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly what those tests show."
+              },
+              {
+                "text": "Coverage always predicts how many faults a test catches",
+                "fraction": 0,
+                "feedback": "The finding shows the opposite: these tests add no coverage yet catch faults."
+              },
+              {
+                "text": "Assertions are irrelevant to catching faults",
+                "fraction": 0,
+                "feedback": "It is precisely the strengthened assertions that catch these faults."
+              },
+              {
+                "text": "Tests that add no coverage never find bugs",
+                "fraction": 0,
+                "feedback": "These tests add no coverage yet find bugs, contradicting this claim."
+              }
+            ],
+            "generalFeedback": "Because these tests strengthen assertions on already-covered code, they kill mutants while a coverage metric records no new lines. This proves coverage and fault detection are distinct measures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the goal: a line-chasing test",
+            "text": '<p>A generated test runs a previously-unexecuted branch but only checks that the function "returns without error", asserting nothing about the result. Its effective goal is:</p>',
+            "answers": [
+              {
+                "text": "Coverage-directed \u2014 it adds covered code but asserts nothing a fault would break",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it raises coverage without targeting any fault."
+              },
+              {
+                "text": "Fault-directed \u2014 it kills a mutant",
+                "fraction": 0,
+                "feedback": "With no meaningful assertion it cannot fail on a mutated result, so it kills no mutant."
+              },
+              {
+                "text": "Neither \u2014 it is an equivalent mutant",
+                "fraction": 0,
+                "feedback": "Equivalent mutant is a property of a mutant, not of a test."
+              },
+              {
+                "text": "Both equally",
+                "fraction": 0,
+                "feedback": "It serves coverage only; without an assertion it detects no fault."
+              }
+            ],
+            "generalFeedback": "Executing a branch while asserting nothing meaningful raises coverage but detects no fault. That is a coverage-directed outcome \u2014 coverage without fault detection.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the goal: an assertion-strengthening test",
+            "text": "<p>A generated test runs the same lines as an existing test but adds an assertion that fails when a boundary index is computed with <code>&lt;=</code> instead of <code>&lt;</code>. Its goal is:</p>",
+            "answers": [
+              {
+                "text": "Fault-directed \u2014 it kills a mutant even though it adds no new coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the new assertion detects the injected off-by-one fault."
+              },
+              {
+                "text": "Coverage-directed \u2014 it adds newly-covered lines",
+                "fraction": 0,
+                "feedback": "It runs the same lines as before, so it adds no new coverage."
+              },
+              {
+                "text": "Pointless \u2014 it changes nothing measurable",
+                "fraction": 0,
+                "feedback": "It changes fault detection: it kills a mutant a coverage metric would miss."
+              },
+              {
+                "text": "Coverage-directed \u2014 it deletes an assertion",
+                "fraction": 0,
+                "feedback": "It adds an assertion; it does not delete one."
+              }
+            ],
+            "generalFeedback": "Strengthening an assertion on already-covered code adds no coverage but can kill a mutant. That is a fault-directed test \u2014 exactly the kind the 49% finding describes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The four fault classes",
+            "text": "<p>The app illustrates fault-directed testing across four annotated fault classes. Which of the following is <strong>not</strong> one of them?</p>",
+            "answers": [
+              {
+                "text": "Race condition on a shared counter",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a data race is not one of the four illustrated classes."
+              },
+              {
+                "text": "Null / resource leak",
+                "fraction": 0,
+                "feedback": "This is one of the four fault classes."
+              },
+              {
+                "text": "Off-by-one",
+                "fraction": 0,
+                "feedback": "This is one of the four fault classes."
+              },
+              {
+                "text": "Missing cleanup",
+                "fraction": 0,
+                "feedback": "This is one of the four fault classes."
+              }
+            ],
+            "generalFeedback": "The four illustrated fault classes are: null / resource leak, off-by-one, missing cleanup, and unchecked exception. A race condition is not among them.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "A covering test can assert nothing meaningful",
+            "text": "<p>A test can add newly-covered lines and yet assert nothing meaningful about whether those lines are correct.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage records execution, not the strength of the assertions."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Coverage only requires the line to run; the test need not check the result, so this is true."
+              }
+            ],
+            "generalFeedback": "Coverage credits a line the moment it executes, regardless of whether the test checks its behaviour. So a test can raise coverage while detecting no fault \u2014 coverage and fault detection are distinct."
+          },
+          {
+            "type": "multichoice",
+            "name": "Another name for fault-directed testing",
+            "text": "<p>Fault-directed test generation is also described as:</p>",
+            "answers": [
+              {
+                "text": "Mutation-guided testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is guided by whether tests kill mutants (injected faults)."
+              },
+              {
+                "text": "Coverage-maximising testing",
+                "fraction": 0,
+                "feedback": "That describes the coverage-directed goal, the contrast to fault-directed testing."
+              },
+              {
+                "text": "Random (fuzz) testing",
+                "fraction": 0,
+                "feedback": "Fuzzing generates random inputs; fault-directed testing targets specific faults."
+              },
+              {
+                "text": "Load testing",
+                "fraction": 0,
+                "feedback": "Load testing measures performance under load, unrelated to killing mutants."
+              }
+            ],
+            "generalFeedback": "Fault-directed testing is mutation-guided: it uses mutants (injected faults) as the target, generating tests whose assertions kill them.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Strengthening an assertion adds no coverage",
+            "text": "<p>Adding a stronger assertion to a test that already executes the relevant code can kill a mutant while adding zero newly-covered lines.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the code was already covered, so only fault detection improves, not coverage."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The lines already ran, so no new coverage is added; the stronger assertion still catches the fault, so this is true."
+              }
+            ],
+            "generalFeedback": "When the code is already covered, a stronger assertion adds no new lines but can make the test fail on a mutant. This is why 49% of ACH tests killed a mutant with no new coverage."
+          },
+          {
+            "type": "multichoice",
+            "name": "How a coverage metric scores the 49% tests",
+            "text": "<p>How would a pure coverage metric score the 49% of tests that kill a mutant with no new covered line?</p>",
+            "answers": [
+              {
+                "text": "As adding nothing \u2014 even though they catch real faults",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage sees no new lines, so it undervalues these fault-catching tests."
+              },
+              {
+                "text": "As the most valuable tests in the suite",
+                "fraction": 0,
+                "feedback": "Coverage records no new lines for them, so it would not rank them highly."
+              },
+              {
+                "text": "As failing to compile",
+                "fraction": 0,
+                "feedback": "They are valid tests; coverage simply credits them with no new lines."
+              },
+              {
+                "text": "As equivalent mutants",
+                "fraction": 0,
+                "feedback": "Equivalent mutant is a property of a mutant, not a coverage score of a test."
+              }
+            ],
+            "generalFeedback": 'A coverage metric sees no newly-covered line and therefore scores these tests as "adding nothing", even though each one catches a real fault \u2014 the central reason coverage alone under-measures test quality.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contrast the two goals",
+            "text": "<p>Which pairing correctly contrasts the two test-generation goals?</p>",
+            "answers": [
+              {
+                "text": "Coverage-directed = execute more lines; fault-directed = kill mutants (detect injected faults)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one optimises execution, the other optimises fault detection."
+              },
+              {
+                "text": "Coverage-directed = kill mutants; fault-directed = execute more lines",
+                "fraction": 0,
+                "feedback": "This reverses the two goals."
+              },
+              {
+                "text": "Coverage-directed = detect faults; fault-directed = ignore faults",
+                "fraction": 0,
+                "feedback": "Coverage-directed does not directly target faults, and fault-directed is all about faults."
+              },
+              {
+                "text": "Both aim only to reduce test runtime",
+                "fraction": 0,
+                "feedback": "Neither goal is defined by runtime."
+              }
+            ],
+            "generalFeedback": "Coverage-directed generation aims to execute more code; fault-directed generation aims to kill mutants \u2014 detect injected faults. Because coverage is not fault detection, the two goals genuinely diverge.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Scenario: null / resource leak \u2014 why coverage misses it",
+            "text": "<p>A function opens a file handle and releases it only on the success path; an error path returns without releasing it (a resource leak). A happy-path test covers the function. Why does it miss the fault, and what does a fault-directed test add?</p>",
+            "answers": [
+              {
+                "text": "The happy path never exercises the leaking error path, and even when reached nothing asserts the handle was released \u2014 a fault-directed test drives the error path and asserts the handle is closed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it needs both the error path and an assertion on release."
+              },
+              {
+                "text": "The happy path is uncovered, so more coverage alone would fix it",
+                "fraction": 0,
+                "feedback": "The happy path is covered; the missing piece is exercising the error path and asserting release."
+              },
+              {
+                "text": "The leak is impossible to detect by any test",
+                "fraction": 0,
+                "feedback": "A test that reaches the error path and checks release detects it fine."
+              },
+              {
+                "text": "Adding any assertion on the success path would kill the mutant",
+                "fraction": 0,
+                "feedback": "The fault is on the error path; asserting only on the success path does not reach it."
+              }
+            ],
+            "generalFeedback": "The happy-path test never runs the leaking branch, and covering it would still not assert that the handle was released. A fault-directed test drives the error path and asserts the resource is freed, killing the leak mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: off-by-one \u2014 why coverage misses it",
+            "text": "<p>A loop uses <code>i &lt;= n</code> where it should use <code>i &lt; n</code>, reading one element past the end. A test runs the whole loop and only asserts the running total is non-negative. Why does it miss the fault?</p>",
+            "answers": [
+              {
+                "text": "Covering the loop executes every iteration but the assertion never checks the boundary element or the exact result the extra iteration corrupts",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage of the loop body does not assert the boundary behaviour."
+              },
+              {
+                "text": "The loop body is never executed",
+                "fraction": 0,
+                "feedback": "The loop is fully covered; the problem is the weak assertion, not reachability."
+              },
+              {
+                "text": "Off-by-one faults cannot be detected by assertions",
+                "fraction": 0,
+                "feedback": "Asserting the exact boundary result detects them precisely."
+              },
+              {
+                "text": "The mutant is equivalent",
+                "fraction": 0,
+                "feedback": "Reading past the end changes behaviour, so it is not equivalent."
+              }
+            ],
+            "generalFeedback": "Executing the loop gives full coverage, but a vague assertion (non-negative total) does not catch the corrupted boundary. A fault-directed test asserts the exact expected result or the last valid index so the extra iteration is caught.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: missing cleanup \u2014 why coverage misses it",
+            "text": "<p>A function creates a temporary resource and deletes it at the end, but an early <code>return</code> on invalid input skips the deletion (missing cleanup). A test that passes valid input covers the normal path. Why does it miss the fault?</p>",
+            "answers": [
+              {
+                "text": "The normal path runs cleanup, so only the early-return path leaves the resource behind; the covering test never triggers that path or asserts cleanup",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fault lives only on the skipped-cleanup error path."
+              },
+              {
+                "text": "Cleanup is never reached on any path",
+                "fraction": 0,
+                "feedback": "Cleanup runs fine on the normal path; it is skipped only on the early return."
+              },
+              {
+                "text": "The temporary resource is never created",
+                "fraction": 0,
+                "feedback": "It is created; the fault is that it is not deleted on the early-return path."
+              },
+              {
+                "text": "The fault appears on every input",
+                "fraction": 0,
+                "feedback": "It appears only on the invalid-input early-return path."
+              }
+            ],
+            "generalFeedback": "On valid input the cleanup runs, so the covering test sees nothing wrong. A fault-directed test supplies invalid input to force the early return and asserts the temporary resource was cleaned up, killing the mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: unchecked exception \u2014 why coverage misses it",
+            "text": "<p>A parser throws on a malformed input, but nothing handles or asserts that exception. A test with well-formed input covers the parser. Why does it miss the fault, and what does a fault-directed test add?</p>",
+            "answers": [
+              {
+                "text": "Well-formed input never triggers the exceptional path; a fault-directed test feeds malformed input and asserts the expected exception (or its handling)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the exceptional behaviour surfaces only with exceptional input plus an assertion on it."
+              },
+              {
+                "text": "The parser code is unreachable",
+                "fraction": 0,
+                "feedback": "It is reached with well-formed input; the exceptional branch simply is not exercised."
+              },
+              {
+                "text": "Exceptions can never be asserted in a test",
+                "fraction": 0,
+                "feedback": "Tests routinely assert that a specific exception is thrown."
+              },
+              {
+                "text": "The fault only matters for performance",
+                "fraction": 0,
+                "feedback": "It is a correctness fault on the exceptional path, not a performance issue."
+              }
+            ],
+            "generalFeedback": "Well-formed input runs the parser but never the exceptional path. A fault-directed test supplies malformed input and asserts the expected exception is thrown (or correctly handled), catching the unchecked-exception fault.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the defect: index past the end",
+            "text": "<p>A routine iterates with <code>for (i = 0; i &lt;= len; i++)</code> and accesses <code>a[i]</code>, reading one slot beyond the array. Which fault class is this?</p>",
+            "answers": [
+              {
+                "text": "Off-by-one",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the boundary condition is wrong by one (vs)."
+              },
+              {
+                "text": "Missing cleanup",
+                "fraction": 0,
+                "feedback": "No teardown is skipped here; the fault is a boundary index error."
+              },
+              {
+                "text": "Unchecked exception",
+                "fraction": 0,
+                "feedback": "The root cause is a boundary error; any exception is a symptom, not the class."
+              },
+              {
+                "text": "Null / resource leak",
+                "fraction": 0,
+                "feedback": "No resource or null is involved; the fault is a boundary index error."
+              }
+            ],
+            "generalFeedback": "Usingwhereis needed reads one element past the end \u2014 the textbook off-by-one fault class.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the defect: early return skips teardown",
+            "text": "<p>A function begins a database transaction, and on an early <code>return</code> for a validation error it neither commits nor rolls back, leaving the transaction open. Which fault class is this?</p>",
+            "answers": [
+              {
+                "text": "Missing cleanup",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the teardown (rollback/commit) is skipped on the early-return path."
+              },
+              {
+                "text": "Off-by-one",
+                "fraction": 0,
+                "feedback": "No boundary index is involved."
+              },
+              {
+                "text": "Unchecked exception",
+                "fraction": 0,
+                "feedback": "The issue is a skipped teardown step on early return, not an unhandled exception."
+              },
+              {
+                "text": "Null / resource leak",
+                "fraction": 0,
+                "feedback": "Although related, the defining feature here is that the cleanup/teardown step is skipped on an error path \u2014 the missing-cleanup class."
+              }
+            ],
+            "generalFeedback": "An early return that skips the transaction teardown is the missing-cleanup class: cleanup runs on the normal path but is skipped on an error/early-return path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the defect: unchecked null return",
+            "text": "<p><code>lookup(key)</code> may return <code>null</code> when the key is absent, and the caller immediately does <code>lookup(key).name</code> with no null check. Which fault class is this?</p>",
+            "answers": [
+              {
+                "text": "Null / resource leak",
+                "fraction": 100,
+                "feedback": "Correct \u2014 dereferencing a possibly-null value is the null part of this class."
+              },
+              {
+                "text": "Off-by-one",
+                "fraction": 0,
+                "feedback": "No boundary index is involved."
+              },
+              {
+                "text": "Missing cleanup",
+                "fraction": 0,
+                "feedback": "Nothing needs to be cleaned up; the fault is an unguarded null dereference."
+              },
+              {
+                "text": "Unchecked exception",
+                "fraction": 0,
+                "feedback": "While a null dereference may throw, the modelled class here is the null / resource-leak class (an unguarded null)."
+              }
+            ],
+            "generalFeedback": "Dereferencing a value that may be null without a guard is the null / resource-leak fault class (its null side).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the defect: throws on bad input, nobody catches",
+            "text": "<p><code>Integer.parseInt(s)</code> throws when <code>s</code> is non-numeric, and neither the code nor any test handles or asserts that case. Which fault class is this?</p>",
+            "answers": [
+              {
+                "text": "Unchecked exception",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an exceptional path that is neither handled nor asserted."
+              },
+              {
+                "text": "Off-by-one",
+                "fraction": 0,
+                "feedback": "No boundary index is involved."
+              },
+              {
+                "text": "Missing cleanup",
+                "fraction": 0,
+                "feedback": "No teardown step is skipped here."
+              },
+              {
+                "text": "Null / resource leak",
+                "fraction": 0,
+                "feedback": "No null dereference or leaked resource; the fault is an unhandled/ unasserted exception."
+              }
+            ],
+            "generalFeedback": "An exception path that is neither handled nor asserted is the unchecked-exception class: the code runs on normal input but the fault surfaces only when the exceptional input is supplied and asserted.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why 100% coverage can still miss a fault",
+            "text": "<p>A suite achieves 100% line coverage yet a mutant survives. What is the most likely reason?</p>",
+            "answers": [
+              {
+                "text": "The faulty line executed, but no assertion checked the behaviour the fault changes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage guarantees execution, not that the corrupted result is observed."
+              },
+              {
+                "text": "The faulty line was never executed",
+                "fraction": 0,
+                "feedback": "With 100% line coverage the line did execute; the gap is in the assertions."
+              },
+              {
+                "text": "100% coverage makes every mutant equivalent",
+                "fraction": 0,
+                "feedback": "Coverage has no effect on whether a mutant is equivalent."
+              },
+              {
+                "text": "The suite has too many assertions",
+                "fraction": 0,
+                "feedback": "Surviving mutants indicate too-weak assertions, not too many."
+              }
+            ],
+            "generalFeedback": "Full line coverage only means every line ran. If no assertion observes the value the fault corrupts, the mutant survives \u2014 coverage is necessary but not sufficient for fault detection.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Covering a line asserts its correctness",
+            "text": "<p>Reaching (covering) a line in a test guarantees that the test also asserts the line behaves correctly.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Reaching a line only executes it; the test may check nothing about its result."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 execution and assertion are independent; covering a line does not assert it."
+              }
+            ],
+            "generalFeedback": "Coverage records that a line ran, not that the test checked its output. A covered line with no relevant assertion still lets a fault in that line survive."
+          },
+          {
+            "type": "multichoice",
+            "name": "Killing assertion for off-by-one",
+            "text": "<p>To kill a mutant that changes a loop bound from <code>i &lt; n</code> to <code>i &lt;= n</code>, which assertion is most effective?</p>",
+            "answers": [
+              {
+                "text": "Assert the exact expected result (or that no read occurs at index), so the extra iteration is caught",
+                "fraction": 100,
+                "feedback": "Correct \u2014 checking the precise boundary outcome fails on the extra iteration."
+              },
+              {
+                "text": "Assert only that the function returns something",
+                "fraction": 0,
+                "feedback": "The mutant still returns a value; a mere existence check does not catch it."
+              },
+              {
+                "text": "Assert the loop variable is an integer",
+                "fraction": 0,
+                "feedback": "The type is unchanged by the fault, so this never fails."
+              },
+              {
+                "text": "Assert the input array is non-empty",
+                "fraction": 0,
+                "feedback": "That checks the input, not the corrupted boundary behaviour."
+              }
+            ],
+            "generalFeedback": "Only an assertion on the exact result affected by the boundary \u2014 the precise value or that indexis not read \u2014 distinguishesfromand kills the off-by-one mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Killing approach for missing cleanup",
+            "text": "<p>To kill a missing-cleanup mutant where teardown is skipped on an error path, a fault-directed test should:</p>",
+            "answers": [
+              {
+                "text": "Drive the error/early-return path and assert that the cleanup actually happened (resource freed, transaction closed)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it must reach the faulty path and check the teardown."
+              },
+              {
+                "text": "Run the normal path and assert the return value",
+                "fraction": 0,
+                "feedback": "The normal path already performs cleanup, so it never exposes the fault."
+              },
+              {
+                "text": "Increase overall line coverage without new assertions",
+                "fraction": 0,
+                "feedback": "Coverage without asserting cleanup will not catch a skipped teardown."
+              },
+              {
+                "text": "Assert only that the error was returned",
+                "fraction": 0,
+                "feedback": "The error is returned in both versions; only the cleanup differs."
+              }
+            ],
+            "generalFeedback": "The fault lives on the error path, so the test must trigger that path and assert the cleanup was performed. Only then does the missing-teardown mutant fail.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Killing approach for unchecked exception",
+            "text": "<p>To kill an unchecked-exception mutant, a fault-directed test should:</p>",
+            "answers": [
+              {
+                "text": "Supply the exceptional input and assert the expected exception is thrown (or correctly handled)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the exceptional path must be exercised and asserted."
+              },
+              {
+                "text": "Supply only normal input and assert the happy-path result",
+                "fraction": 0,
+                "feedback": "Normal input never reaches the exceptional path."
+              },
+              {
+                "text": "Wrap the whole test in a try/catch and ignore any exception",
+                "fraction": 0,
+                "feedback": "Swallowing the exception means the test asserts nothing about it, so it cannot fail on the mutant."
+              },
+              {
+                "text": "Assert the function name is spelled correctly",
+                "fraction": 0,
+                "feedback": "That checks nothing about the exceptional behaviour."
+              }
+            ],
+            "generalFeedback": "The exceptional behaviour surfaces only with exceptional input plus an explicit assertion (assertThrows or that the handler ran). That is what kills an unchecked-exception mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Killing approach for a null dereference",
+            "text": "<p>To kill a null-dereference mutant where a missing guard lets an absent value be dereferenced, a fault-directed test should:</p>",
+            "answers": [
+              {
+                "text": "Exercise the case where the value is null/absent and assert the guarded behaviour (a default, or a specific handled outcome)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only the null/absent case triggers the missing guard, and the assertion pins the expected behaviour."
+              },
+              {
+                "text": "Exercise only the case where the value is present and assert its field",
+                "fraction": 0,
+                "feedback": "A present value never triggers the missing null guard."
+              },
+              {
+                "text": "Increase coverage of unrelated methods",
+                "fraction": 0,
+                "feedback": "That does not reach or assert the null path."
+              },
+              {
+                "text": "Assert that the value has the correct type",
+                "fraction": 0,
+                "feedback": "The type is unchanged by the fault; the null case is what matters."
+              }
+            ],
+            "generalFeedback": "The fault surfaces only when the value is null/absent, so the test must exercise that case and assert the guarded outcome \u2014 the missing guard then makes the mutant dereference null and fail.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "An assertion-only test that adds no coverage",
+            "text": "<p>A new test executes exactly the same lines as an existing passing test but adds an assertion that fails on a seeded off-by-one mutant. The coverage tool reports zero new lines. Is the test worthless?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 it is a fault-directed test that kills a mutant coverage alone would score as adding nothing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it improves fault detection without changing coverage."
+              },
+              {
+                "text": "Yes \u2014 adding no new lines means it adds no value",
+                "fraction": 0,
+                "feedback": "It kills a mutant; catching a real fault is value coverage cannot see."
+              },
+              {
+                "text": "Yes \u2014 only tests that raise coverage matter",
+                "fraction": 0,
+                "feedback": "The 49% finding directly refutes this."
+              },
+              {
+                "text": "No \u2014 but only because it raised coverage",
+                "fraction": 0,
+                "feedback": "It raised no coverage; its value is the killing assertion."
+              }
+            ],
+            "generalFeedback": "This is exactly the 49% case: same lines, stronger assertion, a killed mutant. A coverage metric records nothing, yet the test catches a real fault \u2014 showing coverage and fault detection are distinct.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Why coverage and mutation score diverge",
+            "text": "<p>Why can a suite's line coverage be high while its mutation score is low?</p>",
+            "answers": [
+              {
+                "text": "Coverage only requires the faulty code to execute, while killing a mutant additionally requires the corrupted result to be observed by an assertion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage measures execution; killing a mutant needs execution plus an observing assertion."
+              },
+              {
+                "text": "Mutation score counts only lines that were never executed",
+                "fraction": 0,
+                "feedback": "Mutation score is about killed mutants, not unexecuted lines."
+              },
+              {
+                "text": "High coverage forces a high mutation score",
+                "fraction": 0,
+                "feedback": "The premise of the question shows this is false; the two can diverge."
+              },
+              {
+                "text": "Coverage and mutation score always measure the same thing",
+                "fraction": 0,
+                "feedback": "They do not \u2014 that is precisely why they can diverge."
+              }
+            ],
+            "generalFeedback": "Coverage credits execution alone. Killing a mutant needs the mutated line to run, corrupt the state, and have that corruption observed by an assertion. Weak assertions leave high coverage but low mutation score.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which test is fault-directed",
+            "text": "<p>Test A raises line coverage but kills no mutant. Test B kills a mutant without raising coverage. Which is fault-directed, and why?</p>",
+            "answers": [
+              {
+                "text": "Test B \u2014 it detects an injected fault, which is the fault-directed goal, regardless of coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killing a mutant is fault detection; coverage is beside the point."
+              },
+              {
+                "text": "Test A \u2014 it raises coverage, which is what fault-directed testing optimises",
+                "fraction": 0,
+                "feedback": "Raising coverage is the coverage-directed goal, not the fault-directed one."
+              },
+              {
+                "text": "Both equally, because both are tests",
+                "fraction": 0,
+                "feedback": "Only Test B detects a fault; only it is fault-directed."
+              },
+              {
+                "text": "Neither, because a fault-directed test must do both",
+                "fraction": 0,
+                "feedback": "A fault-directed test need not add coverage; killing a mutant suffices."
+              }
+            ],
+            "generalFeedback": "Fault-directed means detecting injected faults (killing mutants). Test B does that with no new coverage \u2014 the 49% case. Test A adds coverage but detects nothing, the coverage-directed outcome.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pick the assertion that kills a leak mutant",
+            "text": "<p>A resource-leak mutant removes the <code>close()</code> on the error path. Which assertion most directly kills it?</p>",
+            "answers": [
+              {
+                "text": "After driving the error path, assert the handle is closed (e.g. open-handle count returned to zero)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this observes the release the mutant skipped."
+              },
+              {
+                "text": "Assert the function returned an error code",
+                "fraction": 0,
+                "feedback": "Both versions return the same error code; only the release differs."
+              },
+              {
+                "text": "Assert the happy path returns the right value",
+                "fraction": 0,
+                "feedback": "The happy path still closes the handle, so it never exposes the mutant."
+              },
+              {
+                "text": "Assert total line coverage increased",
+                "fraction": 0,
+                "feedback": "Coverage is not an assertion and does not observe the leaked handle."
+              }
+            ],
+            "generalFeedback": "The mutant differs only in whether the handle is released on the error path, so the killing assertion must reach that path and check the handle was actually closed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pick the assertion that kills an unchecked-exception mutant",
+            "text": "<p>A mutant removes a guard so that malformed input now throws instead of returning an error result. Which assertion kills it?</p>",
+            "answers": [
+              {
+                "text": "Feed malformed input and assert the specified graceful result (so a thrown exception fails the test)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 asserting the expected non-throwing behaviour on bad input catches the change."
+              },
+              {
+                "text": "Feed valid input and assert the normal result",
+                "fraction": 0,
+                "feedback": "Valid input never triggers the guarded path."
+              },
+              {
+                "text": "Catch and ignore all exceptions in the test",
+                "fraction": 0,
+                "feedback": "Swallowing the exception hides the change, so the mutant survives."
+              },
+              {
+                "text": "Assert the test file compiles",
+                "fraction": 0,
+                "feedback": "Compilation says nothing about the exceptional behaviour."
+              }
+            ],
+            "generalFeedback": "The mutant changes behaviour on malformed input from a graceful result to a thrown exception. Only a test that supplies that input and asserts the specified behaviour distinguishes the two and kills the mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pick the assertion that kills a null-guard mutant",
+            "text": "<p>A mutant deletes a null check so that an absent lookup now dereferences <code>null</code> instead of returning a default. Which assertion kills it?</p>",
+            "answers": [
+              {
+                "text": "Call with a key that is absent and assert the documented default is returned (so a null dereference fails the test)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exercising the absent-key case and asserting the guarded default catches the missing check."
+              },
+              {
+                "text": "Call with a present key and assert the value",
+                "fraction": 0,
+                "feedback": "A present key never triggers the deleted null guard."
+              },
+              {
+                "text": "Assert the lookup table is non-empty",
+                "fraction": 0,
+                "feedback": "That checks the fixture, not the guarded behaviour."
+              },
+              {
+                "text": "Assert the method signature is unchanged",
+                "fraction": 0,
+                "feedback": "The signature is unaffected by the fault."
+              }
+            ],
+            "generalFeedback": "The guard matters only for the absent-key case, so the killing test uses an absent key and asserts the documented default \u2014 the deleted guard then makes the mutant dereference null and fail.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why fault-directed testing complements coverage",
+            "text": "<p>Why is fault-directed testing best seen as complementing rather than replacing coverage?</p>",
+            "answers": [
+              {
+                "text": "Coverage ensures code is reached; fault-directed assertions ensure the reached code is actually checked for faults \u2014 both are needed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reachability and fault detection are complementary requirements."
+              },
+              {
+                "text": "Fault-directed testing makes coverage measurement impossible",
+                "fraction": 0,
+                "feedback": "The two can be measured together; one does not preclude the other."
+              },
+              {
+                "text": "Coverage already guarantees fault detection, so fault-directed testing is redundant",
+                "fraction": 0,
+                "feedback": "Coverage does not guarantee fault detection \u2014 that is the whole point of this app."
+              },
+              {
+                "text": "Fault-directed testing only works when coverage is 0%",
+                "fraction": 0,
+                "feedback": "It works at any coverage level; it strengthens assertions on whatever code is reached."
+              }
+            ],
+            "generalFeedback": "You still need coverage to reach the faulty code, and you need fault-directed assertions to detect faults in it. A mutant cannot be killed if its line is never executed, and it survives if the executed line is never checked \u2014 so the two are complementary.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which test demonstrates the 49% finding",
+            "text": "<p>Two tests each kill a mutant. Test X reaches a brand-new branch and asserts its result; Test Y adds an assertion to an already-covered branch. Which one demonstrates the 49% finding, and why?</p>",
+            "answers": [
+              {
+                "text": "Test Y \u2014 it kills a mutant without adding any newly-covered line, exactly the 49% case",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the finding is about kills that add no coverage."
+              },
+              {
+                "text": "Test X \u2014 it adds both coverage and a killing assertion",
+                "fraction": 0,
+                "feedback": "Test X adds new coverage, so it is not the no-new-coverage case the finding describes."
+              },
+              {
+                "text": "Both, because both kill a mutant",
+                "fraction": 0,
+                "feedback": "Only Test Y kills a mutant with zero new coverage."
+              },
+              {
+                "text": "Neither, because the finding is about tests that kill no mutant",
+                "fraction": 0,
+                "feedback": "The finding is precisely about tests that do kill a mutant while adding no coverage."
+              }
+            ],
+            "generalFeedback": "The 49% finding is about tests that kill a mutant while adding no newly-covered line. Test Y does that by strengthening an assertion on already-covered code; Test X instead adds coverage too, so it is not the illustrative case.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "100% branch coverage, surviving mutant",
+            "text": "<p>A suite has 100% branch coverage but a non-equivalent mutant survives. What must be added to kill it?</p>",
+            "answers": [
+              {
+                "text": "A stronger assertion that observes the value the mutant corrupts (and, if needed, an input that makes the corruption propagate)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the branch runs, so the gap is in observing the corrupted result."
+              },
+              {
+                "text": "More branches to cover",
+                "fraction": 0,
+                "feedback": "Branch coverage is already 100%, so there are no uncovered branches to add."
+              },
+              {
+                "text": "Deleting the surviving mutant",
+                "fraction": 0,
+                "feedback": "The mutant is a fault model; the fix is a better test, not deleting the mutant."
+              },
+              {
+                "text": "Nothing \u2014 100% branch coverage means the suite is complete",
+                "fraction": 0,
+                "feedback": "A surviving non-equivalent mutant proves the suite is not fault-adequate."
+              }
+            ],
+            "generalFeedback": "With full branch coverage the faulty branch runs, so what is missing is an assertion that observes the corrupted output (and possibly an input that makes it propagate). Coverage is maxed; fault detection is not.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the 49% specifically proves",
+            "text": '<p>Why does "49% of tests kill a mutant with no new covered line" specifically prove coverage &#8800; fault detection?</p>',
+            "answers": [
+              {
+                "text": "These tests increase fault detection (a kill) while the coverage measure records no change, so the two measures move independently",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fault detection rose while coverage did not, so they are not the same measure."
+              },
+              {
+                "text": "Because they raise coverage without killing mutants",
+                "fraction": 0,
+                "feedback": "That reverses the finding; they kill mutants without raising coverage."
+              },
+              {
+                "text": "Because they neither raise coverage nor kill mutants",
+                "fraction": 0,
+                "feedback": "They do kill mutants; that is the point."
+              },
+              {
+                "text": "Because coverage tools are broken",
+                "fraction": 0,
+                "feedback": "The tools work correctly; there genuinely are no new lines to credit."
+              }
+            ],
+            "generalFeedback": "If coverage and fault detection were the same, no test could improve one without the other. Nearly half the tests improved fault detection with zero coverage change, so the two measures are provably distinct.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Blind spot of a coverage-directed generator",
+            "text": "<p>A generator that only rewards tests adding new lines would deprioritise a test that adds no coverage. What kind of fault does this blind spot let through?</p>",
+            "answers": [
+              {
+                "text": "Faults in already-covered code that need only a stronger assertion to detect",
+                "fraction": 100,
+                "feedback": "Correct \u2014 those are exactly the tests a coverage-only reward discards."
+              },
+              {
+                "text": "Faults in unreachable dead code",
+                "fraction": 0,
+                "feedback": "Dead code cannot be covered or killed by any test, so it is not the blind spot here."
+              },
+              {
+                "text": "Faults that only a new branch could reveal",
+                "fraction": 0,
+                "feedback": "A coverage-directed generator actually rewards reaching new branches, so those are not its blind spot."
+              },
+              {
+                "text": "Compilation errors",
+                "fraction": 0,
+                "feedback": "Those are caught by the compiler, not a testing blind spot."
+              }
+            ],
+            "generalFeedback": "Rewarding only new coverage discards assertion-strengthening tests on already-covered code \u2014 precisely the 49% that catch faults with no new lines. That is the coverage-directed blind spot fault-directed testing fills.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Off-by-one: from weak assertion to killing assertion",
+            "text": "<p>A test loops fully over an array (full coverage) but only asserts the sum is positive; an <code>i &lt;= n</code> off-by-one mutant that reads a trailing zero survives. What single change makes the test fault-directed?</p>",
+            "answers": [
+              {
+                "text": "Assert the exact expected sum (or that the element at indexis never read), which the extra iteration violates",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a precise assertion on the affected value kills the mutant without new coverage."
+              },
+              {
+                "text": "Add another test that covers a different function",
+                "fraction": 0,
+                "feedback": "That does not address the surviving mutant in this loop."
+              },
+              {
+                "text": "Assert the sum is a number",
+                "fraction": 0,
+                "feedback": "The mutant still yields a number, so this never fails."
+              },
+              {
+                "text": "Loop one more time to increase coverage",
+                "fraction": 0,
+                "feedback": "Coverage is already full; the problem is the weak assertion."
+              }
+            ],
+            "generalFeedback": 'If reading the trailing zero leaves the sum unchanged, "sum positive" cannot catch it; but the exact expected sum (or checking indexis never read) does. This is a fault-directed fix that adds no coverage.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Missing cleanup on a non-finally error branch",
+            "text": "<p>Cleanup is written inline at the end of the normal path (not in a <code>finally</code>), and an error branch returns before it. A happy-path test runs the cleanup line and passes. Why does mutation still reveal a fault here?</p>",
+            "answers": [
+              {
+                "text": "The mutant/error path skips the inline cleanup, and only a test that drives the error path and asserts cleanup detects it \u2014 the happy path never exercises the skip",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the skipped-cleanup behaviour lives on the error path the happy-path test never takes."
+              },
+              {
+                "text": "The cleanup line is unreachable on every path",
+                "fraction": 0,
+                "feedback": "It is reached on the normal path; it is skipped only on the error branch."
+              },
+              {
+                "text": "A happy-path test already exercises the skip",
+                "fraction": 0,
+                "feedback": "The happy path runs cleanup; it never triggers the early-return skip."
+              },
+              {
+                "text": "Moving cleanup into finally would create the fault",
+                "fraction": 0,
+                "feedback": "Awould in fact prevent the skip; the fault is that cleanup is not guaranteed on the error path."
+              }
+            ],
+            "generalFeedback": "Because cleanup is not in a, the early-return error branch skips it. The happy-path test runs the inline cleanup and never sees the skip. A fault-directed test must drive the error path and assert cleanup happened.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why covering normal input is insufficient for an exception fault",
+            "text": "<p>For an unchecked-exception fault, why is covering the function with normal input insufficient even at 100% line coverage of the normal path?</p>",
+            "answers": [
+              {
+                "text": "The fault surfaces only on exceptional input, which normal-input coverage never supplies or asserts",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the exceptional path and its assertion are what expose the fault."
+              },
+              {
+                "text": "Line coverage of the normal path already exercises the exceptional path",
+                "fraction": 0,
+                "feedback": "It does not; the exceptional path requires exceptional input."
+              },
+              {
+                "text": "Exceptions are always caught automatically by the runtime",
+                "fraction": 0,
+                "feedback": "An unchecked exception is precisely one that is not handled."
+              },
+              {
+                "text": "100% line coverage guarantees killing all mutants",
+                "fraction": 0,
+                "feedback": "It does not \u2014 coverage is not fault detection."
+              }
+            ],
+            "generalFeedback": "Normal input covers the normal path but never triggers the exceptional behaviour. Detecting the fault requires exceptional input plus an explicit assertion on how the exception is thrown or handled.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subtle case: coverage gain and killing assertion differ",
+            "text": "<p>A single new test reaches a never-before-covered error branch <em>and</em> asserts that a resource is released there, killing a leak mutant. Which statement about its two contributions is correct?</p>",
+            "answers": [
+              {
+                "text": "Reaching the branch is the coverage gain; the release assertion is what kills the mutant \u2014 reaching it alone would not have",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage and the killing assertion are separate contributions, even in one test."
+              },
+              {
+                "text": "Reaching the new branch alone kills the mutant, so the assertion is unnecessary",
+                "fraction": 0,
+                "feedback": "Merely reaching the branch (coverage) does not observe whether the resource was released."
+              },
+              {
+                "text": "The assertion adds the coverage; reaching the branch kills the mutant",
+                "fraction": 0,
+                "feedback": "This swaps the roles \u2014 coverage comes from reaching the branch, the kill from the assertion."
+              },
+              {
+                "text": "The two contributions are the same measurement",
+                "fraction": 0,
+                "feedback": "They are distinct: one is execution, the other is fault detection."
+              }
+            ],
+            "generalFeedback": "Even when one test does both, the contributions are separable: reaching the branch raises coverage, but the mutant is killed only by the assertion that observes the release. Without the assertion, the added coverage would leave the leak mutant alive.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "High line coverage guarantees a high mutation score",
+            "text": "<p>A suite with high line coverage is guaranteed to also have a high mutation score.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "High coverage means code runs, but with weak assertions many mutants can still survive, so the mutation score can be low."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coverage measures execution, not fault detection; weak assertions can leave a low mutation score despite high coverage."
+              }
+            ],
+            "generalFeedback": "Coverage credits execution; killing mutants also needs assertions that observe the corrupted results. A high-coverage suite with weak assertions can have a low mutation score \u2014 the two measures are distinct, which is the core lesson of fault-directed testing."
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u6DB5\u84CB\u7387\u5C0E\u5411\u6E2C\u8A66\u7684\u76EE\u6A19",
+            "text": "<p><strong>\u6DB5\u84CB\u7387\u5C0E\u5411</strong>\uFF08\u76F2\u76EE\uFF09\u6E2C\u8A66\u7522\u751F\u7B56\u7565\u7684\u76EE\u6A19\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u57F7\u884C\uFF08\u6DB5\u84CB\uFF09\u7A0B\u5F0F\u4E2D\u66F4\u591A\u7684\u884C\u6216\u5206\u652F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u5C0E\u5411\u7B56\u7565\u4EE5\u300C\u57F7\u884C\u4E86\u591A\u5C11\u7A0B\u5F0F\u78BC\u300D\u70BA\u6700\u4F73\u5316\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u76E1\u53EF\u80FD\u6BBA\u6B7B\u66F4\u591A\u6CE8\u5165\u7684\u7F3A\u9677\uFF08\u8B8A\u7570\u9AD4\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u7684\u76EE\u6A19\uFF0C\u4E0D\u662F\u6DB5\u84CB\u7387\u5C0E\u5411\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u76E1\u91CF\u6E1B\u5C11\u6BCF\u500B\u6E2C\u8A66\u4E2D\u7684\u65B7\u8A00\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u7B56\u7565\u90FD\u4E0D\u4EE5\u6E1B\u5C11\u65B7\u8A00\u70BA\u76EE\u6A19\uFF1B\u6DB5\u84CB\u7387\u5C0E\u5411\u53EA\u91DD\u5C0D\u88AB\u57F7\u884C\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u7522\u751F\u7B56\u7565\u80FD\u8B49\u660E\u7F3A\u9677\u5B8C\u5168\u4E0D\u5B58\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u5C0E\u5411\u7684\u7522\u751F\u65B9\u5F0F\u4EE5\u67D0\u500B\u7D50\u69CB\u6DB5\u84CB\u7387\u6307\u6A19\u70BA\u6700\u4F73\u5316\u76EE\u6A19\u2014\u2014\u5B83\u529B\u6C42\u57F7\u884C\u66F4\u591A\u7684\u884C\u8207\u5206\u652F\uFF0C\u4F46\u4E26\u4E0D\u8AAA\u660E\u90A3\u4E9B\u88AB\u57F7\u884C\u7684\u884C\u662F\u5426\u771F\u7684\u88AB\u6AA2\u67E5\u51FA\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u7684\u76EE\u6A19",
+            "text": "<p><strong>\u7F3A\u9677\u5C0E\u5411</strong>\uFF08\u8B8A\u7570\u5F15\u5C0E\uFF09\u6E2C\u8A66\u7522\u751F\u7B56\u7565\u7684\u76EE\u6A19\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u2014\u2014\u900F\u904E\u65B7\u8A00\u7F3A\u9677\u6703\u7834\u58DE\u7684\u884C\u70BA\u4F86\u5075\u6E2C\u6CE8\u5165\u7684\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u9396\u5B9A\u7279\u5B9A\u7F3A\u9677\uFF0C\u4E26\u52A0\u5165\u5728\u88AB\u6539\u52D5\u7684\u7A0B\u5F0F\u78BC\u4E0A\u6703\u5931\u6557\u7684\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u76E1\u53EF\u80FD\u5927\u6BD4\u4F8B\u7684\u884C\u8207\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6DB5\u84CB\u7387\u5C0E\u5411\u6E2C\u8A66\uFF1B\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u8861\u91CF\u7684\u662F\u7F3A\u9677\u5075\u6E2C\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u6AA2\u67E5\u4EC0\u9EBC\uFF0C\u90FD\u8DD1\u6700\u5FEB\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u4E0D\u662F\u76EE\u6A19\uFF1B\u5075\u6E2C\u7F3A\u9677\u624D\u662F\u3002"
+              },
+              {
+                "text": "\u7522\u751F\u76E1\u53EF\u80FD\u591A\u7684\u96A8\u6A5F\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u76EE\u6A19\u4E0D\u662F\u96A8\u6A5F\u8F38\u5165\u7684\u6578\u91CF\uFF0C\u800C\u662F\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7F3A\u9677\u5C0E\u5411\uFF08\u8B8A\u7570\u5F15\u5C0E\uFF09\u7684\u7522\u751F\u65B9\u5F0F\u9396\u5B9A\u7279\u5B9A\u7F3A\u9677\u985E\u5225\uFF0C\u4E26\u64B0\u5BEB\u690D\u5165\u7684\u7F3A\u9677\u6703\u9055\u53CD\u7684\u65B7\u8A00\uFF0C\u4F7F\u6E2C\u8A66\u5728\u88AB\u6539\u52D5\u7684\u7A0B\u5F0F\u4E0A\u5931\u6557\uFF08\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6DB5\u84CB\u7387\u7B49\u540C\u65BC\u7F3A\u9677\u5075\u6E2C",
+            "text": "<p>\u57F7\u884C\uFF08\u6DB5\u84CB\uFF09\u4E00\u884C\u7A0B\u5F0F\u78BC\uFF0C\u5C31\u7B49\u65BC\u5075\u6E2C\u5230\u90A3\u4E00\u884C\u4E2D\u7684\u7F3A\u9677\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u53EA\u4EE3\u8868\u8A72\u884C\u88AB\u57F7\u884C\uFF1B\u4E00\u500B\u6E2C\u8A66\u53EF\u4EE5\u57F7\u884C\u67D0\u884C\u537B\u4E0D\u65B7\u8A00\u4EFB\u4F55\u8A72\u884C\u7F3A\u9677\u6703\u7834\u58DE\u7684\u4E8B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u8861\u91CF\u7684\u662F\u57F7\u884C\uFF0C\u800C\u975E\u7F3A\u9677\u5075\u6E2C\uFF1B\u5169\u8005\u662F\u4E0D\u540C\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u8A08\u7B97\u7684\u662F\u7A0B\u5F0F\u78BC\u662F\u5426\u88AB\u57F7\u884C\u3002\u5075\u6E2C\u7F3A\u9677\u5247\u9700\u8981\u4E00\u500B\u6703\u88AB\u8A72\u7F3A\u9677\u884C\u70BA\u9055\u53CD\u7684\u65B7\u8A00\u3002\u4E00\u500B\u6E2C\u8A66\u53EF\u4EE5\u589E\u52A0\u88AB\u6DB5\u84CB\u7684\u884C\u537B\u6BEB\u7121\u6709\u610F\u7FA9\u7684\u65B7\u8A00\u2014\u2014\u6DB5\u84CB\u7387\u8207\u7F3A\u9677\u5075\u6E2C\u4E26\u4E0D\u76F8\u540C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8B8A\u7570\u9AD4",
+            "text": "<p>\u5728\u6B64\u8108\u7D61\u4E0B\uFF0C<em>\u8B8A\u7570\u9AD4\uFF08mutant\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u88AB\u523B\u610F\u6CE8\u5165\u55AE\u4E00\u7F3A\u9677\u7684\u7A0B\u5F0F\u7248\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8B8A\u7570\u9AD4\u5C31\u662F\u88AB\u690D\u5165\u4E00\u500B\u5C0F\u7F3A\u9677\u7684\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u80FD\u63D0\u9AD8\u7A0B\u5F0F\u78BC\u6DB5\u84CB\u7387\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\uFF0C\u4E0D\u662F\u8B8A\u7570\u9AD4\uFF1B\u8B8A\u7570\u9AD4\u662F\u88AB\u6539\u52D5\u904E\u7684\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u4E00\u884C\u5F9E\u672A\u88AB\u57F7\u884C\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u672A\u57F7\u884C\u7684\u7A0B\u5F0F\u78BC\u662F\u6DB5\u84CB\u7387\u7F3A\u53E3\uFF0C\u4E0D\u662F\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u56DE\u5831\u7684\u4E00\u500B\u6B63\u5F0F\u74B0\u5883\u81ED\u87F2",
+                "fraction": 0,
+                "feedback": "\u8B8A\u7570\u9AD4\u662F\u70BA\u4E86\u8A55\u4F30\u6E2C\u8A66\u800C\u523B\u610F\u6CE8\u5165\u7684\uFF0C\u4E26\u975E\u73FE\u5834\u56DE\u5831\u7684\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u7570\u9AD4\u662F\u88AB\u6CE8\u5165\u4E00\u500B\u7F3A\u9677\u7684\u7A0B\u5F0F\u3002\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u4EE5\u8B8A\u7570\u9AD4\u4F86\u4EE3\u8868\u4E00\u500B\u597D\u6E2C\u8A66\u61C9\u7576\u6293\u5230\u7684\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u7684\u610F\u7FA9",
+            "text": "<p><em>\u6BBA\u6B7B\u8B8A\u7570\u9AD4</em>\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u67D0\u500B\u6E2C\u8A66\u5075\u6E2C\u5230\u6CE8\u5165\u7684\u7F3A\u9677\u2014\u2014\u5B83\u5728\u88AB\u6539\u52D5\u7684\u7A0B\u5F0F\u4E0A\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u6B63\u662F\u5075\u6E2C\u5230\u690D\u5165\u7684\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u6E2C\u8A66\u57F7\u884C\u4E86\u88AB\u6539\u52D5\u7684\u90A3\u4E00\u884C\u537B\u6C92\u6709\u6AA2\u67E5\u5176\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u53EA\u57F7\u884C\u8A72\u884C\u662F\u6DB5\u84CB\u7387\uFF1B\u6BBA\u6B7B\u9700\u8981\u6E2C\u8A66\u5728\u8B8A\u7570\u9AD4\u4E0A\u771F\u7684\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u88AB\u6539\u52D5\u7684\u7A0B\u5F0F\u5F9E\u7248\u672C\u5EAB\u4E2D\u88AB\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6B7B\u8B1B\u7684\u662F\u6E2C\u8A66\u7684\u5075\u6E2C\uFF0C\u4E0D\u662F\u522A\u9664\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u8A72\u8B8A\u7570\u88AB\u8B49\u660E\u662F\u7121\u5BB3\u7684",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u597D\u76F8\u53CD\u2014\u2014\u88AB\u6BBA\u6B7B\u7684\u8B8A\u7570\u9AD4\u662F\u5176\u7F3A\u9677\u88AB\u6E2C\u8A66\u6293\u5230\u7684\u8B8A\u7570\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u4EE3\u8868\u67D0\u6E2C\u8A66\u5075\u6E2C\u5230\u6CE8\u5165\u7684\u7F3A\u9677\uFF1A\u6E2C\u8A66\u5728\u539F\u59CB\u7A0B\u5F0F\u4E0A\u901A\u904E\uFF0C\u5728\u8B8A\u7570\u9AD4\u4E0A\u5931\u6557\u3002\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u5C31\u662F\u5075\u6E2C\u8A72\u7F3A\u9677\u7684\u64CD\u4F5C\u578B\u5B9A\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "49% \u767C\u73FE\uFF1A\u5B83\u8AAA\u4E86\u4EC0\u9EBC",
+            "text": "<p>Meta ACH \u7814\u7A76\u7684\u4E00\u9805\u5BE6\u8B49\u767C\u73FE\u662F\uFF1A\u6240\u7522\u751F\u7684\u6E2C\u8A66\u4E2D\u6709 49% \u6703\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BBA\u6B7B\u4E00\u500B\u8B8A\u7570\u9AD4\uFF0C\u537B\u6C92\u6709\u589E\u52A0\u4EFB\u4F55\u4E00\u884C\u65B0\u6DB5\u84CB\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FD1\u534A\u6578\u7684\u6E2C\u8A66\u5728\u672A\u6DB5\u84CB\u4EFB\u4F55\u65B0\u7A0B\u5F0F\u78BC\u7684\u60C5\u6CC1\u4E0B\u6293\u5230\u4E86\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u589E\u52A0\u4E86\u65B0\u6DB5\u84CB\u7684\u884C\uFF0C\u537B\u6C92\u6709\u6BBA\u6B7B\u4EFB\u4F55\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76F8\u53CD\u7684\u60C5\u6CC1\uFF1B\u9019\u9805\u767C\u73FE\u8B1B\u7684\u662F\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u537B\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u53D7\u6E2C\u7A0B\u5F0F\u7684\u6BCF\u4E00\u884C",
+                "fraction": 0,
+                "feedback": "\u9019\u9805\u767C\u73FE\u8207\u9054\u6210\u5B8C\u6574\u6DB5\u84CB\u7387\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u662F\u65E2\u6709\u6E2C\u8A66\u7684\u91CD\u8907",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u5168\u65B0\u3001\u80FD\u6293\u7F3A\u9677\u7684\u6E2C\u8A66\u2014\u2014\u4E0D\u662F\u91CD\u8907\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D04 49% \u6240\u7522\u751F\u7684\u6E2C\u8A66\u5728\u672A\u589E\u52A0\u4EFB\u4F55\u65B0\u6DB5\u84CB\u884C\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u4E86\u8B8A\u7570\u9AD4\u3002\u5B83\u5011\u5728\u5DF2\u88AB\u6DB5\u84CB\u7684\u7A0B\u5F0F\u78BC\u4E0A\u5F37\u5316\u65B7\u8A00\uFF0C\u6293\u5230\u4E86\u6DB5\u84CB\u7387\u6307\u6A19\u6703\u5224\u5B9A\u70BA\u300C\u6BEB\u7121\u8CA2\u737B\u300D\u7684\u771F\u5BE6\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "49% \u767C\u73FE\uFF1A\u5B83\u8B49\u660E\u4E86\u4EC0\u9EBC",
+            "text": "<p>49% \u7684\u6E2C\u8A66\u5728\u6C92\u6709\u65B0\u6DB5\u84CB\u884C\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF0C\u9019\u9805\u767C\u73FE\u8B49\u660E\u4E86\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6DB5\u84CB\u7387\u8207\u7F3A\u9677\u5075\u6E2C\u662F\u4E0D\u540C\u7684\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u53EF\u4EE5\u5728\u5B8C\u5168\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u60C5\u6CC1\u4E0B\u6293\u5230\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u6B63\u662F\u9019\u4E9B\u6E2C\u8A66\u6240\u5C55\u73FE\u7684\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u7E3D\u80FD\u9810\u6E2C\u4E00\u500B\u6E2C\u8A66\u6703\u6293\u5230\u591A\u5C11\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u9019\u9805\u767C\u73FE\u986F\u793A\u76F8\u53CD\uFF1A\u9019\u4E9B\u6E2C\u8A66\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u537B\u6293\u5230\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u8207\u6293\u7F3A\u9677\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u6B63\u662F\u88AB\u5F37\u5316\u7684\u65B7\u8A00\u6293\u5230\u4E86\u9019\u4E9B\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u6E2C\u8A66\u6C38\u9060\u627E\u4E0D\u5230\u81ED\u87F2",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u6E2C\u8A66\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u537B\u627E\u5230\u81ED\u87F2\uFF0C\u8207\u6B64\u8AAA\u6CD5\u77DB\u76FE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u9019\u4E9B\u6E2C\u8A66\u5728\u5DF2\u88AB\u6DB5\u84CB\u7684\u7A0B\u5F0F\u78BC\u4E0A\u5F37\u5316\u65B7\u8A00\uFF0C\u5B83\u5011\u5728\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u7684\u540C\u6642\uFF0C\u6DB5\u84CB\u7387\u6307\u6A19\u537B\u8A18\u9304\u4E0D\u5230\u4EFB\u4F55\u65B0\u7684\u884C\u3002\u9019\u8B49\u660E\u6DB5\u84CB\u7387\u8207\u7F3A\u9677\u5075\u6E2C\u662F\u4E0D\u540C\u7684\u5EA6\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u76EE\u6A19\uFF1A\u8FFD\u884C\u6578\u7684\u6E2C\u8A66",
+            "text": "<p>\u67D0\u500B\u7522\u751F\u7684\u6E2C\u8A66\u57F7\u884C\u4E86\u5148\u524D\u672A\u88AB\u57F7\u884C\u7684\u5206\u652F\uFF0C\u4F46\u53EA\u6AA2\u67E5\u51FD\u5F0F\u300C\u6709\u6C92\u6709\u51FA\u932F\u5730\u8FD4\u56DE\u300D\uFF0C\u5C0D\u7D50\u679C\u6BEB\u7121\u65B7\u8A00\u3002\u5B83\u5BE6\u969B\u7684\u76EE\u6A19\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6DB5\u84CB\u7387\u5C0E\u5411\u2014\u2014\u5B83\u589E\u52A0\u4E86\u88AB\u6DB5\u84CB\u7684\u7A0B\u5F0F\u78BC\uFF0C\u537B\u6C92\u6709\u65B7\u8A00\u4EFB\u4F55\u7F3A\u9677\u6703\u7834\u58DE\u7684\u4E8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u63D0\u9AD8\u4E86\u6DB5\u84CB\u7387\uFF0C\u537B\u6C92\u6709\u9396\u5B9A\u4EFB\u4F55\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5C0E\u5411\u2014\u2014\u5B83\u6BBA\u6B7B\u4E86\u4E00\u500B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6709\u610F\u7FA9\u7684\u65B7\u8A00\uFF0C\u5B83\u7121\u6CD5\u5728\u88AB\u6539\u52D5\u7684\u7D50\u679C\u4E0A\u5931\u6557\uFF0C\u56E0\u6B64\u6BBA\u4E0D\u6B7B\u4EFB\u4F55\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u5B83\u662F\u4E00\u500B\u7B49\u50F9\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u8B8A\u7570\u9AD4\u662F\u8B8A\u7570\u9AD4\u7684\u6027\u8CEA\uFF0C\u4E0D\u662F\u6E2C\u8A66\u7684\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u517C\u5177",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EA\u670D\u52D9\u65BC\u6DB5\u84CB\u7387\uFF1B\u6C92\u6709\u65B7\u8A00\uFF0C\u5B83\u5075\u6E2C\u4E0D\u5230\u4EFB\u4F55\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u57F7\u884C\u4E00\u500B\u5206\u652F\u537B\u4E0D\u505A\u4EFB\u4F55\u6709\u610F\u7FA9\u7684\u65B7\u8A00\uFF0C\u53EA\u6703\u63D0\u9AD8\u6DB5\u84CB\u7387\u800C\u5075\u6E2C\u4E0D\u5230\u7F3A\u9677\u3002\u90A3\u662F\u6DB5\u84CB\u7387\u5C0E\u5411\u7684\u7D50\u679C\u2014\u2014\u6709\u6DB5\u84CB\u7387\u800C\u7121\u7F3A\u9677\u5075\u6E2C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u76EE\u6A19\uFF1A\u5F37\u5316\u65B7\u8A00\u7684\u6E2C\u8A66",
+            "text": "<p>\u67D0\u500B\u7522\u751F\u7684\u6E2C\u8A66\u57F7\u884C\u7684\u884C\u6578\u8207\u65E2\u6709\u6E2C\u8A66\u76F8\u540C\uFF0C\u4F46\u52A0\u5165\u4E86\u4E00\u500B\u65B7\u8A00\uFF1A\u7576\u908A\u754C\u7D22\u5F15\u7528 <code>&lt;=</code> \u800C\u975E <code>&lt;</code> \u8A08\u7B97\u6642\u6703\u5931\u6557\u3002\u5B83\u7684\u76EE\u6A19\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u9677\u5C0E\u5411\u2014\u2014\u5373\u4F7F\u6C92\u6709\u589E\u52A0\u65B0\u6DB5\u84CB\u7387\uFF0C\u5B83\u4ECD\u6BBA\u6B7B\u4E86\u4E00\u500B\u8B8A\u7570\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65B0\u65B7\u8A00\u5075\u6E2C\u5230\u6CE8\u5165\u7684\u5DEE\u4E00\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u5C0E\u5411\u2014\u2014\u5B83\u589E\u52A0\u4E86\u65B0\u6DB5\u84CB\u7684\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u57F7\u884C\u7684\u884C\u8207\u4E4B\u524D\u76F8\u540C\uFF0C\u56E0\u6B64\u6C92\u6709\u589E\u52A0\u65B0\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u6BEB\u7121\u610F\u7FA9\u2014\u2014\u5B83\u6C92\u6709\u6539\u8B8A\u4EFB\u4F55\u53EF\u8861\u91CF\u7684\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u5B83\u6539\u8B8A\u4E86\u7F3A\u9677\u5075\u6E2C\uFF1A\u5B83\u6BBA\u6B7B\u4E86\u4E00\u500B\u6DB5\u84CB\u7387\u6307\u6A19\u6703\u6F0F\u6389\u7684\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u5C0E\u5411\u2014\u2014\u5B83\u522A\u9664\u4E86\u4E00\u500B\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u5B83\u52A0\u5165\u4E86\u4E00\u500B\u65B7\u8A00\uFF0C\u4E26\u672A\u522A\u9664\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5DF2\u88AB\u6DB5\u84CB\u7684\u7A0B\u5F0F\u78BC\u4E0A\u5F37\u5316\u65B7\u8A00\u4E0D\u6703\u589E\u52A0\u6DB5\u84CB\u7387\uFF0C\u537B\u80FD\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u3002\u90A3\u662F\u7F3A\u9677\u5C0E\u5411\u7684\u6E2C\u8A66\u2014\u2014\u6B63\u662F 49% \u767C\u73FE\u6240\u63CF\u8FF0\u7684\u90A3\u4E00\u7A2E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u7A2E\u7F3A\u9677\u985E\u5225",
+            "text": "<p>\u672C\u61C9\u7528\u4EE5\u56DB\u7A2E\u6A19\u8A3B\u7684\u7F3A\u9677\u985E\u5225\u4F86\u8AAA\u660E\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u3002\u4EE5\u4E0B\u54EA\u4E00\u9805<strong>\u4E0D\u662F</strong>\u5176\u4E2D\u4E4B\u4E00\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5171\u4EAB\u8A08\u6578\u5668\u4E0A\u7684\u7AF6\u614B\u689D\u4EF6\uFF08race condition\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8CC7\u6599\u7AF6\u614B\u4E0D\u662F\u6240\u8AAA\u660E\u7684\u56DB\u7A2E\u985E\u5225\u4E4B\u4E00\u3002"
+              },
+              {
+                "text": "\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u56DB\u7A2E\u7F3A\u9677\u985E\u5225\u4E4B\u4E00\u3002"
+              },
+              {
+                "text": "\u5DEE\u4E00\u932F\u8AA4\uFF08off-by-one\uFF09",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u56DB\u7A2E\u7F3A\u9677\u985E\u5225\u4E4B\u4E00\u3002"
+              },
+              {
+                "text": "\u7F3A\u5C11\u6E05\u7406",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u56DB\u7A2E\u7F3A\u9677\u985E\u5225\u4E4B\u4E00\u3002"
+              }
+            ],
+            "generalFeedback": "\u6240\u8AAA\u660E\u7684\u56DB\u7A2E\u7F3A\u9677\u985E\u5225\u70BA\uFF1A\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F\u3001\u5DEE\u4E00\u932F\u8AA4\u3001\u7F3A\u5C11\u6E05\u7406\uFF0C\u4EE5\u53CA\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u3002\u7AF6\u614B\u689D\u4EF6\u4E0D\u5728\u5176\u4E2D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6DB5\u84CB\u578B\u6E2C\u8A66\u53EF\u4EE5\u6BEB\u7121\u6709\u610F\u7FA9\u7684\u65B7\u8A00",
+            "text": "<p>\u4E00\u500B\u6E2C\u8A66\u53EF\u4EE5\u589E\u52A0\u65B0\u6DB5\u84CB\u7684\u884C\uFF0C\u537B\u5C0D\u90A3\u4E9B\u884C\u662F\u5426\u6B63\u78BA\u6BEB\u7121\u6709\u610F\u7FA9\u7684\u65B7\u8A00\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u8A18\u9304\u7684\u662F\u57F7\u884C\uFF0C\u800C\u975E\u65B7\u8A00\u7684\u5F37\u5EA6\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u53EA\u8981\u6C42\u8A72\u884C\u88AB\u57F7\u884C\uFF1B\u6E2C\u8A66\u4E0D\u5FC5\u6AA2\u67E5\u7D50\u679C\uFF0C\u56E0\u6B64\u6B64\u6558\u8FF0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u8981\u67D0\u884C\u88AB\u57F7\u884C\uFF0C\u6DB5\u84CB\u7387\u5C31\u6703\u8A18\u4E0A\u9019\u4E00\u884C\uFF0C\u4E0D\u7BA1\u6E2C\u8A66\u662F\u5426\u6AA2\u67E5\u5176\u884C\u70BA\u3002\u56E0\u6B64\u4E00\u500B\u6E2C\u8A66\u53EF\u4EE5\u63D0\u9AD8\u6DB5\u84CB\u7387\u537B\u5075\u6E2C\u4E0D\u5230\u7F3A\u9677\u2014\u2014\u6DB5\u84CB\u7387\u8207\u7F3A\u9677\u5075\u6E2C\u662F\u4E0D\u540C\u7684\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u7684\u5225\u7A31",
+            "text": "<p>\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u7522\u751F\u4E5F\u88AB\u63CF\u8FF0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8B8A\u7570\u5F15\u5C0E\u6E2C\u8A66\uFF08mutation-guided testing\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u7531\u6E2C\u8A66\u662F\u5426\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF08\u6CE8\u5165\u7684\u7F3A\u9677\uFF09\u4F86\u5F15\u5C0E\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u6700\u5927\u5316\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6DB5\u84CB\u7387\u5C0E\u5411\u7684\u76EE\u6A19\uFF0C\u6B63\u662F\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u7684\u5C0D\u7167\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\uFF08\u6A21\u7CCA\uFF09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6A21\u7CCA\u6E2C\u8A66\u7522\u751F\u96A8\u6A5F\u8F38\u5165\uFF1B\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u9396\u5B9A\u7279\u5B9A\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u8861\u91CF\u8CA0\u8F09\u4E0B\u7684\u6548\u80FD\uFF0C\u8207\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u5C31\u662F\u8B8A\u7570\u5F15\u5C0E\uFF1A\u5B83\u4EE5\u8B8A\u7570\u9AD4\uFF08\u6CE8\u5165\u7684\u7F3A\u9677\uFF09\u70BA\u76EE\u6A19\uFF0C\u7522\u751F\u65B7\u8A00\u80FD\u6BBA\u6B7B\u5B83\u5011\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5F37\u5316\u65B7\u8A00\u4E0D\u6703\u589E\u52A0\u6DB5\u84CB\u7387",
+            "text": "<p>\u5C0D\u4E00\u500B\u5DF2\u7D93\u57F7\u884C\u4E86\u76F8\u95DC\u7A0B\u5F0F\u78BC\u7684\u6E2C\u8A66\u52A0\u5165\u66F4\u5F37\u7684\u65B7\u8A00\uFF0C\u53EF\u4EE5\u5728\u5B8C\u5168\u4E0D\u589E\u52A0\u4EFB\u4F55\u65B0\u6DB5\u84CB\u884C\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u4E00\u500B\u8B8A\u7570\u9AD4\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A0B\u5F0F\u78BC\u5DF2\u88AB\u6DB5\u84CB\uFF0C\u56E0\u6B64\u53EA\u6709\u7F3A\u9677\u5075\u6E2C\u6539\u5584\uFF0C\u6DB5\u84CB\u7387\u6C92\u6709\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u884C\u5DF2\u7D93\u57F7\u884C\u904E\uFF0C\u6240\u4EE5\u6C92\u6709\u589E\u52A0\u65B0\u6DB5\u84CB\u7387\uFF1B\u66F4\u5F37\u7684\u65B7\u8A00\u4ECD\u6293\u5230\u7F3A\u9677\uFF0C\u56E0\u6B64\u6B64\u6558\u8FF0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u7A0B\u5F0F\u78BC\u5DF2\u88AB\u6DB5\u84CB\u6642\uFF0C\u66F4\u5F37\u7684\u65B7\u8A00\u4E0D\u6703\u589E\u52A0\u65B0\u7684\u884C\uFF0C\u537B\u80FD\u8B93\u6E2C\u8A66\u5728\u8B8A\u7570\u9AD4\u4E0A\u5931\u6557\u3002\u9019\u6B63\u662F\u70BA\u4EC0\u9EBC 49% \u7684 ACH \u6E2C\u8A66\u5728\u6C92\u6709\u65B0\u6DB5\u84CB\u7387\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DB5\u84CB\u7387\u6307\u6A19\u5982\u4F55\u8A55\u5206\u90A3 49% \u7684\u6E2C\u8A66",
+            "text": "<p>\u7D14\u6DB5\u84CB\u7387\u6307\u6A19\u6703\u5982\u4F55\u8A55\u5206\u90A3 49% \u5728\u6C92\u6709\u65B0\u6DB5\u84CB\u884C\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8996\u70BA\u6BEB\u7121\u8CA2\u737B\u2014\u2014\u5373\u4F7F\u5B83\u5011\u6293\u5230\u4E86\u771F\u5BE6\u7684\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u770B\u4E0D\u5230\u65B0\u7684\u884C\uFF0C\u56E0\u6B64\u4F4E\u4F30\u4E86\u9019\u4E9B\u80FD\u6293\u7F3A\u9677\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u8996\u70BA\u5957\u4EF6\u4E2D\u6700\u6709\u50F9\u503C\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u8A18\u9304\u4E0D\u5230\u4EFB\u4F55\u65B0\u7684\u884C\uFF0C\u56E0\u6B64\u4E0D\u6703\u5C07\u5B83\u5011\u8A55\u70BA\u9AD8\u5206\u3002"
+              },
+              {
+                "text": "\u8996\u70BA\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u6709\u6548\u7684\u6E2C\u8A66\uFF1B\u6DB5\u84CB\u7387\u53EA\u662F\u8A18\u4E0D\u5230\u4EFB\u4F55\u65B0\u7684\u884C\u3002"
+              },
+              {
+                "text": "\u8996\u70BA\u7B49\u50F9\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u8B8A\u7570\u9AD4\u662F\u8B8A\u7570\u9AD4\u7684\u6027\u8CEA\uFF0C\u4E0D\u662F\u6E2C\u8A66\u7684\u6DB5\u84CB\u7387\u8A55\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u6307\u6A19\u770B\u4E0D\u5230\u4EFB\u4F55\u65B0\u6DB5\u84CB\u7684\u884C\uFF0C\u56E0\u6B64\u628A\u9019\u4E9B\u6E2C\u8A66\u8A55\u70BA\u300C\u6BEB\u7121\u8CA2\u737B\u300D\uFF0C\u5373\u4F7F\u6BCF\u4E00\u500B\u90FD\u6293\u5230\u4E86\u771F\u5BE6\u7684\u7F3A\u9677\u2014\u2014\u9019\u6B63\u662F\u6DB5\u84CB\u7387\u55AE\u7368\u4F4E\u4F30\u6E2C\u8A66\u54C1\u8CEA\u7684\u6838\u5FC3\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u7167\u5169\u7A2E\u76EE\u6A19",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u7D44\u6B63\u78BA\u5C0D\u7167\u4E86\u5169\u7A2E\u6E2C\u8A66\u7522\u751F\u76EE\u6A19\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6DB5\u84CB\u7387\u5C0E\u5411\uFF1D\u57F7\u884C\u66F4\u591A\u7684\u884C\uFF1B\u7F3A\u9677\u5C0E\u5411\uFF1D\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF08\u5075\u6E2C\u6CE8\u5165\u7684\u7F3A\u9677\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u4EE5\u57F7\u884C\u70BA\u6700\u4F73\u5316\u76EE\u6A19\uFF0C\u53E6\u4E00\u500B\u4EE5\u7F3A\u9677\u5075\u6E2C\u70BA\u6700\u4F73\u5316\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u5C0E\u5411\uFF1D\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF1B\u7F3A\u9677\u5C0E\u5411\uFF1D\u57F7\u884C\u66F4\u591A\u7684\u884C",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u500B\u76EE\u6A19\u5F04\u53CD\u4E86\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u5C0E\u5411\uFF1D\u5075\u6E2C\u7F3A\u9677\uFF1B\u7F3A\u9677\u5C0E\u5411\uFF1D\u5FFD\u7565\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u5C0E\u5411\u4E26\u4E0D\u76F4\u63A5\u9396\u5B9A\u7F3A\u9677\uFF0C\u800C\u7F3A\u9677\u5C0E\u5411\u5B8C\u5168\u4EE5\u7F3A\u9677\u70BA\u6838\u5FC3\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u53EA\u6C42\u7E2E\u77ED\u6E2C\u8A66\u57F7\u884C\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u76EE\u6A19\u90FD\u4E0D\u662F\u7531\u57F7\u884C\u6642\u9593\u5B9A\u7FA9\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u5C0E\u5411\u7684\u7522\u751F\u65B9\u5F0F\u529B\u6C42\u57F7\u884C\u66F4\u591A\u7A0B\u5F0F\u78BC\uFF1B\u7F3A\u9677\u5C0E\u5411\u7684\u7522\u751F\u65B9\u5F0F\u529B\u6C42\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u2014\u2014\u5075\u6E2C\u6CE8\u5165\u7684\u7F3A\u9677\u3002\u7531\u65BC\u6DB5\u84CB\u7387\u4E0D\u7B49\u65BC\u7F3A\u9677\u5075\u6E2C\uFF0C\u9019\u5169\u500B\u76EE\u6A19\u78BA\u5BE6\u6703\u5206\u6B67\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F\u2014\u2014\u70BA\u4F55\u6DB5\u84CB\u7387\u6F0F\u6389\u5B83",
+            "text": "<p>\u67D0\u51FD\u5F0F\u958B\u555F\u4E00\u500B\u6A94\u6848\u63A7\u5236\u4EE3\u78BC\uFF08handle\uFF09\uFF0C\u53EA\u5728\u6210\u529F\u8DEF\u5F91\u4E0A\u91CB\u653E\u5B83\uFF1B\u932F\u8AA4\u8DEF\u5F91\u4E0D\u91CB\u653E\u5C31\u8FD4\u56DE\uFF08\u8CC7\u6E90\u6D29\u6F0F\uFF09\u3002\u4E00\u500B\u8D70\u9806\u5229\u8DEF\u5F91\u7684\u6E2C\u8A66\u6DB5\u84CB\u4E86\u8A72\u51FD\u5F0F\u3002\u5B83\u70BA\u4F55\u6F0F\u6389\u9019\u500B\u7F3A\u9677\uFF1F\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u53C8\u52A0\u5165\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9806\u5229\u8DEF\u5F91\u5F9E\u672A\u8D70\u5230\u6703\u6D29\u6F0F\u7684\u932F\u8AA4\u8DEF\u5F91\uFF0C\u4E14\u5373\u4F7F\u8D70\u5230\u4E5F\u6C92\u6709\u4EFB\u4F55\u65B7\u8A00\u6AA2\u67E5\u63A7\u5236\u4EE3\u78BC\u662F\u5426\u88AB\u91CB\u653E\u2014\u2014\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6703\u9A45\u52D5\u932F\u8AA4\u8DEF\u5F91\u4E26\u65B7\u8A00\u63A7\u5236\u4EE3\u78BC\u5DF2\u95DC\u9589",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u540C\u6642\u9700\u8981\u8D70\u5230\u932F\u8AA4\u8DEF\u5F91\u4E26\u65B7\u8A00\u91CB\u653E\u3002"
+              },
+              {
+                "text": "\u9806\u5229\u8DEF\u5F91\u672A\u88AB\u6DB5\u84CB\uFF0C\u6240\u4EE5\u55AE\u7D14\u63D0\u9AD8\u6DB5\u84CB\u7387\u5C31\u80FD\u4FEE\u597D",
+                "fraction": 0,
+                "feedback": "\u9806\u5229\u8DEF\u5F91\u5DF2\u88AB\u6DB5\u84CB\uFF1B\u7F3A\u7684\u662F\u8D70\u5230\u932F\u8AA4\u8DEF\u5F91\u4E26\u65B7\u8A00\u91CB\u653E\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u6D29\u6F0F\u4E0D\u53EF\u80FD\u88AB\u4EFB\u4F55\u6E2C\u8A66\u5075\u6E2C\u5230",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u8D70\u5230\u932F\u8AA4\u8DEF\u5F91\u4E26\u6AA2\u67E5\u91CB\u653E\u7684\u6E2C\u8A66\u5C31\u80FD\u8F15\u9B06\u5075\u6E2C\u3002"
+              },
+              {
+                "text": "\u5728\u6210\u529F\u8DEF\u5F91\u4E0A\u52A0\u4EFB\u4F55\u65B7\u8A00\u90FD\u6703\u6BBA\u6B7B\u9019\u500B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u5728\u932F\u8AA4\u8DEF\u5F91\u4E0A\uFF1B\u53EA\u5728\u6210\u529F\u8DEF\u5F91\u4E0A\u65B7\u8A00\u8D70\u4E0D\u5230\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u9806\u5229\u8DEF\u5F91\u7684\u6E2C\u8A66\u5F9E\u4E0D\u57F7\u884C\u6703\u6D29\u6F0F\u7684\u5206\u652F\uFF0C\u5373\u4F7F\u6DB5\u84CB\u4E86\u5B83\u4E5F\u4E0D\u6703\u65B7\u8A00\u63A7\u5236\u4EE3\u78BC\u5DF2\u88AB\u91CB\u653E\u3002\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6703\u9A45\u52D5\u932F\u8AA4\u8DEF\u5F91\u4E26\u65B7\u8A00\u8CC7\u6E90\u5DF2\u88AB\u91CB\u653E\uFF0C\u6BBA\u6B7B\u9019\u500B\u6D29\u6F0F\u8B8A\u7570\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u5DEE\u4E00\u932F\u8AA4\u2014\u2014\u70BA\u4F55\u6DB5\u84CB\u7387\u6F0F\u6389\u5B83",
+            "text": "<p>\u67D0\u8FF4\u5708\u7528\u4E86 <code>i &lt;= n</code>\uFF0C\u4F46\u61C9\u8A72\u7528 <code>i &lt; n</code>\uFF0C\u56E0\u800C\u8B80\u5230\u8D85\u51FA\u7D50\u5C3E\u4E00\u500B\u7684\u5143\u7D20\u3002\u4E00\u500B\u6E2C\u8A66\u8DD1\u5B8C\u6574\u500B\u8FF4\u5708\uFF0C\u537B\u53EA\u65B7\u8A00\u7D2F\u52A0\u7E3D\u548C\u70BA\u975E\u8CA0\u3002\u5B83\u70BA\u4F55\u6F0F\u6389\u9019\u500B\u7F3A\u9677\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6DB5\u84CB\u8FF4\u5708\u6703\u57F7\u884C\u6BCF\u4E00\u6B21\u8FED\u4EE3\uFF0C\u4F46\u65B7\u8A00\u5F9E\u672A\u6AA2\u67E5\u908A\u754C\u5143\u7D20\u6216\u90A3\u6B21\u591A\u51FA\u7684\u8FED\u4EE3\u6240\u7834\u58DE\u7684\u78BA\u5207\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u8FF4\u5708\u672C\u9AD4\u4E26\u4E0D\u65B7\u8A00\u908A\u754C\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u8FF4\u5708\u672C\u9AD4\u5F9E\u672A\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u8FF4\u5708\u5DF2\u88AB\u5B8C\u6574\u6DB5\u84CB\uFF1B\u554F\u984C\u5728\u65BC\u65B7\u8A00\u592A\u5F31\uFF0C\u800C\u975E\u53EF\u9054\u6027\u3002"
+              },
+              {
+                "text": "\u5DEE\u4E00\u932F\u8AA4\u7121\u6CD5\u88AB\u65B7\u8A00\u5075\u6E2C",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u78BA\u5207\u7684\u908A\u754C\u7D50\u679C\u5C31\u80FD\u7CBE\u6E96\u5075\u6E2C\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u8B8A\u7570\u9AD4\u662F\u7B49\u50F9\u7684",
+                "fraction": 0,
+                "feedback": "\u8B80\u5230\u8D85\u51FA\u7D50\u5C3E\u6703\u6539\u8B8A\u884C\u70BA\uFF0C\u56E0\u6B64\u5B83\u4E0D\u662F\u7B49\u50F9\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u57F7\u884C\u8FF4\u5708\u80FD\u9054\u5230\u5B8C\u6574\u6DB5\u84CB\u7387\uFF0C\u4F46\u6A21\u7CCA\u7684\u65B7\u8A00\uFF08\u7E3D\u548C\u975E\u8CA0\uFF09\u6293\u4E0D\u5230\u88AB\u7834\u58DE\u7684\u908A\u754C\u3002\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6703\u65B7\u8A00\u78BA\u5207\u7684\u9810\u671F\u7D50\u679C\u6216\u6700\u5F8C\u7684\u6709\u6548\u7D22\u5F15\uFF0C\u8B93\u90A3\u6B21\u591A\u51FA\u7684\u8FED\u4EE3\u88AB\u6293\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u7F3A\u5C11\u6E05\u7406\u2014\u2014\u70BA\u4F55\u6DB5\u84CB\u7387\u6F0F\u6389\u5B83",
+            "text": "<p>\u67D0\u51FD\u5F0F\u5EFA\u7ACB\u4E00\u500B\u66AB\u6642\u8CC7\u6E90\uFF0C\u4E26\u5728\u7D50\u5C3E\u522A\u9664\u5B83\uFF0C\u4F46\u5728\u7121\u6548\u8F38\u5165\u6642\u63D0\u65E9 <code>return</code> \u6703\u8DF3\u904E\u522A\u9664\uFF08\u7F3A\u5C11\u6E05\u7406\uFF09\u3002\u4E00\u500B\u50B3\u5165\u6709\u6548\u8F38\u5165\u7684\u6E2C\u8A66\u6DB5\u84CB\u4E86\u6B63\u5E38\u8DEF\u5F91\u3002\u5B83\u70BA\u4F55\u6F0F\u6389\u9019\u500B\u7F3A\u9677\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6B63\u5E38\u8DEF\u5F91\u6703\u57F7\u884C\u6E05\u7406\uFF0C\u56E0\u6B64\u53EA\u6709\u63D0\u65E9\u8FD4\u56DE\u7684\u8DEF\u5F91\u624D\u6703\u7559\u4E0B\u8CC7\u6E90\uFF1B\u6DB5\u84CB\u578B\u6E2C\u8A66\u5F9E\u672A\u89F8\u767C\u8A72\u8DEF\u5F91\uFF0C\u4E5F\u672A\u65B7\u8A00\u6E05\u7406",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u9677\u53EA\u5B58\u5728\u65BC\u88AB\u8DF3\u904E\u6E05\u7406\u7684\u932F\u8AA4\u8DEF\u5F91\u4E0A\u3002"
+              },
+              {
+                "text": "\u6E05\u7406\u5728\u4EFB\u4F55\u8DEF\u5F91\u4E0A\u90FD\u4E0D\u6703\u88AB\u8D70\u5230",
+                "fraction": 0,
+                "feedback": "\u6E05\u7406\u5728\u6B63\u5E38\u8DEF\u5F91\u4E0A\u6703\u6B63\u5E38\u57F7\u884C\uFF1B\u53EA\u6709\u5728\u63D0\u65E9\u8FD4\u56DE\u6642\u624D\u88AB\u8DF3\u904E\u3002"
+              },
+              {
+                "text": "\u90A3\u500B\u66AB\u6642\u8CC7\u6E90\u5F9E\u672A\u88AB\u5EFA\u7ACB",
+                "fraction": 0,
+                "feedback": "\u5B83\u6709\u88AB\u5EFA\u7ACB\uFF1B\u7F3A\u9677\u5728\u65BC\u63D0\u65E9\u8FD4\u56DE\u7684\u8DEF\u5F91\u4E0A\u672A\u522A\u9664\u5B83\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u7F3A\u9677\u5728\u6BCF\u4E00\u7A2E\u8F38\u5165\u4E0A\u90FD\u6703\u51FA\u73FE",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EA\u5728\u7121\u6548\u8F38\u5165\u7684\u63D0\u65E9\u8FD4\u56DE\u8DEF\u5F91\u4E0A\u51FA\u73FE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6709\u6548\u8F38\u5165\u4E0B\u6E05\u7406\u6703\u57F7\u884C\uFF0C\u56E0\u6B64\u6DB5\u84CB\u578B\u6E2C\u8A66\u770B\u4E0D\u51FA\u554F\u984C\u3002\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6703\u63D0\u4F9B\u7121\u6548\u8F38\u5165\u4EE5\u5F37\u5236\u63D0\u65E9\u8FD4\u56DE\uFF0C\u4E26\u65B7\u8A00\u66AB\u6642\u8CC7\u6E90\u5DF2\u88AB\u6E05\u7406\uFF0C\u6BBA\u6B7B\u9019\u500B\u8B8A\u7570\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u2014\u2014\u70BA\u4F55\u6DB5\u84CB\u7387\u6F0F\u6389\u5B83",
+            "text": "<p>\u67D0\u5256\u6790\u5668\u5728\u9047\u5230\u683C\u5F0F\u932F\u8AA4\u7684\u8F38\u5165\u6642\u6703\u62CB\u51FA\u4F8B\u5916\uFF0C\u4F46\u6C92\u6709\u4EFB\u4F55\u5730\u65B9\u8655\u7406\u6216\u65B7\u8A00\u8A72\u4F8B\u5916\u3002\u4E00\u500B\u7528\u683C\u5F0F\u6B63\u78BA\u8F38\u5165\u7684\u6E2C\u8A66\u6DB5\u84CB\u4E86\u5256\u6790\u5668\u3002\u5B83\u70BA\u4F55\u6F0F\u6389\u9019\u500B\u7F3A\u9677\uFF1F\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u53C8\u52A0\u5165\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u683C\u5F0F\u6B63\u78BA\u7684\u8F38\u5165\u5F9E\u4E0D\u89F8\u767C\u4F8B\u5916\u8DEF\u5F91\uFF1B\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6703\u9935\u5165\u683C\u5F0F\u932F\u8AA4\u7684\u8F38\u5165\uFF0C\u4E26\u65B7\u8A00\u9810\u671F\u7684\u4F8B\u5916\uFF08\u6216\u5176\u8655\u7406\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5916\u884C\u70BA\u53EA\u6709\u5728\u63D0\u4F9B\u4F8B\u5916\u8F38\u5165\u4E26\u5C0D\u5176\u65B7\u8A00\u6642\u624D\u6703\u6D6E\u73FE\u3002"
+              },
+              {
+                "text": "\u5256\u6790\u5668\u7A0B\u5F0F\u78BC\u4E0D\u53EF\u9054",
+                "fraction": 0,
+                "feedback": "\u7528\u683C\u5F0F\u6B63\u78BA\u7684\u8F38\u5165\u5C31\u80FD\u8D70\u5230\u5B83\uFF1B\u53EA\u662F\u4F8B\u5916\u5206\u652F\u672A\u88AB\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u4F8B\u5916\u6C38\u9060\u7121\u6CD5\u5728\u6E2C\u8A66\u4E2D\u88AB\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u7D93\u5E38\u65B7\u8A00\u67D0\u500B\u7279\u5B9A\u4F8B\u5916\u662F\u5426\u88AB\u62CB\u51FA\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u7F3A\u9677\u53EA\u5C0D\u6548\u80FD\u6709\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u4F8B\u5916\u8DEF\u5F91\u4E0A\u7684\u6B63\u78BA\u6027\u7F3A\u9677\uFF0C\u4E0D\u662F\u6548\u80FD\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u683C\u5F0F\u6B63\u78BA\u7684\u8F38\u5165\u6703\u57F7\u884C\u5256\u6790\u5668\uFF0C\u537B\u5F9E\u4E0D\u8D70\u4F8B\u5916\u8DEF\u5F91\u3002\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6703\u63D0\u4F9B\u683C\u5F0F\u932F\u8AA4\u7684\u8F38\u5165\uFF0C\u4E26\u65B7\u8A00\u9810\u671F\u7684\u4F8B\u5916\u88AB\u62CB\u51FA\uFF08\u6216\u88AB\u6B63\u78BA\u8655\u7406\uFF09\uFF0C\u6293\u5230\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u7F3A\u9677\uFF1A\u8B80\u5230\u8D85\u51FA\u7D50\u5C3E",
+            "text": "<p>\u67D0\u7A0B\u5E8F\u4EE5 <code>for (i = 0; i &lt;= len; i++)</code> \u8FED\u4EE3\u4E26\u5B58\u53D6 <code>a[i]</code>\uFF0C\u8B80\u5230\u9663\u5217\u7D50\u5C3E\u4E4B\u5916\u4E00\u683C\u3002\u9019\u662F\u54EA\u4E00\u7A2E\u7F3A\u9677\u985E\u5225\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5DEE\u4E00\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u754C\u689D\u4EF6\u5DEE\u4E86\u4E00\uFF08\u5C0D\uFF09\u3002"
+              },
+              {
+                "text": "\u7F3A\u5C11\u6E05\u7406",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u6C92\u6709\u8DF3\u904E\u4EFB\u4F55\u62C6\u5378\u6B65\u9A5F\uFF1B\u7F3A\u9677\u662F\u908A\u754C\u7D22\u5F15\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u672A\u6AA2\u67E5\u7684\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u6839\u672C\u539F\u56E0\u662F\u908A\u754C\u932F\u8AA4\uFF1B\u4EFB\u4F55\u4F8B\u5916\u90FD\u662F\u5FB5\u72C0\uFF0C\u4E0D\u662F\u985E\u5225\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u4E0D\u6D89\u53CA\u8CC7\u6E90\u6216\u7A7A\u503C\uFF1B\u7F3A\u9677\u662F\u908A\u754C\u7D22\u5F15\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u9700\u8981\u7684\u5730\u65B9\u7528\u4E86\uFF0C\u6703\u8B80\u5230\u8D85\u51FA\u7D50\u5C3E\u4E00\u500B\u5143\u7D20\u2014\u2014\u9019\u662F\u5178\u578B\u7684\u5DEE\u4E00\u932F\u8AA4\u985E\u5225\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u7F3A\u9677\uFF1A\u63D0\u65E9\u8FD4\u56DE\u8DF3\u904E\u62C6\u5378",
+            "text": "<p>\u67D0\u51FD\u5F0F\u958B\u555F\u4E00\u500B\u8CC7\u6599\u5EAB\u4EA4\u6613\uFF0C\u5728\u56E0\u9A57\u8B49\u932F\u8AA4\u800C\u63D0\u65E9 <code>return</code> \u6642\uFF0C\u65E2\u4E0D\u63D0\u4EA4\u4E5F\u4E0D\u56DE\u5FA9\uFF0C\u7559\u4E0B\u4E00\u500B\u672A\u95DC\u9589\u7684\u4EA4\u6613\u3002\u9019\u662F\u54EA\u4E00\u7A2E\u7F3A\u9677\u985E\u5225\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u5C11\u6E05\u7406",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u62C6\u5378\u6B65\u9A5F\uFF08\u56DE\u5FA9\uFF0F\u63D0\u4EA4\uFF09\u5728\u63D0\u65E9\u8FD4\u56DE\u7684\u8DEF\u5F91\u4E0A\u88AB\u8DF3\u904E\u3002"
+              },
+              {
+                "text": "\u5DEE\u4E00\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u4E0D\u6D89\u53CA\u908A\u754C\u7D22\u5F15\u3002"
+              },
+              {
+                "text": "\u672A\u6AA2\u67E5\u7684\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u662F\u63D0\u65E9\u8FD4\u56DE\u6642\u8DF3\u904E\u4E86\u62C6\u5378\u6B65\u9A5F\uFF0C\u800C\u975E\u672A\u8655\u7406\u7684\u4F8B\u5916\u3002"
+              },
+              {
+                "text": "\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F",
+                "fraction": 0,
+                "feedback": "\u96D6\u7136\u76F8\u95DC\uFF0C\u4F46\u9019\u88E1\u7684\u5B9A\u7FA9\u7279\u5FB5\u662F\u6E05\u7406\uFF0F\u62C6\u5378\u6B65\u9A5F\u5728\u932F\u8AA4\u8DEF\u5F91\u4E0A\u88AB\u8DF3\u904E\u2014\u2014\u5C6C\u65BC\u7F3A\u5C11\u6E05\u7406\u985E\u5225\u3002"
+              }
+            ],
+            "generalFeedback": "\u63D0\u65E9\u8FD4\u56DE\u800C\u8DF3\u904E\u4EA4\u6613\u62C6\u5378\u5C6C\u65BC\u7F3A\u5C11\u6E05\u7406\u985E\u5225\uFF1A\u6E05\u7406\u5728\u6B63\u5E38\u8DEF\u5F91\u4E0A\u6703\u57F7\u884C\uFF0C\u537B\u5728\u932F\u8AA4\uFF0F\u63D0\u65E9\u8FD4\u56DE\u7684\u8DEF\u5F91\u4E0A\u88AB\u8DF3\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u7F3A\u9677\uFF1A\u672A\u6AA2\u67E5\u7684\u7A7A\u503C\u56DE\u50B3",
+            "text": "<p><code>lookup(key)</code> \u5728\u9375\u4E0D\u5B58\u5728\u6642\u53EF\u80FD\u56DE\u50B3 <code>null</code>\uFF0C\u800C\u547C\u53EB\u7AEF\u672A\u505A\u7A7A\u503C\u6AA2\u67E5\u5C31\u76F4\u63A5\u57F7\u884C <code>lookup(key).name</code>\u3002\u9019\u662F\u54EA\u4E00\u7A2E\u7F3A\u9677\u985E\u5225\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u53EF\u80FD\u70BA\u7A7A\u7684\u503C\u9032\u884C\u89E3\u53C3\u8003\uFF0C\u5C31\u662F\u6B64\u985E\u5225\u7684\u300C\u7A7A\u503C\u300D\u9762\u5411\u3002"
+              },
+              {
+                "text": "\u5DEE\u4E00\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u4E0D\u6D89\u53CA\u908A\u754C\u7D22\u5F15\u3002"
+              },
+              {
+                "text": "\u7F3A\u5C11\u6E05\u7406",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u9700\u8981\u6E05\u7406\u7684\u6771\u897F\uFF1B\u7F3A\u9677\u662F\u672A\u52A0\u9632\u8B77\u7684\u7A7A\u503C\u89E3\u53C3\u8003\u3002"
+              },
+              {
+                "text": "\u672A\u6AA2\u67E5\u7684\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u96D6\u7136\u7A7A\u503C\u89E3\u53C3\u8003\u53EF\u80FD\u62CB\u51FA\u4F8B\u5916\uFF0C\u4F46\u9019\u88E1\u5EFA\u6A21\u7684\u985E\u5225\u662F\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F\u985E\u5225\uFF08\u672A\u52A0\u9632\u8B77\u7684\u7A7A\u503C\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u672A\u52A0\u9632\u8B77\u5C31\u5C0D\u53EF\u80FD\u70BA\u7A7A\u7684\u503C\u9032\u884C\u89E3\u53C3\u8003\uFF0C\u5C6C\u65BC\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F\u7F3A\u9677\u985E\u5225\uFF08\u5176\u7A7A\u503C\u9762\u5411\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u7F3A\u9677\uFF1A\u58DE\u8F38\u5165\u62CB\u4F8B\u5916\u3001\u7121\u4EBA\u63A5\u624B",
+            "text": "<p><code>Integer.parseInt(s)</code> \u5728 <code>s</code> \u975E\u6578\u5B57\u6642\u6703\u62CB\u51FA\u4F8B\u5916\uFF0C\u800C\u7A0B\u5F0F\u8207\u4EFB\u4F55\u6E2C\u8A66\u90FD\u672A\u8655\u7406\u6216\u65B7\u8A00\u8A72\u60C5\u6CC1\u3002\u9019\u662F\u54EA\u4E00\u7A2E\u7F3A\u9677\u985E\u5225\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u672A\u6AA2\u67E5\u7684\u4F8B\u5916",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u65E2\u672A\u8655\u7406\u4E5F\u672A\u65B7\u8A00\u7684\u4F8B\u5916\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5DEE\u4E00\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u4E0D\u6D89\u53CA\u908A\u754C\u7D22\u5F15\u3002"
+              },
+              {
+                "text": "\u7F3A\u5C11\u6E05\u7406",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u6C92\u6709\u8DF3\u904E\u4EFB\u4F55\u62C6\u5378\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u7A7A\u503C\uFF0F\u8CC7\u6E90\u6D29\u6F0F",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u7A7A\u503C\u89E3\u53C3\u8003\u6216\u6D29\u6F0F\u7684\u8CC7\u6E90\uFF1B\u7F3A\u9677\u662F\u672A\u8655\u7406\uFF0F\u672A\u65B7\u8A00\u7684\u4F8B\u5916\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u689D\u65E2\u672A\u8655\u7406\u4E5F\u672A\u65B7\u8A00\u7684\u4F8B\u5916\u8DEF\u5F91\u5C6C\u65BC\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u985E\u5225\uFF1A\u7A0B\u5F0F\u5728\u6B63\u5E38\u8F38\u5165\u4E0B\u80FD\u57F7\u884C\uFF0C\u7F3A\u9677\u53EA\u6709\u5728\u63D0\u4F9B\u4F8B\u5916\u8F38\u5165\u4E26\u5C0D\u5176\u65B7\u8A00\u6642\u624D\u6D6E\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 100% \u6DB5\u84CB\u7387\u4ECD\u53EF\u80FD\u6F0F\u6389\u7F3A\u9677",
+            "text": "<p>\u67D0\u5957\u4EF6\u9054\u6210 100% \u884C\u6DB5\u84CB\u7387\uFF0C\u537B\u4ECD\u6709\u4E00\u500B\u8B8A\u7570\u9AD4\u5B58\u6D3B\u3002\u6700\u53EF\u80FD\u7684\u539F\u56E0\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6709\u7F3A\u9677\u7684\u90A3\u4E00\u884C\u88AB\u57F7\u884C\u4E86\uFF0C\u4F46\u6C92\u6709\u4EFB\u4F55\u65B7\u8A00\u6AA2\u67E5\u8A72\u7F3A\u9677\u6240\u6539\u8B8A\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u4FDD\u8B49\u57F7\u884C\uFF0C\u537B\u4E0D\u4FDD\u8B49\u88AB\u7834\u58DE\u7684\u7D50\u679C\u88AB\u89C0\u5BDF\u5230\u3002"
+              },
+              {
+                "text": "\u6709\u7F3A\u9677\u7684\u90A3\u4E00\u884C\u5F9E\u672A\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5728 100% \u884C\u6DB5\u84CB\u7387\u4E0B\u8A72\u884C\u78BA\u5BE6\u88AB\u57F7\u884C\u4E86\uFF1B\u7F3A\u53E3\u5728\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "100% \u6DB5\u84CB\u7387\u4F7F\u6BCF\u500B\u8B8A\u7570\u9AD4\u90FD\u8B8A\u6210\u7B49\u50F9\u7684",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u5C0D\u8B8A\u7570\u9AD4\u662F\u5426\u7B49\u50F9\u6BEB\u7121\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u8A72\u5957\u4EF6\u7684\u65B7\u8A00\u592A\u591A\u4E86",
+                "fraction": 0,
+                "feedback": "\u5B58\u6D3B\u7684\u8B8A\u7570\u9AD4\u4EE3\u8868\u65B7\u8A00\u592A\u5F31\uFF0C\u800C\u975E\u592A\u591A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6574\u884C\u6DB5\u84CB\u7387\u53EA\u4EE3\u8868\u6BCF\u4E00\u884C\u90FD\u57F7\u884C\u4E86\u3002\u82E5\u6C92\u6709\u4EFB\u4F55\u65B7\u8A00\u89C0\u5BDF\u5230\u7F3A\u9677\u6240\u7834\u58DE\u7684\u503C\uFF0C\u8B8A\u7570\u9AD4\u5C31\u6703\u5B58\u6D3B\u2014\u2014\u6DB5\u84CB\u7387\u5C0D\u7F3A\u9677\u5075\u6E2C\u662F\u5FC5\u8981\u4F46\u4E0D\u5145\u5206\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6DB5\u84CB\u4E00\u884C\u5C31\u7B49\u65BC\u65B7\u8A00\u5B83\u6B63\u78BA",
+            "text": "<p>\u5728\u6E2C\u8A66\u4E2D\u8D70\u5230\uFF08\u6DB5\u84CB\uFF09\u67D0\u4E00\u884C\uFF0C\u5C31\u4FDD\u8B49\u8A72\u6E2C\u8A66\u4E5F\u65B7\u8A00\u4E86\u90A3\u4E00\u884C\u884C\u70BA\u6B63\u78BA\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u8D70\u5230\u67D0\u884C\u53EA\u662F\u57F7\u884C\u5B83\uFF1B\u6E2C\u8A66\u53EF\u80FD\u5C0D\u5176\u7D50\u679C\u6BEB\u7121\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u8207\u65B7\u8A00\u662F\u5F7C\u6B64\u7368\u7ACB\u7684\uFF1B\u6DB5\u84CB\u4E00\u884C\u4E26\u4E0D\u7B49\u65BC\u65B7\u8A00\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u8A18\u9304\u7684\u662F\u67D0\u884C\u6709\u88AB\u57F7\u884C\uFF0C\u800C\u975E\u6E2C\u8A66\u6AA2\u67E5\u4E86\u5B83\u7684\u8F38\u51FA\u3002\u4E00\u689D\u88AB\u6DB5\u84CB\u537B\u6C92\u6709\u76F8\u95DC\u65B7\u8A00\u7684\u884C\uFF0C\u4ECD\u6703\u8B93\u8A72\u884C\u7684\u7F3A\u9677\u5B58\u6D3B\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DEE\u4E00\u932F\u8AA4\u7684\u6BBA\u624B\u65B7\u8A00",
+            "text": "<p>\u8981\u6BBA\u6B7B\u4E00\u500B\u628A\u8FF4\u5708\u908A\u754C\u5F9E <code>i &lt; n</code> \u6539\u6210 <code>i &lt;= n</code> \u7684\u8B8A\u7570\u9AD4\uFF0C\u4E0B\u5217\u54EA\u500B\u65B7\u8A00\u6700\u6709\u6548\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u65B7\u8A00\u78BA\u5207\u7684\u9810\u671F\u7D50\u679C\uFF08\u6216\u65B7\u8A00\u4E0D\u6703\u5728\u7D22\u5F15\u8655\u767C\u751F\u8B80\u53D6\uFF09\uFF0C\u4F7F\u90A3\u6B21\u591A\u51FA\u7684\u8FED\u4EE3\u88AB\u6293\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6AA2\u67E5\u7CBE\u78BA\u7684\u908A\u754C\u7D50\u679C\u6703\u5728\u591A\u51FA\u7684\u90A3\u6B21\u8FED\u4EE3\u4E0A\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EA\u65B7\u8A00\u51FD\u5F0F\u6709\u56DE\u50B3\u67D0\u500B\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u8B8A\u7570\u9AD4\u4ECD\u6703\u56DE\u50B3\u4E00\u500B\u503C\uFF1B\u55AE\u7D14\u6AA2\u67E5\u5B58\u5728\u6293\u4E0D\u5230\u5B83\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u8FF4\u5708\u8B8A\u6578\u662F\u6574\u6578",
+                "fraction": 0,
+                "feedback": "\u578B\u5225\u4E0D\u56E0\u7F3A\u9677\u800C\u6539\u8B8A\uFF0C\u56E0\u6B64\u9019\u6C38\u9060\u4E0D\u6703\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u8F38\u5165\u9663\u5217\u975E\u7A7A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6AA2\u67E5\u7684\u662F\u8F38\u5165\uFF0C\u800C\u975E\u88AB\u7834\u58DE\u7684\u908A\u754C\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u91DD\u5C0D\u53D7\u908A\u754C\u5F71\u97FF\u7684\u78BA\u5207\u7D50\u679C\u2014\u2014\u7CBE\u78BA\u7684\u503C\uFF0C\u6216\u65B7\u8A00\u7D22\u5F15\u4E0D\u6703\u88AB\u8B80\u53D6\u2014\u2014\u7684\u65B7\u8A00\uFF0C\u624D\u80FD\u5340\u5206\u8207\uFF0C\u6BBA\u6B7B\u9019\u500B\u5DEE\u4E00\u8B8A\u7570\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u5C11\u6E05\u7406\u7684\u6BBA\u6CD5",
+            "text": "<p>\u8981\u6BBA\u6B7B\u4E00\u500B\u5728\u932F\u8AA4\u8DEF\u5F91\u4E0A\u8DF3\u904E\u62C6\u5378\u7684\u7F3A\u5C11\u6E05\u7406\u8B8A\u7570\u9AD4\uFF0C\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u61C9\u7576\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9A45\u52D5\u932F\u8AA4\uFF0F\u63D0\u65E9\u8FD4\u56DE\u8DEF\u5F91\uFF0C\u4E26\u65B7\u8A00\u6E05\u7406\u78BA\u5BE6\u767C\u751F\u4E86\uFF08\u8CC7\u6E90\u5DF2\u91CB\u653E\u3001\u4EA4\u6613\u5DF2\u95DC\u9589\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5FC5\u9808\u8D70\u5230\u6709\u7F3A\u9677\u7684\u8DEF\u5F91\u4E26\u6AA2\u67E5\u62C6\u5378\u3002"
+              },
+              {
+                "text": "\u8DD1\u6B63\u5E38\u8DEF\u5F91\u4E26\u65B7\u8A00\u56DE\u50B3\u503C",
+                "fraction": 0,
+                "feedback": "\u6B63\u5E38\u8DEF\u5F91\u672C\u4F86\u5C31\u6703\u57F7\u884C\u6E05\u7406\uFF0C\u56E0\u6B64\u6C38\u9060\u4E0D\u6703\u66B4\u9732\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u5728\u4E0D\u52A0\u65B0\u65B7\u8A00\u7684\u60C5\u6CC1\u4E0B\u63D0\u9AD8\u6574\u9AD4\u884C\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u65B7\u8A00\u6E05\u7406\u7684\u6DB5\u84CB\u7387\u6293\u4E0D\u5230\u88AB\u8DF3\u904E\u7684\u62C6\u5378\u3002"
+              },
+              {
+                "text": "\u53EA\u65B7\u8A00\u932F\u8AA4\u6709\u88AB\u56DE\u50B3",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u7248\u672C\u90FD\u6703\u56DE\u50B3\u932F\u8AA4\uFF1B\u53EA\u6709\u6E05\u7406\u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7F3A\u9677\u5728\u932F\u8AA4\u8DEF\u5F91\u4E0A\uFF0C\u56E0\u6B64\u6E2C\u8A66\u5FC5\u9808\u89F8\u767C\u8A72\u8DEF\u5F91\u4E26\u65B7\u8A00\u6E05\u7406\u5DF2\u57F7\u884C\u3002\u552F\u6709\u5982\u6B64\uFF0C\u8DF3\u904E\u62C6\u5378\u7684\u8B8A\u7570\u9AD4\u624D\u6703\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u672A\u6AA2\u67E5\u4F8B\u5916\u7684\u6BBA\u6CD5",
+            "text": "<p>\u8981\u6BBA\u6B7B\u4E00\u500B\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u8B8A\u7570\u9AD4\uFF0C\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u61C9\u7576\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u4F9B\u4F8B\u5916\u8F38\u5165\uFF0C\u4E26\u65B7\u8A00\u9810\u671F\u7684\u4F8B\u5916\u88AB\u62CB\u51FA\uFF08\u6216\u88AB\u6B63\u78BA\u8655\u7406\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5916\u8DEF\u5F91\u5FC5\u9808\u88AB\u57F7\u884C\u4E26\u88AB\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "\u53EA\u63D0\u4F9B\u6B63\u5E38\u8F38\u5165\u4E26\u65B7\u8A00\u9806\u5229\u8DEF\u5F91\u7684\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u6B63\u5E38\u8F38\u5165\u5F9E\u4E0D\u8D70\u5230\u4F8B\u5916\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u7528 try/catch \u628A\u6574\u500B\u6E2C\u8A66\u5305\u8D77\u4F86\u4E26\u5FFD\u7565\u4EFB\u4F55\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u541E\u6389\u4F8B\u5916\u4EE3\u8868\u6E2C\u8A66\u5C0D\u5B83\u6BEB\u7121\u65B7\u8A00\uFF0C\u56E0\u6B64\u7121\u6CD5\u5728\u8B8A\u7570\u9AD4\u4E0A\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u51FD\u5F0F\u540D\u7A31\u62FC\u5BEB\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u5C0D\u4F8B\u5916\u884C\u70BA\u6BEB\u7121\u6AA2\u67E5\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F8B\u5916\u884C\u70BA\u53EA\u6709\u5728\u63D0\u4F9B\u4F8B\u5916\u8F38\u5165\u4E26\u52A0\u4E0A\u660E\u78BA\u65B7\u8A00\uFF08assertThrows\uFF0C\u6216\u65B7\u8A00\u8655\u7406\u5E38\u5F0F\u6709\u57F7\u884C\uFF09\u6642\u624D\u6703\u6D6E\u73FE\u3002\u90A3\u624D\u80FD\u6BBA\u6B7B\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u8B8A\u7570\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A7A\u503C\u89E3\u53C3\u8003\u7684\u6BBA\u6CD5",
+            "text": "<p>\u8981\u6BBA\u6B7B\u4E00\u500B\u56E0\u7F3A\u5C11\u9632\u8B77\u3001\u4F7F\u4E0D\u5B58\u5728\u7684\u503C\u88AB\u89E3\u53C3\u8003\u7684\u7A7A\u503C\u89E3\u53C3\u8003\u8B8A\u7570\u9AD4\uFF0C\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u61C9\u7576\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u64CD\u4F5C\u503C\u70BA null\uFF0F\u4E0D\u5B58\u5728\u7684\u60C5\u6CC1\uFF0C\u4E26\u65B7\u8A00\u53D7\u9632\u8B77\u7684\u884C\u70BA\uFF08\u9810\u8A2D\u503C\uFF0C\u6216\u67D0\u500B\u7279\u5B9A\u7684\u8655\u7406\u7D50\u679C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709 null\uFF0F\u4E0D\u5B58\u5728\u7684\u60C5\u6CC1\u6703\u89F8\u767C\u7F3A\u5C11\u7684\u9632\u8B77\uFF0C\u800C\u65B7\u8A00\u5247\u91D8\u4F4F\u9810\u671F\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u53EA\u64CD\u4F5C\u503C\u5B58\u5728\u7684\u60C5\u6CC1\u4E26\u65B7\u8A00\u5176\u6B04\u4F4D",
+                "fraction": 0,
+                "feedback": "\u503C\u5B58\u5728\u6642\u5F9E\u4E0D\u89F8\u767C\u7F3A\u5C11\u7684\u7A7A\u503C\u9632\u8B77\u3002"
+              },
+              {
+                "text": "\u63D0\u9AD8\u4E0D\u76F8\u95DC\u65B9\u6CD5\u7684\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u65E2\u8D70\u4E0D\u5230\u4E5F\u65B7\u8A00\u4E0D\u4E86\u7A7A\u503C\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u8A72\u503C\u7684\u578B\u5225\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u578B\u5225\u4E0D\u56E0\u7F3A\u9677\u800C\u6539\u8B8A\uFF1B\u91CD\u9EDE\u662F null \u7684\u60C5\u6CC1\u3002"
+              }
+            ],
+            "generalFeedback": "\u7F3A\u9677\u53EA\u6709\u5728\u503C\u70BA null\uFF0F\u4E0D\u5B58\u5728\u6642\u624D\u6D6E\u73FE\uFF0C\u56E0\u6B64\u6E2C\u8A66\u5FC5\u9808\u64CD\u4F5C\u8A72\u60C5\u6CC1\u4E26\u65B7\u8A00\u53D7\u9632\u8B77\u7684\u7D50\u679C\u2014\u2014\u7F3A\u5C11\u7684\u9632\u8B77\u5C31\u6703\u8B93\u8B8A\u7570\u9AD4\u89E3\u53C3\u8003 null \u800C\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u500B\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u3001\u53EA\u52A0\u65B7\u8A00\u7684\u6E2C\u8A66",
+            "text": "<p>\u67D0\u500B\u65B0\u6E2C\u8A66\u57F7\u884C\u7684\u884C\u6578\u8207\u65E2\u6709\u7684\u901A\u904E\u6E2C\u8A66\u5B8C\u5168\u76F8\u540C\uFF0C\u537B\u52A0\u5165\u4E00\u500B\u6703\u5728\u690D\u5165\u7684\u5DEE\u4E00\u8B8A\u7570\u9AD4\u4E0A\u5931\u6557\u7684\u65B7\u8A00\u3002\u6DB5\u84CB\u7387\u5DE5\u5177\u56DE\u5831\u96F6\u65B0\u884C\u3002\u9019\u500B\u6E2C\u8A66\u6BEB\u7121\u50F9\u503C\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u2014\u2014\u5B83\u662F\u4E00\u500B\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\uFF0C\u6BBA\u6B7B\u4E86\u4E00\u500B\u6DB5\u84CB\u7387\u55AE\u7368\u6703\u5224\u5B9A\u70BA\u6BEB\u7121\u8CA2\u737B\u7684\u8B8A\u7570\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5728\u4E0D\u6539\u8B8A\u6DB5\u84CB\u7387\u7684\u60C5\u6CC1\u4E0B\u6539\u5584\u4E86\u7F3A\u9677\u5075\u6E2C\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u4E0D\u589E\u52A0\u65B0\u884C\u5C31\u4EE3\u8868\u6BEB\u7121\u50F9\u503C",
+                "fraction": 0,
+                "feedback": "\u5B83\u6BBA\u6B7B\u4E86\u4E00\u500B\u8B8A\u7570\u9AD4\uFF1B\u6293\u5230\u771F\u5BE6\u7F3A\u9677\u662F\u6DB5\u84CB\u7387\u770B\u4E0D\u5230\u7684\u50F9\u503C\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u53EA\u6709\u63D0\u9AD8\u6DB5\u84CB\u7387\u7684\u6E2C\u8A66\u624D\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "49% \u7684\u767C\u73FE\u76F4\u63A5\u53CD\u99C1\u4E86\u9019\u4E00\u9EDE\u3002"
+              },
+              {
+                "text": "\u4E0D\u2014\u2014\u4F46\u53EA\u662F\u56E0\u70BA\u5B83\u63D0\u9AD8\u4E86\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u5B83\u6C92\u6709\u63D0\u9AD8\u4EFB\u4F55\u6DB5\u84CB\u7387\uFF1B\u5B83\u7684\u50F9\u503C\u5728\u65BC\u90A3\u500B\u6BBA\u624B\u65B7\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u6B63\u662F 49% \u7684\u60C5\u6CC1\uFF1A\u76F8\u540C\u7684\u884C\u3001\u66F4\u5F37\u7684\u65B7\u8A00\u3001\u4E00\u500B\u88AB\u6BBA\u6B7B\u7684\u8B8A\u7570\u9AD4\u3002\u6DB5\u84CB\u7387\u6307\u6A19\u8A18\u4E0D\u5230\u4EFB\u4F55\u6771\u897F\uFF0C\u6E2C\u8A66\u537B\u6293\u5230\u4E86\u771F\u5BE6\u7684\u7F3A\u9677\u2014\u2014\u986F\u793A\u6DB5\u84CB\u7387\u8207\u7F3A\u9677\u5075\u6E2C\u662F\u4E0D\u540C\u7684\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6DB5\u84CB\u7387\u8207\u8B8A\u7570\u5206\u6578\u6703\u5206\u6B67",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4E00\u500B\u5957\u4EF6\u7684\u884C\u6DB5\u84CB\u7387\u53EF\u4EE5\u5F88\u9AD8\uFF0C\u800C\u5176\u8B8A\u7570\u5206\u6578\u537B\u5F88\u4F4E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6DB5\u84CB\u7387\u53EA\u8981\u6C42\u6709\u7F3A\u9677\u7684\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\uFF0C\u800C\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u9084\u984D\u5916\u8981\u6C42\u88AB\u7834\u58DE\u7684\u7D50\u679C\u88AB\u67D0\u500B\u65B7\u8A00\u89C0\u5BDF\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u8861\u91CF\u57F7\u884C\uFF1B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u9700\u8981\u57F7\u884C\u52A0\u4E0A\u89C0\u5BDF\u7684\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "\u8B8A\u7570\u5206\u6578\u53EA\u8A08\u7B97\u5F9E\u672A\u88AB\u57F7\u884C\u7684\u884C",
+                "fraction": 0,
+                "feedback": "\u8B8A\u7570\u5206\u6578\u8B1B\u7684\u662F\u88AB\u6BBA\u6B7B\u7684\u8B8A\u7570\u9AD4\uFF0C\u800C\u975E\u672A\u57F7\u884C\u7684\u884C\u3002"
+              },
+              {
+                "text": "\u9AD8\u6DB5\u84CB\u7387\u6703\u5F37\u5236\u7522\u751F\u9AD8\u8B8A\u7570\u5206\u6578",
+                "fraction": 0,
+                "feedback": "\u984C\u76EE\u7684\u524D\u63D0\u5C31\u986F\u793A\u9019\u662F\u932F\u7684\uFF1B\u5169\u8005\u6703\u5206\u6B67\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u8207\u8B8A\u7570\u5206\u6578\u6C38\u9060\u8861\u91CF\u76F8\u540C\u7684\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E26\u4E0D\u76F8\u540C\u2014\u2014\u9019\u6B63\u662F\u5B83\u5011\u6703\u5206\u6B67\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u53EA\u8A18\u57F7\u884C\u672C\u8EAB\u3002\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u9700\u8981\u88AB\u6539\u52D5\u7684\u884C\u88AB\u57F7\u884C\u3001\u7834\u58DE\u72C0\u614B\uFF0C\u4E26\u8B93\u8A72\u7834\u58DE\u88AB\u65B7\u8A00\u89C0\u5BDF\u5230\u3002\u65B7\u8A00\u592A\u5F31\u5C31\u6703\u7559\u4E0B\u9AD8\u6DB5\u84CB\u7387\u537B\u4F4E\u8B8A\u7570\u5206\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u500B\u6E2C\u8A66\u662F\u7F3A\u9677\u5C0E\u5411\u7684",
+            "text": "<p>\u6E2C\u8A66 A \u63D0\u9AD8\u4E86\u884C\u6DB5\u84CB\u7387\u537B\u6BBA\u4E0D\u6B7B\u4EFB\u4F55\u8B8A\u7570\u9AD4\u3002\u6E2C\u8A66 B \u5728\u4E0D\u63D0\u9AD8\u6DB5\u84CB\u7387\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u4E86\u4E00\u500B\u8B8A\u7570\u9AD4\u3002\u54EA\u4E00\u500B\u662F\u7F3A\u9677\u5C0E\u5411\u7684\uFF1F\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66 B\u2014\u2014\u5B83\u5075\u6E2C\u5230\u6CE8\u5165\u7684\u7F3A\u9677\uFF0C\u9019\u6B63\u662F\u7F3A\u9677\u5C0E\u5411\u7684\u76EE\u6A19\uFF0C\u8207\u6DB5\u84CB\u7387\u7121\u95DC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u5C31\u662F\u7F3A\u9677\u5075\u6E2C\uFF1B\u6DB5\u84CB\u7387\u7121\u95DC\u7DCA\u8981\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66 A\u2014\u2014\u5B83\u63D0\u9AD8\u4E86\u6DB5\u84CB\u7387\uFF0C\u800C\u90A3\u6B63\u662F\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6240\u6700\u4F73\u5316\u7684",
+                "fraction": 0,
+                "feedback": "\u63D0\u9AD8\u6DB5\u84CB\u7387\u662F\u6DB5\u84CB\u7387\u5C0E\u5411\u7684\u76EE\u6A19\uFF0C\u4E0D\u662F\u7F3A\u9677\u5C0E\u5411\u7684\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E00\u6A23\uFF0C\u56E0\u70BA\u5169\u8005\u90FD\u662F\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u6E2C\u8A66 B \u5075\u6E2C\u5230\u7F3A\u9677\uFF1B\u53EA\u6709\u5B83\u662F\u7F3A\u9677\u5C0E\u5411\u7684\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\uFF0C\u56E0\u70BA\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u5FC5\u9808\u5169\u8005\u517C\u5177",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u4E0D\u5FC5\u589E\u52A0\u6DB5\u84CB\u7387\uFF1B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u5C31\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u7F3A\u9677\u5C0E\u5411\u4EE3\u8868\u5075\u6E2C\u6CE8\u5165\u7684\u7F3A\u9677\uFF08\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF09\u3002\u6E2C\u8A66 B \u5728\u96F6\u65B0\u6DB5\u84CB\u7387\u4E0B\u505A\u5230\u9019\u4EF6\u4E8B\u2014\u2014\u6B63\u662F 49% \u7684\u60C5\u6CC1\u3002\u6E2C\u8A66 A \u589E\u52A0\u6DB5\u84CB\u7387\u537B\u5075\u6E2C\u4E0D\u5230\u4EFB\u4F55\u6771\u897F\uFF0C\u662F\u6DB5\u84CB\u7387\u5C0E\u5411\u7684\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6311\u51FA\u6BBA\u6B7B\u6D29\u6F0F\u8B8A\u7570\u9AD4\u7684\u65B7\u8A00",
+            "text": "<p>\u67D0\u500B\u8CC7\u6E90\u6D29\u6F0F\u8B8A\u7570\u9AD4\u79FB\u9664\u4E86\u932F\u8AA4\u8DEF\u5F91\u4E0A\u7684 <code>close()</code>\u3002\u54EA\u500B\u65B7\u8A00\u6700\u76F4\u63A5\u6BBA\u6B7B\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A45\u52D5\u932F\u8AA4\u8DEF\u5F91\u5F8C\uFF0C\u65B7\u8A00\u63A7\u5236\u4EE3\u78BC\u5DF2\u95DC\u9589\uFF08\u4F8B\u5982\u958B\u555F\u4E2D\u7684\u63A7\u5236\u4EE3\u78BC\u6578\u5DF2\u6B78\u96F6\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u89C0\u5BDF\u5230\u8B8A\u7570\u9AD4\u6240\u8DF3\u904E\u7684\u91CB\u653E\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u51FD\u5F0F\u56DE\u50B3\u4E86\u4E00\u500B\u932F\u8AA4\u78BC",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u7248\u672C\u90FD\u56DE\u50B3\u76F8\u540C\u7684\u932F\u8AA4\u78BC\uFF1B\u53EA\u6709\u91CB\u653E\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u9806\u5229\u8DEF\u5F91\u56DE\u50B3\u6B63\u78BA\u7684\u503C",
+                "fraction": 0,
+                "feedback": "\u9806\u5229\u8DEF\u5F91\u4ECD\u6703\u95DC\u9589\u63A7\u5236\u4EE3\u78BC\uFF0C\u56E0\u6B64\u6C38\u9060\u4E0D\u6703\u66B4\u9732\u9019\u500B\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u6574\u9AD4\u884C\u6DB5\u84CB\u7387\u63D0\u9AD8\u4E86",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u4E0D\u662F\u65B7\u8A00\uFF0C\u4E5F\u4E0D\u6703\u89C0\u5BDF\u5230\u88AB\u6D29\u6F0F\u7684\u63A7\u5236\u4EE3\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u7570\u9AD4\u7684\u552F\u4E00\u5DEE\u5225\u5728\u65BC\u932F\u8AA4\u8DEF\u5F91\u4E0A\u63A7\u5236\u4EE3\u78BC\u662F\u5426\u88AB\u91CB\u653E\uFF0C\u56E0\u6B64\u6BBA\u624B\u65B7\u8A00\u5FC5\u9808\u8D70\u5230\u8A72\u8DEF\u5F91\u4E26\u6AA2\u67E5\u63A7\u5236\u4EE3\u78BC\u78BA\u5BE6\u5DF2\u88AB\u95DC\u9589\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6311\u51FA\u6BBA\u6B7B\u672A\u6AA2\u67E5\u4F8B\u5916\u8B8A\u7570\u9AD4\u7684\u65B7\u8A00",
+            "text": "<p>\u67D0\u500B\u8B8A\u7570\u9AD4\u79FB\u9664\u4E86\u4E00\u500B\u9632\u8B77\uFF0C\u4F7F\u683C\u5F0F\u932F\u8AA4\u7684\u8F38\u5165\u73FE\u5728\u6703\u62CB\u51FA\u4F8B\u5916\uFF0C\u800C\u975E\u56DE\u50B3\u4E00\u500B\u932F\u8AA4\u7D50\u679C\u3002\u54EA\u500B\u65B7\u8A00\u80FD\u6BBA\u6B7B\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9935\u5165\u683C\u5F0F\u932F\u8AA4\u7684\u8F38\u5165\uFF0C\u4E26\u65B7\u8A00\u898F\u683C\u6240\u5B9A\u7FA9\u7684\u512A\u96C5\u7D50\u679C\uFF08\u5982\u6B64\u88AB\u62CB\u51FA\u7684\u4F8B\u5916\u6703\u8B93\u6E2C\u8A66\u5931\u6557\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u58DE\u8F38\u5165\u65B7\u8A00\u9810\u671F\u7684\u300C\u4E0D\u62CB\u51FA\u300D\u884C\u70BA\u5C31\u80FD\u6293\u5230\u9019\u500B\u6539\u52D5\u3002"
+              },
+              {
+                "text": "\u9935\u5165\u6709\u6548\u8F38\u5165\u4E26\u65B7\u8A00\u6B63\u5E38\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u6709\u6548\u8F38\u5165\u5F9E\u4E0D\u89F8\u767C\u53D7\u9632\u8B77\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u4E2D\u6514\u622A\u4E26\u5FFD\u7565\u6240\u6709\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u541E\u6389\u4F8B\u5916\u6703\u96B1\u85CF\u9019\u500B\u6539\u52D5\uFF0C\u8B8A\u7570\u9AD4\u56E0\u6B64\u5B58\u6D3B\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u6E2C\u8A66\u6A94\u6848\u80FD\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u80FD\u5426\u7DE8\u8B6F\u5C0D\u4F8B\u5916\u884C\u70BA\u6BEB\u7121\u8AAA\u660E\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u7570\u9AD4\u628A\u683C\u5F0F\u932F\u8AA4\u8F38\u5165\u7684\u884C\u70BA\u5F9E\u512A\u96C5\u7D50\u679C\u6539\u6210\u62CB\u51FA\u4F8B\u5916\u3002\u552F\u6709\u4E00\u500B\u63D0\u4F9B\u8A72\u8F38\u5165\u4E26\u65B7\u8A00\u898F\u683C\u6240\u5B9A\u7FA9\u884C\u70BA\u7684\u6E2C\u8A66\uFF0C\u624D\u80FD\u5340\u5206\u5169\u8005\u4E26\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6311\u51FA\u6BBA\u6B7B\u7A7A\u503C\u9632\u8B77\u8B8A\u7570\u9AD4\u7684\u65B7\u8A00",
+            "text": "<p>\u67D0\u500B\u8B8A\u7570\u9AD4\u522A\u9664\u4E86\u4E00\u500B\u7A7A\u503C\u6AA2\u67E5\uFF0C\u4F7F\u5F97\u67E5\u4E0D\u5230\u7684\u9375\u73FE\u5728\u6703\u89E3\u53C3\u8003 <code>null</code>\uFF0C\u800C\u975E\u56DE\u50B3\u4E00\u500B\u9810\u8A2D\u503C\u3002\u54EA\u500B\u65B7\u8A00\u80FD\u6BBA\u6B7B\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528\u4E00\u500B\u4E0D\u5B58\u5728\u7684\u9375\u547C\u53EB\uFF0C\u4E26\u65B7\u8A00\u56DE\u50B3\u4E86\u6587\u4EF6\u6240\u8F09\u7684\u9810\u8A2D\u503C\uFF08\u5982\u6B64\u7A7A\u503C\u89E3\u53C3\u8003\u6703\u8B93\u6E2C\u8A66\u5931\u6557\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u64CD\u4F5C\u4E0D\u5B58\u5728\u9375\u7684\u60C5\u6CC1\u4E26\u65B7\u8A00\u53D7\u9632\u8B77\u7684\u9810\u8A2D\u503C\uFF0C\u5C31\u80FD\u6293\u5230\u88AB\u522A\u9664\u7684\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u7528\u4E00\u500B\u5B58\u5728\u7684\u9375\u547C\u53EB\u4E26\u65B7\u8A00\u5176\u503C",
+                "fraction": 0,
+                "feedback": "\u5B58\u5728\u7684\u9375\u5F9E\u4E0D\u89F8\u767C\u88AB\u522A\u9664\u7684\u7A7A\u503C\u9632\u8B77\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u67E5\u627E\u8868\u975E\u7A7A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6AA2\u67E5\u7684\u662F\u6E2C\u8A66\u593E\u5177\uFF0C\u800C\u975E\u53D7\u9632\u8B77\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u65B9\u6CD5\u7C3D\u7AE0\u672A\u8B8A",
+                "fraction": 0,
+                "feedback": "\u7C3D\u7AE0\u4E0D\u56E0\u9019\u500B\u7F3A\u9677\u800C\u6539\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A72\u9632\u8B77\u53EA\u5728\u4E0D\u5B58\u5728\u9375\u7684\u60C5\u6CC1\u4E0B\u624D\u6709\u610F\u7FA9\uFF0C\u56E0\u6B64\u6BBA\u624B\u6E2C\u8A66\u6703\u7528\u4E0D\u5B58\u5728\u7684\u9375\u4E26\u65B7\u8A00\u6587\u4EF6\u6240\u8F09\u7684\u9810\u8A2D\u503C\u2014\u2014\u88AB\u522A\u9664\u7684\u9632\u8B77\u5C31\u6703\u8B93\u8B8A\u7570\u9AD4\u89E3\u53C3\u8003 null \u800C\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u662F\u88DC\u8DB3\u6DB5\u84CB\u7387",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6700\u597D\u88AB\u8996\u70BA\u88DC\u8DB3\u6DB5\u84CB\u7387\u3001\u800C\u975E\u53D6\u4EE3\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6DB5\u84CB\u7387\u78BA\u4FDD\u7A0B\u5F0F\u78BC\u88AB\u8D70\u5230\uFF1B\u7F3A\u9677\u5C0E\u5411\u7684\u65B7\u8A00\u78BA\u4FDD\u88AB\u8D70\u5230\u7684\u7A0B\u5F0F\u78BC\u771F\u7684\u88AB\u6AA2\u67E5\u7F3A\u9677\u2014\u2014\u5169\u8005\u90FD\u9700\u8981",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u9054\u6027\u8207\u7F3A\u9677\u5075\u6E2C\u662F\u4E92\u88DC\u7684\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u4F7F\u6DB5\u84CB\u7387\u91CF\u6E2C\u8B8A\u5F97\u4E0D\u53EF\u80FD",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u53EF\u4EE5\u4E00\u8D77\u91CF\u6E2C\uFF1B\u5176\u4E00\u4E0D\u6392\u65A5\u53E6\u4E00\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u7387\u5DF2\u7D93\u4FDD\u8B49\u7F3A\u9677\u5075\u6E2C\uFF0C\u6240\u4EE5\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u662F\u591A\u9918\u7684",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u4E26\u4E0D\u4FDD\u8B49\u7F3A\u9677\u5075\u6E2C\u2014\u2014\u90A3\u6B63\u662F\u672C\u61C9\u7528\u7684\u91CD\u9EDE\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u53EA\u5728\u6DB5\u84CB\u7387\u70BA 0% \u6642\u624D\u6709\u6548",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728\u4EFB\u4F55\u6DB5\u84CB\u7387\u6C34\u6E96\u90FD\u6709\u6548\uFF1B\u5B83\u5728\u88AB\u8D70\u5230\u7684\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u4E0A\u5F37\u5316\u65B7\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F60\u4ECD\u9700\u8981\u6DB5\u84CB\u7387\u8D70\u5230\u6709\u7F3A\u9677\u7684\u7A0B\u5F0F\u78BC\uFF0C\u4E5F\u9700\u8981\u7F3A\u9677\u5C0E\u5411\u7684\u65B7\u8A00\u5728\u5176\u4E2D\u5075\u6E2C\u7F3A\u9677\u3002\u8B8A\u7570\u9AD4\u6240\u5728\u7684\u884C\u82E5\u5F9E\u4E0D\u88AB\u57F7\u884C\u5C31\u6BBA\u4E0D\u6B7B\uFF0C\u88AB\u57F7\u884C\u7684\u884C\u82E5\u5F9E\u4E0D\u88AB\u6AA2\u67E5\u5247\u6703\u5B58\u6D3B\u2014\u2014\u56E0\u6B64\u5169\u8005\u4E92\u88DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u500B\u6E2C\u8A66\u5C55\u73FE\u4E86 49% \u767C\u73FE",
+            "text": "<p>\u5169\u500B\u6E2C\u8A66\u5404\u6BBA\u6B7B\u4E00\u500B\u8B8A\u7570\u9AD4\u3002\u6E2C\u8A66 X \u8D70\u5230\u4E00\u500B\u5168\u65B0\u7684\u5206\u652F\u4E26\u65B7\u8A00\u5176\u7D50\u679C\uFF1B\u6E2C\u8A66 Y \u5C0D\u4E00\u500B\u5DF2\u88AB\u6DB5\u84CB\u7684\u5206\u652F\u52A0\u5165\u65B7\u8A00\u3002\u54EA\u4E00\u500B\u5C55\u73FE\u4E86 49% \u767C\u73FE\uFF1F\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66 Y\u2014\u2014\u5B83\u5728\u672A\u589E\u52A0\u4EFB\u4F55\u65B0\u6DB5\u84CB\u884C\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF0C\u6B63\u662F 49% \u7684\u60C5\u6CC1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u9805\u767C\u73FE\u8B1B\u7684\u662F\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u6BBA\u6B7B\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66 X\u2014\u2014\u5B83\u540C\u6642\u589E\u52A0\u6DB5\u84CB\u7387\u8207\u6BBA\u624B\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66 X \u589E\u52A0\u4E86\u65B0\u6DB5\u84CB\u7387\uFF0C\u56E0\u6B64\u4E0D\u662F\u8A72\u767C\u73FE\u6240\u63CF\u8FF0\u7684\u300C\u96F6\u65B0\u6DB5\u84CB\u7387\u300D\u60C5\u6CC1\u3002"
+              },
+              {
+                "text": "\u5169\u8005\uFF0C\u56E0\u70BA\u5169\u8005\u90FD\u6BBA\u6B7B\u4E00\u500B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u6E2C\u8A66 Y \u5728\u96F6\u65B0\u6DB5\u84CB\u7387\u4E0B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\uFF0C\u56E0\u70BA\u8A72\u767C\u73FE\u8B1B\u7684\u662F\u6BBA\u4E0D\u6B7B\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8A72\u767C\u73FE\u6070\u6070\u8B1B\u7684\u662F\u78BA\u5BE6\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u537B\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "49% \u767C\u73FE\u8B1B\u7684\u662F\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u537B\u4E0D\u589E\u52A0\u4EFB\u4F55\u65B0\u6DB5\u84CB\u884C\u7684\u6E2C\u8A66\u3002\u6E2C\u8A66 Y \u85C9\u7531\u5728\u5DF2\u88AB\u6DB5\u84CB\u7684\u7A0B\u5F0F\u78BC\u4E0A\u5F37\u5316\u65B7\u8A00\u505A\u5230\u9019\u4EF6\u4E8B\uFF1B\u6E2C\u8A66 X \u5247\u9084\u589E\u52A0\u4E86\u6DB5\u84CB\u7387\uFF0C\u56E0\u6B64\u4E0D\u662F\u9019\u500B\u4EE3\u8868\u6027\u60C5\u6CC1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "100% \u5206\u652F\u6DB5\u84CB\u7387\u3001\u8B8A\u7570\u9AD4\u537B\u5B58\u6D3B",
+            "text": "<p>\u67D0\u5957\u4EF6\u6709 100% \u5206\u652F\u6DB5\u84CB\u7387\uFF0C\u537B\u6709\u4E00\u500B\u975E\u7B49\u50F9\u8B8A\u7570\u9AD4\u5B58\u6D3B\u3002\u8981\u6BBA\u6B7B\u5B83\u5FC5\u9808\u52A0\u5165\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u80FD\u89C0\u5BDF\u5230\u8B8A\u7570\u9AD4\u6240\u7834\u58DE\u4E4B\u503C\u7684\u66F4\u5F37\u65B7\u8A00\uFF08\u82E5\u6709\u9700\u8981\uFF0C\u518D\u52A0\u4E00\u500B\u80FD\u8B93\u7834\u58DE\u50B3\u64AD\u7684\u8F38\u5165\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u652F\u5DF2\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u7F3A\u53E3\u5728\u65BC\u89C0\u5BDF\u88AB\u7834\u58DE\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u66F4\u591A\u8981\u6DB5\u84CB\u7684\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u6DB5\u84CB\u7387\u5DF2\u662F 100%\uFF0C\u6C92\u6709\u672A\u6DB5\u84CB\u7684\u5206\u652F\u53EF\u52A0\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u90A3\u500B\u5B58\u6D3B\u7684\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8B8A\u7570\u9AD4\u662F\u7F3A\u9677\u6A21\u578B\uFF1B\u89E3\u65B9\u662F\u66F4\u597D\u7684\u6E2C\u8A66\uFF0C\u800C\u975E\u522A\u9664\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u7528\u2014\u2014100% \u5206\u652F\u6DB5\u84CB\u7387\u4EE3\u8868\u5957\u4EF6\u5DF2\u5B8C\u5099",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u5B58\u6D3B\u7684\u975E\u7B49\u50F9\u8B8A\u7570\u9AD4\u8B49\u660E\u5957\u4EF6\u4E26\u975E\u7F3A\u9677\u9069\u7576\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5B8C\u6574\u5206\u652F\u6DB5\u84CB\u7387\u4E0B\uFF0C\u6709\u7F3A\u9677\u7684\u5206\u652F\u5DF2\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u7F3A\u7684\u662F\u4E00\u500B\u89C0\u5BDF\u88AB\u7834\u58DE\u8F38\u51FA\u7684\u65B7\u8A00\uFF08\u53EF\u80FD\u9084\u8981\u4E00\u500B\u8B93\u5B83\u50B3\u64AD\u7684\u8F38\u5165\uFF09\u3002\u6DB5\u84CB\u7387\u5DF2\u9054\u4E0A\u9650\uFF1B\u7F3A\u9677\u5075\u6E2C\u5247\u5426\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "49% \u5177\u9AD4\u8B49\u660E\u4E86\u4EC0\u9EBC",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u300C49% \u7684\u6E2C\u8A66\u5728\u6C92\u6709\u65B0\u6DB5\u84CB\u884C\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u300D\u5177\u9AD4\u8B49\u660E\u4E86\u6DB5\u84CB\u7387 &#8800; \u7F3A\u9677\u5075\u6E2C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u4E9B\u6E2C\u8A66\u63D0\u5347\u4E86\u7F3A\u9677\u5075\u6E2C\uFF08\u4E00\u6B21\u6BBA\u6B7B\uFF09\uFF0C\u800C\u6DB5\u84CB\u7387\u5EA6\u91CF\u537B\u6BEB\u7121\u8B8A\u5316\uFF0C\u56E0\u6B64\u9019\u5169\u500B\u5EA6\u91CF\u662F\u5404\u81EA\u7368\u7ACB\u8B8A\u52D5\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u9677\u5075\u6E2C\u4E0A\u5347\u800C\u6DB5\u84CB\u7387\u6C92\u6709\uFF0C\u56E0\u6B64\u5B83\u5011\u4E0D\u662F\u540C\u4E00\u500B\u5EA6\u91CF\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u63D0\u9AD8\u6DB5\u84CB\u7387\u537B\u6BBA\u4E0D\u6B7B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u767C\u73FE\u5F04\u53CD\u4E86\uFF1B\u5B83\u5011\u662F\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u537B\u4E0D\u63D0\u9AD8\u6DB5\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u65E2\u4E0D\u63D0\u9AD8\u6DB5\u84CB\u7387\u4E5F\u4E0D\u6BBA\u6B7B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u78BA\u5BE6\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF1B\u90A3\u6B63\u662F\u91CD\u9EDE\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6DB5\u84CB\u7387\u5DE5\u5177\u58DE\u4E86",
+                "fraction": 0,
+                "feedback": "\u5DE5\u5177\u904B\u4F5C\u6B63\u5E38\uFF1B\u78BA\u5BE6\u6C92\u6709\u65B0\u7684\u884C\u53EF\u8A18\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u6DB5\u84CB\u7387\u8207\u7F3A\u9677\u5075\u6E2C\u662F\u540C\u4E00\u4EF6\u4E8B\uFF0C\u5C31\u4E0D\u53EF\u80FD\u6709\u6E2C\u8A66\u5728\u6539\u5584\u5176\u4E00\u6642\u4E0D\u52D5\u53E6\u4E00\u3002\u8FD1\u534A\u6578\u7684\u6E2C\u8A66\u5728\u6DB5\u84CB\u7387\u96F6\u8B8A\u5316\u4E0B\u6539\u5584\u4E86\u7F3A\u9677\u5075\u6E2C\uFF0C\u56E0\u6B64\u9019\u5169\u500B\u5EA6\u91CF\u53EF\u88AB\u8B49\u660E\u662F\u4E0D\u540C\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DB5\u84CB\u7387\u5C0E\u5411\u7522\u751F\u5668\u7684\u76F2\u9EDE",
+            "text": "<p>\u4E00\u500B\u53EA\u734E\u52F5\u300C\u589E\u52A0\u65B0\u884C\u300D\u7684\u6E2C\u8A66\u7522\u751F\u5668\uFF0C\u6703\u628A\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u6E2C\u8A66\u964D\u7D1A\u3002\u9019\u500B\u76F2\u9EDE\u6703\u653E\u904E\u54EA\u4E00\u7A2E\u7F3A\u9677\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5DF2\u88AB\u6DB5\u84CB\u7684\u7A0B\u5F0F\u78BC\u4E2D\u3001\u53EA\u9700\u4E00\u500B\u66F4\u5F37\u65B7\u8A00\u5C31\u80FD\u5075\u6E2C\u7684\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u4E9B\u6B63\u662F\u53EA\u734E\u52F5\u6DB5\u84CB\u7387\u7684\u505A\u6CD5\u6703\u4E1F\u68C4\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4E0D\u53EF\u9054\u7684\u6B7B\u78BC\u4E2D\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6B7B\u78BC\u7121\u6CD5\u88AB\u4EFB\u4F55\u6E2C\u8A66\u6DB5\u84CB\u6216\u6BBA\u6B7B\uFF0C\u56E0\u6B64\u4E0D\u662F\u9019\u88E1\u7684\u76F2\u9EDE\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u65B0\u5206\u652F\u624D\u80FD\u63ED\u9732\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u5C0E\u5411\u7522\u751F\u5668\u5176\u5BE6\u6703\u734E\u52F5\u8D70\u5230\u65B0\u5206\u652F\uFF0C\u56E0\u6B64\u90A3\u4E0D\u662F\u5B83\u7684\u76F2\u9EDE\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u7531\u7DE8\u8B6F\u5668\u6293\u5230\uFF0C\u4E0D\u662F\u6E2C\u8A66\u7684\u76F2\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u734E\u52F5\u65B0\u6DB5\u84CB\u7387\u6703\u4E1F\u68C4\u5728\u5DF2\u88AB\u6DB5\u84CB\u7A0B\u5F0F\u78BC\u4E0A\u5F37\u5316\u65B7\u8A00\u7684\u6E2C\u8A66\u2014\u2014\u6B63\u662F\u90A3 49% \u5728\u6C92\u6709\u65B0\u884C\u7684\u60C5\u6CC1\u4E0B\u6293\u5230\u7F3A\u9677\u7684\u6E2C\u8A66\u3002\u90A3\u5C31\u662F\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u6240\u586B\u88DC\u7684\u6DB5\u84CB\u7387\u5C0E\u5411\u76F2\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DEE\u4E00\u932F\u8AA4\uFF1A\u5F9E\u5F31\u65B7\u8A00\u5230\u6BBA\u624B\u65B7\u8A00",
+            "text": "<p>\u67D0\u500B\u6E2C\u8A66\u5B8C\u6574\u8D70\u904D\u4E00\u500B\u9663\u5217\uFF08\u5B8C\u6574\u6DB5\u84CB\u7387\uFF09\uFF0C\u537B\u53EA\u65B7\u8A00\u7E3D\u548C\u70BA\u6B63\uFF1B\u4E00\u500B\u8B80\u5230\u5C3E\u7AEF\u96F6\u503C\u7684 <code>i &lt;= n</code> \u5DEE\u4E00\u8B8A\u7570\u9AD4\u5B58\u6D3B\u4E86\u3002\u54EA\u4E00\u500B\u55AE\u4E00\u6539\u52D5\u80FD\u8B93\u9019\u500B\u6E2C\u8A66\u8B8A\u6210\u7F3A\u9677\u5C0E\u5411\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u65B7\u8A00\u78BA\u5207\u7684\u9810\u671F\u7E3D\u548C\uFF08\u6216\u65B7\u8A00\u7D22\u5F15\u8655\u7684\u5143\u7D20\u5F9E\u4E0D\u88AB\u8B80\u53D6\uFF09\uFF0C\u90A3\u6B21\u591A\u51FA\u7684\u8FED\u4EE3\u6703\u9055\u53CD\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u53D7\u5F71\u97FF\u503C\u7684\u7CBE\u78BA\u65B7\u8A00\u80FD\u5728\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u60C5\u6CC1\u4E0B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u518D\u52A0\u4E00\u500B\u6DB5\u84CB\u4E0D\u540C\u51FD\u5F0F\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E26\u672A\u8655\u7406\u9019\u500B\u8FF4\u5708\u4E2D\u5B58\u6D3B\u7684\u8B8A\u7570\u9AD4\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u7E3D\u548C\u662F\u4E00\u500B\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u8B8A\u7570\u9AD4\u4ECD\u6703\u7522\u751F\u4E00\u500B\u6578\u5B57\uFF0C\u56E0\u6B64\u9019\u6C38\u9060\u4E0D\u6703\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u591A\u8DD1\u4E00\u6B21\u8FF4\u5708\u4EE5\u589E\u52A0\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u7387\u5DF2\u7D93\u5B8C\u6574\uFF1B\u554F\u984C\u5728\u65BC\u65B7\u8A00\u592A\u5F31\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u8B80\u5230\u5C3E\u7AEF\u96F6\u503C\u4E0D\u6539\u8B8A\u7E3D\u548C\uFF0C\u300C\u7E3D\u548C\u70BA\u6B63\u300D\u5C31\u6293\u4E0D\u5230\u5B83\uFF1B\u4F46\u78BA\u5207\u7684\u9810\u671F\u7E3D\u548C\uFF08\u6216\u6AA2\u67E5\u7D22\u5F15\u5F9E\u4E0D\u88AB\u8B80\u53D6\uFF09\u5C31\u80FD\u3002\u9019\u662F\u4E00\u500B\u4E0D\u589E\u52A0\u6DB5\u84CB\u7387\u7684\u7F3A\u9677\u5C0E\u5411\u4FEE\u6B63\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E finally \u932F\u8AA4\u5206\u652F\u4E0A\u7684\u7F3A\u5C11\u6E05\u7406",
+            "text": "<p>\u6E05\u7406\u88AB\u5BEB\u5728\u6B63\u5E38\u8DEF\u5F91\u7684\u7D50\u5C3E\uFF08\u4E0D\u5728 <code>finally</code> \u88E1\uFF09\uFF0C\u800C\u4E00\u500B\u932F\u8AA4\u5206\u652F\u5728\u5B83\u4E4B\u524D\u5C31\u8FD4\u56DE\u3002\u4E00\u500B\u9806\u5229\u8DEF\u5F91\u7684\u6E2C\u8A66\u6703\u57F7\u884C\u5230\u6E05\u7406\u90A3\u4E00\u884C\u4E26\u901A\u904E\u3002\u70BA\u4EC0\u9EBC\u8B8A\u7570\u6E2C\u8A66\u5728\u9019\u88E1\u4ECD\u80FD\u63ED\u9732\u7F3A\u9677\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B8A\u7570\u9AD4\uFF0F\u932F\u8AA4\u8DEF\u5F91\u6703\u8DF3\u904E\u5167\u5D4C\u7684\u6E05\u7406\uFF0C\u552F\u6709\u9A45\u52D5\u932F\u8AA4\u8DEF\u5F91\u4E26\u65B7\u8A00\u6E05\u7406\u7684\u6E2C\u8A66\u624D\u80FD\u5075\u6E2C\u2014\u2014\u9806\u5229\u8DEF\u5F91\u5F9E\u4E0D\u57F7\u884C\u90A3\u500B\u8DF3\u904E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u8DF3\u904E\u6E05\u7406\u7684\u884C\u70BA\u5B58\u5728\u65BC\u9806\u5229\u8DEF\u5F91\u6E2C\u8A66\u5F9E\u4E0D\u8D70\u7684\u932F\u8AA4\u8DEF\u5F91\u4E0A\u3002"
+              },
+              {
+                "text": "\u90A3\u884C\u6E05\u7406\u5728\u6BCF\u4E00\u689D\u8DEF\u5F91\u4E0A\u90FD\u4E0D\u53EF\u9054",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728\u6B63\u5E38\u8DEF\u5F91\u4E0A\u6703\u88AB\u8D70\u5230\uFF1B\u53EA\u6709\u5728\u932F\u8AA4\u5206\u652F\u4E0A\u624D\u88AB\u8DF3\u904E\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u9806\u5229\u8DEF\u5F91\u7684\u6E2C\u8A66\u5DF2\u7D93\u57F7\u884C\u4E86\u90A3\u500B\u8DF3\u904E",
+                "fraction": 0,
+                "feedback": "\u9806\u5229\u8DEF\u5F91\u6703\u57F7\u884C\u6E05\u7406\uFF1B\u5B83\u5F9E\u4E0D\u89F8\u767C\u63D0\u65E9\u8FD4\u56DE\u7684\u8DF3\u904E\u3002"
+              },
+              {
+                "text": "\u628A\u6E05\u7406\u642C\u9032 finally \u6703\u88FD\u9020\u51FA\u9019\u500B\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5176\u5BE6\u6703\u907F\u514D\u9019\u500B\u8DF3\u904E\uFF1B\u7F3A\u9677\u5728\u65BC\u6E05\u7406\u5728\u932F\u8AA4\u8DEF\u5F91\u4E0A\u6C92\u6709\u88AB\u4FDD\u8B49\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u6E05\u7406\u4E0D\u5728\u88E1\uFF0C\u63D0\u65E9\u8FD4\u56DE\u7684\u932F\u8AA4\u5206\u652F\u6703\u8DF3\u904E\u5B83\u3002\u9806\u5229\u8DEF\u5F91\u7684\u6E2C\u8A66\u6703\u57F7\u884C\u5167\u5D4C\u7684\u6E05\u7406\uFF0C\u5F9E\u4E0D\u770B\u5230\u90A3\u500B\u8DF3\u904E\u3002\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u5FC5\u9808\u9A45\u52D5\u932F\u8AA4\u8DEF\u5F91\u4E26\u65B7\u8A00\u6E05\u7406\u5DF2\u767C\u751F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6DB5\u84CB\u6B63\u5E38\u8F38\u5165\u4E0D\u8DB3\u4EE5\u61C9\u4ED8\u4F8B\u5916\u7F3A\u9677",
+            "text": "<p>\u5C0D\u65BC\u4E00\u500B\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u7F3A\u9677\uFF0C\u70BA\u4F55\u5373\u4F7F\u5C0D\u6B63\u5E38\u8DEF\u5F91\u9054\u6210 100% \u884C\u6DB5\u84CB\u7387\uFF0C\u7528\u6B63\u5E38\u8F38\u5165\u6DB5\u84CB\u8A72\u51FD\u5F0F\u4ECD\u4E0D\u8DB3\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u9677\u53EA\u5728\u4F8B\u5916\u8F38\u5165\u4E0B\u624D\u6D6E\u73FE\uFF0C\u800C\u6B63\u5E38\u8F38\u5165\u7684\u6DB5\u84CB\u5F9E\u4E0D\u63D0\u4F9B\u6216\u65B7\u8A00\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5916\u8DEF\u5F91\u8207\u5176\u65B7\u8A00\u624D\u662F\u63ED\u9732\u7F3A\u9677\u7684\u95DC\u9375\u3002"
+              },
+              {
+                "text": "\u6B63\u5E38\u8DEF\u5F91\u7684\u884C\u6DB5\u84CB\u7387\u5DF2\u7D93\u57F7\u884C\u4E86\u4F8B\u5916\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u4E26\u6C92\u6709\uFF1B\u4F8B\u5916\u8DEF\u5F91\u9700\u8981\u4F8B\u5916\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4F8B\u5916\u7E3D\u662F\u88AB\u57F7\u884C\u74B0\u5883\u81EA\u52D5\u6514\u622A",
+                "fraction": 0,
+                "feedback": "\u672A\u6AA2\u67E5\u7684\u4F8B\u5916\u6B63\u662F\u6C92\u6709\u88AB\u8655\u7406\u7684\u4F8B\u5916\u3002"
+              },
+              {
+                "text": "100% \u884C\u6DB5\u84CB\u7387\u4FDD\u8B49\u6BBA\u6B7B\u6240\u6709\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u4E26\u4E0D\u6703\u2014\u2014\u6DB5\u84CB\u7387\u4E0D\u7B49\u65BC\u7F3A\u9677\u5075\u6E2C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B63\u5E38\u8F38\u5165\u6DB5\u84CB\u6B63\u5E38\u8DEF\u5F91\uFF0C\u537B\u5F9E\u4E0D\u89F8\u767C\u4F8B\u5916\u884C\u70BA\u3002\u5075\u6E2C\u7F3A\u9677\u9700\u8981\u4F8B\u5916\u8F38\u5165\uFF0C\u52A0\u4E0A\u5C0D\u4F8B\u5916\u5982\u4F55\u88AB\u62CB\u51FA\u6216\u8655\u7406\u7684\u660E\u78BA\u65B7\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5FAE\u5999\u60C5\u6CC1\uFF1A\u6DB5\u84CB\u7387\u589E\u76CA\u8207\u6BBA\u624B\u65B7\u8A00\u662F\u5169\u56DE\u4E8B",
+            "text": "<p>\u67D0\u500B\u55AE\u4E00\u7684\u65B0\u6E2C\u8A66\u8D70\u5230\u4E00\u500B\u524D\u6240\u672A\u6DB5\u84CB\u7684\u932F\u8AA4\u5206\u652F\uFF0C<em>\u4E26\u4E14</em>\u65B7\u8A00\u8A72\u8655\u7684\u8CC7\u6E90\u5DF2\u88AB\u91CB\u653E\uFF0C\u6BBA\u6B7B\u4E86\u4E00\u500B\u6D29\u6F0F\u8B8A\u7570\u9AD4\u3002\u95DC\u65BC\u5B83\u7684\u5169\u9805\u8CA2\u737B\uFF0C\u4E0B\u5217\u6558\u8FF0\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8D70\u5230\u8A72\u5206\u652F\u662F\u6DB5\u84CB\u7387\u589E\u76CA\uFF1B\u91CB\u653E\u65B7\u8A00\u624D\u662F\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u7684\u6771\u897F\u2014\u2014\u5149\u8D70\u5230\u5B83\u4E26\u4E0D\u6703\u6BBA\u6B7B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u5728\u540C\u4E00\u500B\u6E2C\u8A66\u88E1\uFF0C\u6DB5\u84CB\u7387\u8207\u6BBA\u624B\u65B7\u8A00\u4ECD\u662F\u5206\u958B\u7684\u8CA2\u737B\u3002"
+              },
+              {
+                "text": "\u5149\u8D70\u5230\u90A3\u500B\u65B0\u5206\u652F\u5C31\u6BBA\u6B7B\u8B8A\u7570\u9AD4\uFF0C\u6240\u4EE5\u65B7\u8A00\u662F\u591A\u9918\u7684",
+                "fraction": 0,
+                "feedback": "\u5149\u8D70\u5230\u8A72\u5206\u652F\uFF08\u6DB5\u84CB\u7387\uFF09\u4E26\u4E0D\u6703\u89C0\u5BDF\u5230\u8CC7\u6E90\u662F\u5426\u88AB\u91CB\u653E\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u5E36\u4F86\u6DB5\u84CB\u7387\uFF1B\u8D70\u5230\u8A72\u5206\u652F\u6BBA\u6B7B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u89D2\u8272\u5F04\u53CD\u4E86\u2014\u2014\u6DB5\u84CB\u7387\u4F86\u81EA\u8D70\u5230\u5206\u652F\uFF0C\u6BBA\u6B7B\u4F86\u81EA\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "\u9019\u5169\u9805\u8CA2\u737B\u662F\u540C\u4E00\u500B\u5EA6\u91CF",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u4E0D\u540C\u7684\uFF1A\u4E00\u500B\u662F\u57F7\u884C\uFF0C\u53E6\u4E00\u500B\u662F\u7F3A\u9677\u5075\u6E2C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5373\u4F7F\u4E00\u500B\u6E2C\u8A66\u5169\u8005\u90FD\u505A\uFF0C\u8CA2\u737B\u4ECD\u53EF\u5206\u96E2\uFF1A\u8D70\u5230\u5206\u652F\u63D0\u9AD8\u6DB5\u84CB\u7387\uFF0C\u4F46\u8B8A\u7570\u9AD4\u552F\u6709\u9760\u89C0\u5BDF\u91CB\u653E\u7684\u65B7\u8A00\u624D\u88AB\u6BBA\u6B7B\u3002\u5C11\u4E86\u65B7\u8A00\uFF0C\u589E\u52A0\u7684\u6DB5\u84CB\u7387\u6703\u8B93\u6D29\u6F0F\u8B8A\u7570\u9AD4\u5B58\u6D3B\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9AD8\u884C\u6DB5\u84CB\u7387\u4FDD\u8B49\u9AD8\u8B8A\u7570\u5206\u6578",
+            "text": "<p>\u4E00\u500B\u5177\u6709\u9AD8\u884C\u6DB5\u84CB\u7387\u7684\u5957\u4EF6\uFF0C\u4FDD\u8B49\u4E5F\u6703\u6709\u9AD8\u8B8A\u7570\u5206\u6578\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9AD8\u6DB5\u84CB\u7387\u4EE3\u8868\u7A0B\u5F0F\u78BC\u6709\u88AB\u57F7\u884C\uFF0C\u4F46\u65B7\u8A00\u82E5\u592A\u5F31\uFF0C\u8A31\u591A\u8B8A\u7570\u9AD4\u4ECD\u6703\u5B58\u6D3B\uFF0C\u56E0\u6B64\u8B8A\u7570\u5206\u6578\u53EF\u80FD\u5F88\u4F4E\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u7387\u8861\u91CF\u57F7\u884C\uFF0C\u800C\u975E\u7F3A\u9677\u5075\u6E2C\uFF1B\u5F31\u65B7\u8A00\u53EF\u4EE5\u5728\u9AD8\u6DB5\u84CB\u7387\u4E0B\u7559\u4E0B\u4F4E\u8B8A\u7570\u5206\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DB5\u84CB\u7387\u8A18\u7684\u662F\u57F7\u884C\uFF1B\u6BBA\u6B7B\u8B8A\u7570\u9AD4\u9084\u9700\u8981\u89C0\u5BDF\u88AB\u7834\u58DE\u7D50\u679C\u7684\u65B7\u8A00\u3002\u4E00\u500B\u9AD8\u6DB5\u84CB\u7387\u4F46\u65B7\u8A00\u8584\u5F31\u7684\u5957\u4EF6\u53EF\u4EE5\u6709\u4F4E\u8B8A\u7570\u5206\u6578\u2014\u2014\u9019\u5169\u500B\u5EA6\u91CF\u662F\u4E0D\u540C\u7684\uFF0C\u6B63\u662F\u7F3A\u9677\u5C0E\u5411\u6E2C\u8A66\u7684\u6838\u5FC3\u6559\u8A13\u3002"
+          }
+        ]
+      }
+    },
     "flaky-diagnosis": {
       "en": {
         "easy": [

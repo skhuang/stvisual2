@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Fault-Directed Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>涵蓋率導向測試的目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>涵蓋率導向</strong>（盲目）測試產生策略的目標是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>執行（涵蓋）程式中更多的行或分支</text><feedback><text>正確——涵蓋率導向策略以「執行了多少程式碼」為最佳化目標。</text></feedback></answer>
+    <answer fraction="0"><text>盡可能殺死更多注入的缺陷（變異體）</text><feedback><text>那是缺陷導向測試的目標，不是涵蓋率導向測試。</text></feedback></answer>
+    <answer fraction="0"><text>盡量減少每個測試中的斷言數量</text><feedback><text>兩種策略都不以減少斷言為目標；涵蓋率導向只針對被執行的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>證明程式沒有任何缺陷</text><feedback><text>沒有任何測試產生策略能證明缺陷完全不存在。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率導向的產生方式以某個結構涵蓋率指標為最佳化目標——它力求執行更多的行與分支，但並不說明那些被執行的行是否真的被檢查出缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷導向測試的目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>缺陷導向</strong>（變異引導）測試產生策略的目標是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>殺死變異體——透過斷言缺陷會破壞的行為來偵測注入的缺陷</text><feedback><text>正確——缺陷導向測試鎖定特定缺陷，並加入在被改動的程式碼上會失敗的斷言。</text></feedback></answer>
+    <answer fraction="0"><text>執行盡可能大比例的行與分支</text><feedback><text>那是涵蓋率導向測試；缺陷導向測試衡量的是缺陷偵測。</text></feedback></answer>
+    <answer fraction="0"><text>不論檢查什麼，都跑最快的測試</text><feedback><text>速度不是目標；偵測缺陷才是。</text></feedback></answer>
+    <answer fraction="0"><text>產生盡可能多的隨機輸入</text><feedback><text>目標不是隨機輸入的數量，而是殺死變異體。</text></feedback></answer>
+    <generalfeedback><text>缺陷導向（變異引導）的產生方式鎖定特定缺陷類別，並撰寫植入的缺陷會違反的斷言，使測試在被改動的程式上失敗（殺死變異體）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>涵蓋率等同於缺陷偵測</text></name>
+    <questiontext format="html"><text><![CDATA[<p>執行（涵蓋）一行程式碼，就等於偵測到那一行中的缺陷。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>涵蓋率只代表該行被執行；一個測試可以執行某行卻不斷言任何該行缺陷會破壞的事。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——涵蓋率衡量的是執行，而非缺陷偵測；兩者是不同的。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率計算的是程式碼是否被執行。偵測缺陷則需要一個會被該缺陷行為違反的斷言。一個測試可以增加被涵蓋的行卻毫無有意義的斷言——涵蓋率與缺陷偵測並不相同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是變異體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此脈絡下，<em>變異體（mutant）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個被刻意注入單一缺陷的程式版本</text><feedback><text>正確——變異體就是被植入一個小缺陷的程式。</text></feedback></answer>
+    <answer fraction="0"><text>一個能提高程式碼涵蓋率的測試案例</text><feedback><text>那是測試，不是變異體；變異體是被改動過的程式。</text></feedback></answer>
+    <answer fraction="0"><text>一行從未被執行的程式碼</text><feedback><text>未執行的程式碼是涵蓋率缺口，不是變異體。</text></feedback></answer>
+    <answer fraction="0"><text>使用者回報的一個正式環境臭蟲</text><feedback><text>變異體是為了評估測試而刻意注入的，並非現場回報的缺陷。</text></feedback></answer>
+    <generalfeedback><text>變異體是被注入一個缺陷的程式。缺陷導向測試以變異體來代表一個好測試應當抓到的缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>殺死變異體的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>殺死變異體</em>的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某個測試偵測到注入的缺陷——它在被改動的程式上失敗</text><feedback><text>正確——殺死變異體正是偵測到植入的缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>某個測試執行了被改動的那一行卻沒有檢查其結果</text><feedback><text>只執行該行是涵蓋率；殺死需要測試在變異體上真的失敗。</text></feedback></answer>
+    <answer fraction="0"><text>被改動的程式從版本庫中被刪除</text><feedback><text>殺死講的是測試的偵測，不是刪除程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>該變異被證明是無害的</text><feedback><text>那正好相反——被殺死的變異體是其缺陷被測試抓到的變異體。</text></feedback></answer>
+    <generalfeedback><text>殺死變異體代表某測試偵測到注入的缺陷：測試在原始程式上通過，在變異體上失敗。殺死變異體就是偵測該缺陷的操作型定義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>49% 發現：它說了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Meta ACH 研究的一項實證發現是：所產生的測試中有 49% 會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>殺死一個變異體，卻沒有增加任何一行新涵蓋的程式碼</text><feedback><text>正確——近半數的測試在未涵蓋任何新程式碼的情況下抓到了缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>增加了新涵蓋的行，卻沒有殺死任何變異體</text><feedback><text>那是相反的情況；這項發現講的是殺死變異體卻不增加涵蓋率的測試。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋受測程式的每一行</text><feedback><text>這項發現與達成完整涵蓋率無關。</text></feedback></answer>
+    <answer fraction="0"><text>是既有測試的重複</text><feedback><text>它們是全新、能抓缺陷的測試——不是重複。</text></feedback></answer>
+    <generalfeedback><text>約 49% 所產生的測試在未增加任何新涵蓋行的情況下殺死了變異體。它們在已被涵蓋的程式碼上強化斷言，抓到了涵蓋率指標會判定為「毫無貢獻」的真實缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>49% 發現：它證明了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>49% 的測試在沒有新涵蓋行的情況下殺死變異體，這項發現證明了：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋率與缺陷偵測是不同的——一個測試可以在完全不增加涵蓋率的情況下抓到缺陷</text><feedback><text>正確——那正是這些測試所展現的。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率總能預測一個測試會抓到多少缺陷</text><feedback><text>這項發現顯示相反：這些測試不增加涵蓋率卻抓到缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>斷言與抓缺陷無關</text><feedback><text>正是被強化的斷言抓到了這些缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>不增加涵蓋率的測試永遠找不到臭蟲</text><feedback><text>這些測試不增加涵蓋率卻找到臭蟲，與此說法矛盾。</text></feedback></answer>
+    <generalfeedback><text>由於這些測試在已被涵蓋的程式碼上強化斷言，它們在殺死變異體的同時，涵蓋率指標卻記錄不到任何新的行。這證明涵蓋率與缺陷偵測是不同的度量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識目標：追行數的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個產生的測試執行了先前未被執行的分支，但只檢查函式「有沒有出錯地返回」，對結果毫無斷言。它實際的目標是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋率導向——它增加了被涵蓋的程式碼，卻沒有斷言任何缺陷會破壞的事</text><feedback><text>正確——它提高了涵蓋率，卻沒有鎖定任何缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷導向——它殺死了一個變異體</text><feedback><text>沒有有意義的斷言，它無法在被改動的結果上失敗，因此殺不死任何變異體。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——它是一個等價變異體</text><feedback><text>等價變異體是變異體的性質，不是測試的性質。</text></feedback></answer>
+    <answer fraction="0"><text>兩者兼具</text><feedback><text>它只服務於涵蓋率；沒有斷言，它偵測不到任何缺陷。</text></feedback></answer>
+    <generalfeedback><text>執行一個分支卻不做任何有意義的斷言，只會提高涵蓋率而偵測不到缺陷。那是涵蓋率導向的結果——有涵蓋率而無缺陷偵測。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識目標：強化斷言的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個產生的測試執行的行數與既有測試相同，但加入了一個斷言：當邊界索引用 <code>&lt;=</code> 而非 <code>&lt;</code> 計算時會失敗。它的目標是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷導向——即使沒有增加新涵蓋率，它仍殺死了一個變異體</text><feedback><text>正確——新斷言偵測到注入的差一缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率導向——它增加了新涵蓋的行</text><feedback><text>它執行的行與之前相同，因此沒有增加新涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>毫無意義——它沒有改變任何可衡量的東西</text><feedback><text>它改變了缺陷偵測：它殺死了一個涵蓋率指標會漏掉的變異體。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率導向——它刪除了一個斷言</text><feedback><text>它加入了一個斷言，並未刪除。</text></feedback></answer>
+    <generalfeedback><text>在已被涵蓋的程式碼上強化斷言不會增加涵蓋率，卻能殺死變異體。那是缺陷導向的測試——正是 49% 發現所描述的那一種。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四種缺陷類別</text></name>
+    <questiontext format="html"><text><![CDATA[<p>本應用以四種標註的缺陷類別來說明缺陷導向測試。以下哪一項<strong>不是</strong>其中之一？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>共享計數器上的競態條件（race condition）</text><feedback><text>正確——資料競態不是所說明的四種類別之一。</text></feedback></answer>
+    <answer fraction="0"><text>空值／資源洩漏</text><feedback><text>這是四種缺陷類別之一。</text></feedback></answer>
+    <answer fraction="0"><text>差一錯誤（off-by-one）</text><feedback><text>這是四種缺陷類別之一。</text></feedback></answer>
+    <answer fraction="0"><text>缺少清理</text><feedback><text>這是四種缺陷類別之一。</text></feedback></answer>
+    <generalfeedback><text>所說明的四種缺陷類別為：空值／資源洩漏、差一錯誤、缺少清理，以及未檢查的例外。競態條件不在其中。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>涵蓋型測試可以毫無有意義的斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個測試可以增加新涵蓋的行，卻對那些行是否正確毫無有意義的斷言。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——涵蓋率記錄的是執行，而非斷言的強度。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>涵蓋率只要求該行被執行；測試不必檢查結果，因此此敘述為真。</text></feedback></answer>
+    <generalfeedback><text>只要某行被執行，涵蓋率就會記上這一行，不管測試是否檢查其行為。因此一個測試可以提高涵蓋率卻偵測不到缺陷——涵蓋率與缺陷偵測是不同的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷導向測試的別稱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>缺陷導向測試產生也被描述為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變異引導測試（mutation-guided testing）</text><feedback><text>正確——它由測試是否殺死變異體（注入的缺陷）來引導。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率最大化測試</text><feedback><text>那描述的是涵蓋率導向的目標，正是缺陷導向測試的對照。</text></feedback></answer>
+    <answer fraction="0"><text>隨機（模糊）測試</text><feedback><text>模糊測試產生隨機輸入；缺陷導向測試鎖定特定缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>負載測試</text><feedback><text>負載測試衡量負載下的效能，與殺死變異體無關。</text></feedback></answer>
+    <generalfeedback><text>缺陷導向測試就是變異引導：它以變異體（注入的缺陷）為目標，產生斷言能殺死它們的測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>強化斷言不會增加涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對一個已經執行了相關程式碼的測試加入更強的斷言，可以在完全不增加任何新涵蓋行的情況下殺死一個變異體。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——程式碼已被涵蓋，因此只有缺陷偵測改善，涵蓋率沒有。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>那些行已經執行過，所以沒有增加新涵蓋率；更強的斷言仍抓到缺陷，因此此敘述為真。</text></feedback></answer>
+    <generalfeedback><text>當程式碼已被涵蓋時，更強的斷言不會增加新的行，卻能讓測試在變異體上失敗。這正是為什麼 49% 的 ACH 測試在沒有新涵蓋率的情況下殺死變異體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>涵蓋率指標如何評分那 49% 的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>純涵蓋率指標會如何評分那 49% 在沒有新涵蓋行的情況下殺死變異體的測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>視為毫無貢獻——即使它們抓到了真實的缺陷</text><feedback><text>正確——涵蓋率看不到新的行，因此低估了這些能抓缺陷的測試。</text></feedback></answer>
+    <answer fraction="0"><text>視為套件中最有價值的測試</text><feedback><text>涵蓋率記錄不到任何新的行，因此不會將它們評為高分。</text></feedback></answer>
+    <answer fraction="0"><text>視為無法編譯</text><feedback><text>它們是有效的測試；涵蓋率只是記不到任何新的行。</text></feedback></answer>
+    <answer fraction="0"><text>視為等價變異體</text><feedback><text>等價變異體是變異體的性質，不是測試的涵蓋率評分。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率指標看不到任何新涵蓋的行，因此把這些測試評為「毫無貢獻」，即使每一個都抓到了真實的缺陷——這正是涵蓋率單獨低估測試品質的核心原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對照兩種目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一組正確對照了兩種測試產生目標？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋率導向＝執行更多的行；缺陷導向＝殺死變異體（偵測注入的缺陷）</text><feedback><text>正確——一個以執行為最佳化目標，另一個以缺陷偵測為最佳化目標。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率導向＝殺死變異體；缺陷導向＝執行更多的行</text><feedback><text>這把兩個目標弄反了。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率導向＝偵測缺陷；缺陷導向＝忽略缺陷</text><feedback><text>涵蓋率導向並不直接鎖定缺陷，而缺陷導向完全以缺陷為核心。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都只求縮短測試執行時間</text><feedback><text>兩種目標都不是由執行時間定義的。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率導向的產生方式力求執行更多程式碼；缺陷導向的產生方式力求殺死變異體——偵測注入的缺陷。由於涵蓋率不等於缺陷偵測，這兩個目標確實會分歧。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fault-Directed Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：空值／資源洩漏——為何涵蓋率漏掉它</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某函式開啟一個檔案控制代碼（handle），只在成功路徑上釋放它；錯誤路徑不釋放就返回（資源洩漏）。一個走順利路徑的測試涵蓋了該函式。它為何漏掉這個缺陷？缺陷導向測試又加入了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>順利路徑從未走到會洩漏的錯誤路徑，且即使走到也沒有任何斷言檢查控制代碼是否被釋放——缺陷導向測試會驅動錯誤路徑並斷言控制代碼已關閉</text><feedback><text>正確——它同時需要走到錯誤路徑並斷言釋放。</text></feedback></answer>
+    <answer fraction="0"><text>順利路徑未被涵蓋，所以單純提高涵蓋率就能修好</text><feedback><text>順利路徑已被涵蓋；缺的是走到錯誤路徑並斷言釋放。</text></feedback></answer>
+    <answer fraction="0"><text>這個洩漏不可能被任何測試偵測到</text><feedback><text>一個走到錯誤路徑並檢查釋放的測試就能輕鬆偵測。</text></feedback></answer>
+    <answer fraction="0"><text>在成功路徑上加任何斷言都會殺死這個變異體</text><feedback><text>缺陷在錯誤路徑上；只在成功路徑上斷言走不到它。</text></feedback></answer>
+    <generalfeedback><text>順利路徑的測試從不執行會洩漏的分支，即使涵蓋了它也不會斷言控制代碼已被釋放。缺陷導向測試會驅動錯誤路徑並斷言資源已被釋放，殺死這個洩漏變異體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：差一錯誤——為何涵蓋率漏掉它</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某迴圈用了 <code>i &lt;= n</code>，但應該用 <code>i &lt; n</code>，因而讀到超出結尾一個的元素。一個測試跑完整個迴圈，卻只斷言累加總和為非負。它為何漏掉這個缺陷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋迴圈會執行每一次迭代，但斷言從未檢查邊界元素或那次多出的迭代所破壞的確切結果</text><feedback><text>正確——涵蓋迴圈本體並不斷言邊界行為。</text></feedback></answer>
+    <answer fraction="0"><text>迴圈本體從未被執行</text><feedback><text>迴圈已被完整涵蓋；問題在於斷言太弱，而非可達性。</text></feedback></answer>
+    <answer fraction="0"><text>差一錯誤無法被斷言偵測</text><feedback><text>斷言確切的邊界結果就能精準偵測它們。</text></feedback></answer>
+    <answer fraction="0"><text>這個變異體是等價的</text><feedback><text>讀到超出結尾會改變行為，因此它不是等價的。</text></feedback></answer>
+    <generalfeedback><text>執行迴圈能達到完整涵蓋率，但模糊的斷言（總和非負）抓不到被破壞的邊界。缺陷導向測試會斷言確切的預期結果或最後的有效索引，讓那次多出的迭代被抓到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：缺少清理——為何涵蓋率漏掉它</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某函式建立一個暫時資源，並在結尾刪除它，但在無效輸入時提早 <code>return</code> 會跳過刪除（缺少清理）。一個傳入有效輸入的測試涵蓋了正常路徑。它為何漏掉這個缺陷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>正常路徑會執行清理，因此只有提早返回的路徑才會留下資源；涵蓋型測試從未觸發該路徑，也未斷言清理</text><feedback><text>正確——缺陷只存在於被跳過清理的錯誤路徑上。</text></feedback></answer>
+    <answer fraction="0"><text>清理在任何路徑上都不會被走到</text><feedback><text>清理在正常路徑上會正常執行；只有在提早返回時才被跳過。</text></feedback></answer>
+    <answer fraction="0"><text>那個暫時資源從未被建立</text><feedback><text>它有被建立；缺陷在於提早返回的路徑上未刪除它。</text></feedback></answer>
+    <answer fraction="0"><text>這個缺陷在每一種輸入上都會出現</text><feedback><text>它只在無效輸入的提早返回路徑上出現。</text></feedback></answer>
+    <generalfeedback><text>在有效輸入下清理會執行，因此涵蓋型測試看不出問題。缺陷導向測試會提供無效輸入以強制提早返回，並斷言暫時資源已被清理，殺死這個變異體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：未檢查的例外——為何涵蓋率漏掉它</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某剖析器在遇到格式錯誤的輸入時會拋出例外，但沒有任何地方處理或斷言該例外。一個用格式正確輸入的測試涵蓋了剖析器。它為何漏掉這個缺陷？缺陷導向測試又加入了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>格式正確的輸入從不觸發例外路徑；缺陷導向測試會餵入格式錯誤的輸入，並斷言預期的例外（或其處理）</text><feedback><text>正確——例外行為只有在提供例外輸入並對其斷言時才會浮現。</text></feedback></answer>
+    <answer fraction="0"><text>剖析器程式碼不可達</text><feedback><text>用格式正確的輸入就能走到它；只是例外分支未被執行。</text></feedback></answer>
+    <answer fraction="0"><text>例外永遠無法在測試中被斷言</text><feedback><text>測試經常斷言某個特定例外是否被拋出。</text></feedback></answer>
+    <answer fraction="0"><text>這個缺陷只對效能有影響</text><feedback><text>它是例外路徑上的正確性缺陷，不是效能問題。</text></feedback></answer>
+    <generalfeedback><text>格式正確的輸入會執行剖析器，卻從不走例外路徑。缺陷導向測試會提供格式錯誤的輸入，並斷言預期的例外被拋出（或被正確處理），抓到未檢查的例外缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類缺陷：讀到超出結尾</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某程序以 <code>for (i = 0; i &lt;= len; i++)</code> 迭代並存取 <code>a[i]</code>，讀到陣列結尾之外一格。這是哪一種缺陷類別？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>差一錯誤</text><feedback><text>正確——邊界條件差了一（<code>&lt;=</code> 對 <code>&lt;</code>）。</text></feedback></answer>
+    <answer fraction="0"><text>缺少清理</text><feedback><text>這裡沒有跳過任何拆卸步驟；缺陷是邊界索引錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>未檢查的例外</text><feedback><text>根本原因是邊界錯誤；任何例外都是徵狀，不是類別本身。</text></feedback></answer>
+    <answer fraction="0"><text>空值／資源洩漏</text><feedback><text>這裡不涉及資源或空值；缺陷是邊界索引錯誤。</text></feedback></answer>
+    <generalfeedback><text>在需要 <code>&lt;</code> 的地方用了 <code>&lt;=</code>，會讀到超出結尾一個元素——這是典型的差一錯誤類別。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類缺陷：提早返回跳過拆卸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某函式開啟一個資料庫交易，在因驗證錯誤而提早 <code>return</code> 時，既不提交也不回復，留下一個未關閉的交易。這是哪一種缺陷類別？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺少清理</text><feedback><text>正確——拆卸步驟（回復／提交）在提早返回的路徑上被跳過。</text></feedback></answer>
+    <answer fraction="0"><text>差一錯誤</text><feedback><text>這裡不涉及邊界索引。</text></feedback></answer>
+    <answer fraction="0"><text>未檢查的例外</text><feedback><text>問題是提早返回時跳過了拆卸步驟，而非未處理的例外。</text></feedback></answer>
+    <answer fraction="0"><text>空值／資源洩漏</text><feedback><text>雖然相關，但這裡的定義特徵是清理／拆卸步驟在錯誤路徑上被跳過——屬於缺少清理類別。</text></feedback></answer>
+    <generalfeedback><text>提早返回而跳過交易拆卸屬於缺少清理類別：清理在正常路徑上會執行，卻在錯誤／提早返回的路徑上被跳過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類缺陷：未檢查的空值回傳</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>lookup(key)</code> 在鍵不存在時可能回傳 <code>null</code>，而呼叫端未做空值檢查就直接執行 <code>lookup(key).name</code>。這是哪一種缺陷類別？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>空值／資源洩漏</text><feedback><text>正確——對可能為空的值進行解參考，就是此類別的「空值」面向。</text></feedback></answer>
+    <answer fraction="0"><text>差一錯誤</text><feedback><text>這裡不涉及邊界索引。</text></feedback></answer>
+    <answer fraction="0"><text>缺少清理</text><feedback><text>沒有需要清理的東西；缺陷是未加防護的空值解參考。</text></feedback></answer>
+    <answer fraction="0"><text>未檢查的例外</text><feedback><text>雖然空值解參考可能拋出例外，但這裡建模的類別是空值／資源洩漏類別（未加防護的空值）。</text></feedback></answer>
+    <generalfeedback><text>未加防護就對可能為空的值進行解參考，屬於空值／資源洩漏缺陷類別（其空值面向）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類缺陷：壞輸入拋例外、無人接手</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>Integer.parseInt(s)</code> 在 <code>s</code> 非數字時會拋出例外，而程式與任何測試都未處理或斷言該情況。這是哪一種缺陷類別？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>未檢查的例外</text><feedback><text>正確——一條既未處理也未斷言的例外路徑。</text></feedback></answer>
+    <answer fraction="0"><text>差一錯誤</text><feedback><text>這裡不涉及邊界索引。</text></feedback></answer>
+    <answer fraction="0"><text>缺少清理</text><feedback><text>這裡沒有跳過任何拆卸步驟。</text></feedback></answer>
+    <answer fraction="0"><text>空值／資源洩漏</text><feedback><text>沒有空值解參考或洩漏的資源；缺陷是未處理／未斷言的例外。</text></feedback></answer>
+    <generalfeedback><text>一條既未處理也未斷言的例外路徑屬於未檢查的例外類別：程式在正常輸入下能執行，缺陷只有在提供例外輸入並對其斷言時才浮現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 100% 涵蓋率仍可能漏掉缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件達成 100% 行涵蓋率，卻仍有一個變異體存活。最可能的原因是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有缺陷的那一行被執行了，但沒有任何斷言檢查該缺陷所改變的行為</text><feedback><text>正確——涵蓋率保證執行，卻不保證被破壞的結果被觀察到。</text></feedback></answer>
+    <answer fraction="0"><text>有缺陷的那一行從未被執行</text><feedback><text>在 100% 行涵蓋率下該行確實被執行了；缺口在斷言。</text></feedback></answer>
+    <answer fraction="0"><text>100% 涵蓋率使每個變異體都變成等價的</text><feedback><text>涵蓋率對變異體是否等價毫無影響。</text></feedback></answer>
+    <answer fraction="0"><text>該套件的斷言太多了</text><feedback><text>存活的變異體代表斷言太弱，而非太多。</text></feedback></answer>
+    <generalfeedback><text>完整行涵蓋率只代表每一行都執行了。若沒有任何斷言觀察到缺陷所破壞的值，變異體就會存活——涵蓋率對缺陷偵測是必要但不充分的。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>涵蓋一行就等於斷言它正確</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在測試中走到（涵蓋）某一行，就保證該測試也斷言了那一行行為正確。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>走到某行只是執行它；測試可能對其結果毫無檢查。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——執行與斷言是彼此獨立的；涵蓋一行並不等於斷言它。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率記錄的是某行有被執行，而非測試檢查了它的輸出。一條被涵蓋卻沒有相關斷言的行，仍會讓該行的缺陷存活。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>差一錯誤的殺手斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要殺死一個把迴圈邊界從 <code>i &lt; n</code> 改成 <code>i &lt;= n</code> 的變異體，下列哪個斷言最有效？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>斷言確切的預期結果（或斷言不會在索引 <code>n</code> 處發生讀取），使那次多出的迭代被抓到</text><feedback><text>正確——檢查精確的邊界結果會在多出的那次迭代上失敗。</text></feedback></answer>
+    <answer fraction="0"><text>只斷言函式有回傳某個東西</text><feedback><text>變異體仍會回傳一個值；單純檢查存在抓不到它。</text></feedback></answer>
+    <answer fraction="0"><text>斷言迴圈變數是整數</text><feedback><text>型別不因缺陷而改變，因此這永遠不會失敗。</text></feedback></answer>
+    <answer fraction="0"><text>斷言輸入陣列非空</text><feedback><text>那檢查的是輸入，而非被破壞的邊界行為。</text></feedback></answer>
+    <generalfeedback><text>只有針對受邊界影響的確切結果——精確的值，或斷言索引 <code>n</code> 不會被讀取——的斷言，才能區分 <code>i &lt; n</code> 與 <code>i &lt;= n</code>，殺死這個差一變異體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺少清理的殺法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要殺死一個在錯誤路徑上跳過拆卸的缺少清理變異體，缺陷導向測試應當：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驅動錯誤／提早返回路徑，並斷言清理確實發生了（資源已釋放、交易已關閉）</text><feedback><text>正確——它必須走到有缺陷的路徑並檢查拆卸。</text></feedback></answer>
+    <answer fraction="0"><text>跑正常路徑並斷言回傳值</text><feedback><text>正常路徑本來就會執行清理，因此永遠不會暴露缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>在不加新斷言的情況下提高整體行涵蓋率</text><feedback><text>沒有斷言清理的涵蓋率抓不到被跳過的拆卸。</text></feedback></answer>
+    <answer fraction="0"><text>只斷言錯誤有被回傳</text><feedback><text>兩個版本都會回傳錯誤；只有清理不同。</text></feedback></answer>
+    <generalfeedback><text>缺陷在錯誤路徑上，因此測試必須觸發該路徑並斷言清理已執行。唯有如此，跳過拆卸的變異體才會失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>未檢查例外的殺法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要殺死一個未檢查的例外變異體，缺陷導向測試應當：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>提供例外輸入，並斷言預期的例外被拋出（或被正確處理）</text><feedback><text>正確——例外路徑必須被執行並被斷言。</text></feedback></answer>
+    <answer fraction="0"><text>只提供正常輸入並斷言順利路徑的結果</text><feedback><text>正常輸入從不走到例外路徑。</text></feedback></answer>
+    <answer fraction="0"><text>用 try/catch 把整個測試包起來並忽略任何例外</text><feedback><text>吞掉例外代表測試對它毫無斷言，因此無法在變異體上失敗。</text></feedback></answer>
+    <answer fraction="0"><text>斷言函式名稱拼寫正確</text><feedback><text>那對例外行為毫無檢查。</text></feedback></answer>
+    <generalfeedback><text>例外行為只有在提供例外輸入並加上明確斷言（assertThrows，或斷言處理常式有執行）時才會浮現。那才能殺死未檢查的例外變異體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>空值解參考的殺法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要殺死一個因缺少防護、使不存在的值被解參考的空值解參考變異體，缺陷導向測試應當：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>操作值為 null／不存在的情況，並斷言受防護的行為（預設值，或某個特定的處理結果）</text><feedback><text>正確——只有 null／不存在的情況會觸發缺少的防護，而斷言則釘住預期的行為。</text></feedback></answer>
+    <answer fraction="0"><text>只操作值存在的情況並斷言其欄位</text><feedback><text>值存在時從不觸發缺少的空值防護。</text></feedback></answer>
+    <answer fraction="0"><text>提高不相關方法的涵蓋率</text><feedback><text>那既走不到也斷言不了空值路徑。</text></feedback></answer>
+    <answer fraction="0"><text>斷言該值的型別正確</text><feedback><text>型別不因缺陷而改變；重點是 null 的情況。</text></feedback></answer>
+    <generalfeedback><text>缺陷只有在值為 null／不存在時才浮現，因此測試必須操作該情況並斷言受防護的結果——缺少的防護就會讓變異體解參考 null 而失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一個不增加涵蓋率、只加斷言的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個新測試執行的行數與既有的通過測試完全相同，卻加入一個會在植入的差一變異體上失敗的斷言。涵蓋率工具回報零新行。這個測試毫無價值嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不——它是一個缺陷導向測試，殺死了一個涵蓋率單獨會判定為毫無貢獻的變異體</text><feedback><text>正確——它在不改變涵蓋率的情況下改善了缺陷偵測。</text></feedback></answer>
+    <answer fraction="0"><text>是——不增加新行就代表毫無價值</text><feedback><text>它殺死了一個變異體；抓到真實缺陷是涵蓋率看不到的價值。</text></feedback></answer>
+    <answer fraction="0"><text>是——只有提高涵蓋率的測試才重要</text><feedback><text>49% 的發現直接反駁了這一點。</text></feedback></answer>
+    <answer fraction="0"><text>不——但只是因為它提高了涵蓋率</text><feedback><text>它沒有提高任何涵蓋率；它的價值在於那個殺手斷言。</text></feedback></answer>
+    <generalfeedback><text>這正是 49% 的情況：相同的行、更強的斷言、一個被殺死的變異體。涵蓋率指標記不到任何東西，測試卻抓到了真實的缺陷——顯示涵蓋率與缺陷偵測是不同的。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Fault-Directed Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何涵蓋率與變異分數會分歧</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼一個套件的行涵蓋率可以很高，而其變異分數卻很低？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋率只要求有缺陷的程式碼被執行，而殺死變異體還額外要求被破壞的結果被某個斷言觀察到</text><feedback><text>正確——涵蓋率衡量執行；殺死變異體需要執行加上觀察的斷言。</text></feedback></answer>
+    <answer fraction="0"><text>變異分數只計算從未被執行的行</text><feedback><text>變異分數講的是被殺死的變異體，而非未執行的行。</text></feedback></answer>
+    <answer fraction="0"><text>高涵蓋率會強制產生高變異分數</text><feedback><text>題目的前提就顯示這是錯的；兩者會分歧。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率與變異分數永遠衡量相同的東西</text><feedback><text>它們並不相同——這正是它們會分歧的原因。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率只記執行本身。殺死變異體需要被改動的行被執行、破壞狀態，並讓該破壞被斷言觀察到。斷言太弱就會留下高涵蓋率卻低變異分數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪一個測試是缺陷導向的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試 A 提高了行涵蓋率卻殺不死任何變異體。測試 B 在不提高涵蓋率的情況下殺死了一個變異體。哪一個是缺陷導向的？為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試 B——它偵測到注入的缺陷，這正是缺陷導向的目標，與涵蓋率無關</text><feedback><text>正確——殺死變異體就是缺陷偵測；涵蓋率無關緊要。</text></feedback></answer>
+    <answer fraction="0"><text>測試 A——它提高了涵蓋率，而那正是缺陷導向測試所最佳化的</text><feedback><text>提高涵蓋率是涵蓋率導向的目標，不是缺陷導向的目標。</text></feedback></answer>
+    <answer fraction="0"><text>兩者一樣，因為兩者都是測試</text><feedback><text>只有測試 B 偵測到缺陷；只有它是缺陷導向的。</text></feedback></answer>
+    <answer fraction="0"><text>都不是，因為缺陷導向測試必須兩者兼具</text><feedback><text>缺陷導向測試不必增加涵蓋率；殺死變異體就足夠。</text></feedback></answer>
+    <generalfeedback><text>缺陷導向代表偵測注入的缺陷（殺死變異體）。測試 B 在零新涵蓋率下做到這件事——正是 49% 的情況。測試 A 增加涵蓋率卻偵測不到任何東西，是涵蓋率導向的結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>挑出殺死洩漏變異體的斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個資源洩漏變異體移除了錯誤路徑上的 <code>close()</code>。哪個斷言最直接殺死它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驅動錯誤路徑後，斷言控制代碼已關閉（例如開啟中的控制代碼數已歸零）</text><feedback><text>正確——這觀察到變異體所跳過的釋放。</text></feedback></answer>
+    <answer fraction="0"><text>斷言函式回傳了一個錯誤碼</text><feedback><text>兩個版本都回傳相同的錯誤碼；只有釋放不同。</text></feedback></answer>
+    <answer fraction="0"><text>斷言順利路徑回傳正確的值</text><feedback><text>順利路徑仍會關閉控制代碼，因此永遠不會暴露這個變異體。</text></feedback></answer>
+    <answer fraction="0"><text>斷言整體行涵蓋率提高了</text><feedback><text>涵蓋率不是斷言，也不會觀察到被洩漏的控制代碼。</text></feedback></answer>
+    <generalfeedback><text>變異體的唯一差別在於錯誤路徑上控制代碼是否被釋放，因此殺手斷言必須走到該路徑並檢查控制代碼確實已被關閉。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>挑出殺死未檢查例外變異體的斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個變異體移除了一個防護，使格式錯誤的輸入現在會拋出例外，而非回傳一個錯誤結果。哪個斷言能殺死它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>餵入格式錯誤的輸入，並斷言規格所定義的優雅結果（如此被拋出的例外會讓測試失敗）</text><feedback><text>正確——對壞輸入斷言預期的「不拋出」行為就能抓到這個改動。</text></feedback></answer>
+    <answer fraction="0"><text>餵入有效輸入並斷言正常結果</text><feedback><text>有效輸入從不觸發受防護的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>在測試中攔截並忽略所有例外</text><feedback><text>吞掉例外會隱藏這個改動，變異體因此存活。</text></feedback></answer>
+    <answer fraction="0"><text>斷言測試檔案能編譯</text><feedback><text>能否編譯對例外行為毫無說明。</text></feedback></answer>
+    <generalfeedback><text>變異體把格式錯誤輸入的行為從優雅結果改成拋出例外。唯有一個提供該輸入並斷言規格所定義行為的測試，才能區分兩者並殺死變異體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>挑出殺死空值防護變異體的斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個變異體刪除了一個空值檢查，使得查不到的鍵現在會解參考 <code>null</code>，而非回傳一個預設值。哪個斷言能殺死它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用一個不存在的鍵呼叫，並斷言回傳了文件所載的預設值（如此空值解參考會讓測試失敗）</text><feedback><text>正確——操作不存在鍵的情況並斷言受防護的預設值，就能抓到被刪除的檢查。</text></feedback></answer>
+    <answer fraction="0"><text>用一個存在的鍵呼叫並斷言其值</text><feedback><text>存在的鍵從不觸發被刪除的空值防護。</text></feedback></answer>
+    <answer fraction="0"><text>斷言查找表非空</text><feedback><text>那檢查的是測試夾具，而非受防護的行為。</text></feedback></answer>
+    <answer fraction="0"><text>斷言方法簽章未變</text><feedback><text>簽章不因這個缺陷而改變。</text></feedback></answer>
+    <generalfeedback><text>該防護只在不存在鍵的情況下才有意義，因此殺手測試會用不存在的鍵並斷言文件所載的預設值——被刪除的防護就會讓變異體解參考 null 而失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何缺陷導向測試是補足涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼缺陷導向測試最好被視為補足涵蓋率、而非取代它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋率確保程式碼被走到；缺陷導向的斷言確保被走到的程式碼真的被檢查缺陷——兩者都需要</text><feedback><text>正確——可達性與缺陷偵測是互補的需求。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷導向測試使涵蓋率量測變得不可能</text><feedback><text>兩者可以一起量測；其一不排斥另一。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋率已經保證缺陷偵測，所以缺陷導向測試是多餘的</text><feedback><text>涵蓋率並不保證缺陷偵測——那正是本應用的重點。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷導向測試只在涵蓋率為 0% 時才有效</text><feedback><text>它在任何涵蓋率水準都有效；它在被走到的任何程式碼上強化斷言。</text></feedback></answer>
+    <generalfeedback><text>你仍需要涵蓋率走到有缺陷的程式碼，也需要缺陷導向的斷言在其中偵測缺陷。變異體所在的行若從不被執行就殺不死，被執行的行若從不被檢查則會存活——因此兩者互補。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪一個測試展現了 49% 發現</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個測試各殺死一個變異體。測試 X 走到一個全新的分支並斷言其結果；測試 Y 對一個已被涵蓋的分支加入斷言。哪一個展現了 49% 發現？為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試 Y——它在未增加任何新涵蓋行的情況下殺死變異體，正是 49% 的情況</text><feedback><text>正確——這項發現講的是不增加涵蓋率的殺死。</text></feedback></answer>
+    <answer fraction="0"><text>測試 X——它同時增加涵蓋率與殺手斷言</text><feedback><text>測試 X 增加了新涵蓋率，因此不是該發現所描述的「零新涵蓋率」情況。</text></feedback></answer>
+    <answer fraction="0"><text>兩者，因為兩者都殺死一個變異體</text><feedback><text>只有測試 Y 在零新涵蓋率下殺死變異體。</text></feedback></answer>
+    <answer fraction="0"><text>都不是，因為該發現講的是殺不死變異體的測試</text><feedback><text>該發現恰恰講的是確實殺死變異體卻不增加涵蓋率的測試。</text></feedback></answer>
+    <generalfeedback><text>49% 發現講的是殺死變異體卻不增加任何新涵蓋行的測試。測試 Y 藉由在已被涵蓋的程式碼上強化斷言做到這件事；測試 X 則還增加了涵蓋率，因此不是這個代表性情況。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>100% 分支涵蓋率、變異體卻存活</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件有 100% 分支涵蓋率，卻有一個非等價變異體存活。要殺死它必須加入什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個能觀察到變異體所破壞之值的更強斷言（若有需要，再加一個能讓破壞傳播的輸入）</text><feedback><text>正確——分支已被執行，因此缺口在於觀察被破壞的結果。</text></feedback></answer>
+    <answer fraction="0"><text>更多要涵蓋的分支</text><feedback><text>分支涵蓋率已是 100%，沒有未涵蓋的分支可加。</text></feedback></answer>
+    <answer fraction="0"><text>刪除那個存活的變異體</text><feedback><text>變異體是缺陷模型；解方是更好的測試，而非刪除變異體。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不用——100% 分支涵蓋率代表套件已完備</text><feedback><text>一個存活的非等價變異體證明套件並非缺陷適當。</text></feedback></answer>
+    <generalfeedback><text>在完整分支涵蓋率下，有缺陷的分支已被執行，因此缺的是一個觀察被破壞輸出的斷言（可能還要一個讓它傳播的輸入）。涵蓋率已達上限；缺陷偵測則否。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>49% 具體證明了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼「49% 的測試在沒有新涵蓋行的情況下殺死變異體」具體證明了涵蓋率 &#8800; 缺陷偵測？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>這些測試提升了缺陷偵測（一次殺死），而涵蓋率度量卻毫無變化，因此這兩個度量是各自獨立變動的</text><feedback><text>正確——缺陷偵測上升而涵蓋率沒有，因此它們不是同一個度量。</text></feedback></answer>
+    <answer fraction="0"><text>因為它們提高涵蓋率卻殺不死變異體</text><feedback><text>那把發現弄反了；它們是殺死變異體卻不提高涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>因為它們既不提高涵蓋率也不殺死變異體</text><feedback><text>它們確實殺死變異體；那正是重點。</text></feedback></answer>
+    <answer fraction="0"><text>因為涵蓋率工具壞了</text><feedback><text>工具運作正常；確實沒有新的行可記。</text></feedback></answer>
+    <generalfeedback><text>若涵蓋率與缺陷偵測是同一件事，就不可能有測試在改善其一時不動另一。近半數的測試在涵蓋率零變化下改善了缺陷偵測，因此這兩個度量可被證明是不同的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>涵蓋率導向產生器的盲點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個只獎勵「增加新行」的測試產生器，會把不增加涵蓋率的測試降級。這個盲點會放過哪一種缺陷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在已被涵蓋的程式碼中、只需一個更強斷言就能偵測的缺陷</text><feedback><text>正確——那些正是只獎勵涵蓋率的做法會丟棄的測試。</text></feedback></answer>
+    <answer fraction="0"><text>不可達的死碼中的缺陷</text><feedback><text>死碼無法被任何測試涵蓋或殺死，因此不是這裡的盲點。</text></feedback></answer>
+    <answer fraction="0"><text>只有新分支才能揭露的缺陷</text><feedback><text>涵蓋率導向產生器其實會獎勵走到新分支，因此那不是它的盲點。</text></feedback></answer>
+    <answer fraction="0"><text>編譯錯誤</text><feedback><text>那些由編譯器抓到，不是測試的盲點。</text></feedback></answer>
+    <generalfeedback><text>只獎勵新涵蓋率會丟棄在已被涵蓋程式碼上強化斷言的測試——正是那 49% 在沒有新行的情況下抓到缺陷的測試。那就是缺陷導向測試所填補的涵蓋率導向盲點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>差一錯誤：從弱斷言到殺手斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個測試完整走遍一個陣列（完整涵蓋率），卻只斷言總和為正；一個讀到尾端零值的 <code>i &lt;= n</code> 差一變異體存活了。哪一個單一改動能讓這個測試變成缺陷導向？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>斷言確切的預期總和（或斷言索引 <code>n</code> 處的元素從不被讀取），那次多出的迭代會違反它</text><feedback><text>正確——對受影響值的精確斷言能在不增加涵蓋率的情況下殺死變異體。</text></feedback></answer>
+    <answer fraction="0"><text>再加一個涵蓋不同函式的測試</text><feedback><text>那並未處理這個迴圈中存活的變異體。</text></feedback></answer>
+    <answer fraction="0"><text>斷言總和是一個數字</text><feedback><text>變異體仍會產生一個數字，因此這永遠不會失敗。</text></feedback></answer>
+    <answer fraction="0"><text>多跑一次迴圈以增加涵蓋率</text><feedback><text>涵蓋率已經完整；問題在於斷言太弱。</text></feedback></answer>
+    <generalfeedback><text>若讀到尾端零值不改變總和，「總和為正」就抓不到它；但確切的預期總和（或檢查索引 <code>n</code> 從不被讀取）就能。這是一個不增加涵蓋率的缺陷導向修正。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非 finally 錯誤分支上的缺少清理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>清理被寫在正常路徑的結尾（不在 <code>finally</code> 裡），而一個錯誤分支在它之前就返回。一個順利路徑的測試會執行到清理那一行並通過。為什麼變異測試在這裡仍能揭露缺陷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變異體／錯誤路徑會跳過內嵌的清理，唯有驅動錯誤路徑並斷言清理的測試才能偵測——順利路徑從不執行那個跳過</text><feedback><text>正確——被跳過清理的行為存在於順利路徑測試從不走的錯誤路徑上。</text></feedback></answer>
+    <answer fraction="0"><text>那行清理在每一條路徑上都不可達</text><feedback><text>它在正常路徑上會被走到；只有在錯誤分支上才被跳過。</text></feedback></answer>
+    <answer fraction="0"><text>一個順利路徑的測試已經執行了那個跳過</text><feedback><text>順利路徑會執行清理；它從不觸發提早返回的跳過。</text></feedback></answer>
+    <answer fraction="0"><text>把清理搬進 finally 會製造出這個缺陷</text><feedback><text><code>finally</code> 其實會避免這個跳過；缺陷在於清理在錯誤路徑上沒有被保證執行。</text></feedback></answer>
+    <generalfeedback><text>由於清理不在 <code>finally</code> 裡，提早返回的錯誤分支會跳過它。順利路徑的測試會執行內嵌的清理，從不看到那個跳過。缺陷導向測試必須驅動錯誤路徑並斷言清理已發生。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何涵蓋正常輸入不足以應付例外缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於一個未檢查的例外缺陷，為何即使對正常路徑達成 100% 行涵蓋率，用正常輸入涵蓋該函式仍不足？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷只在例外輸入下才浮現，而正常輸入的涵蓋從不提供或斷言它</text><feedback><text>正確——例外路徑與其斷言才是揭露缺陷的關鍵。</text></feedback></answer>
+    <answer fraction="0"><text>正常路徑的行涵蓋率已經執行了例外路徑</text><feedback><text>並沒有；例外路徑需要例外輸入。</text></feedback></answer>
+    <answer fraction="0"><text>例外總是被執行環境自動攔截</text><feedback><text>未檢查的例外正是沒有被處理的例外。</text></feedback></answer>
+    <answer fraction="0"><text>100% 行涵蓋率保證殺死所有變異體</text><feedback><text>並不會——涵蓋率不等於缺陷偵測。</text></feedback></answer>
+    <generalfeedback><text>正常輸入涵蓋正常路徑，卻從不觸發例外行為。偵測缺陷需要例外輸入，加上對例外如何被拋出或處理的明確斷言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>微妙情況：涵蓋率增益與殺手斷言是兩回事</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個單一的新測試走到一個前所未涵蓋的錯誤分支，<em>並且</em>斷言該處的資源已被釋放，殺死了一個洩漏變異體。關於它的兩項貢獻，下列敘述何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>走到該分支是涵蓋率增益；釋放斷言才是殺死變異體的東西——光走到它並不會殺死</text><feedback><text>正確——即使在同一個測試裡，涵蓋率與殺手斷言仍是分開的貢獻。</text></feedback></answer>
+    <answer fraction="0"><text>光走到那個新分支就殺死變異體，所以斷言是多餘的</text><feedback><text>光走到該分支（涵蓋率）並不會觀察到資源是否被釋放。</text></feedback></answer>
+    <answer fraction="0"><text>斷言帶來涵蓋率；走到該分支殺死變異體</text><feedback><text>這把角色弄反了——涵蓋率來自走到分支，殺死來自斷言。</text></feedback></answer>
+    <answer fraction="0"><text>這兩項貢獻是同一個度量</text><feedback><text>它們是不同的：一個是執行，另一個是缺陷偵測。</text></feedback></answer>
+    <generalfeedback><text>即使一個測試兩者都做，貢獻仍可分離：走到分支提高涵蓋率，但變異體唯有靠觀察釋放的斷言才被殺死。少了斷言，增加的涵蓋率會讓洩漏變異體存活。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>高行涵蓋率保證高變異分數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個具有高行涵蓋率的套件，保證也會有高變異分數。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>高涵蓋率代表程式碼有被執行，但斷言若太弱，許多變異體仍會存活，因此變異分數可能很低。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——涵蓋率衡量執行，而非缺陷偵測；弱斷言可以在高涵蓋率下留下低變異分數。</text></feedback></answer>
+    <generalfeedback><text>涵蓋率記的是執行；殺死變異體還需要觀察被破壞結果的斷言。一個高涵蓋率但斷言薄弱的套件可以有低變異分數——這兩個度量是不同的，正是缺陷導向測試的核心教訓。</text></generalfeedback>
+  </question>
+</quiz>
