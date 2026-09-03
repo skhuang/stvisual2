@@ -88459,6 +88459,2546 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "regression-debt": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What regression testing is",
+          "text": "<p><em>Regression testing</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "Re-running existing tests after a change to confirm that previously working behaviour still works",
+              "fraction": 100,
+              "feedback": "Correct — regression testing guards against a change breaking (regressing) functionality that used to work."
+            },
+            {
+              "text": "Writing brand-new tests for a feature that has never been tested before",
+              "fraction": 0,
+              "feedback": "That is testing new functionality; regression testing re-checks behaviour that already worked."
+            },
+            {
+              "text": "Measuring how many lines of production code the tests execute",
+              "fraction": 0,
+              "feedback": "That describes code coverage, not regression testing."
+            },
+            {
+              "text": "Deleting old tests once a release ships",
+              "fraction": 0,
+              "feedback": "Removing tests is a maintenance action, not the definition of regression testing."
+            }
+          ],
+          "generalFeedback": "Regression testing re-executes a body of existing tests after any change (a new feature, a bug fix, a refactor) to verify that functionality which previously passed has not been broken. A \"regression\" is precisely the reappearance of a defect or the breaking of behaviour that used to work.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a regression suite is",
+          "text": "<p>A <em>regression test suite</em> is:</p>",
+          "answers": [
+            {
+              "text": "The accumulated set of tests, built up over past releases, that is re-run to protect existing behaviour",
+              "fraction": 100,
+              "feedback": "Correct — it is the growing collection of tests kept and re-run to catch regressions."
+            },
+            {
+              "text": "A single test that is written fresh for each release and then thrown away",
+              "fraction": 0,
+              "feedback": "A regression suite is retained and re-run over time, not a throwaway single test."
+            },
+            {
+              "text": "A list of manual steps that is never automated under any circumstances",
+              "fraction": 0,
+              "feedback": "Regression suites are commonly automated; automation is in fact the usual response to their growth."
+            },
+            {
+              "text": "The subset of requirements that have not yet been implemented",
+              "fraction": 0,
+              "feedback": "That is a backlog of unbuilt features, not a test suite."
+            }
+          ],
+          "generalFeedback": "The regression suite is the body of tests accumulated across previous releases and re-run to confirm that existing behaviour still holds. Because it grows as features are added, it becomes the main workload that regression testing must repeatedly execute.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the regression set grows",
+          "text": "<p>Why does the regression test set tend to grow larger with every release?</p>",
+          "answers": [
+            {
+              "text": "Each release adds new features (and their tests), and those tests are kept and re-run alongside all the earlier ones",
+              "fraction": 100,
+              "feedback": "Correct — the suite accumulates: new tests are added while old ones are retained to keep protecting past behaviour."
+            },
+            {
+              "text": "Test files automatically double in size on their own between releases",
+              "fraction": 0,
+              "feedback": "Tests do not grow by themselves; the suite grows because teams keep adding and retaining tests."
+            },
+            {
+              "text": "Testing frameworks require you to duplicate every test once per release",
+              "fraction": 0,
+              "feedback": "No framework requires per-release duplication; growth comes from accumulating new features' tests."
+            },
+            {
+              "text": "Deleting features always adds more tests than it removes",
+              "fraction": 0,
+              "feedback": "Removing a feature should let you remove its tests; growth is driven by adding features, not deleting them."
+            }
+          ],
+          "generalFeedback": "As a product accrues features across releases, the tests written for each feature are kept and re-run to protect that behaviour going forward. So the regression set steadily accumulates. This accumulation is exactly what makes purely manual regression progressively slower and more expensive over time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What test (technical) debt is",
+          "text": "<p>In the context of a test suite, <em>test technical debt</em> refers to:</p>",
+          "answers": [
+            {
+              "text": "Accumulated problems in the test suite — flaky, slow, redundant, obsolete or implementation-coupled tests — that raise maintenance cost and erode trust",
+              "fraction": 100,
+              "feedback": "Correct — test debt is the built-up quality problems in the tests themselves, carrying an ongoing cost."
+            },
+            {
+              "text": "The number of tests that still need to be written for unbuilt features",
+              "fraction": 0,
+              "feedback": "That is a coverage gap or backlog; test debt is about problems in the tests you already have."
+            },
+            {
+              "text": "Money owed to a third party for a testing tool licence",
+              "fraction": 0,
+              "feedback": "Test debt is a metaphor for accumulated quality problems, not a literal financial liability."
+            },
+            {
+              "text": "The time the test suite takes to run, measured in seconds",
+              "fraction": 0,
+              "feedback": "Runtime is one symptom, but test debt is the broader set of accumulated suite problems, not a single duration figure."
+            }
+          ],
+          "generalFeedback": "Like technical debt in production code, test debt is the accumulation of shortcuts and neglect in the test suite: flaky tests, slow tests, redundant or obsolete tests, and tests tightly coupled to implementation. It quietly raises the cost of every future change and, like debt, charges \"interest\" the longer it is left unaddressed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a flaky test is",
+          "text": "<p>A <em>flaky test</em> is one that:</p>",
+          "answers": [
+            {
+              "text": "Passes and fails non-deterministically on the same code, without any change to what is under test",
+              "fraction": 100,
+              "feedback": "Correct — flakiness is an inconsistent, non-deterministic result on unchanged code."
+            },
+            {
+              "text": "Fails consistently every time until a real bug is fixed",
+              "fraction": 0,
+              "feedback": "That is a deterministic, reproducible failure — usually a genuine defect — not flakiness."
+            },
+            {
+              "text": "Takes longer to run than the average test in the suite",
+              "fraction": 0,
+              "feedback": "That describes a slow test; flakiness is about an inconsistent pass/fail outcome."
+            },
+            {
+              "text": "Duplicates the assertions of another existing test",
+              "fraction": 0,
+              "feedback": "That describes a redundant test; flakiness is non-determinism, not duplication."
+            }
+          ],
+          "generalFeedback": "A flaky test gives different verdicts across runs even though the code and inputs have not changed. Flaky tests are a major form of test debt: their false alarms waste time and, worse, erode trust so that real failures start being dismissed as \"just flaky\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a slow test is a problem",
+          "text": "<p>Within test debt, why are <em>slow</em> tests treated as a problem?</p>",
+          "answers": [
+            {
+              "text": "They lengthen the feedback loop, so the suite is run less often and defects are caught later",
+              "fraction": 100,
+              "feedback": "Correct — slow suites delay feedback and discourage frequent running, which is their core cost."
+            },
+            {
+              "text": "They always produce incorrect results",
+              "fraction": 0,
+              "feedback": "Slowness is about time taken, not correctness; a slow test can still be perfectly correct."
+            },
+            {
+              "text": "They can only be run once and then must be deleted",
+              "fraction": 0,
+              "feedback": "Slow tests can be re-run; the issue is the delay they add, not a one-time limit."
+            },
+            {
+              "text": "They automatically make other tests flaky",
+              "fraction": 0,
+              "feedback": "Slowness does not by itself cause flakiness; the problem is the delayed, discouraged feedback."
+            }
+          ],
+          "generalFeedback": "Fast feedback is the point of an automated suite. A slow regression suite stretches the time between a change and its verdict, so developers run it less often, batch up more changes, and discover breakages later when they are costlier to fix. Keeping tests fast is therefore a central part of managing test debt.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a redundant test is",
+          "text": "<p>A <em>redundant</em> (duplicate) test is one that:</p>",
+          "answers": [
+            {
+              "text": "Exercises the same behaviour and would fail for the same reasons as another test, adding maintenance cost without adding confidence",
+              "fraction": 100,
+              "feedback": "Correct — redundant tests cover ground already covered, so they cost upkeep but add no new signal."
+            },
+            {
+              "text": "Checks a behaviour that no other test checks",
+              "fraction": 0,
+              "feedback": "That is a unique, valuable test — the opposite of redundant."
+            },
+            {
+              "text": "Fails non-deterministically between runs",
+              "fraction": 0,
+              "feedback": "That describes a flaky test, not a redundant one."
+            },
+            {
+              "text": "Tests a feature that has been removed from the product",
+              "fraction": 0,
+              "feedback": "That describes an obsolete test; a redundant test duplicates coverage of still-present behaviour."
+            }
+          ],
+          "generalFeedback": "A redundant test overlaps another so completely that they pass and fail together for the same reasons. It still has to be read, maintained, and updated on every refactor, yet it adds no coverage the suite did not already have. Duplicate coverage is a classic form of test debt and a prime candidate for pruning.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an obsolete test is",
+          "text": "<p>An <em>obsolete</em> (dead) test is one that:</p>",
+          "answers": [
+            {
+              "text": "Verifies behaviour or a feature that no longer exists in the product, so it no longer protects anything real",
+              "fraction": 100,
+              "feedback": "Correct — an obsolete test guards behaviour that has been removed or changed away, so it earns nothing."
+            },
+            {
+              "text": "Is written in an older programming language than the rest of the suite",
+              "fraction": 0,
+              "feedback": "Language age is irrelevant; obsolete means the tested behaviour no longer exists."
+            },
+            {
+              "text": "Runs more slowly than newer tests",
+              "fraction": 0,
+              "feedback": "That describes a slow test; obsolete means it targets removed or changed-away behaviour."
+            },
+            {
+              "text": "Passes and fails at random",
+              "fraction": 0,
+              "feedback": "That describes flakiness; an obsolete test targets behaviour that no longer exists."
+            }
+          ],
+          "generalFeedback": "An obsolete test checks something the product no longer does — a removed feature, an old contract, a retired code path. It provides no protection yet still has to be maintained, and it can even block legitimate changes. Obsolete tests are dead weight and should be removed as part of suite maintenance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Implementation-coupled tests",
+          "text": "<p>A test that is <em>tightly coupled to the implementation</em> is problematic because it:</p>",
+          "answers": [
+            {
+              "text": "Breaks when internal details are refactored even though the observable behaviour is unchanged",
+              "fraction": 100,
+              "feedback": "Correct — coupling to internals makes the test brittle: harmless refactors trigger false failures."
+            },
+            {
+              "text": "Only ever passes and can never detect a defect",
+              "fraction": 0,
+              "feedback": "That describes a tautological or vacuous test; implementation-coupled tests do fail — too easily, on refactors."
+            },
+            {
+              "text": "Runs faster than a behaviour-focused test",
+              "fraction": 0,
+              "feedback": "Speed is not the issue; the problem is brittleness under refactoring."
+            },
+            {
+              "text": "Cannot be written in a unit-testing framework",
+              "fraction": 0,
+              "feedback": "Such tests are easy to write; that is part of the trap — they are brittle, not impossible."
+            }
+          ],
+          "generalFeedback": "When a test asserts on private internals — specific method calls, internal data structures, exact intermediate values — it fails whenever those internals change, regardless of whether the externally observable behaviour is still correct. This brittleness makes every refactor expensive and is a well-known form of test debt. The remedy is to test behaviour through the public interface, not internals.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why automate regression",
+          "text": "<p>As features accumulate, why do teams automate their regression testing?</p>",
+          "answers": [
+            {
+              "text": "Because re-running the whole growing suite by hand every release becomes too slow and expensive to be sustainable",
+              "fraction": 100,
+              "feedback": "Correct — manual regression does not scale with an ever-growing suite, so automation keeps it feasible each iteration."
+            },
+            {
+              "text": "Because automated tests never need any maintenance afterwards",
+              "fraction": 0,
+              "feedback": "Automated tests still require upkeep; automation addresses the cost of repeated execution, not maintenance."
+            },
+            {
+              "text": "Because automation guarantees the software has zero defects",
+              "fraction": 0,
+              "feedback": "No testing guarantees zero defects; automation makes frequent regression runs feasible, not perfect."
+            },
+            {
+              "text": "Because manual testing is illegal in professional software",
+              "fraction": 0,
+              "feedback": "Manual testing is legitimate and often useful; it simply does not scale for large repeated regression runs."
+            }
+          ],
+          "generalFeedback": "Every release adds tests that must be re-run to protect existing behaviour. Repeating that manually takes longer and longer until it is no longer feasible within an iteration. Automating regression lets the suite be run cheaply and repeatedly — on every commit if desired — so the growing set stays affordable to execute.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What test selection is",
+          "text": "<p><em>Test selection</em> (test-impact analysis) means:</p>",
+          "answers": [
+            {
+              "text": "Running only the subset of tests affected by a particular change, instead of the entire suite",
+              "fraction": 100,
+              "feedback": "Correct — selection narrows the run to the tests relevant to what changed."
+            },
+            {
+              "text": "Deleting every test that is not part of the latest feature",
+              "fraction": 0,
+              "feedback": "Selection chooses which tests to run this time; it does not delete the others."
+            },
+            {
+              "text": "Choosing which developer writes each test",
+              "fraction": 0,
+              "feedback": "That is task assignment, not test selection."
+            },
+            {
+              "text": "Randomly picking half the suite each run regardless of the change",
+              "fraction": 0,
+              "feedback": "Selection is driven by what the change affects, not by random sampling."
+            }
+          ],
+          "generalFeedback": "Test selection, or test-impact analysis, maps a code change to the tests that could be affected by it (through dependencies) and runs just that subset. It keeps feedback fast when running the whole suite on every change would be too slow, without discarding the unselected tests, which still run in fuller cycles.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What risk-based regression is",
+          "text": "<p><em>Risk-based regression testing</em> means:</p>",
+          "answers": [
+            {
+              "text": "Prioritising the highest-risk, most-changed and highest-value areas when there is not enough time to run everything",
+              "fraction": 100,
+              "feedback": "Correct — risk-based regression spends limited testing time where a failure would hurt most."
+            },
+            {
+              "text": "Only ever testing the parts of the system that carry the least risk",
+              "fraction": 0,
+              "feedback": "That inverts the idea; risk-based regression concentrates on the highest-risk areas first."
+            },
+            {
+              "text": "Running tests in a random order to expose hidden dependencies",
+              "fraction": 0,
+              "feedback": "That is randomised ordering for flakiness detection, not risk-based prioritisation."
+            },
+            {
+              "text": "Removing all risky features so no regression testing is needed",
+              "fraction": 0,
+              "feedback": "Risk-based regression prioritises testing of risky areas; it does not remove features."
+            }
+          ],
+          "generalFeedback": "When you cannot run the full regression suite in the available window, risk-based regression ranks what to run by risk: areas that changed recently, that are business-critical or high-value, or that have a history of defects go first. It maximises the chance of catching an important regression given a limited testing budget.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a symptom of test debt",
+          "text": "<p>Which of the following is a clear <em>symptom</em> of test debt in a suite?</p>",
+          "answers": [
+            {
+              "text": "Developers routinely re-run red builds without looking, because failures are usually \"just flaky\"",
+              "fraction": 100,
+              "feedback": "Correct — normalised flaky failures and eroded trust are a hallmark symptom of test debt."
+            },
+            {
+              "text": "Each test checks a distinct behaviour and the suite runs quickly",
+              "fraction": 0,
+              "feedback": "That describes a healthy suite, not one carrying debt."
+            },
+            {
+              "text": "New features arrive with focused, maintained tests",
+              "fraction": 0,
+              "feedback": "Well-maintained tests are a sign of health, not of debt."
+            },
+            {
+              "text": "The suite catches real regressions early and is trusted by the team",
+              "fraction": 0,
+              "feedback": "A trusted, effective suite is the opposite of a debt-laden one."
+            }
+          ],
+          "generalFeedback": "Symptoms of test debt include chronic flakiness and eroded trust (red builds shrugged off), a suite so slow it is rarely run, tests that break on every refactor, and piles of duplicate or obsolete tests. When people stop trusting or reading the results, the suite has stopped doing its job — a clear warning sign.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "More tests is not always better",
+          "text": "<p>Adding more tests always improves a suite, so a larger suite is always better than a smaller one.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — redundant or low-value tests add maintenance cost without adding confidence, so bigger is not automatically better."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: tests that duplicate coverage or check nothing valuable cost upkeep while adding no signal, so more is not always better."
+            }
+          ],
+          "generalFeedback": "Every test has a carrying cost: it must run, be maintained, and be updated on refactors. A redundant or low-value test pays that cost without adding any confidence the suite did not already have. The goal is high-value, maintainable coverage — not the largest possible number of tests."
+        },
+        {
+          "type": "truefalse",
+          "name": "Skipping regression risks escaped defects",
+          "text": "<p>If regression testing is skipped to save time, defects that were reintroduced can escape undetected into the released product.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — without regression testing, a change that breaks previously working behaviour can ship unnoticed."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: skipping regression removes the safety net, so reintroduced or newly broken behaviour can reach users undetected."
+            }
+          ],
+          "generalFeedback": "Regression testing exists to catch behaviour that a change has broken. Skip it and there is nothing to notice that a fix or refactor re-broke an old feature, so the defect escapes to production. This is exactly why the growing manual cost is a problem worth solving by automation rather than by dropping regression coverage."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why manual regression does not scale",
+          "text": "<p>A team runs its entire regression suite by hand every release. As the product grows over many releases, why does this become unsustainable?</p>",
+          "answers": [
+            {
+              "text": "The manual effort grows with every added feature, so each release takes longer and costs more to regression-test, until it no longer fits the iteration",
+              "fraction": 100,
+              "feedback": "Correct — manual regression cost scales up with the accumulating suite, eventually outgrowing the time available."
+            },
+            {
+              "text": "Manual testers become less accurate the more experienced they get",
+              "fraction": 0,
+              "feedback": "Experience does not reduce accuracy; the real issue is the ever-growing volume of tests to repeat by hand."
+            },
+            {
+              "text": "The production code shrinks over time, leaving nothing to test",
+              "fraction": 0,
+              "feedback": "The code base generally grows, not shrinks; that growth is what makes manual regression balloon."
+            },
+            {
+              "text": "Manual tests are guaranteed to find every defect, which wastes time",
+              "fraction": 0,
+              "feedback": "Manual testing does not find every defect; the problem is the escalating repeated effort, not excessive success."
+            }
+          ],
+          "generalFeedback": "Regression cost is roughly proportional to the size of the suite, and the suite accumulates with every release. Re-executing all of it by hand each iteration therefore takes ever more time and money, and eventually cannot be completed within the release window. The standard remedy is to automate regression so repeated runs are cheap.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: two tests, same path and asserts",
+          "text": "<p>Two tests exercise the identical code path with the same setup and assert the same outcome; they always pass or fail together. Which test-debt smell is this?</p>",
+          "answers": [
+            {
+              "text": "Redundant / duplicate coverage",
+              "fraction": 100,
+              "feedback": "Correct — they cover the same ground and give the same signal, so one is duplicated coverage."
+            },
+            {
+              "text": "Flakiness",
+              "fraction": 0,
+              "feedback": "They behave deterministically (always together); flakiness is non-deterministic variation, which is not described here."
+            },
+            {
+              "text": "Obsolete test",
+              "fraction": 0,
+              "feedback": "Nothing says the tested behaviour was removed; the smell is duplication, not obsolescence."
+            },
+            {
+              "text": "Implementation coupling",
+              "fraction": 0,
+              "feedback": "The issue is not brittleness under refactoring but that two tests cover the same behaviour identically."
+            }
+          ],
+          "generalFeedback": "When two tests always pass and fail together for the same reasons, the second one adds no coverage the first did not already provide. That is redundant coverage: it doubles maintenance for a single signal. The remedy is to prune down to the higher-value test and remove the duplicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: breaks on every harmless refactor",
+          "text": "<p>A test fails whenever the internals of a class are refactored, even though its externally observable behaviour is unchanged. Which smell is this?</p>",
+          "answers": [
+            {
+              "text": "A brittle test tightly coupled to the implementation",
+              "fraction": 100,
+              "feedback": "Correct — asserting on internals makes the test break on refactors that keep behaviour intact."
+            },
+            {
+              "text": "An obsolete test",
+              "fraction": 0,
+              "feedback": "The tested behaviour still exists; the test is brittle, not obsolete."
+            },
+            {
+              "text": "A slow test",
+              "fraction": 0,
+              "feedback": "Nothing here concerns runtime; the smell is brittleness from implementation coupling."
+            },
+            {
+              "text": "A redundant test",
+              "fraction": 0,
+              "feedback": "No duplication is described; the problem is coupling to internal details."
+            }
+          ],
+          "generalFeedback": "A test that breaks on internal refactors while behaviour is unchanged is coupled to implementation details rather than to observable behaviour. It punishes exactly the refactoring you want to encourage. The fix is to assert on the public contract and observable outcomes, so the test only fails when behaviour actually changes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: tests a removed feature",
+          "text": "<p>A test still checks a \"mail-in rebate\" feature that was removed from the product two releases ago. Which smell is this?</p>",
+          "answers": [
+            {
+              "text": "An obsolete (dead) test",
+              "fraction": 100,
+              "feedback": "Correct — it guards behaviour that no longer exists, so it protects nothing."
+            },
+            {
+              "text": "A flaky test",
+              "fraction": 0,
+              "feedback": "Nothing indicates non-deterministic results; the behaviour it targets was removed, making it obsolete."
+            },
+            {
+              "text": "A redundant test",
+              "fraction": 0,
+              "feedback": "Redundancy is duplication of live coverage; here the feature is gone entirely, so it is obsolete."
+            },
+            {
+              "text": "An implementation-coupled test",
+              "fraction": 0,
+              "feedback": "The issue is not brittleness under refactor but that the feature no longer exists at all."
+            }
+          ],
+          "generalFeedback": "A test for a feature that has been removed can no longer protect anything real. At best it is dead weight to maintain; at worst it forces awkward stubs or blocks cleanup. Such obsolete tests should be deleted as part of routine suite maintenance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remedy for duplicate coverage",
+          "text": "<p>You confirm that several tests provide overlapping, duplicate coverage of the same behaviour. What is the appropriate remedy?</p>",
+          "answers": [
+            {
+              "text": "Deduplicate — keep the clearest, highest-value test and prune the redundant ones",
+              "fraction": 100,
+              "feedback": "Correct — remove the duplicates so the behaviour is still covered once, at lower maintenance cost."
+            },
+            {
+              "text": "Keep them all, since more tests always means more safety",
+              "fraction": 0,
+              "feedback": "Duplicates add upkeep without new signal; keeping them all just raises maintenance cost."
+            },
+            {
+              "text": "Add automatic retries to each of the duplicates",
+              "fraction": 0,
+              "feedback": "Retries address flakiness, not duplication; the fix for duplication is to remove the extras."
+            },
+            {
+              "text": "Delete every test that touches that behaviour, including the unique one",
+              "fraction": 0,
+              "feedback": "That would drop the coverage entirely; you keep one good test and prune only the duplicates."
+            }
+          ],
+          "generalFeedback": "Redundant tests cost maintenance for a signal you already have. Consolidate: retain the single clearest, most valuable test for the behaviour and remove the rest. Coverage of the behaviour is preserved while the ongoing cost of the duplicates disappears.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remedy for a brittle implementation-coupled test",
+          "text": "<p>A useful test keeps breaking on refactors because it asserts on private internal state. How should you remedy it?</p>",
+          "answers": [
+            {
+              "text": "Decouple it from internals — rewrite it to test observable behaviour through the public interface",
+              "fraction": 100,
+              "feedback": "Correct — testing behaviour, not internals, makes the test stable across refactors that preserve behaviour."
+            },
+            {
+              "text": "Delete it, since any test that ever fails is not worth keeping",
+              "fraction": 0,
+              "feedback": "The behaviour it checks is valuable; decouple it rather than discarding the coverage."
+            },
+            {
+              "text": "Freeze the code so it can never be refactored again",
+              "fraction": 0,
+              "feedback": "Blocking refactoring to protect a brittle test inverts the priorities; fix the test to allow safe refactoring."
+            },
+            {
+              "text": "Add a fixed sleep before the assertion",
+              "fraction": 0,
+              "feedback": "Sleeps address timing flakiness, not coupling to internals; rewrite the test against the public contract."
+            }
+          ],
+          "generalFeedback": "The value of the test is the behaviour it guards, so keep it — but move its assertions to the public interface and observable outcomes. Then it fails only when behaviour genuinely changes, and internal refactors stop triggering false failures. Testing behaviour rather than structure is the durable fix for brittleness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remedy for an obsolete test",
+          "text": "<p>You verify that a test targets a feature that has been fully removed and can never run against anything real again. What should you do?</p>",
+          "answers": [
+            {
+              "text": "Delete it — an obsolete test protects nothing and only adds maintenance cost",
+              "fraction": 100,
+              "feedback": "Correct — once the behaviour is gone for good, removing its test is correct maintenance, not lost coverage."
+            },
+            {
+              "text": "Keep it disabled forever \"just in case\" the feature returns",
+              "fraction": 0,
+              "feedback": "A permanently disabled test is dead weight and a stale reminder; if the feature returns, write a fresh test then."
+            },
+            {
+              "text": "Rewrite its assertions to pass against unrelated behaviour",
+              "fraction": 0,
+              "feedback": "Repurposing it to test something else muddles intent; delete the obsolete test and write a clear one where needed."
+            },
+            {
+              "text": "Quarantine it and track it as flaky",
+              "fraction": 0,
+              "feedback": "Quarantine is for flaky tests you intend to fix; an obsolete test has nothing to fix and should be removed."
+            }
+          ],
+          "generalFeedback": "An obsolete test guards behaviour that no longer exists, so deleting it removes no real coverage — it removes dead weight. Because the removal is intentional and the behaviour is gone, this is exactly when deleting a test is the right call, not a loss.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test selection when time-boxed",
+          "text": "<p>Running the full suite on every commit now takes too long for fast feedback. Which technique keeps per-commit feedback quick without abandoning the other tests?</p>",
+          "answers": [
+            {
+              "text": "Test selection / test-impact analysis — run the subset of tests affected by the commit, and run the fuller suite less frequently",
+              "fraction": 100,
+              "feedback": "Correct — selecting the affected subset gives fast feedback while the rest still run on a broader cadence."
+            },
+            {
+              "text": "Permanently delete the tests that are not touched by this commit",
+              "fraction": 0,
+              "feedback": "Selection chooses what to run now; it does not delete the unselected tests, which still guard other behaviour."
+            },
+            {
+              "text": "Disable assertions in the slow tests so they finish faster",
+              "fraction": 0,
+              "feedback": "Removing assertions makes tests worthless; selection runs a relevant subset instead."
+            },
+            {
+              "text": "Run a fixed random 10% of tests every commit regardless of the change",
+              "fraction": 0,
+              "feedback": "A blind random sample ignores what actually changed; impact-based selection targets the affected tests."
+            }
+          ],
+          "generalFeedback": "Test-impact analysis maps each change to the tests that could be affected via dependencies and runs just those on the commit, giving quick, relevant feedback. The unselected tests are not discarded — they run in nightly or pre-merge full passes. This balances fast feedback with overall coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Risk-based choice under a deadline",
+          "text": "<p>You have time to run only part of the regression suite before a release. On what basis should you choose what to run?</p>",
+          "answers": [
+            {
+              "text": "By risk — prioritise areas that changed recently, are business-critical, or have a history of defects",
+              "fraction": 100,
+              "feedback": "Correct — risk-based selection spends the limited budget where a regression would be most likely and most damaging."
+            },
+            {
+              "text": "Run whichever tests happen to be alphabetically first until time runs out",
+              "fraction": 0,
+              "feedback": "Alphabetical order is unrelated to risk; it may skip the most important areas entirely."
+            },
+            {
+              "text": "Run only the tests that are already known to pass",
+              "fraction": 0,
+              "feedback": "Running tests you expect to pass adds little; you want the highest-risk areas where a failure would matter."
+            },
+            {
+              "text": "Run the fastest tests only, ignoring what they cover",
+              "fraction": 0,
+              "feedback": "Speed alone ignores importance; a fast test over a trivial area may be far less valuable than a slower critical one."
+            }
+          ],
+          "generalFeedback": "When you cannot run everything, rank by risk: recently changed code, high-value or business-critical features, and historically defect-prone modules go first. This concentrates the limited testing time where an escaped regression would be most likely and most costly. (Speed can be a tie-breaker to fit more in, but it is not the primary criterion.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why more tests is not always better",
+          "text": "<p>A teammate argues the suite should never shrink because \"every extra test is extra safety\". Why is this reasoning flawed?</p>",
+          "answers": [
+            {
+              "text": "Redundant and low-value tests add run time and maintenance cost while adding no confidence the suite did not already have",
+              "fraction": 100,
+              "feedback": "Correct — a test only helps if it adds signal; otherwise it is pure cost."
+            },
+            {
+              "text": "Because test suites have a hard maximum size enforced by the framework",
+              "fraction": 0,
+              "feedback": "There is no such fixed limit; the real issue is cost without added value, not a size cap."
+            },
+            {
+              "text": "Because extra tests always make the remaining tests flaky",
+              "fraction": 0,
+              "feedback": "Adding tests does not inherently cause flakiness; the flaw is paying maintenance cost for no new signal."
+            },
+            {
+              "text": "Because coverage tools refuse to report above a certain test count",
+              "fraction": 0,
+              "feedback": "Coverage tools do not cap test counts; the point is redundant tests cost without adding confidence."
+            }
+          ],
+          "generalFeedback": "A test earns its keep only if it can catch a failure the rest of the suite would miss. A redundant or low-value test provides no such new signal yet still consumes run time and must be maintained and updated on every refactor. So beyond a point, adding tests raises cost without raising confidence — which is why pruning low-value tests can improve a suite. (This does not mean fewer is always better: you still need enough coverage of important behaviour.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remedy for a flaky test in the suite",
+          "text": "<p>A regression test fails intermittently on unchanged code and is starting to erode the team's trust in the suite. What is the responsible remedy?</p>",
+          "answers": [
+            {
+              "text": "Diagnose and fix the root cause; if that cannot be done immediately, quarantine it out of the blocking gate while tracking it for repair",
+              "fraction": 100,
+              "feedback": "Correct — fix the flakiness, or contain it visibly while it is tracked, rather than leaving it to erode trust."
+            },
+            {
+              "text": "Configure the pipeline to silently re-run it until it passes and report green",
+              "fraction": 0,
+              "feedback": "Blind retry-until-green can also mask a real intermittent bug and leaves the flakiness in place; it is not a responsible fix."
+            },
+            {
+              "text": "Ignore it, since flaky failures are never caused by real bugs",
+              "fraction": 0,
+              "feedback": "Some intermittent failures do expose real bugs (races, edge cases); ignoring them is dangerous."
+            },
+            {
+              "text": "Leave it failing intermittently so the team stays alert",
+              "fraction": 0,
+              "feedback": "Chronic false alarms do the opposite — they train the team to ignore red builds."
+            }
+          ],
+          "generalFeedback": "Flaky tests are a form of test debt that erodes trust in the whole suite. The right response is to find and fix the source of the non-determinism. If a fix cannot land right away, quarantine the test out of the merge-blocking gate but keep it on a tracked list with an owner and a deadline, so it is contained without being forgotten.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "First remedies for a slow suite",
+          "text": "<p>Your regression suite has grown so slow that developers avoid running it. Which combination of actions best addresses the slowness?</p>",
+          "answers": [
+            {
+              "text": "Parallelise the run, speed up the slowest tests, and prune redundant tests that add no coverage",
+              "fraction": 100,
+              "feedback": "Correct — these attack runtime directly while preserving the coverage that matters."
+            },
+            {
+              "text": "Delete a random selection of tests until the suite is fast enough",
+              "fraction": 0,
+              "feedback": "Random deletion sacrifices real coverage; prune redundancy deliberately and speed up the rest instead."
+            },
+            {
+              "text": "Disable the assertions in the slowest tests so they finish instantly",
+              "fraction": 0,
+              "feedback": "An assertion-free test verifies nothing; that is not a speed fix but a coverage loss."
+            },
+            {
+              "text": "Stop running regression entirely and rely on manual spot checks",
+              "fraction": 0,
+              "feedback": "Dropping regression invites escaped defects; the goal is to make the suite fast, not to abandon it."
+            }
+          ],
+          "generalFeedback": "Slowness is fixed by cutting real time without cutting real coverage: run tests in parallel, optimise or re-scope the slowest ones (for example, replace heavy end-to-end setups with faster narrower tests where appropriate), and remove genuinely redundant tests. Test selection can further shorten per-commit feedback. Deleting valuable tests or disabling assertions only trades speed for lost protection.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why keeping tests fast matters each iteration",
+          "text": "<p>Why is keeping the regression suite fast an ongoing priority in an iterative process, rather than a one-off task?</p>",
+          "answers": [
+            {
+              "text": "Because fast feedback lets the suite be run frequently (even every commit), catching regressions early when they are cheapest to fix",
+              "fraction": 100,
+              "feedback": "Correct — speed sustains frequent runs and early detection throughout ongoing development."
+            },
+            {
+              "text": "Because a fast suite is guaranteed to contain no bugs of its own",
+              "fraction": 0,
+              "feedback": "Speed says nothing about a suite's own correctness; the benefit is frequent, early feedback."
+            },
+            {
+              "text": "Because slow tests always produce wrong results",
+              "fraction": 0,
+              "feedback": "Slow tests can be perfectly correct; the concern is delayed, discouraged feedback."
+            },
+            {
+              "text": "Because frameworks refuse to run suites over a fixed duration",
+              "fraction": 0,
+              "feedback": "No such universal limit exists; the priority is preserving frequent, early feedback."
+            }
+          ],
+          "generalFeedback": "In an iterative process the suite is run again and again, so its speed compounds. A fast suite is run often — on every commit or pull request — so a regression is caught within minutes of being introduced, while the change is fresh and cheap to fix. Because features keep accumulating, keeping the suite fast is a continual effort, not a one-time cleanup.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A passing redundant test still costs",
+          "text": "<p>A redundant test that always passes still carries a cost, because it must be run, read, and updated whenever the code it touches is refactored.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — even a green test consumes run time and maintenance effort, so redundancy is not free."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: a passing test is not cost-free — it adds runtime and must be maintained and updated on refactors."
+            }
+          ],
+          "generalFeedback": "People often assume only failing tests cost anything, but every test in the suite is executed on each run and has to be kept current as the code evolves. A redundant test pays these costs while adding no signal the suite lacked, which is why deduplication reduces cost without reducing confidence."
+        },
+        {
+          "type": "truefalse",
+          "name": "Risk-based does not eliminate full regression",
+          "text": "<p>Because risk-based regression concentrates on high-risk areas, a team that adopts it never needs to run the full regression suite again.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — risk-based selection is for when you cannot run everything now; the full suite should still run periodically to cover lower-risk areas."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: prioritising high-risk areas does not make lower-risk regressions impossible, so full runs are still needed periodically."
+            }
+          ],
+          "generalFeedback": "Risk-based regression is a way to spend a limited testing budget well, not a licence to permanently ignore everything low-risk. Defects can still appear outside the prioritised areas, so the fuller suite should run on a broader cadence (nightly, pre-release). Overstating risk-based testing as \"never run everything again\" would leave real gaps."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Diagnose: suite too slow to run",
+          "text": "<p>A regression suite takes 90 minutes, so developers merge without running it and breakages are found days later. Investigation shows a third of the tests duplicate coverage and many use heavy full-stack setups. What is the best prescription?</p>",
+          "answers": [
+            {
+              "text": "Parallelise execution, replace the heaviest setups with faster narrower tests where they add no unique value, and prune the duplicate tests — then add test selection for per-commit feedback",
+              "fraction": 100,
+              "feedback": "Correct — cut runtime by parallelising, optimising, and deduplicating, and use selection for fast local feedback, all while preserving real coverage."
+            },
+            {
+              "text": "Delete tests at random until the suite runs in under ten minutes",
+              "fraction": 0,
+              "feedback": "Random deletion discards real coverage; the redundancy and heavy setups must be addressed deliberately."
+            },
+            {
+              "text": "Keep the suite as is but stop requiring it before merge",
+              "fraction": 0,
+              "feedback": "That is what is already happening and it lets breakages escape; the suite must be made fast enough to run, not dropped."
+            },
+            {
+              "text": "Add automatic retries so any slow test that times out is retried",
+              "fraction": 0,
+              "feedback": "Retries address flakiness, not slowness, and would make the suite even slower."
+            }
+          ],
+          "generalFeedback": "The slowness has identifiable causes: duplicate tests and unnecessarily heavy setups. Attack them directly — parallelise, rewrite heavy end-to-end tests as faster focused tests where they add no unique coverage, and prune the duplicates — so the suite becomes fast enough that people actually run it. Test-impact selection then keeps per-commit feedback quick while fuller runs continue on a cadence. Coverage of real behaviour is preserved throughout.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: refactor breaks hundreds of tests",
+          "text": "<p>A behaviour-preserving refactor of one module causes 200 tests to fail; each was asserting on internal method calls and private fields. What is the root cause and correct remedy?</p>",
+          "answers": [
+            {
+              "text": "The tests are coupled to the implementation; rewrite them to assert on observable behaviour through the public interface so they survive behaviour-preserving refactors",
+              "fraction": 100,
+              "feedback": "Correct — decoupling from internals removes the brittleness that turned a safe refactor into 200 false failures."
+            },
+            {
+              "text": "The refactor must have changed behaviour; revert it and never refactor this module",
+              "fraction": 0,
+              "feedback": "The refactor preserved behaviour; the failures come from tests bound to internals, not from a behaviour change."
+            },
+            {
+              "text": "Delete all 200 tests to unblock the refactor",
+              "fraction": 0,
+              "feedback": "They may guard real behaviour; decouple them from internals rather than discarding the coverage wholesale."
+            },
+            {
+              "text": "Mark all 200 as flaky and quarantine them",
+              "fraction": 0,
+              "feedback": "They are not flaky — they fail deterministically because they test internals; the fix is to test behaviour instead."
+            }
+          ],
+          "generalFeedback": "Two hundred deterministic failures from a behaviour-preserving change is the signature of implementation coupling: the tests assert on how the code works internally rather than what it does. Rewrite them against the public contract and observable outcomes. Then they fail only when behaviour actually changes, and refactoring stops being punished. This is a structural fix, not a matter of reverting or quarantining.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: cannot run full suite per commit",
+          "text": "<p>The full suite is trustworthy but too large to run on every commit. The team wants fast per-commit feedback without giving up overall coverage. What is the best approach?</p>",
+          "answers": [
+            {
+              "text": "Use test-impact selection to run the affected subset per commit, order fast high-value tests first, and run the full suite on a broader cadence (e.g. nightly / pre-merge)",
+              "fraction": 100,
+              "feedback": "Correct — selection plus a periodic full run gives quick feedback while keeping full coverage."
+            },
+            {
+              "text": "Permanently drop every test not selected for the current commit",
+              "fraction": 0,
+              "feedback": "Dropping the unselected tests abandons coverage of everything they guard; they must still run periodically."
+            },
+            {
+              "text": "Run the whole suite on every commit regardless, accepting slow feedback forever",
+              "fraction": 0,
+              "feedback": "That is the very constraint being solved; it gives up the fast feedback the team needs."
+            },
+            {
+              "text": "Randomly sample 5% of tests each commit and never run the rest",
+              "fraction": 0,
+              "feedback": "Blind sampling ignores what changed and leaves most behaviour untested indefinitely."
+            }
+          ],
+          "generalFeedback": "Test-impact analysis maps each commit to the tests that could be affected and runs just those, so feedback stays fast and relevant; ordering fast, high-value tests first surfaces failures sooner. The full trusted suite still runs on a broader schedule to cover everything the per-commit subset skipped. This balances feedback speed against completeness without discarding tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: flakiness eroding trust",
+          "text": "<p>Over months, roughly 3% of suite runs fail on unchanged code, and the team now re-runs red builds reflexively without investigating. What is the correct way to handle this?</p>",
+          "answers": [
+            {
+              "text": "Treat flakiness as a first-class defect: quarantine known-flaky tests out of the blocking gate while tracking them, then diagnose and fix each root cause to restore trust",
+              "fraction": 100,
+              "feedback": "Correct — contain the noise visibly and fix the causes, so a genuine failure is no longer dismissed as flaky."
+            },
+            {
+              "text": "Institutionalise the reflex: configure CI to auto-rerun until green and stop investigating failures",
+              "fraction": 0,
+              "feedback": "That normalises the problem and can bury a real intermittent bug in the retries; it does not restore trust."
+            },
+            {
+              "text": "Delete every test that has ever failed intermittently",
+              "fraction": 0,
+              "feedback": "Deleting throws away real coverage and its accountability; quarantine-and-fix preserves both."
+            },
+            {
+              "text": "Do nothing, because a 3% failure rate is harmless",
+              "fraction": 0,
+              "feedback": "It is not harmless: reflexive re-runs mean a real regression will be dismissed as flaky and shipped."
+            }
+          ],
+          "generalFeedback": "Chronic flakiness produces alarm fatigue: once \"red\" usually means \"just flaky\", a genuine regression hidden in the noise is ignored and ships. Restore signal by quarantining flaky tests out of the merge-blocking gate onto a tracked list, then diagnosing and fixing each root cause. Blind retry-until-green only deepens the debt and can hide a real intermittent bug.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The \"interest\" analogy of test debt",
+          "text": "<p>Test debt is often said to charge \"interest\". In this analogy, what does the interest represent?</p>",
+          "answers": [
+            {
+              "text": "The compounding extra cost of every future change while the debt is left unaddressed — slower runs, more false alarms, and harder maintenance that grow the longer you defer",
+              "fraction": 100,
+              "feedback": "Correct — deferring test maintenance makes each subsequent change progressively more expensive, like accruing interest."
+            },
+            {
+              "text": "A literal fee paid to the CI provider for each failing build",
+              "fraction": 0,
+              "feedback": "The interest is a metaphor for compounding effort, not an actual invoice."
+            },
+            {
+              "text": "The one-time cost of writing a test, paid only once",
+              "fraction": 0,
+              "feedback": "A one-time upfront cost is the \"principal\"; interest is the recurring, growing cost of not paying it down."
+            },
+            {
+              "text": "The guarantee that the debt disappears on its own after a few releases",
+              "fraction": 0,
+              "feedback": "Debt does not vanish by itself; left alone it compounds, which is the whole point of the interest analogy."
+            }
+          ],
+          "generalFeedback": "As with financial debt, the \"principal\" is the shortcut you took (a flaky test left unfixed, duplicates left in place). The \"interest\" is the extra cost that recurs and compounds every time you work in that area afterwards: slower feedback, more misleading failures, more effort to change code around brittle tests. The longer maintenance is deferred, the larger that recurring cost grows — sometimes until the suite has to be substantially reworked.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When deleting a test is the right call",
+          "text": "<p>Which situation most clearly justifies deleting a regression test rather than fixing or keeping it?</p>",
+          "answers": [
+            {
+              "text": "The test is obsolete or fully redundant — it guards behaviour that no longer exists or that another test already covers identically — so it has negative net value",
+              "fraction": 100,
+              "feedback": "Correct — when a test protects nothing new, deleting it removes cost without removing real coverage."
+            },
+            {
+              "text": "The test is slow but is the only thing covering a critical, still-present behaviour",
+              "fraction": 0,
+              "feedback": "That test still earns its keep; optimise or parallelise it rather than deleting the only guard on critical behaviour."
+            },
+            {
+              "text": "The test recently failed and caught a real regression",
+              "fraction": 0,
+              "feedback": "Catching a real regression is exactly what a valuable test should do; that is a reason to keep it."
+            },
+            {
+              "text": "The test is hard to read but is the sole cover for an important edge case",
+              "fraction": 0,
+              "feedback": "Poor readability is a reason to clarify it, not to delete unique coverage of an important case."
+            }
+          ],
+          "generalFeedback": "Delete a test when it has negative net value: it is obsolete (its behaviour is gone) or fully redundant (another test covers the same ground identically). Then removal cuts cost without cutting real coverage. Do not delete a test merely because it is slow, brittle, or ugly if it still uniquely guards behaviour that matters — fix or optimise it instead.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Balancing completeness against feedback speed",
+          "text": "<p>How should a team think about the tension between regression completeness (running more tests) and fast feedback (running fewer, sooner)?</p>",
+          "answers": [
+            {
+              "text": "Layer the strategy: fast, high-value selected tests for immediate per-commit feedback, and fuller runs on a broader cadence — accepting a deliberate, managed trade-off rather than a single fixed answer",
+              "fraction": 100,
+              "feedback": "Correct — the balance is managed by layering fast feedback with periodic completeness, tuned to risk."
+            },
+            {
+              "text": "Always maximise completeness by running every test on every change, whatever the wait",
+              "fraction": 0,
+              "feedback": "Ignoring feedback speed slows the whole team and discourages running the suite; the trade-off must be managed, not ignored."
+            },
+            {
+              "text": "Always maximise speed by running the fewest possible tests and never running the full suite",
+              "fraction": 0,
+              "feedback": "Maximising speed alone abandons completeness and lets regressions escape; fuller runs are still needed."
+            },
+            {
+              "text": "There is no trade-off; a good suite is both instant and exhaustive at all times",
+              "fraction": 0,
+              "feedback": "For a large suite these goals genuinely conflict; pretending otherwise leads to either slow feedback or missed coverage."
+            }
+          ],
+          "generalFeedback": "Completeness and speed pull against each other for any large suite, so the answer is a layered, managed trade-off rather than an absolute. Give fast, high-value selected tests to developers on every commit for quick feedback, and run the fuller suite on a wider cadence (nightly, pre-release) to keep completeness. Risk guides what goes in the fast lane. The balance is tuned over time, not solved once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: two tests added \"just in case\"",
+          "text": "<p>Two tests always pass and fail together, exercise the same path, and one was added later \"just in case\". A refactor now requires updating both identically every time. What should you do?</p>",
+          "answers": [
+            {
+              "text": "Recognise the later one as redundant coverage and prune it, keeping the single clearest test for that behaviour",
+              "fraction": 100,
+              "feedback": "Correct — remove the duplicate so the behaviour stays covered once, at half the maintenance."
+            },
+            {
+              "text": "Keep both, because two tests passing is stronger evidence than one",
+              "fraction": 0,
+              "feedback": "Identical tests give the same evidence twice; the second adds cost, not confidence."
+            },
+            {
+              "text": "Delete both, since maintaining either during refactors is inconvenient",
+              "fraction": 0,
+              "feedback": "Deleting both drops the coverage entirely; keep one and prune only the duplicate."
+            },
+            {
+              "text": "Quarantine both as flaky until someone has time to look",
+              "fraction": 0,
+              "feedback": "They are deterministic duplicates, not flaky; quarantine does not apply."
+            }
+          ],
+          "generalFeedback": "Because the two tests always move together and cover the same path, the second provides no signal the first does not, yet it doubles the update cost on every refactor. Prune the redundant one and keep the clearest, highest-value test. Coverage is unchanged; maintenance cost drops.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Do not delete a slow but valuable test",
+          "text": "<p>A slow end-to-end test is the only thing that catches a class of real, costly integration regressions. To speed up the suite, a teammate proposes deleting it. Why is that the wrong move, and what is better?</p>",
+          "answers": [
+            {
+              "text": "It uniquely guards costly real regressions, so deleting it creates a genuine coverage gap; instead optimise it, parallelise it, or move it to a less frequent stage while keeping it",
+              "fraction": 100,
+              "feedback": "Correct — a valuable unique test should be sped up or rescheduled, not deleted, to protect the coverage."
+            },
+            {
+              "text": "Deleting it is fine because any slow test is by definition low-value",
+              "fraction": 0,
+              "feedback": "Slowness does not imply low value; this test uniquely catches expensive regressions and must be kept."
+            },
+            {
+              "text": "Keep it exactly as is and simply accept that no one will run the suite",
+              "fraction": 0,
+              "feedback": "Leaving it unaddressed is what makes the suite too slow to run; optimise or reschedule it instead of ignoring the problem."
+            },
+            {
+              "text": "Replace it with a duplicate unit test that checks the same internal method",
+              "fraction": 0,
+              "feedback": "A unit test on internals does not reproduce the integration coverage this test uniquely provides."
+            }
+          ],
+          "generalFeedback": "Speeding up a suite must not sacrifice coverage that nothing else provides. A slow test that uniquely catches expensive integration regressions is high-value; deleting it trades a manageable runtime problem for real risk. Optimise its setup, run it in parallel, or move it to a pre-merge or nightly stage — but keep the protection. \"Fewer tests\" is never the goal in itself; removing low-value tests is.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compounding cost of deferring maintenance",
+          "text": "<p>A team keeps postponing test-suite maintenance to ship features faster. Following the debt/interest analogy, what is the likely long-run outcome if this continues?</p>",
+          "answers": [
+            {
+              "text": "The cost of every change keeps rising and trust keeps falling, until the accumulated debt forces an expensive clean-up or partial rewrite of the suite",
+              "fraction": 100,
+              "feedback": "Correct — deferred maintenance compounds, so the eventual bill is far larger than paying it down steadily."
+            },
+            {
+              "text": "The suite becomes cheaper to work with over time as debt accumulates",
+              "fraction": 0,
+              "feedback": "Debt makes work more expensive, not cheaper; that is the opposite of the interest effect."
+            },
+            {
+              "text": "The debt is automatically cleared by the next framework upgrade",
+              "fraction": 0,
+              "feedback": "Framework upgrades do not remove flaky, redundant, or coupled tests; the debt persists until addressed."
+            },
+            {
+              "text": "Nothing changes, because test debt has no effect on delivery speed",
+              "fraction": 0,
+              "feedback": "Test debt slows delivery through flaky failures, brittle tests, and slow runs; it does not have no effect."
+            }
+          ],
+          "generalFeedback": "Like unpaid financial debt, deferred test maintenance compounds: flaky, slow, brittle, and redundant tests make each new change slower and riskier, and eroded trust means results are increasingly ignored. Left long enough, the interest dominates, and the team faces a costly clean-up or rewrite. Paying the debt down incrementally — pruning, decoupling, fixing flakiness — is far cheaper than letting it accumulate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rationale for test-impact analysis",
+          "text": "<p>What is the core rationale that makes test-impact analysis (running only the affected subset) a sound way to speed up feedback?</p>",
+          "answers": [
+            {
+              "text": "A change can only affect tests that depend on the changed code, so tests with no dependency on it cannot detect a new regression from that change and can be deferred to a later full run",
+              "fraction": 100,
+              "feedback": "Correct — impact analysis relies on the dependency relationship between the change and the tests it could affect."
+            },
+            {
+              "text": "Tests chosen at random are just as good as impact-selected tests",
+              "fraction": 0,
+              "feedback": "Random selection ignores dependencies and can miss the very tests the change could break; that is not the rationale."
+            },
+            {
+              "text": "The unselected tests are known to be worthless and can be deleted",
+              "fraction": 0,
+              "feedback": "Unselected tests are simply not affected by this change; they remain valuable and run in fuller cycles."
+            },
+            {
+              "text": "Running fewer tests always finds more bugs",
+              "fraction": 0,
+              "feedback": "Running fewer tests does not find more bugs; impact analysis just avoids running tests that cannot be affected right now."
+            }
+          ],
+          "generalFeedback": "Test-impact analysis rests on the dependency structure: a given change can only cause a regression in tests that exercise code reachable from that change. Tests with no such dependency cannot newly fail because of it, so running them on this commit adds latency without adding signal. They are not discarded — they run in periodic full passes to catch effects that the dependency mapping might miss or that come from other changes. The soundness of the approach depends entirely on the accuracy of that mapping.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prune redundancy while preserving confidence",
+          "text": "<p>A large suite is slow and expensive to maintain. Analysis shows heavy duplication but good coverage of critical behaviour. What action best improves the suite's cost-effectiveness?</p>",
+          "answers": [
+            {
+              "text": "Prune the redundant and low-value tests while preserving the tests that uniquely cover critical behaviour, lowering cost at roughly the same confidence",
+              "fraction": 100,
+              "feedback": "Correct — removing duplication without touching unique critical coverage cuts cost while keeping confidence."
+            },
+            {
+              "text": "Add many more tests everywhere, on the principle that more coverage is always safer",
+              "fraction": 0,
+              "feedback": "Piling on more tests when duplication is already the problem raises cost and maintenance without adding confidence."
+            },
+            {
+              "text": "Cut the suite to a fixed small number of tests regardless of what they cover",
+              "fraction": 0,
+              "feedback": "An arbitrary cap could remove unique coverage of critical behaviour; prune by value, not by a blanket number."
+            },
+            {
+              "text": "Delete the tests covering critical behaviour first, since those are the slowest",
+              "fraction": 0,
+              "feedback": "Critical-behaviour tests are the ones you most want to keep; removing them trades cost for serious risk."
+            }
+          ],
+          "generalFeedback": "The balance point is high-value, maintainable coverage, not maximal or minimal test count. When duplication is heavy but critical behaviour is well covered, prune the redundant and low-value tests and keep the unique guards on important behaviour. Confidence stays roughly the same while run time and maintenance fall. Neither \"always add more\" nor \"always cut to a fixed number\" respects the actual value of each test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Risk-based ordering for a hotfix window",
+          "text": "<p>You have a 30-minute window before an urgent hotfix release. The fix touches the payments module. You cannot run the full suite. Which tests should run first?</p>",
+          "answers": [
+            {
+              "text": "The tests covering the changed payments code and its dependents, plus other business-critical or historically defect-prone areas, broadening outward as time allows",
+              "fraction": 100,
+              "feedback": "Correct — prioritise the changed high-value area and its impact, then the next-riskiest areas within the budget."
+            },
+            {
+              "text": "The tests that are known to pass quickly, regardless of what they cover",
+              "fraction": 0,
+              "feedback": "Choosing by speed alone can skip the payments code you just changed — exactly where a regression is most likely."
+            },
+            {
+              "text": "A random slice of the whole suite, to sample everything evenly",
+              "fraction": 0,
+              "feedback": "An even random sample dilutes effort away from the changed, high-risk payments area; prioritise by risk instead."
+            },
+            {
+              "text": "Only the tests unrelated to payments, to avoid disturbing the fix",
+              "fraction": 0,
+              "feedback": "The payments area is precisely what changed and what most needs re-testing; skipping it defeats the purpose."
+            }
+          ],
+          "generalFeedback": "With a hard time-box, spend it where a regression is most likely and most damaging. That starts with the code the fix actually touched (payments) and whatever depends on it, then extends to other business-critical and defect-prone areas as time permits. Risk-based ordering, informed by impact analysis, maximises the chance of catching a serious regression before the release.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Skipping regression on a \"small\" change",
+          "text": "<p>Under deadline pressure, a team considers skipping regression entirely because the change is \"just a small tweak\". Why is this risky, and what is the disciplined alternative?</p>",
+          "answers": [
+            {
+              "text": "Even a small change can break distant behaviour through shared dependencies, so run at least a risk-based / impact-selected subset rather than nothing",
+              "fraction": 100,
+              "feedback": "Correct — small changes still cause regressions; a targeted subset is the disciplined middle ground when full runs will not fit."
+            },
+            {
+              "text": "Small changes can never cause regressions, so skipping is perfectly safe",
+              "fraction": 0,
+              "feedback": "This is false: small changes frequently break unexpected areas via shared code and dependencies."
+            },
+            {
+              "text": "The only safe option is always to run the entire suite, so ship without any tests if it will not fit",
+              "fraction": 0,
+              "feedback": "An all-or-nothing view leads to shipping untested; an impact-selected or risk-based subset is a sound partial run."
+            },
+            {
+              "text": "Skip regression but delete the tests too, so they stop slowing future releases",
+              "fraction": 0,
+              "feedback": "Deleting tests to dodge a deadline destroys real coverage; run a targeted subset now and keep the tests."
+            }
+          ],
+          "generalFeedback": "Size is a poor predictor of blast radius: a one-line change can regress far-away behaviour through shared code, configuration, or data. Skipping regression removes the safety net and invites an escaped defect. When the full suite will not fit the window, run an impact-selected or risk-based subset centred on the change and the highest-risk areas — some disciplined coverage beats none, and it beats deleting tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why selection still needs periodic full runs",
+          "text": "<p>A team relies on per-commit test selection for speed. Why must they still run the complete suite periodically rather than trusting selection alone forever?</p>",
+          "answers": [
+            {
+              "text": "The change-to-test dependency mapping can be incomplete or inaccurate (dynamic dependencies, configuration, integration effects), so selection can miss an affected test; periodic full runs are the safety net",
+              "fraction": 100,
+              "feedback": "Correct — selection is only as safe as its dependency mapping, so full runs catch what the mapping misses."
+            },
+            {
+              "text": "Because the unselected tests silently rot and stop compiling unless run every commit",
+              "fraction": 0,
+              "feedback": "Tests do not rot simply from not running each commit; the real reason is that the impact mapping can be imperfect."
+            },
+            {
+              "text": "Because a full run is always faster than a selected run",
+              "fraction": 0,
+              "feedback": "A full run is generally slower, not faster; that is why selection is used per commit in the first place."
+            },
+            {
+              "text": "Because selection tools are required by law to be re-validated daily",
+              "fraction": 0,
+              "feedback": "There is no such legal requirement; the reason is the possible inaccuracy of the dependency mapping."
+            }
+          ],
+          "generalFeedback": "Test-impact selection is sound only to the extent its dependency mapping is complete. Real systems have dependencies that static analysis can miss — reflection and dynamic dispatch, configuration and data, cross-service integration effects — so a change can affect a test that selection did not pick. Periodic full runs (nightly, pre-release) act as the safety net that catches anything the per-commit mapping overlooked, keeping the speed of selection without giving up completeness.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是回歸測試",
+          "text": "<p><em>回歸測試（regression testing）</em>最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "在變更之後重新執行既有測試，以確認先前能正常運作的行為仍然正常",
+              "fraction": 100,
+              "feedback": "正確——回歸測試就是要防止某項變更破壞（regress）原本可運作的功能。"
+            },
+            {
+              "text": "為一項從未被測過的新功能撰寫全新的測試",
+              "fraction": 0,
+              "feedback": "那是在測試新功能；回歸測試則是重新檢查原本已可運作的行為。"
+            },
+            {
+              "text": "衡量測試執行到多少行的產品程式碼",
+              "fraction": 0,
+              "feedback": "那描述的是程式碼覆蓋率，不是回歸測試。"
+            },
+            {
+              "text": "在版本發佈後刪除舊測試",
+              "fraction": 0,
+              "feedback": "移除測試是一種維護動作，並不是回歸測試的定義。"
+            }
+          ],
+          "generalFeedback": "回歸測試會在任何變更（新功能、修錯、重構）之後，重新執行一批既有測試，以驗證先前通過的功能沒有被破壞。所謂「回歸」正是指缺陷重新出現，或原本可運作的行為被弄壞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是回歸測試套件",
+          "text": "<p><em>回歸測試套件（regression test suite）</em>是：</p>",
+          "answers": [
+            {
+              "text": "歷經過去多次發佈而累積下來、會被重新執行以保護既有行為的整組測試",
+              "fraction": 100,
+              "feedback": "正確——它是被保留並反覆執行、用來抓出回歸問題的持續成長測試集合。"
+            },
+            {
+              "text": "每次發佈都重寫一次、用完即丟的單一測試",
+              "fraction": 0,
+              "feedback": "回歸套件會被長期保留並反覆執行，不是用完即丟的單一測試。"
+            },
+            {
+              "text": "一份無論如何都絕不會被自動化的手動步驟清單",
+              "fraction": 0,
+              "feedback": "回歸套件通常會被自動化；自動化其實正是面對套件成長時的常見對策。"
+            },
+            {
+              "text": "尚未被實作的那部分需求",
+              "fraction": 0,
+              "feedback": "那是尚未開發功能的待辦清單，不是測試套件。"
+            }
+          ],
+          "generalFeedback": "回歸套件是歷次發佈累積下來、被重新執行以確認既有行為仍成立的整組測試。由於它會隨著新功能加入而變大，於是成為回歸測試必須反覆執行的主要工作量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "回歸測試集為何會變大",
+          "text": "<p>為什麼回歸測試集往往會隨著每次發佈而變得更大？</p>",
+          "answers": [
+            {
+              "text": "每次發佈都新增功能（及其測試），而這些測試會被保留下來，與先前所有測試一起重新執行",
+              "fraction": 100,
+              "feedback": "正確——套件會不斷累積：新增測試的同時保留舊測試，以持續保護過去的行為。"
+            },
+            {
+              "text": "測試檔案會在兩次發佈之間自動變成兩倍大",
+              "fraction": 0,
+              "feedback": "測試不會自己長大；套件變大是因為團隊持續新增並保留測試。"
+            },
+            {
+              "text": "測試框架要求每次發佈都把每個測試複製一份",
+              "fraction": 0,
+              "feedback": "沒有框架會要求每次發佈都複製；成長來自累積新功能的測試。"
+            },
+            {
+              "text": "刪除功能一定會加入比移除更多的測試",
+              "fraction": 0,
+              "feedback": "移除功能理應能一併移除其測試；成長是由新增功能驅動，而非刪除功能。"
+            }
+          ],
+          "generalFeedback": "隨著產品歷經多次發佈而累積功能，為每個功能撰寫的測試會被保留並持續執行，以保護該行為。於是回歸集會穩定累積。正是這種累積，使得純手動的回歸測試隨時間變得越來越慢、越來越昂貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是測試（技術）債",
+          "text": "<p>在測試套件的脈絡中，<em>測試技術債（test technical debt）</em>指的是：</p>",
+          "answers": [
+            {
+              "text": "測試套件中累積的問題——脆弱不穩、緩慢、重複、過時或與實作緊耦合的測試——會抬高維護成本並侵蝕信任",
+              "fraction": 100,
+              "feedback": "正確——測試債是測試本身累積的品質問題，會持續產生成本。"
+            },
+            {
+              "text": "尚待為未開發功能撰寫的測試數量",
+              "fraction": 0,
+              "feedback": "那是覆蓋缺口或待辦；測試債指的是你已有測試中的問題。"
+            },
+            {
+              "text": "因某測試工具授權而積欠第三方的款項",
+              "fraction": 0,
+              "feedback": "測試債是對累積品質問題的比喻，並非真正的財務負債。"
+            },
+            {
+              "text": "測試套件執行所花的秒數",
+              "fraction": 0,
+              "feedback": "執行時間只是其中一種症狀；測試債是更廣泛的累積套件問題，而非單一時間數字。"
+            }
+          ],
+          "generalFeedback": "如同產品程式碼的技術債，測試債是測試套件中抄捷徑與疏於維護所累積的結果：脆弱不穩的測試、緩慢的測試、重複或過時的測試，以及與實作緊耦合的測試。它會悄悄抬高日後每次變更的成本，並且如同債務，拖越久「利息」越高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是脆弱不穩的測試",
+          "text": "<p><em>脆弱不穩的測試（flaky test）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "在完全相同的程式碼上，未對受測對象做任何改動，卻時而通過、時而失敗（非決定性）",
+              "fraction": 100,
+              "feedback": "正確——flakiness 是在未變更的程式碼上出現不一致、非決定性的結果。"
+            },
+            {
+              "text": "每次都一致地失敗，直到某個真正的錯誤被修好",
+              "fraction": 0,
+              "feedback": "那是決定性、可重現的失敗——通常是真正的缺陷——而非 flakiness。"
+            },
+            {
+              "text": "執行時間比套件裡的平均測試更久",
+              "fraction": 0,
+              "feedback": "那描述的是緩慢的測試；flakiness 指的是不一致的通過／失敗結果。"
+            },
+            {
+              "text": "重複了另一個既有測試的斷言",
+              "fraction": 0,
+              "feedback": "那描述的是重複測試；flakiness 是非決定性，而非重複。"
+            }
+          ],
+          "generalFeedback": "脆弱不穩的測試即使程式碼與輸入都沒變，也會在不同次執行給出不同判定。這類測試是測試債的重要形式：它們的假警報浪費時間，更糟的是侵蝕信任，使真正的失敗開始被當成「只是 flaky」而被忽視。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "緩慢的測試為何是問題",
+          "text": "<p>在測試債的脈絡下，為什麼<em>緩慢</em>的測試被視為問題？</p>",
+          "answers": [
+            {
+              "text": "它們拉長回饋迴圈，使套件被執行的次數變少，缺陷因而更晚才被發現",
+              "fraction": 100,
+              "feedback": "正確——緩慢的套件延遲回饋、讓人不願頻繁執行，這正是其核心成本。"
+            },
+            {
+              "text": "它們一定會產生錯誤的結果",
+              "fraction": 0,
+              "feedback": "緩慢指的是耗時，與正確性無關；緩慢的測試仍可完全正確。"
+            },
+            {
+              "text": "它們只能執行一次然後就必須刪除",
+              "fraction": 0,
+              "feedback": "緩慢的測試可以重新執行；問題在於它們造成的延遲，而非只能跑一次。"
+            },
+            {
+              "text": "它們會自動使其他測試變得脆弱不穩",
+              "fraction": 0,
+              "feedback": "緩慢本身不會造成 flakiness；問題在於被延遲、且讓人不願執行的回饋。"
+            }
+          ],
+          "generalFeedback": "自動化套件的重點就是快速回饋。緩慢的回歸套件拉長了「變更」到「判定」之間的時間，於是開發者更少執行、把更多變更累積在一起，結果更晚才發現破壞，修起來也更貴。因此保持測試快速是管理測試債的核心一環。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是重複的測試",
+          "text": "<p><em>重複（多餘）的測試</em>是指：</p>",
+          "answers": [
+            {
+              "text": "驗證與另一個測試相同的行為、會因相同原因失敗，增加維護成本卻未增加信心",
+              "fraction": 100,
+              "feedback": "正確——重複測試覆蓋的是已被覆蓋的範圍，因此有維護成本卻沒有新訊號。"
+            },
+            {
+              "text": "檢查了沒有其他測試檢查的行為",
+              "fraction": 0,
+              "feedback": "那是獨特而有價值的測試——與重複恰好相反。"
+            },
+            {
+              "text": "在不同次執行間非決定性地失敗",
+              "fraction": 0,
+              "feedback": "那描述的是脆弱不穩的測試，而非重複的測試。"
+            },
+            {
+              "text": "測試一個已從產品中移除的功能",
+              "fraction": 0,
+              "feedback": "那描述的是過時的測試；重複測試是對仍存在行為的覆蓋重疊。"
+            }
+          ],
+          "generalFeedback": "重複測試與另一個測試如此完全重疊，以致兩者會因相同原因一起通過、一起失敗。它仍需被閱讀、維護，並在每次重構時更新，卻沒有為套件增加任何原本沒有的覆蓋。重疊覆蓋是測試債的典型形式，也是刪修（pruning）的首要對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是過時的測試",
+          "text": "<p><em>過時（無用）的測試</em>是指：</p>",
+          "answers": [
+            {
+              "text": "驗證產品中已不再存在的行為或功能，因此不再保護任何真實事物",
+              "fraction": 100,
+              "feedback": "正確——過時的測試守著已被移除或已改掉的行為，因此毫無收益。"
+            },
+            {
+              "text": "用比套件其餘部分更舊的程式語言撰寫",
+              "fraction": 0,
+              "feedback": "語言的新舊無關；過時指的是被測行為已不復存在。"
+            },
+            {
+              "text": "執行起來比較新的測試更慢",
+              "fraction": 0,
+              "feedback": "那描述的是緩慢的測試；過時指的是它針對的是已移除或已改掉的行為。"
+            },
+            {
+              "text": "隨機地通過與失敗",
+              "fraction": 0,
+              "feedback": "那描述的是 flakiness；過時的測試針對的是已不存在的行為。"
+            }
+          ],
+          "generalFeedback": "過時的測試檢查的是產品已不再做的事——被移除的功能、舊的契約、已退役的程式路徑。它不提供任何保護，卻仍需維護，甚至可能阻擋合理的變更。過時的測試是沉重的無用負擔，應在套件維護時移除。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "與實作緊耦合的測試",
+          "text": "<p>一個<em>與實作緊耦合</em>的測試之所以有問題，是因為它：</p>",
+          "answers": [
+            {
+              "text": "即使可觀察的行為並未改變，只要內部細節被重構就會失敗",
+              "fraction": 100,
+              "feedback": "正確——耦合到內部使測試變脆弱：無害的重構就會觸發假失敗。"
+            },
+            {
+              "text": "只會一直通過、永遠無法偵測到任何缺陷",
+              "fraction": 0,
+              "feedback": "那描述的是恆真或空洞的測試；與實作耦合的測試其實會失敗——而且太容易，一重構就失敗。"
+            },
+            {
+              "text": "執行速度比聚焦行為的測試更快",
+              "fraction": 0,
+              "feedback": "速度不是問題所在；問題在於重構時的脆弱性。"
+            },
+            {
+              "text": "無法在單元測試框架中撰寫",
+              "fraction": 0,
+              "feedback": "這類測試很容易寫——這正是陷阱：它們是脆弱，而非不可能寫。"
+            }
+          ],
+          "generalFeedback": "當測試針對私有內部——特定的方法呼叫、內部資料結構、確切的中間值——做斷言時，只要那些內部改變，無論對外可觀察的行為是否仍正確，測試都會失敗。這種脆弱性使每次重構都變貴，是測試債的知名形式。對策是透過公開介面測試行為，而非測試內部。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要自動化回歸測試",
+          "text": "<p>隨著功能累積，團隊為何要把回歸測試自動化？</p>",
+          "answers": [
+            {
+              "text": "因為每次發佈都用人工重跑整個不斷成長的套件，會變得太慢、太貴而無法持續",
+              "fraction": 100,
+              "feedback": "正確——手動回歸無法隨套件成長而擴展，所以自動化才能讓每次迭代都做得起。"
+            },
+            {
+              "text": "因為自動化測試之後就完全不需要任何維護",
+              "fraction": 0,
+              "feedback": "自動化測試仍需維護；自動化解決的是反覆執行的成本，而非維護。"
+            },
+            {
+              "text": "因為自動化保證軟體零缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何測試能保證零缺陷；自動化讓頻繁的回歸執行變得可行，並非完美無缺。"
+            },
+            {
+              "text": "因為在專業軟體中進行手動測試是違法的",
+              "fraction": 0,
+              "feedback": "手動測試合法且常有用；它只是無法在大量反覆的回歸執行上擴展。"
+            }
+          ],
+          "generalFeedback": "每次發佈都會加入必須重跑以保護既有行為的測試。用人工反覆執行只會越來越久，直到在一個迭代內做不完。把回歸自動化，能讓套件被便宜且反覆地執行——需要的話甚至每次 commit 都跑——使不斷成長的測試集仍執行得起。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是測試選擇",
+          "text": "<p><em>測試選擇（test selection，或稱 test-impact analysis）</em>意指：</p>",
+          "answers": [
+            {
+              "text": "只執行受某次變更影響的那部分測試，而非整個套件",
+              "fraction": 100,
+              "feedback": "正確——選擇會把執行範圍縮小到與變更相關的測試。"
+            },
+            {
+              "text": "刪除所有不屬於最新功能的測試",
+              "fraction": 0,
+              "feedback": "選擇是決定這次要執行哪些測試，並不刪除其他測試。"
+            },
+            {
+              "text": "決定由哪位開發者撰寫每個測試",
+              "fraction": 0,
+              "feedback": "那是工作分派，不是測試選擇。"
+            },
+            {
+              "text": "不論變更為何，每次都隨機挑套件的一半來跑",
+              "fraction": 0,
+              "feedback": "選擇是由變更所影響的範圍驅動，而非隨機抽樣。"
+            }
+          ],
+          "generalFeedback": "測試選擇（或稱 test-impact analysis）會把一次程式碼變更對應到（透過相依關係）可能受其影響的測試，並只執行那一部分。當每次變更都跑整個套件太慢時，它能維持快速回饋，同時不丟棄未被選中的測試——那些測試會在更完整的週期中執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是風險導向回歸",
+          "text": "<p><em>風險導向回歸測試（risk-based regression testing）</em>意指：</p>",
+          "answers": [
+            {
+              "text": "當沒有足夠時間全部執行時，優先測試風險最高、變動最多、價值最高的區域",
+              "fraction": 100,
+              "feedback": "正確——風險導向回歸把有限的測試時間花在失敗代價最大的地方。"
+            },
+            {
+              "text": "只測試系統中風險最低的部分",
+              "fraction": 0,
+              "feedback": "那正好相反；風險導向回歸會優先集中在風險最高的區域。"
+            },
+            {
+              "text": "以隨機順序執行測試，以揭露隱藏的相依性",
+              "fraction": 0,
+              "feedback": "那是為了偵測 flakiness 的隨機排序，不是風險導向的優先排序。"
+            },
+            {
+              "text": "移除所有有風險的功能，這樣就不需要回歸測試",
+              "fraction": 0,
+              "feedback": "風險導向回歸是優先「測試」風險區域，並非移除功能。"
+            }
+          ],
+          "generalFeedback": "當你無法在可用時間內跑完整個回歸套件時，風險導向回歸會依風險排序要跑什麼：近期變動的區域、對業務關鍵或高價值的區域、以及有缺陷歷史的區域優先。它在有限的測試預算下，把抓到重要回歸的機會最大化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識測試債的症狀",
+          "text": "<p>下列何者是套件中測試債的明確<em>症狀</em>？</p>",
+          "answers": [
+            {
+              "text": "開發者習慣性地把紅燈建置重跑而不去看，因為失敗通常「只是 flaky」",
+              "fraction": 100,
+              "feedback": "正確——把 flaky 失敗視為常態、信任被侵蝕，正是測試債的招牌症狀。"
+            },
+            {
+              "text": "每個測試檢查不同的行為，且套件執行迅速",
+              "fraction": 0,
+              "feedback": "那描述的是健康的套件，而非帶有債務的套件。"
+            },
+            {
+              "text": "新功能都附帶聚焦且有維護的測試",
+              "fraction": 0,
+              "feedback": "維護良好的測試是健康的徵兆，不是債務的徵兆。"
+            },
+            {
+              "text": "套件能及早抓到真正的回歸，且受團隊信任",
+              "fraction": 0,
+              "feedback": "受信任、有效的套件與帶債的套件恰好相反。"
+            }
+          ],
+          "generalFeedback": "測試債的症狀包括：長期 flakiness 與信任被侵蝕（紅燈被聳肩帶過）、套件慢到很少被執行、測試一重構就壞、以及大量重複或過時的測試。當人們不再信任或不再看結果時，套件就已停止發揮作用——這是明確的警訊。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "測試越多不一定越好",
+          "text": "<p>增加更多測試一定會讓套件更好，所以較大的套件永遠優於較小的套件。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——重複或低價值的測試增加維護成本卻不增加信心，所以更大並不自動更好。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：重複覆蓋或檢查不到任何有價值東西的測試，會付出維護成本卻沒有新訊號，所以更多不一定更好。"
+            }
+          ],
+          "generalFeedback": "每個測試都有持有成本：它要被執行、被維護，並在重構時更新。重複或低價值的測試付出這些成本，卻沒為套件帶來任何原本沒有的信心。目標是高價值、易維護的覆蓋——而非盡可能多的測試數量。"
+        },
+        {
+          "type": "truefalse",
+          "name": "略過回歸會導致缺陷外漏",
+          "text": "<p>若為了省時間而略過回歸測試，被重新引入的缺陷可能未被發現就流入已發佈的產品。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——沒有回歸測試，破壞先前可運作行為的變更就可能悄悄上線。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這是錯的：略過回歸就移除了安全網，被重新引入或新弄壞的行為可能未被察覺就到達使用者手中。"
+            }
+          ],
+          "generalFeedback": "回歸測試的存在，是為了抓出被某次變更弄壞的行為。略過它，就沒有東西能提醒你某個修正或重構把舊功能又弄壞了，於是缺陷外漏到正式環境。這正是為什麼「不斷升高的手動成本」是個值得用自動化解決的問題，而不是靠放棄回歸覆蓋來解決。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "手動回歸為何無法擴展",
+          "text": "<p>某團隊每次發佈都用人工執行整個回歸套件。隨著產品歷經多次發佈而成長，為什麼這變得無法持續？</p>",
+          "answers": [
+            {
+              "text": "人工投入會隨每個新增功能而增加，因此每次發佈的回歸測試都更久、更貴，最終塞不進一個迭代",
+              "fraction": 100,
+              "feedback": "正確——手動回歸成本隨累積的套件上升，終將超出可用時間。"
+            },
+            {
+              "text": "手動測試人員越有經驗，準確度反而越低",
+              "fraction": 0,
+              "feedback": "經驗不會降低準確度；真正的問題是要人工反覆執行的測試量不斷變大。"
+            },
+            {
+              "text": "產品程式碼會隨時間縮小，最後沒東西可測",
+              "fraction": 0,
+              "feedback": "程式碼通常會成長而非縮小；正是這種成長使手動回歸暴增。"
+            },
+            {
+              "text": "手動測試保證能找出每一個缺陷，因而浪費時間",
+              "fraction": 0,
+              "feedback": "手動測試並不會找出每個缺陷；問題在於不斷升高的反覆投入，而非成效過好。"
+            }
+          ],
+          "generalFeedback": "回歸成本大致與套件規模成正比，而套件會隨每次發佈累積。因此每次迭代都用人工重跑全部，會花越來越多時間與金錢，最終在發佈期限內做不完。標準對策是把回歸自動化，讓反覆執行變得便宜。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：兩個測試、相同路徑與斷言",
+          "text": "<p>兩個測試以相同設定執行完全相同的程式路徑，並斷言相同結果；它們總是一起通過或一起失敗。這是哪一種測試債的異味？</p>",
+          "answers": [
+            {
+              "text": "重複／多餘的覆蓋",
+              "fraction": 100,
+              "feedback": "正確——它們覆蓋相同範圍、給出相同訊號，因此其中之一是重複的覆蓋。"
+            },
+            {
+              "text": "脆弱不穩（flakiness）",
+              "fraction": 0,
+              "feedback": "它們表現為決定性（總是一起），而此處並未描述 flakiness 的非決定性變動。"
+            },
+            {
+              "text": "過時的測試",
+              "fraction": 0,
+              "feedback": "沒有跡象顯示被測行為已被移除；此異味是重複，而非過時。"
+            },
+            {
+              "text": "與實作耦合",
+              "fraction": 0,
+              "feedback": "問題不在於重構時的脆弱，而在於兩個測試以相同方式覆蓋相同行為。"
+            }
+          ],
+          "generalFeedback": "當兩個測試總是因相同原因一起通過、一起失敗時，第二個並未提供第一個所沒有的覆蓋。這就是重複覆蓋：它為單一訊號付出雙倍維護。對策是刪修到較高價值的那一個，移除重複者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：每次無害重構都會壞",
+          "text": "<p>某測試每當一個類別的內部被重構就失敗，即使其對外可觀察的行為並未改變。這是哪一種異味？</p>",
+          "answers": [
+            {
+              "text": "與實作緊耦合的脆弱測試",
+              "fraction": 100,
+              "feedback": "正確——對內部做斷言使測試在保持行為的重構下也會壞。"
+            },
+            {
+              "text": "過時的測試",
+              "fraction": 0,
+              "feedback": "被測行為仍存在；此測試是脆弱，而非過時。"
+            },
+            {
+              "text": "緩慢的測試",
+              "fraction": 0,
+              "feedback": "此處與執行時間無關；異味是來自實作耦合的脆弱性。"
+            },
+            {
+              "text": "重複的測試",
+              "fraction": 0,
+              "feedback": "並未描述任何重複；問題在於耦合到內部細節。"
+            }
+          ],
+          "generalFeedback": "在行為未變的情況下、卻因內部重構而壞的測試，是耦合到實作細節而非可觀察行為。它恰好懲罰了你想鼓勵的重構。對策是針對公開契約與可觀察結果做斷言，如此測試只有在行為真正改變時才失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：測試已移除的功能",
+          "text": "<p>某測試仍在檢查兩個版本前就已從產品移除的「郵寄折扣」功能。這是哪一種異味？</p>",
+          "answers": [
+            {
+              "text": "過時（無用）的測試",
+              "fraction": 100,
+              "feedback": "正確——它守著已不存在的行為，因此不保護任何事物。"
+            },
+            {
+              "text": "脆弱不穩的測試",
+              "fraction": 0,
+              "feedback": "沒有跡象顯示非決定性結果；它針對的行為已被移除，因此屬於過時。"
+            },
+            {
+              "text": "重複的測試",
+              "fraction": 0,
+              "feedback": "重複是對仍存在覆蓋的重疊；此處功能已完全消失，因此是過時。"
+            },
+            {
+              "text": "與實作耦合的測試",
+              "fraction": 0,
+              "feedback": "問題不在於重構時的脆弱，而在於該功能已完全不存在。"
+            }
+          ],
+          "generalFeedback": "針對已被移除功能的測試無法再保護任何真實事物。它最好的情況是維護上的無用負擔；最壞的情況是逼你加上尷尬的樁（stub）或阻擋清理。這類過時測試應在例行套件維護時刪除。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "重複覆蓋的對策",
+          "text": "<p>你確認有數個測試對相同行為提供重疊、重複的覆蓋。適當的對策是什麼？</p>",
+          "answers": [
+            {
+              "text": "去重——保留最清楚、價值最高的測試，並刪修掉重複者",
+              "fraction": 100,
+              "feedback": "正確——移除重複者，行為仍被覆蓋一次，維護成本卻降低。"
+            },
+            {
+              "text": "全部保留，因為測試越多一定越安全",
+              "fraction": 0,
+              "feedback": "重複者增加維護卻沒有新訊號；全部保留只是抬高維護成本。"
+            },
+            {
+              "text": "為每個重複者加上自動重試",
+              "fraction": 0,
+              "feedback": "重試處理的是 flakiness，而非重複；重複的對策是移除多餘者。"
+            },
+            {
+              "text": "刪除所有觸及該行為的測試，包括那個獨特的",
+              "fraction": 0,
+              "feedback": "那會完全丟掉覆蓋；你應保留一個好測試，只刪修重複者。"
+            }
+          ],
+          "generalFeedback": "重複測試為你已擁有的訊號付出維護成本。整併之：保留對該行為最清楚、最有價值的單一測試，移除其餘。行為的覆蓋被保留，而重複者的持續成本消失。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "脆弱、與實作耦合測試的對策",
+          "text": "<p>一個有用的測試因為對私有內部狀態做斷言，於是不斷在重構時失敗。你應如何處理？</p>",
+          "answers": [
+            {
+              "text": "使它與內部解耦——改寫成透過公開介面測試可觀察的行為",
+              "fraction": 100,
+              "feedback": "正確——測試行為而非內部，能使測試在保持行為的重構下維持穩定。"
+            },
+            {
+              "text": "刪掉它，因為任何曾經失敗的測試都不值得保留",
+              "fraction": 0,
+              "feedback": "它檢查的行為有價值；應使其解耦，而非丟掉覆蓋。"
+            },
+            {
+              "text": "凍結程式碼，讓它再也不能被重構",
+              "fraction": 0,
+              "feedback": "為了保護一個脆弱測試而封鎖重構，是本末倒置；應修好測試以允許安全重構。"
+            },
+            {
+              "text": "在斷言前加一個固定的 sleep",
+              "fraction": 0,
+              "feedback": "sleep 處理的是時序 flakiness，而非對內部的耦合；應針對公開契約改寫測試。"
+            }
+          ],
+          "generalFeedback": "測試的價值在於它所守護的行為，所以保留它——但把斷言移到公開介面與可觀察結果。如此它只有在行為真正改變時才失敗，內部重構便不再觸發假失敗。測試行為而非結構，是脆弱性的持久解方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "過時測試的對策",
+          "text": "<p>你確認某測試針對的功能已被完全移除，且再也無法對任何真實事物執行。你應該怎麼做？</p>",
+          "answers": [
+            {
+              "text": "刪除它——過時的測試不保護任何事物，只增加維護成本",
+              "fraction": 100,
+              "feedback": "正確——當行為已永久消失，移除其測試是正確的維護，而非丟失覆蓋。"
+            },
+            {
+              "text": "永遠停用它「以防」功能哪天回來",
+              "fraction": 0,
+              "feedback": "永久停用的測試是無用負擔與過時的提醒；若功能回來，屆時再寫一個新的測試。"
+            },
+            {
+              "text": "改寫它的斷言，讓它去驗證不相干的行為而通過",
+              "fraction": 0,
+              "feedback": "把它挪去測別的東西會混淆意圖；刪除過時測試，並在需要處寫清楚的新測試。"
+            },
+            {
+              "text": "把它隔離（quarantine）並當作 flaky 追蹤",
+              "fraction": 0,
+              "feedback": "隔離是給你打算修好的 flaky 測試用的；過時測試沒有東西可修，應予移除。"
+            }
+          ],
+          "generalFeedback": "過時的測試守著已不存在的行為，因此刪除它並未移除任何真實覆蓋——移除的是無用負擔。因為此移除是刻意的、且行為已消失，這正是刪除測試為正確之舉、而非損失的時刻。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時間受限時的測試選擇",
+          "text": "<p>現在每次 commit 都跑整個套件已太久，無法快速回饋。哪種技術能維持每次 commit 的快速回饋，又不放棄其他測試？</p>",
+          "answers": [
+            {
+              "text": "測試選擇／test-impact analysis——執行受該 commit 影響的子集，並以較低頻率執行較完整的套件",
+              "fraction": 100,
+              "feedback": "正確——選出受影響子集能快速回饋，其餘測試仍以更廣的節奏執行。"
+            },
+            {
+              "text": "永久刪除這次 commit 未觸及的測試",
+              "fraction": 0,
+              "feedback": "選擇是決定現在跑什麼；它不刪除未被選中的測試，那些仍守護其他行為。"
+            },
+            {
+              "text": "停用慢測試中的斷言，讓它們更快跑完",
+              "fraction": 0,
+              "feedback": "移除斷言會讓測試變得毫無價值；選擇是改為執行相關子集。"
+            },
+            {
+              "text": "不論變更為何，每次 commit 固定隨機跑 10% 的測試",
+              "fraction": 0,
+              "feedback": "盲目隨機抽樣忽略了實際變更；基於影響的選擇會鎖定受影響的測試。"
+            }
+          ],
+          "generalFeedback": "test-impact analysis 會把每次變更對應到（透過相依）可能受影響的測試，並只在該 commit 上跑那些，給出快速且相關的回饋。未被選中的測試不會被丟棄——它們在每晚或合併前的完整執行中跑。如此在快速回饋與整體覆蓋之間取得平衡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "期限下的風險導向選擇",
+          "text": "<p>發佈前你只有時間執行部分回歸套件。你應依什麼基準來選擇要跑什麼？</p>",
+          "answers": [
+            {
+              "text": "依風險——優先執行近期變動、對業務關鍵、或有缺陷歷史的區域",
+              "fraction": 100,
+              "feedback": "正確——風險導向選擇把有限預算花在回歸最可能發生且傷害最大的地方。"
+            },
+            {
+              "text": "就按字母順序從最前面開始跑，跑到沒時間為止",
+              "fraction": 0,
+              "feedback": "字母順序與風險無關；它可能完全略過最重要的區域。"
+            },
+            {
+              "text": "只跑那些已知會通過的測試",
+              "fraction": 0,
+              "feedback": "執行你預期會通過的測試收穫甚微；你要的是失敗會造成重大影響的高風險區域。"
+            },
+            {
+              "text": "只跑最快的測試，不管它們覆蓋什麼",
+              "fraction": 0,
+              "feedback": "單看速度忽略了重要性；覆蓋瑣碎區域的快測試，可能遠不如較慢的關鍵測試有價值。"
+            }
+          ],
+          "generalFeedback": "當你無法全部執行時，依風險排序：近期變動的程式碼、高價值或業務關鍵的功能、以及歷來易出缺陷的模組優先。這把有限的測試時間集中在外漏回歸最可能發生且代價最高之處。（速度可作為在時間內多塞幾個的加分因素，但不是主要基準。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何測試越多不一定越好",
+          "text": "<p>某同事主張套件永遠不該縮小，因為「每個額外的測試都是額外的安全」。這個推理為何有瑕疵？</p>",
+          "answers": [
+            {
+              "text": "重複與低價值的測試增加執行時間與維護成本，卻沒有增加套件原本沒有的信心",
+              "fraction": 100,
+              "feedback": "正確——測試唯有能增加訊號時才有幫助，否則只是純成本。"
+            },
+            {
+              "text": "因為測試套件有框架強制的硬性最大規模",
+              "fraction": 0,
+              "feedback": "並無此固定上限；真正的問題是付出成本卻無新價值，而非規模上限。"
+            },
+            {
+              "text": "因為額外的測試一定會使其餘測試變 flaky",
+              "fraction": 0,
+              "feedback": "增加測試本質上不會造成 flakiness；瑕疵在於為零新訊號付出維護成本。"
+            },
+            {
+              "text": "因為覆蓋率工具在超過某測試數量後就拒絕回報",
+              "fraction": 0,
+              "feedback": "覆蓋率工具不會限制測試數量；重點是重複測試付出成本卻不增加信心。"
+            }
+          ],
+          "generalFeedback": "測試唯有能抓到其餘套件會漏掉的失敗時，才值得保留。重複或低價值的測試提供不了這種新訊號，卻仍消耗執行時間、且每次重構都要維護與更新。所以超過某個程度後，增加測試只抬高成本而不抬高信心——這正是為何刪修低價值測試能改善套件。（這並不代表越少越好：你仍需對重要行為有足夠的覆蓋。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "套件中脆弱測試的對策",
+          "text": "<p>一個回歸測試在未變更的程式碼上間歇性失敗，並開始侵蝕團隊對套件的信任。負責任的對策是什麼？</p>",
+          "answers": [
+            {
+              "text": "診斷並修好根本原因；若無法立即完成，就把它從阻擋性關卡隔離出來，同時追蹤以待修復",
+              "fraction": 100,
+              "feedback": "正確——修好 flakiness，或在可見且被追蹤的前提下加以圍堵，而不是任它侵蝕信任。"
+            },
+            {
+              "text": "設定流水線悄悄重跑它直到通過，並回報綠燈",
+              "fraction": 0,
+              "feedback": "盲目重試到綠燈也可能掩蓋真正的間歇性錯誤，且 flakiness 依然存在；這不是負責任的修法。"
+            },
+            {
+              "text": "忽略它，因為 flaky 失敗從不由真正的錯誤造成",
+              "fraction": 0,
+              "feedback": "有些間歇性失敗確實暴露真正的錯誤（競態、邊界情況）；忽略它很危險。"
+            },
+            {
+              "text": "讓它繼續間歇失敗，好讓團隊保持警覺",
+              "fraction": 0,
+              "feedback": "長期假警報只會相反——訓練團隊忽略紅燈建置。"
+            }
+          ],
+          "generalFeedback": "脆弱測試是一種測試債，會侵蝕對整個套件的信任。正確回應是找出並修好非決定性的來源。若無法立即修好，就把它從會阻擋合併的關卡隔離出來，但保留在有負責人與期限的追蹤清單上，如此既圍堵又不被遺忘。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "緩慢套件的首要對策",
+          "text": "<p>你的回歸套件已慢到開發者不願執行。哪一組動作最能處理這個緩慢問題？</p>",
+          "answers": [
+            {
+              "text": "平行化執行、加速最慢的測試，並刪修掉不增加覆蓋的重複測試",
+              "fraction": 100,
+              "feedback": "正確——這些直接針對執行時間下手，同時保留真正重要的覆蓋。"
+            },
+            {
+              "text": "隨機刪除一批測試，直到套件夠快為止",
+              "fraction": 0,
+              "feedback": "隨機刪除犧牲真實覆蓋；應刻意刪修重複，並加速其餘測試。"
+            },
+            {
+              "text": "停用最慢測試中的斷言，讓它們瞬間完成",
+              "fraction": 0,
+              "feedback": "沒有斷言的測試什麼都不驗證；那不是加速，而是覆蓋的損失。"
+            },
+            {
+              "text": "完全停止跑回歸，改靠人工抽查",
+              "fraction": 0,
+              "feedback": "放棄回歸會招致缺陷外漏；目標是讓套件變快，而非放棄它。"
+            }
+          ],
+          "generalFeedback": "緩慢的修法是砍掉真實時間而不砍掉真實覆蓋：平行執行測試、最佳化或重新界定最慢的測試（例如在適當處以較快、較窄的測試取代笨重的端對端設定），並移除確實重複的測試。測試選擇還能進一步縮短每次 commit 的回饋。刪除有價值的測試或停用斷言只是拿速度換走保護。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何每次迭代都要保持測試快速",
+          "text": "<p>在迭代式流程中，為什麼保持回歸套件快速是一項持續性的優先事項，而非一次性的工作？</p>",
+          "answers": [
+            {
+              "text": "因為快速回饋讓套件能被頻繁執行（甚至每次 commit），在回歸最便宜修復的時候及早抓到",
+              "fraction": 100,
+              "feedback": "正確——速度支撐頻繁執行與及早偵測，貫穿整個持續開發過程。"
+            },
+            {
+              "text": "因為快速的套件保證本身沒有任何錯誤",
+              "fraction": 0,
+              "feedback": "速度說明不了套件本身的正確性；好處在於頻繁、及早的回饋。"
+            },
+            {
+              "text": "因為慢測試一定會產生錯誤結果",
+              "fraction": 0,
+              "feedback": "慢測試可以完全正確；顧慮在於被延遲、且讓人不願執行的回饋。"
+            },
+            {
+              "text": "因為框架拒絕執行超過固定時長的套件",
+              "fraction": 0,
+              "feedback": "並無此普遍限制；優先事項是保住頻繁、及早的回饋。"
+            }
+          ],
+          "generalFeedback": "在迭代式流程中，套件會一再被執行，因此它的速度會累積放大。快速的套件會被頻繁執行——每次 commit 或 pull request——於是回歸在被引入後幾分鐘內就被抓到，此時變更還新鮮、修起來便宜。由於功能持續累積，保持套件快速是一項持續的努力，而非一次性的清理。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "會通過的重複測試仍有成本",
+          "text": "<p>一個總是通過的重複測試仍帶有成本，因為它必須被執行、被閱讀，並在它所觸及的程式碼被重構時更新。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——即使是綠燈的測試也消耗執行時間與維護心力，所以重複並非免費。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這是錯的：會通過的測試並非零成本——它增加執行時間，且必須在重構時維護與更新。"
+            }
+          ],
+          "generalFeedback": "人們常以為只有失敗的測試才有成本，但套件中每個測試在每次執行時都會被跑，且必須隨程式碼演進而保持最新。重複的測試付出這些成本，卻沒為套件增添任何缺少的訊號，這正是為何去重能在不降低信心的情況下降低成本。"
+        },
+        {
+          "type": "truefalse",
+          "name": "風險導向不能取代完整回歸",
+          "text": "<p>由於風險導向回歸集中於高風險區域，採用它的團隊就再也不需要執行完整的回歸套件。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——風險導向選擇是用在當下無法全部執行時；完整套件仍應定期執行，以涵蓋較低風險的區域。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：優先高風險區域並不會讓較低風險的回歸變得不可能，所以仍需定期執行完整套件。"
+            }
+          ],
+          "generalFeedback": "風險導向回歸是把有限測試預算用得好的方法，並非永久忽略所有低風險項目的許可。缺陷仍可能出現在被優先的區域之外，因此較完整的套件應以更廣的節奏執行（每晚、發佈前）。把風險導向測試誇大成「再也不用全部跑」會留下真實的缺口。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "診斷：套件慢到不敢跑",
+          "text": "<p>某回歸套件要跑 90 分鐘，於是開發者不跑就合併，破壞在數天後才被發現。調查顯示三分之一的測試是重複覆蓋，且許多使用笨重的全端設定。最佳處方為何？</p>",
+          "answers": [
+            {
+              "text": "平行化執行、在不增加獨特價值處以較快較窄的測試取代最笨重的設定、並刪修重複測試——再加上測試選擇以取得每次 commit 的回饋",
+              "fraction": 100,
+              "feedback": "正確——以平行化、最佳化與去重來砍執行時間，並用選擇取得快速的本地回饋，同時保留真實覆蓋。"
+            },
+            {
+              "text": "隨機刪除測試，直到套件在十分鐘內跑完",
+              "fraction": 0,
+              "feedback": "隨機刪除會丟掉真實覆蓋；重複與笨重設定必須被刻意處理。"
+            },
+            {
+              "text": "套件維持原樣，但不再要求合併前執行",
+              "fraction": 0,
+              "feedback": "那正是目前的情況，且讓破壞外漏；套件應被弄快到能跑，而非放棄。"
+            },
+            {
+              "text": "加上自動重試，讓任何逾時的慢測試被重跑",
+              "fraction": 0,
+              "feedback": "重試處理 flakiness 而非緩慢，且會讓套件更慢。"
+            }
+          ],
+          "generalFeedback": "此緩慢有可辨識的成因：重複測試與不必要的笨重設定。直接對症下手——平行化、在不增加獨特覆蓋處把笨重的端對端測試改寫成較快的聚焦測試、並刪修重複者——讓套件快到人們真的願意跑。test-impact 選擇再讓每次 commit 的回饋保持快速，同時較完整的執行仍依節奏進行。全程保留對真實行為的覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：重構弄壞數百個測試",
+          "text": "<p>對某模組進行一次保持行為的重構，卻導致 200 個測試失敗；每個都在對內部方法呼叫與私有欄位做斷言。根本原因與正確對策為何？</p>",
+          "answers": [
+            {
+              "text": "這些測試與實作耦合；改寫成透過公開介面對可觀察行為做斷言，使它們能在保持行為的重構下存活",
+              "fraction": 100,
+              "feedback": "正確——與內部解耦，可消除那把安全重構變成 200 個假失敗的脆弱性。"
+            },
+            {
+              "text": "重構一定改到了行為；把它還原，且此模組永遠不要再重構",
+              "fraction": 0,
+              "feedback": "重構保持了行為；失敗來自綁在內部的測試，而非行為改變。"
+            },
+            {
+              "text": "刪掉全部 200 個測試以解除重構阻塞",
+              "fraction": 0,
+              "feedback": "它們可能守護真實行為；應使其與內部解耦，而非整批丟掉覆蓋。"
+            },
+            {
+              "text": "把全部 200 個標記為 flaky 並隔離",
+              "fraction": 0,
+              "feedback": "它們並非 flaky——它們因測試內部而決定性地失敗；對策是改為測試行為。"
+            }
+          ],
+          "generalFeedback": "一次保持行為的變更造成 200 個決定性失敗，正是實作耦合的招牌：這些測試斷言的是程式碼「內部如何運作」而非「它做什麼」。改寫成針對公開契約與可觀察結果。如此它們只有在行為真正改變時才失敗，重構也不再被懲罰。這是結構性的修法，不是還原或隔離的問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：無法每次 commit 都跑完整套件",
+          "text": "<p>完整套件值得信任，但太大而無法每次 commit 都跑。團隊想要每次 commit 的快速回饋，又不放棄整體覆蓋。最佳做法為何？</p>",
+          "answers": [
+            {
+              "text": "用 test-impact 選擇在每次 commit 執行受影響子集，讓快速高價值的測試排前面，並以更廣的節奏（如每晚／合併前）執行完整套件",
+              "fraction": 100,
+              "feedback": "正確——選擇加上定期完整執行，能在保留完整覆蓋的同時給出快速回饋。"
+            },
+            {
+              "text": "永久刪掉這次 commit 未被選中的所有測試",
+              "fraction": 0,
+              "feedback": "丟掉未被選中的測試等於放棄它們所守護的一切覆蓋；它們仍須定期執行。"
+            },
+            {
+              "text": "無論如何每次 commit 都跑整個套件，永遠接受緩慢的回饋",
+              "fraction": 0,
+              "feedback": "那正是要被解決的限制；它放棄了團隊需要的快速回饋。"
+            },
+            {
+              "text": "每次 commit 隨機抽 5% 的測試，其餘永不執行",
+              "fraction": 0,
+              "feedback": "盲目抽樣忽略了實際變更，並讓大多數行為無限期未被測試。"
+            }
+          ],
+          "generalFeedback": "test-impact analysis 把每次 commit 對應到可能受影響的測試並只跑那些，讓回饋保持快速且相關；把快速、高價值的測試排前面能更早浮現失敗。受信任的完整套件仍以更廣的排程執行，以涵蓋每次 commit 子集略過的一切。如此在回饋速度與完整性之間取得平衡，且不丟棄測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：flakiness 侵蝕信任",
+          "text": "<p>歷經數月，約 3% 的套件執行在未變更的程式碼上失敗，團隊如今反射性地重跑紅燈而不去調查。正確的處理方式為何？</p>",
+          "answers": [
+            {
+              "text": "把 flakiness 當成一級缺陷：將已知 flaky 的測試從阻擋性關卡隔離出來並加以追蹤，再逐一診斷並修好根本原因以重建信任",
+              "fraction": 100,
+              "feedback": "正確——可見地圍堵雜訊並修好成因，讓真正的失敗不再被當成 flaky 而被打發。"
+            },
+            {
+              "text": "把這個反射制度化：設定 CI 自動重跑到綠燈，並停止調查失敗",
+              "fraction": 0,
+              "feedback": "那使問題常態化，且可能把真正的間歇性錯誤埋在重試裡；它無法重建信任。"
+            },
+            {
+              "text": "刪掉每一個曾經間歇失敗的測試",
+              "fraction": 0,
+              "feedback": "刪除會丟掉真實覆蓋與其問責；隔離並修復能同時保留兩者。"
+            },
+            {
+              "text": "什麼都不做，因為 3% 的失敗率無害",
+              "fraction": 0,
+              "feedback": "它並非無害：反射性重跑意味著真正的回歸會被當成 flaky 並上線。"
+            }
+          ],
+          "generalFeedback": "長期 flakiness 會造成警報疲乏：一旦「紅燈」通常代表「只是 flaky」，藏在雜訊中的真正回歸就被忽略並上線。要重建訊號，把 flaky 測試從會阻擋合併的關卡隔離到追蹤清單，再逐一診斷並修好根本原因。盲目重試到綠燈只會加深債務，且可能藏起真正的間歇性錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試債的「利息」類比",
+          "text": "<p>常說測試債會產生「利息」。在此類比中，利息代表什麼？</p>",
+          "answers": [
+            {
+              "text": "當債務被擱置未處理時，日後每次變更複利式累加的額外成本——更慢的執行、更多假警報、更難的維護，拖越久越大",
+              "fraction": 100,
+              "feedback": "正確——延後測試維護會使後續每次變更逐步更貴，如同利息累積。"
+            },
+            {
+              "text": "每次失敗的建置要付給 CI 供應商的實際費用",
+              "fraction": 0,
+              "feedback": "利息是複利式心力的比喻，而非真正的帳單。"
+            },
+            {
+              "text": "撰寫測試的一次性成本，只付一次",
+              "fraction": 0,
+              "feedback": "一次性的前期成本是「本金」；利息是不還本金而反覆、逐漸增大的成本。"
+            },
+            {
+              "text": "保證債務在幾次發佈後會自行消失",
+              "fraction": 0,
+              "feedback": "債務不會自行消失；擱置只會複利，這正是利息類比的重點。"
+            }
+          ],
+          "generalFeedback": "如同財務債務，「本金」是你抄的捷徑（未修的 flaky 測試、留著的重複者）。「利息」則是日後每次在該處工作時反覆且複利累加的額外成本：更慢的回饋、更多誤導的失敗、在脆弱測試周圍改動程式碼的更多心力。維護延後越久，這反覆成本就長越大——有時直到套件必須大幅重做。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時刪除測試才是對的",
+          "text": "<p>下列哪種情況最明確地讓「刪除」一個回歸測試比修好或保留它更合理？</p>",
+          "answers": [
+            {
+              "text": "該測試已過時或完全重複——它守著已不存在的行為，或另一測試已以相同方式覆蓋——因此淨值為負",
+              "fraction": 100,
+              "feedback": "正確——當測試不再保護任何新東西時，刪除它能在不移除真實覆蓋的情況下去除成本。"
+            },
+            {
+              "text": "該測試很慢，但它是唯一覆蓋某仍存在之關鍵行為的測試",
+              "fraction": 0,
+              "feedback": "那個測試仍值得保留；應最佳化或平行化它，而非刪掉關鍵行為的唯一守護。"
+            },
+            {
+              "text": "該測試最近失敗並抓到了一個真正的回歸",
+              "fraction": 0,
+              "feedback": "抓到真正回歸正是有價值測試該做的事；那是保留它的理由。"
+            },
+            {
+              "text": "該測試難以閱讀，但它是某重要邊界情況的唯一覆蓋",
+              "fraction": 0,
+              "feedback": "可讀性差是把它寫清楚的理由，而非刪除某重要情況的唯一覆蓋。"
+            }
+          ],
+          "generalFeedback": "當測試淨值為負時才刪除：它已過時（其行為已消失）或完全重複（另一測試以相同方式覆蓋相同範圍）。此時移除能砍成本而不砍真實覆蓋。若某測試仍獨特地守護重要行為，別只因它慢、脆弱或醜就刪；而應修好或最佳化它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在完整性與回饋速度間取捨",
+          "text": "<p>團隊該如何看待回歸完整性（跑更多測試）與快速回饋（更少、更早跑）之間的張力？</p>",
+          "answers": [
+            {
+              "text": "分層策略：以快速、高價值的選定測試供每次 commit 立即回饋，並以更廣的節奏執行較完整的套件——接受一個刻意且被管理的取捨，而非單一固定答案",
+              "fraction": 100,
+              "feedback": "正確——透過分層快速回饋與定期完整性、並依風險調校，來管理這個平衡。"
+            },
+            {
+              "text": "永遠以完整性為上，每次變更都跑每個測試，不管要等多久",
+              "fraction": 0,
+              "feedback": "忽略回饋速度會拖慢整個團隊、讓人不願跑套件；此取捨必須被管理，而非忽視。"
+            },
+            {
+              "text": "永遠以速度為上，跑最少的測試，且永不執行完整套件",
+              "fraction": 0,
+              "feedback": "只追求速度會放棄完整性、讓回歸外漏；仍需較完整的執行。"
+            },
+            {
+              "text": "沒有取捨；好的套件隨時都既即時又詳盡",
+              "fraction": 0,
+              "feedback": "對大型套件而言這兩個目標確實衝突；假裝沒衝突會導致回饋慢或覆蓋漏。"
+            }
+          ],
+          "generalFeedback": "對任何大型套件而言，完整性與速度會互相拉扯，所以答案是分層、被管理的取捨，而非絕對值。給開發者每次 commit 快速、高價值的選定測試以快速回饋，並以更廣的節奏（每晚、發佈前）執行較完整的套件以保住完整性。風險引導哪些進快速通道。這個平衡是隨時間調校，而非一次解決。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：兩個「以防萬一」加的測試",
+          "text": "<p>兩個測試總是一起通過或失敗、執行相同路徑，其中一個是後來「以防萬一」加的。如今每次重構都得以相同方式更新兩者。你該怎麼做？</p>",
+          "answers": [
+            {
+              "text": "認清較晚那個是重複覆蓋並刪修它，保留對該行為最清楚的單一測試",
+              "fraction": 100,
+              "feedback": "正確——移除重複者，行為仍被覆蓋一次，維護量卻減半。"
+            },
+            {
+              "text": "兩個都保留，因為兩個測試通過比一個更有力的證據",
+              "fraction": 0,
+              "feedback": "相同的測試把同一證據給了兩次；第二個增加的是成本，不是信心。"
+            },
+            {
+              "text": "兩個都刪，因為重構時維護哪一個都很麻煩",
+              "fraction": 0,
+              "feedback": "兩個都刪會完全丟掉覆蓋；保留一個，只刪修重複者。"
+            },
+            {
+              "text": "把兩個都當 flaky 隔離，等有人有空再看",
+              "fraction": 0,
+              "feedback": "它們是決定性的重複，不是 flaky；隔離並不適用。"
+            }
+          ],
+          "generalFeedback": "由於兩個測試總是一起變動且覆蓋相同路徑，第二個並未提供第一個所沒有的訊號，卻在每次重構時使更新成本加倍。刪修重複者，保留最清楚、價值最高的測試。覆蓋不變，維護成本下降。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "別刪掉又慢又有價值的測試",
+          "text": "<p>一個緩慢的端對端測試是唯一能抓到某類真實、代價高昂之整合回歸的測試。為了加速套件，某同事提議刪掉它。為什麼這是錯的？更好的做法是什麼？</p>",
+          "answers": [
+            {
+              "text": "它獨特地守護代價高昂的真實回歸，刪掉會造成真正的覆蓋缺口；應改為最佳化、平行化，或移到較低頻的階段，同時保留它",
+              "fraction": 100,
+              "feedback": "正確——有價值的獨特測試應被加速或改排程，而非刪除，以保住覆蓋。"
+            },
+            {
+              "text": "刪掉沒關係，因為任何慢測試依定義就是低價值",
+              "fraction": 0,
+              "feedback": "慢並不代表低價值；此測試獨特地抓到昂貴的回歸，必須保留。"
+            },
+            {
+              "text": "原封不動保留，並乾脆接受沒有人會跑這個套件",
+              "fraction": 0,
+              "feedback": "置之不理正是套件太慢的原因；應最佳化或改排程，而非忽視問題。"
+            },
+            {
+              "text": "用一個檢查相同內部方法的重複單元測試取代它",
+              "fraction": 0,
+              "feedback": "針對內部的單元測試無法重現此測試獨特提供的整合覆蓋。"
+            }
+          ],
+          "generalFeedback": "加速套件不得犧牲別無他處提供的覆蓋。一個獨特地抓到昂貴整合回歸的慢測試是高價值的；刪掉它是拿一個可管理的執行時間問題去換真實的風險。最佳化它的設定、平行執行，或把它移到合併前或每晚的階段——但保住保護。「測試更少」本身從不是目標；移除低價值的測試才是。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延後維護的複利成本",
+          "text": "<p>某團隊為了更快出貨功能而不斷延後測試套件的維護。依債務／利息類比，若持續如此，長期最可能的結果為何？</p>",
+          "answers": [
+            {
+              "text": "每次變更的成本不斷上升、信任不斷下降，直到累積的債務逼出一次昂貴的清理或部分重寫套件",
+              "fraction": 100,
+              "feedback": "正確——延後的維護會複利，所以最終帳單遠大於穩定分期償還。"
+            },
+            {
+              "text": "隨著債務累積，套件會隨時間變得更好維護",
+              "fraction": 0,
+              "feedback": "債務使工作更貴而非更便宜；那與利息效應恰好相反。"
+            },
+            {
+              "text": "債務會被下一次框架升級自動清除",
+              "fraction": 0,
+              "feedback": "框架升級不會移除 flaky、重複或耦合的測試；債務在被處理前持續存在。"
+            },
+            {
+              "text": "什麼都不會變，因為測試債對交付速度沒有影響",
+              "fraction": 0,
+              "feedback": "測試債透過 flaky 失敗、脆弱測試與緩慢執行拖慢交付；它並非沒有影響。"
+            }
+          ],
+          "generalFeedback": "如同未償的財務債務，延後的測試維護會複利：flaky、緩慢、脆弱與重複的測試使每次新變更更慢更危險，而被侵蝕的信任意味著結果越來越被忽略。放任夠久，利息就會壓過一切，團隊得面對一次昂貴的清理或重寫。以刪修、解耦、修 flaky 的方式逐步償還債務，遠比任其累積便宜。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "test-impact analysis 的理據",
+          "text": "<p>是什麼核心理據，使 test-impact analysis（只跑受影響子集）成為加速回饋的合理方式？</p>",
+          "answers": [
+            {
+              "text": "一次變更只可能影響相依於被改程式碼的測試，因此不相依於它的測試無法因該變更而偵測到新回歸，可延到稍後的完整執行",
+              "fraction": 100,
+              "feedback": "正確——影響分析仰賴變更與其可能影響之測試間的相依關係。"
+            },
+            {
+              "text": "隨機挑選的測試和依影響選出的測試一樣好",
+              "fraction": 0,
+              "feedback": "隨機選擇忽略相依關係，可能漏掉變更正好會弄壞的測試；那不是理據。"
+            },
+            {
+              "text": "未被選中的測試已知毫無價值，可以刪除",
+              "fraction": 0,
+              "feedback": "未被選中的測試只是不受此次變更影響；它們仍有價值，會在較完整的週期中執行。"
+            },
+            {
+              "text": "跑更少的測試一定會找到更多錯誤",
+              "fraction": 0,
+              "feedback": "跑更少測試不會找到更多錯誤；影響分析只是避免執行此刻不可能受影響的測試。"
+            }
+          ],
+          "generalFeedback": "test-impact analysis 立基於相依結構：某次變更只可能在「執行到從該變更可達之程式碼」的測試中造成回歸。不具此相依的測試不會因它而新失敗，因此在該 commit 上執行它們只增加延遲而不增加訊號。它們並未被丟棄——會在定期的完整執行中跑，以捕捉相依對應可能遺漏、或來自其他變更的效應。此法的健全性完全取決於該對應的準確度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "刪修重複同時保住信心",
+          "text": "<p>一個大型套件既慢又貴於維護。分析顯示有大量重複，但對關鍵行為有良好覆蓋。哪個動作最能改善套件的成本效益？</p>",
+          "answers": [
+            {
+              "text": "刪修重複與低價值的測試，同時保留那些獨特覆蓋關鍵行為的測試，在信心大致不變下降低成本",
+              "fraction": 100,
+              "feedback": "正確——移除重複而不動獨特的關鍵覆蓋，能在保住信心的同時砍成本。"
+            },
+            {
+              "text": "到處大量增加測試，本著「覆蓋越多一定越安全」的原則",
+              "fraction": 0,
+              "feedback": "當重複已是問題時還堆更多測試，只抬高成本與維護而不增加信心。"
+            },
+            {
+              "text": "不管覆蓋什麼，把套件砍到固定的少量測試",
+              "fraction": 0,
+              "feedback": "武斷的上限可能移除對關鍵行為的獨特覆蓋；應依價值刪修，而非依一刀切的數字。"
+            },
+            {
+              "text": "先刪覆蓋關鍵行為的測試，因為那些最慢",
+              "fraction": 0,
+              "feedback": "關鍵行為的測試正是你最想保留的；移除它們是拿成本去換嚴重風險。"
+            }
+          ],
+          "generalFeedback": "平衡點是高價值、易維護的覆蓋，而非最多或最少的測試數量。當重複嚴重但關鍵行為已被良好覆蓋時，刪修重複與低價值的測試，並保留對重要行為的獨特守護。信心大致不變，而執行時間與維護下降。無論「永遠加更多」或「永遠砍到固定數字」都不尊重每個測試的實際價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "緊急修補視窗的風險導向排序",
+          "text": "<p>緊急修補發佈前你有 30 分鐘的視窗。該修補動到付款模組。你無法跑完整套件。應先跑哪些測試？</p>",
+          "answers": [
+            {
+              "text": "覆蓋被改動之付款程式碼及其相依者的測試，再加上其他業務關鍵或歷來易出缺陷的區域，在時間允許下向外擴展",
+              "fraction": 100,
+              "feedback": "正確——優先被改動的高價值區域及其影響，再在預算內處理次高風險的區域。"
+            },
+            {
+              "text": "已知會很快通過的測試，不管它們覆蓋什麼",
+              "fraction": 0,
+              "feedback": "只憑速度選擇可能略過你剛改的付款程式碼——那正是回歸最可能出現之處。"
+            },
+            {
+              "text": "整個套件的隨機切片，以便平均取樣所有東西",
+              "fraction": 0,
+              "feedback": "平均隨機取樣把心力從被改動的高風險付款區稀釋掉；應改依風險排序。"
+            },
+            {
+              "text": "只跑與付款無關的測試，以免干擾修補",
+              "fraction": 0,
+              "feedback": "付款區正是被改動、最需要重測之處；略過它就失去了意義。"
+            }
+          ],
+          "generalFeedback": "在硬性時間限制下，把時間花在回歸最可能發生且傷害最大之處。那從修補實際動到的程式碼（付款）及其相依者開始，再在時間允許時延伸到其他業務關鍵與易出缺陷的區域。以影響分析為依據的風險導向排序，能在發佈前把抓到嚴重回歸的機會最大化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對「小」變更略過回歸",
+          "text": "<p>在期限壓力下，團隊因為這次變更「只是小調整」而考慮完全略過回歸。為什麼這有風險？有紀律的替代方案是什麼？</p>",
+          "answers": [
+            {
+              "text": "即使小變更也可能透過共用相依破壞遠處的行為，所以至少跑一個風險導向／依影響選出的子集，而不是什麼都不跑",
+              "fraction": 100,
+              "feedback": "正確——小變更仍會造成回歸；當完整執行塞不下時，鎖定子集是有紀律的折衷。"
+            },
+            {
+              "text": "小變更絕不會造成回歸，所以略過完全安全",
+              "fraction": 0,
+              "feedback": "這是錯的：小變更經常透過共用程式碼與相依破壞意料之外的區域。"
+            },
+            {
+              "text": "唯一安全的選項永遠是跑整個套件，所以若塞不下就不測直接出貨",
+              "fraction": 0,
+              "feedback": "全有全無的觀點會導致未測就出貨；依影響或風險選出的子集是合理的部分執行。"
+            },
+            {
+              "text": "略過回歸，順便把測試也刪了，讓它們不再拖慢日後發佈",
+              "fraction": 0,
+              "feedback": "為趕期限而刪測試會摧毀真實覆蓋；現在跑一個鎖定的子集，並保留測試。"
+            }
+          ],
+          "generalFeedback": "變更的大小無法預測其波及範圍：一行變更可能透過共用程式碼、設定或資料使遠處的行為回歸。略過回歸會移除安全網並招致缺陷外漏。當完整套件塞不進視窗時，跑一個以變更與最高風險區域為中心、依影響或風險選出的子集——有紀律的部分覆蓋勝過完全不測，也勝過刪測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何選擇仍需定期完整執行",
+          "text": "<p>某團隊倚賴每次 commit 的測試選擇來求快。為什麼他們仍必須定期執行完整套件，而不能永遠只信任選擇？</p>",
+          "answers": [
+            {
+              "text": "變更到測試的相依對應可能不完整或不準確（動態相依、設定、整合效應），所以選擇可能漏掉受影響的測試；定期完整執行是安全網",
+              "fraction": 100,
+              "feedback": "正確——選擇的安全性取決於其相依對應，因此完整執行能捕捉對應漏掉的部分。"
+            },
+            {
+              "text": "因為未被選中的測試會悄悄腐壞、除非每次 commit 都跑否則無法編譯",
+              "fraction": 0,
+              "feedback": "測試不會因為沒每次 commit 執行就腐壞；真正的原因是影響對應可能不完美。"
+            },
+            {
+              "text": "因為完整執行永遠比選定執行更快",
+              "fraction": 0,
+              "feedback": "完整執行通常較慢而非較快；這正是每次 commit 使用選擇的原因。"
+            },
+            {
+              "text": "因為法律要求選擇工具必須每天重新驗證",
+              "fraction": 0,
+              "feedback": "並無此法律要求；原因是相依對應可能不準確。"
+            }
+          ],
+          "generalFeedback": "test-impact 選擇只在其相依對應完整的範圍內才健全。真實系統存在靜態分析可能漏掉的相依——反射與動態分派、設定與資料、跨服務的整合效應——因此變更可能影響到選擇未挑中的測試。定期完整執行（每晚、發佈前）作為安全網，捕捉每次 commit 對應遺漏的一切，既保住選擇的速度，又不放棄完整性。",
+          "single": true
+        }
+      ]
+    }
+  },
   "risk-based-testing": {
     "en": {
       "easy": [

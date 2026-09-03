@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Regression Test Debt/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What regression testing is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Regression testing</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-running existing tests after a change to confirm that previously working behaviour still works</text><feedback><text>Correct — regression testing guards against a change breaking (regressing) functionality that used to work.</text></feedback></answer>
+    <answer fraction="0"><text>Writing brand-new tests for a feature that has never been tested before</text><feedback><text>That is testing new functionality; regression testing re-checks behaviour that already worked.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring how many lines of production code the tests execute</text><feedback><text>That describes code coverage, not regression testing.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting old tests once a release ships</text><feedback><text>Removing tests is a maintenance action, not the definition of regression testing.</text></feedback></answer>
+    <generalfeedback><text>Regression testing re-executes a body of existing tests after any change (a new feature, a bug fix, a refactor) to verify that functionality which previously passed has not been broken. A "regression" is precisely the reappearance of a defect or the breaking of behaviour that used to work.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a regression suite is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>regression test suite</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The accumulated set of tests, built up over past releases, that is re-run to protect existing behaviour</text><feedback><text>Correct — it is the growing collection of tests kept and re-run to catch regressions.</text></feedback></answer>
+    <answer fraction="0"><text>A single test that is written fresh for each release and then thrown away</text><feedback><text>A regression suite is retained and re-run over time, not a throwaway single test.</text></feedback></answer>
+    <answer fraction="0"><text>A list of manual steps that is never automated under any circumstances</text><feedback><text>Regression suites are commonly automated; automation is in fact the usual response to their growth.</text></feedback></answer>
+    <answer fraction="0"><text>The subset of requirements that have not yet been implemented</text><feedback><text>That is a backlog of unbuilt features, not a test suite.</text></feedback></answer>
+    <generalfeedback><text>The regression suite is the body of tests accumulated across previous releases and re-run to confirm that existing behaviour still holds. Because it grows as features are added, it becomes the main workload that regression testing must repeatedly execute.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the regression set grows</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the regression test set tend to grow larger with every release?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each release adds new features (and their tests), and those tests are kept and re-run alongside all the earlier ones</text><feedback><text>Correct — the suite accumulates: new tests are added while old ones are retained to keep protecting past behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Test files automatically double in size on their own between releases</text><feedback><text>Tests do not grow by themselves; the suite grows because teams keep adding and retaining tests.</text></feedback></answer>
+    <answer fraction="0"><text>Testing frameworks require you to duplicate every test once per release</text><feedback><text>No framework requires per-release duplication; growth comes from accumulating new features' tests.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting features always adds more tests than it removes</text><feedback><text>Removing a feature should let you remove its tests; growth is driven by adding features, not deleting them.</text></feedback></answer>
+    <generalfeedback><text>As a product accrues features across releases, the tests written for each feature are kept and re-run to protect that behaviour going forward. So the regression set steadily accumulates. This accumulation is exactly what makes purely manual regression progressively slower and more expensive over time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What test (technical) debt is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the context of a test suite, <em>test technical debt</em> refers to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Accumulated problems in the test suite — flaky, slow, redundant, obsolete or implementation-coupled tests — that raise maintenance cost and erode trust</text><feedback><text>Correct — test debt is the built-up quality problems in the tests themselves, carrying an ongoing cost.</text></feedback></answer>
+    <answer fraction="0"><text>The number of tests that still need to be written for unbuilt features</text><feedback><text>That is a coverage gap or backlog; test debt is about problems in the tests you already have.</text></feedback></answer>
+    <answer fraction="0"><text>Money owed to a third party for a testing tool licence</text><feedback><text>Test debt is a metaphor for accumulated quality problems, not a literal financial liability.</text></feedback></answer>
+    <answer fraction="0"><text>The time the test suite takes to run, measured in seconds</text><feedback><text>Runtime is one symptom, but test debt is the broader set of accumulated suite problems, not a single duration figure.</text></feedback></answer>
+    <generalfeedback><text>Like technical debt in production code, test debt is the accumulation of shortcuts and neglect in the test suite: flaky tests, slow tests, redundant or obsolete tests, and tests tightly coupled to implementation. It quietly raises the cost of every future change and, like debt, charges "interest" the longer it is left unaddressed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a flaky test is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>flaky test</em> is one that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Passes and fails non-deterministically on the same code, without any change to what is under test</text><feedback><text>Correct — flakiness is an inconsistent, non-deterministic result on unchanged code.</text></feedback></answer>
+    <answer fraction="0"><text>Fails consistently every time until a real bug is fixed</text><feedback><text>That is a deterministic, reproducible failure — usually a genuine defect — not flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>Takes longer to run than the average test in the suite</text><feedback><text>That describes a slow test; flakiness is about an inconsistent pass/fail outcome.</text></feedback></answer>
+    <answer fraction="0"><text>Duplicates the assertions of another existing test</text><feedback><text>That describes a redundant test; flakiness is non-determinism, not duplication.</text></feedback></answer>
+    <generalfeedback><text>A flaky test gives different verdicts across runs even though the code and inputs have not changed. Flaky tests are a major form of test debt: their false alarms waste time and, worse, erode trust so that real failures start being dismissed as "just flaky".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a slow test is a problem</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Within test debt, why are <em>slow</em> tests treated as a problem?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They lengthen the feedback loop, so the suite is run less often and defects are caught later</text><feedback><text>Correct — slow suites delay feedback and discourage frequent running, which is their core cost.</text></feedback></answer>
+    <answer fraction="0"><text>They always produce incorrect results</text><feedback><text>Slowness is about time taken, not correctness; a slow test can still be perfectly correct.</text></feedback></answer>
+    <answer fraction="0"><text>They can only be run once and then must be deleted</text><feedback><text>Slow tests can be re-run; the issue is the delay they add, not a one-time limit.</text></feedback></answer>
+    <answer fraction="0"><text>They automatically make other tests flaky</text><feedback><text>Slowness does not by itself cause flakiness; the problem is the delayed, discouraged feedback.</text></feedback></answer>
+    <generalfeedback><text>Fast feedback is the point of an automated suite. A slow regression suite stretches the time between a change and its verdict, so developers run it less often, batch up more changes, and discover breakages later when they are costlier to fix. Keeping tests fast is therefore a central part of managing test debt.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a redundant test is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>redundant</em> (duplicate) test is one that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exercises the same behaviour and would fail for the same reasons as another test, adding maintenance cost without adding confidence</text><feedback><text>Correct — redundant tests cover ground already covered, so they cost upkeep but add no new signal.</text></feedback></answer>
+    <answer fraction="0"><text>Checks a behaviour that no other test checks</text><feedback><text>That is a unique, valuable test — the opposite of redundant.</text></feedback></answer>
+    <answer fraction="0"><text>Fails non-deterministically between runs</text><feedback><text>That describes a flaky test, not a redundant one.</text></feedback></answer>
+    <answer fraction="0"><text>Tests a feature that has been removed from the product</text><feedback><text>That describes an obsolete test; a redundant test duplicates coverage of still-present behaviour.</text></feedback></answer>
+    <generalfeedback><text>A redundant test overlaps another so completely that they pass and fail together for the same reasons. It still has to be read, maintained, and updated on every refactor, yet it adds no coverage the suite did not already have. Duplicate coverage is a classic form of test debt and a prime candidate for pruning.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an obsolete test is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>obsolete</em> (dead) test is one that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verifies behaviour or a feature that no longer exists in the product, so it no longer protects anything real</text><feedback><text>Correct — an obsolete test guards behaviour that has been removed or changed away, so it earns nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Is written in an older programming language than the rest of the suite</text><feedback><text>Language age is irrelevant; obsolete means the tested behaviour no longer exists.</text></feedback></answer>
+    <answer fraction="0"><text>Runs more slowly than newer tests</text><feedback><text>That describes a slow test; obsolete means it targets removed or changed-away behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Passes and fails at random</text><feedback><text>That describes flakiness; an obsolete test targets behaviour that no longer exists.</text></feedback></answer>
+    <generalfeedback><text>An obsolete test checks something the product no longer does — a removed feature, an old contract, a retired code path. It provides no protection yet still has to be maintained, and it can even block legitimate changes. Obsolete tests are dead weight and should be removed as part of suite maintenance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Implementation-coupled tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test that is <em>tightly coupled to the implementation</em> is problematic because it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Breaks when internal details are refactored even though the observable behaviour is unchanged</text><feedback><text>Correct — coupling to internals makes the test brittle: harmless refactors trigger false failures.</text></feedback></answer>
+    <answer fraction="0"><text>Only ever passes and can never detect a defect</text><feedback><text>That describes a tautological or vacuous test; implementation-coupled tests do fail — too easily, on refactors.</text></feedback></answer>
+    <answer fraction="0"><text>Runs faster than a behaviour-focused test</text><feedback><text>Speed is not the issue; the problem is brittleness under refactoring.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot be written in a unit-testing framework</text><feedback><text>Such tests are easy to write; that is part of the trap — they are brittle, not impossible.</text></feedback></answer>
+    <generalfeedback><text>When a test asserts on private internals — specific method calls, internal data structures, exact intermediate values — it fails whenever those internals change, regardless of whether the externally observable behaviour is still correct. This brittleness makes every refactor expensive and is a well-known form of test debt. The remedy is to test behaviour through the public interface, not internals.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why automate regression</text></name>
+    <questiontext format="html"><text><![CDATA[<p>As features accumulate, why do teams automate their regression testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because re-running the whole growing suite by hand every release becomes too slow and expensive to be sustainable</text><feedback><text>Correct — manual regression does not scale with an ever-growing suite, so automation keeps it feasible each iteration.</text></feedback></answer>
+    <answer fraction="0"><text>Because automated tests never need any maintenance afterwards</text><feedback><text>Automated tests still require upkeep; automation addresses the cost of repeated execution, not maintenance.</text></feedback></answer>
+    <answer fraction="0"><text>Because automation guarantees the software has zero defects</text><feedback><text>No testing guarantees zero defects; automation makes frequent regression runs feasible, not perfect.</text></feedback></answer>
+    <answer fraction="0"><text>Because manual testing is illegal in professional software</text><feedback><text>Manual testing is legitimate and often useful; it simply does not scale for large repeated regression runs.</text></feedback></answer>
+    <generalfeedback><text>Every release adds tests that must be re-run to protect existing behaviour. Repeating that manually takes longer and longer until it is no longer feasible within an iteration. Automating regression lets the suite be run cheaply and repeatedly — on every commit if desired — so the growing set stays affordable to execute.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What test selection is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Test selection</em> (test-impact analysis) means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Running only the subset of tests affected by a particular change, instead of the entire suite</text><feedback><text>Correct — selection narrows the run to the tests relevant to what changed.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting every test that is not part of the latest feature</text><feedback><text>Selection chooses which tests to run this time; it does not delete the others.</text></feedback></answer>
+    <answer fraction="0"><text>Choosing which developer writes each test</text><feedback><text>That is task assignment, not test selection.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly picking half the suite each run regardless of the change</text><feedback><text>Selection is driven by what the change affects, not by random sampling.</text></feedback></answer>
+    <generalfeedback><text>Test selection, or test-impact analysis, maps a code change to the tests that could be affected by it (through dependencies) and runs just that subset. It keeps feedback fast when running the whole suite on every change would be too slow, without discarding the unselected tests, which still run in fuller cycles.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What risk-based regression is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Risk-based regression testing</em> means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prioritising the highest-risk, most-changed and highest-value areas when there is not enough time to run everything</text><feedback><text>Correct — risk-based regression spends limited testing time where a failure would hurt most.</text></feedback></answer>
+    <answer fraction="0"><text>Only ever testing the parts of the system that carry the least risk</text><feedback><text>That inverts the idea; risk-based regression concentrates on the highest-risk areas first.</text></feedback></answer>
+    <answer fraction="0"><text>Running tests in a random order to expose hidden dependencies</text><feedback><text>That is randomised ordering for flakiness detection, not risk-based prioritisation.</text></feedback></answer>
+    <answer fraction="0"><text>Removing all risky features so no regression testing is needed</text><feedback><text>Risk-based regression prioritises testing of risky areas; it does not remove features.</text></feedback></answer>
+    <generalfeedback><text>When you cannot run the full regression suite in the available window, risk-based regression ranks what to run by risk: areas that changed recently, that are business-critical or high-value, or that have a history of defects go first. It maximises the chance of catching an important regression given a limited testing budget.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a symptom of test debt</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a clear <em>symptom</em> of test debt in a suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Developers routinely re-run red builds without looking, because failures are usually "just flaky"</text><feedback><text>Correct — normalised flaky failures and eroded trust are a hallmark symptom of test debt.</text></feedback></answer>
+    <answer fraction="0"><text>Each test checks a distinct behaviour and the suite runs quickly</text><feedback><text>That describes a healthy suite, not one carrying debt.</text></feedback></answer>
+    <answer fraction="0"><text>New features arrive with focused, maintained tests</text><feedback><text>Well-maintained tests are a sign of health, not of debt.</text></feedback></answer>
+    <answer fraction="0"><text>The suite catches real regressions early and is trusted by the team</text><feedback><text>A trusted, effective suite is the opposite of a debt-laden one.</text></feedback></answer>
+    <generalfeedback><text>Symptoms of test debt include chronic flakiness and eroded trust (red builds shrugged off), a suite so slow it is rarely run, tests that break on every refactor, and piles of duplicate or obsolete tests. When people stop trusting or reading the results, the suite has stopped doing its job — a clear warning sign.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>More tests is not always better</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding more tests always improves a suite, so a larger suite is always better than a smaller one.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — redundant or low-value tests add maintenance cost without adding confidence, so bigger is not automatically better.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: tests that duplicate coverage or check nothing valuable cost upkeep while adding no signal, so more is not always better.</text></feedback></answer>
+    <generalfeedback><text>Every test has a carrying cost: it must run, be maintained, and be updated on refactors. A redundant or low-value test pays that cost without adding any confidence the suite did not already have. The goal is high-value, maintainable coverage — not the largest possible number of tests.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Skipping regression risks escaped defects</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If regression testing is skipped to save time, defects that were reintroduced can escape undetected into the released product.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — without regression testing, a change that breaks previously working behaviour can ship unnoticed.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: skipping regression removes the safety net, so reintroduced or newly broken behaviour can reach users undetected.</text></feedback></answer>
+    <generalfeedback><text>Regression testing exists to catch behaviour that a change has broken. Skip it and there is nothing to notice that a fix or refactor re-broke an old feature, so the defect escapes to production. This is exactly why the growing manual cost is a problem worth solving by automation rather than by dropping regression coverage.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Regression Test Debt/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why manual regression does not scale</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team runs its entire regression suite by hand every release. As the product grows over many releases, why does this become unsustainable?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The manual effort grows with every added feature, so each release takes longer and costs more to regression-test, until it no longer fits the iteration</text><feedback><text>Correct — manual regression cost scales up with the accumulating suite, eventually outgrowing the time available.</text></feedback></answer>
+    <answer fraction="0"><text>Manual testers become less accurate the more experienced they get</text><feedback><text>Experience does not reduce accuracy; the real issue is the ever-growing volume of tests to repeat by hand.</text></feedback></answer>
+    <answer fraction="0"><text>The production code shrinks over time, leaving nothing to test</text><feedback><text>The code base generally grows, not shrinks; that growth is what makes manual regression balloon.</text></feedback></answer>
+    <answer fraction="0"><text>Manual tests are guaranteed to find every defect, which wastes time</text><feedback><text>Manual testing does not find every defect; the problem is the escalating repeated effort, not excessive success.</text></feedback></answer>
+    <generalfeedback><text>Regression cost is roughly proportional to the size of the suite, and the suite accumulates with every release. Re-executing all of it by hand each iteration therefore takes ever more time and money, and eventually cannot be completed within the release window. The standard remedy is to automate regression so repeated runs are cheap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: two tests, same path and asserts</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two tests exercise the identical code path with the same setup and assert the same outcome; they always pass or fail together. Which test-debt smell is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Redundant / duplicate coverage</text><feedback><text>Correct — they cover the same ground and give the same signal, so one is duplicated coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Flakiness</text><feedback><text>They behave deterministically (always together); flakiness is non-deterministic variation, which is not described here.</text></feedback></answer>
+    <answer fraction="0"><text>Obsolete test</text><feedback><text>Nothing says the tested behaviour was removed; the smell is duplication, not obsolescence.</text></feedback></answer>
+    <answer fraction="0"><text>Implementation coupling</text><feedback><text>The issue is not brittleness under refactoring but that two tests cover the same behaviour identically.</text></feedback></answer>
+    <generalfeedback><text>When two tests always pass and fail together for the same reasons, the second one adds no coverage the first did not already provide. That is redundant coverage: it doubles maintenance for a single signal. The remedy is to prune down to the higher-value test and remove the duplicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: breaks on every harmless refactor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test fails whenever the internals of a class are refactored, even though its externally observable behaviour is unchanged. Which smell is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A brittle test tightly coupled to the implementation</text><feedback><text>Correct — asserting on internals makes the test break on refactors that keep behaviour intact.</text></feedback></answer>
+    <answer fraction="0"><text>An obsolete test</text><feedback><text>The tested behaviour still exists; the test is brittle, not obsolete.</text></feedback></answer>
+    <answer fraction="0"><text>A slow test</text><feedback><text>Nothing here concerns runtime; the smell is brittleness from implementation coupling.</text></feedback></answer>
+    <answer fraction="0"><text>A redundant test</text><feedback><text>No duplication is described; the problem is coupling to internal details.</text></feedback></answer>
+    <generalfeedback><text>A test that breaks on internal refactors while behaviour is unchanged is coupled to implementation details rather than to observable behaviour. It punishes exactly the refactoring you want to encourage. The fix is to assert on the public contract and observable outcomes, so the test only fails when behaviour actually changes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: tests a removed feature</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test still checks a "mail-in rebate" feature that was removed from the product two releases ago. Which smell is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An obsolete (dead) test</text><feedback><text>Correct — it guards behaviour that no longer exists, so it protects nothing.</text></feedback></answer>
+    <answer fraction="0"><text>A flaky test</text><feedback><text>Nothing indicates non-deterministic results; the behaviour it targets was removed, making it obsolete.</text></feedback></answer>
+    <answer fraction="0"><text>A redundant test</text><feedback><text>Redundancy is duplication of live coverage; here the feature is gone entirely, so it is obsolete.</text></feedback></answer>
+    <answer fraction="0"><text>An implementation-coupled test</text><feedback><text>The issue is not brittleness under refactor but that the feature no longer exists at all.</text></feedback></answer>
+    <generalfeedback><text>A test for a feature that has been removed can no longer protect anything real. At best it is dead weight to maintain; at worst it forces awkward stubs or blocks cleanup. Such obsolete tests should be deleted as part of routine suite maintenance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Remedy for duplicate coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You confirm that several tests provide overlapping, duplicate coverage of the same behaviour. What is the appropriate remedy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Deduplicate — keep the clearest, highest-value test and prune the redundant ones</text><feedback><text>Correct — remove the duplicates so the behaviour is still covered once, at lower maintenance cost.</text></feedback></answer>
+    <answer fraction="0"><text>Keep them all, since more tests always means more safety</text><feedback><text>Duplicates add upkeep without new signal; keeping them all just raises maintenance cost.</text></feedback></answer>
+    <answer fraction="0"><text>Add automatic retries to each of the duplicates</text><feedback><text>Retries address flakiness, not duplication; the fix for duplication is to remove the extras.</text></feedback></answer>
+    <answer fraction="0"><text>Delete every test that touches that behaviour, including the unique one</text><feedback><text>That would drop the coverage entirely; you keep one good test and prune only the duplicates.</text></feedback></answer>
+    <generalfeedback><text>Redundant tests cost maintenance for a signal you already have. Consolidate: retain the single clearest, most valuable test for the behaviour and remove the rest. Coverage of the behaviour is preserved while the ongoing cost of the duplicates disappears.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Remedy for a brittle implementation-coupled test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A useful test keeps breaking on refactors because it asserts on private internal state. How should you remedy it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Decouple it from internals — rewrite it to test observable behaviour through the public interface</text><feedback><text>Correct — testing behaviour, not internals, makes the test stable across refactors that preserve behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Delete it, since any test that ever fails is not worth keeping</text><feedback><text>The behaviour it checks is valuable; decouple it rather than discarding the coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Freeze the code so it can never be refactored again</text><feedback><text>Blocking refactoring to protect a brittle test inverts the priorities; fix the test to allow safe refactoring.</text></feedback></answer>
+    <answer fraction="0"><text>Add a fixed sleep before the assertion</text><feedback><text>Sleeps address timing flakiness, not coupling to internals; rewrite the test against the public contract.</text></feedback></answer>
+    <generalfeedback><text>The value of the test is the behaviour it guards, so keep it — but move its assertions to the public interface and observable outcomes. Then it fails only when behaviour genuinely changes, and internal refactors stop triggering false failures. Testing behaviour rather than structure is the durable fix for brittleness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Remedy for an obsolete test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You verify that a test targets a feature that has been fully removed and can never run against anything real again. What should you do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Delete it — an obsolete test protects nothing and only adds maintenance cost</text><feedback><text>Correct — once the behaviour is gone for good, removing its test is correct maintenance, not lost coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Keep it disabled forever "just in case" the feature returns</text><feedback><text>A permanently disabled test is dead weight and a stale reminder; if the feature returns, write a fresh test then.</text></feedback></answer>
+    <answer fraction="0"><text>Rewrite its assertions to pass against unrelated behaviour</text><feedback><text>Repurposing it to test something else muddles intent; delete the obsolete test and write a clear one where needed.</text></feedback></answer>
+    <answer fraction="0"><text>Quarantine it and track it as flaky</text><feedback><text>Quarantine is for flaky tests you intend to fix; an obsolete test has nothing to fix and should be removed.</text></feedback></answer>
+    <generalfeedback><text>An obsolete test guards behaviour that no longer exists, so deleting it removes no real coverage — it removes dead weight. Because the removal is intentional and the behaviour is gone, this is exactly when deleting a test is the right call, not a loss.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test selection when time-boxed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Running the full suite on every commit now takes too long for fast feedback. Which technique keeps per-commit feedback quick without abandoning the other tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test selection / test-impact analysis — run the subset of tests affected by the commit, and run the fuller suite less frequently</text><feedback><text>Correct — selecting the affected subset gives fast feedback while the rest still run on a broader cadence.</text></feedback></answer>
+    <answer fraction="0"><text>Permanently delete the tests that are not touched by this commit</text><feedback><text>Selection chooses what to run now; it does not delete the unselected tests, which still guard other behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Disable assertions in the slow tests so they finish faster</text><feedback><text>Removing assertions makes tests worthless; selection runs a relevant subset instead.</text></feedback></answer>
+    <answer fraction="0"><text>Run a fixed random 10% of tests every commit regardless of the change</text><feedback><text>A blind random sample ignores what actually changed; impact-based selection targets the affected tests.</text></feedback></answer>
+    <generalfeedback><text>Test-impact analysis maps each change to the tests that could be affected via dependencies and runs just those on the commit, giving quick, relevant feedback. The unselected tests are not discarded — they run in nightly or pre-merge full passes. This balances fast feedback with overall coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Risk-based choice under a deadline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You have time to run only part of the regression suite before a release. On what basis should you choose what to run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>By risk — prioritise areas that changed recently, are business-critical, or have a history of defects</text><feedback><text>Correct — risk-based selection spends the limited budget where a regression would be most likely and most damaging.</text></feedback></answer>
+    <answer fraction="0"><text>Run whichever tests happen to be alphabetically first until time runs out</text><feedback><text>Alphabetical order is unrelated to risk; it may skip the most important areas entirely.</text></feedback></answer>
+    <answer fraction="0"><text>Run only the tests that are already known to pass</text><feedback><text>Running tests you expect to pass adds little; you want the highest-risk areas where a failure would matter.</text></feedback></answer>
+    <answer fraction="0"><text>Run the fastest tests only, ignoring what they cover</text><feedback><text>Speed alone ignores importance; a fast test over a trivial area may be far less valuable than a slower critical one.</text></feedback></answer>
+    <generalfeedback><text>When you cannot run everything, rank by risk: recently changed code, high-value or business-critical features, and historically defect-prone modules go first. This concentrates the limited testing time where an escaped regression would be most likely and most costly. (Speed can be a tie-breaker to fit more in, but it is not the primary criterion.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why more tests is not always better</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A teammate argues the suite should never shrink because "every extra test is extra safety". Why is this reasoning flawed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Redundant and low-value tests add run time and maintenance cost while adding no confidence the suite did not already have</text><feedback><text>Correct — a test only helps if it adds signal; otherwise it is pure cost.</text></feedback></answer>
+    <answer fraction="0"><text>Because test suites have a hard maximum size enforced by the framework</text><feedback><text>There is no such fixed limit; the real issue is cost without added value, not a size cap.</text></feedback></answer>
+    <answer fraction="0"><text>Because extra tests always make the remaining tests flaky</text><feedback><text>Adding tests does not inherently cause flakiness; the flaw is paying maintenance cost for no new signal.</text></feedback></answer>
+    <answer fraction="0"><text>Because coverage tools refuse to report above a certain test count</text><feedback><text>Coverage tools do not cap test counts; the point is redundant tests cost without adding confidence.</text></feedback></answer>
+    <generalfeedback><text>A test earns its keep only if it can catch a failure the rest of the suite would miss. A redundant or low-value test provides no such new signal yet still consumes run time and must be maintained and updated on every refactor. So beyond a point, adding tests raises cost without raising confidence — which is why pruning low-value tests can improve a suite. (This does not mean fewer is always better: you still need enough coverage of important behaviour.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Remedy for a flaky test in the suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A regression test fails intermittently on unchanged code and is starting to erode the team's trust in the suite. What is the responsible remedy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Diagnose and fix the root cause; if that cannot be done immediately, quarantine it out of the blocking gate while tracking it for repair</text><feedback><text>Correct — fix the flakiness, or contain it visibly while it is tracked, rather than leaving it to erode trust.</text></feedback></answer>
+    <answer fraction="0"><text>Configure the pipeline to silently re-run it until it passes and report green</text><feedback><text>Blind retry-until-green can also mask a real intermittent bug and leaves the flakiness in place; it is not a responsible fix.</text></feedback></answer>
+    <answer fraction="0"><text>Ignore it, since flaky failures are never caused by real bugs</text><feedback><text>Some intermittent failures do expose real bugs (races, edge cases); ignoring them is dangerous.</text></feedback></answer>
+    <answer fraction="0"><text>Leave it failing intermittently so the team stays alert</text><feedback><text>Chronic false alarms do the opposite — they train the team to ignore red builds.</text></feedback></answer>
+    <generalfeedback><text>Flaky tests are a form of test debt that erodes trust in the whole suite. The right response is to find and fix the source of the non-determinism. If a fix cannot land right away, quarantine the test out of the merge-blocking gate but keep it on a tracked list with an owner and a deadline, so it is contained without being forgotten.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>First remedies for a slow suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your regression suite has grown so slow that developers avoid running it. Which combination of actions best addresses the slowness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Parallelise the run, speed up the slowest tests, and prune redundant tests that add no coverage</text><feedback><text>Correct — these attack runtime directly while preserving the coverage that matters.</text></feedback></answer>
+    <answer fraction="0"><text>Delete a random selection of tests until the suite is fast enough</text><feedback><text>Random deletion sacrifices real coverage; prune redundancy deliberately and speed up the rest instead.</text></feedback></answer>
+    <answer fraction="0"><text>Disable the assertions in the slowest tests so they finish instantly</text><feedback><text>An assertion-free test verifies nothing; that is not a speed fix but a coverage loss.</text></feedback></answer>
+    <answer fraction="0"><text>Stop running regression entirely and rely on manual spot checks</text><feedback><text>Dropping regression invites escaped defects; the goal is to make the suite fast, not to abandon it.</text></feedback></answer>
+    <generalfeedback><text>Slowness is fixed by cutting real time without cutting real coverage: run tests in parallel, optimise or re-scope the slowest ones (for example, replace heavy end-to-end setups with faster narrower tests where appropriate), and remove genuinely redundant tests. Test selection can further shorten per-commit feedback. Deleting valuable tests or disabling assertions only trades speed for lost protection.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why keeping tests fast matters each iteration</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is keeping the regression suite fast an ongoing priority in an iterative process, rather than a one-off task?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because fast feedback lets the suite be run frequently (even every commit), catching regressions early when they are cheapest to fix</text><feedback><text>Correct — speed sustains frequent runs and early detection throughout ongoing development.</text></feedback></answer>
+    <answer fraction="0"><text>Because a fast suite is guaranteed to contain no bugs of its own</text><feedback><text>Speed says nothing about a suite's own correctness; the benefit is frequent, early feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Because slow tests always produce wrong results</text><feedback><text>Slow tests can be perfectly correct; the concern is delayed, discouraged feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Because frameworks refuse to run suites over a fixed duration</text><feedback><text>No such universal limit exists; the priority is preserving frequent, early feedback.</text></feedback></answer>
+    <generalfeedback><text>In an iterative process the suite is run again and again, so its speed compounds. A fast suite is run often — on every commit or pull request — so a regression is caught within minutes of being introduced, while the change is fresh and cheap to fix. Because features keep accumulating, keeping the suite fast is a continual effort, not a one-time cleanup.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A passing redundant test still costs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A redundant test that always passes still carries a cost, because it must be run, read, and updated whenever the code it touches is refactored.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — even a green test consumes run time and maintenance effort, so redundancy is not free.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: a passing test is not cost-free — it adds runtime and must be maintained and updated on refactors.</text></feedback></answer>
+    <generalfeedback><text>People often assume only failing tests cost anything, but every test in the suite is executed on each run and has to be kept current as the code evolves. A redundant test pays these costs while adding no signal the suite lacked, which is why deduplication reduces cost without reducing confidence.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Risk-based does not eliminate full regression</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because risk-based regression concentrates on high-risk areas, a team that adopts it never needs to run the full regression suite again.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — risk-based selection is for when you cannot run everything now; the full suite should still run periodically to cover lower-risk areas.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: prioritising high-risk areas does not make lower-risk regressions impossible, so full runs are still needed periodically.</text></feedback></answer>
+    <generalfeedback><text>Risk-based regression is a way to spend a limited testing budget well, not a licence to permanently ignore everything low-risk. Defects can still appear outside the prioritised areas, so the fuller suite should run on a broader cadence (nightly, pre-release). Overstating risk-based testing as "never run everything again" would leave real gaps.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Regression Test Debt/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: suite too slow to run</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A regression suite takes 90 minutes, so developers merge without running it and breakages are found days later. Investigation shows a third of the tests duplicate coverage and many use heavy full-stack setups. What is the best prescription?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Parallelise execution, replace the heaviest setups with faster narrower tests where they add no unique value, and prune the duplicate tests — then add test selection for per-commit feedback</text><feedback><text>Correct — cut runtime by parallelising, optimising, and deduplicating, and use selection for fast local feedback, all while preserving real coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Delete tests at random until the suite runs in under ten minutes</text><feedback><text>Random deletion discards real coverage; the redundancy and heavy setups must be addressed deliberately.</text></feedback></answer>
+    <answer fraction="0"><text>Keep the suite as is but stop requiring it before merge</text><feedback><text>That is what is already happening and it lets breakages escape; the suite must be made fast enough to run, not dropped.</text></feedback></answer>
+    <answer fraction="0"><text>Add automatic retries so any slow test that times out is retried</text><feedback><text>Retries address flakiness, not slowness, and would make the suite even slower.</text></feedback></answer>
+    <generalfeedback><text>The slowness has identifiable causes: duplicate tests and unnecessarily heavy setups. Attack them directly — parallelise, rewrite heavy end-to-end tests as faster focused tests where they add no unique coverage, and prune the duplicates — so the suite becomes fast enough that people actually run it. Test-impact selection then keeps per-commit feedback quick while fuller runs continue on a cadence. Coverage of real behaviour is preserved throughout.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: refactor breaks hundreds of tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A behaviour-preserving refactor of one module causes 200 tests to fail; each was asserting on internal method calls and private fields. What is the root cause and correct remedy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The tests are coupled to the implementation; rewrite them to assert on observable behaviour through the public interface so they survive behaviour-preserving refactors</text><feedback><text>Correct — decoupling from internals removes the brittleness that turned a safe refactor into 200 false failures.</text></feedback></answer>
+    <answer fraction="0"><text>The refactor must have changed behaviour; revert it and never refactor this module</text><feedback><text>The refactor preserved behaviour; the failures come from tests bound to internals, not from a behaviour change.</text></feedback></answer>
+    <answer fraction="0"><text>Delete all 200 tests to unblock the refactor</text><feedback><text>They may guard real behaviour; decouple them from internals rather than discarding the coverage wholesale.</text></feedback></answer>
+    <answer fraction="0"><text>Mark all 200 as flaky and quarantine them</text><feedback><text>They are not flaky — they fail deterministically because they test internals; the fix is to test behaviour instead.</text></feedback></answer>
+    <generalfeedback><text>Two hundred deterministic failures from a behaviour-preserving change is the signature of implementation coupling: the tests assert on how the code works internally rather than what it does. Rewrite them against the public contract and observable outcomes. Then they fail only when behaviour actually changes, and refactoring stops being punished. This is a structural fix, not a matter of reverting or quarantining.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: cannot run full suite per commit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The full suite is trustworthy but too large to run on every commit. The team wants fast per-commit feedback without giving up overall coverage. What is the best approach?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Use test-impact selection to run the affected subset per commit, order fast high-value tests first, and run the full suite on a broader cadence (e.g. nightly / pre-merge)</text><feedback><text>Correct — selection plus a periodic full run gives quick feedback while keeping full coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Permanently drop every test not selected for the current commit</text><feedback><text>Dropping the unselected tests abandons coverage of everything they guard; they must still run periodically.</text></feedback></answer>
+    <answer fraction="0"><text>Run the whole suite on every commit regardless, accepting slow feedback forever</text><feedback><text>That is the very constraint being solved; it gives up the fast feedback the team needs.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly sample 5% of tests each commit and never run the rest</text><feedback><text>Blind sampling ignores what changed and leaves most behaviour untested indefinitely.</text></feedback></answer>
+    <generalfeedback><text>Test-impact analysis maps each commit to the tests that could be affected and runs just those, so feedback stays fast and relevant; ordering fast, high-value tests first surfaces failures sooner. The full trusted suite still runs on a broader schedule to cover everything the per-commit subset skipped. This balances feedback speed against completeness without discarding tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: flakiness eroding trust</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over months, roughly 3% of suite runs fail on unchanged code, and the team now re-runs red builds reflexively without investigating. What is the correct way to handle this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Treat flakiness as a first-class defect: quarantine known-flaky tests out of the blocking gate while tracking them, then diagnose and fix each root cause to restore trust</text><feedback><text>Correct — contain the noise visibly and fix the causes, so a genuine failure is no longer dismissed as flaky.</text></feedback></answer>
+    <answer fraction="0"><text>Institutionalise the reflex: configure CI to auto-rerun until green and stop investigating failures</text><feedback><text>That normalises the problem and can bury a real intermittent bug in the retries; it does not restore trust.</text></feedback></answer>
+    <answer fraction="0"><text>Delete every test that has ever failed intermittently</text><feedback><text>Deleting throws away real coverage and its accountability; quarantine-and-fix preserves both.</text></feedback></answer>
+    <answer fraction="0"><text>Do nothing, because a 3% failure rate is harmless</text><feedback><text>It is not harmless: reflexive re-runs mean a real regression will be dismissed as flaky and shipped.</text></feedback></answer>
+    <generalfeedback><text>Chronic flakiness produces alarm fatigue: once "red" usually means "just flaky", a genuine regression hidden in the noise is ignored and ships. Restore signal by quarantining flaky tests out of the merge-blocking gate onto a tracked list, then diagnosing and fixing each root cause. Blind retry-until-green only deepens the debt and can hide a real intermittent bug.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The "interest" analogy of test debt</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Test debt is often said to charge "interest". In this analogy, what does the interest represent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The compounding extra cost of every future change while the debt is left unaddressed — slower runs, more false alarms, and harder maintenance that grow the longer you defer</text><feedback><text>Correct — deferring test maintenance makes each subsequent change progressively more expensive, like accruing interest.</text></feedback></answer>
+    <answer fraction="0"><text>A literal fee paid to the CI provider for each failing build</text><feedback><text>The interest is a metaphor for compounding effort, not an actual invoice.</text></feedback></answer>
+    <answer fraction="0"><text>The one-time cost of writing a test, paid only once</text><feedback><text>A one-time upfront cost is the "principal"; interest is the recurring, growing cost of not paying it down.</text></feedback></answer>
+    <answer fraction="0"><text>The guarantee that the debt disappears on its own after a few releases</text><feedback><text>Debt does not vanish by itself; left alone it compounds, which is the whole point of the interest analogy.</text></feedback></answer>
+    <generalfeedback><text>As with financial debt, the "principal" is the shortcut you took (a flaky test left unfixed, duplicates left in place). The "interest" is the extra cost that recurs and compounds every time you work in that area afterwards: slower feedback, more misleading failures, more effort to change code around brittle tests. The longer maintenance is deferred, the larger that recurring cost grows — sometimes until the suite has to be substantially reworked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When deleting a test is the right call</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which situation most clearly justifies deleting a regression test rather than fixing or keeping it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test is obsolete or fully redundant — it guards behaviour that no longer exists or that another test already covers identically — so it has negative net value</text><feedback><text>Correct — when a test protects nothing new, deleting it removes cost without removing real coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The test is slow but is the only thing covering a critical, still-present behaviour</text><feedback><text>That test still earns its keep; optimise or parallelise it rather than deleting the only guard on critical behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>The test recently failed and caught a real regression</text><feedback><text>Catching a real regression is exactly what a valuable test should do; that is a reason to keep it.</text></feedback></answer>
+    <answer fraction="0"><text>The test is hard to read but is the sole cover for an important edge case</text><feedback><text>Poor readability is a reason to clarify it, not to delete unique coverage of an important case.</text></feedback></answer>
+    <generalfeedback><text>Delete a test when it has negative net value: it is obsolete (its behaviour is gone) or fully redundant (another test covers the same ground identically). Then removal cuts cost without cutting real coverage. Do not delete a test merely because it is slow, brittle, or ugly if it still uniquely guards behaviour that matters — fix or optimise it instead.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Balancing completeness against feedback speed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How should a team think about the tension between regression completeness (running more tests) and fast feedback (running fewer, sooner)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Layer the strategy: fast, high-value selected tests for immediate per-commit feedback, and fuller runs on a broader cadence — accepting a deliberate, managed trade-off rather than a single fixed answer</text><feedback><text>Correct — the balance is managed by layering fast feedback with periodic completeness, tuned to risk.</text></feedback></answer>
+    <answer fraction="0"><text>Always maximise completeness by running every test on every change, whatever the wait</text><feedback><text>Ignoring feedback speed slows the whole team and discourages running the suite; the trade-off must be managed, not ignored.</text></feedback></answer>
+    <answer fraction="0"><text>Always maximise speed by running the fewest possible tests and never running the full suite</text><feedback><text>Maximising speed alone abandons completeness and lets regressions escape; fuller runs are still needed.</text></feedback></answer>
+    <answer fraction="0"><text>There is no trade-off; a good suite is both instant and exhaustive at all times</text><feedback><text>For a large suite these goals genuinely conflict; pretending otherwise leads to either slow feedback or missed coverage.</text></feedback></answer>
+    <generalfeedback><text>Completeness and speed pull against each other for any large suite, so the answer is a layered, managed trade-off rather than an absolute. Give fast, high-value selected tests to developers on every commit for quick feedback, and run the fuller suite on a wider cadence (nightly, pre-release) to keep completeness. Risk guides what goes in the fast lane. The balance is tuned over time, not solved once.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: two tests added "just in case"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two tests always pass and fail together, exercise the same path, and one was added later "just in case". A refactor now requires updating both identically every time. What should you do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Recognise the later one as redundant coverage and prune it, keeping the single clearest test for that behaviour</text><feedback><text>Correct — remove the duplicate so the behaviour stays covered once, at half the maintenance.</text></feedback></answer>
+    <answer fraction="0"><text>Keep both, because two tests passing is stronger evidence than one</text><feedback><text>Identical tests give the same evidence twice; the second adds cost, not confidence.</text></feedback></answer>
+    <answer fraction="0"><text>Delete both, since maintaining either during refactors is inconvenient</text><feedback><text>Deleting both drops the coverage entirely; keep one and prune only the duplicate.</text></feedback></answer>
+    <answer fraction="0"><text>Quarantine both as flaky until someone has time to look</text><feedback><text>They are deterministic duplicates, not flaky; quarantine does not apply.</text></feedback></answer>
+    <generalfeedback><text>Because the two tests always move together and cover the same path, the second provides no signal the first does not, yet it doubles the update cost on every refactor. Prune the redundant one and keep the clearest, highest-value test. Coverage is unchanged; maintenance cost drops.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Do not delete a slow but valuable test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A slow end-to-end test is the only thing that catches a class of real, costly integration regressions. To speed up the suite, a teammate proposes deleting it. Why is that the wrong move, and what is better?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It uniquely guards costly real regressions, so deleting it creates a genuine coverage gap; instead optimise it, parallelise it, or move it to a less frequent stage while keeping it</text><feedback><text>Correct — a valuable unique test should be sped up or rescheduled, not deleted, to protect the coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting it is fine because any slow test is by definition low-value</text><feedback><text>Slowness does not imply low value; this test uniquely catches expensive regressions and must be kept.</text></feedback></answer>
+    <answer fraction="0"><text>Keep it exactly as is and simply accept that no one will run the suite</text><feedback><text>Leaving it unaddressed is what makes the suite too slow to run; optimise or reschedule it instead of ignoring the problem.</text></feedback></answer>
+    <answer fraction="0"><text>Replace it with a duplicate unit test that checks the same internal method</text><feedback><text>A unit test on internals does not reproduce the integration coverage this test uniquely provides.</text></feedback></answer>
+    <generalfeedback><text>Speeding up a suite must not sacrifice coverage that nothing else provides. A slow test that uniquely catches expensive integration regressions is high-value; deleting it trades a manageable runtime problem for real risk. Optimise its setup, run it in parallel, or move it to a pre-merge or nightly stage — but keep the protection. "Fewer tests" is never the goal in itself; removing low-value tests is.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compounding cost of deferring maintenance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team keeps postponing test-suite maintenance to ship features faster. Following the debt/interest analogy, what is the likely long-run outcome if this continues?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The cost of every change keeps rising and trust keeps falling, until the accumulated debt forces an expensive clean-up or partial rewrite of the suite</text><feedback><text>Correct — deferred maintenance compounds, so the eventual bill is far larger than paying it down steadily.</text></feedback></answer>
+    <answer fraction="0"><text>The suite becomes cheaper to work with over time as debt accumulates</text><feedback><text>Debt makes work more expensive, not cheaper; that is the opposite of the interest effect.</text></feedback></answer>
+    <answer fraction="0"><text>The debt is automatically cleared by the next framework upgrade</text><feedback><text>Framework upgrades do not remove flaky, redundant, or coupled tests; the debt persists until addressed.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing changes, because test debt has no effect on delivery speed</text><feedback><text>Test debt slows delivery through flaky failures, brittle tests, and slow runs; it does not have no effect.</text></feedback></answer>
+    <generalfeedback><text>Like unpaid financial debt, deferred test maintenance compounds: flaky, slow, brittle, and redundant tests make each new change slower and riskier, and eroded trust means results are increasingly ignored. Left long enough, the interest dominates, and the team faces a costly clean-up or rewrite. Paying the debt down incrementally — pruning, decoupling, fixing flakiness — is far cheaper than letting it accumulate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rationale for test-impact analysis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the core rationale that makes test-impact analysis (running only the affected subset) a sound way to speed up feedback?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A change can only affect tests that depend on the changed code, so tests with no dependency on it cannot detect a new regression from that change and can be deferred to a later full run</text><feedback><text>Correct — impact analysis relies on the dependency relationship between the change and the tests it could affect.</text></feedback></answer>
+    <answer fraction="0"><text>Tests chosen at random are just as good as impact-selected tests</text><feedback><text>Random selection ignores dependencies and can miss the very tests the change could break; that is not the rationale.</text></feedback></answer>
+    <answer fraction="0"><text>The unselected tests are known to be worthless and can be deleted</text><feedback><text>Unselected tests are simply not affected by this change; they remain valuable and run in fuller cycles.</text></feedback></answer>
+    <answer fraction="0"><text>Running fewer tests always finds more bugs</text><feedback><text>Running fewer tests does not find more bugs; impact analysis just avoids running tests that cannot be affected right now.</text></feedback></answer>
+    <generalfeedback><text>Test-impact analysis rests on the dependency structure: a given change can only cause a regression in tests that exercise code reachable from that change. Tests with no such dependency cannot newly fail because of it, so running them on this commit adds latency without adding signal. They are not discarded — they run in periodic full passes to catch effects that the dependency mapping might miss or that come from other changes. The soundness of the approach depends entirely on the accuracy of that mapping.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prune redundancy while preserving confidence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A large suite is slow and expensive to maintain. Analysis shows heavy duplication but good coverage of critical behaviour. What action best improves the suite's cost-effectiveness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prune the redundant and low-value tests while preserving the tests that uniquely cover critical behaviour, lowering cost at roughly the same confidence</text><feedback><text>Correct — removing duplication without touching unique critical coverage cuts cost while keeping confidence.</text></feedback></answer>
+    <answer fraction="0"><text>Add many more tests everywhere, on the principle that more coverage is always safer</text><feedback><text>Piling on more tests when duplication is already the problem raises cost and maintenance without adding confidence.</text></feedback></answer>
+    <answer fraction="0"><text>Cut the suite to a fixed small number of tests regardless of what they cover</text><feedback><text>An arbitrary cap could remove unique coverage of critical behaviour; prune by value, not by a blanket number.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the tests covering critical behaviour first, since those are the slowest</text><feedback><text>Critical-behaviour tests are the ones you most want to keep; removing them trades cost for serious risk.</text></feedback></answer>
+    <generalfeedback><text>The balance point is high-value, maintainable coverage, not maximal or minimal test count. When duplication is heavy but critical behaviour is well covered, prune the redundant and low-value tests and keep the unique guards on important behaviour. Confidence stays roughly the same while run time and maintenance fall. Neither "always add more" nor "always cut to a fixed number" respects the actual value of each test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Risk-based ordering for a hotfix window</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You have a 30-minute window before an urgent hotfix release. The fix touches the payments module. You cannot run the full suite. Which tests should run first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The tests covering the changed payments code and its dependents, plus other business-critical or historically defect-prone areas, broadening outward as time allows</text><feedback><text>Correct — prioritise the changed high-value area and its impact, then the next-riskiest areas within the budget.</text></feedback></answer>
+    <answer fraction="0"><text>The tests that are known to pass quickly, regardless of what they cover</text><feedback><text>Choosing by speed alone can skip the payments code you just changed — exactly where a regression is most likely.</text></feedback></answer>
+    <answer fraction="0"><text>A random slice of the whole suite, to sample everything evenly</text><feedback><text>An even random sample dilutes effort away from the changed, high-risk payments area; prioritise by risk instead.</text></feedback></answer>
+    <answer fraction="0"><text>Only the tests unrelated to payments, to avoid disturbing the fix</text><feedback><text>The payments area is precisely what changed and what most needs re-testing; skipping it defeats the purpose.</text></feedback></answer>
+    <generalfeedback><text>With a hard time-box, spend it where a regression is most likely and most damaging. That starts with the code the fix actually touched (payments) and whatever depends on it, then extends to other business-critical and defect-prone areas as time permits. Risk-based ordering, informed by impact analysis, maximises the chance of catching a serious regression before the release.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Skipping regression on a "small" change</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under deadline pressure, a team considers skipping regression entirely because the change is "just a small tweak". Why is this risky, and what is the disciplined alternative?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Even a small change can break distant behaviour through shared dependencies, so run at least a risk-based / impact-selected subset rather than nothing</text><feedback><text>Correct — small changes still cause regressions; a targeted subset is the disciplined middle ground when full runs will not fit.</text></feedback></answer>
+    <answer fraction="0"><text>Small changes can never cause regressions, so skipping is perfectly safe</text><feedback><text>This is false: small changes frequently break unexpected areas via shared code and dependencies.</text></feedback></answer>
+    <answer fraction="0"><text>The only safe option is always to run the entire suite, so ship without any tests if it will not fit</text><feedback><text>An all-or-nothing view leads to shipping untested; an impact-selected or risk-based subset is a sound partial run.</text></feedback></answer>
+    <answer fraction="0"><text>Skip regression but delete the tests too, so they stop slowing future releases</text><feedback><text>Deleting tests to dodge a deadline destroys real coverage; run a targeted subset now and keep the tests.</text></feedback></answer>
+    <generalfeedback><text>Size is a poor predictor of blast radius: a one-line change can regress far-away behaviour through shared code, configuration, or data. Skipping regression removes the safety net and invites an escaped defect. When the full suite will not fit the window, run an impact-selected or risk-based subset centred on the change and the highest-risk areas — some disciplined coverage beats none, and it beats deleting tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why selection still needs periodic full runs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team relies on per-commit test selection for speed. Why must they still run the complete suite periodically rather than trusting selection alone forever?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The change-to-test dependency mapping can be incomplete or inaccurate (dynamic dependencies, configuration, integration effects), so selection can miss an affected test; periodic full runs are the safety net</text><feedback><text>Correct — selection is only as safe as its dependency mapping, so full runs catch what the mapping misses.</text></feedback></answer>
+    <answer fraction="0"><text>Because the unselected tests silently rot and stop compiling unless run every commit</text><feedback><text>Tests do not rot simply from not running each commit; the real reason is that the impact mapping can be imperfect.</text></feedback></answer>
+    <answer fraction="0"><text>Because a full run is always faster than a selected run</text><feedback><text>A full run is generally slower, not faster; that is why selection is used per commit in the first place.</text></feedback></answer>
+    <answer fraction="0"><text>Because selection tools are required by law to be re-validated daily</text><feedback><text>There is no such legal requirement; the reason is the possible inaccuracy of the dependency mapping.</text></feedback></answer>
+    <generalfeedback><text>Test-impact selection is sound only to the extent its dependency mapping is complete. Real systems have dependencies that static analysis can miss — reflection and dynamic dispatch, configuration and data, cross-service integration effects — so a change can affect a test that selection did not pick. Periodic full runs (nightly, pre-release) act as the safety net that catches anything the per-commit mapping overlooked, keeping the speed of selection without giving up completeness.</text></generalfeedback>
+  </question>
+</quiz>

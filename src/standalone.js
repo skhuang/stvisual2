@@ -134466,6 +134466,2546 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "regression-debt": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What regression testing is",
+            "text": "<p><em>Regression testing</em> is best described as:</p>",
+            "answers": [
+              {
+                "text": "Re-running existing tests after a change to confirm that previously working behaviour still works",
+                "fraction": 100,
+                "feedback": "Correct \u2014 regression testing guards against a change breaking (regressing) functionality that used to work."
+              },
+              {
+                "text": "Writing brand-new tests for a feature that has never been tested before",
+                "fraction": 0,
+                "feedback": "That is testing new functionality; regression testing re-checks behaviour that already worked."
+              },
+              {
+                "text": "Measuring how many lines of production code the tests execute",
+                "fraction": 0,
+                "feedback": "That describes code coverage, not regression testing."
+              },
+              {
+                "text": "Deleting old tests once a release ships",
+                "fraction": 0,
+                "feedback": "Removing tests is a maintenance action, not the definition of regression testing."
+              }
+            ],
+            "generalFeedback": 'Regression testing re-executes a body of existing tests after any change (a new feature, a bug fix, a refactor) to verify that functionality which previously passed has not been broken. A "regression" is precisely the reappearance of a defect or the breaking of behaviour that used to work.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a regression suite is",
+            "text": "<p>A <em>regression test suite</em> is:</p>",
+            "answers": [
+              {
+                "text": "The accumulated set of tests, built up over past releases, that is re-run to protect existing behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is the growing collection of tests kept and re-run to catch regressions."
+              },
+              {
+                "text": "A single test that is written fresh for each release and then thrown away",
+                "fraction": 0,
+                "feedback": "A regression suite is retained and re-run over time, not a throwaway single test."
+              },
+              {
+                "text": "A list of manual steps that is never automated under any circumstances",
+                "fraction": 0,
+                "feedback": "Regression suites are commonly automated; automation is in fact the usual response to their growth."
+              },
+              {
+                "text": "The subset of requirements that have not yet been implemented",
+                "fraction": 0,
+                "feedback": "That is a backlog of unbuilt features, not a test suite."
+              }
+            ],
+            "generalFeedback": "The regression suite is the body of tests accumulated across previous releases and re-run to confirm that existing behaviour still holds. Because it grows as features are added, it becomes the main workload that regression testing must repeatedly execute.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the regression set grows",
+            "text": "<p>Why does the regression test set tend to grow larger with every release?</p>",
+            "answers": [
+              {
+                "text": "Each release adds new features (and their tests), and those tests are kept and re-run alongside all the earlier ones",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the suite accumulates: new tests are added while old ones are retained to keep protecting past behaviour."
+              },
+              {
+                "text": "Test files automatically double in size on their own between releases",
+                "fraction": 0,
+                "feedback": "Tests do not grow by themselves; the suite grows because teams keep adding and retaining tests."
+              },
+              {
+                "text": "Testing frameworks require you to duplicate every test once per release",
+                "fraction": 0,
+                "feedback": "No framework requires per-release duplication; growth comes from accumulating new features' tests."
+              },
+              {
+                "text": "Deleting features always adds more tests than it removes",
+                "fraction": 0,
+                "feedback": "Removing a feature should let you remove its tests; growth is driven by adding features, not deleting them."
+              }
+            ],
+            "generalFeedback": "As a product accrues features across releases, the tests written for each feature are kept and re-run to protect that behaviour going forward. So the regression set steadily accumulates. This accumulation is exactly what makes purely manual regression progressively slower and more expensive over time.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What test (technical) debt is",
+            "text": "<p>In the context of a test suite, <em>test technical debt</em> refers to:</p>",
+            "answers": [
+              {
+                "text": "Accumulated problems in the test suite \u2014 flaky, slow, redundant, obsolete or implementation-coupled tests \u2014 that raise maintenance cost and erode trust",
+                "fraction": 100,
+                "feedback": "Correct \u2014 test debt is the built-up quality problems in the tests themselves, carrying an ongoing cost."
+              },
+              {
+                "text": "The number of tests that still need to be written for unbuilt features",
+                "fraction": 0,
+                "feedback": "That is a coverage gap or backlog; test debt is about problems in the tests you already have."
+              },
+              {
+                "text": "Money owed to a third party for a testing tool licence",
+                "fraction": 0,
+                "feedback": "Test debt is a metaphor for accumulated quality problems, not a literal financial liability."
+              },
+              {
+                "text": "The time the test suite takes to run, measured in seconds",
+                "fraction": 0,
+                "feedback": "Runtime is one symptom, but test debt is the broader set of accumulated suite problems, not a single duration figure."
+              }
+            ],
+            "generalFeedback": 'Like technical debt in production code, test debt is the accumulation of shortcuts and neglect in the test suite: flaky tests, slow tests, redundant or obsolete tests, and tests tightly coupled to implementation. It quietly raises the cost of every future change and, like debt, charges "interest" the longer it is left unaddressed.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a flaky test is",
+            "text": "<p>A <em>flaky test</em> is one that:</p>",
+            "answers": [
+              {
+                "text": "Passes and fails non-deterministically on the same code, without any change to what is under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flakiness is an inconsistent, non-deterministic result on unchanged code."
+              },
+              {
+                "text": "Fails consistently every time until a real bug is fixed",
+                "fraction": 0,
+                "feedback": "That is a deterministic, reproducible failure \u2014 usually a genuine defect \u2014 not flakiness."
+              },
+              {
+                "text": "Takes longer to run than the average test in the suite",
+                "fraction": 0,
+                "feedback": "That describes a slow test; flakiness is about an inconsistent pass/fail outcome."
+              },
+              {
+                "text": "Duplicates the assertions of another existing test",
+                "fraction": 0,
+                "feedback": "That describes a redundant test; flakiness is non-determinism, not duplication."
+              }
+            ],
+            "generalFeedback": 'A flaky test gives different verdicts across runs even though the code and inputs have not changed. Flaky tests are a major form of test debt: their false alarms waste time and, worse, erode trust so that real failures start being dismissed as "just flaky".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why a slow test is a problem",
+            "text": "<p>Within test debt, why are <em>slow</em> tests treated as a problem?</p>",
+            "answers": [
+              {
+                "text": "They lengthen the feedback loop, so the suite is run less often and defects are caught later",
+                "fraction": 100,
+                "feedback": "Correct \u2014 slow suites delay feedback and discourage frequent running, which is their core cost."
+              },
+              {
+                "text": "They always produce incorrect results",
+                "fraction": 0,
+                "feedback": "Slowness is about time taken, not correctness; a slow test can still be perfectly correct."
+              },
+              {
+                "text": "They can only be run once and then must be deleted",
+                "fraction": 0,
+                "feedback": "Slow tests can be re-run; the issue is the delay they add, not a one-time limit."
+              },
+              {
+                "text": "They automatically make other tests flaky",
+                "fraction": 0,
+                "feedback": "Slowness does not by itself cause flakiness; the problem is the delayed, discouraged feedback."
+              }
+            ],
+            "generalFeedback": "Fast feedback is the point of an automated suite. A slow regression suite stretches the time between a change and its verdict, so developers run it less often, batch up more changes, and discover breakages later when they are costlier to fix. Keeping tests fast is therefore a central part of managing test debt.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a redundant test is",
+            "text": "<p>A <em>redundant</em> (duplicate) test is one that:</p>",
+            "answers": [
+              {
+                "text": "Exercises the same behaviour and would fail for the same reasons as another test, adding maintenance cost without adding confidence",
+                "fraction": 100,
+                "feedback": "Correct \u2014 redundant tests cover ground already covered, so they cost upkeep but add no new signal."
+              },
+              {
+                "text": "Checks a behaviour that no other test checks",
+                "fraction": 0,
+                "feedback": "That is a unique, valuable test \u2014 the opposite of redundant."
+              },
+              {
+                "text": "Fails non-deterministically between runs",
+                "fraction": 0,
+                "feedback": "That describes a flaky test, not a redundant one."
+              },
+              {
+                "text": "Tests a feature that has been removed from the product",
+                "fraction": 0,
+                "feedback": "That describes an obsolete test; a redundant test duplicates coverage of still-present behaviour."
+              }
+            ],
+            "generalFeedback": "A redundant test overlaps another so completely that they pass and fail together for the same reasons. It still has to be read, maintained, and updated on every refactor, yet it adds no coverage the suite did not already have. Duplicate coverage is a classic form of test debt and a prime candidate for pruning.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an obsolete test is",
+            "text": "<p>An <em>obsolete</em> (dead) test is one that:</p>",
+            "answers": [
+              {
+                "text": "Verifies behaviour or a feature that no longer exists in the product, so it no longer protects anything real",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an obsolete test guards behaviour that has been removed or changed away, so it earns nothing."
+              },
+              {
+                "text": "Is written in an older programming language than the rest of the suite",
+                "fraction": 0,
+                "feedback": "Language age is irrelevant; obsolete means the tested behaviour no longer exists."
+              },
+              {
+                "text": "Runs more slowly than newer tests",
+                "fraction": 0,
+                "feedback": "That describes a slow test; obsolete means it targets removed or changed-away behaviour."
+              },
+              {
+                "text": "Passes and fails at random",
+                "fraction": 0,
+                "feedback": "That describes flakiness; an obsolete test targets behaviour that no longer exists."
+              }
+            ],
+            "generalFeedback": "An obsolete test checks something the product no longer does \u2014 a removed feature, an old contract, a retired code path. It provides no protection yet still has to be maintained, and it can even block legitimate changes. Obsolete tests are dead weight and should be removed as part of suite maintenance.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Implementation-coupled tests",
+            "text": "<p>A test that is <em>tightly coupled to the implementation</em> is problematic because it:</p>",
+            "answers": [
+              {
+                "text": "Breaks when internal details are refactored even though the observable behaviour is unchanged",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coupling to internals makes the test brittle: harmless refactors trigger false failures."
+              },
+              {
+                "text": "Only ever passes and can never detect a defect",
+                "fraction": 0,
+                "feedback": "That describes a tautological or vacuous test; implementation-coupled tests do fail \u2014 too easily, on refactors."
+              },
+              {
+                "text": "Runs faster than a behaviour-focused test",
+                "fraction": 0,
+                "feedback": "Speed is not the issue; the problem is brittleness under refactoring."
+              },
+              {
+                "text": "Cannot be written in a unit-testing framework",
+                "fraction": 0,
+                "feedback": "Such tests are easy to write; that is part of the trap \u2014 they are brittle, not impossible."
+              }
+            ],
+            "generalFeedback": "When a test asserts on private internals \u2014 specific method calls, internal data structures, exact intermediate values \u2014 it fails whenever those internals change, regardless of whether the externally observable behaviour is still correct. This brittleness makes every refactor expensive and is a well-known form of test debt. The remedy is to test behaviour through the public interface, not internals.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why automate regression",
+            "text": "<p>As features accumulate, why do teams automate their regression testing?</p>",
+            "answers": [
+              {
+                "text": "Because re-running the whole growing suite by hand every release becomes too slow and expensive to be sustainable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 manual regression does not scale with an ever-growing suite, so automation keeps it feasible each iteration."
+              },
+              {
+                "text": "Because automated tests never need any maintenance afterwards",
+                "fraction": 0,
+                "feedback": "Automated tests still require upkeep; automation addresses the cost of repeated execution, not maintenance."
+              },
+              {
+                "text": "Because automation guarantees the software has zero defects",
+                "fraction": 0,
+                "feedback": "No testing guarantees zero defects; automation makes frequent regression runs feasible, not perfect."
+              },
+              {
+                "text": "Because manual testing is illegal in professional software",
+                "fraction": 0,
+                "feedback": "Manual testing is legitimate and often useful; it simply does not scale for large repeated regression runs."
+              }
+            ],
+            "generalFeedback": "Every release adds tests that must be re-run to protect existing behaviour. Repeating that manually takes longer and longer until it is no longer feasible within an iteration. Automating regression lets the suite be run cheaply and repeatedly \u2014 on every commit if desired \u2014 so the growing set stays affordable to execute.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What test selection is",
+            "text": "<p><em>Test selection</em> (test-impact analysis) means:</p>",
+            "answers": [
+              {
+                "text": "Running only the subset of tests affected by a particular change, instead of the entire suite",
+                "fraction": 100,
+                "feedback": "Correct \u2014 selection narrows the run to the tests relevant to what changed."
+              },
+              {
+                "text": "Deleting every test that is not part of the latest feature",
+                "fraction": 0,
+                "feedback": "Selection chooses which tests to run this time; it does not delete the others."
+              },
+              {
+                "text": "Choosing which developer writes each test",
+                "fraction": 0,
+                "feedback": "That is task assignment, not test selection."
+              },
+              {
+                "text": "Randomly picking half the suite each run regardless of the change",
+                "fraction": 0,
+                "feedback": "Selection is driven by what the change affects, not by random sampling."
+              }
+            ],
+            "generalFeedback": "Test selection, or test-impact analysis, maps a code change to the tests that could be affected by it (through dependencies) and runs just that subset. It keeps feedback fast when running the whole suite on every change would be too slow, without discarding the unselected tests, which still run in fuller cycles.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What risk-based regression is",
+            "text": "<p><em>Risk-based regression testing</em> means:</p>",
+            "answers": [
+              {
+                "text": "Prioritising the highest-risk, most-changed and highest-value areas when there is not enough time to run everything",
+                "fraction": 100,
+                "feedback": "Correct \u2014 risk-based regression spends limited testing time where a failure would hurt most."
+              },
+              {
+                "text": "Only ever testing the parts of the system that carry the least risk",
+                "fraction": 0,
+                "feedback": "That inverts the idea; risk-based regression concentrates on the highest-risk areas first."
+              },
+              {
+                "text": "Running tests in a random order to expose hidden dependencies",
+                "fraction": 0,
+                "feedback": "That is randomised ordering for flakiness detection, not risk-based prioritisation."
+              },
+              {
+                "text": "Removing all risky features so no regression testing is needed",
+                "fraction": 0,
+                "feedback": "Risk-based regression prioritises testing of risky areas; it does not remove features."
+              }
+            ],
+            "generalFeedback": "When you cannot run the full regression suite in the available window, risk-based regression ranks what to run by risk: areas that changed recently, that are business-critical or high-value, or that have a history of defects go first. It maximises the chance of catching an important regression given a limited testing budget.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify a symptom of test debt",
+            "text": "<p>Which of the following is a clear <em>symptom</em> of test debt in a suite?</p>",
+            "answers": [
+              {
+                "text": 'Developers routinely re-run red builds without looking, because failures are usually "just flaky"',
+                "fraction": 100,
+                "feedback": "Correct \u2014 normalised flaky failures and eroded trust are a hallmark symptom of test debt."
+              },
+              {
+                "text": "Each test checks a distinct behaviour and the suite runs quickly",
+                "fraction": 0,
+                "feedback": "That describes a healthy suite, not one carrying debt."
+              },
+              {
+                "text": "New features arrive with focused, maintained tests",
+                "fraction": 0,
+                "feedback": "Well-maintained tests are a sign of health, not of debt."
+              },
+              {
+                "text": "The suite catches real regressions early and is trusted by the team",
+                "fraction": 0,
+                "feedback": "A trusted, effective suite is the opposite of a debt-laden one."
+              }
+            ],
+            "generalFeedback": "Symptoms of test debt include chronic flakiness and eroded trust (red builds shrugged off), a suite so slow it is rarely run, tests that break on every refactor, and piles of duplicate or obsolete tests. When people stop trusting or reading the results, the suite has stopped doing its job \u2014 a clear warning sign.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "More tests is not always better",
+            "text": "<p>Adding more tests always improves a suite, so a larger suite is always better than a smaller one.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 redundant or low-value tests add maintenance cost without adding confidence, so bigger is not automatically better."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: tests that duplicate coverage or check nothing valuable cost upkeep while adding no signal, so more is not always better."
+              }
+            ],
+            "generalFeedback": "Every test has a carrying cost: it must run, be maintained, and be updated on refactors. A redundant or low-value test pays that cost without adding any confidence the suite did not already have. The goal is high-value, maintainable coverage \u2014 not the largest possible number of tests."
+          },
+          {
+            "type": "truefalse",
+            "name": "Skipping regression risks escaped defects",
+            "text": "<p>If regression testing is skipped to save time, defects that were reintroduced can escape undetected into the released product.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without regression testing, a change that breaks previously working behaviour can ship unnoticed."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: skipping regression removes the safety net, so reintroduced or newly broken behaviour can reach users undetected."
+              }
+            ],
+            "generalFeedback": "Regression testing exists to catch behaviour that a change has broken. Skip it and there is nothing to notice that a fix or refactor re-broke an old feature, so the defect escapes to production. This is exactly why the growing manual cost is a problem worth solving by automation rather than by dropping regression coverage."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Why manual regression does not scale",
+            "text": "<p>A team runs its entire regression suite by hand every release. As the product grows over many releases, why does this become unsustainable?</p>",
+            "answers": [
+              {
+                "text": "The manual effort grows with every added feature, so each release takes longer and costs more to regression-test, until it no longer fits the iteration",
+                "fraction": 100,
+                "feedback": "Correct \u2014 manual regression cost scales up with the accumulating suite, eventually outgrowing the time available."
+              },
+              {
+                "text": "Manual testers become less accurate the more experienced they get",
+                "fraction": 0,
+                "feedback": "Experience does not reduce accuracy; the real issue is the ever-growing volume of tests to repeat by hand."
+              },
+              {
+                "text": "The production code shrinks over time, leaving nothing to test",
+                "fraction": 0,
+                "feedback": "The code base generally grows, not shrinks; that growth is what makes manual regression balloon."
+              },
+              {
+                "text": "Manual tests are guaranteed to find every defect, which wastes time",
+                "fraction": 0,
+                "feedback": "Manual testing does not find every defect; the problem is the escalating repeated effort, not excessive success."
+              }
+            ],
+            "generalFeedback": "Regression cost is roughly proportional to the size of the suite, and the suite accumulates with every release. Re-executing all of it by hand each iteration therefore takes ever more time and money, and eventually cannot be completed within the release window. The standard remedy is to automate regression so repeated runs are cheap.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: two tests, same path and asserts",
+            "text": "<p>Two tests exercise the identical code path with the same setup and assert the same outcome; they always pass or fail together. Which test-debt smell is this?</p>",
+            "answers": [
+              {
+                "text": "Redundant / duplicate coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they cover the same ground and give the same signal, so one is duplicated coverage."
+              },
+              {
+                "text": "Flakiness",
+                "fraction": 0,
+                "feedback": "They behave deterministically (always together); flakiness is non-deterministic variation, which is not described here."
+              },
+              {
+                "text": "Obsolete test",
+                "fraction": 0,
+                "feedback": "Nothing says the tested behaviour was removed; the smell is duplication, not obsolescence."
+              },
+              {
+                "text": "Implementation coupling",
+                "fraction": 0,
+                "feedback": "The issue is not brittleness under refactoring but that two tests cover the same behaviour identically."
+              }
+            ],
+            "generalFeedback": "When two tests always pass and fail together for the same reasons, the second one adds no coverage the first did not already provide. That is redundant coverage: it doubles maintenance for a single signal. The remedy is to prune down to the higher-value test and remove the duplicate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: breaks on every harmless refactor",
+            "text": "<p>A test fails whenever the internals of a class are refactored, even though its externally observable behaviour is unchanged. Which smell is this?</p>",
+            "answers": [
+              {
+                "text": "A brittle test tightly coupled to the implementation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 asserting on internals makes the test break on refactors that keep behaviour intact."
+              },
+              {
+                "text": "An obsolete test",
+                "fraction": 0,
+                "feedback": "The tested behaviour still exists; the test is brittle, not obsolete."
+              },
+              {
+                "text": "A slow test",
+                "fraction": 0,
+                "feedback": "Nothing here concerns runtime; the smell is brittleness from implementation coupling."
+              },
+              {
+                "text": "A redundant test",
+                "fraction": 0,
+                "feedback": "No duplication is described; the problem is coupling to internal details."
+              }
+            ],
+            "generalFeedback": "A test that breaks on internal refactors while behaviour is unchanged is coupled to implementation details rather than to observable behaviour. It punishes exactly the refactoring you want to encourage. The fix is to assert on the public contract and observable outcomes, so the test only fails when behaviour actually changes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: tests a removed feature",
+            "text": '<p>A test still checks a "mail-in rebate" feature that was removed from the product two releases ago. Which smell is this?</p>',
+            "answers": [
+              {
+                "text": "An obsolete (dead) test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it guards behaviour that no longer exists, so it protects nothing."
+              },
+              {
+                "text": "A flaky test",
+                "fraction": 0,
+                "feedback": "Nothing indicates non-deterministic results; the behaviour it targets was removed, making it obsolete."
+              },
+              {
+                "text": "A redundant test",
+                "fraction": 0,
+                "feedback": "Redundancy is duplication of live coverage; here the feature is gone entirely, so it is obsolete."
+              },
+              {
+                "text": "An implementation-coupled test",
+                "fraction": 0,
+                "feedback": "The issue is not brittleness under refactor but that the feature no longer exists at all."
+              }
+            ],
+            "generalFeedback": "A test for a feature that has been removed can no longer protect anything real. At best it is dead weight to maintain; at worst it forces awkward stubs or blocks cleanup. Such obsolete tests should be deleted as part of routine suite maintenance.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Remedy for duplicate coverage",
+            "text": "<p>You confirm that several tests provide overlapping, duplicate coverage of the same behaviour. What is the appropriate remedy?</p>",
+            "answers": [
+              {
+                "text": "Deduplicate \u2014 keep the clearest, highest-value test and prune the redundant ones",
+                "fraction": 100,
+                "feedback": "Correct \u2014 remove the duplicates so the behaviour is still covered once, at lower maintenance cost."
+              },
+              {
+                "text": "Keep them all, since more tests always means more safety",
+                "fraction": 0,
+                "feedback": "Duplicates add upkeep without new signal; keeping them all just raises maintenance cost."
+              },
+              {
+                "text": "Add automatic retries to each of the duplicates",
+                "fraction": 0,
+                "feedback": "Retries address flakiness, not duplication; the fix for duplication is to remove the extras."
+              },
+              {
+                "text": "Delete every test that touches that behaviour, including the unique one",
+                "fraction": 0,
+                "feedback": "That would drop the coverage entirely; you keep one good test and prune only the duplicates."
+              }
+            ],
+            "generalFeedback": "Redundant tests cost maintenance for a signal you already have. Consolidate: retain the single clearest, most valuable test for the behaviour and remove the rest. Coverage of the behaviour is preserved while the ongoing cost of the duplicates disappears.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Remedy for a brittle implementation-coupled test",
+            "text": "<p>A useful test keeps breaking on refactors because it asserts on private internal state. How should you remedy it?</p>",
+            "answers": [
+              {
+                "text": "Decouple it from internals \u2014 rewrite it to test observable behaviour through the public interface",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing behaviour, not internals, makes the test stable across refactors that preserve behaviour."
+              },
+              {
+                "text": "Delete it, since any test that ever fails is not worth keeping",
+                "fraction": 0,
+                "feedback": "The behaviour it checks is valuable; decouple it rather than discarding the coverage."
+              },
+              {
+                "text": "Freeze the code so it can never be refactored again",
+                "fraction": 0,
+                "feedback": "Blocking refactoring to protect a brittle test inverts the priorities; fix the test to allow safe refactoring."
+              },
+              {
+                "text": "Add a fixed sleep before the assertion",
+                "fraction": 0,
+                "feedback": "Sleeps address timing flakiness, not coupling to internals; rewrite the test against the public contract."
+              }
+            ],
+            "generalFeedback": "The value of the test is the behaviour it guards, so keep it \u2014 but move its assertions to the public interface and observable outcomes. Then it fails only when behaviour genuinely changes, and internal refactors stop triggering false failures. Testing behaviour rather than structure is the durable fix for brittleness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Remedy for an obsolete test",
+            "text": "<p>You verify that a test targets a feature that has been fully removed and can never run against anything real again. What should you do?</p>",
+            "answers": [
+              {
+                "text": "Delete it \u2014 an obsolete test protects nothing and only adds maintenance cost",
+                "fraction": 100,
+                "feedback": "Correct \u2014 once the behaviour is gone for good, removing its test is correct maintenance, not lost coverage."
+              },
+              {
+                "text": 'Keep it disabled forever "just in case" the feature returns',
+                "fraction": 0,
+                "feedback": "A permanently disabled test is dead weight and a stale reminder; if the feature returns, write a fresh test then."
+              },
+              {
+                "text": "Rewrite its assertions to pass against unrelated behaviour",
+                "fraction": 0,
+                "feedback": "Repurposing it to test something else muddles intent; delete the obsolete test and write a clear one where needed."
+              },
+              {
+                "text": "Quarantine it and track it as flaky",
+                "fraction": 0,
+                "feedback": "Quarantine is for flaky tests you intend to fix; an obsolete test has nothing to fix and should be removed."
+              }
+            ],
+            "generalFeedback": "An obsolete test guards behaviour that no longer exists, so deleting it removes no real coverage \u2014 it removes dead weight. Because the removal is intentional and the behaviour is gone, this is exactly when deleting a test is the right call, not a loss.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test selection when time-boxed",
+            "text": "<p>Running the full suite on every commit now takes too long for fast feedback. Which technique keeps per-commit feedback quick without abandoning the other tests?</p>",
+            "answers": [
+              {
+                "text": "Test selection / test-impact analysis \u2014 run the subset of tests affected by the commit, and run the fuller suite less frequently",
+                "fraction": 100,
+                "feedback": "Correct \u2014 selecting the affected subset gives fast feedback while the rest still run on a broader cadence."
+              },
+              {
+                "text": "Permanently delete the tests that are not touched by this commit",
+                "fraction": 0,
+                "feedback": "Selection chooses what to run now; it does not delete the unselected tests, which still guard other behaviour."
+              },
+              {
+                "text": "Disable assertions in the slow tests so they finish faster",
+                "fraction": 0,
+                "feedback": "Removing assertions makes tests worthless; selection runs a relevant subset instead."
+              },
+              {
+                "text": "Run a fixed random 10% of tests every commit regardless of the change",
+                "fraction": 0,
+                "feedback": "A blind random sample ignores what actually changed; impact-based selection targets the affected tests."
+              }
+            ],
+            "generalFeedback": "Test-impact analysis maps each change to the tests that could be affected via dependencies and runs just those on the commit, giving quick, relevant feedback. The unselected tests are not discarded \u2014 they run in nightly or pre-merge full passes. This balances fast feedback with overall coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Risk-based choice under a deadline",
+            "text": "<p>You have time to run only part of the regression suite before a release. On what basis should you choose what to run?</p>",
+            "answers": [
+              {
+                "text": "By risk \u2014 prioritise areas that changed recently, are business-critical, or have a history of defects",
+                "fraction": 100,
+                "feedback": "Correct \u2014 risk-based selection spends the limited budget where a regression would be most likely and most damaging."
+              },
+              {
+                "text": "Run whichever tests happen to be alphabetically first until time runs out",
+                "fraction": 0,
+                "feedback": "Alphabetical order is unrelated to risk; it may skip the most important areas entirely."
+              },
+              {
+                "text": "Run only the tests that are already known to pass",
+                "fraction": 0,
+                "feedback": "Running tests you expect to pass adds little; you want the highest-risk areas where a failure would matter."
+              },
+              {
+                "text": "Run the fastest tests only, ignoring what they cover",
+                "fraction": 0,
+                "feedback": "Speed alone ignores importance; a fast test over a trivial area may be far less valuable than a slower critical one."
+              }
+            ],
+            "generalFeedback": "When you cannot run everything, rank by risk: recently changed code, high-value or business-critical features, and historically defect-prone modules go first. This concentrates the limited testing time where an escaped regression would be most likely and most costly. (Speed can be a tie-breaker to fit more in, but it is not the primary criterion.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why more tests is not always better",
+            "text": '<p>A teammate argues the suite should never shrink because "every extra test is extra safety". Why is this reasoning flawed?</p>',
+            "answers": [
+              {
+                "text": "Redundant and low-value tests add run time and maintenance cost while adding no confidence the suite did not already have",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test only helps if it adds signal; otherwise it is pure cost."
+              },
+              {
+                "text": "Because test suites have a hard maximum size enforced by the framework",
+                "fraction": 0,
+                "feedback": "There is no such fixed limit; the real issue is cost without added value, not a size cap."
+              },
+              {
+                "text": "Because extra tests always make the remaining tests flaky",
+                "fraction": 0,
+                "feedback": "Adding tests does not inherently cause flakiness; the flaw is paying maintenance cost for no new signal."
+              },
+              {
+                "text": "Because coverage tools refuse to report above a certain test count",
+                "fraction": 0,
+                "feedback": "Coverage tools do not cap test counts; the point is redundant tests cost without adding confidence."
+              }
+            ],
+            "generalFeedback": "A test earns its keep only if it can catch a failure the rest of the suite would miss. A redundant or low-value test provides no such new signal yet still consumes run time and must be maintained and updated on every refactor. So beyond a point, adding tests raises cost without raising confidence \u2014 which is why pruning low-value tests can improve a suite. (This does not mean fewer is always better: you still need enough coverage of important behaviour.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Remedy for a flaky test in the suite",
+            "text": "<p>A regression test fails intermittently on unchanged code and is starting to erode the team's trust in the suite. What is the responsible remedy?</p>",
+            "answers": [
+              {
+                "text": "Diagnose and fix the root cause; if that cannot be done immediately, quarantine it out of the blocking gate while tracking it for repair",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fix the flakiness, or contain it visibly while it is tracked, rather than leaving it to erode trust."
+              },
+              {
+                "text": "Configure the pipeline to silently re-run it until it passes and report green",
+                "fraction": 0,
+                "feedback": "Blind retry-until-green can also mask a real intermittent bug and leaves the flakiness in place; it is not a responsible fix."
+              },
+              {
+                "text": "Ignore it, since flaky failures are never caused by real bugs",
+                "fraction": 0,
+                "feedback": "Some intermittent failures do expose real bugs (races, edge cases); ignoring them is dangerous."
+              },
+              {
+                "text": "Leave it failing intermittently so the team stays alert",
+                "fraction": 0,
+                "feedback": "Chronic false alarms do the opposite \u2014 they train the team to ignore red builds."
+              }
+            ],
+            "generalFeedback": "Flaky tests are a form of test debt that erodes trust in the whole suite. The right response is to find and fix the source of the non-determinism. If a fix cannot land right away, quarantine the test out of the merge-blocking gate but keep it on a tracked list with an owner and a deadline, so it is contained without being forgotten.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "First remedies for a slow suite",
+            "text": "<p>Your regression suite has grown so slow that developers avoid running it. Which combination of actions best addresses the slowness?</p>",
+            "answers": [
+              {
+                "text": "Parallelise the run, speed up the slowest tests, and prune redundant tests that add no coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 these attack runtime directly while preserving the coverage that matters."
+              },
+              {
+                "text": "Delete a random selection of tests until the suite is fast enough",
+                "fraction": 0,
+                "feedback": "Random deletion sacrifices real coverage; prune redundancy deliberately and speed up the rest instead."
+              },
+              {
+                "text": "Disable the assertions in the slowest tests so they finish instantly",
+                "fraction": 0,
+                "feedback": "An assertion-free test verifies nothing; that is not a speed fix but a coverage loss."
+              },
+              {
+                "text": "Stop running regression entirely and rely on manual spot checks",
+                "fraction": 0,
+                "feedback": "Dropping regression invites escaped defects; the goal is to make the suite fast, not to abandon it."
+              }
+            ],
+            "generalFeedback": "Slowness is fixed by cutting real time without cutting real coverage: run tests in parallel, optimise or re-scope the slowest ones (for example, replace heavy end-to-end setups with faster narrower tests where appropriate), and remove genuinely redundant tests. Test selection can further shorten per-commit feedback. Deleting valuable tests or disabling assertions only trades speed for lost protection.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why keeping tests fast matters each iteration",
+            "text": "<p>Why is keeping the regression suite fast an ongoing priority in an iterative process, rather than a one-off task?</p>",
+            "answers": [
+              {
+                "text": "Because fast feedback lets the suite be run frequently (even every commit), catching regressions early when they are cheapest to fix",
+                "fraction": 100,
+                "feedback": "Correct \u2014 speed sustains frequent runs and early detection throughout ongoing development."
+              },
+              {
+                "text": "Because a fast suite is guaranteed to contain no bugs of its own",
+                "fraction": 0,
+                "feedback": "Speed says nothing about a suite's own correctness; the benefit is frequent, early feedback."
+              },
+              {
+                "text": "Because slow tests always produce wrong results",
+                "fraction": 0,
+                "feedback": "Slow tests can be perfectly correct; the concern is delayed, discouraged feedback."
+              },
+              {
+                "text": "Because frameworks refuse to run suites over a fixed duration",
+                "fraction": 0,
+                "feedback": "No such universal limit exists; the priority is preserving frequent, early feedback."
+              }
+            ],
+            "generalFeedback": "In an iterative process the suite is run again and again, so its speed compounds. A fast suite is run often \u2014 on every commit or pull request \u2014 so a regression is caught within minutes of being introduced, while the change is fresh and cheap to fix. Because features keep accumulating, keeping the suite fast is a continual effort, not a one-time cleanup.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "A passing redundant test still costs",
+            "text": "<p>A redundant test that always passes still carries a cost, because it must be run, read, and updated whenever the code it touches is refactored.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 even a green test consumes run time and maintenance effort, so redundancy is not free."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: a passing test is not cost-free \u2014 it adds runtime and must be maintained and updated on refactors."
+              }
+            ],
+            "generalFeedback": "People often assume only failing tests cost anything, but every test in the suite is executed on each run and has to be kept current as the code evolves. A redundant test pays these costs while adding no signal the suite lacked, which is why deduplication reduces cost without reducing confidence."
+          },
+          {
+            "type": "truefalse",
+            "name": "Risk-based does not eliminate full regression",
+            "text": "<p>Because risk-based regression concentrates on high-risk areas, a team that adopts it never needs to run the full regression suite again.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 risk-based selection is for when you cannot run everything now; the full suite should still run periodically to cover lower-risk areas."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: prioritising high-risk areas does not make lower-risk regressions impossible, so full runs are still needed periodically."
+              }
+            ],
+            "generalFeedback": 'Risk-based regression is a way to spend a limited testing budget well, not a licence to permanently ignore everything low-risk. Defects can still appear outside the prioritised areas, so the fuller suite should run on a broader cadence (nightly, pre-release). Overstating risk-based testing as "never run everything again" would leave real gaps.'
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Diagnose: suite too slow to run",
+            "text": "<p>A regression suite takes 90 minutes, so developers merge without running it and breakages are found days later. Investigation shows a third of the tests duplicate coverage and many use heavy full-stack setups. What is the best prescription?</p>",
+            "answers": [
+              {
+                "text": "Parallelise execution, replace the heaviest setups with faster narrower tests where they add no unique value, and prune the duplicate tests \u2014 then add test selection for per-commit feedback",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cut runtime by parallelising, optimising, and deduplicating, and use selection for fast local feedback, all while preserving real coverage."
+              },
+              {
+                "text": "Delete tests at random until the suite runs in under ten minutes",
+                "fraction": 0,
+                "feedback": "Random deletion discards real coverage; the redundancy and heavy setups must be addressed deliberately."
+              },
+              {
+                "text": "Keep the suite as is but stop requiring it before merge",
+                "fraction": 0,
+                "feedback": "That is what is already happening and it lets breakages escape; the suite must be made fast enough to run, not dropped."
+              },
+              {
+                "text": "Add automatic retries so any slow test that times out is retried",
+                "fraction": 0,
+                "feedback": "Retries address flakiness, not slowness, and would make the suite even slower."
+              }
+            ],
+            "generalFeedback": "The slowness has identifiable causes: duplicate tests and unnecessarily heavy setups. Attack them directly \u2014 parallelise, rewrite heavy end-to-end tests as faster focused tests where they add no unique coverage, and prune the duplicates \u2014 so the suite becomes fast enough that people actually run it. Test-impact selection then keeps per-commit feedback quick while fuller runs continue on a cadence. Coverage of real behaviour is preserved throughout.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: refactor breaks hundreds of tests",
+            "text": "<p>A behaviour-preserving refactor of one module causes 200 tests to fail; each was asserting on internal method calls and private fields. What is the root cause and correct remedy?</p>",
+            "answers": [
+              {
+                "text": "The tests are coupled to the implementation; rewrite them to assert on observable behaviour through the public interface so they survive behaviour-preserving refactors",
+                "fraction": 100,
+                "feedback": "Correct \u2014 decoupling from internals removes the brittleness that turned a safe refactor into 200 false failures."
+              },
+              {
+                "text": "The refactor must have changed behaviour; revert it and never refactor this module",
+                "fraction": 0,
+                "feedback": "The refactor preserved behaviour; the failures come from tests bound to internals, not from a behaviour change."
+              },
+              {
+                "text": "Delete all 200 tests to unblock the refactor",
+                "fraction": 0,
+                "feedback": "They may guard real behaviour; decouple them from internals rather than discarding the coverage wholesale."
+              },
+              {
+                "text": "Mark all 200 as flaky and quarantine them",
+                "fraction": 0,
+                "feedback": "They are not flaky \u2014 they fail deterministically because they test internals; the fix is to test behaviour instead."
+              }
+            ],
+            "generalFeedback": "Two hundred deterministic failures from a behaviour-preserving change is the signature of implementation coupling: the tests assert on how the code works internally rather than what it does. Rewrite them against the public contract and observable outcomes. Then they fail only when behaviour actually changes, and refactoring stops being punished. This is a structural fix, not a matter of reverting or quarantining.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: cannot run full suite per commit",
+            "text": "<p>The full suite is trustworthy but too large to run on every commit. The team wants fast per-commit feedback without giving up overall coverage. What is the best approach?</p>",
+            "answers": [
+              {
+                "text": "Use test-impact selection to run the affected subset per commit, order fast high-value tests first, and run the full suite on a broader cadence (e.g. nightly / pre-merge)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 selection plus a periodic full run gives quick feedback while keeping full coverage."
+              },
+              {
+                "text": "Permanently drop every test not selected for the current commit",
+                "fraction": 0,
+                "feedback": "Dropping the unselected tests abandons coverage of everything they guard; they must still run periodically."
+              },
+              {
+                "text": "Run the whole suite on every commit regardless, accepting slow feedback forever",
+                "fraction": 0,
+                "feedback": "That is the very constraint being solved; it gives up the fast feedback the team needs."
+              },
+              {
+                "text": "Randomly sample 5% of tests each commit and never run the rest",
+                "fraction": 0,
+                "feedback": "Blind sampling ignores what changed and leaves most behaviour untested indefinitely."
+              }
+            ],
+            "generalFeedback": "Test-impact analysis maps each commit to the tests that could be affected and runs just those, so feedback stays fast and relevant; ordering fast, high-value tests first surfaces failures sooner. The full trusted suite still runs on a broader schedule to cover everything the per-commit subset skipped. This balances feedback speed against completeness without discarding tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: flakiness eroding trust",
+            "text": "<p>Over months, roughly 3% of suite runs fail on unchanged code, and the team now re-runs red builds reflexively without investigating. What is the correct way to handle this?</p>",
+            "answers": [
+              {
+                "text": "Treat flakiness as a first-class defect: quarantine known-flaky tests out of the blocking gate while tracking them, then diagnose and fix each root cause to restore trust",
+                "fraction": 100,
+                "feedback": "Correct \u2014 contain the noise visibly and fix the causes, so a genuine failure is no longer dismissed as flaky."
+              },
+              {
+                "text": "Institutionalise the reflex: configure CI to auto-rerun until green and stop investigating failures",
+                "fraction": 0,
+                "feedback": "That normalises the problem and can bury a real intermittent bug in the retries; it does not restore trust."
+              },
+              {
+                "text": "Delete every test that has ever failed intermittently",
+                "fraction": 0,
+                "feedback": "Deleting throws away real coverage and its accountability; quarantine-and-fix preserves both."
+              },
+              {
+                "text": "Do nothing, because a 3% failure rate is harmless",
+                "fraction": 0,
+                "feedback": "It is not harmless: reflexive re-runs mean a real regression will be dismissed as flaky and shipped."
+              }
+            ],
+            "generalFeedback": 'Chronic flakiness produces alarm fatigue: once "red" usually means "just flaky", a genuine regression hidden in the noise is ignored and ships. Restore signal by quarantining flaky tests out of the merge-blocking gate onto a tracked list, then diagnosing and fixing each root cause. Blind retry-until-green only deepens the debt and can hide a real intermittent bug.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'The "interest" analogy of test debt',
+            "text": '<p>Test debt is often said to charge "interest". In this analogy, what does the interest represent?</p>',
+            "answers": [
+              {
+                "text": "The compounding extra cost of every future change while the debt is left unaddressed \u2014 slower runs, more false alarms, and harder maintenance that grow the longer you defer",
+                "fraction": 100,
+                "feedback": "Correct \u2014 deferring test maintenance makes each subsequent change progressively more expensive, like accruing interest."
+              },
+              {
+                "text": "A literal fee paid to the CI provider for each failing build",
+                "fraction": 0,
+                "feedback": "The interest is a metaphor for compounding effort, not an actual invoice."
+              },
+              {
+                "text": "The one-time cost of writing a test, paid only once",
+                "fraction": 0,
+                "feedback": 'A one-time upfront cost is the "principal"; interest is the recurring, growing cost of not paying it down.'
+              },
+              {
+                "text": "The guarantee that the debt disappears on its own after a few releases",
+                "fraction": 0,
+                "feedback": "Debt does not vanish by itself; left alone it compounds, which is the whole point of the interest analogy."
+              }
+            ],
+            "generalFeedback": 'As with financial debt, the "principal" is the shortcut you took (a flaky test left unfixed, duplicates left in place). The "interest" is the extra cost that recurs and compounds every time you work in that area afterwards: slower feedback, more misleading failures, more effort to change code around brittle tests. The longer maintenance is deferred, the larger that recurring cost grows \u2014 sometimes until the suite has to be substantially reworked.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When deleting a test is the right call",
+            "text": "<p>Which situation most clearly justifies deleting a regression test rather than fixing or keeping it?</p>",
+            "answers": [
+              {
+                "text": "The test is obsolete or fully redundant \u2014 it guards behaviour that no longer exists or that another test already covers identically \u2014 so it has negative net value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 when a test protects nothing new, deleting it removes cost without removing real coverage."
+              },
+              {
+                "text": "The test is slow but is the only thing covering a critical, still-present behaviour",
+                "fraction": 0,
+                "feedback": "That test still earns its keep; optimise or parallelise it rather than deleting the only guard on critical behaviour."
+              },
+              {
+                "text": "The test recently failed and caught a real regression",
+                "fraction": 0,
+                "feedback": "Catching a real regression is exactly what a valuable test should do; that is a reason to keep it."
+              },
+              {
+                "text": "The test is hard to read but is the sole cover for an important edge case",
+                "fraction": 0,
+                "feedback": "Poor readability is a reason to clarify it, not to delete unique coverage of an important case."
+              }
+            ],
+            "generalFeedback": "Delete a test when it has negative net value: it is obsolete (its behaviour is gone) or fully redundant (another test covers the same ground identically). Then removal cuts cost without cutting real coverage. Do not delete a test merely because it is slow, brittle, or ugly if it still uniquely guards behaviour that matters \u2014 fix or optimise it instead.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Balancing completeness against feedback speed",
+            "text": "<p>How should a team think about the tension between regression completeness (running more tests) and fast feedback (running fewer, sooner)?</p>",
+            "answers": [
+              {
+                "text": "Layer the strategy: fast, high-value selected tests for immediate per-commit feedback, and fuller runs on a broader cadence \u2014 accepting a deliberate, managed trade-off rather than a single fixed answer",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the balance is managed by layering fast feedback with periodic completeness, tuned to risk."
+              },
+              {
+                "text": "Always maximise completeness by running every test on every change, whatever the wait",
+                "fraction": 0,
+                "feedback": "Ignoring feedback speed slows the whole team and discourages running the suite; the trade-off must be managed, not ignored."
+              },
+              {
+                "text": "Always maximise speed by running the fewest possible tests and never running the full suite",
+                "fraction": 0,
+                "feedback": "Maximising speed alone abandons completeness and lets regressions escape; fuller runs are still needed."
+              },
+              {
+                "text": "There is no trade-off; a good suite is both instant and exhaustive at all times",
+                "fraction": 0,
+                "feedback": "For a large suite these goals genuinely conflict; pretending otherwise leads to either slow feedback or missed coverage."
+              }
+            ],
+            "generalFeedback": "Completeness and speed pull against each other for any large suite, so the answer is a layered, managed trade-off rather than an absolute. Give fast, high-value selected tests to developers on every commit for quick feedback, and run the fuller suite on a wider cadence (nightly, pre-release) to keep completeness. Risk guides what goes in the fast lane. The balance is tuned over time, not solved once.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Diagnose: two tests added "just in case"',
+            "text": '<p>Two tests always pass and fail together, exercise the same path, and one was added later "just in case". A refactor now requires updating both identically every time. What should you do?</p>',
+            "answers": [
+              {
+                "text": "Recognise the later one as redundant coverage and prune it, keeping the single clearest test for that behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 remove the duplicate so the behaviour stays covered once, at half the maintenance."
+              },
+              {
+                "text": "Keep both, because two tests passing is stronger evidence than one",
+                "fraction": 0,
+                "feedback": "Identical tests give the same evidence twice; the second adds cost, not confidence."
+              },
+              {
+                "text": "Delete both, since maintaining either during refactors is inconvenient",
+                "fraction": 0,
+                "feedback": "Deleting both drops the coverage entirely; keep one and prune only the duplicate."
+              },
+              {
+                "text": "Quarantine both as flaky until someone has time to look",
+                "fraction": 0,
+                "feedback": "They are deterministic duplicates, not flaky; quarantine does not apply."
+              }
+            ],
+            "generalFeedback": "Because the two tests always move together and cover the same path, the second provides no signal the first does not, yet it doubles the update cost on every refactor. Prune the redundant one and keep the clearest, highest-value test. Coverage is unchanged; maintenance cost drops.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Do not delete a slow but valuable test",
+            "text": "<p>A slow end-to-end test is the only thing that catches a class of real, costly integration regressions. To speed up the suite, a teammate proposes deleting it. Why is that the wrong move, and what is better?</p>",
+            "answers": [
+              {
+                "text": "It uniquely guards costly real regressions, so deleting it creates a genuine coverage gap; instead optimise it, parallelise it, or move it to a less frequent stage while keeping it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a valuable unique test should be sped up or rescheduled, not deleted, to protect the coverage."
+              },
+              {
+                "text": "Deleting it is fine because any slow test is by definition low-value",
+                "fraction": 0,
+                "feedback": "Slowness does not imply low value; this test uniquely catches expensive regressions and must be kept."
+              },
+              {
+                "text": "Keep it exactly as is and simply accept that no one will run the suite",
+                "fraction": 0,
+                "feedback": "Leaving it unaddressed is what makes the suite too slow to run; optimise or reschedule it instead of ignoring the problem."
+              },
+              {
+                "text": "Replace it with a duplicate unit test that checks the same internal method",
+                "fraction": 0,
+                "feedback": "A unit test on internals does not reproduce the integration coverage this test uniquely provides."
+              }
+            ],
+            "generalFeedback": 'Speeding up a suite must not sacrifice coverage that nothing else provides. A slow test that uniquely catches expensive integration regressions is high-value; deleting it trades a manageable runtime problem for real risk. Optimise its setup, run it in parallel, or move it to a pre-merge or nightly stage \u2014 but keep the protection. "Fewer tests" is never the goal in itself; removing low-value tests is.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compounding cost of deferring maintenance",
+            "text": "<p>A team keeps postponing test-suite maintenance to ship features faster. Following the debt/interest analogy, what is the likely long-run outcome if this continues?</p>",
+            "answers": [
+              {
+                "text": "The cost of every change keeps rising and trust keeps falling, until the accumulated debt forces an expensive clean-up or partial rewrite of the suite",
+                "fraction": 100,
+                "feedback": "Correct \u2014 deferred maintenance compounds, so the eventual bill is far larger than paying it down steadily."
+              },
+              {
+                "text": "The suite becomes cheaper to work with over time as debt accumulates",
+                "fraction": 0,
+                "feedback": "Debt makes work more expensive, not cheaper; that is the opposite of the interest effect."
+              },
+              {
+                "text": "The debt is automatically cleared by the next framework upgrade",
+                "fraction": 0,
+                "feedback": "Framework upgrades do not remove flaky, redundant, or coupled tests; the debt persists until addressed."
+              },
+              {
+                "text": "Nothing changes, because test debt has no effect on delivery speed",
+                "fraction": 0,
+                "feedback": "Test debt slows delivery through flaky failures, brittle tests, and slow runs; it does not have no effect."
+              }
+            ],
+            "generalFeedback": "Like unpaid financial debt, deferred test maintenance compounds: flaky, slow, brittle, and redundant tests make each new change slower and riskier, and eroded trust means results are increasingly ignored. Left long enough, the interest dominates, and the team faces a costly clean-up or rewrite. Paying the debt down incrementally \u2014 pruning, decoupling, fixing flakiness \u2014 is far cheaper than letting it accumulate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rationale for test-impact analysis",
+            "text": "<p>What is the core rationale that makes test-impact analysis (running only the affected subset) a sound way to speed up feedback?</p>",
+            "answers": [
+              {
+                "text": "A change can only affect tests that depend on the changed code, so tests with no dependency on it cannot detect a new regression from that change and can be deferred to a later full run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 impact analysis relies on the dependency relationship between the change and the tests it could affect."
+              },
+              {
+                "text": "Tests chosen at random are just as good as impact-selected tests",
+                "fraction": 0,
+                "feedback": "Random selection ignores dependencies and can miss the very tests the change could break; that is not the rationale."
+              },
+              {
+                "text": "The unselected tests are known to be worthless and can be deleted",
+                "fraction": 0,
+                "feedback": "Unselected tests are simply not affected by this change; they remain valuable and run in fuller cycles."
+              },
+              {
+                "text": "Running fewer tests always finds more bugs",
+                "fraction": 0,
+                "feedback": "Running fewer tests does not find more bugs; impact analysis just avoids running tests that cannot be affected right now."
+              }
+            ],
+            "generalFeedback": "Test-impact analysis rests on the dependency structure: a given change can only cause a regression in tests that exercise code reachable from that change. Tests with no such dependency cannot newly fail because of it, so running them on this commit adds latency without adding signal. They are not discarded \u2014 they run in periodic full passes to catch effects that the dependency mapping might miss or that come from other changes. The soundness of the approach depends entirely on the accuracy of that mapping.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prune redundancy while preserving confidence",
+            "text": "<p>A large suite is slow and expensive to maintain. Analysis shows heavy duplication but good coverage of critical behaviour. What action best improves the suite's cost-effectiveness?</p>",
+            "answers": [
+              {
+                "text": "Prune the redundant and low-value tests while preserving the tests that uniquely cover critical behaviour, lowering cost at roughly the same confidence",
+                "fraction": 100,
+                "feedback": "Correct \u2014 removing duplication without touching unique critical coverage cuts cost while keeping confidence."
+              },
+              {
+                "text": "Add many more tests everywhere, on the principle that more coverage is always safer",
+                "fraction": 0,
+                "feedback": "Piling on more tests when duplication is already the problem raises cost and maintenance without adding confidence."
+              },
+              {
+                "text": "Cut the suite to a fixed small number of tests regardless of what they cover",
+                "fraction": 0,
+                "feedback": "An arbitrary cap could remove unique coverage of critical behaviour; prune by value, not by a blanket number."
+              },
+              {
+                "text": "Delete the tests covering critical behaviour first, since those are the slowest",
+                "fraction": 0,
+                "feedback": "Critical-behaviour tests are the ones you most want to keep; removing them trades cost for serious risk."
+              }
+            ],
+            "generalFeedback": 'The balance point is high-value, maintainable coverage, not maximal or minimal test count. When duplication is heavy but critical behaviour is well covered, prune the redundant and low-value tests and keep the unique guards on important behaviour. Confidence stays roughly the same while run time and maintenance fall. Neither "always add more" nor "always cut to a fixed number" respects the actual value of each test.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Risk-based ordering for a hotfix window",
+            "text": "<p>You have a 30-minute window before an urgent hotfix release. The fix touches the payments module. You cannot run the full suite. Which tests should run first?</p>",
+            "answers": [
+              {
+                "text": "The tests covering the changed payments code and its dependents, plus other business-critical or historically defect-prone areas, broadening outward as time allows",
+                "fraction": 100,
+                "feedback": "Correct \u2014 prioritise the changed high-value area and its impact, then the next-riskiest areas within the budget."
+              },
+              {
+                "text": "The tests that are known to pass quickly, regardless of what they cover",
+                "fraction": 0,
+                "feedback": "Choosing by speed alone can skip the payments code you just changed \u2014 exactly where a regression is most likely."
+              },
+              {
+                "text": "A random slice of the whole suite, to sample everything evenly",
+                "fraction": 0,
+                "feedback": "An even random sample dilutes effort away from the changed, high-risk payments area; prioritise by risk instead."
+              },
+              {
+                "text": "Only the tests unrelated to payments, to avoid disturbing the fix",
+                "fraction": 0,
+                "feedback": "The payments area is precisely what changed and what most needs re-testing; skipping it defeats the purpose."
+              }
+            ],
+            "generalFeedback": "With a hard time-box, spend it where a regression is most likely and most damaging. That starts with the code the fix actually touched (payments) and whatever depends on it, then extends to other business-critical and defect-prone areas as time permits. Risk-based ordering, informed by impact analysis, maximises the chance of catching a serious regression before the release.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Skipping regression on a "small" change',
+            "text": '<p>Under deadline pressure, a team considers skipping regression entirely because the change is "just a small tweak". Why is this risky, and what is the disciplined alternative?</p>',
+            "answers": [
+              {
+                "text": "Even a small change can break distant behaviour through shared dependencies, so run at least a risk-based / impact-selected subset rather than nothing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 small changes still cause regressions; a targeted subset is the disciplined middle ground when full runs will not fit."
+              },
+              {
+                "text": "Small changes can never cause regressions, so skipping is perfectly safe",
+                "fraction": 0,
+                "feedback": "This is false: small changes frequently break unexpected areas via shared code and dependencies."
+              },
+              {
+                "text": "The only safe option is always to run the entire suite, so ship without any tests if it will not fit",
+                "fraction": 0,
+                "feedback": "An all-or-nothing view leads to shipping untested; an impact-selected or risk-based subset is a sound partial run."
+              },
+              {
+                "text": "Skip regression but delete the tests too, so they stop slowing future releases",
+                "fraction": 0,
+                "feedback": "Deleting tests to dodge a deadline destroys real coverage; run a targeted subset now and keep the tests."
+              }
+            ],
+            "generalFeedback": "Size is a poor predictor of blast radius: a one-line change can regress far-away behaviour through shared code, configuration, or data. Skipping regression removes the safety net and invites an escaped defect. When the full suite will not fit the window, run an impact-selected or risk-based subset centred on the change and the highest-risk areas \u2014 some disciplined coverage beats none, and it beats deleting tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why selection still needs periodic full runs",
+            "text": "<p>A team relies on per-commit test selection for speed. Why must they still run the complete suite periodically rather than trusting selection alone forever?</p>",
+            "answers": [
+              {
+                "text": "The change-to-test dependency mapping can be incomplete or inaccurate (dynamic dependencies, configuration, integration effects), so selection can miss an affected test; periodic full runs are the safety net",
+                "fraction": 100,
+                "feedback": "Correct \u2014 selection is only as safe as its dependency mapping, so full runs catch what the mapping misses."
+              },
+              {
+                "text": "Because the unselected tests silently rot and stop compiling unless run every commit",
+                "fraction": 0,
+                "feedback": "Tests do not rot simply from not running each commit; the real reason is that the impact mapping can be imperfect."
+              },
+              {
+                "text": "Because a full run is always faster than a selected run",
+                "fraction": 0,
+                "feedback": "A full run is generally slower, not faster; that is why selection is used per commit in the first place."
+              },
+              {
+                "text": "Because selection tools are required by law to be re-validated daily",
+                "fraction": 0,
+                "feedback": "There is no such legal requirement; the reason is the possible inaccuracy of the dependency mapping."
+              }
+            ],
+            "generalFeedback": "Test-impact selection is sound only to the extent its dependency mapping is complete. Real systems have dependencies that static analysis can miss \u2014 reflection and dynamic dispatch, configuration and data, cross-service integration effects \u2014 so a change can affect a test that selection did not pick. Periodic full runs (nightly, pre-release) act as the safety net that catches anything the per-commit mapping overlooked, keeping the speed of selection without giving up completeness.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u56DE\u6B78\u6E2C\u8A66",
+            "text": "<p><em>\u56DE\u6B78\u6E2C\u8A66\uFF08regression testing\uFF09</em>\u6700\u8CBC\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8B8A\u66F4\u4E4B\u5F8C\u91CD\u65B0\u57F7\u884C\u65E2\u6709\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u5148\u524D\u80FD\u6B63\u5E38\u904B\u4F5C\u7684\u884C\u70BA\u4ECD\u7136\u6B63\u5E38",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DE\u6B78\u6E2C\u8A66\u5C31\u662F\u8981\u9632\u6B62\u67D0\u9805\u8B8A\u66F4\u7834\u58DE\uFF08regress\uFF09\u539F\u672C\u53EF\u904B\u4F5C\u7684\u529F\u80FD\u3002"
+              },
+              {
+                "text": "\u70BA\u4E00\u9805\u5F9E\u672A\u88AB\u6E2C\u904E\u7684\u65B0\u529F\u80FD\u64B0\u5BEB\u5168\u65B0\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5728\u6E2C\u8A66\u65B0\u529F\u80FD\uFF1B\u56DE\u6B78\u6E2C\u8A66\u5247\u662F\u91CD\u65B0\u6AA2\u67E5\u539F\u672C\u5DF2\u53EF\u904B\u4F5C\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u8861\u91CF\u6E2C\u8A66\u57F7\u884C\u5230\u591A\u5C11\u884C\u7684\u7522\u54C1\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\uFF0C\u4E0D\u662F\u56DE\u6B78\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5728\u7248\u672C\u767C\u4F48\u5F8C\u522A\u9664\u820A\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u6E2C\u8A66\u662F\u4E00\u7A2E\u7DAD\u8B77\u52D5\u4F5C\uFF0C\u4E26\u4E0D\u662F\u56DE\u6B78\u6E2C\u8A66\u7684\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DE\u6B78\u6E2C\u8A66\u6703\u5728\u4EFB\u4F55\u8B8A\u66F4\uFF08\u65B0\u529F\u80FD\u3001\u4FEE\u932F\u3001\u91CD\u69CB\uFF09\u4E4B\u5F8C\uFF0C\u91CD\u65B0\u57F7\u884C\u4E00\u6279\u65E2\u6709\u6E2C\u8A66\uFF0C\u4EE5\u9A57\u8B49\u5148\u524D\u901A\u904E\u7684\u529F\u80FD\u6C92\u6709\u88AB\u7834\u58DE\u3002\u6240\u8B02\u300C\u56DE\u6B78\u300D\u6B63\u662F\u6307\u7F3A\u9677\u91CD\u65B0\u51FA\u73FE\uFF0C\u6216\u539F\u672C\u53EF\u904B\u4F5C\u7684\u884C\u70BA\u88AB\u5F04\u58DE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u56DE\u6B78\u6E2C\u8A66\u5957\u4EF6",
+            "text": "<p><em>\u56DE\u6B78\u6E2C\u8A66\u5957\u4EF6\uFF08regression test suite\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6B77\u7D93\u904E\u53BB\u591A\u6B21\u767C\u4F48\u800C\u7D2F\u7A4D\u4E0B\u4F86\u3001\u6703\u88AB\u91CD\u65B0\u57F7\u884C\u4EE5\u4FDD\u8B77\u65E2\u6709\u884C\u70BA\u7684\u6574\u7D44\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u88AB\u4FDD\u7559\u4E26\u53CD\u8986\u57F7\u884C\u3001\u7528\u4F86\u6293\u51FA\u56DE\u6B78\u554F\u984C\u7684\u6301\u7E8C\u6210\u9577\u6E2C\u8A66\u96C6\u5408\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u767C\u4F48\u90FD\u91CD\u5BEB\u4E00\u6B21\u3001\u7528\u5B8C\u5373\u4E1F\u7684\u55AE\u4E00\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u56DE\u6B78\u5957\u4EF6\u6703\u88AB\u9577\u671F\u4FDD\u7559\u4E26\u53CD\u8986\u57F7\u884C\uFF0C\u4E0D\u662F\u7528\u5B8C\u5373\u4E1F\u7684\u55AE\u4E00\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u7121\u8AD6\u5982\u4F55\u90FD\u7D55\u4E0D\u6703\u88AB\u81EA\u52D5\u5316\u7684\u624B\u52D5\u6B65\u9A5F\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u56DE\u6B78\u5957\u4EF6\u901A\u5E38\u6703\u88AB\u81EA\u52D5\u5316\uFF1B\u81EA\u52D5\u5316\u5176\u5BE6\u6B63\u662F\u9762\u5C0D\u5957\u4EF6\u6210\u9577\u6642\u7684\u5E38\u898B\u5C0D\u7B56\u3002"
+              },
+              {
+                "text": "\u5C1A\u672A\u88AB\u5BE6\u4F5C\u7684\u90A3\u90E8\u5206\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C1A\u672A\u958B\u767C\u529F\u80FD\u7684\u5F85\u8FA6\u6E05\u55AE\uFF0C\u4E0D\u662F\u6E2C\u8A66\u5957\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DE\u6B78\u5957\u4EF6\u662F\u6B77\u6B21\u767C\u4F48\u7D2F\u7A4D\u4E0B\u4F86\u3001\u88AB\u91CD\u65B0\u57F7\u884C\u4EE5\u78BA\u8A8D\u65E2\u6709\u884C\u70BA\u4ECD\u6210\u7ACB\u7684\u6574\u7D44\u6E2C\u8A66\u3002\u7531\u65BC\u5B83\u6703\u96A8\u8457\u65B0\u529F\u80FD\u52A0\u5165\u800C\u8B8A\u5927\uFF0C\u65BC\u662F\u6210\u70BA\u56DE\u6B78\u6E2C\u8A66\u5FC5\u9808\u53CD\u8986\u57F7\u884C\u7684\u4E3B\u8981\u5DE5\u4F5C\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DE\u6B78\u6E2C\u8A66\u96C6\u70BA\u4F55\u6703\u8B8A\u5927",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u56DE\u6B78\u6E2C\u8A66\u96C6\u5F80\u5F80\u6703\u96A8\u8457\u6BCF\u6B21\u767C\u4F48\u800C\u8B8A\u5F97\u66F4\u5927\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u6B21\u767C\u4F48\u90FD\u65B0\u589E\u529F\u80FD\uFF08\u53CA\u5176\u6E2C\u8A66\uFF09\uFF0C\u800C\u9019\u4E9B\u6E2C\u8A66\u6703\u88AB\u4FDD\u7559\u4E0B\u4F86\uFF0C\u8207\u5148\u524D\u6240\u6709\u6E2C\u8A66\u4E00\u8D77\u91CD\u65B0\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5957\u4EF6\u6703\u4E0D\u65B7\u7D2F\u7A4D\uFF1A\u65B0\u589E\u6E2C\u8A66\u7684\u540C\u6642\u4FDD\u7559\u820A\u6E2C\u8A66\uFF0C\u4EE5\u6301\u7E8C\u4FDD\u8B77\u904E\u53BB\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6A94\u6848\u6703\u5728\u5169\u6B21\u767C\u4F48\u4E4B\u9593\u81EA\u52D5\u8B8A\u6210\u5169\u500D\u5927",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u4E0D\u6703\u81EA\u5DF1\u9577\u5927\uFF1B\u5957\u4EF6\u8B8A\u5927\u662F\u56E0\u70BA\u5718\u968A\u6301\u7E8C\u65B0\u589E\u4E26\u4FDD\u7559\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6846\u67B6\u8981\u6C42\u6BCF\u6B21\u767C\u4F48\u90FD\u628A\u6BCF\u500B\u6E2C\u8A66\u8907\u88FD\u4E00\u4EFD",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6846\u67B6\u6703\u8981\u6C42\u6BCF\u6B21\u767C\u4F48\u90FD\u8907\u88FD\uFF1B\u6210\u9577\u4F86\u81EA\u7D2F\u7A4D\u65B0\u529F\u80FD\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u529F\u80FD\u4E00\u5B9A\u6703\u52A0\u5165\u6BD4\u79FB\u9664\u66F4\u591A\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u529F\u80FD\u7406\u61C9\u80FD\u4E00\u4F75\u79FB\u9664\u5176\u6E2C\u8A66\uFF1B\u6210\u9577\u662F\u7531\u65B0\u589E\u529F\u80FD\u9A45\u52D5\uFF0C\u800C\u975E\u522A\u9664\u529F\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u96A8\u8457\u7522\u54C1\u6B77\u7D93\u591A\u6B21\u767C\u4F48\u800C\u7D2F\u7A4D\u529F\u80FD\uFF0C\u70BA\u6BCF\u500B\u529F\u80FD\u64B0\u5BEB\u7684\u6E2C\u8A66\u6703\u88AB\u4FDD\u7559\u4E26\u6301\u7E8C\u57F7\u884C\uFF0C\u4EE5\u4FDD\u8B77\u8A72\u884C\u70BA\u3002\u65BC\u662F\u56DE\u6B78\u96C6\u6703\u7A69\u5B9A\u7D2F\u7A4D\u3002\u6B63\u662F\u9019\u7A2E\u7D2F\u7A4D\uFF0C\u4F7F\u5F97\u7D14\u624B\u52D5\u7684\u56DE\u6B78\u6E2C\u8A66\u96A8\u6642\u9593\u8B8A\u5F97\u8D8A\u4F86\u8D8A\u6162\u3001\u8D8A\u4F86\u8D8A\u6602\u8CB4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6E2C\u8A66\uFF08\u6280\u8853\uFF09\u50B5",
+            "text": "<p>\u5728\u6E2C\u8A66\u5957\u4EF6\u7684\u8108\u7D61\u4E2D\uFF0C<em>\u6E2C\u8A66\u6280\u8853\u50B5\uFF08test technical debt\uFF09</em>\u6307\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5957\u4EF6\u4E2D\u7D2F\u7A4D\u7684\u554F\u984C\u2014\u2014\u8106\u5F31\u4E0D\u7A69\u3001\u7DE9\u6162\u3001\u91CD\u8907\u3001\u904E\u6642\u6216\u8207\u5BE6\u4F5C\u7DCA\u8026\u5408\u7684\u6E2C\u8A66\u2014\u2014\u6703\u62AC\u9AD8\u7DAD\u8B77\u6210\u672C\u4E26\u4FB5\u8755\u4FE1\u4EFB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u50B5\u662F\u6E2C\u8A66\u672C\u8EAB\u7D2F\u7A4D\u7684\u54C1\u8CEA\u554F\u984C\uFF0C\u6703\u6301\u7E8C\u7522\u751F\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5C1A\u5F85\u70BA\u672A\u958B\u767C\u529F\u80FD\u64B0\u5BEB\u7684\u6E2C\u8A66\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7F3A\u53E3\u6216\u5F85\u8FA6\uFF1B\u6E2C\u8A66\u50B5\u6307\u7684\u662F\u4F60\u5DF2\u6709\u6E2C\u8A66\u4E2D\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u56E0\u67D0\u6E2C\u8A66\u5DE5\u5177\u6388\u6B0A\u800C\u7A4D\u6B20\u7B2C\u4E09\u65B9\u7684\u6B3E\u9805",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u50B5\u662F\u5C0D\u7D2F\u7A4D\u54C1\u8CEA\u554F\u984C\u7684\u6BD4\u55BB\uFF0C\u4E26\u975E\u771F\u6B63\u7684\u8CA1\u52D9\u8CA0\u50B5\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5957\u4EF6\u57F7\u884C\u6240\u82B1\u7684\u79D2\u6578",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u6642\u9593\u53EA\u662F\u5176\u4E2D\u4E00\u7A2E\u75C7\u72C0\uFF1B\u6E2C\u8A66\u50B5\u662F\u66F4\u5EE3\u6CDB\u7684\u7D2F\u7A4D\u5957\u4EF6\u554F\u984C\uFF0C\u800C\u975E\u55AE\u4E00\u6642\u9593\u6578\u5B57\u3002"
+              }
+            ],
+            "generalFeedback": "\u5982\u540C\u7522\u54C1\u7A0B\u5F0F\u78BC\u7684\u6280\u8853\u50B5\uFF0C\u6E2C\u8A66\u50B5\u662F\u6E2C\u8A66\u5957\u4EF6\u4E2D\u6284\u6377\u5F91\u8207\u758F\u65BC\u7DAD\u8B77\u6240\u7D2F\u7A4D\u7684\u7D50\u679C\uFF1A\u8106\u5F31\u4E0D\u7A69\u7684\u6E2C\u8A66\u3001\u7DE9\u6162\u7684\u6E2C\u8A66\u3001\u91CD\u8907\u6216\u904E\u6642\u7684\u6E2C\u8A66\uFF0C\u4EE5\u53CA\u8207\u5BE6\u4F5C\u7DCA\u8026\u5408\u7684\u6E2C\u8A66\u3002\u5B83\u6703\u6084\u6084\u62AC\u9AD8\u65E5\u5F8C\u6BCF\u6B21\u8B8A\u66F4\u7684\u6210\u672C\uFF0C\u4E26\u4E14\u5982\u540C\u50B5\u52D9\uFF0C\u62D6\u8D8A\u4E45\u300C\u5229\u606F\u300D\u8D8A\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8106\u5F31\u4E0D\u7A69\u7684\u6E2C\u8A66",
+            "text": "<p><em>\u8106\u5F31\u4E0D\u7A69\u7684\u6E2C\u8A66\uFF08flaky test\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5B8C\u5168\u76F8\u540C\u7684\u7A0B\u5F0F\u78BC\u4E0A\uFF0C\u672A\u5C0D\u53D7\u6E2C\u5C0D\u8C61\u505A\u4EFB\u4F55\u6539\u52D5\uFF0C\u537B\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\uFF08\u975E\u6C7A\u5B9A\u6027\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014flakiness \u662F\u5728\u672A\u8B8A\u66F4\u7684\u7A0B\u5F0F\u78BC\u4E0A\u51FA\u73FE\u4E0D\u4E00\u81F4\u3001\u975E\u6C7A\u5B9A\u6027\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u90FD\u4E00\u81F4\u5730\u5931\u6557\uFF0C\u76F4\u5230\u67D0\u500B\u771F\u6B63\u7684\u932F\u8AA4\u88AB\u4FEE\u597D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6C7A\u5B9A\u6027\u3001\u53EF\u91CD\u73FE\u7684\u5931\u6557\u2014\u2014\u901A\u5E38\u662F\u771F\u6B63\u7684\u7F3A\u9677\u2014\u2014\u800C\u975E flakiness\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6642\u9593\u6BD4\u5957\u4EF6\u88E1\u7684\u5E73\u5747\u6E2C\u8A66\u66F4\u4E45",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7DE9\u6162\u7684\u6E2C\u8A66\uFF1Bflakiness \u6307\u7684\u662F\u4E0D\u4E00\u81F4\u7684\u901A\u904E\uFF0F\u5931\u6557\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u91CD\u8907\u4E86\u53E6\u4E00\u500B\u65E2\u6709\u6E2C\u8A66\u7684\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u91CD\u8907\u6E2C\u8A66\uFF1Bflakiness \u662F\u975E\u6C7A\u5B9A\u6027\uFF0C\u800C\u975E\u91CD\u8907\u3002"
+              }
+            ],
+            "generalFeedback": "\u8106\u5F31\u4E0D\u7A69\u7684\u6E2C\u8A66\u5373\u4F7F\u7A0B\u5F0F\u78BC\u8207\u8F38\u5165\u90FD\u6C92\u8B8A\uFF0C\u4E5F\u6703\u5728\u4E0D\u540C\u6B21\u57F7\u884C\u7D66\u51FA\u4E0D\u540C\u5224\u5B9A\u3002\u9019\u985E\u6E2C\u8A66\u662F\u6E2C\u8A66\u50B5\u7684\u91CD\u8981\u5F62\u5F0F\uFF1A\u5B83\u5011\u7684\u5047\u8B66\u5831\u6D6A\u8CBB\u6642\u9593\uFF0C\u66F4\u7CDF\u7684\u662F\u4FB5\u8755\u4FE1\u4EFB\uFF0C\u4F7F\u771F\u6B63\u7684\u5931\u6557\u958B\u59CB\u88AB\u7576\u6210\u300C\u53EA\u662F flaky\u300D\u800C\u88AB\u5FFD\u8996\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DE9\u6162\u7684\u6E2C\u8A66\u70BA\u4F55\u662F\u554F\u984C",
+            "text": "<p>\u5728\u6E2C\u8A66\u50B5\u7684\u8108\u7D61\u4E0B\uFF0C\u70BA\u4EC0\u9EBC<em>\u7DE9\u6162</em>\u7684\u6E2C\u8A66\u88AB\u8996\u70BA\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u62C9\u9577\u56DE\u994B\u8FF4\u5708\uFF0C\u4F7F\u5957\u4EF6\u88AB\u57F7\u884C\u7684\u6B21\u6578\u8B8A\u5C11\uFF0C\u7F3A\u9677\u56E0\u800C\u66F4\u665A\u624D\u88AB\u767C\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DE9\u6162\u7684\u5957\u4EF6\u5EF6\u9072\u56DE\u994B\u3001\u8B93\u4EBA\u4E0D\u9858\u983B\u7E41\u57F7\u884C\uFF0C\u9019\u6B63\u662F\u5176\u6838\u5FC3\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u4E00\u5B9A\u6703\u7522\u751F\u932F\u8AA4\u7684\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u7DE9\u6162\u6307\u7684\u662F\u8017\u6642\uFF0C\u8207\u6B63\u78BA\u6027\u7121\u95DC\uFF1B\u7DE9\u6162\u7684\u6E2C\u8A66\u4ECD\u53EF\u5B8C\u5168\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u80FD\u57F7\u884C\u4E00\u6B21\u7136\u5F8C\u5C31\u5FC5\u9808\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u7DE9\u6162\u7684\u6E2C\u8A66\u53EF\u4EE5\u91CD\u65B0\u57F7\u884C\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u5011\u9020\u6210\u7684\u5EF6\u9072\uFF0C\u800C\u975E\u53EA\u80FD\u8DD1\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u6703\u81EA\u52D5\u4F7F\u5176\u4ED6\u6E2C\u8A66\u8B8A\u5F97\u8106\u5F31\u4E0D\u7A69",
+                "fraction": 0,
+                "feedback": "\u7DE9\u6162\u672C\u8EAB\u4E0D\u6703\u9020\u6210 flakiness\uFF1B\u554F\u984C\u5728\u65BC\u88AB\u5EF6\u9072\u3001\u4E14\u8B93\u4EBA\u4E0D\u9858\u57F7\u884C\u7684\u56DE\u994B\u3002"
+              }
+            ],
+            "generalFeedback": "\u81EA\u52D5\u5316\u5957\u4EF6\u7684\u91CD\u9EDE\u5C31\u662F\u5FEB\u901F\u56DE\u994B\u3002\u7DE9\u6162\u7684\u56DE\u6B78\u5957\u4EF6\u62C9\u9577\u4E86\u300C\u8B8A\u66F4\u300D\u5230\u300C\u5224\u5B9A\u300D\u4E4B\u9593\u7684\u6642\u9593\uFF0C\u65BC\u662F\u958B\u767C\u8005\u66F4\u5C11\u57F7\u884C\u3001\u628A\u66F4\u591A\u8B8A\u66F4\u7D2F\u7A4D\u5728\u4E00\u8D77\uFF0C\u7D50\u679C\u66F4\u665A\u624D\u767C\u73FE\u7834\u58DE\uFF0C\u4FEE\u8D77\u4F86\u4E5F\u66F4\u8CB4\u3002\u56E0\u6B64\u4FDD\u6301\u6E2C\u8A66\u5FEB\u901F\u662F\u7BA1\u7406\u6E2C\u8A66\u50B5\u7684\u6838\u5FC3\u4E00\u74B0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u91CD\u8907\u7684\u6E2C\u8A66",
+            "text": "<p><em>\u91CD\u8907\uFF08\u591A\u9918\uFF09\u7684\u6E2C\u8A66</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u8207\u53E6\u4E00\u500B\u6E2C\u8A66\u76F8\u540C\u7684\u884C\u70BA\u3001\u6703\u56E0\u76F8\u540C\u539F\u56E0\u5931\u6557\uFF0C\u589E\u52A0\u7DAD\u8B77\u6210\u672C\u537B\u672A\u589E\u52A0\u4FE1\u5FC3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u8907\u6E2C\u8A66\u8986\u84CB\u7684\u662F\u5DF2\u88AB\u8986\u84CB\u7684\u7BC4\u570D\uFF0C\u56E0\u6B64\u6709\u7DAD\u8B77\u6210\u672C\u537B\u6C92\u6709\u65B0\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u6AA2\u67E5\u4E86\u6C92\u6709\u5176\u4ED6\u6E2C\u8A66\u6AA2\u67E5\u7684\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7368\u7279\u800C\u6709\u50F9\u503C\u7684\u6E2C\u8A66\u2014\u2014\u8207\u91CD\u8907\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5728\u4E0D\u540C\u6B21\u57F7\u884C\u9593\u975E\u6C7A\u5B9A\u6027\u5730\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u8106\u5F31\u4E0D\u7A69\u7684\u6E2C\u8A66\uFF0C\u800C\u975E\u91CD\u8907\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4E00\u500B\u5DF2\u5F9E\u7522\u54C1\u4E2D\u79FB\u9664\u7684\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u904E\u6642\u7684\u6E2C\u8A66\uFF1B\u91CD\u8907\u6E2C\u8A66\u662F\u5C0D\u4ECD\u5B58\u5728\u884C\u70BA\u7684\u8986\u84CB\u91CD\u758A\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u8907\u6E2C\u8A66\u8207\u53E6\u4E00\u500B\u6E2C\u8A66\u5982\u6B64\u5B8C\u5168\u91CD\u758A\uFF0C\u4EE5\u81F4\u5169\u8005\u6703\u56E0\u76F8\u540C\u539F\u56E0\u4E00\u8D77\u901A\u904E\u3001\u4E00\u8D77\u5931\u6557\u3002\u5B83\u4ECD\u9700\u88AB\u95B1\u8B80\u3001\u7DAD\u8B77\uFF0C\u4E26\u5728\u6BCF\u6B21\u91CD\u69CB\u6642\u66F4\u65B0\uFF0C\u537B\u6C92\u6709\u70BA\u5957\u4EF6\u589E\u52A0\u4EFB\u4F55\u539F\u672C\u6C92\u6709\u7684\u8986\u84CB\u3002\u91CD\u758A\u8986\u84CB\u662F\u6E2C\u8A66\u50B5\u7684\u5178\u578B\u5F62\u5F0F\uFF0C\u4E5F\u662F\u522A\u4FEE\uFF08pruning\uFF09\u7684\u9996\u8981\u5C0D\u8C61\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u904E\u6642\u7684\u6E2C\u8A66",
+            "text": "<p><em>\u904E\u6642\uFF08\u7121\u7528\uFF09\u7684\u6E2C\u8A66</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u7522\u54C1\u4E2D\u5DF2\u4E0D\u518D\u5B58\u5728\u7684\u884C\u70BA\u6216\u529F\u80FD\uFF0C\u56E0\u6B64\u4E0D\u518D\u4FDD\u8B77\u4EFB\u4F55\u771F\u5BE6\u4E8B\u7269",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u904E\u6642\u7684\u6E2C\u8A66\u5B88\u8457\u5DF2\u88AB\u79FB\u9664\u6216\u5DF2\u6539\u6389\u7684\u884C\u70BA\uFF0C\u56E0\u6B64\u6BEB\u7121\u6536\u76CA\u3002"
+              },
+              {
+                "text": "\u7528\u6BD4\u5957\u4EF6\u5176\u9918\u90E8\u5206\u66F4\u820A\u7684\u7A0B\u5F0F\u8A9E\u8A00\u64B0\u5BEB",
+                "fraction": 0,
+                "feedback": "\u8A9E\u8A00\u7684\u65B0\u820A\u7121\u95DC\uFF1B\u904E\u6642\u6307\u7684\u662F\u88AB\u6E2C\u884C\u70BA\u5DF2\u4E0D\u5FA9\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u8D77\u4F86\u6BD4\u8F03\u65B0\u7684\u6E2C\u8A66\u66F4\u6162",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7DE9\u6162\u7684\u6E2C\u8A66\uFF1B\u904E\u6642\u6307\u7684\u662F\u5B83\u91DD\u5C0D\u7684\u662F\u5DF2\u79FB\u9664\u6216\u5DF2\u6539\u6389\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u5730\u901A\u904E\u8207\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F flakiness\uFF1B\u904E\u6642\u7684\u6E2C\u8A66\u91DD\u5C0D\u7684\u662F\u5DF2\u4E0D\u5B58\u5728\u7684\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u904E\u6642\u7684\u6E2C\u8A66\u6AA2\u67E5\u7684\u662F\u7522\u54C1\u5DF2\u4E0D\u518D\u505A\u7684\u4E8B\u2014\u2014\u88AB\u79FB\u9664\u7684\u529F\u80FD\u3001\u820A\u7684\u5951\u7D04\u3001\u5DF2\u9000\u5F79\u7684\u7A0B\u5F0F\u8DEF\u5F91\u3002\u5B83\u4E0D\u63D0\u4F9B\u4EFB\u4F55\u4FDD\u8B77\uFF0C\u537B\u4ECD\u9700\u7DAD\u8B77\uFF0C\u751A\u81F3\u53EF\u80FD\u963B\u64CB\u5408\u7406\u7684\u8B8A\u66F4\u3002\u904E\u6642\u7684\u6E2C\u8A66\u662F\u6C89\u91CD\u7684\u7121\u7528\u8CA0\u64D4\uFF0C\u61C9\u5728\u5957\u4EF6\u7DAD\u8B77\u6642\u79FB\u9664\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8207\u5BE6\u4F5C\u7DCA\u8026\u5408\u7684\u6E2C\u8A66",
+            "text": "<p>\u4E00\u500B<em>\u8207\u5BE6\u4F5C\u7DCA\u8026\u5408</em>\u7684\u6E2C\u8A66\u4E4B\u6240\u4EE5\u6709\u554F\u984C\uFF0C\u662F\u56E0\u70BA\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5373\u4F7F\u53EF\u89C0\u5BDF\u7684\u884C\u70BA\u4E26\u672A\u6539\u8B8A\uFF0C\u53EA\u8981\u5167\u90E8\u7D30\u7BC0\u88AB\u91CD\u69CB\u5C31\u6703\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8026\u5408\u5230\u5167\u90E8\u4F7F\u6E2C\u8A66\u8B8A\u8106\u5F31\uFF1A\u7121\u5BB3\u7684\u91CD\u69CB\u5C31\u6703\u89F8\u767C\u5047\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EA\u6703\u4E00\u76F4\u901A\u904E\u3001\u6C38\u9060\u7121\u6CD5\u5075\u6E2C\u5230\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6046\u771F\u6216\u7A7A\u6D1E\u7684\u6E2C\u8A66\uFF1B\u8207\u5BE6\u4F5C\u8026\u5408\u7684\u6E2C\u8A66\u5176\u5BE6\u6703\u5931\u6557\u2014\u2014\u800C\u4E14\u592A\u5BB9\u6613\uFF0C\u4E00\u91CD\u69CB\u5C31\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u901F\u5EA6\u6BD4\u805A\u7126\u884C\u70BA\u7684\u6E2C\u8A66\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u4E0D\u662F\u554F\u984C\u6240\u5728\uFF1B\u554F\u984C\u5728\u65BC\u91CD\u69CB\u6642\u7684\u8106\u5F31\u6027\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u5728\u55AE\u5143\u6E2C\u8A66\u6846\u67B6\u4E2D\u64B0\u5BEB",
+                "fraction": 0,
+                "feedback": "\u9019\u985E\u6E2C\u8A66\u5F88\u5BB9\u6613\u5BEB\u2014\u2014\u9019\u6B63\u662F\u9677\u9631\uFF1A\u5B83\u5011\u662F\u8106\u5F31\uFF0C\u800C\u975E\u4E0D\u53EF\u80FD\u5BEB\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u91DD\u5C0D\u79C1\u6709\u5167\u90E8\u2014\u2014\u7279\u5B9A\u7684\u65B9\u6CD5\u547C\u53EB\u3001\u5167\u90E8\u8CC7\u6599\u7D50\u69CB\u3001\u78BA\u5207\u7684\u4E2D\u9593\u503C\u2014\u2014\u505A\u65B7\u8A00\u6642\uFF0C\u53EA\u8981\u90A3\u4E9B\u5167\u90E8\u6539\u8B8A\uFF0C\u7121\u8AD6\u5C0D\u5916\u53EF\u89C0\u5BDF\u7684\u884C\u70BA\u662F\u5426\u4ECD\u6B63\u78BA\uFF0C\u6E2C\u8A66\u90FD\u6703\u5931\u6557\u3002\u9019\u7A2E\u8106\u5F31\u6027\u4F7F\u6BCF\u6B21\u91CD\u69CB\u90FD\u8B8A\u8CB4\uFF0C\u662F\u6E2C\u8A66\u50B5\u7684\u77E5\u540D\u5F62\u5F0F\u3002\u5C0D\u7B56\u662F\u900F\u904E\u516C\u958B\u4ECB\u9762\u6E2C\u8A66\u884C\u70BA\uFF0C\u800C\u975E\u6E2C\u8A66\u5167\u90E8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8981\u81EA\u52D5\u5316\u56DE\u6B78\u6E2C\u8A66",
+            "text": "<p>\u96A8\u8457\u529F\u80FD\u7D2F\u7A4D\uFF0C\u5718\u968A\u70BA\u4F55\u8981\u628A\u56DE\u6B78\u6E2C\u8A66\u81EA\u52D5\u5316\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u6BCF\u6B21\u767C\u4F48\u90FD\u7528\u4EBA\u5DE5\u91CD\u8DD1\u6574\u500B\u4E0D\u65B7\u6210\u9577\u7684\u5957\u4EF6\uFF0C\u6703\u8B8A\u5F97\u592A\u6162\u3001\u592A\u8CB4\u800C\u7121\u6CD5\u6301\u7E8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u624B\u52D5\u56DE\u6B78\u7121\u6CD5\u96A8\u5957\u4EF6\u6210\u9577\u800C\u64F4\u5C55\uFF0C\u6240\u4EE5\u81EA\u52D5\u5316\u624D\u80FD\u8B93\u6BCF\u6B21\u8FED\u4EE3\u90FD\u505A\u5F97\u8D77\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u81EA\u52D5\u5316\u6E2C\u8A66\u4E4B\u5F8C\u5C31\u5B8C\u5168\u4E0D\u9700\u8981\u4EFB\u4F55\u7DAD\u8B77",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u6E2C\u8A66\u4ECD\u9700\u7DAD\u8B77\uFF1B\u81EA\u52D5\u5316\u89E3\u6C7A\u7684\u662F\u53CD\u8986\u57F7\u884C\u7684\u6210\u672C\uFF0C\u800C\u975E\u7DAD\u8B77\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u81EA\u52D5\u5316\u4FDD\u8B49\u8EDF\u9AD4\u96F6\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u4FDD\u8B49\u96F6\u7F3A\u9677\uFF1B\u81EA\u52D5\u5316\u8B93\u983B\u7E41\u7684\u56DE\u6B78\u57F7\u884C\u8B8A\u5F97\u53EF\u884C\uFF0C\u4E26\u975E\u5B8C\u7F8E\u7121\u7F3A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5728\u5C08\u696D\u8EDF\u9AD4\u4E2D\u9032\u884C\u624B\u52D5\u6E2C\u8A66\u662F\u9055\u6CD5\u7684",
+                "fraction": 0,
+                "feedback": "\u624B\u52D5\u6E2C\u8A66\u5408\u6CD5\u4E14\u5E38\u6709\u7528\uFF1B\u5B83\u53EA\u662F\u7121\u6CD5\u5728\u5927\u91CF\u53CD\u8986\u7684\u56DE\u6B78\u57F7\u884C\u4E0A\u64F4\u5C55\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u6B21\u767C\u4F48\u90FD\u6703\u52A0\u5165\u5FC5\u9808\u91CD\u8DD1\u4EE5\u4FDD\u8B77\u65E2\u6709\u884C\u70BA\u7684\u6E2C\u8A66\u3002\u7528\u4EBA\u5DE5\u53CD\u8986\u57F7\u884C\u53EA\u6703\u8D8A\u4F86\u8D8A\u4E45\uFF0C\u76F4\u5230\u5728\u4E00\u500B\u8FED\u4EE3\u5167\u505A\u4E0D\u5B8C\u3002\u628A\u56DE\u6B78\u81EA\u52D5\u5316\uFF0C\u80FD\u8B93\u5957\u4EF6\u88AB\u4FBF\u5B9C\u4E14\u53CD\u8986\u5730\u57F7\u884C\u2014\u2014\u9700\u8981\u7684\u8A71\u751A\u81F3\u6BCF\u6B21 commit \u90FD\u8DD1\u2014\u2014\u4F7F\u4E0D\u65B7\u6210\u9577\u7684\u6E2C\u8A66\u96C6\u4ECD\u57F7\u884C\u5F97\u8D77\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6E2C\u8A66\u9078\u64C7",
+            "text": "<p><em>\u6E2C\u8A66\u9078\u64C7\uFF08test selection\uFF0C\u6216\u7A31 test-impact analysis\uFF09</em>\u610F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u57F7\u884C\u53D7\u67D0\u6B21\u8B8A\u66F4\u5F71\u97FF\u7684\u90A3\u90E8\u5206\u6E2C\u8A66\uFF0C\u800C\u975E\u6574\u500B\u5957\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9078\u64C7\u6703\u628A\u57F7\u884C\u7BC4\u570D\u7E2E\u5C0F\u5230\u8207\u8B8A\u66F4\u76F8\u95DC\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u6240\u6709\u4E0D\u5C6C\u65BC\u6700\u65B0\u529F\u80FD\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9078\u64C7\u662F\u6C7A\u5B9A\u9019\u6B21\u8981\u57F7\u884C\u54EA\u4E9B\u6E2C\u8A66\uFF0C\u4E26\u4E0D\u522A\u9664\u5176\u4ED6\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6C7A\u5B9A\u7531\u54EA\u4F4D\u958B\u767C\u8005\u64B0\u5BEB\u6BCF\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5DE5\u4F5C\u5206\u6D3E\uFF0C\u4E0D\u662F\u6E2C\u8A66\u9078\u64C7\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u8B8A\u66F4\u70BA\u4F55\uFF0C\u6BCF\u6B21\u90FD\u96A8\u6A5F\u6311\u5957\u4EF6\u7684\u4E00\u534A\u4F86\u8DD1",
+                "fraction": 0,
+                "feedback": "\u9078\u64C7\u662F\u7531\u8B8A\u66F4\u6240\u5F71\u97FF\u7684\u7BC4\u570D\u9A45\u52D5\uFF0C\u800C\u975E\u96A8\u6A5F\u62BD\u6A23\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u9078\u64C7\uFF08\u6216\u7A31 test-impact analysis\uFF09\u6703\u628A\u4E00\u6B21\u7A0B\u5F0F\u78BC\u8B8A\u66F4\u5C0D\u61C9\u5230\uFF08\u900F\u904E\u76F8\u4F9D\u95DC\u4FC2\uFF09\u53EF\u80FD\u53D7\u5176\u5F71\u97FF\u7684\u6E2C\u8A66\uFF0C\u4E26\u53EA\u57F7\u884C\u90A3\u4E00\u90E8\u5206\u3002\u7576\u6BCF\u6B21\u8B8A\u66F4\u90FD\u8DD1\u6574\u500B\u5957\u4EF6\u592A\u6162\u6642\uFF0C\u5B83\u80FD\u7DAD\u6301\u5FEB\u901F\u56DE\u994B\uFF0C\u540C\u6642\u4E0D\u4E1F\u68C4\u672A\u88AB\u9078\u4E2D\u7684\u6E2C\u8A66\u2014\u2014\u90A3\u4E9B\u6E2C\u8A66\u6703\u5728\u66F4\u5B8C\u6574\u7684\u9031\u671F\u4E2D\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78",
+            "text": "<p><em>\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78\u6E2C\u8A66\uFF08risk-based regression testing\uFF09</em>\u610F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7576\u6C92\u6709\u8DB3\u5920\u6642\u9593\u5168\u90E8\u57F7\u884C\u6642\uFF0C\u512A\u5148\u6E2C\u8A66\u98A8\u96AA\u6700\u9AD8\u3001\u8B8A\u52D5\u6700\u591A\u3001\u50F9\u503C\u6700\u9AD8\u7684\u5340\u57DF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78\u628A\u6709\u9650\u7684\u6E2C\u8A66\u6642\u9593\u82B1\u5728\u5931\u6557\u4EE3\u50F9\u6700\u5927\u7684\u5730\u65B9\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u8A66\u7CFB\u7D71\u4E2D\u98A8\u96AA\u6700\u4F4E\u7684\u90E8\u5206",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u597D\u76F8\u53CD\uFF1B\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78\u6703\u512A\u5148\u96C6\u4E2D\u5728\u98A8\u96AA\u6700\u9AD8\u7684\u5340\u57DF\u3002"
+              },
+              {
+                "text": "\u4EE5\u96A8\u6A5F\u9806\u5E8F\u57F7\u884C\u6E2C\u8A66\uFF0C\u4EE5\u63ED\u9732\u96B1\u85CF\u7684\u76F8\u4F9D\u6027",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u70BA\u4E86\u5075\u6E2C flakiness \u7684\u96A8\u6A5F\u6392\u5E8F\uFF0C\u4E0D\u662F\u98A8\u96AA\u5C0E\u5411\u7684\u512A\u5148\u6392\u5E8F\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u6240\u6709\u6709\u98A8\u96AA\u7684\u529F\u80FD\uFF0C\u9019\u6A23\u5C31\u4E0D\u9700\u8981\u56DE\u6B78\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78\u662F\u512A\u5148\u300C\u6E2C\u8A66\u300D\u98A8\u96AA\u5340\u57DF\uFF0C\u4E26\u975E\u79FB\u9664\u529F\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u4F60\u7121\u6CD5\u5728\u53EF\u7528\u6642\u9593\u5167\u8DD1\u5B8C\u6574\u500B\u56DE\u6B78\u5957\u4EF6\u6642\uFF0C\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78\u6703\u4F9D\u98A8\u96AA\u6392\u5E8F\u8981\u8DD1\u4EC0\u9EBC\uFF1A\u8FD1\u671F\u8B8A\u52D5\u7684\u5340\u57DF\u3001\u5C0D\u696D\u52D9\u95DC\u9375\u6216\u9AD8\u50F9\u503C\u7684\u5340\u57DF\u3001\u4EE5\u53CA\u6709\u7F3A\u9677\u6B77\u53F2\u7684\u5340\u57DF\u512A\u5148\u3002\u5B83\u5728\u6709\u9650\u7684\u6E2C\u8A66\u9810\u7B97\u4E0B\uFF0C\u628A\u6293\u5230\u91CD\u8981\u56DE\u6B78\u7684\u6A5F\u6703\u6700\u5927\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u6E2C\u8A66\u50B5\u7684\u75C7\u72C0",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u5957\u4EF6\u4E2D\u6E2C\u8A66\u50B5\u7684\u660E\u78BA<em>\u75C7\u72C0</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u958B\u767C\u8005\u7FD2\u6163\u6027\u5730\u628A\u7D05\u71C8\u5EFA\u7F6E\u91CD\u8DD1\u800C\u4E0D\u53BB\u770B\uFF0C\u56E0\u70BA\u5931\u6557\u901A\u5E38\u300C\u53EA\u662F flaky\u300D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A flaky \u5931\u6557\u8996\u70BA\u5E38\u614B\u3001\u4FE1\u4EFB\u88AB\u4FB5\u8755\uFF0C\u6B63\u662F\u6E2C\u8A66\u50B5\u7684\u62DB\u724C\u75C7\u72C0\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6E2C\u8A66\u6AA2\u67E5\u4E0D\u540C\u7684\u884C\u70BA\uFF0C\u4E14\u5957\u4EF6\u57F7\u884C\u8FC5\u901F",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u5065\u5EB7\u7684\u5957\u4EF6\uFF0C\u800C\u975E\u5E36\u6709\u50B5\u52D9\u7684\u5957\u4EF6\u3002"
+              },
+              {
+                "text": "\u65B0\u529F\u80FD\u90FD\u9644\u5E36\u805A\u7126\u4E14\u6709\u7DAD\u8B77\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7DAD\u8B77\u826F\u597D\u7684\u6E2C\u8A66\u662F\u5065\u5EB7\u7684\u5FB5\u5146\uFF0C\u4E0D\u662F\u50B5\u52D9\u7684\u5FB5\u5146\u3002"
+              },
+              {
+                "text": "\u5957\u4EF6\u80FD\u53CA\u65E9\u6293\u5230\u771F\u6B63\u7684\u56DE\u6B78\uFF0C\u4E14\u53D7\u5718\u968A\u4FE1\u4EFB",
+                "fraction": 0,
+                "feedback": "\u53D7\u4FE1\u4EFB\u3001\u6709\u6548\u7684\u5957\u4EF6\u8207\u5E36\u50B5\u7684\u5957\u4EF6\u6070\u597D\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u50B5\u7684\u75C7\u72C0\u5305\u62EC\uFF1A\u9577\u671F flakiness \u8207\u4FE1\u4EFB\u88AB\u4FB5\u8755\uFF08\u7D05\u71C8\u88AB\u8073\u80A9\u5E36\u904E\uFF09\u3001\u5957\u4EF6\u6162\u5230\u5F88\u5C11\u88AB\u57F7\u884C\u3001\u6E2C\u8A66\u4E00\u91CD\u69CB\u5C31\u58DE\u3001\u4EE5\u53CA\u5927\u91CF\u91CD\u8907\u6216\u904E\u6642\u7684\u6E2C\u8A66\u3002\u7576\u4EBA\u5011\u4E0D\u518D\u4FE1\u4EFB\u6216\u4E0D\u518D\u770B\u7D50\u679C\u6642\uFF0C\u5957\u4EF6\u5C31\u5DF2\u505C\u6B62\u767C\u63EE\u4F5C\u7528\u2014\u2014\u9019\u662F\u660E\u78BA\u7684\u8B66\u8A0A\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6E2C\u8A66\u8D8A\u591A\u4E0D\u4E00\u5B9A\u8D8A\u597D",
+            "text": "<p>\u589E\u52A0\u66F4\u591A\u6E2C\u8A66\u4E00\u5B9A\u6703\u8B93\u5957\u4EF6\u66F4\u597D\uFF0C\u6240\u4EE5\u8F03\u5927\u7684\u5957\u4EF6\u6C38\u9060\u512A\u65BC\u8F03\u5C0F\u7684\u5957\u4EF6\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u8907\u6216\u4F4E\u50F9\u503C\u7684\u6E2C\u8A66\u589E\u52A0\u7DAD\u8B77\u6210\u672C\u537B\u4E0D\u589E\u52A0\u4FE1\u5FC3\uFF0C\u6240\u4EE5\u66F4\u5927\u4E26\u4E0D\u81EA\u52D5\u66F4\u597D\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u91CD\u8907\u8986\u84CB\u6216\u6AA2\u67E5\u4E0D\u5230\u4EFB\u4F55\u6709\u50F9\u503C\u6771\u897F\u7684\u6E2C\u8A66\uFF0C\u6703\u4ED8\u51FA\u7DAD\u8B77\u6210\u672C\u537B\u6C92\u6709\u65B0\u8A0A\u865F\uFF0C\u6240\u4EE5\u66F4\u591A\u4E0D\u4E00\u5B9A\u66F4\u597D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u6E2C\u8A66\u90FD\u6709\u6301\u6709\u6210\u672C\uFF1A\u5B83\u8981\u88AB\u57F7\u884C\u3001\u88AB\u7DAD\u8B77\uFF0C\u4E26\u5728\u91CD\u69CB\u6642\u66F4\u65B0\u3002\u91CD\u8907\u6216\u4F4E\u50F9\u503C\u7684\u6E2C\u8A66\u4ED8\u51FA\u9019\u4E9B\u6210\u672C\uFF0C\u537B\u6C92\u70BA\u5957\u4EF6\u5E36\u4F86\u4EFB\u4F55\u539F\u672C\u6C92\u6709\u7684\u4FE1\u5FC3\u3002\u76EE\u6A19\u662F\u9AD8\u50F9\u503C\u3001\u6613\u7DAD\u8B77\u7684\u8986\u84CB\u2014\u2014\u800C\u975E\u76E1\u53EF\u80FD\u591A\u7684\u6E2C\u8A66\u6578\u91CF\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7565\u904E\u56DE\u6B78\u6703\u5C0E\u81F4\u7F3A\u9677\u5916\u6F0F",
+            "text": "<p>\u82E5\u70BA\u4E86\u7701\u6642\u9593\u800C\u7565\u904E\u56DE\u6B78\u6E2C\u8A66\uFF0C\u88AB\u91CD\u65B0\u5F15\u5165\u7684\u7F3A\u9677\u53EF\u80FD\u672A\u88AB\u767C\u73FE\u5C31\u6D41\u5165\u5DF2\u767C\u4F48\u7684\u7522\u54C1\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u56DE\u6B78\u6E2C\u8A66\uFF0C\u7834\u58DE\u5148\u524D\u53EF\u904B\u4F5C\u884C\u70BA\u7684\u8B8A\u66F4\u5C31\u53EF\u80FD\u6084\u6084\u4E0A\u7DDA\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u7565\u904E\u56DE\u6B78\u5C31\u79FB\u9664\u4E86\u5B89\u5168\u7DB2\uFF0C\u88AB\u91CD\u65B0\u5F15\u5165\u6216\u65B0\u5F04\u58DE\u7684\u884C\u70BA\u53EF\u80FD\u672A\u88AB\u5BDF\u89BA\u5C31\u5230\u9054\u4F7F\u7528\u8005\u624B\u4E2D\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DE\u6B78\u6E2C\u8A66\u7684\u5B58\u5728\uFF0C\u662F\u70BA\u4E86\u6293\u51FA\u88AB\u67D0\u6B21\u8B8A\u66F4\u5F04\u58DE\u7684\u884C\u70BA\u3002\u7565\u904E\u5B83\uFF0C\u5C31\u6C92\u6709\u6771\u897F\u80FD\u63D0\u9192\u4F60\u67D0\u500B\u4FEE\u6B63\u6216\u91CD\u69CB\u628A\u820A\u529F\u80FD\u53C8\u5F04\u58DE\u4E86\uFF0C\u65BC\u662F\u7F3A\u9677\u5916\u6F0F\u5230\u6B63\u5F0F\u74B0\u5883\u3002\u9019\u6B63\u662F\u70BA\u4EC0\u9EBC\u300C\u4E0D\u65B7\u5347\u9AD8\u7684\u624B\u52D5\u6210\u672C\u300D\u662F\u500B\u503C\u5F97\u7528\u81EA\u52D5\u5316\u89E3\u6C7A\u7684\u554F\u984C\uFF0C\u800C\u4E0D\u662F\u9760\u653E\u68C4\u56DE\u6B78\u8986\u84CB\u4F86\u89E3\u6C7A\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u624B\u52D5\u56DE\u6B78\u70BA\u4F55\u7121\u6CD5\u64F4\u5C55",
+            "text": "<p>\u67D0\u5718\u968A\u6BCF\u6B21\u767C\u4F48\u90FD\u7528\u4EBA\u5DE5\u57F7\u884C\u6574\u500B\u56DE\u6B78\u5957\u4EF6\u3002\u96A8\u8457\u7522\u54C1\u6B77\u7D93\u591A\u6B21\u767C\u4F48\u800C\u6210\u9577\uFF0C\u70BA\u4EC0\u9EBC\u9019\u8B8A\u5F97\u7121\u6CD5\u6301\u7E8C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EBA\u5DE5\u6295\u5165\u6703\u96A8\u6BCF\u500B\u65B0\u589E\u529F\u80FD\u800C\u589E\u52A0\uFF0C\u56E0\u6B64\u6BCF\u6B21\u767C\u4F48\u7684\u56DE\u6B78\u6E2C\u8A66\u90FD\u66F4\u4E45\u3001\u66F4\u8CB4\uFF0C\u6700\u7D42\u585E\u4E0D\u9032\u4E00\u500B\u8FED\u4EE3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u624B\u52D5\u56DE\u6B78\u6210\u672C\u96A8\u7D2F\u7A4D\u7684\u5957\u4EF6\u4E0A\u5347\uFF0C\u7D42\u5C07\u8D85\u51FA\u53EF\u7528\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u624B\u52D5\u6E2C\u8A66\u4EBA\u54E1\u8D8A\u6709\u7D93\u9A57\uFF0C\u6E96\u78BA\u5EA6\u53CD\u800C\u8D8A\u4F4E",
+                "fraction": 0,
+                "feedback": "\u7D93\u9A57\u4E0D\u6703\u964D\u4F4E\u6E96\u78BA\u5EA6\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u8981\u4EBA\u5DE5\u53CD\u8986\u57F7\u884C\u7684\u6E2C\u8A66\u91CF\u4E0D\u65B7\u8B8A\u5927\u3002"
+              },
+              {
+                "text": "\u7522\u54C1\u7A0B\u5F0F\u78BC\u6703\u96A8\u6642\u9593\u7E2E\u5C0F\uFF0C\u6700\u5F8C\u6C92\u6771\u897F\u53EF\u6E2C",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u901A\u5E38\u6703\u6210\u9577\u800C\u975E\u7E2E\u5C0F\uFF1B\u6B63\u662F\u9019\u7A2E\u6210\u9577\u4F7F\u624B\u52D5\u56DE\u6B78\u66B4\u589E\u3002"
+              },
+              {
+                "text": "\u624B\u52D5\u6E2C\u8A66\u4FDD\u8B49\u80FD\u627E\u51FA\u6BCF\u4E00\u500B\u7F3A\u9677\uFF0C\u56E0\u800C\u6D6A\u8CBB\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u624B\u52D5\u6E2C\u8A66\u4E26\u4E0D\u6703\u627E\u51FA\u6BCF\u500B\u7F3A\u9677\uFF1B\u554F\u984C\u5728\u65BC\u4E0D\u65B7\u5347\u9AD8\u7684\u53CD\u8986\u6295\u5165\uFF0C\u800C\u975E\u6210\u6548\u904E\u597D\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DE\u6B78\u6210\u672C\u5927\u81F4\u8207\u5957\u4EF6\u898F\u6A21\u6210\u6B63\u6BD4\uFF0C\u800C\u5957\u4EF6\u6703\u96A8\u6BCF\u6B21\u767C\u4F48\u7D2F\u7A4D\u3002\u56E0\u6B64\u6BCF\u6B21\u8FED\u4EE3\u90FD\u7528\u4EBA\u5DE5\u91CD\u8DD1\u5168\u90E8\uFF0C\u6703\u82B1\u8D8A\u4F86\u8D8A\u591A\u6642\u9593\u8207\u91D1\u9322\uFF0C\u6700\u7D42\u5728\u767C\u4F48\u671F\u9650\u5167\u505A\u4E0D\u5B8C\u3002\u6A19\u6E96\u5C0D\u7B56\u662F\u628A\u56DE\u6B78\u81EA\u52D5\u5316\uFF0C\u8B93\u53CD\u8986\u57F7\u884C\u8B8A\u5F97\u4FBF\u5B9C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5169\u500B\u6E2C\u8A66\u3001\u76F8\u540C\u8DEF\u5F91\u8207\u65B7\u8A00",
+            "text": "<p>\u5169\u500B\u6E2C\u8A66\u4EE5\u76F8\u540C\u8A2D\u5B9A\u57F7\u884C\u5B8C\u5168\u76F8\u540C\u7684\u7A0B\u5F0F\u8DEF\u5F91\uFF0C\u4E26\u65B7\u8A00\u76F8\u540C\u7D50\u679C\uFF1B\u5B83\u5011\u7E3D\u662F\u4E00\u8D77\u901A\u904E\u6216\u4E00\u8D77\u5931\u6557\u3002\u9019\u662F\u54EA\u4E00\u7A2E\u6E2C\u8A66\u50B5\u7684\u7570\u5473\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u8907\uFF0F\u591A\u9918\u7684\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5011\u8986\u84CB\u76F8\u540C\u7BC4\u570D\u3001\u7D66\u51FA\u76F8\u540C\u8A0A\u865F\uFF0C\u56E0\u6B64\u5176\u4E2D\u4E4B\u4E00\u662F\u91CD\u8907\u7684\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u8106\u5F31\u4E0D\u7A69\uFF08flakiness\uFF09",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u8868\u73FE\u70BA\u6C7A\u5B9A\u6027\uFF08\u7E3D\u662F\u4E00\u8D77\uFF09\uFF0C\u800C\u6B64\u8655\u4E26\u672A\u63CF\u8FF0 flakiness \u7684\u975E\u6C7A\u5B9A\u6027\u8B8A\u52D5\u3002"
+              },
+              {
+                "text": "\u904E\u6642\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u8DE1\u8C61\u986F\u793A\u88AB\u6E2C\u884C\u70BA\u5DF2\u88AB\u79FB\u9664\uFF1B\u6B64\u7570\u5473\u662F\u91CD\u8907\uFF0C\u800C\u975E\u904E\u6642\u3002"
+              },
+              {
+                "text": "\u8207\u5BE6\u4F5C\u8026\u5408",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u65BC\u91CD\u69CB\u6642\u7684\u8106\u5F31\uFF0C\u800C\u5728\u65BC\u5169\u500B\u6E2C\u8A66\u4EE5\u76F8\u540C\u65B9\u5F0F\u8986\u84CB\u76F8\u540C\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5169\u500B\u6E2C\u8A66\u7E3D\u662F\u56E0\u76F8\u540C\u539F\u56E0\u4E00\u8D77\u901A\u904E\u3001\u4E00\u8D77\u5931\u6557\u6642\uFF0C\u7B2C\u4E8C\u500B\u4E26\u672A\u63D0\u4F9B\u7B2C\u4E00\u500B\u6240\u6C92\u6709\u7684\u8986\u84CB\u3002\u9019\u5C31\u662F\u91CD\u8907\u8986\u84CB\uFF1A\u5B83\u70BA\u55AE\u4E00\u8A0A\u865F\u4ED8\u51FA\u96D9\u500D\u7DAD\u8B77\u3002\u5C0D\u7B56\u662F\u522A\u4FEE\u5230\u8F03\u9AD8\u50F9\u503C\u7684\u90A3\u4E00\u500B\uFF0C\u79FB\u9664\u91CD\u8907\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u6BCF\u6B21\u7121\u5BB3\u91CD\u69CB\u90FD\u6703\u58DE",
+            "text": "<p>\u67D0\u6E2C\u8A66\u6BCF\u7576\u4E00\u500B\u985E\u5225\u7684\u5167\u90E8\u88AB\u91CD\u69CB\u5C31\u5931\u6557\uFF0C\u5373\u4F7F\u5176\u5C0D\u5916\u53EF\u89C0\u5BDF\u7684\u884C\u70BA\u4E26\u672A\u6539\u8B8A\u3002\u9019\u662F\u54EA\u4E00\u7A2E\u7570\u5473\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8207\u5BE6\u4F5C\u7DCA\u8026\u5408\u7684\u8106\u5F31\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u5167\u90E8\u505A\u65B7\u8A00\u4F7F\u6E2C\u8A66\u5728\u4FDD\u6301\u884C\u70BA\u7684\u91CD\u69CB\u4E0B\u4E5F\u6703\u58DE\u3002"
+              },
+              {
+                "text": "\u904E\u6642\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u88AB\u6E2C\u884C\u70BA\u4ECD\u5B58\u5728\uFF1B\u6B64\u6E2C\u8A66\u662F\u8106\u5F31\uFF0C\u800C\u975E\u904E\u6642\u3002"
+              },
+              {
+                "text": "\u7DE9\u6162\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u8207\u57F7\u884C\u6642\u9593\u7121\u95DC\uFF1B\u7570\u5473\u662F\u4F86\u81EA\u5BE6\u4F5C\u8026\u5408\u7684\u8106\u5F31\u6027\u3002"
+              },
+              {
+                "text": "\u91CD\u8907\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E26\u672A\u63CF\u8FF0\u4EFB\u4F55\u91CD\u8907\uFF1B\u554F\u984C\u5728\u65BC\u8026\u5408\u5230\u5167\u90E8\u7D30\u7BC0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u884C\u70BA\u672A\u8B8A\u7684\u60C5\u6CC1\u4E0B\u3001\u537B\u56E0\u5167\u90E8\u91CD\u69CB\u800C\u58DE\u7684\u6E2C\u8A66\uFF0C\u662F\u8026\u5408\u5230\u5BE6\u4F5C\u7D30\u7BC0\u800C\u975E\u53EF\u89C0\u5BDF\u884C\u70BA\u3002\u5B83\u6070\u597D\u61F2\u7F70\u4E86\u4F60\u60F3\u9F13\u52F5\u7684\u91CD\u69CB\u3002\u5C0D\u7B56\u662F\u91DD\u5C0D\u516C\u958B\u5951\u7D04\u8207\u53EF\u89C0\u5BDF\u7D50\u679C\u505A\u65B7\u8A00\uFF0C\u5982\u6B64\u6E2C\u8A66\u53EA\u6709\u5728\u884C\u70BA\u771F\u6B63\u6539\u8B8A\u6642\u624D\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u6E2C\u8A66\u5DF2\u79FB\u9664\u7684\u529F\u80FD",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4ECD\u5728\u6AA2\u67E5\u5169\u500B\u7248\u672C\u524D\u5C31\u5DF2\u5F9E\u7522\u54C1\u79FB\u9664\u7684\u300C\u90F5\u5BC4\u6298\u6263\u300D\u529F\u80FD\u3002\u9019\u662F\u54EA\u4E00\u7A2E\u7570\u5473\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u904E\u6642\uFF08\u7121\u7528\uFF09\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5B88\u8457\u5DF2\u4E0D\u5B58\u5728\u7684\u884C\u70BA\uFF0C\u56E0\u6B64\u4E0D\u4FDD\u8B77\u4EFB\u4F55\u4E8B\u7269\u3002"
+              },
+              {
+                "text": "\u8106\u5F31\u4E0D\u7A69\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u8DE1\u8C61\u986F\u793A\u975E\u6C7A\u5B9A\u6027\u7D50\u679C\uFF1B\u5B83\u91DD\u5C0D\u7684\u884C\u70BA\u5DF2\u88AB\u79FB\u9664\uFF0C\u56E0\u6B64\u5C6C\u65BC\u904E\u6642\u3002"
+              },
+              {
+                "text": "\u91CD\u8907\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u91CD\u8907\u662F\u5C0D\u4ECD\u5B58\u5728\u8986\u84CB\u7684\u91CD\u758A\uFF1B\u6B64\u8655\u529F\u80FD\u5DF2\u5B8C\u5168\u6D88\u5931\uFF0C\u56E0\u6B64\u662F\u904E\u6642\u3002"
+              },
+              {
+                "text": "\u8207\u5BE6\u4F5C\u8026\u5408\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u65BC\u91CD\u69CB\u6642\u7684\u8106\u5F31\uFF0C\u800C\u5728\u65BC\u8A72\u529F\u80FD\u5DF2\u5B8C\u5168\u4E0D\u5B58\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u91DD\u5C0D\u5DF2\u88AB\u79FB\u9664\u529F\u80FD\u7684\u6E2C\u8A66\u7121\u6CD5\u518D\u4FDD\u8B77\u4EFB\u4F55\u771F\u5BE6\u4E8B\u7269\u3002\u5B83\u6700\u597D\u7684\u60C5\u6CC1\u662F\u7DAD\u8B77\u4E0A\u7684\u7121\u7528\u8CA0\u64D4\uFF1B\u6700\u58DE\u7684\u60C5\u6CC1\u662F\u903C\u4F60\u52A0\u4E0A\u5C37\u5C2C\u7684\u6A01\uFF08stub\uFF09\u6216\u963B\u64CB\u6E05\u7406\u3002\u9019\u985E\u904E\u6642\u6E2C\u8A66\u61C9\u5728\u4F8B\u884C\u5957\u4EF6\u7DAD\u8B77\u6642\u522A\u9664\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u91CD\u8907\u8986\u84CB\u7684\u5C0D\u7B56",
+            "text": "<p>\u4F60\u78BA\u8A8D\u6709\u6578\u500B\u6E2C\u8A66\u5C0D\u76F8\u540C\u884C\u70BA\u63D0\u4F9B\u91CD\u758A\u3001\u91CD\u8907\u7684\u8986\u84CB\u3002\u9069\u7576\u7684\u5C0D\u7B56\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53BB\u91CD\u2014\u2014\u4FDD\u7559\u6700\u6E05\u695A\u3001\u50F9\u503C\u6700\u9AD8\u7684\u6E2C\u8A66\uFF0C\u4E26\u522A\u4FEE\u6389\u91CD\u8907\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u79FB\u9664\u91CD\u8907\u8005\uFF0C\u884C\u70BA\u4ECD\u88AB\u8986\u84CB\u4E00\u6B21\uFF0C\u7DAD\u8B77\u6210\u672C\u537B\u964D\u4F4E\u3002"
+              },
+              {
+                "text": "\u5168\u90E8\u4FDD\u7559\uFF0C\u56E0\u70BA\u6E2C\u8A66\u8D8A\u591A\u4E00\u5B9A\u8D8A\u5B89\u5168",
+                "fraction": 0,
+                "feedback": "\u91CD\u8907\u8005\u589E\u52A0\u7DAD\u8B77\u537B\u6C92\u6709\u65B0\u8A0A\u865F\uFF1B\u5168\u90E8\u4FDD\u7559\u53EA\u662F\u62AC\u9AD8\u7DAD\u8B77\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u91CD\u8907\u8005\u52A0\u4E0A\u81EA\u52D5\u91CD\u8A66",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u8655\u7406\u7684\u662F flakiness\uFF0C\u800C\u975E\u91CD\u8907\uFF1B\u91CD\u8907\u7684\u5C0D\u7B56\u662F\u79FB\u9664\u591A\u9918\u8005\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u6240\u6709\u89F8\u53CA\u8A72\u884C\u70BA\u7684\u6E2C\u8A66\uFF0C\u5305\u62EC\u90A3\u500B\u7368\u7279\u7684",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u5B8C\u5168\u4E1F\u6389\u8986\u84CB\uFF1B\u4F60\u61C9\u4FDD\u7559\u4E00\u500B\u597D\u6E2C\u8A66\uFF0C\u53EA\u522A\u4FEE\u91CD\u8907\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u8907\u6E2C\u8A66\u70BA\u4F60\u5DF2\u64C1\u6709\u7684\u8A0A\u865F\u4ED8\u51FA\u7DAD\u8B77\u6210\u672C\u3002\u6574\u4F75\u4E4B\uFF1A\u4FDD\u7559\u5C0D\u8A72\u884C\u70BA\u6700\u6E05\u695A\u3001\u6700\u6709\u50F9\u503C\u7684\u55AE\u4E00\u6E2C\u8A66\uFF0C\u79FB\u9664\u5176\u9918\u3002\u884C\u70BA\u7684\u8986\u84CB\u88AB\u4FDD\u7559\uFF0C\u800C\u91CD\u8907\u8005\u7684\u6301\u7E8C\u6210\u672C\u6D88\u5931\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8106\u5F31\u3001\u8207\u5BE6\u4F5C\u8026\u5408\u6E2C\u8A66\u7684\u5C0D\u7B56",
+            "text": "<p>\u4E00\u500B\u6709\u7528\u7684\u6E2C\u8A66\u56E0\u70BA\u5C0D\u79C1\u6709\u5167\u90E8\u72C0\u614B\u505A\u65B7\u8A00\uFF0C\u65BC\u662F\u4E0D\u65B7\u5728\u91CD\u69CB\u6642\u5931\u6557\u3002\u4F60\u61C9\u5982\u4F55\u8655\u7406\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u5B83\u8207\u5167\u90E8\u89E3\u8026\u2014\u2014\u6539\u5BEB\u6210\u900F\u904E\u516C\u958B\u4ECB\u9762\u6E2C\u8A66\u53EF\u89C0\u5BDF\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u884C\u70BA\u800C\u975E\u5167\u90E8\uFF0C\u80FD\u4F7F\u6E2C\u8A66\u5728\u4FDD\u6301\u884C\u70BA\u7684\u91CD\u69CB\u4E0B\u7DAD\u6301\u7A69\u5B9A\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u5B83\uFF0C\u56E0\u70BA\u4EFB\u4F55\u66FE\u7D93\u5931\u6557\u7684\u6E2C\u8A66\u90FD\u4E0D\u503C\u5F97\u4FDD\u7559",
+                "fraction": 0,
+                "feedback": "\u5B83\u6AA2\u67E5\u7684\u884C\u70BA\u6709\u50F9\u503C\uFF1B\u61C9\u4F7F\u5176\u89E3\u8026\uFF0C\u800C\u975E\u4E1F\u6389\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u51CD\u7D50\u7A0B\u5F0F\u78BC\uFF0C\u8B93\u5B83\u518D\u4E5F\u4E0D\u80FD\u88AB\u91CD\u69CB",
+                "fraction": 0,
+                "feedback": "\u70BA\u4E86\u4FDD\u8B77\u4E00\u500B\u8106\u5F31\u6E2C\u8A66\u800C\u5C01\u9396\u91CD\u69CB\uFF0C\u662F\u672C\u672B\u5012\u7F6E\uFF1B\u61C9\u4FEE\u597D\u6E2C\u8A66\u4EE5\u5141\u8A31\u5B89\u5168\u91CD\u69CB\u3002"
+              },
+              {
+                "text": "\u5728\u65B7\u8A00\u524D\u52A0\u4E00\u500B\u56FA\u5B9A\u7684 sleep",
+                "fraction": 0,
+                "feedback": "sleep \u8655\u7406\u7684\u662F\u6642\u5E8F flakiness\uFF0C\u800C\u975E\u5C0D\u5167\u90E8\u7684\u8026\u5408\uFF1B\u61C9\u91DD\u5C0D\u516C\u958B\u5951\u7D04\u6539\u5BEB\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u7684\u50F9\u503C\u5728\u65BC\u5B83\u6240\u5B88\u8B77\u7684\u884C\u70BA\uFF0C\u6240\u4EE5\u4FDD\u7559\u5B83\u2014\u2014\u4F46\u628A\u65B7\u8A00\u79FB\u5230\u516C\u958B\u4ECB\u9762\u8207\u53EF\u89C0\u5BDF\u7D50\u679C\u3002\u5982\u6B64\u5B83\u53EA\u6709\u5728\u884C\u70BA\u771F\u6B63\u6539\u8B8A\u6642\u624D\u5931\u6557\uFF0C\u5167\u90E8\u91CD\u69CB\u4FBF\u4E0D\u518D\u89F8\u767C\u5047\u5931\u6557\u3002\u6E2C\u8A66\u884C\u70BA\u800C\u975E\u7D50\u69CB\uFF0C\u662F\u8106\u5F31\u6027\u7684\u6301\u4E45\u89E3\u65B9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u904E\u6642\u6E2C\u8A66\u7684\u5C0D\u7B56",
+            "text": "<p>\u4F60\u78BA\u8A8D\u67D0\u6E2C\u8A66\u91DD\u5C0D\u7684\u529F\u80FD\u5DF2\u88AB\u5B8C\u5168\u79FB\u9664\uFF0C\u4E14\u518D\u4E5F\u7121\u6CD5\u5C0D\u4EFB\u4F55\u771F\u5BE6\u4E8B\u7269\u57F7\u884C\u3002\u4F60\u61C9\u8A72\u600E\u9EBC\u505A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u522A\u9664\u5B83\u2014\u2014\u904E\u6642\u7684\u6E2C\u8A66\u4E0D\u4FDD\u8B77\u4EFB\u4F55\u4E8B\u7269\uFF0C\u53EA\u589E\u52A0\u7DAD\u8B77\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u884C\u70BA\u5DF2\u6C38\u4E45\u6D88\u5931\uFF0C\u79FB\u9664\u5176\u6E2C\u8A66\u662F\u6B63\u78BA\u7684\u7DAD\u8B77\uFF0C\u800C\u975E\u4E1F\u5931\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u505C\u7528\u5B83\u300C\u4EE5\u9632\u300D\u529F\u80FD\u54EA\u5929\u56DE\u4F86",
+                "fraction": 0,
+                "feedback": "\u6C38\u4E45\u505C\u7528\u7684\u6E2C\u8A66\u662F\u7121\u7528\u8CA0\u64D4\u8207\u904E\u6642\u7684\u63D0\u9192\uFF1B\u82E5\u529F\u80FD\u56DE\u4F86\uFF0C\u5C46\u6642\u518D\u5BEB\u4E00\u500B\u65B0\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6539\u5BEB\u5B83\u7684\u65B7\u8A00\uFF0C\u8B93\u5B83\u53BB\u9A57\u8B49\u4E0D\u76F8\u5E72\u7684\u884C\u70BA\u800C\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u628A\u5B83\u632A\u53BB\u6E2C\u5225\u7684\u6771\u897F\u6703\u6DF7\u6DC6\u610F\u5716\uFF1B\u522A\u9664\u904E\u6642\u6E2C\u8A66\uFF0C\u4E26\u5728\u9700\u8981\u8655\u5BEB\u6E05\u695A\u7684\u65B0\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u628A\u5B83\u9694\u96E2\uFF08quarantine\uFF09\u4E26\u7576\u4F5C flaky \u8FFD\u8E64",
+                "fraction": 0,
+                "feedback": "\u9694\u96E2\u662F\u7D66\u4F60\u6253\u7B97\u4FEE\u597D\u7684 flaky \u6E2C\u8A66\u7528\u7684\uFF1B\u904E\u6642\u6E2C\u8A66\u6C92\u6709\u6771\u897F\u53EF\u4FEE\uFF0C\u61C9\u4E88\u79FB\u9664\u3002"
+              }
+            ],
+            "generalFeedback": "\u904E\u6642\u7684\u6E2C\u8A66\u5B88\u8457\u5DF2\u4E0D\u5B58\u5728\u7684\u884C\u70BA\uFF0C\u56E0\u6B64\u522A\u9664\u5B83\u4E26\u672A\u79FB\u9664\u4EFB\u4F55\u771F\u5BE6\u8986\u84CB\u2014\u2014\u79FB\u9664\u7684\u662F\u7121\u7528\u8CA0\u64D4\u3002\u56E0\u70BA\u6B64\u79FB\u9664\u662F\u523B\u610F\u7684\u3001\u4E14\u884C\u70BA\u5DF2\u6D88\u5931\uFF0C\u9019\u6B63\u662F\u522A\u9664\u6E2C\u8A66\u70BA\u6B63\u78BA\u4E4B\u8209\u3001\u800C\u975E\u640D\u5931\u7684\u6642\u523B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6642\u9593\u53D7\u9650\u6642\u7684\u6E2C\u8A66\u9078\u64C7",
+            "text": "<p>\u73FE\u5728\u6BCF\u6B21 commit \u90FD\u8DD1\u6574\u500B\u5957\u4EF6\u5DF2\u592A\u4E45\uFF0C\u7121\u6CD5\u5FEB\u901F\u56DE\u994B\u3002\u54EA\u7A2E\u6280\u8853\u80FD\u7DAD\u6301\u6BCF\u6B21 commit \u7684\u5FEB\u901F\u56DE\u994B\uFF0C\u53C8\u4E0D\u653E\u68C4\u5176\u4ED6\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u9078\u64C7\uFF0Ftest-impact analysis\u2014\u2014\u57F7\u884C\u53D7\u8A72 commit \u5F71\u97FF\u7684\u5B50\u96C6\uFF0C\u4E26\u4EE5\u8F03\u4F4E\u983B\u7387\u57F7\u884C\u8F03\u5B8C\u6574\u7684\u5957\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9078\u51FA\u53D7\u5F71\u97FF\u5B50\u96C6\u80FD\u5FEB\u901F\u56DE\u994B\uFF0C\u5176\u9918\u6E2C\u8A66\u4ECD\u4EE5\u66F4\u5EE3\u7684\u7BC0\u594F\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u6C38\u4E45\u522A\u9664\u9019\u6B21 commit \u672A\u89F8\u53CA\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9078\u64C7\u662F\u6C7A\u5B9A\u73FE\u5728\u8DD1\u4EC0\u9EBC\uFF1B\u5B83\u4E0D\u522A\u9664\u672A\u88AB\u9078\u4E2D\u7684\u6E2C\u8A66\uFF0C\u90A3\u4E9B\u4ECD\u5B88\u8B77\u5176\u4ED6\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u505C\u7528\u6162\u6E2C\u8A66\u4E2D\u7684\u65B7\u8A00\uFF0C\u8B93\u5B83\u5011\u66F4\u5FEB\u8DD1\u5B8C",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u65B7\u8A00\u6703\u8B93\u6E2C\u8A66\u8B8A\u5F97\u6BEB\u7121\u50F9\u503C\uFF1B\u9078\u64C7\u662F\u6539\u70BA\u57F7\u884C\u76F8\u95DC\u5B50\u96C6\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u8B8A\u66F4\u70BA\u4F55\uFF0C\u6BCF\u6B21 commit \u56FA\u5B9A\u96A8\u6A5F\u8DD1 10% \u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u76F2\u76EE\u96A8\u6A5F\u62BD\u6A23\u5FFD\u7565\u4E86\u5BE6\u969B\u8B8A\u66F4\uFF1B\u57FA\u65BC\u5F71\u97FF\u7684\u9078\u64C7\u6703\u9396\u5B9A\u53D7\u5F71\u97FF\u7684\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "test-impact analysis \u6703\u628A\u6BCF\u6B21\u8B8A\u66F4\u5C0D\u61C9\u5230\uFF08\u900F\u904E\u76F8\u4F9D\uFF09\u53EF\u80FD\u53D7\u5F71\u97FF\u7684\u6E2C\u8A66\uFF0C\u4E26\u53EA\u5728\u8A72 commit \u4E0A\u8DD1\u90A3\u4E9B\uFF0C\u7D66\u51FA\u5FEB\u901F\u4E14\u76F8\u95DC\u7684\u56DE\u994B\u3002\u672A\u88AB\u9078\u4E2D\u7684\u6E2C\u8A66\u4E0D\u6703\u88AB\u4E1F\u68C4\u2014\u2014\u5B83\u5011\u5728\u6BCF\u665A\u6216\u5408\u4F75\u524D\u7684\u5B8C\u6574\u57F7\u884C\u4E2D\u8DD1\u3002\u5982\u6B64\u5728\u5FEB\u901F\u56DE\u994B\u8207\u6574\u9AD4\u8986\u84CB\u4E4B\u9593\u53D6\u5F97\u5E73\u8861\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u671F\u9650\u4E0B\u7684\u98A8\u96AA\u5C0E\u5411\u9078\u64C7",
+            "text": "<p>\u767C\u4F48\u524D\u4F60\u53EA\u6709\u6642\u9593\u57F7\u884C\u90E8\u5206\u56DE\u6B78\u5957\u4EF6\u3002\u4F60\u61C9\u4F9D\u4EC0\u9EBC\u57FA\u6E96\u4F86\u9078\u64C7\u8981\u8DD1\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F9D\u98A8\u96AA\u2014\u2014\u512A\u5148\u57F7\u884C\u8FD1\u671F\u8B8A\u52D5\u3001\u5C0D\u696D\u52D9\u95DC\u9375\u3001\u6216\u6709\u7F3A\u9677\u6B77\u53F2\u7684\u5340\u57DF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u96AA\u5C0E\u5411\u9078\u64C7\u628A\u6709\u9650\u9810\u7B97\u82B1\u5728\u56DE\u6B78\u6700\u53EF\u80FD\u767C\u751F\u4E14\u50B7\u5BB3\u6700\u5927\u7684\u5730\u65B9\u3002"
+              },
+              {
+                "text": "\u5C31\u6309\u5B57\u6BCD\u9806\u5E8F\u5F9E\u6700\u524D\u9762\u958B\u59CB\u8DD1\uFF0C\u8DD1\u5230\u6C92\u6642\u9593\u70BA\u6B62",
+                "fraction": 0,
+                "feedback": "\u5B57\u6BCD\u9806\u5E8F\u8207\u98A8\u96AA\u7121\u95DC\uFF1B\u5B83\u53EF\u80FD\u5B8C\u5168\u7565\u904E\u6700\u91CD\u8981\u7684\u5340\u57DF\u3002"
+              },
+              {
+                "text": "\u53EA\u8DD1\u90A3\u4E9B\u5DF2\u77E5\u6703\u901A\u904E\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u4F60\u9810\u671F\u6703\u901A\u904E\u7684\u6E2C\u8A66\u6536\u7A6B\u751A\u5FAE\uFF1B\u4F60\u8981\u7684\u662F\u5931\u6557\u6703\u9020\u6210\u91CD\u5927\u5F71\u97FF\u7684\u9AD8\u98A8\u96AA\u5340\u57DF\u3002"
+              },
+              {
+                "text": "\u53EA\u8DD1\u6700\u5FEB\u7684\u6E2C\u8A66\uFF0C\u4E0D\u7BA1\u5B83\u5011\u8986\u84CB\u4EC0\u9EBC",
+                "fraction": 0,
+                "feedback": "\u55AE\u770B\u901F\u5EA6\u5FFD\u7565\u4E86\u91CD\u8981\u6027\uFF1B\u8986\u84CB\u7463\u788E\u5340\u57DF\u7684\u5FEB\u6E2C\u8A66\uFF0C\u53EF\u80FD\u9060\u4E0D\u5982\u8F03\u6162\u7684\u95DC\u9375\u6E2C\u8A66\u6709\u50F9\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u4F60\u7121\u6CD5\u5168\u90E8\u57F7\u884C\u6642\uFF0C\u4F9D\u98A8\u96AA\u6392\u5E8F\uFF1A\u8FD1\u671F\u8B8A\u52D5\u7684\u7A0B\u5F0F\u78BC\u3001\u9AD8\u50F9\u503C\u6216\u696D\u52D9\u95DC\u9375\u7684\u529F\u80FD\u3001\u4EE5\u53CA\u6B77\u4F86\u6613\u51FA\u7F3A\u9677\u7684\u6A21\u7D44\u512A\u5148\u3002\u9019\u628A\u6709\u9650\u7684\u6E2C\u8A66\u6642\u9593\u96C6\u4E2D\u5728\u5916\u6F0F\u56DE\u6B78\u6700\u53EF\u80FD\u767C\u751F\u4E14\u4EE3\u50F9\u6700\u9AD8\u4E4B\u8655\u3002\uFF08\u901F\u5EA6\u53EF\u4F5C\u70BA\u5728\u6642\u9593\u5167\u591A\u585E\u5E7E\u500B\u7684\u52A0\u5206\u56E0\u7D20\uFF0C\u4F46\u4E0D\u662F\u4E3B\u8981\u57FA\u6E96\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6E2C\u8A66\u8D8A\u591A\u4E0D\u4E00\u5B9A\u8D8A\u597D",
+            "text": "<p>\u67D0\u540C\u4E8B\u4E3B\u5F35\u5957\u4EF6\u6C38\u9060\u4E0D\u8A72\u7E2E\u5C0F\uFF0C\u56E0\u70BA\u300C\u6BCF\u500B\u984D\u5916\u7684\u6E2C\u8A66\u90FD\u662F\u984D\u5916\u7684\u5B89\u5168\u300D\u3002\u9019\u500B\u63A8\u7406\u70BA\u4F55\u6709\u7455\u75B5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u8907\u8207\u4F4E\u50F9\u503C\u7684\u6E2C\u8A66\u589E\u52A0\u57F7\u884C\u6642\u9593\u8207\u7DAD\u8B77\u6210\u672C\uFF0C\u537B\u6C92\u6709\u589E\u52A0\u5957\u4EF6\u539F\u672C\u6C92\u6709\u7684\u4FE1\u5FC3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u552F\u6709\u80FD\u589E\u52A0\u8A0A\u865F\u6642\u624D\u6709\u5E6B\u52A9\uFF0C\u5426\u5247\u53EA\u662F\u7D14\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6E2C\u8A66\u5957\u4EF6\u6709\u6846\u67B6\u5F37\u5236\u7684\u786C\u6027\u6700\u5927\u898F\u6A21",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u56FA\u5B9A\u4E0A\u9650\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u4ED8\u51FA\u6210\u672C\u537B\u7121\u65B0\u50F9\u503C\uFF0C\u800C\u975E\u898F\u6A21\u4E0A\u9650\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u984D\u5916\u7684\u6E2C\u8A66\u4E00\u5B9A\u6703\u4F7F\u5176\u9918\u6E2C\u8A66\u8B8A flaky",
+                "fraction": 0,
+                "feedback": "\u589E\u52A0\u6E2C\u8A66\u672C\u8CEA\u4E0A\u4E0D\u6703\u9020\u6210 flakiness\uFF1B\u7455\u75B5\u5728\u65BC\u70BA\u96F6\u65B0\u8A0A\u865F\u4ED8\u51FA\u7DAD\u8B77\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u8986\u84CB\u7387\u5DE5\u5177\u5728\u8D85\u904E\u67D0\u6E2C\u8A66\u6578\u91CF\u5F8C\u5C31\u62D2\u7D55\u56DE\u5831",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5DE5\u5177\u4E0D\u6703\u9650\u5236\u6E2C\u8A66\u6578\u91CF\uFF1B\u91CD\u9EDE\u662F\u91CD\u8907\u6E2C\u8A66\u4ED8\u51FA\u6210\u672C\u537B\u4E0D\u589E\u52A0\u4FE1\u5FC3\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u552F\u6709\u80FD\u6293\u5230\u5176\u9918\u5957\u4EF6\u6703\u6F0F\u6389\u7684\u5931\u6557\u6642\uFF0C\u624D\u503C\u5F97\u4FDD\u7559\u3002\u91CD\u8907\u6216\u4F4E\u50F9\u503C\u7684\u6E2C\u8A66\u63D0\u4F9B\u4E0D\u4E86\u9019\u7A2E\u65B0\u8A0A\u865F\uFF0C\u537B\u4ECD\u6D88\u8017\u57F7\u884C\u6642\u9593\u3001\u4E14\u6BCF\u6B21\u91CD\u69CB\u90FD\u8981\u7DAD\u8B77\u8207\u66F4\u65B0\u3002\u6240\u4EE5\u8D85\u904E\u67D0\u500B\u7A0B\u5EA6\u5F8C\uFF0C\u589E\u52A0\u6E2C\u8A66\u53EA\u62AC\u9AD8\u6210\u672C\u800C\u4E0D\u62AC\u9AD8\u4FE1\u5FC3\u2014\u2014\u9019\u6B63\u662F\u70BA\u4F55\u522A\u4FEE\u4F4E\u50F9\u503C\u6E2C\u8A66\u80FD\u6539\u5584\u5957\u4EF6\u3002\uFF08\u9019\u4E26\u4E0D\u4EE3\u8868\u8D8A\u5C11\u8D8A\u597D\uFF1A\u4F60\u4ECD\u9700\u5C0D\u91CD\u8981\u884C\u70BA\u6709\u8DB3\u5920\u7684\u8986\u84CB\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5957\u4EF6\u4E2D\u8106\u5F31\u6E2C\u8A66\u7684\u5C0D\u7B56",
+            "text": "<p>\u4E00\u500B\u56DE\u6B78\u6E2C\u8A66\u5728\u672A\u8B8A\u66F4\u7684\u7A0B\u5F0F\u78BC\u4E0A\u9593\u6B47\u6027\u5931\u6557\uFF0C\u4E26\u958B\u59CB\u4FB5\u8755\u5718\u968A\u5C0D\u5957\u4EF6\u7684\u4FE1\u4EFB\u3002\u8CA0\u8CAC\u4EFB\u7684\u5C0D\u7B56\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A3A\u65B7\u4E26\u4FEE\u597D\u6839\u672C\u539F\u56E0\uFF1B\u82E5\u7121\u6CD5\u7ACB\u5373\u5B8C\u6210\uFF0C\u5C31\u628A\u5B83\u5F9E\u963B\u64CB\u6027\u95DC\u5361\u9694\u96E2\u51FA\u4F86\uFF0C\u540C\u6642\u8FFD\u8E64\u4EE5\u5F85\u4FEE\u5FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4FEE\u597D flakiness\uFF0C\u6216\u5728\u53EF\u898B\u4E14\u88AB\u8FFD\u8E64\u7684\u524D\u63D0\u4E0B\u52A0\u4EE5\u570D\u5835\uFF0C\u800C\u4E0D\u662F\u4EFB\u5B83\u4FB5\u8755\u4FE1\u4EFB\u3002"
+              },
+              {
+                "text": "\u8A2D\u5B9A\u6D41\u6C34\u7DDA\u6084\u6084\u91CD\u8DD1\u5B83\u76F4\u5230\u901A\u904E\uFF0C\u4E26\u56DE\u5831\u7DA0\u71C8",
+                "fraction": 0,
+                "feedback": "\u76F2\u76EE\u91CD\u8A66\u5230\u7DA0\u71C8\u4E5F\u53EF\u80FD\u63A9\u84CB\u771F\u6B63\u7684\u9593\u6B47\u6027\u932F\u8AA4\uFF0C\u4E14 flakiness \u4F9D\u7136\u5B58\u5728\uFF1B\u9019\u4E0D\u662F\u8CA0\u8CAC\u4EFB\u7684\u4FEE\u6CD5\u3002"
+              },
+              {
+                "text": "\u5FFD\u7565\u5B83\uFF0C\u56E0\u70BA flaky \u5931\u6557\u5F9E\u4E0D\u7531\u771F\u6B63\u7684\u932F\u8AA4\u9020\u6210",
+                "fraction": 0,
+                "feedback": "\u6709\u4E9B\u9593\u6B47\u6027\u5931\u6557\u78BA\u5BE6\u66B4\u9732\u771F\u6B63\u7684\u932F\u8AA4\uFF08\u7AF6\u614B\u3001\u908A\u754C\u60C5\u6CC1\uFF09\uFF1B\u5FFD\u7565\u5B83\u5F88\u5371\u96AA\u3002"
+              },
+              {
+                "text": "\u8B93\u5B83\u7E7C\u7E8C\u9593\u6B47\u5931\u6557\uFF0C\u597D\u8B93\u5718\u968A\u4FDD\u6301\u8B66\u89BA",
+                "fraction": 0,
+                "feedback": "\u9577\u671F\u5047\u8B66\u5831\u53EA\u6703\u76F8\u53CD\u2014\u2014\u8A13\u7DF4\u5718\u968A\u5FFD\u7565\u7D05\u71C8\u5EFA\u7F6E\u3002"
+              }
+            ],
+            "generalFeedback": "\u8106\u5F31\u6E2C\u8A66\u662F\u4E00\u7A2E\u6E2C\u8A66\u50B5\uFF0C\u6703\u4FB5\u8755\u5C0D\u6574\u500B\u5957\u4EF6\u7684\u4FE1\u4EFB\u3002\u6B63\u78BA\u56DE\u61C9\u662F\u627E\u51FA\u4E26\u4FEE\u597D\u975E\u6C7A\u5B9A\u6027\u7684\u4F86\u6E90\u3002\u82E5\u7121\u6CD5\u7ACB\u5373\u4FEE\u597D\uFF0C\u5C31\u628A\u5B83\u5F9E\u6703\u963B\u64CB\u5408\u4F75\u7684\u95DC\u5361\u9694\u96E2\u51FA\u4F86\uFF0C\u4F46\u4FDD\u7559\u5728\u6709\u8CA0\u8CAC\u4EBA\u8207\u671F\u9650\u7684\u8FFD\u8E64\u6E05\u55AE\u4E0A\uFF0C\u5982\u6B64\u65E2\u570D\u5835\u53C8\u4E0D\u88AB\u907A\u5FD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DE9\u6162\u5957\u4EF6\u7684\u9996\u8981\u5C0D\u7B56",
+            "text": "<p>\u4F60\u7684\u56DE\u6B78\u5957\u4EF6\u5DF2\u6162\u5230\u958B\u767C\u8005\u4E0D\u9858\u57F7\u884C\u3002\u54EA\u4E00\u7D44\u52D5\u4F5C\u6700\u80FD\u8655\u7406\u9019\u500B\u7DE9\u6162\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5E73\u884C\u5316\u57F7\u884C\u3001\u52A0\u901F\u6700\u6162\u7684\u6E2C\u8A66\uFF0C\u4E26\u522A\u4FEE\u6389\u4E0D\u589E\u52A0\u8986\u84CB\u7684\u91CD\u8907\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E9B\u76F4\u63A5\u91DD\u5C0D\u57F7\u884C\u6642\u9593\u4E0B\u624B\uFF0C\u540C\u6642\u4FDD\u7559\u771F\u6B63\u91CD\u8981\u7684\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u522A\u9664\u4E00\u6279\u6E2C\u8A66\uFF0C\u76F4\u5230\u5957\u4EF6\u5920\u5FEB\u70BA\u6B62",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u522A\u9664\u72A7\u7272\u771F\u5BE6\u8986\u84CB\uFF1B\u61C9\u523B\u610F\u522A\u4FEE\u91CD\u8907\uFF0C\u4E26\u52A0\u901F\u5176\u9918\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u505C\u7528\u6700\u6162\u6E2C\u8A66\u4E2D\u7684\u65B7\u8A00\uFF0C\u8B93\u5B83\u5011\u77AC\u9593\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u65B7\u8A00\u7684\u6E2C\u8A66\u4EC0\u9EBC\u90FD\u4E0D\u9A57\u8B49\uFF1B\u90A3\u4E0D\u662F\u52A0\u901F\uFF0C\u800C\u662F\u8986\u84CB\u7684\u640D\u5931\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u505C\u6B62\u8DD1\u56DE\u6B78\uFF0C\u6539\u9760\u4EBA\u5DE5\u62BD\u67E5",
+                "fraction": 0,
+                "feedback": "\u653E\u68C4\u56DE\u6B78\u6703\u62DB\u81F4\u7F3A\u9677\u5916\u6F0F\uFF1B\u76EE\u6A19\u662F\u8B93\u5957\u4EF6\u8B8A\u5FEB\uFF0C\u800C\u975E\u653E\u68C4\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DE9\u6162\u7684\u4FEE\u6CD5\u662F\u780D\u6389\u771F\u5BE6\u6642\u9593\u800C\u4E0D\u780D\u6389\u771F\u5BE6\u8986\u84CB\uFF1A\u5E73\u884C\u57F7\u884C\u6E2C\u8A66\u3001\u6700\u4F73\u5316\u6216\u91CD\u65B0\u754C\u5B9A\u6700\u6162\u7684\u6E2C\u8A66\uFF08\u4F8B\u5982\u5728\u9069\u7576\u8655\u4EE5\u8F03\u5FEB\u3001\u8F03\u7A84\u7684\u6E2C\u8A66\u53D6\u4EE3\u7B28\u91CD\u7684\u7AEF\u5C0D\u7AEF\u8A2D\u5B9A\uFF09\uFF0C\u4E26\u79FB\u9664\u78BA\u5BE6\u91CD\u8907\u7684\u6E2C\u8A66\u3002\u6E2C\u8A66\u9078\u64C7\u9084\u80FD\u9032\u4E00\u6B65\u7E2E\u77ED\u6BCF\u6B21 commit \u7684\u56DE\u994B\u3002\u522A\u9664\u6709\u50F9\u503C\u7684\u6E2C\u8A66\u6216\u505C\u7528\u65B7\u8A00\u53EA\u662F\u62FF\u901F\u5EA6\u63DB\u8D70\u4FDD\u8B77\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6BCF\u6B21\u8FED\u4EE3\u90FD\u8981\u4FDD\u6301\u6E2C\u8A66\u5FEB\u901F",
+            "text": "<p>\u5728\u8FED\u4EE3\u5F0F\u6D41\u7A0B\u4E2D\uFF0C\u70BA\u4EC0\u9EBC\u4FDD\u6301\u56DE\u6B78\u5957\u4EF6\u5FEB\u901F\u662F\u4E00\u9805\u6301\u7E8C\u6027\u7684\u512A\u5148\u4E8B\u9805\uFF0C\u800C\u975E\u4E00\u6B21\u6027\u7684\u5DE5\u4F5C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u5FEB\u901F\u56DE\u994B\u8B93\u5957\u4EF6\u80FD\u88AB\u983B\u7E41\u57F7\u884C\uFF08\u751A\u81F3\u6BCF\u6B21 commit\uFF09\uFF0C\u5728\u56DE\u6B78\u6700\u4FBF\u5B9C\u4FEE\u5FA9\u7684\u6642\u5019\u53CA\u65E9\u6293\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901F\u5EA6\u652F\u6490\u983B\u7E41\u57F7\u884C\u8207\u53CA\u65E9\u5075\u6E2C\uFF0C\u8CAB\u7A7F\u6574\u500B\u6301\u7E8C\u958B\u767C\u904E\u7A0B\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5FEB\u901F\u7684\u5957\u4EF6\u4FDD\u8B49\u672C\u8EAB\u6C92\u6709\u4EFB\u4F55\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u8AAA\u660E\u4E0D\u4E86\u5957\u4EF6\u672C\u8EAB\u7684\u6B63\u78BA\u6027\uFF1B\u597D\u8655\u5728\u65BC\u983B\u7E41\u3001\u53CA\u65E9\u7684\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6162\u6E2C\u8A66\u4E00\u5B9A\u6703\u7522\u751F\u932F\u8AA4\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u6162\u6E2C\u8A66\u53EF\u4EE5\u5B8C\u5168\u6B63\u78BA\uFF1B\u9867\u616E\u5728\u65BC\u88AB\u5EF6\u9072\u3001\u4E14\u8B93\u4EBA\u4E0D\u9858\u57F7\u884C\u7684\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6846\u67B6\u62D2\u7D55\u57F7\u884C\u8D85\u904E\u56FA\u5B9A\u6642\u9577\u7684\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u666E\u904D\u9650\u5236\uFF1B\u512A\u5148\u4E8B\u9805\u662F\u4FDD\u4F4F\u983B\u7E41\u3001\u53CA\u65E9\u7684\u56DE\u994B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u8FED\u4EE3\u5F0F\u6D41\u7A0B\u4E2D\uFF0C\u5957\u4EF6\u6703\u4E00\u518D\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u5B83\u7684\u901F\u5EA6\u6703\u7D2F\u7A4D\u653E\u5927\u3002\u5FEB\u901F\u7684\u5957\u4EF6\u6703\u88AB\u983B\u7E41\u57F7\u884C\u2014\u2014\u6BCF\u6B21 commit \u6216 pull request\u2014\u2014\u65BC\u662F\u56DE\u6B78\u5728\u88AB\u5F15\u5165\u5F8C\u5E7E\u5206\u9418\u5167\u5C31\u88AB\u6293\u5230\uFF0C\u6B64\u6642\u8B8A\u66F4\u9084\u65B0\u9BAE\u3001\u4FEE\u8D77\u4F86\u4FBF\u5B9C\u3002\u7531\u65BC\u529F\u80FD\u6301\u7E8C\u7D2F\u7A4D\uFF0C\u4FDD\u6301\u5957\u4EF6\u5FEB\u901F\u662F\u4E00\u9805\u6301\u7E8C\u7684\u52AA\u529B\uFF0C\u800C\u975E\u4E00\u6B21\u6027\u7684\u6E05\u7406\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6703\u901A\u904E\u7684\u91CD\u8907\u6E2C\u8A66\u4ECD\u6709\u6210\u672C",
+            "text": "<p>\u4E00\u500B\u7E3D\u662F\u901A\u904E\u7684\u91CD\u8907\u6E2C\u8A66\u4ECD\u5E36\u6709\u6210\u672C\uFF0C\u56E0\u70BA\u5B83\u5FC5\u9808\u88AB\u57F7\u884C\u3001\u88AB\u95B1\u8B80\uFF0C\u4E26\u5728\u5B83\u6240\u89F8\u53CA\u7684\u7A0B\u5F0F\u78BC\u88AB\u91CD\u69CB\u6642\u66F4\u65B0\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u662F\u7DA0\u71C8\u7684\u6E2C\u8A66\u4E5F\u6D88\u8017\u57F7\u884C\u6642\u9593\u8207\u7DAD\u8B77\u5FC3\u529B\uFF0C\u6240\u4EE5\u91CD\u8907\u4E26\u975E\u514D\u8CBB\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u6703\u901A\u904E\u7684\u6E2C\u8A66\u4E26\u975E\u96F6\u6210\u672C\u2014\u2014\u5B83\u589E\u52A0\u57F7\u884C\u6642\u9593\uFF0C\u4E14\u5FC5\u9808\u5728\u91CD\u69CB\u6642\u7DAD\u8B77\u8207\u66F4\u65B0\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EBA\u5011\u5E38\u4EE5\u70BA\u53EA\u6709\u5931\u6557\u7684\u6E2C\u8A66\u624D\u6709\u6210\u672C\uFF0C\u4F46\u5957\u4EF6\u4E2D\u6BCF\u500B\u6E2C\u8A66\u5728\u6BCF\u6B21\u57F7\u884C\u6642\u90FD\u6703\u88AB\u8DD1\uFF0C\u4E14\u5FC5\u9808\u96A8\u7A0B\u5F0F\u78BC\u6F14\u9032\u800C\u4FDD\u6301\u6700\u65B0\u3002\u91CD\u8907\u7684\u6E2C\u8A66\u4ED8\u51FA\u9019\u4E9B\u6210\u672C\uFF0C\u537B\u6C92\u70BA\u5957\u4EF6\u589E\u6DFB\u4EFB\u4F55\u7F3A\u5C11\u7684\u8A0A\u865F\uFF0C\u9019\u6B63\u662F\u70BA\u4F55\u53BB\u91CD\u80FD\u5728\u4E0D\u964D\u4F4E\u4FE1\u5FC3\u7684\u60C5\u6CC1\u4E0B\u964D\u4F4E\u6210\u672C\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u98A8\u96AA\u5C0E\u5411\u4E0D\u80FD\u53D6\u4EE3\u5B8C\u6574\u56DE\u6B78",
+            "text": "<p>\u7531\u65BC\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78\u96C6\u4E2D\u65BC\u9AD8\u98A8\u96AA\u5340\u57DF\uFF0C\u63A1\u7528\u5B83\u7684\u5718\u968A\u5C31\u518D\u4E5F\u4E0D\u9700\u8981\u57F7\u884C\u5B8C\u6574\u7684\u56DE\u6B78\u5957\u4EF6\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u96AA\u5C0E\u5411\u9078\u64C7\u662F\u7528\u5728\u7576\u4E0B\u7121\u6CD5\u5168\u90E8\u57F7\u884C\u6642\uFF1B\u5B8C\u6574\u5957\u4EF6\u4ECD\u61C9\u5B9A\u671F\u57F7\u884C\uFF0C\u4EE5\u6DB5\u84CB\u8F03\u4F4E\u98A8\u96AA\u7684\u5340\u57DF\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u512A\u5148\u9AD8\u98A8\u96AA\u5340\u57DF\u4E26\u4E0D\u6703\u8B93\u8F03\u4F4E\u98A8\u96AA\u7684\u56DE\u6B78\u8B8A\u5F97\u4E0D\u53EF\u80FD\uFF0C\u6240\u4EE5\u4ECD\u9700\u5B9A\u671F\u57F7\u884C\u5B8C\u6574\u5957\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u5C0E\u5411\u56DE\u6B78\u662F\u628A\u6709\u9650\u6E2C\u8A66\u9810\u7B97\u7528\u5F97\u597D\u7684\u65B9\u6CD5\uFF0C\u4E26\u975E\u6C38\u4E45\u5FFD\u7565\u6240\u6709\u4F4E\u98A8\u96AA\u9805\u76EE\u7684\u8A31\u53EF\u3002\u7F3A\u9677\u4ECD\u53EF\u80FD\u51FA\u73FE\u5728\u88AB\u512A\u5148\u7684\u5340\u57DF\u4E4B\u5916\uFF0C\u56E0\u6B64\u8F03\u5B8C\u6574\u7684\u5957\u4EF6\u61C9\u4EE5\u66F4\u5EE3\u7684\u7BC0\u594F\u57F7\u884C\uFF08\u6BCF\u665A\u3001\u767C\u4F48\u524D\uFF09\u3002\u628A\u98A8\u96AA\u5C0E\u5411\u6E2C\u8A66\u8A87\u5927\u6210\u300C\u518D\u4E5F\u4E0D\u7528\u5168\u90E8\u8DD1\u300D\u6703\u7559\u4E0B\u771F\u5BE6\u7684\u7F3A\u53E3\u3002"
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u5957\u4EF6\u6162\u5230\u4E0D\u6562\u8DD1",
+            "text": "<p>\u67D0\u56DE\u6B78\u5957\u4EF6\u8981\u8DD1 90 \u5206\u9418\uFF0C\u65BC\u662F\u958B\u767C\u8005\u4E0D\u8DD1\u5C31\u5408\u4F75\uFF0C\u7834\u58DE\u5728\u6578\u5929\u5F8C\u624D\u88AB\u767C\u73FE\u3002\u8ABF\u67E5\u986F\u793A\u4E09\u5206\u4E4B\u4E00\u7684\u6E2C\u8A66\u662F\u91CD\u8907\u8986\u84CB\uFF0C\u4E14\u8A31\u591A\u4F7F\u7528\u7B28\u91CD\u7684\u5168\u7AEF\u8A2D\u5B9A\u3002\u6700\u4F73\u8655\u65B9\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5E73\u884C\u5316\u57F7\u884C\u3001\u5728\u4E0D\u589E\u52A0\u7368\u7279\u50F9\u503C\u8655\u4EE5\u8F03\u5FEB\u8F03\u7A84\u7684\u6E2C\u8A66\u53D6\u4EE3\u6700\u7B28\u91CD\u7684\u8A2D\u5B9A\u3001\u4E26\u522A\u4FEE\u91CD\u8907\u6E2C\u8A66\u2014\u2014\u518D\u52A0\u4E0A\u6E2C\u8A66\u9078\u64C7\u4EE5\u53D6\u5F97\u6BCF\u6B21 commit \u7684\u56DE\u994B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE5\u5E73\u884C\u5316\u3001\u6700\u4F73\u5316\u8207\u53BB\u91CD\u4F86\u780D\u57F7\u884C\u6642\u9593\uFF0C\u4E26\u7528\u9078\u64C7\u53D6\u5F97\u5FEB\u901F\u7684\u672C\u5730\u56DE\u994B\uFF0C\u540C\u6642\u4FDD\u7559\u771F\u5BE6\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u522A\u9664\u6E2C\u8A66\uFF0C\u76F4\u5230\u5957\u4EF6\u5728\u5341\u5206\u9418\u5167\u8DD1\u5B8C",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u522A\u9664\u6703\u4E1F\u6389\u771F\u5BE6\u8986\u84CB\uFF1B\u91CD\u8907\u8207\u7B28\u91CD\u8A2D\u5B9A\u5FC5\u9808\u88AB\u523B\u610F\u8655\u7406\u3002"
+              },
+              {
+                "text": "\u5957\u4EF6\u7DAD\u6301\u539F\u6A23\uFF0C\u4F46\u4E0D\u518D\u8981\u6C42\u5408\u4F75\u524D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u662F\u76EE\u524D\u7684\u60C5\u6CC1\uFF0C\u4E14\u8B93\u7834\u58DE\u5916\u6F0F\uFF1B\u5957\u4EF6\u61C9\u88AB\u5F04\u5FEB\u5230\u80FD\u8DD1\uFF0C\u800C\u975E\u653E\u68C4\u3002"
+              },
+              {
+                "text": "\u52A0\u4E0A\u81EA\u52D5\u91CD\u8A66\uFF0C\u8B93\u4EFB\u4F55\u903E\u6642\u7684\u6162\u6E2C\u8A66\u88AB\u91CD\u8DD1",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u8655\u7406 flakiness \u800C\u975E\u7DE9\u6162\uFF0C\u4E14\u6703\u8B93\u5957\u4EF6\u66F4\u6162\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u7DE9\u6162\u6709\u53EF\u8FA8\u8B58\u7684\u6210\u56E0\uFF1A\u91CD\u8907\u6E2C\u8A66\u8207\u4E0D\u5FC5\u8981\u7684\u7B28\u91CD\u8A2D\u5B9A\u3002\u76F4\u63A5\u5C0D\u75C7\u4E0B\u624B\u2014\u2014\u5E73\u884C\u5316\u3001\u5728\u4E0D\u589E\u52A0\u7368\u7279\u8986\u84CB\u8655\u628A\u7B28\u91CD\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u6539\u5BEB\u6210\u8F03\u5FEB\u7684\u805A\u7126\u6E2C\u8A66\u3001\u4E26\u522A\u4FEE\u91CD\u8907\u8005\u2014\u2014\u8B93\u5957\u4EF6\u5FEB\u5230\u4EBA\u5011\u771F\u7684\u9858\u610F\u8DD1\u3002test-impact \u9078\u64C7\u518D\u8B93\u6BCF\u6B21 commit \u7684\u56DE\u994B\u4FDD\u6301\u5FEB\u901F\uFF0C\u540C\u6642\u8F03\u5B8C\u6574\u7684\u57F7\u884C\u4ECD\u4F9D\u7BC0\u594F\u9032\u884C\u3002\u5168\u7A0B\u4FDD\u7559\u5C0D\u771F\u5BE6\u884C\u70BA\u7684\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u91CD\u69CB\u5F04\u58DE\u6578\u767E\u500B\u6E2C\u8A66",
+            "text": "<p>\u5C0D\u67D0\u6A21\u7D44\u9032\u884C\u4E00\u6B21\u4FDD\u6301\u884C\u70BA\u7684\u91CD\u69CB\uFF0C\u537B\u5C0E\u81F4 200 \u500B\u6E2C\u8A66\u5931\u6557\uFF1B\u6BCF\u500B\u90FD\u5728\u5C0D\u5167\u90E8\u65B9\u6CD5\u547C\u53EB\u8207\u79C1\u6709\u6B04\u4F4D\u505A\u65B7\u8A00\u3002\u6839\u672C\u539F\u56E0\u8207\u6B63\u78BA\u5C0D\u7B56\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u4E9B\u6E2C\u8A66\u8207\u5BE6\u4F5C\u8026\u5408\uFF1B\u6539\u5BEB\u6210\u900F\u904E\u516C\u958B\u4ECB\u9762\u5C0D\u53EF\u89C0\u5BDF\u884C\u70BA\u505A\u65B7\u8A00\uFF0C\u4F7F\u5B83\u5011\u80FD\u5728\u4FDD\u6301\u884C\u70BA\u7684\u91CD\u69CB\u4E0B\u5B58\u6D3B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8207\u5167\u90E8\u89E3\u8026\uFF0C\u53EF\u6D88\u9664\u90A3\u628A\u5B89\u5168\u91CD\u69CB\u8B8A\u6210 200 \u500B\u5047\u5931\u6557\u7684\u8106\u5F31\u6027\u3002"
+              },
+              {
+                "text": "\u91CD\u69CB\u4E00\u5B9A\u6539\u5230\u4E86\u884C\u70BA\uFF1B\u628A\u5B83\u9084\u539F\uFF0C\u4E14\u6B64\u6A21\u7D44\u6C38\u9060\u4E0D\u8981\u518D\u91CD\u69CB",
+                "fraction": 0,
+                "feedback": "\u91CD\u69CB\u4FDD\u6301\u4E86\u884C\u70BA\uFF1B\u5931\u6557\u4F86\u81EA\u7D81\u5728\u5167\u90E8\u7684\u6E2C\u8A66\uFF0C\u800C\u975E\u884C\u70BA\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u5168\u90E8 200 \u500B\u6E2C\u8A66\u4EE5\u89E3\u9664\u91CD\u69CB\u963B\u585E",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u53EF\u80FD\u5B88\u8B77\u771F\u5BE6\u884C\u70BA\uFF1B\u61C9\u4F7F\u5176\u8207\u5167\u90E8\u89E3\u8026\uFF0C\u800C\u975E\u6574\u6279\u4E1F\u6389\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u628A\u5168\u90E8 200 \u500B\u6A19\u8A18\u70BA flaky \u4E26\u9694\u96E2",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E26\u975E flaky\u2014\u2014\u5B83\u5011\u56E0\u6E2C\u8A66\u5167\u90E8\u800C\u6C7A\u5B9A\u6027\u5730\u5931\u6557\uFF1B\u5C0D\u7B56\u662F\u6539\u70BA\u6E2C\u8A66\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u6B21\u4FDD\u6301\u884C\u70BA\u7684\u8B8A\u66F4\u9020\u6210 200 \u500B\u6C7A\u5B9A\u6027\u5931\u6557\uFF0C\u6B63\u662F\u5BE6\u4F5C\u8026\u5408\u7684\u62DB\u724C\uFF1A\u9019\u4E9B\u6E2C\u8A66\u65B7\u8A00\u7684\u662F\u7A0B\u5F0F\u78BC\u300C\u5167\u90E8\u5982\u4F55\u904B\u4F5C\u300D\u800C\u975E\u300C\u5B83\u505A\u4EC0\u9EBC\u300D\u3002\u6539\u5BEB\u6210\u91DD\u5C0D\u516C\u958B\u5951\u7D04\u8207\u53EF\u89C0\u5BDF\u7D50\u679C\u3002\u5982\u6B64\u5B83\u5011\u53EA\u6709\u5728\u884C\u70BA\u771F\u6B63\u6539\u8B8A\u6642\u624D\u5931\u6557\uFF0C\u91CD\u69CB\u4E5F\u4E0D\u518D\u88AB\u61F2\u7F70\u3002\u9019\u662F\u7D50\u69CB\u6027\u7684\u4FEE\u6CD5\uFF0C\u4E0D\u662F\u9084\u539F\u6216\u9694\u96E2\u7684\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u7121\u6CD5\u6BCF\u6B21 commit \u90FD\u8DD1\u5B8C\u6574\u5957\u4EF6",
+            "text": "<p>\u5B8C\u6574\u5957\u4EF6\u503C\u5F97\u4FE1\u4EFB\uFF0C\u4F46\u592A\u5927\u800C\u7121\u6CD5\u6BCF\u6B21 commit \u90FD\u8DD1\u3002\u5718\u968A\u60F3\u8981\u6BCF\u6B21 commit \u7684\u5FEB\u901F\u56DE\u994B\uFF0C\u53C8\u4E0D\u653E\u68C4\u6574\u9AD4\u8986\u84CB\u3002\u6700\u4F73\u505A\u6CD5\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528 test-impact \u9078\u64C7\u5728\u6BCF\u6B21 commit \u57F7\u884C\u53D7\u5F71\u97FF\u5B50\u96C6\uFF0C\u8B93\u5FEB\u901F\u9AD8\u50F9\u503C\u7684\u6E2C\u8A66\u6392\u524D\u9762\uFF0C\u4E26\u4EE5\u66F4\u5EE3\u7684\u7BC0\u594F\uFF08\u5982\u6BCF\u665A\uFF0F\u5408\u4F75\u524D\uFF09\u57F7\u884C\u5B8C\u6574\u5957\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9078\u64C7\u52A0\u4E0A\u5B9A\u671F\u5B8C\u6574\u57F7\u884C\uFF0C\u80FD\u5728\u4FDD\u7559\u5B8C\u6574\u8986\u84CB\u7684\u540C\u6642\u7D66\u51FA\u5FEB\u901F\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u6C38\u4E45\u522A\u6389\u9019\u6B21 commit \u672A\u88AB\u9078\u4E2D\u7684\u6240\u6709\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E1F\u6389\u672A\u88AB\u9078\u4E2D\u7684\u6E2C\u8A66\u7B49\u65BC\u653E\u68C4\u5B83\u5011\u6240\u5B88\u8B77\u7684\u4E00\u5207\u8986\u84CB\uFF1B\u5B83\u5011\u4ECD\u9808\u5B9A\u671F\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u7121\u8AD6\u5982\u4F55\u6BCF\u6B21 commit \u90FD\u8DD1\u6574\u500B\u5957\u4EF6\uFF0C\u6C38\u9060\u63A5\u53D7\u7DE9\u6162\u7684\u56DE\u994B",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u662F\u8981\u88AB\u89E3\u6C7A\u7684\u9650\u5236\uFF1B\u5B83\u653E\u68C4\u4E86\u5718\u968A\u9700\u8981\u7684\u5FEB\u901F\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21 commit \u96A8\u6A5F\u62BD 5% \u7684\u6E2C\u8A66\uFF0C\u5176\u9918\u6C38\u4E0D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u76F2\u76EE\u62BD\u6A23\u5FFD\u7565\u4E86\u5BE6\u969B\u8B8A\u66F4\uFF0C\u4E26\u8B93\u5927\u591A\u6578\u884C\u70BA\u7121\u9650\u671F\u672A\u88AB\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "test-impact analysis \u628A\u6BCF\u6B21 commit \u5C0D\u61C9\u5230\u53EF\u80FD\u53D7\u5F71\u97FF\u7684\u6E2C\u8A66\u4E26\u53EA\u8DD1\u90A3\u4E9B\uFF0C\u8B93\u56DE\u994B\u4FDD\u6301\u5FEB\u901F\u4E14\u76F8\u95DC\uFF1B\u628A\u5FEB\u901F\u3001\u9AD8\u50F9\u503C\u7684\u6E2C\u8A66\u6392\u524D\u9762\u80FD\u66F4\u65E9\u6D6E\u73FE\u5931\u6557\u3002\u53D7\u4FE1\u4EFB\u7684\u5B8C\u6574\u5957\u4EF6\u4ECD\u4EE5\u66F4\u5EE3\u7684\u6392\u7A0B\u57F7\u884C\uFF0C\u4EE5\u6DB5\u84CB\u6BCF\u6B21 commit \u5B50\u96C6\u7565\u904E\u7684\u4E00\u5207\u3002\u5982\u6B64\u5728\u56DE\u994B\u901F\u5EA6\u8207\u5B8C\u6574\u6027\u4E4B\u9593\u53D6\u5F97\u5E73\u8861\uFF0C\u4E14\u4E0D\u4E1F\u68C4\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1Aflakiness \u4FB5\u8755\u4FE1\u4EFB",
+            "text": "<p>\u6B77\u7D93\u6578\u6708\uFF0C\u7D04 3% \u7684\u5957\u4EF6\u57F7\u884C\u5728\u672A\u8B8A\u66F4\u7684\u7A0B\u5F0F\u78BC\u4E0A\u5931\u6557\uFF0C\u5718\u968A\u5982\u4ECA\u53CD\u5C04\u6027\u5730\u91CD\u8DD1\u7D05\u71C8\u800C\u4E0D\u53BB\u8ABF\u67E5\u3002\u6B63\u78BA\u7684\u8655\u7406\u65B9\u5F0F\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A flakiness \u7576\u6210\u4E00\u7D1A\u7F3A\u9677\uFF1A\u5C07\u5DF2\u77E5 flaky \u7684\u6E2C\u8A66\u5F9E\u963B\u64CB\u6027\u95DC\u5361\u9694\u96E2\u51FA\u4F86\u4E26\u52A0\u4EE5\u8FFD\u8E64\uFF0C\u518D\u9010\u4E00\u8A3A\u65B7\u4E26\u4FEE\u597D\u6839\u672C\u539F\u56E0\u4EE5\u91CD\u5EFA\u4FE1\u4EFB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u898B\u5730\u570D\u5835\u96DC\u8A0A\u4E26\u4FEE\u597D\u6210\u56E0\uFF0C\u8B93\u771F\u6B63\u7684\u5931\u6557\u4E0D\u518D\u88AB\u7576\u6210 flaky \u800C\u88AB\u6253\u767C\u3002"
+              },
+              {
+                "text": "\u628A\u9019\u500B\u53CD\u5C04\u5236\u5EA6\u5316\uFF1A\u8A2D\u5B9A CI \u81EA\u52D5\u91CD\u8DD1\u5230\u7DA0\u71C8\uFF0C\u4E26\u505C\u6B62\u8ABF\u67E5\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u4F7F\u554F\u984C\u5E38\u614B\u5316\uFF0C\u4E14\u53EF\u80FD\u628A\u771F\u6B63\u7684\u9593\u6B47\u6027\u932F\u8AA4\u57CB\u5728\u91CD\u8A66\u88E1\uFF1B\u5B83\u7121\u6CD5\u91CD\u5EFA\u4FE1\u4EFB\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u6BCF\u4E00\u500B\u66FE\u7D93\u9593\u6B47\u5931\u6557\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u6703\u4E1F\u6389\u771F\u5BE6\u8986\u84CB\u8207\u5176\u554F\u8CAC\uFF1B\u9694\u96E2\u4E26\u4FEE\u5FA9\u80FD\u540C\u6642\u4FDD\u7559\u5169\u8005\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u505A\uFF0C\u56E0\u70BA 3% \u7684\u5931\u6557\u7387\u7121\u5BB3",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E26\u975E\u7121\u5BB3\uFF1A\u53CD\u5C04\u6027\u91CD\u8DD1\u610F\u5473\u8457\u771F\u6B63\u7684\u56DE\u6B78\u6703\u88AB\u7576\u6210 flaky \u4E26\u4E0A\u7DDA\u3002"
+              }
+            ],
+            "generalFeedback": "\u9577\u671F flakiness \u6703\u9020\u6210\u8B66\u5831\u75B2\u4E4F\uFF1A\u4E00\u65E6\u300C\u7D05\u71C8\u300D\u901A\u5E38\u4EE3\u8868\u300C\u53EA\u662F flaky\u300D\uFF0C\u85CF\u5728\u96DC\u8A0A\u4E2D\u7684\u771F\u6B63\u56DE\u6B78\u5C31\u88AB\u5FFD\u7565\u4E26\u4E0A\u7DDA\u3002\u8981\u91CD\u5EFA\u8A0A\u865F\uFF0C\u628A flaky \u6E2C\u8A66\u5F9E\u6703\u963B\u64CB\u5408\u4F75\u7684\u95DC\u5361\u9694\u96E2\u5230\u8FFD\u8E64\u6E05\u55AE\uFF0C\u518D\u9010\u4E00\u8A3A\u65B7\u4E26\u4FEE\u597D\u6839\u672C\u539F\u56E0\u3002\u76F2\u76EE\u91CD\u8A66\u5230\u7DA0\u71C8\u53EA\u6703\u52A0\u6DF1\u50B5\u52D9\uFF0C\u4E14\u53EF\u80FD\u85CF\u8D77\u771F\u6B63\u7684\u9593\u6B47\u6027\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u50B5\u7684\u300C\u5229\u606F\u300D\u985E\u6BD4",
+            "text": "<p>\u5E38\u8AAA\u6E2C\u8A66\u50B5\u6703\u7522\u751F\u300C\u5229\u606F\u300D\u3002\u5728\u6B64\u985E\u6BD4\u4E2D\uFF0C\u5229\u606F\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u50B5\u52D9\u88AB\u64F1\u7F6E\u672A\u8655\u7406\u6642\uFF0C\u65E5\u5F8C\u6BCF\u6B21\u8B8A\u66F4\u8907\u5229\u5F0F\u7D2F\u52A0\u7684\u984D\u5916\u6210\u672C\u2014\u2014\u66F4\u6162\u7684\u57F7\u884C\u3001\u66F4\u591A\u5047\u8B66\u5831\u3001\u66F4\u96E3\u7684\u7DAD\u8B77\uFF0C\u62D6\u8D8A\u4E45\u8D8A\u5927",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EF6\u5F8C\u6E2C\u8A66\u7DAD\u8B77\u6703\u4F7F\u5F8C\u7E8C\u6BCF\u6B21\u8B8A\u66F4\u9010\u6B65\u66F4\u8CB4\uFF0C\u5982\u540C\u5229\u606F\u7D2F\u7A4D\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u5931\u6557\u7684\u5EFA\u7F6E\u8981\u4ED8\u7D66 CI \u4F9B\u61C9\u5546\u7684\u5BE6\u969B\u8CBB\u7528",
+                "fraction": 0,
+                "feedback": "\u5229\u606F\u662F\u8907\u5229\u5F0F\u5FC3\u529B\u7684\u6BD4\u55BB\uFF0C\u800C\u975E\u771F\u6B63\u7684\u5E33\u55AE\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u6E2C\u8A66\u7684\u4E00\u6B21\u6027\u6210\u672C\uFF0C\u53EA\u4ED8\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u4E00\u6B21\u6027\u7684\u524D\u671F\u6210\u672C\u662F\u300C\u672C\u91D1\u300D\uFF1B\u5229\u606F\u662F\u4E0D\u9084\u672C\u91D1\u800C\u53CD\u8986\u3001\u9010\u6F38\u589E\u5927\u7684\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u50B5\u52D9\u5728\u5E7E\u6B21\u767C\u4F48\u5F8C\u6703\u81EA\u884C\u6D88\u5931",
+                "fraction": 0,
+                "feedback": "\u50B5\u52D9\u4E0D\u6703\u81EA\u884C\u6D88\u5931\uFF1B\u64F1\u7F6E\u53EA\u6703\u8907\u5229\uFF0C\u9019\u6B63\u662F\u5229\u606F\u985E\u6BD4\u7684\u91CD\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u5982\u540C\u8CA1\u52D9\u50B5\u52D9\uFF0C\u300C\u672C\u91D1\u300D\u662F\u4F60\u6284\u7684\u6377\u5F91\uFF08\u672A\u4FEE\u7684 flaky \u6E2C\u8A66\u3001\u7559\u8457\u7684\u91CD\u8907\u8005\uFF09\u3002\u300C\u5229\u606F\u300D\u5247\u662F\u65E5\u5F8C\u6BCF\u6B21\u5728\u8A72\u8655\u5DE5\u4F5C\u6642\u53CD\u8986\u4E14\u8907\u5229\u7D2F\u52A0\u7684\u984D\u5916\u6210\u672C\uFF1A\u66F4\u6162\u7684\u56DE\u994B\u3001\u66F4\u591A\u8AA4\u5C0E\u7684\u5931\u6557\u3001\u5728\u8106\u5F31\u6E2C\u8A66\u5468\u570D\u6539\u52D5\u7A0B\u5F0F\u78BC\u7684\u66F4\u591A\u5FC3\u529B\u3002\u7DAD\u8B77\u5EF6\u5F8C\u8D8A\u4E45\uFF0C\u9019\u53CD\u8986\u6210\u672C\u5C31\u9577\u8D8A\u5927\u2014\u2014\u6709\u6642\u76F4\u5230\u5957\u4EF6\u5FC5\u9808\u5927\u5E45\u91CD\u505A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u6642\u522A\u9664\u6E2C\u8A66\u624D\u662F\u5C0D\u7684",
+            "text": "<p>\u4E0B\u5217\u54EA\u7A2E\u60C5\u6CC1\u6700\u660E\u78BA\u5730\u8B93\u300C\u522A\u9664\u300D\u4E00\u500B\u56DE\u6B78\u6E2C\u8A66\u6BD4\u4FEE\u597D\u6216\u4FDD\u7559\u5B83\u66F4\u5408\u7406\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u6E2C\u8A66\u5DF2\u904E\u6642\u6216\u5B8C\u5168\u91CD\u8907\u2014\u2014\u5B83\u5B88\u8457\u5DF2\u4E0D\u5B58\u5728\u7684\u884C\u70BA\uFF0C\u6216\u53E6\u4E00\u6E2C\u8A66\u5DF2\u4EE5\u76F8\u540C\u65B9\u5F0F\u8986\u84CB\u2014\u2014\u56E0\u6B64\u6DE8\u503C\u70BA\u8CA0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u6E2C\u8A66\u4E0D\u518D\u4FDD\u8B77\u4EFB\u4F55\u65B0\u6771\u897F\u6642\uFF0C\u522A\u9664\u5B83\u80FD\u5728\u4E0D\u79FB\u9664\u771F\u5BE6\u8986\u84CB\u7684\u60C5\u6CC1\u4E0B\u53BB\u9664\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u8A72\u6E2C\u8A66\u5F88\u6162\uFF0C\u4F46\u5B83\u662F\u552F\u4E00\u8986\u84CB\u67D0\u4ECD\u5B58\u5728\u4E4B\u95DC\u9375\u884C\u70BA\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u500B\u6E2C\u8A66\u4ECD\u503C\u5F97\u4FDD\u7559\uFF1B\u61C9\u6700\u4F73\u5316\u6216\u5E73\u884C\u5316\u5B83\uFF0C\u800C\u975E\u522A\u6389\u95DC\u9375\u884C\u70BA\u7684\u552F\u4E00\u5B88\u8B77\u3002"
+              },
+              {
+                "text": "\u8A72\u6E2C\u8A66\u6700\u8FD1\u5931\u6557\u4E26\u6293\u5230\u4E86\u4E00\u500B\u771F\u6B63\u7684\u56DE\u6B78",
+                "fraction": 0,
+                "feedback": "\u6293\u5230\u771F\u6B63\u56DE\u6B78\u6B63\u662F\u6709\u50F9\u503C\u6E2C\u8A66\u8A72\u505A\u7684\u4E8B\uFF1B\u90A3\u662F\u4FDD\u7559\u5B83\u7684\u7406\u7531\u3002"
+              },
+              {
+                "text": "\u8A72\u6E2C\u8A66\u96E3\u4EE5\u95B1\u8B80\uFF0C\u4F46\u5B83\u662F\u67D0\u91CD\u8981\u908A\u754C\u60C5\u6CC1\u7684\u552F\u4E00\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u53EF\u8B80\u6027\u5DEE\u662F\u628A\u5B83\u5BEB\u6E05\u695A\u7684\u7406\u7531\uFF0C\u800C\u975E\u522A\u9664\u67D0\u91CD\u8981\u60C5\u6CC1\u7684\u552F\u4E00\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u6DE8\u503C\u70BA\u8CA0\u6642\u624D\u522A\u9664\uFF1A\u5B83\u5DF2\u904E\u6642\uFF08\u5176\u884C\u70BA\u5DF2\u6D88\u5931\uFF09\u6216\u5B8C\u5168\u91CD\u8907\uFF08\u53E6\u4E00\u6E2C\u8A66\u4EE5\u76F8\u540C\u65B9\u5F0F\u8986\u84CB\u76F8\u540C\u7BC4\u570D\uFF09\u3002\u6B64\u6642\u79FB\u9664\u80FD\u780D\u6210\u672C\u800C\u4E0D\u780D\u771F\u5BE6\u8986\u84CB\u3002\u82E5\u67D0\u6E2C\u8A66\u4ECD\u7368\u7279\u5730\u5B88\u8B77\u91CD\u8981\u884C\u70BA\uFF0C\u5225\u53EA\u56E0\u5B83\u6162\u3001\u8106\u5F31\u6216\u919C\u5C31\u522A\uFF1B\u800C\u61C9\u4FEE\u597D\u6216\u6700\u4F73\u5316\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u5B8C\u6574\u6027\u8207\u56DE\u994B\u901F\u5EA6\u9593\u53D6\u6368",
+            "text": "<p>\u5718\u968A\u8A72\u5982\u4F55\u770B\u5F85\u56DE\u6B78\u5B8C\u6574\u6027\uFF08\u8DD1\u66F4\u591A\u6E2C\u8A66\uFF09\u8207\u5FEB\u901F\u56DE\u994B\uFF08\u66F4\u5C11\u3001\u66F4\u65E9\u8DD1\uFF09\u4E4B\u9593\u7684\u5F35\u529B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5206\u5C64\u7B56\u7565\uFF1A\u4EE5\u5FEB\u901F\u3001\u9AD8\u50F9\u503C\u7684\u9078\u5B9A\u6E2C\u8A66\u4F9B\u6BCF\u6B21 commit \u7ACB\u5373\u56DE\u994B\uFF0C\u4E26\u4EE5\u66F4\u5EE3\u7684\u7BC0\u594F\u57F7\u884C\u8F03\u5B8C\u6574\u7684\u5957\u4EF6\u2014\u2014\u63A5\u53D7\u4E00\u500B\u523B\u610F\u4E14\u88AB\u7BA1\u7406\u7684\u53D6\u6368\uFF0C\u800C\u975E\u55AE\u4E00\u56FA\u5B9A\u7B54\u6848",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u900F\u904E\u5206\u5C64\u5FEB\u901F\u56DE\u994B\u8207\u5B9A\u671F\u5B8C\u6574\u6027\u3001\u4E26\u4F9D\u98A8\u96AA\u8ABF\u6821\uFF0C\u4F86\u7BA1\u7406\u9019\u500B\u5E73\u8861\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4EE5\u5B8C\u6574\u6027\u70BA\u4E0A\uFF0C\u6BCF\u6B21\u8B8A\u66F4\u90FD\u8DD1\u6BCF\u500B\u6E2C\u8A66\uFF0C\u4E0D\u7BA1\u8981\u7B49\u591A\u4E45",
+                "fraction": 0,
+                "feedback": "\u5FFD\u7565\u56DE\u994B\u901F\u5EA6\u6703\u62D6\u6162\u6574\u500B\u5718\u968A\u3001\u8B93\u4EBA\u4E0D\u9858\u8DD1\u5957\u4EF6\uFF1B\u6B64\u53D6\u6368\u5FC5\u9808\u88AB\u7BA1\u7406\uFF0C\u800C\u975E\u5FFD\u8996\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4EE5\u901F\u5EA6\u70BA\u4E0A\uFF0C\u8DD1\u6700\u5C11\u7684\u6E2C\u8A66\uFF0C\u4E14\u6C38\u4E0D\u57F7\u884C\u5B8C\u6574\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u53EA\u8FFD\u6C42\u901F\u5EA6\u6703\u653E\u68C4\u5B8C\u6574\u6027\u3001\u8B93\u56DE\u6B78\u5916\u6F0F\uFF1B\u4ECD\u9700\u8F03\u5B8C\u6574\u7684\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u53D6\u6368\uFF1B\u597D\u7684\u5957\u4EF6\u96A8\u6642\u90FD\u65E2\u5373\u6642\u53C8\u8A73\u76E1",
+                "fraction": 0,
+                "feedback": "\u5C0D\u5927\u578B\u5957\u4EF6\u800C\u8A00\u9019\u5169\u500B\u76EE\u6A19\u78BA\u5BE6\u885D\u7A81\uFF1B\u5047\u88DD\u6C92\u885D\u7A81\u6703\u5C0E\u81F4\u56DE\u994B\u6162\u6216\u8986\u84CB\u6F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u4EFB\u4F55\u5927\u578B\u5957\u4EF6\u800C\u8A00\uFF0C\u5B8C\u6574\u6027\u8207\u901F\u5EA6\u6703\u4E92\u76F8\u62C9\u626F\uFF0C\u6240\u4EE5\u7B54\u6848\u662F\u5206\u5C64\u3001\u88AB\u7BA1\u7406\u7684\u53D6\u6368\uFF0C\u800C\u975E\u7D55\u5C0D\u503C\u3002\u7D66\u958B\u767C\u8005\u6BCF\u6B21 commit \u5FEB\u901F\u3001\u9AD8\u50F9\u503C\u7684\u9078\u5B9A\u6E2C\u8A66\u4EE5\u5FEB\u901F\u56DE\u994B\uFF0C\u4E26\u4EE5\u66F4\u5EE3\u7684\u7BC0\u594F\uFF08\u6BCF\u665A\u3001\u767C\u4F48\u524D\uFF09\u57F7\u884C\u8F03\u5B8C\u6574\u7684\u5957\u4EF6\u4EE5\u4FDD\u4F4F\u5B8C\u6574\u6027\u3002\u98A8\u96AA\u5F15\u5C0E\u54EA\u4E9B\u9032\u5FEB\u901F\u901A\u9053\u3002\u9019\u500B\u5E73\u8861\u662F\u96A8\u6642\u9593\u8ABF\u6821\uFF0C\u800C\u975E\u4E00\u6B21\u89E3\u6C7A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u5169\u500B\u300C\u4EE5\u9632\u842C\u4E00\u300D\u52A0\u7684\u6E2C\u8A66",
+            "text": "<p>\u5169\u500B\u6E2C\u8A66\u7E3D\u662F\u4E00\u8D77\u901A\u904E\u6216\u5931\u6557\u3001\u57F7\u884C\u76F8\u540C\u8DEF\u5F91\uFF0C\u5176\u4E2D\u4E00\u500B\u662F\u5F8C\u4F86\u300C\u4EE5\u9632\u842C\u4E00\u300D\u52A0\u7684\u3002\u5982\u4ECA\u6BCF\u6B21\u91CD\u69CB\u90FD\u5F97\u4EE5\u76F8\u540C\u65B9\u5F0F\u66F4\u65B0\u5169\u8005\u3002\u4F60\u8A72\u600E\u9EBC\u505A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A8D\u6E05\u8F03\u665A\u90A3\u500B\u662F\u91CD\u8907\u8986\u84CB\u4E26\u522A\u4FEE\u5B83\uFF0C\u4FDD\u7559\u5C0D\u8A72\u884C\u70BA\u6700\u6E05\u695A\u7684\u55AE\u4E00\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u79FB\u9664\u91CD\u8907\u8005\uFF0C\u884C\u70BA\u4ECD\u88AB\u8986\u84CB\u4E00\u6B21\uFF0C\u7DAD\u8B77\u91CF\u537B\u6E1B\u534A\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u90FD\u4FDD\u7559\uFF0C\u56E0\u70BA\u5169\u500B\u6E2C\u8A66\u901A\u904E\u6BD4\u4E00\u500B\u66F4\u6709\u529B\u7684\u8B49\u64DA",
+                "fraction": 0,
+                "feedback": "\u76F8\u540C\u7684\u6E2C\u8A66\u628A\u540C\u4E00\u8B49\u64DA\u7D66\u4E86\u5169\u6B21\uFF1B\u7B2C\u4E8C\u500B\u589E\u52A0\u7684\u662F\u6210\u672C\uFF0C\u4E0D\u662F\u4FE1\u5FC3\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u90FD\u522A\uFF0C\u56E0\u70BA\u91CD\u69CB\u6642\u7DAD\u8B77\u54EA\u4E00\u500B\u90FD\u5F88\u9EBB\u7169",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u90FD\u522A\u6703\u5B8C\u5168\u4E1F\u6389\u8986\u84CB\uFF1B\u4FDD\u7559\u4E00\u500B\uFF0C\u53EA\u522A\u4FEE\u91CD\u8907\u8005\u3002"
+              },
+              {
+                "text": "\u628A\u5169\u500B\u90FD\u7576 flaky \u9694\u96E2\uFF0C\u7B49\u6709\u4EBA\u6709\u7A7A\u518D\u770B",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u6C7A\u5B9A\u6027\u7684\u91CD\u8907\uFF0C\u4E0D\u662F flaky\uFF1B\u9694\u96E2\u4E26\u4E0D\u9069\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u5169\u500B\u6E2C\u8A66\u7E3D\u662F\u4E00\u8D77\u8B8A\u52D5\u4E14\u8986\u84CB\u76F8\u540C\u8DEF\u5F91\uFF0C\u7B2C\u4E8C\u500B\u4E26\u672A\u63D0\u4F9B\u7B2C\u4E00\u500B\u6240\u6C92\u6709\u7684\u8A0A\u865F\uFF0C\u537B\u5728\u6BCF\u6B21\u91CD\u69CB\u6642\u4F7F\u66F4\u65B0\u6210\u672C\u52A0\u500D\u3002\u522A\u4FEE\u91CD\u8907\u8005\uFF0C\u4FDD\u7559\u6700\u6E05\u695A\u3001\u50F9\u503C\u6700\u9AD8\u7684\u6E2C\u8A66\u3002\u8986\u84CB\u4E0D\u8B8A\uFF0C\u7DAD\u8B77\u6210\u672C\u4E0B\u964D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5225\u522A\u6389\u53C8\u6162\u53C8\u6709\u50F9\u503C\u7684\u6E2C\u8A66",
+            "text": "<p>\u4E00\u500B\u7DE9\u6162\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u662F\u552F\u4E00\u80FD\u6293\u5230\u67D0\u985E\u771F\u5BE6\u3001\u4EE3\u50F9\u9AD8\u6602\u4E4B\u6574\u5408\u56DE\u6B78\u7684\u6E2C\u8A66\u3002\u70BA\u4E86\u52A0\u901F\u5957\u4EF6\uFF0C\u67D0\u540C\u4E8B\u63D0\u8B70\u522A\u6389\u5B83\u3002\u70BA\u4EC0\u9EBC\u9019\u662F\u932F\u7684\uFF1F\u66F4\u597D\u7684\u505A\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u7368\u7279\u5730\u5B88\u8B77\u4EE3\u50F9\u9AD8\u6602\u7684\u771F\u5BE6\u56DE\u6B78\uFF0C\u522A\u6389\u6703\u9020\u6210\u771F\u6B63\u7684\u8986\u84CB\u7F3A\u53E3\uFF1B\u61C9\u6539\u70BA\u6700\u4F73\u5316\u3001\u5E73\u884C\u5316\uFF0C\u6216\u79FB\u5230\u8F03\u4F4E\u983B\u7684\u968E\u6BB5\uFF0C\u540C\u6642\u4FDD\u7559\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6709\u50F9\u503C\u7684\u7368\u7279\u6E2C\u8A66\u61C9\u88AB\u52A0\u901F\u6216\u6539\u6392\u7A0B\uFF0C\u800C\u975E\u522A\u9664\uFF0C\u4EE5\u4FDD\u4F4F\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u6C92\u95DC\u4FC2\uFF0C\u56E0\u70BA\u4EFB\u4F55\u6162\u6E2C\u8A66\u4F9D\u5B9A\u7FA9\u5C31\u662F\u4F4E\u50F9\u503C",
+                "fraction": 0,
+                "feedback": "\u6162\u4E26\u4E0D\u4EE3\u8868\u4F4E\u50F9\u503C\uFF1B\u6B64\u6E2C\u8A66\u7368\u7279\u5730\u6293\u5230\u6602\u8CB4\u7684\u56DE\u6B78\uFF0C\u5FC5\u9808\u4FDD\u7559\u3002"
+              },
+              {
+                "text": "\u539F\u5C01\u4E0D\u52D5\u4FDD\u7559\uFF0C\u4E26\u4E7E\u8106\u63A5\u53D7\u6C92\u6709\u4EBA\u6703\u8DD1\u9019\u500B\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u7F6E\u4E4B\u4E0D\u7406\u6B63\u662F\u5957\u4EF6\u592A\u6162\u7684\u539F\u56E0\uFF1B\u61C9\u6700\u4F73\u5316\u6216\u6539\u6392\u7A0B\uFF0C\u800C\u975E\u5FFD\u8996\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u7528\u4E00\u500B\u6AA2\u67E5\u76F8\u540C\u5167\u90E8\u65B9\u6CD5\u7684\u91CD\u8907\u55AE\u5143\u6E2C\u8A66\u53D6\u4EE3\u5B83",
+                "fraction": 0,
+                "feedback": "\u91DD\u5C0D\u5167\u90E8\u7684\u55AE\u5143\u6E2C\u8A66\u7121\u6CD5\u91CD\u73FE\u6B64\u6E2C\u8A66\u7368\u7279\u63D0\u4F9B\u7684\u6574\u5408\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u52A0\u901F\u5957\u4EF6\u4E0D\u5F97\u72A7\u7272\u5225\u7121\u4ED6\u8655\u63D0\u4F9B\u7684\u8986\u84CB\u3002\u4E00\u500B\u7368\u7279\u5730\u6293\u5230\u6602\u8CB4\u6574\u5408\u56DE\u6B78\u7684\u6162\u6E2C\u8A66\u662F\u9AD8\u50F9\u503C\u7684\uFF1B\u522A\u6389\u5B83\u662F\u62FF\u4E00\u500B\u53EF\u7BA1\u7406\u7684\u57F7\u884C\u6642\u9593\u554F\u984C\u53BB\u63DB\u771F\u5BE6\u7684\u98A8\u96AA\u3002\u6700\u4F73\u5316\u5B83\u7684\u8A2D\u5B9A\u3001\u5E73\u884C\u57F7\u884C\uFF0C\u6216\u628A\u5B83\u79FB\u5230\u5408\u4F75\u524D\u6216\u6BCF\u665A\u7684\u968E\u6BB5\u2014\u2014\u4F46\u4FDD\u4F4F\u4FDD\u8B77\u3002\u300C\u6E2C\u8A66\u66F4\u5C11\u300D\u672C\u8EAB\u5F9E\u4E0D\u662F\u76EE\u6A19\uFF1B\u79FB\u9664\u4F4E\u50F9\u503C\u7684\u6E2C\u8A66\u624D\u662F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u5F8C\u7DAD\u8B77\u7684\u8907\u5229\u6210\u672C",
+            "text": "<p>\u67D0\u5718\u968A\u70BA\u4E86\u66F4\u5FEB\u51FA\u8CA8\u529F\u80FD\u800C\u4E0D\u65B7\u5EF6\u5F8C\u6E2C\u8A66\u5957\u4EF6\u7684\u7DAD\u8B77\u3002\u4F9D\u50B5\u52D9\uFF0F\u5229\u606F\u985E\u6BD4\uFF0C\u82E5\u6301\u7E8C\u5982\u6B64\uFF0C\u9577\u671F\u6700\u53EF\u80FD\u7684\u7D50\u679C\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u6B21\u8B8A\u66F4\u7684\u6210\u672C\u4E0D\u65B7\u4E0A\u5347\u3001\u4FE1\u4EFB\u4E0D\u65B7\u4E0B\u964D\uFF0C\u76F4\u5230\u7D2F\u7A4D\u7684\u50B5\u52D9\u903C\u51FA\u4E00\u6B21\u6602\u8CB4\u7684\u6E05\u7406\u6216\u90E8\u5206\u91CD\u5BEB\u5957\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EF6\u5F8C\u7684\u7DAD\u8B77\u6703\u8907\u5229\uFF0C\u6240\u4EE5\u6700\u7D42\u5E33\u55AE\u9060\u5927\u65BC\u7A69\u5B9A\u5206\u671F\u511F\u9084\u3002"
+              },
+              {
+                "text": "\u96A8\u8457\u50B5\u52D9\u7D2F\u7A4D\uFF0C\u5957\u4EF6\u6703\u96A8\u6642\u9593\u8B8A\u5F97\u66F4\u597D\u7DAD\u8B77",
+                "fraction": 0,
+                "feedback": "\u50B5\u52D9\u4F7F\u5DE5\u4F5C\u66F4\u8CB4\u800C\u975E\u66F4\u4FBF\u5B9C\uFF1B\u90A3\u8207\u5229\u606F\u6548\u61C9\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u50B5\u52D9\u6703\u88AB\u4E0B\u4E00\u6B21\u6846\u67B6\u5347\u7D1A\u81EA\u52D5\u6E05\u9664",
+                "fraction": 0,
+                "feedback": "\u6846\u67B6\u5347\u7D1A\u4E0D\u6703\u79FB\u9664 flaky\u3001\u91CD\u8907\u6216\u8026\u5408\u7684\u6E2C\u8A66\uFF1B\u50B5\u52D9\u5728\u88AB\u8655\u7406\u524D\u6301\u7E8C\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u6703\u8B8A\uFF0C\u56E0\u70BA\u6E2C\u8A66\u50B5\u5C0D\u4EA4\u4ED8\u901F\u5EA6\u6C92\u6709\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u50B5\u900F\u904E flaky \u5931\u6557\u3001\u8106\u5F31\u6E2C\u8A66\u8207\u7DE9\u6162\u57F7\u884C\u62D6\u6162\u4EA4\u4ED8\uFF1B\u5B83\u4E26\u975E\u6C92\u6709\u5F71\u97FF\u3002"
+              }
+            ],
+            "generalFeedback": "\u5982\u540C\u672A\u511F\u7684\u8CA1\u52D9\u50B5\u52D9\uFF0C\u5EF6\u5F8C\u7684\u6E2C\u8A66\u7DAD\u8B77\u6703\u8907\u5229\uFF1Aflaky\u3001\u7DE9\u6162\u3001\u8106\u5F31\u8207\u91CD\u8907\u7684\u6E2C\u8A66\u4F7F\u6BCF\u6B21\u65B0\u8B8A\u66F4\u66F4\u6162\u66F4\u5371\u96AA\uFF0C\u800C\u88AB\u4FB5\u8755\u7684\u4FE1\u4EFB\u610F\u5473\u8457\u7D50\u679C\u8D8A\u4F86\u8D8A\u88AB\u5FFD\u7565\u3002\u653E\u4EFB\u5920\u4E45\uFF0C\u5229\u606F\u5C31\u6703\u58D3\u904E\u4E00\u5207\uFF0C\u5718\u968A\u5F97\u9762\u5C0D\u4E00\u6B21\u6602\u8CB4\u7684\u6E05\u7406\u6216\u91CD\u5BEB\u3002\u4EE5\u522A\u4FEE\u3001\u89E3\u8026\u3001\u4FEE flaky \u7684\u65B9\u5F0F\u9010\u6B65\u511F\u9084\u50B5\u52D9\uFF0C\u9060\u6BD4\u4EFB\u5176\u7D2F\u7A4D\u4FBF\u5B9C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "test-impact analysis \u7684\u7406\u64DA",
+            "text": "<p>\u662F\u4EC0\u9EBC\u6838\u5FC3\u7406\u64DA\uFF0C\u4F7F test-impact analysis\uFF08\u53EA\u8DD1\u53D7\u5F71\u97FF\u5B50\u96C6\uFF09\u6210\u70BA\u52A0\u901F\u56DE\u994B\u7684\u5408\u7406\u65B9\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u6B21\u8B8A\u66F4\u53EA\u53EF\u80FD\u5F71\u97FF\u76F8\u4F9D\u65BC\u88AB\u6539\u7A0B\u5F0F\u78BC\u7684\u6E2C\u8A66\uFF0C\u56E0\u6B64\u4E0D\u76F8\u4F9D\u65BC\u5B83\u7684\u6E2C\u8A66\u7121\u6CD5\u56E0\u8A72\u8B8A\u66F4\u800C\u5075\u6E2C\u5230\u65B0\u56DE\u6B78\uFF0C\u53EF\u5EF6\u5230\u7A0D\u5F8C\u7684\u5B8C\u6574\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F71\u97FF\u5206\u6790\u4EF0\u8CF4\u8B8A\u66F4\u8207\u5176\u53EF\u80FD\u5F71\u97FF\u4E4B\u6E2C\u8A66\u9593\u7684\u76F8\u4F9D\u95DC\u4FC2\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u6311\u9078\u7684\u6E2C\u8A66\u548C\u4F9D\u5F71\u97FF\u9078\u51FA\u7684\u6E2C\u8A66\u4E00\u6A23\u597D",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u9078\u64C7\u5FFD\u7565\u76F8\u4F9D\u95DC\u4FC2\uFF0C\u53EF\u80FD\u6F0F\u6389\u8B8A\u66F4\u6B63\u597D\u6703\u5F04\u58DE\u7684\u6E2C\u8A66\uFF1B\u90A3\u4E0D\u662F\u7406\u64DA\u3002"
+              },
+              {
+                "text": "\u672A\u88AB\u9078\u4E2D\u7684\u6E2C\u8A66\u5DF2\u77E5\u6BEB\u7121\u50F9\u503C\uFF0C\u53EF\u4EE5\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u672A\u88AB\u9078\u4E2D\u7684\u6E2C\u8A66\u53EA\u662F\u4E0D\u53D7\u6B64\u6B21\u8B8A\u66F4\u5F71\u97FF\uFF1B\u5B83\u5011\u4ECD\u6709\u50F9\u503C\uFF0C\u6703\u5728\u8F03\u5B8C\u6574\u7684\u9031\u671F\u4E2D\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u8DD1\u66F4\u5C11\u7684\u6E2C\u8A66\u4E00\u5B9A\u6703\u627E\u5230\u66F4\u591A\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u8DD1\u66F4\u5C11\u6E2C\u8A66\u4E0D\u6703\u627E\u5230\u66F4\u591A\u932F\u8AA4\uFF1B\u5F71\u97FF\u5206\u6790\u53EA\u662F\u907F\u514D\u57F7\u884C\u6B64\u523B\u4E0D\u53EF\u80FD\u53D7\u5F71\u97FF\u7684\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "test-impact analysis \u7ACB\u57FA\u65BC\u76F8\u4F9D\u7D50\u69CB\uFF1A\u67D0\u6B21\u8B8A\u66F4\u53EA\u53EF\u80FD\u5728\u300C\u57F7\u884C\u5230\u5F9E\u8A72\u8B8A\u66F4\u53EF\u9054\u4E4B\u7A0B\u5F0F\u78BC\u300D\u7684\u6E2C\u8A66\u4E2D\u9020\u6210\u56DE\u6B78\u3002\u4E0D\u5177\u6B64\u76F8\u4F9D\u7684\u6E2C\u8A66\u4E0D\u6703\u56E0\u5B83\u800C\u65B0\u5931\u6557\uFF0C\u56E0\u6B64\u5728\u8A72 commit \u4E0A\u57F7\u884C\u5B83\u5011\u53EA\u589E\u52A0\u5EF6\u9072\u800C\u4E0D\u589E\u52A0\u8A0A\u865F\u3002\u5B83\u5011\u4E26\u672A\u88AB\u4E1F\u68C4\u2014\u2014\u6703\u5728\u5B9A\u671F\u7684\u5B8C\u6574\u57F7\u884C\u4E2D\u8DD1\uFF0C\u4EE5\u6355\u6349\u76F8\u4F9D\u5C0D\u61C9\u53EF\u80FD\u907A\u6F0F\u3001\u6216\u4F86\u81EA\u5176\u4ED6\u8B8A\u66F4\u7684\u6548\u61C9\u3002\u6B64\u6CD5\u7684\u5065\u5168\u6027\u5B8C\u5168\u53D6\u6C7A\u65BC\u8A72\u5C0D\u61C9\u7684\u6E96\u78BA\u5EA6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u522A\u4FEE\u91CD\u8907\u540C\u6642\u4FDD\u4F4F\u4FE1\u5FC3",
+            "text": "<p>\u4E00\u500B\u5927\u578B\u5957\u4EF6\u65E2\u6162\u53C8\u8CB4\u65BC\u7DAD\u8B77\u3002\u5206\u6790\u986F\u793A\u6709\u5927\u91CF\u91CD\u8907\uFF0C\u4F46\u5C0D\u95DC\u9375\u884C\u70BA\u6709\u826F\u597D\u8986\u84CB\u3002\u54EA\u500B\u52D5\u4F5C\u6700\u80FD\u6539\u5584\u5957\u4EF6\u7684\u6210\u672C\u6548\u76CA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u522A\u4FEE\u91CD\u8907\u8207\u4F4E\u50F9\u503C\u7684\u6E2C\u8A66\uFF0C\u540C\u6642\u4FDD\u7559\u90A3\u4E9B\u7368\u7279\u8986\u84CB\u95DC\u9375\u884C\u70BA\u7684\u6E2C\u8A66\uFF0C\u5728\u4FE1\u5FC3\u5927\u81F4\u4E0D\u8B8A\u4E0B\u964D\u4F4E\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u79FB\u9664\u91CD\u8907\u800C\u4E0D\u52D5\u7368\u7279\u7684\u95DC\u9375\u8986\u84CB\uFF0C\u80FD\u5728\u4FDD\u4F4F\u4FE1\u5FC3\u7684\u540C\u6642\u780D\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5230\u8655\u5927\u91CF\u589E\u52A0\u6E2C\u8A66\uFF0C\u672C\u8457\u300C\u8986\u84CB\u8D8A\u591A\u4E00\u5B9A\u8D8A\u5B89\u5168\u300D\u7684\u539F\u5247",
+                "fraction": 0,
+                "feedback": "\u7576\u91CD\u8907\u5DF2\u662F\u554F\u984C\u6642\u9084\u5806\u66F4\u591A\u6E2C\u8A66\uFF0C\u53EA\u62AC\u9AD8\u6210\u672C\u8207\u7DAD\u8B77\u800C\u4E0D\u589E\u52A0\u4FE1\u5FC3\u3002"
+              },
+              {
+                "text": "\u4E0D\u7BA1\u8986\u84CB\u4EC0\u9EBC\uFF0C\u628A\u5957\u4EF6\u780D\u5230\u56FA\u5B9A\u7684\u5C11\u91CF\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6B66\u65B7\u7684\u4E0A\u9650\u53EF\u80FD\u79FB\u9664\u5C0D\u95DC\u9375\u884C\u70BA\u7684\u7368\u7279\u8986\u84CB\uFF1B\u61C9\u4F9D\u50F9\u503C\u522A\u4FEE\uFF0C\u800C\u975E\u4F9D\u4E00\u5200\u5207\u7684\u6578\u5B57\u3002"
+              },
+              {
+                "text": "\u5148\u522A\u8986\u84CB\u95DC\u9375\u884C\u70BA\u7684\u6E2C\u8A66\uFF0C\u56E0\u70BA\u90A3\u4E9B\u6700\u6162",
+                "fraction": 0,
+                "feedback": "\u95DC\u9375\u884C\u70BA\u7684\u6E2C\u8A66\u6B63\u662F\u4F60\u6700\u60F3\u4FDD\u7559\u7684\uFF1B\u79FB\u9664\u5B83\u5011\u662F\u62FF\u6210\u672C\u53BB\u63DB\u56B4\u91CD\u98A8\u96AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E73\u8861\u9EDE\u662F\u9AD8\u50F9\u503C\u3001\u6613\u7DAD\u8B77\u7684\u8986\u84CB\uFF0C\u800C\u975E\u6700\u591A\u6216\u6700\u5C11\u7684\u6E2C\u8A66\u6578\u91CF\u3002\u7576\u91CD\u8907\u56B4\u91CD\u4F46\u95DC\u9375\u884C\u70BA\u5DF2\u88AB\u826F\u597D\u8986\u84CB\u6642\uFF0C\u522A\u4FEE\u91CD\u8907\u8207\u4F4E\u50F9\u503C\u7684\u6E2C\u8A66\uFF0C\u4E26\u4FDD\u7559\u5C0D\u91CD\u8981\u884C\u70BA\u7684\u7368\u7279\u5B88\u8B77\u3002\u4FE1\u5FC3\u5927\u81F4\u4E0D\u8B8A\uFF0C\u800C\u57F7\u884C\u6642\u9593\u8207\u7DAD\u8B77\u4E0B\u964D\u3002\u7121\u8AD6\u300C\u6C38\u9060\u52A0\u66F4\u591A\u300D\u6216\u300C\u6C38\u9060\u780D\u5230\u56FA\u5B9A\u6578\u5B57\u300D\u90FD\u4E0D\u5C0A\u91CD\u6BCF\u500B\u6E2C\u8A66\u7684\u5BE6\u969B\u50F9\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DCA\u6025\u4FEE\u88DC\u8996\u7A97\u7684\u98A8\u96AA\u5C0E\u5411\u6392\u5E8F",
+            "text": "<p>\u7DCA\u6025\u4FEE\u88DC\u767C\u4F48\u524D\u4F60\u6709 30 \u5206\u9418\u7684\u8996\u7A97\u3002\u8A72\u4FEE\u88DC\u52D5\u5230\u4ED8\u6B3E\u6A21\u7D44\u3002\u4F60\u7121\u6CD5\u8DD1\u5B8C\u6574\u5957\u4EF6\u3002\u61C9\u5148\u8DD1\u54EA\u4E9B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8986\u84CB\u88AB\u6539\u52D5\u4E4B\u4ED8\u6B3E\u7A0B\u5F0F\u78BC\u53CA\u5176\u76F8\u4F9D\u8005\u7684\u6E2C\u8A66\uFF0C\u518D\u52A0\u4E0A\u5176\u4ED6\u696D\u52D9\u95DC\u9375\u6216\u6B77\u4F86\u6613\u51FA\u7F3A\u9677\u7684\u5340\u57DF\uFF0C\u5728\u6642\u9593\u5141\u8A31\u4E0B\u5411\u5916\u64F4\u5C55",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u512A\u5148\u88AB\u6539\u52D5\u7684\u9AD8\u50F9\u503C\u5340\u57DF\u53CA\u5176\u5F71\u97FF\uFF0C\u518D\u5728\u9810\u7B97\u5167\u8655\u7406\u6B21\u9AD8\u98A8\u96AA\u7684\u5340\u57DF\u3002"
+              },
+              {
+                "text": "\u5DF2\u77E5\u6703\u5F88\u5FEB\u901A\u904E\u7684\u6E2C\u8A66\uFF0C\u4E0D\u7BA1\u5B83\u5011\u8986\u84CB\u4EC0\u9EBC",
+                "fraction": 0,
+                "feedback": "\u53EA\u6191\u901F\u5EA6\u9078\u64C7\u53EF\u80FD\u7565\u904E\u4F60\u525B\u6539\u7684\u4ED8\u6B3E\u7A0B\u5F0F\u78BC\u2014\u2014\u90A3\u6B63\u662F\u56DE\u6B78\u6700\u53EF\u80FD\u51FA\u73FE\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u5957\u4EF6\u7684\u96A8\u6A5F\u5207\u7247\uFF0C\u4EE5\u4FBF\u5E73\u5747\u53D6\u6A23\u6240\u6709\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u5E73\u5747\u96A8\u6A5F\u53D6\u6A23\u628A\u5FC3\u529B\u5F9E\u88AB\u6539\u52D5\u7684\u9AD8\u98A8\u96AA\u4ED8\u6B3E\u5340\u7A00\u91CB\u6389\uFF1B\u61C9\u6539\u4F9D\u98A8\u96AA\u6392\u5E8F\u3002"
+              },
+              {
+                "text": "\u53EA\u8DD1\u8207\u4ED8\u6B3E\u7121\u95DC\u7684\u6E2C\u8A66\uFF0C\u4EE5\u514D\u5E72\u64FE\u4FEE\u88DC",
+                "fraction": 0,
+                "feedback": "\u4ED8\u6B3E\u5340\u6B63\u662F\u88AB\u6539\u52D5\u3001\u6700\u9700\u8981\u91CD\u6E2C\u4E4B\u8655\uFF1B\u7565\u904E\u5B83\u5C31\u5931\u53BB\u4E86\u610F\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u786C\u6027\u6642\u9593\u9650\u5236\u4E0B\uFF0C\u628A\u6642\u9593\u82B1\u5728\u56DE\u6B78\u6700\u53EF\u80FD\u767C\u751F\u4E14\u50B7\u5BB3\u6700\u5927\u4E4B\u8655\u3002\u90A3\u5F9E\u4FEE\u88DC\u5BE6\u969B\u52D5\u5230\u7684\u7A0B\u5F0F\u78BC\uFF08\u4ED8\u6B3E\uFF09\u53CA\u5176\u76F8\u4F9D\u8005\u958B\u59CB\uFF0C\u518D\u5728\u6642\u9593\u5141\u8A31\u6642\u5EF6\u4F38\u5230\u5176\u4ED6\u696D\u52D9\u95DC\u9375\u8207\u6613\u51FA\u7F3A\u9677\u7684\u5340\u57DF\u3002\u4EE5\u5F71\u97FF\u5206\u6790\u70BA\u4F9D\u64DA\u7684\u98A8\u96AA\u5C0E\u5411\u6392\u5E8F\uFF0C\u80FD\u5728\u767C\u4F48\u524D\u628A\u6293\u5230\u56B4\u91CD\u56DE\u6B78\u7684\u6A5F\u6703\u6700\u5927\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u300C\u5C0F\u300D\u8B8A\u66F4\u7565\u904E\u56DE\u6B78",
+            "text": "<p>\u5728\u671F\u9650\u58D3\u529B\u4E0B\uFF0C\u5718\u968A\u56E0\u70BA\u9019\u6B21\u8B8A\u66F4\u300C\u53EA\u662F\u5C0F\u8ABF\u6574\u300D\u800C\u8003\u616E\u5B8C\u5168\u7565\u904E\u56DE\u6B78\u3002\u70BA\u4EC0\u9EBC\u9019\u6709\u98A8\u96AA\uFF1F\u6709\u7D00\u5F8B\u7684\u66FF\u4EE3\u65B9\u6848\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5373\u4F7F\u5C0F\u8B8A\u66F4\u4E5F\u53EF\u80FD\u900F\u904E\u5171\u7528\u76F8\u4F9D\u7834\u58DE\u9060\u8655\u7684\u884C\u70BA\uFF0C\u6240\u4EE5\u81F3\u5C11\u8DD1\u4E00\u500B\u98A8\u96AA\u5C0E\u5411\uFF0F\u4F9D\u5F71\u97FF\u9078\u51FA\u7684\u5B50\u96C6\uFF0C\u800C\u4E0D\u662F\u4EC0\u9EBC\u90FD\u4E0D\u8DD1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0F\u8B8A\u66F4\u4ECD\u6703\u9020\u6210\u56DE\u6B78\uFF1B\u7576\u5B8C\u6574\u57F7\u884C\u585E\u4E0D\u4E0B\u6642\uFF0C\u9396\u5B9A\u5B50\u96C6\u662F\u6709\u7D00\u5F8B\u7684\u6298\u8877\u3002"
+              },
+              {
+                "text": "\u5C0F\u8B8A\u66F4\u7D55\u4E0D\u6703\u9020\u6210\u56DE\u6B78\uFF0C\u6240\u4EE5\u7565\u904E\u5B8C\u5168\u5B89\u5168",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u5C0F\u8B8A\u66F4\u7D93\u5E38\u900F\u904E\u5171\u7528\u7A0B\u5F0F\u78BC\u8207\u76F8\u4F9D\u7834\u58DE\u610F\u6599\u4E4B\u5916\u7684\u5340\u57DF\u3002"
+              },
+              {
+                "text": "\u552F\u4E00\u5B89\u5168\u7684\u9078\u9805\u6C38\u9060\u662F\u8DD1\u6574\u500B\u5957\u4EF6\uFF0C\u6240\u4EE5\u82E5\u585E\u4E0D\u4E0B\u5C31\u4E0D\u6E2C\u76F4\u63A5\u51FA\u8CA8",
+                "fraction": 0,
+                "feedback": "\u5168\u6709\u5168\u7121\u7684\u89C0\u9EDE\u6703\u5C0E\u81F4\u672A\u6E2C\u5C31\u51FA\u8CA8\uFF1B\u4F9D\u5F71\u97FF\u6216\u98A8\u96AA\u9078\u51FA\u7684\u5B50\u96C6\u662F\u5408\u7406\u7684\u90E8\u5206\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u7565\u904E\u56DE\u6B78\uFF0C\u9806\u4FBF\u628A\u6E2C\u8A66\u4E5F\u522A\u4E86\uFF0C\u8B93\u5B83\u5011\u4E0D\u518D\u62D6\u6162\u65E5\u5F8C\u767C\u4F48",
+                "fraction": 0,
+                "feedback": "\u70BA\u8D95\u671F\u9650\u800C\u522A\u6E2C\u8A66\u6703\u6467\u6BC0\u771F\u5BE6\u8986\u84CB\uFF1B\u73FE\u5728\u8DD1\u4E00\u500B\u9396\u5B9A\u7684\u5B50\u96C6\uFF0C\u4E26\u4FDD\u7559\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u66F4\u7684\u5927\u5C0F\u7121\u6CD5\u9810\u6E2C\u5176\u6CE2\u53CA\u7BC4\u570D\uFF1A\u4E00\u884C\u8B8A\u66F4\u53EF\u80FD\u900F\u904E\u5171\u7528\u7A0B\u5F0F\u78BC\u3001\u8A2D\u5B9A\u6216\u8CC7\u6599\u4F7F\u9060\u8655\u7684\u884C\u70BA\u56DE\u6B78\u3002\u7565\u904E\u56DE\u6B78\u6703\u79FB\u9664\u5B89\u5168\u7DB2\u4E26\u62DB\u81F4\u7F3A\u9677\u5916\u6F0F\u3002\u7576\u5B8C\u6574\u5957\u4EF6\u585E\u4E0D\u9032\u8996\u7A97\u6642\uFF0C\u8DD1\u4E00\u500B\u4EE5\u8B8A\u66F4\u8207\u6700\u9AD8\u98A8\u96AA\u5340\u57DF\u70BA\u4E2D\u5FC3\u3001\u4F9D\u5F71\u97FF\u6216\u98A8\u96AA\u9078\u51FA\u7684\u5B50\u96C6\u2014\u2014\u6709\u7D00\u5F8B\u7684\u90E8\u5206\u8986\u84CB\u52DD\u904E\u5B8C\u5168\u4E0D\u6E2C\uFF0C\u4E5F\u52DD\u904E\u522A\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9078\u64C7\u4ECD\u9700\u5B9A\u671F\u5B8C\u6574\u57F7\u884C",
+            "text": "<p>\u67D0\u5718\u968A\u501A\u8CF4\u6BCF\u6B21 commit \u7684\u6E2C\u8A66\u9078\u64C7\u4F86\u6C42\u5FEB\u3002\u70BA\u4EC0\u9EBC\u4ED6\u5011\u4ECD\u5FC5\u9808\u5B9A\u671F\u57F7\u884C\u5B8C\u6574\u5957\u4EF6\uFF0C\u800C\u4E0D\u80FD\u6C38\u9060\u53EA\u4FE1\u4EFB\u9078\u64C7\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B8A\u66F4\u5230\u6E2C\u8A66\u7684\u76F8\u4F9D\u5C0D\u61C9\u53EF\u80FD\u4E0D\u5B8C\u6574\u6216\u4E0D\u6E96\u78BA\uFF08\u52D5\u614B\u76F8\u4F9D\u3001\u8A2D\u5B9A\u3001\u6574\u5408\u6548\u61C9\uFF09\uFF0C\u6240\u4EE5\u9078\u64C7\u53EF\u80FD\u6F0F\u6389\u53D7\u5F71\u97FF\u7684\u6E2C\u8A66\uFF1B\u5B9A\u671F\u5B8C\u6574\u57F7\u884C\u662F\u5B89\u5168\u7DB2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9078\u64C7\u7684\u5B89\u5168\u6027\u53D6\u6C7A\u65BC\u5176\u76F8\u4F9D\u5C0D\u61C9\uFF0C\u56E0\u6B64\u5B8C\u6574\u57F7\u884C\u80FD\u6355\u6349\u5C0D\u61C9\u6F0F\u6389\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u672A\u88AB\u9078\u4E2D\u7684\u6E2C\u8A66\u6703\u6084\u6084\u8150\u58DE\u3001\u9664\u975E\u6BCF\u6B21 commit \u90FD\u8DD1\u5426\u5247\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u4E0D\u6703\u56E0\u70BA\u6C92\u6BCF\u6B21 commit \u57F7\u884C\u5C31\u8150\u58DE\uFF1B\u771F\u6B63\u7684\u539F\u56E0\u662F\u5F71\u97FF\u5C0D\u61C9\u53EF\u80FD\u4E0D\u5B8C\u7F8E\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B8C\u6574\u57F7\u884C\u6C38\u9060\u6BD4\u9078\u5B9A\u57F7\u884C\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u57F7\u884C\u901A\u5E38\u8F03\u6162\u800C\u975E\u8F03\u5FEB\uFF1B\u9019\u6B63\u662F\u6BCF\u6B21 commit \u4F7F\u7528\u9078\u64C7\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6CD5\u5F8B\u8981\u6C42\u9078\u64C7\u5DE5\u5177\u5FC5\u9808\u6BCF\u5929\u91CD\u65B0\u9A57\u8B49",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u6CD5\u5F8B\u8981\u6C42\uFF1B\u539F\u56E0\u662F\u76F8\u4F9D\u5C0D\u61C9\u53EF\u80FD\u4E0D\u6E96\u78BA\u3002"
+              }
+            ],
+            "generalFeedback": "test-impact \u9078\u64C7\u53EA\u5728\u5176\u76F8\u4F9D\u5C0D\u61C9\u5B8C\u6574\u7684\u7BC4\u570D\u5167\u624D\u5065\u5168\u3002\u771F\u5BE6\u7CFB\u7D71\u5B58\u5728\u975C\u614B\u5206\u6790\u53EF\u80FD\u6F0F\u6389\u7684\u76F8\u4F9D\u2014\u2014\u53CD\u5C04\u8207\u52D5\u614B\u5206\u6D3E\u3001\u8A2D\u5B9A\u8207\u8CC7\u6599\u3001\u8DE8\u670D\u52D9\u7684\u6574\u5408\u6548\u61C9\u2014\u2014\u56E0\u6B64\u8B8A\u66F4\u53EF\u80FD\u5F71\u97FF\u5230\u9078\u64C7\u672A\u6311\u4E2D\u7684\u6E2C\u8A66\u3002\u5B9A\u671F\u5B8C\u6574\u57F7\u884C\uFF08\u6BCF\u665A\u3001\u767C\u4F48\u524D\uFF09\u4F5C\u70BA\u5B89\u5168\u7DB2\uFF0C\u6355\u6349\u6BCF\u6B21 commit \u5C0D\u61C9\u907A\u6F0F\u7684\u4E00\u5207\uFF0C\u65E2\u4FDD\u4F4F\u9078\u64C7\u7684\u901F\u5EA6\uFF0C\u53C8\u4E0D\u653E\u68C4\u5B8C\u6574\u6027\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "risk-based-testing": {
       "en": {
         "easy": [
