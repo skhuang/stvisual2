@@ -144692,6 +144692,2568 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "sailor-pipeline": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What SAILOR is for",
+            "text": '<p><strong>SAILOR</strong> ("Guiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery") is a pipeline whose goal is to:</p>',
+            "answers": [
+              {
+                "text": "Automatically discover vulnerabilities in C/C++ code by combining static analysis, LLMs, and symbolic execution",
+                "fraction": 100,
+                "feedback": "Correct \u2014 SAILOR is a vulnerability-discovery pipeline that stitches these three techniques together."
+              },
+              {
+                "text": "Automatically patch and fix the vulnerabilities it detects",
+                "fraction": 0,
+                "feedback": "No \u2014 SAILOR discovers (and confirms) vulnerabilities; it does not repair the code."
+              },
+              {
+                "text": "Formally prove that a program is completely free of bugs",
+                "fraction": 0,
+                "feedback": "No \u2014 it hunts for bugs by exploring paths; it does not produce a whole-program correctness proof."
+              },
+              {
+                "text": "Measure the statement and branch coverage of an existing test suite",
+                "fraction": 0,
+                "feedback": "No \u2014 coverage measurement is a different activity; SAILOR's goal is finding real vulnerabilities."
+              }
+            ],
+            "generalFeedback": "SAILOR (Shafiuzzaman, Desai, Guo, Bultan; arXiv:2604.06506, 2026) is a vulnerability-discovery pipeline: static analysis targets suspect code, an LLM synthesizes a harness, symbolic execution explores it, and concrete replay confirms the finding.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How many phases",
+            "text": "<p>How many phases make up the SAILOR pipeline, and how are they run?</p>",
+            "answers": [
+              {
+                "text": "Four phases, run one after another in a fixed sequence",
+                "fraction": 100,
+                "feedback": "Correct \u2014 SAILOR is a four-phase pipeline whose phases run in order."
+              },
+              {
+                "text": "Two phases run in parallel",
+                "fraction": 0,
+                "feedback": "No \u2014 SAILOR has four phases, and they run sequentially, not two in parallel."
+              },
+              {
+                "text": "Three phases run in a loop",
+                "fraction": 0,
+                "feedback": "No \u2014 there are four phases; only phase 2 (harness synthesis) has an internal loop."
+              },
+              {
+                "text": "One monolithic analysis step",
+                "fraction": 0,
+                "feedback": "No \u2014 SAILOR deliberately separates the work into four ordered phases."
+              }
+            ],
+            "generalFeedback": "SAILOR runs four phases in order: Static Analysis, LLM Harness Synthesis, Symbolic Execution, and Concrete Replay.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Order of the four phases",
+            "text": "<p>Which lists the four SAILOR phases in the correct order?</p>",
+            "answers": [
+              {
+                "text": "Static Analysis \u2192 LLM Harness Synthesis \u2192 Symbolic Execution \u2192 Concrete Replay",
+                "fraction": 100,
+                "feedback": "Correct \u2014 narrow the target, build a driver, explore it, then confirm the finding."
+              },
+              {
+                "text": "LLM Harness Synthesis \u2192 Static Analysis \u2192 Concrete Replay \u2192 Symbolic Execution",
+                "fraction": 0,
+                "feedback": "No \u2014 static analysis must run first to tell the harness what to target, and symbolic execution must run before replay."
+              },
+              {
+                "text": "Symbolic Execution \u2192 Concrete Replay \u2192 Static Analysis \u2192 LLM Harness Synthesis",
+                "fraction": 0,
+                "feedback": "No \u2014 you cannot symbolically execute before a harness exists, and static analysis comes first."
+              },
+              {
+                "text": "Static Analysis \u2192 Symbolic Execution \u2192 LLM Harness Synthesis \u2192 Concrete Replay",
+                "fraction": 0,
+                "feedback": "No \u2014 the harness must be synthesized before symbolic execution can run it."
+              }
+            ],
+            "generalFeedback": "The fixed order is Static Analysis \u2192 LLM Harness Synthesis \u2192 Symbolic Execution (KLEE) \u2192 Concrete Replay. Each phase produces the input the next one needs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Static Analysis does",
+            "text": "<p>What is the job of the <strong>Static Analysis</strong> phase (phase 1)?</p>",
+            "answers": [
+              {
+                "text": "Scan the code to flag candidate vulnerable sites (sinks) and the preconditions to reach them, narrowing where later phases look",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it prunes the search space so symbolic execution is not blind."
+              },
+              {
+                "text": "Run the program on symbolic inputs to explore its paths",
+                "fraction": 0,
+                "feedback": "No \u2014 that is the symbolic execution phase; static analysis does not execute the program."
+              },
+              {
+                "text": "Write the test harness that drives the suspect code",
+                "fraction": 0,
+                "feedback": "No \u2014 synthesizing the harness is the LLM's job in phase 2."
+              },
+              {
+                "text": "Replay a concrete input to confirm a crash is real",
+                "fraction": 0,
+                "feedback": "No \u2014 that is the concrete replay phase (phase 4)."
+              }
+            ],
+            "generalFeedback": "Static analysis flags suspect sinks, emits the safety precondition needed to reach each one, marks tainted inputs, and thereby narrows (prunes) where the expensive later phases spend effort.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What LLM Harness Synthesis produces",
+            "text": "<p>What does the <strong>LLM Harness Synthesis</strong> phase (phase 2) produce?</p>",
+            "answers": [
+              {
+                "text": "A compilable test/fuzz harness (a driver) that exercises the candidate suspect site",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the LLM writes the driver that feeds inputs into the flagged code."
+              },
+              {
+                "text": "A source-code patch that fixes the suspect site",
+                "fraction": 0,
+                "feedback": "No \u2014 SAILOR discovers bugs; it does not patch them, and this phase builds a driver, not a fix."
+              },
+              {
+                "text": "The list of suspect locations to investigate",
+                "fraction": 0,
+                "feedback": "No \u2014 that list comes from static analysis; the LLM consumes it to write a harness."
+              },
+              {
+                "text": "The concrete crashing input that confirms the bug",
+                "fraction": 0,
+                "feedback": "No \u2014 the crashing witness comes later, from symbolic execution and replay."
+              }
+            ],
+            "generalFeedback": "An LLM turns the static-analysis output into a driver: it declares symbolic inputs, bounds them, and calls the entry function \u2014 a harness that can actually be compiled and run.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Why "iterative" harness synthesis',
+            "text": "<p>Phase 2 is described as <strong>iterative</strong>. What does that mean?</p>",
+            "answers": [
+              {
+                "text": "The harness is refined over several rounds, using compiler feedback, until it builds cleanly",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a compile/feedback loop repeats until a usable harness compiles."
+              },
+              {
+                "text": "The LLM writes the harness once and never revises it",
+                "fraction": 0,
+                "feedback": 'No \u2014 the whole point of "iterative" is repeated refinement, not a single shot.'
+              },
+              {
+                "text": "The harness loops over every source file in the project",
+                "fraction": 0,
+                "feedback": "No \u2014 the iteration is over refinement rounds of one harness, not over files."
+              },
+              {
+                "text": "The compiled harness loops over test inputs while running",
+                "fraction": 0,
+                "feedback": 'No \u2014 "iterative" refers to synthesis rounds at build time, not a runtime input loop.'
+              }
+            ],
+            "generalFeedback": "The first draft rarely compiles, so the compiler error is fed back to the LLM, which revises. This loop repeats over rounds until the harness builds cleanly and is usable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which symbolic executor",
+            "text": "<p>In SAILOR's symbolic execution phase (phase 3), which symbolic executor runs the harness?</p>",
+            "answers": [
+              {
+                "text": "KLEE",
+                "fraction": 100,
+                "feedback": "Correct \u2014 SAILOR drives the harness under the KLEE symbolic executor."
+              },
+              {
+                "text": "AFL",
+                "fraction": 0,
+                "feedback": "No \u2014 AFL is a coverage-guided fuzzer, not the symbolic executor SAILOR uses."
+              },
+              {
+                "text": "Valgrind",
+                "fraction": 0,
+                "feedback": "No \u2014 Valgrind is a dynamic instrumentation tool, not SAILOR's symbolic executor."
+              },
+              {
+                "text": "DART",
+                "fraction": 0,
+                "feedback": "No \u2014 DART is an early concolic tool; SAILOR's phase 3 uses KLEE."
+              }
+            ],
+            "generalFeedback": "Phase 3 runs the compiled harness under KLEE, which explores feasible paths over the symbolic inputs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Symbolic Execution emits",
+            "text": "<p>When the Symbolic Execution (KLEE) phase finds a bug, what does it emit?</p>",
+            "answers": [
+              {
+                "text": "A VIOLATION (the proven bug) together with a WITNESS (a concrete input that triggers it)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 KLEE reports both the violation it proved and the concrete witness input."
+              },
+              {
+                "text": "A list of suspect sinks and their preconditions",
+                "fraction": 0,
+                "feedback": "No \u2014 that is the static-analysis output, not the symbolic-execution result."
+              },
+              {
+                "text": "A compiled, cleanly building harness",
+                "fraction": 0,
+                "feedback": "No \u2014 the harness is the input to this phase, produced earlier by the LLM."
+              },
+              {
+                "text": "A confirmed crash on the unmodified program",
+                "fraction": 0,
+                "feedback": "No \u2014 confirmation on the unmodified program happens in the replay phase, not here."
+              }
+            ],
+            "generalFeedback": "KLEE explores feasible paths over the symbolic inputs; when a path reaches the suspect operation in a violating state it records a VIOLATION plus a concrete WITNESS input that triggers it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a VIOLATION is",
+            "text": "<p>In SAILOR, a <strong>VIOLATION</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A proven bug / assertion violation found by the symbolic executor",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the violation is what KLEE proves about a path."
+              },
+              {
+                "text": "The concrete input value that triggers the bug",
+                "fraction": 0,
+                "feedback": "No \u2014 that is the WITNESS; the VIOLATION is the proven bug itself."
+              },
+              {
+                "text": "A suspect location flagged by static analysis",
+                "fraction": 0,
+                "feedback": "No \u2014 a suspect site is only a candidate; a violation is a proven bug on a path."
+              },
+              {
+                "text": "A compiler error raised while building the harness",
+                "fraction": 0,
+                "feedback": "No \u2014 compiler errors belong to the harness-synthesis loop, not to symbolic execution."
+              }
+            ],
+            "generalFeedback": "A VIOLATION is the symbolic executor's proof that a path reaches a bug / assertion violation. The concrete input that drives that path is the separate WITNESS.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a WITNESS is",
+            "text": "<p>In SAILOR, a <strong>WITNESS</strong> is:</p>",
+            "answers": [
+              {
+                "text": "A concrete input that triggers the violation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the witness is the actual input value that drives the buggy path."
+              },
+              {
+                "text": "The proof that a bug exists on a path",
+                "fraction": 0,
+                "feedback": "No \u2014 that proof is the VIOLATION; the witness is the concrete triggering input."
+              },
+              {
+                "text": "The static precondition that must hold to reach the sink",
+                "fraction": 0,
+                "feedback": "No \u2014 the precondition comes from static analysis; the witness is a concrete input from KLEE."
+              },
+              {
+                "text": "The stack trace printed after a crash",
+                "fraction": 0,
+                "feedback": "No \u2014 the witness is the input, not the crash output; the trace appears during replay."
+              }
+            ],
+            "generalFeedback": "A WITNESS is a concrete input KLEE produces alongside a VIOLATION \u2014 the exact value that makes the buggy path execute. Concrete replay later feeds this witness into the real program.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Concrete Replay confirms",
+            "text": "<p>What does the <strong>Concrete Replay</strong> phase (phase 4) confirm?</p>",
+            "answers": [
+              {
+                "text": "That the vulnerability is real, by replaying the witness on the unmodified program to weed out false positives",
+                "fraction": 100,
+                "feedback": "Correct \u2014 replay confirms a genuine crash, not a harness artifact."
+              },
+              {
+                "text": "That the harness compiles cleanly",
+                "fraction": 0,
+                "feedback": "No \u2014 clean compilation is settled in phase 2, before symbolic execution."
+              },
+              {
+                "text": "How many feasible paths the program has",
+                "fraction": 0,
+                "feedback": "No \u2014 path exploration is the symbolic-execution phase; replay just reproduces one witness."
+              },
+              {
+                "text": "The precondition needed to reach the sink",
+                "fraction": 0,
+                "feedback": "No \u2014 the precondition is a static-analysis output, not what replay confirms."
+              }
+            ],
+            "generalFeedback": "Concrete replay feeds the WITNESS into the original, unmodified program. If it actually crashes, the finding is CONFIRMED \u2014 a real bug, not an artifact of the synthesized harness \u2014 filtering out false positives.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The worked example bug type",
+            "text": "<p>The worked example targets a <code>strcpy</code> call. What vulnerability type / CWE does it illustrate?</p>",
+            "answers": [
+              {
+                "text": "CWE-787, an out-of-bounds write (buffer overflow)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 strcpy can write past the destination buffer, an out-of-bounds write."
+              },
+              {
+                "text": "CWE-125, an out-of-bounds read",
+                "fraction": 0,
+                "feedback": "No \u2014 strcpy writes past the buffer; the example is an out-of-bounds write (CWE-787), not a read."
+              },
+              {
+                "text": "CWE-89, SQL injection",
+                "fraction": 0,
+                "feedback": "No \u2014 this is a memory-safety bug in C, not an SQL injection."
+              },
+              {
+                "text": "A use-after-free",
+                "fraction": 0,
+                "feedback": "No \u2014 the example is a buffer overflow (out-of-bounds write), not a use-after-free."
+              }
+            ],
+            "generalFeedback": "The worked example copies an untrusted string into a fixed 32-byte buffer with strcpy; when the source is longer, the copy writes past the buffer \u2014 an out-of-bounds write, CWE-787.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What KLEE is",
+            "text": "<p>KLEE, used in phase 3, is best described as:</p>",
+            "answers": [
+              {
+                "text": "A symbolic execution engine that explores program paths using symbolic inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 KLEE is the symbolic executor SAILOR drives."
+              },
+              {
+                "text": "A static analyzer that flags suspect code without running it",
+                "fraction": 0,
+                "feedback": "No \u2014 that describes phase 1; KLEE actually executes paths symbolically."
+              },
+              {
+                "text": "A large language model that writes the harness",
+                "fraction": 0,
+                "feedback": "No \u2014 the LLM writes the harness in phase 2; KLEE runs it in phase 3."
+              },
+              {
+                "text": "A random fuzzer that mutates concrete inputs",
+                "fraction": 0,
+                "feedback": "No \u2014 KLEE reasons over symbolic inputs and path constraints, not random concrete mutations."
+              }
+            ],
+            "generalFeedback": "KLEE is a symbolic execution engine: it runs the harness with symbolic inputs, exploring feasible paths and solving constraints to emit violations and witnesses.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which phase produces the witness",
+            "text": "<p>Which phase produces the WITNESS that concrete replay later uses?</p>",
+            "answers": [
+              {
+                "text": "Symbolic Execution (KLEE)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 KLEE emits the witness input alongside the violation."
+              },
+              {
+                "text": "Static Analysis",
+                "fraction": 0,
+                "feedback": "No \u2014 static analysis produces suspect sites and preconditions, not the concrete witness."
+              },
+              {
+                "text": "LLM Harness Synthesis",
+                "fraction": 0,
+                "feedback": "No \u2014 that phase produces the driver; the witness comes from running it under KLEE."
+              },
+              {
+                "text": "Concrete Replay",
+                "fraction": 0,
+                "feedback": "No \u2014 replay consumes the witness; it does not produce it."
+              }
+            ],
+            "generalFeedback": "KLEE (phase 3) emits the VIOLATION and the concrete WITNESS. Phase 4 then replays that witness on the unmodified program to confirm the bug.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "SAILOR combines three techniques",
+            "text": "<p>SAILOR combines static analysis, LLM-synthesized harnesses, and symbolic execution to discover vulnerabilities.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 those three techniques (plus a concrete-replay confirmation step) make up the pipeline."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "SAILOR's whole design is to combine static analysis, an LLM harness, and symbolic execution, then confirm with concrete replay."
+              }
+            ],
+            "generalFeedback": `The pipeline's name says it: "Guiding Symbolic Execution with Static Analysis and LLMs." A fourth phase, concrete replay, confirms the findings.`
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Match activity: emitting a precondition and taint",
+            "text": "<p>A SAILOR component emits, for a <code>strcpy</code> call, a suspect location, the precondition <code>strlen(raw) &lt; 32</code>, the function entry point, and a taint label marking <code>raw</code> as attacker-controlled. Which phase is this?</p>",
+            "answers": [
+              {
+                "text": "Static Analysis",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flagging the sink and emitting its precondition, entry, and taint is static analysis."
+              },
+              {
+                "text": "LLM Harness Synthesis",
+                "fraction": 0,
+                "feedback": "No \u2014 that phase writes the driver; it consumes these facts rather than producing them."
+              },
+              {
+                "text": "Symbolic Execution",
+                "fraction": 0,
+                "feedback": "No \u2014 symbolic execution explores paths; it does not emit the initial suspect/precondition list."
+              },
+              {
+                "text": "Concrete Replay",
+                "fraction": 0,
+                "feedback": "No \u2014 replay confirms a witness; it does not produce preconditions and taint labels."
+              }
+            ],
+            "generalFeedback": "Suspect site + precondition + entry + taint is exactly the static-analysis output that steers the rest of the pipeline.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Match activity: writing a compilable driver",
+            "text": "<p>A SAILOR component declares symbolic inputs, bounds them, calls <code>load_name(raw)</code>, and revises the code after a compiler error until it builds. Which phase is this?</p>",
+            "answers": [
+              {
+                "text": "LLM Harness Synthesis",
+                "fraction": 100,
+                "feedback": "Correct \u2014 writing and iteratively fixing a compilable driver is the LLM harness phase."
+              },
+              {
+                "text": "Static Analysis",
+                "fraction": 0,
+                "feedback": "No \u2014 static analysis flags the site; it does not write or compile a driver."
+              },
+              {
+                "text": "Symbolic Execution",
+                "fraction": 0,
+                "feedback": "No \u2014 symbolic execution runs the finished harness; it does not author it."
+              },
+              {
+                "text": "Concrete Replay",
+                "fraction": 0,
+                "feedback": "No \u2014 replay runs a concrete witness on the real program, not a synthesized driver."
+              }
+            ],
+            "generalFeedback": "Declaring/bounding symbolic inputs, calling the entry function, and looping on compiler feedback until it builds is the iterative LLM harness-synthesis phase.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Match activity: reporting VIOLATION and WITNESS",
+            "text": "<p>A SAILOR component reports: a safe path when <code>strlen(raw) &lt; 32</code>, an overflowing path when <code>strlen(raw) &ge; 32</code>, a VIOLATION (out-of-bounds write), and a WITNESS <code>raw</code> of 40 bytes. Which phase is this?</p>",
+            "answers": [
+              {
+                "text": "Symbolic Execution (KLEE)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exploring paths and emitting a violation plus a witness is symbolic execution."
+              },
+              {
+                "text": "Static Analysis",
+                "fraction": 0,
+                "feedback": "No \u2014 static analysis names the suspect and precondition; it does not explore paths or produce a witness."
+              },
+              {
+                "text": "LLM Harness Synthesis",
+                "fraction": 0,
+                "feedback": "No \u2014 that phase builds the driver; KLEE running it produces the violation and witness."
+              },
+              {
+                "text": "Concrete Replay",
+                "fraction": 0,
+                "feedback": "No \u2014 replay consumes the witness to confirm; it does not discover the violating path."
+              }
+            ],
+            "generalFeedback": "Enumerating feasible paths and, on the violating one, recording a VIOLATION with a concrete WITNESS input is the KLEE symbolic-execution phase.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Match activity: rerunning the unmodified program",
+            "text": "<p>A SAILOR component runs the original unmodified program on a 40-byte input, observes an invalid write, and marks the finding CONFIRMED. Which phase is this?</p>",
+            "answers": [
+              {
+                "text": "Concrete Replay",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reproducing the crash on the unmodified program is the concrete-replay phase."
+              },
+              {
+                "text": "Symbolic Execution",
+                "fraction": 0,
+                "feedback": "No \u2014 symbolic execution runs the harness with symbolic inputs, not the unmodified program on a concrete input."
+              },
+              {
+                "text": "Static Analysis",
+                "fraction": 0,
+                "feedback": "No \u2014 static analysis does not run the program at all."
+              },
+              {
+                "text": "LLM Harness Synthesis",
+                "fraction": 0,
+                "feedback": "No \u2014 that phase writes the driver; it does not confirm crashes on the real program."
+              }
+            ],
+            "generalFeedback": "Feeding the concrete witness into the original, unmodified program and confirming the crash is the concrete-replay phase \u2014 the false-positive filter.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why static analysis runs first",
+            "text": "<p>Why does static analysis run <em>before</em> symbolic execution in SAILOR?</p>",
+            "answers": [
+              {
+                "text": "It narrows the search to suspect sites and preconditions, so symbolic execution is not blind and stays tractable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pruning the space up front is what keeps the expensive exploration feasible."
+              },
+              {
+                "text": "Because KLEE requires a compiled binary that only static analysis can produce",
+                "fraction": 0,
+                "feedback": "No \u2014 the harness (phase 2), not static analysis, is what produces the runnable/compilable driver."
+              },
+              {
+                "text": "Because the witness must exist before the harness is written",
+                "fraction": 0,
+                "feedback": "No \u2014 the witness comes from symbolic execution, which runs after both static analysis and harness synthesis."
+              },
+              {
+                "text": "Because replay has to confirm the bug before exploration begins",
+                "fraction": 0,
+                "feedback": "No \u2014 replay is the last phase; it needs a witness that only symbolic execution can produce."
+              }
+            ],
+            "generalFeedback": "Symbolic execution suffers path explosion. Running static analysis first flags where to look and under what precondition, so the executor spends its budget on paths that matter instead of exploring blindly.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the phase order",
+            "text": "<p>Which phrase best summarizes <em>why</em> SAILOR's phases run in their particular order?</p>",
+            "answers": [
+              {
+                "text": "Static narrows \u2192 harness drives \u2192 symbolic explores \u2192 replay confirms",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each phase sets up exactly what the next one needs."
+              },
+              {
+                "text": "Replay confirms \u2192 symbolic explores \u2192 harness drives \u2192 static narrows",
+                "fraction": 0,
+                "feedback": "No \u2014 that reverses the pipeline; nothing can be confirmed before it is discovered."
+              },
+              {
+                "text": "Harness drives \u2192 replay confirms \u2192 static narrows \u2192 symbolic explores",
+                "fraction": 0,
+                "feedback": "No \u2014 a harness cannot be built before static analysis targets a site, and replay needs a witness first."
+              },
+              {
+                "text": "Symbolic explores \u2192 static narrows \u2192 replay confirms \u2192 harness drives",
+                "fraction": 0,
+                "feedback": "No \u2014 symbolic execution needs both a target and a harness before it can run."
+              }
+            ],
+            "generalFeedback": "Static analysis narrows the target, the LLM builds a driver to reach it, symbolic execution explores that driver to prove a violation with a witness, and replay confirms the witness on the real program.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Full SAILOR headline numbers",
+            "text": "<p>On its evaluation, how many vulnerabilities and crashes did the <strong>full</strong> SAILOR pipeline report?</p>",
+            "answers": [
+              {
+                "text": "379 distinct vulnerabilities and 421 confirmed crashes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 those are the headline figures for the full pipeline."
+              },
+              {
+                "text": "421 distinct vulnerabilities and 379 confirmed crashes",
+                "fraction": 0,
+                "feedback": "No \u2014 the numbers are swapped: 379 distinct vulnerabilities and 421 confirmed crashes."
+              },
+              {
+                "text": "12 distinct vulnerabilities and 35 confirmed crashes",
+                "fraction": 0,
+                "feedback": "No \u2014 12 is the baseline; the full pipeline found far more."
+              },
+              {
+                "text": "3790 distinct vulnerabilities and 4210 confirmed crashes",
+                "fraction": 0,
+                "feedback": "No \u2014 the reported figures are 379 and 421, not ten times larger."
+              }
+            ],
+            "generalFeedback": "Full SAILOR found 379 distinct vulnerabilities and 421 confirmed crashes across the evaluation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of removing static analysis",
+            "text": '<p>In the ablation, removing static analysis ("no-static") had what effect on vulnerabilities found?</p>',
+            "answers": [
+              {
+                "text": "About 12.2\xD7 fewer vulnerabilities were found",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without targeting, symbolic execution becomes far less effective."
+              },
+              {
+                "text": "Exactly zero vulnerabilities were found",
+                "fraction": 0,
+                "feedback": "No \u2014 zero is the no-LLM result; no-static is a 12.2\xD7 drop but still non-zero."
+              },
+              {
+                "text": "No measurable change",
+                "fraction": 0,
+                "feedback": "No \u2014 removing static analysis caused a large 12.2\xD7 reduction."
+              },
+              {
+                "text": "About 12.2\xD7 more vulnerabilities were found",
+                "fraction": 0,
+                "feedback": "No \u2014 removing the pruning hurts, not helps; it found 12.2\xD7 fewer."
+              }
+            ],
+            "generalFeedback": "Static analysis is what makes symbolic execution tractable. Remove it and SAILOR finds about 12.2\xD7 fewer vulnerabilities \u2014 a severe drop, but not all the way to zero.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of removing the LLM harness",
+            "text": '<p>In the ablation, removing the LLM harness synthesis ("no-LLM") yielded:</p>',
+            "answers": [
+              {
+                "text": "Zero vulnerabilities found",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with no harness there is nothing for KLEE to execute."
+              },
+              {
+                "text": "About 12.2\xD7 fewer vulnerabilities",
+                "fraction": 0,
+                "feedback": "No \u2014 12.2\xD7 fewer is the no-static result; no-LLM collapses all the way to zero."
+              },
+              {
+                "text": "Exactly 12 vulnerabilities (matching the baseline)",
+                "fraction": 0,
+                "feedback": "No \u2014 12 is the baseline tooling; no-LLM produced zero."
+              },
+              {
+                "text": "Only slightly fewer than the full pipeline",
+                "fraction": 0,
+                "feedback": "No \u2014 without a harness the pipeline has nothing to run, so it finds zero."
+              }
+            ],
+            "generalFeedback": "No harness means nothing to execute under KLEE, so the no-LLM ablation finds zero vulnerabilities \u2014 showing the harness is a hard prerequisite.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The baseline number",
+            "text": "<p>The baseline / prior comparison tooling (hand-written harnesses) found how many vulnerabilities?</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 prior tooling found only 12, versus 379 for full SAILOR."
+              },
+              {
+                "text": "379",
+                "fraction": 0,
+                "feedback": "No \u2014 379 is full SAILOR's distinct-vulnerability count, not the baseline."
+              },
+              {
+                "text": "421",
+                "fraction": 0,
+                "feedback": "No \u2014 421 is full SAILOR's confirmed-crash count, not the baseline."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "No \u2014 zero is the no-LLM ablation result; the baseline found 12."
+              }
+            ],
+            "generalFeedback": "The baseline (prior tooling with hand-written harnesses) found only 12, dramatically fewer than full SAILOR's 379 distinct vulnerabilities.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Evaluation scale",
+            "text": "<p>SAILOR was evaluated on roughly how much code?</p>",
+            "answers": [
+              {
+                "text": "10 open-source projects, about 6.8M lines of C/C++",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is the reported evaluation corpus."
+              },
+              {
+                "text": "1 project of about 6.8M lines",
+                "fraction": 0,
+                "feedback": "No \u2014 it was 10 projects, not a single one."
+              },
+              {
+                "text": "100 projects of about 6.8K lines each",
+                "fraction": 0,
+                "feedback": "No \u2014 the corpus is 10 projects totalling about 6.8M lines."
+              },
+              {
+                "text": "10 projects of about 6.8K lines total",
+                "fraction": 0,
+                "feedback": "No \u2014 the total is about 6.8M lines of C/C++, not 6.8K."
+              }
+            ],
+            "generalFeedback": "The evaluation ran on 10 open-source projects comprising roughly 6.8M lines of C/C++.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Why concrete replay exists",
+            "text": "<p>Concrete replay exists mainly to filter out false positives by re-running the witness on the original, unmodified program.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a violation found in the harness is only trusted once the concrete witness reproduces it on the real program."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Replay's purpose is precisely false-positive filtering: confirm the bug is real on the unmodified program, not a harness artifact."
+              }
+            ],
+            "generalFeedback": "Symbolic execution can flag a violation on a path feasible only in the harness. Replaying the concrete witness on the unmodified program confirms real bugs and discards harness-only artifacts."
+          },
+          {
+            "type": "multichoice",
+            "name": "The strcpy precondition",
+            "text": "<p>In the worked example the destination buffer is <code>char name[32]</code>. What precondition did static analysis attach to the <code>strcpy</code> sink as the condition under which the copy stays safe?</p>",
+            "answers": [
+              {
+                "text": "strlen(raw) < 32",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the source must be shorter than the 32-byte destination for the copy to be safe."
+              },
+              {
+                "text": "strlen(raw) < 64",
+                "fraction": 0,
+                "feedback": "No \u2014 the destination is 32 bytes, so the safe precondition is strlen(raw) < 32, not 64."
+              },
+              {
+                "text": "strlen(raw) > 32",
+                "fraction": 0,
+                "feedback": "No \u2014 that is the overflowing condition, not the safe precondition; safe is strlen(raw) < 32."
+              },
+              {
+                "text": "raw != NULL",
+                "fraction": 0,
+                "feedback": "No \u2014 non-nullness does not bound the length; the length precondition is strlen(raw) < 32."
+              }
+            ],
+            "generalFeedback": "With a 32-byte destination, the copy is safe only when strlen(raw) < 32. Static analysis attaches this precondition so symbolic execution can target the path where it is violated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "VIOLATION and WITNESS together",
+            "text": "<p>A single KLEE result carries both a VIOLATION and a WITNESS. What is the relationship between them?</p>",
+            "answers": [
+              {
+                "text": "The VIOLATION is the proven bug on a path; the WITNESS is the concrete input driving that path, which replay reuses to reproduce the violation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one is the proof, the other is the triggering input replay depends on."
+              },
+              {
+                "text": "They are two names for the same object",
+                "fraction": 0,
+                "feedback": "No \u2014 the violation (proof) and the witness (input) are distinct artifacts."
+              },
+              {
+                "text": "The WITNESS is the proof and the VIOLATION is the input",
+                "fraction": 0,
+                "feedback": "No \u2014 that reverses them: the violation is the proof, the witness is the input."
+              },
+              {
+                "text": "Both are static specifications produced before execution",
+                "fraction": 0,
+                "feedback": "No \u2014 both are outputs of symbolic execution, not static specs."
+              }
+            ],
+            "generalFeedback": "KLEE proves a VIOLATION on some path and reports the concrete WITNESS input that drives that path. Concrete replay feeds the witness (not the violation) into the real program to confirm the bug.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the witness confirms in the example",
+            "text": "<p>In the worked example, the witness makes the source string exceed the 32-byte destination buffer. Once replay reproduces the crash, what class of bug is confirmed?</p>",
+            "answers": [
+              {
+                "text": "An out-of-bounds write (CWE-787)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 writing past the destination buffer is an out-of-bounds write, CWE-787."
+              },
+              {
+                "text": "An out-of-bounds read (CWE-125)",
+                "fraction": 0,
+                "feedback": "No \u2014 strcpy writes past the buffer; this is a write, not a read."
+              },
+              {
+                "text": "An integer overflow",
+                "fraction": 0,
+                "feedback": "No \u2014 the bug is a memory write past the buffer bound, not an arithmetic overflow."
+              },
+              {
+                "text": "A null-pointer dereference",
+                "fraction": 0,
+                "feedback": "No \u2014 the pointer is valid; the fault is writing beyond the 32-byte buffer."
+              }
+            ],
+            "generalFeedback": "When strlen(raw) \u2265 32, strcpy writes past name[32]. Replay reproduces this on the unmodified program, confirming an out-of-bounds write \u2014 CWE-787.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Why no-static costs 12.2x",
+            "text": "<p>Why does removing static analysis reduce SAILOR's yield by about 12.2\xD7, rather than leaving it unchanged?</p>",
+            "answers": [
+              {
+                "text": "Without suspect sites and preconditions to prune the search, symbolic execution faces path explosion and becomes intractable, so it explores far less usefully within its budget",
+                "fraction": 100,
+                "feedback": "Correct \u2014 static analysis is what keeps the exploration focused and feasible."
+              },
+              {
+                "text": "Because without static analysis the harness no longer compiles",
+                "fraction": 0,
+                "feedback": "No \u2014 compilation is the harness loop's concern; removing static analysis hurts targeting, not the build."
+              },
+              {
+                "text": "Because KLEE is disabled when static analysis is removed",
+                "fraction": 0,
+                "feedback": "No \u2014 KLEE still runs; it just runs unguided, so it wastes budget on irrelevant paths."
+              },
+              {
+                "text": "Because concrete replay rejects every finding without static analysis",
+                "fraction": 0,
+                "feedback": "No \u2014 replay still confirms real crashes; the loss comes from unfocused exploration upstream."
+              }
+            ],
+            "generalFeedback": "The feasible-path count grows exponentially. Static analysis flags where to look and under what precondition; remove it and KLEE explores blindly, hitting path explosion and reaching far fewer real bugs \u2014 about 12.2\xD7 fewer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why no-LLM yields exactly zero",
+            "text": "<p>Why does removing the LLM harness synthesis drop the yield to <em>exactly zero</em>, not just to a smaller number?</p>",
+            "answers": [
+              {
+                "text": "With no synthesized driver there is nothing to compile and run under KLEE, so symbolic execution has no harness to execute and produces no violations or witnesses at all",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the harness is a hard prerequisite; without it the pipeline has nothing to run."
+              },
+              {
+                "text": "Because static analysis also stops emitting suspect sites",
+                "fraction": 0,
+                "feedback": "No \u2014 static analysis is unaffected; the gap is that there is no driver to execute."
+              },
+              {
+                "text": "Because concrete replay then rejects all findings as false positives",
+                "fraction": 0,
+                "feedback": "No \u2014 there are no findings to reject; nothing ever runs under KLEE."
+              },
+              {
+                "text": "Because the number of paths becomes infinite and KLEE times out on every one",
+                "fraction": 0,
+                "feedback": "No \u2014 the issue is not timeout; there is simply no harness for KLEE to run."
+              }
+            ],
+            "generalFeedback": "Symbolic execution needs something runnable. No LLM means no harness, so KLEE has nothing to execute \u2014 hence zero violations and zero witnesses. The harness is a strict enabler, not just an optimizer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the two ablations reveal",
+            "text": "<p>Contrast the no-static result (about 12.2\xD7 fewer) with the no-LLM result (zero). What does the contrast reveal about the two components' roles?</p>",
+            "answers": [
+              {
+                "text": "The harness is a hard prerequisite (nothing runs without it), while static analysis is a strong tractability/efficiency enabler (the pipeline still works without it, but far worse)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 zero vs 12.2\xD7-fewer distinguishes an enabler you cannot remove from one that hugely helps."
+              },
+              {
+                "text": "Both components are equally optional",
+                "fraction": 0,
+                "feedback": "No \u2014 removing the LLM harness collapses the pipeline to zero, so it is not optional."
+              },
+              {
+                "text": "Static analysis is the prerequisite and the LLM harness is the optimizer",
+                "fraction": 0,
+                "feedback": "No \u2014 it is the reverse: the harness is the prerequisite (zero without it); static analysis is the efficiency multiplier."
+              },
+              {
+                "text": "Concrete replay is the real bottleneck the ablation exposes",
+                "fraction": 0,
+                "feedback": "No \u2014 the ablation contrasts static analysis and the harness; replay is not what these two numbers isolate."
+              }
+            ],
+            "generalFeedback": "No-LLM \u2192 zero shows the harness is indispensable to run anything. No-static \u2192 12.2\xD7 fewer shows static analysis is a powerful multiplier of effectiveness, but the pipeline can still find some bugs without it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Most indispensable single component",
+            "text": "<p>Interpreting the ablation, which single component is the <em>most</em> indispensable, and why?</p>",
+            "answers": [
+              {
+                "text": "The LLM harness synthesis \u2014 removing it yields zero, whereas removing static analysis only reduces the yield 12.2\xD7 (still non-zero)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a total collapse to zero marks the harness as the strictest prerequisite."
+              },
+              {
+                "text": "Static analysis \u2014 because 12.2\xD7 is the largest number in the ablation",
+                "fraction": 0,
+                "feedback": "No \u2014 a large multiplier is still non-zero; the harness is more indispensable because without it the yield is zero."
+              },
+              {
+                "text": "Concrete replay \u2014 because without it nothing is confirmed",
+                "fraction": 0,
+                "feedback": "No \u2014 the ablation shows the harness, not replay, is the component whose removal drops results to zero."
+              },
+              {
+                "text": "Symbolic execution \u2014 because it is what actually finds the bugs",
+                "fraction": 0,
+                "feedback": "No \u2014 symbolic execution is central, but the ablation isolates the harness as the removal that gives zero."
+              }
+            ],
+            "generalFeedback": '"Most indispensable" means the removal that hurts most. No-LLM gives zero (nothing to run), while no-static gives 12.2\xD7 fewer but non-zero \u2014 so the LLM harness is the strictest prerequisite.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "VIOLATION vs WITNESS and how replay uses each",
+            "text": "<p>Precisely distinguish VIOLATION from WITNESS and state how concrete replay uses each.</p>",
+            "answers": [
+              {
+                "text": "VIOLATION is the executor's proof that a path reaches a bug; WITNESS is the concrete input driving that path; replay feeds the witness (not the violation) into the unmodified program to reproduce and confirm the violation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the witness is the actionable input; the violation is the claim it confirms."
+              },
+              {
+                "text": "VIOLATION is the concrete input; WITNESS is the proof; replay feeds the violation into the program",
+                "fraction": 0,
+                "feedback": "No \u2014 the roles are reversed: the witness is the input and the violation is the proof."
+              },
+              {
+                "text": "Both are inputs; replay runs whichever one crashes first",
+                "fraction": 0,
+                "feedback": "No \u2014 only the witness is an input; the violation is a proof, not something you feed to the program."
+              },
+              {
+                "text": "Both are proofs; replay picks the stronger proof to report",
+                "fraction": 0,
+                "feedback": "No \u2014 the witness is a concrete input, not a proof; replay runs it on the real program."
+              }
+            ],
+            "generalFeedback": "The VIOLATION is KLEE's proof that some path reaches the bug; the WITNESS is the concrete triggering input for that path. Replay ignores the abstract violation and instead runs the concrete witness on the unmodified program to confirm the bug is real.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the iterative harness loop matters",
+            "text": "<p>Why is the compiler-feedback iteration in phase 2 essential rather than just a convenience?</p>",
+            "answers": [
+              {
+                "text": "A first-draft harness usually fails to compile; without refining it via feedback no runnable harness exists, so KLEE has nothing to execute",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the loop is what turns a broken draft into a usable driver."
+              },
+              {
+                "text": "It makes the compiled harness run faster at execution time",
+                "fraction": 0,
+                "feedback": "No \u2014 the loop is about getting a harness that builds at all, not runtime speed."
+              },
+              {
+                "text": "It directly increases the number of paths KLEE explores",
+                "fraction": 0,
+                "feedback": "No \u2014 path count is a symbolic-execution concern; the loop's role is producing a compilable harness."
+              },
+              {
+                "text": "It filters out false positives before replay",
+                "fraction": 0,
+                "feedback": "No \u2014 false-positive filtering is replay's job; the loop's job is producing a buildable harness."
+              }
+            ],
+            "generalFeedback": "LLM first drafts rarely compile. The compile/feedback loop refines the harness until it builds; without it there is no runnable driver, which is exactly why the no-LLM ablation yields zero.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How SAILOR combines three strengths",
+            "text": "<p>SAILOR combines static, dynamic (symbolic), and LLM techniques. Which mapping of each contribution is correct?</p>",
+            "answers": [
+              {
+                "text": "Static analysis prunes and targets; the LLM writes the driver a human used to hand-write; symbolic execution proves reachability and yields a witness; replay confirms it on the real program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each technique covers a weakness of the others."
+              },
+              {
+                "text": "Static analysis writes the driver; the LLM explores paths; symbolic execution prunes the search; replay compiles the harness",
+                "fraction": 0,
+                "feedback": "No \u2014 every role is misassigned; static analysis targets, the LLM writes the driver, symbolic execution explores."
+              },
+              {
+                "text": "The LLM prunes the search; static analysis proves reachability; symbolic execution confirms on the real program; replay targets sinks",
+                "fraction": 0,
+                "feedback": "No \u2014 pruning is static analysis, reachability is symbolic execution, confirmation is replay."
+              },
+              {
+                "text": "All three techniques do the same job redundantly, for reliability",
+                "fraction": 0,
+                "feedback": "No \u2014 they are complementary, each supplying what the others cannot."
+              }
+            ],
+            "generalFeedback": "Static analysis focuses the effort, the LLM automates the previously-manual harness, symbolic execution proves a reachable violation with a concrete witness, and concrete replay confirms it \u2014 combining static, dynamic, and LLM strengths.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why unguided symbolic execution is blind",
+            "text": '<p>What specifically makes <em>unguided</em> symbolic execution "blind," and how does static targeting help?</p>',
+            "answers": [
+              {
+                "text": "Feasible paths grow exponentially; without preconditions and suspect sinks to steer toward, the executor spends its budget on irrelevant paths and rarely reaches deep bugs \u2014 static analysis focuses that budget",
+                "fraction": 100,
+                "feedback": "Correct \u2014 targeting is what turns an intractable search into a productive one."
+              },
+              {
+                "text": "It cannot solve any path constraints without static analysis",
+                "fraction": 0,
+                "feedback": "No \u2014 the solver still works; the problem is where to spend effort, which targeting fixes."
+              },
+              {
+                "text": "By definition it never terminates unless static analysis stops it",
+                "fraction": 0,
+                "feedback": "No \u2014 termination is bounded by search limits; the issue is unfocused effort, not non-termination per se."
+              },
+              {
+                "text": "It needs the witness before it can begin exploring",
+                "fraction": 0,
+                "feedback": "No \u2014 the witness is an output of exploration, not a precondition for it."
+              }
+            ],
+            "generalFeedback": "The number of feasible paths explodes exponentially. Without static analysis pointing at suspect sinks and their preconditions, the executor wastes its budget exploring irrelevant paths \u2014 the 12.2\xD7 loss the ablation measures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How the precondition guides KLEE",
+            "text": "<p>How does the static precondition <code>strlen(raw) &lt; 32</code> help symbolic execution find the overflow?</p>",
+            "answers": [
+              {
+                "text": "It marks the safety condition at the sink, so KLEE can target the path where strlen(raw) \u2265 32 \u2014 the path that writes past name[32] \u2014 instead of exploring everything",
+                "fraction": 100,
+                "feedback": "Correct \u2014 knowing the safe condition tells the executor which violating path to chase."
+              },
+              {
+                "text": "It fixes raw to one concrete value so KLEE need not use symbolic input",
+                "fraction": 0,
+                "feedback": "No \u2014 the precondition is a symbolic constraint about safety, not a concrete assignment."
+              },
+              {
+                "text": "It patches the strcpy so the overflow cannot happen",
+                "fraction": 0,
+                "feedback": "No \u2014 static analysis does not modify code; it annotates the sink with a safety condition."
+              },
+              {
+                "text": "It disables the harness for the safe path",
+                "fraction": 0,
+                "feedback": "No \u2014 the harness still runs; the precondition just tells KLEE which path is the violating one."
+              }
+            ],
+            "generalFeedback": "The precondition strlen(raw) < 32 is the condition under which the copy is safe. Its negation, strlen(raw) \u2265 32, marks the overflowing path \u2014 so KLEE targets that path and finds the out-of-bounds write.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpreting baseline 12 vs 379/421",
+            "text": "<p>The baseline found 12 while full SAILOR found 379 vulnerabilities / 421 crashes. What is the fair takeaway?</p>",
+            "answers": [
+              {
+                "text": "Automating harness synthesis and adding static targeting massively expands what symbolic execution can discover compared with prior hand-harness tooling",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the gap reflects automation plus targeting, not a change in what counts as a bug."
+              },
+              {
+                "text": "The baseline is simply unsound and over-reports; SAILOR is more conservative",
+                "fraction": 0,
+                "feedback": "No \u2014 SAILOR found far more, and its replay step confirms bugs; the baseline is not over-reporting."
+              },
+              {
+                "text": "Both used the same technique, so the difference must be measurement noise",
+                "fraction": 0,
+                "feedback": "No \u2014 the baseline used hand-written harnesses; SAILOR automates and targets, a real methodological difference."
+              },
+              {
+                "text": "SAILOR trades soundness for the higher count",
+                "fraction": 0,
+                "feedback": "No \u2014 concrete replay confirms each crash, so the higher count is of confirmed bugs, not a soundness trade."
+              }
+            ],
+            "generalFeedback": "Prior tooling relied on hand-written harnesses and found 12. SAILOR's automated, statically-targeted harnesses let symbolic execution reach far more real bugs \u2014 379 distinct vulnerabilities, 421 confirmed crashes \u2014 all confirmed by replay.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why replay uses the witness, not the violation",
+            "text": "<p>Why does SAILOR replay the concrete witness rather than simply trusting KLEE's violation?</p>",
+            "answers": [
+              {
+                "text": "A violation can occur on a path feasible only in the harness/model; replaying the concrete witness on the unmodified program proves the bug is real and filters harness-induced false positives",
+                "fraction": 100,
+                "feedback": "Correct \u2014 replay is the reality check on the harness's claim."
+              },
+              {
+                "text": "Because KLEE is unsound about the paths it actually runs",
+                "fraction": 0,
+                "feedback": "No \u2014 the concern is harness-only states, not KLEE's soundness on paths it explores."
+              },
+              {
+                "text": "Because replay is faster than reading the violation record",
+                "fraction": 0,
+                "feedback": "No \u2014 replay is about confirmation quality, not speed."
+              },
+              {
+                "text": "To recompute the precondition that static analysis produced",
+                "fraction": 0,
+                "feedback": "No \u2014 replay confirms the crash; it does not recompute preconditions."
+              }
+            ],
+            "generalFeedback": "The harness may create states impossible in the real program, so a violation there could be a false positive. Replaying the concrete witness on the unmodified program is what distinguishes a real bug from a harness artifact.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Consequence of an over-constrained harness",
+            "text": "<p>Suppose the synthesized harness over-constrains the symbolic input (bounds it too tightly). What is the likely consequence for the pipeline?</p>",
+            "answers": [
+              {
+                "text": "The real bug may fall outside the explored input space, so KLEE never emits the violation \u2014 a false negative \u2014 even though every phase runs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 hiding the triggering inputs makes the bug unreachable in exploration."
+              },
+              {
+                "text": "It guarantees a false positive that replay will confirm anyway",
+                "fraction": 0,
+                "feedback": "No \u2014 over-constraining hides bugs (false negatives); it does not manufacture confirmed crashes."
+              },
+              {
+                "text": "Concrete replay automatically widens the input space to compensate",
+                "fraction": 0,
+                "feedback": "No \u2014 replay only reruns a witness; it cannot recover inputs the harness excluded."
+              },
+              {
+                "text": "Static analysis re-runs to fix the harness",
+                "fraction": 0,
+                "feedback": "No \u2014 the pipeline runs forward; static analysis does not re-run to repair the harness."
+              }
+            ],
+            "generalFeedback": "If the harness bounds inputs too tightly, the values that trigger the bug are excluded, so KLEE explores a space where the violation never appears \u2014 a false negative. (Under-constraining causes the opposite risk: false positives.)",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Replay cannot precede symbolic execution",
+            "text": "<p>Concrete replay cannot meaningfully run before symbolic execution, because it needs the witness that only symbolic execution produces.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the data dependency (witness \u2192 replay) fixes the order: explore first, confirm second."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Replay's input is the witness, which symbolic execution emits, so replay must come after it."
+              }
+            ],
+            "generalFeedback": "Replay reproduces a specific witness on the unmodified program. Since the witness is an output of symbolic execution, replay is necessarily the later phase \u2014 a data dependency, not an arbitrary choice."
+          },
+          {
+            "type": "multichoice",
+            "name": "What manual step the LLM automates",
+            "text": "<p>In prior symbolic-execution tooling, which expensive manual step does SAILOR's LLM phase automate, and why does that unlock scale?</p>",
+            "answers": [
+              {
+                "text": "Hand-writing a compilable harness for each target; automating it lets the pipeline attack many sites across millions of lines without a human per target",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the harness bottleneck was the human, and the LLM removes it."
+              },
+              {
+                "text": "Manually solving the path constraints; automating it removes the need for a solver",
+                "fraction": 0,
+                "feedback": "No \u2014 the solver is still used; the LLM automates harness writing, not constraint solving."
+              },
+              {
+                "text": "Manually confirming each crash; automating it removes the replay phase",
+                "fraction": 0,
+                "feedback": "No \u2014 replay still runs; the LLM automates harness synthesis, not confirmation."
+              },
+              {
+                "text": "Manually labeling each finding with a CWE id",
+                "fraction": 0,
+                "feedback": "No \u2014 CWE labeling is not the bottleneck; hand-writing harnesses per target is."
+              }
+            ],
+            "generalFeedback": "Classic symbolic-execution setups need a human to hand-write a compilable harness per target \u2014 the scaling bottleneck. SAILOR's LLM synthesizes harnesses automatically, so the pipeline can cover many sites across ~6.8M lines without per-target manual effort.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Holistic reading of the ablation",
+            "text": "<p>Which conclusion is best supported by the full ablation (full: 421 crashes; no-static: 12.2\xD7 fewer; no-LLM: zero; baseline: 12)?</p>",
+            "answers": [
+              {
+                "text": "Every component is load-bearing but differently \u2014 the LLM harness is a strict enabler (zero without it), static analysis is a tractability multiplier (12.2\xD7), and the combination far exceeds prior tooling (baseline 12)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the numbers together show distinct, complementary roles."
+              },
+              {
+                "text": "Only the LLM harness matters; the other components are decorative",
+                "fraction": 0,
+                "feedback": "No \u2014 no-static's 12.2\xD7 drop shows static analysis matters a great deal too."
+              },
+              {
+                "text": "Only static analysis matters; the harness is optional",
+                "fraction": 0,
+                "feedback": "No \u2014 no-LLM yields zero, so the harness is not optional."
+              },
+              {
+                "text": "The components are redundant, since removing any one leaves the yield unchanged",
+                "fraction": 0,
+                "feedback": "No \u2014 removing components changes the yield drastically (to zero, or 12.2\xD7 fewer), so they are not redundant."
+              }
+            ],
+            "generalFeedback": "The ablation shows each component carries weight in its own way: the harness is indispensable (zero without it), static analysis multiplies effectiveness (12.2\xD7), and full SAILOR (379 vulns / 421 crashes) dwarfs the baseline's 12 \u2014 the whole is far more than any part.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "SAILOR \u7684\u7528\u9014",
+            "text": "<p><strong>SAILOR</strong>\uFF08\u300CGuiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery\u300D\uFF09\u662F\u4E00\u689D\u6D41\u7A0B\uFF0C\u5176\u76EE\u6A19\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7D50\u5408\u975C\u614B\u5206\u6790\u3001LLM \u8207\u7B26\u865F\u57F7\u884C\uFF0C\u81EA\u52D5\u767C\u73FE C/C++ \u7A0B\u5F0F\u78BC\u4E2D\u7684\u6F0F\u6D1E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014SAILOR \u662F\u628A\u9019\u4E09\u7A2E\u6280\u8853\u4E32\u63A5\u8D77\u4F86\u7684\u6F0F\u6D1E\u5075\u6E2C\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u4FEE\u88DC\u4E26\u4FEE\u5FA9\u5B83\u5075\u6E2C\u5230\u7684\u6F0F\u6D1E",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014SAILOR \u8CA0\u8CAC\u767C\u73FE\uFF08\u4E26\u78BA\u8A8D\uFF09\u6F0F\u6D1E\uFF0C\u4E26\u4E0D\u4FEE\u5FA9\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5F62\u5F0F\u5316\u8B49\u660E\u67D0\u7A0B\u5F0F\u5B8C\u5168\u6C92\u6709 bug",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5B83\u9760\u63A2\u7D22\u8DEF\u5F91\u5C0B\u627E bug\uFF0C\u4E26\u4E0D\u7522\u51FA\u6574\u652F\u7A0B\u5F0F\u7684\u6B63\u78BA\u6027\u8B49\u660E\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u65E2\u6709\u6E2C\u8A66\u5957\u4EF6\u7684\u6558\u8FF0\u8207\u5206\u652F\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8986\u84CB\u7387\u91CF\u6E2C\u662F\u53E6\u4E00\u56DE\u4E8B\uFF1BSAILOR \u7684\u76EE\u6A19\u662F\u627E\u51FA\u771F\u5BE6\u6F0F\u6D1E\u3002"
+              }
+            ],
+            "generalFeedback": "SAILOR\uFF08Shafiuzzaman\u3001Desai\u3001Guo\u3001Bultan\uFF1BarXiv:2604.06506\uFF0C2026\uFF09\u662F\u4E00\u689D\u6F0F\u6D1E\u5075\u6E2C\u6D41\u7A0B\uFF1A\u975C\u614B\u5206\u6790\u9396\u5B9A\u53EF\u7591\u7A0B\u5F0F\u78BC\u3001LLM \u5408\u6210 harness\u3001\u7B26\u865F\u57F7\u884C\u52A0\u4EE5\u63A2\u7D22\u3001\u5177\u9AD4\u91CD\u64AD\u78BA\u8A8D\u767C\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u5E7E\u500B\u968E\u6BB5",
+            "text": "<p>SAILOR \u6D41\u7A0B\u7531\u5E7E\u500B\u968E\u6BB5\u7D44\u6210\uFF0C\u53C8\u662F\u5982\u4F55\u57F7\u884C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56DB\u500B\u968E\u6BB5\uFF0C\u4F9D\u56FA\u5B9A\u9806\u5E8F\u4E00\u500B\u63A5\u4E00\u500B\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014SAILOR \u662F\u56DB\u968E\u6BB5\u6D41\u7A0B\uFF0C\u5404\u968E\u6BB5\u4F9D\u5E8F\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u968E\u6BB5\u5E73\u884C\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014SAILOR \u6709\u56DB\u500B\u968E\u6BB5\uFF0C\u4E14\u662F\u5FAA\u5E8F\u57F7\u884C\uFF0C\u4E0D\u662F\u5169\u500B\u5E73\u884C\u3002"
+              },
+              {
+                "text": "\u4E09\u500B\u968E\u6BB5\u4EE5\u8FF4\u5708\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5171\u6709\u56DB\u500B\u968E\u6BB5\uFF1B\u53EA\u6709\u7B2C 2 \u968E\u6BB5\uFF08harness \u5408\u6210\uFF09\u5167\u90E8\u6709\u8FF4\u5708\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u6574\u9AD4\u7684\u5206\u6790\u6B65\u9A5F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014SAILOR \u523B\u610F\u628A\u5DE5\u4F5C\u62C6\u6210\u56DB\u500B\u6709\u5E8F\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "SAILOR \u4F9D\u5E8F\u57F7\u884C\u56DB\u500B\u968E\u6BB5\uFF1A\u975C\u614B\u5206\u6790\u3001LLM Harness \u5408\u6210\u3001\u7B26\u865F\u57F7\u884C\u3001\u5177\u9AD4\u91CD\u64AD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u968E\u6BB5\u7684\u9806\u5E8F",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\u5217\u51FA SAILOR \u56DB\u500B\u968E\u6BB5\u7684\u9806\u5E8F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975C\u614B\u5206\u6790 \u2192 LLM Harness \u5408\u6210 \u2192 \u7B26\u865F\u57F7\u884C \u2192 \u5177\u9AD4\u91CD\u64AD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u9396\u5B9A\u76EE\u6A19\u3001\u518D\u5EFA driver\u3001\u63A5\u8457\u63A2\u7D22\u3001\u6700\u5F8C\u78BA\u8A8D\u767C\u73FE\u3002"
+              },
+              {
+                "text": "LLM Harness \u5408\u6210 \u2192 \u975C\u614B\u5206\u6790 \u2192 \u5177\u9AD4\u91CD\u64AD \u2192 \u7B26\u865F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u5FC5\u9808\u5148\u8DD1\u4EE5\u544A\u8A34 harness \u8981\u9396\u5B9A\u4EC0\u9EBC\uFF0C\u4E14\u7B26\u865F\u57F7\u884C\u5FC5\u9808\u5728\u91CD\u64AD\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u57F7\u884C \u2192 \u5177\u9AD4\u91CD\u64AD \u2192 \u975C\u614B\u5206\u6790 \u2192 LLM Harness \u5408\u6210",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6C92\u6709 harness \u5C31\u7121\u6CD5\u9032\u884C\u7B26\u865F\u57F7\u884C\uFF0C\u4E14\u975C\u614B\u5206\u6790\u8981\u6700\u5148\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790 \u2192 \u7B26\u865F\u57F7\u884C \u2192 LLM Harness \u5408\u6210 \u2192 \u5177\u9AD4\u91CD\u64AD",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5FC5\u9808\u5148\u5408\u6210 harness\uFF0C\u7B26\u865F\u57F7\u884C\u624D\u6709\u6771\u897F\u53EF\u8DD1\u3002"
+              }
+            ],
+            "generalFeedback": "\u56FA\u5B9A\u9806\u5E8F\u70BA\uFF1A\u975C\u614B\u5206\u6790 \u2192 LLM Harness \u5408\u6210 \u2192 \u7B26\u865F\u57F7\u884C\uFF08KLEE\uFF09\u2192 \u5177\u9AD4\u91CD\u64AD\u3002\u6BCF\u4E00\u968E\u6BB5\u90FD\u7522\u51FA\u4E0B\u4E00\u968E\u6BB5\u6240\u9700\u7684\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975C\u614B\u5206\u6790\u5728\u505A\u4EC0\u9EBC",
+            "text": "<p><strong>\u975C\u614B\u5206\u6790</strong>\u968E\u6BB5\uFF08\u7B2C 1 \u968E\u6BB5\uFF09\u7684\u5DE5\u4F5C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6383\u63CF\u7A0B\u5F0F\u78BC\uFF0C\u6A19\u51FA\u5019\u9078\u6F0F\u6D1E\u4F4D\u7F6E\uFF08sink\uFF09\u8207\u62B5\u9054\u5B83\u5011\u6240\u9700\u7684\u524D\u7F6E\u689D\u4EF6\uFF0C\u6536\u6582\u5F8C\u7E8C\u968E\u6BB5\u8981\u770B\u7684\u7BC4\u570D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u4FEE\u526A\u641C\u5C0B\u7A7A\u9593\uFF0C\u8B93\u7B26\u865F\u57F7\u884C\u4E0D\u81F3\u65BC\u76F2\u76EE\u3002"
+              },
+              {
+                "text": "\u4EE5\u7B26\u865F\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\u4EE5\u63A2\u7D22\u5176\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u90A3\u662F\u7B26\u865F\u57F7\u884C\u968E\u6BB5\uFF1B\u975C\u614B\u5206\u6790\u4E26\u4E0D\u57F7\u884C\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u9A45\u52D5\u53EF\u7591\u7A0B\u5F0F\u78BC\u7684\u6E2C\u8A66 harness",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5408\u6210 harness \u662F\u7B2C 2 \u968E\u6BB5 LLM \u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u91CD\u64AD\u4E00\u500B\u5177\u9AD4\u8F38\u5165\u4EE5\u78BA\u8A8D crash \u70BA\u771F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u90A3\u662F\u5177\u9AD4\u91CD\u64AD\u968E\u6BB5\uFF08\u7B2C 4 \u968E\u6BB5\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u5206\u6790\u6A19\u51FA\u53EF\u7591 sink\u3001\u8F38\u51FA\u62B5\u9054\u6BCF\u500B sink \u6240\u9700\u7684\u5B89\u5168\u524D\u7F6E\u689D\u4EF6\u3001\u6A19\u8A18\u53D7\u6C61\u67D3\u8F38\u5165\uFF0C\u85C9\u6B64\u6536\u6582\uFF08\u4FEE\u526A\uFF09\u6602\u8CB4\u7684\u5F8C\u7E8C\u968E\u6BB5\u8A72\u82B1\u529B\u6C23\u7684\u5730\u65B9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "LLM Harness \u5408\u6210\u7522\u51FA\u4EC0\u9EBC",
+            "text": "<p><strong>LLM Harness \u5408\u6210</strong>\u968E\u6BB5\uFF08\u7B2C 2 \u968E\u6BB5\uFF09\u7522\u51FA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u53EF\u7DE8\u8B6F\u7684\u6E2C\u8A66\uFF0Ffuzz harness\uFF08driver\uFF09\uFF0C\u7528\u4F86\u904B\u884C\u5019\u9078\u7684\u53EF\u7591\u4F4D\u7F6E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LLM \u5BEB\u51FA\u628A\u8F38\u5165\u9935\u9032\u88AB\u6A19\u8A18\u7A0B\u5F0F\u78BC\u7684 driver\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u4FEE\u88DC\u53EF\u7591\u4F4D\u7F6E\u7684\u539F\u59CB\u78BC patch",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014SAILOR \u53EA\u767C\u73FE bug \u800C\u4E0D\u4FEE\u88DC\uFF1B\u6B64\u968E\u6BB5\u5EFA\u7684\u662F driver\uFF0C\u4E0D\u662F\u4FEE\u88DC\u3002"
+              },
+              {
+                "text": "\u8981\u8ABF\u67E5\u7684\u53EF\u7591\u4F4D\u7F6E\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8A72\u6E05\u55AE\u4F86\u81EA\u975C\u614B\u5206\u6790\uFF1BLLM \u6D88\u8CBB\u5B83\u4F86\u5BEB harness\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D bug \u7684\u5177\u9AD4\u5D29\u6F70\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5D29\u6F70\u7684 witness \u4F86\u5F97\u66F4\u665A\uFF0C\u4F86\u81EA\u7B26\u865F\u57F7\u884C\u8207\u91CD\u64AD\u3002"
+              }
+            ],
+            "generalFeedback": "LLM \u628A\u975C\u614B\u5206\u6790\u8F38\u51FA\u8F49\u6210 driver\uFF1A\u5BA3\u544A\u7B26\u865F\u8F38\u5165\u3001\u52A0\u4E0A\u908A\u754C\u3001\u547C\u53EB\u9032\u5165\u51FD\u5F0F\u2014\u2014\u4E00\u500B\u771F\u7684\u80FD\u7DE8\u8B6F\u8207\u57F7\u884C\u7684 harness\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 harness \u5408\u6210\u662F\u300C\u8FED\u4EE3\u300D\u7684",
+            "text": "<p>\u7B2C 2 \u968E\u6BB5\u88AB\u63CF\u8FF0\u70BA<strong>\u8FED\u4EE3</strong>\u3002\u9019\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "harness \u6703\u5229\u7528\u7DE8\u8B6F\u5668\u56DE\u994B\uFF0C\u6B77\u7D93\u6578\u8F2A\u9010\u6B65\u4FEE\u6B63\uFF0C\u76F4\u5230\u4E7E\u6DE8\u7DE8\u8B6F\u70BA\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u7DE8\u8B6F\uFF0F\u56DE\u994B\u8FF4\u5708\u53CD\u8986\u9032\u884C\uFF0C\u76F4\u5230\u53EF\u7528\u7684 harness \u7DE8\u8B6F\u6210\u529F\u3002"
+              },
+              {
+                "text": "LLM \u4E00\u6B21\u5BEB\u597D harness \u800C\u5F9E\u4E0D\u4FEE\u6539",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u300C\u8FED\u4EE3\u300D\u7684\u91CD\u9EDE\u6B63\u662F\u53CD\u8986\u4FEE\u6B63\uFF0C\u800C\u975E\u4E00\u6B21\u5230\u4F4D\u3002"
+              },
+              {
+                "text": "harness \u5C0D\u5C08\u6848\u88E1\u7684\u6BCF\u500B\u539F\u59CB\u6A94\u9010\u4E00\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8FED\u4EE3\u662F\u5C0D\u540C\u4E00\u500B harness \u7684\u4FEE\u6B63\u8F2A\u6B21\uFF0C\u4E0D\u662F\u5C0D\u6A94\u6848\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u597D\u7684 harness \u5728\u57F7\u884C\u6642\u5C0D\u6E2C\u8A66\u8F38\u5165\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u300C\u8FED\u4EE3\u300D\u6307\u7684\u662F\u5EFA\u7F6E\u6642\u7684\u5408\u6210\u8F2A\u6B21\uFF0C\u4E0D\u662F\u57F7\u884C\u671F\u7684\u8F38\u5165\u8FF4\u5708\u3002"
+              }
+            ],
+            "generalFeedback": "\u521D\u7A3F\u5E7E\u4E4E\u4E0D\u6703\u901A\u904E\u7DE8\u8B6F\uFF0C\u65BC\u662F\u628A\u7DE8\u8B6F\u932F\u8AA4\u56DE\u994B\u7D66 LLM \u4FEE\u6B63\u3002\u6B64\u8FF4\u5708\u53CD\u8986\u9032\u884C\u6578\u8F2A\uFF0C\u76F4\u5230 harness \u4E7E\u6DE8\u7DE8\u8B6F\u4E14\u53EF\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F7F\u7528\u54EA\u500B\u7B26\u865F\u57F7\u884C\u5668",
+            "text": "<p>\u5728 SAILOR \u7684\u7B26\u865F\u57F7\u884C\u968E\u6BB5\uFF08\u7B2C 3 \u968E\u6BB5\uFF09\uFF0C\u662F\u54EA\u500B\u7B26\u865F\u57F7\u884C\u5668\u5728\u904B\u884C harness\uFF1F</p>",
+            "answers": [
+              {
+                "text": "KLEE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014SAILOR \u5728 KLEE \u7B26\u865F\u57F7\u884C\u5668\u4E0B\u9A45\u52D5 harness\u3002"
+              },
+              {
+                "text": "AFL",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014AFL \u662F\u8986\u84CB\u7387\u5C0E\u5411\u7684 fuzzer\uFF0C\u4E0D\u662F SAILOR \u4F7F\u7528\u7684\u7B26\u865F\u57F7\u884C\u5668\u3002"
+              },
+              {
+                "text": "Valgrind",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014Valgrind \u662F\u52D5\u614B\u63D2\u6A01\u5DE5\u5177\uFF0C\u4E0D\u662F SAILOR \u7684\u7B26\u865F\u57F7\u884C\u5668\u3002"
+              },
+              {
+                "text": "DART",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014DART \u662F\u65E9\u671F\u7684 concolic \u5DE5\u5177\uFF1BSAILOR \u7B2C 3 \u968E\u6BB5\u7528\u7684\u662F KLEE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B2C 3 \u968E\u6BB5\u5728 KLEE \u4E0B\u904B\u884C\u7DE8\u8B6F\u597D\u7684 harness\uFF0C\u63A2\u7D22\u7B26\u865F\u8F38\u5165\u4E0A\u7684\u53EF\u884C\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u865F\u57F7\u884C\u6703\u8F38\u51FA\u4EC0\u9EBC",
+            "text": "<p>\u7576\u7B26\u865F\u57F7\u884C\uFF08KLEE\uFF09\u968E\u6BB5\u627E\u5230 bug \u6642\uFF0C\u6703\u8F38\u51FA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B VIOLATION\uFF08\u88AB\u8B49\u660E\u7684 bug\uFF09\u9023\u540C\u4E00\u500B WITNESS\uFF08\u89F8\u767C\u5B83\u7684\u5177\u9AD4\u8F38\u5165\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014KLEE \u540C\u6642\u5831\u544A\u5B83\u8B49\u660E\u7684\u9055\u53CD\u8207\u5177\u9AD4\u7684 witness \u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u53EF\u7591 sink \u53CA\u5176\u524D\u7F6E\u689D\u4EF6\u7684\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u90A3\u662F\u975C\u614B\u5206\u6790\u8F38\u51FA\uFF0C\u4E0D\u662F\u7B26\u865F\u57F7\u884C\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5DF2\u7DE8\u8B6F\u3001\u53EF\u4E7E\u6DE8\u5EFA\u7F6E\u7684 harness",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014harness \u662F\u672C\u968E\u6BB5\u7684\u8F38\u5165\uFF0C\u7531\u7A0D\u65E9\u7684 LLM \u7522\u51FA\u3002"
+              },
+              {
+                "text": "\u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u78BA\u8A8D\u7684 crash",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u78BA\u8A8D\u767C\u751F\u5728\u91CD\u64AD\u968E\u6BB5\uFF0C\u4E0D\u5728\u9019\u88E1\u3002"
+              }
+            ],
+            "generalFeedback": "KLEE \u63A2\u7D22\u7B26\u865F\u8F38\u5165\u4E0A\u7684\u53EF\u884C\u8DEF\u5F91\uFF1B\u7576\u67D0\u689D\u8DEF\u5F91\u5728\u9055\u53CD\u72C0\u614B\u4E0B\u62B5\u9054\u53EF\u7591\u64CD\u4F5C\uFF0C\u5C31\u8A18\u9304\u4E00\u500B VIOLATION \u53CA\u89F8\u767C\u5B83\u7684\u5177\u9AD4 WITNESS \u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "VIOLATION \u662F\u4EC0\u9EBC",
+            "text": "<p>\u5728 SAILOR \u4E2D\uFF0C<strong>VIOLATION</strong> \u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7531\u7B26\u865F\u57F7\u884C\u5668\u627E\u5230\u3001\u88AB\u8B49\u660E\u7684 bug\uFF0Fassertion \u9055\u53CD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014violation \u662F KLEE \u5C0D\u67D0\u689D\u8DEF\u5F91\u6240\u8B49\u660E\u7684\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u8A72 bug \u7684\u5177\u9AD4\u8F38\u5165\u503C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u90A3\u662F WITNESS\uFF1BVIOLATION \u662F\u88AB\u8B49\u660E\u7684 bug \u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790\u6A19\u51FA\u7684\u53EF\u7591\u4F4D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u53EF\u7591\u4F4D\u7F6E\u53EA\u662F\u5019\u9078\uFF1Bviolation \u662F\u67D0\u689D\u8DEF\u5F91\u4E0A\u88AB\u8B49\u660E\u7684 bug\u3002"
+              },
+              {
+                "text": "\u5EFA\u7F6E harness \u6642\u51FA\u73FE\u7684\u7DE8\u8B6F\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7DE8\u8B6F\u932F\u8AA4\u5C6C\u65BC harness \u5408\u6210\u8FF4\u5708\uFF0C\u4E0D\u5C6C\u65BC\u7B26\u865F\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "VIOLATION \u662F\u7B26\u865F\u57F7\u884C\u5668\u8B49\u660E\u300C\u67D0\u689D\u8DEF\u5F91\u62B5\u9054 bug\uFF0Fassertion \u9055\u53CD\u300D\u7684\u7D50\u679C\u3002\u9A45\u52D5\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\u5247\u662F\u53E6\u5916\u7684 WITNESS\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "WITNESS \u662F\u4EC0\u9EBC",
+            "text": "<p>\u5728 SAILOR \u4E2D\uFF0C<strong>WITNESS</strong> \u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u89F8\u767C\u8A72 violation \u7684\u5177\u9AD4\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014witness \u662F\u9A45\u52D5\u6709\u554F\u984C\u8DEF\u5F91\u7684\u5BE6\u969B\u8F38\u5165\u503C\u3002"
+              },
+              {
+                "text": "\u67D0\u689D\u8DEF\u5F91\u4E0A\u5B58\u5728 bug \u7684\u8B49\u660E",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u90A3\u500B\u8B49\u660E\u662F VIOLATION\uFF1Bwitness \u662F\u5177\u9AD4\u7684\u89F8\u767C\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u62B5\u9054 sink \u6240\u9700\u6210\u7ACB\u7684\u975C\u614B\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u524D\u7F6E\u689D\u4EF6\u4F86\u81EA\u975C\u614B\u5206\u6790\uFF1Bwitness \u662F KLEE \u7522\u51FA\u7684\u5177\u9AD4\u8F38\u5165\u3002"
+              },
+              {
+                "text": "crash \u5F8C\u5370\u51FA\u7684\u5806\u758A\u8FFD\u8E64",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014witness \u662F\u8F38\u5165\u800C\u975E\u5D29\u6F70\u8F38\u51FA\uFF1B\u8FFD\u8E64\u51FA\u73FE\u5728\u91CD\u64AD\u6642\u3002"
+              }
+            ],
+            "generalFeedback": "WITNESS \u662F KLEE \u8207 VIOLATION \u4E00\u8D77\u7522\u51FA\u7684\u5177\u9AD4\u8F38\u5165\u2014\u2014\u6B63\u662F\u8B93\u6709\u554F\u984C\u8DEF\u5F91\u57F7\u884C\u7684\u503C\u3002\u7A0D\u5F8C\u7684\u5177\u9AD4\u91CD\u64AD\u6703\u628A\u9019\u500B witness \u9935\u9032\u771F\u5BE6\u7A0B\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u9AD4\u91CD\u64AD\u78BA\u8A8D\u4EC0\u9EBC",
+            "text": "<p><strong>\u5177\u9AD4\u91CD\u64AD</strong>\u968E\u6BB5\uFF08\u7B2C 4 \u968E\u6BB5\uFF09\u78BA\u8A8D\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A witness \u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u64AD\uFF0C\u78BA\u8A8D\u6F0F\u6D1E\u70BA\u771F\u3001\u85C9\u6B64\u6FFE\u9664\u5047\u967D\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u64AD\u78BA\u8A8D\u7684\u662F\u771F\u5BE6 crash\uFF0C\u800C\u975E harness \u9020\u6210\u7684\u5047\u8C61\u3002"
+              },
+              {
+                "text": "harness \u53EF\u4E7E\u6DE8\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u4E7E\u6DE8\u7DE8\u8B6F\u5728\u7B2C 2 \u968E\u6BB5\u3001\u7B26\u865F\u57F7\u884C\u4E4B\u524D\u5C31\u5DF2\u89E3\u6C7A\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u6709\u591A\u5C11\u689D\u53EF\u884C\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8DEF\u5F91\u63A2\u7D22\u662F\u7B26\u865F\u57F7\u884C\u968E\u6BB5\uFF1B\u91CD\u64AD\u53EA\u662F\u91CD\u73FE\u55AE\u4E00 witness\u3002"
+              },
+              {
+                "text": "\u62B5\u9054 sink \u6240\u9700\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u524D\u7F6E\u689D\u4EF6\u662F\u975C\u614B\u5206\u6790\u8F38\u51FA\uFF0C\u4E0D\u662F\u91CD\u64AD\u78BA\u8A8D\u7684\u5C0D\u8C61\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u91CD\u64AD\u628A WITNESS \u9935\u9032\u539F\u59CB\u3001\u672A\u4FEE\u6539\u7684\u7A0B\u5F0F\u3002\u82E5\u771F\u7684\u5D29\u6F70\uFF0C\u8A72\u767C\u73FE\u5373 CONFIRMED\u2014\u2014\u662F\u771F\u5BE6 bug\uFF0C\u800C\u975E\u5408\u6210 harness \u7684\u5047\u8C61\uFF0C\u85C9\u6B64\u6FFE\u9664\u5047\u967D\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC4\u4F8B\u7684 bug \u985E\u578B",
+            "text": "<p>\u7BC4\u4F8B\u9396\u5B9A\u4E00\u500B <code>strcpy</code> \u547C\u53EB\u3002\u5B83\u793A\u7BC4\u7684\u662F\u54EA\u7A2E\u6F0F\u6D1E\u985E\u578B\uFF0FCWE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "CWE-787\uFF0C\u8D8A\u754C\u5BEB\u5165\uFF08buffer overflow\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014strcpy \u53EF\u80FD\u5BEB\u904E\u76EE\u6A19\u7DE9\u885D\u5340\uFF0C\u5C6C\u8D8A\u754C\u5BEB\u5165\u3002"
+              },
+              {
+                "text": "CWE-125\uFF0C\u8D8A\u754C\u8B80\u53D6",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014strcpy \u662F\u5BEB\u904E\u7DE9\u885D\u5340\uFF1B\u672C\u4F8B\u662F\u8D8A\u754C\u5BEB\u5165\uFF08CWE-787\uFF09\uFF0C\u4E0D\u662F\u8B80\u53D6\u3002"
+              },
+              {
+                "text": "CWE-89\uFF0CSQL \u6CE8\u5165",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u9019\u662F C \u7684\u8A18\u61B6\u9AD4\u5B89\u5168 bug\uFF0C\u4E0D\u662F SQL \u6CE8\u5165\u3002"
+              },
+              {
+                "text": "use-after-free",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u672C\u4F8B\u662F buffer overflow\uFF08\u8D8A\u754C\u5BEB\u5165\uFF09\uFF0C\u4E0D\u662F use-after-free\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u7528 strcpy \u628A\u4E0D\u53EF\u4FE1\u5B57\u4E32\u8907\u88FD\u9032\u56FA\u5B9A\u7684 32 \u4F4D\u5143\u7D44\u7DE9\u885D\u5340\uFF1B\u7576\u4F86\u6E90\u8F03\u9577\u6642\uFF0C\u8907\u88FD\u6703\u5BEB\u904E\u7DE9\u885D\u5340\u2014\u2014\u5373\u8D8A\u754C\u5BEB\u5165\uFF0CCWE-787\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "KLEE \u662F\u4EC0\u9EBC",
+            "text": "<p>\u7B2C 3 \u968E\u6BB5\u4F7F\u7528\u7684 KLEE\uFF0C\u6700\u9069\u5408\u63CF\u8FF0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u4EE5\u7B26\u865F\u8F38\u5165\u63A2\u7D22\u7A0B\u5F0F\u8DEF\u5F91\u7684\u7B26\u865F\u57F7\u884C\u5F15\u64CE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014KLEE \u662F SAILOR \u9A45\u52D5\u7684\u7B26\u865F\u57F7\u884C\u5668\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u4E0D\u57F7\u884C\u7A0B\u5F0F\u3001\u53EA\u6A19\u51FA\u53EF\u7591\u78BC\u7684\u975C\u614B\u5206\u6790\u5668",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u90A3\u63CF\u8FF0\u7684\u662F\u7B2C 1 \u968E\u6BB5\uFF1BKLEE \u6703\u5BE6\u969B\u4EE5\u7B26\u865F\u65B9\u5F0F\u57F7\u884C\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u8CA0\u8CAC\u64B0\u5BEB harness \u7684\u5927\u578B\u8A9E\u8A00\u6A21\u578B",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014LLM \u5728\u7B2C 2 \u968E\u6BB5\u5BEB harness\uFF1BKLEE \u5728\u7B2C 3 \u968E\u6BB5\u904B\u884C\u5B83\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5C0D\u5177\u9AD4\u8F38\u5165\u505A\u7A81\u8B8A\u7684\u96A8\u6A5F fuzzer",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014KLEE \u662F\u5C0D\u7B26\u865F\u8F38\u5165\u8207\u8DEF\u5F91\u7D04\u675F\u63A8\u7406\uFF0C\u800C\u975E\u96A8\u6A5F\u7684\u5177\u9AD4\u7A81\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "KLEE \u662F\u7B26\u865F\u57F7\u884C\u5F15\u64CE\uFF1A\u5B83\u4EE5\u7B26\u865F\u8F38\u5165\u904B\u884C harness\uFF0C\u63A2\u7D22\u53EF\u884C\u8DEF\u5F91\u4E26\u6C42\u89E3\u7D04\u675F\uFF0C\u4EE5\u8F38\u51FA violation \u8207 witness\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u968E\u6BB5\u7522\u51FA witness",
+            "text": "<p>\u54EA\u500B\u968E\u6BB5\u7522\u51FA\u7A0D\u5F8C\u4F9B\u5177\u9AD4\u91CD\u64AD\u4F7F\u7528\u7684 WITNESS\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B26\u865F\u57F7\u884C\uFF08KLEE\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014KLEE \u8207 violation \u4E00\u8D77\u8F38\u51FA witness \u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u7522\u51FA\u53EF\u7591\u4F4D\u7F6E\u8207\u524D\u7F6E\u689D\u4EF6\uFF0C\u4E0D\u662F\u5177\u9AD4\u7684 witness\u3002"
+              },
+              {
+                "text": "LLM Harness \u5408\u6210",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8A72\u968E\u6BB5\u7522\u51FA driver\uFF1Bwitness \u4F86\u81EA\u5728 KLEE \u4E0B\u904B\u884C\u5B83\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u6D88\u8CBB witness\uFF0C\u4E26\u4E0D\u7522\u51FA\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "KLEE\uFF08\u7B2C 3 \u968E\u6BB5\uFF09\u8F38\u51FA VIOLATION \u8207\u5177\u9AD4\u7684 WITNESS\u3002\u7B2C 4 \u968E\u6BB5\u518D\u628A\u8A72 witness \u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u64AD\u4EE5\u78BA\u8A8D bug\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "SAILOR \u7D50\u5408\u4E09\u7A2E\u6280\u8853",
+            "text": "<p>SAILOR \u7D50\u5408\u975C\u614B\u5206\u6790\u3001LLM \u5408\u6210\u7684 harness \u8207\u7B26\u865F\u57F7\u884C\u4F86\u767C\u73FE\u6F0F\u6D1E\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E09\u7A2E\u6280\u8853\uFF08\u5916\u52A0\u5177\u9AD4\u91CD\u64AD\u78BA\u8A8D\u6B65\u9A5F\uFF09\u69CB\u6210\u6574\u689D\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "SAILOR \u7684\u6574\u9AD4\u8A2D\u8A08\u6B63\u662F\u7D50\u5408\u975C\u614B\u5206\u6790\u3001LLM harness \u8207\u7B26\u865F\u57F7\u884C\uFF0C\u518D\u4EE5\u5177\u9AD4\u91CD\u64AD\u78BA\u8A8D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D41\u7A0B\u7684\u540D\u7A31\u5DF2\u8AAA\u660E\uFF1A\u300CGuiding Symbolic Execution with Static Analysis and LLMs\u300D\u3002\u7B2C\u56DB\u968E\u6BB5\u7684\u5177\u9AD4\u91CD\u64AD\u8CA0\u8CAC\u78BA\u8A8D\u767C\u73FE\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u61C9\u6D3B\u52D5\uFF1A\u8F38\u51FA\u524D\u7F6E\u689D\u4EF6\u8207\u6C61\u67D3\u6A19\u8A18",
+            "text": "<p>\u67D0 SAILOR \u5143\u4EF6\u91DD\u5C0D\u4E00\u500B <code>strcpy</code> \u547C\u53EB\uFF0C\u8F38\u51FA\u4E86\u53EF\u7591\u4F4D\u7F6E\u3001\u524D\u7F6E\u689D\u4EF6 <code>strlen(raw) &lt; 32</code>\u3001\u51FD\u5F0F\u9032\u5165\u9EDE\uFF0C\u4EE5\u53CA\u628A <code>raw</code> \u6A19\u70BA\u53D7\u653B\u64CA\u8005\u63A7\u5236\u7684\u6C61\u67D3\u6A19\u8A18\u3002\u9019\u662F\u54EA\u500B\u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975C\u614B\u5206\u6790",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A19\u51FA sink \u4E26\u8F38\u51FA\u5176\u524D\u7F6E\u689D\u4EF6\u3001\u9032\u5165\u9EDE\u8207\u6C61\u67D3\u6A19\u8A18\uFF0C\u5373\u975C\u614B\u5206\u6790\u3002"
+              },
+              {
+                "text": "LLM Harness \u5408\u6210",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8A72\u968E\u6BB5\u662F\u5BEB driver\uFF1B\u5B83\u6D88\u8CBB\u9019\u4E9B\u8CC7\u8A0A\u800C\u975E\u7522\u51FA\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7B26\u865F\u57F7\u884C\u63A2\u7D22\u8DEF\u5F91\uFF0C\u4E26\u4E0D\u7522\u51FA\u521D\u59CB\u7684\u53EF\u7591\uFF0F\u524D\u7F6E\u689D\u4EF6\u6E05\u55AE\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u78BA\u8A8D witness\uFF0C\u4E26\u4E0D\u7522\u51FA\u524D\u7F6E\u689D\u4EF6\u8207\u6C61\u67D3\u6A19\u8A18\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u7591\u4F4D\u7F6E\uFF0B\u524D\u7F6E\u689D\u4EF6\uFF0B\u9032\u5165\u9EDE\uFF0B\u6C61\u67D3\uFF0C\u6B63\u662F\u5F15\u5C0E\u5F8C\u7E8C\u6D41\u7A0B\u7684\u975C\u614B\u5206\u6790\u8F38\u51FA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u61C9\u6D3B\u52D5\uFF1A\u64B0\u5BEB\u53EF\u7DE8\u8B6F\u7684 driver",
+            "text": "<p>\u67D0 SAILOR \u5143\u4EF6\u5BA3\u544A\u7B26\u865F\u8F38\u5165\u3001\u52A0\u4E0A\u908A\u754C\u3001\u547C\u53EB <code>load_name(raw)</code>\uFF0C\u4E26\u5728\u7DE8\u8B6F\u932F\u8AA4\u5F8C\u4FEE\u6539\u7A0B\u5F0F\u78BC\u76F4\u5230\u80FD\u5EFA\u7F6E\u3002\u9019\u662F\u54EA\u500B\u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "LLM Harness \u5408\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u64B0\u5BEB\u4E26\u53CD\u8986\u4FEE\u6B63\u4E00\u500B\u53EF\u7DE8\u8B6F\u7684 driver\uFF0C\u5373 LLM harness \u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u6A19\u51FA\u4F4D\u7F6E\uFF0C\u4E26\u4E0D\u64B0\u5BEB\u6216\u7DE8\u8B6F driver\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7B26\u865F\u57F7\u884C\u904B\u884C\u5B8C\u6210\u7684 harness\uFF0C\u4E26\u4E0D\u64B0\u5BEB\u5B83\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u662F\u5728\u771F\u5BE6\u7A0B\u5F0F\u4E0A\u8DD1\u5177\u9AD4 witness\uFF0C\u800C\u975E\u5408\u6210\u7684 driver\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BA3\u544A\uFF0F\u52A0\u754C\u7B26\u865F\u8F38\u5165\u3001\u547C\u53EB\u9032\u5165\u51FD\u5F0F\u3001\u4F9D\u7DE8\u8B6F\u56DE\u994B\u53CD\u8986\u4FEE\u6B63\u76F4\u5230\u5EFA\u7F6E\u6210\u529F\uFF0C\u5373\u8FED\u4EE3\u5F0F LLM harness \u5408\u6210\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u61C9\u6D3B\u52D5\uFF1A\u5831\u544A VIOLATION \u8207 WITNESS",
+            "text": "<p>\u67D0 SAILOR \u5143\u4EF6\u5831\u544A\uFF1A<code>strlen(raw) &lt; 32</code> \u6642\u70BA\u5B89\u5168\u8DEF\u5F91\u3001<code>strlen(raw) &ge; 32</code> \u6642\u70BA\u6EA2\u4F4D\u8DEF\u5F91\u3001\u4E00\u500B VIOLATION\uFF08\u8D8A\u754C\u5BEB\u5165\uFF09\uFF0C\u4EE5\u53CA\u4E00\u500B 40 \u4F4D\u5143\u7D44\u7684 WITNESS <code>raw</code>\u3002\u9019\u662F\u54EA\u500B\u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B26\u865F\u57F7\u884C\uFF08KLEE\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A2\u7D22\u8DEF\u5F91\u4E26\u8F38\u51FA violation \u52A0 witness\uFF0C\u5373\u7B26\u865F\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u9EDE\u540D\u53EF\u7591\u8655\u8207\u524D\u7F6E\u689D\u4EF6\uFF0C\u4E26\u4E0D\u63A2\u7D22\u8DEF\u5F91\u6216\u7522\u51FA witness\u3002"
+              },
+              {
+                "text": "LLM Harness \u5408\u6210",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8A72\u968E\u6BB5\u5EFA driver\uFF1B\u7531 KLEE \u904B\u884C\u5B83\u624D\u7522\u51FA violation \u8207 witness\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u6D88\u8CBB witness \u4EE5\u78BA\u8A8D\uFF0C\u4E26\u4E0D\u767C\u73FE\u9055\u53CD\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u5217\u8209\u53EF\u884C\u8DEF\u5F91\uFF0C\u4E26\u5728\u9055\u53CD\u8DEF\u5F91\u4E0A\u8A18\u9304\u4E00\u500B VIOLATION \u53CA\u5177\u9AD4 WITNESS \u8F38\u5165\uFF0C\u5373 KLEE \u7B26\u865F\u57F7\u884C\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u61C9\u6D3B\u52D5\uFF1A\u91CD\u8DD1\u672A\u4FEE\u6539\u7684\u7A0B\u5F0F",
+            "text": "<p>\u67D0 SAILOR \u5143\u4EF6\u7528\u4E00\u500B 40 \u4F4D\u5143\u7D44\u8F38\u5165\u904B\u884C\u539F\u59CB\u672A\u4FEE\u6539\u7684\u7A0B\u5F0F\uFF0C\u89C0\u5BDF\u5230 invalid write\uFF0C\u4E26\u628A\u767C\u73FE\u6A19\u8A18\u70BA CONFIRMED\u3002\u9019\u662F\u54EA\u500B\u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u73FE crash\uFF0C\u5373\u5177\u9AD4\u91CD\u64AD\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7B26\u865F\u57F7\u884C\u4EE5\u7B26\u865F\u8F38\u5165\u904B\u884C harness\uFF0C\u800C\u975E\u4EE5\u5177\u9AD4\u8F38\u5165\u904B\u884C\u672A\u4FEE\u6539\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u6839\u672C\u4E0D\u57F7\u884C\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "LLM Harness \u5408\u6210",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8A72\u968E\u6BB5\u5BEB driver\uFF0C\u4E26\u4E0D\u5728\u771F\u5BE6\u7A0B\u5F0F\u4E0A\u78BA\u8A8D crash\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5177\u9AD4 witness \u9935\u9032\u539F\u59CB\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E26\u78BA\u8A8D crash\uFF0C\u5373\u5177\u9AD4\u91CD\u64AD\u968E\u6BB5\u2014\u2014\u5047\u967D\u6027\u7684\u904E\u6FFE\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u975C\u614B\u5206\u6790\u6700\u5148\u8DD1",
+            "text": "<p>SAILOR \u4E2D\uFF0C\u70BA\u4F55\u975C\u614B\u5206\u6790\u8981\u8DD1\u5728\u7B26\u865F\u57F7\u884C<em>\u4E4B\u524D</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u628A\u641C\u5C0B\u6536\u6582\u5230\u53EF\u7591\u4F4D\u7F6E\u8207\u524D\u7F6E\u689D\u4EF6\uFF0C\u4F7F\u7B26\u865F\u57F7\u884C\u4E0D\u76F2\u76EE\u3001\u7DAD\u6301\u53EF\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u4FEE\u526A\u7A7A\u9593\uFF0C\u624D\u80FD\u8B93\u6602\u8CB4\u7684\u63A2\u7D22\u7DAD\u6301\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA KLEE \u9700\u8981\u53EA\u6709\u975C\u614B\u5206\u6790\u624D\u80FD\u7522\u51FA\u7684\u5DF2\u7DE8\u8B6F\u4E8C\u9032\u4F4D\u6A94",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7522\u51FA\u53EF\u57F7\u884C\uFF0F\u53EF\u7DE8\u8B6F driver \u7684\u662F harness\uFF08\u7B2C 2 \u968E\u6BB5\uFF09\uFF0C\u4E0D\u662F\u975C\u614B\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA witness \u5FC5\u9808\u5728\u5BEB harness \u4E4B\u524D\u5C31\u5B58\u5728",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014witness \u4F86\u81EA\u7B26\u865F\u57F7\u884C\uFF0C\u800C\u5B83\u5728\u975C\u614B\u5206\u6790\u8207 harness \u5408\u6210\u4E4B\u5F8C\u624D\u8DD1\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u91CD\u64AD\u5FC5\u9808\u5728\u63A2\u7D22\u958B\u59CB\u524D\u5C31\u78BA\u8A8D bug",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u662F\u6700\u5F8C\u968E\u6BB5\uFF0C\u5B83\u9700\u8981\u53EA\u6709\u7B26\u865F\u57F7\u884C\u80FD\u7522\u51FA\u7684 witness\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u57F7\u884C\u6703\u906D\u9047\u8DEF\u5F91\u7206\u70B8\u3002\u5148\u8DD1\u975C\u614B\u5206\u6790\u6A19\u51FA\u4F55\u8655\u3001\u5728\u4F55\u524D\u7F6E\u689D\u4EF6\u4E0B\u8A72\u770B\uFF0C\u57F7\u884C\u5668\u5C31\u628A\u9810\u7B97\u82B1\u5728\u91CD\u8981\u8DEF\u5F91\uFF0C\u800C\u975E\u76F2\u76EE\u63A2\u7D22\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u662F\u9019\u500B\u968E\u6BB5\u9806\u5E8F",
+            "text": "<p>\u4E0B\u5217\u54EA\u53E5\u6700\u80FD\u7E3D\u7D50 SAILOR \u5404\u968E\u6BB5\u63A1\u6B64\u7279\u5B9A\u9806\u5E8F\u7684<em>\u539F\u56E0</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975C\u614B\u6536\u6582 \u2192 harness \u9A45\u52D5 \u2192 \u7B26\u865F\u63A2\u7D22 \u2192 \u91CD\u64AD\u78BA\u8A8D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u968E\u6BB5\u90FD\u6070\u597D\u5099\u59A5\u4E0B\u4E00\u500B\u968E\u6BB5\u6240\u9700\u4E4B\u7269\u3002"
+              },
+              {
+                "text": "\u91CD\u64AD\u78BA\u8A8D \u2192 \u7B26\u865F\u63A2\u7D22 \u2192 harness \u9A45\u52D5 \u2192 \u975C\u614B\u6536\u6582",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u9019\u628A\u6D41\u7A0B\u53CD\u904E\u4F86\u4E86\uFF1B\u9084\u6C92\u767C\u73FE\u5C31\u7121\u6CD5\u78BA\u8A8D\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "harness \u9A45\u52D5 \u2192 \u91CD\u64AD\u78BA\u8A8D \u2192 \u975C\u614B\u6536\u6582 \u2192 \u7B26\u865F\u63A2\u7D22",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u9396\u5B9A\u4F4D\u7F6E\u524D\u7121\u6CD5\u5EFA harness\uFF0C\u4E14\u91CD\u64AD\u9700\u5148\u6709 witness\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u63A2\u7D22 \u2192 \u975C\u614B\u6536\u6582 \u2192 \u91CD\u64AD\u78BA\u8A8D \u2192 harness \u9A45\u52D5",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7B26\u865F\u57F7\u884C\u5728\u80FD\u8DD1\u4E4B\u524D\uFF0C\u9700\u8981\u76EE\u6A19\u8207 harness \u5169\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u5206\u6790\u6536\u6582\u76EE\u6A19\u3001LLM \u5EFA driver \u4EE5\u62B5\u9054\u5B83\u3001\u7B26\u865F\u57F7\u884C\u63A2\u7D22\u8A72 driver \u4EE5\u7528 witness \u8B49\u660E\u9055\u53CD\u3001\u91CD\u64AD\u5728\u771F\u5BE6\u7A0B\u5F0F\u4E0A\u78BA\u8A8D witness\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B8C\u6574 SAILOR \u7684\u982D\u689D\u6578\u5B57",
+            "text": "<p>\u5728\u8A55\u4F30\u4E2D\uFF0C<strong>\u5B8C\u6574</strong>\u7684 SAILOR \u6D41\u7A0B\u56DE\u5831\u4E86\u591A\u5C11\u6F0F\u6D1E\u8207 crash\uFF1F</p>",
+            "answers": [
+              {
+                "text": "379 \u500B\u7368\u7ACB\u6F0F\u6D1E\u8207 421 \u500B\u78BA\u8A8D crash",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u5B8C\u6574\u6D41\u7A0B\u7684\u982D\u689D\u6578\u5B57\u3002"
+              },
+              {
+                "text": "421 \u500B\u7368\u7ACB\u6F0F\u6D1E\u8207 379 \u500B\u78BA\u8A8D crash",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6578\u5B57\u5C0D\u8ABF\u4E86\uFF1A\u662F 379 \u500B\u7368\u7ACB\u6F0F\u6D1E\u8207 421 \u500B\u78BA\u8A8D crash\u3002"
+              },
+              {
+                "text": "12 \u500B\u7368\u7ACB\u6F0F\u6D1E\u8207 35 \u500B\u78BA\u8A8D crash",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u201412 \u662F\u57FA\u6E96\u503C\uFF1B\u5B8C\u6574\u6D41\u7A0B\u627E\u5230\u7684\u591A\u5F97\u591A\u3002"
+              },
+              {
+                "text": "3790 \u500B\u7368\u7ACB\u6F0F\u6D1E\u8207 4210 \u500B\u78BA\u8A8D crash",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u56DE\u5831\u7684\u6578\u5B57\u662F 379 \u8207 421\uFF0C\u4E0D\u662F\u5341\u500D\u5927\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6574 SAILOR \u5728\u6574\u500B\u8A55\u4F30\u4E2D\u627E\u5230 379 \u500B\u7368\u7ACB\u6F0F\u6D1E\u8207 421 \u500B\u78BA\u8A8D crash\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u79FB\u9664\u975C\u614B\u5206\u6790\u7684\u6548\u679C",
+            "text": "<p>\u5728\u6D88\u878D\u5BE6\u9A57\u4E2D\uFF0C\u79FB\u9664\u975C\u614B\u5206\u6790\uFF08\u300Cno-static\u300D\uFF09\u5C0D\u627E\u5230\u7684\u6F0F\u6D1E\u6709\u4F55\u6548\u679C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u627E\u5230\u7684\u6F0F\u6D1E\u5C11\u4E86\u7D04 12.2 \u500D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u9396\u5B9A\u76EE\u6A19\uFF0C\u7B26\u865F\u57F7\u884C\u7684\u6548\u80FD\u5927\u5E45\u4E0B\u964D\u3002"
+              },
+              {
+                "text": "\u627E\u5230\u7684\u6F0F\u6D1E\u6070\u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6B78\u96F6\u662F no-LLM \u7684\u7D50\u679C\uFF1Bno-static \u662F\u5C11 12.2 \u500D\u4F46\u4ECD\u975E\u96F6\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u53EF\u91CF\u6E2C\u7684\u8B8A\u5316",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u79FB\u9664\u975C\u614B\u5206\u6790\u9020\u6210 12.2 \u500D\u7684\u5927\u5E45\u6E1B\u5C11\u3002"
+              },
+              {
+                "text": "\u627E\u5230\u7684\u6F0F\u6D1E\u591A\u4E86\u7D04 12.2 \u500D",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u79FB\u9664\u4FEE\u526A\u53EA\u6703\u6709\u5BB3\u4E0D\u6703\u6709\u76CA\uFF1B\u5B83\u662F\u5C11 12.2 \u500D\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u5206\u6790\u6B63\u662F\u8B93\u7B26\u865F\u57F7\u884C\u53EF\u884C\u7684\u95DC\u9375\u3002\u79FB\u9664\u5B83\uFF0CSAILOR \u627E\u5230\u7684\u6F0F\u6D1E\u5C11\u7D04 12.2 \u500D\u2014\u2014\u56B4\u91CD\u4E0B\u964D\uFF0C\u4F46\u672A\u5230\u6B78\u96F6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u79FB\u9664 LLM harness \u7684\u6548\u679C",
+            "text": "<p>\u5728\u6D88\u878D\u5BE6\u9A57\u4E2D\uFF0C\u79FB\u9664 LLM harness \u5408\u6210\uFF08\u300Cno-LLM\u300D\uFF09\u7684\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u627E\u5230\u96F6\u500B\u6F0F\u6D1E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709 harness\uFF0CKLEE \u5C31\u6C92\u6771\u897F\u53EF\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5C11\u7D04 12.2 \u500D",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5C11 12.2 \u500D\u662F no-static \u7684\u7D50\u679C\uFF1Bno-LLM \u4E00\u8DEF\u5D29\u5230\u96F6\u3002"
+              },
+              {
+                "text": "\u6070\u597D 12 \u500B\uFF08\u8207\u57FA\u6E96\u76F8\u540C\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u201412 \u662F\u65E2\u6709\u57FA\u6E96\u5DE5\u5177\uFF1Bno-LLM \u7522\u51FA\u96F6\u3002"
+              },
+              {
+                "text": "\u53EA\u6BD4\u5B8C\u6574\u6D41\u7A0B\u7565\u5C11\u4E00\u4E9B",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6C92\u6709 harness\uFF0C\u6D41\u7A0B\u5C31\u6C92\u6771\u897F\u53EF\u8DD1\uFF0C\u56E0\u6B64\u627E\u5230\u96F6\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C92\u6709 harness \u5C31\u6C92\u6771\u897F\u80FD\u5728 KLEE \u4E0B\u57F7\u884C\uFF0C\u6240\u4EE5 no-LLM \u6D88\u878D\u627E\u5230\u96F6\u500B\u6F0F\u6D1E\u2014\u2014\u986F\u793A harness \u662F\u786C\u6027\u524D\u63D0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57FA\u6E96\u7684\u6578\u5B57",
+            "text": "<p>\u57FA\u6E96\uFF0F\u65E2\u6709\u6BD4\u8F03\u5DE5\u5177\uFF08\u624B\u5BEB harness\uFF09\u627E\u5230\u591A\u5C11\u6F0F\u6D1E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65E2\u6709\u5DE5\u5177\u53EA\u627E\u5230 12\uFF0C\u76F8\u5C0D\u65BC\u5B8C\u6574 SAILOR \u7684 379\u3002"
+              },
+              {
+                "text": "379",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014379 \u662F\u5B8C\u6574 SAILOR \u7684\u7368\u7ACB\u6F0F\u6D1E\u6578\uFF0C\u4E0D\u662F\u57FA\u6E96\u3002"
+              },
+              {
+                "text": "421",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014421 \u662F\u5B8C\u6574 SAILOR \u7684\u78BA\u8A8D crash \u6578\uFF0C\u4E0D\u662F\u57FA\u6E96\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u96F6\u662F no-LLM \u6D88\u878D\u7684\u7D50\u679C\uFF1B\u57FA\u6E96\u627E\u5230 12\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u6E96\uFF08\u4F7F\u7528\u624B\u5BEB harness \u7684\u65E2\u6709\u5DE5\u5177\uFF09\u53EA\u627E\u5230 12\uFF0C\u9060\u5C11\u65BC\u5B8C\u6574 SAILOR \u7684 379 \u500B\u7368\u7ACB\u6F0F\u6D1E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A55\u4F30\u898F\u6A21",
+            "text": "<p>SAILOR \u5728\u5927\u7D04\u591A\u5C11\u7A0B\u5F0F\u78BC\u4E0A\u9032\u884C\u8A55\u4F30\uFF1F</p>",
+            "answers": [
+              {
+                "text": "10 \u500B\u958B\u6E90\u5C08\u6848\uFF0C\u7D04 680 \u842C\u884C C/C++",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u56DE\u5831\u7684\u8A55\u4F30\u8A9E\u6599\u3002"
+              },
+              {
+                "text": "1 \u500B\u7D04 680 \u842C\u884C\u7684\u5C08\u6848",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u662F 10 \u500B\u5C08\u6848\uFF0C\u4E0D\u662F\u55AE\u4E00\u500B\u3002"
+              },
+              {
+                "text": "100 \u500B\u5404\u7D04 6800 \u884C\u7684\u5C08\u6848",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8A9E\u6599\u662F 10 \u500B\u5C08\u6848\uFF0C\u5408\u8A08\u7D04 680 \u842C\u884C\u3002"
+              },
+              {
+                "text": "10 \u500B\u5408\u8A08\u7D04 6800 \u884C\u7684\u5C08\u6848",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5408\u8A08\u7D04 680 \u842C\u884C C/C++\uFF0C\u4E0D\u662F 6800 \u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A55\u4F30\u5728 10 \u500B\u958B\u6E90\u5C08\u6848\u4E0A\u9032\u884C\uFF0C\u5408\u8A08\u7D04 680 \u842C\u884C C/C++\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u70BA\u4F55\u9700\u8981\u5177\u9AD4\u91CD\u64AD",
+            "text": "<p>\u5177\u9AD4\u91CD\u64AD\u7684\u5B58\u5728\uFF0C\u4E3B\u8981\u662F\u70BA\u4E86\u628A witness \u5728\u539F\u59CB\u672A\u4FEE\u6539\u7684\u7A0B\u5F0F\u4E0A\u91CD\u8DD1\uFF0C\u4EE5\u6FFE\u9664\u5047\u967D\u6027\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728 harness \u88E1\u627E\u5230\u7684\u9055\u53CD\uFF0C\u552F\u6709\u5177\u9AD4 witness \u5728\u771F\u5BE6\u7A0B\u5F0F\u4E0A\u91CD\u73FE\u5F8C\u624D\u88AB\u63A1\u4FE1\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u91CD\u64AD\u7684\u76EE\u7684\u6B63\u662F\u904E\u6FFE\u5047\u967D\u6027\uFF1A\u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u78BA\u8A8D bug \u70BA\u771F\uFF0C\u800C\u975E harness \u7684\u5047\u8C61\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u57F7\u884C\u53EF\u80FD\u5728\u53EA\u6709 harness \u4E2D\u624D\u53EF\u884C\u7684\u8DEF\u5F91\u4E0A\u5831\u9055\u53CD\u3002\u628A\u5177\u9AD4 witness \u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u64AD\uFF0C\u53EF\u78BA\u8A8D\u771F\u5BE6 bug \u4E26\u4E1F\u68C4\u53EA\u5B58\u5728\u65BC harness \u7684\u5047\u8C61\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "strcpy \u7684\u524D\u7F6E\u689D\u4EF6",
+            "text": "<p>\u5728\u7BC4\u4F8B\u4E2D\u76EE\u6A19\u7DE9\u885D\u5340\u70BA <code>char name[32]</code>\u3002\u975C\u614B\u5206\u6790\u5C0D <code>strcpy</code> sink \u9644\u52A0\u4E86\u4EC0\u9EBC\u524D\u7F6E\u689D\u4EF6\uFF0C\u4F5C\u70BA\u8907\u88FD\u7DAD\u6301\u5B89\u5168\u7684\u689D\u4EF6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "strlen(raw) < 32",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F86\u6E90\u5FC5\u9808\u77ED\u65BC 32 \u4F4D\u5143\u7D44\u7684\u76EE\u6A19\uFF0C\u8907\u88FD\u624D\u5B89\u5168\u3002"
+              },
+              {
+                "text": "strlen(raw) < 64",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u76EE\u6A19\u662F 32 \u4F4D\u5143\u7D44\uFF0C\u5B89\u5168\u524D\u7F6E\u689D\u4EF6\u662F strlen(raw) < 32\uFF0C\u4E0D\u662F 64\u3002"
+              },
+              {
+                "text": "strlen(raw) > 32",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u90A3\u662F\u6EA2\u4F4D\u689D\u4EF6\uFF0C\u4E0D\u662F\u5B89\u5168\u524D\u7F6E\u689D\u4EF6\uFF1B\u5B89\u5168\u662F strlen(raw) < 32\u3002"
+              },
+              {
+                "text": "raw != NULL",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975E\u7A7A\u4E26\u4E0D\u9650\u5236\u9577\u5EA6\uFF1B\u9577\u5EA6\u524D\u7F6E\u689D\u4EF6\u662F strlen(raw) < 32\u3002"
+              }
+            ],
+            "generalFeedback": "\u76EE\u6A19\u70BA 32 \u4F4D\u5143\u7D44\u6642\uFF0C\u552F\u6709 strlen(raw) < 32 \u8907\u88FD\u624D\u5B89\u5168\u3002\u975C\u614B\u5206\u6790\u9644\u52A0\u6B64\u524D\u7F6E\u689D\u4EF6\uFF0C\u8B93\u7B26\u865F\u57F7\u884C\u80FD\u9396\u5B9A\u5176\u88AB\u9055\u53CD\u7684\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "VIOLATION \u8207 WITNESS \u4E00\u8D77",
+            "text": "<p>\u55AE\u4E00 KLEE \u7D50\u679C\u540C\u6642\u5E36\u6709 VIOLATION \u8207 WITNESS\u3002\u5169\u8005\u7684\u95DC\u4FC2\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "VIOLATION \u662F\u67D0\u689D\u8DEF\u5F91\u4E0A\u88AB\u8B49\u660E\u7684 bug\uFF1BWITNESS \u662F\u9A45\u52D5\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\uFF0C\u91CD\u64AD\u6703\u91CD\u7528\u5B83\u4F86\u91CD\u73FE\u9055\u53CD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u662F\u8B49\u660E\uFF0C\u53E6\u4E00\u500B\u662F\u91CD\u64AD\u6240\u4F9D\u8CF4\u7684\u89F8\u767C\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u500B\u6771\u897F\u7684\u5169\u500B\u540D\u5B57",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014violation\uFF08\u8B49\u660E\uFF09\u8207 witness\uFF08\u8F38\u5165\uFF09\u662F\u4E0D\u540C\u7684\u7522\u7269\u3002"
+              },
+              {
+                "text": "WITNESS \u662F\u8B49\u660E\uFF0CVIOLATION \u662F\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u9019\u5C0D\u8ABF\u4E86\uFF1Aviolation \u662F\u8B49\u660E\uFF0Cwitness \u662F\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u57F7\u884C\u524D\u7522\u51FA\u7684\u975C\u614B\u898F\u683C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5169\u8005\u90FD\u662F\u7B26\u865F\u57F7\u884C\u7684\u8F38\u51FA\uFF0C\u4E0D\u662F\u975C\u614B\u898F\u683C\u3002"
+              }
+            ],
+            "generalFeedback": "KLEE \u5728\u67D0\u689D\u8DEF\u5F91\u4E0A\u8B49\u660E VIOLATION\uFF0C\u4E26\u56DE\u5831\u9A45\u52D5\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4 WITNESS \u8F38\u5165\u3002\u5177\u9AD4\u91CD\u64AD\u628A witness\uFF08\u800C\u975E violation\uFF09\u9935\u9032\u771F\u5BE6\u7A0B\u5F0F\u4EE5\u78BA\u8A8D bug\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC4\u4F8B\u4E2D witness \u78BA\u8A8D\u4E86\u4EC0\u9EBC",
+            "text": "<p>\u5728\u7BC4\u4F8B\u4E2D\uFF0Cwitness \u8B93\u4F86\u6E90\u5B57\u4E32\u8D85\u904E 32 \u4F4D\u5143\u7D44\u7684\u76EE\u6A19\u7DE9\u885D\u5340\u3002\u4E00\u65E6\u91CD\u64AD\u91CD\u73FE crash\uFF0C\u78BA\u8A8D\u7684\u662F\u54EA\u4E00\u985E bug\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8D8A\u754C\u5BEB\u5165\uFF08CWE-787\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BEB\u904E\u76EE\u6A19\u7DE9\u885D\u5340\u5373\u8D8A\u754C\u5BEB\u5165\uFF0CCWE-787\u3002"
+              },
+              {
+                "text": "\u8D8A\u754C\u8B80\u53D6\uFF08CWE-125\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014strcpy \u662F\u5BEB\u904E\u7DE9\u885D\u5340\uFF1B\u9019\u662F\u5BEB\u5165\uFF0C\u4E0D\u662F\u8B80\u53D6\u3002"
+              },
+              {
+                "text": "\u6574\u6578\u6EA2\u4F4D",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u9019\u500B bug \u662F\u8A18\u61B6\u9AD4\u5BEB\u904E\u7DE9\u885D\u5340\u908A\u754C\uFF0C\u4E0D\u662F\u7B97\u8853\u6EA2\u4F4D\u3002"
+              },
+              {
+                "text": "\u7A7A\u6307\u6A19\u89E3\u53C3\u8003",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6307\u6A19\u6709\u6548\uFF1B\u554F\u984C\u5728\u65BC\u5BEB\u904E 32 \u4F4D\u5143\u7D44\u7DE9\u885D\u5340\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576 strlen(raw) \u2265 32 \u6642\uFF0Cstrcpy \u5BEB\u904E name[32]\u3002\u91CD\u64AD\u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u73FE\u6B64\u60C5\u5F62\uFF0C\u78BA\u8A8D\u70BA\u8D8A\u754C\u5BEB\u5165\u2014\u2014CWE-787\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 no-static \u8B93\u6210\u679C\u5C11 12.2 \u500D",
+            "text": "<p>\u70BA\u4F55\u79FB\u9664\u975C\u614B\u5206\u6790\u6703\u8B93 SAILOR \u7684\u6210\u679C\u7D04\u5C11 12.2 \u500D\uFF0C\u800C\u4E0D\u662F\u7DAD\u6301\u4E0D\u8B8A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u53EF\u7591\u4F4D\u7F6E\u8207\u524D\u7F6E\u689D\u4EF6\u4F86\u4FEE\u526A\u641C\u5C0B\uFF0C\u7B26\u865F\u57F7\u884C\u4FBF\u906D\u9047\u8DEF\u5F91\u7206\u70B8\u800C\u8B8A\u5F97\u4E0D\u53EF\u884C\uFF0C\u5728\u9810\u7B97\u5167\u63A2\u7D22\u5F97\u9060\u70BA\u7121\u6548",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975C\u614B\u5206\u6790\u6B63\u662F\u8B93\u63A2\u7D22\u805A\u7126\u4E14\u53EF\u884C\u7684\u95DC\u9375\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6C92\u6709\u975C\u614B\u5206\u6790\uFF0Charness \u5C31\u7121\u6CD5\u518D\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7DE8\u8B6F\u662F harness \u8FF4\u5708\u7684\u4E8B\uFF1B\u79FB\u9664\u975C\u614B\u5206\u6790\u50B7\u7684\u662F\u9396\u5B9A\u76EE\u6A19\uFF0C\u4E0D\u662F\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u79FB\u9664\u975C\u614B\u5206\u6790\u6642 KLEE \u6703\u88AB\u505C\u7528",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014KLEE \u4ECD\u6703\u8DD1\uFF0C\u53EA\u662F\u5931\u53BB\u5F15\u5C0E\uFF0C\u628A\u9810\u7B97\u6D6A\u8CBB\u5728\u7121\u95DC\u8DEF\u5F91\u4E0A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6C92\u6709\u975C\u614B\u5206\u6790\uFF0C\u5177\u9AD4\u91CD\u64AD\u6703\u62D2\u7D55\u6BCF\u500B\u767C\u73FE",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u4ECD\u6703\u78BA\u8A8D\u771F\u5BE6 crash\uFF1B\u640D\u5931\u4F86\u81EA\u4E0A\u6E38\u63A2\u7D22\u5931\u7126\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u884C\u8DEF\u5F91\u6578\u5448\u6307\u6578\u6210\u9577\u3002\u975C\u614B\u5206\u6790\u6A19\u51FA\u4F55\u8655\u3001\u5728\u4F55\u524D\u7F6E\u689D\u4EF6\u4E0B\u8A72\u770B\uFF1B\u79FB\u9664\u5B83\uFF0CKLEE \u4FBF\u76F2\u76EE\u63A2\u7D22\u3001\u906D\u9047\u8DEF\u5F91\u7206\u70B8\uFF0C\u62B5\u9054\u7684\u771F\u5BE6 bug \u9060\u5C11\u2014\u2014\u7D04\u5C11 12.2 \u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 no-LLM \u6070\u597D\u6B78\u96F6",
+            "text": "<p>\u70BA\u4F55\u79FB\u9664 LLM harness \u5408\u6210\u6703\u8B93\u6210\u679C<em>\u6070\u597D\u6B78\u96F6</em>\uFF0C\u800C\u4E0D\u53EA\u662F\u964D\u5230\u8F03\u5C0F\u7684\u6578\u5B57\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u5408\u6210\u7684 driver \u5C31\u6C92\u6771\u897F\u80FD\u5728 KLEE \u4E0B\u7DE8\u8B6F\u8207\u57F7\u884C\uFF0C\u7B26\u865F\u57F7\u884C\u6C92\u6709 harness \u53EF\u8DD1\uFF0C\u56E0\u800C\u5B8C\u5168\u4E0D\u7522\u51FA violation \u6216 witness",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014harness \u662F\u786C\u6027\u524D\u63D0\uFF1B\u6C92\u6709\u5B83\uFF0C\u6D41\u7A0B\u5C31\u6C92\u6771\u897F\u53EF\u8DD1\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u975C\u614B\u5206\u6790\u4E5F\u505C\u6B62\u8F38\u51FA\u53EF\u7591\u4F4D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u4E0D\u53D7\u5F71\u97FF\uFF1B\u7F3A\u53E3\u5728\u65BC\u6C92\u6709 driver \u53EF\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5177\u9AD4\u91CD\u64AD\u63A5\u8457\u628A\u6240\u6709\u767C\u73FE\u90FD\u5224\u70BA\u5047\u967D\u6027",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6839\u672C\u6C92\u6709\u767C\u73FE\u53EF\u62D2\u7D55\uFF1B\u6C92\u6709\u6771\u897F\u5728 KLEE \u4E0B\u8DD1\u904E\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u8DEF\u5F91\u6578\u8B8A\u6210\u7121\u9650\uFF0CKLEE \u5C0D\u6BCF\u4E00\u689D\u90FD\u903E\u6642",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u554F\u984C\u4E0D\u662F\u903E\u6642\uFF1B\u800C\u662F\u6839\u672C\u6C92\u6709 harness \u7D66 KLEE \u8DD1\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B26\u865F\u57F7\u884C\u9700\u8981\u53EF\u57F7\u884C\u4E4B\u7269\u3002\u6C92\u6709 LLM \u5C31\u6C92\u6709 harness\uFF0CKLEE \u4FBF\u6C92\u6771\u897F\u53EF\u8DD1\u2014\u2014\u65BC\u662F\u96F6 violation\u3001\u96F6 witness\u3002harness \u662F\u786C\u6027\u4F7F\u80FD\u5143\u4EF6\uFF0C\u4E0D\u53EA\u662F\u6700\u4F73\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u6D88\u878D\u63ED\u793A\u4E86\u4EC0\u9EBC",
+            "text": "<p>\u628A no-static \u7D50\u679C\uFF08\u7D04\u5C11 12.2 \u500D\uFF09\u8207 no-LLM \u7D50\u679C\uFF08\u6B78\u96F6\uFF09\u5C0D\u6BD4\u3002\u6B64\u5C0D\u6BD4\u63ED\u793A\u4E86\u9019\u5169\u500B\u5143\u4EF6\u89D2\u8272\u7684\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "harness \u662F\u786C\u6027\u524D\u63D0\uFF08\u6C92\u6709\u5B83\u4EC0\u9EBC\u90FD\u8DD1\u4E0D\u4E86\uFF09\uFF0C\u800C\u975C\u614B\u5206\u6790\u662F\u5F37\u529B\u7684\u53EF\u884C\u6027\uFF0F\u6548\u7387\u4F7F\u80FD\u5143\u4EF6\uFF08\u6C92\u6709\u5B83\u6D41\u7A0B\u4ECD\u80FD\u904B\u4F5C\uFF0C\u53EA\u662F\u5DEE\u5F88\u591A\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B78\u96F6 vs \u5C11 12.2 \u500D\uFF0C\u5340\u5206\u4E86\u300C\u4E0D\u53EF\u79FB\u9664\u7684\u4F7F\u80FD\u5143\u4EF6\u300D\u8207\u300C\u5927\u5E45\u6709\u52A9\u7684\u5143\u4EF6\u300D\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u5143\u4EF6\u540C\u6A23\u53EF\u6709\u53EF\u7121",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u79FB\u9664 LLM harness \u6703\u8B93\u6D41\u7A0B\u5D29\u5230\u96F6\uFF0C\u6240\u4EE5\u5B83\u4E26\u975E\u53EF\u6709\u53EF\u7121\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790\u662F\u524D\u63D0\uFF0CLLM harness \u662F\u6700\u4F73\u5316\u5143\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6070\u597D\u76F8\u53CD\uFF1Aharness \u624D\u662F\u524D\u63D0\uFF08\u6C92\u5B83\u5C31\u6B78\u96F6\uFF09\uFF1B\u975C\u614B\u5206\u6790\u662F\u6548\u7387\u500D\u589E\u5668\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD\u624D\u662F\u6B64\u6D88\u878D\u66B4\u9732\u7684\u771F\u6B63\u74F6\u9838",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6B64\u6D88\u878D\u5C0D\u6BD4\u7684\u662F\u975C\u614B\u5206\u6790\u8207 harness\uFF1B\u91CD\u64AD\u4E0D\u662F\u9019\u5169\u500B\u6578\u5B57\u6240\u9694\u96E2\u7684\u5C0D\u8C61\u3002"
+              }
+            ],
+            "generalFeedback": "no-LLM \u2192 \u96F6\uFF0C\u986F\u793A harness \u662F\u300C\u80FD\u8DD1\u4EFB\u4F55\u6771\u897F\u300D\u7684\u4E0D\u53EF\u6216\u7F3A\u524D\u63D0\u3002no-static \u2192 \u5C11 12.2 \u500D\uFF0C\u986F\u793A\u975C\u614B\u5206\u6790\u662F\u5F37\u529B\u7684\u6548\u80FD\u500D\u589E\u5668\uFF0C\u4F46\u6C92\u6709\u5B83\u6D41\u7A0B\u4ECD\u80FD\u627E\u5230\u4E00\u4E9B bug\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u4E0D\u53EF\u6216\u7F3A\u7684\u55AE\u4E00\u5143\u4EF6",
+            "text": "<p>\u5F9E\u6D88\u878D\u5BE6\u9A57\u4F86\u8A6E\u91CB\uFF0C\u54EA\u500B\u55AE\u4E00\u5143\u4EF6<em>\u6700</em>\u4E0D\u53EF\u6216\u7F3A\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "LLM harness \u5408\u6210\u2014\u2014\u79FB\u9664\u5B83\u6210\u679C\u6B78\u96F6\uFF0C\u800C\u79FB\u9664\u975C\u614B\u5206\u6790\u53EA\u662F\u5C11 12.2 \u500D\uFF08\u4ECD\u975E\u96F6\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u5168\u5D29\u5230\u96F6\uFF0C\u6A19\u793A harness \u662F\u6700\u56B4\u683C\u7684\u524D\u63D0\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790\u2014\u2014\u56E0\u70BA 12.2 \u500D\u662F\u6D88\u878D\u4E2D\u6700\u5927\u7684\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5927\u500D\u6578\u4ECD\u975E\u96F6\uFF1Bharness \u66F4\u4E0D\u53EF\u6216\u7F3A\uFF0C\u56E0\u70BA\u6C92\u6709\u5B83\u6210\u679C\u70BA\u96F6\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD\u2014\u2014\u56E0\u70BA\u6C92\u6709\u5B83\u4EC0\u9EBC\u90FD\u7121\u6CD5\u78BA\u8A8D",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6D88\u878D\u986F\u793A\u662F harness \u800C\u975E\u91CD\u64AD\uFF0C\u5176\u79FB\u9664\u6703\u8B93\u6210\u679C\u6B78\u96F6\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u57F7\u884C\u2014\u2014\u56E0\u70BA\u5B83\u624D\u662F\u771F\u6B63\u627E\u51FA bug \u7684\u5143\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7B26\u865F\u57F7\u884C\u56FA\u7136\u6838\u5FC3\uFF0C\u4F46\u6D88\u878D\u628A harness \u9694\u96E2\u70BA\u300C\u79FB\u9664\u5373\u6B78\u96F6\u300D\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u6700\u4E0D\u53EF\u6216\u7F3A\u300D\u610F\u6307\u79FB\u9664\u5F8C\u50B7\u5BB3\u6700\u5927\u8005\u3002no-LLM \u6B78\u96F6\uFF08\u6C92\u6771\u897F\u53EF\u8DD1\uFF09\uFF0C\u800C no-static \u5C11 12.2 \u500D\u4F46\u975E\u96F6\u2014\u2014\u6240\u4EE5 LLM harness \u662F\u6700\u56B4\u683C\u7684\u524D\u63D0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "VIOLATION \u8207 WITNESS \u53CA\u91CD\u64AD\u5982\u4F55\u5404\u81EA\u4F7F\u7528",
+            "text": "<p>\u7CBE\u78BA\u5340\u5206 VIOLATION \u8207 WITNESS\uFF0C\u4E26\u8AAA\u660E\u5177\u9AD4\u91CD\u64AD\u5982\u4F55\u5404\u81EA\u4F7F\u7528\u5B83\u5011\u3002</p>",
+            "answers": [
+              {
+                "text": "VIOLATION \u662F\u57F7\u884C\u5668\u5C0D\u300C\u67D0\u689D\u8DEF\u5F91\u62B5\u9054 bug\u300D\u7684\u8B49\u660E\uFF1BWITNESS \u662F\u9A45\u52D5\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u8F38\u5165\uFF1B\u91CD\u64AD\u628A witness\uFF08\u800C\u975E violation\uFF09\u9935\u9032\u672A\u4FEE\u6539\u7A0B\u5F0F\uFF0C\u4EE5\u91CD\u73FE\u4E26\u78BA\u8A8D\u9055\u53CD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014witness \u662F\u53EF\u64CD\u4F5C\u7684\u8F38\u5165\uFF0Cviolation \u662F\u5B83\u6240\u78BA\u8A8D\u7684\u4E3B\u5F35\u3002"
+              },
+              {
+                "text": "VIOLATION \u662F\u5177\u9AD4\u8F38\u5165\uFF1BWITNESS \u662F\u8B49\u660E\uFF1B\u91CD\u64AD\u628A violation \u9935\u9032\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u89D2\u8272\u53CD\u4E86\uFF1Awitness \u662F\u8F38\u5165\uFF0Cviolation \u662F\u8B49\u660E\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u8F38\u5165\uFF1B\u91CD\u64AD\u5148\u8DD1\u54EA\u500B\u5148\u5D29\u5C31\u7528\u54EA\u500B",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u53EA\u6709 witness \u662F\u8F38\u5165\uFF1Bviolation \u662F\u8B49\u660E\uFF0C\u4E0D\u662F\u80FD\u9935\u7D66\u7A0B\u5F0F\u7684\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u8B49\u660E\uFF1B\u91CD\u64AD\u6311\u8F03\u5F37\u7684\u8B49\u660E\u4F86\u56DE\u5831",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014witness \u662F\u5177\u9AD4\u8F38\u5165\u800C\u975E\u8B49\u660E\uFF1B\u91CD\u64AD\u628A\u5B83\u5728\u771F\u5BE6\u7A0B\u5F0F\u4E0A\u8DD1\u3002"
+              }
+            ],
+            "generalFeedback": "VIOLATION \u662F KLEE \u5C0D\u300C\u67D0\u689D\u8DEF\u5F91\u62B5\u9054 bug\u300D\u7684\u8B49\u660E\uFF1BWITNESS \u662F\u8A72\u8DEF\u5F91\u7684\u5177\u9AD4\u89F8\u767C\u8F38\u5165\u3002\u91CD\u64AD\u4E0D\u7406\u6703\u62BD\u8C61\u7684 violation\uFF0C\u800C\u662F\u628A\u5177\u9AD4 witness \u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u8DD1\uFF0C\u4EE5\u78BA\u8A8D bug \u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8FED\u4EE3 harness \u8FF4\u5708\u91CD\u8981",
+            "text": "<p>\u70BA\u4F55\u7B2C 2 \u968E\u6BB5\u7684\u7DE8\u8B6F\u56DE\u994B\u8FED\u4EE3\u662F\u5FC5\u8981\u7684\uFF0C\u800C\u975E\u53EA\u662F\u65B9\u4FBF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u521D\u7A3F harness \u901A\u5E38\u7DE8\u8B6F\u4E0D\u904E\uFF1B\u82E5\u4E0D\u9760\u56DE\u994B\u4FEE\u6B63\uFF0C\u5C31\u6C92\u6709\u53EF\u57F7\u884C\u7684 harness\uFF0CKLEE \u4FBF\u6C92\u6771\u897F\u53EF\u8DD1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u500B\u8FF4\u5708\u628A\u58DE\u6389\u7684\u521D\u7A3F\u8B8A\u6210\u53EF\u7528\u7684 driver\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u7DE8\u8B6F\u597D\u7684 harness \u5728\u57F7\u884C\u6642\u8DD1\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8FF4\u5708\u662F\u70BA\u4E86\u8B93 harness \u80FD\u5EFA\u7F6E\uFF0C\u800C\u975E\u57F7\u884C\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u76F4\u63A5\u589E\u52A0 KLEE \u63A2\u7D22\u7684\u8DEF\u5F91\u6578",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8DEF\u5F91\u6578\u662F\u7B26\u865F\u57F7\u884C\u7684\u4E8B\uFF1B\u8FF4\u5708\u7684\u89D2\u8272\u662F\u7522\u51FA\u53EF\u7DE8\u8B6F\u7684 harness\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u91CD\u64AD\u524D\u6FFE\u9664\u5047\u967D\u6027",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6FFE\u9664\u5047\u967D\u6027\u662F\u91CD\u64AD\u7684\u5DE5\u4F5C\uFF1B\u8FF4\u5708\u7684\u5DE5\u4F5C\u662F\u7522\u51FA\u53EF\u5EFA\u7F6E\u7684 harness\u3002"
+              }
+            ],
+            "generalFeedback": "LLM \u521D\u7A3F\u9BAE\u5C11\u80FD\u7DE8\u8B6F\u3002\u7DE8\u8B6F\uFF0F\u56DE\u994B\u8FF4\u5708\u53CD\u8986\u4FEE\u6B63\u76F4\u5230\u80FD\u5EFA\u7F6E\uFF1B\u6C92\u6709\u5B83\u5C31\u6C92\u6709\u53EF\u57F7\u884C\u7684 driver\u2014\u2014\u9019\u6B63\u662F no-LLM \u6D88\u878D\u6B78\u96F6\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SAILOR \u5982\u4F55\u7D50\u5408\u4E09\u7A2E\u5F37\u9805",
+            "text": "<p>SAILOR \u7D50\u5408\u975C\u614B\u3001\u52D5\u614B\uFF08\u7B26\u865F\uFF09\u8207 LLM \u6280\u8853\u3002\u4E0B\u5217\u5404\u81EA\u8CA2\u737B\u7684\u5C0D\u61C9\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975C\u614B\u5206\u6790\u4FEE\u526A\u8207\u9396\u5B9A\uFF1BLLM \u5BEB\u51FA\u904E\u53BB\u9700\u4EBA\u5DE5\u624B\u5BEB\u7684 driver\uFF1B\u7B26\u865F\u57F7\u884C\u8B49\u660E\u53EF\u9054\u6027\u4E26\u7522\u51FA witness\uFF1B\u91CD\u64AD\u5728\u771F\u5BE6\u7A0B\u5F0F\u4E0A\u78BA\u8A8D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u7A2E\u6280\u8853\u90FD\u88DC\u8DB3\u5176\u4ED6\u6280\u8853\u7684\u5F31\u9EDE\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790\u5BEB driver\uFF1BLLM \u63A2\u7D22\u8DEF\u5F91\uFF1B\u7B26\u865F\u57F7\u884C\u4FEE\u526A\u641C\u5C0B\uFF1B\u91CD\u64AD\u7DE8\u8B6F harness",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6BCF\u500B\u89D2\u8272\u90FD\u932F\u7F6E\u4E86\uFF1B\u4FEE\u526A\u662F\u975C\u614B\u5206\u6790\u3001\u5BEB driver \u662F LLM\u3001\u63A2\u7D22\u662F\u7B26\u865F\u57F7\u884C\u3002"
+              },
+              {
+                "text": "LLM \u4FEE\u526A\u641C\u5C0B\uFF1B\u975C\u614B\u5206\u6790\u8B49\u660E\u53EF\u9054\u6027\uFF1B\u7B26\u865F\u57F7\u884C\u5728\u771F\u5BE6\u7A0B\u5F0F\u4E0A\u78BA\u8A8D\uFF1B\u91CD\u64AD\u9396\u5B9A sink",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u4FEE\u526A\u662F\u975C\u614B\u5206\u6790\u3001\u53EF\u9054\u6027\u662F\u7B26\u865F\u57F7\u884C\u3001\u78BA\u8A8D\u662F\u91CD\u64AD\u3002"
+              },
+              {
+                "text": "\u4E09\u7A2E\u6280\u8853\u5197\u9918\u5730\u505A\u540C\u4E00\u4EF6\u4E8B\u4EE5\u6C42\u53EF\u9760",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5B83\u5011\u662F\u4E92\u88DC\u7684\uFF0C\u5404\u81EA\u63D0\u4F9B\u5176\u4ED6\u6280\u8853\u505A\u4E0D\u5230\u7684\u90E8\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u5206\u6790\u805A\u7126\u529B\u6C23\u3001LLM \u628A\u904E\u53BB\u4EBA\u5DE5\u7684 harness \u81EA\u52D5\u5316\u3001\u7B26\u865F\u57F7\u884C\u4EE5\u5177\u9AD4 witness \u8B49\u660E\u53EF\u9054\u7684\u9055\u53CD\u3001\u5177\u9AD4\u91CD\u64AD\u52A0\u4EE5\u78BA\u8A8D\u2014\u2014\u7D50\u5408\u975C\u614B\u3001\u52D5\u614B\u8207 LLM \u7684\u5F37\u9805\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7121\u5F15\u5C0E\u7684\u7B26\u865F\u57F7\u884C\u662F\u76F2\u76EE\u7684",
+            "text": "<p>\u5177\u9AD4\u800C\u8A00\uFF0C\u662F\u4EC0\u9EBC\u8B93<em>\u7121\u5F15\u5C0E</em>\u7684\u7B26\u865F\u57F7\u884C\u300C\u76F2\u76EE\u300D\uFF0C\u800C\u975C\u614B\u9396\u5B9A\u53C8\u5982\u4F55\u5E6B\u4E0A\u5FD9\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u884C\u8DEF\u5F91\u5448\u6307\u6578\u6210\u9577\uFF1B\u6C92\u6709\u524D\u7F6E\u689D\u4EF6\u8207\u53EF\u7591 sink \u53EF\u5C0E\u5411\uFF0C\u57F7\u884C\u5668\u6703\u628A\u9810\u7B97\u82B1\u5728\u7121\u95DC\u8DEF\u5F91\u4E0A\u3001\u9BAE\u5C11\u62B5\u9054\u6DF1\u5C64 bug\u2014\u2014\u975C\u614B\u5206\u6790\u805A\u7126\u8A72\u9810\u7B97",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9396\u5B9A\u6B63\u662F\u628A\u4E0D\u53EF\u884C\u7684\u641C\u5C0B\u8B8A\u6210\u6709\u6210\u6548\u641C\u5C0B\u7684\u95DC\u9375\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u975C\u614B\u5206\u6790\u5B83\u5C31\u7121\u6CD5\u6C42\u89E3\u4EFB\u4F55\u8DEF\u5F91\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6C42\u89E3\u5668\u4ECD\u80FD\u904B\u4F5C\uFF1B\u554F\u984C\u5728\u65BC\u529B\u6C23\u8A72\u82B1\u5728\u54EA\uFF0C\u800C\u9396\u5B9A\u89E3\u6C7A\u6B64\u4E8B\u3002"
+              },
+              {
+                "text": "\u4F9D\u5B9A\u7FA9\u5B83\u9664\u975E\u88AB\u975C\u614B\u5206\u6790\u53EB\u505C\u5426\u5247\u6C38\u4E0D\u7D42\u6B62",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u7D42\u6B62\u7531\u641C\u5C0B\u4E0A\u9650\u6240\u754C\uFF1B\u554F\u984C\u662F\u529B\u6C23\u5931\u7126\uFF0C\u800C\u975E\u672C\u8CEA\u4E0D\u7D42\u6B62\u3002"
+              },
+              {
+                "text": "\u5B83\u9700\u8981\u5148\u6709 witness \u624D\u80FD\u958B\u59CB\u63A2\u7D22",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014witness \u662F\u63A2\u7D22\u7684\u8F38\u51FA\uFF0C\u4E0D\u662F\u63A2\u7D22\u7684\u524D\u63D0\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u884C\u8DEF\u5F91\u6578\u5448\u6307\u6578\u7206\u70B8\u3002\u6C92\u6709\u975C\u614B\u5206\u6790\u6307\u5411\u53EF\u7591 sink \u53CA\u5176\u524D\u7F6E\u689D\u4EF6\uFF0C\u57F7\u884C\u5668\u6703\u628A\u9810\u7B97\u6D6A\u8CBB\u5728\u63A2\u7D22\u7121\u95DC\u8DEF\u5F91\u2014\u2014\u6B63\u662F\u6D88\u878D\u91CF\u5230\u7684 12.2 \u500D\u640D\u5931\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u524D\u7F6E\u689D\u4EF6\u5982\u4F55\u5F15\u5C0E KLEE",
+            "text": "<p>\u975C\u614B\u524D\u7F6E\u689D\u4EF6 <code>strlen(raw) &lt; 32</code> \u5982\u4F55\u5E6B\u52A9\u7B26\u865F\u57F7\u884C\u627E\u5230\u6EA2\u4F4D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5728 sink \u8655\u6A19\u51FA\u5B89\u5168\u689D\u4EF6\uFF0C\u65BC\u662F KLEE \u80FD\u9396\u5B9A strlen(raw) \u2265 32 \u7684\u8DEF\u5F91\u2014\u2014\u5373\u5BEB\u904E name[32] \u7684\u8DEF\u5F91\u2014\u2014\u800C\u975E\u63A2\u7D22\u4E00\u5207",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u77E5\u9053\u5B89\u5168\u689D\u4EF6\uFF0C\u5C31\u7B49\u65BC\u544A\u8A34\u57F7\u884C\u5668\u8A72\u8FFD\u54EA\u689D\u9055\u53CD\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B83\u628A raw \u56FA\u5B9A\u6210\u4E00\u500B\u5177\u9AD4\u503C\uFF0C\u8B93 KLEE \u4E0D\u9700\u7528\u7B26\u865F\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u524D\u7F6E\u689D\u4EF6\u662F\u95DC\u65BC\u5B89\u5168\u7684\u7B26\u865F\u7D04\u675F\uFF0C\u4E0D\u662F\u5177\u9AD4\u8CE6\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u4FEE\u88DC strcpy \u4F7F\u6EA2\u4F4D\u4E0D\u6703\u767C\u751F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u975C\u614B\u5206\u6790\u4E0D\u4FEE\u6539\u7A0B\u5F0F\u78BC\uFF1B\u5B83\u70BA sink \u6A19\u8A3B\u5B89\u5168\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5B83\u70BA\u5B89\u5168\u8DEF\u5F91\u505C\u7528 harness",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014harness \u4ECD\u6703\u8DD1\uFF1B\u524D\u7F6E\u689D\u4EF6\u53EA\u662F\u544A\u8A34 KLEE \u54EA\u689D\u662F\u9055\u53CD\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u524D\u7F6E\u689D\u4EF6 strlen(raw) < 32 \u662F\u8907\u88FD\u7DAD\u6301\u5B89\u5168\u7684\u689D\u4EF6\u3002\u5B83\u7684\u5426\u5B9A strlen(raw) \u2265 32 \u6A19\u51FA\u6EA2\u4F4D\u8DEF\u5F91\u2014\u2014\u65BC\u662F KLEE \u9396\u5B9A\u8A72\u8DEF\u5F91\u4E26\u627E\u5230\u8D8A\u754C\u5BEB\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A6E\u91CB\u57FA\u6E96 12 \u5C0D\u6BD4 379/421",
+            "text": "<p>\u57FA\u6E96\u627E\u5230 12\uFF0C\u800C\u5B8C\u6574 SAILOR \u627E\u5230 379 \u500B\u6F0F\u6D1E\uFF0F421 \u500B crash\u3002\u516C\u5141\u7684\u7D50\u8AD6\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A harness \u5408\u6210\u81EA\u52D5\u5316\u4E26\u52A0\u4E0A\u975C\u614B\u9396\u5B9A\uFF0C\u5927\u5E45\u64F4\u5C55\u4E86\u7B26\u865F\u57F7\u884C\u76F8\u8F03\u65BC\u65E2\u6709\u624B\u5BEB harness \u5DE5\u5177\u6240\u80FD\u767C\u73FE\u7684\u7BC4\u570D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DEE\u8DDD\u53CD\u6620\u7684\u662F\u81EA\u52D5\u5316\u52A0\u9396\u5B9A\uFF0C\u800C\u975E\u300C\u4EC0\u9EBC\u7B97 bug\u300D\u7684\u5B9A\u7FA9\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u57FA\u6E96\u55AE\u7D14\u4E0D\u5065\u5168\u800C\u904E\u5EA6\u56DE\u5831\uFF1BSAILOR \u8F03\u4FDD\u5B88",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014SAILOR \u627E\u5230\u7684\u591A\u5F97\u591A\uFF0C\u4E14\u5176\u91CD\u64AD\u6B65\u9A5F\u6703\u78BA\u8A8D bug\uFF1B\u57FA\u6E96\u4E26\u975E\u904E\u5EA6\u56DE\u5831\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7528\u540C\u4E00\u7A2E\u6280\u8853\uFF0C\u6240\u4EE5\u5DEE\u7570\u5FC5\u662F\u91CF\u6E2C\u96DC\u8A0A",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u57FA\u6E96\u7528\u624B\u5BEB harness\uFF1BSAILOR \u81EA\u52D5\u5316\u4E26\u9396\u5B9A\uFF0C\u662F\u771F\u5BE6\u7684\u65B9\u6CD5\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "SAILOR \u4EE5\u72A7\u7272\u5065\u5168\u6027\u63DB\u53D6\u66F4\u9AD8\u7684\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5177\u9AD4\u91CD\u64AD\u6703\u78BA\u8A8D\u6BCF\u500B crash\uFF0C\u6240\u4EE5\u66F4\u9AD8\u7684\u6578\u5B57\u662F\u300C\u5DF2\u78BA\u8A8D\u7684 bug\u300D\uFF0C\u800C\u975E\u72A7\u7272\u5065\u5168\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u65E2\u6709\u5DE5\u5177\u4F9D\u8CF4\u624B\u5BEB harness\u3001\u627E\u5230 12\u3002SAILOR \u81EA\u52D5\u5316\u4E14\u975C\u614B\u9396\u5B9A\u7684 harness \u8B93\u7B26\u865F\u57F7\u884C\u62B5\u9054\u9060\u66F4\u591A\u771F\u5BE6 bug\u2014\u2014379 \u500B\u7368\u7ACB\u6F0F\u6D1E\u3001421 \u500B\u78BA\u8A8D crash\uFF0C\u4E14\u5168\u7D93\u91CD\u64AD\u78BA\u8A8D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u91CD\u64AD\u7528 witness \u800C\u975E violation",
+            "text": "<p>\u70BA\u4F55 SAILOR \u8981\u91CD\u64AD\u5177\u9AD4 witness\uFF0C\u800C\u975E\u76F4\u63A5\u63A1\u4FE1 KLEE \u7684 violation\uFF1F</p>",
+            "answers": [
+              {
+                "text": "violation \u53EF\u80FD\u767C\u751F\u5728\u53EA\u6709 harness\uFF0F\u6A21\u578B\u4E2D\u624D\u53EF\u884C\u7684\u8DEF\u5F91\u4E0A\uFF1B\u628A\u5177\u9AD4 witness \u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u64AD\u80FD\u8B49\u660E bug \u70BA\u771F\uFF0C\u4E26\u6FFE\u9664 harness \u9020\u6210\u7684\u5047\u967D\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u64AD\u662F\u5C0D harness \u4E3B\u5F35\u7684\u73FE\u5BE6\u6AA2\u9A57\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA KLEE \u5C0D\u5B83\u5BE6\u969B\u8DD1\u904E\u7684\u8DEF\u5F91\u4E0D\u5065\u5168",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u9867\u616E\u7684\u662F harness-only \u72C0\u614B\uFF0C\u800C\u975E KLEE \u5C0D\u5176\u6240\u63A2\u7D22\u8DEF\u5F91\u7684\u5065\u5168\u6027\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u91CD\u64AD\u6BD4\u8B80\u53D6 violation \u8A18\u9304\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u662F\u95DC\u65BC\u78BA\u8A8D\u54C1\u8CEA\uFF0C\u4E0D\u662F\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u91CD\u65B0\u8A08\u7B97\u975C\u614B\u5206\u6790\u7522\u51FA\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u78BA\u8A8D crash\uFF0C\u4E26\u4E0D\u91CD\u65B0\u8A08\u7B97\u524D\u7F6E\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "harness \u53EF\u80FD\u88FD\u9020\u51FA\u771F\u5BE6\u7A0B\u5F0F\u4E2D\u4E0D\u53EF\u80FD\u7684\u72C0\u614B\uFF0C\u56E0\u6B64\u5176\u4E0A\u7684 violation \u53EF\u80FD\u662F\u5047\u967D\u6027\u3002\u628A\u5177\u9AD4 witness \u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u64AD\uFF0C\u6B63\u662F\u5340\u5206\u771F\u5BE6 bug \u8207 harness \u5047\u8C61\u7684\u624B\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u904E\u5EA6\u7D04\u675F harness \u7684\u5F8C\u679C",
+            "text": "<p>\u5047\u8A2D\u5408\u6210\u7684 harness \u904E\u5EA6\u7D04\u675F\u4E86\u7B26\u865F\u8F38\u5165\uFF08\u908A\u754C\u6536\u5F97\u592A\u7DCA\uFF09\u3002\u5C0D\u6D41\u7A0B\u53EF\u80FD\u7684\u5F8C\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u771F\u5BE6 bug \u53EF\u80FD\u843D\u5728\u88AB\u63A2\u7D22\u7684\u8F38\u5165\u7A7A\u9593\u4E4B\u5916\uFF0C\u65BC\u662F KLEE \u6C38\u9060\u4E0D\u8F38\u51FA\u8A72 violation\u2014\u2014\u5373\u507D\u9670\u6027\u2014\u2014\u5373\u4F7F\u5404\u968E\u6BB5\u90FD\u6709\u8DD1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u85CF\u8D77\u89F8\u767C\u8F38\u5165\uFF0C\u5C31\u8B93\u8A72 bug \u5728\u63A2\u7D22\u4E2D\u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u7522\u751F\u4E00\u500B\u91CD\u64AD\u4ECD\u6703\u78BA\u8A8D\u7684\u5047\u967D\u6027",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u904E\u5EA6\u7D04\u675F\u662F\u85CF\u8D77 bug\uFF08\u507D\u9670\u6027\uFF09\uFF0C\u4E0D\u6703\u88FD\u9020\u51FA\u5DF2\u78BA\u8A8D\u7684 crash\u3002"
+              },
+              {
+                "text": "\u5177\u9AD4\u91CD\u64AD\u6703\u81EA\u52D5\u653E\u5BEC\u8F38\u5165\u7A7A\u9593\u4F86\u88DC\u511F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u53EA\u91CD\u8DD1\u4E00\u500B witness\uFF1B\u7121\u6CD5\u627E\u56DE harness \u6392\u9664\u6389\u7684\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790\u6703\u91CD\u8DD1\u4EE5\u4FEE\u6B63 harness",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6D41\u7A0B\u662F\u5F80\u524D\u8DD1\u7684\uFF1B\u975C\u614B\u5206\u6790\u4E0D\u6703\u91CD\u8DD1\u4F86\u4FEE\u88DC harness\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5 harness \u628A\u8F38\u5165\u754C\u5F97\u592A\u7DCA\uFF0C\u89F8\u767C bug \u7684\u503C\u88AB\u6392\u9664\uFF0C\u65BC\u662F KLEE \u63A2\u7D22\u7684\u7A7A\u9593\u88E1\u9055\u53CD\u5F9E\u4E0D\u51FA\u73FE\u2014\u2014\u507D\u9670\u6027\u3002\uFF08\u7D04\u675F\u592A\u9B06\u5247\u76F8\u53CD\uFF1A\u9020\u6210\u5047\u967D\u6027\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u91CD\u64AD\u4E0D\u80FD\u5148\u65BC\u7B26\u865F\u57F7\u884C",
+            "text": "<p>\u5177\u9AD4\u91CD\u64AD\u7121\u6CD5\u6709\u610F\u7FA9\u5730\u5728\u7B26\u865F\u57F7\u884C\u4E4B\u524D\u9032\u884C\uFF0C\u56E0\u70BA\u5B83\u9700\u8981\u53EA\u6709\u7B26\u865F\u57F7\u884C\u624D\u80FD\u7522\u51FA\u7684 witness\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8CC7\u6599\u76F8\u4F9D\uFF08witness \u2192 \u91CD\u64AD\uFF09\u56FA\u5B9A\u4E86\u9806\u5E8F\uFF1A\u5148\u63A2\u7D22\u3001\u5F8C\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u91CD\u64AD\u7684\u8F38\u5165\u662F witness\uFF0C\u800C\u5B83\u7531\u7B26\u865F\u57F7\u884C\u7522\u51FA\uFF0C\u56E0\u6B64\u91CD\u64AD\u5FC5\u5728\u5176\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u64AD\u5728\u672A\u4FEE\u6539\u7A0B\u5F0F\u4E0A\u91CD\u73FE\u67D0\u500B\u7279\u5B9A witness\u3002\u65E2\u7136 witness \u662F\u7B26\u865F\u57F7\u884C\u7684\u8F38\u51FA\uFF0C\u91CD\u64AD\u5FC5\u7136\u662F\u8F03\u5F8C\u7684\u968E\u6BB5\u2014\u2014\u9019\u662F\u8CC7\u6599\u76F8\u4F9D\uFF0C\u800C\u975E\u4EFB\u610F\u9078\u64C7\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "LLM \u81EA\u52D5\u5316\u4E86\u54EA\u500B\u4EBA\u5DE5\u6B65\u9A5F",
+            "text": "<p>\u5728\u65E2\u6709\u7684\u7B26\u865F\u57F7\u884C\u5DE5\u5177\u4E2D\uFF0CSAILOR \u7684 LLM \u968E\u6BB5\u81EA\u52D5\u5316\u4E86\u54EA\u500B\u6602\u8CB4\u7684\u4EBA\u5DE5\u6B65\u9A5F\uFF0C\u53C8\u70BA\u4F55\u80FD\u56E0\u6B64\u89E3\u9396\u898F\u6A21\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u70BA\u6BCF\u500B\u76EE\u6A19\u624B\u5BEB\u4E00\u500B\u53EF\u7DE8\u8B6F\u7684 harness\uFF1B\u628A\u5B83\u81EA\u52D5\u5316\uFF0C\u6D41\u7A0B\u5C31\u80FD\u5728\u6578\u767E\u842C\u884C\u7A0B\u5F0F\u78BC\u4E2D\u653B\u64CA\u773E\u591A\u4F4D\u7F6E\uFF0C\u800C\u4E0D\u9700\u70BA\u6BCF\u500B\u76EE\u6A19\u914D\u4E00\u500B\u4EBA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014harness \u7684\u74F6\u9838\u5C31\u662F\u90A3\u500B\u4EBA\uFF0C\u800C LLM \u79FB\u9664\u4E86\u5B83\u3002"
+              },
+              {
+                "text": "\u624B\u52D5\u6C42\u89E3\u8DEF\u5F91\u7D04\u675F\uFF1B\u628A\u5B83\u81EA\u52D5\u5316\u5C31\u4E0D\u518D\u9700\u8981\u6C42\u89E3\u5668",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u6C42\u89E3\u5668\u4ECD\u5728\u7528\uFF1BLLM \u81EA\u52D5\u5316\u7684\u662F\u5BEB harness\uFF0C\u4E0D\u662F\u6C42\u89E3\u7D04\u675F\u3002"
+              },
+              {
+                "text": "\u624B\u52D5\u78BA\u8A8D\u6BCF\u500B crash\uFF1B\u628A\u5B83\u81EA\u52D5\u5316\u5C31\u79FB\u9664\u4E86\u91CD\u64AD\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u91CD\u64AD\u4ECD\u6703\u8DD1\uFF1BLLM \u81EA\u52D5\u5316\u7684\u662F harness \u5408\u6210\uFF0C\u4E0D\u662F\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u624B\u52D5\u70BA\u6BCF\u500B\u767C\u73FE\u6A19\u4E0A CWE \u7DE8\u865F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u74F6\u9838\u4E0D\u662F CWE \u6A19\u8A18\uFF0C\u800C\u662F\u70BA\u6BCF\u500B\u76EE\u6A19\u624B\u5BEB harness\u3002"
+              }
+            ],
+            "generalFeedback": "\u50B3\u7D71\u7B26\u865F\u57F7\u884C\u9700\u8981\u4EBA\u70BA\u6BCF\u500B\u76EE\u6A19\u624B\u5BEB\u53EF\u7DE8\u8B6F harness\u2014\u2014\u9019\u662F\u898F\u6A21\u7684\u74F6\u9838\u3002SAILOR \u7684 LLM \u81EA\u52D5\u5408\u6210 harness\uFF0C\u4F7F\u6D41\u7A0B\u80FD\u5728\u7D04 680 \u842C\u884C\u7A0B\u5F0F\u78BC\u4E2D\u6DB5\u84CB\u773E\u591A\u4F4D\u7F6E\uFF0C\u800C\u4E0D\u9700\u6BCF\u76EE\u6A19\u7684\u4EBA\u5DE5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u6D88\u878D\u7684\u6574\u9AD4\u89E3\u8B80",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u7D50\u8AD6\u6700\u53D7\u5B8C\u6574\u6D88\u878D\u652F\u6301\uFF08\u5B8C\u6574\uFF1A421 crash\uFF1Bno-static\uFF1A\u5C11 12.2 \u500D\uFF1Bno-LLM\uFF1A\u96F6\uFF1B\u57FA\u6E96\uFF1A12\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u5143\u4EF6\u90FD\u4E0D\u53EF\u6216\u7F3A\u4F46\u65B9\u5F0F\u4E0D\u540C\u2014\u2014LLM harness \u662F\u56B4\u683C\u7684\u4F7F\u80FD\u5143\u4EF6\uFF08\u6C92\u5B83\u5C31\u96F6\uFF09\u3001\u975C\u614B\u5206\u6790\u662F\u53EF\u884C\u6027\u500D\u589E\u5668\uFF0812.2 \u500D\uFF09\uFF0C\u800C\u4E09\u8005\u7D50\u5408\u9060\u52DD\u65E2\u6709\u5DE5\u5177\uFF08\u57FA\u6E96 12\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E9B\u6578\u5B57\u5408\u8D77\u4F86\u986F\u793A\u5404\u81EA\u4E0D\u540C\u4E14\u4E92\u88DC\u7684\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 LLM harness \u91CD\u8981\uFF1B\u5176\u4ED6\u5143\u4EF6\u53EA\u662F\u88DD\u98FE",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014no-static \u7684 12.2 \u500D\u4E0B\u964D\u986F\u793A\u975C\u614B\u5206\u6790\u4E5F\u6975\u5176\u91CD\u8981\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u975C\u614B\u5206\u6790\u91CD\u8981\uFF1Bharness \u53EF\u6709\u53EF\u7121",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014no-LLM \u6B78\u96F6\uFF0C\u6240\u4EE5 harness \u4E26\u975E\u53EF\u6709\u53EF\u7121\u3002"
+              },
+              {
+                "text": "\u5404\u5143\u4EF6\u5197\u9918\uFF0C\u56E0\u70BA\u79FB\u9664\u4EFB\u4E00\u500B\u6210\u679C\u90FD\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u79FB\u9664\u5143\u4EF6\u6703\u4F7F\u6210\u679C\u5287\u8B8A\uFF08\u6B78\u96F6\uFF0C\u6216\u5C11 12.2 \u500D\uFF09\uFF0C\u6240\u4EE5\u5B83\u5011\u4E26\u4E0D\u5197\u9918\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D88\u878D\u986F\u793A\u6BCF\u500B\u5143\u4EF6\u5404\u4EE5\u81EA\u8EAB\u65B9\u5F0F\u8209\u8DB3\u8F15\u91CD\uFF1Aharness \u4E0D\u53EF\u6216\u7F3A\uFF08\u6C92\u5B83\u5C31\u96F6\uFF09\u3001\u975C\u614B\u5206\u6790\u500D\u589E\u6548\u80FD\uFF0812.2 \u500D\uFF09\uFF0C\u800C\u5B8C\u6574 SAILOR\uFF08379 \u6F0F\u6D1E\uFF0F421 crash\uFF09\u9060\u52DD\u57FA\u6E96\u7684 12\u2014\u2014\u6574\u9AD4\u9060\u5927\u65BC\u4EFB\u4E00\u90E8\u5206\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "spec-mutation": {
       "en": {
         "easy": [

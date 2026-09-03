@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SAILOR Pipeline/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>SAILOR 的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>SAILOR</strong>（「Guiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery」）是一條流程，其目標是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>結合靜態分析、LLM 與符號執行，自動發現 C/C++ 程式碼中的漏洞</text><feedback><text>正確——SAILOR 是把這三種技術串接起來的漏洞偵測流程。</text></feedback></answer>
+    <answer fraction="0"><text>自動修補並修復它偵測到的漏洞</text><feedback><text>不對——SAILOR 負責發現（並確認）漏洞，並不修復程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>形式化證明某程式完全沒有 bug</text><feedback><text>不對——它靠探索路徑尋找 bug，並不產出整支程式的正確性證明。</text></feedback></answer>
+    <answer fraction="0"><text>量測既有測試套件的敘述與分支覆蓋率</text><feedback><text>不對——覆蓋率量測是另一回事；SAILOR 的目標是找出真實漏洞。</text></feedback></answer>
+    <generalfeedback><text>SAILOR（Shafiuzzaman、Desai、Guo、Bultan；arXiv:2604.06506，2026）是一條漏洞偵測流程：靜態分析鎖定可疑程式碼、LLM 合成 harness、符號執行加以探索、具體重播確認發現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有幾個階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR 流程由幾個階段組成，又是如何執行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>四個階段，依固定順序一個接一個執行</text><feedback><text>正確——SAILOR 是四階段流程，各階段依序執行。</text></feedback></answer>
+    <answer fraction="0"><text>兩個階段平行執行</text><feedback><text>不對——SAILOR 有四個階段，且是循序執行，不是兩個平行。</text></feedback></answer>
+    <answer fraction="0"><text>三個階段以迴圈執行</text><feedback><text>不對——共有四個階段；只有第 2 階段（harness 合成）內部有迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>單一整體的分析步驟</text><feedback><text>不對——SAILOR 刻意把工作拆成四個有序階段。</text></feedback></answer>
+    <generalfeedback><text>SAILOR 依序執行四個階段：靜態分析、LLM Harness 合成、符號執行、具體重播。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四個階段的順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者正確列出 SAILOR 四個階段的順序？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態分析 → LLM Harness 合成 → 符號執行 → 具體重播</text><feedback><text>正確——先鎖定目標、再建 driver、接著探索、最後確認發現。</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness 合成 → 靜態分析 → 具體重播 → 符號執行</text><feedback><text>不對——靜態分析必須先跑以告訴 harness 要鎖定什麼，且符號執行必須在重播之前。</text></feedback></answer>
+    <answer fraction="0"><text>符號執行 → 具體重播 → 靜態分析 → LLM Harness 合成</text><feedback><text>不對——沒有 harness 就無法進行符號執行，且靜態分析要最先。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析 → 符號執行 → LLM Harness 合成 → 具體重播</text><feedback><text>不對——必須先合成 harness，符號執行才有東西可跑。</text></feedback></answer>
+    <generalfeedback><text>固定順序為：靜態分析 → LLM Harness 合成 → 符號執行（KLEE）→ 具體重播。每一階段都產出下一階段所需的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態分析在做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>靜態分析</strong>階段（第 1 階段）的工作是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>掃描程式碼，標出候選漏洞位置（sink）與抵達它們所需的前置條件，收斂後續階段要看的範圍</text><feedback><text>正確——它修剪搜尋空間，讓符號執行不至於盲目。</text></feedback></answer>
+    <answer fraction="0"><text>以符號輸入執行程式以探索其路徑</text><feedback><text>不對——那是符號執行階段；靜態分析並不執行程式。</text></feedback></answer>
+    <answer fraction="0"><text>撰寫驅動可疑程式碼的測試 harness</text><feedback><text>不對——合成 harness 是第 2 階段 LLM 的工作。</text></feedback></answer>
+    <answer fraction="0"><text>重播一個具體輸入以確認 crash 為真</text><feedback><text>不對——那是具體重播階段（第 4 階段）。</text></feedback></answer>
+    <generalfeedback><text>靜態分析標出可疑 sink、輸出抵達每個 sink 所需的安全前置條件、標記受污染輸入，藉此收斂（修剪）昂貴的後續階段該花力氣的地方。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>LLM Harness 合成產出什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>LLM Harness 合成</strong>階段（第 2 階段）產出什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個可編譯的測試／fuzz harness（driver），用來運行候選的可疑位置</text><feedback><text>正確——LLM 寫出把輸入餵進被標記程式碼的 driver。</text></feedback></answer>
+    <answer fraction="0"><text>一份修補可疑位置的原始碼 patch</text><feedback><text>不對——SAILOR 只發現 bug 而不修補；此階段建的是 driver，不是修補。</text></feedback></answer>
+    <answer fraction="0"><text>要調查的可疑位置清單</text><feedback><text>不對——該清單來自靜態分析；LLM 消費它來寫 harness。</text></feedback></answer>
+    <answer fraction="0"><text>確認 bug 的具體崩潰輸入</text><feedback><text>不對——崩潰的 witness 來得更晚，來自符號執行與重播。</text></feedback></answer>
+    <generalfeedback><text>LLM 把靜態分析輸出轉成 driver：宣告符號輸入、加上邊界、呼叫進入函式——一個真的能編譯與執行的 harness。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 harness 合成是「迭代」的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>第 2 階段被描述為<strong>迭代</strong>。這是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>harness 會利用編譯器回饋，歷經數輪逐步修正，直到乾淨編譯為止</text><feedback><text>正確——一個編譯／回饋迴圈反覆進行，直到可用的 harness 編譯成功。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 一次寫好 harness 而從不修改</text><feedback><text>不對——「迭代」的重點正是反覆修正，而非一次到位。</text></feedback></answer>
+    <answer fraction="0"><text>harness 對專案裡的每個原始檔逐一迴圈</text><feedback><text>不對——迭代是對同一個 harness 的修正輪次，不是對檔案。</text></feedback></answer>
+    <answer fraction="0"><text>編譯好的 harness 在執行時對測試輸入迴圈</text><feedback><text>不對——「迭代」指的是建置時的合成輪次，不是執行期的輸入迴圈。</text></feedback></answer>
+    <generalfeedback><text>初稿幾乎不會通過編譯，於是把編譯錯誤回饋給 LLM 修正。此迴圈反覆進行數輪，直到 harness 乾淨編譯且可用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>使用哪個符號執行器</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 SAILOR 的符號執行階段（第 3 階段），是哪個符號執行器在運行 harness？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>KLEE</text><feedback><text>正確——SAILOR 在 KLEE 符號執行器下驅動 harness。</text></feedback></answer>
+    <answer fraction="0"><text>AFL</text><feedback><text>不對——AFL 是覆蓋率導向的 fuzzer，不是 SAILOR 使用的符號執行器。</text></feedback></answer>
+    <answer fraction="0"><text>Valgrind</text><feedback><text>不對——Valgrind 是動態插樁工具，不是 SAILOR 的符號執行器。</text></feedback></answer>
+    <answer fraction="0"><text>DART</text><feedback><text>不對——DART 是早期的 concolic 工具；SAILOR 第 3 階段用的是 KLEE。</text></feedback></answer>
+    <generalfeedback><text>第 3 階段在 KLEE 下運行編譯好的 harness，探索符號輸入上的可行路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符號執行會輸出什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當符號執行（KLEE）階段找到 bug 時，會輸出什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個 VIOLATION（被證明的 bug）連同一個 WITNESS（觸發它的具體輸入）</text><feedback><text>正確——KLEE 同時報告它證明的違反與具體的 witness 輸入。</text></feedback></answer>
+    <answer fraction="0"><text>可疑 sink 及其前置條件的清單</text><feedback><text>不對——那是靜態分析輸出，不是符號執行結果。</text></feedback></answer>
+    <answer fraction="0"><text>一個已編譯、可乾淨建置的 harness</text><feedback><text>不對——harness 是本階段的輸入，由稍早的 LLM 產出。</text></feedback></answer>
+    <answer fraction="0"><text>在未修改程式上確認的 crash</text><feedback><text>不對——在未修改程式上確認發生在重播階段，不在這裡。</text></feedback></answer>
+    <generalfeedback><text>KLEE 探索符號輸入上的可行路徑；當某條路徑在違反狀態下抵達可疑操作，就記錄一個 VIOLATION 及觸發它的具體 WITNESS 輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>VIOLATION 是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 SAILOR 中，<strong>VIOLATION</strong> 是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由符號執行器找到、被證明的 bug／assertion 違反</text><feedback><text>正確——violation 是 KLEE 對某條路徑所證明的東西。</text></feedback></answer>
+    <answer fraction="0"><text>觸發該 bug 的具體輸入值</text><feedback><text>不對——那是 WITNESS；VIOLATION 是被證明的 bug 本身。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析標出的可疑位置</text><feedback><text>不對——可疑位置只是候選；violation 是某條路徑上被證明的 bug。</text></feedback></answer>
+    <answer fraction="0"><text>建置 harness 時出現的編譯錯誤</text><feedback><text>不對——編譯錯誤屬於 harness 合成迴圈，不屬於符號執行。</text></feedback></answer>
+    <generalfeedback><text>VIOLATION 是符號執行器證明「某條路徑抵達 bug／assertion 違反」的結果。驅動該路徑的具體輸入則是另外的 WITNESS。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>WITNESS 是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 SAILOR 中，<strong>WITNESS</strong> 是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>觸發該 violation 的具體輸入</text><feedback><text>正確——witness 是驅動有問題路徑的實際輸入值。</text></feedback></answer>
+    <answer fraction="0"><text>某條路徑上存在 bug 的證明</text><feedback><text>不對——那個證明是 VIOLATION；witness 是具體的觸發輸入。</text></feedback></answer>
+    <answer fraction="0"><text>抵達 sink 所需成立的靜態前置條件</text><feedback><text>不對——前置條件來自靜態分析；witness 是 KLEE 產出的具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>crash 後印出的堆疊追蹤</text><feedback><text>不對——witness 是輸入而非崩潰輸出；追蹤出現在重播時。</text></feedback></answer>
+    <generalfeedback><text>WITNESS 是 KLEE 與 VIOLATION 一起產出的具體輸入——正是讓有問題路徑執行的值。稍後的具體重播會把這個 witness 餵進真實程式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具體重播確認什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>具體重播</strong>階段（第 4 階段）確認什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把 witness 在未修改程式上重播，確認漏洞為真、藉此濾除假陽性</text><feedback><text>正確——重播確認的是真實 crash，而非 harness 造成的假象。</text></feedback></answer>
+    <answer fraction="0"><text>harness 可乾淨編譯</text><feedback><text>不對——乾淨編譯在第 2 階段、符號執行之前就已解決。</text></feedback></answer>
+    <answer fraction="0"><text>程式有多少條可行路徑</text><feedback><text>不對——路徑探索是符號執行階段；重播只是重現單一 witness。</text></feedback></answer>
+    <answer fraction="0"><text>抵達 sink 所需的前置條件</text><feedback><text>不對——前置條件是靜態分析輸出，不是重播確認的對象。</text></feedback></answer>
+    <generalfeedback><text>具體重播把 WITNESS 餵進原始、未修改的程式。若真的崩潰，該發現即 CONFIRMED——是真實 bug，而非合成 harness 的假象，藉此濾除假陽性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例的 bug 類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>範例鎖定一個 <code>strcpy</code> 呼叫。它示範的是哪種漏洞類型／CWE？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CWE-787，越界寫入（buffer overflow）</text><feedback><text>正確——strcpy 可能寫過目標緩衝區，屬越界寫入。</text></feedback></answer>
+    <answer fraction="0"><text>CWE-125，越界讀取</text><feedback><text>不對——strcpy 是寫過緩衝區；本例是越界寫入（CWE-787），不是讀取。</text></feedback></answer>
+    <answer fraction="0"><text>CWE-89，SQL 注入</text><feedback><text>不對——這是 C 的記憶體安全 bug，不是 SQL 注入。</text></feedback></answer>
+    <answer fraction="0"><text>use-after-free</text><feedback><text>不對——本例是 buffer overflow（越界寫入），不是 use-after-free。</text></feedback></answer>
+    <generalfeedback><text>範例用 strcpy 把不可信字串複製進固定的 32 位元組緩衝區；當來源較長時，複製會寫過緩衝區——即越界寫入，CWE-787。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>KLEE 是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>第 3 階段使用的 KLEE，最適合描述為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個以符號輸入探索程式路徑的符號執行引擎</text><feedback><text>正確——KLEE 是 SAILOR 驅動的符號執行器。</text></feedback></answer>
+    <answer fraction="0"><text>一個不執行程式、只標出可疑碼的靜態分析器</text><feedback><text>不對——那描述的是第 1 階段；KLEE 會實際以符號方式執行路徑。</text></feedback></answer>
+    <answer fraction="0"><text>一個負責撰寫 harness 的大型語言模型</text><feedback><text>不對——LLM 在第 2 階段寫 harness；KLEE 在第 3 階段運行它。</text></feedback></answer>
+    <answer fraction="0"><text>一個對具體輸入做突變的隨機 fuzzer</text><feedback><text>不對——KLEE 是對符號輸入與路徑約束推理，而非隨機的具體突變。</text></feedback></answer>
+    <generalfeedback><text>KLEE 是符號執行引擎：它以符號輸入運行 harness，探索可行路徑並求解約束，以輸出 violation 與 witness。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個階段產出 witness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個階段產出稍後供具體重播使用的 WITNESS？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>符號執行（KLEE）</text><feedback><text>正確——KLEE 與 violation 一起輸出 witness 輸入。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析</text><feedback><text>不對——靜態分析產出可疑位置與前置條件，不是具體的 witness。</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness 合成</text><feedback><text>不對——該階段產出 driver；witness 來自在 KLEE 下運行它。</text></feedback></answer>
+    <answer fraction="0"><text>具體重播</text><feedback><text>不對——重播消費 witness，並不產出它。</text></feedback></answer>
+    <generalfeedback><text>KLEE（第 3 階段）輸出 VIOLATION 與具體的 WITNESS。第 4 階段再把該 witness 在未修改程式上重播以確認 bug。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>SAILOR 結合三種技術</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR 結合靜態分析、LLM 合成的 harness 與符號執行來發現漏洞。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——這三種技術（外加具體重播確認步驟）構成整條流程。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>SAILOR 的整體設計正是結合靜態分析、LLM harness 與符號執行，再以具體重播確認。</text></feedback></answer>
+    <generalfeedback><text>流程的名稱已說明：「Guiding Symbolic Execution with Static Analysis and LLMs」。第四階段的具體重播負責確認發現。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SAILOR Pipeline/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>對應活動：輸出前置條件與污染標記</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 SAILOR 元件針對一個 <code>strcpy</code> 呼叫，輸出了可疑位置、前置條件 <code>strlen(raw) &lt; 32</code>、函式進入點，以及把 <code>raw</code> 標為受攻擊者控制的污染標記。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態分析</text><feedback><text>正確——標出 sink 並輸出其前置條件、進入點與污染標記，即靜態分析。</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness 合成</text><feedback><text>不對——該階段是寫 driver；它消費這些資訊而非產出它們。</text></feedback></answer>
+    <answer fraction="0"><text>符號執行</text><feedback><text>不對——符號執行探索路徑，並不產出初始的可疑／前置條件清單。</text></feedback></answer>
+    <answer fraction="0"><text>具體重播</text><feedback><text>不對——重播確認 witness，並不產出前置條件與污染標記。</text></feedback></answer>
+    <generalfeedback><text>可疑位置＋前置條件＋進入點＋污染，正是引導後續流程的靜態分析輸出。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對應活動：撰寫可編譯的 driver</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 SAILOR 元件宣告符號輸入、加上邊界、呼叫 <code>load_name(raw)</code>，並在編譯錯誤後修改程式碼直到能建置。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LLM Harness 合成</text><feedback><text>正確——撰寫並反覆修正一個可編譯的 driver，即 LLM harness 階段。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析</text><feedback><text>不對——靜態分析標出位置，並不撰寫或編譯 driver。</text></feedback></answer>
+    <answer fraction="0"><text>符號執行</text><feedback><text>不對——符號執行運行完成的 harness，並不撰寫它。</text></feedback></answer>
+    <answer fraction="0"><text>具體重播</text><feedback><text>不對——重播是在真實程式上跑具體 witness，而非合成的 driver。</text></feedback></answer>
+    <generalfeedback><text>宣告／加界符號輸入、呼叫進入函式、依編譯回饋反覆修正直到建置成功，即迭代式 LLM harness 合成階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對應活動：報告 VIOLATION 與 WITNESS</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 SAILOR 元件報告：<code>strlen(raw) &lt; 32</code> 時為安全路徑、<code>strlen(raw) &ge; 32</code> 時為溢位路徑、一個 VIOLATION（越界寫入），以及一個 40 位元組的 WITNESS <code>raw</code>。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>符號執行（KLEE）</text><feedback><text>正確——探索路徑並輸出 violation 加 witness，即符號執行。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析</text><feedback><text>不對——靜態分析點名可疑處與前置條件，並不探索路徑或產出 witness。</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness 合成</text><feedback><text>不對——該階段建 driver；由 KLEE 運行它才產出 violation 與 witness。</text></feedback></answer>
+    <answer fraction="0"><text>具體重播</text><feedback><text>不對——重播消費 witness 以確認，並不發現違反路徑。</text></feedback></answer>
+    <generalfeedback><text>列舉可行路徑，並在違反路徑上記錄一個 VIOLATION 及具體 WITNESS 輸入，即 KLEE 符號執行階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對應活動：重跑未修改的程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 SAILOR 元件用一個 40 位元組輸入運行原始未修改的程式，觀察到 invalid write，並把發現標記為 CONFIRMED。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具體重播</text><feedback><text>正確——在未修改程式上重現 crash，即具體重播階段。</text></feedback></answer>
+    <answer fraction="0"><text>符號執行</text><feedback><text>不對——符號執行以符號輸入運行 harness，而非以具體輸入運行未修改程式。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析</text><feedback><text>不對——靜態分析根本不執行程式。</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness 合成</text><feedback><text>不對——該階段寫 driver，並不在真實程式上確認 crash。</text></feedback></answer>
+    <generalfeedback><text>把具體 witness 餵進原始未修改程式並確認 crash，即具體重播階段——假陽性的過濾器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何靜態分析最先跑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR 中，為何靜態分析要跑在符號執行<em>之前</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把搜尋收斂到可疑位置與前置條件，使符號執行不盲目、維持可行</text><feedback><text>正確——先修剪空間，才能讓昂貴的探索維持可行。</text></feedback></answer>
+    <answer fraction="0"><text>因為 KLEE 需要只有靜態分析才能產出的已編譯二進位檔</text><feedback><text>不對——產出可執行／可編譯 driver 的是 harness（第 2 階段），不是靜態分析。</text></feedback></answer>
+    <answer fraction="0"><text>因為 witness 必須在寫 harness 之前就存在</text><feedback><text>不對——witness 來自符號執行，而它在靜態分析與 harness 合成之後才跑。</text></feedback></answer>
+    <answer fraction="0"><text>因為重播必須在探索開始前就確認 bug</text><feedback><text>不對——重播是最後階段，它需要只有符號執行能產出的 witness。</text></feedback></answer>
+    <generalfeedback><text>符號執行會遭遇路徑爆炸。先跑靜態分析標出何處、在何前置條件下該看，執行器就把預算花在重要路徑，而非盲目探索。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何是這個階段順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪句最能總結 SAILOR 各階段採此特定順序的<em>原因</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態收斂 → harness 驅動 → 符號探索 → 重播確認</text><feedback><text>正確——每個階段都恰好備妥下一個階段所需之物。</text></feedback></answer>
+    <answer fraction="0"><text>重播確認 → 符號探索 → harness 驅動 → 靜態收斂</text><feedback><text>不對——這把流程反過來了；還沒發現就無法確認任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>harness 驅動 → 重播確認 → 靜態收斂 → 符號探索</text><feedback><text>不對——靜態分析鎖定位置前無法建 harness，且重播需先有 witness。</text></feedback></answer>
+    <answer fraction="0"><text>符號探索 → 靜態收斂 → 重播確認 → harness 驅動</text><feedback><text>不對——符號執行在能跑之前，需要目標與 harness 兩者。</text></feedback></answer>
+    <generalfeedback><text>靜態分析收斂目標、LLM 建 driver 以抵達它、符號執行探索該 driver 以用 witness 證明違反、重播在真實程式上確認 witness。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完整 SAILOR 的頭條數字</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在評估中，<strong>完整</strong>的 SAILOR 流程回報了多少漏洞與 crash？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>379 個獨立漏洞與 421 個確認 crash</text><feedback><text>正確——這是完整流程的頭條數字。</text></feedback></answer>
+    <answer fraction="0"><text>421 個獨立漏洞與 379 個確認 crash</text><feedback><text>不對——數字對調了：是 379 個獨立漏洞與 421 個確認 crash。</text></feedback></answer>
+    <answer fraction="0"><text>12 個獨立漏洞與 35 個確認 crash</text><feedback><text>不對——12 是基準值；完整流程找到的多得多。</text></feedback></answer>
+    <answer fraction="0"><text>3790 個獨立漏洞與 4210 個確認 crash</text><feedback><text>不對——回報的數字是 379 與 421，不是十倍大。</text></feedback></answer>
+    <generalfeedback><text>完整 SAILOR 在整個評估中找到 379 個獨立漏洞與 421 個確認 crash。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>移除靜態分析的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在消融實驗中，移除靜態分析（「no-static」）對找到的漏洞有何效果？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>找到的漏洞少了約 12.2 倍</text><feedback><text>正確——沒有鎖定目標，符號執行的效能大幅下降。</text></feedback></answer>
+    <answer fraction="0"><text>找到的漏洞恰為零</text><feedback><text>不對——歸零是 no-LLM 的結果；no-static 是少 12.2 倍但仍非零。</text></feedback></answer>
+    <answer fraction="0"><text>沒有可量測的變化</text><feedback><text>不對——移除靜態分析造成 12.2 倍的大幅減少。</text></feedback></answer>
+    <answer fraction="0"><text>找到的漏洞多了約 12.2 倍</text><feedback><text>不對——移除修剪只會有害不會有益；它是少 12.2 倍。</text></feedback></answer>
+    <generalfeedback><text>靜態分析正是讓符號執行可行的關鍵。移除它，SAILOR 找到的漏洞少約 12.2 倍——嚴重下降，但未到歸零。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>移除 LLM harness 的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在消融實驗中，移除 LLM harness 合成（「no-LLM」）的結果是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>找到零個漏洞</text><feedback><text>正確——沒有 harness，KLEE 就沒東西可執行。</text></feedback></answer>
+    <answer fraction="0"><text>少約 12.2 倍</text><feedback><text>不對——少 12.2 倍是 no-static 的結果；no-LLM 一路崩到零。</text></feedback></answer>
+    <answer fraction="0"><text>恰好 12 個（與基準相同）</text><feedback><text>不對——12 是既有基準工具；no-LLM 產出零。</text></feedback></answer>
+    <answer fraction="0"><text>只比完整流程略少一些</text><feedback><text>不對——沒有 harness，流程就沒東西可跑，因此找到零個。</text></feedback></answer>
+    <generalfeedback><text>沒有 harness 就沒東西能在 KLEE 下執行，所以 no-LLM 消融找到零個漏洞——顯示 harness 是硬性前提。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>基準的數字</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基準／既有比較工具（手寫 harness）找到多少漏洞？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>正確——既有工具只找到 12，相對於完整 SAILOR 的 379。</text></feedback></answer>
+    <answer fraction="0"><text>379</text><feedback><text>不對——379 是完整 SAILOR 的獨立漏洞數，不是基準。</text></feedback></answer>
+    <answer fraction="0"><text>421</text><feedback><text>不對——421 是完整 SAILOR 的確認 crash 數，不是基準。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>不對——零是 no-LLM 消融的結果；基準找到 12。</text></feedback></answer>
+    <generalfeedback><text>基準（使用手寫 harness 的既有工具）只找到 12，遠少於完整 SAILOR 的 379 個獨立漏洞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>評估規模</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR 在大約多少程式碼上進行評估？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10 個開源專案，約 680 萬行 C/C++</text><feedback><text>正確——這是回報的評估語料。</text></feedback></answer>
+    <answer fraction="0"><text>1 個約 680 萬行的專案</text><feedback><text>不對——是 10 個專案，不是單一個。</text></feedback></answer>
+    <answer fraction="0"><text>100 個各約 6800 行的專案</text><feedback><text>不對——語料是 10 個專案，合計約 680 萬行。</text></feedback></answer>
+    <answer fraction="0"><text>10 個合計約 6800 行的專案</text><feedback><text>不對——合計約 680 萬行 C/C++，不是 6800 行。</text></feedback></answer>
+    <generalfeedback><text>評估在 10 個開源專案上進行，合計約 680 萬行 C/C++。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>為何需要具體重播</text></name>
+    <questiontext format="html"><text><![CDATA[<p>具體重播的存在，主要是為了把 witness 在原始未修改的程式上重跑，以濾除假陽性。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——在 harness 裡找到的違反，唯有具體 witness 在真實程式上重現後才被採信。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>重播的目的正是過濾假陽性：在未修改程式上確認 bug 為真，而非 harness 的假象。</text></feedback></answer>
+    <generalfeedback><text>符號執行可能在只有 harness 中才可行的路徑上報違反。把具體 witness 在未修改程式上重播，可確認真實 bug 並丟棄只存在於 harness 的假象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>strcpy 的前置條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在範例中目標緩衝區為 <code>char name[32]</code>。靜態分析對 <code>strcpy</code> sink 附加了什麼前置條件，作為複製維持安全的條件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[strlen(raw) < 32]]></text><feedback><text>正確——來源必須短於 32 位元組的目標，複製才安全。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[strlen(raw) < 64]]></text><feedback><text>不對——目標是 32 位元組，安全前置條件是 strlen(raw) &lt; 32，不是 64。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[strlen(raw) > 32]]></text><feedback><text>不對——那是溢位條件，不是安全前置條件；安全是 strlen(raw) &lt; 32。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[raw != NULL]]></text><feedback><text>不對——非空並不限制長度；長度前置條件是 strlen(raw) &lt; 32。</text></feedback></answer>
+    <generalfeedback><text>目標為 32 位元組時，唯有 strlen(raw) &lt; 32 複製才安全。靜態分析附加此前置條件，讓符號執行能鎖定其被違反的路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>VIOLATION 與 WITNESS 一起</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單一 KLEE 結果同時帶有 VIOLATION 與 WITNESS。兩者的關係為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>VIOLATION 是某條路徑上被證明的 bug；WITNESS 是驅動該路徑的具體輸入，重播會重用它來重現違反</text><feedback><text>正確——一個是證明，另一個是重播所依賴的觸發輸入。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一個東西的兩個名字</text><feedback><text>不對——violation（證明）與 witness（輸入）是不同的產物。</text></feedback></answer>
+    <answer fraction="0"><text>WITNESS 是證明，VIOLATION 是輸入</text><feedback><text>不對——這對調了：violation 是證明，witness 是輸入。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是執行前產出的靜態規格</text><feedback><text>不對——兩者都是符號執行的輸出，不是靜態規格。</text></feedback></answer>
+    <generalfeedback><text>KLEE 在某條路徑上證明 VIOLATION，並回報驅動該路徑的具體 WITNESS 輸入。具體重播把 witness（而非 violation）餵進真實程式以確認 bug。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例中 witness 確認了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在範例中，witness 讓來源字串超過 32 位元組的目標緩衝區。一旦重播重現 crash，確認的是哪一類 bug？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>越界寫入（CWE-787）</text><feedback><text>正確——寫過目標緩衝區即越界寫入，CWE-787。</text></feedback></answer>
+    <answer fraction="0"><text>越界讀取（CWE-125）</text><feedback><text>不對——strcpy 是寫過緩衝區；這是寫入，不是讀取。</text></feedback></answer>
+    <answer fraction="0"><text>整數溢位</text><feedback><text>不對——這個 bug 是記憶體寫過緩衝區邊界，不是算術溢位。</text></feedback></answer>
+    <answer fraction="0"><text>空指標解參考</text><feedback><text>不對——指標有效；問題在於寫過 32 位元組緩衝區。</text></feedback></answer>
+    <generalfeedback><text>當 strlen(raw) ≥ 32 時，strcpy 寫過 name[32]。重播在未修改程式上重現此情形，確認為越界寫入——CWE-787。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SAILOR Pipeline/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 no-static 讓成果少 12.2 倍</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何移除靜態分析會讓 SAILOR 的成果約少 12.2 倍，而不是維持不變？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有可疑位置與前置條件來修剪搜尋，符號執行便遭遇路徑爆炸而變得不可行，在預算內探索得遠為無效</text><feedback><text>正確——靜態分析正是讓探索聚焦且可行的關鍵。</text></feedback></answer>
+    <answer fraction="0"><text>因為沒有靜態分析，harness 就無法再編譯</text><feedback><text>不對——編譯是 harness 迴圈的事；移除靜態分析傷的是鎖定目標，不是建置。</text></feedback></answer>
+    <answer fraction="0"><text>因為移除靜態分析時 KLEE 會被停用</text><feedback><text>不對——KLEE 仍會跑，只是失去引導，把預算浪費在無關路徑上。</text></feedback></answer>
+    <answer fraction="0"><text>因為沒有靜態分析，具體重播會拒絕每個發現</text><feedback><text>不對——重播仍會確認真實 crash；損失來自上游探索失焦。</text></feedback></answer>
+    <generalfeedback><text>可行路徑數呈指數成長。靜態分析標出何處、在何前置條件下該看；移除它，KLEE 便盲目探索、遭遇路徑爆炸，抵達的真實 bug 遠少——約少 12.2 倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 no-LLM 恰好歸零</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何移除 LLM harness 合成會讓成果<em>恰好歸零</em>，而不只是降到較小的數字？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有合成的 driver 就沒東西能在 KLEE 下編譯與執行，符號執行沒有 harness 可跑，因而完全不產出 violation 或 witness</text><feedback><text>正確——harness 是硬性前提；沒有它，流程就沒東西可跑。</text></feedback></answer>
+    <answer fraction="0"><text>因為靜態分析也停止輸出可疑位置</text><feedback><text>不對——靜態分析不受影響；缺口在於沒有 driver 可執行。</text></feedback></answer>
+    <answer fraction="0"><text>因為具體重播接著把所有發現都判為假陽性</text><feedback><text>不對——根本沒有發現可拒絕；沒有東西在 KLEE 下跑過。</text></feedback></answer>
+    <answer fraction="0"><text>因為路徑數變成無限，KLEE 對每一條都逾時</text><feedback><text>不對——問題不是逾時；而是根本沒有 harness 給 KLEE 跑。</text></feedback></answer>
+    <generalfeedback><text>符號執行需要可執行之物。沒有 LLM 就沒有 harness，KLEE 便沒東西可跑——於是零 violation、零 witness。harness 是硬性使能元件，不只是最佳化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個消融揭示了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把 no-static 結果（約少 12.2 倍）與 no-LLM 結果（歸零）對比。此對比揭示了這兩個元件角色的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>harness 是硬性前提（沒有它什麼都跑不了），而靜態分析是強力的可行性／效率使能元件（沒有它流程仍能運作，只是差很多）</text><feedback><text>正確——歸零 vs 少 12.2 倍，區分了「不可移除的使能元件」與「大幅有助的元件」。</text></feedback></answer>
+    <answer fraction="0"><text>兩個元件同樣可有可無</text><feedback><text>不對——移除 LLM harness 會讓流程崩到零，所以它並非可有可無。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析是前提，LLM harness 是最佳化元件</text><feedback><text>不對——恰好相反：harness 才是前提（沒它就歸零）；靜態分析是效率倍增器。</text></feedback></answer>
+    <answer fraction="0"><text>具體重播才是此消融暴露的真正瓶頸</text><feedback><text>不對——此消融對比的是靜態分析與 harness；重播不是這兩個數字所隔離的對象。</text></feedback></answer>
+    <generalfeedback><text>no-LLM → 零，顯示 harness 是「能跑任何東西」的不可或缺前提。no-static → 少 12.2 倍，顯示靜態分析是強力的效能倍增器，但沒有它流程仍能找到一些 bug。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最不可或缺的單一元件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從消融實驗來詮釋，哪個單一元件<em>最</em>不可或缺，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LLM harness 合成——移除它成果歸零，而移除靜態分析只是少 12.2 倍（仍非零）</text><feedback><text>正確——完全崩到零，標示 harness 是最嚴格的前提。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析——因為 12.2 倍是消融中最大的數字</text><feedback><text>不對——大倍數仍非零；harness 更不可或缺，因為沒有它成果為零。</text></feedback></answer>
+    <answer fraction="0"><text>具體重播——因為沒有它什麼都無法確認</text><feedback><text>不對——消融顯示是 harness 而非重播，其移除會讓成果歸零。</text></feedback></answer>
+    <answer fraction="0"><text>符號執行——因為它才是真正找出 bug 的元件</text><feedback><text>不對——符號執行固然核心，但消融把 harness 隔離為「移除即歸零」者。</text></feedback></answer>
+    <generalfeedback><text>「最不可或缺」意指移除後傷害最大者。no-LLM 歸零（沒東西可跑），而 no-static 少 12.2 倍但非零——所以 LLM harness 是最嚴格的前提。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>VIOLATION 與 WITNESS 及重播如何各自使用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>精確區分 VIOLATION 與 WITNESS，並說明具體重播如何各自使用它們。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>VIOLATION 是執行器對「某條路徑抵達 bug」的證明；WITNESS 是驅動該路徑的具體輸入；重播把 witness（而非 violation）餵進未修改程式，以重現並確認違反</text><feedback><text>正確——witness 是可操作的輸入，violation 是它所確認的主張。</text></feedback></answer>
+    <answer fraction="0"><text>VIOLATION 是具體輸入；WITNESS 是證明；重播把 violation 餵進程式</text><feedback><text>不對——角色反了：witness 是輸入，violation 是證明。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是輸入；重播先跑哪個先崩就用哪個</text><feedback><text>不對——只有 witness 是輸入；violation 是證明，不是能餵給程式的東西。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是證明；重播挑較強的證明來回報</text><feedback><text>不對——witness 是具體輸入而非證明；重播把它在真實程式上跑。</text></feedback></answer>
+    <generalfeedback><text>VIOLATION 是 KLEE 對「某條路徑抵達 bug」的證明；WITNESS 是該路徑的具體觸發輸入。重播不理會抽象的 violation，而是把具體 witness 在未修改程式上跑，以確認 bug 為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何迭代 harness 迴圈重要</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何第 2 階段的編譯回饋迭代是必要的，而非只是方便？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>初稿 harness 通常編譯不過；若不靠回饋修正，就沒有可執行的 harness，KLEE 便沒東西可跑</text><feedback><text>正確——這個迴圈把壞掉的初稿變成可用的 driver。</text></feedback></answer>
+    <answer fraction="0"><text>它讓編譯好的 harness 在執行時跑更快</text><feedback><text>不對——迴圈是為了讓 harness 能建置，而非執行速度。</text></feedback></answer>
+    <answer fraction="0"><text>它直接增加 KLEE 探索的路徑數</text><feedback><text>不對——路徑數是符號執行的事；迴圈的角色是產出可編譯的 harness。</text></feedback></answer>
+    <answer fraction="0"><text>它在重播前濾除假陽性</text><feedback><text>不對——濾除假陽性是重播的工作；迴圈的工作是產出可建置的 harness。</text></feedback></answer>
+    <generalfeedback><text>LLM 初稿鮮少能編譯。編譯／回饋迴圈反覆修正直到能建置；沒有它就沒有可執行的 driver——這正是 no-LLM 消融歸零的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SAILOR 如何結合三種強項</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR 結合靜態、動態（符號）與 LLM 技術。下列各自貢獻的對應何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態分析修剪與鎖定；LLM 寫出過去需人工手寫的 driver；符號執行證明可達性並產出 witness；重播在真實程式上確認</text><feedback><text>正確——每種技術都補足其他技術的弱點。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析寫 driver；LLM 探索路徑；符號執行修剪搜尋；重播編譯 harness</text><feedback><text>不對——每個角色都錯置了；修剪是靜態分析、寫 driver 是 LLM、探索是符號執行。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 修剪搜尋；靜態分析證明可達性；符號執行在真實程式上確認；重播鎖定 sink</text><feedback><text>不對——修剪是靜態分析、可達性是符號執行、確認是重播。</text></feedback></answer>
+    <answer fraction="0"><text>三種技術冗餘地做同一件事以求可靠</text><feedback><text>不對——它們是互補的，各自提供其他技術做不到的部分。</text></feedback></answer>
+    <generalfeedback><text>靜態分析聚焦力氣、LLM 把過去人工的 harness 自動化、符號執行以具體 witness 證明可達的違反、具體重播加以確認——結合靜態、動態與 LLM 的強項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何無引導的符號執行是盲目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>具體而言，是什麼讓<em>無引導</em>的符號執行「盲目」，而靜態鎖定又如何幫上忙？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可行路徑呈指數成長；沒有前置條件與可疑 sink 可導向，執行器會把預算花在無關路徑上、鮮少抵達深層 bug——靜態分析聚焦該預算</text><feedback><text>正確——鎖定正是把不可行的搜尋變成有成效搜尋的關鍵。</text></feedback></answer>
+    <answer fraction="0"><text>沒有靜態分析它就無法求解任何路徑約束</text><feedback><text>不對——求解器仍能運作；問題在於力氣該花在哪，而鎖定解決此事。</text></feedback></answer>
+    <answer fraction="0"><text>依定義它除非被靜態分析叫停否則永不終止</text><feedback><text>不對——終止由搜尋上限所界；問題是力氣失焦，而非本質不終止。</text></feedback></answer>
+    <answer fraction="0"><text>它需要先有 witness 才能開始探索</text><feedback><text>不對——witness 是探索的輸出，不是探索的前提。</text></feedback></answer>
+    <generalfeedback><text>可行路徑數呈指數爆炸。沒有靜態分析指向可疑 sink 及其前置條件，執行器會把預算浪費在探索無關路徑——正是消融量到的 12.2 倍損失。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>前置條件如何引導 KLEE</text></name>
+    <questiontext format="html"><text><![CDATA[<p>靜態前置條件 <code>strlen(raw) &lt; 32</code> 如何幫助符號執行找到溢位？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它在 sink 處標出安全條件，於是 KLEE 能鎖定 strlen(raw) ≥ 32 的路徑——即寫過 name[32] 的路徑——而非探索一切</text><feedback><text>正確——知道安全條件，就等於告訴執行器該追哪條違反路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它把 raw 固定成一個具體值，讓 KLEE 不需用符號輸入</text><feedback><text>不對——前置條件是關於安全的符號約束，不是具體賦值。</text></feedback></answer>
+    <answer fraction="0"><text>它修補 strcpy 使溢位不會發生</text><feedback><text>不對——靜態分析不修改程式碼；它為 sink 標註安全條件。</text></feedback></answer>
+    <answer fraction="0"><text>它為安全路徑停用 harness</text><feedback><text>不對——harness 仍會跑；前置條件只是告訴 KLEE 哪條是違反路徑。</text></feedback></answer>
+    <generalfeedback><text>前置條件 strlen(raw) &lt; 32 是複製維持安全的條件。它的否定 strlen(raw) ≥ 32 標出溢位路徑——於是 KLEE 鎖定該路徑並找到越界寫入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>詮釋基準 12 對比 379/421</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基準找到 12，而完整 SAILOR 找到 379 個漏洞／421 個 crash。公允的結論為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把 harness 合成自動化並加上靜態鎖定，大幅擴展了符號執行相較於既有手寫 harness 工具所能發現的範圍</text><feedback><text>正確——差距反映的是自動化加鎖定，而非「什麼算 bug」的定義改變。</text></feedback></answer>
+    <answer fraction="0"><text>基準單純不健全而過度回報；SAILOR 較保守</text><feedback><text>不對——SAILOR 找到的多得多，且其重播步驟會確認 bug；基準並非過度回報。</text></feedback></answer>
+    <answer fraction="0"><text>兩者用同一種技術，所以差異必是量測雜訊</text><feedback><text>不對——基準用手寫 harness；SAILOR 自動化並鎖定，是真實的方法差異。</text></feedback></answer>
+    <answer fraction="0"><text>SAILOR 以犧牲健全性換取更高的數字</text><feedback><text>不對——具體重播會確認每個 crash，所以更高的數字是「已確認的 bug」，而非犧牲健全性。</text></feedback></answer>
+    <generalfeedback><text>既有工具依賴手寫 harness、找到 12。SAILOR 自動化且靜態鎖定的 harness 讓符號執行抵達遠更多真實 bug——379 個獨立漏洞、421 個確認 crash，且全經重播確認。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何重播用 witness 而非 violation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何 SAILOR 要重播具體 witness，而非直接採信 KLEE 的 violation？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>violation 可能發生在只有 harness／模型中才可行的路徑上；把具體 witness 在未修改程式上重播能證明 bug 為真，並濾除 harness 造成的假陽性</text><feedback><text>正確——重播是對 harness 主張的現實檢驗。</text></feedback></answer>
+    <answer fraction="0"><text>因為 KLEE 對它實際跑過的路徑不健全</text><feedback><text>不對——顧慮的是 harness-only 狀態，而非 KLEE 對其所探索路徑的健全性。</text></feedback></answer>
+    <answer fraction="0"><text>因為重播比讀取 violation 記錄更快</text><feedback><text>不對——重播是關於確認品質，不是速度。</text></feedback></answer>
+    <answer fraction="0"><text>為了重新計算靜態分析產出的前置條件</text><feedback><text>不對——重播確認 crash，並不重新計算前置條件。</text></feedback></answer>
+    <generalfeedback><text>harness 可能製造出真實程式中不可能的狀態，因此其上的 violation 可能是假陽性。把具體 witness 在未修改程式上重播，正是區分真實 bug 與 harness 假象的手段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>過度約束 harness 的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設合成的 harness 過度約束了符號輸入（邊界收得太緊）。對流程可能的後果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>真實 bug 可能落在被探索的輸入空間之外，於是 KLEE 永遠不輸出該 violation——即偽陰性——即使各階段都有跑</text><feedback><text>正確——藏起觸發輸入，就讓該 bug 在探索中不可達。</text></feedback></answer>
+    <answer fraction="0"><text>它保證產生一個重播仍會確認的假陽性</text><feedback><text>不對——過度約束是藏起 bug（偽陰性），不會製造出已確認的 crash。</text></feedback></answer>
+    <answer fraction="0"><text>具體重播會自動放寬輸入空間來補償</text><feedback><text>不對——重播只重跑一個 witness；無法找回 harness 排除掉的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析會重跑以修正 harness</text><feedback><text>不對——流程是往前跑的；靜態分析不會重跑來修補 harness。</text></feedback></answer>
+    <generalfeedback><text>若 harness 把輸入界得太緊，觸發 bug 的值被排除，於是 KLEE 探索的空間裡違反從不出現——偽陰性。（約束太鬆則相反：造成假陽性。）</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>重播不能先於符號執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>具體重播無法有意義地在符號執行之前進行，因為它需要只有符號執行才能產出的 witness。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——資料相依（witness → 重播）固定了順序：先探索、後確認。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>重播的輸入是 witness，而它由符號執行產出，因此重播必在其後。</text></feedback></answer>
+    <generalfeedback><text>重播在未修改程式上重現某個特定 witness。既然 witness 是符號執行的輸出，重播必然是較後的階段——這是資料相依，而非任意選擇。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>LLM 自動化了哪個人工步驟</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在既有的符號執行工具中，SAILOR 的 LLM 階段自動化了哪個昂貴的人工步驟，又為何能因此解鎖規模？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>為每個目標手寫一個可編譯的 harness；把它自動化，流程就能在數百萬行程式碼中攻擊眾多位置，而不需為每個目標配一個人</text><feedback><text>正確——harness 的瓶頸就是那個人，而 LLM 移除了它。</text></feedback></answer>
+    <answer fraction="0"><text>手動求解路徑約束；把它自動化就不再需要求解器</text><feedback><text>不對——求解器仍在用；LLM 自動化的是寫 harness，不是求解約束。</text></feedback></answer>
+    <answer fraction="0"><text>手動確認每個 crash；把它自動化就移除了重播階段</text><feedback><text>不對——重播仍會跑；LLM 自動化的是 harness 合成，不是確認。</text></feedback></answer>
+    <answer fraction="0"><text>手動為每個發現標上 CWE 編號</text><feedback><text>不對——瓶頸不是 CWE 標記，而是為每個目標手寫 harness。</text></feedback></answer>
+    <generalfeedback><text>傳統符號執行需要人為每個目標手寫可編譯 harness——這是規模的瓶頸。SAILOR 的 LLM 自動合成 harness，使流程能在約 680 萬行程式碼中涵蓋眾多位置，而不需每目標的人工。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對消融的整體解讀</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個結論最受完整消融支持（完整：421 crash；no-static：少 12.2 倍；no-LLM：零；基準：12）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個元件都不可或缺但方式不同——LLM harness 是嚴格的使能元件（沒它就零）、靜態分析是可行性倍增器（12.2 倍），而三者結合遠勝既有工具（基準 12）</text><feedback><text>正確——這些數字合起來顯示各自不同且互補的角色。</text></feedback></answer>
+    <answer fraction="0"><text>只有 LLM harness 重要；其他元件只是裝飾</text><feedback><text>不對——no-static 的 12.2 倍下降顯示靜態分析也極其重要。</text></feedback></answer>
+    <answer fraction="0"><text>只有靜態分析重要；harness 可有可無</text><feedback><text>不對——no-LLM 歸零，所以 harness 並非可有可無。</text></feedback></answer>
+    <answer fraction="0"><text>各元件冗餘，因為移除任一個成果都不變</text><feedback><text>不對——移除元件會使成果劇變（歸零，或少 12.2 倍），所以它們並不冗餘。</text></feedback></answer>
+    <generalfeedback><text>消融顯示每個元件各以自身方式舉足輕重：harness 不可或缺（沒它就零）、靜態分析倍增效能（12.2 倍），而完整 SAILOR（379 漏洞／421 crash）遠勝基準的 12——整體遠大於任一部分。</text></generalfeedback>
+  </question>
+</quiz>

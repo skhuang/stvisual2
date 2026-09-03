@@ -98685,6 +98685,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "sailor-pipeline": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What SAILOR is for",
+          "text": "<p><strong>SAILOR</strong> (\"Guiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery\") is a pipeline whose goal is to:</p>",
+          "answers": [
+            {
+              "text": "Automatically discover vulnerabilities in C/C++ code by combining static analysis, LLMs, and symbolic execution",
+              "fraction": 100,
+              "feedback": "Correct — SAILOR is a vulnerability-discovery pipeline that stitches these three techniques together."
+            },
+            {
+              "text": "Automatically patch and fix the vulnerabilities it detects",
+              "fraction": 0,
+              "feedback": "No — SAILOR discovers (and confirms) vulnerabilities; it does not repair the code."
+            },
+            {
+              "text": "Formally prove that a program is completely free of bugs",
+              "fraction": 0,
+              "feedback": "No — it hunts for bugs by exploring paths; it does not produce a whole-program correctness proof."
+            },
+            {
+              "text": "Measure the statement and branch coverage of an existing test suite",
+              "fraction": 0,
+              "feedback": "No — coverage measurement is a different activity; SAILOR's goal is finding real vulnerabilities."
+            }
+          ],
+          "generalFeedback": "SAILOR (Shafiuzzaman, Desai, Guo, Bultan; arXiv:2604.06506, 2026) is a vulnerability-discovery pipeline: static analysis targets suspect code, an LLM synthesizes a harness, symbolic execution explores it, and concrete replay confirms the finding.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How many phases",
+          "text": "<p>How many phases make up the SAILOR pipeline, and how are they run?</p>",
+          "answers": [
+            {
+              "text": "Four phases, run one after another in a fixed sequence",
+              "fraction": 100,
+              "feedback": "Correct — SAILOR is a four-phase pipeline whose phases run in order."
+            },
+            {
+              "text": "Two phases run in parallel",
+              "fraction": 0,
+              "feedback": "No — SAILOR has four phases, and they run sequentially, not two in parallel."
+            },
+            {
+              "text": "Three phases run in a loop",
+              "fraction": 0,
+              "feedback": "No — there are four phases; only phase 2 (harness synthesis) has an internal loop."
+            },
+            {
+              "text": "One monolithic analysis step",
+              "fraction": 0,
+              "feedback": "No — SAILOR deliberately separates the work into four ordered phases."
+            }
+          ],
+          "generalFeedback": "SAILOR runs four phases in order: Static Analysis, LLM Harness Synthesis, Symbolic Execution, and Concrete Replay.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order of the four phases",
+          "text": "<p>Which lists the four SAILOR phases in the correct order?</p>",
+          "answers": [
+            {
+              "text": "Static Analysis → LLM Harness Synthesis → Symbolic Execution → Concrete Replay",
+              "fraction": 100,
+              "feedback": "Correct — narrow the target, build a driver, explore it, then confirm the finding."
+            },
+            {
+              "text": "LLM Harness Synthesis → Static Analysis → Concrete Replay → Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — static analysis must run first to tell the harness what to target, and symbolic execution must run before replay."
+            },
+            {
+              "text": "Symbolic Execution → Concrete Replay → Static Analysis → LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — you cannot symbolically execute before a harness exists, and static analysis comes first."
+            },
+            {
+              "text": "Static Analysis → Symbolic Execution → LLM Harness Synthesis → Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — the harness must be synthesized before symbolic execution can run it."
+            }
+          ],
+          "generalFeedback": "The fixed order is Static Analysis → LLM Harness Synthesis → Symbolic Execution (KLEE) → Concrete Replay. Each phase produces the input the next one needs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Static Analysis does",
+          "text": "<p>What is the job of the <strong>Static Analysis</strong> phase (phase 1)?</p>",
+          "answers": [
+            {
+              "text": "Scan the code to flag candidate vulnerable sites (sinks) and the preconditions to reach them, narrowing where later phases look",
+              "fraction": 100,
+              "feedback": "Correct — it prunes the search space so symbolic execution is not blind."
+            },
+            {
+              "text": "Run the program on symbolic inputs to explore its paths",
+              "fraction": 0,
+              "feedback": "No — that is the symbolic execution phase; static analysis does not execute the program."
+            },
+            {
+              "text": "Write the test harness that drives the suspect code",
+              "fraction": 0,
+              "feedback": "No — synthesizing the harness is the LLM's job in phase 2."
+            },
+            {
+              "text": "Replay a concrete input to confirm a crash is real",
+              "fraction": 0,
+              "feedback": "No — that is the concrete replay phase (phase 4)."
+            }
+          ],
+          "generalFeedback": "Static analysis flags suspect sinks, emits the safety precondition needed to reach each one, marks tainted inputs, and thereby narrows (prunes) where the expensive later phases spend effort.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What LLM Harness Synthesis produces",
+          "text": "<p>What does the <strong>LLM Harness Synthesis</strong> phase (phase 2) produce?</p>",
+          "answers": [
+            {
+              "text": "A compilable test/fuzz harness (a driver) that exercises the candidate suspect site",
+              "fraction": 100,
+              "feedback": "Correct — the LLM writes the driver that feeds inputs into the flagged code."
+            },
+            {
+              "text": "A source-code patch that fixes the suspect site",
+              "fraction": 0,
+              "feedback": "No — SAILOR discovers bugs; it does not patch them, and this phase builds a driver, not a fix."
+            },
+            {
+              "text": "The list of suspect locations to investigate",
+              "fraction": 0,
+              "feedback": "No — that list comes from static analysis; the LLM consumes it to write a harness."
+            },
+            {
+              "text": "The concrete crashing input that confirms the bug",
+              "fraction": 0,
+              "feedback": "No — the crashing witness comes later, from symbolic execution and replay."
+            }
+          ],
+          "generalFeedback": "An LLM turns the static-analysis output into a driver: it declares symbolic inputs, bounds them, and calls the entry function — a harness that can actually be compiled and run.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why \"iterative\" harness synthesis",
+          "text": "<p>Phase 2 is described as <strong>iterative</strong>. What does that mean?</p>",
+          "answers": [
+            {
+              "text": "The harness is refined over several rounds, using compiler feedback, until it builds cleanly",
+              "fraction": 100,
+              "feedback": "Correct — a compile/feedback loop repeats until a usable harness compiles."
+            },
+            {
+              "text": "The LLM writes the harness once and never revises it",
+              "fraction": 0,
+              "feedback": "No — the whole point of \"iterative\" is repeated refinement, not a single shot."
+            },
+            {
+              "text": "The harness loops over every source file in the project",
+              "fraction": 0,
+              "feedback": "No — the iteration is over refinement rounds of one harness, not over files."
+            },
+            {
+              "text": "The compiled harness loops over test inputs while running",
+              "fraction": 0,
+              "feedback": "No — \"iterative\" refers to synthesis rounds at build time, not a runtime input loop."
+            }
+          ],
+          "generalFeedback": "The first draft rarely compiles, so the compiler error is fed back to the LLM, which revises. This loop repeats over rounds until the harness builds cleanly and is usable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which symbolic executor",
+          "text": "<p>In SAILOR's symbolic execution phase (phase 3), which symbolic executor runs the harness?</p>",
+          "answers": [
+            {
+              "text": "KLEE",
+              "fraction": 100,
+              "feedback": "Correct — SAILOR drives the harness under the KLEE symbolic executor."
+            },
+            {
+              "text": "AFL",
+              "fraction": 0,
+              "feedback": "No — AFL is a coverage-guided fuzzer, not the symbolic executor SAILOR uses."
+            },
+            {
+              "text": "Valgrind",
+              "fraction": 0,
+              "feedback": "No — Valgrind is a dynamic instrumentation tool, not SAILOR's symbolic executor."
+            },
+            {
+              "text": "DART",
+              "fraction": 0,
+              "feedback": "No — DART is an early concolic tool; SAILOR's phase 3 uses KLEE."
+            }
+          ],
+          "generalFeedback": "Phase 3 runs the compiled harness under KLEE, which explores feasible paths over the symbolic inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Symbolic Execution emits",
+          "text": "<p>When the Symbolic Execution (KLEE) phase finds a bug, what does it emit?</p>",
+          "answers": [
+            {
+              "text": "A VIOLATION (the proven bug) together with a WITNESS (a concrete input that triggers it)",
+              "fraction": 100,
+              "feedback": "Correct — KLEE reports both the violation it proved and the concrete witness input."
+            },
+            {
+              "text": "A list of suspect sinks and their preconditions",
+              "fraction": 0,
+              "feedback": "No — that is the static-analysis output, not the symbolic-execution result."
+            },
+            {
+              "text": "A compiled, cleanly building harness",
+              "fraction": 0,
+              "feedback": "No — the harness is the input to this phase, produced earlier by the LLM."
+            },
+            {
+              "text": "A confirmed crash on the unmodified program",
+              "fraction": 0,
+              "feedback": "No — confirmation on the unmodified program happens in the replay phase, not here."
+            }
+          ],
+          "generalFeedback": "KLEE explores feasible paths over the symbolic inputs; when a path reaches the suspect operation in a violating state it records a VIOLATION plus a concrete WITNESS input that triggers it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a VIOLATION is",
+          "text": "<p>In SAILOR, a <strong>VIOLATION</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A proven bug / assertion violation found by the symbolic executor",
+              "fraction": 100,
+              "feedback": "Correct — the violation is what KLEE proves about a path."
+            },
+            {
+              "text": "The concrete input value that triggers the bug",
+              "fraction": 0,
+              "feedback": "No — that is the WITNESS; the VIOLATION is the proven bug itself."
+            },
+            {
+              "text": "A suspect location flagged by static analysis",
+              "fraction": 0,
+              "feedback": "No — a suspect site is only a candidate; a violation is a proven bug on a path."
+            },
+            {
+              "text": "A compiler error raised while building the harness",
+              "fraction": 0,
+              "feedback": "No — compiler errors belong to the harness-synthesis loop, not to symbolic execution."
+            }
+          ],
+          "generalFeedback": "A VIOLATION is the symbolic executor's proof that a path reaches a bug / assertion violation. The concrete input that drives that path is the separate WITNESS.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a WITNESS is",
+          "text": "<p>In SAILOR, a <strong>WITNESS</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A concrete input that triggers the violation",
+              "fraction": 100,
+              "feedback": "Correct — the witness is the actual input value that drives the buggy path."
+            },
+            {
+              "text": "The proof that a bug exists on a path",
+              "fraction": 0,
+              "feedback": "No — that proof is the VIOLATION; the witness is the concrete triggering input."
+            },
+            {
+              "text": "The static precondition that must hold to reach the sink",
+              "fraction": 0,
+              "feedback": "No — the precondition comes from static analysis; the witness is a concrete input from KLEE."
+            },
+            {
+              "text": "The stack trace printed after a crash",
+              "fraction": 0,
+              "feedback": "No — the witness is the input, not the crash output; the trace appears during replay."
+            }
+          ],
+          "generalFeedback": "A WITNESS is a concrete input KLEE produces alongside a VIOLATION — the exact value that makes the buggy path execute. Concrete replay later feeds this witness into the real program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Concrete Replay confirms",
+          "text": "<p>What does the <strong>Concrete Replay</strong> phase (phase 4) confirm?</p>",
+          "answers": [
+            {
+              "text": "That the vulnerability is real, by replaying the witness on the unmodified program to weed out false positives",
+              "fraction": 100,
+              "feedback": "Correct — replay confirms a genuine crash, not a harness artifact."
+            },
+            {
+              "text": "That the harness compiles cleanly",
+              "fraction": 0,
+              "feedback": "No — clean compilation is settled in phase 2, before symbolic execution."
+            },
+            {
+              "text": "How many feasible paths the program has",
+              "fraction": 0,
+              "feedback": "No — path exploration is the symbolic-execution phase; replay just reproduces one witness."
+            },
+            {
+              "text": "The precondition needed to reach the sink",
+              "fraction": 0,
+              "feedback": "No — the precondition is a static-analysis output, not what replay confirms."
+            }
+          ],
+          "generalFeedback": "Concrete replay feeds the WITNESS into the original, unmodified program. If it actually crashes, the finding is CONFIRMED — a real bug, not an artifact of the synthesized harness — filtering out false positives.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The worked example bug type",
+          "text": "<p>The worked example targets a <code>strcpy</code> call. What vulnerability type / CWE does it illustrate?</p>",
+          "answers": [
+            {
+              "text": "CWE-787, an out-of-bounds write (buffer overflow)",
+              "fraction": 100,
+              "feedback": "Correct — strcpy can write past the destination buffer, an out-of-bounds write."
+            },
+            {
+              "text": "CWE-125, an out-of-bounds read",
+              "fraction": 0,
+              "feedback": "No — strcpy writes past the buffer; the example is an out-of-bounds write (CWE-787), not a read."
+            },
+            {
+              "text": "CWE-89, SQL injection",
+              "fraction": 0,
+              "feedback": "No — this is a memory-safety bug in C, not an SQL injection."
+            },
+            {
+              "text": "A use-after-free",
+              "fraction": 0,
+              "feedback": "No — the example is a buffer overflow (out-of-bounds write), not a use-after-free."
+            }
+          ],
+          "generalFeedback": "The worked example copies an untrusted string into a fixed 32-byte buffer with strcpy; when the source is longer, the copy writes past the buffer — an out-of-bounds write, CWE-787.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What KLEE is",
+          "text": "<p>KLEE, used in phase 3, is best described as:</p>",
+          "answers": [
+            {
+              "text": "A symbolic execution engine that explores program paths using symbolic inputs",
+              "fraction": 100,
+              "feedback": "Correct — KLEE is the symbolic executor SAILOR drives."
+            },
+            {
+              "text": "A static analyzer that flags suspect code without running it",
+              "fraction": 0,
+              "feedback": "No — that describes phase 1; KLEE actually executes paths symbolically."
+            },
+            {
+              "text": "A large language model that writes the harness",
+              "fraction": 0,
+              "feedback": "No — the LLM writes the harness in phase 2; KLEE runs it in phase 3."
+            },
+            {
+              "text": "A random fuzzer that mutates concrete inputs",
+              "fraction": 0,
+              "feedback": "No — KLEE reasons over symbolic inputs and path constraints, not random concrete mutations."
+            }
+          ],
+          "generalFeedback": "KLEE is a symbolic execution engine: it runs the harness with symbolic inputs, exploring feasible paths and solving constraints to emit violations and witnesses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which phase produces the witness",
+          "text": "<p>Which phase produces the WITNESS that concrete replay later uses?</p>",
+          "answers": [
+            {
+              "text": "Symbolic Execution (KLEE)",
+              "fraction": 100,
+              "feedback": "Correct — KLEE emits the witness input alongside the violation."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis produces suspect sites and preconditions, not the concrete witness."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase produces the driver; the witness comes from running it under KLEE."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay consumes the witness; it does not produce it."
+            }
+          ],
+          "generalFeedback": "KLEE (phase 3) emits the VIOLATION and the concrete WITNESS. Phase 4 then replays that witness on the unmodified program to confirm the bug.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "SAILOR combines three techniques",
+          "text": "<p>SAILOR combines static analysis, LLM-synthesized harnesses, and symbolic execution to discover vulnerabilities.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — those three techniques (plus a concrete-replay confirmation step) make up the pipeline."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SAILOR's whole design is to combine static analysis, an LLM harness, and symbolic execution, then confirm with concrete replay."
+            }
+          ],
+          "generalFeedback": "The pipeline's name says it: \"Guiding Symbolic Execution with Static Analysis and LLMs.\" A fourth phase, concrete replay, confirms the findings."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Match activity: emitting a precondition and taint",
+          "text": "<p>A SAILOR component emits, for a <code>strcpy</code> call, a suspect location, the precondition <code>strlen(raw) &lt; 32</code>, the function entry point, and a taint label marking <code>raw</code> as attacker-controlled. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "Static Analysis",
+              "fraction": 100,
+              "feedback": "Correct — flagging the sink and emitting its precondition, entry, and taint is static analysis."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase writes the driver; it consumes these facts rather than producing them."
+            },
+            {
+              "text": "Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — symbolic execution explores paths; it does not emit the initial suspect/precondition list."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay confirms a witness; it does not produce preconditions and taint labels."
+            }
+          ],
+          "generalFeedback": "Suspect site + precondition + entry + taint is exactly the static-analysis output that steers the rest of the pipeline.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match activity: writing a compilable driver",
+          "text": "<p>A SAILOR component declares symbolic inputs, bounds them, calls <code>load_name(raw)</code>, and revises the code after a compiler error until it builds. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 100,
+              "feedback": "Correct — writing and iteratively fixing a compilable driver is the LLM harness phase."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis flags the site; it does not write or compile a driver."
+            },
+            {
+              "text": "Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — symbolic execution runs the finished harness; it does not author it."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay runs a concrete witness on the real program, not a synthesized driver."
+            }
+          ],
+          "generalFeedback": "Declaring/bounding symbolic inputs, calling the entry function, and looping on compiler feedback until it builds is the iterative LLM harness-synthesis phase.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match activity: reporting VIOLATION and WITNESS",
+          "text": "<p>A SAILOR component reports: a safe path when <code>strlen(raw) &lt; 32</code>, an overflowing path when <code>strlen(raw) &ge; 32</code>, a VIOLATION (out-of-bounds write), and a WITNESS <code>raw</code> of 40 bytes. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "Symbolic Execution (KLEE)",
+              "fraction": 100,
+              "feedback": "Correct — exploring paths and emitting a violation plus a witness is symbolic execution."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis names the suspect and precondition; it does not explore paths or produce a witness."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase builds the driver; KLEE running it produces the violation and witness."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay consumes the witness to confirm; it does not discover the violating path."
+            }
+          ],
+          "generalFeedback": "Enumerating feasible paths and, on the violating one, recording a VIOLATION with a concrete WITNESS input is the KLEE symbolic-execution phase.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match activity: rerunning the unmodified program",
+          "text": "<p>A SAILOR component runs the original unmodified program on a 40-byte input, observes an invalid write, and marks the finding CONFIRMED. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "Concrete Replay",
+              "fraction": 100,
+              "feedback": "Correct — reproducing the crash on the unmodified program is the concrete-replay phase."
+            },
+            {
+              "text": "Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — symbolic execution runs the harness with symbolic inputs, not the unmodified program on a concrete input."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis does not run the program at all."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase writes the driver; it does not confirm crashes on the real program."
+            }
+          ],
+          "generalFeedback": "Feeding the concrete witness into the original, unmodified program and confirming the crash is the concrete-replay phase — the false-positive filter.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why static analysis runs first",
+          "text": "<p>Why does static analysis run <em>before</em> symbolic execution in SAILOR?</p>",
+          "answers": [
+            {
+              "text": "It narrows the search to suspect sites and preconditions, so symbolic execution is not blind and stays tractable",
+              "fraction": 100,
+              "feedback": "Correct — pruning the space up front is what keeps the expensive exploration feasible."
+            },
+            {
+              "text": "Because KLEE requires a compiled binary that only static analysis can produce",
+              "fraction": 0,
+              "feedback": "No — the harness (phase 2), not static analysis, is what produces the runnable/compilable driver."
+            },
+            {
+              "text": "Because the witness must exist before the harness is written",
+              "fraction": 0,
+              "feedback": "No — the witness comes from symbolic execution, which runs after both static analysis and harness synthesis."
+            },
+            {
+              "text": "Because replay has to confirm the bug before exploration begins",
+              "fraction": 0,
+              "feedback": "No — replay is the last phase; it needs a witness that only symbolic execution can produce."
+            }
+          ],
+          "generalFeedback": "Symbolic execution suffers path explosion. Running static analysis first flags where to look and under what precondition, so the executor spends its budget on paths that matter instead of exploring blindly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the phase order",
+          "text": "<p>Which phrase best summarizes <em>why</em> SAILOR's phases run in their particular order?</p>",
+          "answers": [
+            {
+              "text": "Static narrows → harness drives → symbolic explores → replay confirms",
+              "fraction": 100,
+              "feedback": "Correct — each phase sets up exactly what the next one needs."
+            },
+            {
+              "text": "Replay confirms → symbolic explores → harness drives → static narrows",
+              "fraction": 0,
+              "feedback": "No — that reverses the pipeline; nothing can be confirmed before it is discovered."
+            },
+            {
+              "text": "Harness drives → replay confirms → static narrows → symbolic explores",
+              "fraction": 0,
+              "feedback": "No — a harness cannot be built before static analysis targets a site, and replay needs a witness first."
+            },
+            {
+              "text": "Symbolic explores → static narrows → replay confirms → harness drives",
+              "fraction": 0,
+              "feedback": "No — symbolic execution needs both a target and a harness before it can run."
+            }
+          ],
+          "generalFeedback": "Static analysis narrows the target, the LLM builds a driver to reach it, symbolic execution explores that driver to prove a violation with a witness, and replay confirms the witness on the real program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Full SAILOR headline numbers",
+          "text": "<p>On its evaluation, how many vulnerabilities and crashes did the <strong>full</strong> SAILOR pipeline report?</p>",
+          "answers": [
+            {
+              "text": "379 distinct vulnerabilities and 421 confirmed crashes",
+              "fraction": 100,
+              "feedback": "Correct — those are the headline figures for the full pipeline."
+            },
+            {
+              "text": "421 distinct vulnerabilities and 379 confirmed crashes",
+              "fraction": 0,
+              "feedback": "No — the numbers are swapped: 379 distinct vulnerabilities and 421 confirmed crashes."
+            },
+            {
+              "text": "12 distinct vulnerabilities and 35 confirmed crashes",
+              "fraction": 0,
+              "feedback": "No — 12 is the baseline; the full pipeline found far more."
+            },
+            {
+              "text": "3790 distinct vulnerabilities and 4210 confirmed crashes",
+              "fraction": 0,
+              "feedback": "No — the reported figures are 379 and 421, not ten times larger."
+            }
+          ],
+          "generalFeedback": "Full SAILOR found 379 distinct vulnerabilities and 421 confirmed crashes across the evaluation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of removing static analysis",
+          "text": "<p>In the ablation, removing static analysis (\"no-static\") had what effect on vulnerabilities found?</p>",
+          "answers": [
+            {
+              "text": "About 12.2× fewer vulnerabilities were found",
+              "fraction": 100,
+              "feedback": "Correct — without targeting, symbolic execution becomes far less effective."
+            },
+            {
+              "text": "Exactly zero vulnerabilities were found",
+              "fraction": 0,
+              "feedback": "No — zero is the no-LLM result; no-static is a 12.2× drop but still non-zero."
+            },
+            {
+              "text": "No measurable change",
+              "fraction": 0,
+              "feedback": "No — removing static analysis caused a large 12.2× reduction."
+            },
+            {
+              "text": "About 12.2× more vulnerabilities were found",
+              "fraction": 0,
+              "feedback": "No — removing the pruning hurts, not helps; it found 12.2× fewer."
+            }
+          ],
+          "generalFeedback": "Static analysis is what makes symbolic execution tractable. Remove it and SAILOR finds about 12.2× fewer vulnerabilities — a severe drop, but not all the way to zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of removing the LLM harness",
+          "text": "<p>In the ablation, removing the LLM harness synthesis (\"no-LLM\") yielded:</p>",
+          "answers": [
+            {
+              "text": "Zero vulnerabilities found",
+              "fraction": 100,
+              "feedback": "Correct — with no harness there is nothing for KLEE to execute."
+            },
+            {
+              "text": "About 12.2× fewer vulnerabilities",
+              "fraction": 0,
+              "feedback": "No — 12.2× fewer is the no-static result; no-LLM collapses all the way to zero."
+            },
+            {
+              "text": "Exactly 12 vulnerabilities (matching the baseline)",
+              "fraction": 0,
+              "feedback": "No — 12 is the baseline tooling; no-LLM produced zero."
+            },
+            {
+              "text": "Only slightly fewer than the full pipeline",
+              "fraction": 0,
+              "feedback": "No — without a harness the pipeline has nothing to run, so it finds zero."
+            }
+          ],
+          "generalFeedback": "No harness means nothing to execute under KLEE, so the no-LLM ablation finds zero vulnerabilities — showing the harness is a hard prerequisite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The baseline number",
+          "text": "<p>The baseline / prior comparison tooling (hand-written harnesses) found how many vulnerabilities?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — prior tooling found only 12, versus 379 for full SAILOR."
+            },
+            {
+              "text": "379",
+              "fraction": 0,
+              "feedback": "No — 379 is full SAILOR's distinct-vulnerability count, not the baseline."
+            },
+            {
+              "text": "421",
+              "fraction": 0,
+              "feedback": "No — 421 is full SAILOR's confirmed-crash count, not the baseline."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "No — zero is the no-LLM ablation result; the baseline found 12."
+            }
+          ],
+          "generalFeedback": "The baseline (prior tooling with hand-written harnesses) found only 12, dramatically fewer than full SAILOR's 379 distinct vulnerabilities.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluation scale",
+          "text": "<p>SAILOR was evaluated on roughly how much code?</p>",
+          "answers": [
+            {
+              "text": "10 open-source projects, about 6.8M lines of C/C++",
+              "fraction": 100,
+              "feedback": "Correct — that is the reported evaluation corpus."
+            },
+            {
+              "text": "1 project of about 6.8M lines",
+              "fraction": 0,
+              "feedback": "No — it was 10 projects, not a single one."
+            },
+            {
+              "text": "100 projects of about 6.8K lines each",
+              "fraction": 0,
+              "feedback": "No — the corpus is 10 projects totalling about 6.8M lines."
+            },
+            {
+              "text": "10 projects of about 6.8K lines total",
+              "fraction": 0,
+              "feedback": "No — the total is about 6.8M lines of C/C++, not 6.8K."
+            }
+          ],
+          "generalFeedback": "The evaluation ran on 10 open-source projects comprising roughly 6.8M lines of C/C++.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Why concrete replay exists",
+          "text": "<p>Concrete replay exists mainly to filter out false positives by re-running the witness on the original, unmodified program.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a violation found in the harness is only trusted once the concrete witness reproduces it on the real program."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Replay's purpose is precisely false-positive filtering: confirm the bug is real on the unmodified program, not a harness artifact."
+            }
+          ],
+          "generalFeedback": "Symbolic execution can flag a violation on a path feasible only in the harness. Replaying the concrete witness on the unmodified program confirms real bugs and discards harness-only artifacts."
+        },
+        {
+          "type": "multichoice",
+          "name": "The strcpy precondition",
+          "text": "<p>In the worked example the destination buffer is <code>char name[32]</code>. What precondition did static analysis attach to the <code>strcpy</code> sink as the condition under which the copy stays safe?</p>",
+          "answers": [
+            {
+              "text": "strlen(raw) < 32",
+              "fraction": 100,
+              "feedback": "Correct — the source must be shorter than the 32-byte destination for the copy to be safe."
+            },
+            {
+              "text": "strlen(raw) < 64",
+              "fraction": 0,
+              "feedback": "No — the destination is 32 bytes, so the safe precondition is strlen(raw) < 32, not 64."
+            },
+            {
+              "text": "strlen(raw) > 32",
+              "fraction": 0,
+              "feedback": "No — that is the overflowing condition, not the safe precondition; safe is strlen(raw) < 32."
+            },
+            {
+              "text": "raw != NULL",
+              "fraction": 0,
+              "feedback": "No — non-nullness does not bound the length; the length precondition is strlen(raw) < 32."
+            }
+          ],
+          "generalFeedback": "With a 32-byte destination, the copy is safe only when strlen(raw) < 32. Static analysis attaches this precondition so symbolic execution can target the path where it is violated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION and WITNESS together",
+          "text": "<p>A single KLEE result carries both a VIOLATION and a WITNESS. What is the relationship between them?</p>",
+          "answers": [
+            {
+              "text": "The VIOLATION is the proven bug on a path; the WITNESS is the concrete input driving that path, which replay reuses to reproduce the violation",
+              "fraction": 100,
+              "feedback": "Correct — one is the proof, the other is the triggering input replay depends on."
+            },
+            {
+              "text": "They are two names for the same object",
+              "fraction": 0,
+              "feedback": "No — the violation (proof) and the witness (input) are distinct artifacts."
+            },
+            {
+              "text": "The WITNESS is the proof and the VIOLATION is the input",
+              "fraction": 0,
+              "feedback": "No — that reverses them: the violation is the proof, the witness is the input."
+            },
+            {
+              "text": "Both are static specifications produced before execution",
+              "fraction": 0,
+              "feedback": "No — both are outputs of symbolic execution, not static specs."
+            }
+          ],
+          "generalFeedback": "KLEE proves a VIOLATION on some path and reports the concrete WITNESS input that drives that path. Concrete replay feeds the witness (not the violation) into the real program to confirm the bug.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the witness confirms in the example",
+          "text": "<p>In the worked example, the witness makes the source string exceed the 32-byte destination buffer. Once replay reproduces the crash, what class of bug is confirmed?</p>",
+          "answers": [
+            {
+              "text": "An out-of-bounds write (CWE-787)",
+              "fraction": 100,
+              "feedback": "Correct — writing past the destination buffer is an out-of-bounds write, CWE-787."
+            },
+            {
+              "text": "An out-of-bounds read (CWE-125)",
+              "fraction": 0,
+              "feedback": "No — strcpy writes past the buffer; this is a write, not a read."
+            },
+            {
+              "text": "An integer overflow",
+              "fraction": 0,
+              "feedback": "No — the bug is a memory write past the buffer bound, not an arithmetic overflow."
+            },
+            {
+              "text": "A null-pointer dereference",
+              "fraction": 0,
+              "feedback": "No — the pointer is valid; the fault is writing beyond the 32-byte buffer."
+            }
+          ],
+          "generalFeedback": "When strlen(raw) ≥ 32, strcpy writes past name[32]. Replay reproduces this on the unmodified program, confirming an out-of-bounds write — CWE-787.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why no-static costs 12.2x",
+          "text": "<p>Why does removing static analysis reduce SAILOR's yield by about 12.2×, rather than leaving it unchanged?</p>",
+          "answers": [
+            {
+              "text": "Without suspect sites and preconditions to prune the search, symbolic execution faces path explosion and becomes intractable, so it explores far less usefully within its budget",
+              "fraction": 100,
+              "feedback": "Correct — static analysis is what keeps the exploration focused and feasible."
+            },
+            {
+              "text": "Because without static analysis the harness no longer compiles",
+              "fraction": 0,
+              "feedback": "No — compilation is the harness loop's concern; removing static analysis hurts targeting, not the build."
+            },
+            {
+              "text": "Because KLEE is disabled when static analysis is removed",
+              "fraction": 0,
+              "feedback": "No — KLEE still runs; it just runs unguided, so it wastes budget on irrelevant paths."
+            },
+            {
+              "text": "Because concrete replay rejects every finding without static analysis",
+              "fraction": 0,
+              "feedback": "No — replay still confirms real crashes; the loss comes from unfocused exploration upstream."
+            }
+          ],
+          "generalFeedback": "The feasible-path count grows exponentially. Static analysis flags where to look and under what precondition; remove it and KLEE explores blindly, hitting path explosion and reaching far fewer real bugs — about 12.2× fewer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why no-LLM yields exactly zero",
+          "text": "<p>Why does removing the LLM harness synthesis drop the yield to <em>exactly zero</em>, not just to a smaller number?</p>",
+          "answers": [
+            {
+              "text": "With no synthesized driver there is nothing to compile and run under KLEE, so symbolic execution has no harness to execute and produces no violations or witnesses at all",
+              "fraction": 100,
+              "feedback": "Correct — the harness is a hard prerequisite; without it the pipeline has nothing to run."
+            },
+            {
+              "text": "Because static analysis also stops emitting suspect sites",
+              "fraction": 0,
+              "feedback": "No — static analysis is unaffected; the gap is that there is no driver to execute."
+            },
+            {
+              "text": "Because concrete replay then rejects all findings as false positives",
+              "fraction": 0,
+              "feedback": "No — there are no findings to reject; nothing ever runs under KLEE."
+            },
+            {
+              "text": "Because the number of paths becomes infinite and KLEE times out on every one",
+              "fraction": 0,
+              "feedback": "No — the issue is not timeout; there is simply no harness for KLEE to run."
+            }
+          ],
+          "generalFeedback": "Symbolic execution needs something runnable. No LLM means no harness, so KLEE has nothing to execute — hence zero violations and zero witnesses. The harness is a strict enabler, not just an optimizer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the two ablations reveal",
+          "text": "<p>Contrast the no-static result (about 12.2× fewer) with the no-LLM result (zero). What does the contrast reveal about the two components' roles?</p>",
+          "answers": [
+            {
+              "text": "The harness is a hard prerequisite (nothing runs without it), while static analysis is a strong tractability/efficiency enabler (the pipeline still works without it, but far worse)",
+              "fraction": 100,
+              "feedback": "Correct — zero vs 12.2×-fewer distinguishes an enabler you cannot remove from one that hugely helps."
+            },
+            {
+              "text": "Both components are equally optional",
+              "fraction": 0,
+              "feedback": "No — removing the LLM harness collapses the pipeline to zero, so it is not optional."
+            },
+            {
+              "text": "Static analysis is the prerequisite and the LLM harness is the optimizer",
+              "fraction": 0,
+              "feedback": "No — it is the reverse: the harness is the prerequisite (zero without it); static analysis is the efficiency multiplier."
+            },
+            {
+              "text": "Concrete replay is the real bottleneck the ablation exposes",
+              "fraction": 0,
+              "feedback": "No — the ablation contrasts static analysis and the harness; replay is not what these two numbers isolate."
+            }
+          ],
+          "generalFeedback": "No-LLM → zero shows the harness is indispensable to run anything. No-static → 12.2× fewer shows static analysis is a powerful multiplier of effectiveness, but the pipeline can still find some bugs without it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most indispensable single component",
+          "text": "<p>Interpreting the ablation, which single component is the <em>most</em> indispensable, and why?</p>",
+          "answers": [
+            {
+              "text": "The LLM harness synthesis — removing it yields zero, whereas removing static analysis only reduces the yield 12.2× (still non-zero)",
+              "fraction": 100,
+              "feedback": "Correct — a total collapse to zero marks the harness as the strictest prerequisite."
+            },
+            {
+              "text": "Static analysis — because 12.2× is the largest number in the ablation",
+              "fraction": 0,
+              "feedback": "No — a large multiplier is still non-zero; the harness is more indispensable because without it the yield is zero."
+            },
+            {
+              "text": "Concrete replay — because without it nothing is confirmed",
+              "fraction": 0,
+              "feedback": "No — the ablation shows the harness, not replay, is the component whose removal drops results to zero."
+            },
+            {
+              "text": "Symbolic execution — because it is what actually finds the bugs",
+              "fraction": 0,
+              "feedback": "No — symbolic execution is central, but the ablation isolates the harness as the removal that gives zero."
+            }
+          ],
+          "generalFeedback": "\"Most indispensable\" means the removal that hurts most. No-LLM gives zero (nothing to run), while no-static gives 12.2× fewer but non-zero — so the LLM harness is the strictest prerequisite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION vs WITNESS and how replay uses each",
+          "text": "<p>Precisely distinguish VIOLATION from WITNESS and state how concrete replay uses each.</p>",
+          "answers": [
+            {
+              "text": "VIOLATION is the executor's proof that a path reaches a bug; WITNESS is the concrete input driving that path; replay feeds the witness (not the violation) into the unmodified program to reproduce and confirm the violation",
+              "fraction": 100,
+              "feedback": "Correct — the witness is the actionable input; the violation is the claim it confirms."
+            },
+            {
+              "text": "VIOLATION is the concrete input; WITNESS is the proof; replay feeds the violation into the program",
+              "fraction": 0,
+              "feedback": "No — the roles are reversed: the witness is the input and the violation is the proof."
+            },
+            {
+              "text": "Both are inputs; replay runs whichever one crashes first",
+              "fraction": 0,
+              "feedback": "No — only the witness is an input; the violation is a proof, not something you feed to the program."
+            },
+            {
+              "text": "Both are proofs; replay picks the stronger proof to report",
+              "fraction": 0,
+              "feedback": "No — the witness is a concrete input, not a proof; replay runs it on the real program."
+            }
+          ],
+          "generalFeedback": "The VIOLATION is KLEE's proof that some path reaches the bug; the WITNESS is the concrete triggering input for that path. Replay ignores the abstract violation and instead runs the concrete witness on the unmodified program to confirm the bug is real.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the iterative harness loop matters",
+          "text": "<p>Why is the compiler-feedback iteration in phase 2 essential rather than just a convenience?</p>",
+          "answers": [
+            {
+              "text": "A first-draft harness usually fails to compile; without refining it via feedback no runnable harness exists, so KLEE has nothing to execute",
+              "fraction": 100,
+              "feedback": "Correct — the loop is what turns a broken draft into a usable driver."
+            },
+            {
+              "text": "It makes the compiled harness run faster at execution time",
+              "fraction": 0,
+              "feedback": "No — the loop is about getting a harness that builds at all, not runtime speed."
+            },
+            {
+              "text": "It directly increases the number of paths KLEE explores",
+              "fraction": 0,
+              "feedback": "No — path count is a symbolic-execution concern; the loop's role is producing a compilable harness."
+            },
+            {
+              "text": "It filters out false positives before replay",
+              "fraction": 0,
+              "feedback": "No — false-positive filtering is replay's job; the loop's job is producing a buildable harness."
+            }
+          ],
+          "generalFeedback": "LLM first drafts rarely compile. The compile/feedback loop refines the harness until it builds; without it there is no runnable driver, which is exactly why the no-LLM ablation yields zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How SAILOR combines three strengths",
+          "text": "<p>SAILOR combines static, dynamic (symbolic), and LLM techniques. Which mapping of each contribution is correct?</p>",
+          "answers": [
+            {
+              "text": "Static analysis prunes and targets; the LLM writes the driver a human used to hand-write; symbolic execution proves reachability and yields a witness; replay confirms it on the real program",
+              "fraction": 100,
+              "feedback": "Correct — each technique covers a weakness of the others."
+            },
+            {
+              "text": "Static analysis writes the driver; the LLM explores paths; symbolic execution prunes the search; replay compiles the harness",
+              "fraction": 0,
+              "feedback": "No — every role is misassigned; static analysis targets, the LLM writes the driver, symbolic execution explores."
+            },
+            {
+              "text": "The LLM prunes the search; static analysis proves reachability; symbolic execution confirms on the real program; replay targets sinks",
+              "fraction": 0,
+              "feedback": "No — pruning is static analysis, reachability is symbolic execution, confirmation is replay."
+            },
+            {
+              "text": "All three techniques do the same job redundantly, for reliability",
+              "fraction": 0,
+              "feedback": "No — they are complementary, each supplying what the others cannot."
+            }
+          ],
+          "generalFeedback": "Static analysis focuses the effort, the LLM automates the previously-manual harness, symbolic execution proves a reachable violation with a concrete witness, and concrete replay confirms it — combining static, dynamic, and LLM strengths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why unguided symbolic execution is blind",
+          "text": "<p>What specifically makes <em>unguided</em> symbolic execution \"blind,\" and how does static targeting help?</p>",
+          "answers": [
+            {
+              "text": "Feasible paths grow exponentially; without preconditions and suspect sinks to steer toward, the executor spends its budget on irrelevant paths and rarely reaches deep bugs — static analysis focuses that budget",
+              "fraction": 100,
+              "feedback": "Correct — targeting is what turns an intractable search into a productive one."
+            },
+            {
+              "text": "It cannot solve any path constraints without static analysis",
+              "fraction": 0,
+              "feedback": "No — the solver still works; the problem is where to spend effort, which targeting fixes."
+            },
+            {
+              "text": "By definition it never terminates unless static analysis stops it",
+              "fraction": 0,
+              "feedback": "No — termination is bounded by search limits; the issue is unfocused effort, not non-termination per se."
+            },
+            {
+              "text": "It needs the witness before it can begin exploring",
+              "fraction": 0,
+              "feedback": "No — the witness is an output of exploration, not a precondition for it."
+            }
+          ],
+          "generalFeedback": "The number of feasible paths explodes exponentially. Without static analysis pointing at suspect sinks and their preconditions, the executor wastes its budget exploring irrelevant paths — the 12.2× loss the ablation measures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How the precondition guides KLEE",
+          "text": "<p>How does the static precondition <code>strlen(raw) &lt; 32</code> help symbolic execution find the overflow?</p>",
+          "answers": [
+            {
+              "text": "It marks the safety condition at the sink, so KLEE can target the path where strlen(raw) ≥ 32 — the path that writes past name[32] — instead of exploring everything",
+              "fraction": 100,
+              "feedback": "Correct — knowing the safe condition tells the executor which violating path to chase."
+            },
+            {
+              "text": "It fixes raw to one concrete value so KLEE need not use symbolic input",
+              "fraction": 0,
+              "feedback": "No — the precondition is a symbolic constraint about safety, not a concrete assignment."
+            },
+            {
+              "text": "It patches the strcpy so the overflow cannot happen",
+              "fraction": 0,
+              "feedback": "No — static analysis does not modify code; it annotates the sink with a safety condition."
+            },
+            {
+              "text": "It disables the harness for the safe path",
+              "fraction": 0,
+              "feedback": "No — the harness still runs; the precondition just tells KLEE which path is the violating one."
+            }
+          ],
+          "generalFeedback": "The precondition strlen(raw) < 32 is the condition under which the copy is safe. Its negation, strlen(raw) ≥ 32, marks the overflowing path — so KLEE targets that path and finds the out-of-bounds write.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting baseline 12 vs 379/421",
+          "text": "<p>The baseline found 12 while full SAILOR found 379 vulnerabilities / 421 crashes. What is the fair takeaway?</p>",
+          "answers": [
+            {
+              "text": "Automating harness synthesis and adding static targeting massively expands what symbolic execution can discover compared with prior hand-harness tooling",
+              "fraction": 100,
+              "feedback": "Correct — the gap reflects automation plus targeting, not a change in what counts as a bug."
+            },
+            {
+              "text": "The baseline is simply unsound and over-reports; SAILOR is more conservative",
+              "fraction": 0,
+              "feedback": "No — SAILOR found far more, and its replay step confirms bugs; the baseline is not over-reporting."
+            },
+            {
+              "text": "Both used the same technique, so the difference must be measurement noise",
+              "fraction": 0,
+              "feedback": "No — the baseline used hand-written harnesses; SAILOR automates and targets, a real methodological difference."
+            },
+            {
+              "text": "SAILOR trades soundness for the higher count",
+              "fraction": 0,
+              "feedback": "No — concrete replay confirms each crash, so the higher count is of confirmed bugs, not a soundness trade."
+            }
+          ],
+          "generalFeedback": "Prior tooling relied on hand-written harnesses and found 12. SAILOR's automated, statically-targeted harnesses let symbolic execution reach far more real bugs — 379 distinct vulnerabilities, 421 confirmed crashes — all confirmed by replay.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why replay uses the witness, not the violation",
+          "text": "<p>Why does SAILOR replay the concrete witness rather than simply trusting KLEE's violation?</p>",
+          "answers": [
+            {
+              "text": "A violation can occur on a path feasible only in the harness/model; replaying the concrete witness on the unmodified program proves the bug is real and filters harness-induced false positives",
+              "fraction": 100,
+              "feedback": "Correct — replay is the reality check on the harness's claim."
+            },
+            {
+              "text": "Because KLEE is unsound about the paths it actually runs",
+              "fraction": 0,
+              "feedback": "No — the concern is harness-only states, not KLEE's soundness on paths it explores."
+            },
+            {
+              "text": "Because replay is faster than reading the violation record",
+              "fraction": 0,
+              "feedback": "No — replay is about confirmation quality, not speed."
+            },
+            {
+              "text": "To recompute the precondition that static analysis produced",
+              "fraction": 0,
+              "feedback": "No — replay confirms the crash; it does not recompute preconditions."
+            }
+          ],
+          "generalFeedback": "The harness may create states impossible in the real program, so a violation there could be a false positive. Replaying the concrete witness on the unmodified program is what distinguishes a real bug from a harness artifact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Consequence of an over-constrained harness",
+          "text": "<p>Suppose the synthesized harness over-constrains the symbolic input (bounds it too tightly). What is the likely consequence for the pipeline?</p>",
+          "answers": [
+            {
+              "text": "The real bug may fall outside the explored input space, so KLEE never emits the violation — a false negative — even though every phase runs",
+              "fraction": 100,
+              "feedback": "Correct — hiding the triggering inputs makes the bug unreachable in exploration."
+            },
+            {
+              "text": "It guarantees a false positive that replay will confirm anyway",
+              "fraction": 0,
+              "feedback": "No — over-constraining hides bugs (false negatives); it does not manufacture confirmed crashes."
+            },
+            {
+              "text": "Concrete replay automatically widens the input space to compensate",
+              "fraction": 0,
+              "feedback": "No — replay only reruns a witness; it cannot recover inputs the harness excluded."
+            },
+            {
+              "text": "Static analysis re-runs to fix the harness",
+              "fraction": 0,
+              "feedback": "No — the pipeline runs forward; static analysis does not re-run to repair the harness."
+            }
+          ],
+          "generalFeedback": "If the harness bounds inputs too tightly, the values that trigger the bug are excluded, so KLEE explores a space where the violation never appears — a false negative. (Under-constraining causes the opposite risk: false positives.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Replay cannot precede symbolic execution",
+          "text": "<p>Concrete replay cannot meaningfully run before symbolic execution, because it needs the witness that only symbolic execution produces.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the data dependency (witness → replay) fixes the order: explore first, confirm second."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Replay's input is the witness, which symbolic execution emits, so replay must come after it."
+            }
+          ],
+          "generalFeedback": "Replay reproduces a specific witness on the unmodified program. Since the witness is an output of symbolic execution, replay is necessarily the later phase — a data dependency, not an arbitrary choice."
+        },
+        {
+          "type": "multichoice",
+          "name": "What manual step the LLM automates",
+          "text": "<p>In prior symbolic-execution tooling, which expensive manual step does SAILOR's LLM phase automate, and why does that unlock scale?</p>",
+          "answers": [
+            {
+              "text": "Hand-writing a compilable harness for each target; automating it lets the pipeline attack many sites across millions of lines without a human per target",
+              "fraction": 100,
+              "feedback": "Correct — the harness bottleneck was the human, and the LLM removes it."
+            },
+            {
+              "text": "Manually solving the path constraints; automating it removes the need for a solver",
+              "fraction": 0,
+              "feedback": "No — the solver is still used; the LLM automates harness writing, not constraint solving."
+            },
+            {
+              "text": "Manually confirming each crash; automating it removes the replay phase",
+              "fraction": 0,
+              "feedback": "No — replay still runs; the LLM automates harness synthesis, not confirmation."
+            },
+            {
+              "text": "Manually labeling each finding with a CWE id",
+              "fraction": 0,
+              "feedback": "No — CWE labeling is not the bottleneck; hand-writing harnesses per target is."
+            }
+          ],
+          "generalFeedback": "Classic symbolic-execution setups need a human to hand-write a compilable harness per target — the scaling bottleneck. SAILOR's LLM synthesizes harnesses automatically, so the pipeline can cover many sites across ~6.8M lines without per-target manual effort.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Holistic reading of the ablation",
+          "text": "<p>Which conclusion is best supported by the full ablation (full: 421 crashes; no-static: 12.2× fewer; no-LLM: zero; baseline: 12)?</p>",
+          "answers": [
+            {
+              "text": "Every component is load-bearing but differently — the LLM harness is a strict enabler (zero without it), static analysis is a tractability multiplier (12.2×), and the combination far exceeds prior tooling (baseline 12)",
+              "fraction": 100,
+              "feedback": "Correct — the numbers together show distinct, complementary roles."
+            },
+            {
+              "text": "Only the LLM harness matters; the other components are decorative",
+              "fraction": 0,
+              "feedback": "No — no-static's 12.2× drop shows static analysis matters a great deal too."
+            },
+            {
+              "text": "Only static analysis matters; the harness is optional",
+              "fraction": 0,
+              "feedback": "No — no-LLM yields zero, so the harness is not optional."
+            },
+            {
+              "text": "The components are redundant, since removing any one leaves the yield unchanged",
+              "fraction": 0,
+              "feedback": "No — removing components changes the yield drastically (to zero, or 12.2× fewer), so they are not redundant."
+            }
+          ],
+          "generalFeedback": "The ablation shows each component carries weight in its own way: the harness is indispensable (zero without it), static analysis multiplies effectiveness (12.2×), and full SAILOR (379 vulns / 421 crashes) dwarfs the baseline's 12 — the whole is far more than any part.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "SAILOR 的用途",
+          "text": "<p><strong>SAILOR</strong>（「Guiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery」）是一條流程，其目標是：</p>",
+          "answers": [
+            {
+              "text": "結合靜態分析、LLM 與符號執行，自動發現 C/C++ 程式碼中的漏洞",
+              "fraction": 100,
+              "feedback": "正確——SAILOR 是把這三種技術串接起來的漏洞偵測流程。"
+            },
+            {
+              "text": "自動修補並修復它偵測到的漏洞",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 負責發現（並確認）漏洞，並不修復程式碼。"
+            },
+            {
+              "text": "形式化證明某程式完全沒有 bug",
+              "fraction": 0,
+              "feedback": "不對——它靠探索路徑尋找 bug，並不產出整支程式的正確性證明。"
+            },
+            {
+              "text": "量測既有測試套件的敘述與分支覆蓋率",
+              "fraction": 0,
+              "feedback": "不對——覆蓋率量測是另一回事；SAILOR 的目標是找出真實漏洞。"
+            }
+          ],
+          "generalFeedback": "SAILOR（Shafiuzzaman、Desai、Guo、Bultan；arXiv:2604.06506，2026）是一條漏洞偵測流程：靜態分析鎖定可疑程式碼、LLM 合成 harness、符號執行加以探索、具體重播確認發現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有幾個階段",
+          "text": "<p>SAILOR 流程由幾個階段組成，又是如何執行的？</p>",
+          "answers": [
+            {
+              "text": "四個階段，依固定順序一個接一個執行",
+              "fraction": 100,
+              "feedback": "正確——SAILOR 是四階段流程，各階段依序執行。"
+            },
+            {
+              "text": "兩個階段平行執行",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 有四個階段，且是循序執行，不是兩個平行。"
+            },
+            {
+              "text": "三個階段以迴圈執行",
+              "fraction": 0,
+              "feedback": "不對——共有四個階段；只有第 2 階段（harness 合成）內部有迴圈。"
+            },
+            {
+              "text": "單一整體的分析步驟",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 刻意把工作拆成四個有序階段。"
+            }
+          ],
+          "generalFeedback": "SAILOR 依序執行四個階段：靜態分析、LLM Harness 合成、符號執行、具體重播。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個階段的順序",
+          "text": "<p>下列何者正確列出 SAILOR 四個階段的順序？</p>",
+          "answers": [
+            {
+              "text": "靜態分析 → LLM Harness 合成 → 符號執行 → 具體重播",
+              "fraction": 100,
+              "feedback": "正確——先鎖定目標、再建 driver、接著探索、最後確認發現。"
+            },
+            {
+              "text": "LLM Harness 合成 → 靜態分析 → 具體重播 → 符號執行",
+              "fraction": 0,
+              "feedback": "不對——靜態分析必須先跑以告訴 harness 要鎖定什麼，且符號執行必須在重播之前。"
+            },
+            {
+              "text": "符號執行 → 具體重播 → 靜態分析 → LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——沒有 harness 就無法進行符號執行，且靜態分析要最先。"
+            },
+            {
+              "text": "靜態分析 → 符號執行 → LLM Harness 合成 → 具體重播",
+              "fraction": 0,
+              "feedback": "不對——必須先合成 harness，符號執行才有東西可跑。"
+            }
+          ],
+          "generalFeedback": "固定順序為：靜態分析 → LLM Harness 合成 → 符號執行（KLEE）→ 具體重播。每一階段都產出下一階段所需的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態分析在做什麼",
+          "text": "<p><strong>靜態分析</strong>階段（第 1 階段）的工作是什麼？</p>",
+          "answers": [
+            {
+              "text": "掃描程式碼，標出候選漏洞位置（sink）與抵達它們所需的前置條件，收斂後續階段要看的範圍",
+              "fraction": 100,
+              "feedback": "正確——它修剪搜尋空間，讓符號執行不至於盲目。"
+            },
+            {
+              "text": "以符號輸入執行程式以探索其路徑",
+              "fraction": 0,
+              "feedback": "不對——那是符號執行階段；靜態分析並不執行程式。"
+            },
+            {
+              "text": "撰寫驅動可疑程式碼的測試 harness",
+              "fraction": 0,
+              "feedback": "不對——合成 harness 是第 2 階段 LLM 的工作。"
+            },
+            {
+              "text": "重播一個具體輸入以確認 crash 為真",
+              "fraction": 0,
+              "feedback": "不對——那是具體重播階段（第 4 階段）。"
+            }
+          ],
+          "generalFeedback": "靜態分析標出可疑 sink、輸出抵達每個 sink 所需的安全前置條件、標記受污染輸入，藉此收斂（修剪）昂貴的後續階段該花力氣的地方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM Harness 合成產出什麼",
+          "text": "<p><strong>LLM Harness 合成</strong>階段（第 2 階段）產出什麼？</p>",
+          "answers": [
+            {
+              "text": "一個可編譯的測試／fuzz harness（driver），用來運行候選的可疑位置",
+              "fraction": 100,
+              "feedback": "正確——LLM 寫出把輸入餵進被標記程式碼的 driver。"
+            },
+            {
+              "text": "一份修補可疑位置的原始碼 patch",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 只發現 bug 而不修補；此階段建的是 driver，不是修補。"
+            },
+            {
+              "text": "要調查的可疑位置清單",
+              "fraction": 0,
+              "feedback": "不對——該清單來自靜態分析；LLM 消費它來寫 harness。"
+            },
+            {
+              "text": "確認 bug 的具體崩潰輸入",
+              "fraction": 0,
+              "feedback": "不對——崩潰的 witness 來得更晚，來自符號執行與重播。"
+            }
+          ],
+          "generalFeedback": "LLM 把靜態分析輸出轉成 driver：宣告符號輸入、加上邊界、呼叫進入函式——一個真的能編譯與執行的 harness。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 harness 合成是「迭代」的",
+          "text": "<p>第 2 階段被描述為<strong>迭代</strong>。這是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "harness 會利用編譯器回饋，歷經數輪逐步修正，直到乾淨編譯為止",
+              "fraction": 100,
+              "feedback": "正確——一個編譯／回饋迴圈反覆進行，直到可用的 harness 編譯成功。"
+            },
+            {
+              "text": "LLM 一次寫好 harness 而從不修改",
+              "fraction": 0,
+              "feedback": "不對——「迭代」的重點正是反覆修正，而非一次到位。"
+            },
+            {
+              "text": "harness 對專案裡的每個原始檔逐一迴圈",
+              "fraction": 0,
+              "feedback": "不對——迭代是對同一個 harness 的修正輪次，不是對檔案。"
+            },
+            {
+              "text": "編譯好的 harness 在執行時對測試輸入迴圈",
+              "fraction": 0,
+              "feedback": "不對——「迭代」指的是建置時的合成輪次，不是執行期的輸入迴圈。"
+            }
+          ],
+          "generalFeedback": "初稿幾乎不會通過編譯，於是把編譯錯誤回饋給 LLM 修正。此迴圈反覆進行數輪，直到 harness 乾淨編譯且可用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "使用哪個符號執行器",
+          "text": "<p>在 SAILOR 的符號執行階段（第 3 階段），是哪個符號執行器在運行 harness？</p>",
+          "answers": [
+            {
+              "text": "KLEE",
+              "fraction": 100,
+              "feedback": "正確——SAILOR 在 KLEE 符號執行器下驅動 harness。"
+            },
+            {
+              "text": "AFL",
+              "fraction": 0,
+              "feedback": "不對——AFL 是覆蓋率導向的 fuzzer，不是 SAILOR 使用的符號執行器。"
+            },
+            {
+              "text": "Valgrind",
+              "fraction": 0,
+              "feedback": "不對——Valgrind 是動態插樁工具，不是 SAILOR 的符號執行器。"
+            },
+            {
+              "text": "DART",
+              "fraction": 0,
+              "feedback": "不對——DART 是早期的 concolic 工具；SAILOR 第 3 階段用的是 KLEE。"
+            }
+          ],
+          "generalFeedback": "第 3 階段在 KLEE 下運行編譯好的 harness，探索符號輸入上的可行路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號執行會輸出什麼",
+          "text": "<p>當符號執行（KLEE）階段找到 bug 時，會輸出什麼？</p>",
+          "answers": [
+            {
+              "text": "一個 VIOLATION（被證明的 bug）連同一個 WITNESS（觸發它的具體輸入）",
+              "fraction": 100,
+              "feedback": "正確——KLEE 同時報告它證明的違反與具體的 witness 輸入。"
+            },
+            {
+              "text": "可疑 sink 及其前置條件的清單",
+              "fraction": 0,
+              "feedback": "不對——那是靜態分析輸出，不是符號執行結果。"
+            },
+            {
+              "text": "一個已編譯、可乾淨建置的 harness",
+              "fraction": 0,
+              "feedback": "不對——harness 是本階段的輸入，由稍早的 LLM 產出。"
+            },
+            {
+              "text": "在未修改程式上確認的 crash",
+              "fraction": 0,
+              "feedback": "不對——在未修改程式上確認發生在重播階段，不在這裡。"
+            }
+          ],
+          "generalFeedback": "KLEE 探索符號輸入上的可行路徑；當某條路徑在違反狀態下抵達可疑操作，就記錄一個 VIOLATION 及觸發它的具體 WITNESS 輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION 是什麼",
+          "text": "<p>在 SAILOR 中，<strong>VIOLATION</strong> 是：</p>",
+          "answers": [
+            {
+              "text": "由符號執行器找到、被證明的 bug／assertion 違反",
+              "fraction": 100,
+              "feedback": "正確——violation 是 KLEE 對某條路徑所證明的東西。"
+            },
+            {
+              "text": "觸發該 bug 的具體輸入值",
+              "fraction": 0,
+              "feedback": "不對——那是 WITNESS；VIOLATION 是被證明的 bug 本身。"
+            },
+            {
+              "text": "靜態分析標出的可疑位置",
+              "fraction": 0,
+              "feedback": "不對——可疑位置只是候選；violation 是某條路徑上被證明的 bug。"
+            },
+            {
+              "text": "建置 harness 時出現的編譯錯誤",
+              "fraction": 0,
+              "feedback": "不對——編譯錯誤屬於 harness 合成迴圈，不屬於符號執行。"
+            }
+          ],
+          "generalFeedback": "VIOLATION 是符號執行器證明「某條路徑抵達 bug／assertion 違反」的結果。驅動該路徑的具體輸入則是另外的 WITNESS。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "WITNESS 是什麼",
+          "text": "<p>在 SAILOR 中，<strong>WITNESS</strong> 是：</p>",
+          "answers": [
+            {
+              "text": "觸發該 violation 的具體輸入",
+              "fraction": 100,
+              "feedback": "正確——witness 是驅動有問題路徑的實際輸入值。"
+            },
+            {
+              "text": "某條路徑上存在 bug 的證明",
+              "fraction": 0,
+              "feedback": "不對——那個證明是 VIOLATION；witness 是具體的觸發輸入。"
+            },
+            {
+              "text": "抵達 sink 所需成立的靜態前置條件",
+              "fraction": 0,
+              "feedback": "不對——前置條件來自靜態分析；witness 是 KLEE 產出的具體輸入。"
+            },
+            {
+              "text": "crash 後印出的堆疊追蹤",
+              "fraction": 0,
+              "feedback": "不對——witness 是輸入而非崩潰輸出；追蹤出現在重播時。"
+            }
+          ],
+          "generalFeedback": "WITNESS 是 KLEE 與 VIOLATION 一起產出的具體輸入——正是讓有問題路徑執行的值。稍後的具體重播會把這個 witness 餵進真實程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體重播確認什麼",
+          "text": "<p><strong>具體重播</strong>階段（第 4 階段）確認什麼？</p>",
+          "answers": [
+            {
+              "text": "把 witness 在未修改程式上重播，確認漏洞為真、藉此濾除假陽性",
+              "fraction": 100,
+              "feedback": "正確——重播確認的是真實 crash，而非 harness 造成的假象。"
+            },
+            {
+              "text": "harness 可乾淨編譯",
+              "fraction": 0,
+              "feedback": "不對——乾淨編譯在第 2 階段、符號執行之前就已解決。"
+            },
+            {
+              "text": "程式有多少條可行路徑",
+              "fraction": 0,
+              "feedback": "不對——路徑探索是符號執行階段；重播只是重現單一 witness。"
+            },
+            {
+              "text": "抵達 sink 所需的前置條件",
+              "fraction": 0,
+              "feedback": "不對——前置條件是靜態分析輸出，不是重播確認的對象。"
+            }
+          ],
+          "generalFeedback": "具體重播把 WITNESS 餵進原始、未修改的程式。若真的崩潰，該發現即 CONFIRMED——是真實 bug，而非合成 harness 的假象，藉此濾除假陽性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "範例的 bug 類型",
+          "text": "<p>範例鎖定一個 <code>strcpy</code> 呼叫。它示範的是哪種漏洞類型／CWE？</p>",
+          "answers": [
+            {
+              "text": "CWE-787，越界寫入（buffer overflow）",
+              "fraction": 100,
+              "feedback": "正確——strcpy 可能寫過目標緩衝區，屬越界寫入。"
+            },
+            {
+              "text": "CWE-125，越界讀取",
+              "fraction": 0,
+              "feedback": "不對——strcpy 是寫過緩衝區；本例是越界寫入（CWE-787），不是讀取。"
+            },
+            {
+              "text": "CWE-89，SQL 注入",
+              "fraction": 0,
+              "feedback": "不對——這是 C 的記憶體安全 bug，不是 SQL 注入。"
+            },
+            {
+              "text": "use-after-free",
+              "fraction": 0,
+              "feedback": "不對——本例是 buffer overflow（越界寫入），不是 use-after-free。"
+            }
+          ],
+          "generalFeedback": "範例用 strcpy 把不可信字串複製進固定的 32 位元組緩衝區；當來源較長時，複製會寫過緩衝區——即越界寫入，CWE-787。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "KLEE 是什麼",
+          "text": "<p>第 3 階段使用的 KLEE，最適合描述為：</p>",
+          "answers": [
+            {
+              "text": "一個以符號輸入探索程式路徑的符號執行引擎",
+              "fraction": 100,
+              "feedback": "正確——KLEE 是 SAILOR 驅動的符號執行器。"
+            },
+            {
+              "text": "一個不執行程式、只標出可疑碼的靜態分析器",
+              "fraction": 0,
+              "feedback": "不對——那描述的是第 1 階段；KLEE 會實際以符號方式執行路徑。"
+            },
+            {
+              "text": "一個負責撰寫 harness 的大型語言模型",
+              "fraction": 0,
+              "feedback": "不對——LLM 在第 2 階段寫 harness；KLEE 在第 3 階段運行它。"
+            },
+            {
+              "text": "一個對具體輸入做突變的隨機 fuzzer",
+              "fraction": 0,
+              "feedback": "不對——KLEE 是對符號輸入與路徑約束推理，而非隨機的具體突變。"
+            }
+          ],
+          "generalFeedback": "KLEE 是符號執行引擎：它以符號輸入運行 harness，探索可行路徑並求解約束，以輸出 violation 與 witness。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個階段產出 witness",
+          "text": "<p>哪個階段產出稍後供具體重播使用的 WITNESS？</p>",
+          "answers": [
+            {
+              "text": "符號執行（KLEE）",
+              "fraction": 100,
+              "feedback": "正確——KLEE 與 violation 一起輸出 witness 輸入。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析產出可疑位置與前置條件，不是具體的 witness。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段產出 driver；witness 來自在 KLEE 下運行它。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播消費 witness，並不產出它。"
+            }
+          ],
+          "generalFeedback": "KLEE（第 3 階段）輸出 VIOLATION 與具體的 WITNESS。第 4 階段再把該 witness 在未修改程式上重播以確認 bug。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "SAILOR 結合三種技術",
+          "text": "<p>SAILOR 結合靜態分析、LLM 合成的 harness 與符號執行來發現漏洞。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這三種技術（外加具體重播確認步驟）構成整條流程。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SAILOR 的整體設計正是結合靜態分析、LLM harness 與符號執行，再以具體重播確認。"
+            }
+          ],
+          "generalFeedback": "流程的名稱已說明：「Guiding Symbolic Execution with Static Analysis and LLMs」。第四階段的具體重播負責確認發現。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "對應活動：輸出前置條件與污染標記",
+          "text": "<p>某 SAILOR 元件針對一個 <code>strcpy</code> 呼叫，輸出了可疑位置、前置條件 <code>strlen(raw) &lt; 32</code>、函式進入點，以及把 <code>raw</code> 標為受攻擊者控制的污染標記。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "靜態分析",
+              "fraction": 100,
+              "feedback": "正確——標出 sink 並輸出其前置條件、進入點與污染標記，即靜態分析。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段是寫 driver；它消費這些資訊而非產出它們。"
+            },
+            {
+              "text": "符號執行",
+              "fraction": 0,
+              "feedback": "不對——符號執行探索路徑，並不產出初始的可疑／前置條件清單。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播確認 witness，並不產出前置條件與污染標記。"
+            }
+          ],
+          "generalFeedback": "可疑位置＋前置條件＋進入點＋污染，正是引導後續流程的靜態分析輸出。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對應活動：撰寫可編譯的 driver",
+          "text": "<p>某 SAILOR 元件宣告符號輸入、加上邊界、呼叫 <code>load_name(raw)</code>，並在編譯錯誤後修改程式碼直到能建置。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 100,
+              "feedback": "正確——撰寫並反覆修正一個可編譯的 driver，即 LLM harness 階段。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析標出位置，並不撰寫或編譯 driver。"
+            },
+            {
+              "text": "符號執行",
+              "fraction": 0,
+              "feedback": "不對——符號執行運行完成的 harness，並不撰寫它。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播是在真實程式上跑具體 witness，而非合成的 driver。"
+            }
+          ],
+          "generalFeedback": "宣告／加界符號輸入、呼叫進入函式、依編譯回饋反覆修正直到建置成功，即迭代式 LLM harness 合成階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對應活動：報告 VIOLATION 與 WITNESS",
+          "text": "<p>某 SAILOR 元件報告：<code>strlen(raw) &lt; 32</code> 時為安全路徑、<code>strlen(raw) &ge; 32</code> 時為溢位路徑、一個 VIOLATION（越界寫入），以及一個 40 位元組的 WITNESS <code>raw</code>。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "符號執行（KLEE）",
+              "fraction": 100,
+              "feedback": "正確——探索路徑並輸出 violation 加 witness，即符號執行。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析點名可疑處與前置條件，並不探索路徑或產出 witness。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段建 driver；由 KLEE 運行它才產出 violation 與 witness。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播消費 witness 以確認，並不發現違反路徑。"
+            }
+          ],
+          "generalFeedback": "列舉可行路徑，並在違反路徑上記錄一個 VIOLATION 及具體 WITNESS 輸入，即 KLEE 符號執行階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對應活動：重跑未修改的程式",
+          "text": "<p>某 SAILOR 元件用一個 40 位元組輸入運行原始未修改的程式，觀察到 invalid write，並把發現標記為 CONFIRMED。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "具體重播",
+              "fraction": 100,
+              "feedback": "正確——在未修改程式上重現 crash，即具體重播階段。"
+            },
+            {
+              "text": "符號執行",
+              "fraction": 0,
+              "feedback": "不對——符號執行以符號輸入運行 harness，而非以具體輸入運行未修改程式。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析根本不執行程式。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段寫 driver，並不在真實程式上確認 crash。"
+            }
+          ],
+          "generalFeedback": "把具體 witness 餵進原始未修改程式並確認 crash，即具體重播階段——假陽性的過濾器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何靜態分析最先跑",
+          "text": "<p>SAILOR 中，為何靜態分析要跑在符號執行<em>之前</em>？</p>",
+          "answers": [
+            {
+              "text": "它把搜尋收斂到可疑位置與前置條件，使符號執行不盲目、維持可行",
+              "fraction": 100,
+              "feedback": "正確——先修剪空間，才能讓昂貴的探索維持可行。"
+            },
+            {
+              "text": "因為 KLEE 需要只有靜態分析才能產出的已編譯二進位檔",
+              "fraction": 0,
+              "feedback": "不對——產出可執行／可編譯 driver 的是 harness（第 2 階段），不是靜態分析。"
+            },
+            {
+              "text": "因為 witness 必須在寫 harness 之前就存在",
+              "fraction": 0,
+              "feedback": "不對——witness 來自符號執行，而它在靜態分析與 harness 合成之後才跑。"
+            },
+            {
+              "text": "因為重播必須在探索開始前就確認 bug",
+              "fraction": 0,
+              "feedback": "不對——重播是最後階段，它需要只有符號執行能產出的 witness。"
+            }
+          ],
+          "generalFeedback": "符號執行會遭遇路徑爆炸。先跑靜態分析標出何處、在何前置條件下該看，執行器就把預算花在重要路徑，而非盲目探索。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何是這個階段順序",
+          "text": "<p>下列哪句最能總結 SAILOR 各階段採此特定順序的<em>原因</em>？</p>",
+          "answers": [
+            {
+              "text": "靜態收斂 → harness 驅動 → 符號探索 → 重播確認",
+              "fraction": 100,
+              "feedback": "正確——每個階段都恰好備妥下一個階段所需之物。"
+            },
+            {
+              "text": "重播確認 → 符號探索 → harness 驅動 → 靜態收斂",
+              "fraction": 0,
+              "feedback": "不對——這把流程反過來了；還沒發現就無法確認任何東西。"
+            },
+            {
+              "text": "harness 驅動 → 重播確認 → 靜態收斂 → 符號探索",
+              "fraction": 0,
+              "feedback": "不對——靜態分析鎖定位置前無法建 harness，且重播需先有 witness。"
+            },
+            {
+              "text": "符號探索 → 靜態收斂 → 重播確認 → harness 驅動",
+              "fraction": 0,
+              "feedback": "不對——符號執行在能跑之前，需要目標與 harness 兩者。"
+            }
+          ],
+          "generalFeedback": "靜態分析收斂目標、LLM 建 driver 以抵達它、符號執行探索該 driver 以用 witness 證明違反、重播在真實程式上確認 witness。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整 SAILOR 的頭條數字",
+          "text": "<p>在評估中，<strong>完整</strong>的 SAILOR 流程回報了多少漏洞與 crash？</p>",
+          "answers": [
+            {
+              "text": "379 個獨立漏洞與 421 個確認 crash",
+              "fraction": 100,
+              "feedback": "正確——這是完整流程的頭條數字。"
+            },
+            {
+              "text": "421 個獨立漏洞與 379 個確認 crash",
+              "fraction": 0,
+              "feedback": "不對——數字對調了：是 379 個獨立漏洞與 421 個確認 crash。"
+            },
+            {
+              "text": "12 個獨立漏洞與 35 個確認 crash",
+              "fraction": 0,
+              "feedback": "不對——12 是基準值；完整流程找到的多得多。"
+            },
+            {
+              "text": "3790 個獨立漏洞與 4210 個確認 crash",
+              "fraction": 0,
+              "feedback": "不對——回報的數字是 379 與 421，不是十倍大。"
+            }
+          ],
+          "generalFeedback": "完整 SAILOR 在整個評估中找到 379 個獨立漏洞與 421 個確認 crash。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "移除靜態分析的效果",
+          "text": "<p>在消融實驗中，移除靜態分析（「no-static」）對找到的漏洞有何效果？</p>",
+          "answers": [
+            {
+              "text": "找到的漏洞少了約 12.2 倍",
+              "fraction": 100,
+              "feedback": "正確——沒有鎖定目標，符號執行的效能大幅下降。"
+            },
+            {
+              "text": "找到的漏洞恰為零",
+              "fraction": 0,
+              "feedback": "不對——歸零是 no-LLM 的結果；no-static 是少 12.2 倍但仍非零。"
+            },
+            {
+              "text": "沒有可量測的變化",
+              "fraction": 0,
+              "feedback": "不對——移除靜態分析造成 12.2 倍的大幅減少。"
+            },
+            {
+              "text": "找到的漏洞多了約 12.2 倍",
+              "fraction": 0,
+              "feedback": "不對——移除修剪只會有害不會有益；它是少 12.2 倍。"
+            }
+          ],
+          "generalFeedback": "靜態分析正是讓符號執行可行的關鍵。移除它，SAILOR 找到的漏洞少約 12.2 倍——嚴重下降，但未到歸零。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "移除 LLM harness 的效果",
+          "text": "<p>在消融實驗中，移除 LLM harness 合成（「no-LLM」）的結果是：</p>",
+          "answers": [
+            {
+              "text": "找到零個漏洞",
+              "fraction": 100,
+              "feedback": "正確——沒有 harness，KLEE 就沒東西可執行。"
+            },
+            {
+              "text": "少約 12.2 倍",
+              "fraction": 0,
+              "feedback": "不對——少 12.2 倍是 no-static 的結果；no-LLM 一路崩到零。"
+            },
+            {
+              "text": "恰好 12 個（與基準相同）",
+              "fraction": 0,
+              "feedback": "不對——12 是既有基準工具；no-LLM 產出零。"
+            },
+            {
+              "text": "只比完整流程略少一些",
+              "fraction": 0,
+              "feedback": "不對——沒有 harness，流程就沒東西可跑，因此找到零個。"
+            }
+          ],
+          "generalFeedback": "沒有 harness 就沒東西能在 KLEE 下執行，所以 no-LLM 消融找到零個漏洞——顯示 harness 是硬性前提。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基準的數字",
+          "text": "<p>基準／既有比較工具（手寫 harness）找到多少漏洞？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——既有工具只找到 12，相對於完整 SAILOR 的 379。"
+            },
+            {
+              "text": "379",
+              "fraction": 0,
+              "feedback": "不對——379 是完整 SAILOR 的獨立漏洞數，不是基準。"
+            },
+            {
+              "text": "421",
+              "fraction": 0,
+              "feedback": "不對——421 是完整 SAILOR 的確認 crash 數，不是基準。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "不對——零是 no-LLM 消融的結果；基準找到 12。"
+            }
+          ],
+          "generalFeedback": "基準（使用手寫 harness 的既有工具）只找到 12，遠少於完整 SAILOR 的 379 個獨立漏洞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "評估規模",
+          "text": "<p>SAILOR 在大約多少程式碼上進行評估？</p>",
+          "answers": [
+            {
+              "text": "10 個開源專案，約 680 萬行 C/C++",
+              "fraction": 100,
+              "feedback": "正確——這是回報的評估語料。"
+            },
+            {
+              "text": "1 個約 680 萬行的專案",
+              "fraction": 0,
+              "feedback": "不對——是 10 個專案，不是單一個。"
+            },
+            {
+              "text": "100 個各約 6800 行的專案",
+              "fraction": 0,
+              "feedback": "不對——語料是 10 個專案，合計約 680 萬行。"
+            },
+            {
+              "text": "10 個合計約 6800 行的專案",
+              "fraction": 0,
+              "feedback": "不對——合計約 680 萬行 C/C++，不是 6800 行。"
+            }
+          ],
+          "generalFeedback": "評估在 10 個開源專案上進行，合計約 680 萬行 C/C++。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "為何需要具體重播",
+          "text": "<p>具體重播的存在，主要是為了把 witness 在原始未修改的程式上重跑，以濾除假陽性。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——在 harness 裡找到的違反，唯有具體 witness 在真實程式上重現後才被採信。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "重播的目的正是過濾假陽性：在未修改程式上確認 bug 為真，而非 harness 的假象。"
+            }
+          ],
+          "generalFeedback": "符號執行可能在只有 harness 中才可行的路徑上報違反。把具體 witness 在未修改程式上重播，可確認真實 bug 並丟棄只存在於 harness 的假象。"
+        },
+        {
+          "type": "multichoice",
+          "name": "strcpy 的前置條件",
+          "text": "<p>在範例中目標緩衝區為 <code>char name[32]</code>。靜態分析對 <code>strcpy</code> sink 附加了什麼前置條件，作為複製維持安全的條件？</p>",
+          "answers": [
+            {
+              "text": "strlen(raw) < 32",
+              "fraction": 100,
+              "feedback": "正確——來源必須短於 32 位元組的目標，複製才安全。"
+            },
+            {
+              "text": "strlen(raw) < 64",
+              "fraction": 0,
+              "feedback": "不對——目標是 32 位元組，安全前置條件是 strlen(raw) < 32，不是 64。"
+            },
+            {
+              "text": "strlen(raw) > 32",
+              "fraction": 0,
+              "feedback": "不對——那是溢位條件，不是安全前置條件；安全是 strlen(raw) < 32。"
+            },
+            {
+              "text": "raw != NULL",
+              "fraction": 0,
+              "feedback": "不對——非空並不限制長度；長度前置條件是 strlen(raw) < 32。"
+            }
+          ],
+          "generalFeedback": "目標為 32 位元組時，唯有 strlen(raw) < 32 複製才安全。靜態分析附加此前置條件，讓符號執行能鎖定其被違反的路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION 與 WITNESS 一起",
+          "text": "<p>單一 KLEE 結果同時帶有 VIOLATION 與 WITNESS。兩者的關係為何？</p>",
+          "answers": [
+            {
+              "text": "VIOLATION 是某條路徑上被證明的 bug；WITNESS 是驅動該路徑的具體輸入，重播會重用它來重現違反",
+              "fraction": 100,
+              "feedback": "正確——一個是證明，另一個是重播所依賴的觸發輸入。"
+            },
+            {
+              "text": "它們是同一個東西的兩個名字",
+              "fraction": 0,
+              "feedback": "不對——violation（證明）與 witness（輸入）是不同的產物。"
+            },
+            {
+              "text": "WITNESS 是證明，VIOLATION 是輸入",
+              "fraction": 0,
+              "feedback": "不對——這對調了：violation 是證明，witness 是輸入。"
+            },
+            {
+              "text": "兩者都是執行前產出的靜態規格",
+              "fraction": 0,
+              "feedback": "不對——兩者都是符號執行的輸出，不是靜態規格。"
+            }
+          ],
+          "generalFeedback": "KLEE 在某條路徑上證明 VIOLATION，並回報驅動該路徑的具體 WITNESS 輸入。具體重播把 witness（而非 violation）餵進真實程式以確認 bug。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "範例中 witness 確認了什麼",
+          "text": "<p>在範例中，witness 讓來源字串超過 32 位元組的目標緩衝區。一旦重播重現 crash，確認的是哪一類 bug？</p>",
+          "answers": [
+            {
+              "text": "越界寫入（CWE-787）",
+              "fraction": 100,
+              "feedback": "正確——寫過目標緩衝區即越界寫入，CWE-787。"
+            },
+            {
+              "text": "越界讀取（CWE-125）",
+              "fraction": 0,
+              "feedback": "不對——strcpy 是寫過緩衝區；這是寫入，不是讀取。"
+            },
+            {
+              "text": "整數溢位",
+              "fraction": 0,
+              "feedback": "不對——這個 bug 是記憶體寫過緩衝區邊界，不是算術溢位。"
+            },
+            {
+              "text": "空指標解參考",
+              "fraction": 0,
+              "feedback": "不對——指標有效；問題在於寫過 32 位元組緩衝區。"
+            }
+          ],
+          "generalFeedback": "當 strlen(raw) ≥ 32 時，strcpy 寫過 name[32]。重播在未修改程式上重現此情形，確認為越界寫入——CWE-787。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何 no-static 讓成果少 12.2 倍",
+          "text": "<p>為何移除靜態分析會讓 SAILOR 的成果約少 12.2 倍，而不是維持不變？</p>",
+          "answers": [
+            {
+              "text": "沒有可疑位置與前置條件來修剪搜尋，符號執行便遭遇路徑爆炸而變得不可行，在預算內探索得遠為無效",
+              "fraction": 100,
+              "feedback": "正確——靜態分析正是讓探索聚焦且可行的關鍵。"
+            },
+            {
+              "text": "因為沒有靜態分析，harness 就無法再編譯",
+              "fraction": 0,
+              "feedback": "不對——編譯是 harness 迴圈的事；移除靜態分析傷的是鎖定目標，不是建置。"
+            },
+            {
+              "text": "因為移除靜態分析時 KLEE 會被停用",
+              "fraction": 0,
+              "feedback": "不對——KLEE 仍會跑，只是失去引導，把預算浪費在無關路徑上。"
+            },
+            {
+              "text": "因為沒有靜態分析，具體重播會拒絕每個發現",
+              "fraction": 0,
+              "feedback": "不對——重播仍會確認真實 crash；損失來自上游探索失焦。"
+            }
+          ],
+          "generalFeedback": "可行路徑數呈指數成長。靜態分析標出何處、在何前置條件下該看；移除它，KLEE 便盲目探索、遭遇路徑爆炸，抵達的真實 bug 遠少——約少 12.2 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 no-LLM 恰好歸零",
+          "text": "<p>為何移除 LLM harness 合成會讓成果<em>恰好歸零</em>，而不只是降到較小的數字？</p>",
+          "answers": [
+            {
+              "text": "沒有合成的 driver 就沒東西能在 KLEE 下編譯與執行，符號執行沒有 harness 可跑，因而完全不產出 violation 或 witness",
+              "fraction": 100,
+              "feedback": "正確——harness 是硬性前提；沒有它，流程就沒東西可跑。"
+            },
+            {
+              "text": "因為靜態分析也停止輸出可疑位置",
+              "fraction": 0,
+              "feedback": "不對——靜態分析不受影響；缺口在於沒有 driver 可執行。"
+            },
+            {
+              "text": "因為具體重播接著把所有發現都判為假陽性",
+              "fraction": 0,
+              "feedback": "不對——根本沒有發現可拒絕；沒有東西在 KLEE 下跑過。"
+            },
+            {
+              "text": "因為路徑數變成無限，KLEE 對每一條都逾時",
+              "fraction": 0,
+              "feedback": "不對——問題不是逾時；而是根本沒有 harness 給 KLEE 跑。"
+            }
+          ],
+          "generalFeedback": "符號執行需要可執行之物。沒有 LLM 就沒有 harness，KLEE 便沒東西可跑——於是零 violation、零 witness。harness 是硬性使能元件，不只是最佳化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個消融揭示了什麼",
+          "text": "<p>把 no-static 結果（約少 12.2 倍）與 no-LLM 結果（歸零）對比。此對比揭示了這兩個元件角色的什麼？</p>",
+          "answers": [
+            {
+              "text": "harness 是硬性前提（沒有它什麼都跑不了），而靜態分析是強力的可行性／效率使能元件（沒有它流程仍能運作，只是差很多）",
+              "fraction": 100,
+              "feedback": "正確——歸零 vs 少 12.2 倍，區分了「不可移除的使能元件」與「大幅有助的元件」。"
+            },
+            {
+              "text": "兩個元件同樣可有可無",
+              "fraction": 0,
+              "feedback": "不對——移除 LLM harness 會讓流程崩到零，所以它並非可有可無。"
+            },
+            {
+              "text": "靜態分析是前提，LLM harness 是最佳化元件",
+              "fraction": 0,
+              "feedback": "不對——恰好相反：harness 才是前提（沒它就歸零）；靜態分析是效率倍增器。"
+            },
+            {
+              "text": "具體重播才是此消融暴露的真正瓶頸",
+              "fraction": 0,
+              "feedback": "不對——此消融對比的是靜態分析與 harness；重播不是這兩個數字所隔離的對象。"
+            }
+          ],
+          "generalFeedback": "no-LLM → 零，顯示 harness 是「能跑任何東西」的不可或缺前提。no-static → 少 12.2 倍，顯示靜態分析是強力的效能倍增器，但沒有它流程仍能找到一些 bug。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最不可或缺的單一元件",
+          "text": "<p>從消融實驗來詮釋，哪個單一元件<em>最</em>不可或缺，為什麼？</p>",
+          "answers": [
+            {
+              "text": "LLM harness 合成——移除它成果歸零，而移除靜態分析只是少 12.2 倍（仍非零）",
+              "fraction": 100,
+              "feedback": "正確——完全崩到零，標示 harness 是最嚴格的前提。"
+            },
+            {
+              "text": "靜態分析——因為 12.2 倍是消融中最大的數字",
+              "fraction": 0,
+              "feedback": "不對——大倍數仍非零；harness 更不可或缺，因為沒有它成果為零。"
+            },
+            {
+              "text": "具體重播——因為沒有它什麼都無法確認",
+              "fraction": 0,
+              "feedback": "不對——消融顯示是 harness 而非重播，其移除會讓成果歸零。"
+            },
+            {
+              "text": "符號執行——因為它才是真正找出 bug 的元件",
+              "fraction": 0,
+              "feedback": "不對——符號執行固然核心，但消融把 harness 隔離為「移除即歸零」者。"
+            }
+          ],
+          "generalFeedback": "「最不可或缺」意指移除後傷害最大者。no-LLM 歸零（沒東西可跑），而 no-static 少 12.2 倍但非零——所以 LLM harness 是最嚴格的前提。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION 與 WITNESS 及重播如何各自使用",
+          "text": "<p>精確區分 VIOLATION 與 WITNESS，並說明具體重播如何各自使用它們。</p>",
+          "answers": [
+            {
+              "text": "VIOLATION 是執行器對「某條路徑抵達 bug」的證明；WITNESS 是驅動該路徑的具體輸入；重播把 witness（而非 violation）餵進未修改程式，以重現並確認違反",
+              "fraction": 100,
+              "feedback": "正確——witness 是可操作的輸入，violation 是它所確認的主張。"
+            },
+            {
+              "text": "VIOLATION 是具體輸入；WITNESS 是證明；重播把 violation 餵進程式",
+              "fraction": 0,
+              "feedback": "不對——角色反了：witness 是輸入，violation 是證明。"
+            },
+            {
+              "text": "兩者都是輸入；重播先跑哪個先崩就用哪個",
+              "fraction": 0,
+              "feedback": "不對——只有 witness 是輸入；violation 是證明，不是能餵給程式的東西。"
+            },
+            {
+              "text": "兩者都是證明；重播挑較強的證明來回報",
+              "fraction": 0,
+              "feedback": "不對——witness 是具體輸入而非證明；重播把它在真實程式上跑。"
+            }
+          ],
+          "generalFeedback": "VIOLATION 是 KLEE 對「某條路徑抵達 bug」的證明；WITNESS 是該路徑的具體觸發輸入。重播不理會抽象的 violation，而是把具體 witness 在未修改程式上跑，以確認 bug 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何迭代 harness 迴圈重要",
+          "text": "<p>為何第 2 階段的編譯回饋迭代是必要的，而非只是方便？</p>",
+          "answers": [
+            {
+              "text": "初稿 harness 通常編譯不過；若不靠回饋修正，就沒有可執行的 harness，KLEE 便沒東西可跑",
+              "fraction": 100,
+              "feedback": "正確——這個迴圈把壞掉的初稿變成可用的 driver。"
+            },
+            {
+              "text": "它讓編譯好的 harness 在執行時跑更快",
+              "fraction": 0,
+              "feedback": "不對——迴圈是為了讓 harness 能建置，而非執行速度。"
+            },
+            {
+              "text": "它直接增加 KLEE 探索的路徑數",
+              "fraction": 0,
+              "feedback": "不對——路徑數是符號執行的事；迴圈的角色是產出可編譯的 harness。"
+            },
+            {
+              "text": "它在重播前濾除假陽性",
+              "fraction": 0,
+              "feedback": "不對——濾除假陽性是重播的工作；迴圈的工作是產出可建置的 harness。"
+            }
+          ],
+          "generalFeedback": "LLM 初稿鮮少能編譯。編譯／回饋迴圈反覆修正直到能建置；沒有它就沒有可執行的 driver——這正是 no-LLM 消融歸零的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SAILOR 如何結合三種強項",
+          "text": "<p>SAILOR 結合靜態、動態（符號）與 LLM 技術。下列各自貢獻的對應何者正確？</p>",
+          "answers": [
+            {
+              "text": "靜態分析修剪與鎖定；LLM 寫出過去需人工手寫的 driver；符號執行證明可達性並產出 witness；重播在真實程式上確認",
+              "fraction": 100,
+              "feedback": "正確——每種技術都補足其他技術的弱點。"
+            },
+            {
+              "text": "靜態分析寫 driver；LLM 探索路徑；符號執行修剪搜尋；重播編譯 harness",
+              "fraction": 0,
+              "feedback": "不對——每個角色都錯置了；修剪是靜態分析、寫 driver 是 LLM、探索是符號執行。"
+            },
+            {
+              "text": "LLM 修剪搜尋；靜態分析證明可達性；符號執行在真實程式上確認；重播鎖定 sink",
+              "fraction": 0,
+              "feedback": "不對——修剪是靜態分析、可達性是符號執行、確認是重播。"
+            },
+            {
+              "text": "三種技術冗餘地做同一件事以求可靠",
+              "fraction": 0,
+              "feedback": "不對——它們是互補的，各自提供其他技術做不到的部分。"
+            }
+          ],
+          "generalFeedback": "靜態分析聚焦力氣、LLM 把過去人工的 harness 自動化、符號執行以具體 witness 證明可達的違反、具體重播加以確認——結合靜態、動態與 LLM 的強項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何無引導的符號執行是盲目的",
+          "text": "<p>具體而言，是什麼讓<em>無引導</em>的符號執行「盲目」，而靜態鎖定又如何幫上忙？</p>",
+          "answers": [
+            {
+              "text": "可行路徑呈指數成長；沒有前置條件與可疑 sink 可導向，執行器會把預算花在無關路徑上、鮮少抵達深層 bug——靜態分析聚焦該預算",
+              "fraction": 100,
+              "feedback": "正確——鎖定正是把不可行的搜尋變成有成效搜尋的關鍵。"
+            },
+            {
+              "text": "沒有靜態分析它就無法求解任何路徑約束",
+              "fraction": 0,
+              "feedback": "不對——求解器仍能運作；問題在於力氣該花在哪，而鎖定解決此事。"
+            },
+            {
+              "text": "依定義它除非被靜態分析叫停否則永不終止",
+              "fraction": 0,
+              "feedback": "不對——終止由搜尋上限所界；問題是力氣失焦，而非本質不終止。"
+            },
+            {
+              "text": "它需要先有 witness 才能開始探索",
+              "fraction": 0,
+              "feedback": "不對——witness 是探索的輸出，不是探索的前提。"
+            }
+          ],
+          "generalFeedback": "可行路徑數呈指數爆炸。沒有靜態分析指向可疑 sink 及其前置條件，執行器會把預算浪費在探索無關路徑——正是消融量到的 12.2 倍損失。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "前置條件如何引導 KLEE",
+          "text": "<p>靜態前置條件 <code>strlen(raw) &lt; 32</code> 如何幫助符號執行找到溢位？</p>",
+          "answers": [
+            {
+              "text": "它在 sink 處標出安全條件，於是 KLEE 能鎖定 strlen(raw) ≥ 32 的路徑——即寫過 name[32] 的路徑——而非探索一切",
+              "fraction": 100,
+              "feedback": "正確——知道安全條件，就等於告訴執行器該追哪條違反路徑。"
+            },
+            {
+              "text": "它把 raw 固定成一個具體值，讓 KLEE 不需用符號輸入",
+              "fraction": 0,
+              "feedback": "不對——前置條件是關於安全的符號約束，不是具體賦值。"
+            },
+            {
+              "text": "它修補 strcpy 使溢位不會發生",
+              "fraction": 0,
+              "feedback": "不對——靜態分析不修改程式碼；它為 sink 標註安全條件。"
+            },
+            {
+              "text": "它為安全路徑停用 harness",
+              "fraction": 0,
+              "feedback": "不對——harness 仍會跑；前置條件只是告訴 KLEE 哪條是違反路徑。"
+            }
+          ],
+          "generalFeedback": "前置條件 strlen(raw) < 32 是複製維持安全的條件。它的否定 strlen(raw) ≥ 32 標出溢位路徑——於是 KLEE 鎖定該路徑並找到越界寫入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "詮釋基準 12 對比 379/421",
+          "text": "<p>基準找到 12，而完整 SAILOR 找到 379 個漏洞／421 個 crash。公允的結論為何？</p>",
+          "answers": [
+            {
+              "text": "把 harness 合成自動化並加上靜態鎖定，大幅擴展了符號執行相較於既有手寫 harness 工具所能發現的範圍",
+              "fraction": 100,
+              "feedback": "正確——差距反映的是自動化加鎖定，而非「什麼算 bug」的定義改變。"
+            },
+            {
+              "text": "基準單純不健全而過度回報；SAILOR 較保守",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 找到的多得多，且其重播步驟會確認 bug；基準並非過度回報。"
+            },
+            {
+              "text": "兩者用同一種技術，所以差異必是量測雜訊",
+              "fraction": 0,
+              "feedback": "不對——基準用手寫 harness；SAILOR 自動化並鎖定，是真實的方法差異。"
+            },
+            {
+              "text": "SAILOR 以犧牲健全性換取更高的數字",
+              "fraction": 0,
+              "feedback": "不對——具體重播會確認每個 crash，所以更高的數字是「已確認的 bug」，而非犧牲健全性。"
+            }
+          ],
+          "generalFeedback": "既有工具依賴手寫 harness、找到 12。SAILOR 自動化且靜態鎖定的 harness 讓符號執行抵達遠更多真實 bug——379 個獨立漏洞、421 個確認 crash，且全經重播確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何重播用 witness 而非 violation",
+          "text": "<p>為何 SAILOR 要重播具體 witness，而非直接採信 KLEE 的 violation？</p>",
+          "answers": [
+            {
+              "text": "violation 可能發生在只有 harness／模型中才可行的路徑上；把具體 witness 在未修改程式上重播能證明 bug 為真，並濾除 harness 造成的假陽性",
+              "fraction": 100,
+              "feedback": "正確——重播是對 harness 主張的現實檢驗。"
+            },
+            {
+              "text": "因為 KLEE 對它實際跑過的路徑不健全",
+              "fraction": 0,
+              "feedback": "不對——顧慮的是 harness-only 狀態，而非 KLEE 對其所探索路徑的健全性。"
+            },
+            {
+              "text": "因為重播比讀取 violation 記錄更快",
+              "fraction": 0,
+              "feedback": "不對——重播是關於確認品質，不是速度。"
+            },
+            {
+              "text": "為了重新計算靜態分析產出的前置條件",
+              "fraction": 0,
+              "feedback": "不對——重播確認 crash，並不重新計算前置條件。"
+            }
+          ],
+          "generalFeedback": "harness 可能製造出真實程式中不可能的狀態，因此其上的 violation 可能是假陽性。把具體 witness 在未修改程式上重播，正是區分真實 bug 與 harness 假象的手段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "過度約束 harness 的後果",
+          "text": "<p>假設合成的 harness 過度約束了符號輸入（邊界收得太緊）。對流程可能的後果是什麼？</p>",
+          "answers": [
+            {
+              "text": "真實 bug 可能落在被探索的輸入空間之外，於是 KLEE 永遠不輸出該 violation——即偽陰性——即使各階段都有跑",
+              "fraction": 100,
+              "feedback": "正確——藏起觸發輸入，就讓該 bug 在探索中不可達。"
+            },
+            {
+              "text": "它保證產生一個重播仍會確認的假陽性",
+              "fraction": 0,
+              "feedback": "不對——過度約束是藏起 bug（偽陰性），不會製造出已確認的 crash。"
+            },
+            {
+              "text": "具體重播會自動放寬輸入空間來補償",
+              "fraction": 0,
+              "feedback": "不對——重播只重跑一個 witness；無法找回 harness 排除掉的輸入。"
+            },
+            {
+              "text": "靜態分析會重跑以修正 harness",
+              "fraction": 0,
+              "feedback": "不對——流程是往前跑的；靜態分析不會重跑來修補 harness。"
+            }
+          ],
+          "generalFeedback": "若 harness 把輸入界得太緊，觸發 bug 的值被排除，於是 KLEE 探索的空間裡違反從不出現——偽陰性。（約束太鬆則相反：造成假陽性。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "重播不能先於符號執行",
+          "text": "<p>具體重播無法有意義地在符號執行之前進行，因為它需要只有符號執行才能產出的 witness。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——資料相依（witness → 重播）固定了順序：先探索、後確認。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "重播的輸入是 witness，而它由符號執行產出，因此重播必在其後。"
+            }
+          ],
+          "generalFeedback": "重播在未修改程式上重現某個特定 witness。既然 witness 是符號執行的輸出，重播必然是較後的階段——這是資料相依，而非任意選擇。"
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM 自動化了哪個人工步驟",
+          "text": "<p>在既有的符號執行工具中，SAILOR 的 LLM 階段自動化了哪個昂貴的人工步驟，又為何能因此解鎖規模？</p>",
+          "answers": [
+            {
+              "text": "為每個目標手寫一個可編譯的 harness；把它自動化，流程就能在數百萬行程式碼中攻擊眾多位置，而不需為每個目標配一個人",
+              "fraction": 100,
+              "feedback": "正確——harness 的瓶頸就是那個人，而 LLM 移除了它。"
+            },
+            {
+              "text": "手動求解路徑約束；把它自動化就不再需要求解器",
+              "fraction": 0,
+              "feedback": "不對——求解器仍在用；LLM 自動化的是寫 harness，不是求解約束。"
+            },
+            {
+              "text": "手動確認每個 crash；把它自動化就移除了重播階段",
+              "fraction": 0,
+              "feedback": "不對——重播仍會跑；LLM 自動化的是 harness 合成，不是確認。"
+            },
+            {
+              "text": "手動為每個發現標上 CWE 編號",
+              "fraction": 0,
+              "feedback": "不對——瓶頸不是 CWE 標記，而是為每個目標手寫 harness。"
+            }
+          ],
+          "generalFeedback": "傳統符號執行需要人為每個目標手寫可編譯 harness——這是規模的瓶頸。SAILOR 的 LLM 自動合成 harness，使流程能在約 680 萬行程式碼中涵蓋眾多位置，而不需每目標的人工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對消融的整體解讀",
+          "text": "<p>下列哪個結論最受完整消融支持（完整：421 crash；no-static：少 12.2 倍；no-LLM：零；基準：12）？</p>",
+          "answers": [
+            {
+              "text": "每個元件都不可或缺但方式不同——LLM harness 是嚴格的使能元件（沒它就零）、靜態分析是可行性倍增器（12.2 倍），而三者結合遠勝既有工具（基準 12）",
+              "fraction": 100,
+              "feedback": "正確——這些數字合起來顯示各自不同且互補的角色。"
+            },
+            {
+              "text": "只有 LLM harness 重要；其他元件只是裝飾",
+              "fraction": 0,
+              "feedback": "不對——no-static 的 12.2 倍下降顯示靜態分析也極其重要。"
+            },
+            {
+              "text": "只有靜態分析重要；harness 可有可無",
+              "fraction": 0,
+              "feedback": "不對——no-LLM 歸零，所以 harness 並非可有可無。"
+            },
+            {
+              "text": "各元件冗餘，因為移除任一個成果都不變",
+              "fraction": 0,
+              "feedback": "不對——移除元件會使成果劇變（歸零，或少 12.2 倍），所以它們並不冗餘。"
+            }
+          ],
+          "generalFeedback": "消融顯示每個元件各以自身方式舉足輕重：harness 不可或缺（沒它就零）、靜態分析倍增效能（12.2 倍），而完整 SAILOR（379 漏洞／421 crash）遠勝基準的 12——整體遠大於任一部分。",
+          "single": true
+        }
+      ]
+    }
+  },
   "spec-mutation": {
     "en": {
       "easy": [
