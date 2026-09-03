@@ -165160,9 +165160,18 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   function mixSeed() {
     return Date.now() >>> 0 ^ Math.floor(Math.random() * 2 ** 32);
   }
+  function shuffleAnswers(q, rng) {
+    if (!q || q.type !== "multichoice" || !Array.isArray(q.answers) || q.answers.length < 2) return q;
+    return { ...q, answers: shuffle(rng, q.answers) };
+  }
+  function withShuffledAnswers(deck, seed) {
+    if (seed == null) return deck;
+    const s = seed >>> 0;
+    return deck.map((q, i) => shuffleAnswers(q, makeRng((s ^ Math.imul(i + 1, 2654435761)) >>> 0)));
+  }
   function pickDeck(rendered, id, lang2, difficulty, seed) {
     if (difficulty !== "mixed") {
-      return bucketFor(rendered, id, lang2, difficulty);
+      return withShuffledAnswers(bucketFor(rendered, id, lang2, difficulty), seed);
     }
     const rng = makeRng(seed);
     const out = [];
@@ -165172,7 +165181,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const idxs = shuffle(rng, src.map((_, i) => i)).slice(0, 5).sort((a, b) => a - b);
       idxs.forEach((i) => out.push(src[i]));
     }
-    return out.length === 15 ? out : [];
+    return out.length === 15 ? withShuffledAnswers(out, seed) : [];
   }
   function difficultyReady(rendered, id, lang2, difficulty, seed) {
     const n = pickDeck(rendered, id, lang2, difficulty, seed).length;
@@ -165546,7 +165555,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const d = body.querySelector('input[name="qdiff"]:checked');
       st.mode = m ? m.value : "practice";
       st.difficulty = d ? d.value : "easy";
-      st.seed = st.difficulty === "mixed" ? mixSeed() : null;
+      st.seed = mixSeed();
       st.questions = deckFor(st.quizId, st.lang, st.difficulty, st.seed);
       if (!st.questions.length) {
         renderStart();

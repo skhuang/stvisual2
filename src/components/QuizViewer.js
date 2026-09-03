@@ -300,7 +300,11 @@ function onBodyClick(e) {
     const d = body.querySelector('input[name="qdiff"]:checked');
     st.mode = m ? m.value : 'practice';
     st.difficulty = d ? d.value : 'easy';
-    st.seed = st.difficulty === 'mixed' ? mixSeed() : null;
+    // A seed is always assigned now: mixed uses it for question sampling, and
+    // every difficulty uses it to shuffle each question's answer options
+    // (so the correct answer isn't always first). Persisted per attempt so
+    // resume/review reproduce the exact same order.
+    st.seed = mixSeed();
     st.questions = deckFor(st.quizId, st.lang, st.difficulty, st.seed);
     if (!st.questions.length) { renderStart(); return; }
     st.phase = 'quiz'; st.idx = 0;
