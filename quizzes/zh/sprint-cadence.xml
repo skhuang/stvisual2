@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Sprint Testing Cadence/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>測試在衝刺中發生的時機</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在敏捷的衝刺（Sprint）中，測試<strong>何時</strong>進行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在整個衝刺中持續進行，隨著每個故事被開發出來就測試</text><feedback><text>正確——測試貫穿整個衝刺，而不是留到最後。</text></feedback></answer>
+    <answer fraction="0"><text>只在衝刺最後兩天的專門測試階段進行</text><feedback><text>這種把測試堆到最後的模式是「迷你瀑布」臭味，不是敏捷節奏。</text></feedback></answer>
+    <answer fraction="0"><text>只在衝刺之後、於另一個獨立的測試衝刺中進行</text><feedback><text>獨立的測試衝刺是一種反模式；測試應在每個衝刺內進行。</text></feedback></answer>
+    <answer fraction="0"><text>只在發布上線到正式環境之後才進行</text><feedback><text>等到正式環境才測試，違背了衝刺快速回饋的目的。</text></feedback></answer>
+    <generalfeedback><text>敏捷測試是持續進行的：每個使用者故事都在同一個衝刺內被開發並測試。測試是貫穿整個迭代的持續活動，而不是最後才加上去的一個階段。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>品質是全團隊的責任</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在敏捷中，品質是<strong>全團隊的責任</strong>——測試並非只由獨立的 QA 部門負責。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——全團隊共同擁有品質，測試是共享的活動。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>敏捷把品質視為每個人的責任，而不是交由一個 QA 孤島負責。</text></feedback></answer>
+    <generalfeedback><text>敏捷的一項核心原則是品質為全團隊的責任：開發者、測試者與產品負責人都對建構並驗證產品有所貢獻。「測試是 QA 團隊的階段」正是敏捷要擺脫的心態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完成的定義包含測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對一個使用者故事而言，下列哪一項最明確地屬於健康的<strong>完成的定義（Definition of Done）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>故事已被測試、在合理處已自動化，且沒有已知的重大缺陷</text><feedback><text>正確——恰當的 DoD 要求故事已被測試，而不只是寫完程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼能夠編譯，並且已合併到主分支</text><feedback><text>能編譯並合併還不夠；完成要求故事已被測試。</text></feedback></answer>
+    <answer fraction="0"><text>開發者相信程式碼大概能運作</text><feedback><text>相信並非驗證；完成表示行為確實已被測試過。</text></feedback></answer>
+    <answer fraction="0"><text>測試已被排到之後的強化衝刺去做</text><feedback><text>把測試延後到之後的衝刺，代表這個故事現在並未完成。</text></feedback></answer>
+    <generalfeedback><text>完成的定義包含測試：唯有故事已被測試（在合理處加上自動化）且沒有已知的重大缺陷，才算完成。這讓每個增量都值得信任。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>潛在可交付的增量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>每個衝刺都以產出<strong>潛在可交付的增量（potentially shippable increment）</strong>為目標。這是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個已測試、能運作的增量，在衝刺結束時即可被發布</text><feedback><text>正確——潛在可交付表示因為品質已內建，原則上就是可發布的。</text></feedback></answer>
+    <answer fraction="0"><text>一組已寫好程式碼、但尚未測試的功能</text><feedback><text>未測試的程式碼並非潛在可交付；測試正是使其可發布的一部分。</text></feedback></answer>
+    <answer fraction="0"><text>一份描述下個衝刺要建構什麼的設計文件</text><feedback><text>增量是能運作的軟體，不是未來工作的計畫。</text></feedback></answer>
+    <answer fraction="0"><text>一個必須先經過另一個獨立 QA 衝刺才能發布的原型</text><feedback><text>需要之後的 QA 衝刺，代表它在衝刺結束時並非可交付。</text></feedback></answer>
+    <generalfeedback><text>潛在可交付的增量是能運作、已測試的軟體，組織可以選擇是否發布。「潛在」指的是商業決策，而非尚未完成的品質工作——測試必須已在衝刺內完成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試者最早介入的時機</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在健康的節奏中，測試者<strong>最早</strong>何時介入一個使用者故事？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>很早——在待辦清單精煉與衝刺規劃時，協助形塑驗收準則</text><feedback><text>正確——測試者及早介入（左移），使品質從一開始就被設計進去。</text></feedback></answer>
+    <answer fraction="0"><text>只在故事的所有程式碼都完成之後</text><feedback><text>等程式碼寫完才介入會延遲回饋，正是敏捷要避免的模式。</text></feedback></answer>
+    <answer fraction="0"><text>只在衝刺審查的展示會上</text><feedback><text>審查會對測試者首次介入一個故事而言太晚了。</text></feedback></answer>
+    <answer fraction="0"><text>只在下個衝刺，等這個衝刺的開發完成之後</text><feedback><text>測試落後開發一個衝刺是反模式，不是及早介入。</text></feedback></answer>
+    <generalfeedback><text>測試者及早介入——在衝刺內「左移」。他們參與精煉與規劃、協助定義驗收準則與具體範例，並在每個故事被建構時就測試它，而不是等到最後才成批處理。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>在同一衝刺內開發並測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個使用者故事要被視為<strong>完成</strong>，應在<strong>同一個</strong>衝刺內同時被開發並被測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——故事的開發與測試在同一衝刺內進行，才能算完成。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>把開發與測試拆到不同衝刺會破壞節奏；兩者都應在同一衝刺內。</text></feedback></answer>
+    <generalfeedback><text>每個故事都在一個衝刺內被開發並測試。唯有如此，它才能滿足包含測試的完成的定義，並貢獻於潛在可交付的增量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符合節奏的做法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項做法<strong>符合</strong>健康的敏捷測試節奏？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個故事一被建構出來就測試，而不是把所有測試堆到衝刺末尾</text><feedback><text>正確——故事完成即測試，能讓回饋快速而穩定。</text></feedback></answer>
+    <answer fraction="0"><text>等所有故事的程式碼都完成後才開始測試</text><feedback><text>把測試堆到最後會造成擠壓並延遲回饋。</text></feedback></answer>
+    <answer fraction="0"><text>安排一個強化衝刺來補做被略過的測試</text><feedback><text>強化衝刺代表衝刺內的測試不足。</text></feedback></answer>
+    <answer fraction="0"><text>讓開發者把完成的程式碼交給 QA 於下個衝刺處理</text><feedback><text>測試落後開發一個衝刺會延遲回饋並造成遞延。</text></feedback></answer>
+    <generalfeedback><text>故事一被建構就測試，能讓品質回饋在整個衝刺中持續流動。成批處理、強化衝刺，以及測試落後一個衝刺，全都會破壞節奏。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝刺中「左移」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在衝刺中，<em>左移（shift-left）</em>測試指的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把測試活動往前移——移到規劃階段並與開發同步進行，而不是移到最後</text><feedback><text>正確——左移把測試思維在衝刺中提前。</text></feedback></answer>
+    <answer fraction="0"><text>把測試移交給衝刺結束後的專門團隊</text><feedback><text>那是把測試往後推、移到衝刺之外，與左移相反。</text></feedback></answer>
+    <answer fraction="0"><text>先只測試使用者介面的左半邊</text><feedback><text>左移講的是工作流程中的時機，不是畫面版面。</text></feedback></answer>
+    <answer fraction="0"><text>讓使用者在團隊之前先於正式環境測試</text><feedback><text>那是把測試右移到發布之後，而非左移。</text></feedback></answer>
+    <generalfeedback><text>左移表示在流程中更早地投入測試：在規劃與精煉時協助定義驗收準則、與開發者結對，並在每個故事被建構時就測試。目標是更快的回饋，以及在缺陷仍便宜易修時就抓到它。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>敏捷並未消除測試工作量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>因為敏捷把測試分散到整個衝刺，團隊就不再需要在測試上投入任何工作量。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>敏捷把測試重新分配到整個衝刺，並沒有移除工作量。探索式測試與驗收測試依然會進行。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——測試工作量依然真實存在；它被編織進衝刺，而不是被消除。</text></feedback></answer>
+    <generalfeedback><text>敏捷改變的是測試發生的時機與方式——持續、全團隊、衝刺內——但工作並未消失。自動化、探索式測試與驗收測試都仍需投入心力；它們只是在節奏中進行，而非作為最後一個階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝刺末尾的測試階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個團隊先寫完所有故事的程式碼，再把一個獨立的<strong>測試階段</strong>保留到衝刺最後幾天。該如何評判？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種反模式——衝刺內的迷你瀑布，會延遲回饋</text><feedback><text>正確——把測試階段堆到末尾就是迷你瀑布臭味。</text></feedback></answer>
+    <answer fraction="0"><text>一種最佳實務，因為東西都建好後測試比較容易</text><feedback><text>把測試堆到最後會集中風險並延遲回饋；這不是最佳實務。</text></feedback></answer>
+    <answer fraction="0"><text>Scrum 所要求的，它規定每個衝刺都要有測試階段</text><feedback><text>Scrum 並未規定這種階段；它期望測試貫穿整個衝刺。</text></feedback></answer>
+    <answer fraction="0"><text>沒問題，只要測試者是一個獨立團隊即可</text><feedback><text>晚期交接給獨立團隊會讓延遲與孤島更嚴重，並非沒問題。</text></feedback></answer>
+    <generalfeedback><text>把測試保留到最後，等於在衝刺內重現了一個小瀑布。缺陷很晚才浮現，此時幾乎沒有時間修正，且回饋給開發者的時間也被延遲。應改為每個故事一被建構就測試它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝刺內自動化的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>衝刺內測試自動化</strong>的主要目的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓不斷成長的迴歸測試套件每個衝刺都能被執行，使回饋保持快速</text><feedback><text>正確——自動化讓越來越大的迴歸能反覆且便宜地執行。</text></feedback></answer>
+    <answer fraction="0"><text>取代測試中所有的人為判斷</text><feedback><text>自動化與探索式及人為測試互補，並不取代它們。</text></feedback></answer>
+    <answer fraction="0"><text>讓團隊可以省去撰寫完成的定義</text><feedback><text>自動化是支撐 DoD，而非移除對它的需要。</text></feedback></answer>
+    <answer fraction="0"><text>把所有測試移到之後的強化衝刺</text><feedback><text>自動化的存在正是為了讓測試留在衝刺內，而非延後。</text></feedback></answer>
+    <generalfeedback><text>隨著衝刺累積，迴歸測試套件會成長。在衝刺內將其自動化，能讓該套件每個衝刺都可執行，提供快速回饋，並避免手動迴歸淪為衝刺末尾難以承受的負擔。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>測試者在精煉時的貢獻</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試者可以在待辦清單<strong>精煉（refinement）</strong>時，協助定義清楚的驗收準則與具體範例，藉此做出貢獻。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——測試者在精煉時協助讓故事可測試且不含糊。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>測試者及早就能增添價值：精煉正是他們協助釐清驗收準則與範例的場合。</text></feedback></answer>
+    <generalfeedback><text>測試者參與精煉與規劃，有助於在寫程式碼之前就浮現邊界情況與含糊之處，產出帶有明確驗收準則、可測試的故事。這是在節奏中把測試左移的關鍵一環。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誰擁有品質</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Scrum 團隊中，誰對增量的<strong>品質</strong>負責？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>全團隊——開發者、測試者與產品負責人一起</text><feedback><text>正確——品質是共享的、全團隊的責任。</text></feedback></answer>
+    <answer fraction="0"><text>只有測試者，他們構成發布前的一道關卡</text><feedback><text>把測試者當成關卡，等於重建了敏捷要避免的 QA 孤島。</text></feedback></answer>
+    <answer fraction="0"><text>只有 Scrum Master，他為每個故事簽核</text><feedback><text>Scrum Master 負責促進；他並非獨自擁有品質。</text></feedback></answer>
+    <answer fraction="0"><text>只有產品負責人，他驗收增量</text><feedback><text>產品負責人驗收價值，但品質是由全團隊建構的。</text></feedback></answer>
+    <generalfeedback><text>品質是全團隊的責任。每個人都對建構並驗證品質有所貢獻，而不是把它交給單一角色或下游的一道關卡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝刺審查展示的內容</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>衝刺審查（sprint review）</strong>中，團隊展示什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個能運作、已測試的產品增量</text><feedback><text>正確——審查展示的是真實、已測試的增量，而非未驗證的工作。</text></feedback></answer>
+    <answer fraction="0"><text>仍需之後 QA 再測一輪的未測試程式碼</text><feedback><text>展示未測試的工作，代表該增量其實並未完成。</text></feedback></answer>
+    <answer fraction="0"><text>只有描述當初計畫的投影片</text><feedback><text>審查以能運作的軟體為核心，而非規劃投影片。</text></feedback></answer>
+    <answer fraction="0"><text>一份要留到下個衝刺才測試的缺陷清單</text><feedback><text>把測試延後到下個衝刺是節奏反模式，不是審查所呈現的內容。</text></feedback></answer>
+    <generalfeedback><text>衝刺審查展示的是一個能運作、已測試的增量——衝刺內開發並測試的成果。因為完成包含測試，所展示的就是真正潛在可交付的東西。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試者與開發者結對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一位測試者與一位開發者結對，在故事<strong>正被建構</strong>時就測試它。這符合敏捷測試節奏嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>符合——在建構時就測試能提供即時回饋，並讓品質留在衝刺內</text><feedback><text>正確——邊建構邊結對正是持續、全團隊的節奏。</text></feedback></answer>
+    <answer fraction="0"><text>不符合——測試者在故事程式碼完全完成前絕不該看它</text><feedback><text>等程式碼完成才看會延遲回饋；及早協作更好。</text></feedback></answer>
+    <answer fraction="0"><text>不符合——測試必須等到專門的強化衝刺</text><feedback><text>延後到強化衝刺是反模式，不是節奏。</text></feedback></answer>
+    <answer fraction="0"><text>只有當測試者隸屬於獨立的 QA 部門時才符合</text><feedback><text>敏捷偏好全團隊協作，而非獨立的 QA 關卡。</text></feedback></answer>
+    <generalfeedback><text>在故事被建構時就讓測試者與開發者結對，體現了全團隊品質與左移測試：缺陷即時被抓到，故事也在衝刺內達到完成。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Sprint Testing Cadence/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何在故事被建構時就測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼<strong>在故事被建構時就測試</strong>，比把所有測試堆到衝刺末尾更好？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷在脈絡仍新鮮、修正仍便宜時就浮現，回饋也能迅速回到開發者手上</text><feedback><text>正確——及早、逐步的測試縮短回饋迴圈並降低修正成本。</text></feedback></answer>
+    <answer fraction="0"><text>它讓團隊可以略過撰寫自動化迴歸測試</text><feedback><text>及早測試並不會移除對自動化的需要；兩者相輔相成。</text></feedback></answer>
+    <answer fraction="0"><text>它保證永遠不會再找到任何缺陷</text><feedback><text>沒有任何做法能保證零缺陷；好處在於更快、更便宜的回饋。</text></feedback></answer>
+    <answer fraction="0"><text>它把品質的全部責任移到測試者身上</text><feedback><text>敏捷把品質分散到全團隊，而非集中到測試者身上。</text></feedback></answer>
+    <generalfeedback><text>故事一被建構就測試，能在程式碼仍記憶猶新時給開發者回饋，此時缺陷最便宜易修。堆到最後會延遲回饋，並把風險集中在最後幾天。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>描述迷你瀑布臭味</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項描述最符合<strong>衝刺內的迷你瀑布</strong>臭味？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>團隊先寫完所有故事的程式碼，再把所有測試活動擠進衝刺最後幾天</text><feedback><text>正確——把測試階段堆到衝刺末尾就是迷你瀑布。</text></feedback></answer>
+    <answer fraction="0"><text>團隊在開始寫程式碼之前就撰寫驗收準則</text><feedback><text>事先定義準則是良好的左移實務，不是臭味。</text></feedback></answer>
+    <answer fraction="0"><text>團隊每個衝刺都自動化其迴歸測試套件</text><feedback><text>衝刺內自動化支撐節奏；它不是臭味。</text></feedback></answer>
+    <answer fraction="0"><text>開發者與測試者在每個故事被建構時就結對</text><feedback><text>邊建構邊結對正是健康的節奏，不是臭味。</text></feedback></answer>
+    <generalfeedback><text>迷你瀑布在單一衝刺內重現了瀑布專案的各階段：分析、寫程式、最後才測試。它延遲回饋並在衝刺末尾造成擠壓。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>修正迷你瀑布</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個團隊有迷你瀑布臭味。最恰當的<strong>修正方式</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個故事一準備好就測試，開發者與測試者在整個衝刺中協作</text><feedback><text>正確——把測試分散到整個衝刺，能消除堆在末尾的擠壓。</text></feedback></answer>
+    <answer fraction="0"><text>每隔幾個衝刺加一個強化衝刺來補做</text><feedback><text>強化衝刺是掩蓋問題，而非恢復節奏。</text></feedback></answer>
+    <answer fraction="0"><text>把測試推到下個衝刺，好讓寫程式不被打斷地繼續</text><feedback><text>測試落後一個衝刺會延遲回饋並造成遞延。</text></feedback></answer>
+    <answer fraction="0"><text>雇一個獨立的 QA 團隊在衝刺結束後測試</text><feedback><text>下游的 QA 關卡會重新引入孤島與延遲。</text></feedback></answer>
+    <generalfeedback><text>修正之道是把瀑布攤平：把工作切分，讓每個故事一準備好就測試，並由全團隊協作。這能讓回饋保持快速，增量也持續接近完成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>越牆丟交接的問題</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「把東西越牆丟給 QA」這種交接的核心問題是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它造成交接延遲與品質孤島，缺陷很晚才被脫離脈絡的人發現</text><feedback><text>正確——交接延遲回饋，並把品質與建構它的團隊隔開。</text></feedback></answer>
+    <answer fraction="0"><text>它讓測試太快，因而漏掉缺陷</text><feedback><text>問題在於延遲與脫節，而非速度太快。</text></feedback></answer>
+    <answer fraction="0"><text>它迫使開發者太早撰寫驗收準則</text><feedback><text>及早定義準則是有幫助的；那不是交接的問題。</text></feedback></answer>
+    <answer fraction="0"><text>它移除了對完成的定義的需要</text><feedback><text>交接模式仍需要 DoD；問題在於孤島與延遲。</text></feedback></answer>
+    <generalfeedback><text>把工作越牆丟給獨立的 QA 群體會破壞全團隊品質。回饋姍姍來遲，測試者缺乏程式碼如何被建構的脈絡，缺陷也在邊界堆積，而非被持續抓到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>未測試的故事不算完成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於完成的定義包含測試，一個在衝刺結束時<strong>已寫完程式碼但尚未測試</strong>的故事該如何看待？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>視為未完成——它不能被算作完成，也不屬於可交付的增量</text><feedback><text>正確——未測試的工作未通過 DoD，不算完成。</text></feedback></answer>
+    <answer fraction="0"><text>視為完成，因為程式碼已存在、之後可以再測</text><feedback><text>若 DoD 要求尚未進行的測試，光有程式碼不算完成。</text></feedback></answer>
+    <answer fraction="0"><text>視為完成一半，取得一半的故事點數</text><feedback><text>故事對照 DoD 是二元的；沒有部分計分。</text></feedback></answer>
+    <answer fraction="0"><text>視為完成，只要有規劃強化衝刺即可</text><feedback><text>規劃之後再測，並不會讓現在未測試的故事變成完成。</text></feedback></answer>
+    <generalfeedback><text>若 DoD 包含測試，未測試的故事就只是未完成。它不計入速度，也不屬於可交付的增量；剩下的測試會遞延。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試者參與精煉的好處</text></name>
+    <questiontext format="html"><text><![CDATA[<p>讓測試者參與待辦清單<strong>精煉與規劃</strong>的主要好處是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>及早浮現含糊之處與邊界情況，產出帶有共識驗收準則、可測試的故事</text><feedback><text>正確——測試者及早介入讓故事在寫程式前更清楚、可測試。</text></feedback></answer>
+    <answer fraction="0"><text>開發者因此可以略過撰寫任何單元測試</text><feedback><text>測試者參與規劃並不會免除開發者的測試職責。</text></feedback></answer>
+    <answer fraction="0"><text>產品負責人因此不再需要為待辦清單排序</text><feedback><text>排序仍是產品負責人的工作；精煉並不取代它。</text></feedback></answer>
+    <answer fraction="0"><text>測試因此可以安全地延後到下個衝刺</text><feedback><text>及早在規劃介入是為了讓測試留在衝刺內，而非延後。</text></feedback></answer>
+    <generalfeedback><text>測試者在精煉與規劃時思考一個故事，能在程式碼寫出來之前就揭露邊界情況與含糊之處。結果是帶有清楚、共識驗收準則、可測試的故事——衝刺後段更少意外、更少返工。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝刺內自動化的理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼可持續的敏捷測試仰賴在<strong>每個衝刺內</strong>將測試自動化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>迴歸測試套件每個衝刺都在成長；沒有自動化，每個衝刺手動重跑會變得難以為繼</text><feedback><text>正確——自動化讓不斷成長的迴歸得以持續、可負擔地反覆執行。</text></feedback></answer>
+    <answer fraction="0"><text>自動化測試一旦寫好就永遠不需維護</text><feedback><text>自動化測試確實需要維護；那不是理由。</text></feedback></answer>
+    <answer fraction="0"><text>自動化讓團隊可以捨棄完成的定義</text><feedback><text>自動化支撐 DoD，而非取代它。</text></feedback></answer>
+    <answer fraction="0"><text>手動測試永遠較差，應予以消除</text><feedback><text>探索式與手動測試仍有價值；自動化針對的是可重複的迴歸。</text></feedback></answer>
+    <generalfeedback><text>每個衝刺都會加入必須持續運作的行為。每個衝刺以手動重測越來越大的迴歸很快就會壓垮團隊，因此把可重複的檢查在衝刺內自動化，以保持回饋快速、節奏可持續。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>未測試工作的速度計分</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個故事在衝刺結束時「程式碼完成」，但測試尚未做完。它對<strong>速度（velocity）</strong>有何影響？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>本衝刺不計入任何速度並遞延，因為它並未完成</text><feedback><text>正確——未完成的故事不計分，並延續到下個衝刺。</text></feedback></answer>
+    <answer fraction="0"><text>取得全額速度計分，因為程式碼已存在</text><feedback><text>程式碼存在不等於完成；計入它會灌水速度。</text></feedback></answer>
+    <answer fraction="0"><text>依剩餘測試多寡取得部分計分</text><feedback><text>速度以完成／未完成計，沒有部分計分。</text></feedback></answer>
+    <answer fraction="0"><text>提升速度，因為它下個衝刺很快就會做完</text><feedback><text>未來做完並不會產生本衝刺的計分。</text></feedback></answer>
+    <generalfeedback><text>速度只計已完成的故事。因為測試是完成的一部分，一個程式碼完成但未測試的故事本衝刺什麼都不計，並會遞延。硬要計入會灌水速度並掩蓋尚待完成的工作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收準則作為共同理解</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在撰寫一個故事的程式碼之前先議定<strong>驗收準則與具體範例</strong>，主要有幫助是因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它建立對預期行為的共同理解，使故事的建構與測試對準同一個目標</text><feedback><text>正確——共同的範例在寫程式前就讓開發與測試對齊。</text></feedback></answer>
+    <answer fraction="0"><text>它讓團隊之後可以不用跑任何測試</text><feedback><text>準則引導測試；它不取代跑測試。</text></feedback></answer>
+    <answer fraction="0"><text>它保證故事一開始寫程式就不再需要任何變更</text><feedback><text>理解仍可能演變；好處在於對齊，而非不可變更。</text></feedback></answer>
+    <answer fraction="0"><text>它把所有測試移到衝刺末尾</text><feedback><text>及早議定準則是把測試思維左移，而非移到末尾。</text></feedback></answer>
+    <generalfeedback><text>具體的驗收準則與範例給開發者與測試者一個共同、明確的目標。故事被建構以滿足那些範例，並依它們測試，減少返工與誤解——這是左移、全團隊的實務。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何可交付需要衝刺內測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼以<strong>潛在可交付的增量</strong>為目標，會迫使測試在衝刺內進行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>唯有品質在衝刺內被驗證、而非延後，增量才可能是可發布的</text><feedback><text>正確——可發布性要求測試已在衝刺內完成。</text></feedback></answer>
+    <answer fraction="0"><text>因為 Scrum 禁止撰寫任何自動化測試</text><feedback><text>Scrum 並不禁止自動化；自動化其實支撐可發布性。</text></feedback></answer>
+    <answer fraction="0"><text>因為產品負責人親自測試每個故事</text><feedback><text>產品負責人驗收價值；測試由全團隊進行。</text></feedback></answer>
+    <answer fraction="0"><text>因為把測試留到數個衝刺之後比較便宜</text><feedback><text>延後測試會提高成本與風險；它不會讓增量變得可交付。</text></feedback></answer>
+    <generalfeedback><text>「潛在可交付」表示增量隨時都可能被發布。唯有品質已在衝刺內被驗證，這才成立。延後測試會留下未知的品質，因此增量其實並非可交付。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結對對回饋的影響</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在開發<strong>期間</strong>讓測試者與開發者結對，對回饋迴圈有何影響？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>縮短迴圈——問題被即時提出並修正，減少之後的返工</text><feedback><text>正確——即時協作在問題滾雪球之前就抓到它。</text></feedback></answer>
+    <answer fraction="0"><text>拉長迴圈，因為兩個人會拖慢一切</text><feedback><text>結對縮短測試的回饋；它不會拉長品質迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>沒有影響，因為回饋只在發布後才重要</text><feedback><text>衝刺內的回饋是敏捷的核心；它不是只在發布後才重要。</text></feedback></answer>
+    <answer fraction="0"><text>把所有回饋延到衝刺審查</text><feedback><text>結對持續給回饋，而非只在審查時。</text></feedback></answer>
+    <generalfeedback><text>結對把「寫程式」與「測試它」之間的距離壓縮：問題在脈絡仍新鮮時當場被發現並更正，而非被記成缺陷、幾天後才修。這正是全團隊、左移節奏的實踐。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迷你瀑布的徵兆</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項觀察是團隊在衝刺內有迷你瀑布的明顯<strong>徵兆</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試者在衝刺前期閒置，卻在最後幾天超載</text><feedback><text>正確——前期閒置、後期擠壓的模式代表測試被堆到末尾。</text></feedback></answer>
+    <answer fraction="0"><text>測試者與開發者從第一天起就在故事上結對</text><feedback><text>第一天就協作是健康節奏，不是臭味的徵兆。</text></feedback></answer>
+    <answer fraction="0"><text>迴歸測試套件已自動化並每個衝刺執行</text><feedback><text>自動化迴歸是良好實務，不是臭味的徵兆。</text></feedback></answer>
+    <answer fraction="0"><text>驗收準則在精煉時就議定</text><feedback><text>及早議定準則是左移實務，不是迷你瀑布的徵兆。</text></feedback></answer>
+    <generalfeedback><text>迷你瀑布的典型徵兆是負載不均：前期因程式碼還在寫而無可測試之物，末尾卻湧入大量測試。整個衝刺平順、持續地測試才是健康的替代做法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝刺末尾成批測試的風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把所有測試堆進衝刺最後幾天的主要<strong>風險</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷太晚被發現，來不及在衝刺內修正，被迫倉促修補或遞延</text><feedback><text>正確——太晚發現使人沒有時間修，工作因此延誤或倉促。</text></feedback></answer>
+    <answer fraction="0"><text>團隊會比預定更早完成每個故事</text><feedback><text>成批測試往往造成延誤，而非提早完成。</text></feedback></answer>
+    <answer fraction="0"><text>自動化測試變得不可能撰寫</text><feedback><text>成批並不會使自動化不可能；它只是延遲回饋。</text></feedback></answer>
+    <answer fraction="0"><text>產品負責人必須出席每日站會</text><feedback><text>那與測試何時進行無關。</text></feedback></answer>
+    <generalfeedback><text>當測試被擠進最後幾天，它找到的任何缺陷都在時間所剩無幾時才出現。結果就是擠壓、倉促的低品質修補，或故事未完成地遞延到下個衝刺。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「下個衝刺再補測試」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一位開發者說：「先把它標成完成，測試下個衝刺再補。」這最直接地破壞了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義——它把未測試的工作偽裝成完成並累積測試債</text><feedback><text>正確——把未測試的工作稱為完成會破壞 DoD 並累積債務。</text></feedback></answer>
+    <answer fraction="0"><text>每日站會，它因此變得不必要</text><feedback><text>每日站會不受這個決定影響。</text></feedback></answer>
+    <answer fraction="0"><text>產品待辦清單的排序</text><feedback><text>待辦清單排序與把未測試工作標成完成是不同的議題。</text></feedback></answer>
+    <answer fraction="0"><text>沒破壞什麼——把測試延後一個衝刺是標準敏捷實務</text><feedback><text>把測試延後一個衝刺是反模式，不是標準實務。</text></feedback></answer>
+    <generalfeedback><text>把未測試的工作標成完成，違反了包含測試的 DoD。它把未完成的工作偽裝成完成、灌水速度，並累積之後必須償還的測試債——而且通常代價更高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>全團隊對缺陷的回應</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>全團隊品質</strong>之下，衝刺中發現缺陷時應如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>團隊協作儘速處理它，而不是把它當成只是測試者的問題</text><feedback><text>正確——全團隊品質意味著團隊一起蜂擁處理此問題。</text></feedback></answer>
+    <answer fraction="0"><text>把它記錄下來，留給 QA 團隊在衝刺結束後處理</text><feedback><text>留給下游 QA 團隊會重新製造孤島與延遲。</text></feedback></answer>
+    <answer fraction="0"><text>忽略它，直到強化衝刺</text><feedback><text>延後到強化衝刺會讓缺陷與債務持續累積。</text></feedback></answer>
+    <answer fraction="0"><text>由發現它的測試者獨自修正</text><feedback><text>全團隊品質意味著共同承擔，而非獨自究責。</text></feedback></answer>
+    <generalfeedback><text>在全團隊品質之下，缺陷屬於團隊，而非只屬於發現它的人。團隊蜂擁儘速修正，讓故事在衝刺內達到完成，使增量保持可交付。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Sprint Testing Cadence/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷最後兩天的模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊的開發者整個衝刺都在寫程式，測試者卻只在最後兩天才開始測試，此時缺陷大量堆積。<strong>診斷與矯正</strong>為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>衝刺內的迷你瀑布；矯正之道是每個故事一完成就測試，並由全團隊全程協作</text><feedback><text>正確——把測試堆到末尾就是迷你瀑布，靠持續的衝刺內測試修正。</text></feedback></answer>
+    <answer fraction="0"><text>健康的節奏；無須改變，因為所有測試仍在衝刺內進行</text><feedback><text>在衝刺內還不夠；把測試堆到末尾才是問題所在。</text></feedback></answer>
+    <answer fraction="0"><text>測試落後一個衝刺；矯正之道是加一個強化衝刺</text><feedback><text>這並非落後一個衝刺的模式，強化衝刺也無法修正它。</text></feedback></answer>
+    <answer fraction="0"><text>一個工具問題；矯正之道是買一個更快的測試執行器</text><feedback><text>問題在於工作流程的時機，不是測試執行器的速度。</text></feedback></answer>
+    <generalfeedback><text>先寫程式、最後才測試，等於在衝刺內重現了一個瀑布。矯正之道是把它攤平：把工作切分讓每個故事很快可測、一完成就測，並讓開發者與測試者持續協作，使回饋保持快速。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷反覆出現的強化衝刺</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊每三個衝刺就跑一個專門的<strong>強化衝刺</strong>來穩定並測試累積的工作。這代表什麼、又該如何修正？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>衝刺內測試不足、品質債累積的臭味；修正之道是靠更強的 DoD 與衝刺內自動化，在每個衝刺就把品質內建進去</text><feedback><text>正確——反覆的強化衝刺代表應在衝刺內預防的債務。</text></feedback></answer>
+    <answer fraction="0"><text>一項最佳實務，每個成熟的敏捷團隊都應永久採用</text><feedback><text>永久的強化衝刺是把債務制度化，而非消除它。</text></feedback></answer>
+    <answer fraction="0"><text>證明團隊測試過多，應該放慢</text><feedback><text>問題在於測試被延後，而非測試過多。</text></feedback></answer>
+    <answer fraction="0"><text>自動化迴歸測試後的正常結果</text><feedback><text>自動化會降低對強化的需要；它不會造成強化。</text></feedback></answer>
+    <generalfeedback><text>反覆出現的強化衝刺是個徵兆：品質工作被延後，必須在補課衝刺中償還。治本之道是預防債務——一個包含測試的完成的定義、衝刺內自動化，以及持續測試，讓每個衝刺的增量已經穩定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷測試落後一個衝刺</text></name>
+    <questiontext format="html"><text><![CDATA[<p>開發者在衝刺 N 建構功能，測試者卻在衝刺 N+1 才測試那批工作。<strong>診斷與其主要後果</strong>為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試落後開發一個衝刺；回饋被延遲、未測試的工作遞延，因此「完成」變得含糊</text><feedback><text>正確——落後一個衝刺會延遲回饋並造成遞延與不明確的完成。</text></feedback></answer>
+    <answer fraction="0"><text>這是理想的管線化，能最大化產出且毫無缺點</text><feedback><text>落後有實際缺點：延遲回饋與遞延，而非免費的加速。</text></feedback></answer>
+    <answer fraction="0"><text>侷限在單一衝刺內的迷你瀑布</text><feedback><text>此落後橫跨兩個衝刺；它是落後一個衝刺的反模式，不是單一衝刺內的迷你瀑布。</text></feedback></answer>
+    <answer fraction="0"><text>全團隊品質正如預期地運作</text><feedback><text>把建構與測試拆到不同衝刺，正與全團隊、衝刺內的品質相反。</text></feedback></answer>
+    <generalfeedback><text>當測試落後開發一個衝刺，衝刺 N 的缺陷要到 N+1 才被發現——此時已有更多工作疊在其上。回饋被延遲、故事遞延，也沒有任何衝刺產出真正完成的增量。治本之道是在同一個衝刺內測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何完成需要測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從風險的角度看，為什麼<strong>完成</strong>的定義必須要求測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>未測試的程式碼品質未知，所以稱它為完成會隱藏風險並讓債務悄悄累積</text><feedback><text>正確——沒有測試，「完成」就是一個未驗證、有風險的宣稱。</text></feedback></answer>
+    <answer fraction="0"><text>測試只是為了滿足外部稽核，而非為了風險</text><feedback><text>理由是真實的品質風險，而非僅為稽核合規。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試會讓程式碼跑得更快</text><feedback><text>測試驗證行為；它主要不是效能最佳化。</text></feedback></answer>
+    <answer fraction="0"><text>因為 Scrum 把測試指派給產品負責人</text><feedback><text>測試是全團隊的活動，而且這也不是完成需要它的原因。</text></feedback></answer>
+    <generalfeedback><text>完成是一個宣稱工作已完整且值得信任的主張。未測試的程式碼帶有未知的品質，所以把它標成完成會掩蓋風險並悄悄累積債務。要求測試能讓完成保持誠實，並讓每個增量都潛在可交付。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延後測試的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊主張把測試延到衝刺末尾能讓他們「寫得更快」。真正的<strong>取捨</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>短期看似更快，卻提高缺陷成本、延遲回饋，並冒著衝刺末尾擠壓與遞延的風險</text><feedback><text>正確——這種表面速度是向之後的成本與風險借來的。</text></feedback></answer>
+    <answer fraction="0"><text>沒有取捨；延後測試整體上就是更快</text><feedback><text>晚期缺陷與遞延的後續成本抵銷了表面的速度。</text></feedback></answer>
+    <answer fraction="0"><text>它立即拖慢寫程式，之後既無好處也無成本</text><feedback><text>延後並不會立即拖慢寫程式；成本落在之後。</text></feedback></answer>
+    <answer fraction="0"><text>它保證更高的品質，因為測試一次全部跑完</text><feedback><text>太晚跑測試往往降低品質結果，而非提高。</text></feedback></answer>
+    <generalfeedback><text>延後測試是向未來借來表面速度：晚期發現的缺陷修起來更貴、回饋被延遲，衝刺也在擠壓中結束並可能遞延。短期的好處會連本帶利地償還。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>跨衝刺維持迴歸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>隨著衝刺累積，團隊如何在不拉長衝刺的情況下讓<strong>迴歸</strong>可持續？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在衝刺內把迴歸檢查自動化，使不斷成長的套件每個衝刺都能反覆且便宜地執行</text><feedback><text>正確——衝刺內自動化讓擴張的迴歸維持可負擔。</text></feedback></answer>
+    <answer fraction="0"><text>每個衝刺都用手動重跑整個迴歸</text><feedback><text>手動重跑會無止境地成長並變得難以為繼。</text></feedback></answer>
+    <answer fraction="0"><text>舊功能一旦發布過一次就停止測試</text><feedback><text>放棄迴歸會讓舊功能悄悄壞掉。</text></feedback></answer>
+    <answer fraction="0"><text>把所有迴歸堆進偶爾一次的強化衝刺</text><feedback><text>把迴歸堆進強化衝刺會延遲回饋並隱藏債務。</text></feedback></answer>
+    <generalfeedback><text>迴歸測試套件會隨每個衝刺成長。在衝刺內把那些可重複的檢查自動化，能讓整個套件每個迭代都可執行，使回饋保持快速、節奏得以維持，而不用拉長衝刺或雇用無盡的手動測試者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>未做測試對遞延的影響</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊慣於把程式碼完成的故事標成完成，儘管測試尚未做完。長期下來對<strong>速度與遞延</strong>可能有何影響？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>速度看似被灌水，隱藏的測試債持續增長，最終迫使遞延並拖慢步調</text><feedback><text>正確——把未做的工作計入會當下灌水速度，之後再逼你算總帳。</text></feedback></answer>
+    <answer fraction="0"><text>速度變得完全準確，遞延消失</text><feedback><text>把未測試的工作計入會讓速度更不準，而非更準。</text></feedback></answer>
+    <answer fraction="0"><text>速度立即下降，且無任何隱藏影響</text><feedback><text>立即的影響是灌水速度；下降是之後才來。</text></feedback></answer>
+    <answer fraction="0"><text>遞延被消除，因為永遠沒有東西被留下未做</text><feedback><text>測試事實上被留下未做，因此債務與遞延會累積。</text></feedback></answer>
+    <generalfeedback><text>把未測試的故事計為完成，會灌水回報的速度，同時真實的測試債無形地堆積。當它必須償還時，團隊步調變慢、故事遞延，使先前的速度數字產生誤導。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數個開發衝刺後的測試衝刺</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊規劃數個純開發衝刺，之後接一個<strong>測試衝刺</strong>。為什麼這有問題、更好的做法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把回饋與品質推到很下游；更好的做法是在每個衝刺內測試，使每個衝刺都產出可交付的增量</text><feedback><text>正確——獨立的測試衝刺會延遲回饋；測試應屬於每個衝刺。</text></feedback></answer>
+    <answer fraction="0"><text>沒問題，因為集中測試能提升專注</text><feedback><text>把測試集中在下游會犧牲快速回饋與可交付性。</text></feedback></answer>
+    <answer fraction="0"><text>當產品很大時這是必需的</text><feedback><text>產品規模不足以正當化把測試獨立成一個衝刺。</text></feedback></answer>
+    <answer fraction="0"><text>它與讓測試者和開發者結對是一樣的</text><feedback><text>獨立的測試衝刺與持續、結對、衝刺內的測試恰恰相反。</text></feedback></answer>
+    <generalfeedback><text>專門的測試衝刺把驗證推得離產生風險的程式碼很遠，因此缺陷很晚才被發現，也沒有任何較早的衝刺真正完成。更好的做法是在每個衝刺內測試，讓每個增量都潛在可交付。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>標成完成的故事出貨了重大缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個被標成完成的故事因「沒時間測試」而出貨了一個重大缺陷。什麼被違反了、矯正之道為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義被違反；修正之道是把測試強制納入完成，並降低在製品，讓故事能被妥善做完</text><feedback><text>正確——DoD 未被滿足；強制執行它並限制 WIP，讓測試放得進去。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何東西被違反；快速出貨比測試更重要</text><feedback><text>略過測試違反了 DoD，也造成了漏出的缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>每日站會被違反；修正之道是拉長站會</text><feedback><text>每日站會與略過某故事的測試無關。</text></feedback></answer>
+    <answer fraction="0"><text>待辦清單被違反；修正之道是加更多故事</text><feedback><text>加故事會加重超載，並未處理缺少的測試。</text></feedback></answer>
+    <generalfeedback><text>把未測試的故事標成完成，破壞了包含測試的 DoD，而漏出的缺陷正是直接結果。矯正之道是恪守 DoD，並限制在製品，讓團隊能把每個故事做完並測試，而不是過度承諾。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>反覆衝刺末尾擠壓的矯正</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊不斷在衝刺末尾遇到測試擠壓。哪一項改變最直接地恢復穩定的節奏？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>限制在製品，並在拉下一個故事之前先把當前故事做完並測試</text><feedback><text>正確——限制 WIP、一次做完一個故事，能把測試分散到整個衝刺。</text></feedback></answer>
+    <answer fraction="0"><text>一次開始所有故事，好讓測試能在末尾一起進行</text><feedback><text>一次全部開始會造成末尾擠壓，而非解方。</text></feedback></answer>
+    <answer fraction="0"><text>把所有測試移到下個衝刺</text><feedback><text>延到下個衝刺是落後一個衝刺的反模式。</text></feedback></answer>
+    <answer fraction="0"><text>無限期地拉長衝刺長度</text><feedback><text>拉長衝刺只會放大同樣的擠壓；它並不能讓流動平順。</text></feedback></answer>
+    <generalfeedback><text>衝刺末尾的擠壓通常來自太多在製品同時完成。限制 WIP、在開始下一個之前先做完（並測試）一個故事，能把測試平均分散到整個衝刺，並讓增量全程接近完成。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>自動化並不取代探索式測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>即使有強大的衝刺內自動化，團隊仍應在衝刺內進行一些探索式測試與驗收測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——自動化維持迴歸，但人為的探索式與驗收測試在衝刺內仍有價值。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>自動化涵蓋可重複的檢查；它不取代探索式與驗收測試。</text></feedback></answer>
+    <generalfeedback><text>自動化最適合可重複的迴歸，讓不斷成長的套件每個衝刺都可執行。但它不取代人為判斷：探索式測試與使用者／驗收測試仍在節奏中進行。敏捷把測試編織到整個過程，並不消除其手動形式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>速度高但漏出缺陷上升</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊回報高速度，正式環境中漏出的缺陷卻持續上升。最可能的<strong>節奏成因</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>他們的完成的定義省略了真正的測試，因此未測試的工作被計為完成、缺陷漏出</text><feedback><text>正確——薄弱的 DoD 讓未測試的工作灌水速度並漏出缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>他們讓測試者與開發者結對得太早</text><feedback><text>及早結對會減少漏出的缺陷；它不是成因。</text></feedback></answer>
+    <answer fraction="0"><text>他們的迴歸測試套件自動化過頭了</text><feedback><text>更多自動化會降低漏出的缺陷；過度自動化不是此處的成因。</text></feedback></answer>
+    <answer fraction="0"><text>他們每個衝刺都開回顧會議</text><feedback><text>回顧會議有助於改善；它不會造成漏出的缺陷。</text></feedback></answer>
+    <generalfeedback><text>高速度伴隨漏出缺陷上升，是「完成」其實不含測試的典型跡象。工作在被驗證之前就被標成完成，於是速度看似漂亮，缺陷卻漏到正式環境。把 DoD 強化到包含測試，能讓數字與現實重新對齊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何強化衝刺是徵兆而非解方</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼反覆出現的強化衝刺最好被視為<strong>徵兆而非解方</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是在債務累積後才事後補救、而非預防它，且反覆需要它代表衝刺內節奏已壞</text><feedback><text>正確——它太晚處理徵兆，而非修正造成債務的節奏。</text></feedback></answer>
+    <answer fraction="0"><text>它是解方，因為它總能永久消除底層的債務</text><feedback><text>它清一次積壓，卻無法阻止債務再度發生。</text></feedback></answer>
+    <answer fraction="0"><text>因為 Scrum 指南禁止強化衝刺並附帶罰則</text><feedback><text>重點在於因果，而非正式禁止或罰則。</text></feedback></answer>
+    <answer fraction="0"><text>因為它讓自動化測試跑得更慢</text><feedback><text>測試執行器速度不是強化衝刺為何是徵兆的原因。</text></feedback></answer>
+    <generalfeedback><text>強化衝刺只是清理常規衝刺本不該製造的債務。若反覆需要它，真正的問題在上游：測試沒有在每個衝刺內進行。修正節奏就能消除對強化的需要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷「完成」與「已測試」的落差</text></name>
+    <questiontext format="html"><text><![CDATA[<p>每個衝刺，開發者稱為「完成」的故事數量遠超過實際被測試的數量，測試者也長期超載。<strong>診斷與修正</strong>為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在製品失衡造成的測試瓶頸；以全團隊測試、限制在製品、蜂擁把故事推到完成來修正</text><feedback><text>正確——這個落差是 WIP／瓶頸問題，靠共享測試與降低 WIP 治本。</text></feedback></answer>
+    <answer fraction="0"><text>測試者就是太慢，應予更換</text><feedback><text>問題是系統性的 WIP 失衡，而非個別測試者的速度。</text></feedback></answer>
+    <answer fraction="0"><text>開發者生產力太高；他們應少寫程式</text><feedback><text>問題在於流動失衡，而非產能過剩；答案是全團隊測試，而非拖慢寫程式的人。</text></feedback></answer>
+    <answer fraction="0"><text>應把測試從完成的定義中拿掉以消除落差</text><feedback><text>把測試從完成中拿掉會掩蓋瓶頸並出貨未測試的工作。</text></feedback></answer>
+    <generalfeedback><text>當開發者的「完成」超過已測試的工作，品質就卡在測試這個瓶頸。治本之道是全團隊品質：開發者協助測試、限制在製品，並由團隊蜂擁把故事推向一個包含測試的完成——而非降低標準或歸咎測試者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>落後一個衝刺時的回饋延遲</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當測試落後開發整整一個衝刺時，一個在衝刺 N 前期引入的缺陷會怎樣、又該如何修正？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它要到衝刺 N+1 才被發現，此時更多工作已疊在有缺陷的基礎上；修正之道是在程式碼被寫的同一衝刺內測試</text><feedback><text>正確——落後把發現延到 N+1，所以矯正之道是消除落差。</text></feedback></answer>
+    <answer fraction="0"><text>它被立即發現，所以落後對回饋沒有影響</text><feedback><text>落後一個衝刺會把發現延到 N+1；並非立即。</text></feedback></answer>
+    <answer fraction="0"><text>它會在下個衝刺一開始自行消失</text><feedback><text>缺陷不會消失；落後只是把發現它往後推。</text></feedback></answer>
+    <answer fraction="0"><text>它靠在 N+1 之後加一個強化衝刺來修正</text><feedback><text>強化衝刺會加劇延遲，而非消除落差。</text></feedback></answer>
+    <generalfeedback><text>當測試落後一個衝刺，衝刺 N 前期的缺陷要到衝刺 N+1 才被偵測，屆時已有更多工作疊在有缺陷的基礎上——使修正更大、風險更高。矯正之道是在程式碼被寫的同一衝刺內測試它，以消除回饋落差。</text></generalfeedback>
+  </question>
+</quiz>

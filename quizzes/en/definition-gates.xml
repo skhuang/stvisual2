@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Definition of Ready and Done/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Definition of Ready is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>Definition of Ready (DoR)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The shared criteria a backlog item must meet before the team pulls it into a sprint</text><feedback><text>Correct — the DoR is the entry gate: it says when an item is ready to be started.</text></feedback></answer>
+    <answer fraction="0"><text>The shared criteria for deciding when a piece of work is truly complete</text><feedback><text>That describes the Definition of Done, the exit gate, not the DoR.</text></feedback></answer>
+    <answer fraction="0"><text>The specific behaviours a single story must exhibit to be accepted</text><feedback><text>Those are that story's acceptance criteria, not the DoR itself.</text></feedback></answer>
+    <answer fraction="0"><text>The order in which items appear in the product backlog</text><feedback><text>Backlog ordering is prioritisation, not the readiness gate.</text></feedback></answer>
+    <generalfeedback><text>The Definition of Ready is a shared, agreed checklist a backlog item must satisfy before the team commits to it in a sprint — for example it is clear, has testable acceptance criteria, is estimated, is small enough to finish in a sprint, and its dependencies are resolved. It is the entry gate that keeps vague, unready work out of the sprint.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Definition of Done is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>Definition of Done (DoD)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The shared criteria for when a piece of work is truly complete</text><feedback><text>Correct — the DoD is the exit gate that defines what "complete" really means.</text></feedback></answer>
+    <answer fraction="0"><text>The shared criteria a story must meet before it is pulled into a sprint</text><feedback><text>That is the Definition of Ready, the entry gate, not the DoD.</text></feedback></answer>
+    <answer fraction="0"><text>The list of specific behaviours a single story must satisfy</text><feedback><text>Those are that story's acceptance criteria; the DoD is a generic quality bar.</text></feedback></answer>
+    <answer fraction="0"><text>The estimate, in story points, of how large a story is</text><feedback><text>Sizing is part of readiness, not the definition of completeness.</text></feedback></answer>
+    <generalfeedback><text>The Definition of Done is a shared, agreed set of criteria that must all hold before work counts as complete — for example code written and reviewed, unit and acceptance tests passing, work integrated, docs updated, and no known critical defects. It is the exit gate that stops unfinished work being called "Done".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoR is which kind of gate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Definition of Ready acts as which kind of <strong>gate</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An entry gate, controlling whether work is ready to be started</text><feedback><text>Correct — DoR governs entry: it decides when an item may be pulled into a sprint.</text></feedback></answer>
+    <answer fraction="0"><text>An exit gate, controlling whether work is complete</text><feedback><text>The exit gate is the Definition of Done, not the DoR.</text></feedback></answer>
+    <answer fraction="0"><text>A gate that applies only after the work has been released</text><feedback><text>DoR applies before work starts, not after release.</text></feedback></answer>
+    <answer fraction="0"><text>A gate owned solely by the product owner and hidden from the team</text><feedback><text>The DoR is shared and team-owned, not a hidden personal checklist.</text></feedback></answer>
+    <generalfeedback><text>DoR is the entry gate. It is applied when the team is about to pull an item into a sprint, ensuring the item is understood, sized, and ready. This prevents starting vague or unready work.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoD is which kind of gate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Definition of Done acts as which kind of <strong>gate</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An exit gate, controlling whether work may be called complete</text><feedback><text>Correct — DoD governs exit: it decides when work is truly Done.</text></feedback></answer>
+    <answer fraction="0"><text>An entry gate, controlling whether work is ready to start</text><feedback><text>The entry gate is the Definition of Ready, not the DoD.</text></feedback></answer>
+    <answer fraction="0"><text>A gate that only limits how many items are in the backlog</text><feedback><text>The DoD concerns completeness of work, not backlog size.</text></feedback></answer>
+    <answer fraction="0"><text>A gate that measures how fast the team writes code</text><feedback><text>The DoD is a quality bar for completeness, not a speed metric.</text></feedback></answer>
+    <generalfeedback><text>DoD is the exit gate. It is applied when the team wants to declare work complete, ensuring the agreed quality criteria are met. This prevents calling unfinished work "Done".</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DoR is checked before pulling a story in</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Definition of Ready is checked <strong>before</strong> a story is pulled into a sprint.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — DoR is the entry gate, applied before committing to the work.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>DoR is precisely the check made before the team pulls an item into a sprint.</text></feedback></answer>
+    <generalfeedback><text>The DoR is the entry gate. The team checks it during backlog refinement and sprint planning, before committing to an item, so that only ready work enters the sprint.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DoD decides whether work is complete</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Definition of Done is used to decide whether a piece of work may be considered <strong>complete</strong>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — DoD is the exit gate that defines completeness.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Deciding completeness is exactly what the DoD is for.</text></feedback></answer>
+    <generalfeedback><text>The DoD is the exit gate. Work counts as complete only when every DoD criterion holds, keeping the meaning of "Done" honest and consistent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What acceptance criteria are</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What are a story's <strong>acceptance criteria</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The specific, testable conditions describing what that particular story must do</text><feedback><text>Correct — acceptance criteria are per-story and specific to that story's behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>The generic quality bar that every story in the team must meet</text><feedback><text>That is the Definition of Done; acceptance criteria are specific to one story.</text></feedback></answer>
+    <answer fraction="0"><text>The rule for how many stories may be in progress at once</text><feedback><text>That is a work-in-progress limit, not acceptance criteria.</text></feedback></answer>
+    <answer fraction="0"><text>The estimate of how many hours the story will take</text><feedback><text>That is an estimate; acceptance criteria describe required behaviour, not effort.</text></feedback></answer>
+    <generalfeedback><text>Acceptance criteria are the specific, testable conditions that define what a single story must do to be accepted. They are per-story and vary from story to story, unlike the DoD, which is a generic bar applied to every story.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which gate applies when starting a story</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the team is deciding whether it may <strong>start</strong> a story, which gate applies?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Ready</text><feedback><text>Correct — readiness to start is governed by the DoR entry gate.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Done</text><feedback><text>The DoD applies when finishing, not when starting.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — starting a story needs no gate</text><feedback><text>Starting is exactly where the DoR entry gate applies.</text></feedback></answer>
+    <answer fraction="0"><text>Both apply equally at the moment of starting</text><feedback><text>Only the DoR applies at the start; the DoD is for completion.</text></feedback></answer>
+    <generalfeedback><text>Starting a story is an entry decision, so the Definition of Ready applies. The Definition of Done is the exit gate and is only relevant when deciding whether the story is complete.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which gate applies when completing a story</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the team is deciding whether a story may be called <strong>complete</strong>, which gate applies?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Done</text><feedback><text>Correct — completion is governed by the DoD exit gate.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Ready</text><feedback><text>The DoR applies when starting, not when finishing.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — completeness is a matter of personal opinion</text><feedback><text>Completeness is judged against the DoD, not personal opinion.</text></feedback></answer>
+    <answer fraction="0"><text>Whichever gate the developer prefers at the time</text><feedback><text>The gate is fixed: completion is judged by the DoD.</text></feedback></answer>
+    <generalfeedback><text>Deciding completeness is an exit decision, so the Definition of Done applies. The DoR governed whether the work should have started; the DoD governs whether it is finished.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is being estimated a DoR or DoD item</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The story has been <strong>estimated and sized</strong>." Is this a Definition of Ready item or a Definition of Done item?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Definition of Ready item</text><feedback><text>Correct — being estimated is part of readiness to start, checked before the sprint.</text></feedback></answer>
+    <answer fraction="0"><text>A Definition of Done item</text><feedback><text>Estimation happens before work starts; it is not a completeness criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — it belongs to release notes</text><feedback><text>Sizing is a readiness concern, not release documentation.</text></feedback></answer>
+    <answer fraction="0"><text>Both equally, at start and at completion</text><feedback><text>Estimation is a readiness (entry) concern, not a completion (exit) one.</text></feedback></answer>
+    <generalfeedback><text>Being estimated and small enough to finish in a sprint are readiness concerns: they must hold before the team pulls the item in. They belong to the DoR entry gate, not the DoD.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is code review a DoR or DoD item</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The code has been <strong>reviewed</strong>." Is this a Definition of Ready item or a Definition of Done item?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Definition of Done item</text><feedback><text>Correct — code review is part of completing the work, an exit-gate criterion.</text></feedback></answer>
+    <answer fraction="0"><text>A Definition of Ready item</text><feedback><text>There is no code to review before the story starts; review is a completion concern.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — it is only an estimate</text><feedback><text>Code review is a completeness criterion, not an estimate.</text></feedback></answer>
+    <answer fraction="0"><text>An acceptance criterion specific to that one story</text><feedback><text>Review applies to every story generically, so it is a DoD item, not a per-story AC.</text></feedback></answer>
+    <generalfeedback><text>Code review can only happen after code exists, so it is part of completing the work. It belongs to the DoD exit gate, and because it applies to every story it is a generic DoD item rather than a per-story acceptance criterion.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Done needs both acceptance criteria and DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A story is only "Done" when it meets <strong>both</strong> its own acceptance criteria <strong>and</strong> the team's Definition of Done.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — Done requires satisfying the per-story acceptance criteria and the generic DoD.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Meeting only one of the two is not enough; Done needs both the AC and the DoD.</text></feedback></answer>
+    <generalfeedback><text>Acceptance criteria say what this specific story must do; the DoD is the generic quality bar for every story. A story is Done only when both hold: it does what was asked and it meets the shared quality standard.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is testable acceptance criteria a DoR item</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The story has clear, <strong>testable acceptance criteria</strong> defined." Before the sprint, which gate does this satisfy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Ready — having testable acceptance criteria is part of readiness</text><feedback><text>Correct — a ready story must already have clear, testable acceptance criteria.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Done — it means the tests already pass</text><feedback><text>Having criteria defined is not the same as the tests passing; that comes at completion.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — acceptance criteria are irrelevant to readiness</text><feedback><text>Testable acceptance criteria are a core readiness requirement.</text></feedback></answer>
+    <answer fraction="0"><text>It is a release-notes requirement</text><feedback><text>Defining acceptance criteria is a readiness concern, not release documentation.</text></feedback></answer>
+    <generalfeedback><text>A ready story must have clear, testable acceptance criteria before it is pulled in — that is a DoR item. Note the distinction: having acceptance criteria defined is readiness (DoR), whereas the criteria actually being met is part of completion (DoD).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Are passing tests a DoD item</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Unit and acceptance tests are written and <strong>passing</strong>." Which gate does this belong to?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Done</text><feedback><text>Correct — passing tests are part of completing the work, an exit-gate criterion.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Ready</text><feedback><text>Tests cannot pass before the work is built; this is a completion concern.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — it is just an estimate of effort</text><feedback><text>Passing tests are a completeness criterion, not an estimate.</text></feedback></answer>
+    <answer fraction="0"><text>It is a readiness item because tests are mentioned</text><feedback><text>Mentioning tests does not make it readiness; passing tests is a completion criterion.</text></feedback></answer>
+    <generalfeedback><text>Tests can only pass after the work is built, so "tests written and passing" is part of the DoD exit gate. Readiness only requires that testable acceptance criteria exist, not that tests already pass.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DoR and DoD are team-owned and evolve</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Both the Definition of Ready and the Definition of Done are meant to be <strong>team-owned, explicit, and allowed to evolve</strong> over time.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — both are shared, explicit team agreements that the team refines as it learns.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Both gates are team-owned, explicit, and expected to evolve; they are not fixed external rules.</text></feedback></answer>
+    <generalfeedback><text>DoR and DoD are shared agreements the team makes explicit and revisits, typically in retrospectives. Keeping them owned by the team and evolving keeps them realistic and enforced rather than ignored.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Definition of Ready and Done/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify estimated with dependencies resolved</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team's checklist says: "the story is <strong>estimated and its dependencies are resolved</strong>." Where does this criterion belong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Ready — both are entry conditions checked before starting</text><feedback><text>Correct — estimation and resolved dependencies are readiness conditions.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Done — they describe completed work</text><feedback><text>Neither is about completeness; both must hold before the work begins.</text></feedback></answer>
+    <answer fraction="0"><text>They are acceptance criteria for that one story</text><feedback><text>These are generic readiness conditions, not the story's specific behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>They belong only at the release gate</text><feedback><text>Estimation and dependency resolution gate entry to the sprint, not release.</text></feedback></answer>
+    <generalfeedback><text>Being estimated and having dependencies identified and resolved are classic readiness conditions: they must be true before the team commits, so they belong to the DoR entry gate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify reviewed and tests passing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A checklist says: "the code is <strong>reviewed and its tests are passing</strong>." Where does this belong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Done — both are completion conditions checked at the exit gate</text><feedback><text>Correct — review and passing tests are part of finishing the work.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Ready — both make the story ready to start</text><feedback><text>Neither can occur before the work is built; they are completion, not readiness.</text></feedback></answer>
+    <answer fraction="0"><text>They are readiness conditions because they mention tests</text><feedback><text>Mentioning tests does not make it readiness; passing them is a completion concern.</text></feedback></answer>
+    <answer fraction="0"><text>They only matter after the product is retired</text><feedback><text>They gate completion of the story, not product retirement.</text></feedback></answer>
+    <generalfeedback><text>Code review and passing tests both require the work to already exist, so they are completion conditions belonging to the DoD exit gate — not readiness conditions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Acceptance criteria versus DoD scope</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement correctly contrasts <strong>acceptance criteria</strong> with the <strong>Definition of Done</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance criteria are specific to one story; the DoD is generic and applies to every story</text><feedback><text>Correct — AC are per-story and specific; the DoD is a shared bar for all stories.</text></feedback></answer>
+    <answer fraction="0"><text>The DoD is specific to one story; acceptance criteria apply to every story</text><feedback><text>This is reversed: AC are per-story, the DoD is generic.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same thing under two different names</text><feedback><text>They are distinct: AC describe this story, the DoD is the shared quality bar.</text></feedback></answer>
+    <answer fraction="0"><text>Both are unique to each story and never shared</text><feedback><text>The DoD is shared across all stories, unlike per-story acceptance criteria.</text></feedback></answer>
+    <generalfeedback><text>Acceptance criteria describe what one particular story must do and differ from story to story. The DoD is a single generic quality bar applied to every story alike. This is why a story must meet both to be Done.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Done needs both AC and DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why must a story satisfy <strong>both</strong> its acceptance criteria and the DoD to be Done?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance criteria prove it does the right thing; the DoD proves it was built to the team's quality bar</text><feedback><text>Correct — AC cover "does what was asked", the DoD covers "built well enough".</text></feedback></answer>
+    <answer fraction="0"><text>Because acceptance criteria replace the need for any Definition of Done</text><feedback><text>AC do not replace the DoD; they answer different questions.</text></feedback></answer>
+    <answer fraction="0"><text>Because the DoD lists the specific behaviours of that one story</text><feedback><text>The specific behaviours are the AC; the DoD is the generic quality bar.</text></feedback></answer>
+    <answer fraction="0"><text>Because meeting either one alone always implies the other</text><feedback><text>They are independent: correct behaviour does not guarantee review, tests, or integration.</text></feedback></answer>
+    <generalfeedback><text>Acceptance criteria and the DoD answer different questions. AC: does the story do the specific thing asked of it? DoD: was it built to the shared quality standard (reviewed, tested, integrated, no critical defects)? A story can meet one without the other, so Done requires both.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence of a weak Definition of Done</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the most likely consequence of a <strong>weak or unenforced Definition of Done</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Untested, unreviewed work gets called "Done", so quality erodes and hidden work carries over later</text><feedback><text>Correct — a weak DoD lets incomplete work pass as done, deferring the real work.</text></feedback></answer>
+    <answer fraction="0"><text>Stories become impossible to start</text><feedback><text>Starting is governed by the DoR; a weak DoD affects completion, not starting.</text></feedback></answer>
+    <answer fraction="0"><text>Estimates automatically become more accurate</text><feedback><text>A weak DoD does not improve estimation; it hides remaining work.</text></feedback></answer>
+    <answer fraction="0"><text>The team is forced to write more acceptance criteria</text><feedback><text>A weak DoD does not compel more AC; it lets low-quality work pass.</text></feedback></answer>
+    <generalfeedback><text>When the DoD is weak or not enforced, work that is untested, unreviewed, or unintegrated gets marked Done. Quality erodes, "90% done" work hides remaining effort, and that effort resurfaces as carryover and defects later.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence of a missing Definition of Ready</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the most likely consequence of having <strong>no effective Definition of Ready</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Vague, unready items get pulled in and churn mid-sprint as the team discovers missing detail</text><feedback><text>Correct — without a DoR, unready work enters the sprint and thrashes.</text></feedback></answer>
+    <answer fraction="0"><text>Completed work can never be marked Done</text><feedback><text>Marking work Done is governed by the DoD, not the DoR.</text></feedback></answer>
+    <answer fraction="0"><text>The team is guaranteed to finish every story early</text><feedback><text>Unready work tends to slip, not finish early.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance tests become unnecessary</text><feedback><text>A missing DoR does not remove the need for acceptance tests.</text></feedback></answer>
+    <generalfeedback><text>Without a DoR, the team commits to items that are unclear, unestimated, or blocked by dependencies. Missing detail surfaces mid-sprint, forcing rework, blocked time, and churn — exactly what the entry gate exists to prevent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What INVEST summarises</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>INVEST</strong> mnemonic (Independent, Negotiable, Valuable, Estimable, Small, Testable) is most often used to check that a story is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Ready — it summarises qualities a good, ready-to-start story should have</text><feedback><text>Correct — INVEST is a readiness heuristic, closely tied to the DoR.</text></feedback></answer>
+    <answer fraction="0"><text>Done — it lists the completion criteria for finished work</text><feedback><text>INVEST checks readiness of a story, not completeness of finished work.</text></feedback></answer>
+    <answer fraction="0"><text>Released — it is a checklist for release notes</text><feedback><text>INVEST is about story quality for readiness, not release documentation.</text></feedback></answer>
+    <answer fraction="0"><text>Over budget — it is a cost-tracking mnemonic</text><feedback><text>INVEST describes story qualities, not budget tracking.</text></feedback></answer>
+    <generalfeedback><text>INVEST captures qualities of a well-formed story — Independent, Negotiable, Valuable, Estimable, Small, Testable. Estimable, Small, and Testable in particular map onto readiness, which is why INVEST is commonly used to support the Definition of Ready.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify small enough for one sprint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The story is <strong>small enough to finish within a single sprint</strong>." Which gate is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Definition of Ready item</text><feedback><text>Correct — being small enough to fit a sprint is a readiness condition.</text></feedback></answer>
+    <answer fraction="0"><text>A Definition of Done item</text><feedback><text>Sizing is checked before starting, not at completion.</text></feedback></answer>
+    <answer fraction="0"><text>An acceptance criterion describing the story's behaviour</text><feedback><text>Size is a readiness property, not a behavioural acceptance criterion.</text></feedback></answer>
+    <answer fraction="0"><text>A release-level criterion</text><feedback><text>Fitting in a sprint gates entry, not release.</text></feedback></answer>
+    <generalfeedback><text>Being small enough to complete in one sprint is a readiness property (the "S" in INVEST). If a story is too big it must be split before it is ready, so this belongs to the DoR.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify integrated with no critical defects</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The change is <strong>integrated/merged and has no known critical defects</strong>." Which gate is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Definition of Done item</text><feedback><text>Correct — integration and freedom from critical defects are completion conditions.</text></feedback></answer>
+    <answer fraction="0"><text>A Definition of Ready item</text><feedback><text>There is nothing to integrate before the work is built; this is completion.</text></feedback></answer>
+    <answer fraction="0"><text>An estimate of the story's size</text><feedback><text>These are completeness conditions, not an estimate.</text></feedback></answer>
+    <answer fraction="0"><text>A readiness condition, because defects are mentioned</text><feedback><text>Being defect-free after building is a completion concern, not readiness.</text></feedback></answer>
+    <generalfeedback><text>Merging the work and confirming there are no known critical defects can only happen once the work exists, so both are DoD exit-gate criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meets AC but not DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A story does everything its acceptance criteria require, but the code has <strong>not been reviewed and no tests were written</strong>. Is it Done?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — it fails the DoD, so it is not Done even though the AC are met</text><feedback><text>Correct — Done needs both the AC and the DoD; the DoD is unmet here.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — meeting the acceptance criteria is sufficient for Done</text><feedback><text>Meeting AC alone is not enough; the generic DoD must also hold.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — review and tests are optional extras</text><feedback><text>Review and tests are DoD criteria, not optional extras.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot be judged without re-estimating the story</text><feedback><text>Completeness is judged against AC and the DoD, not a re-estimate.</text></feedback></answer>
+    <generalfeedback><text>The story behaves as required (AC met) but has not been reviewed or tested, so it fails the generic quality bar. Because Done requires both the AC and the DoD, the story is not Done.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meets DoD but not its AC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A change is reviewed, tested, and integrated, but it does <strong>not actually deliver the behaviour</strong> its acceptance criteria describe. Is the story Done?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — it satisfies the generic DoD but fails its own acceptance criteria</text><feedback><text>Correct — a well-built change that does the wrong thing still fails its AC.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — passing the DoD is enough to be Done</text><feedback><text>The DoD alone is not enough; the story must also meet its acceptance criteria.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — acceptance criteria are just suggestions</text><feedback><text>Acceptance criteria define what the story must do; they are not optional.</text></feedback></answer>
+    <answer fraction="0"><text>Only the product owner's mood decides</text><feedback><text>Done is judged against the AC and the DoD, not mood.</text></feedback></answer>
+    <generalfeedback><text>Here the work is high quality (DoD met) but solves the wrong problem (AC unmet). Done requires both, so a change that is well-built but does not meet its acceptance criteria is not Done.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the DoD is generic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the Definition of Done written as a <strong>generic</strong> checklist rather than per-story?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So every story is held to the same consistent quality bar, whatever its specific behaviour</text><feedback><text>Correct — a generic DoD gives a uniform quality standard across all stories.</text></feedback></answer>
+    <answer fraction="0"><text>So each story can define its own unique completion rules</text><feedback><text>Per-story rules are the acceptance criteria; the DoD is deliberately generic.</text></feedback></answer>
+    <answer fraction="0"><text>Because the DoD only ever contains one item</text><feedback><text>The DoD usually has several items; being generic is about applying to all stories.</text></feedback></answer>
+    <answer fraction="0"><text>Because generic checklists are easier to ignore</text><feedback><text>The point of a generic DoD is consistent enforcement, not ease of ignoring it.</text></feedback></answer>
+    <generalfeedback><text>The DoD is generic precisely so it can act as a uniform quality bar: the same standard (reviewed, tested, integrated, no critical defects) applies to every story. Story-specific expectations live in the per-story acceptance criteria instead.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>INVEST supports which gate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team uses <strong>INVEST</strong> when refining backlog items. Which gate does this most directly support?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Ready — INVEST helps confirm a story is well-formed and ready to start</text><feedback><text>Correct — INVEST is a readiness aid supporting the entry gate.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Done — INVEST lists completion checks</text><feedback><text>INVEST checks story readiness, not whether finished work is complete.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — INVEST is only about deployment</text><feedback><text>INVEST concerns story quality for readiness, not deployment.</text></feedback></answer>
+    <answer fraction="0"><text>Both gates equally, since INVEST covers testing too</text><feedback><text>Although INVEST includes Testable, it assesses readiness of a story, so it supports the DoR.</text></feedback></answer>
+    <generalfeedback><text>INVEST is applied during refinement to judge whether a story is well-formed and ready. Because that is exactly the concern of the entry gate, INVEST most directly supports the Definition of Ready.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Having AC versus meeting AC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing correctly maps the two <strong>uses of acceptance criteria</strong> to their gates?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Having clear, testable AC defined is a DoR item; the AC actually being met is part of the DoD</text><feedback><text>Correct — defining AC is readiness; satisfying them is part of completion.</text></feedback></answer>
+    <answer fraction="0"><text>Having AC defined is a DoD item; meeting them is a DoR item</text><feedback><text>This is reversed: defining AC is readiness, meeting them is completion.</text></feedback></answer>
+    <answer fraction="0"><text>Both defining and meeting AC belong only to the DoR</text><feedback><text>Meeting the AC can only happen once the work is built, so it is part of the DoD.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance criteria play no role in either gate</text><feedback><text>AC feature in both: defined for readiness, met for completion.</text></feedback></answer>
+    <generalfeedback><text>Acceptance criteria touch both gates in different ways. For readiness (DoR), the story must have clear, testable AC defined. For completion (DoD), those AC must actually be satisfied by the built work. Confusing "defined" with "met" is a common source of gate errors.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoR too loose causes churn</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team pulls in stories that are only loosely understood. Mid-sprint they keep stopping to clarify scope and chase missing dependencies. Which gate is weak, and how does it show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The DoR is too loose, so unready work enters and churns mid-sprint</text><feedback><text>Correct — a loose entry gate lets unclear work in, causing mid-sprint thrash.</text></feedback></answer>
+    <answer fraction="0"><text>The DoD is too strict, so nothing can be finished</text><feedback><text>The symptom is unready work entering, which points at the DoR, not a strict DoD.</text></feedback></answer>
+    <answer fraction="0"><text>The acceptance criteria are too generic across stories</text><feedback><text>The problem is unready entry, a DoR weakness, not generic AC.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; clarifying scope mid-sprint is ideal</text><feedback><text>Constant mid-sprint clarification is churn, a sign the DoR let unready work in.</text></feedback></answer>
+    <generalfeedback><text>Stories that are unclear and dependency-blocked should not have passed the entry gate. When they do, the team discovers the gaps mid-sprint and churns. A loose DoR is the cause; tightening it prevents unready work from entering.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Definition of Ready and Done/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Which criterion is release-level DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a <strong>layered</strong> Definition of Done, which criterion most naturally belongs at the <strong>release level</strong> rather than per story?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Full regression, performance, and security checks pass and release notes are prepared</text><feedback><text>Correct — cross-cutting regression, performance, security, and release notes are release-level.</text></feedback></answer>
+    <answer fraction="0"><text>This story's code has been peer reviewed</text><feedback><text>Peer review of one story is a story-level DoD item.</text></feedback></answer>
+    <answer fraction="0"><text>The unit tests for this story pass</text><feedback><text>Passing this story's unit tests is a story-level item.</text></feedback></answer>
+    <answer fraction="0"><text>This story meets its own acceptance criteria</text><feedback><text>Meeting one story's AC is story-level, not release-level.</text></feedback></answer>
+    <generalfeedback><text>A layered DoD has story, sprint/increment, and release levels. Cross-cutting concerns that only make sense for the whole product — full regression, performance and security testing, and release notes and sign-off — belong at the release level, not to each individual story.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which criterion is story-level DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a layered Definition of Done, which criterion most naturally belongs at the <strong>story level</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The story's code is reviewed, its unit tests pass, and it meets its acceptance criteria</text><feedback><text>Correct — review, unit tests, and meeting the AC are per-story completion items.</text></feedback></answer>
+    <answer fraction="0"><text>The full product regression suite has been run</text><feedback><text>Whole-product regression is a release-level concern, not story-level.</text></feedback></answer>
+    <answer fraction="0"><text>Formal performance and security sign-off for the release is obtained</text><feedback><text>Release sign-off is release-level, not story-level.</text></feedback></answer>
+    <answer fraction="0"><text>Marketing release notes are approved</text><feedback><text>Release notes are a release-level item.</text></feedback></answer>
+    <generalfeedback><text>Story-level DoD covers what one story needs to be complete: code reviewed, its unit and acceptance tests passing, and its acceptance criteria met with no known critical defects. Wider concerns escalate to the sprint/increment and release levels.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why an untested story is not Done</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer says a feature "works on my machine — it's basically Done, just untested." Why is it <strong>not</strong> Done?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Untested, unverified work has unknown quality, so calling it Done hides risk and remaining effort</text><feedback><text>Correct — without testing and review, quality is unknown and Done is a false claim.</text></feedback></answer>
+    <answer fraction="0"><text>It is Done; running on the developer's machine satisfies the DoD</text><feedback><text>"Works on my machine" is not a DoD; it verifies nothing for others.</text></feedback></answer>
+    <answer fraction="0"><text>It is Done as long as the code compiles</text><feedback><text>Compiling is not the DoD; testing, review, and integration are still required.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot be judged because the DoD does not cover testing</text><feedback><text>A proper DoD explicitly includes testing, which this work has not had.</text></feedback></answer>
+    <generalfeedback><text>"Works on my machine" and "90% done" both disguise unverified work. Until it is tested, reviewed, and integrated, its real quality and the remaining effort are unknown. A DoD that includes testing exists precisely to stop such work being counted as Done.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoR too strict becomes mini-waterfall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team makes its DoR so demanding that every story needs a full up-front design and complete specification before it may enter a sprint. What is the risk?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It drifts toward a mini-waterfall and analysis-paralysis, front-loading heavy design before any coding</text><feedback><text>Correct — an over-strict DoR recreates big up-front analysis, the opposite of agile.</text></feedback></answer>
+    <answer fraction="0"><text>Stories will always be too vague to start</text><feedback><text>That is the risk of a too-loose DoR, not a too-strict one.</text></feedback></answer>
+    <answer fraction="0"><text>The DoD becomes impossible to satisfy</text><feedback><text>An over-strict DoR affects entry, not the completion criteria.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance criteria become unnecessary</text><feedback><text>An over-strict DoR does not remove the need for acceptance criteria.</text></feedback></answer>
+    <generalfeedback><text>A DoR should ensure enough clarity to start, not demand a complete design up front. Pushed too far it recreates a waterfall: heavy analysis and specification before any code, causing analysis-paralysis and delay. The balance is "ready enough to start", not "fully designed".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Balancing a too-loose DoR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A too-<strong>loose</strong> DoR causes churn, while a too-<strong>strict</strong> DoR causes analysis-paralysis. What is the healthy balance?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Require just enough clarity, sizing, and testable criteria to start confidently, refining details as work proceeds</text><feedback><text>Correct — "ready enough to start" avoids both churn and paralysis.</text></feedback></answer>
+    <answer fraction="0"><text>Remove the DoR entirely so nothing blocks starting work</text><feedback><text>Removing it returns to churn from unready work.</text></feedback></answer>
+    <answer fraction="0"><text>Require a complete, frozen specification for every story</text><feedback><text>That is the too-strict extreme causing analysis-paralysis.</text></feedback></answer>
+    <answer fraction="0"><text>Let each developer decide readiness privately per story</text><feedback><text>The DoR is a shared team agreement, not a private per-person judgement.</text></feedback></answer>
+    <generalfeedback><text>The DoR should guarantee a story is understood, sized, and has testable acceptance criteria and resolved dependencies — enough to start with confidence — while leaving room to refine detail during the sprint. Too loose causes mid-sprint churn; too strict recreates waterfall analysis.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a specific behaviour versus generic bar</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The API returns <strong>404 for an unknown id</strong>" versus "<strong>all new code is covered by automated tests</strong>". How are these classified?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The 404 behaviour is a per-story acceptance criterion; the test-coverage rule is a generic DoD item</text><feedback><text>Correct — the specific behaviour is AC; the blanket quality rule is DoD.</text></feedback></answer>
+    <answer fraction="0"><text>The 404 behaviour is a DoD item; the test-coverage rule is an acceptance criterion</text><feedback><text>Reversed: specific behaviour is AC, the blanket rule is DoD.</text></feedback></answer>
+    <answer fraction="0"><text>Both are acceptance criteria for that one story</text><feedback><text>The test-coverage rule applies to every story, so it is generic DoD, not AC.</text></feedback></answer>
+    <answer fraction="0"><text>Both are generic DoD items</text><feedback><text>Returning 404 for an unknown id is specific to this story, so it is an AC.</text></feedback></answer>
+    <generalfeedback><text>A statement about what this story specifically must do (return 404 for an unknown id) is an acceptance criterion. A blanket quality rule that applies to every story (all new code covered by tests) is a generic DoD item. Telling the specific from the generic is the key to classifying them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose escaped defects from a bypassed DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team's velocity looks high, yet defects escaping to production keep rising and stories are marked Done without code review. Which gate is being violated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Done — work is called complete without meeting its review and testing criteria</text><feedback><text>Correct — skipping review and testing while marking Done is a DoD violation.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Ready — the stories were unclear at the start</text><feedback><text>The symptom is completion without quality, which points at the DoD, not the DoR.</text></feedback></answer>
+    <answer fraction="0"><text>The acceptance criteria — they were too specific</text><feedback><text>Escaped defects from skipped review point at the DoD, not overly specific AC.</text></feedback></answer>
+    <answer fraction="0"><text>No gate — high velocity proves the process is healthy</text><feedback><text>High velocity with rising escaped defects signals the DoD is being bypassed.</text></feedback></answer>
+    <generalfeedback><text>Marking work Done without review or tests inflates velocity while defects leak to production. That is a bypassed exit gate: the DoD is being violated. Enforcing the DoD realigns "Done" with genuine, verified completeness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose a missing DoR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Stories keep entering sprints with no estimate and no acceptance criteria, then balloon in scope and stall. Which gate is missing or violated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Ready — unready items are being pulled into the sprint</text><feedback><text>Correct — unestimated, criteria-less items entering the sprint is a DoR failure.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Done — the finished work lacks quality</text><feedback><text>The problem is at entry (unready items), which is a DoR failure, not a DoD one.</text></feedback></answer>
+    <answer fraction="0"><text>The release-level checklist — release notes are missing</text><feedback><text>The symptom is unready entry, not a release-documentation gap.</text></feedback></answer>
+    <answer fraction="0"><text>None — ballooning scope is unavoidable</text><feedback><text>A DoR requiring estimation and clear AC would have caught these items at entry.</text></feedback></answer>
+    <generalfeedback><text>Items lacking estimates and acceptance criteria should never have passed the entry gate. Because they did, scope is discovered mid-sprint and the work stalls. This is a missing or ignored DoR; enforcing readiness at entry prevents it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What release-level DoD adds</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Beyond the story-level DoD, what does a <strong>release-level</strong> DoD typically add?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cross-cutting checks such as full regression, performance, security, release notes, and sign-off</text><feedback><text>Correct — release-level adds whole-product concerns beyond a single story.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — it is identical to the story-level DoD</text><feedback><text>The release level adds whole-product concerns the story level cannot cover.</text></feedback></answer>
+    <answer fraction="0"><text>Only the acceptance criteria of the last story in the release</text><feedback><text>Release-level DoD is about cross-cutting quality, not one story's AC.</text></feedback></answer>
+    <answer fraction="0"><text>A relaxation of the story-level rules to speed up shipping</text><feedback><text>The release level adds stricter cross-cutting checks, it does not relax the story bar.</text></feedback></answer>
+    <generalfeedback><text>Some quality concerns only make sense for the whole product at release: full regression across features, performance and security validation, documentation and release notes, and formal sign-off. A layered DoD places these at the release level, on top of the story-level and sprint/increment-level criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sprint-increment level DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which concern is best placed at the <strong>sprint/increment level</strong> of a layered DoD, between the story and release levels?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The stories combine into an integrated, demoable increment deployed to a test environment</text><feedback><text>Correct — integrating stories into a shippable increment is an increment-level concern.</text></feedback></answer>
+    <answer fraction="0"><text>This single story's unit tests pass</text><feedback><text>One story's unit tests are a story-level item.</text></feedback></answer>
+    <answer fraction="0"><text>Formal external security sign-off for the public release</text><feedback><text>External release sign-off is a release-level concern.</text></feedback></answer>
+    <answer fraction="0"><text>The wording of one story's acceptance criteria</text><feedback><text>A story's AC wording is a story-level detail, not an increment-level concern.</text></feedback></answer>
+    <generalfeedback><text>Between story and release sits the increment level: individually-Done stories must integrate into a coherent, demoable increment, typically built and deployed to a test environment. Per-story checks stay at story level; whole-product gating stays at release level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why AC alone cannot declare Done</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are a story's acceptance criteria, on their own, <strong>not enough</strong> to declare it Done?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They confirm the story does the right thing but not that it was built to the shared quality bar</text><feedback><text>Correct — AC cover correctness of behaviour, not review, testing, and integration.</text></feedback></answer>
+    <answer fraction="0"><text>Because acceptance criteria are never testable</text><feedback><text>Good acceptance criteria are testable; the gap is that they do not cover the generic DoD.</text></feedback></answer>
+    <answer fraction="0"><text>Because acceptance criteria are the same as the DoD</text><feedback><text>They are distinct: AC are per-story, the DoD is the generic quality bar.</text></feedback></answer>
+    <answer fraction="0"><text>Because the DoD replaces the need for acceptance criteria</text><feedback><text>The DoD does not replace AC; both are needed for Done.</text></feedback></answer>
+    <generalfeedback><text>Acceptance criteria verify that the story delivers the specific behaviour asked of it, but they say nothing about whether it was reviewed, tested, integrated, and free of critical defects. Those generic quality concerns live in the DoD, so both are required for Done.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How DoD combats 90 percent done</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team repeatedly hears "it's 90% done" for weeks. How does an explicit, enforced DoD <strong>combat</strong> this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It makes "Done" binary and objective, so hidden remaining work cannot be disguised as almost finished</text><feedback><text>Correct — a clear DoD turns fuzzy progress claims into a pass/fail check.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the team count 90%-done work as fully Done to keep morale up</text><feedback><text>Counting unfinished work as Done is exactly what a real DoD forbids.</text></feedback></answer>
+    <answer fraction="0"><text>It speeds up coding so nothing is ever left at 90%</text><feedback><text>The DoD does not speed coding; it exposes the hidden remaining 10%.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need to test the last 10%</text><feedback><text>The DoD requires that testing, so it does not remove it.</text></feedback></answer>
+    <generalfeedback><text>The "90% done" problem hides an unknown, often large, remaining effort. An explicit DoD makes Done an objective, binary check: either every criterion is met or the story is not Done. That surfaces the hidden work instead of letting it hide behind a comfortable percentage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Layer for performance under load</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The system meets its <strong>performance-under-load SLA</strong>." In a layered DoD, where does this criterion most naturally sit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At the release (or increment) level, as a cross-cutting whole-system concern — not on every individual story</text><feedback><text>Correct — system-wide performance is validated at the release/increment level.</text></feedback></answer>
+    <answer fraction="0"><text>On every single story, as a per-story acceptance criterion</text><feedback><text>Whole-system load performance is not meaningfully checked per tiny story; it is cross-cutting.</text></feedback></answer>
+    <answer fraction="0"><text>In the DoR, as a readiness condition</text><feedback><text>Performance is verified after building, not as an entry condition.</text></feedback></answer>
+    <answer fraction="0"><text>Nowhere — performance is not part of any DoD</text><feedback><text>System performance is a legitimate release-level DoD concern.</text></feedback></answer>
+    <generalfeedback><text>Performance under load is a property of the integrated system, not of one small story, so it is validated at the release or increment level of a layered DoD. Attaching it to every story would be both impractical and misleading.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose skipped-testing carryover</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Each sprint the team marks code-complete stories Done and defers their testing "to next sprint". Carryover grows and surprises appear late. What is the diagnosis and fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The DoD (which must include testing) is being violated; enforce it so stories are only Done when tested, exposing the real remaining work</text><feedback><text>Correct — deferring testing while marking Done violates the DoD and hides work.</text></feedback></answer>
+    <answer fraction="0"><text>The DoR is too strict; loosen it so more stories can start</text><feedback><text>The failure is at completion (testing deferred), so it is a DoD problem, not a strict DoR.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; deferring testing a sprint is standard practice</text><feedback><text>Deferring testing while calling work Done is an anti-pattern that hides carryover.</text></feedback></answer>
+    <answer fraction="0"><text>The acceptance criteria are too generic and should be removed</text><feedback><text>The problem is skipped testing at the exit gate, not the AC wording.</text></feedback></answer>
+    <generalfeedback><text>Marking work Done while deferring its testing violates a DoD that includes testing. It inflates completed counts, builds hidden test debt, and forces carryover and late surprises. The fix is to enforce the DoD so a story is Done only when it is actually tested, making the real remaining work visible now.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Stories Done but increment not shippable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every story passed its story-level DoD, yet when combined the increment fails a full regression run and cannot be released. What does this reveal about the team's DoD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The layered DoD is incomplete: story-level checks passed, but increment/release-level integration and regression criteria are missing or unenforced</text><feedback><text>Correct — passing story-level does not guarantee the integrated increment; higher layers are needed.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — if every story is Done, the release is automatically Done too</text><feedback><text>Individually-Done stories can still break each other; that is why higher DoD layers exist.</text></feedback></answer>
+    <answer fraction="0"><text>The DoR was too loose, so the stories should not have started</text><feedback><text>The stories were ready and individually complete; the gap is at the integration/release layer.</text></feedback></answer>
+    <answer fraction="0"><text>The acceptance criteria were too specific to each story</text><feedback><text>Specific per-story AC are fine; the missing piece is cross-cutting integration and regression.</text></feedback></answer>
+    <generalfeedback><text>Stories that are each Done can still interact badly once integrated. A layered DoD anticipates this: the increment/release levels add integration, full regression, and cross-cutting checks. If those layers are missing or unenforced, an increment of individually-Done stories can still be un-shippable — exactly the gap seen here.</text></generalfeedback>
+  </question>
+</quiz>

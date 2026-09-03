@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Agile Testing Quadrants/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>The two axes of the quadrants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Agile Testing Quadrants (Marick; Crispin &amp; Gregory) are organised by <strong>two</strong> axes. Which pair are they?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Vertical: business-facing vs technology-facing; horizontal: supporting the team vs critiquing the product</text><feedback><text>Correct — a vertical business/technology axis and a horizontal support/critique axis.</text></feedback></answer>
+    <answer fraction="0"><text>Vertical: manual vs automated; horizontal: fast vs slow</text><feedback><text>Automation and speed are consequences, not the defining axes.</text></feedback></answer>
+    <answer fraction="0"><text>Vertical: unit vs system; horizontal: black-box vs white-box</text><feedback><text>Those are levels/techniques, not the two quadrant axes.</text></feedback></answer>
+    <answer fraction="0"><text>Vertical: functional vs non-functional; horizontal: cheap vs expensive</text><feedback><text>Cost and the functional split are not the axes that define the quadrants.</text></feedback></answer>
+    <generalfeedback><text>The quadrants use two axes: the vertical axis separates business-facing tests (top) from technology-facing tests (bottom), and the horizontal axis separates tests that support the team / guide development (left) from tests that critique the product (right).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What business-facing means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>business-facing</em> test (top half of the grid) is one expressed in terms that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The business/customer would understand — described in domain terms and behaviour</text><feedback><text>Correct — business-facing tests are framed in language the business understands.</text></feedback></answer>
+    <answer fraction="0"><text>Only a developer would understand — described in code, classes and APIs</text><feedback><text>That describes technology-facing tests, the bottom half.</text></feedback></answer>
+    <answer fraction="0"><text>Describe hardware performance limits only</text><feedback><text>That is one kind of technology-facing critique, not the meaning of business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Can never be automated</text><feedback><text>Business-facing does not mean manual; many business-facing tests are automated.</text></feedback></answer>
+    <generalfeedback><text>Business-facing tests are described in terms the business/customer understands — features and behaviour in domain language. They sit in the top half of the grid (Q2 and Q3).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What technology-facing means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>technology-facing</em> test (bottom half of the grid) is one expressed in terms that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Programmers/technologists use — described in technical terms such as code, components, protocols and resource limits</text><feedback><text>Correct — technology-facing tests are framed in technical language.</text></feedback></answer>
+    <answer fraction="0"><text>Business stakeholders use — described in domain features and workflows</text><feedback><text>That describes business-facing tests, the top half.</text></feedback></answer>
+    <answer fraction="0"><text>Are always run manually by end users</text><feedback><text>Technology-facing tests are typically automated or tool-driven, not manual user runs.</text></feedback></answer>
+    <answer fraction="0"><text>Only exist for the user interface</text><feedback><text>Technology-facing tests target code, components and infrastructure, not just the UI.</text></feedback></answer>
+    <generalfeedback><text>Technology-facing tests are described in technical terms that programmers and technologists use — units, components, APIs, protocols, and resource behaviour. They sit in the bottom half of the grid (Q1 and Q4).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What supporting the team means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Tests on the left, that <em>support the team</em> (guide development), are best characterised as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests that guide development — written before or alongside the code to define what to build</text><feedback><text>Correct — supporting-the-team tests guide development as it happens.</text></feedback></answer>
+    <answer fraction="0"><text>Tests that evaluate the finished product to find weaknesses after it is built</text><feedback><text>That describes critiquing-the-product tests, on the right.</text></feedback></answer>
+    <answer fraction="0"><text>Tests written only after release, by end users</text><feedback><text>Supporting tests are written before/with the code, not after release.</text></feedback></answer>
+    <answer fraction="0"><text>Tests that are always manual</text><feedback><text>Support-the-team tests are heavily automated (especially Q1); they are not defined by being manual.</text></feedback></answer>
+    <generalfeedback><text>Supporting-the-team tests (the left column, Q1 and Q2) guide development: they are written before or with the code to express intent and give fast feedback while building.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What critiquing the product means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Tests on the right, that <em>critique the product</em>, are best characterised as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests that evaluate the built product to find shortcomings, from the user's or a quality attribute's perspective</text><feedback><text>Correct — critiquing tests assess the product after it exists.</text></feedback></answer>
+    <answer fraction="0"><text>Tests written before the code to define the expected behaviour</text><feedback><text>That describes supporting-the-team tests, on the left.</text></feedback></answer>
+    <answer fraction="0"><text>Tests that only a compiler performs</text><feedback><text>Critiquing tests are performed by people and tools, not the compiler.</text></feedback></answer>
+    <answer fraction="0"><text>Tests that must always be automated</text><feedback><text>Critiquing includes largely manual work (Q3) as well as tool-based work (Q4).</text></feedback></answer>
+    <generalfeedback><text>Critiquing-the-product tests (the right column, Q3 and Q4) evaluate the product that has been built, looking for shortcomings — either from the user's viewpoint (Q3) or against technical quality attributes (Q4).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Q1 contains</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which kinds of test belong in <strong>Q1</strong> (technology-facing, supporting the team)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit tests, component tests, and API/integration tests (TDD)</text><feedback><text>Correct — Q1 holds developer tests that guide the code.</text></feedback></answer>
+    <answer fraction="0"><text>Exploratory testing and usability testing</text><feedback><text>Those are business-facing critiques and belong in Q3.</text></feedback></answer>
+    <answer fraction="0"><text>Performance, load and security testing</text><feedback><text>Those are technology-facing critiques and belong in Q4.</text></feedback></answer>
+    <answer fraction="0"><text>Functional story tests and prototypes</text><feedback><text>Those are business-facing supports and belong in Q2.</text></feedback></answer>
+    <generalfeedback><text>Q1 is technology-facing and supports the team: unit tests, component tests, and API/integration tests written as part of test-driven development. It is typically fully automated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Q2 contains</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which kinds of test belong in <strong>Q2</strong> (business-facing, supporting the team)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Functional/story tests, examples, prototypes, simulations, and acceptance tests that guide development</text><feedback><text>Correct — Q2 holds business-facing tests that define what to build.</text></feedback></answer>
+    <answer fraction="0"><text>Unit and component tests</text><feedback><text>Those are technology-facing supports and belong in Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Exploratory and user acceptance testing of the finished product</text><feedback><text>Those are business-facing critiques and belong in Q3.</text></feedback></answer>
+    <answer fraction="0"><text>Load and stress testing</text><feedback><text>Those are technology-facing critiques and belong in Q4.</text></feedback></answer>
+    <generalfeedback><text>Q2 is business-facing and supports the team: functional/story tests, examples, prototypes, simulations, and acceptance tests that guide development. It mixes automated and some manual work.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Q3 contains</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which kinds of test belong in <strong>Q3</strong> (business-facing, critiquing the product)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exploratory testing, usability testing, user acceptance testing, and alpha/beta</text><feedback><text>Correct — Q3 holds business-facing critiques of the built product.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests and component tests</text><feedback><text>Those are technology-facing supports and belong in Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Performance, load and security testing</text><feedback><text>Those are technology-facing critiques and belong in Q4.</text></feedback></answer>
+    <answer fraction="0"><text>Prototypes and story tests that guide development</text><feedback><text>Those are business-facing supports and belong in Q2.</text></feedback></answer>
+    <generalfeedback><text>Q3 is business-facing and critiques the product: exploratory testing, usability testing, user acceptance testing, and alpha/beta. It is largely manual, relying on human judgement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Q4 contains</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which kinds of test belong in <strong>Q4</strong> (technology-facing, critiquing the product)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Performance, load, stress, security and other non-functional ("-ility") tests</text><feedback><text>Correct — Q4 holds tool-based technical critiques.</text></feedback></answer>
+    <answer fraction="0"><text>Unit and API tests written during coding</text><feedback><text>Those are technology-facing supports and belong in Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Exploratory and usability testing</text><feedback><text>Those are business-facing critiques and belong in Q3.</text></feedback></answer>
+    <answer fraction="0"><text>Story tests and examples that guide development</text><feedback><text>Those are business-facing supports and belong in Q2.</text></feedback></answer>
+    <generalfeedback><text>Q4 is technology-facing and critiques the product: performance, load, stress, security, and other non-functional "-ility" tests. It is tool-based, needing specialised tooling.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place unit tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Unit tests</em> written as part of TDD fall into which quadrant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1 (technology-facing, supporting the team)</text><feedback><text>Correct — unit tests are technical and guide development, so Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 (business-facing, supporting the team)</text><feedback><text>Unit tests are technology-facing, not business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 (business-facing, critiquing the product)</text><feedback><text>Unit tests support development; they do not critique the finished product from the user's view.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 (technology-facing, critiquing the product)</text><feedback><text>Unit tests guide the code (support), they do not critique it as a non-functional attribute.</text></feedback></answer>
+    <generalfeedback><text>Unit tests are technology-facing (written in code terms) and support the team (written with the code to guide development), placing them in Q1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place exploratory testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Exploratory testing</em> falls into which quadrant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3 (business-facing, critiquing the product)</text><feedback><text>Correct — exploratory testing critiques the built product from the user's perspective.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 (technology-facing, supporting the team)</text><feedback><text>Exploratory testing is business-facing and critiques the product; it does not guide the code.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 (business-facing, supporting the team)</text><feedback><text>Exploratory testing critiques the built product; it does not guide development.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 (technology-facing, critiquing the product)</text><feedback><text>Exploratory testing is business-facing (user perspective), not technology-facing.</text></feedback></answer>
+    <generalfeedback><text>Exploratory testing is business-facing (assessing behaviour from the user's viewpoint) and critiques the product that has been built, placing it in Q3. It is largely a manual, human-judgement activity.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place performance testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Performance testing</em> falls into which quadrant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4 (technology-facing, critiquing the product)</text><feedback><text>Correct — performance is a technical critique of the built product.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 (technology-facing, supporting the team)</text><feedback><text>Performance testing critiques the built product; it does not guide development.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 (business-facing, supporting the team)</text><feedback><text>Performance is technology-facing and a critique, not a business-facing support.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 (business-facing, critiquing the product)</text><feedback><text>Performance is technology-facing, not business-facing.</text></feedback></answer>
+    <generalfeedback><text>Performance testing is technology-facing (a technical quality attribute) and critiques the built product, placing it in Q4. It is tool-based.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place functional story tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Functional (story) tests</em> that express acceptance criteria to guide development fall into which quadrant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2 (business-facing, supporting the team)</text><feedback><text>Correct — story tests are business-facing and guide development, so Q2.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 (technology-facing, supporting the team)</text><feedback><text>Story tests are business-facing, not technology-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 (business-facing, critiquing the product)</text><feedback><text>These guide development (support); they are not a critique of the finished product.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 (technology-facing, critiquing the product)</text><feedback><text>Story tests are business-facing supports, not technical critiques.</text></feedback></answer>
+    <generalfeedback><text>Functional/story tests express acceptance criteria in business terms and are written to guide development, making them business-facing supports — Q2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which quadrant is tech-facing and supports the team</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which quadrant is defined by being <strong>technology-facing</strong> and <strong>supporting the team</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1</text><feedback><text>Correct — Q1 is technology-facing and supports the team.</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 supports the team but is business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 is business-facing and critiques the product.</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 is technology-facing but critiques the product.</text></feedback></answer>
+    <generalfeedback><text>Q1 sits at the intersection of technology-facing (bottom) and supporting the team (left): unit, component and API tests.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Vertical axis is business vs technology</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the Agile Testing Quadrants, the <em>vertical</em> axis distinguishes business-facing tests from technology-facing tests.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — vertical = business-facing (top) vs technology-facing (bottom).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The vertical axis is exactly business-facing vs technology-facing; the horizontal axis is support vs critique.</text></feedback></answer>
+    <generalfeedback><text>Vertical axis: business-facing (top) vs technology-facing (bottom). Horizontal axis: supporting the team (left) vs critiquing the product (right).</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Agile Testing Quadrants/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify from axes: business + support</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is described as <strong>business-facing</strong> and <strong>supporting the team</strong> (it guides development). Which quadrant is it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2</text><feedback><text>Correct — business-facing + supporting the team = Q2.</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 supports the team but is technology-facing, not business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 is business-facing but critiques the product rather than supporting the team.</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 is technology-facing and critiques the product.</text></feedback></answer>
+    <generalfeedback><text>Read the two axis values: business-facing (top) and supporting the team (left) intersect at Q2 — functional/story tests, examples, prototypes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify from axes: technology + critique</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is described as <strong>technology-facing</strong> and <strong>critiquing the product</strong>. Which quadrant is it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4</text><feedback><text>Correct — technology-facing + critiquing the product = Q4.</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 is technology-facing but supports the team, not a critique.</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 is business-facing and supports the team.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 critiques the product but is business-facing.</text></feedback></answer>
+    <generalfeedback><text>Technology-facing (bottom) and critiquing the product (right) intersect at Q4 — performance, load, stress, security.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify from axes: technology + support</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is described as <strong>technology-facing</strong> and <strong>supporting the team</strong>. Which quadrant is it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1</text><feedback><text>Correct — technology-facing + supporting the team = Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 supports the team but is business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 is business-facing and critiques the product.</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 is technology-facing but critiques the product rather than supporting the team.</text></feedback></answer>
+    <generalfeedback><text>Technology-facing (bottom) and supporting the team (left) intersect at Q1 — unit, component and API/integration tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify from axes: business + critique</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is described as <strong>business-facing</strong> and <strong>critiquing the product</strong>. Which quadrant is it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3</text><feedback><text>Correct — business-facing + critiquing the product = Q3.</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 is technology-facing and supports the team.</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 is business-facing but supports the team rather than critiquing.</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 critiques the product but is technology-facing.</text></feedback></answer>
+    <generalfeedback><text>Business-facing (top) and critiquing the product (right) intersect at Q3 — exploratory, usability, UAT, alpha/beta.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which quadrant is typically fully automated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which quadrant is <strong>typically fully automated</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1</text><feedback><text>Correct — Q1 (unit/component/API tests) is normally fully automated.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 (exploratory, usability, UAT) is largely manual.</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 is tool-based rather than "fully automated" in the unit-test sense; the fully automated quadrant is Q1.</text></feedback></answer>
+    <answer fraction="0"><text>None — no quadrant is automated</text><feedback><text>Q1 is the quadrant that is characteristically fully automated.</text></feedback></answer>
+    <generalfeedback><text>Q1 (technology-facing supports) is the quadrant that is characteristically fully automated — fast, repeatable developer tests run continuously.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which quadrant is largely manual</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which quadrant is <strong>largely manual</strong>, relying on human judgement?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3</text><feedback><text>Correct — Q3 (exploratory, usability, UAT) is largely manual.</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 is characteristically fully automated.</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 is tool-based, not chiefly manual human judgement.</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 is mixed (automated plus some manual), but the characteristically manual quadrant is Q3.</text></feedback></answer>
+    <generalfeedback><text>Q3 (business-facing critiques such as exploratory and usability testing) is largely manual — it depends on human observation and judgement that tools cannot replace.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which quadrant is tool-based</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which quadrant is characteristically <strong>tool-based</strong> (needs specialised tooling)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4</text><feedback><text>Correct — Q4 (performance, load, security) needs specialised tools.</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 is mixed automated/manual; the tool-based quadrant is Q4.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 is largely manual, not tool-based.</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 is fully automated developer tests; the specialised-tooling quadrant is Q4.</text></feedback></answer>
+    <generalfeedback><text>Q4 (technology-facing critiques such as performance and security) is characteristically tool-based: it relies on specialised tooling to generate load, measure resources, or probe security.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which quadrant mixes automated and manual</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which quadrant characteristically uses a <strong>mix</strong> of automation and some manual work?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2</text><feedback><text>Correct — Q2 mixes automated story tests with some manual work (e.g. reviewing prototypes).</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 is characteristically fully automated.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 is largely manual.</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 is characteristically tool-based.</text></feedback></answer>
+    <generalfeedback><text>Q2 mixes automation and manual work: functional/story tests are commonly automated, while prototypes and simulations often involve manual review and conversation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What supporting-the-team tests do</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about <em>supporting-the-team</em> (left-column) tests is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are written before or with the code to guide development and give fast feedback</text><feedback><text>Correct — support tests guide the building of the product.</text></feedback></answer>
+    <answer fraction="0"><text>They can only be run after the product ships to real users</text><feedback><text>That describes critiquing (and specifically field) tests, not supporting-the-team tests.</text></feedback></answer>
+    <answer fraction="0"><text>They exclusively measure non-functional attributes such as performance</text><feedback><text>Non-functional critiques are Q4; support tests guide functional development.</text></feedback></answer>
+    <answer fraction="0"><text>They are always business-facing</text><feedback><text>Support spans Q1 (technology-facing) and Q2 (business-facing).</text></feedback></answer>
+    <generalfeedback><text>Supporting-the-team tests (Q1 and Q2) guide development: written before/with the code, they define expected behaviour and give the team fast feedback while building.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What critiquing-the-product tests do</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about <em>critiquing-the-product</em> (right-column) tests is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They evaluate the product that has already been built, to expose shortcomings</text><feedback><text>Correct — critiquing tests assess the built product.</text></feedback></answer>
+    <answer fraction="0"><text>They are written before any code exists to define the design</text><feedback><text>That describes supporting-the-team tests, on the left.</text></feedback></answer>
+    <answer fraction="0"><text>They are always technology-facing</text><feedback><text>Critique spans Q3 (business-facing) and Q4 (technology-facing).</text></feedback></answer>
+    <answer fraction="0"><text>They are only ever unit tests</text><feedback><text>Unit tests are Q1 supports; critiques include exploratory, usability, performance and security.</text></feedback></answer>
+    <generalfeedback><text>Critiquing-the-product tests (Q3 and Q4) evaluate the product after it exists, looking for shortcomings — either from the user's perspective (Q3) or against technical quality attributes (Q4).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Numbers imply an execution order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The quadrant numbers mean you must execute testing in the order Q1 &#8594; Q2 &#8594; Q3 &#8594; Q4.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Incorrect — the numbers are only labels; they do not prescribe an order.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — the numbers are labels, not a sequence.</text></feedback></answer>
+    <generalfeedback><text>The quadrant numbers are just labels for the four regions. They imply no execution order or priority — teams work across quadrants concurrently as the situation demands.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Numbers are labels not a sequence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The quadrant numbers (Q1&#8211;Q4) are simply labels for the four regions and do not describe a sequence or priority.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the numbers are labels, not an order or priority.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The numbers do not encode order or priority; they only identify the four regions.</text></feedback></answer>
+    <generalfeedback><text>Q1&#8211;Q4 are labels identifying the four intersections of the two axes. A common misconception is that the numbering is a workflow; it is not.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which two quadrants support the team</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pair of quadrants make up the <strong>supporting-the-team</strong> (left) column?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1 and Q2</text><feedback><text>Correct — Q1 and Q2 are the left (support) column.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 and Q4</text><feedback><text>Q3 and Q4 form the critiquing-the-product (right) column.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 and Q4</text><feedback><text>Q1 and Q4 are the technology-facing (bottom) row, not the support column.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 and Q3</text><feedback><text>Q2 and Q3 are the business-facing (top) row, not the support column.</text></feedback></answer>
+    <generalfeedback><text>The left column (supporting the team / guiding development) is Q1 (technology-facing) and Q2 (business-facing).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which two quadrants are business-facing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pair of quadrants make up the <strong>business-facing</strong> (top) row?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2 and Q3</text><feedback><text>Correct — Q2 and Q3 are the business-facing (top) row.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 and Q4</text><feedback><text>Q1 and Q4 are the technology-facing (bottom) row.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 and Q2</text><feedback><text>Q1 and Q2 are the supporting-the-team (left) column, not the business-facing row.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 and Q4</text><feedback><text>Q3 and Q4 are the critiquing-the-product (right) column, not the business-facing row.</text></feedback></answer>
+    <generalfeedback><text>The top row (business-facing) is Q2 (supporting the team) and Q3 (critiquing the product). The bottom row (technology-facing) is Q1 and Q4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a described test: many users at once</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tool simulates thousands of simultaneous users to see whether response times stay acceptable. Reading the two axes (technology-facing, critiquing the product), which quadrant is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4</text><feedback><text>Correct — a technical critique of the built product is Q4.</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>This critiques the built product; it does not guide development, so not Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>This is technology-facing, not business-facing, and it critiques rather than supports.</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>This is technology-facing (resource behaviour), not a business-facing user critique.</text></feedback></answer>
+    <generalfeedback><text>Load testing is technology-facing (it concerns resource/response behaviour) and critiques the built product, so it lands in Q4 — and it is tool-based.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Agile Testing Quadrants/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Reason to the quadrant: security testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reasoning from the two axes, where does <em>security testing</em> (penetration testing, checking access controls) belong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4 — it is technology-facing and critiques the built product</text><feedback><text>Correct — security is a technical quality attribute assessed on the built product.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 — it is technology-facing and supports the team</text><feedback><text>Security testing critiques the product; it does not guide development like unit tests.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 — it is business-facing and supports the team</text><feedback><text>Security is technology-facing, not business-facing, and it is a critique.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 — it is business-facing and critiques the product</text><feedback><text>Security is described in technical terms, so it is technology-facing, not business-facing.</text></feedback></answer>
+    <generalfeedback><text>Security is a technical (non-functional) quality attribute, so it is technology-facing; and it evaluates the built product, so it critiques. Technology-facing + critique = Q4, tool-based.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reason to the quadrant: usability testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reasoning from the two axes, where does <em>usability testing</em> (watching real users try to complete tasks) belong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3 — it is business-facing and critiques the built product</text><feedback><text>Correct — usability is judged from the user's perspective on the built product.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 — it is technology-facing and critiques the product</text><feedback><text>Usability is judged in user terms (business-facing), not technical resource terms.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 — it is business-facing and supports the team</text><feedback><text>Usability testing evaluates the built product; it does not guide development before coding.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 — it is technology-facing and supports the team</text><feedback><text>Usability is business-facing and a critique, not a developer support test.</text></feedback></answer>
+    <generalfeedback><text>Usability is assessed from the user's viewpoint (business-facing) and evaluates the product after it exists (critique). Business-facing + critique = Q3, largely manual.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reason to the quadrant: API test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reasoning from the two axes, where does an <em>automated API/integration test</em> written during development belong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1 — it is technology-facing and supports the team</text><feedback><text>Correct — an API test is technical and guides development, so Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 — it is technology-facing and critiques the product</text><feedback><text>Written during development to guide code, it supports the team rather than critiquing a finished product.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 — it is business-facing and supports the team</text><feedback><text>An API test is described in technical terms, so it is technology-facing, not business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 — it is business-facing and critiques the product</text><feedback><text>An API test is technology-facing and supports development, not a business-facing critique.</text></feedback></answer>
+    <generalfeedback><text>An API/integration test is expressed in technical terms (technology-facing) and is written with the code to guide development (support). Technology-facing + support = Q1, automated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reason to the quadrant: prototype/simulation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reasoning from the two axes, where does building a <em>prototype or simulation</em> to explore a feature with the business before coding belong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2 — it is business-facing and supports the team</text><feedback><text>Correct — a prototype is a business-facing device that guides development.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 — it is business-facing and critiques the product</text><feedback><text>A prototype guides development before the product exists; it does not critique a built product.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 — it is technology-facing and supports the team</text><feedback><text>A prototype is framed in business terms, so it is business-facing, not technology-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 — it is technology-facing and critiques the product</text><feedback><text>A prototype is a business-facing support, not a technical critique.</text></feedback></answer>
+    <generalfeedback><text>Prototypes and simulations are business-facing (explored in domain terms) and support the team (they guide what to build before coding). Business-facing + support = Q2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Same feature, support vs critique</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A business-facing acceptance example is written <em>before</em> coding to define a feature; later, testers freely explore that same feature in the running product. Respectively, these belong to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2 then Q3 — the first guides development (support), the second critiques the built product</text><feedback><text>Correct — same business-facing feature, but support before build vs critique after build.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 then Q2 — exploration first, acceptance example second</text><feedback><text>This reverses them: the up-front example supports (Q2); the later exploration critiques (Q3).</text></feedback></answer>
+    <answer fraction="0"><text>Q1 then Q4 — both are technology-facing</text><feedback><text>Both activities are business-facing, not technology-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Both are Q2, because they concern the same feature</text><feedback><text>The horizontal axis differs: the example supports (Q2), the exploration critiques (Q3).</text></feedback></answer>
+    <generalfeedback><text>The vertical position (business-facing) is the same, but the horizontal axis differs. An acceptance example written before coding guides development (Q2); exploring the finished feature critiques the product (Q3).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: business-facing means manual</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Someone claims "business-facing tests are, by definition, manual." Why is this wrong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Business-facing describes the language/audience, not the execution method; many Q2 story tests are automated</text><feedback><text>Correct — the vertical axis is about audience, not automation.</text></feedback></answer>
+    <answer fraction="0"><text>It is right — business-facing tests can never be automated</text><feedback><text>Q2 functional/story tests are frequently automated, so the claim is false.</text></feedback></answer>
+    <answer fraction="0"><text>Because business-facing tests are actually technology-facing</text><feedback><text>They are genuinely business-facing; the error is equating that with "manual".</text></feedback></answer>
+    <answer fraction="0"><text>Because only Q4 tests can be automated</text><feedback><text>Automation is not restricted to Q4; Q1 is fully automated and Q2 is often automated.</text></feedback></answer>
+    <generalfeedback><text>"Business-facing" is a statement about the audience/language of a test (the vertical axis), not about how it is run. Q2 (business-facing supports) is commonly automated; automation is not confined to any one quadrant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: Q4 is least important</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Someone argues "Q4 has the highest number, so it is the least important and can be skipped." What is the correct response?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The numbers carry no priority; Q4 covers critical non-functional attributes (performance, security) and is simply tool-based</text><feedback><text>Correct — the number is a label; Q4 is essential, just tool-driven.</text></feedback></answer>
+    <answer fraction="0"><text>Correct — Q4 is optional because it is numbered last</text><feedback><text>The numbers imply no priority; Q4 covers essential quality attributes.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 should always be done first because performance matters most</text><feedback><text>The numbers imply no order either way; Q4 is neither first nor last by rule.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 is unimportant because it is technology-facing</text><feedback><text>Being technology-facing does not make a quadrant unimportant.</text></feedback></answer>
+    <generalfeedback><text>Quadrant numbers are labels, not a priority ranking. Q4 (performance, load, security and other "-ility" tests) evaluates critical non-functional attributes; the "4" only means it is one of the four regions. What distinguishes Q4 is that it is tool-based.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Automation strategy across quadrants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which mapping of quadrant to automation approach is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1 fully automated; Q2 automated plus some manual; Q3 largely manual; Q4 tool-based</text><feedback><text>Correct — this is the standard automation profile of the four quadrants.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 manual; Q2 tool-based; Q3 automated; Q4 mixed</text><feedback><text>This scrambles every quadrant's automation profile.</text></feedback></answer>
+    <answer fraction="0"><text>All four quadrants are fully automated</text><feedback><text>Q3 is largely manual and depends on human judgement, so this is false.</text></feedback></answer>
+    <answer fraction="0"><text>All four quadrants are entirely manual</text><feedback><text>Q1 is fully automated and Q4 is tool-based, so this is false.</text></feedback></answer>
+    <generalfeedback><text>Automation applicability differs by quadrant: Q1 is fully automated, Q2 mixes automation with some manual work, Q3 is largely manual (human judgement), and Q4 is tool-based (specialised tooling).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Q3 resists full automation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is <strong>Q3</strong> (exploratory, usability) described as largely manual rather than fully automated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It relies on human observation and judgement about the user experience, which tools cannot fully replace</text><feedback><text>Correct — Q3 needs human insight into the user's experience.</text></feedback></answer>
+    <answer fraction="0"><text>Because business-facing tests are technically impossible to script</text><feedback><text>Q2 (also business-facing) is frequently automated, so it is not impossibility.</text></feedback></answer>
+    <answer fraction="0"><text>Because Q3 tests are unimportant and not worth automating</text><feedback><text>Q3 is important; the point is that it depends on human judgement.</text></feedback></answer>
+    <answer fraction="0"><text>Because Q3 runs before any code exists</text><feedback><text>Q3 critiques the built product, so it runs after code exists, not before.</text></feedback></answer>
+    <generalfeedback><text>Q3 evaluates the built product from the user's perspective — exploratory and usability testing depend on human observation, intuition and judgement about experience, which is why it stays largely manual even in a highly automated pipeline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reason to the quadrant: reliability/-ility test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team runs the product for a long period under realistic load to measure stability and failure rate (a reliability, or "-ility", test). Which quadrant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4 — technology-facing critique (a non-functional quality attribute of the built product)</text><feedback><text>Correct — reliability is a technical "-ility" critique, so Q4.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 — technology-facing support</text><feedback><text>This critiques the built product; it does not guide the code during development.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 — business-facing critique</text><feedback><text>Reliability is measured in technical terms, so it is technology-facing, not business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 — business-facing support</text><feedback><text>Reliability is a technical critique, not a business-facing device that guides development.</text></feedback></answer>
+    <generalfeedback><text>Reliability (like performance, security, scalability and other "-ility" attributes) is a technical quality of the built product, so it is a technology-facing critique — Q4, and tool-based.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reason to the quadrant: UAT / beta</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Real users try the finished release against their own needs (user acceptance testing, and later a beta at customer sites). Which quadrant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3 — business-facing critique of the built product</text><feedback><text>Correct — UAT and alpha/beta are business-facing critiques, so Q3.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 — business-facing support</text><feedback><text>UAT evaluates the finished product; it does not guide development before coding.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 — technology-facing critique</text><feedback><text>UAT is judged in user/business terms, not technical resource terms.</text></feedback></answer>
+    <answer fraction="0"><text>Q1 — technology-facing support</text><feedback><text>UAT is business-facing and a critique, not a developer support test.</text></feedback></answer>
+    <generalfeedback><text>User acceptance testing and alpha/beta are business-facing (users judge against their needs) and critique the finished product, placing them in Q3 — largely manual. (Note: the Q2 support version would be an executable acceptance example written before coding.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reason to the quadrant: component test in TDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer practising TDD writes a failing <em>component test</em>, then code to pass it. Which quadrant is that test in?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1 — technology-facing support (guides the code as it is written)</text><feedback><text>Correct — TDD component tests are technology-facing supports, so Q1.</text></feedback></answer>
+    <answer fraction="0"><text>Q4 — technology-facing critique</text><feedback><text>The test guides development; it does not critique a finished product.</text></feedback></answer>
+    <answer fraction="0"><text>Q2 — business-facing support</text><feedback><text>A component test is expressed in technical terms, so it is technology-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 — business-facing critique</text><feedback><text>A TDD component test is technology-facing and supports development, not a business-facing critique.</text></feedback></answer>
+    <generalfeedback><text>TDD component tests are technology-facing (technical terms) and support the team (written with the code to guide it). Technology-facing + support = Q1, fully automated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distinguish Q3 from Q4 on the same product</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Both critique the built product. What separates a <strong>Q3</strong> critique from a <strong>Q4</strong> critique?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The vertical axis: Q3 is business-facing (user's perspective); Q4 is technology-facing (technical quality attributes)</text><feedback><text>Correct — both critique, but they differ on business- vs technology-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 supports the team while Q4 critiques the product</text><feedback><text>Both Q3 and Q4 critique the product; they share the horizontal position.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 runs before coding while Q4 runs after</text><feedback><text>Both are critiques of the built product; neither is a pre-coding support activity.</text></feedback></answer>
+    <answer fraction="0"><text>Q3 is automated while Q4 is manual</text><feedback><text>It is the reverse tendency: Q3 is largely manual and Q4 is tool-based.</text></feedback></answer>
+    <generalfeedback><text>Q3 and Q4 share the horizontal position (critiquing the product) and differ on the vertical axis: Q3 critiques from the business/user perspective (exploratory, usability), while Q4 critiques technical quality attributes (performance, security).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A type maps by both axes, not the label</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test type is placed in a quadrant according to its <em>two axis positions</em> (business/technology-facing and support/critique), not according to any ordering implied by the quadrant numbers.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — placement follows the two axes; the numbers carry no order.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Placement is determined by the two axis values; the numbers are only labels.</text></feedback></answer>
+    <generalfeedback><text>Every test type maps to a quadrant purely by its two axis positions — whether it is business- or technology-facing, and whether it supports the team or critiques the product. The quadrant numbers are labels and imply no sequence or priority.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify stress testing and justify</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Stress testing pushes the system beyond normal limits to see how it fails and recovers. Using the two axes, the correct placement and reason is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4, because it is technology-facing (resource/failure behaviour) and critiques the built product</text><feedback><text>Correct — a technical critique of the built product is Q4, tool-based.</text></feedback></answer>
+    <answer fraction="0"><text>Q1, because it is technology-facing and therefore supports the team</text><feedback><text>Being technology-facing does not make it a support; stress testing critiques a built product.</text></feedback></answer>
+    <answer fraction="0"><text>Q3, because failures affect users, making it business-facing</text><feedback><text>Stress testing is expressed in technical/resource terms, so it is technology-facing (Q4), not business-facing.</text></feedback></answer>
+    <answer fraction="0"><text>Q2, because it is planned before development</text><feedback><text>Stress testing critiques the built product; it is not a pre-coding business-facing support.</text></feedback></answer>
+    <generalfeedback><text>Stress testing concerns technical resource/failure behaviour (technology-facing) and evaluates the built product (critique). Technology-facing + critique = Q4, tool-based. Note that both axes must be read: technology-facing alone does not decide support vs critique.</text></generalfeedback>
+  </question>
+</quiz>

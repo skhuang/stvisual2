@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Continuous Testing Pipeline/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What continuous testing is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Continuous testing</em> in a CI/CD pipeline is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Running automated tests at every stage of the pipeline so each change gets fast feedback</text><feedback><text>Correct — continuous testing weaves automated tests into every pipeline stage to give quick feedback on each change.</text></feedback></answer>
+    <answer fraction="0"><text>Running the whole test suite once, manually, just before the yearly release</text><feedback><text>That is infrequent manual testing at the end; continuous testing runs automatically throughout the pipeline.</text></feedback></answer>
+    <answer fraction="0"><text>Letting a dedicated QA team test after developers have finished all coding</text><feedback><text>That is a late, separate testing phase; continuous testing runs automatically at every stage as changes flow through.</text></feedback></answer>
+    <answer fraction="0"><text>Testing only the code paths that a customer has already reported as broken</text><feedback><text>That is narrow reactive testing; continuous testing exercises each change automatically at every stage.</text></feedback></answer>
+    <generalfeedback><text>Continuous testing means automated tests run at every stage of the CI/CD pipeline, so every change is validated quickly and the team gets fast feedback rather than waiting for a late, separate test phase.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a CI/CD pipeline is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this context, a <em>CI/CD pipeline</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An automated sequence of stages that a change progresses through, from build and test toward release</text><feedback><text>Correct — a pipeline is an ordered, automated series of stages a build passes through on its way to release.</text></feedback></answer>
+    <answer fraction="0"><text>A single script that only compiles the code and produces no tests or deployment</text><feedback><text>Compiling alone is one step; a CI/CD pipeline is the whole automated sequence of stages toward release.</text></feedback></answer>
+    <answer fraction="0"><text>The physical network cable connecting developer laptops to the server</text><feedback><text>That is hardware; a CI/CD pipeline is an automated sequence of build/test/release stages.</text></feedback></answer>
+    <answer fraction="0"><text>A backlog of user stories waiting to be prioritised by the product owner</text><feedback><text>That is a product backlog; a pipeline is the automated path a change takes from build to release.</text></feedback></answer>
+    <generalfeedback><text>A CI/CD pipeline is an ordered, automated sequence of stages — typically build, test, and deploy steps — that each change flows through. Continuous integration (CI) covers the early integrate-and-test stages; continuous delivery/deployment (CD) covers the promotion toward release.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a pipeline stage is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>stage</em> in a pipeline is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One step in the sequence, with its own set of checks, that a build must pass before moving on</text><feedback><text>Correct — a stage is a discrete step with its own checks; the build advances only after it passes.</text></feedback></answer>
+    <answer fraction="0"><text>A copy of the source repository kept for backup purposes</text><feedback><text>That is a backup, not a pipeline stage; a stage is a step with checks the build must pass.</text></feedback></answer>
+    <answer fraction="0"><text>The final production server where users access the application</text><feedback><text>That may be the target of a deploy stage, but a stage itself is a step with its own checks.</text></feedback></answer>
+    <answer fraction="0"><text>A meeting where the team decides which features to build next</text><feedback><text>That is planning; a pipeline stage is an automated step the build must pass.</text></feedback></answer>
+    <generalfeedback><text>A stage is a discrete step in the pipeline — for example the commit stage, an integration stage, or an acceptance stage — that applies its own checks. The build progresses to the next stage only if the current stage passes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a quality gate is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>quality gate</em> in a pipeline is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A pass/fail checkpoint that a build must clear before it is allowed to advance to the next stage</text><feedback><text>Correct — a gate is a checkpoint; only a build that passes its checks is promoted onward.</text></feedback></answer>
+    <answer fraction="0"><text>A dashboard that shows how many commits each developer made this week</text><feedback><text>That is an activity report; a quality gate is a pass/fail checkpoint controlling promotion.</text></feedback></answer>
+    <answer fraction="0"><text>A rule that automatically increases the version number on every commit</text><feedback><text>That is versioning; a gate decides whether a build may advance based on its checks.</text></feedback></answer>
+    <answer fraction="0"><text>A queue that stores builds so they can all be released together at month end</text><feedback><text>That is batching releases; a gate is a checkpoint that blocks a failing build from advancing.</text></feedback></answer>
+    <generalfeedback><text>Each stage acts as a quality gate: it applies checks (such as its tests) and only a build that passes is promoted to the next stage. A failing gate stops the build, preventing a broken change from moving further down the pipeline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What fail fast means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a pipeline, the principle of <em>failing fast</em> means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Detecting and reporting a failure as early and as quickly as possible, so the build stops before wasting more time</text><feedback><text>Correct — fail fast means surfacing failures early so the pipeline stops before running slower, costlier work.</text></feedback></answer>
+    <answer fraction="0"><text>Deploying to production as quickly as possible even if some tests have not run</text><feedback><text>That skips gates; failing fast is about detecting failures early, not deploying untested code.</text></feedback></answer>
+    <answer fraction="0"><text>Marking a test as failed the moment it runs slower than one second</text><feedback><text>Speed thresholds are unrelated; failing fast means catching real failures early and stopping.</text></feedback></answer>
+    <answer fraction="0"><text>Retrying a failing test rapidly until it eventually passes</text><feedback><text>Retrying to force a pass hides failures; failing fast means reporting them early and stopping.</text></feedback></answer>
+    <generalfeedback><text>Fail fast means arranging the pipeline so that failures are detected as early and cheaply as possible. The moment a stage fails, the build stops, so the team learns quickly and no time is spent running later, slower stages on a change that is already known to be broken.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What happens when a stage fails</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the automated tests in a pipeline stage fail, what should the pipeline do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stop and refuse to promote the build to the next stage until the failure is fixed</text><feedback><text>Correct — a failing gate halts the build and blocks promotion, so a broken change cannot advance.</text></feedback></answer>
+    <answer fraction="0"><text>Ignore the failure and continue promoting the build to production</text><feedback><text>That defeats the gate; a failing stage must stop the build, not wave it through.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the failing tests so the stage turns green</text><feedback><text>Deleting tests hides the problem; a failing stage should stop the build until the real failure is fixed.</text></feedback></answer>
+    <answer fraction="0"><text>Promote the build but send an email that can be read later</text><feedback><text>Promoting a known-broken build defeats the gate; the pipeline should stop instead.</text></feedback></answer>
+    <generalfeedback><text>Each stage is a quality gate. If its tests fail, the pipeline stops and the build is not promoted; the change stays blocked until the failure is fixed. This is exactly what prevents a broken build from reaching later stages or production.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contents of the commit stage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Humble and Farley's Continuous Delivery, the <em>commit stage</em> typically runs:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Compilation, unit tests, and fast static checks — quick checks that give feedback in minutes</text><feedback><text>Correct — the commit stage compiles, runs unit tests and fast checks, aiming for feedback within a few minutes.</text></feedback></answer>
+    <answer fraction="0"><text>A full suite of slow end-to-end tests against a production-like environment</text><feedback><text>Slow end-to-end tests belong in a later acceptance stage; the commit stage stays fast.</text></feedback></answer>
+    <answer fraction="0"><text>Manual exploratory testing by the whole QA team</text><feedback><text>Manual exploratory testing is a later, human activity; the commit stage runs fast automated checks.</text></feedback></answer>
+    <answer fraction="0"><text>A one-hour load test simulating thousands of concurrent users</text><feedback><text>Load testing is slow and comes much later; the commit stage is for quick checks like compile and unit tests.</text></feedback></answer>
+    <generalfeedback><text>The commit stage is the first gate: it compiles the code, runs the unit tests, and performs fast static checks. It is designed to be quick (ideally minutes) so developers get near-immediate feedback that their commit did not break the basics.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contents of the acceptance stage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>acceptance stage</em> that comes after the commit stage typically runs:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Automated acceptance tests that check the system behaves correctly from the user's point of view</text><feedback><text>Correct — the acceptance stage runs automated acceptance tests against expected user-facing behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>The compiler, to check the code still builds</text><feedback><text>Compilation is part of the earlier commit stage; the acceptance stage runs automated acceptance tests.</text></feedback></answer>
+    <answer fraction="0"><text>Only the unit tests, re-run a second time for safety</text><feedback><text>Unit tests belong to the commit stage; the acceptance stage validates end-to-end user behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>A spell-check of the source-code comments</text><feedback><text>That is not acceptance testing; the acceptance stage runs automated acceptance tests of system behaviour.</text></feedback></answer>
+    <generalfeedback><text>After the fast commit stage, the acceptance stage runs automated acceptance tests: slower, higher-level tests that verify the system does what users expect, usually against a production-like environment. Because they are slower, they run after — and only if — the commit stage has passed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What shift-left means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The term <em>shift-left</em> testing means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Testing earlier in the pipeline (and earlier in development) so defects are caught sooner</text><feedback><text>Correct — shift-left moves testing to the left, earlier in the flow, to catch defects sooner and cheaper.</text></feedback></answer>
+    <answer fraction="0"><text>Testing only after the software has been released to production</text><feedback><text>Testing after release is shift-right; shift-left moves testing earlier.</text></feedback></answer>
+    <answer fraction="0"><text>Moving the test files into a folder on the left side of the repository</text><feedback><text>It is about timing in the process, not folder layout; shift-left means testing earlier.</text></feedback></answer>
+    <answer fraction="0"><text>Reducing the number of tests so the pipeline finishes faster</text><feedback><text>Shift-left is about when you test, not cutting tests; it means testing earlier to catch defects sooner.</text></feedback></answer>
+    <generalfeedback><text>Shift-left means moving testing activities earlier — to the left — in the development and pipeline flow. Catching defects in the commit stage (or even while writing code) is far cheaper and faster than catching them late, so continuous testing pushes fast checks as early as possible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What shift-right means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The term <em>shift-right</em> testing means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Testing and observing in production — through monitoring, canary releases, and synthetic checks — after deployment</text><feedback><text>Correct — shift-right extends validation into production using monitoring, canaries, and synthetic checks.</text></feedback></answer>
+    <answer fraction="0"><text>Running the unit tests earlier in the commit stage</text><feedback><text>Running tests earlier is shift-left; shift-right validates in production after deployment.</text></feedback></answer>
+    <answer fraction="0"><text>Moving the acceptance tests before the commit stage</text><feedback><text>That is a reordering, not shift-right; shift-right means observing and testing in production.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting production monitoring to keep the pipeline simple</text><feedback><text>That removes shift-right practices; shift-right adds monitoring, canaries, and synthetic checks in production.</text></feedback></answer>
+    <generalfeedback><text>Shift-right means extending validation to the right of release — into production. Techniques include monitoring and observability, canary releases, synthetic (smoke) checks against live systems, and feature flags. It complements pre-production testing by catching issues that only appear with real traffic and real environments.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>CI means integrate and test frequently</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Continuous integration (CI) means integrating changes into the shared mainline frequently and testing them automatically each time.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — CI is about integrating to mainline often and running automated tests on every integration.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: CI is exactly frequent integration to the mainline with automated testing each time, which is what enables CD.</text></feedback></answer>
+    <generalfeedback><text>Continuous integration means every developer merges to the shared mainline frequently, and each integration triggers an automated build and test run. Keeping the mainline continuously verified is what makes continuous delivery (promoting builds toward release) possible.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Green pipeline means gates passed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A "green" pipeline run means every stage's quality gate passed and the build was allowed to advance.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — green means each stage's checks passed, so the build progressed through the gates.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: a green run is precisely one where every stage's gate passed and the build advanced.</text></feedback></answer>
+    <generalfeedback><text>A green pipeline indicates that each stage ran its checks and passed, so the build cleared every gate. A red pipeline means some gate failed, and the build is blocked at that stage. Keeping the pipeline green is the everyday goal of continuous testing.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Commit-stage failure blocks later stages</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If the commit stage fails, the pipeline still goes ahead and runs the acceptance stage on that same build anyway.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — a failed commit stage stops the build; later stages do not run on a build that already failed a gate.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: a failing gate stops the build, so the acceptance stage is not run on a build the commit stage already rejected.</text></feedback></answer>
+    <generalfeedback><text>Each stage is a gate. If the commit stage fails, the build is not promoted, so the acceptance stage never runs on it. That is the point of ordering fast checks first: a failure there stops the pipeline before any slower stage is even attempted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of a quality gate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the main purpose of putting a quality gate at each stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To prevent a broken build from being promoted any further down the pipeline</text><feedback><text>Correct — gates stop a failing build from advancing, keeping broken changes out of later stages and production.</text></feedback></answer>
+    <answer fraction="0"><text>To make the pipeline take longer so developers commit less often</text><feedback><text>Gates are not meant to slow people down; they stop broken builds from advancing.</text></feedback></answer>
+    <answer fraction="0"><text>To count how many lines of code each build contains</text><feedback><text>Line counting is unrelated; a gate's purpose is to block a failing build from being promoted.</text></feedback></answer>
+    <answer fraction="0"><text>To guarantee the software has zero defects of any kind forever</text><feedback><text>No gate can guarantee zero defects; its purpose is to stop known failures from being promoted.</text></feedback></answer>
+    <generalfeedback><text>A quality gate exists so that a build which fails its checks cannot advance. This keeps broken changes from progressing toward production and gives each stage the authority to stop the line, which is the core safety property of continuous testing.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Automated tests at every stage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Continuous testing aims to run automated tests at every stage of the pipeline so the team gets fast feedback on each change.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — that is the definition: automated tests at every stage, giving fast feedback on each change.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: running automated tests at every stage for fast feedback is exactly what continuous testing is.</text></feedback></answer>
+    <generalfeedback><text>The essence of continuous testing is that automated tests are embedded at every stage of the CI/CD pipeline. Every change is validated as it flows through, so problems surface quickly instead of accumulating until a late, separate testing phase.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Continuous Testing Pipeline/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why fast cheap tests run first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are fast, cheap, high-confidence tests placed at the very start of the pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So the most likely, cheapest-to-detect failures are caught in seconds, before the slow, expensive suites ever run</text><feedback><text>Correct — running quick checks first gives the fastest feedback and stops the build before costly stages run.</text></feedback></answer>
+    <answer fraction="0"><text>Because fast tests are always more important than slow tests, which can be deleted</text><feedback><text>Slow tests still add value; the point of ordering is fast feedback, not deleting the slow suites.</text></feedback></answer>
+    <answer fraction="0"><text>Because the pipeline can only run one test at a time and fast tests are alphabetically first</text><feedback><text>Ordering is by speed and cost, not alphabetical, and stages can parallelise; the goal is quick feedback on likely failures.</text></feedback></answer>
+    <answer fraction="0"><text>So developers never have to look at the slow test results at all</text><feedback><text>The slow tests still run and matter; fast-first ordering simply surfaces cheap failures sooner.</text></feedback></answer>
+    <generalfeedback><text>Ordering by speed and cost means the quick, high-signal checks run first. If a change is broken in a basic way, you learn in seconds and the pipeline stops — you never pay for the slow, expensive acceptance suite. This maximises feedback speed while minimising wasted machine time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Ordering the pipeline stages</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ordering of stages best follows the fail-fast, order-by-speed-and-cost principle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Commit (compile + unit) → integration → automated acceptance / E2E → deploy</text><feedback><text>Correct — fast and cheap first, then progressively slower and costlier stages, then deploy.</text></feedback></answer>
+    <answer fraction="0"><text>Automated acceptance / E2E → integration → commit (compile + unit) → deploy</text><feedback><text>This runs the slowest, most expensive suite first — the opposite of fail-fast ordering.</text></feedback></answer>
+    <answer fraction="0"><text>Deploy → commit (compile + unit) → integration → acceptance</text><feedback><text>Deploying before any tests defeats the gates; fast checks must come before deployment.</text></feedback></answer>
+    <answer fraction="0"><text>Integration → deploy → commit (compile + unit) → acceptance</text><feedback><text>This scatters fast and slow checks and deploys in the middle; order by increasing speed and cost instead.</text></feedback></answer>
+    <generalfeedback><text>Stages should be ordered by increasing time and cost: the fast, cheap commit stage first, then integration, then the slower automated acceptance/E2E suite, and finally deploy. This way the cheapest, most likely failures stop the build first and the expensive stages only run on changes that already look healthy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Commit stage versus acceptance stage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement correctly contrasts the commit stage with the acceptance stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The commit stage is fast (compile + unit + static checks); the acceptance stage is slower and runs automated acceptance tests of user-facing behaviour</text><feedback><text>Correct — fast, low-level commit stage first; slower, higher-level automated acceptance stage after.</text></feedback></answer>
+    <answer fraction="0"><text>The commit stage runs slow end-to-end tests; the acceptance stage just compiles the code</text><feedback><text>Reversed — compilation is in the commit stage, and end-to-end tests belong to the later acceptance stage.</text></feedback></answer>
+    <answer fraction="0"><text>Both stages run exactly the same tests, only on different days</text><feedback><text>They run different kinds of tests: fast unit-level in commit, slower acceptance-level in acceptance.</text></feedback></answer>
+    <answer fraction="0"><text>The acceptance stage runs first because it is the most important</text><feedback><text>Importance does not set order; the fast commit stage runs first so failures are caught cheaply.</text></feedback></answer>
+    <generalfeedback><text>The commit stage is the fast first gate — compile, unit tests, fast static analysis — giving feedback in minutes. The acceptance stage runs later with slower, higher-level automated acceptance tests against a production-like environment. Fast and cheap runs first; slow and thorough runs after.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Build once and promote the same artifact</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Continuous Delivery recommends building the deployable artifact once and promoting that same artifact through the stages. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So every stage tests the exact bytes that will ship, eliminating differences introduced by rebuilding</text><feedback><text>Correct — one artifact means each stage validates precisely what will be released, with no rebuild drift.</text></feedback></answer>
+    <answer fraction="0"><text>Because rebuilding at each stage is faster than reusing the artifact</text><feedback><text>Rebuilding repeatedly is slower and risks drift; the reason to build once is to test the exact shipping bytes.</text></feedback></answer>
+    <answer fraction="0"><text>Because the artifact must be recompiled to match each environment's operating system</text><feedback><text>Environment differences are handled by configuration, not by rebuilding; you promote one artifact.</text></feedback></answer>
+    <answer fraction="0"><text>So each stage can quietly change the code to fix any failures it finds</text><feedback><text>Stages must not alter the artifact; building once guarantees the tested bytes are the shipped bytes.</text></feedback></answer>
+    <generalfeedback><text>If you rebuild at every stage, a later stage might test a subtly different binary than the one you release, so passing gates prove nothing about the shipped bytes. Building once and promoting the identical artifact means every gate validates exactly what will reach production; only configuration varies per environment.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the shift-left activity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of these is an example of <em>shift-left</em> testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Running fast unit tests and static analysis in the commit stage, right after each push</text><feedback><text>Correct — pushing tests early into the commit stage is exactly shift-left.</text></feedback></answer>
+    <answer fraction="0"><text>Monitoring error rates on the live service after release</text><feedback><text>Post-release monitoring is shift-right; shift-left is testing early in the pipeline.</text></feedback></answer>
+    <answer fraction="0"><text>Running a canary release to a small slice of production traffic</text><feedback><text>Canary releases happen in production — that is shift-right, not shift-left.</text></feedback></answer>
+    <answer fraction="0"><text>Reading synthetic smoke-check results from the production environment</text><feedback><text>Synthetic checks in production are shift-right; shift-left moves testing earlier in the pipeline.</text></feedback></answer>
+    <generalfeedback><text>Shift-left pushes testing earlier. Running unit tests and static checks in the commit stage — immediately after a push, before anything is deployed — is the canonical shift-left practice: cheap, fast, and early.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the shift-right activity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of these is an example of <em>shift-right</em> testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Releasing to a small canary group in production and watching monitoring dashboards before rolling out wider</text><feedback><text>Correct — canary releases plus production monitoring are classic shift-right practices.</text></feedback></answer>
+    <answer fraction="0"><text>Adding more unit tests to the commit stage</text><feedback><text>That is shift-left (testing earlier); shift-right observes and tests in production.</text></feedback></answer>
+    <answer fraction="0"><text>Compiling the code and running static analysis on every push</text><feedback><text>Compile-and-static-check is an early, shift-left activity, not shift-right.</text></feedback></answer>
+    <answer fraction="0"><text>Writing acceptance tests before the feature is implemented</text><feedback><text>Writing tests early is a shift-left idea; shift-right happens after deployment, in production.</text></feedback></answer>
+    <generalfeedback><text>Shift-right validates in production. A canary release exposes the new build to a small slice of real traffic while monitoring and synthetic checks watch for problems, so issues that only appear under real conditions are caught before a full rollout. Monitoring, canaries, and synthetic/smoke checks are all shift-right.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why flaky tests are worse in a pipeline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a flaky test especially damaging when it sits inside a CI/CD pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It can fail a gate at random, blocking promotion of good builds and eroding the team's trust in the pipeline</text><feedback><text>Correct — random failures halt good builds and teach the team to ignore red runs, undermining the gates.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the compiler produce a larger binary</text><feedback><text>Flakiness has nothing to do with binary size; the harm is randomly blocking the pipeline and eroding trust.</text></feedback></answer>
+    <answer fraction="0"><text>It permanently deletes the build artifact when it fails</text><feedback><text>A flaky test does not delete artifacts; it randomly fails gates and undermines confidence in results.</text></feedback></answer>
+    <answer fraction="0"><text>It only affects the developer's local machine, never the pipeline</text><feedback><text>The opposite: in a shared pipeline a flaky test blocks everyone's builds and erodes trust.</text></feedback></answer>
+    <generalfeedback><text>In a pipeline a flaky test randomly turns a gate red, so a perfectly good build is blocked and cannot be promoted. Worse, people start re-running or ignoring red pipelines, so a genuine failure can be dismissed as "just flaky". Flakiness therefore both wastes time and destroys the trust the gates depend on.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feedback time from fast-first ordering</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A change contains a basic compile error. The commit stage takes 3 minutes; the acceptance stage takes 40 minutes. With fast-first ordering, how quickly does the team learn the build is broken?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In about 3 minutes — the commit stage fails and the pipeline stops before the 40-minute stage runs</text><feedback><text>Correct — the fast commit stage catches it first, so feedback arrives in minutes and the slow stage is skipped.</text></feedback></answer>
+    <answer fraction="0"><text>In about 43 minutes — both stages must finish before any result is reported</text><feedback><text>No — a failed commit stage stops the pipeline immediately; the 40-minute stage never runs.</text></feedback></answer>
+    <answer fraction="0"><text>In about 40 minutes — the acceptance stage always runs first</text><feedback><text>The fast commit stage runs first; it fails in ~3 minutes and the acceptance stage is skipped.</text></feedback></answer>
+    <answer fraction="0"><text>Never — a compile error cannot be detected by a pipeline</text><feedback><text>Compilation is exactly what the commit stage checks; it fails fast in about 3 minutes.</text></feedback></answer>
+    <generalfeedback><text>Because the cheap commit stage runs first and a failing gate stops the pipeline, a basic compile error is reported in about 3 minutes. The expensive 40-minute acceptance stage is never started on that broken build. This is precisely the payoff of ordering by speed and cost.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Rebuild-per-stage is not recommended</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Recompiling a fresh artifact from source at each pipeline stage is the recommended Continuous Delivery practice.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — the recommended practice is to build once and promote the same artifact, not rebuild per stage.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: rebuilding per stage risks drift; you should build the artifact once and promote that identical artifact through the stages.</text></feedback></answer>
+    <generalfeedback><text>Continuous Delivery says build the deployable artifact once and promote that exact artifact through every stage. Rebuilding at each stage risks testing different bytes than you ship, so a passing gate would no longer guarantee anything about the released binary.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test pyramid inside the pipeline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the test pyramid relate to a well-ordered pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Many fast unit tests run earliest and most often, with fewer, slower end-to-end tests running later</text><feedback><text>Correct — the pyramid's wide base of fast unit tests maps onto the early commit stage; the narrow E2E tip runs later.</text></feedback></answer>
+    <answer fraction="0"><text>The pipeline should run mostly end-to-end tests first and only a few unit tests at the end</text><feedback><text>That inverts the pyramid; the wide base of fast unit tests should run first, not the few slow E2E tests.</text></feedback></answer>
+    <answer fraction="0"><text>The pyramid says every stage must contain an equal number of each kind of test</text><feedback><text>The pyramid is deliberately unequal: many unit tests, fewer integration, fewest E2E.</text></feedback></answer>
+    <answer fraction="0"><text>The pyramid applies only to manual testing and has nothing to do with pipelines</text><feedback><text>It maps directly onto pipeline ordering: the fast base runs early, the slow tip runs late.</text></feedback></answer>
+    <generalfeedback><text>The test pyramid's wide base of many fast unit tests corresponds to the early commit stage — these run first and most frequently. The smaller number of slower integration tests, then the few slowest end-to-end tests, run in later stages. The pyramid shape and the fast-first pipeline ordering are the same idea seen two ways.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What promote means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a pipeline, to <em>promote</em> a build means to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Advance the same build/artifact to the next stage after it passes the current gate</text><feedback><text>Correct — promotion moves the identical build forward to the next stage once it clears the gate.</text></feedback></answer>
+    <answer fraction="0"><text>Give the developer who wrote it a pay rise</text><feedback><text>That is a career sense of the word; here promote means advancing the build to the next stage.</text></feedback></answer>
+    <answer fraction="0"><text>Rebuild the code from scratch for the next environment</text><feedback><text>Promotion moves the same artifact forward; rebuilding would defeat build-once-promote-same-artifact.</text></feedback></answer>
+    <answer fraction="0"><text>Advertise the release on the company blog</text><feedback><text>That is marketing; promoting a build means advancing it to the next pipeline stage.</text></feedback></answer>
+    <generalfeedback><text>Promotion is moving a build that has passed one stage's gate onward to the next stage. Combined with build-once, the identical artifact is what advances — so every gate it clears applies to the exact bytes that may eventually be released.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Acceptance does not run before commit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To fail fast, the slow automated acceptance stage should run before the fast commit stage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — failing fast means the fast commit stage runs first; the slow acceptance stage comes after.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: running the slow stage first is the opposite of fail-fast. The cheap commit stage must run first.</text></feedback></answer>
+    <generalfeedback><text>Fail-fast ordering puts the fast, cheap commit stage first so basic failures are caught in minutes. The slower acceptance stage runs afterward, only on builds that already passed the commit gate. Running acceptance first would waste time and defeat the whole purpose.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Parallelising slow suites</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A slow acceptance suite takes too long and delays feedback. Which technique most directly shortens it without dropping coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Split the suite and run the tests in parallel across several workers</text><feedback><text>Correct — parallelising the slow suite cuts wall-clock time while keeping all the tests.</text></feedback></answer>
+    <answer fraction="0"><text>Delete half of the acceptance tests at random</text><feedback><text>That drops coverage; parallelising keeps every test but runs them concurrently.</text></feedback></answer>
+    <answer fraction="0"><text>Run the whole pipeline twice to be sure</text><feedback><text>Running twice makes it slower, not faster; parallelising the suite is the right lever.</text></feedback></answer>
+    <answer fraction="0"><text>Move the acceptance tests to the very start of the pipeline</text><feedback><text>Putting the slow suite first breaks fast-first ordering; parallelise it instead to keep it fast where it belongs.</text></feedback></answer>
+    <generalfeedback><text>Parallelisation distributes a slow suite across multiple workers, cutting the wall-clock time to a fraction while keeping every test. This keeps the pipeline fast and the feedback quick without sacrificing coverage — a standard way to stop a large acceptance/E2E suite from becoming a bottleneck.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Placing a test in the right stage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test drives the full application through its UI, a real database, and an external payment sandbox, taking about 90 seconds. Where does it belong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In a later automated acceptance / E2E stage, because it is slow and exercises the whole integrated system</text><feedback><text>Correct — a slow, full-stack, end-to-end test belongs in the later acceptance stage, not the fast commit stage.</text></feedback></answer>
+    <answer fraction="0"><text>In the commit stage, so it runs on every push in a few seconds</text><feedback><text>At 90 seconds and full-stack, it is far too slow and broad for the fast commit stage.</text></feedback></answer>
+    <answer fraction="0"><text>Nowhere — such a test should never be written</text><feedback><text>End-to-end tests are valuable; they just belong in a later stage, run in smaller numbers.</text></feedback></answer>
+    <answer fraction="0"><text>In the commit stage, but only run it once a month</text><feedback><text>Fast-first ordering keeps the commit stage quick; a slow full-stack test belongs in the acceptance stage.</text></feedback></answer>
+    <generalfeedback><text>A slow test that drives the UI, a real database, and an external service is an end-to-end/acceptance test. It belongs in a later stage where slower, higher-level tests run, not in the fast commit stage whose job is to give feedback in minutes with quick unit and static checks.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Shift-right complements pre-prod tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Shift-right techniques such as production monitoring and canary releases complement pre-production testing rather than replacing the need for it.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — shift-right adds production-time confidence on top of, not instead of, pre-production gates.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: shift-right complements pre-prod testing; you still want fast gates before release, plus production observation after.</text></feedback></answer>
+    <generalfeedback><text>Shift-right catches issues that only surface with real traffic and real environments, but it acts after release. You still want the fast pre-production gates to stop broken builds before they ship. The two are complementary layers of the same continuous-testing strategy.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Continuous Testing Pipeline/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose a slow-suite-first pipeline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A pipeline runs a 35-minute end-to-end suite before it compiles the code or runs any unit tests. Developers wait over half an hour to learn about typos and compile errors. What is the best fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reorder so compilation and unit tests run first in a fast commit stage, and the E2E suite runs only afterward</text><feedback><text>Correct — moving the cheap checks earlier restores fast-first ordering, so trivial failures are caught in minutes.</text></feedback></answer>
+    <answer fraction="0"><text>Remove the compile and unit-test steps so only the E2E suite remains</text><feedback><text>That destroys the fast feedback layer; the fix is to run the cheap checks first, not delete them.</text></feedback></answer>
+    <answer fraction="0"><text>Tell developers to stop making typos so the E2E suite passes first time</text><feedback><text>You cannot eliminate mistakes; the pipeline should catch cheap errors early by ordering fast checks first.</text></feedback></answer>
+    <answer fraction="0"><text>Run the 35-minute E2E suite twice to be certain before compiling</text><feedback><text>That doubles the delay; the fix is to put fast compile and unit checks before the slow suite.</text></feedback></answer>
+    <generalfeedback><text>The pipeline violates order-by-speed-and-cost: it runs the most expensive suite before the cheapest checks. Reordering so a fast commit stage (compile + unit) runs first means compile errors and typos fail in minutes and the 35-minute suite only runs on builds that already passed the cheap gate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A flaky E2E test blocks every deploy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>One end-to-end test fails intermittently for reasons unrelated to the code, turning the pipeline red and blocking every deploy. What is the best response?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Quarantine it out of the blocking gate, file a ticket, and fix its root cause — while keeping the rest of the suite gating deploys</text><feedback><text>Correct — stop it from blocking good builds, but track and fix it so coverage is restored, not silently lost.</text></feedback></answer>
+    <answer fraction="0"><text>Keep it in the gate and re-run the whole pipeline until it happens to pass each time</text><feedback><text>Blindly re-running wastes time and normalises red pipelines; quarantine and fix the flaky test instead.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the test permanently and never look at that behaviour again</text><feedback><text>Deleting it loses real coverage; quarantine plus a fix keeps the check once it is made reliable.</text></feedback></answer>
+    <answer fraction="0"><text>Disable every gate so no test can ever block a deploy</text><feedback><text>Removing all gates lets broken builds ship; isolate just the flaky test and fix it, keeping the other gates.</text></feedback></answer>
+    <generalfeedback><text>A flaky test blocking deploys must not stay in the gate as-is, but you also must not lose its coverage or normalise ignoring red builds. Quarantine it (move it out of the blocking set), track it with a ticket, and fix the root cause so it becomes deterministic and can rejoin the gate. Meanwhile the rest of the suite keeps protecting deploys.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cut feedback time with parallelism</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An acceptance stage of 600 independent tests runs sequentially in 30 minutes and is the main feedback bottleneck. Which change cuts feedback time while preserving coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Shard the 600 tests across, say, 6 parallel workers so the stage finishes in roughly a sixth of the time</text><feedback><text>Correct — sharding independent tests across workers cuts wall-clock time without dropping any test.</text></feedback></answer>
+    <answer fraction="0"><text>Keep it sequential but reduce logging so it feels faster</text><feedback><text>Less logging barely changes runtime; parallelising the independent tests is what actually cuts feedback time.</text></feedback></answer>
+    <answer fraction="0"><text>Move all 600 tests into the commit stage so they run on every push</text><feedback><text>That makes the fast commit stage slow and breaks fast-first ordering; parallelise the acceptance stage instead.</text></feedback></answer>
+    <answer fraction="0"><text>Run only the first 100 tests and assume the rest would pass</text><feedback><text>Skipping 500 tests drops coverage; sharding runs all of them, just concurrently.</text></feedback></answer>
+    <generalfeedback><text>When tests are independent, distributing them across parallel workers cuts the wall-clock time roughly in proportion to the number of workers while running every test. Sharding 600 tests over 6 workers takes the stage from ~30 minutes toward ~5, restoring fast feedback without sacrificing coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why gates stop a broken build</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does giving each stage the authority to fail the pipeline actually protect production?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A build can only reach production by clearing every gate, so any stage that detects a defect stops it before promotion</text><feedback><text>Correct — because promotion requires passing all gates, a single failing gate is enough to keep a defect out of production.</text></feedback></answer>
+    <answer fraction="0"><text>Gates make the code run faster in production</text><feedback><text>Gates do not change runtime performance; they block broken builds from being promoted.</text></feedback></answer>
+    <answer fraction="0"><text>Gates guarantee the software is mathematically proven correct</text><feedback><text>Gates catch what their tests cover, not a formal proof; their protection is blocking detected failures from advancing.</text></feedback></answer>
+    <answer fraction="0"><text>Gates let broken builds through but log them for later</text><feedback><text>The opposite — a gate stops a failing build; logging-and-promoting would not protect production.</text></feedback></answer>
+    <generalfeedback><text>Reaching production requires clearing every gate in sequence. That means any single stage that detects a problem is sufficient to halt promotion, so a defect its tests can catch never advances. The protection is only as good as the checks in the gates, but the stop-the-line authority is what keeps caught failures out of production.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rebuild-per-stage produces a mismatch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A pipeline recompiles from source at each stage. Acceptance tests pass, but the binary deployed to production behaves differently and fails. What is the most likely root cause and fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each rebuild produced slightly different bytes, so acceptance tested a different binary than production ran; build the artifact once and promote that same artifact</text><feedback><text>Correct — rebuilding per stage breaks the guarantee; building once and promoting the identical artifact fixes it.</text></feedback></answer>
+    <answer fraction="0"><text>The acceptance tests are too strict; loosen them until production passes</text><feedback><text>Loosening tests hides the mismatch; the real fix is to test and ship the same artifact.</text></feedback></answer>
+    <answer fraction="0"><text>Production is simply unlucky; re-deploy until it works</text><feedback><text>Re-deploying the same drifting process will not fix a rebuild mismatch; build once and promote that artifact.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests were skipped; add more unit tests to the deploy stage</text><feedback><text>The issue is artifact drift from rebuilding, not missing unit tests; build once and promote the same bytes.</text></feedback></answer>
+    <generalfeedback><text>When every stage rebuilds, the artifact tested in acceptance is not guaranteed to be the artifact deployed — differing dependency versions, timestamps, or build flags can change behaviour. The Continuous Delivery fix is build-once-promote-same-artifact: create the deployable once and pass that identical binary through every gate, so acceptance validates exactly what production runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Balancing thorough gates against speed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team wants very thorough gates but also fast feedback. Which strategy balances the two best?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Keep a fast, high-signal commit gate for immediate feedback and run the slower, more thorough suites in later stages (parallelised)</text><feedback><text>Correct — layering fast gates first and thorough suites later keeps feedback quick without giving up depth.</text></feedback></answer>
+    <answer fraction="0"><text>Put every test in the commit stage so nothing is ever missed</text><feedback><text>That makes the first gate slow and destroys fast feedback; spread tests across staged gates instead.</text></feedback></answer>
+    <answer fraction="0"><text>Drop all slow tests so the pipeline is always fast</text><feedback><text>Dropping thorough tests sacrifices confidence; move them to later stages and parallelise rather than delete them.</text></feedback></answer>
+    <answer fraction="0"><text>Run everything manually so a human can judge how thorough to be</text><feedback><text>Manual gating is slow and non-repeatable; use layered automated stages ordered by speed and cost.</text></feedback></answer>
+    <generalfeedback><text>The tension between thoroughness and speed is resolved by layering: a fast, high-signal commit gate gives feedback in minutes, while slower, more thorough integration and acceptance suites run in later stages and can be parallelised. Fast-first ordering means depth is added progressively without delaying the earliest feedback.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choosing a shift-right technique</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A failure mode only appears under real production traffic patterns that the team cannot reproduce pre-release. Which approach best guards against it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Roll out gradually with a canary plus production monitoring and synthetic checks, so problems are caught on a small slice before full rollout</text><feedback><text>Correct — canary plus monitoring/synthetic checks is shift-right, aimed precisely at production-only failure modes.</text></feedback></answer>
+    <answer fraction="0"><text>Add still more unit tests to the commit stage</text><feedback><text>Unit tests cannot reproduce real production traffic; a shift-right canary with monitoring is the right guard.</text></feedback></answer>
+    <answer fraction="0"><text>Assume pre-release gates are enough and skip production observation</text><feedback><text>Pre-release gates cannot see production-only conditions; you need shift-right observation for that.</text></feedback></answer>
+    <answer fraction="0"><text>Disable monitoring to reduce noise during the release</text><feedback><text>That removes exactly the shift-right signal you need to catch a production-only failure early.</text></feedback></answer>
+    <generalfeedback><text>Some failures only manifest with real traffic, scale, or data that cannot be reproduced pre-release. Shift-right techniques address this: a canary release exposes a small slice of production to the new build while monitoring, observability, and synthetic checks watch for regressions, so a problem is caught and rolled back before a full rollout. It complements — does not replace — the pre-production gates.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fixing an inverted pyramid in the pipeline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A pipeline's slowness comes from hundreds of end-to-end tests and very few unit tests — an inverted pyramid. What is the healthiest long-term fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Push coverage down the pyramid: replace many E2E tests with fast unit/integration tests, keeping a small focused set of E2E tests</text><feedback><text>Correct — rebalancing toward a wide unit base and a thin E2E tip restores speed while keeping key end-to-end coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Add even more end-to-end tests so nothing can slip through</text><feedback><text>That worsens the inversion and the slowness; push coverage down to fast unit/integration tests instead.</text></feedback></answer>
+    <answer fraction="0"><text>Delete all end-to-end tests and rely solely on unit tests</text><feedback><text>A few E2E tests still provide vital whole-system confidence; keep a small set rather than removing them all.</text></feedback></answer>
+    <answer fraction="0"><text>Move all the end-to-end tests into the commit stage</text><feedback><text>That makes the fast first gate slow; the fix is to rebalance the mix, not relocate the slow tests earlier.</text></feedback></answer>
+    <generalfeedback><text>An inverted pyramid — too many slow E2E tests, too few fast unit tests — makes the pipeline slow and brittle. The fix is to push coverage down: express most checks as fast, reliable unit and integration tests (which run first and most often) and keep only a small, focused set of end-to-end tests for whole-system confidence. This restores both speed and the healthy pyramid shape.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Ordering within the commit stage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Within a single commit stage, why is it sensible to compile first and only then run the unit tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>If the code will not even compile, there is no point running unit tests — reporting the compile failure immediately is the cheapest, fastest signal</text><feedback><text>Correct — compilation is the cheaper prerequisite; failing on it first is the fastest possible feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests must always modify the source before compilation can succeed</text><feedback><text>Unit tests do not rewrite the source; compilation is simply the cheaper check that must pass first.</text></feedback></answer>
+    <answer fraction="0"><text>Compilation is slower than the unit tests, so it should go last</text><feedback><text>Compilation is typically the quicker prerequisite; ordering by speed and dependency puts it first.</text></feedback></answer>
+    <answer fraction="0"><text>The order makes no difference at all to feedback time</text><feedback><text>It does: if compilation fails, running unit tests is wasted, so compiling first gives the fastest signal.</text></feedback></answer>
+    <generalfeedback><text>The same fail-fast logic applies inside a stage. Compilation is a cheap prerequisite for running unit tests — if the code does not build, the unit tests cannot run meaningfully. Reporting the compile failure immediately is the fastest, cheapest signal, so it goes first.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Quarantine is not a permanent excuse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Quarantining a flaky test to unblock the pipeline is acceptable as a permanent solution, so the test never needs to be fixed.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — quarantine is a temporary measure; the flaky test must still be fixed and returned to the gate, or coverage is lost.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: leaving a test quarantined forever silently drops coverage; quarantine buys time to fix the root cause, not to abandon it.</text></feedback></answer>
+    <generalfeedback><text>Quarantine stops a flaky test from blocking good builds, but the coverage it provided is gone until it is fixed. Treating quarantine as permanent means that behaviour is no longer verified, and quarantines tend to pile up. The correct workflow is to quarantine, track, fix the root cause, and restore the test to the gate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence of disabling a gate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under deadline pressure, a team disables the failing acceptance gate "just to get this release out". What is the direct risk?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A build the tests flagged as broken can now be promoted to production, defeating the gate's purpose</text><feedback><text>Correct — removing the gate lets a known-failing build advance, which is exactly what gates exist to prevent.</text></feedback></answer>
+    <answer fraction="0"><text>The pipeline will run faster forever with no downside</text><feedback><text>Speed is not free here: a disabled gate lets a broken build ship, which is a serious risk.</text></feedback></answer>
+    <answer fraction="0"><text>The unit tests will automatically cover whatever the acceptance stage missed</text><feedback><text>Unit tests do not replace acceptance coverage; disabling the gate leaves that behaviour unverified before release.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — gates are only advisory and never block anything</text><feedback><text>Gates are meant to block; disabling one specifically allows a failing build through.</text></feedback></answer>
+    <generalfeedback><text>A gate's whole job is to stop a broken build from advancing. Disabling it under pressure means a build the acceptance tests flagged as failing can be promoted straight to production. That is precisely the outcome continuous testing is designed to prevent; the right move is to fix the failure (or, if it is a flaky test, quarantine just that test) rather than open the gate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Same artifact, per-environment config</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You promote one built artifact through staging and production, but each environment needs a different database URL and API key. How should this be handled without breaking build-once?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Keep the same artifact and supply environment-specific settings as external configuration injected at deploy time</text><feedback><text>Correct — vary configuration per environment, not the artifact, so the identical tested binary still ships.</text></feedback></answer>
+    <answer fraction="0"><text>Rebuild the artifact for each environment with the values compiled in</text><feedback><text>Rebuilding breaks build-once and reintroduces drift; inject the differences as configuration instead.</text></feedback></answer>
+    <answer fraction="0"><text>Hard-code production values and use them everywhere including staging</text><feedback><text>That points staging at production resources — unsafe; externalise per-environment config instead.</text></feedback></answer>
+    <answer fraction="0"><text>Give up on build-once because configuration differs between environments</text><feedback><text>No need — build-once still holds when the differences are externalised as configuration, not baked into the artifact.</text></feedback></answer>
+    <generalfeedback><text>Build-once-promote-same-artifact does not mean every environment is identical — it means the deployable bytes are. Environment differences (URLs, keys, feature flags) are supplied as external configuration injected at deploy time. The same tested artifact runs everywhere, only its configuration changes, so gates still validate the exact binary that ships.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Keeping the commit stage fast</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over time a team's commit stage has crept up to 25 minutes because slow browser tests were added to it. What best restores fast feedback?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Move the slow browser tests out to a later acceptance stage, keeping the commit stage to fast unit and static checks</text><feedback><text>Correct — returning the commit stage to quick checks restores minutes-level feedback; the slow tests run later.</text></feedback></answer>
+    <answer fraction="0"><text>Accept the 25 minutes as normal and ask developers to commit less often</text><feedback><text>Discouraging commits harms CI; keep the commit stage fast by moving the slow tests to a later stage.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the browser tests entirely to save time</text><feedback><text>Those tests still add value; relocate them to a later stage rather than losing the coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Add even more tests to the commit stage so a single run covers everything</text><feedback><text>That makes the first gate slower still; the commit stage must stay fast, with heavier tests downstream.</text></feedback></answer>
+    <generalfeedback><text>The commit stage exists to give feedback in minutes with fast unit tests and static checks. Slow browser/E2E tests belong in a later acceptance stage. Moving them out returns the commit stage to its quick, fail-fast role while the slower tests still run downstream (and can be parallelised).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>More E2E in commit stage hurts feedback</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding many slow end-to-end tests to the commit stage improves fast feedback because more is tested up front.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — piling slow E2E tests into the commit stage makes it slow, destroying the fast feedback it is meant to provide.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: the commit stage must stay fast; loading it with slow E2E tests delays the very feedback it exists to give.</text></feedback></answer>
+    <generalfeedback><text>The commit stage's value is speed — feedback in minutes from fast unit and static checks. Slow end-to-end tests belong in later stages. Adding them to the commit stage inflates its runtime and undermines fast-first ordering, so feedback gets slower, not better.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combining shift-left and shift-right</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A subtle bug slips through the gates and only shows up in production. Which strategy makes future occurrences both less likely and less harmful?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Add a fast pre-prod test reproducing the bug (shift-left) and strengthen production monitoring/canary rollout (shift-right) to catch and limit any that still slip through</text><feedback><text>Correct — shift-left reduces recurrence, shift-right limits blast radius; together they cover both sides of release.</text></feedback></answer>
+    <answer fraction="0"><text>Only add production monitoring and never touch the pre-prod tests</text><feedback><text>Monitoring alone catches it late; also add a shift-left test so the same bug is blocked before release.</text></feedback></answer>
+    <answer fraction="0"><text>Only add a pre-prod test and remove all production monitoring</text><feedback><text>A pre-prod test helps, but removing monitoring loses the safety net for the next production-only surprise.</text></feedback></answer>
+    <answer fraction="0"><text>Do nothing, since the bug already reached production once and cannot recur</text><feedback><text>Bugs recur; you should both add a regression test (shift-left) and strengthen production safeguards (shift-right).</text></feedback></answer>
+    <generalfeedback><text>The robust response works both sides of release. Shift-left: add a fast, deterministic test that reproduces the bug so the gate blocks it in future — cheap and early. Shift-right: strengthen monitoring, synthetic checks, and gradual/canary rollout so that anything which still slips through is detected quickly in production and its impact is contained. The two together reduce both the likelihood and the harm.</text></generalfeedback>
+  </question>
+</quiz>

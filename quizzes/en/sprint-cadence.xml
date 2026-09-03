@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Sprint Testing Cadence/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>When testing happens in a sprint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an agile sprint, <strong>when</strong> does testing take place?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Continuously throughout the sprint, as each story is built</text><feedback><text>Correct — testing is woven through the whole sprint, not saved for the end.</text></feedback></answer>
+    <answer fraction="0"><text>Only in a dedicated test phase during the last two days of the sprint</text><feedback><text>That end-loaded pattern is the mini-waterfall smell, not the agile cadence.</text></feedback></answer>
+    <answer fraction="0"><text>Only after the sprint, in a separate testing sprint</text><feedback><text>A separate testing sprint is an anti-pattern; testing belongs inside each sprint.</text></feedback></answer>
+    <answer fraction="0"><text>Only once the release is deployed to production</text><feedback><text>Waiting until production defeats the fast-feedback purpose of the sprint.</text></feedback></answer>
+    <generalfeedback><text>Agile testing is continuous: each user story is developed and tested within the same sprint. Testing is an ongoing activity throughout the iteration, not a phase bolted on at the end.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Whole-team responsibility for quality</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In agile, quality is a <strong>whole-team responsibility</strong> — testing is not solely the job of a separate QA department.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the whole team owns quality; testing is a shared activity.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Agile treats quality as everyone's responsibility, not something delegated to a QA silo.</text></feedback></answer>
+    <generalfeedback><text>A core agile principle is whole-team responsibility for quality: developers, testers, and the product owner all contribute to building and verifying the product. "Testing is the QA team's phase" is exactly the mindset agile moves away from.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of Done includes testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which item most clearly belongs in a healthy <strong>Definition of Done</strong> for a user story?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The story has been tested, automated where sensible, with no known critical defects</text><feedback><text>Correct — a proper DoD requires the story to be tested, not just coded.</text></feedback></answer>
+    <answer fraction="0"><text>The code compiles and has been merged to the main branch</text><feedback><text>Compiling and merging is not enough; Done requires the story to be tested.</text></feedback></answer>
+    <answer fraction="0"><text>The developer believes the code probably works</text><feedback><text>A belief is not verification; Done means the behaviour has actually been tested.</text></feedback></answer>
+    <answer fraction="0"><text>Testing has been scheduled for a later hardening sprint</text><feedback><text>Deferring testing to a later sprint means the story is not Done now.</text></feedback></answer>
+    <generalfeedback><text>The Definition of Done includes testing: a story counts as Done only when it has been tested (with automation where sensible) and carries no known critical defects. This keeps every increment trustworthy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Potentially shippable increment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Each sprint aims to produce a <strong>potentially shippable increment</strong>. What does that mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A tested, working increment that could be released at the end of the sprint</text><feedback><text>Correct — potentially shippable means it is releasable in principle because quality is built in.</text></feedback></answer>
+    <answer fraction="0"><text>A set of features that has been coded but not yet tested</text><feedback><text>Untested code is not potentially shippable; testing is part of what makes it releasable.</text></feedback></answer>
+    <answer fraction="0"><text>A design document describing what will be built next sprint</text><feedback><text>An increment is working software, not a plan for future work.</text></feedback></answer>
+    <answer fraction="0"><text>A prototype that must go through a separate QA sprint before release</text><feedback><text>Needing a later QA sprint means it was not shippable at sprint end.</text></feedback></answer>
+    <generalfeedback><text>A potentially shippable increment is working, tested software that the organisation could choose to release. "Potentially" refers to a business decision, not to unfinished quality work — the testing must already be done within the sprint.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When testers first engage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a healthy sprint cadence, when do testers <strong>first</strong> get involved with a user story?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Early — during backlog refinement and sprint planning, helping shape acceptance criteria</text><feedback><text>Correct — testers engage early (shift-left) so quality is designed in from the start.</text></feedback></answer>
+    <answer fraction="0"><text>Only after all coding for the story is finished</text><feedback><text>Waiting until coding is done delays feedback and is the pattern agile avoids.</text></feedback></answer>
+    <answer fraction="0"><text>Only during the sprint review demo</text><feedback><text>The review is far too late for a tester to first engage with a story.</text></feedback></answer>
+    <answer fraction="0"><text>Only in the next sprint, after development finishes this one</text><feedback><text>Testing a sprint behind development is an anti-pattern, not early engagement.</text></feedback></answer>
+    <generalfeedback><text>Testers engage early — "shift-left" within the sprint. They join refinement and planning, help define acceptance criteria and concrete examples, and test each story as it is built rather than waiting for a batch at the end.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Develop and test within the same sprint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a user story to be considered <strong>Done</strong>, it should be both developed and tested within the <strong>same</strong> sprint.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — development and testing of a story happen in the same sprint so it can be Done.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Splitting development and testing across sprints breaks the cadence; both belong in the same sprint.</text></feedback></answer>
+    <generalfeedback><text>Each story is developed and tested within one sprint. Only then does it meet a Definition of Done that includes testing and contribute to a potentially shippable increment.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Practice that fits the cadence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which practice <strong>fits</strong> a healthy agile testing cadence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Testing each story as soon as it is built, rather than batching all testing at sprint end</text><feedback><text>Correct — testing stories as they complete keeps feedback fast and steady.</text></feedback></answer>
+    <answer fraction="0"><text>Holding all testing until every story is code-complete</text><feedback><text>Batching testing to the end creates a crunch and delays feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Scheduling a hardening sprint to catch up on skipped testing</text><feedback><text>A hardening sprint signals that in-sprint testing was insufficient.</text></feedback></answer>
+    <answer fraction="0"><text>Having developers hand finished code to QA for the next sprint</text><feedback><text>Testing a sprint behind development delays feedback and causes carryover.</text></feedback></answer>
+    <generalfeedback><text>Testing each story as it is built keeps quality feedback flowing throughout the sprint. Batching, hardening sprints, and testing a sprint behind all break the cadence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of shift-left in a sprint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Within a sprint, <em>shift-left</em> testing means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Moving testing activities earlier — into planning and alongside development — rather than to the end</text><feedback><text>Correct — shift-left pulls testing thinking forward in the sprint.</text></feedback></answer>
+    <answer fraction="0"><text>Moving testing to a specialised team after the sprint ends</text><feedback><text>That pushes testing later and outside the sprint, the opposite of shift-left.</text></feedback></answer>
+    <answer fraction="0"><text>Testing only the left half of the user interface first</text><feedback><text>Shift-left is about timing in the workflow, not screen layout.</text></feedback></answer>
+    <answer fraction="0"><text>Letting users test in production before the team does</text><feedback><text>That shifts testing right, to after release, not left.</text></feedback></answer>
+    <generalfeedback><text>Shift-left means engaging testing earlier in the flow: helping define acceptance criteria in planning and refinement, pairing with developers, and testing each story as it is built. The goal is faster feedback and defects caught while cheap to fix.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Agile does not eliminate testing effort</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because agile spreads testing throughout the sprint, the team no longer needs to spend any effort on testing.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Agile redistributes testing across the sprint; it does not remove the effort. Exploratory testing and acceptance testing still happen.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — testing effort is still real; it is woven through the sprint rather than eliminated.</text></feedback></answer>
+    <generalfeedback><text>Agile changes when and how testing happens — continuous, whole-team, in-sprint — but the work does not vanish. Automation, exploratory testing, and acceptance testing all still require effort; they simply happen within the cadence instead of as a final phase.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>End-of-sprint test phase</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team codes all stories first, then reserves a separate <strong>testing phase</strong> for the final days of the sprint. How should this be judged?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An anti-pattern — a mini-waterfall inside the sprint that delays feedback</text><feedback><text>Correct — an end-loaded test phase is the mini-waterfall smell.</text></feedback></answer>
+    <answer fraction="0"><text>A best practice, because testing is easier once everything is built</text><feedback><text>Batching testing to the end concentrates risk and delays feedback; it is not best practice.</text></feedback></answer>
+    <answer fraction="0"><text>Required by Scrum, which mandates a test phase each sprint</text><feedback><text>Scrum mandates no such phase; it expects testing woven throughout.</text></feedback></answer>
+    <answer fraction="0"><text>Fine, as long as the testers are a separate team</text><feedback><text>Handing off to a separate team late makes the delay and silo worse, not fine.</text></feedback></answer>
+    <generalfeedback><text>Reserving testing for the end recreates a small waterfall inside the sprint. Defects surface late, when there is little time to fix them, and feedback to developers is delayed. Test each story as it is built instead.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of in-sprint automation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the main purpose of <strong>in-sprint test automation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To keep the growing regression suite runnable each sprint so feedback stays fast</text><feedback><text>Correct — automation lets the ever-larger regression run repeatedly and cheaply.</text></feedback></answer>
+    <answer fraction="0"><text>To replace the need for any human judgement in testing</text><feedback><text>Automation complements exploratory and human testing; it does not replace it.</text></feedback></answer>
+    <answer fraction="0"><text>To let the team skip writing a Definition of Done</text><feedback><text>Automation supports the DoD; it does not remove the need for one.</text></feedback></answer>
+    <answer fraction="0"><text>To move all testing into a later hardening sprint</text><feedback><text>Automation exists precisely so testing stays in-sprint, not deferred.</text></feedback></answer>
+    <generalfeedback><text>As sprints accumulate, the regression suite grows. Automating it in-sprint keeps that suite runnable every sprint, giving fast feedback and preventing manual regression from becoming an unsustainable end-of-sprint burden.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Testers contribute in refinement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Testers can contribute during backlog <strong>refinement</strong> by helping define clear acceptance criteria and concrete examples.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — testers help make stories testable and unambiguous during refinement.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Testers add value early: refinement is where they help sharpen acceptance criteria and examples.</text></feedback></answer>
+    <generalfeedback><text>Testers engaging in refinement and planning helps surface edge cases and ambiguities before coding begins, producing testable stories with agreed acceptance criteria. This is a key part of shifting testing left within the cadence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Who owns quality</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a Scrum team, who is responsible for the <strong>quality</strong> of the increment?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The whole team — developers, testers, and product owner together</text><feedback><text>Correct — quality is a shared, whole-team responsibility.</text></feedback></answer>
+    <answer fraction="0"><text>Only the testers, who form a gate before release</text><feedback><text>Making testers a gate recreates the QA silo agile avoids.</text></feedback></answer>
+    <answer fraction="0"><text>Only the Scrum Master, who signs off each story</text><feedback><text>The Scrum Master facilitates; they do not own quality alone.</text></feedback></answer>
+    <answer fraction="0"><text>Only the product owner, who accepts the increment</text><feedback><text>The product owner accepts value, but quality is built by the whole team.</text></feedback></answer>
+    <generalfeedback><text>Quality is a whole-team responsibility. Everyone contributes to building it in and verifying it, rather than delegating it to a single role or a downstream gate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the sprint review shows</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At the <strong>sprint review</strong>, what does the team demonstrate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A working, tested increment of the product</text><feedback><text>Correct — the review shows a real, tested increment, not unverified work.</text></feedback></answer>
+    <answer fraction="0"><text>Untested code that still needs a later QA pass</text><feedback><text>Demonstrating untested work means the increment was not actually Done.</text></feedback></answer>
+    <answer fraction="0"><text>Only slides describing what was planned</text><feedback><text>The review centres on working software, not planning slides.</text></feedback></answer>
+    <answer fraction="0"><text>A list of defects to be tested next sprint</text><feedback><text>Deferring testing to next sprint is the cadence anti-pattern, not what a review presents.</text></feedback></answer>
+    <generalfeedback><text>The sprint review demonstrates a working, tested increment — the outcome of development and testing done within the sprint. Because Done includes testing, what is shown is genuinely potentially shippable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Testers pairing with developers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester pairs with a developer to test a story <strong>as it is being built</strong>. Does this fit the agile testing cadence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — testing as the story is built gives immediate feedback and keeps quality in-sprint</text><feedback><text>Correct — pairing while building is exactly the continuous, whole-team cadence.</text></feedback></answer>
+    <answer fraction="0"><text>No — testers should never look at a story until it is fully code-complete</text><feedback><text>Waiting for code-complete delays feedback; early collaboration is preferred.</text></feedback></answer>
+    <answer fraction="0"><text>No — testing must wait for a dedicated hardening sprint</text><feedback><text>Deferring to a hardening sprint is an anti-pattern, not the cadence.</text></feedback></answer>
+    <answer fraction="0"><text>Only if the tester belongs to a separate QA department</text><feedback><text>Agile favours whole-team collaboration, not a separate QA gate.</text></feedback></answer>
+    <generalfeedback><text>Pairing a tester with a developer while the story is built embodies whole-team quality and shift-left testing: defects are caught immediately and the story reaches Done within the sprint.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Sprint Testing Cadence/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why test each story as it is built</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is it better to test each story <strong>as it is built</strong> instead of batching all testing at the end of the sprint?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Defects surface while the context is fresh and cheap to fix, and feedback reaches developers quickly</text><feedback><text>Correct — early, incremental testing shortens the feedback loop and lowers fix cost.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the team skip writing automated regression tests</text><feedback><text>Testing early does not remove the need for automation; the two work together.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees that no defects will ever be found</text><feedback><text>No practice guarantees zero defects; the benefit is faster, cheaper feedback.</text></feedback></answer>
+    <answer fraction="0"><text>It moves all responsibility for quality onto the testers</text><feedback><text>Agile spreads quality across the whole team; it does not concentrate it on testers.</text></feedback></answer>
+    <generalfeedback><text>Testing a story as soon as it is built gives developers feedback while the code is fresh in mind, when defects are cheapest to fix. Batching to the end delays that feedback and concentrates risk in the final days.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Describing the mini-waterfall smell</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which description best matches the <strong>mini-waterfall inside a sprint</strong> smell?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The team codes all stories first, then crams every test activity into the last days of the sprint</text><feedback><text>Correct — an end-loaded test phase within the sprint is the mini-waterfall.</text></feedback></answer>
+    <answer fraction="0"><text>The team writes acceptance criteria before any coding begins</text><feedback><text>Defining criteria up front is good shift-left practice, not the smell.</text></feedback></answer>
+    <answer fraction="0"><text>The team automates its regression suite every sprint</text><feedback><text>In-sprint automation supports the cadence; it is not the smell.</text></feedback></answer>
+    <answer fraction="0"><text>Developers and testers pair on each story as it is built</text><feedback><text>Pairing while building is exactly the healthy cadence, not the smell.</text></feedback></answer>
+    <generalfeedback><text>The mini-waterfall recreates the phases of a waterfall project inside a single sprint: analyse, code, then test at the end. It delays feedback and produces an end-of-sprint crunch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fixing the mini-waterfall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team suffers the mini-waterfall smell. What is the most appropriate <strong>fix</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test each story as soon as it is ready, with devs and testers collaborating throughout the sprint</text><feedback><text>Correct — spreading testing across the sprint removes the end-loaded crunch.</text></feedback></answer>
+    <answer fraction="0"><text>Add a hardening sprint after every few sprints to catch up</text><feedback><text>A hardening sprint masks the problem instead of restoring the cadence.</text></feedback></answer>
+    <answer fraction="0"><text>Push testing into the following sprint so coding can continue uninterrupted</text><feedback><text>Testing a sprint behind delays feedback and creates carryover.</text></feedback></answer>
+    <answer fraction="0"><text>Hire a separate QA team to test after the sprint closes</text><feedback><text>A downstream QA gate reintroduces the silo and the delay.</text></feedback></answer>
+    <generalfeedback><text>The fix is to flatten the waterfall: slice work so each story is tested as it becomes ready, with the whole team collaborating. This keeps feedback fast and the increment continuously close to Done.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Problem with throw-over-the-wall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the core problem with a "throw it over the wall to QA" hand-off?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It creates a hand-off delay and a quality silo, so defects are found late by people detached from the context</text><feedback><text>Correct — the hand-off delays feedback and separates quality from the team that built it.</text></feedback></answer>
+    <answer fraction="0"><text>It makes testing too fast, so defects are missed</text><feedback><text>The problem is delay and detachment, not excessive speed.</text></feedback></answer>
+    <answer fraction="0"><text>It forces developers to write acceptance criteria too early</text><feedback><text>Early criteria are helpful; that is not the hand-off problem.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for a Definition of Done</text><feedback><text>A hand-off model still needs a DoD; the issue is the silo and delay.</text></feedback></answer>
+    <generalfeedback><text>Throwing work over the wall to a separate QA group breaks whole-team quality. Feedback arrives late, the testers lack the context of how the code was built, and defects pile up at the boundary rather than being caught continuously.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Untested story is not Done</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because the Definition of Done includes testing, how should a story that is <strong>coded but not yet tested</strong> at sprint end be treated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>As not Done — it cannot be counted as complete or part of the shippable increment</text><feedback><text>Correct — untested work fails the DoD and is not Done.</text></feedback></answer>
+    <answer fraction="0"><text>As Done, since the code exists and can be tested later</text><feedback><text>Existing code is not Done if the DoD requires testing that has not happened.</text></feedback></answer>
+    <answer fraction="0"><text>As half Done, earning half its story points</text><feedback><text>Stories are binary against the DoD; there is no partial credit.</text></feedback></answer>
+    <answer fraction="0"><text>As Done, provided a hardening sprint is planned</text><feedback><text>Planning later testing does not make an untested story Done now.</text></feedback></answer>
+    <generalfeedback><text>If the DoD includes testing, an untested story is simply not Done. It is not counted toward velocity and does not belong in the shippable increment; the remaining testing carries over.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Benefit of testers in refinement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the main benefit of involving testers during backlog <strong>refinement and planning</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Ambiguities and edge cases are surfaced early, producing testable stories with agreed acceptance criteria</text><feedback><text>Correct — early tester input makes stories clearer and testable before coding.</text></feedback></answer>
+    <answer fraction="0"><text>Developers can then skip writing any unit tests</text><feedback><text>Tester involvement in planning does not remove developer testing duties.</text></feedback></answer>
+    <answer fraction="0"><text>The product owner no longer needs to prioritise the backlog</text><feedback><text>Prioritisation remains the product owner's job; refinement does not replace it.</text></feedback></answer>
+    <answer fraction="0"><text>Testing can then be safely deferred to the next sprint</text><feedback><text>Early planning input is meant to keep testing in-sprint, not defer it.</text></feedback></answer>
+    <generalfeedback><text>Testers thinking about a story during refinement and planning expose edge cases and ambiguities before code is written. The result is testable stories with clear, agreed acceptance criteria — fewer surprises and less rework later in the sprint.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rationale for in-sprint automation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does sustainable agile testing rely on automating tests <strong>within each sprint</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The regression suite grows every sprint; without automation, re-running it manually each sprint becomes unsustainable</text><feedback><text>Correct — automation keeps the growing regression affordable to run repeatedly.</text></feedback></answer>
+    <answer fraction="0"><text>Automated tests never need to be maintained once written</text><feedback><text>Automated tests do need maintenance; that is not the rationale.</text></feedback></answer>
+    <answer fraction="0"><text>Automation lets the team drop its Definition of Done</text><feedback><text>Automation supports the DoD rather than replacing it.</text></feedback></answer>
+    <answer fraction="0"><text>Manual testing is always inferior and should be eliminated</text><feedback><text>Exploratory and manual testing remain valuable; automation targets repeatable regression.</text></feedback></answer>
+    <generalfeedback><text>Every sprint adds behaviour that must keep working. Manually retesting an ever-larger regression each sprint quickly overwhelms the team, so repeatable checks are automated in-sprint to keep feedback fast and the cadence sustainable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Velocity credit for untested work</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A story is "code complete" but its testing is unfinished when the sprint ends. How does it affect <strong>velocity</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It earns no velocity credit this sprint and carries over, because it is not Done</text><feedback><text>Correct — undone stories give no credit and carry into the next sprint.</text></feedback></answer>
+    <answer fraction="0"><text>It earns full velocity credit because the code exists</text><feedback><text>Code existing is not Done; counting it inflates velocity.</text></feedback></answer>
+    <answer fraction="0"><text>It earns partial credit proportional to how much testing remains</text><feedback><text>Velocity uses Done/not-Done, not partial credit.</text></feedback></answer>
+    <answer fraction="0"><text>It boosts velocity because it will be finished quickly next sprint</text><feedback><text>Future finishing does not create current-sprint credit.</text></feedback></answer>
+    <generalfeedback><text>Velocity counts only Done stories. Because testing is part of Done, a code-complete-but-untested story earns nothing this sprint and carries over. Counting it anyway inflates velocity and hides work still to do.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Acceptance criteria as shared understanding</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Agreeing <strong>acceptance criteria and concrete examples</strong> before coding a story mainly helps because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It builds shared understanding of expected behaviour, so the story is built and tested against the same target</text><feedback><text>Correct — shared examples align development and testing before coding starts.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the team avoid running any tests later</text><feedback><text>Criteria guide testing; they do not replace running tests.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the story will need no changes once coding starts</text><feedback><text>Understanding can still evolve; the benefit is alignment, not immutability.</text></feedback></answer>
+    <answer fraction="0"><text>It shifts all testing to the end of the sprint</text><feedback><text>Agreeing criteria early shifts testing thinking left, not to the end.</text></feedback></answer>
+    <generalfeedback><text>Concrete acceptance criteria and examples give developers and testers a shared, unambiguous target. The story is built to meet those examples and tested against them, reducing rework and misunderstanding — a shift-left, whole-team practice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why shippable requires in-sprint testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does aiming for a <strong>potentially shippable increment</strong> force testing to happen within the sprint?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An increment can only be releasable if its quality is verified during the sprint, not deferred</text><feedback><text>Correct — releasability requires the testing to already be done in-sprint.</text></feedback></answer>
+    <answer fraction="0"><text>Because Scrum forbids writing any automated tests</text><feedback><text>Scrum does not forbid automation; automation actually supports shippability.</text></feedback></answer>
+    <answer fraction="0"><text>Because the product owner personally tests every story</text><feedback><text>The product owner accepts value; the whole team does the testing.</text></feedback></answer>
+    <answer fraction="0"><text>Because testing is cheaper if left until after several sprints</text><feedback><text>Deferring testing raises cost and risk; it does not make increments shippable.</text></feedback></answer>
+    <generalfeedback><text>"Potentially shippable" means the increment could be released at any time. That is only true if quality has been verified within the sprint. Deferring testing leaves unknown quality, so the increment is not actually shippable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of pairing on feedback</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does pairing a tester with a developer <strong>during</strong> development affect the feedback loop?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It shortens the loop — issues are raised and fixed immediately, reducing later rework</text><feedback><text>Correct — immediate collaboration catches issues before they compound.</text></feedback></answer>
+    <answer fraction="0"><text>It lengthens the loop, because two people slow everything down</text><feedback><text>Pairing shortens feedback for testing; it does not lengthen the quality loop.</text></feedback></answer>
+    <answer fraction="0"><text>It has no effect, since feedback only matters after release</text><feedback><text>In-sprint feedback is central to agile; it does not only matter after release.</text></feedback></answer>
+    <answer fraction="0"><text>It defers all feedback to the sprint review</text><feedback><text>Pairing gives feedback continuously, not only at the review.</text></feedback></answer>
+    <generalfeedback><text>Pairing collapses the distance between writing code and testing it: problems are spotted and corrected on the spot, while context is fresh, instead of being logged as defects to fix days later. This is the whole-team, shift-left cadence in action.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom of a mini-waterfall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which observation is a telltale <strong>symptom</strong> that a team has a mini-waterfall inside its sprint?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Testers are idle early in the sprint and overloaded in its final days</text><feedback><text>Correct — an idle-then-crunch pattern signals end-loaded testing.</text></feedback></answer>
+    <answer fraction="0"><text>Testers and developers pair on stories from day one</text><feedback><text>Day-one collaboration is the healthy cadence, not a symptom of the smell.</text></feedback></answer>
+    <answer fraction="0"><text>The regression suite is automated and runs every sprint</text><feedback><text>Automated regression is good practice, not a symptom of the smell.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance criteria are agreed during refinement</text><feedback><text>Agreeing criteria early is shift-left practice, not a mini-waterfall symptom.</text></feedback></answer>
+    <generalfeedback><text>A classic mini-waterfall symptom is uneven load: nothing to test early because coding is still in progress, then a crush of testing at the end. Smooth, continuous testing throughout the sprint is the healthy alternative.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Risk of batch-testing at sprint end</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the main <strong>risk</strong> of batching all testing into the final days of the sprint?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Defects are found too late to fix within the sprint, forcing rushed fixes or carryover</text><feedback><text>Correct — late discovery leaves no room to fix, so work slips or is rushed.</text></feedback></answer>
+    <answer fraction="0"><text>The team will finish every story earlier than planned</text><feedback><text>Batching testing tends to cause slippage, not early finishes.</text></feedback></answer>
+    <answer fraction="0"><text>Automated tests become impossible to write</text><feedback><text>Batching does not make automation impossible; it just delays feedback.</text></feedback></answer>
+    <answer fraction="0"><text>The product owner must attend the daily scrum</text><feedback><text>That is unrelated to when testing happens.</text></feedback></answer>
+    <generalfeedback><text>When testing is squeezed into the last days, any defect it finds arrives with too little time to fix. The result is a crunch, rushed low-quality fixes, or stories carrying over unfinished into the next sprint.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>We will add tests next sprint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer says, "Let's mark it Done now and add the tests next sprint." What does this most directly undermine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Done — it hides untested work as complete and accrues test debt</text><feedback><text>Correct — calling untested work Done breaks the DoD and builds up debt.</text></feedback></answer>
+    <answer fraction="0"><text>The daily scrum, which becomes unnecessary</text><feedback><text>The daily scrum is unaffected by this decision.</text></feedback></answer>
+    <answer fraction="0"><text>The product backlog ordering</text><feedback><text>Backlog ordering is a separate concern from marking untested work Done.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — deferring tests one sprint is standard agile practice</text><feedback><text>Deferring tests a sprint is an anti-pattern, not standard practice.</text></feedback></answer>
+    <generalfeedback><text>Marking untested work as Done violates a DoD that includes testing. It disguises incomplete work as finished, inflates velocity, and accumulates test debt that must be repaid later — usually at higher cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Whole-team response to a defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under <strong>whole-team quality</strong>, what should happen when a defect is found mid-sprint?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The team collaborates to address it promptly, rather than treating it as only the testers' problem</text><feedback><text>Correct — whole-team quality means the team swarms the issue together.</text></feedback></answer>
+    <answer fraction="0"><text>It is logged and left for the QA team to handle after the sprint</text><feedback><text>Leaving it for a downstream QA team recreates the silo and delay.</text></feedback></answer>
+    <answer fraction="0"><text>It is ignored until the hardening sprint</text><feedback><text>Deferring to a hardening sprint lets the defect and debt linger.</text></feedback></answer>
+    <answer fraction="0"><text>The tester who found it must fix it alone</text><feedback><text>Whole-team quality means shared ownership, not solo blame.</text></feedback></answer>
+    <generalfeedback><text>With whole-team quality, a defect belongs to the team, not to whoever found it. The team swarms to fix it promptly so the story can reach Done within the sprint, keeping the increment shippable.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Sprint Testing Cadence/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose the last-two-days pattern</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team's developers code throughout the sprint while testers only start testing in the final two days, when defects pile up. What is the <strong>diagnosis and remediation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mini-waterfall inside the sprint; remediation is to test each story as it completes, with the whole team collaborating throughout</text><feedback><text>Correct — the end-loaded testing is a mini-waterfall, fixed by continuous in-sprint testing.</text></feedback></answer>
+    <answer fraction="0"><text>Healthy cadence; no change needed because all testing still happens in-sprint</text><feedback><text>Being in-sprint is not enough; the end-loading is the problem.</text></feedback></answer>
+    <answer fraction="0"><text>Testing-a-sprint-behind; remediation is to add a hardening sprint</text><feedback><text>This is not a sprint-behind pattern, and a hardening sprint would not fix it.</text></feedback></answer>
+    <answer fraction="0"><text>A tooling problem; remediation is to buy a faster test runner</text><feedback><text>The issue is workflow timing, not test-runner speed.</text></feedback></answer>
+    <generalfeedback><text>Coding first and testing last recreates a waterfall inside the sprint. The remedy is to flatten it: slice work so each story is testable soon, test it as it completes, and have developers and testers collaborate continuously so feedback is fast.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose the recurring hardening sprint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every third sprint, a team runs a dedicated <strong>hardening sprint</strong> to stabilise and test accumulated work. What does this indicate, and what is the fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A smell of insufficient in-sprint testing and accumulating quality debt; the fix is to build quality in each sprint via a stronger DoD and in-sprint automation</text><feedback><text>Correct — a recurring hardening sprint signals debt that should be prevented in-sprint.</text></feedback></answer>
+    <answer fraction="0"><text>A best practice that every mature agile team should adopt permanently</text><feedback><text>A permanent hardening sprint institutionalises the debt rather than removing it.</text></feedback></answer>
+    <answer fraction="0"><text>Proof the team tests too much and should slow down</text><feedback><text>The problem is deferred testing, not excessive testing.</text></feedback></answer>
+    <answer fraction="0"><text>A normal consequence of automating regression tests</text><feedback><text>Automation reduces the need for hardening; it does not cause it.</text></feedback></answer>
+    <generalfeedback><text>A recurring hardening sprint is a symptom: quality work is being deferred and must be repaid in a catch-up sprint. The cure is to prevent the debt — a Definition of Done that includes testing, in-sprint automation, and continuous testing so each sprint's increment is already stable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose test-a-sprint-behind</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Developers build features in sprint N, and testers test that same work in sprint N+1. What is the <strong>diagnosis and its main consequence</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Testing lags a sprint behind development; feedback is delayed and untested work carries over, so "Done" is ambiguous</text><feedback><text>Correct — a one-sprint lag delays feedback and produces carryover and unclear Done.</text></feedback></answer>
+    <answer fraction="0"><text>It is ideal pipelining that maximises throughput with no downside</text><feedback><text>The lag has real downsides: delayed feedback and carryover, not a free speed-up.</text></feedback></answer>
+    <answer fraction="0"><text>A mini-waterfall confined to a single sprint</text><feedback><text>The lag spans two sprints; it is the sprint-behind anti-pattern, not a single-sprint mini-waterfall.</text></feedback></answer>
+    <answer fraction="0"><text>Whole-team quality working as intended</text><feedback><text>Splitting build and test across sprints is the opposite of whole-team, in-sprint quality.</text></feedback></answer>
+    <generalfeedback><text>When testing trails development by a sprint, defects in sprint N are not found until N+1 — after more work has been built on top. Feedback is delayed, stories carry over, and no sprint produces a genuinely Done increment. The remedy is to test within the same sprint.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Done requires testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>From a risk perspective, why must the Definition of <strong>Done</strong> require testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Untested code has unknown quality, so calling it Done hides risk and lets debt accumulate silently</text><feedback><text>Correct — without testing, "Done" makes an unverified, risky claim.</text></feedback></answer>
+    <answer fraction="0"><text>Testing is required only to satisfy an external auditor, not for risk</text><feedback><text>The reason is genuine quality risk, not merely audit compliance.</text></feedback></answer>
+    <answer fraction="0"><text>Because testing makes the code run faster</text><feedback><text>Testing verifies behaviour; it is not primarily a performance optimisation.</text></feedback></answer>
+    <answer fraction="0"><text>Because Scrum assigns testing to the product owner</text><feedback><text>Testing is a whole-team activity, and this is not why Done needs it.</text></feedback></answer>
+    <generalfeedback><text>Done is a claim that the work is complete and trustworthy. Untested code carries unknown quality, so marking it Done conceals risk and quietly accrues debt. Requiring testing keeps Done honest and every increment potentially shippable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trade-off of deferring testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team argues that deferring testing to sprint end lets them "code faster." What is the real <strong>trade-off</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It feels faster short-term but raises defect cost, delays feedback, and risks an end-of-sprint crunch and carryover</text><feedback><text>Correct — the apparent speed is borrowed against later cost and risk.</text></feedback></answer>
+    <answer fraction="0"><text>There is no trade-off; deferring testing is strictly faster overall</text><feedback><text>The later cost of late defects and carryover offsets the apparent speed.</text></feedback></answer>
+    <answer fraction="0"><text>It slows coding immediately with no later benefit or cost</text><feedback><text>Deferral does not slow coding immediately; the cost lands later.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees higher quality because tests run all at once</text><feedback><text>Running tests late tends to lower quality outcomes, not raise them.</text></feedback></answer>
+    <generalfeedback><text>Deferring testing borrows apparent speed from the future: defects found late cost more to fix, feedback is delayed, and the sprint ends in a crunch with likely carryover. The short-term gain is repaid with interest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sustaining regression across sprints</text></name>
+    <questiontext format="html"><text><![CDATA[<p>As sprints accumulate, how does a team keep the <strong>regression</strong> sustainable without lengthening the sprint?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Automate regression checks in-sprint so the growing suite runs repeatedly and cheaply each sprint</text><feedback><text>Correct — in-sprint automation keeps the expanding regression affordable.</text></feedback></answer>
+    <answer fraction="0"><text>Manually re-run the entire regression by hand every sprint</text><feedback><text>Manual re-runs grow without bound and become unsustainable.</text></feedback></answer>
+    <answer fraction="0"><text>Stop testing older features once they have shipped once</text><feedback><text>Abandoning regression lets old features silently break.</text></feedback></answer>
+    <answer fraction="0"><text>Batch all regression into an occasional hardening sprint</text><feedback><text>Batching regression into a hardening sprint delays feedback and hides debt.</text></feedback></answer>
+    <generalfeedback><text>The regression suite grows with every sprint. Automating those repeatable checks in-sprint keeps the whole suite runnable each iteration, so feedback stays fast and the cadence holds without stretching the sprint or hiring endless manual testers.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Carryover impact of undone testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team routinely marks code-complete stories as Done despite unfinished testing. What is the likely effect on <strong>velocity and carryover</strong> over time?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Velocity looks inflated while hidden testing debt grows, eventually forcing carryover and a slowdown</text><feedback><text>Correct — counting undone work inflates velocity now and forces a reckoning later.</text></feedback></answer>
+    <answer fraction="0"><text>Velocity becomes perfectly accurate and carryover disappears</text><feedback><text>Counting untested work makes velocity less accurate, not more.</text></feedback></answer>
+    <answer fraction="0"><text>Velocity drops immediately with no hidden effects</text><feedback><text>The immediate effect is inflated velocity; the drop comes later.</text></feedback></answer>
+    <answer fraction="0"><text>Carryover is eliminated because nothing is ever left undone</text><feedback><text>Testing is in fact left undone, so debt and carryover accumulate.</text></feedback></answer>
+    <generalfeedback><text>Counting untested stories as Done inflates reported velocity while real testing debt piles up invisibly. When it must be repaid, the team slows down and stories carry over, making the earlier velocity figures misleading.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Testing sprint after several dev sprints</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team plans several development-only sprints followed by one <strong>testing sprint</strong>. Why is this problematic and what is the better approach?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It defers feedback and quality far downstream; better to test within every sprint so each yields a shippable increment</text><feedback><text>Correct — a separate testing sprint delays feedback; testing belongs in every sprint.</text></feedback></answer>
+    <answer fraction="0"><text>It is fine, because concentrating testing improves focus</text><feedback><text>Concentrating testing downstream sacrifices fast feedback and shippability.</text></feedback></answer>
+    <answer fraction="0"><text>It is required whenever the product is large</text><feedback><text>Product size does not justify separating testing into its own sprint.</text></feedback></answer>
+    <answer fraction="0"><text>It is the same as pairing testers with developers</text><feedback><text>A separate testing sprint is the opposite of continuous, paired, in-sprint testing.</text></feedback></answer>
+    <generalfeedback><text>A dedicated testing sprint pushes verification far from the code that created the risk, so defects are found late and no earlier sprint is truly Done. The better approach is to test within every sprint, keeping each increment potentially shippable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Done story shipped a critical defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A story marked Done shipped a critical defect because "there was no time to test it." What was violated, and what is the remediation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Definition of Done was violated; the fix is to enforce testing as part of Done and reduce work-in-progress so stories can be finished properly</text><feedback><text>Correct — the DoD was not met; enforce it and limit WIP so testing fits.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing was violated; shipping fast is more important than testing</text><feedback><text>Skipping testing violated the DoD and caused the escaped defect.</text></feedback></answer>
+    <answer fraction="0"><text>The daily scrum was violated; the fix is longer stand-ups</text><feedback><text>The daily scrum is unrelated to skipping a story's testing.</text></feedback></answer>
+    <answer fraction="0"><text>The backlog was violated; the fix is to add more stories</text><feedback><text>Adding stories worsens overload; it does not address the missing testing.</text></feedback></answer>
+    <generalfeedback><text>Marking an untested story Done breaks a DoD that includes testing, and the escaped defect is the direct result. The remedy is to honour the DoD and to limit work-in-progress so the team can finish and test each story rather than overcommitting.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Remedy for a recurring end-of-sprint crunch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team keeps hitting an end-of-sprint testing crunch. Which change most directly restores a steady cadence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Limit work-in-progress and finish-and-test one story before pulling the next</text><feedback><text>Correct — limiting WIP and completing stories one at a time smooths testing across the sprint.</text></feedback></answer>
+    <answer fraction="0"><text>Start every story at once so testing can all happen together at the end</text><feedback><text>Starting everything at once creates the end-loaded crunch, not a cure.</text></feedback></answer>
+    <answer fraction="0"><text>Move all testing into the next sprint</text><feedback><text>Deferring to the next sprint is the sprint-behind anti-pattern.</text></feedback></answer>
+    <answer fraction="0"><text>Extend the sprint length indefinitely</text><feedback><text>Longer sprints just enlarge the same crunch; they do not smooth the flow.</text></feedback></answer>
+    <generalfeedback><text>An end-of-sprint crunch usually comes from too much work-in-progress finishing at once. Limiting WIP and completing (and testing) one story before starting the next spreads testing evenly across the sprint and keeps the increment close to Done throughout.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Automation does not remove exploratory testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Even with strong in-sprint automation, a team should still perform some exploratory and acceptance testing within the sprint.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — automation sustains regression, but human exploratory and acceptance testing remain valuable in-sprint.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Automation covers repeatable checks; it does not replace exploratory and acceptance testing.</text></feedback></answer>
+    <generalfeedback><text>Automation is ideal for repeatable regression, keeping the growing suite runnable each sprint. But it does not replace human judgement: exploratory testing and user/acceptance testing still happen within the cadence. Agile weaves testing throughout; it does not eliminate its manual forms.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>High velocity but rising escaped defects</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team reports high velocity, yet escaped defects in production keep rising. What is the most likely <strong>cadence cause</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Their Definition of Done omits real testing, so untested work is counted Done and defects slip through</text><feedback><text>Correct — a weak DoD lets untested work inflate velocity and leak defects.</text></feedback></answer>
+    <answer fraction="0"><text>They are pairing testers with developers too early</text><feedback><text>Early pairing reduces escaped defects; it is not the cause.</text></feedback></answer>
+    <answer fraction="0"><text>Their regression suite is too automated</text><feedback><text>More automation lowers escaped defects; over-automation is not the cause here.</text></feedback></answer>
+    <answer fraction="0"><text>They hold a sprint retrospective every sprint</text><feedback><text>Retrospectives help improvement; they do not cause escaped defects.</text></feedback></answer>
+    <generalfeedback><text>High velocity with rising escaped defects is a classic sign that "Done" does not really include testing. Work is marked complete before it is verified, so velocity looks good while defects leak to production. Strengthening the DoD to include testing realigns the numbers with reality.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why hardening sprint is symptom not solution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a recurring hardening sprint best seen as a <strong>symptom rather than a solution</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It reacts to accumulated debt after the fact instead of preventing it, and its recurring need signals a broken in-sprint cadence</text><feedback><text>Correct — it treats the symptom late rather than fixing the cadence that causes the debt.</text></feedback></answer>
+    <answer fraction="0"><text>It is a solution, because it always eliminates the underlying debt permanently</text><feedback><text>It clears a backlog once but does nothing to stop the debt recurring.</text></feedback></answer>
+    <answer fraction="0"><text>Because hardening sprints are forbidden by the Scrum Guide with penalties</text><feedback><text>The point is about cause and effect, not a formal prohibition or penalty.</text></feedback></answer>
+    <answer fraction="0"><text>Because it makes the automated tests run more slowly</text><feedback><text>Test-runner speed is not why a hardening sprint is a symptom.</text></feedback></answer>
+    <generalfeedback><text>A hardening sprint only cleans up debt that the regular sprints should not have created. If it is needed repeatedly, the real problem is upstream: testing is not happening within each sprint. Fixing the cadence removes the need for hardening.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose the Done-versus-tested gap</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Each sprint, the count of stories developers call "done" far exceeds the count actually tested, and testers are perpetually overwhelmed. What is the <strong>diagnosis and fix</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A work-in-progress imbalance creating a testing bottleneck; fix it with whole-team testing, limiting WIP, and swarming stories to Done</text><feedback><text>Correct — the gap is a WIP/bottleneck problem cured by shared testing and lower WIP.</text></feedback></answer>
+    <answer fraction="0"><text>Testers are simply too slow and should be replaced</text><feedback><text>The issue is systemic WIP imbalance, not individual tester speed.</text></feedback></answer>
+    <answer fraction="0"><text>Developers are too productive; they should write less code</text><feedback><text>The problem is unbalanced flow, not excess productivity; the answer is whole-team testing, not slowing coders.</text></feedback></answer>
+    <answer fraction="0"><text>The Definition of Done should drop testing to close the gap</text><feedback><text>Dropping testing from Done hides the bottleneck and ships untested work.</text></feedback></answer>
+    <generalfeedback><text>When developer "done" outruns tested work, quality is bottlenecked at testing. The cure is whole-team quality: developers help test, work-in-progress is limited, and the team swarms stories through to a Done that includes testing — not lowering the bar or blaming testers.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feedback delay under a sprint lag</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When testing lags development by a full sprint, what happens to a defect introduced early in sprint N, and how should it be fixed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is not found until sprint N+1, after more work is built on the faulty base; fix it by testing within the same sprint the code is written</text><feedback><text>Correct — the lag delays discovery until N+1, so remediation is to close the lag.</text></feedback></answer>
+    <answer fraction="0"><text>It is found instantly, so the lag has no effect on feedback</text><feedback><text>A one-sprint lag delays discovery to N+1; it is not instant.</text></feedback></answer>
+    <answer fraction="0"><text>It disappears on its own once the next sprint starts</text><feedback><text>Defects do not vanish; the lag merely postpones finding them.</text></feedback></answer>
+    <answer fraction="0"><text>It is fixed by adding a hardening sprint after N+1</text><feedback><text>A hardening sprint compounds the delay rather than closing the lag.</text></feedback></answer>
+    <generalfeedback><text>With testing a sprint behind, a defect from early in sprint N is not detected until sprint N+1, by which time further work has been built on the faulty base — making the fix larger and riskier. The remedy is to test the code within the same sprint it is written, closing the feedback gap.</text></generalfeedback>
+  </question>
+</quiz>
