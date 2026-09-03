@@ -154918,6 +154918,2524 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "test-quality": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "The five acceptance dimensions",
+            "text": "<p>In the Meta ACH study (arXiv 2501.12862), an LLM-generated test must satisfy five review dimensions before engineers accept it. Which set names all five correctly?</p>",
+            "answers": [
+              {
+                "text": "Buildable, Non-flaky, Hardening, Relevant, Style",
+                "fraction": 100,
+                "feedback": "Correct \u2014 these are exactly the five engineer-acceptance dimensions."
+              },
+              {
+                "text": "Buildable, Fast, Coverage, Relevant, Readable",
+                "fraction": 0,
+                "feedback": "Fast, Coverage and Readable are not the review dimensions; the five are Buildable, Non-flaky, Hardening, Relevant, Style."
+              },
+              {
+                "text": "Kill rate, Non-flaky, Hardening, Relevant, Style",
+                "fraction": 0,
+                "feedback": "Kill rate is a mutation metric, not an acceptance dimension; the first dimension is Buildable."
+              },
+              {
+                "text": "Buildable, Non-flaky, Performance, Security, Style",
+                "fraction": 0,
+                "feedback": "Performance and Security are not the review dimensions; the middle two are Hardening and Relevant."
+              }
+            ],
+            "generalFeedback": "The five engineer-acceptance dimensions are Buildable (it compiles), Non-flaky (deterministic), Hardening (strengthens the suite), Relevant (targets real code), and Style (follows conventions). A test must pass all five to be accepted.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Buildable checks",
+            "text": "<p>The <em>Buildable</em> dimension checks that a test:</p>",
+            "answers": [
+              {
+                "text": "Compiles and builds cleanly, with no build or compilation errors",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Buildable means the test compiles/builds without errors."
+              },
+              {
+                "text": "Runs faster than every other test in the suite",
+                "fraction": 0,
+                "feedback": "Speed is not part of Buildable; Buildable is only about compiling/building cleanly."
+              },
+              {
+                "text": "Covers every branch of the code under test",
+                "fraction": 0,
+                "feedback": "Branch coverage is unrelated to Buildable, which is about whether the test builds without errors."
+              },
+              {
+                "text": "Follows the team's naming conventions",
+                "fraction": 0,
+                "feedback": "That describes the Style dimension; Buildable is about compiling cleanly."
+              }
+            ],
+            "generalFeedback": "Buildable is the most basic gate: if the test does not compile or build, it produces a build error and is rejected outright. Nothing else can be evaluated until the test actually builds.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Non-flaky checks",
+            "text": "<p>The <em>Non-flaky</em> dimension requires that a test:</p>",
+            "answers": [
+              {
+                "text": "Is deterministic \u2014 it produces the same result on every run of the same code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Non-flaky means a deterministic, repeatable result every run."
+              },
+              {
+                "text": "Always passes no matter what the code does",
+                "fraction": 0,
+                "feedback": "A test that always passes is useless; Non-flaky means a repeatable outcome, which may be pass or fail."
+              },
+              {
+                "text": "Uses fresh random inputs on every run",
+                "fraction": 0,
+                "feedback": "Unseeded random inputs make a test flaky; Non-flaky is the opposite property."
+              },
+              {
+                "text": "Compiles without any errors",
+                "fraction": 0,
+                "feedback": "Compiling cleanly is the Buildable dimension; Non-flaky is about determinism across runs."
+              }
+            ],
+            "generalFeedback": "A non-flaky test gives the same verdict every time it runs against unchanged code. A flaky test that intermittently passes and fails destroys CI trust and is always rejected, regardless of its other qualities.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Hardening checks",
+            "text": "<p>The <em>Hardening</em> dimension asks whether a test:</p>",
+            "answers": [
+              {
+                "text": "Meaningfully exercises and asserts behaviour, so it would catch a real regression or fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Hardening means the test actually strengthens the suite's ability to catch faults."
+              },
+              {
+                "text": "Always passes so it never blocks a build",
+                "fraction": 0,
+                "feedback": "A test that can never fail adds no protective value; that is exactly a Hardening failure, not a pass."
+              },
+              {
+                "text": "Is written in the same file as the code under test",
+                "fraction": 0,
+                "feedback": "File location is irrelevant to Hardening, which is about whether the test would catch a real fault."
+              },
+              {
+                "text": "Executes in under one millisecond",
+                "fraction": 0,
+                "feedback": "Execution speed is unrelated to Hardening, which measures protective value."
+              }
+            ],
+            "generalFeedback": "A hardening test strengthens the suite: it exercises behaviour and asserts on it so that a genuine regression would make it fail. A trivial, no-op, or tautological test that always passes fails the Hardening dimension because it adds no protective value.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Relevant checks",
+            "text": "<p>The <em>Relevant</em> dimension asks whether a test:</p>",
+            "answers": [
+              {
+                "text": "Targets a real, relevant issue or behaviour of the code under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Relevant means the test is aimed at genuine, on-target behaviour of the system under test."
+              },
+              {
+                "text": "Exercises unrelated code that is not the subject of the change",
+                "fraction": 0,
+                "feedback": "Testing unrelated code is precisely a Relevance failure, not a pass."
+              },
+              {
+                "text": "Contains at least ten assertions",
+                "fraction": 0,
+                "feedback": "The number of assertions is not what Relevant measures; it is whether the target is a real issue."
+              },
+              {
+                "text": "Runs on every supported platform",
+                "fraction": 0,
+                "feedback": "Cross-platform execution is unrelated to Relevance, which is about targeting the right code."
+              }
+            ],
+            "generalFeedback": "A relevant test is aimed at a genuine issue or behaviour of the code under test \u2014 not at unrelated code, dead paths, or a non-issue. A test can be perfectly built and deterministic yet be rejected because it is off-target.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Style checks",
+            "text": "<p>The <em>Style</em> dimension asks whether a test:</p>",
+            "answers": [
+              {
+                "text": "Follows the codebase's conventions for naming, structure, assertions, and idioms so a human would accept it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Style is about conforming to the team's conventions so the test is maintainable and reviewable."
+              },
+              {
+                "text": "Produces the same result on every run",
+                "fraction": 0,
+                "feedback": "That is the Non-flaky dimension; Style is about matching the codebase's conventions."
+              },
+              {
+                "text": "Kills at least one mutant",
+                "fraction": 0,
+                "feedback": "Killing mutants is a mutation-testing metric, not the Style dimension."
+              },
+              {
+                "text": "Compiles without errors",
+                "fraction": 0,
+                "feedback": "Compiling cleanly is Buildable; Style is about naming, structure, and idioms."
+              }
+            ],
+            "generalFeedback": "Style captures whether a human reviewer would accept the test into the codebase: consistent naming, structure, assertion helpers, and idioms. A stylistically unacceptable test is rejected because it would need rework before it could be merged.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What engineer acceptance requires",
+            "text": "<p>For an LLM-generated test to be <em>accepted</em> by engineers, it must:</p>",
+            "answers": [
+              {
+                "text": "Pass all five review dimensions \u2014 Buildable, Non-flaky, Hardening, Relevant, and Style",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance requires passing every one of the five dimensions."
+              },
+              {
+                "text": "Pass at least three of the five dimensions",
+                "fraction": 0,
+                "feedback": "A majority is not enough; a failure on any single dimension leads to rejection."
+              },
+              {
+                "text": "Kill at least one mutant, regardless of the five dimensions",
+                "fraction": 0,
+                "feedback": "Killing a mutant does not guarantee acceptance; the test must still pass all five dimensions."
+              },
+              {
+                "text": "Pass the Buildable dimension only",
+                "fraction": 0,
+                "feedback": "Building cleanly is necessary but far from sufficient; all five dimensions must pass."
+              }
+            ],
+            "generalFeedback": "Engineer acceptance is a conjunction: the test must satisfy Buildable AND Non-flaky AND Hardening AND Relevant AND Style. A failure on any one dimension is enough for rejection.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Killing a mutant is not enough",
+            "text": "<p>If a generated test kills a mutant, that alone is enough for engineers to accept it into the codebase.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killing a mutant does not guarantee acceptance; the test must still pass all five review dimensions."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: a mutation-killing test can still be rejected if it is flaky, off-target, stylistically unacceptable, or otherwise fails a dimension."
+              }
+            ],
+            "generalFeedback": "Mutation kill rate measures whether a test can detect an injected fault, but engineer acceptance is a stricter, human bar. A test that kills a mutant is still rejected unless it also builds, is deterministic, hardens the suite, targets relevant code, and follows conventions."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why kill rate alone is not enough",
+            "text": "<p>Why is a high mutation kill rate, on its own, an insufficient measure of a generated test's value to engineers?</p>",
+            "answers": [
+              {
+                "text": "A test can kill mutants yet still be rejected for being flaky, off-target, trivial, or stylistically unacceptable \u2014 so it never actually lands in the codebase",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance depends on all five dimensions, not just fault detection."
+              },
+              {
+                "text": "Kill rate cannot be measured for LLM-generated tests",
+                "fraction": 0,
+                "feedback": "Kill rate can be measured fine; the point is that it does not capture the other acceptance dimensions."
+              },
+              {
+                "text": "A high kill rate guarantees the test also follows the team's style",
+                "fraction": 0,
+                "feedback": "Kill rate says nothing about style, determinism, or relevance; those are judged separately."
+              },
+              {
+                "text": "Engineers never look at whether a test detects faults",
+                "fraction": 0,
+                "feedback": "Fault detection matters (Hardening), but it is only one of five dimensions engineers weigh."
+              }
+            ],
+            "generalFeedback": "Kill rate captures only whether a test can catch an injected fault. Engineers additionally require the test to build, run deterministically, target relevant code, and follow conventions. The true bar is acceptance across all five dimensions, so a suite can have a high kill rate yet very few tests engineers will actually merge.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Defect: does not compile",
+            "text": "<p>A generated test references a method that does not exist, so it fails to compile. Which dimension does this violate?</p>",
+            "answers": [
+              {
+                "text": "Buildable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a compilation error is a Buildable failure."
+              },
+              {
+                "text": "Non-flaky",
+                "fraction": 0,
+                "feedback": "Non-flaky is about determinism across runs; a test that never compiles cannot even run."
+              },
+              {
+                "text": "Relevant",
+                "fraction": 0,
+                "feedback": "Relevance is about targeting the right code; here the test does not build at all."
+              },
+              {
+                "text": "Style",
+                "fraction": 0,
+                "feedback": "Style is about conventions; a missing method is a build error, which is the Buildable dimension."
+              }
+            ],
+            "generalFeedback": "A test that will not compile fails the Buildable dimension. It produces a build error and is rejected before any other quality can even be assessed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Defect: passes sometimes, fails sometimes",
+            "text": "<p>A test passes on some runs and fails on others against the same unchanged code. Which dimension does this violate?</p>",
+            "answers": [
+              {
+                "text": "Non-flaky",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a non-deterministic pass/fail result is a Non-flaky failure."
+              },
+              {
+                "text": "Buildable",
+                "fraction": 0,
+                "feedback": "The test compiles and runs; the problem is that its result varies between runs."
+              },
+              {
+                "text": "Hardening",
+                "fraction": 0,
+                "feedback": "Hardening is about protective value; here the issue is non-determinism."
+              },
+              {
+                "text": "Style",
+                "fraction": 0,
+                "feedback": "Style is about conventions; an intermittent result is a Non-flaky failure."
+              }
+            ],
+            "generalFeedback": "Intermittent pass/fail on unchanged code is the definition of flakiness, a Non-flaky failure. Flaky tests break CI's signal and are always rejected.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Defect: assertion is always true",
+            "text": "<p>A test's only check is <code>assertTrue(true)</code>, so it can never fail. Which dimension does this violate?</p>",
+            "answers": [
+              {
+                "text": "Hardening",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a tautological assertion catches nothing, so it fails the Hardening dimension."
+              },
+              {
+                "text": "Buildable",
+                "fraction": 0,
+                "feedback": "The test compiles fine; the problem is that it adds no protective value."
+              },
+              {
+                "text": "Non-flaky",
+                "fraction": 0,
+                "feedback": "The test is perfectly deterministic (always passes); the issue is that it never catches a fault."
+              },
+              {
+                "text": "Relevant",
+                "fraction": 0,
+                "feedback": "Relevance concerns the target; a test that asserts nothing meaningful fails Hardening even if aimed at the right code."
+              }
+            ],
+            "generalFeedback": "A test that can never fail exercises no real behaviour and would never catch a regression, so it fails the Hardening dimension \u2014 it adds no protective value to the suite.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Defect: tests unrelated code",
+            "text": "<p>A change fixes a payment-calculation bug, but the generated test only exercises an unrelated string-formatting helper. Which dimension does this violate?</p>",
+            "answers": [
+              {
+                "text": "Relevant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing code unrelated to the issue is a Relevance failure."
+              },
+              {
+                "text": "Buildable",
+                "fraction": 0,
+                "feedback": "The test may compile fine; the problem is that it is aimed at the wrong code."
+              },
+              {
+                "text": "Non-flaky",
+                "fraction": 0,
+                "feedback": "It can be perfectly deterministic yet still off-target, which is a Relevance failure."
+              },
+              {
+                "text": "Hardening",
+                "fraction": 0,
+                "feedback": "Even if it asserts strongly on the helper, it targets the wrong code \u2014 that is a Relevance failure."
+              }
+            ],
+            "generalFeedback": "A test aimed at unrelated code, rather than the behaviour actually at risk, fails the Relevant dimension. It provides no confidence about the change that matters.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Defect: wrong naming convention",
+            "text": "<p>A Kotlin test is named <code>TEST_boundary_AGE</code>, mixing SCREAMING_SNAKE_CASE with camelCase against the team's conventions. Which dimension does this violate?</p>",
+            "answers": [
+              {
+                "text": "Style",
+                "fraction": 100,
+                "feedback": "Correct \u2014 inconsistent naming that breaks conventions is a Style failure."
+              },
+              {
+                "text": "Buildable",
+                "fraction": 0,
+                "feedback": "Odd naming still compiles; the problem is that it violates the codebase's conventions."
+              },
+              {
+                "text": "Relevant",
+                "fraction": 0,
+                "feedback": "The test can target the right code and still be rejected for its non-conforming name \u2014 a Style failure."
+              },
+              {
+                "text": "Hardening",
+                "fraction": 0,
+                "feedback": "It can assert meaningfully and still fail review on naming, which is the Style dimension."
+              }
+            ],
+            "generalFeedback": "Naming, structure, and idioms that clash with the codebase's conventions fail the Style dimension. A human reviewer would send it back for rework even if the assertions are sound.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Acceptance needs all five",
+            "text": "<p>A test is accepted by engineers only if it passes all five review dimensions.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance requires passing Buildable, Non-flaky, Hardening, Relevant, and Style together."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: a failure on any one of the five dimensions is enough for the test to be rejected."
+              }
+            ],
+            "generalFeedback": "Engineer acceptance is a conjunction of all five dimensions. Passing four but failing one \u2014 for example, a strong, on-target test that is flaky \u2014 still results in rejection."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Classify: random input",
+            "text": "<p>A test computes an input with <code>Random.nextInt()</code> (no fixed seed) and asserts on the result, so its outcome varies from run to run. Which dimension does it fail?</p>",
+            "answers": [
+              {
+                "text": "Non-flaky \u2014 the unseeded random input makes the result non-deterministic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the varying input produces a non-deterministic result, a Non-flaky failure."
+              },
+              {
+                "text": "Buildable \u2014 random numbers cause compilation errors",
+                "fraction": 0,
+                "feedback": "Random numbers do not break compilation; the failure is non-determinism (Non-flaky)."
+              },
+              {
+                "text": "Relevant \u2014 random inputs always target the wrong code",
+                "fraction": 0,
+                "feedback": "The test can target the right code; the problem is that its result is not reproducible."
+              },
+              {
+                "text": "Style \u2014 random calls violate naming conventions",
+                "fraction": 0,
+                "feedback": "Naming is unaffected; the defect is non-determinism, which is the Non-flaky dimension."
+              }
+            ],
+            "generalFeedback": "An unseeded random generator produces different inputs each run, so the test can pass most of the time and fail occasionally. That non-determinism is a Non-flaky failure, and flaky tests are always rejected.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: missing symbol",
+            "text": "<p>A generated test calls <code>calculateDiscuont(order)</code> \u2014 a misspelling of the real method \u2014 so the test file will not compile. Which dimension does it fail?</p>",
+            "answers": [
+              {
+                "text": "Buildable \u2014 the unresolved symbol is a compilation error",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an unresolved reference is a build error, a Buildable failure."
+              },
+              {
+                "text": "Relevant \u2014 a typo means the test targets the wrong feature",
+                "fraction": 0,
+                "feedback": "The intent may be on-target, but the test cannot compile; that is a Buildable failure."
+              },
+              {
+                "text": "Hardening \u2014 misspelled calls never catch faults",
+                "fraction": 0,
+                "feedback": "The test never even builds, so the primary failure is Buildable, not Hardening."
+              },
+              {
+                "text": "Non-flaky \u2014 typos make results non-deterministic",
+                "fraction": 0,
+                "feedback": "A compile error is deterministic; the defect is that it does not build (Buildable)."
+              }
+            ],
+            "generalFeedback": "An unresolved method reference is a compilation error, so the test fails the Buildable dimension. Until it compiles, none of the other dimensions can even be evaluated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: no-op assertion",
+            "text": "<p>A test runs a computation but its only assertion is <code>assertEquals(1, 1)</code>, which can never fail. Which dimension does it fail?</p>",
+            "answers": [
+              {
+                "text": "Hardening \u2014 the assertion is a tautology and catches no fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a check that can never fail adds no protective value, a Hardening failure."
+              },
+              {
+                "text": "Buildable \u2014 a constant comparison will not compile",
+                "fraction": 0,
+                "feedback": "It compiles fine; the problem is that it verifies nothing meaningful."
+              },
+              {
+                "text": "Non-flaky \u2014 a constant assertion is non-deterministic",
+                "fraction": 0,
+                "feedback": "It is fully deterministic (always passes); the issue is that it catches nothing."
+              },
+              {
+                "text": "Style \u2014 comparing 1 to 1 breaks conventions",
+                "fraction": 0,
+                "feedback": "The defect is the lack of protective value, not conventions; that is Hardening."
+              }
+            ],
+            "generalFeedback": "An assertion comparing a constant to itself always holds, so the test would pass even if the code were broken. It contributes nothing to the suite's fault-catching power, which is a Hardening failure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: off-target test",
+            "text": "<p>A pull request modifies the authentication logic, but the generated test exercises the unrelated logging module and asserts on log formatting. Which dimension does it fail?</p>",
+            "answers": [
+              {
+                "text": "Relevant \u2014 it targets code unrelated to the change under review",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing unrelated code instead of the authentication logic is a Relevance failure."
+              },
+              {
+                "text": "Buildable \u2014 logging tests never compile with auth code",
+                "fraction": 0,
+                "feedback": "It may compile fine; the problem is that it is aimed at the wrong module."
+              },
+              {
+                "text": "Non-flaky \u2014 logging output is always non-deterministic",
+                "fraction": 0,
+                "feedback": "Log assertions can be deterministic; here the defect is that the test is off-target."
+              },
+              {
+                "text": "Style \u2014 logging tests use the wrong idioms",
+                "fraction": 0,
+                "feedback": "Even in perfect style, a test aimed at the wrong code fails Relevance."
+              }
+            ],
+            "generalFeedback": "A test aimed at code unrelated to the behaviour under review provides no confidence about the change that matters. That is a Relevant failure, regardless of how well the test is written.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: inconsistent structure",
+            "text": "<p>A test is correct and deterministic but crams five unrelated scenarios into one method with hard-coded magic numbers, ignoring the codebase's one-scenario-per-test, arrange-act-assert convention. Which dimension does it fail?</p>",
+            "answers": [
+              {
+                "text": "Style \u2014 the structure and idioms clash with the codebase's conventions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 violating the team's structural conventions is a Style failure."
+              },
+              {
+                "text": "Buildable \u2014 multi-scenario methods do not compile",
+                "fraction": 0,
+                "feedback": "The method compiles and runs; the problem is that it ignores the codebase's conventions."
+              },
+              {
+                "text": "Hardening \u2014 bundling scenarios means it catches no faults",
+                "fraction": 0,
+                "feedback": "It can still catch faults; the issue is that its structure is not acceptable to reviewers."
+              },
+              {
+                "text": "Relevant \u2014 combined tests target the wrong code",
+                "fraction": 0,
+                "feedback": "It can be on-target and still be rejected for its non-conforming structure \u2014 a Style failure."
+              }
+            ],
+            "generalFeedback": "When a test ignores the codebase's naming, structure, and idioms, a reviewer will send it back even if it is otherwise correct. That is a Style failure: it needs rework before a human would accept it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill but reject: flaky",
+            "text": "<p>A generated test kills the target mutant, but it relies on the current wall-clock time and fails whenever it runs across midnight. Engineers reject it. On which dimension?</p>",
+            "answers": [
+              {
+                "text": "Non-flaky \u2014 the wall-clock dependence makes the result non-deterministic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 despite killing the mutant, the intermittent failure is a Non-flaky rejection."
+              },
+              {
+                "text": "Hardening \u2014 killing a mutant means it fails Hardening",
+                "fraction": 0,
+                "feedback": "Killing a mutant is evidence of protective value; the rejection is for non-determinism."
+              },
+              {
+                "text": "Buildable \u2014 clock code does not compile",
+                "fraction": 0,
+                "feedback": "The test compiles and runs; it just gives a non-deterministic result."
+              },
+              {
+                "text": "Relevant \u2014 time-based tests are always off-target",
+                "fraction": 0,
+                "feedback": "The test targets the right code (it kills the mutant); the defect is flakiness."
+              }
+            ],
+            "generalFeedback": "A mutation-killing test can still be rejected. Here it is deterministic in intent but reads the live clock, so it fails intermittently \u2014 a Non-flaky failure. CI cannot trust it, so engineers reject it despite the kill.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill but reject: style",
+            "text": "<p>A generated test kills the mutant and is deterministic and on-target, but it uses a bespoke assertion helper and naming that no other test in the module uses. Engineers ask for it to be rewritten. On which dimension is it rejected?</p>",
+            "answers": [
+              {
+                "text": "Style \u2014 it does not follow the module's conventions and idioms",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a kill does not exempt a test from the Style dimension."
+              },
+              {
+                "text": "Hardening \u2014 a kill means Hardening automatically fails",
+                "fraction": 0,
+                "feedback": "Killing the mutant shows protective value; the rejection is about conventions."
+              },
+              {
+                "text": "Non-flaky \u2014 bespoke helpers are non-deterministic",
+                "fraction": 0,
+                "feedback": "The test is deterministic; the issue is that its style clashes with the codebase."
+              },
+              {
+                "text": "Relevant \u2014 custom helpers target the wrong code",
+                "fraction": 0,
+                "feedback": "It is on-target (it kills the mutant); the rejection is on Style."
+              }
+            ],
+            "generalFeedback": "Even a deterministic, on-target, mutant-killing test is rejected if it ignores the codebase's conventions. Acceptance is a human review bar, and non-conforming style is enough to send the test back \u2014 a Style failure.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Four out of five still fails",
+            "text": "<p>A test is buildable, non-flaky, hardening, and relevant, but violates the team's style conventions. It is still accepted because it passes four of five dimensions.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance requires all five dimensions, so a Style failure alone causes rejection."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: passing four dimensions is not enough; a single Style failure is sufficient for rejection."
+              }
+            ],
+            "generalFeedback": "Acceptance is a conjunction of all five dimensions. A strong, on-target, deterministic test that violates style conventions is rejected and returned for rework, illustrating that every dimension is a hard requirement."
+          },
+          {
+            "type": "multichoice",
+            "name": "Weak dimension: happy-path only",
+            "text": "<p>A test for an <code>add(a, b)</code> function only checks <code>add(2, 2) == 4</code> and <code>add(0, 0) == 0</code> \u2014 trivial happy-path inputs, with no edge cases such as overflow. Which dimension is weakest here?</p>",
+            "answers": [
+              {
+                "text": "Hardening \u2014 it exercises only trivial inputs and would miss edge-case regressions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the lack of meaningful edge cases is a Hardening weakness."
+              },
+              {
+                "text": "Buildable \u2014 happy-path tests do not compile",
+                "fraction": 0,
+                "feedback": "The test compiles fine; the concern is how little it exercises."
+              },
+              {
+                "text": "Non-flaky \u2014 fixed inputs are non-deterministic",
+                "fraction": 0,
+                "feedback": "Fixed inputs are fully deterministic; the weakness is in protective value (Hardening)."
+              },
+              {
+                "text": "Relevant \u2014 testing add() is off-target",
+                "fraction": 0,
+                "feedback": "Testing the function under change is on-target; the weakness is that it only covers trivial cases."
+              }
+            ],
+            "generalFeedback": "Checking only trivial happy-path values leaves edge cases such as overflow or negative inputs untested, so the test would miss real regressions there. That is a weakness on the Hardening dimension.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Primary rejection: off-target",
+            "text": "<p>A test is well-built, deterministic, and cleanly written, and it asserts strongly \u2014 but only on a deprecated code path that production no longer reaches. What is the primary reason engineers reject it?</p>",
+            "answers": [
+              {
+                "text": "Relevant \u2014 it targets a non-issue rather than behaviour that actually matters",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a strong test aimed at a non-issue fails the Relevant dimension."
+              },
+              {
+                "text": "Hardening \u2014 a strong assertion always means Hardening passes",
+                "fraction": 0,
+                "feedback": "A strong assertion on the wrong target does not help; the primary failure is Relevance."
+              },
+              {
+                "text": "Buildable \u2014 deprecated paths do not compile",
+                "fraction": 0,
+                "feedback": "The test compiles and runs; the problem is that its target is not a real issue."
+              },
+              {
+                "text": "Non-flaky \u2014 deprecated code is non-deterministic",
+                "fraction": 0,
+                "feedback": "It can be deterministic; the rejection is that it targets a non-issue (Relevant)."
+              }
+            ],
+            "generalFeedback": "Even a strong, clean, deterministic test is rejected if it targets code that no longer matters. Relevance asks whether the test aims at a real issue; a dead path is a non-issue, so the primary failure is Relevant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: wall-clock dependence",
+            "text": "<p>A test computes an expected value from <code>LocalDate.now()</code> and compares it to the code's output, so it can fail depending on the day it runs. Which dimension does it fail?</p>",
+            "answers": [
+              {
+                "text": "Non-flaky \u2014 depending on the live date makes the result vary by run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a wall-clock dependence produces a non-deterministic result, a Non-flaky failure."
+              },
+              {
+                "text": "Buildable \u2014 date APIs cause build errors",
+                "fraction": 0,
+                "feedback": "Date APIs compile fine; the defect is that the result depends on when it runs."
+              },
+              {
+                "text": "Hardening \u2014 using the clock means it catches no faults",
+                "fraction": 0,
+                "feedback": "It might catch faults, but its result is non-deterministic, which is the Non-flaky failure."
+              },
+              {
+                "text": "Style \u2014 calling now() breaks conventions",
+                "fraction": 0,
+                "feedback": "The problem is determinism, not conventions; that is the Non-flaky dimension."
+              }
+            ],
+            "generalFeedback": "Reading the live clock ties the outcome to the moment the test runs, so it can pass on one day and fail on another. That non-determinism is a Non-flaky failure; the fix is to inject or freeze a fixed clock.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: duplicate trivial test",
+            "text": "<p>A generated test re-checks a plain getter that is already covered elsewhere and adds no new scenario or edge case. It compiles, is deterministic, targets real code, and matches the style. Which dimension is it weakest on?</p>",
+            "answers": [
+              {
+                "text": "Hardening \u2014 it duplicates existing coverage and adds no new fault-catching value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding no new protective value is a Hardening weakness."
+              },
+              {
+                "text": "Buildable \u2014 duplicate tests do not compile",
+                "fraction": 0,
+                "feedback": "It compiles fine; the concern is that it strengthens nothing."
+              },
+              {
+                "text": "Relevant \u2014 a getter is never relevant code",
+                "fraction": 0,
+                "feedback": "A getter can be relevant real code; the weakness is that the test adds no new protection."
+              },
+              {
+                "text": "Style \u2014 duplicate tests always break conventions",
+                "fraction": 0,
+                "feedback": "The test matches the style; its weakness is the absence of new fault-catching value (Hardening)."
+              }
+            ],
+            "generalFeedback": "A test that merely repeats coverage already provided elsewhere does not strengthen the suite's ability to catch new regressions. Even though it is otherwise clean, it is weak on Hardening because it adds no protective value.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why a test passes all five",
+            "text": "<p>A test named <code>testPrivacyNullUser</code> passes a <code>null</code> user id to <code>logEvent</code> and asserts the tracker's <code>lastUserId</code> stays <code>null</code>. It compiles, is deterministic, follows conventions, and guards a real privacy edge case. Why is it accepted?</p>",
+            "answers": [
+              {
+                "text": "It passes all five dimensions \u2014 buildable, non-flaky, hardening, relevant, and style",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance follows because every dimension is satisfied."
+              },
+              {
+                "text": "It is accepted purely because it kills a mutant",
+                "fraction": 0,
+                "feedback": "A kill alone would not guarantee acceptance; here it is accepted because all five dimensions pass."
+              },
+              {
+                "text": "It is accepted because it is short",
+                "fraction": 0,
+                "feedback": "Length is irrelevant; acceptance comes from satisfying all five dimensions."
+              },
+              {
+                "text": "It is accepted because privacy tests skip the Style dimension",
+                "fraction": 0,
+                "feedback": "No dimension is skipped; this test happens to satisfy Style along with the other four."
+              }
+            ],
+            "generalFeedback": "This test guards a genuine privacy edge case (a null user id), asserts meaningfully, builds cleanly, runs deterministically, and follows conventions. Because it satisfies all five dimensions, engineers accept it.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "A kill does not exempt a test",
+            "text": "<p>A test that successfully kills a mutant can still be rejected by engineers on one of the five review dimensions.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a mutation-killing test is still rejected if it is flaky, off-target, trivial, unbuildable, or stylistically unacceptable."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: killing a mutant does not exempt a test from any of the five acceptance dimensions."
+              }
+            ],
+            "generalFeedback": "Killing a mutant demonstrates fault-detection power but says nothing about determinism, relevance, buildability, or style. Engineers apply all five dimensions, so a kill alone does not guarantee acceptance."
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: syntax error",
+            "text": "<p>A generated test is missing a closing brace, so the compiler reports a syntax error and the file will not build. Which dimension does it fail?</p>",
+            "answers": [
+              {
+                "text": "Buildable \u2014 a syntax error is a compilation failure",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a syntax error prevents the build, a Buildable failure."
+              },
+              {
+                "text": "Style \u2014 a missing brace is just a formatting preference",
+                "fraction": 0,
+                "feedback": "A missing brace is not a style choice; it is a compilation error, which is the Buildable dimension."
+              },
+              {
+                "text": "Non-flaky \u2014 syntax errors produce random results",
+                "fraction": 0,
+                "feedback": "A syntax error deterministically stops the build; nothing runs, so this is a Buildable failure."
+              },
+              {
+                "text": "Hardening \u2014 broken syntax means it catches no faults",
+                "fraction": 0,
+                "feedback": "The test never compiles or runs, so the primary and only relevant failure is Buildable."
+              }
+            ],
+            "generalFeedback": "A syntax error stops compilation, so the test cannot build or run. That is a Buildable failure, and it must be fixed before any other dimension can be evaluated.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Primary gate: flaky plus weak",
+            "text": "<p>A test uses an unseeded random input (making it non-deterministic) and its only assertion is that the result is non-null. Both Non-flaky and Hardening are in play. Which single dimension most decisively forces rejection, and why?</p>",
+            "answers": [
+              {
+                "text": "Non-flaky \u2014 flakiness is a hard gate; while the result is non-deterministic, CI cannot trust it at all, so even a stronger assertion would not save it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 non-determinism disqualifies the test outright, making Non-flaky the decisive gate."
+              },
+              {
+                "text": "Hardening \u2014 a weak assertion is always the most decisive failure",
+                "fraction": 0,
+                "feedback": "The weak assertion is a real problem, but a flaky test is untrustworthy regardless of assertion strength, so Non-flaky is decisive."
+              },
+              {
+                "text": "Buildable \u2014 random inputs break the build",
+                "fraction": 0,
+                "feedback": "The test builds and runs; the decisive defect is its non-determinism."
+              },
+              {
+                "text": "Style \u2014 random usage violates conventions",
+                "fraction": 0,
+                "feedback": "Style is not the issue here; the decisive failure is flakiness (Non-flaky)."
+              }
+            ],
+            "generalFeedback": "When a test fails more than one dimension, the most decisive is the one that disqualifies it no matter what else is fixed. A flaky test cannot be trusted by CI at all, so Non-flaky is the primary gate \u2014 strengthening the assertion would not rescue a non-deterministic test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "High kill, low acceptance",
+            "text": "<p>A generation tool reports a high mutation kill rate, but engineers accept very few of its tests. Why is this gap a problem in practice?</p>",
+            "answers": [
+              {
+                "text": "Tests that engineers reject never merge, so a high kill rate does not translate into a stronger production suite \u2014 the accepted set is what actually protects the code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only accepted tests land, so acceptance, not raw kill rate, determines real improvement."
+              },
+              {
+                "text": "A high kill rate means the mutants were too easy, so the tool is broken",
+                "fraction": 0,
+                "feedback": "The kill rate may be genuine; the problem is that rejected tests never reach the codebase."
+              },
+              {
+                "text": "Engineers should lower their standards to match the kill rate",
+                "fraction": 0,
+                "feedback": "Lowering the acceptance bar would admit flaky or off-target tests; the point is that acceptance is the true measure."
+              },
+              {
+                "text": "There is no problem \u2014 kill rate is the only metric that matters",
+                "fraction": 0,
+                "feedback": "Kill rate ignores the other four dimensions; a test that is never accepted adds no protection."
+              }
+            ],
+            "generalFeedback": "Kill rate measures potential fault detection, but only tests engineers accept are merged and run in CI. If most generated tests are rejected for flakiness, style, or irrelevance, the high kill rate is illusory \u2014 the suite that actually guards production is only the accepted subset.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subtle non-hardening: asserts the wrong thing",
+            "text": "<p>A test targets the correct method, compiles, is deterministic, and matches the style \u2014 but its assertion compares a variable to itself (<code>assertEquals(result, result)</code>), so it holds no matter what the method returns. Which dimension does it fail, and why is that subtle?</p>",
+            "answers": [
+              {
+                "text": "Hardening \u2014 it looks like a real test and is on-target, but the self-comparison can never fail, so it catches no fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 despite appearances, a tautological assertion provides no protective value, a Hardening failure."
+              },
+              {
+                "text": "Relevant \u2014 comparing a value to itself targets the wrong code",
+                "fraction": 0,
+                "feedback": "The test is on-target (the right method); the defect is that its assertion catches nothing (Hardening)."
+              },
+              {
+                "text": "Non-flaky \u2014 self-comparison is non-deterministic",
+                "fraction": 0,
+                "feedback": "It is perfectly deterministic (always passes); the subtle failure is that it never catches a fault."
+              },
+              {
+                "text": "Buildable \u2014 self-comparison does not compile",
+                "fraction": 0,
+                "feedback": "It compiles cleanly; the problem is the absence of any real check (Hardening)."
+              }
+            ],
+            "generalFeedback": "The trap is that the test appears legitimate \u2014 right target, clean style, deterministic \u2014 yet its assertion is a tautology that holds for any output. It would pass even against broken code, so it adds no protective value: a Hardening failure, not a Relevance one.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Relevant but flaky",
+            "text": "<p>A test targets exactly the high-risk method that changed and asserts strongly on it, but it reaches a live third-party network service and fails intermittently when that service is slow. What is the primary reason it is rejected?</p>",
+            "answers": [
+              {
+                "text": "Non-flaky \u2014 its relevance does not rescue it, because the intermittent failures from the live dependency make it non-deterministic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a relevant test that is flaky is still rejected on the Non-flaky dimension."
+              },
+              {
+                "text": "Relevant \u2014 reaching a network service means it targets the wrong code",
+                "fraction": 0,
+                "feedback": "It targets the right code; the defect is the non-determinism from the live dependency."
+              },
+              {
+                "text": "Hardening \u2014 a strong assertion means Hardening fails",
+                "fraction": 0,
+                "feedback": "A strong assertion is a Hardening strength; the rejection is for flakiness."
+              },
+              {
+                "text": "Style \u2014 network calls violate conventions",
+                "fraction": 0,
+                "feedback": "The primary failure is non-determinism (Non-flaky), not style."
+              }
+            ],
+            "generalFeedback": "Being relevant and well-asserted is not enough. A live external dependency introduces uncontrolled variability, so the test fails intermittently \u2014 a Non-flaky failure. It must be made deterministic (for example with a test double) before it can be accepted.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why style matters despite catching faults",
+            "text": "<p>A test reliably catches a real fault but ignores the codebase's conventions \u2014 odd naming, an unfamiliar assertion library, and no arrange-act-assert structure. Why do engineers still reject it?</p>",
+            "answers": [
+              {
+                "text": "Acceptance is a human maintainability bar: a test the team cannot easily read and maintain will not be merged, even if it detects a fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Style protects long-term maintainability, which is part of acceptance."
+              },
+              {
+                "text": "A non-conforming test cannot actually catch faults",
+                "fraction": 0,
+                "feedback": "It does catch the fault; the rejection is about maintainability and conventions, not detection."
+              },
+              {
+                "text": "Style only matters for tests that fail to compile",
+                "fraction": 0,
+                "feedback": "Compilation is Buildable; Style applies to tests that build fine but ignore conventions."
+              },
+              {
+                "text": "Fault-catching tests are exempt from the Style dimension",
+                "fraction": 0,
+                "feedback": "No dimension is exempt; a fault-catching test still needs acceptable style."
+              }
+            ],
+            "generalFeedback": "Tests live in the codebase and must be maintained by humans. A test that clashes with the team's conventions imposes a long-term cost and confuses reviewers, so it is rejected on Style even when it detects a real fault. Acceptance weighs maintainability, not just detection.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Borderline: weak assertion on the right target",
+            "text": "<p>A test is aimed squarely at the risky method that changed, but its assertion only checks that the return value is not null \u2014 it would still pass if the computed value were wrong. Is this primarily a Relevant or a Hardening failure?</p>",
+            "answers": [
+              {
+                "text": "Hardening \u2014 the target is right (relevant), but the assertion is too weak to catch a regression, so it fails to strengthen the suite",
+                "fraction": 100,
+                "feedback": "Correct \u2014 right target but no fault-catching power is a Hardening failure, not a Relevance one."
+              },
+              {
+                "text": "Relevant \u2014 a weak assertion means the test targets the wrong code",
+                "fraction": 0,
+                "feedback": "The target is correct; the weakness is that the assertion would miss a wrong value (Hardening)."
+              },
+              {
+                "text": "Both fail equally, so either label is fine",
+                "fraction": 0,
+                "feedback": "Relevance is satisfied because the target is right; the specific failure is Hardening."
+              },
+              {
+                "text": "Neither \u2014 a non-null check is always sufficient",
+                "fraction": 0,
+                "feedback": "A non-null check misses wrong-but-non-null values, so it fails Hardening."
+              }
+            ],
+            "generalFeedback": "Relevance asks whether the test aims at the right code; here it does. Hardening asks whether it would actually catch a fault; a non-null check would pass on a wrong value, so the specific failure is Hardening. Distinguishing the two hinges on target (Relevant) versus fault-catching power (Hardening).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Borderline: strong assertion on a non-issue",
+            "text": "<p>A test has a precise, strong assertion and would reliably catch a change \u2014 but it exercises a feature-flagged code path that has been permanently disabled and can never run in production. Is this primarily a Hardening or a Relevant failure?</p>",
+            "answers": [
+              {
+                "text": "Relevant \u2014 the assertion is strong (hardening-capable), but the target is a non-issue, so the test aims at the wrong thing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a strong assertion on dead code is a Relevance failure."
+              },
+              {
+                "text": "Hardening \u2014 a disabled path means the assertion is weak",
+                "fraction": 0,
+                "feedback": "The assertion is strong; the problem is that its target does not matter (Relevant)."
+              },
+              {
+                "text": "Buildable \u2014 disabled paths do not compile",
+                "fraction": 0,
+                "feedback": "The code compiles; the defect is that the target is a non-issue (Relevant)."
+              },
+              {
+                "text": "Style \u2014 testing disabled code breaks conventions",
+                "fraction": 0,
+                "feedback": "The failure is that it targets a non-issue, which is Relevance, not Style."
+              }
+            ],
+            "generalFeedback": "This is the mirror image of a weak-assertion case. The assertion is strong enough to catch a fault (hardening-capable), but it is pointed at permanently dead code \u2014 a non-issue. Because the target does not matter, the primary failure is Relevant, not Hardening.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Primary reason: adds no confidence",
+            "text": `<p>A test named <code>testSomething</code> calls <code>doStuff()</code> and only asserts the result is not null. It is buildable and deterministic, but engineers say it "adds no confidence in the system's correctness." Which dimension most directly captures that complaint?</p>`,
+            "answers": [
+              {
+                "text": "Hardening \u2014 a non-null check verifies no real behaviour, so the test would not catch a genuine fault",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "adds no confidence in correctness" is precisely the Hardening dimension.'
+              },
+              {
+                "text": "Buildable \u2014 the vague name breaks the build",
+                "fraction": 0,
+                "feedback": "It builds fine; the complaint is about protective value, which is Hardening."
+              },
+              {
+                "text": "Non-flaky \u2014 a non-null check is non-deterministic",
+                "fraction": 0,
+                "feedback": "It is deterministic; the issue is that it verifies nothing meaningful (Hardening)."
+              },
+              {
+                "text": "Style \u2014 the name testSomething is the only real problem",
+                "fraction": 0,
+                "feedback": 'The vague name is a Style weakness too, but "no confidence in correctness" points most directly at Hardening.'
+              }
+            ],
+            "generalFeedback": "This test has several weaknesses (a vague name is poor style, the intent is unclear), but the specific complaint \u2014 that it gives no confidence in correctness \u2014 is about protective value. A non-null check would pass on a wrong result, so the most direct failure is Hardening.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prioritizing a generation pipeline",
+            "text": "<p>Over a batch, a test-generation pipeline achieves a 90% mutation kill rate but only a 20% engineer-acceptance rate. To make the pipeline genuinely useful, what should the team prioritize?</p>",
+            "answers": [
+              {
+                "text": "Fixing the dimensions that drive rejection \u2014 flakiness, style, and relevance \u2014 so that more of the fault-catching tests are actually accepted and merged",
+                "fraction": 100,
+                "feedback": "Correct \u2014 raising acceptance is what turns kill power into real suite improvement."
+              },
+              {
+                "text": "Pushing the kill rate from 90% to 99% and ignoring acceptance",
+                "fraction": 0,
+                "feedback": "More kills that are still rejected add nothing; the bottleneck is acceptance."
+              },
+              {
+                "text": "Merging all generated tests regardless of the review dimensions",
+                "fraction": 0,
+                "feedback": "That would admit flaky and off-target tests, degrading the suite; acceptance standards exist for good reason."
+              },
+              {
+                "text": "Deleting the mutation-testing step entirely",
+                "fraction": 0,
+                "feedback": "Mutation testing is useful signal; the real gap is the low acceptance rate."
+              }
+            ],
+            "generalFeedback": "A 90% kill rate with 20% acceptance means most fault-catching tests never land. The leverage is in the acceptance dimensions: reduce flakiness, conform to style, and target relevant code. Improving those converts the pipeline's detection power into tests engineers will actually merge.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Flaky-relevant versus plainly irrelevant",
+            "text": "<p>Why can a flaky test that targets important, relevant code do <em>more</em> damage than a test that is simply irrelevant?</p>",
+            "answers": [
+              {
+                "text": "Because it injects non-deterministic failures onto important paths, it erodes trust in the suite while looking valuable \u2014 an irrelevant test at least fails predictably or is easy to dismiss",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flakiness on relevant paths is especially corrosive to CI trust."
+              },
+              {
+                "text": "Because irrelevant tests never compile",
+                "fraction": 0,
+                "feedback": "Irrelevant tests can compile fine; the point is the corrosive effect of flakiness on trusted paths."
+              },
+              {
+                "text": "Because a flaky test always has a higher kill rate",
+                "fraction": 0,
+                "feedback": "Kill rate is not the issue; the harm is the non-deterministic noise on important code."
+              },
+              {
+                "text": "Because relevant tests are exempt from the Non-flaky dimension",
+                "fraction": 0,
+                "feedback": "No test is exempt; a relevant test that is flaky is still rejected, and its flakiness is especially damaging."
+              }
+            ],
+            "generalFeedback": "A flaky test on relevant code masquerades as valuable coverage while producing intermittent red builds on paths people care about. That trains the team to ignore failures on important code, so it must be rejected on Non-flaky and made deterministic before it can help.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why Buildable gates the rest",
+            "text": "<p>Why is it pointless to assess a test's Hardening or Relevance while it still fails the Buildable dimension?</p>",
+            "answers": [
+              {
+                "text": "A test that does not compile never runs, so it cannot demonstrate any fault-catching value or target \u2014 Buildable is a prerequisite gate that must be fixed first",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without building, the test cannot execute, so downstream dimensions are moot."
+              },
+              {
+                "text": "Because Hardening and Relevance are less important than Buildable in general",
+                "fraction": 0,
+                "feedback": "They are equally required for acceptance; the point is ordering \u2014 a non-building test cannot be evaluated on them."
+              },
+              {
+                "text": "Because a non-building test is automatically flaky",
+                "fraction": 0,
+                "feedback": "A build error is deterministic, not flaky; the issue is that the test cannot run to show hardening or relevance."
+              },
+              {
+                "text": "Because compiling a test also proves it is relevant",
+                "fraction": 0,
+                "feedback": "Compiling proves only Buildable; relevance and hardening are separate and assessed once it builds."
+              }
+            ],
+            "generalFeedback": "Buildable is the entry gate. A test that will not compile cannot execute, so there is no way to observe whether it catches faults (Hardening) or targets the right code (Relevant). The build error must be fixed before any downstream dimension can even be judged.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Separating Hardening from Relevant",
+            "text": "<p>Which statement most accurately distinguishes the Hardening dimension from the Relevant dimension?</p>",
+            "answers": [
+              {
+                "text": "Relevant asks whether the test targets the right code; Hardening asks whether it would actually catch a real regression in that code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Relevant is about the target, Hardening is about fault-catching power."
+              },
+              {
+                "text": "Hardening asks whether the test compiles; Relevant asks whether it is deterministic",
+                "fraction": 0,
+                "feedback": "Compiling is Buildable and determinism is Non-flaky; that answer confuses the dimensions."
+              },
+              {
+                "text": "They are the same dimension under two names",
+                "fraction": 0,
+                "feedback": "They are distinct: a test can be on-target yet catch nothing, or catch faults but on the wrong code."
+              },
+              {
+                "text": "Relevant is about style conventions; Hardening is about speed",
+                "fraction": 0,
+                "feedback": "Style and speed are unrelated; Relevant is the target and Hardening is fault-catching value."
+              }
+            ],
+            "generalFeedback": "The two are orthogonal. A test can be relevant (aimed at the right, risky code) yet fail to harden (a weak assertion that catches nothing), or it can be hardening-capable (a strong assertion) yet irrelevant (aimed at dead or unrelated code). Relevant = right target; Hardening = would catch a fault.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Primary rejection: irrelevant and weak",
+            "text": "<p>A test both exercises a trivial, unrelated getter (not the changed behaviour) and asserts only that its result is not null. Both Relevant and Hardening look shaky. Which is the more fundamental reason to reject it, and why?</p>",
+            "answers": [
+              {
+                "text": "Relevant \u2014 because it targets the wrong code, strengthening its assertion would still not test the behaviour that matters, so the wrong target is the root problem",
+                "fraction": 100,
+                "feedback": "Correct \u2014 when the target itself is wrong, Relevance is the more fundamental failure."
+              },
+              {
+                "text": "Hardening \u2014 because a stronger assertion would fix everything",
+                "fraction": 0,
+                "feedback": "A stronger assertion on the wrong getter still would not test the changed behaviour; the root issue is the target (Relevant)."
+              },
+              {
+                "text": "Buildable \u2014 unrelated getters do not compile",
+                "fraction": 0,
+                "feedback": "It compiles; the root problem is that it is aimed at the wrong code (Relevant)."
+              },
+              {
+                "text": "Non-flaky \u2014 getter tests are non-deterministic",
+                "fraction": 0,
+                "feedback": "It can be deterministic; the fundamental failure is that its target is irrelevant."
+              }
+            ],
+            "generalFeedback": "When picking the most fundamental failure, ask what remains broken after the others are fixed. Here, even a strong assertion would not help because the test is pointed at the wrong code \u2014 so Relevance is the root failure. Contrast this with a test on the right code whose only flaw is a weak assertion, which is a Hardening failure.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Kill rate does not guarantee acceptance",
+            "text": "<p>A high mutation kill rate across a batch of generated tests guarantees that engineers will accept most of them.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance depends on all five dimensions, so a high kill rate does not guarantee that tests will be accepted."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: tests can kill mutants yet be rejected for flakiness, style, or irrelevance, so a high kill rate does not guarantee acceptance."
+              }
+            ],
+            "generalFeedback": "Kill rate and acceptance are different measures. A batch can kill many mutants while most tests are rejected on Non-flaky, Style, or Relevant grounds. Engineer acceptance across all five dimensions \u2014 not raw kill rate \u2014 is the true bar for whether the tests improve the suite."
+          },
+          {
+            "type": "multichoice",
+            "name": "Primary gate: does not build and bad style",
+            "text": "<p>A generated test both fails to compile (a type error) and uses naming that ignores the team's conventions. Which single dimension should be recorded as the primary reason for rejection, and why?</p>",
+            "answers": [
+              {
+                "text": "Buildable \u2014 because a test that does not compile cannot be run or reviewed at all, so the build error is the most fundamental blocker; the style issue is moot until it builds",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Buildable is the prerequisite gate, so it is the primary failure here."
+              },
+              {
+                "text": "Style \u2014 naming is what reviewers notice first",
+                "fraction": 0,
+                "feedback": "The style issue cannot even be acted on while the test fails to compile; Buildable is the more fundamental blocker."
+              },
+              {
+                "text": "Both are equally primary, so pick either",
+                "fraction": 0,
+                "feedback": "A non-building test cannot be run or reviewed, so Buildable is the more fundamental of the two."
+              },
+              {
+                "text": "Non-flaky \u2014 type errors cause intermittent results",
+                "fraction": 0,
+                "feedback": "A type error deterministically stops the build; the primary failure is Buildable, not Non-flaky."
+              }
+            ],
+            "generalFeedback": "When a test fails several dimensions, the primary one is the most fundamental blocker \u2014 the failure that makes the others impossible to assess or fix. A test that does not compile cannot run or be reviewed, so Buildable is primary; the style problem only becomes relevant once the test builds.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4E94\u500B\u9A57\u6536\u7DAD\u5EA6",
+            "text": "<p>\u5728 Meta ACH \u7814\u7A76\uFF08arXiv 2501.12862\uFF09\u4E2D\uFF0CLLM \u751F\u6210\u7684\u6E2C\u8A66\u5FC5\u9808\u6EFF\u8DB3\u4E94\u500B\u5BE9\u67E5\u7DAD\u5EA6\uFF0C\u5DE5\u7A0B\u5E2B\u624D\u6703\u63A5\u53D7\u5B83\u3002\u54EA\u4E00\u7D44\u6B63\u78BA\u5217\u51FA\u5168\u90E8\u4E94\u500B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u7DE8\u8B6F\uFF08Buildable\uFF09\u3001\u975E\u4E0D\u7A69\u5B9A\uFF08Non-flaky\uFF09\u3001\u5F37\u5316\uFF08Hardening\uFF09\u3001\u76F8\u95DC\u6027\uFF08Relevant\uFF09\u3001\u98A8\u683C\uFF08Style\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u4E94\u500B\u5DE5\u7A0B\u5E2B\u9A57\u6536\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u3001\u5FEB\u901F\u3001\u8986\u84CB\u7387\u3001\u76F8\u95DC\u6027\u3001\u53EF\u8B80\u6027",
+                "fraction": 0,
+                "feedback": "\u300C\u5FEB\u901F\u300D\u300C\u8986\u84CB\u7387\u300D\u300C\u53EF\u8B80\u6027\u300D\u4E0D\u662F\u5BE9\u67E5\u7DAD\u5EA6\uFF1B\u4E94\u500B\u662F\u53EF\u7DE8\u8B6F\u3001\u975E\u4E0D\u7A69\u5B9A\u3001\u5F37\u5316\u3001\u76F8\u95DC\u6027\u3001\u98A8\u683C\u3002"
+              },
+              {
+                "text": "\u6BBA\u8B8A\u7570\u7387\u3001\u975E\u4E0D\u7A69\u5B9A\u3001\u5F37\u5316\u3001\u76F8\u95DC\u6027\u3001\u98A8\u683C",
+                "fraction": 0,
+                "feedback": "\u6BBA\u8B8A\u7570\u7387\u662F\u8B8A\u7570\u6E2C\u8A66\u6307\u6A19\uFF0C\u4E0D\u662F\u9A57\u6536\u7DAD\u5EA6\uFF1B\u7B2C\u4E00\u500B\u7DAD\u5EA6\u662F\u53EF\u7DE8\u8B6F\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u3001\u975E\u4E0D\u7A69\u5B9A\u3001\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u98A8\u683C",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u8207\u5B89\u5168\u6027\u4E0D\u662F\u5BE9\u67E5\u7DAD\u5EA6\uFF1B\u4E2D\u9593\u5169\u500B\u662F\u5F37\u5316\u8207\u76F8\u95DC\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E94\u500B\u5DE5\u7A0B\u5E2B\u9A57\u6536\u7DAD\u5EA6\u662F\uFF1A\u53EF\u7DE8\u8B6F\uFF08\u80FD\u7DE8\u8B6F\uFF09\u3001\u975E\u4E0D\u7A69\u5B9A\uFF08\u7D50\u679C\u78BA\u5B9A\uFF09\u3001\u5F37\u5316\uFF08\u5F37\u5316\u6E2C\u8A66\u5957\u4EF6\uFF09\u3001\u76F8\u95DC\u6027\uFF08\u91DD\u5C0D\u771F\u5BE6\u7A0B\u5F0F\u78BC\uFF09\u3001\u98A8\u683C\uFF08\u7B26\u5408\u6163\u4F8B\uFF09\u3002\u6E2C\u8A66\u5FC5\u9808\u4E94\u500B\u5168\u90E8\u901A\u904E\u624D\u6703\u88AB\u63A5\u53D7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u7DE8\u8B6F\u6AA2\u67E5\u4EC0\u9EBC",
+            "text": "<p><em>\u53EF\u7DE8\u8B6F\uFF08Buildable\uFF09</em>\u7DAD\u5EA6\u6AA2\u67E5\u6E2C\u8A66\u662F\u5426\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u80FD\u4E7E\u6DE8\u5730\u7DE8\u8B6F\u8207\u5EFA\u7F6E\uFF0C\u6C92\u6709\u4EFB\u4F55\u5EFA\u7F6E\u6216\u7DE8\u8B6F\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u7DE8\u8B6F\u6307\u6E2C\u8A66\u80FD\u7121\u932F\u8AA4\u5730\u7DE8\u8B6F\uFF0F\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u901F\u5EA6\u6BD4\u5957\u4EF6\u4E2D\u6240\u6709\u5176\u4ED6\u6E2C\u8A66\u90FD\u5FEB",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u4E0D\u5C6C\u65BC\u53EF\u7DE8\u8B6F\uFF1B\u53EF\u7DE8\u8B6F\u53EA\u95DC\u4E4E\u80FD\u5426\u4E7E\u6DE8\u5730\u7DE8\u8B6F\uFF0F\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u7684\u6BCF\u4E00\u500B\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u8986\u84CB\u7387\u8207\u53EF\u7DE8\u8B6F\u7121\u95DC\uFF1B\u53EF\u7DE8\u8B6F\u95DC\u4E4E\u6E2C\u8A66\u80FD\u5426\u7121\u932F\u8AA4\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u9075\u5FAA\u5718\u968A\u7684\u547D\u540D\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u98A8\u683C\u7DAD\u5EA6\uFF1B\u53EF\u7DE8\u8B6F\u95DC\u4E4E\u80FD\u5426\u4E7E\u6DE8\u5730\u7DE8\u8B6F\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u7DE8\u8B6F\u662F\u6700\u57FA\u672C\u7684\u95DC\u5361\uFF1A\u82E5\u6E2C\u8A66\u7121\u6CD5\u7DE8\u8B6F\u6216\u5EFA\u7F6E\uFF0C\u5C31\u6703\u7522\u751F\u5EFA\u7F6E\u932F\u8AA4\u800C\u76F4\u63A5\u88AB\u62D2\u3002\u5728\u6E2C\u8A66\u80FD\u5BE6\u969B\u5EFA\u7F6E\u4E4B\u524D\uFF0C\u5176\u4ED6\u7DAD\u5EA6\u90FD\u7121\u6CD5\u8A55\u4F30\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u4E0D\u7A69\u5B9A\u6AA2\u67E5\u4EC0\u9EBC",
+            "text": "<p><em>\u975E\u4E0D\u7A69\u5B9A\uFF08Non-flaky\uFF09</em>\u7DAD\u5EA6\u8981\u6C42\u6E2C\u8A66\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u662F\u78BA\u5B9A\u7684\u2014\u2014\u5C0D\u76F8\u540C\u7684\u7A0B\u5F0F\u78BC\uFF0C\u6BCF\u6B21\u57F7\u884C\u90FD\u7522\u751F\u76F8\u540C\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u4E0D\u7A69\u5B9A\u6307\u6BCF\u6B21\u57F7\u884C\u90FD\u6709\u78BA\u5B9A\u3001\u53EF\u91CD\u73FE\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u7121\u8AD6\u7A0B\u5F0F\u78BC\u505A\u4EC0\u9EBC\u90FD\u6C38\u9060\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u6C38\u9060\u901A\u904E\u7684\u6E2C\u8A66\u6BEB\u7121\u7528\u8655\uFF1B\u975E\u4E0D\u7A69\u5B9A\u6307\u7684\u662F\u53EF\u91CD\u73FE\u7684\u7D50\u679C\uFF0C\u53EF\u80FD\u662F\u901A\u904E\u4E5F\u53EF\u80FD\u662F\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u57F7\u884C\u90FD\u4F7F\u7528\u5168\u65B0\u7684\u96A8\u6A5F\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u672A\u56FA\u5B9A\u7A2E\u5B50\u7684\u96A8\u6A5F\u8F38\u5165\u6703\u4F7F\u6E2C\u8A66\u4E0D\u7A69\u5B9A\uFF1B\u975E\u4E0D\u7A69\u5B9A\u6B63\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u80FD\u7121\u932F\u8AA4\u5730\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u4E7E\u6DE8\u5730\u7DE8\u8B6F\u662F\u53EF\u7DE8\u8B6F\u7DAD\u5EA6\uFF1B\u975E\u4E0D\u7A69\u5B9A\u95DC\u4E4E\u8DE8\u57F7\u884C\u7684\u78BA\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u4E0D\u7A69\u5B9A\u7684\u6E2C\u8A66\u6BCF\u6B21\u5C0D\u76F8\u540C\uFF08\u672A\u8B8A\u66F4\uFF09\u7A0B\u5F0F\u78BC\u57F7\u884C\u90FD\u7D66\u51FA\u76F8\u540C\u5224\u5B9A\u3002\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\u7684\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u6703\u7834\u58DE CI \u7684\u4FE1\u4EFB\uFF0C\u56E0\u6B64\u7121\u8AD6\u5176\u4ED6\u54C1\u8CEA\u5982\u4F55\u90FD\u6703\u88AB\u62D2\u7D55\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F37\u5316\u6AA2\u67E5\u4EC0\u9EBC",
+            "text": "<p><em>\u5F37\u5316\uFF08Hardening\uFF09</em>\u7DAD\u5EA6\u63A2\u554F\u6E2C\u8A66\u662F\u5426\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6709\u610F\u7FA9\u5730\u904B\u7528\u4E26\u65B7\u8A00\u884C\u70BA\uFF0C\u56E0\u6B64\u80FD\u6355\u6349\u771F\u5BE6\u7684\u8FF4\u6B78\u6216\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F37\u5316\u6307\u6E2C\u8A66\u78BA\u5BE6\u589E\u5F37\u4E86\u5957\u4EF6\u6355\u6349\u7F3A\u9677\u7684\u80FD\u529B\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u901A\u904E\uFF0C\u56E0\u6B64\u6C38\u4E0D\u963B\u64CB\u5EFA\u7F6E",
+                "fraction": 0,
+                "feedback": "\u6C38\u4E0D\u6703\u5931\u6557\u7684\u6E2C\u8A66\u6C92\u6709\u4FDD\u8B77\u50F9\u503C\uFF1B\u90A3\u6B63\u662F\u5F37\u5316\u7684\u5931\u6557\uFF0C\u800C\u975E\u901A\u904E\u3002"
+              },
+              {
+                "text": "\u5BEB\u5728\u8207\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u76F8\u540C\u7684\u6A94\u6848\u4E2D",
+                "fraction": 0,
+                "feedback": "\u6A94\u6848\u4F4D\u7F6E\u8207\u5F37\u5316\u7121\u95DC\uFF1B\u5F37\u5316\u95DC\u4E4E\u6E2C\u8A66\u662F\u5426\u80FD\u6355\u6349\u771F\u5BE6\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u5728\u4E00\u6BEB\u79D2\u5167\u57F7\u884C\u5B8C\u7562",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u901F\u5EA6\u8207\u5F37\u5316\u7121\u95DC\uFF1B\u5F37\u5316\u8861\u91CF\u7684\u662F\u4FDD\u8B77\u50F9\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F37\u5316\u7684\u6E2C\u8A66\u6703\u589E\u5F37\u5957\u4EF6\uFF1A\u5B83\u904B\u7528\u884C\u70BA\u4E26\u52A0\u4EE5\u65B7\u8A00\uFF0C\u4F7F\u771F\u6B63\u7684\u8FF4\u6B78\u6703\u8B93\u5B83\u5931\u6557\u3002\u6C38\u9060\u901A\u904E\u7684\u7463\u788E\u3001\u7A7A\u64CD\u4F5C\u6216\u6046\u771F\u6E2C\u8A66\u672A\u901A\u904E\u5F37\u5316\u7DAD\u5EA6\uFF0C\u56E0\u70BA\u5B83\u4E0D\u589E\u52A0\u4EFB\u4F55\u4FDD\u8B77\u50F9\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76F8\u95DC\u6027\u6AA2\u67E5\u4EC0\u9EBC",
+            "text": "<p><em>\u76F8\u95DC\u6027\uFF08Relevant\uFF09</em>\u7DAD\u5EA6\u63A2\u554F\u6E2C\u8A66\u662F\u5426\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u91DD\u5C0D\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u7684\u771F\u5BE6\u3001\u76F8\u95DC\u7684\u554F\u984C\u6216\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76F8\u95DC\u6027\u6307\u6E2C\u8A66\u7784\u6E96\u53D7\u6E2C\u7CFB\u7D71\u4E2D\u771F\u6B63\u3001\u5207\u984C\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u904B\u7528\u8207\u6B64\u6B21\u8B8A\u66F4\u7121\u95DC\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u7121\u95DC\u7A0B\u5F0F\u78BC\u6B63\u662F\u76F8\u95DC\u6027\u5931\u6557\uFF0C\u800C\u975E\u901A\u904E\u3002"
+              },
+              {
+                "text": "\u5305\u542B\u81F3\u5C11\u5341\u500B\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u6578\u91CF\u4E0D\u662F\u76F8\u95DC\u6027\u8861\u91CF\u7684\u5C0D\u8C61\uFF1B\u91CD\u9EDE\u662F\u662F\u5426\u91DD\u5C0D\u771F\u5BE6\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u80FD\u5728\u6BCF\u500B\u652F\u63F4\u7684\u5E73\u53F0\u4E0A\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u8DE8\u5E73\u53F0\u57F7\u884C\u8207\u76F8\u95DC\u6027\u7121\u95DC\uFF1B\u76F8\u95DC\u6027\u95DC\u4E4E\u662F\u5426\u7784\u6E96\u6B63\u78BA\u7684\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u95DC\u7684\u6E2C\u8A66\u7784\u6E96\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u7684\u771F\u5BE6\u554F\u984C\u6216\u884C\u70BA\u2014\u2014\u800C\u975E\u7121\u95DC\u7A0B\u5F0F\u78BC\u3001\u6B7B\u8DEF\u5F91\u6216\u975E\u554F\u984C\u3002\u6E2C\u8A66\u53EF\u80FD\u5EFA\u7F6E\u826F\u597D\u4E14\u78BA\u5B9A\uFF0C\u537B\u56E0\u70BA\u7784\u6E96\u932F\u8AA4\u800C\u88AB\u62D2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u98A8\u683C\u6AA2\u67E5\u4EC0\u9EBC",
+            "text": "<p><em>\u98A8\u683C\uFF08Style\uFF09</em>\u7DAD\u5EA6\u63A2\u554F\u6E2C\u8A66\u662F\u5426\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9075\u5FAA\u7A0B\u5F0F\u78BC\u5EAB\u5728\u547D\u540D\u3001\u7D50\u69CB\u3001\u65B7\u8A00\u8207\u6163\u7528\u5BEB\u6CD5\u4E0A\u7684\u6163\u4F8B\uFF0C\u4F7F\u4EBA\u985E\u9858\u610F\u63A5\u53D7\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u683C\u95DC\u4E4E\u7B26\u5408\u5718\u968A\u6163\u4F8B\uFF0C\u4F7F\u6E2C\u8A66\u53EF\u7DAD\u8B77\u3001\u53EF\u5BE9\u67E5\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u57F7\u884C\u90FD\u7522\u751F\u76F8\u540C\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975E\u4E0D\u7A69\u5B9A\u7DAD\u5EA6\uFF1B\u98A8\u683C\u95DC\u4E4E\u7B26\u5408\u7A0B\u5F0F\u78BC\u5EAB\u7684\u6163\u4F8B\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11\u6BBA\u6389\u4E00\u500B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6BBA\u8B8A\u7570\u9AD4\u662F\u8B8A\u7570\u6E2C\u8A66\u6307\u6A19\uFF0C\u4E0D\u662F\u98A8\u683C\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u7121\u932F\u8AA4\u5730\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u4E7E\u6DE8\u5730\u7DE8\u8B6F\u662F\u53EF\u7DE8\u8B6F\uFF1B\u98A8\u683C\u95DC\u4E4E\u547D\u540D\u3001\u7D50\u69CB\u8207\u6163\u7528\u5BEB\u6CD5\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u683C\u8861\u91CF\u4EBA\u985E\u5BE9\u67E5\u8005\u662F\u5426\u9858\u610F\u628A\u6E2C\u8A66\u63A5\u53D7\u9032\u7A0B\u5F0F\u78BC\u5EAB\uFF1A\u4E00\u81F4\u7684\u547D\u540D\u3001\u7D50\u69CB\u3001\u65B7\u8A00\u8F14\u52A9\u51FD\u5F0F\u8207\u6163\u7528\u5BEB\u6CD5\u3002\u98A8\u683C\u4E0A\u4E0D\u53EF\u63A5\u53D7\u7684\u6E2C\u8A66\u6703\u88AB\u62D2\uFF0C\u56E0\u70BA\u5728\u5408\u4F75\u524D\u5B83\u9700\u8981\u91CD\u5DE5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE5\u7A0B\u5E2B\u9A57\u6536\u9700\u8981\u4EC0\u9EBC",
+            "text": "<p>\u8981\u8B93 LLM \u751F\u6210\u7684\u6E2C\u8A66\u88AB\u5DE5\u7A0B\u5E2B<em>\u63A5\u53D7</em>\uFF0C\u5B83\u5FC5\u9808\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u901A\u904E\u5168\u90E8\u4E94\u500B\u5BE9\u67E5\u7DAD\u5EA6\u2014\u2014\u53EF\u7DE8\u8B6F\u3001\u975E\u4E0D\u7A69\u5B9A\u3001\u5F37\u5316\u3001\u76F8\u95DC\u6027\u8207\u98A8\u683C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u8981\u6C42\u901A\u904E\u4E94\u500B\u7DAD\u5EA6\u4E2D\u7684\u6BCF\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u901A\u904E\u4E94\u500B\u7DAD\u5EA6\u4E2D\u7684\u81F3\u5C11\u4E09\u500B",
+                "fraction": 0,
+                "feedback": "\u591A\u6578\u4E0D\u5920\uFF1B\u4EFB\u4F55\u55AE\u4E00\u7DAD\u5EA6\u5931\u6557\u90FD\u6703\u5C0E\u81F4\u62D2\u7D55\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11\u6BBA\u6389\u4E00\u500B\u8B8A\u7570\u9AD4\uFF0C\u7121\u8AD6\u4E94\u500B\u7DAD\u5EA6\u5982\u4F55",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6389\u8B8A\u7570\u9AD4\u4E0D\u4FDD\u8B49\u88AB\u63A5\u53D7\uFF1B\u6E2C\u8A66\u4ECD\u9808\u901A\u904E\u5168\u90E8\u4E94\u500B\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u53EA\u901A\u904E\u53EF\u7DE8\u8B6F\u7DAD\u5EA6",
+                "fraction": 0,
+                "feedback": "\u4E7E\u6DE8\u5EFA\u7F6E\u662F\u5FC5\u8981\u4F46\u9060\u9060\u4E0D\u8DB3\uFF1B\u4E94\u500B\u7DAD\u5EA6\u5168\u90E8\u90FD\u8981\u901A\u904E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE5\u7A0B\u5E2B\u9A57\u6536\u662F\u4E00\u500B\u5408\u53D6\uFF1A\u6E2C\u8A66\u5FC5\u9808\u540C\u6642\u6EFF\u8DB3\u53EF\u7DE8\u8B6F\u4E14\u975E\u4E0D\u7A69\u5B9A\u4E14\u5F37\u5316\u4E14\u76F8\u95DC\u4E14\u98A8\u683C\u3002\u4EFB\u4E00\u7DAD\u5EA6\u5931\u6557\u5C31\u8DB3\u4EE5\u88AB\u62D2\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6BBA\u6389\u8B8A\u7570\u9AD4\u4E26\u4E0D\u8DB3\u5920",
+            "text": "<p>\u82E5\u751F\u6210\u7684\u6E2C\u8A66\u6BBA\u6389\u4E86\u4E00\u500B\u8B8A\u7570\u9AD4\uFF0C\u5149\u6191\u9019\u9EDE\u5C31\u8DB3\u4EE5\u8B93\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5B83\u9032\u5165\u7A0B\u5F0F\u78BC\u5EAB\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6389\u8B8A\u7570\u9AD4\u4E0D\u4FDD\u8B49\u88AB\u63A5\u53D7\uFF1B\u6E2C\u8A66\u4ECD\u9808\u901A\u904E\u5168\u90E8\u4E94\u500B\u5BE9\u67E5\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u6BBA\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66\u82E5\u4E0D\u7A69\u5B9A\u3001\u7784\u6E96\u932F\u8AA4\u3001\u98A8\u683C\u4E0D\u53EF\u63A5\u53D7\uFF0C\u6216\u5176\u4ED6\u7DAD\u5EA6\u5931\u6557\uFF0C\u4ECD\u6703\u88AB\u62D2\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u8B8A\u7570\u7387\u8861\u91CF\u6E2C\u8A66\u80FD\u5426\u5075\u6E2C\u690D\u5165\u7684\u7F3A\u9677\uFF0C\u4F46\u5DE5\u7A0B\u5E2B\u9A57\u6536\u662F\u66F4\u56B4\u683C\u7684\u4EBA\u985E\u9580\u6ABB\u3002\u6BBA\u6389\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66\u82E5\u4E0D\u80FD\u540C\u6642\u505A\u5230\u5EFA\u7F6E\u3001\u78BA\u5B9A\u3001\u5F37\u5316\u5957\u4EF6\u3001\u7784\u6E96\u76F8\u95DC\u7A0B\u5F0F\u78BC\u4E26\u9075\u5FAA\u6163\u4F8B\uFF0C\u4ECD\u6703\u88AB\u62D2\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5149\u770B\u6BBA\u8B8A\u7570\u7387\u4E0D\u5920",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u9AD8\u6BBA\u8B8A\u7570\u7387\u672C\u8EAB\uFF0C\u4E0D\u8DB3\u4EE5\u8861\u91CF\u751F\u6210\u6E2C\u8A66\u5C0D\u5DE5\u7A0B\u5E2B\u7684\u50F9\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u53EF\u80FD\u6BBA\u6389\u8B8A\u7570\u9AD4\u537B\u4ECD\u56E0\u4E0D\u7A69\u5B9A\u3001\u7784\u6E96\u932F\u8AA4\u3001\u7463\u788E\u6216\u98A8\u683C\u4E0D\u53EF\u63A5\u53D7\u800C\u88AB\u62D2\u2014\u2014\u65BC\u662F\u5B83\u5F9E\u672A\u771F\u6B63\u9032\u5165\u7A0B\u5F0F\u78BC\u5EAB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u53D6\u6C7A\u65BC\u5168\u90E8\u4E94\u500B\u7DAD\u5EA6\uFF0C\u800C\u975E\u53EA\u770B\u7F3A\u9677\u5075\u6E2C\u3002"
+              },
+              {
+                "text": "LLM \u751F\u6210\u7684\u6E2C\u8A66\u7121\u6CD5\u91CF\u6E2C\u6BBA\u8B8A\u7570\u7387",
+                "fraction": 0,
+                "feedback": "\u6BBA\u8B8A\u7570\u7387\u91CF\u5F97\u51FA\u4F86\uFF1B\u91CD\u9EDE\u662F\u5B83\u672A\u6DB5\u84CB\u5176\u4ED6\u9A57\u6536\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u9AD8\u6BBA\u8B8A\u7570\u7387\u4FDD\u8B49\u6E2C\u8A66\u4E5F\u9075\u5FAA\u5718\u968A\u98A8\u683C",
+                "fraction": 0,
+                "feedback": "\u6BBA\u8B8A\u7570\u7387\u5B8C\u5168\u4E0D\u8AAA\u660E\u98A8\u683C\u3001\u78BA\u5B9A\u6027\u6216\u76F8\u95DC\u6027\uFF1B\u90A3\u4E9B\u8981\u53E6\u5916\u5224\u65B7\u3002"
+              },
+              {
+                "text": "\u5DE5\u7A0B\u5E2B\u5F9E\u4E0D\u770B\u6E2C\u8A66\u662F\u5426\u5075\u6E2C\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u5075\u6E2C\uFF08\u5F37\u5316\uFF09\u91CD\u8981\uFF0C\u4F46\u5B83\u53EA\u662F\u5DE5\u7A0B\u5E2B\u8861\u91CF\u7684\u4E94\u500B\u7DAD\u5EA6\u4E4B\u4E00\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u8B8A\u7570\u7387\u53EA\u6355\u6349\u6E2C\u8A66\u80FD\u5426\u6293\u5230\u690D\u5165\u7684\u7F3A\u9677\u3002\u5DE5\u7A0B\u5E2B\u9084\u8981\u6C42\u6E2C\u8A66\u80FD\u5EFA\u7F6E\u3001\u78BA\u5B9A\u57F7\u884C\u3001\u7784\u6E96\u76F8\u95DC\u7A0B\u5F0F\u78BC\u4E26\u9075\u5FAA\u6163\u4F8B\u3002\u771F\u6B63\u7684\u9580\u6ABB\u662F\u4E94\u500B\u7DAD\u5EA6\u5168\u90E8\u901A\u904E\u7684\u9A57\u6536\uFF0C\u56E0\u6B64\u5957\u4EF6\u53EF\u80FD\u6BBA\u8B8A\u7570\u7387\u5F88\u9AD8\uFF0C\u537B\u53EA\u6709\u6975\u5C11\u6E2C\u8A66\u5DE5\u7A0B\u5E2B\u9858\u610F\u5408\u4F75\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\uFF1A\u7121\u6CD5\u7DE8\u8B6F",
+            "text": "<p>\u67D0\u751F\u6210\u6E2C\u8A66\u5F15\u7528\u4E86\u4E00\u500B\u4E0D\u5B58\u5728\u7684\u65B9\u6CD5\uFF0C\u56E0\u6B64\u7121\u6CD5\u7DE8\u8B6F\u3002\u9019\u9055\u53CD\u4E86\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u7DE8\u8B6F\uFF08Buildable\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DE8\u8B6F\u932F\u8AA4\u662F\u53EF\u7DE8\u8B6F\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\uFF08Non-flaky\uFF09",
+                "fraction": 0,
+                "feedback": "\u975E\u4E0D\u7A69\u5B9A\u95DC\u4E4E\u8DE8\u57F7\u884C\u7684\u78BA\u5B9A\u6027\uFF1B\u6C38\u9060\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u6839\u672C\u7121\u6CD5\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\uFF08Relevant\uFF09",
+                "fraction": 0,
+                "feedback": "\u76F8\u95DC\u6027\u95DC\u4E4E\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\uFF1B\u6B64\u8655\u6E2C\u8A66\u6839\u672C\u7121\u6CD5\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\uFF08Style\uFF09",
+                "fraction": 0,
+                "feedback": "\u98A8\u683C\u95DC\u4E4E\u6163\u4F8B\uFF1B\u7F3A\u5C11\u65B9\u6CD5\u662F\u5EFA\u7F6E\u932F\u8AA4\uFF0C\u5C6C\u65BC\u53EF\u7DE8\u8B6F\u7DAD\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u672A\u901A\u904E\u53EF\u7DE8\u8B6F\u7DAD\u5EA6\u3002\u5B83\u7522\u751F\u5EFA\u7F6E\u932F\u8AA4\uFF0C\u5728\u5176\u4ED6\u4EFB\u4F55\u54C1\u8CEA\u80FD\u88AB\u8A55\u4F30\u4E4B\u524D\u5C31\u88AB\u62D2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\uFF1A\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5C0D\u76F8\u540C\uFF08\u672A\u8B8A\u66F4\uFF09\u7A0B\u5F0F\u78BC\u5728\u67D0\u4E9B\u57F7\u884C\u901A\u904E\u3001\u67D0\u4E9B\u57F7\u884C\u5931\u6557\u3002\u9019\u9055\u53CD\u4E86\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\uFF08Non-flaky\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u78BA\u5B9A\u7684\u901A\u904E\uFF0F\u5931\u6557\u7D50\u679C\u662F\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\uFF08Buildable\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u80FD\u7DE8\u8B6F\u4E26\u57F7\u884C\uFF1B\u554F\u984C\u5728\u65BC\u5176\u7D50\u679C\u5728\u5404\u6B21\u57F7\u884C\u9593\u8B8A\u52D5\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\uFF08Hardening\uFF09",
+                "fraction": 0,
+                "feedback": "\u5F37\u5316\u95DC\u4E4E\u4FDD\u8B77\u50F9\u503C\uFF1B\u6B64\u8655\u554F\u984C\u662F\u4E0D\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\uFF08Style\uFF09",
+                "fraction": 0,
+                "feedback": "\u98A8\u683C\u95DC\u4E4E\u6163\u4F8B\uFF1B\u9593\u6B47\u6027\u7D50\u679C\u662F\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u672A\u8B8A\u66F4\u7A0B\u5F0F\u78BC\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\uFF0C\u6B63\u662F\u4E0D\u7A69\u5B9A\u7684\u5B9A\u7FA9\uFF0C\u5373\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u7834\u58DE CI \u7684\u4FE1\u865F\uFF0C\u56E0\u6B64\u6C38\u9060\u88AB\u62D2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\uFF1A\u65B7\u8A00\u6046\u70BA\u771F",
+            "text": "<p>\u67D0\u6E2C\u8A66\u552F\u4E00\u7684\u6AA2\u67E5\u662F <code>assertTrue(true)</code>\uFF0C\u56E0\u6B64\u6C38\u4E0D\u6703\u5931\u6557\u3002\u9019\u9055\u53CD\u4E86\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5316\uFF08Hardening\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6046\u771F\u7684\u65B7\u8A00\u4EC0\u9EBC\u90FD\u6293\u4E0D\u5230\uFF0C\u56E0\u6B64\u672A\u901A\u904E\u5F37\u5316\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\uFF08Buildable\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u80FD\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u4E0D\u589E\u52A0\u4EFB\u4F55\u4FDD\u8B77\u50F9\u503C\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\uFF08Non-flaky\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u5B8C\u5168\u78BA\u5B9A\uFF08\u6C38\u9060\u901A\u904E\uFF09\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u6C38\u9060\u6293\u4E0D\u5230\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\uFF08Relevant\uFF09",
+                "fraction": 0,
+                "feedback": "\u76F8\u95DC\u6027\u95DC\u4E4E\u76EE\u6A19\uFF1B\u5373\u4F7F\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\uFF0C\u65B7\u8A00\u7121\u610F\u7FA9\u4ECD\u5C6C\u5F37\u5316\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C38\u4E0D\u6703\u5931\u6557\u7684\u6E2C\u8A66\u4E0D\u904B\u7528\u4EFB\u4F55\u771F\u5BE6\u884C\u70BA\uFF0C\u4E5F\u6C38\u9060\u6293\u4E0D\u5230\u8FF4\u6B78\uFF0C\u56E0\u6B64\u672A\u901A\u904E\u5F37\u5316\u7DAD\u5EA6\u2014\u2014\u5B83\u4E0D\u70BA\u5957\u4EF6\u589E\u52A0\u4FDD\u8B77\u50F9\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\uFF1A\u6E2C\u8A66\u7121\u95DC\u7A0B\u5F0F\u78BC",
+            "text": "<p>\u67D0\u6B21\u8B8A\u66F4\u4FEE\u6B63\u4E86\u4ED8\u6B3E\u8A08\u7B97\u7684\u932F\u8AA4\uFF0C\u4F46\u751F\u6210\u7684\u6E2C\u8A66\u53EA\u904B\u7528\u4E00\u500B\u7121\u95DC\u7684\u5B57\u4E32\u683C\u5F0F\u5316\u8F14\u52A9\u51FD\u5F0F\u3002\u9019\u9055\u53CD\u4E86\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u95DC\u6027\uFF08Relevant\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8207\u554F\u984C\u7121\u95DC\u7684\u7A0B\u5F0F\u78BC\u662F\u76F8\u95DC\u6027\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\uFF08Buildable\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u53EF\u80FD\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u7784\u6E96\u4E86\u932F\u8AA4\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\uFF08Non-flaky\uFF09",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EF\u4EE5\u5B8C\u5168\u78BA\u5B9A\u537B\u4ECD\u7784\u6E96\u932F\u8AA4\uFF0C\u90A3\u5C6C\u65BC\u76F8\u95DC\u6027\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\uFF08Hardening\uFF09",
+                "fraction": 0,
+                "feedback": "\u5373\u4F7F\u5C0D\u8A72\u8F14\u52A9\u51FD\u5F0F\u5F37\u529B\u65B7\u8A00\uFF0C\u5B83\u7784\u6E96\u7684\u4ECD\u662F\u932F\u8AA4\u7A0B\u5F0F\u78BC\u2014\u2014\u90A3\u662F\u76F8\u95DC\u6027\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u7784\u6E96\u7121\u95DC\u7A0B\u5F0F\u78BC\u3001\u800C\u975E\u771F\u6B63\u6709\u98A8\u96AA\u7684\u884C\u70BA\uFF0C\u672A\u901A\u904E\u76F8\u95DC\u6027\u7DAD\u5EA6\u3002\u5B83\u5C0D\u771F\u6B63\u91CD\u8981\u7684\u8B8A\u66F4\u4E0D\u63D0\u4F9B\u4EFB\u4F55\u4FE1\u5FC3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\uFF1A\u932F\u8AA4\u7684\u547D\u540D\u6163\u4F8B",
+            "text": "<p>\u67D0 Kotlin \u6E2C\u8A66\u547D\u540D\u70BA <code>TEST_boundary_AGE</code>\uFF0C\u6DF7\u7528 SCREAMING_SNAKE_CASE \u8207 camelCase\uFF0C\u9055\u53CD\u5718\u968A\u6163\u4F8B\u3002\u9019\u9055\u53CD\u4E86\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u98A8\u683C\uFF08Style\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9055\u53CD\u6163\u4F8B\u7684\u4E0D\u4E00\u81F4\u547D\u540D\u662F\u98A8\u683C\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\uFF08Buildable\uFF09",
+                "fraction": 0,
+                "feedback": "\u5947\u602A\u7684\u547D\u540D\u4ECD\u80FD\u7DE8\u8B6F\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u9055\u53CD\u7A0B\u5F0F\u78BC\u5EAB\u7684\u6163\u4F8B\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\uFF08Relevant\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u53EF\u4EE5\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\u537B\u4ECD\u56E0\u4E0D\u5408\u6163\u4F8B\u7684\u540D\u7A31\u88AB\u62D2\u2014\u2014\u90A3\u662F\u98A8\u683C\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\uFF08Hardening\uFF09",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EF\u4EE5\u6709\u610F\u7FA9\u5730\u65B7\u8A00\u537B\u4ECD\u56E0\u547D\u540D\u5728\u5BE9\u67E5\u4E2D\u5931\u6557\uFF0C\u90A3\u5C6C\u65BC\u98A8\u683C\u7DAD\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u8207\u7A0B\u5F0F\u78BC\u5EAB\u6163\u4F8B\u885D\u7A81\u7684\u547D\u540D\u3001\u7D50\u69CB\u8207\u6163\u7528\u5BEB\u6CD5\u672A\u901A\u904E\u98A8\u683C\u7DAD\u5EA6\u3002\u5373\u4F7F\u65B7\u8A00\u6B63\u78BA\uFF0C\u4EBA\u985E\u5BE9\u67E5\u8005\u4ECD\u6703\u9000\u56DE\u8981\u6C42\u91CD\u5DE5\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9A57\u6536\u9700\u8981\u4E94\u500B\u5168\u904E",
+            "text": "<p>\u552F\u6709\u901A\u904E\u5168\u90E8\u4E94\u500B\u5BE9\u67E5\u7DAD\u5EA6\uFF0C\u6E2C\u8A66\u624D\u6703\u88AB\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u8981\u6C42\u540C\u6642\u901A\u904E\u53EF\u7DE8\u8B6F\u3001\u975E\u4E0D\u7A69\u5B9A\u3001\u5F37\u5316\u3001\u76F8\u95DC\u6027\u8207\u98A8\u683C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u4E94\u500B\u7DAD\u5EA6\u4E2D\u4EFB\u4E00\u5931\u6557\uFF0C\u5C31\u8DB3\u4EE5\u4F7F\u6E2C\u8A66\u88AB\u62D2\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE5\u7A0B\u5E2B\u9A57\u6536\u662F\u4E94\u500B\u7DAD\u5EA6\u7684\u5408\u53D6\u3002\u901A\u904E\u56DB\u500B\u537B\u5931\u6557\u4E00\u500B\u2014\u2014\u4F8B\u5982\u4E00\u500B\u5F37\u529B\u3001\u7784\u6E96\u6B63\u78BA\u537B\u4E0D\u7A69\u5B9A\u7684\u6E2C\u8A66\u2014\u2014\u4ECD\u6703\u88AB\u62D2\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u96A8\u6A5F\u8F38\u5165",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4EE5 <code>Random.nextInt()</code>\uFF08\u672A\u56FA\u5B9A\u7A2E\u5B50\uFF09\u8A08\u7B97\u8F38\u5165\u4E26\u5C0D\u7D50\u679C\u65B7\u8A00\uFF0C\u56E0\u6B64\u5176\u7D50\u679C\u5728\u5404\u6B21\u57F7\u884C\u9593\u8B8A\u52D5\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u672A\u56FA\u5B9A\u7A2E\u5B50\u7684\u96A8\u6A5F\u8F38\u5165\u4F7F\u7D50\u679C\u4E0D\u78BA\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8B8A\u52D5\u7684\u8F38\u5165\u7522\u751F\u4E0D\u78BA\u5B9A\u7D50\u679C\uFF0C\u5C6C\u65BC\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u96A8\u6A5F\u6578\u6703\u9020\u6210\u7DE8\u8B6F\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u6578\u4E0D\u6703\u7834\u58DE\u7DE8\u8B6F\uFF1B\u6B64\u5931\u6557\u662F\u4E0D\u78BA\u5B9A\u6027\uFF08\u975E\u4E0D\u7A69\u5B9A\uFF09\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u96A8\u6A5F\u8F38\u5165\u6C38\u9060\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u53EF\u4EE5\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\uFF1B\u554F\u984C\u5728\u65BC\u5176\u7D50\u679C\u4E0D\u53EF\u91CD\u73FE\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u96A8\u6A5F\u547C\u53EB\u9055\u53CD\u547D\u540D\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u547D\u540D\u4E0D\u53D7\u5F71\u97FF\uFF1B\u7F3A\u9677\u662F\u4E0D\u78BA\u5B9A\u6027\uFF0C\u5C6C\u65BC\u975E\u4E0D\u7A69\u5B9A\u7DAD\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u672A\u56FA\u5B9A\u7A2E\u5B50\u7684\u96A8\u6A5F\u7522\u751F\u5668\u6BCF\u6B21\u57F7\u884C\u7522\u751F\u4E0D\u540C\u8F38\u5165\uFF0C\u56E0\u6B64\u6E2C\u8A66\u591A\u534A\u901A\u904E\u3001\u5076\u723E\u5931\u6557\u3002\u90A3\u7A2E\u4E0D\u78BA\u5B9A\u6027\u662F\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\uFF0C\u800C\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u6C38\u9060\u88AB\u62D2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u627E\u4E0D\u5230\u7B26\u865F",
+            "text": "<p>\u67D0\u751F\u6210\u6E2C\u8A66\u547C\u53EB <code>calculateDiscuont(order)</code>\u2014\u2014\u771F\u5BE6\u65B9\u6CD5\u7684\u62FC\u5B57\u932F\u8AA4\u2014\u2014\u56E0\u6B64\u6E2C\u8A66\u6A94\u7121\u6CD5\u7DE8\u8B6F\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u7121\u6CD5\u89E3\u6790\u7684\u7B26\u865F\u662F\u7DE8\u8B6F\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7121\u6CD5\u89E3\u6790\u7684\u5F15\u7528\u662F\u5EFA\u7F6E\u932F\u8AA4\uFF0C\u5C6C\u65BC\u53EF\u7DE8\u8B6F\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u62FC\u932F\u5B57\u610F\u5473\u6E2C\u8A66\u7784\u6E96\u932F\u8AA4\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u610F\u5716\u6216\u8A31\u6B63\u78BA\uFF0C\u4F46\u6E2C\u8A66\u7121\u6CD5\u7DE8\u8B6F\uFF1B\u90A3\u662F\u53EF\u7DE8\u8B6F\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u62FC\u932F\u7684\u547C\u53EB\u6C38\u9060\u6293\u4E0D\u5230\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6839\u672C\u7121\u6CD5\u5EFA\u7F6E\uFF0C\u56E0\u6B64\u4E3B\u8981\u5931\u6557\u662F\u53EF\u7DE8\u8B6F\uFF0C\u800C\u975E\u5F37\u5316\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u62FC\u5B57\u932F\u8AA4\u4F7F\u7D50\u679C\u4E0D\u78BA\u5B9A",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u932F\u8AA4\u662F\u78BA\u5B9A\u7684\uFF1B\u7F3A\u9677\u5728\u65BC\u5B83\u7121\u6CD5\u5EFA\u7F6E\uFF08\u53EF\u7DE8\u8B6F\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u7121\u6CD5\u89E3\u6790\u7684\u65B9\u6CD5\u5F15\u7528\u662F\u7DE8\u8B6F\u932F\u8AA4\uFF0C\u56E0\u6B64\u6E2C\u8A66\u672A\u901A\u904E\u53EF\u7DE8\u8B6F\u7DAD\u5EA6\u3002\u5728\u5B83\u80FD\u7DE8\u8B6F\u4E4B\u524D\uFF0C\u5176\u4ED6\u7DAD\u5EA6\u90FD\u7121\u6CD5\u88AB\u8A55\u4F30\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7A7A\u64CD\u4F5C\u65B7\u8A00",
+            "text": "<p>\u67D0\u6E2C\u8A66\u57F7\u884C\u4E86\u4E00\u6BB5\u8A08\u7B97\uFF0C\u4F46\u5176\u552F\u4E00\u65B7\u8A00\u662F <code>assertEquals(1, 1)</code>\uFF0C\u6C38\u4E0D\u6703\u5931\u6557\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u8A72\u65B7\u8A00\u662F\u6046\u771F\u5F0F\uFF0C\u6293\u4E0D\u5230\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C38\u4E0D\u6703\u5931\u6557\u7684\u6AA2\u67E5\u4E0D\u589E\u52A0\u4FDD\u8B77\u50F9\u503C\uFF0C\u5C6C\u65BC\u5F37\u5316\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u5E38\u6578\u6BD4\u8F03\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u5B83\u80FD\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u4EC0\u9EBC\u90FD\u6C92\u6709\u610F\u7FA9\u5730\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u5E38\u6578\u65B7\u8A00\u662F\u4E0D\u78BA\u5B9A\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u5B8C\u5168\u78BA\u5B9A\uFF08\u6C38\u9060\u901A\u904E\uFF09\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u4EC0\u9EBC\u90FD\u6293\u4E0D\u5230\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u628A 1 \u6BD4\u8F03 1 \u9055\u53CD\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u662F\u7F3A\u4E4F\u4FDD\u8B77\u50F9\u503C\uFF0C\u800C\u975E\u6163\u4F8B\uFF1B\u90A3\u662F\u5F37\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5E38\u6578\u8207\u81EA\u5DF1\u6BD4\u8F03\u7684\u65B7\u8A00\u6046\u6210\u7ACB\uFF0C\u56E0\u6B64\u5373\u4F7F\u7A0B\u5F0F\u78BC\u58DE\u4E86\u6E2C\u8A66\u4ECD\u6703\u901A\u904E\u3002\u5B83\u5C0D\u5957\u4EF6\u7684\u6293\u932F\u80FD\u529B\u6BEB\u7121\u8CA2\u737B\uFF0C\u5C6C\u65BC\u5F37\u5316\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7784\u6E96\u932F\u8AA4\u7684\u6E2C\u8A66",
+            "text": "<p>\u67D0\u62C9\u53D6\u8ACB\u6C42\u4FEE\u6539\u4E86\u9A57\u8B49\uFF08authentication\uFF09\u908F\u8F2F\uFF0C\u4F46\u751F\u6210\u7684\u6E2C\u8A66\u904B\u7528\u7684\u662F\u7121\u95DC\u7684\u65E5\u8A8C\u6A21\u7D44\u4E26\u5C0D\u65E5\u8A8C\u683C\u5F0F\u65B7\u8A00\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u5B83\u7784\u6E96\u8207\u6B64\u6B21\u5BE9\u67E5\u8B8A\u66F4\u7121\u95DC\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u7121\u95DC\u7A0B\u5F0F\u78BC\u800C\u975E\u9A57\u8B49\u908F\u8F2F\u662F\u76F8\u95DC\u6027\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u65E5\u8A8C\u6E2C\u8A66\u7121\u6CD5\u548C\u9A57\u8B49\u7A0B\u5F0F\u78BC\u4E00\u8D77\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EF\u80FD\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u7784\u6E96\u932F\u8AA4\u7684\u6A21\u7D44\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u65E5\u8A8C\u8F38\u51FA\u6C38\u9060\u4E0D\u78BA\u5B9A",
+                "fraction": 0,
+                "feedback": "\u65E5\u8A8C\u65B7\u8A00\u53EF\u4EE5\u662F\u78BA\u5B9A\u7684\uFF1B\u6B64\u8655\u7F3A\u9677\u662F\u6E2C\u8A66\u7784\u6E96\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u65E5\u8A8C\u6E2C\u8A66\u4F7F\u7528\u932F\u8AA4\u7684\u6163\u7528\u5BEB\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5373\u4F7F\u98A8\u683C\u5B8C\u7F8E\uFF0C\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC\u7684\u6E2C\u8A66\u4ECD\u672A\u901A\u904E\u76F8\u95DC\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u7784\u6E96\u8207\u53D7\u5BE9\u67E5\u884C\u70BA\u7121\u95DC\u7684\u7A0B\u5F0F\u78BC\uFF0C\u5C0D\u771F\u6B63\u91CD\u8981\u7684\u8B8A\u66F4\u4E0D\u63D0\u4F9B\u4FE1\u5FC3\u3002\u7121\u8AD6\u6E2C\u8A66\u5BEB\u5F97\u591A\u597D\uFF0C\u90A3\u90FD\u662F\u76F8\u95DC\u6027\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7D50\u69CB\u4E0D\u4E00\u81F4",
+            "text": "<p>\u67D0\u6E2C\u8A66\u6B63\u78BA\u4E14\u78BA\u5B9A\uFF0C\u4F46\u628A\u4E94\u500B\u7121\u95DC\u60C5\u5883\u585E\u9032\u55AE\u4E00\u65B9\u6CD5\u3001\u4F7F\u7528\u5BEB\u6B7B\u7684\u9B54\u8853\u6578\u5B57\uFF0C\u5FFD\u8996\u7A0B\u5F0F\u78BC\u5EAB\u300C\u4E00\u60C5\u5883\u4E00\u6E2C\u8A66\u3001arrange-act-assert\u300D\u7684\u6163\u4F8B\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u5176\u7D50\u69CB\u8207\u6163\u7528\u5BEB\u6CD5\u548C\u7A0B\u5F0F\u78BC\u5EAB\u7684\u6163\u4F8B\u885D\u7A81",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9055\u53CD\u5718\u968A\u7D50\u69CB\u6163\u4F8B\u662F\u98A8\u683C\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u591A\u60C5\u5883\u65B9\u6CD5\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u8A72\u65B9\u6CD5\u80FD\u7DE8\u8B6F\u4E26\u57F7\u884C\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u5FFD\u8996\u7A0B\u5F0F\u78BC\u5EAB\u7684\u6163\u4F8B\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u628A\u60C5\u5883\u7D81\u5728\u4E00\u8D77\u4F7F\u5B83\u6293\u4E0D\u5230\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u80FD\u6293\u5230\u7F3A\u9677\uFF1B\u554F\u984C\u5728\u65BC\u5176\u7D50\u69CB\u4E0D\u88AB\u5BE9\u67E5\u8005\u63A5\u53D7\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u5408\u4F75\u7684\u6E2C\u8A66\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EF\u4EE5\u7784\u6E96\u6B63\u78BA\u537B\u4ECD\u56E0\u4E0D\u5408\u6163\u4F8B\u7684\u7D50\u69CB\u88AB\u62D2\u2014\u2014\u90A3\u662F\u98A8\u683C\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u5FFD\u8996\u7A0B\u5F0F\u78BC\u5EAB\u7684\u547D\u540D\u3001\u7D50\u69CB\u8207\u6163\u7528\u5BEB\u6CD5\uFF0C\u5373\u4F7F\u5176\u4ED6\u65B9\u9762\u6B63\u78BA\uFF0C\u5BE9\u67E5\u8005\u4ECD\u6703\u9000\u56DE\u3002\u90A3\u662F\u98A8\u683C\u5931\u6557\uFF1A\u5728\u4EBA\u985E\u63A5\u53D7\u4E4B\u524D\u5B83\u9700\u8981\u91CD\u5DE5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u537B\u88AB\u62D2\uFF1A\u4E0D\u7A69\u5B9A",
+            "text": "<p>\u67D0\u751F\u6210\u6E2C\u8A66\u6BBA\u6389\u4E86\u76EE\u6A19\u8B8A\u7570\u9AD4\uFF0C\u4F46\u5B83\u4F9D\u8CF4\u7576\u524D\u7684\u7246\u4E0A\u6642\u9418\uFF08wall-clock\uFF09\uFF0C\u6BCF\u9022\u8DE8\u8D8A\u5348\u591C\u5C31\u5931\u6557\u3002\u5DE5\u7A0B\u5E2B\u62D2\u7D55\u4E86\u5B83\u3002\u662F\u5728\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u7246\u4E0A\u6642\u9418\u4F9D\u8CF4\u4F7F\u7D50\u679C\u4E0D\u78BA\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u6BBA\u6389\u8B8A\u7570\u9AD4\uFF0C\u9593\u6B47\u6027\u5931\u6557\u662F\u975E\u4E0D\u7A69\u5B9A\u7684\u62D2\u7D55\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u6BBA\u6389\u8B8A\u7570\u9AD4\u4EE3\u8868\u5B83\u672A\u901A\u904E\u5F37\u5316",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6389\u8B8A\u7570\u9AD4\u662F\u4FDD\u8B77\u50F9\u503C\u7684\u8B49\u64DA\uFF1B\u62D2\u7D55\u662F\u56E0\u70BA\u4E0D\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u6642\u9418\u7A0B\u5F0F\u78BC\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u80FD\u7DE8\u8B6F\u4E26\u57F7\u884C\uFF1B\u53EA\u662F\u7D50\u679C\u4E0D\u78BA\u5B9A\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u57FA\u65BC\u6642\u9593\u7684\u6E2C\u8A66\u6C38\u9060\u7784\u6E96\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\uFF08\u5B83\u6BBA\u6389\u4E86\u8B8A\u7570\u9AD4\uFF09\uFF1B\u7F3A\u9677\u662F\u4E0D\u7A69\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66\u4ECD\u53EF\u80FD\u88AB\u62D2\u3002\u6B64\u8655\u5B83\u610F\u5716\u4E0A\u78BA\u5B9A\uFF0C\u537B\u8B80\u53D6\u5373\u6642\u6642\u9418\uFF0C\u56E0\u6B64\u9593\u6B47\u6027\u5931\u6557\u2014\u2014\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002CI \u7121\u6CD5\u4FE1\u4EFB\u5B83\uFF0C\u65BC\u662F\u5DE5\u7A0B\u5E2B\u5118\u7BA1\u6709\u6BBA\u4ECD\u62D2\u7D55\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u537B\u88AB\u62D2\uFF1A\u98A8\u683C",
+            "text": "<p>\u67D0\u751F\u6210\u6E2C\u8A66\u6BBA\u6389\u4E86\u8B8A\u7570\u9AD4\uFF0C\u4E14\u78BA\u5B9A\u3001\u7784\u6E96\u6B63\u78BA\uFF0C\u4F46\u5B83\u4F7F\u7528\u4E86\u6A21\u7D44\u4E2D\u5176\u4ED6\u6E2C\u8A66\u90FD\u4E0D\u7528\u7684\u81EA\u8A02\u65B7\u8A00\u8F14\u52A9\u51FD\u5F0F\u8207\u547D\u540D\u3002\u5DE5\u7A0B\u5E2B\u8981\u6C42\u91CD\u5BEB\u3002\u5B83\u662F\u5728\u54EA\u500B\u7DAD\u5EA6\u88AB\u62D2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u5B83\u4E0D\u9075\u5FAA\u6A21\u7D44\u7684\u6163\u4F8B\u8207\u6163\u7528\u5BEB\u6CD5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u6B21\u6BBA\u4E26\u4E0D\u80FD\u8B93\u6E2C\u8A66\u8C41\u514D\u98A8\u683C\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u6BBA\u6389\u4EE3\u8868\u5F37\u5316\u81EA\u52D5\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6389\u8B8A\u7570\u9AD4\u986F\u793A\u4FDD\u8B77\u50F9\u503C\uFF1B\u62D2\u7D55\u662F\u95DC\u65BC\u6163\u4F8B\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u81EA\u8A02\u8F14\u52A9\u51FD\u5F0F\u662F\u4E0D\u78BA\u5B9A\u7684",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u662F\u78BA\u5B9A\u7684\uFF1B\u554F\u984C\u5728\u65BC\u5176\u98A8\u683C\u548C\u7A0B\u5F0F\u78BC\u5EAB\u885D\u7A81\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u81EA\u8A02\u8F14\u52A9\u51FD\u5F0F\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5B83\u7784\u6E96\u6B63\u78BA\uFF08\u5B83\u6BBA\u6389\u4E86\u8B8A\u7570\u9AD4\uFF09\uFF1B\u62D2\u7D55\u662F\u5728\u98A8\u683C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5373\u4F7F\u662F\u78BA\u5B9A\u3001\u7784\u6E96\u6B63\u78BA\u3001\u6BBA\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66\uFF0C\u82E5\u5FFD\u8996\u7A0B\u5F0F\u78BC\u5EAB\u6163\u4F8B\u4ECD\u6703\u88AB\u62D2\u3002\u9A57\u6536\u662F\u4EBA\u985E\u5BE9\u67E5\u9580\u6ABB\uFF0C\u4E0D\u5408\u6163\u4F8B\u7684\u98A8\u683C\u5C31\u8DB3\u4EE5\u9000\u56DE\u2014\u2014\u98A8\u683C\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4E94\u4E2D\u904E\u56DB\u4ECD\u5931\u6557",
+            "text": "<p>\u67D0\u6E2C\u8A66\u53EF\u7DE8\u8B6F\u3001\u975E\u4E0D\u7A69\u5B9A\u3001\u5F37\u5316\u4E14\u76F8\u95DC\uFF0C\u4F46\u9055\u53CD\u5718\u968A\u7684\u98A8\u683C\u6163\u4F8B\u3002\u5B83\u4ECD\u6703\u88AB\u63A5\u53D7\uFF0C\u56E0\u70BA\u5B83\u901A\u904E\u4E86\u4E94\u500B\u7DAD\u5EA6\u4E2D\u7684\u56DB\u500B\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u8981\u6C42\u4E94\u500B\u7DAD\u5EA6\u5168\u904E\uFF0C\u56E0\u6B64\u50C5\u98A8\u683C\u5931\u6557\u5C31\u6703\u5C0E\u81F4\u62D2\u7D55\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u901A\u904E\u56DB\u500B\u7DAD\u5EA6\u4E26\u4E0D\u8DB3\u5920\uFF1B\u55AE\u4E00\u98A8\u683C\u5931\u6557\u5C31\u8DB3\u4EE5\u88AB\u62D2\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u662F\u4E94\u500B\u7DAD\u5EA6\u7684\u5408\u53D6\u3002\u4E00\u500B\u5F37\u529B\u3001\u7784\u6E96\u6B63\u78BA\u3001\u78BA\u5B9A\u537B\u9055\u53CD\u98A8\u683C\u6163\u4F8B\u7684\u6E2C\u8A66\u6703\u88AB\u62D2\u4E26\u9000\u56DE\u91CD\u5DE5\uFF0C\u8AAA\u660E\u6BCF\u500B\u7DAD\u5EA6\u90FD\u662F\u786C\u6027\u8981\u6C42\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8F03\u5F31\u7684\u7DAD\u5EA6\uFF1A\u50C5\u6B63\u8DEF\u5F91",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5C0D <code>add(a, b)</code> \u51FD\u5F0F\u53EA\u6AA2\u67E5 <code>add(2, 2) == 4</code> \u8207 <code>add(0, 0) == 0</code>\u2014\u2014\u7463\u788E\u7684\u6B63\u8DEF\u5F91\u8F38\u5165\uFF0C\u6C92\u6709\u50CF\u6EA2\u4F4D\u9019\u6A23\u7684\u908A\u754C\u6848\u4F8B\u3002\u6B64\u8655\u54EA\u500B\u7DAD\u5EA6\u6700\u5F31\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u5B83\u53EA\u904B\u7528\u7463\u788E\u8F38\u5165\uFF0C\u6703\u6F0F\u6389\u908A\u754C\u6848\u4F8B\u7684\u8FF4\u6B78",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u4E4F\u6709\u610F\u7FA9\u7684\u908A\u754C\u6848\u4F8B\u662F\u5F37\u5316\u4E0A\u7684\u5F31\u9EDE\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u6B63\u8DEF\u5F91\u6E2C\u8A66\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u80FD\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u9867\u616E\u5728\u65BC\u5B83\u904B\u7528\u5F97\u592A\u5C11\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u56FA\u5B9A\u8F38\u5165\u662F\u4E0D\u78BA\u5B9A\u7684",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u8F38\u5165\u5B8C\u5168\u78BA\u5B9A\uFF1B\u5F31\u9EDE\u5728\u65BC\u4FDD\u8B77\u50F9\u503C\uFF08\u5F37\u5316\uFF09\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u6E2C\u8A66 add() \u662F\u7784\u6E96\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u53D7\u8B8A\u66F4\u7684\u51FD\u5F0F\u662F\u7784\u6E96\u6B63\u78BA\uFF1B\u5F31\u9EDE\u5728\u65BC\u5B83\u53EA\u6DB5\u84CB\u7463\u788E\u6848\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6AA2\u67E5\u7463\u788E\u7684\u6B63\u8DEF\u5F91\u6578\u503C\uFF0C\u6703\u8B93\u6EA2\u4F4D\u6216\u8CA0\u6578\u7B49\u908A\u754C\u6848\u4F8B\u672A\u53D7\u6E2C\u8A66\uFF0C\u56E0\u6B64\u6E2C\u8A66\u6703\u6F0F\u6389\u90A3\u88E1\u7684\u771F\u5BE6\u8FF4\u6B78\u3002\u90A3\u662F\u5F37\u5316\u7DAD\u5EA6\u4E0A\u7684\u5F31\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u8981\u62D2\u7D55\u539F\u56E0\uFF1A\u7784\u6E96\u932F\u8AA4",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5EFA\u7F6E\u826F\u597D\u3001\u78BA\u5B9A\u3001\u5BEB\u6CD5\u4E7E\u6DE8\uFF0C\u4E14\u5F37\u529B\u65B7\u8A00\u2014\u2014\u4F46\u53EA\u91DD\u5C0D\u4E00\u689D\u751F\u7522\u74B0\u5883\u5DF2\u4E0D\u518D\u8D70\u5230\u7684\u68C4\u7528\uFF08deprecated\uFF09\u7A0B\u5F0F\u78BC\u8DEF\u5F91\u3002\u5DE5\u7A0B\u5E2B\u62D2\u7D55\u5B83\u7684\u4E3B\u8981\u539F\u56E0\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u5B83\u7784\u6E96\u7684\u662F\u975E\u554F\u984C\uFF0C\u800C\u975E\u771F\u6B63\u91CD\u8981\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7784\u6E96\u975E\u554F\u984C\u7684\u5F37\u529B\u6E2C\u8A66\u672A\u901A\u904E\u76F8\u95DC\u6027\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u5F37\u529B\u65B7\u8A00\u6C38\u9060\u4EE3\u8868\u5F37\u5316\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u5C0D\u932F\u8AA4\u76EE\u6A19\u7684\u5F37\u529B\u65B7\u8A00\u6C92\u6709\u5E6B\u52A9\uFF1B\u4E3B\u8981\u5931\u6557\u662F\u76F8\u95DC\u6027\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u68C4\u7528\u8DEF\u5F91\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u80FD\u7DE8\u8B6F\u4E26\u57F7\u884C\uFF1B\u554F\u984C\u5728\u65BC\u5176\u76EE\u6A19\u4E0D\u662F\u771F\u5BE6\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u68C4\u7528\u7A0B\u5F0F\u78BC\u662F\u4E0D\u78BA\u5B9A\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EF\u4EE5\u662F\u78BA\u5B9A\u7684\uFF1B\u62D2\u7D55\u539F\u56E0\u662F\u5B83\u7784\u6E96\u975E\u554F\u984C\uFF08\u76F8\u95DC\u6027\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5373\u4F7F\u662F\u5F37\u529B\u3001\u4E7E\u6DE8\u3001\u78BA\u5B9A\u7684\u6E2C\u8A66\uFF0C\u82E5\u7784\u6E96\u5DF2\u4E0D\u518D\u91CD\u8981\u7684\u7A0B\u5F0F\u78BC\u4ECD\u6703\u88AB\u62D2\u3002\u76F8\u95DC\u6027\u63A2\u554F\u6E2C\u8A66\u662F\u5426\u7784\u6E96\u771F\u5BE6\u554F\u984C\uFF1B\u6B7B\u8DEF\u5F91\u662F\u975E\u554F\u984C\uFF0C\u56E0\u6B64\u4E3B\u8981\u5931\u6557\u662F\u76F8\u95DC\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7246\u4E0A\u6642\u9418\u4F9D\u8CF4",
+            "text": "<p>\u67D0\u6E2C\u8A66\u7531 <code>LocalDate.now()</code> \u8A08\u7B97\u671F\u671B\u503C\u4E26\u8207\u7A0B\u5F0F\u78BC\u8F38\u51FA\u6BD4\u8F03\uFF0C\u56E0\u6B64\u53EF\u80FD\u4F9D\u5B83\u57F7\u884C\u7684\u65E5\u671F\u800C\u5931\u6557\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u4F9D\u8CF4\u5373\u6642\u65E5\u671F\u4F7F\u7D50\u679C\u96A8\u57F7\u884C\u800C\u8B8A\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7246\u4E0A\u6642\u9418\u4F9D\u8CF4\u7522\u751F\u4E0D\u78BA\u5B9A\u7D50\u679C\uFF0C\u5C6C\u65BC\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u65E5\u671F API \u9020\u6210\u5EFA\u7F6E\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u65E5\u671F API \u80FD\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u7F3A\u9677\u5728\u65BC\u7D50\u679C\u53D6\u6C7A\u65BC\u57F7\u884C\u6642\u6A5F\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u4F7F\u7528\u6642\u9418\u4EE3\u8868\u5B83\u6293\u4E0D\u5230\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u6216\u8A31\u80FD\u6293\u5230\u7F3A\u9677\uFF0C\u4F46\u7D50\u679C\u4E0D\u78BA\u5B9A\uFF0C\u90A3\u662F\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u547C\u53EB now() \u9055\u53CD\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u662F\u78BA\u5B9A\u6027\uFF0C\u800C\u975E\u6163\u4F8B\uFF1B\u90A3\u662F\u975E\u4E0D\u7A69\u5B9A\u7DAD\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B80\u53D6\u5373\u6642\u6642\u9418\u628A\u7D50\u679C\u7D81\u5728\u6E2C\u8A66\u57F7\u884C\u7684\u7576\u4E0B\uFF0C\u56E0\u6B64\u67D0\u5929\u901A\u904E\u3001\u53E6\u4E00\u5929\u5931\u6557\u3002\u90A3\u7A2E\u4E0D\u78BA\u5B9A\u6027\u662F\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\uFF1B\u4FEE\u6CD5\u662F\u6CE8\u5165\u6216\u51CD\u7D50\u4E00\u500B\u56FA\u5B9A\u6642\u9418\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u91CD\u8907\u7684\u7463\u788E\u6E2C\u8A66",
+            "text": "<p>\u67D0\u751F\u6210\u6E2C\u8A66\u91CD\u65B0\u6AA2\u67E5\u4E00\u500B\u5225\u8655\u5DF2\u6DB5\u84CB\u7684\u666E\u901A getter\uFF0C\u672A\u65B0\u589E\u4EFB\u4F55\u60C5\u5883\u6216\u908A\u754C\u6848\u4F8B\u3002\u5B83\u80FD\u7DE8\u8B6F\u3001\u78BA\u5B9A\u3001\u7784\u6E96\u771F\u5BE6\u7A0B\u5F0F\u78BC\u4E14\u7B26\u5408\u98A8\u683C\u3002\u5B83\u5728\u54EA\u500B\u7DAD\u5EA6\u6700\u5F31\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u5B83\u91CD\u8907\u65E2\u6709\u8986\u84CB\uFF0C\u672A\u65B0\u589E\u4EFB\u4F55\u6293\u932F\u50F9\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u65B0\u589E\u4FDD\u8B77\u50F9\u503C\u662F\u5F37\u5316\u4E0A\u7684\u5F31\u9EDE\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u91CD\u8907\u6E2C\u8A66\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u5B83\u80FD\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u9867\u616E\u5728\u65BC\u5B83\u4EC0\u9EBC\u90FD\u6C92\u5F37\u5316\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014getter \u6C38\u9060\u4E0D\u662F\u76F8\u95DC\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "getter \u53EF\u4EE5\u662F\u76F8\u95DC\u7684\u771F\u5BE6\u7A0B\u5F0F\u78BC\uFF1B\u5F31\u9EDE\u5728\u65BC\u6E2C\u8A66\u672A\u65B0\u589E\u4FDD\u8B77\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u91CD\u8907\u6E2C\u8A66\u6C38\u9060\u9055\u53CD\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u8A72\u6E2C\u8A66\u7B26\u5408\u98A8\u683C\uFF1B\u5176\u5F31\u9EDE\u662F\u7F3A\u4E4F\u65B0\u7684\u6293\u932F\u50F9\u503C\uFF08\u5F37\u5316\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u662F\u91CD\u8907\u5225\u8655\u5DF2\u63D0\u4F9B\u8986\u84CB\u7684\u6E2C\u8A66\uFF0C\u4E0D\u6703\u589E\u5F37\u5957\u4EF6\u6293\u5230\u65B0\u8FF4\u6B78\u7684\u80FD\u529B\u3002\u5373\u4F7F\u5176\u4ED6\u65B9\u9762\u4E7E\u6DE8\uFF0C\u5B83\u5728\u5F37\u5316\u4E0A\u4ECD\u5F31\uFF0C\u56E0\u70BA\u5B83\u4E0D\u65B0\u589E\u4FDD\u8B77\u50F9\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6E2C\u8A66\u4E94\u500B\u5168\u904E",
+            "text": "<p>\u67D0\u6E2C\u8A66\u540D\u70BA <code>testPrivacyNullUser</code>\uFF0C\u628A <code>null</code> \u4F7F\u7528\u8005 id \u50B3\u7D66 <code>logEvent</code>\uFF0C\u4E26\u65B7\u8A00\u8FFD\u8E64\u5668\u7684 <code>lastUserId</code> \u7DAD\u6301 <code>null</code>\u3002\u5B83\u80FD\u7DE8\u8B6F\u3001\u78BA\u5B9A\u3001\u9075\u5FAA\u6163\u4F8B\uFF0C\u4E26\u9632\u8B77\u4E86\u4E00\u500B\u771F\u5BE6\u7684\u96B1\u79C1\u908A\u754C\u6848\u4F8B\u3002\u70BA\u4F55\u5B83\u88AB\u63A5\u53D7\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u901A\u904E\u5168\u90E8\u4E94\u500B\u7DAD\u5EA6\u2014\u2014\u53EF\u7DE8\u8B6F\u3001\u975E\u4E0D\u7A69\u5B9A\u3001\u5F37\u5316\u3001\u76F8\u95DC\u6027\u8207\u98A8\u683C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA\u6BCF\u500B\u7DAD\u5EA6\u90FD\u6EFF\u8DB3\uFF0C\u6240\u4EE5\u88AB\u63A5\u53D7\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u63A5\u53D7\u7D14\u7CB9\u56E0\u70BA\u5B83\u6BBA\u6389\u4E00\u500B\u8B8A\u7570\u9AD4",
+                "fraction": 0,
+                "feedback": "\u5149\u6BBA\u4E0D\u4FDD\u8B49\u88AB\u63A5\u53D7\uFF1B\u6B64\u8655\u88AB\u63A5\u53D7\u662F\u56E0\u70BA\u4E94\u500B\u7DAD\u5EA6\u5168\u904E\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u63A5\u53D7\u56E0\u70BA\u5B83\u5F88\u77ED",
+                "fraction": 0,
+                "feedback": "\u9577\u5EA6\u7121\u95DC\uFF1B\u88AB\u63A5\u53D7\u4F86\u81EA\u6EFF\u8DB3\u5168\u90E8\u4E94\u500B\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u63A5\u53D7\u56E0\u70BA\u96B1\u79C1\u6E2C\u8A66\u53EF\u8DF3\u904E\u98A8\u683C\u7DAD\u5EA6",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u7DAD\u5EA6\u53EF\u88AB\u8DF3\u904E\uFF1B\u9019\u500B\u6E2C\u8A66\u6070\u597D\u9023\u98A8\u683C\u4E5F\u4E00\u4F75\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u6E2C\u8A66\u9632\u8B77\u4E86\u4E00\u500B\u771F\u5BE6\u7684\u96B1\u79C1\u908A\u754C\u6848\u4F8B\uFF08null \u4F7F\u7528\u8005 id\uFF09\u3001\u6709\u610F\u7FA9\u5730\u65B7\u8A00\u3001\u4E7E\u6DE8\u5EFA\u7F6E\u3001\u78BA\u5B9A\u57F7\u884C\u4E26\u9075\u5FAA\u6163\u4F8B\u3002\u56E0\u70BA\u5B83\u6EFF\u8DB3\u5168\u90E8\u4E94\u500B\u7DAD\u5EA6\uFF0C\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4E00\u6B21\u6BBA\u4E0D\u80FD\u8C41\u514D\u6E2C\u8A66",
+            "text": "<p>\u6210\u529F\u6BBA\u6389\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66\uFF0C\u4ECD\u53EF\u80FD\u5728\u4E94\u500B\u5BE9\u67E5\u7DAD\u5EA6\u4E4B\u4E00\u4E0A\u88AB\u5DE5\u7A0B\u5E2B\u62D2\u7D55\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u8B8A\u7570\u9AD4\u7684\u6E2C\u8A66\u82E5\u4E0D\u7A69\u5B9A\u3001\u7784\u6E96\u932F\u8AA4\u3001\u7463\u788E\u3001\u7121\u6CD5\u5EFA\u7F6E\u6216\u98A8\u683C\u4E0D\u53EF\u63A5\u53D7\uFF0C\u4ECD\u6703\u88AB\u62D2\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u6BBA\u6389\u8B8A\u7570\u9AD4\u4E26\u4E0D\u80FD\u8B93\u6E2C\u8A66\u8C41\u514D\u4E94\u500B\u9A57\u6536\u7DAD\u5EA6\u4E2D\u7684\u4EFB\u4F55\u4E00\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u6389\u8B8A\u7570\u9AD4\u5C55\u793A\u6293\u932F\u80FD\u529B\uFF0C\u537B\u5C0D\u78BA\u5B9A\u6027\u3001\u76F8\u95DC\u6027\u3001\u53EF\u5EFA\u7F6E\u6027\u6216\u98A8\u683C\u6BEB\u7121\u8AAA\u660E\u3002\u5DE5\u7A0B\u5E2B\u6703\u5957\u7528\u5168\u90E8\u4E94\u500B\u7DAD\u5EA6\uFF0C\u56E0\u6B64\u5149\u6BBA\u4E26\u4E0D\u4FDD\u8B49\u88AB\u63A5\u53D7\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u8A9E\u6CD5\u932F\u8AA4",
+            "text": "<p>\u67D0\u751F\u6210\u6E2C\u8A66\u5C11\u4E86\u4E00\u500B\u53F3\u5927\u62EC\u865F\uFF0C\u56E0\u6B64\u7DE8\u8B6F\u5668\u56DE\u5831\u8A9E\u6CD5\u932F\u8AA4\uFF0C\u6A94\u6848\u7121\u6CD5\u5EFA\u7F6E\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u8A9E\u6CD5\u932F\u8AA4\u662F\u7DE8\u8B6F\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A9E\u6CD5\u932F\u8AA4\u4F7F\u5EFA\u7F6E\u7121\u6CD5\u9032\u884C\uFF0C\u5C6C\u65BC\u53EF\u7DE8\u8B6F\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u5C11\u4E00\u500B\u62EC\u865F\u53EA\u662F\u683C\u5F0F\u504F\u597D",
+                "fraction": 0,
+                "feedback": "\u5C11\u62EC\u865F\u4E0D\u662F\u98A8\u683C\u9078\u64C7\uFF1B\u5B83\u662F\u7DE8\u8B6F\u932F\u8AA4\uFF0C\u5C6C\u65BC\u53EF\u7DE8\u8B6F\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u8A9E\u6CD5\u932F\u8AA4\u7522\u751F\u96A8\u6A5F\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u8A9E\u6CD5\u932F\u8AA4\u78BA\u5B9A\u5730\u8B93\u5EFA\u7F6E\u505C\u6B62\uFF1B\u4EC0\u9EBC\u90FD\u8DD1\u4E0D\u4E86\uFF0C\u9019\u662F\u53EF\u7DE8\u8B6F\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u58DE\u6389\u7684\u8A9E\u6CD5\u4EE3\u8868\u5B83\u6293\u4E0D\u5230\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u7DE8\u8B6F\u6216\u57F7\u884C\uFF0C\u56E0\u6B64\u552F\u4E00\u76F8\u95DC\u7684\u5931\u6557\u662F\u53EF\u7DE8\u8B6F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A9E\u6CD5\u932F\u8AA4\u4F7F\u7DE8\u8B6F\u505C\u6B62\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u5EFA\u7F6E\u6216\u57F7\u884C\u3002\u90A3\u662F\u53EF\u7DE8\u8B6F\u5931\u6557\uFF0C\u5FC5\u9808\u5148\u4FEE\u6B63\u624D\u80FD\u8A55\u4F30\u5176\u4ED6\u4EFB\u4F55\u7DAD\u5EA6\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u8981\u95DC\u5361\uFF1A\u4E0D\u7A69\u5B9A\u52A0\u4E0A\u5F31\u65B7\u8A00",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4F7F\u7528\u672A\u56FA\u5B9A\u7A2E\u5B50\u7684\u96A8\u6A5F\u8F38\u5165\uFF08\u4F7F\u5B83\u4E0D\u78BA\u5B9A\uFF09\uFF0C\u4E14\u552F\u4E00\u65B7\u8A00\u53EA\u662F\u7D50\u679C\u975E null\u3002\u975E\u4E0D\u7A69\u5B9A\u8207\u5F37\u5316\u5169\u8005\u90FD\u727D\u6D89\u5176\u4E2D\u3002\u54EA\u500B\u55AE\u4E00\u7DAD\u5EA6\u6700\u6C7A\u5B9A\u6027\u5730\u8FEB\u4F7F\u62D2\u7D55\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u4E0D\u7A69\u5B9A\u662F\u786C\u6027\u95DC\u5361\uFF1B\u53EA\u8981\u7D50\u679C\u4E0D\u78BA\u5B9A\uFF0CCI \u5C31\u5B8C\u5168\u7121\u6CD5\u4FE1\u4EFB\u5B83\uFF0C\u56E0\u6B64\u5373\u4F7F\u66F4\u5F37\u7684\u65B7\u8A00\u4E5F\u6551\u4E0D\u4E86\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u78BA\u5B9A\u6027\u4F7F\u6E2C\u8A66\u76F4\u63A5\u5931\u683C\uFF0C\u56E0\u6B64\u975E\u4E0D\u7A69\u5B9A\u662F\u6C7A\u5B9A\u6027\u95DC\u5361\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u5F31\u65B7\u8A00\u6C38\u9060\u662F\u6700\u6C7A\u5B9A\u6027\u7684\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5F31\u65B7\u8A00\u78BA\u662F\u771F\u554F\u984C\uFF0C\u4F46\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u7121\u8AD6\u65B7\u8A00\u591A\u5F37\u90FD\u4E0D\u53EF\u4FE1\uFF0C\u56E0\u6B64\u975E\u4E0D\u7A69\u5B9A\u624D\u662F\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u96A8\u6A5F\u8F38\u5165\u7834\u58DE\u5EFA\u7F6E",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u80FD\u5EFA\u7F6E\u4E26\u57F7\u884C\uFF1B\u6C7A\u5B9A\u6027\u7F3A\u9677\u662F\u5B83\u7684\u4E0D\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u4F7F\u7528\u96A8\u6A5F\u9055\u53CD\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u98A8\u683C\u4E0D\u662F\u554F\u984C\uFF1B\u6C7A\u5B9A\u6027\u5931\u6557\u662F\u4E0D\u7A69\u5B9A\uFF08\u975E\u4E0D\u7A69\u5B9A\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u5931\u6557\u65BC\u591A\u500B\u7DAD\u5EA6\u6642\uFF0C\u6700\u6C7A\u5B9A\u6027\u7684\u662F\u90A3\u500B\u7121\u8AD6\u5176\u4ED6\u5982\u4F55\u4FEE\u6B63\u90FD\u4ECD\u4F7F\u5B83\u5931\u683C\u7684\u7DAD\u5EA6\u3002\u4E0D\u7A69\u5B9A\u6E2C\u8A66 CI \u5B8C\u5168\u7121\u6CD5\u4FE1\u4EFB\uFF0C\u56E0\u6B64\u975E\u4E0D\u7A69\u5B9A\u662F\u4E3B\u8981\u95DC\u5361\u2014\u2014\u5F37\u5316\u65B7\u8A00\u4E5F\u6551\u4E0D\u4E86\u4E00\u500B\u4E0D\u78BA\u5B9A\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9AD8\u6BBA\u3001\u4F4E\u9A57\u6536",
+            "text": "<p>\u67D0\u751F\u6210\u5DE5\u5177\u56DE\u5831\u5F88\u9AD8\u7684\u6BBA\u8B8A\u7570\u7387\uFF0C\u4F46\u5DE5\u7A0B\u5E2B\u53EA\u63A5\u53D7\u5B83\u6975\u5C11\u7684\u6E2C\u8A66\u3002\u70BA\u4F55\u9019\u500B\u843D\u5DEE\u5728\u5BE6\u52D9\u4E0A\u662F\u500B\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u5DE5\u7A0B\u5E2B\u62D2\u7D55\u7684\u6E2C\u8A66\u6C38\u9060\u4E0D\u6703\u5408\u4F75\uFF0C\u56E0\u6B64\u9AD8\u6BBA\u8B8A\u7570\u7387\u7121\u6CD5\u8F49\u5316\u70BA\u66F4\u5F37\u7684\u751F\u7522\u5957\u4EF6\u2014\u2014\u88AB\u63A5\u53D7\u7684\u90A3\u7D44\u624D\u662F\u771F\u6B63\u4FDD\u8B77\u7A0B\u5F0F\u78BC\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709\u88AB\u63A5\u53D7\u7684\u6E2C\u8A66\u624D\u6703\u843D\u5730\uFF0C\u56E0\u6B64\u9A57\u6536\uFF08\u800C\u975E\u539F\u59CB\u6BBA\u8B8A\u7570\u7387\uFF09\u6C7A\u5B9A\u771F\u6B63\u7684\u6539\u5584\u3002"
+              },
+              {
+                "text": "\u9AD8\u6BBA\u8B8A\u7570\u7387\u4EE3\u8868\u8B8A\u7570\u9AD4\u592A\u7C21\u55AE\uFF0C\u6240\u4EE5\u5DE5\u5177\u58DE\u4E86",
+                "fraction": 0,
+                "feedback": "\u6BBA\u8B8A\u7570\u7387\u53EF\u80FD\u662F\u771F\u7684\uFF1B\u554F\u984C\u5728\u65BC\u88AB\u62D2\u7684\u6E2C\u8A66\u6C38\u9060\u9032\u4E0D\u4E86\u7A0B\u5F0F\u78BC\u5EAB\u3002"
+              },
+              {
+                "text": "\u5DE5\u7A0B\u5E2B\u61C9\u964D\u4F4E\u6A19\u6E96\u4EE5\u914D\u5408\u6BBA\u8B8A\u7570\u7387",
+                "fraction": 0,
+                "feedback": "\u964D\u4F4E\u9A57\u6536\u9580\u6ABB\u6703\u653E\u9032\u4E0D\u7A69\u5B9A\u6216\u7784\u6E96\u932F\u8AA4\u7684\u6E2C\u8A66\uFF1B\u91CD\u9EDE\u662F\u9A57\u6536\u624D\u662F\u771F\u6B63\u7684\u8861\u91CF\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\u2014\u2014\u6BBA\u8B8A\u7570\u7387\u662F\u552F\u4E00\u91CD\u8981\u7684\u6307\u6A19",
+                "fraction": 0,
+                "feedback": "\u6BBA\u8B8A\u7570\u7387\u5FFD\u7565\u5176\u4ED6\u56DB\u500B\u7DAD\u5EA6\uFF1B\u6C38\u9060\u4E0D\u88AB\u63A5\u53D7\u7684\u6E2C\u8A66\u4E0D\u589E\u52A0\u4FDD\u8B77\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u8B8A\u7570\u7387\u8861\u91CF\u6F5B\u5728\u7684\u7F3A\u9677\u5075\u6E2C\uFF0C\u4F46\u53EA\u6709\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u7684\u6E2C\u8A66\u624D\u6703\u5408\u4F75\u4E26\u5728 CI \u4E2D\u57F7\u884C\u3002\u82E5\u591A\u6578\u751F\u6210\u6E2C\u8A66\u56E0\u4E0D\u7A69\u5B9A\u3001\u98A8\u683C\u6216\u4E0D\u76F8\u95DC\u800C\u88AB\u62D2\uFF0C\u9AD8\u6BBA\u8B8A\u7570\u7387\u5C31\u662F\u5047\u8C61\u2014\u2014\u771F\u6B63\u5B88\u8B77\u751F\u7522\u7684\u53EA\u6709\u88AB\u63A5\u53D7\u7684\u90A3\u500B\u5B50\u96C6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5FAE\u5999\u7684\u975E\u5F37\u5316\uFF1A\u65B7\u8A00\u4E86\u932F\u7684\u6771\u897F",
+            "text": "<p>\u67D0\u6E2C\u8A66\u7784\u6E96\u6B63\u78BA\u7684\u65B9\u6CD5\u3001\u80FD\u7DE8\u8B6F\u3001\u78BA\u5B9A\u3001\u7B26\u5408\u98A8\u683C\u2014\u2014\u4F46\u5176\u65B7\u8A00\u628A\u4E00\u500B\u8B8A\u6578\u8207\u81EA\u5DF1\u6BD4\u8F03\uFF08<code>assertEquals(result, result)</code>\uFF09\uFF0C\u56E0\u6B64\u4E0D\u8AD6\u8A72\u65B9\u6CD5\u56DE\u50B3\u4EC0\u9EBC\u90FD\u6210\u7ACB\u3002\u5B83\u672A\u901A\u904E\u54EA\u500B\u7DAD\u5EA6\uFF0C\u70BA\u4F55\u9019\u5F88\u5FAE\u5999\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u5B83\u770B\u8D77\u4F86\u50CF\u771F\u6E2C\u8A66\u4E14\u7784\u6E96\u6B63\u78BA\uFF0C\u4F46\u81EA\u6211\u6BD4\u8F03\u6C38\u4E0D\u6703\u5931\u6557\uFF0C\u56E0\u6B64\u6293\u4E0D\u5230\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5118\u7BA1\u5916\u89C0\u6B63\u5E38\uFF0C\u6046\u771F\u65B7\u8A00\u4E0D\u63D0\u4F9B\u4FDD\u8B77\u50F9\u503C\uFF0C\u5C6C\u65BC\u5F37\u5316\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u628A\u503C\u8207\u81EA\u5DF1\u6BD4\u8F03\u662F\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u7784\u6E96\u6B63\u78BA\uFF08\u6B63\u78BA\u7684\u65B9\u6CD5\uFF09\uFF1B\u7F3A\u9677\u5728\u65BC\u5176\u65B7\u8A00\u4EC0\u9EBC\u90FD\u6293\u4E0D\u5230\uFF08\u5F37\u5316\uFF09\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u81EA\u6211\u6BD4\u8F03\u662F\u4E0D\u78BA\u5B9A\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u5B8C\u5168\u78BA\u5B9A\uFF08\u6C38\u9060\u901A\u904E\uFF09\uFF1B\u5FAE\u5999\u7684\u5931\u6557\u5728\u65BC\u5B83\u6C38\u9060\u6293\u4E0D\u5230\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u81EA\u6211\u6BD4\u8F03\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u5B83\u80FD\u4E7E\u6DE8\u7DE8\u8B6F\uFF1B\u554F\u984C\u5728\u65BC\u7F3A\u4E4F\u4EFB\u4F55\u771F\u5BE6\u6AA2\u67E5\uFF08\u5F37\u5316\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u9677\u9631\u5728\u65BC\u6E2C\u8A66\u770B\u4F3C\u6B63\u7576\u2014\u2014\u76EE\u6A19\u6B63\u78BA\u3001\u98A8\u683C\u4E7E\u6DE8\u3001\u78BA\u5B9A\u2014\u2014\u4F46\u5176\u65B7\u8A00\u662F\u5C0D\u4EFB\u4F55\u8F38\u51FA\u90FD\u6210\u7ACB\u7684\u6046\u771F\u5F0F\u3002\u5373\u4F7F\u5C0D\u58DE\u6389\u7684\u7A0B\u5F0F\u78BC\u4E5F\u6703\u901A\u904E\uFF0C\u56E0\u6B64\u4E0D\u63D0\u4F9B\u4FDD\u8B77\u50F9\u503C\uFF1A\u9019\u662F\u5F37\u5316\u5931\u6557\uFF0C\u800C\u975E\u76F8\u95DC\u6027\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76F8\u95DC\u537B\u4E0D\u7A69\u5B9A",
+            "text": "<p>\u67D0\u6E2C\u8A66\u6070\u597D\u7784\u6E96\u4E86\u8B8A\u66F4\u7684\u9AD8\u98A8\u96AA\u65B9\u6CD5\u4E26\u5F37\u529B\u65B7\u8A00\uFF0C\u4F46\u5B83\u9023\u5230\u4E00\u500B\u5373\u6642\u7684\u7B2C\u4E09\u65B9\u7DB2\u8DEF\u670D\u52D9\uFF0C\u7576\u8A72\u670D\u52D9\u8B8A\u6162\u6642\u5C31\u9593\u6B47\u6027\u5931\u6557\u3002\u5B83\u88AB\u62D2\u7684\u4E3B\u8981\u539F\u56E0\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u5B83\u7684\u76F8\u95DC\u6027\u6551\u4E0D\u4E86\u5B83\uFF0C\u56E0\u70BA\u5373\u6642\u4F9D\u8CF4\u9020\u6210\u7684\u9593\u6B47\u6027\u5931\u6557\u4F7F\u5B83\u4E0D\u78BA\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76F8\u95DC\u537B\u4E0D\u7A69\u5B9A\u7684\u6E2C\u8A66\u4ECD\u5728\u975E\u4E0D\u7A69\u5B9A\u7DAD\u5EA6\u4E0A\u88AB\u62D2\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u9023\u5230\u7DB2\u8DEF\u670D\u52D9\u4EE3\u8868\u5B83\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5B83\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\uFF1B\u7F3A\u9677\u662F\u5373\u6642\u4F9D\u8CF4\u9020\u6210\u7684\u4E0D\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u5F37\u529B\u65B7\u8A00\u4EE3\u8868\u5F37\u5316\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5F37\u529B\u65B7\u8A00\u662F\u5F37\u5316\u7684\u512A\u9EDE\uFF1B\u62D2\u7D55\u662F\u56E0\u70BA\u4E0D\u7A69\u5B9A\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u7DB2\u8DEF\u547C\u53EB\u9055\u53CD\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u4E3B\u8981\u5931\u6557\u662F\u4E0D\u78BA\u5B9A\u6027\uFF08\u975E\u4E0D\u7A69\u5B9A\uFF09\uFF0C\u800C\u975E\u98A8\u683C\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u95DC\u4E14\u65B7\u8A00\u826F\u597D\u9084\u4E0D\u5920\u3002\u5373\u6642\u5916\u90E8\u4F9D\u8CF4\u5F15\u5165\u4E0D\u53EF\u63A7\u7684\u8B8A\u52D5\uFF0C\u56E0\u6B64\u6E2C\u8A66\u9593\u6B47\u6027\u5931\u6557\u2014\u2014\u975E\u4E0D\u7A69\u5B9A\u5931\u6557\u3002\u5B83\u5FC5\u9808\u5148\u88AB\u505A\u6210\u78BA\u5B9A\uFF08\u4F8B\u5982\u4F7F\u7528\u6E2C\u8A66\u66FF\u8EAB\uFF09\u624D\u80FD\u88AB\u63A5\u53D7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6293\u5F97\u5230\u7F3A\u9677\u98A8\u683C\u4ECD\u91CD\u8981",
+            "text": "<p>\u67D0\u6E2C\u8A66\u53EF\u9760\u5730\u6293\u5230\u4E00\u500B\u771F\u5BE6\u7F3A\u9677\uFF0C\u537B\u5FFD\u8996\u7A0B\u5F0F\u78BC\u5EAB\u7684\u6163\u4F8B\u2014\u2014\u5947\u602A\u7684\u547D\u540D\u3001\u4E0D\u719F\u6089\u7684\u65B7\u8A00\u5EAB\u3001\u4E14\u7121 arrange-act-assert \u7D50\u69CB\u3002\u70BA\u4F55\u5DE5\u7A0B\u5E2B\u4ECD\u7136\u62D2\u7D55\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u6536\u662F\u4EBA\u985E\u53EF\u7DAD\u8B77\u6027\u7684\u9580\u6ABB\uFF1A\u5718\u968A\u7121\u6CD5\u8F15\u6613\u95B1\u8B80\u8207\u7DAD\u8B77\u7684\u6E2C\u8A66\u4E0D\u6703\u88AB\u5408\u4F75\uFF0C\u5373\u4F7F\u5B83\u5075\u6E2C\u5230\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u683C\u4FDD\u8B77\u9577\u671F\u53EF\u7DAD\u8B77\u6027\uFF0C\u90A3\u662F\u9A57\u6536\u7684\u4E00\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u4E0D\u5408\u6163\u4F8B\u7684\u6E2C\u8A66\u5176\u5BE6\u6293\u4E0D\u5230\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u78BA\u5BE6\u6293\u5230\u7F3A\u9677\uFF1B\u62D2\u7D55\u662F\u95DC\u65BC\u53EF\u7DAD\u8B77\u6027\u8207\u6163\u4F8B\uFF0C\u800C\u975E\u5075\u6E2C\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u53EA\u5C0D\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u624D\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u662F\u53EF\u7DE8\u8B6F\uFF1B\u98A8\u683C\u9069\u7528\u65BC\u80FD\u6B63\u5E38\u5EFA\u7F6E\u537B\u5FFD\u8996\u6163\u4F8B\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6293\u5F97\u5230\u7F3A\u9677\u7684\u6E2C\u8A66\u53EF\u8C41\u514D\u98A8\u683C\u7DAD\u5EA6",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u7DAD\u5EA6\u53EF\u8C41\u514D\uFF1B\u6293\u5F97\u5230\u7F3A\u9677\u7684\u6E2C\u8A66\u4ECD\u9700\u53EF\u63A5\u53D7\u7684\u98A8\u683C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5B58\u5728\u65BC\u7A0B\u5F0F\u78BC\u5EAB\u4E2D\uFF0C\u5FC5\u9808\u7531\u4EBA\u985E\u7DAD\u8B77\u3002\u8207\u5718\u968A\u6163\u4F8B\u885D\u7A81\u7684\u6E2C\u8A66\u5E36\u4F86\u9577\u671F\u6210\u672C\u4E26\u4F7F\u5BE9\u67E5\u8005\u56F0\u60D1\uFF0C\u56E0\u6B64\u5373\u4F7F\u5B83\u5075\u6E2C\u5230\u771F\u5BE6\u7F3A\u9677\uFF0C\u4ECD\u5728\u98A8\u683C\u4E0A\u88AB\u62D2\u3002\u9A57\u6536\u8861\u91CF\u7684\u662F\u53EF\u7DAD\u8B77\u6027\uFF0C\u800C\u4E0D\u53EA\u662F\u5075\u6E2C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u754C\uFF1A\u5C0D\u6B63\u78BA\u76EE\u6A19\u7684\u5F31\u65B7\u8A00",
+            "text": "<p>\u67D0\u6E2C\u8A66\u6B63\u5C0D\u6E96\u4E86\u8B8A\u66F4\u7684\u9AD8\u98A8\u96AA\u65B9\u6CD5\uFF0C\u4F46\u5176\u65B7\u8A00\u53EA\u6AA2\u67E5\u56DE\u50B3\u503C\u975E null\u2014\u2014\u5373\u4F7F\u8A08\u7B97\u51FA\u7684\u503C\u662F\u932F\u7684\u5B83\u4ECD\u6703\u901A\u904E\u3002\u9019\u4E3B\u8981\u662F\u76F8\u95DC\u6027\u5931\u6557\u9084\u662F\u5F37\u5316\u5931\u6557\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u76EE\u6A19\u6B63\u78BA\uFF08\u76F8\u95DC\uFF09\uFF0C\u4F46\u65B7\u8A00\u592A\u5F31\u6293\u4E0D\u5230\u8FF4\u6B78\uFF0C\u56E0\u6B64\u672A\u80FD\u5F37\u5316\u5957\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76EE\u6A19\u6B63\u78BA\u4F46\u7121\u6293\u932F\u80FD\u529B\u662F\u5F37\u5316\u5931\u6557\uFF0C\u800C\u975E\u76F8\u95DC\u6027\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u5F31\u65B7\u8A00\u4EE3\u8868\u6E2C\u8A66\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u76EE\u6A19\u6B63\u78BA\uFF1B\u5F31\u9EDE\u5728\u65BC\u65B7\u8A00\u6703\u6F0F\u6389\u932F\u8AA4\u503C\uFF08\u5F37\u5316\uFF09\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u540C\u7B49\u5931\u6557\uFF0C\u4EFB\u4E00\u6A19\u7C64\u7686\u53EF",
+                "fraction": 0,
+                "feedback": "\u76F8\u95DC\u6027\u6EFF\u8DB3\uFF0C\u56E0\u70BA\u76EE\u6A19\u6B63\u78BA\uFF1B\u5177\u9AD4\u7684\u5931\u6557\u662F\u5F37\u5316\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u975E null \u6AA2\u67E5\u6C38\u9060\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u975E null \u6AA2\u67E5\u6703\u6F0F\u6389\u300C\u975E null \u4F46\u932F\u300D\u7684\u503C\uFF0C\u56E0\u6B64\u5B83\u672A\u901A\u904E\u5F37\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u95DC\u6027\u63A2\u554F\u6E2C\u8A66\u662F\u5426\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\uFF1B\u6B64\u8655\u662F\u7684\u3002\u5F37\u5316\u63A2\u554F\u5B83\u662F\u5426\u771F\u80FD\u6293\u5230\u7F3A\u9677\uFF1B\u975E null \u6AA2\u67E5\u5C0D\u932F\u8AA4\u503C\u4ECD\u6703\u901A\u904E\uFF0C\u56E0\u6B64\u5177\u9AD4\u5931\u6557\u662F\u5F37\u5316\u3002\u5340\u5206\u5169\u8005\u53D6\u6C7A\u65BC\u76EE\u6A19\uFF08\u76F8\u95DC\u6027\uFF09\u8207\u6293\u932F\u80FD\u529B\uFF08\u5F37\u5316\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u754C\uFF1A\u5C0D\u975E\u554F\u984C\u7684\u5F37\u65B7\u8A00",
+            "text": "<p>\u67D0\u6E2C\u8A66\u6709\u7CBE\u78BA\u3001\u5F37\u529B\u7684\u65B7\u8A00\uFF0C\u4E14\u80FD\u53EF\u9760\u5730\u6293\u5230\u8B8A\u66F4\u2014\u2014\u4F46\u5B83\u904B\u7528\u7684\u662F\u4E00\u689D\u5DF2\u6C38\u4E45\u505C\u7528\u3001\u751F\u7522\u74B0\u5883\u6C38\u4E0D\u6703\u57F7\u884C\u7684\u529F\u80FD\u65D7\u6A19\uFF08feature-flag\uFF09\u7A0B\u5F0F\u78BC\u8DEF\u5F91\u3002\u9019\u4E3B\u8981\u662F\u5F37\u5316\u5931\u6557\u9084\u662F\u76F8\u95DC\u6027\u5931\u6557\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u65B7\u8A00\u5F88\u5F37\uFF08\u6709\u5F37\u5316\u80FD\u529B\uFF09\uFF0C\u4F46\u76EE\u6A19\u662F\u975E\u554F\u984C\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7784\u6E96\u4E86\u932F\u8AA4\u7684\u6771\u897F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6B7B\u7A0B\u5F0F\u78BC\u7684\u5F37\u529B\u65B7\u8A00\u662F\u76F8\u95DC\u6027\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u505C\u7528\u7684\u8DEF\u5F91\u4EE3\u8868\u65B7\u8A00\u5F88\u5F31",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u5F88\u5F37\uFF1B\u554F\u984C\u5728\u65BC\u5176\u76EE\u6A19\u7121\u95DC\u7DCA\u8981\uFF08\u76F8\u95DC\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u505C\u7528\u8DEF\u5F91\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u80FD\u7DE8\u8B6F\uFF1B\u7F3A\u9677\u5728\u65BC\u76EE\u6A19\u662F\u975E\u554F\u984C\uFF08\u76F8\u95DC\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u6E2C\u8A66\u505C\u7528\u7A0B\u5F0F\u78BC\u9055\u53CD\u6163\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5931\u6557\u5728\u65BC\u5B83\u7784\u6E96\u975E\u554F\u984C\uFF0C\u5C6C\u65BC\u76F8\u95DC\u6027\uFF0C\u800C\u975E\u98A8\u683C\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u662F\u5F31\u65B7\u8A00\u6848\u4F8B\u7684\u93E1\u50CF\u3002\u65B7\u8A00\u5F37\u5230\u8DB3\u4EE5\u6293\u5230\u7F3A\u9677\uFF08\u6709\u5F37\u5316\u80FD\u529B\uFF09\uFF0C\u4F46\u5B83\u5C0D\u6E96\u7684\u662F\u6C38\u4E45\u6B7B\u6389\u7684\u7A0B\u5F0F\u78BC\u2014\u2014\u975E\u554F\u984C\u3002\u56E0\u70BA\u76EE\u6A19\u7121\u95DC\u7DCA\u8981\uFF0C\u4E3B\u8981\u5931\u6557\u662F\u76F8\u95DC\u6027\uFF0C\u800C\u975E\u5F37\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u8981\u539F\u56E0\uFF1A\u4E0D\u589E\u52A0\u4FE1\u5FC3",
+            "text": "<p>\u67D0\u6E2C\u8A66\u540D\u70BA <code>testSomething</code>\uFF0C\u547C\u53EB <code>doStuff()</code>\uFF0C\u4E14\u53EA\u65B7\u8A00\u7D50\u679C\u975E null\u3002\u5B83\u53EF\u7DE8\u8B6F\u4E14\u78BA\u5B9A\uFF0C\u4F46\u5DE5\u7A0B\u5E2B\u8AAA\u5B83\u300C\u4E0D\u589E\u52A0\u5C0D\u7CFB\u7D71\u6B63\u78BA\u6027\u7684\u4FE1\u5FC3\u300D\u3002\u54EA\u500B\u7DAD\u5EA6\u6700\u76F4\u63A5\u5C0D\u61C9\u9019\u9805\u62B1\u6028\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u975E null \u6AA2\u67E5\u6C92\u6709\u9A57\u8B49\u4EFB\u4F55\u771F\u5BE6\u884C\u70BA\uFF0C\u56E0\u6B64\u6E2C\u8A66\u6293\u4E0D\u5230\u771F\u6B63\u7684\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u4E0D\u589E\u52A0\u5C0D\u6B63\u78BA\u6027\u7684\u4FE1\u5FC3\u300D\u6B63\u662F\u5F37\u5316\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u542B\u7CCA\u7684\u540D\u7A31\u7834\u58DE\u5EFA\u7F6E",
+                "fraction": 0,
+                "feedback": "\u5B83\u80FD\u6B63\u5E38\u5EFA\u7F6E\uFF1B\u62B1\u6028\u662F\u95DC\u65BC\u4FDD\u8B77\u50F9\u503C\uFF0C\u5C6C\u65BC\u5F37\u5316\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u975E null \u6AA2\u67E5\u662F\u4E0D\u78BA\u5B9A\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u78BA\u5B9A\u7684\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u4EC0\u9EBC\u90FD\u6C92\u6709\u610F\u7FA9\u5730\u9A57\u8B49\uFF08\u5F37\u5316\uFF09\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014testSomething \u9019\u540D\u7A31\u662F\u552F\u4E00\u771F\u6B63\u7684\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u542B\u7CCA\u547D\u540D\u4E5F\u662F\u98A8\u683C\u5F31\u9EDE\uFF0C\u4F46\u300C\u4E0D\u589E\u52A0\u5C0D\u6B63\u78BA\u6027\u7684\u4FE1\u5FC3\u300D\u6700\u76F4\u63A5\u6307\u5411\u5F37\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u500B\u6E2C\u8A66\u6709\u6578\u500B\u5F31\u9EDE\uFF08\u542B\u7CCA\u540D\u7A31\u662F\u4E0D\u826F\u98A8\u683C\u3001\u610F\u5716\u4E0D\u660E\uFF09\uFF0C\u4F46\u5177\u9AD4\u62B1\u6028\u2014\u2014\u5B83\u4E0D\u589E\u52A0\u5C0D\u6B63\u78BA\u6027\u7684\u4FE1\u5FC3\u2014\u2014\u662F\u95DC\u65BC\u4FDD\u8B77\u50F9\u503C\u3002\u975E null \u6AA2\u67E5\u5C0D\u932F\u8AA4\u7D50\u679C\u4ECD\u6703\u901A\u904E\uFF0C\u56E0\u6B64\u6700\u76F4\u63A5\u7684\u5931\u6557\u662F\u5F37\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u751F\u6210\u6D41\u6C34\u7DDA\u6392\u5B9A\u512A\u5148",
+            "text": "<p>\u5728\u4E00\u6574\u6279\u4E2D\uFF0C\u67D0\u6E2C\u8A66\u751F\u6210\u6D41\u6C34\u7DDA\u9054\u5230 90% \u7684\u6BBA\u8B8A\u7570\u7387\uFF0C\u4F46\u5DE5\u7A0B\u5E2B\u9A57\u6536\u7387\u53EA\u6709 20%\u3002\u8981\u8B93\u9019\u689D\u6D41\u6C34\u7DDA\u771F\u6B63\u6709\u7528\uFF0C\u5718\u968A\u61C9\u512A\u5148\u8655\u7406\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4FEE\u6B63\u9A45\u52D5\u62D2\u7D55\u7684\u7DAD\u5EA6\u2014\u2014\u4E0D\u7A69\u5B9A\u3001\u98A8\u683C\u8207\u76F8\u95DC\u6027\u2014\u2014\u4F7F\u66F4\u591A\u80FD\u6293\u932F\u7684\u6E2C\u8A66\u771F\u6B63\u88AB\u63A5\u53D7\u4E26\u5408\u4F75",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u9AD8\u9A57\u6536\u624D\u80FD\u628A\u6BBA\u932F\u80FD\u529B\u8F49\u5316\u70BA\u771F\u6B63\u7684\u5957\u4EF6\u6539\u5584\u3002"
+              },
+              {
+                "text": "\u628A\u6BBA\u8B8A\u7570\u7387\u5F9E 90% \u63A8\u5230 99% \u4E26\u5FFD\u8996\u9A57\u6536",
+                "fraction": 0,
+                "feedback": "\u66F4\u591A\u4ECD\u88AB\u62D2\u7684\u6BBA\u6C92\u6709\u610F\u7FA9\uFF1B\u74F6\u9838\u5728\u9A57\u6536\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u5BE9\u67E5\u7DAD\u5EA6\uFF0C\u5408\u4F75\u6240\u6709\u751F\u6210\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u653E\u9032\u4E0D\u7A69\u5B9A\u8207\u7784\u6E96\u932F\u8AA4\u7684\u6E2C\u8A66\uFF0C\u4F7F\u5957\u4EF6\u52A3\u5316\uFF1B\u9A57\u6536\u6A19\u6E96\u7684\u5B58\u5728\u6709\u5176\u9053\u7406\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u522A\u9664\u8B8A\u7570\u6E2C\u8A66\u6B65\u9A5F",
+                "fraction": 0,
+                "feedback": "\u8B8A\u7570\u6E2C\u8A66\u662F\u6709\u7528\u7684\u8A0A\u865F\uFF1B\u771F\u6B63\u7684\u843D\u5DEE\u662F\u4F4E\u9A57\u6536\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "90% \u6BBA\u8B8A\u7570\u7387\u642D\u914D 20% \u9A57\u6536\uFF0C\u4EE3\u8868\u591A\u6578\u80FD\u6293\u932F\u7684\u6E2C\u8A66\u5F9E\u672A\u843D\u5730\u3002\u69D3\u687F\u5728\u9A57\u6536\u7DAD\u5EA6\uFF1A\u964D\u4F4E\u4E0D\u7A69\u5B9A\u3001\u7B26\u5408\u98A8\u683C\u3001\u7784\u6E96\u76F8\u95DC\u7A0B\u5F0F\u78BC\u3002\u6539\u5584\u9019\u4E9B\u6703\u628A\u6D41\u6C34\u7DDA\u7684\u5075\u6E2C\u80FD\u529B\u8F49\u5316\u70BA\u5DE5\u7A0B\u5E2B\u771F\u6B63\u9858\u610F\u5408\u4F75\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76F8\u95DC\u4F46\u4E0D\u7A69\u5B9A \u5C0D\u6BD4 \u7D14\u7CB9\u4E0D\u76F8\u95DC",
+            "text": "<p>\u70BA\u4F55\u4E00\u500B\u7784\u6E96\u91CD\u8981\u3001\u76F8\u95DC\u7A0B\u5F0F\u78BC\u537B\u4E0D\u7A69\u5B9A\u7684\u6E2C\u8A66\uFF0C\u53EF\u80FD\u6BD4\u4E00\u500B\u7D14\u7CB9\u4E0D\u76F8\u95DC\u7684\u6E2C\u8A66\u9020\u6210<em>\u66F4\u5927</em>\u50B7\u5BB3\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u5B83\u5728\u91CD\u8981\u8DEF\u5F91\u4E0A\u6CE8\u5165\u4E0D\u78BA\u5B9A\u7684\u5931\u6557\uFF0C\u4E00\u9762\u770B\u4F3C\u6709\u50F9\u503C\u4E00\u9762\u4FB5\u8755\u5C0D\u5957\u4EF6\u7684\u4FE1\u4EFB\u2014\u2014\u4E0D\u76F8\u95DC\u7684\u6E2C\u8A66\u81F3\u5C11\u6703\u53EF\u9810\u6E2C\u5730\u5931\u6557\u6216\u5BB9\u6613\u88AB\u6392\u9664",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u8981\u8DEF\u5F91\u4E0A\u7684\u4E0D\u7A69\u5B9A\u5C0D CI \u4FE1\u4EFB\u7279\u5225\u5177\u8150\u8755\u6027\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4E0D\u76F8\u95DC\u7684\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u4E0D\u76F8\u95DC\u7684\u6E2C\u8A66\u53EF\u4EE5\u6B63\u5E38\u7DE8\u8B6F\uFF1B\u91CD\u9EDE\u662F\u4E0D\u7A69\u5B9A\u5C0D\u53D7\u4FE1\u4EFB\u8DEF\u5F91\u7684\u8150\u8755\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u6C38\u9060\u6709\u66F4\u9AD8\u7684\u6BBA\u8B8A\u7570\u7387",
+                "fraction": 0,
+                "feedback": "\u6BBA\u8B8A\u7570\u7387\u4E0D\u662F\u554F\u984C\uFF1B\u50B7\u5BB3\u5728\u65BC\u91CD\u8981\u7A0B\u5F0F\u78BC\u4E0A\u7684\u4E0D\u78BA\u5B9A\u96DC\u8A0A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u76F8\u95DC\u7684\u6E2C\u8A66\u53EF\u8C41\u514D\u975E\u4E0D\u7A69\u5B9A\u7DAD\u5EA6",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6E2C\u8A66\u53EF\u8C41\u514D\uFF1B\u76F8\u95DC\u537B\u4E0D\u7A69\u5B9A\u7684\u6E2C\u8A66\u4ECD\u6703\u88AB\u62D2\uFF0C\u4E14\u5176\u4E0D\u7A69\u5B9A\u7279\u5225\u5177\u50B7\u5BB3\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u95DC\u7A0B\u5F0F\u78BC\u4E0A\u7684\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u507D\u88DD\u6210\u6709\u50F9\u503C\u7684\u8986\u84CB\uFF0C\u537B\u5728\u4EBA\u5011\u5728\u610F\u7684\u8DEF\u5F91\u4E0A\u7522\u751F\u9593\u6B47\u6027\u7D05\u71C8\u3002\u90A3\u6703\u8A13\u7DF4\u5718\u968A\u5FFD\u8996\u91CD\u8981\u7A0B\u5F0F\u78BC\u4E0A\u7684\u5931\u6557\uFF0C\u56E0\u6B64\u5B83\u5FC5\u9808\u5728\u975E\u4E0D\u7A69\u5B9A\u4E0A\u88AB\u62D2\uFF0C\u4E26\u5148\u505A\u6210\u78BA\u5B9A\u624D\u80FD\u6709\u5E6B\u52A9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u53EF\u7DE8\u8B6F\u662F\u5176\u4ED6\u7DAD\u5EA6\u7684\u95DC\u5361",
+            "text": "<p>\u7576\u6E2C\u8A66\u4ECD\u672A\u901A\u904E\u53EF\u7DE8\u8B6F\u7DAD\u5EA6\u6642\uFF0C\u70BA\u4F55\u8A55\u4F30\u5B83\u7684\u5F37\u5316\u6216\u76F8\u95DC\u6027\u662F\u5F92\u52DE\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u6C38\u9060\u4E0D\u6703\u57F7\u884C\uFF0C\u56E0\u6B64\u7121\u6CD5\u5C55\u793A\u4EFB\u4F55\u6293\u932F\u50F9\u503C\u6216\u76EE\u6A19\u2014\u2014\u53EF\u7DE8\u8B6F\u662F\u5FC5\u9808\u5148\u4FEE\u6B63\u7684\u524D\u7F6E\u95DC\u5361",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u80FD\u5EFA\u7F6E\u5C31\u7121\u6CD5\u57F7\u884C\uFF0C\u56E0\u6B64\u4E0B\u6E38\u7DAD\u5EA6\u7121\u5F9E\u8AC7\u8D77\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6574\u9AD4\u800C\u8A00\u5F37\u5316\u8207\u76F8\u95DC\u6027\u6C92\u6709\u53EF\u7DE8\u8B6F\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5C0D\u9A57\u6536\u540C\u7B49\u5FC5\u8981\uFF1B\u91CD\u9EDE\u662F\u9806\u5E8F\u2014\u2014\u7121\u6CD5\u5EFA\u7F6E\u7684\u6E2C\u8A66\u7121\u6CD5\u5728\u5B83\u5011\u4E0A\u88AB\u8A55\u4F30\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7121\u6CD5\u5EFA\u7F6E\u7684\u6E2C\u8A66\u81EA\u52D5\u5C31\u662F\u4E0D\u7A69\u5B9A",
+                "fraction": 0,
+                "feedback": "\u5EFA\u7F6E\u932F\u8AA4\u662F\u78BA\u5B9A\u7684\uFF0C\u4E26\u975E\u4E0D\u7A69\u5B9A\uFF1B\u554F\u984C\u5728\u65BC\u6E2C\u8A66\u7121\u6CD5\u57F7\u884C\u4EE5\u5C55\u793A\u5F37\u5316\u6216\u76F8\u95DC\u6027\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7DE8\u8B6F\u6E2C\u8A66\u4E5F\u8B49\u660E\u4E86\u5B83\u662F\u76F8\u95DC\u7684",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u53EA\u8B49\u660E\u53EF\u7DE8\u8B6F\uFF1B\u76F8\u95DC\u6027\u8207\u5F37\u5316\u662F\u5206\u958B\u7684\uFF0C\u8981\u5728\u5B83\u80FD\u5EFA\u7F6E\u5F8C\u624D\u8A55\u4F30\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u7DE8\u8B6F\u662F\u5165\u53E3\u95DC\u5361\u3002\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u4E0D\u80FD\u57F7\u884C\uFF0C\u56E0\u6B64\u7121\u5F9E\u89C0\u5BDF\u5B83\u662F\u5426\u6293\u5230\u7F3A\u9677\uFF08\u5F37\u5316\uFF09\u6216\u7784\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\uFF08\u76F8\u95DC\u6027\uFF09\u3002\u5FC5\u9808\u5148\u4FEE\u6B63\u5EFA\u7F6E\u932F\u8AA4\uFF0C\u4EFB\u4F55\u4E0B\u6E38\u7DAD\u5EA6\u624D\u80FD\u88AB\u5224\u65B7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5340\u5206\u5F37\u5316\u8207\u76F8\u95DC\u6027",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u9673\u8FF0\u6700\u6E96\u78BA\u5730\u5340\u5206\u5F37\u5316\u7DAD\u5EA6\u8207\u76F8\u95DC\u6027\u7DAD\u5EA6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u95DC\u6027\u63A2\u554F\u6E2C\u8A66\u662F\u5426\u7784\u6E96\u6B63\u78BA\u7684\u7A0B\u5F0F\u78BC\uFF1B\u5F37\u5316\u63A2\u554F\u5B83\u662F\u5426\u771F\u80FD\u6293\u5230\u8A72\u7A0B\u5F0F\u78BC\u4E2D\u7684\u771F\u5BE6\u8FF4\u6B78",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76F8\u95DC\u6027\u95DC\u4E4E\u76EE\u6A19\uFF0C\u5F37\u5316\u95DC\u4E4E\u6293\u932F\u80FD\u529B\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u63A2\u554F\u6E2C\u8A66\u662F\u5426\u80FD\u7DE8\u8B6F\uFF1B\u76F8\u95DC\u6027\u63A2\u554F\u5B83\u662F\u5426\u78BA\u5B9A",
+                "fraction": 0,
+                "feedback": "\u80FD\u7DE8\u8B6F\u662F\u53EF\u7DE8\u8B6F\u3001\u78BA\u5B9A\u662F\u975E\u4E0D\u7A69\u5B9A\uFF1B\u8A72\u7B54\u6848\u6DF7\u6DC6\u4E86\u7DAD\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u7DAD\u5EA6\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u4E0D\u540C\u7684\uFF1A\u6E2C\u8A66\u53EF\u4EE5\u7784\u6E96\u6B63\u78BA\u537B\u6293\u4E0D\u5230\u4EFB\u4F55\u6771\u897F\uFF0C\u6216\u6293\u5F97\u5230\u7F3A\u9677\u537B\u5C0D\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u76F8\u95DC\u6027\u95DC\u4E4E\u98A8\u683C\u6163\u4F8B\uFF1B\u5F37\u5316\u95DC\u4E4E\u901F\u5EA6",
+                "fraction": 0,
+                "feedback": "\u98A8\u683C\u8207\u901F\u5EA6\u90FD\u7121\u95DC\uFF1B\u76F8\u95DC\u6027\u662F\u76EE\u6A19\uFF0C\u5F37\u5316\u662F\u6293\u932F\u50F9\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u8005\u6B63\u4EA4\u3002\u6E2C\u8A66\u53EF\u4EE5\u76F8\u95DC\uFF08\u5C0D\u6E96\u6B63\u78BA\u3001\u6709\u98A8\u96AA\u7684\u7A0B\u5F0F\u78BC\uFF09\u537B\u672A\u5F37\u5316\uFF08\u5F31\u65B7\u8A00\u4EC0\u9EBC\u90FD\u6293\u4E0D\u5230\uFF09\uFF0C\u4E5F\u53EF\u4EE5\u6709\u5F37\u5316\u80FD\u529B\uFF08\u5F37\u529B\u65B7\u8A00\uFF09\u537B\u4E0D\u76F8\u95DC\uFF08\u5C0D\u6E96\u6B7B\u6389\u6216\u7121\u95DC\u7684\u7A0B\u5F0F\u78BC\uFF09\u3002\u76F8\u95DC\u6027\uFF1D\u6B63\u78BA\u76EE\u6A19\uFF1B\u5F37\u5316\uFF1D\u80FD\u6293\u5230\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u8981\u62D2\u7D55\u539F\u56E0\uFF1A\u4E0D\u76F8\u95DC\u4E14\u5F31",
+            "text": "<p>\u67D0\u6E2C\u8A66\u65E2\u904B\u7528\u4E00\u500B\u7463\u788E\u3001\u7121\u95DC\u7684 getter\uFF08\u4E0D\u662F\u8B8A\u66F4\u7684\u884C\u70BA\uFF09\uFF0C\u53C8\u53EA\u65B7\u8A00\u5176\u7D50\u679C\u975E null\u3002\u76F8\u95DC\u6027\u8207\u5F37\u5316\u770B\u8D77\u4F86\u90FD\u4E0D\u7A69\u3002\u54EA\u4E00\u500B\u662F\u62D2\u7D55\u5B83\u7684\u66F4\u6839\u672C\u539F\u56E0\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u95DC\u6027\u2014\u2014\u56E0\u70BA\u5B83\u7784\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC\uFF0C\u5373\u4F7F\u5F37\u5316\u5176\u65B7\u8A00\u4ECD\u7136\u6E2C\u4E0D\u5230\u771F\u6B63\u91CD\u8981\u7684\u884C\u70BA\uFF0C\u56E0\u6B64\u932F\u8AA4\u7684\u76EE\u6A19\u624D\u662F\u6839\u672C\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u76EE\u6A19\u672C\u8EAB\u5C31\u932F\u6642\uFF0C\u76F8\u95DC\u6027\u662F\u66F4\u6839\u672C\u7684\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5F37\u5316\u2014\u2014\u56E0\u70BA\u66F4\u5F37\u7684\u65B7\u8A00\u5C31\u80FD\u4FEE\u6B63\u4E00\u5207",
+                "fraction": 0,
+                "feedback": "\u5C0D\u932F\u8AA4 getter \u7684\u66F4\u5F37\u65B7\u8A00\u4ECD\u7136\u6E2C\u4E0D\u5230\u8B8A\u66F4\u7684\u884C\u70BA\uFF1B\u6839\u672C\u554F\u984C\u662F\u76EE\u6A19\uFF08\u76F8\u95DC\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u7121\u95DC\u7684 getter \u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u5B83\u80FD\u7DE8\u8B6F\uFF1B\u6839\u672C\u554F\u984C\u662F\u5B83\u5C0D\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC\uFF08\u76F8\u95DC\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014getter \u6E2C\u8A66\u662F\u4E0D\u78BA\u5B9A\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u53EF\u4EE5\u662F\u78BA\u5B9A\u7684\uFF1B\u6839\u672C\u5931\u6557\u662F\u5176\u76EE\u6A19\u4E0D\u76F8\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u6311\u51FA\u6700\u6839\u672C\u7684\u5931\u6557\uFF0C\u554F\uFF1A\u4FEE\u597D\u5176\u4ED6\u4E4B\u5F8C\u9084\u5269\u4EC0\u9EBC\u58DE\u6389\u3002\u6B64\u8655\u5373\u4F7F\u5F37\u5316\u65B7\u8A00\u4E5F\u6C92\u7528\uFF0C\u56E0\u70BA\u6E2C\u8A66\u5C0D\u6E96\u932F\u8AA4\u7A0B\u5F0F\u78BC\u2014\u2014\u6240\u4EE5\u76F8\u95DC\u6027\u662F\u6839\u672C\u5931\u6557\u3002\u5C0D\u6BD4\u4E4B\u4E0B\uFF0C\u5C0D\u6E96\u6B63\u78BA\u7A0B\u5F0F\u78BC\u537B\u53EA\u6709\u5F31\u65B7\u8A00\u7684\u6E2C\u8A66\uFF0C\u662F\u5F37\u5316\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6BBA\u8B8A\u7570\u7387\u4E0D\u4FDD\u8B49\u9A57\u6536",
+            "text": "<p>\u4E00\u6574\u6279\u751F\u6210\u6E2C\u8A66\u82E5\u6709\u5F88\u9AD8\u7684\u6BBA\u8B8A\u7570\u7387\uFF0C\u5C31\u4FDD\u8B49\u5DE5\u7A0B\u5E2B\u6703\u63A5\u53D7\u5176\u4E2D\u5927\u591A\u6578\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u53D6\u6C7A\u65BC\u5168\u90E8\u4E94\u500B\u7DAD\u5EA6\uFF0C\u56E0\u6B64\u9AD8\u6BBA\u8B8A\u7570\u7387\u4E0D\u4FDD\u8B49\u6E2C\u8A66\u6703\u88AB\u63A5\u53D7\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u6E2C\u8A66\u53EF\u4EE5\u6BBA\u6389\u8B8A\u7570\u9AD4\u537B\u56E0\u4E0D\u7A69\u5B9A\u3001\u98A8\u683C\u6216\u4E0D\u76F8\u95DC\u88AB\u62D2\uFF0C\u56E0\u6B64\u9AD8\u6BBA\u8B8A\u7570\u7387\u4E0D\u4FDD\u8B49\u9A57\u6536\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u8B8A\u7570\u7387\u8207\u9A57\u6536\u662F\u4E0D\u540C\u7684\u8861\u91CF\u3002\u4E00\u6574\u6279\u53EF\u4EE5\u6BBA\u6389\u8A31\u591A\u8B8A\u7570\u9AD4\uFF0C\u537B\u6709\u591A\u6578\u6E2C\u8A66\u56E0\u975E\u4E0D\u7A69\u5B9A\u3001\u98A8\u683C\u6216\u76F8\u95DC\u6027\u800C\u88AB\u62D2\u3002\u8DE8\u4E94\u500B\u7DAD\u5EA6\u7684\u5DE5\u7A0B\u5E2B\u9A57\u6536\u2014\u2014\u800C\u975E\u539F\u59CB\u6BBA\u8B8A\u7570\u7387\u2014\u2014\u624D\u662F\u6E2C\u8A66\u662F\u5426\u6539\u5584\u5957\u4EF6\u7684\u771F\u6B63\u9580\u6ABB\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u8981\u95DC\u5361\uFF1A\u7121\u6CD5\u5EFA\u7F6E\u4E14\u98A8\u683C\u4E0D\u826F",
+            "text": "<p>\u67D0\u751F\u6210\u6E2C\u8A66\u65E2\u7121\u6CD5\u7DE8\u8B6F\uFF08\u578B\u5225\u932F\u8AA4\uFF09\uFF0C\u53C8\u4F7F\u7528\u5FFD\u8996\u5718\u968A\u6163\u4F8B\u7684\u547D\u540D\u3002\u61C9\u628A\u54EA\u500B\u55AE\u4E00\u7DAD\u5EA6\u8A18\u9304\u70BA\u62D2\u7D55\u7684\u4E3B\u8981\u539F\u56E0\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u7DE8\u8B6F\u2014\u2014\u56E0\u70BA\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u6839\u672C\u7121\u6CD5\u57F7\u884C\u6216\u88AB\u5BE9\u67E5\uFF0C\u6240\u4EE5\u5EFA\u7F6E\u932F\u8AA4\u662F\u6700\u6839\u672C\u7684\u963B\u7919\uFF1B\u5728\u5B83\u80FD\u5EFA\u7F6E\u4E4B\u524D\uFF0C\u98A8\u683C\u554F\u984C\u7121\u95DC\u7DCA\u8981",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u7DE8\u8B6F\u662F\u524D\u7F6E\u95DC\u5361\uFF0C\u56E0\u6B64\u5728\u6B64\u662F\u4E3B\u8981\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u98A8\u683C\u2014\u2014\u547D\u540D\u662F\u5BE9\u67E5\u8005\u6700\u5148\u6CE8\u610F\u5230\u7684",
+                "fraction": 0,
+                "feedback": "\u5728\u6E2C\u8A66\u7121\u6CD5\u7DE8\u8B6F\u6642\u98A8\u683C\u554F\u984C\u6839\u672C\u7121\u5F9E\u8457\u624B\uFF1B\u53EF\u7DE8\u8B6F\u662F\u66F4\u6839\u672C\u7684\u963B\u7919\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u540C\u7B49\u4E3B\u8981\uFF0C\u4EFB\u9078\u5176\u4E00\u5373\u53EF",
+                "fraction": 0,
+                "feedback": "\u7121\u6CD5\u5EFA\u7F6E\u7684\u6E2C\u8A66\u4E0D\u80FD\u57F7\u884C\u6216\u88AB\u5BE9\u67E5\uFF0C\u56E0\u6B64\u53EF\u7DE8\u8B6F\u662F\u5169\u8005\u4E2D\u66F4\u6839\u672C\u7684\u3002"
+              },
+              {
+                "text": "\u975E\u4E0D\u7A69\u5B9A\u2014\u2014\u578B\u5225\u932F\u8AA4\u9020\u6210\u9593\u6B47\u6027\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u578B\u5225\u932F\u8AA4\u78BA\u5B9A\u5730\u8B93\u5EFA\u7F6E\u505C\u6B62\uFF1B\u4E3B\u8981\u5931\u6557\u662F\u53EF\u7DE8\u8B6F\uFF0C\u800C\u975E\u975E\u4E0D\u7A69\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u5931\u6557\u65BC\u591A\u500B\u7DAD\u5EA6\u6642\uFF0C\u4E3B\u8981\u7684\u662F\u6700\u6839\u672C\u7684\u963B\u7919\u2014\u2014\u90A3\u500B\u4F7F\u5176\u4ED6\u7DAD\u5EA6\u7121\u6CD5\u8A55\u4F30\u6216\u4FEE\u6B63\u7684\u5931\u6557\u3002\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u4E0D\u80FD\u57F7\u884C\u6216\u88AB\u5BE9\u67E5\uFF0C\u56E0\u6B64\u53EF\u7DE8\u8B6F\u662F\u4E3B\u8981\uFF1B\u98A8\u683C\u554F\u984C\u53EA\u6709\u5728\u6E2C\u8A66\u80FD\u5EFA\u7F6E\u5F8C\u624D\u8B8A\u5F97\u76F8\u95DC\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "testing-flow": {
       "en": {
         "easy": [

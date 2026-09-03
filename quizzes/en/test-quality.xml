@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Quality Review/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>The five acceptance dimensions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Meta ACH study (arXiv 2501.12862), an LLM-generated test must satisfy five review dimensions before engineers accept it. Which set names all five correctly?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Buildable, Non-flaky, Hardening, Relevant, Style</text><feedback><text>Correct — these are exactly the five engineer-acceptance dimensions.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable, Fast, Coverage, Relevant, Readable</text><feedback><text>Fast, Coverage and Readable are not the review dimensions; the five are Buildable, Non-flaky, Hardening, Relevant, Style.</text></feedback></answer>
+    <answer fraction="0"><text>Kill rate, Non-flaky, Hardening, Relevant, Style</text><feedback><text>Kill rate is a mutation metric, not an acceptance dimension; the first dimension is Buildable.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable, Non-flaky, Performance, Security, Style</text><feedback><text>Performance and Security are not the review dimensions; the middle two are Hardening and Relevant.</text></feedback></answer>
+    <generalfeedback><text>The five engineer-acceptance dimensions are Buildable (it compiles), Non-flaky (deterministic), Hardening (strengthens the suite), Relevant (targets real code), and Style (follows conventions). A test must pass all five to be accepted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Buildable checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>Buildable</em> dimension checks that a test:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Compiles and builds cleanly, with no build or compilation errors</text><feedback><text>Correct — Buildable means the test compiles/builds without errors.</text></feedback></answer>
+    <answer fraction="0"><text>Runs faster than every other test in the suite</text><feedback><text>Speed is not part of Buildable; Buildable is only about compiling/building cleanly.</text></feedback></answer>
+    <answer fraction="0"><text>Covers every branch of the code under test</text><feedback><text>Branch coverage is unrelated to Buildable, which is about whether the test builds without errors.</text></feedback></answer>
+    <answer fraction="0"><text>Follows the team's naming conventions</text><feedback><text>That describes the Style dimension; Buildable is about compiling cleanly.</text></feedback></answer>
+    <generalfeedback><text>Buildable is the most basic gate: if the test does not compile or build, it produces a build error and is rejected outright. Nothing else can be evaluated until the test actually builds.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Non-flaky checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>Non-flaky</em> dimension requires that a test:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Is deterministic — it produces the same result on every run of the same code</text><feedback><text>Correct — Non-flaky means a deterministic, repeatable result every run.</text></feedback></answer>
+    <answer fraction="0"><text>Always passes no matter what the code does</text><feedback><text>A test that always passes is useless; Non-flaky means a repeatable outcome, which may be pass or fail.</text></feedback></answer>
+    <answer fraction="0"><text>Uses fresh random inputs on every run</text><feedback><text>Unseeded random inputs make a test flaky; Non-flaky is the opposite property.</text></feedback></answer>
+    <answer fraction="0"><text>Compiles without any errors</text><feedback><text>Compiling cleanly is the Buildable dimension; Non-flaky is about determinism across runs.</text></feedback></answer>
+    <generalfeedback><text>A non-flaky test gives the same verdict every time it runs against unchanged code. A flaky test that intermittently passes and fails destroys CI trust and is always rejected, regardless of its other qualities.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Hardening checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>Hardening</em> dimension asks whether a test:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Meaningfully exercises and asserts behaviour, so it would catch a real regression or fault</text><feedback><text>Correct — Hardening means the test actually strengthens the suite's ability to catch faults.</text></feedback></answer>
+    <answer fraction="0"><text>Always passes so it never blocks a build</text><feedback><text>A test that can never fail adds no protective value; that is exactly a Hardening failure, not a pass.</text></feedback></answer>
+    <answer fraction="0"><text>Is written in the same file as the code under test</text><feedback><text>File location is irrelevant to Hardening, which is about whether the test would catch a real fault.</text></feedback></answer>
+    <answer fraction="0"><text>Executes in under one millisecond</text><feedback><text>Execution speed is unrelated to Hardening, which measures protective value.</text></feedback></answer>
+    <generalfeedback><text>A hardening test strengthens the suite: it exercises behaviour and asserts on it so that a genuine regression would make it fail. A trivial, no-op, or tautological test that always passes fails the Hardening dimension because it adds no protective value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Relevant checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>Relevant</em> dimension asks whether a test:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Targets a real, relevant issue or behaviour of the code under test</text><feedback><text>Correct — Relevant means the test is aimed at genuine, on-target behaviour of the system under test.</text></feedback></answer>
+    <answer fraction="0"><text>Exercises unrelated code that is not the subject of the change</text><feedback><text>Testing unrelated code is precisely a Relevance failure, not a pass.</text></feedback></answer>
+    <answer fraction="0"><text>Contains at least ten assertions</text><feedback><text>The number of assertions is not what Relevant measures; it is whether the target is a real issue.</text></feedback></answer>
+    <answer fraction="0"><text>Runs on every supported platform</text><feedback><text>Cross-platform execution is unrelated to Relevance, which is about targeting the right code.</text></feedback></answer>
+    <generalfeedback><text>A relevant test is aimed at a genuine issue or behaviour of the code under test — not at unrelated code, dead paths, or a non-issue. A test can be perfectly built and deterministic yet be rejected because it is off-target.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Style checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>Style</em> dimension asks whether a test:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Follows the codebase's conventions for naming, structure, assertions, and idioms so a human would accept it</text><feedback><text>Correct — Style is about conforming to the team's conventions so the test is maintainable and reviewable.</text></feedback></answer>
+    <answer fraction="0"><text>Produces the same result on every run</text><feedback><text>That is the Non-flaky dimension; Style is about matching the codebase's conventions.</text></feedback></answer>
+    <answer fraction="0"><text>Kills at least one mutant</text><feedback><text>Killing mutants is a mutation-testing metric, not the Style dimension.</text></feedback></answer>
+    <answer fraction="0"><text>Compiles without errors</text><feedback><text>Compiling cleanly is Buildable; Style is about naming, structure, and idioms.</text></feedback></answer>
+    <generalfeedback><text>Style captures whether a human reviewer would accept the test into the codebase: consistent naming, structure, assertion helpers, and idioms. A stylistically unacceptable test is rejected because it would need rework before it could be merged.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What engineer acceptance requires</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For an LLM-generated test to be <em>accepted</em> by engineers, it must:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Pass all five review dimensions — Buildable, Non-flaky, Hardening, Relevant, and Style</text><feedback><text>Correct — acceptance requires passing every one of the five dimensions.</text></feedback></answer>
+    <answer fraction="0"><text>Pass at least three of the five dimensions</text><feedback><text>A majority is not enough; a failure on any single dimension leads to rejection.</text></feedback></answer>
+    <answer fraction="0"><text>Kill at least one mutant, regardless of the five dimensions</text><feedback><text>Killing a mutant does not guarantee acceptance; the test must still pass all five dimensions.</text></feedback></answer>
+    <answer fraction="0"><text>Pass the Buildable dimension only</text><feedback><text>Building cleanly is necessary but far from sufficient; all five dimensions must pass.</text></feedback></answer>
+    <generalfeedback><text>Engineer acceptance is a conjunction: the test must satisfy Buildable AND Non-flaky AND Hardening AND Relevant AND Style. A failure on any one dimension is enough for rejection.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Killing a mutant is not enough</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a generated test kills a mutant, that alone is enough for engineers to accept it into the codebase.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — killing a mutant does not guarantee acceptance; the test must still pass all five review dimensions.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: a mutation-killing test can still be rejected if it is flaky, off-target, stylistically unacceptable, or otherwise fails a dimension.</text></feedback></answer>
+    <generalfeedback><text>Mutation kill rate measures whether a test can detect an injected fault, but engineer acceptance is a stricter, human bar. A test that kills a mutant is still rejected unless it also builds, is deterministic, hardens the suite, targets relevant code, and follows conventions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why kill rate alone is not enough</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a high mutation kill rate, on its own, an insufficient measure of a generated test's value to engineers?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test can kill mutants yet still be rejected for being flaky, off-target, trivial, or stylistically unacceptable — so it never actually lands in the codebase</text><feedback><text>Correct — acceptance depends on all five dimensions, not just fault detection.</text></feedback></answer>
+    <answer fraction="0"><text>Kill rate cannot be measured for LLM-generated tests</text><feedback><text>Kill rate can be measured fine; the point is that it does not capture the other acceptance dimensions.</text></feedback></answer>
+    <answer fraction="0"><text>A high kill rate guarantees the test also follows the team's style</text><feedback><text>Kill rate says nothing about style, determinism, or relevance; those are judged separately.</text></feedback></answer>
+    <answer fraction="0"><text>Engineers never look at whether a test detects faults</text><feedback><text>Fault detection matters (Hardening), but it is only one of five dimensions engineers weigh.</text></feedback></answer>
+    <generalfeedback><text>Kill rate captures only whether a test can catch an injected fault. Engineers additionally require the test to build, run deterministically, target relevant code, and follow conventions. The true bar is acceptance across all five dimensions, so a suite can have a high kill rate yet very few tests engineers will actually merge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Defect: does not compile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test references a method that does not exist, so it fails to compile. Which dimension does this violate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Buildable</text><feedback><text>Correct — a compilation error is a Buildable failure.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky</text><feedback><text>Non-flaky is about determinism across runs; a test that never compiles cannot even run.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant</text><feedback><text>Relevance is about targeting the right code; here the test does not build at all.</text></feedback></answer>
+    <answer fraction="0"><text>Style</text><feedback><text>Style is about conventions; a missing method is a build error, which is the Buildable dimension.</text></feedback></answer>
+    <generalfeedback><text>A test that will not compile fails the Buildable dimension. It produces a build error and is rejected before any other quality can even be assessed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Defect: passes sometimes, fails sometimes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test passes on some runs and fails on others against the same unchanged code. Which dimension does this violate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-flaky</text><feedback><text>Correct — a non-deterministic pass/fail result is a Non-flaky failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable</text><feedback><text>The test compiles and runs; the problem is that its result varies between runs.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening</text><feedback><text>Hardening is about protective value; here the issue is non-determinism.</text></feedback></answer>
+    <answer fraction="0"><text>Style</text><feedback><text>Style is about conventions; an intermittent result is a Non-flaky failure.</text></feedback></answer>
+    <generalfeedback><text>Intermittent pass/fail on unchanged code is the definition of flakiness, a Non-flaky failure. Flaky tests break CI's signal and are always rejected.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Defect: assertion is always true</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test's only check is <code>assertTrue(true)</code>, so it can never fail. Which dimension does this violate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hardening</text><feedback><text>Correct — a tautological assertion catches nothing, so it fails the Hardening dimension.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable</text><feedback><text>The test compiles fine; the problem is that it adds no protective value.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky</text><feedback><text>The test is perfectly deterministic (always passes); the issue is that it never catches a fault.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant</text><feedback><text>Relevance concerns the target; a test that asserts nothing meaningful fails Hardening even if aimed at the right code.</text></feedback></answer>
+    <generalfeedback><text>A test that can never fail exercises no real behaviour and would never catch a regression, so it fails the Hardening dimension — it adds no protective value to the suite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Defect: tests unrelated code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A change fixes a payment-calculation bug, but the generated test only exercises an unrelated string-formatting helper. Which dimension does this violate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relevant</text><feedback><text>Correct — testing code unrelated to the issue is a Relevance failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable</text><feedback><text>The test may compile fine; the problem is that it is aimed at the wrong code.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky</text><feedback><text>It can be perfectly deterministic yet still off-target, which is a Relevance failure.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening</text><feedback><text>Even if it asserts strongly on the helper, it targets the wrong code — that is a Relevance failure.</text></feedback></answer>
+    <generalfeedback><text>A test aimed at unrelated code, rather than the behaviour actually at risk, fails the Relevant dimension. It provides no confidence about the change that matters.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Defect: wrong naming convention</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A Kotlin test is named <code>TEST_boundary_AGE</code>, mixing SCREAMING_SNAKE_CASE with camelCase against the team's conventions. Which dimension does this violate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Style</text><feedback><text>Correct — inconsistent naming that breaks conventions is a Style failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable</text><feedback><text>Odd naming still compiles; the problem is that it violates the codebase's conventions.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant</text><feedback><text>The test can target the right code and still be rejected for its non-conforming name — a Style failure.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening</text><feedback><text>It can assert meaningfully and still fail review on naming, which is the Style dimension.</text></feedback></answer>
+    <generalfeedback><text>Naming, structure, and idioms that clash with the codebase's conventions fail the Style dimension. A human reviewer would send it back for rework even if the assertions are sound.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Acceptance needs all five</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is accepted by engineers only if it passes all five review dimensions.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — acceptance requires passing Buildable, Non-flaky, Hardening, Relevant, and Style together.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: a failure on any one of the five dimensions is enough for the test to be rejected.</text></feedback></answer>
+    <generalfeedback><text>Engineer acceptance is a conjunction of all five dimensions. Passing four but failing one — for example, a strong, on-target test that is flaky — still results in rejection.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Quality Review/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: random input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test computes an input with <code>Random.nextInt()</code> (no fixed seed) and asserts on the result, so its outcome varies from run to run. Which dimension does it fail?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-flaky — the unseeded random input makes the result non-deterministic</text><feedback><text>Correct — the varying input produces a non-deterministic result, a Non-flaky failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — random numbers cause compilation errors</text><feedback><text>Random numbers do not break compilation; the failure is non-determinism (Non-flaky).</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — random inputs always target the wrong code</text><feedback><text>The test can target the right code; the problem is that its result is not reproducible.</text></feedback></answer>
+    <answer fraction="0"><text>Style — random calls violate naming conventions</text><feedback><text>Naming is unaffected; the defect is non-determinism, which is the Non-flaky dimension.</text></feedback></answer>
+    <generalfeedback><text>An unseeded random generator produces different inputs each run, so the test can pass most of the time and fail occasionally. That non-determinism is a Non-flaky failure, and flaky tests are always rejected.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: missing symbol</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test calls <code>calculateDiscuont(order)</code> — a misspelling of the real method — so the test file will not compile. Which dimension does it fail?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Buildable — the unresolved symbol is a compilation error</text><feedback><text>Correct — an unresolved reference is a build error, a Buildable failure.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — a typo means the test targets the wrong feature</text><feedback><text>The intent may be on-target, but the test cannot compile; that is a Buildable failure.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — misspelled calls never catch faults</text><feedback><text>The test never even builds, so the primary failure is Buildable, not Hardening.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — typos make results non-deterministic</text><feedback><text>A compile error is deterministic; the defect is that it does not build (Buildable).</text></feedback></answer>
+    <generalfeedback><text>An unresolved method reference is a compilation error, so the test fails the Buildable dimension. Until it compiles, none of the other dimensions can even be evaluated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: no-op assertion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test runs a computation but its only assertion is <code>assertEquals(1, 1)</code>, which can never fail. Which dimension does it fail?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hardening — the assertion is a tautology and catches no fault</text><feedback><text>Correct — a check that can never fail adds no protective value, a Hardening failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — a constant comparison will not compile</text><feedback><text>It compiles fine; the problem is that it verifies nothing meaningful.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — a constant assertion is non-deterministic</text><feedback><text>It is fully deterministic (always passes); the issue is that it catches nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Style — comparing 1 to 1 breaks conventions</text><feedback><text>The defect is the lack of protective value, not conventions; that is Hardening.</text></feedback></answer>
+    <generalfeedback><text>An assertion comparing a constant to itself always holds, so the test would pass even if the code were broken. It contributes nothing to the suite's fault-catching power, which is a Hardening failure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: off-target test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A pull request modifies the authentication logic, but the generated test exercises the unrelated logging module and asserts on log formatting. Which dimension does it fail?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relevant — it targets code unrelated to the change under review</text><feedback><text>Correct — testing unrelated code instead of the authentication logic is a Relevance failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — logging tests never compile with auth code</text><feedback><text>It may compile fine; the problem is that it is aimed at the wrong module.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — logging output is always non-deterministic</text><feedback><text>Log assertions can be deterministic; here the defect is that the test is off-target.</text></feedback></answer>
+    <answer fraction="0"><text>Style — logging tests use the wrong idioms</text><feedback><text>Even in perfect style, a test aimed at the wrong code fails Relevance.</text></feedback></answer>
+    <generalfeedback><text>A test aimed at code unrelated to the behaviour under review provides no confidence about the change that matters. That is a Relevant failure, regardless of how well the test is written.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: inconsistent structure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is correct and deterministic but crams five unrelated scenarios into one method with hard-coded magic numbers, ignoring the codebase's one-scenario-per-test, arrange-act-assert convention. Which dimension does it fail?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Style — the structure and idioms clash with the codebase's conventions</text><feedback><text>Correct — violating the team's structural conventions is a Style failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — multi-scenario methods do not compile</text><feedback><text>The method compiles and runs; the problem is that it ignores the codebase's conventions.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — bundling scenarios means it catches no faults</text><feedback><text>It can still catch faults; the issue is that its structure is not acceptable to reviewers.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — combined tests target the wrong code</text><feedback><text>It can be on-target and still be rejected for its non-conforming structure — a Style failure.</text></feedback></answer>
+    <generalfeedback><text>When a test ignores the codebase's naming, structure, and idioms, a reviewer will send it back even if it is otherwise correct. That is a Style failure: it needs rework before a human would accept it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill but reject: flaky</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test kills the target mutant, but it relies on the current wall-clock time and fails whenever it runs across midnight. Engineers reject it. On which dimension?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-flaky — the wall-clock dependence makes the result non-deterministic</text><feedback><text>Correct — despite killing the mutant, the intermittent failure is a Non-flaky rejection.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — killing a mutant means it fails Hardening</text><feedback><text>Killing a mutant is evidence of protective value; the rejection is for non-determinism.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — clock code does not compile</text><feedback><text>The test compiles and runs; it just gives a non-deterministic result.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — time-based tests are always off-target</text><feedback><text>The test targets the right code (it kills the mutant); the defect is flakiness.</text></feedback></answer>
+    <generalfeedback><text>A mutation-killing test can still be rejected. Here it is deterministic in intent but reads the live clock, so it fails intermittently — a Non-flaky failure. CI cannot trust it, so engineers reject it despite the kill.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill but reject: style</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test kills the mutant and is deterministic and on-target, but it uses a bespoke assertion helper and naming that no other test in the module uses. Engineers ask for it to be rewritten. On which dimension is it rejected?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Style — it does not follow the module's conventions and idioms</text><feedback><text>Correct — a kill does not exempt a test from the Style dimension.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — a kill means Hardening automatically fails</text><feedback><text>Killing the mutant shows protective value; the rejection is about conventions.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — bespoke helpers are non-deterministic</text><feedback><text>The test is deterministic; the issue is that its style clashes with the codebase.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — custom helpers target the wrong code</text><feedback><text>It is on-target (it kills the mutant); the rejection is on Style.</text></feedback></answer>
+    <generalfeedback><text>Even a deterministic, on-target, mutant-killing test is rejected if it ignores the codebase's conventions. Acceptance is a human review bar, and non-conforming style is enough to send the test back — a Style failure.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Four out of five still fails</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is buildable, non-flaky, hardening, and relevant, but violates the team's style conventions. It is still accepted because it passes four of five dimensions.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — acceptance requires all five dimensions, so a Style failure alone causes rejection.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: passing four dimensions is not enough; a single Style failure is sufficient for rejection.</text></feedback></answer>
+    <generalfeedback><text>Acceptance is a conjunction of all five dimensions. A strong, on-target, deterministic test that violates style conventions is rejected and returned for rework, illustrating that every dimension is a hard requirement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Weak dimension: happy-path only</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test for an <code>add(a, b)</code> function only checks <code>add(2, 2) == 4</code> and <code>add(0, 0) == 0</code> — trivial happy-path inputs, with no edge cases such as overflow. Which dimension is weakest here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hardening — it exercises only trivial inputs and would miss edge-case regressions</text><feedback><text>Correct — the lack of meaningful edge cases is a Hardening weakness.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — happy-path tests do not compile</text><feedback><text>The test compiles fine; the concern is how little it exercises.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — fixed inputs are non-deterministic</text><feedback><text>Fixed inputs are fully deterministic; the weakness is in protective value (Hardening).</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — testing add() is off-target</text><feedback><text>Testing the function under change is on-target; the weakness is that it only covers trivial cases.</text></feedback></answer>
+    <generalfeedback><text>Checking only trivial happy-path values leaves edge cases such as overflow or negative inputs untested, so the test would miss real regressions there. That is a weakness on the Hardening dimension.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Primary rejection: off-target</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is well-built, deterministic, and cleanly written, and it asserts strongly — but only on a deprecated code path that production no longer reaches. What is the primary reason engineers reject it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relevant — it targets a non-issue rather than behaviour that actually matters</text><feedback><text>Correct — a strong test aimed at a non-issue fails the Relevant dimension.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — a strong assertion always means Hardening passes</text><feedback><text>A strong assertion on the wrong target does not help; the primary failure is Relevance.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — deprecated paths do not compile</text><feedback><text>The test compiles and runs; the problem is that its target is not a real issue.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — deprecated code is non-deterministic</text><feedback><text>It can be deterministic; the rejection is that it targets a non-issue (Relevant).</text></feedback></answer>
+    <generalfeedback><text>Even a strong, clean, deterministic test is rejected if it targets code that no longer matters. Relevance asks whether the test aims at a real issue; a dead path is a non-issue, so the primary failure is Relevant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: wall-clock dependence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test computes an expected value from <code>LocalDate.now()</code> and compares it to the code's output, so it can fail depending on the day it runs. Which dimension does it fail?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-flaky — depending on the live date makes the result vary by run</text><feedback><text>Correct — a wall-clock dependence produces a non-deterministic result, a Non-flaky failure.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — date APIs cause build errors</text><feedback><text>Date APIs compile fine; the defect is that the result depends on when it runs.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — using the clock means it catches no faults</text><feedback><text>It might catch faults, but its result is non-deterministic, which is the Non-flaky failure.</text></feedback></answer>
+    <answer fraction="0"><text>Style — calling now() breaks conventions</text><feedback><text>The problem is determinism, not conventions; that is the Non-flaky dimension.</text></feedback></answer>
+    <generalfeedback><text>Reading the live clock ties the outcome to the moment the test runs, so it can pass on one day and fail on another. That non-determinism is a Non-flaky failure; the fix is to inject or freeze a fixed clock.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: duplicate trivial test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test re-checks a plain getter that is already covered elsewhere and adds no new scenario or edge case. It compiles, is deterministic, targets real code, and matches the style. Which dimension is it weakest on?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hardening — it duplicates existing coverage and adds no new fault-catching value</text><feedback><text>Correct — adding no new protective value is a Hardening weakness.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — duplicate tests do not compile</text><feedback><text>It compiles fine; the concern is that it strengthens nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — a getter is never relevant code</text><feedback><text>A getter can be relevant real code; the weakness is that the test adds no new protection.</text></feedback></answer>
+    <answer fraction="0"><text>Style — duplicate tests always break conventions</text><feedback><text>The test matches the style; its weakness is the absence of new fault-catching value (Hardening).</text></feedback></answer>
+    <generalfeedback><text>A test that merely repeats coverage already provided elsewhere does not strengthen the suite's ability to catch new regressions. Even though it is otherwise clean, it is weak on Hardening because it adds no protective value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a test passes all five</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test named <code>testPrivacyNullUser</code> passes a <code>null</code> user id to <code>logEvent</code> and asserts the tracker's <code>lastUserId</code> stays <code>null</code>. It compiles, is deterministic, follows conventions, and guards a real privacy edge case. Why is it accepted?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It passes all five dimensions — buildable, non-flaky, hardening, relevant, and style</text><feedback><text>Correct — acceptance follows because every dimension is satisfied.</text></feedback></answer>
+    <answer fraction="0"><text>It is accepted purely because it kills a mutant</text><feedback><text>A kill alone would not guarantee acceptance; here it is accepted because all five dimensions pass.</text></feedback></answer>
+    <answer fraction="0"><text>It is accepted because it is short</text><feedback><text>Length is irrelevant; acceptance comes from satisfying all five dimensions.</text></feedback></answer>
+    <answer fraction="0"><text>It is accepted because privacy tests skip the Style dimension</text><feedback><text>No dimension is skipped; this test happens to satisfy Style along with the other four.</text></feedback></answer>
+    <generalfeedback><text>This test guards a genuine privacy edge case (a null user id), asserts meaningfully, builds cleanly, runs deterministically, and follows conventions. Because it satisfies all five dimensions, engineers accept it.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A kill does not exempt a test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test that successfully kills a mutant can still be rejected by engineers on one of the five review dimensions.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a mutation-killing test is still rejected if it is flaky, off-target, trivial, unbuildable, or stylistically unacceptable.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: killing a mutant does not exempt a test from any of the five acceptance dimensions.</text></feedback></answer>
+    <generalfeedback><text>Killing a mutant demonstrates fault-detection power but says nothing about determinism, relevance, buildability, or style. Engineers apply all five dimensions, so a kill alone does not guarantee acceptance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: syntax error</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test is missing a closing brace, so the compiler reports a syntax error and the file will not build. Which dimension does it fail?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Buildable — a syntax error is a compilation failure</text><feedback><text>Correct — a syntax error prevents the build, a Buildable failure.</text></feedback></answer>
+    <answer fraction="0"><text>Style — a missing brace is just a formatting preference</text><feedback><text>A missing brace is not a style choice; it is a compilation error, which is the Buildable dimension.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — syntax errors produce random results</text><feedback><text>A syntax error deterministically stops the build; nothing runs, so this is a Buildable failure.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — broken syntax means it catches no faults</text><feedback><text>The test never compiles or runs, so the primary and only relevant failure is Buildable.</text></feedback></answer>
+    <generalfeedback><text>A syntax error stops compilation, so the test cannot build or run. That is a Buildable failure, and it must be fixed before any other dimension can be evaluated.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Quality Review/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Primary gate: flaky plus weak</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test uses an unseeded random input (making it non-deterministic) and its only assertion is that the result is non-null. Both Non-flaky and Hardening are in play. Which single dimension most decisively forces rejection, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-flaky — flakiness is a hard gate; while the result is non-deterministic, CI cannot trust it at all, so even a stronger assertion would not save it</text><feedback><text>Correct — non-determinism disqualifies the test outright, making Non-flaky the decisive gate.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — a weak assertion is always the most decisive failure</text><feedback><text>The weak assertion is a real problem, but a flaky test is untrustworthy regardless of assertion strength, so Non-flaky is decisive.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — random inputs break the build</text><feedback><text>The test builds and runs; the decisive defect is its non-determinism.</text></feedback></answer>
+    <answer fraction="0"><text>Style — random usage violates conventions</text><feedback><text>Style is not the issue here; the decisive failure is flakiness (Non-flaky).</text></feedback></answer>
+    <generalfeedback><text>When a test fails more than one dimension, the most decisive is the one that disqualifies it no matter what else is fixed. A flaky test cannot be trusted by CI at all, so Non-flaky is the primary gate — strengthening the assertion would not rescue a non-deterministic test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>High kill, low acceptance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generation tool reports a high mutation kill rate, but engineers accept very few of its tests. Why is this gap a problem in practice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests that engineers reject never merge, so a high kill rate does not translate into a stronger production suite — the accepted set is what actually protects the code</text><feedback><text>Correct — only accepted tests land, so acceptance, not raw kill rate, determines real improvement.</text></feedback></answer>
+    <answer fraction="0"><text>A high kill rate means the mutants were too easy, so the tool is broken</text><feedback><text>The kill rate may be genuine; the problem is that rejected tests never reach the codebase.</text></feedback></answer>
+    <answer fraction="0"><text>Engineers should lower their standards to match the kill rate</text><feedback><text>Lowering the acceptance bar would admit flaky or off-target tests; the point is that acceptance is the true measure.</text></feedback></answer>
+    <answer fraction="0"><text>There is no problem — kill rate is the only metric that matters</text><feedback><text>Kill rate ignores the other four dimensions; a test that is never accepted adds no protection.</text></feedback></answer>
+    <generalfeedback><text>Kill rate measures potential fault detection, but only tests engineers accept are merged and run in CI. If most generated tests are rejected for flakiness, style, or irrelevance, the high kill rate is illusory — the suite that actually guards production is only the accepted subset.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subtle non-hardening: asserts the wrong thing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test targets the correct method, compiles, is deterministic, and matches the style — but its assertion compares a variable to itself (<code>assertEquals(result, result)</code>), so it holds no matter what the method returns. Which dimension does it fail, and why is that subtle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hardening — it looks like a real test and is on-target, but the self-comparison can never fail, so it catches no fault</text><feedback><text>Correct — despite appearances, a tautological assertion provides no protective value, a Hardening failure.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — comparing a value to itself targets the wrong code</text><feedback><text>The test is on-target (the right method); the defect is that its assertion catches nothing (Hardening).</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — self-comparison is non-deterministic</text><feedback><text>It is perfectly deterministic (always passes); the subtle failure is that it never catches a fault.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — self-comparison does not compile</text><feedback><text>It compiles cleanly; the problem is the absence of any real check (Hardening).</text></feedback></answer>
+    <generalfeedback><text>The trap is that the test appears legitimate — right target, clean style, deterministic — yet its assertion is a tautology that holds for any output. It would pass even against broken code, so it adds no protective value: a Hardening failure, not a Relevance one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Relevant but flaky</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test targets exactly the high-risk method that changed and asserts strongly on it, but it reaches a live third-party network service and fails intermittently when that service is slow. What is the primary reason it is rejected?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-flaky — its relevance does not rescue it, because the intermittent failures from the live dependency make it non-deterministic</text><feedback><text>Correct — a relevant test that is flaky is still rejected on the Non-flaky dimension.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — reaching a network service means it targets the wrong code</text><feedback><text>It targets the right code; the defect is the non-determinism from the live dependency.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — a strong assertion means Hardening fails</text><feedback><text>A strong assertion is a Hardening strength; the rejection is for flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>Style — network calls violate conventions</text><feedback><text>The primary failure is non-determinism (Non-flaky), not style.</text></feedback></answer>
+    <generalfeedback><text>Being relevant and well-asserted is not enough. A live external dependency introduces uncontrolled variability, so the test fails intermittently — a Non-flaky failure. It must be made deterministic (for example with a test double) before it can be accepted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why style matters despite catching faults</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test reliably catches a real fault but ignores the codebase's conventions — odd naming, an unfamiliar assertion library, and no arrange-act-assert structure. Why do engineers still reject it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance is a human maintainability bar: a test the team cannot easily read and maintain will not be merged, even if it detects a fault</text><feedback><text>Correct — Style protects long-term maintainability, which is part of acceptance.</text></feedback></answer>
+    <answer fraction="0"><text>A non-conforming test cannot actually catch faults</text><feedback><text>It does catch the fault; the rejection is about maintainability and conventions, not detection.</text></feedback></answer>
+    <answer fraction="0"><text>Style only matters for tests that fail to compile</text><feedback><text>Compilation is Buildable; Style applies to tests that build fine but ignore conventions.</text></feedback></answer>
+    <answer fraction="0"><text>Fault-catching tests are exempt from the Style dimension</text><feedback><text>No dimension is exempt; a fault-catching test still needs acceptable style.</text></feedback></answer>
+    <generalfeedback><text>Tests live in the codebase and must be maintained by humans. A test that clashes with the team's conventions imposes a long-term cost and confuses reviewers, so it is rejected on Style even when it detects a real fault. Acceptance weighs maintainability, not just detection.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Borderline: weak assertion on the right target</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is aimed squarely at the risky method that changed, but its assertion only checks that the return value is not null — it would still pass if the computed value were wrong. Is this primarily a Relevant or a Hardening failure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hardening — the target is right (relevant), but the assertion is too weak to catch a regression, so it fails to strengthen the suite</text><feedback><text>Correct — right target but no fault-catching power is a Hardening failure, not a Relevance one.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant — a weak assertion means the test targets the wrong code</text><feedback><text>The target is correct; the weakness is that the assertion would miss a wrong value (Hardening).</text></feedback></answer>
+    <answer fraction="0"><text>Both fail equally, so either label is fine</text><feedback><text>Relevance is satisfied because the target is right; the specific failure is Hardening.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — a non-null check is always sufficient</text><feedback><text>A non-null check misses wrong-but-non-null values, so it fails Hardening.</text></feedback></answer>
+    <generalfeedback><text>Relevance asks whether the test aims at the right code; here it does. Hardening asks whether it would actually catch a fault; a non-null check would pass on a wrong value, so the specific failure is Hardening. Distinguishing the two hinges on target (Relevant) versus fault-catching power (Hardening).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Borderline: strong assertion on a non-issue</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test has a precise, strong assertion and would reliably catch a change — but it exercises a feature-flagged code path that has been permanently disabled and can never run in production. Is this primarily a Hardening or a Relevant failure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relevant — the assertion is strong (hardening-capable), but the target is a non-issue, so the test aims at the wrong thing</text><feedback><text>Correct — a strong assertion on dead code is a Relevance failure.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — a disabled path means the assertion is weak</text><feedback><text>The assertion is strong; the problem is that its target does not matter (Relevant).</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — disabled paths do not compile</text><feedback><text>The code compiles; the defect is that the target is a non-issue (Relevant).</text></feedback></answer>
+    <answer fraction="0"><text>Style — testing disabled code breaks conventions</text><feedback><text>The failure is that it targets a non-issue, which is Relevance, not Style.</text></feedback></answer>
+    <generalfeedback><text>This is the mirror image of a weak-assertion case. The assertion is strong enough to catch a fault (hardening-capable), but it is pointed at permanently dead code — a non-issue. Because the target does not matter, the primary failure is Relevant, not Hardening.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Primary reason: adds no confidence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test named <code>testSomething</code> calls <code>doStuff()</code> and only asserts the result is not null. It is buildable and deterministic, but engineers say it "adds no confidence in the system's correctness." Which dimension most directly captures that complaint?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hardening — a non-null check verifies no real behaviour, so the test would not catch a genuine fault</text><feedback><text>Correct — "adds no confidence in correctness" is precisely the Hardening dimension.</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — the vague name breaks the build</text><feedback><text>It builds fine; the complaint is about protective value, which is Hardening.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — a non-null check is non-deterministic</text><feedback><text>It is deterministic; the issue is that it verifies nothing meaningful (Hardening).</text></feedback></answer>
+    <answer fraction="0"><text>Style — the name testSomething is the only real problem</text><feedback><text>The vague name is a Style weakness too, but "no confidence in correctness" points most directly at Hardening.</text></feedback></answer>
+    <generalfeedback><text>This test has several weaknesses (a vague name is poor style, the intent is unclear), but the specific complaint — that it gives no confidence in correctness — is about protective value. A non-null check would pass on a wrong result, so the most direct failure is Hardening.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prioritizing a generation pipeline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over a batch, a test-generation pipeline achieves a 90% mutation kill rate but only a 20% engineer-acceptance rate. To make the pipeline genuinely useful, what should the team prioritize?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fixing the dimensions that drive rejection — flakiness, style, and relevance — so that more of the fault-catching tests are actually accepted and merged</text><feedback><text>Correct — raising acceptance is what turns kill power into real suite improvement.</text></feedback></answer>
+    <answer fraction="0"><text>Pushing the kill rate from 90% to 99% and ignoring acceptance</text><feedback><text>More kills that are still rejected add nothing; the bottleneck is acceptance.</text></feedback></answer>
+    <answer fraction="0"><text>Merging all generated tests regardless of the review dimensions</text><feedback><text>That would admit flaky and off-target tests, degrading the suite; acceptance standards exist for good reason.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting the mutation-testing step entirely</text><feedback><text>Mutation testing is useful signal; the real gap is the low acceptance rate.</text></feedback></answer>
+    <generalfeedback><text>A 90% kill rate with 20% acceptance means most fault-catching tests never land. The leverage is in the acceptance dimensions: reduce flakiness, conform to style, and target relevant code. Improving those converts the pipeline's detection power into tests engineers will actually merge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Flaky-relevant versus plainly irrelevant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can a flaky test that targets important, relevant code do <em>more</em> damage than a test that is simply irrelevant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because it injects non-deterministic failures onto important paths, it erodes trust in the suite while looking valuable — an irrelevant test at least fails predictably or is easy to dismiss</text><feedback><text>Correct — flakiness on relevant paths is especially corrosive to CI trust.</text></feedback></answer>
+    <answer fraction="0"><text>Because irrelevant tests never compile</text><feedback><text>Irrelevant tests can compile fine; the point is the corrosive effect of flakiness on trusted paths.</text></feedback></answer>
+    <answer fraction="0"><text>Because a flaky test always has a higher kill rate</text><feedback><text>Kill rate is not the issue; the harm is the non-deterministic noise on important code.</text></feedback></answer>
+    <answer fraction="0"><text>Because relevant tests are exempt from the Non-flaky dimension</text><feedback><text>No test is exempt; a relevant test that is flaky is still rejected, and its flakiness is especially damaging.</text></feedback></answer>
+    <generalfeedback><text>A flaky test on relevant code masquerades as valuable coverage while producing intermittent red builds on paths people care about. That trains the team to ignore failures on important code, so it must be rejected on Non-flaky and made deterministic before it can help.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Buildable gates the rest</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is it pointless to assess a test's Hardening or Relevance while it still fails the Buildable dimension?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test that does not compile never runs, so it cannot demonstrate any fault-catching value or target — Buildable is a prerequisite gate that must be fixed first</text><feedback><text>Correct — without building, the test cannot execute, so downstream dimensions are moot.</text></feedback></answer>
+    <answer fraction="0"><text>Because Hardening and Relevance are less important than Buildable in general</text><feedback><text>They are equally required for acceptance; the point is ordering — a non-building test cannot be evaluated on them.</text></feedback></answer>
+    <answer fraction="0"><text>Because a non-building test is automatically flaky</text><feedback><text>A build error is deterministic, not flaky; the issue is that the test cannot run to show hardening or relevance.</text></feedback></answer>
+    <answer fraction="0"><text>Because compiling a test also proves it is relevant</text><feedback><text>Compiling proves only Buildable; relevance and hardening are separate and assessed once it builds.</text></feedback></answer>
+    <generalfeedback><text>Buildable is the entry gate. A test that will not compile cannot execute, so there is no way to observe whether it catches faults (Hardening) or targets the right code (Relevant). The build error must be fixed before any downstream dimension can even be judged.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Separating Hardening from Relevant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement most accurately distinguishes the Hardening dimension from the Relevant dimension?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relevant asks whether the test targets the right code; Hardening asks whether it would actually catch a real regression in that code</text><feedback><text>Correct — Relevant is about the target, Hardening is about fault-catching power.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening asks whether the test compiles; Relevant asks whether it is deterministic</text><feedback><text>Compiling is Buildable and determinism is Non-flaky; that answer confuses the dimensions.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same dimension under two names</text><feedback><text>They are distinct: a test can be on-target yet catch nothing, or catch faults but on the wrong code.</text></feedback></answer>
+    <answer fraction="0"><text>Relevant is about style conventions; Hardening is about speed</text><feedback><text>Style and speed are unrelated; Relevant is the target and Hardening is fault-catching value.</text></feedback></answer>
+    <generalfeedback><text>The two are orthogonal. A test can be relevant (aimed at the right, risky code) yet fail to harden (a weak assertion that catches nothing), or it can be hardening-capable (a strong assertion) yet irrelevant (aimed at dead or unrelated code). Relevant = right target; Hardening = would catch a fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Primary rejection: irrelevant and weak</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test both exercises a trivial, unrelated getter (not the changed behaviour) and asserts only that its result is not null. Both Relevant and Hardening look shaky. Which is the more fundamental reason to reject it, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relevant — because it targets the wrong code, strengthening its assertion would still not test the behaviour that matters, so the wrong target is the root problem</text><feedback><text>Correct — when the target itself is wrong, Relevance is the more fundamental failure.</text></feedback></answer>
+    <answer fraction="0"><text>Hardening — because a stronger assertion would fix everything</text><feedback><text>A stronger assertion on the wrong getter still would not test the changed behaviour; the root issue is the target (Relevant).</text></feedback></answer>
+    <answer fraction="0"><text>Buildable — unrelated getters do not compile</text><feedback><text>It compiles; the root problem is that it is aimed at the wrong code (Relevant).</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — getter tests are non-deterministic</text><feedback><text>It can be deterministic; the fundamental failure is that its target is irrelevant.</text></feedback></answer>
+    <generalfeedback><text>When picking the most fundamental failure, ask what remains broken after the others are fixed. Here, even a strong assertion would not help because the test is pointed at the wrong code — so Relevance is the root failure. Contrast this with a test on the right code whose only flaw is a weak assertion, which is a Hardening failure.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Kill rate does not guarantee acceptance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A high mutation kill rate across a batch of generated tests guarantees that engineers will accept most of them.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — acceptance depends on all five dimensions, so a high kill rate does not guarantee that tests will be accepted.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: tests can kill mutants yet be rejected for flakiness, style, or irrelevance, so a high kill rate does not guarantee acceptance.</text></feedback></answer>
+    <generalfeedback><text>Kill rate and acceptance are different measures. A batch can kill many mutants while most tests are rejected on Non-flaky, Style, or Relevant grounds. Engineer acceptance across all five dimensions — not raw kill rate — is the true bar for whether the tests improve the suite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Primary gate: does not build and bad style</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test both fails to compile (a type error) and uses naming that ignores the team's conventions. Which single dimension should be recorded as the primary reason for rejection, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Buildable — because a test that does not compile cannot be run or reviewed at all, so the build error is the most fundamental blocker; the style issue is moot until it builds</text><feedback><text>Correct — Buildable is the prerequisite gate, so it is the primary failure here.</text></feedback></answer>
+    <answer fraction="0"><text>Style — naming is what reviewers notice first</text><feedback><text>The style issue cannot even be acted on while the test fails to compile; Buildable is the more fundamental blocker.</text></feedback></answer>
+    <answer fraction="0"><text>Both are equally primary, so pick either</text><feedback><text>A non-building test cannot be run or reviewed, so Buildable is the more fundamental of the two.</text></feedback></answer>
+    <answer fraction="0"><text>Non-flaky — type errors cause intermittent results</text><feedback><text>A type error deterministically stops the build; the primary failure is Buildable, not Non-flaky.</text></feedback></answer>
+    <generalfeedback><text>When a test fails several dimensions, the primary one is the most fundamental blocker — the failure that makes the others impossible to assess or fix. A test that does not compile cannot run or be reviewed, so Buildable is primary; the style problem only becomes relevant once the test builds.</text></generalfeedback>
+  </question>
+</quiz>

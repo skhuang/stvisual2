@@ -108911,6 +108911,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "test-quality": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "The five acceptance dimensions",
+          "text": "<p>In the Meta ACH study (arXiv 2501.12862), an LLM-generated test must satisfy five review dimensions before engineers accept it. Which set names all five correctly?</p>",
+          "answers": [
+            {
+              "text": "Buildable, Non-flaky, Hardening, Relevant, Style",
+              "fraction": 100,
+              "feedback": "Correct — these are exactly the five engineer-acceptance dimensions."
+            },
+            {
+              "text": "Buildable, Fast, Coverage, Relevant, Readable",
+              "fraction": 0,
+              "feedback": "Fast, Coverage and Readable are not the review dimensions; the five are Buildable, Non-flaky, Hardening, Relevant, Style."
+            },
+            {
+              "text": "Kill rate, Non-flaky, Hardening, Relevant, Style",
+              "fraction": 0,
+              "feedback": "Kill rate is a mutation metric, not an acceptance dimension; the first dimension is Buildable."
+            },
+            {
+              "text": "Buildable, Non-flaky, Performance, Security, Style",
+              "fraction": 0,
+              "feedback": "Performance and Security are not the review dimensions; the middle two are Hardening and Relevant."
+            }
+          ],
+          "generalFeedback": "The five engineer-acceptance dimensions are Buildable (it compiles), Non-flaky (deterministic), Hardening (strengthens the suite), Relevant (targets real code), and Style (follows conventions). A test must pass all five to be accepted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Buildable checks",
+          "text": "<p>The <em>Buildable</em> dimension checks that a test:</p>",
+          "answers": [
+            {
+              "text": "Compiles and builds cleanly, with no build or compilation errors",
+              "fraction": 100,
+              "feedback": "Correct — Buildable means the test compiles/builds without errors."
+            },
+            {
+              "text": "Runs faster than every other test in the suite",
+              "fraction": 0,
+              "feedback": "Speed is not part of Buildable; Buildable is only about compiling/building cleanly."
+            },
+            {
+              "text": "Covers every branch of the code under test",
+              "fraction": 0,
+              "feedback": "Branch coverage is unrelated to Buildable, which is about whether the test builds without errors."
+            },
+            {
+              "text": "Follows the team's naming conventions",
+              "fraction": 0,
+              "feedback": "That describes the Style dimension; Buildable is about compiling cleanly."
+            }
+          ],
+          "generalFeedback": "Buildable is the most basic gate: if the test does not compile or build, it produces a build error and is rejected outright. Nothing else can be evaluated until the test actually builds.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Non-flaky checks",
+          "text": "<p>The <em>Non-flaky</em> dimension requires that a test:</p>",
+          "answers": [
+            {
+              "text": "Is deterministic — it produces the same result on every run of the same code",
+              "fraction": 100,
+              "feedback": "Correct — Non-flaky means a deterministic, repeatable result every run."
+            },
+            {
+              "text": "Always passes no matter what the code does",
+              "fraction": 0,
+              "feedback": "A test that always passes is useless; Non-flaky means a repeatable outcome, which may be pass or fail."
+            },
+            {
+              "text": "Uses fresh random inputs on every run",
+              "fraction": 0,
+              "feedback": "Unseeded random inputs make a test flaky; Non-flaky is the opposite property."
+            },
+            {
+              "text": "Compiles without any errors",
+              "fraction": 0,
+              "feedback": "Compiling cleanly is the Buildable dimension; Non-flaky is about determinism across runs."
+            }
+          ],
+          "generalFeedback": "A non-flaky test gives the same verdict every time it runs against unchanged code. A flaky test that intermittently passes and fails destroys CI trust and is always rejected, regardless of its other qualities.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Hardening checks",
+          "text": "<p>The <em>Hardening</em> dimension asks whether a test:</p>",
+          "answers": [
+            {
+              "text": "Meaningfully exercises and asserts behaviour, so it would catch a real regression or fault",
+              "fraction": 100,
+              "feedback": "Correct — Hardening means the test actually strengthens the suite's ability to catch faults."
+            },
+            {
+              "text": "Always passes so it never blocks a build",
+              "fraction": 0,
+              "feedback": "A test that can never fail adds no protective value; that is exactly a Hardening failure, not a pass."
+            },
+            {
+              "text": "Is written in the same file as the code under test",
+              "fraction": 0,
+              "feedback": "File location is irrelevant to Hardening, which is about whether the test would catch a real fault."
+            },
+            {
+              "text": "Executes in under one millisecond",
+              "fraction": 0,
+              "feedback": "Execution speed is unrelated to Hardening, which measures protective value."
+            }
+          ],
+          "generalFeedback": "A hardening test strengthens the suite: it exercises behaviour and asserts on it so that a genuine regression would make it fail. A trivial, no-op, or tautological test that always passes fails the Hardening dimension because it adds no protective value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Relevant checks",
+          "text": "<p>The <em>Relevant</em> dimension asks whether a test:</p>",
+          "answers": [
+            {
+              "text": "Targets a real, relevant issue or behaviour of the code under test",
+              "fraction": 100,
+              "feedback": "Correct — Relevant means the test is aimed at genuine, on-target behaviour of the system under test."
+            },
+            {
+              "text": "Exercises unrelated code that is not the subject of the change",
+              "fraction": 0,
+              "feedback": "Testing unrelated code is precisely a Relevance failure, not a pass."
+            },
+            {
+              "text": "Contains at least ten assertions",
+              "fraction": 0,
+              "feedback": "The number of assertions is not what Relevant measures; it is whether the target is a real issue."
+            },
+            {
+              "text": "Runs on every supported platform",
+              "fraction": 0,
+              "feedback": "Cross-platform execution is unrelated to Relevance, which is about targeting the right code."
+            }
+          ],
+          "generalFeedback": "A relevant test is aimed at a genuine issue or behaviour of the code under test — not at unrelated code, dead paths, or a non-issue. A test can be perfectly built and deterministic yet be rejected because it is off-target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Style checks",
+          "text": "<p>The <em>Style</em> dimension asks whether a test:</p>",
+          "answers": [
+            {
+              "text": "Follows the codebase's conventions for naming, structure, assertions, and idioms so a human would accept it",
+              "fraction": 100,
+              "feedback": "Correct — Style is about conforming to the team's conventions so the test is maintainable and reviewable."
+            },
+            {
+              "text": "Produces the same result on every run",
+              "fraction": 0,
+              "feedback": "That is the Non-flaky dimension; Style is about matching the codebase's conventions."
+            },
+            {
+              "text": "Kills at least one mutant",
+              "fraction": 0,
+              "feedback": "Killing mutants is a mutation-testing metric, not the Style dimension."
+            },
+            {
+              "text": "Compiles without errors",
+              "fraction": 0,
+              "feedback": "Compiling cleanly is Buildable; Style is about naming, structure, and idioms."
+            }
+          ],
+          "generalFeedback": "Style captures whether a human reviewer would accept the test into the codebase: consistent naming, structure, assertion helpers, and idioms. A stylistically unacceptable test is rejected because it would need rework before it could be merged.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What engineer acceptance requires",
+          "text": "<p>For an LLM-generated test to be <em>accepted</em> by engineers, it must:</p>",
+          "answers": [
+            {
+              "text": "Pass all five review dimensions — Buildable, Non-flaky, Hardening, Relevant, and Style",
+              "fraction": 100,
+              "feedback": "Correct — acceptance requires passing every one of the five dimensions."
+            },
+            {
+              "text": "Pass at least three of the five dimensions",
+              "fraction": 0,
+              "feedback": "A majority is not enough; a failure on any single dimension leads to rejection."
+            },
+            {
+              "text": "Kill at least one mutant, regardless of the five dimensions",
+              "fraction": 0,
+              "feedback": "Killing a mutant does not guarantee acceptance; the test must still pass all five dimensions."
+            },
+            {
+              "text": "Pass the Buildable dimension only",
+              "fraction": 0,
+              "feedback": "Building cleanly is necessary but far from sufficient; all five dimensions must pass."
+            }
+          ],
+          "generalFeedback": "Engineer acceptance is a conjunction: the test must satisfy Buildable AND Non-flaky AND Hardening AND Relevant AND Style. A failure on any one dimension is enough for rejection.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Killing a mutant is not enough",
+          "text": "<p>If a generated test kills a mutant, that alone is enough for engineers to accept it into the codebase.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant does not guarantee acceptance; the test must still pass all five review dimensions."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: a mutation-killing test can still be rejected if it is flaky, off-target, stylistically unacceptable, or otherwise fails a dimension."
+            }
+          ],
+          "generalFeedback": "Mutation kill rate measures whether a test can detect an injected fault, but engineer acceptance is a stricter, human bar. A test that kills a mutant is still rejected unless it also builds, is deterministic, hardens the suite, targets relevant code, and follows conventions."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why kill rate alone is not enough",
+          "text": "<p>Why is a high mutation kill rate, on its own, an insufficient measure of a generated test's value to engineers?</p>",
+          "answers": [
+            {
+              "text": "A test can kill mutants yet still be rejected for being flaky, off-target, trivial, or stylistically unacceptable — so it never actually lands in the codebase",
+              "fraction": 100,
+              "feedback": "Correct — acceptance depends on all five dimensions, not just fault detection."
+            },
+            {
+              "text": "Kill rate cannot be measured for LLM-generated tests",
+              "fraction": 0,
+              "feedback": "Kill rate can be measured fine; the point is that it does not capture the other acceptance dimensions."
+            },
+            {
+              "text": "A high kill rate guarantees the test also follows the team's style",
+              "fraction": 0,
+              "feedback": "Kill rate says nothing about style, determinism, or relevance; those are judged separately."
+            },
+            {
+              "text": "Engineers never look at whether a test detects faults",
+              "fraction": 0,
+              "feedback": "Fault detection matters (Hardening), but it is only one of five dimensions engineers weigh."
+            }
+          ],
+          "generalFeedback": "Kill rate captures only whether a test can catch an injected fault. Engineers additionally require the test to build, run deterministically, target relevant code, and follow conventions. The true bar is acceptance across all five dimensions, so a suite can have a high kill rate yet very few tests engineers will actually merge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: does not compile",
+          "text": "<p>A generated test references a method that does not exist, so it fails to compile. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Buildable",
+              "fraction": 100,
+              "feedback": "Correct — a compilation error is a Buildable failure."
+            },
+            {
+              "text": "Non-flaky",
+              "fraction": 0,
+              "feedback": "Non-flaky is about determinism across runs; a test that never compiles cannot even run."
+            },
+            {
+              "text": "Relevant",
+              "fraction": 0,
+              "feedback": "Relevance is about targeting the right code; here the test does not build at all."
+            },
+            {
+              "text": "Style",
+              "fraction": 0,
+              "feedback": "Style is about conventions; a missing method is a build error, which is the Buildable dimension."
+            }
+          ],
+          "generalFeedback": "A test that will not compile fails the Buildable dimension. It produces a build error and is rejected before any other quality can even be assessed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: passes sometimes, fails sometimes",
+          "text": "<p>A test passes on some runs and fails on others against the same unchanged code. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky",
+              "fraction": 100,
+              "feedback": "Correct — a non-deterministic pass/fail result is a Non-flaky failure."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "The test compiles and runs; the problem is that its result varies between runs."
+            },
+            {
+              "text": "Hardening",
+              "fraction": 0,
+              "feedback": "Hardening is about protective value; here the issue is non-determinism."
+            },
+            {
+              "text": "Style",
+              "fraction": 0,
+              "feedback": "Style is about conventions; an intermittent result is a Non-flaky failure."
+            }
+          ],
+          "generalFeedback": "Intermittent pass/fail on unchanged code is the definition of flakiness, a Non-flaky failure. Flaky tests break CI's signal and are always rejected.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: assertion is always true",
+          "text": "<p>A test's only check is <code>assertTrue(true)</code>, so it can never fail. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Hardening",
+              "fraction": 100,
+              "feedback": "Correct — a tautological assertion catches nothing, so it fails the Hardening dimension."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "The test compiles fine; the problem is that it adds no protective value."
+            },
+            {
+              "text": "Non-flaky",
+              "fraction": 0,
+              "feedback": "The test is perfectly deterministic (always passes); the issue is that it never catches a fault."
+            },
+            {
+              "text": "Relevant",
+              "fraction": 0,
+              "feedback": "Relevance concerns the target; a test that asserts nothing meaningful fails Hardening even if aimed at the right code."
+            }
+          ],
+          "generalFeedback": "A test that can never fail exercises no real behaviour and would never catch a regression, so it fails the Hardening dimension — it adds no protective value to the suite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: tests unrelated code",
+          "text": "<p>A change fixes a payment-calculation bug, but the generated test only exercises an unrelated string-formatting helper. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Relevant",
+              "fraction": 100,
+              "feedback": "Correct — testing code unrelated to the issue is a Relevance failure."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "The test may compile fine; the problem is that it is aimed at the wrong code."
+            },
+            {
+              "text": "Non-flaky",
+              "fraction": 0,
+              "feedback": "It can be perfectly deterministic yet still off-target, which is a Relevance failure."
+            },
+            {
+              "text": "Hardening",
+              "fraction": 0,
+              "feedback": "Even if it asserts strongly on the helper, it targets the wrong code — that is a Relevance failure."
+            }
+          ],
+          "generalFeedback": "A test aimed at unrelated code, rather than the behaviour actually at risk, fails the Relevant dimension. It provides no confidence about the change that matters.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: wrong naming convention",
+          "text": "<p>A Kotlin test is named <code>TEST_boundary_AGE</code>, mixing SCREAMING_SNAKE_CASE with camelCase against the team's conventions. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Style",
+              "fraction": 100,
+              "feedback": "Correct — inconsistent naming that breaks conventions is a Style failure."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "Odd naming still compiles; the problem is that it violates the codebase's conventions."
+            },
+            {
+              "text": "Relevant",
+              "fraction": 0,
+              "feedback": "The test can target the right code and still be rejected for its non-conforming name — a Style failure."
+            },
+            {
+              "text": "Hardening",
+              "fraction": 0,
+              "feedback": "It can assert meaningfully and still fail review on naming, which is the Style dimension."
+            }
+          ],
+          "generalFeedback": "Naming, structure, and idioms that clash with the codebase's conventions fail the Style dimension. A human reviewer would send it back for rework even if the assertions are sound.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Acceptance needs all five",
+          "text": "<p>A test is accepted by engineers only if it passes all five review dimensions.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — acceptance requires passing Buildable, Non-flaky, Hardening, Relevant, and Style together."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: a failure on any one of the five dimensions is enough for the test to be rejected."
+            }
+          ],
+          "generalFeedback": "Engineer acceptance is a conjunction of all five dimensions. Passing four but failing one — for example, a strong, on-target test that is flaky — still results in rejection."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Classify: random input",
+          "text": "<p>A test computes an input with <code>Random.nextInt()</code> (no fixed seed) and asserts on the result, so its outcome varies from run to run. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — the unseeded random input makes the result non-deterministic",
+              "fraction": 100,
+              "feedback": "Correct — the varying input produces a non-deterministic result, a Non-flaky failure."
+            },
+            {
+              "text": "Buildable — random numbers cause compilation errors",
+              "fraction": 0,
+              "feedback": "Random numbers do not break compilation; the failure is non-determinism (Non-flaky)."
+            },
+            {
+              "text": "Relevant — random inputs always target the wrong code",
+              "fraction": 0,
+              "feedback": "The test can target the right code; the problem is that its result is not reproducible."
+            },
+            {
+              "text": "Style — random calls violate naming conventions",
+              "fraction": 0,
+              "feedback": "Naming is unaffected; the defect is non-determinism, which is the Non-flaky dimension."
+            }
+          ],
+          "generalFeedback": "An unseeded random generator produces different inputs each run, so the test can pass most of the time and fail occasionally. That non-determinism is a Non-flaky failure, and flaky tests are always rejected.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: missing symbol",
+          "text": "<p>A generated test calls <code>calculateDiscuont(order)</code> — a misspelling of the real method — so the test file will not compile. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Buildable — the unresolved symbol is a compilation error",
+              "fraction": 100,
+              "feedback": "Correct — an unresolved reference is a build error, a Buildable failure."
+            },
+            {
+              "text": "Relevant — a typo means the test targets the wrong feature",
+              "fraction": 0,
+              "feedback": "The intent may be on-target, but the test cannot compile; that is a Buildable failure."
+            },
+            {
+              "text": "Hardening — misspelled calls never catch faults",
+              "fraction": 0,
+              "feedback": "The test never even builds, so the primary failure is Buildable, not Hardening."
+            },
+            {
+              "text": "Non-flaky — typos make results non-deterministic",
+              "fraction": 0,
+              "feedback": "A compile error is deterministic; the defect is that it does not build (Buildable)."
+            }
+          ],
+          "generalFeedback": "An unresolved method reference is a compilation error, so the test fails the Buildable dimension. Until it compiles, none of the other dimensions can even be evaluated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: no-op assertion",
+          "text": "<p>A test runs a computation but its only assertion is <code>assertEquals(1, 1)</code>, which can never fail. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Hardening — the assertion is a tautology and catches no fault",
+              "fraction": 100,
+              "feedback": "Correct — a check that can never fail adds no protective value, a Hardening failure."
+            },
+            {
+              "text": "Buildable — a constant comparison will not compile",
+              "fraction": 0,
+              "feedback": "It compiles fine; the problem is that it verifies nothing meaningful."
+            },
+            {
+              "text": "Non-flaky — a constant assertion is non-deterministic",
+              "fraction": 0,
+              "feedback": "It is fully deterministic (always passes); the issue is that it catches nothing."
+            },
+            {
+              "text": "Style — comparing 1 to 1 breaks conventions",
+              "fraction": 0,
+              "feedback": "The defect is the lack of protective value, not conventions; that is Hardening."
+            }
+          ],
+          "generalFeedback": "An assertion comparing a constant to itself always holds, so the test would pass even if the code were broken. It contributes nothing to the suite's fault-catching power, which is a Hardening failure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: off-target test",
+          "text": "<p>A pull request modifies the authentication logic, but the generated test exercises the unrelated logging module and asserts on log formatting. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Relevant — it targets code unrelated to the change under review",
+              "fraction": 100,
+              "feedback": "Correct — testing unrelated code instead of the authentication logic is a Relevance failure."
+            },
+            {
+              "text": "Buildable — logging tests never compile with auth code",
+              "fraction": 0,
+              "feedback": "It may compile fine; the problem is that it is aimed at the wrong module."
+            },
+            {
+              "text": "Non-flaky — logging output is always non-deterministic",
+              "fraction": 0,
+              "feedback": "Log assertions can be deterministic; here the defect is that the test is off-target."
+            },
+            {
+              "text": "Style — logging tests use the wrong idioms",
+              "fraction": 0,
+              "feedback": "Even in perfect style, a test aimed at the wrong code fails Relevance."
+            }
+          ],
+          "generalFeedback": "A test aimed at code unrelated to the behaviour under review provides no confidence about the change that matters. That is a Relevant failure, regardless of how well the test is written.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: inconsistent structure",
+          "text": "<p>A test is correct and deterministic but crams five unrelated scenarios into one method with hard-coded magic numbers, ignoring the codebase's one-scenario-per-test, arrange-act-assert convention. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Style — the structure and idioms clash with the codebase's conventions",
+              "fraction": 100,
+              "feedback": "Correct — violating the team's structural conventions is a Style failure."
+            },
+            {
+              "text": "Buildable — multi-scenario methods do not compile",
+              "fraction": 0,
+              "feedback": "The method compiles and runs; the problem is that it ignores the codebase's conventions."
+            },
+            {
+              "text": "Hardening — bundling scenarios means it catches no faults",
+              "fraction": 0,
+              "feedback": "It can still catch faults; the issue is that its structure is not acceptable to reviewers."
+            },
+            {
+              "text": "Relevant — combined tests target the wrong code",
+              "fraction": 0,
+              "feedback": "It can be on-target and still be rejected for its non-conforming structure — a Style failure."
+            }
+          ],
+          "generalFeedback": "When a test ignores the codebase's naming, structure, and idioms, a reviewer will send it back even if it is otherwise correct. That is a Style failure: it needs rework before a human would accept it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill but reject: flaky",
+          "text": "<p>A generated test kills the target mutant, but it relies on the current wall-clock time and fails whenever it runs across midnight. Engineers reject it. On which dimension?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — the wall-clock dependence makes the result non-deterministic",
+              "fraction": 100,
+              "feedback": "Correct — despite killing the mutant, the intermittent failure is a Non-flaky rejection."
+            },
+            {
+              "text": "Hardening — killing a mutant means it fails Hardening",
+              "fraction": 0,
+              "feedback": "Killing a mutant is evidence of protective value; the rejection is for non-determinism."
+            },
+            {
+              "text": "Buildable — clock code does not compile",
+              "fraction": 0,
+              "feedback": "The test compiles and runs; it just gives a non-deterministic result."
+            },
+            {
+              "text": "Relevant — time-based tests are always off-target",
+              "fraction": 0,
+              "feedback": "The test targets the right code (it kills the mutant); the defect is flakiness."
+            }
+          ],
+          "generalFeedback": "A mutation-killing test can still be rejected. Here it is deterministic in intent but reads the live clock, so it fails intermittently — a Non-flaky failure. CI cannot trust it, so engineers reject it despite the kill.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill but reject: style",
+          "text": "<p>A generated test kills the mutant and is deterministic and on-target, but it uses a bespoke assertion helper and naming that no other test in the module uses. Engineers ask for it to be rewritten. On which dimension is it rejected?</p>",
+          "answers": [
+            {
+              "text": "Style — it does not follow the module's conventions and idioms",
+              "fraction": 100,
+              "feedback": "Correct — a kill does not exempt a test from the Style dimension."
+            },
+            {
+              "text": "Hardening — a kill means Hardening automatically fails",
+              "fraction": 0,
+              "feedback": "Killing the mutant shows protective value; the rejection is about conventions."
+            },
+            {
+              "text": "Non-flaky — bespoke helpers are non-deterministic",
+              "fraction": 0,
+              "feedback": "The test is deterministic; the issue is that its style clashes with the codebase."
+            },
+            {
+              "text": "Relevant — custom helpers target the wrong code",
+              "fraction": 0,
+              "feedback": "It is on-target (it kills the mutant); the rejection is on Style."
+            }
+          ],
+          "generalFeedback": "Even a deterministic, on-target, mutant-killing test is rejected if it ignores the codebase's conventions. Acceptance is a human review bar, and non-conforming style is enough to send the test back — a Style failure.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Four out of five still fails",
+          "text": "<p>A test is buildable, non-flaky, hardening, and relevant, but violates the team's style conventions. It is still accepted because it passes four of five dimensions.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — acceptance requires all five dimensions, so a Style failure alone causes rejection."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: passing four dimensions is not enough; a single Style failure is sufficient for rejection."
+            }
+          ],
+          "generalFeedback": "Acceptance is a conjunction of all five dimensions. A strong, on-target, deterministic test that violates style conventions is rejected and returned for rework, illustrating that every dimension is a hard requirement."
+        },
+        {
+          "type": "multichoice",
+          "name": "Weak dimension: happy-path only",
+          "text": "<p>A test for an <code>add(a, b)</code> function only checks <code>add(2, 2) == 4</code> and <code>add(0, 0) == 0</code> — trivial happy-path inputs, with no edge cases such as overflow. Which dimension is weakest here?</p>",
+          "answers": [
+            {
+              "text": "Hardening — it exercises only trivial inputs and would miss edge-case regressions",
+              "fraction": 100,
+              "feedback": "Correct — the lack of meaningful edge cases is a Hardening weakness."
+            },
+            {
+              "text": "Buildable — happy-path tests do not compile",
+              "fraction": 0,
+              "feedback": "The test compiles fine; the concern is how little it exercises."
+            },
+            {
+              "text": "Non-flaky — fixed inputs are non-deterministic",
+              "fraction": 0,
+              "feedback": "Fixed inputs are fully deterministic; the weakness is in protective value (Hardening)."
+            },
+            {
+              "text": "Relevant — testing add() is off-target",
+              "fraction": 0,
+              "feedback": "Testing the function under change is on-target; the weakness is that it only covers trivial cases."
+            }
+          ],
+          "generalFeedback": "Checking only trivial happy-path values leaves edge cases such as overflow or negative inputs untested, so the test would miss real regressions there. That is a weakness on the Hardening dimension.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary rejection: off-target",
+          "text": "<p>A test is well-built, deterministic, and cleanly written, and it asserts strongly — but only on a deprecated code path that production no longer reaches. What is the primary reason engineers reject it?</p>",
+          "answers": [
+            {
+              "text": "Relevant — it targets a non-issue rather than behaviour that actually matters",
+              "fraction": 100,
+              "feedback": "Correct — a strong test aimed at a non-issue fails the Relevant dimension."
+            },
+            {
+              "text": "Hardening — a strong assertion always means Hardening passes",
+              "fraction": 0,
+              "feedback": "A strong assertion on the wrong target does not help; the primary failure is Relevance."
+            },
+            {
+              "text": "Buildable — deprecated paths do not compile",
+              "fraction": 0,
+              "feedback": "The test compiles and runs; the problem is that its target is not a real issue."
+            },
+            {
+              "text": "Non-flaky — deprecated code is non-deterministic",
+              "fraction": 0,
+              "feedback": "It can be deterministic; the rejection is that it targets a non-issue (Relevant)."
+            }
+          ],
+          "generalFeedback": "Even a strong, clean, deterministic test is rejected if it targets code that no longer matters. Relevance asks whether the test aims at a real issue; a dead path is a non-issue, so the primary failure is Relevant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: wall-clock dependence",
+          "text": "<p>A test computes an expected value from <code>LocalDate.now()</code> and compares it to the code's output, so it can fail depending on the day it runs. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — depending on the live date makes the result vary by run",
+              "fraction": 100,
+              "feedback": "Correct — a wall-clock dependence produces a non-deterministic result, a Non-flaky failure."
+            },
+            {
+              "text": "Buildable — date APIs cause build errors",
+              "fraction": 0,
+              "feedback": "Date APIs compile fine; the defect is that the result depends on when it runs."
+            },
+            {
+              "text": "Hardening — using the clock means it catches no faults",
+              "fraction": 0,
+              "feedback": "It might catch faults, but its result is non-deterministic, which is the Non-flaky failure."
+            },
+            {
+              "text": "Style — calling now() breaks conventions",
+              "fraction": 0,
+              "feedback": "The problem is determinism, not conventions; that is the Non-flaky dimension."
+            }
+          ],
+          "generalFeedback": "Reading the live clock ties the outcome to the moment the test runs, so it can pass on one day and fail on another. That non-determinism is a Non-flaky failure; the fix is to inject or freeze a fixed clock.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: duplicate trivial test",
+          "text": "<p>A generated test re-checks a plain getter that is already covered elsewhere and adds no new scenario or edge case. It compiles, is deterministic, targets real code, and matches the style. Which dimension is it weakest on?</p>",
+          "answers": [
+            {
+              "text": "Hardening — it duplicates existing coverage and adds no new fault-catching value",
+              "fraction": 100,
+              "feedback": "Correct — adding no new protective value is a Hardening weakness."
+            },
+            {
+              "text": "Buildable — duplicate tests do not compile",
+              "fraction": 0,
+              "feedback": "It compiles fine; the concern is that it strengthens nothing."
+            },
+            {
+              "text": "Relevant — a getter is never relevant code",
+              "fraction": 0,
+              "feedback": "A getter can be relevant real code; the weakness is that the test adds no new protection."
+            },
+            {
+              "text": "Style — duplicate tests always break conventions",
+              "fraction": 0,
+              "feedback": "The test matches the style; its weakness is the absence of new fault-catching value (Hardening)."
+            }
+          ],
+          "generalFeedback": "A test that merely repeats coverage already provided elsewhere does not strengthen the suite's ability to catch new regressions. Even though it is otherwise clean, it is weak on Hardening because it adds no protective value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a test passes all five",
+          "text": "<p>A test named <code>testPrivacyNullUser</code> passes a <code>null</code> user id to <code>logEvent</code> and asserts the tracker's <code>lastUserId</code> stays <code>null</code>. It compiles, is deterministic, follows conventions, and guards a real privacy edge case. Why is it accepted?</p>",
+          "answers": [
+            {
+              "text": "It passes all five dimensions — buildable, non-flaky, hardening, relevant, and style",
+              "fraction": 100,
+              "feedback": "Correct — acceptance follows because every dimension is satisfied."
+            },
+            {
+              "text": "It is accepted purely because it kills a mutant",
+              "fraction": 0,
+              "feedback": "A kill alone would not guarantee acceptance; here it is accepted because all five dimensions pass."
+            },
+            {
+              "text": "It is accepted because it is short",
+              "fraction": 0,
+              "feedback": "Length is irrelevant; acceptance comes from satisfying all five dimensions."
+            },
+            {
+              "text": "It is accepted because privacy tests skip the Style dimension",
+              "fraction": 0,
+              "feedback": "No dimension is skipped; this test happens to satisfy Style along with the other four."
+            }
+          ],
+          "generalFeedback": "This test guards a genuine privacy edge case (a null user id), asserts meaningfully, builds cleanly, runs deterministically, and follows conventions. Because it satisfies all five dimensions, engineers accept it.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A kill does not exempt a test",
+          "text": "<p>A test that successfully kills a mutant can still be rejected by engineers on one of the five review dimensions.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a mutation-killing test is still rejected if it is flaky, off-target, trivial, unbuildable, or stylistically unacceptable."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: killing a mutant does not exempt a test from any of the five acceptance dimensions."
+            }
+          ],
+          "generalFeedback": "Killing a mutant demonstrates fault-detection power but says nothing about determinism, relevance, buildability, or style. Engineers apply all five dimensions, so a kill alone does not guarantee acceptance."
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: syntax error",
+          "text": "<p>A generated test is missing a closing brace, so the compiler reports a syntax error and the file will not build. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Buildable — a syntax error is a compilation failure",
+              "fraction": 100,
+              "feedback": "Correct — a syntax error prevents the build, a Buildable failure."
+            },
+            {
+              "text": "Style — a missing brace is just a formatting preference",
+              "fraction": 0,
+              "feedback": "A missing brace is not a style choice; it is a compilation error, which is the Buildable dimension."
+            },
+            {
+              "text": "Non-flaky — syntax errors produce random results",
+              "fraction": 0,
+              "feedback": "A syntax error deterministically stops the build; nothing runs, so this is a Buildable failure."
+            },
+            {
+              "text": "Hardening — broken syntax means it catches no faults",
+              "fraction": 0,
+              "feedback": "The test never compiles or runs, so the primary and only relevant failure is Buildable."
+            }
+          ],
+          "generalFeedback": "A syntax error stops compilation, so the test cannot build or run. That is a Buildable failure, and it must be fixed before any other dimension can be evaluated.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Primary gate: flaky plus weak",
+          "text": "<p>A test uses an unseeded random input (making it non-deterministic) and its only assertion is that the result is non-null. Both Non-flaky and Hardening are in play. Which single dimension most decisively forces rejection, and why?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — flakiness is a hard gate; while the result is non-deterministic, CI cannot trust it at all, so even a stronger assertion would not save it",
+              "fraction": 100,
+              "feedback": "Correct — non-determinism disqualifies the test outright, making Non-flaky the decisive gate."
+            },
+            {
+              "text": "Hardening — a weak assertion is always the most decisive failure",
+              "fraction": 0,
+              "feedback": "The weak assertion is a real problem, but a flaky test is untrustworthy regardless of assertion strength, so Non-flaky is decisive."
+            },
+            {
+              "text": "Buildable — random inputs break the build",
+              "fraction": 0,
+              "feedback": "The test builds and runs; the decisive defect is its non-determinism."
+            },
+            {
+              "text": "Style — random usage violates conventions",
+              "fraction": 0,
+              "feedback": "Style is not the issue here; the decisive failure is flakiness (Non-flaky)."
+            }
+          ],
+          "generalFeedback": "When a test fails more than one dimension, the most decisive is the one that disqualifies it no matter what else is fixed. A flaky test cannot be trusted by CI at all, so Non-flaky is the primary gate — strengthening the assertion would not rescue a non-deterministic test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "High kill, low acceptance",
+          "text": "<p>A generation tool reports a high mutation kill rate, but engineers accept very few of its tests. Why is this gap a problem in practice?</p>",
+          "answers": [
+            {
+              "text": "Tests that engineers reject never merge, so a high kill rate does not translate into a stronger production suite — the accepted set is what actually protects the code",
+              "fraction": 100,
+              "feedback": "Correct — only accepted tests land, so acceptance, not raw kill rate, determines real improvement."
+            },
+            {
+              "text": "A high kill rate means the mutants were too easy, so the tool is broken",
+              "fraction": 0,
+              "feedback": "The kill rate may be genuine; the problem is that rejected tests never reach the codebase."
+            },
+            {
+              "text": "Engineers should lower their standards to match the kill rate",
+              "fraction": 0,
+              "feedback": "Lowering the acceptance bar would admit flaky or off-target tests; the point is that acceptance is the true measure."
+            },
+            {
+              "text": "There is no problem — kill rate is the only metric that matters",
+              "fraction": 0,
+              "feedback": "Kill rate ignores the other four dimensions; a test that is never accepted adds no protection."
+            }
+          ],
+          "generalFeedback": "Kill rate measures potential fault detection, but only tests engineers accept are merged and run in CI. If most generated tests are rejected for flakiness, style, or irrelevance, the high kill rate is illusory — the suite that actually guards production is only the accepted subset.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle non-hardening: asserts the wrong thing",
+          "text": "<p>A test targets the correct method, compiles, is deterministic, and matches the style — but its assertion compares a variable to itself (<code>assertEquals(result, result)</code>), so it holds no matter what the method returns. Which dimension does it fail, and why is that subtle?</p>",
+          "answers": [
+            {
+              "text": "Hardening — it looks like a real test and is on-target, but the self-comparison can never fail, so it catches no fault",
+              "fraction": 100,
+              "feedback": "Correct — despite appearances, a tautological assertion provides no protective value, a Hardening failure."
+            },
+            {
+              "text": "Relevant — comparing a value to itself targets the wrong code",
+              "fraction": 0,
+              "feedback": "The test is on-target (the right method); the defect is that its assertion catches nothing (Hardening)."
+            },
+            {
+              "text": "Non-flaky — self-comparison is non-deterministic",
+              "fraction": 0,
+              "feedback": "It is perfectly deterministic (always passes); the subtle failure is that it never catches a fault."
+            },
+            {
+              "text": "Buildable — self-comparison does not compile",
+              "fraction": 0,
+              "feedback": "It compiles cleanly; the problem is the absence of any real check (Hardening)."
+            }
+          ],
+          "generalFeedback": "The trap is that the test appears legitimate — right target, clean style, deterministic — yet its assertion is a tautology that holds for any output. It would pass even against broken code, so it adds no protective value: a Hardening failure, not a Relevance one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Relevant but flaky",
+          "text": "<p>A test targets exactly the high-risk method that changed and asserts strongly on it, but it reaches a live third-party network service and fails intermittently when that service is slow. What is the primary reason it is rejected?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — its relevance does not rescue it, because the intermittent failures from the live dependency make it non-deterministic",
+              "fraction": 100,
+              "feedback": "Correct — a relevant test that is flaky is still rejected on the Non-flaky dimension."
+            },
+            {
+              "text": "Relevant — reaching a network service means it targets the wrong code",
+              "fraction": 0,
+              "feedback": "It targets the right code; the defect is the non-determinism from the live dependency."
+            },
+            {
+              "text": "Hardening — a strong assertion means Hardening fails",
+              "fraction": 0,
+              "feedback": "A strong assertion is a Hardening strength; the rejection is for flakiness."
+            },
+            {
+              "text": "Style — network calls violate conventions",
+              "fraction": 0,
+              "feedback": "The primary failure is non-determinism (Non-flaky), not style."
+            }
+          ],
+          "generalFeedback": "Being relevant and well-asserted is not enough. A live external dependency introduces uncontrolled variability, so the test fails intermittently — a Non-flaky failure. It must be made deterministic (for example with a test double) before it can be accepted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why style matters despite catching faults",
+          "text": "<p>A test reliably catches a real fault but ignores the codebase's conventions — odd naming, an unfamiliar assertion library, and no arrange-act-assert structure. Why do engineers still reject it?</p>",
+          "answers": [
+            {
+              "text": "Acceptance is a human maintainability bar: a test the team cannot easily read and maintain will not be merged, even if it detects a fault",
+              "fraction": 100,
+              "feedback": "Correct — Style protects long-term maintainability, which is part of acceptance."
+            },
+            {
+              "text": "A non-conforming test cannot actually catch faults",
+              "fraction": 0,
+              "feedback": "It does catch the fault; the rejection is about maintainability and conventions, not detection."
+            },
+            {
+              "text": "Style only matters for tests that fail to compile",
+              "fraction": 0,
+              "feedback": "Compilation is Buildable; Style applies to tests that build fine but ignore conventions."
+            },
+            {
+              "text": "Fault-catching tests are exempt from the Style dimension",
+              "fraction": 0,
+              "feedback": "No dimension is exempt; a fault-catching test still needs acceptable style."
+            }
+          ],
+          "generalFeedback": "Tests live in the codebase and must be maintained by humans. A test that clashes with the team's conventions imposes a long-term cost and confuses reviewers, so it is rejected on Style even when it detects a real fault. Acceptance weighs maintainability, not just detection.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Borderline: weak assertion on the right target",
+          "text": "<p>A test is aimed squarely at the risky method that changed, but its assertion only checks that the return value is not null — it would still pass if the computed value were wrong. Is this primarily a Relevant or a Hardening failure?</p>",
+          "answers": [
+            {
+              "text": "Hardening — the target is right (relevant), but the assertion is too weak to catch a regression, so it fails to strengthen the suite",
+              "fraction": 100,
+              "feedback": "Correct — right target but no fault-catching power is a Hardening failure, not a Relevance one."
+            },
+            {
+              "text": "Relevant — a weak assertion means the test targets the wrong code",
+              "fraction": 0,
+              "feedback": "The target is correct; the weakness is that the assertion would miss a wrong value (Hardening)."
+            },
+            {
+              "text": "Both fail equally, so either label is fine",
+              "fraction": 0,
+              "feedback": "Relevance is satisfied because the target is right; the specific failure is Hardening."
+            },
+            {
+              "text": "Neither — a non-null check is always sufficient",
+              "fraction": 0,
+              "feedback": "A non-null check misses wrong-but-non-null values, so it fails Hardening."
+            }
+          ],
+          "generalFeedback": "Relevance asks whether the test aims at the right code; here it does. Hardening asks whether it would actually catch a fault; a non-null check would pass on a wrong value, so the specific failure is Hardening. Distinguishing the two hinges on target (Relevant) versus fault-catching power (Hardening).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Borderline: strong assertion on a non-issue",
+          "text": "<p>A test has a precise, strong assertion and would reliably catch a change — but it exercises a feature-flagged code path that has been permanently disabled and can never run in production. Is this primarily a Hardening or a Relevant failure?</p>",
+          "answers": [
+            {
+              "text": "Relevant — the assertion is strong (hardening-capable), but the target is a non-issue, so the test aims at the wrong thing",
+              "fraction": 100,
+              "feedback": "Correct — a strong assertion on dead code is a Relevance failure."
+            },
+            {
+              "text": "Hardening — a disabled path means the assertion is weak",
+              "fraction": 0,
+              "feedback": "The assertion is strong; the problem is that its target does not matter (Relevant)."
+            },
+            {
+              "text": "Buildable — disabled paths do not compile",
+              "fraction": 0,
+              "feedback": "The code compiles; the defect is that the target is a non-issue (Relevant)."
+            },
+            {
+              "text": "Style — testing disabled code breaks conventions",
+              "fraction": 0,
+              "feedback": "The failure is that it targets a non-issue, which is Relevance, not Style."
+            }
+          ],
+          "generalFeedback": "This is the mirror image of a weak-assertion case. The assertion is strong enough to catch a fault (hardening-capable), but it is pointed at permanently dead code — a non-issue. Because the target does not matter, the primary failure is Relevant, not Hardening.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary reason: adds no confidence",
+          "text": "<p>A test named <code>testSomething</code> calls <code>doStuff()</code> and only asserts the result is not null. It is buildable and deterministic, but engineers say it \"adds no confidence in the system's correctness.\" Which dimension most directly captures that complaint?</p>",
+          "answers": [
+            {
+              "text": "Hardening — a non-null check verifies no real behaviour, so the test would not catch a genuine fault",
+              "fraction": 100,
+              "feedback": "Correct — \"adds no confidence in correctness\" is precisely the Hardening dimension."
+            },
+            {
+              "text": "Buildable — the vague name breaks the build",
+              "fraction": 0,
+              "feedback": "It builds fine; the complaint is about protective value, which is Hardening."
+            },
+            {
+              "text": "Non-flaky — a non-null check is non-deterministic",
+              "fraction": 0,
+              "feedback": "It is deterministic; the issue is that it verifies nothing meaningful (Hardening)."
+            },
+            {
+              "text": "Style — the name testSomething is the only real problem",
+              "fraction": 0,
+              "feedback": "The vague name is a Style weakness too, but \"no confidence in correctness\" points most directly at Hardening."
+            }
+          ],
+          "generalFeedback": "This test has several weaknesses (a vague name is poor style, the intent is unclear), but the specific complaint — that it gives no confidence in correctness — is about protective value. A non-null check would pass on a wrong result, so the most direct failure is Hardening.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prioritizing a generation pipeline",
+          "text": "<p>Over a batch, a test-generation pipeline achieves a 90% mutation kill rate but only a 20% engineer-acceptance rate. To make the pipeline genuinely useful, what should the team prioritize?</p>",
+          "answers": [
+            {
+              "text": "Fixing the dimensions that drive rejection — flakiness, style, and relevance — so that more of the fault-catching tests are actually accepted and merged",
+              "fraction": 100,
+              "feedback": "Correct — raising acceptance is what turns kill power into real suite improvement."
+            },
+            {
+              "text": "Pushing the kill rate from 90% to 99% and ignoring acceptance",
+              "fraction": 0,
+              "feedback": "More kills that are still rejected add nothing; the bottleneck is acceptance."
+            },
+            {
+              "text": "Merging all generated tests regardless of the review dimensions",
+              "fraction": 0,
+              "feedback": "That would admit flaky and off-target tests, degrading the suite; acceptance standards exist for good reason."
+            },
+            {
+              "text": "Deleting the mutation-testing step entirely",
+              "fraction": 0,
+              "feedback": "Mutation testing is useful signal; the real gap is the low acceptance rate."
+            }
+          ],
+          "generalFeedback": "A 90% kill rate with 20% acceptance means most fault-catching tests never land. The leverage is in the acceptance dimensions: reduce flakiness, conform to style, and target relevant code. Improving those converts the pipeline's detection power into tests engineers will actually merge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Flaky-relevant versus plainly irrelevant",
+          "text": "<p>Why can a flaky test that targets important, relevant code do <em>more</em> damage than a test that is simply irrelevant?</p>",
+          "answers": [
+            {
+              "text": "Because it injects non-deterministic failures onto important paths, it erodes trust in the suite while looking valuable — an irrelevant test at least fails predictably or is easy to dismiss",
+              "fraction": 100,
+              "feedback": "Correct — flakiness on relevant paths is especially corrosive to CI trust."
+            },
+            {
+              "text": "Because irrelevant tests never compile",
+              "fraction": 0,
+              "feedback": "Irrelevant tests can compile fine; the point is the corrosive effect of flakiness on trusted paths."
+            },
+            {
+              "text": "Because a flaky test always has a higher kill rate",
+              "fraction": 0,
+              "feedback": "Kill rate is not the issue; the harm is the non-deterministic noise on important code."
+            },
+            {
+              "text": "Because relevant tests are exempt from the Non-flaky dimension",
+              "fraction": 0,
+              "feedback": "No test is exempt; a relevant test that is flaky is still rejected, and its flakiness is especially damaging."
+            }
+          ],
+          "generalFeedback": "A flaky test on relevant code masquerades as valuable coverage while producing intermittent red builds on paths people care about. That trains the team to ignore failures on important code, so it must be rejected on Non-flaky and made deterministic before it can help.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why Buildable gates the rest",
+          "text": "<p>Why is it pointless to assess a test's Hardening or Relevance while it still fails the Buildable dimension?</p>",
+          "answers": [
+            {
+              "text": "A test that does not compile never runs, so it cannot demonstrate any fault-catching value or target — Buildable is a prerequisite gate that must be fixed first",
+              "fraction": 100,
+              "feedback": "Correct — without building, the test cannot execute, so downstream dimensions are moot."
+            },
+            {
+              "text": "Because Hardening and Relevance are less important than Buildable in general",
+              "fraction": 0,
+              "feedback": "They are equally required for acceptance; the point is ordering — a non-building test cannot be evaluated on them."
+            },
+            {
+              "text": "Because a non-building test is automatically flaky",
+              "fraction": 0,
+              "feedback": "A build error is deterministic, not flaky; the issue is that the test cannot run to show hardening or relevance."
+            },
+            {
+              "text": "Because compiling a test also proves it is relevant",
+              "fraction": 0,
+              "feedback": "Compiling proves only Buildable; relevance and hardening are separate and assessed once it builds."
+            }
+          ],
+          "generalFeedback": "Buildable is the entry gate. A test that will not compile cannot execute, so there is no way to observe whether it catches faults (Hardening) or targets the right code (Relevant). The build error must be fixed before any downstream dimension can even be judged.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Separating Hardening from Relevant",
+          "text": "<p>Which statement most accurately distinguishes the Hardening dimension from the Relevant dimension?</p>",
+          "answers": [
+            {
+              "text": "Relevant asks whether the test targets the right code; Hardening asks whether it would actually catch a real regression in that code",
+              "fraction": 100,
+              "feedback": "Correct — Relevant is about the target, Hardening is about fault-catching power."
+            },
+            {
+              "text": "Hardening asks whether the test compiles; Relevant asks whether it is deterministic",
+              "fraction": 0,
+              "feedback": "Compiling is Buildable and determinism is Non-flaky; that answer confuses the dimensions."
+            },
+            {
+              "text": "They are the same dimension under two names",
+              "fraction": 0,
+              "feedback": "They are distinct: a test can be on-target yet catch nothing, or catch faults but on the wrong code."
+            },
+            {
+              "text": "Relevant is about style conventions; Hardening is about speed",
+              "fraction": 0,
+              "feedback": "Style and speed are unrelated; Relevant is the target and Hardening is fault-catching value."
+            }
+          ],
+          "generalFeedback": "The two are orthogonal. A test can be relevant (aimed at the right, risky code) yet fail to harden (a weak assertion that catches nothing), or it can be hardening-capable (a strong assertion) yet irrelevant (aimed at dead or unrelated code). Relevant = right target; Hardening = would catch a fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary rejection: irrelevant and weak",
+          "text": "<p>A test both exercises a trivial, unrelated getter (not the changed behaviour) and asserts only that its result is not null. Both Relevant and Hardening look shaky. Which is the more fundamental reason to reject it, and why?</p>",
+          "answers": [
+            {
+              "text": "Relevant — because it targets the wrong code, strengthening its assertion would still not test the behaviour that matters, so the wrong target is the root problem",
+              "fraction": 100,
+              "feedback": "Correct — when the target itself is wrong, Relevance is the more fundamental failure."
+            },
+            {
+              "text": "Hardening — because a stronger assertion would fix everything",
+              "fraction": 0,
+              "feedback": "A stronger assertion on the wrong getter still would not test the changed behaviour; the root issue is the target (Relevant)."
+            },
+            {
+              "text": "Buildable — unrelated getters do not compile",
+              "fraction": 0,
+              "feedback": "It compiles; the root problem is that it is aimed at the wrong code (Relevant)."
+            },
+            {
+              "text": "Non-flaky — getter tests are non-deterministic",
+              "fraction": 0,
+              "feedback": "It can be deterministic; the fundamental failure is that its target is irrelevant."
+            }
+          ],
+          "generalFeedback": "When picking the most fundamental failure, ask what remains broken after the others are fixed. Here, even a strong assertion would not help because the test is pointed at the wrong code — so Relevance is the root failure. Contrast this with a test on the right code whose only flaw is a weak assertion, which is a Hardening failure.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Kill rate does not guarantee acceptance",
+          "text": "<p>A high mutation kill rate across a batch of generated tests guarantees that engineers will accept most of them.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — acceptance depends on all five dimensions, so a high kill rate does not guarantee that tests will be accepted."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: tests can kill mutants yet be rejected for flakiness, style, or irrelevance, so a high kill rate does not guarantee acceptance."
+            }
+          ],
+          "generalFeedback": "Kill rate and acceptance are different measures. A batch can kill many mutants while most tests are rejected on Non-flaky, Style, or Relevant grounds. Engineer acceptance across all five dimensions — not raw kill rate — is the true bar for whether the tests improve the suite."
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary gate: does not build and bad style",
+          "text": "<p>A generated test both fails to compile (a type error) and uses naming that ignores the team's conventions. Which single dimension should be recorded as the primary reason for rejection, and why?</p>",
+          "answers": [
+            {
+              "text": "Buildable — because a test that does not compile cannot be run or reviewed at all, so the build error is the most fundamental blocker; the style issue is moot until it builds",
+              "fraction": 100,
+              "feedback": "Correct — Buildable is the prerequisite gate, so it is the primary failure here."
+            },
+            {
+              "text": "Style — naming is what reviewers notice first",
+              "fraction": 0,
+              "feedback": "The style issue cannot even be acted on while the test fails to compile; Buildable is the more fundamental blocker."
+            },
+            {
+              "text": "Both are equally primary, so pick either",
+              "fraction": 0,
+              "feedback": "A non-building test cannot be run or reviewed, so Buildable is the more fundamental of the two."
+            },
+            {
+              "text": "Non-flaky — type errors cause intermittent results",
+              "fraction": 0,
+              "feedback": "A type error deterministically stops the build; the primary failure is Buildable, not Non-flaky."
+            }
+          ],
+          "generalFeedback": "When a test fails several dimensions, the primary one is the most fundamental blocker — the failure that makes the others impossible to assess or fix. A test that does not compile cannot run or be reviewed, so Buildable is primary; the style problem only becomes relevant once the test builds.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "五個驗收維度",
+          "text": "<p>在 Meta ACH 研究（arXiv 2501.12862）中，LLM 生成的測試必須滿足五個審查維度，工程師才會接受它。哪一組正確列出全部五個？</p>",
+          "answers": [
+            {
+              "text": "可編譯（Buildable）、非不穩定（Non-flaky）、強化（Hardening）、相關性（Relevant）、風格（Style）",
+              "fraction": 100,
+              "feedback": "正確——這正是五個工程師驗收維度。"
+            },
+            {
+              "text": "可編譯、快速、覆蓋率、相關性、可讀性",
+              "fraction": 0,
+              "feedback": "「快速」「覆蓋率」「可讀性」不是審查維度；五個是可編譯、非不穩定、強化、相關性、風格。"
+            },
+            {
+              "text": "殺變異率、非不穩定、強化、相關性、風格",
+              "fraction": 0,
+              "feedback": "殺變異率是變異測試指標，不是驗收維度；第一個維度是可編譯。"
+            },
+            {
+              "text": "可編譯、非不穩定、效能、安全性、風格",
+              "fraction": 0,
+              "feedback": "效能與安全性不是審查維度；中間兩個是強化與相關性。"
+            }
+          ],
+          "generalFeedback": "五個工程師驗收維度是：可編譯（能編譯）、非不穩定（結果確定）、強化（強化測試套件）、相關性（針對真實程式碼）、風格（符合慣例）。測試必須五個全部通過才會被接受。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可編譯檢查什麼",
+          "text": "<p><em>可編譯（Buildable）</em>維度檢查測試是否：</p>",
+          "answers": [
+            {
+              "text": "能乾淨地編譯與建置，沒有任何建置或編譯錯誤",
+              "fraction": 100,
+              "feedback": "正確——可編譯指測試能無錯誤地編譯／建置。"
+            },
+            {
+              "text": "執行速度比套件中所有其他測試都快",
+              "fraction": 0,
+              "feedback": "速度不屬於可編譯；可編譯只關乎能否乾淨地編譯／建置。"
+            },
+            {
+              "text": "覆蓋受測程式碼的每一個分支",
+              "fraction": 0,
+              "feedback": "分支覆蓋率與可編譯無關；可編譯關乎測試能否無錯誤建置。"
+            },
+            {
+              "text": "遵循團隊的命名慣例",
+              "fraction": 0,
+              "feedback": "那描述的是風格維度；可編譯關乎能否乾淨地編譯。"
+            }
+          ],
+          "generalFeedback": "可編譯是最基本的關卡：若測試無法編譯或建置，就會產生建置錯誤而直接被拒。在測試能實際建置之前，其他維度都無法評估。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非不穩定檢查什麼",
+          "text": "<p><em>非不穩定（Non-flaky）</em>維度要求測試：</p>",
+          "answers": [
+            {
+              "text": "是確定的——對相同的程式碼，每次執行都產生相同結果",
+              "fraction": 100,
+              "feedback": "正確——非不穩定指每次執行都有確定、可重現的結果。"
+            },
+            {
+              "text": "無論程式碼做什麼都永遠通過",
+              "fraction": 0,
+              "feedback": "永遠通過的測試毫無用處；非不穩定指的是可重現的結果，可能是通過也可能是失敗。"
+            },
+            {
+              "text": "每次執行都使用全新的隨機輸入",
+              "fraction": 0,
+              "feedback": "未固定種子的隨機輸入會使測試不穩定；非不穩定正好相反。"
+            },
+            {
+              "text": "能無錯誤地編譯",
+              "fraction": 0,
+              "feedback": "乾淨地編譯是可編譯維度；非不穩定關乎跨執行的確定性。"
+            }
+          ],
+          "generalFeedback": "非不穩定的測試每次對相同（未變更）程式碼執行都給出相同判定。時而通過、時而失敗的不穩定測試會破壞 CI 的信任，因此無論其他品質如何都會被拒絕。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強化檢查什麼",
+          "text": "<p><em>強化（Hardening）</em>維度探問測試是否：</p>",
+          "answers": [
+            {
+              "text": "有意義地運用並斷言行為，因此能捕捉真實的迴歸或缺陷",
+              "fraction": 100,
+              "feedback": "正確——強化指測試確實增強了套件捕捉缺陷的能力。"
+            },
+            {
+              "text": "永遠通過，因此永不阻擋建置",
+              "fraction": 0,
+              "feedback": "永不會失敗的測試沒有保護價值；那正是強化的失敗，而非通過。"
+            },
+            {
+              "text": "寫在與受測程式碼相同的檔案中",
+              "fraction": 0,
+              "feedback": "檔案位置與強化無關；強化關乎測試是否能捕捉真實缺陷。"
+            },
+            {
+              "text": "在一毫秒內執行完畢",
+              "fraction": 0,
+              "feedback": "執行速度與強化無關；強化衡量的是保護價值。"
+            }
+          ],
+          "generalFeedback": "強化的測試會增強套件：它運用行為並加以斷言，使真正的迴歸會讓它失敗。永遠通過的瑣碎、空操作或恆真測試未通過強化維度，因為它不增加任何保護價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相關性檢查什麼",
+          "text": "<p><em>相關性（Relevant）</em>維度探問測試是否：</p>",
+          "answers": [
+            {
+              "text": "針對受測程式碼的真實、相關的問題或行為",
+              "fraction": 100,
+              "feedback": "正確——相關性指測試瞄準受測系統中真正、切題的行為。"
+            },
+            {
+              "text": "運用與此次變更無關的程式碼",
+              "fraction": 0,
+              "feedback": "測試無關程式碼正是相關性失敗，而非通過。"
+            },
+            {
+              "text": "包含至少十個斷言",
+              "fraction": 0,
+              "feedback": "斷言數量不是相關性衡量的對象；重點是是否針對真實問題。"
+            },
+            {
+              "text": "能在每個支援的平台上執行",
+              "fraction": 0,
+              "feedback": "跨平台執行與相關性無關；相關性關乎是否瞄準正確的程式碼。"
+            }
+          ],
+          "generalFeedback": "相關的測試瞄準受測程式碼的真實問題或行為——而非無關程式碼、死路徑或非問題。測試可能建置良好且確定，卻因為瞄準錯誤而被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風格檢查什麼",
+          "text": "<p><em>風格（Style）</em>維度探問測試是否：</p>",
+          "answers": [
+            {
+              "text": "遵循程式碼庫在命名、結構、斷言與慣用寫法上的慣例，使人類願意接受它",
+              "fraction": 100,
+              "feedback": "正確——風格關乎符合團隊慣例，使測試可維護、可審查。"
+            },
+            {
+              "text": "每次執行都產生相同結果",
+              "fraction": 0,
+              "feedback": "那是非不穩定維度；風格關乎符合程式碼庫的慣例。"
+            },
+            {
+              "text": "至少殺掉一個變異體",
+              "fraction": 0,
+              "feedback": "殺變異體是變異測試指標，不是風格維度。"
+            },
+            {
+              "text": "無錯誤地編譯",
+              "fraction": 0,
+              "feedback": "乾淨地編譯是可編譯；風格關乎命名、結構與慣用寫法。"
+            }
+          ],
+          "generalFeedback": "風格衡量人類審查者是否願意把測試接受進程式碼庫：一致的命名、結構、斷言輔助函式與慣用寫法。風格上不可接受的測試會被拒，因為在合併前它需要重工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "工程師驗收需要什麼",
+          "text": "<p>要讓 LLM 生成的測試被工程師<em>接受</em>，它必須：</p>",
+          "answers": [
+            {
+              "text": "通過全部五個審查維度——可編譯、非不穩定、強化、相關性與風格",
+              "fraction": 100,
+              "feedback": "正確——驗收要求通過五個維度中的每一個。"
+            },
+            {
+              "text": "通過五個維度中的至少三個",
+              "fraction": 0,
+              "feedback": "多數不夠；任何單一維度失敗都會導致拒絕。"
+            },
+            {
+              "text": "至少殺掉一個變異體，無論五個維度如何",
+              "fraction": 0,
+              "feedback": "殺掉變異體不保證被接受；測試仍須通過全部五個維度。"
+            },
+            {
+              "text": "只通過可編譯維度",
+              "fraction": 0,
+              "feedback": "乾淨建置是必要但遠遠不足；五個維度全部都要通過。"
+            }
+          ],
+          "generalFeedback": "工程師驗收是一個合取：測試必須同時滿足可編譯且非不穩定且強化且相關且風格。任一維度失敗就足以被拒。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "殺掉變異體並不足夠",
+          "text": "<p>若生成的測試殺掉了一個變異體，光憑這點就足以讓工程師接受它進入程式碼庫。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——殺掉變異體不保證被接受；測試仍須通過全部五個審查維度。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：殺變異體的測試若不穩定、瞄準錯誤、風格不可接受，或其他維度失敗，仍會被拒。"
+            }
+          ],
+          "generalFeedback": "殺變異率衡量測試能否偵測植入的缺陷，但工程師驗收是更嚴格的人類門檻。殺掉變異體的測試若不能同時做到建置、確定、強化套件、瞄準相關程式碼並遵循慣例，仍會被拒。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何光看殺變異率不夠",
+          "text": "<p>為什麼高殺變異率本身，不足以衡量生成測試對工程師的價值？</p>",
+          "answers": [
+            {
+              "text": "測試可能殺掉變異體卻仍因不穩定、瞄準錯誤、瑣碎或風格不可接受而被拒——於是它從未真正進入程式碼庫",
+              "fraction": 100,
+              "feedback": "正確——驗收取決於全部五個維度，而非只看缺陷偵測。"
+            },
+            {
+              "text": "LLM 生成的測試無法量測殺變異率",
+              "fraction": 0,
+              "feedback": "殺變異率量得出來；重點是它未涵蓋其他驗收維度。"
+            },
+            {
+              "text": "高殺變異率保證測試也遵循團隊風格",
+              "fraction": 0,
+              "feedback": "殺變異率完全不說明風格、確定性或相關性；那些要另外判斷。"
+            },
+            {
+              "text": "工程師從不看測試是否偵測缺陷",
+              "fraction": 0,
+              "feedback": "缺陷偵測（強化）重要，但它只是工程師衡量的五個維度之一。"
+            }
+          ],
+          "generalFeedback": "殺變異率只捕捉測試能否抓到植入的缺陷。工程師還要求測試能建置、確定執行、瞄準相關程式碼並遵循慣例。真正的門檻是五個維度全部通過的驗收，因此套件可能殺變異率很高，卻只有極少測試工程師願意合併。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：無法編譯",
+          "text": "<p>某生成測試引用了一個不存在的方法，因此無法編譯。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 100,
+              "feedback": "正確——編譯錯誤是可編譯失敗。"
+            },
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 0,
+              "feedback": "非不穩定關乎跨執行的確定性；永遠無法編譯的測試根本無法執行。"
+            },
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 0,
+              "feedback": "相關性關乎瞄準正確程式碼；此處測試根本無法建置。"
+            },
+            {
+              "text": "風格（Style）",
+              "fraction": 0,
+              "feedback": "風格關乎慣例；缺少方法是建置錯誤，屬於可編譯維度。"
+            }
+          ],
+          "generalFeedback": "無法編譯的測試未通過可編譯維度。它產生建置錯誤，在其他任何品質能被評估之前就被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：時而通過、時而失敗",
+          "text": "<p>某測試對相同（未變更）程式碼在某些執行通過、某些執行失敗。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 100,
+              "feedback": "正確——不確定的通過／失敗結果是非不穩定失敗。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "測試能編譯並執行；問題在於其結果在各次執行間變動。"
+            },
+            {
+              "text": "強化（Hardening）",
+              "fraction": 0,
+              "feedback": "強化關乎保護價值；此處問題是不確定性。"
+            },
+            {
+              "text": "風格（Style）",
+              "fraction": 0,
+              "feedback": "風格關乎慣例；間歇性結果是非不穩定失敗。"
+            }
+          ],
+          "generalFeedback": "對未變更程式碼時而通過、時而失敗，正是不穩定的定義，即非不穩定失敗。不穩定測試破壞 CI 的信號，因此永遠被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：斷言恆為真",
+          "text": "<p>某測試唯一的檢查是 <code>assertTrue(true)</code>，因此永不會失敗。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "強化（Hardening）",
+              "fraction": 100,
+              "feedback": "正確——恆真的斷言什麼都抓不到，因此未通過強化維度。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "測試能正常編譯；問題在於它不增加任何保護價值。"
+            },
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 0,
+              "feedback": "測試完全確定（永遠通過）；問題在於它永遠抓不到缺陷。"
+            },
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 0,
+              "feedback": "相關性關乎目標；即使瞄準正確程式碼，斷言無意義仍屬強化失敗。"
+            }
+          ],
+          "generalFeedback": "永不會失敗的測試不運用任何真實行為，也永遠抓不到迴歸，因此未通過強化維度——它不為套件增加保護價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：測試無關程式碼",
+          "text": "<p>某次變更修正了付款計算的錯誤，但生成的測試只運用一個無關的字串格式化輔助函式。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 100,
+              "feedback": "正確——測試與問題無關的程式碼是相關性失敗。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "測試可能正常編譯；問題在於它瞄準了錯誤的程式碼。"
+            },
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 0,
+              "feedback": "它可以完全確定卻仍瞄準錯誤，那屬於相關性失敗。"
+            },
+            {
+              "text": "強化（Hardening）",
+              "fraction": 0,
+              "feedback": "即使對該輔助函式強力斷言，它瞄準的仍是錯誤程式碼——那是相關性失敗。"
+            }
+          ],
+          "generalFeedback": "瞄準無關程式碼、而非真正有風險的行為，未通過相關性維度。它對真正重要的變更不提供任何信心。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：錯誤的命名慣例",
+          "text": "<p>某 Kotlin 測試命名為 <code>TEST_boundary_AGE</code>，混用 SCREAMING_SNAKE_CASE 與 camelCase，違反團隊慣例。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "風格（Style）",
+              "fraction": 100,
+              "feedback": "正確——違反慣例的不一致命名是風格失敗。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "奇怪的命名仍能編譯；問題在於它違反程式碼庫的慣例。"
+            },
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 0,
+              "feedback": "測試可以瞄準正確程式碼卻仍因不合慣例的名稱被拒——那是風格失敗。"
+            },
+            {
+              "text": "強化（Hardening）",
+              "fraction": 0,
+              "feedback": "它可以有意義地斷言卻仍因命名在審查中失敗，那屬於風格維度。"
+            }
+          ],
+          "generalFeedback": "與程式碼庫慣例衝突的命名、結構與慣用寫法未通過風格維度。即使斷言正確，人類審查者仍會退回要求重工。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "驗收需要五個全過",
+          "text": "<p>唯有通過全部五個審查維度，測試才會被工程師接受。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——驗收要求同時通過可編譯、非不穩定、強化、相關性與風格。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這是錯的：五個維度中任一失敗，就足以使測試被拒。"
+            }
+          ],
+          "generalFeedback": "工程師驗收是五個維度的合取。通過四個卻失敗一個——例如一個強力、瞄準正確卻不穩定的測試——仍會被拒。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "分類：隨機輸入",
+          "text": "<p>某測試以 <code>Random.nextInt()</code>（未固定種子）計算輸入並對結果斷言，因此其結果在各次執行間變動。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——未固定種子的隨機輸入使結果不確定",
+              "fraction": 100,
+              "feedback": "正確——變動的輸入產生不確定結果，屬於非不穩定失敗。"
+            },
+            {
+              "text": "可編譯——隨機數會造成編譯錯誤",
+              "fraction": 0,
+              "feedback": "隨機數不會破壞編譯；此失敗是不確定性（非不穩定）。"
+            },
+            {
+              "text": "相關性——隨機輸入永遠瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "測試可以瞄準正確程式碼；問題在於其結果不可重現。"
+            },
+            {
+              "text": "風格——隨機呼叫違反命名慣例",
+              "fraction": 0,
+              "feedback": "命名不受影響；缺陷是不確定性，屬於非不穩定維度。"
+            }
+          ],
+          "generalFeedback": "未固定種子的隨機產生器每次執行產生不同輸入，因此測試多半通過、偶爾失敗。那種不確定性是非不穩定失敗，而不穩定測試永遠被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：找不到符號",
+          "text": "<p>某生成測試呼叫 <code>calculateDiscuont(order)</code>——真實方法的拼字錯誤——因此測試檔無法編譯。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "可編譯——無法解析的符號是編譯錯誤",
+              "fraction": 100,
+              "feedback": "正確——無法解析的引用是建置錯誤，屬於可編譯失敗。"
+            },
+            {
+              "text": "相關性——拼錯字意味測試瞄準錯誤功能",
+              "fraction": 0,
+              "feedback": "意圖或許正確，但測試無法編譯；那是可編譯失敗。"
+            },
+            {
+              "text": "強化——拼錯的呼叫永遠抓不到缺陷",
+              "fraction": 0,
+              "feedback": "測試根本無法建置，因此主要失敗是可編譯，而非強化。"
+            },
+            {
+              "text": "非不穩定——拼字錯誤使結果不確定",
+              "fraction": 0,
+              "feedback": "編譯錯誤是確定的；缺陷在於它無法建置（可編譯）。"
+            }
+          ],
+          "generalFeedback": "無法解析的方法引用是編譯錯誤，因此測試未通過可編譯維度。在它能編譯之前，其他維度都無法被評估。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：空操作斷言",
+          "text": "<p>某測試執行了一段計算，但其唯一斷言是 <code>assertEquals(1, 1)</code>，永不會失敗。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "強化——該斷言是恆真式，抓不到任何缺陷",
+              "fraction": 100,
+              "feedback": "正確——永不會失敗的檢查不增加保護價值，屬於強化失敗。"
+            },
+            {
+              "text": "可編譯——常數比較無法編譯",
+              "fraction": 0,
+              "feedback": "它能正常編譯；問題在於它什麼都沒有意義地驗證。"
+            },
+            {
+              "text": "非不穩定——常數斷言是不確定的",
+              "fraction": 0,
+              "feedback": "它完全確定（永遠通過）；問題在於它什麼都抓不到。"
+            },
+            {
+              "text": "風格——把 1 比較 1 違反慣例",
+              "fraction": 0,
+              "feedback": "缺陷是缺乏保護價值，而非慣例；那是強化。"
+            }
+          ],
+          "generalFeedback": "把常數與自己比較的斷言恆成立，因此即使程式碼壞了測試仍會通過。它對套件的抓錯能力毫無貢獻，屬於強化失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：瞄準錯誤的測試",
+          "text": "<p>某拉取請求修改了驗證（authentication）邏輯，但生成的測試運用的是無關的日誌模組並對日誌格式斷言。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "相關性——它瞄準與此次審查變更無關的程式碼",
+              "fraction": 100,
+              "feedback": "正確——測試無關程式碼而非驗證邏輯是相關性失敗。"
+            },
+            {
+              "text": "可編譯——日誌測試無法和驗證程式碼一起編譯",
+              "fraction": 0,
+              "feedback": "它可能正常編譯；問題在於它瞄準錯誤的模組。"
+            },
+            {
+              "text": "非不穩定——日誌輸出永遠不確定",
+              "fraction": 0,
+              "feedback": "日誌斷言可以是確定的；此處缺陷是測試瞄準錯誤。"
+            },
+            {
+              "text": "風格——日誌測試使用錯誤的慣用寫法",
+              "fraction": 0,
+              "feedback": "即使風格完美，瞄準錯誤程式碼的測試仍未通過相關性。"
+            }
+          ],
+          "generalFeedback": "瞄準與受審查行為無關的程式碼，對真正重要的變更不提供信心。無論測試寫得多好，那都是相關性失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：結構不一致",
+          "text": "<p>某測試正確且確定，但把五個無關情境塞進單一方法、使用寫死的魔術數字，忽視程式碼庫「一情境一測試、arrange-act-assert」的慣例。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "風格——其結構與慣用寫法和程式碼庫的慣例衝突",
+              "fraction": 100,
+              "feedback": "正確——違反團隊結構慣例是風格失敗。"
+            },
+            {
+              "text": "可編譯——多情境方法無法編譯",
+              "fraction": 0,
+              "feedback": "該方法能編譯並執行；問題在於它忽視程式碼庫的慣例。"
+            },
+            {
+              "text": "強化——把情境綁在一起使它抓不到缺陷",
+              "fraction": 0,
+              "feedback": "它仍能抓到缺陷；問題在於其結構不被審查者接受。"
+            },
+            {
+              "text": "相關性——合併的測試瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "它可以瞄準正確卻仍因不合慣例的結構被拒——那是風格失敗。"
+            }
+          ],
+          "generalFeedback": "當測試忽視程式碼庫的命名、結構與慣用寫法，即使其他方面正確，審查者仍會退回。那是風格失敗：在人類接受之前它需要重工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺卻被拒：不穩定",
+          "text": "<p>某生成測試殺掉了目標變異體，但它依賴當前的牆上時鐘（wall-clock），每逢跨越午夜就失敗。工程師拒絕了它。是在哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——牆上時鐘依賴使結果不確定",
+              "fraction": 100,
+              "feedback": "正確——即使殺掉變異體，間歇性失敗是非不穩定的拒絕。"
+            },
+            {
+              "text": "強化——殺掉變異體代表它未通過強化",
+              "fraction": 0,
+              "feedback": "殺掉變異體是保護價值的證據；拒絕是因為不確定性。"
+            },
+            {
+              "text": "可編譯——時鐘程式碼無法編譯",
+              "fraction": 0,
+              "feedback": "測試能編譯並執行；只是結果不確定。"
+            },
+            {
+              "text": "相關性——基於時間的測試永遠瞄準錯誤",
+              "fraction": 0,
+              "feedback": "測試瞄準正確程式碼（它殺掉了變異體）；缺陷是不穩定。"
+            }
+          ],
+          "generalFeedback": "殺變異體的測試仍可能被拒。此處它意圖上確定，卻讀取即時時鐘，因此間歇性失敗——非不穩定失敗。CI 無法信任它，於是工程師儘管有殺仍拒絕它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺卻被拒：風格",
+          "text": "<p>某生成測試殺掉了變異體，且確定、瞄準正確，但它使用了模組中其他測試都不用的自訂斷言輔助函式與命名。工程師要求重寫。它是在哪個維度被拒？</p>",
+          "answers": [
+            {
+              "text": "風格——它不遵循模組的慣例與慣用寫法",
+              "fraction": 100,
+              "feedback": "正確——一次殺並不能讓測試豁免風格維度。"
+            },
+            {
+              "text": "強化——殺掉代表強化自動失敗",
+              "fraction": 0,
+              "feedback": "殺掉變異體顯示保護價值；拒絕是關於慣例。"
+            },
+            {
+              "text": "非不穩定——自訂輔助函式是不確定的",
+              "fraction": 0,
+              "feedback": "測試是確定的；問題在於其風格和程式碼庫衝突。"
+            },
+            {
+              "text": "相關性——自訂輔助函式瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "它瞄準正確（它殺掉了變異體）；拒絕是在風格。"
+            }
+          ],
+          "generalFeedback": "即使是確定、瞄準正確、殺變異體的測試，若忽視程式碼庫慣例仍會被拒。驗收是人類審查門檻，不合慣例的風格就足以退回——風格失敗。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "五中過四仍失敗",
+          "text": "<p>某測試可編譯、非不穩定、強化且相關，但違反團隊的風格慣例。它仍會被接受，因為它通過了五個維度中的四個。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——驗收要求五個維度全過，因此僅風格失敗就會導致拒絕。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：通過四個維度並不足夠；單一風格失敗就足以被拒。"
+            }
+          ],
+          "generalFeedback": "驗收是五個維度的合取。一個強力、瞄準正確、確定卻違反風格慣例的測試會被拒並退回重工，說明每個維度都是硬性要求。"
+        },
+        {
+          "type": "multichoice",
+          "name": "較弱的維度：僅正路徑",
+          "text": "<p>某測試對 <code>add(a, b)</code> 函式只檢查 <code>add(2, 2) == 4</code> 與 <code>add(0, 0) == 0</code>——瑣碎的正路徑輸入，沒有像溢位這樣的邊界案例。此處哪個維度最弱？</p>",
+          "answers": [
+            {
+              "text": "強化——它只運用瑣碎輸入，會漏掉邊界案例的迴歸",
+              "fraction": 100,
+              "feedback": "正確——缺乏有意義的邊界案例是強化上的弱點。"
+            },
+            {
+              "text": "可編譯——正路徑測試無法編譯",
+              "fraction": 0,
+              "feedback": "測試能正常編譯；顧慮在於它運用得太少。"
+            },
+            {
+              "text": "非不穩定——固定輸入是不確定的",
+              "fraction": 0,
+              "feedback": "固定輸入完全確定；弱點在於保護價值（強化）。"
+            },
+            {
+              "text": "相關性——測試 add() 是瞄準錯誤",
+              "fraction": 0,
+              "feedback": "測試受變更的函式是瞄準正確；弱點在於它只涵蓋瑣碎案例。"
+            }
+          ],
+          "generalFeedback": "只檢查瑣碎的正路徑數值，會讓溢位或負數等邊界案例未受測試，因此測試會漏掉那裡的真實迴歸。那是強化維度上的弱點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要拒絕原因：瞄準錯誤",
+          "text": "<p>某測試建置良好、確定、寫法乾淨，且強力斷言——但只針對一條生產環境已不再走到的棄用（deprecated）程式碼路徑。工程師拒絕它的主要原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "相關性——它瞄準的是非問題，而非真正重要的行為",
+              "fraction": 100,
+              "feedback": "正確——瞄準非問題的強力測試未通過相關性維度。"
+            },
+            {
+              "text": "強化——強力斷言永遠代表強化通過",
+              "fraction": 0,
+              "feedback": "對錯誤目標的強力斷言沒有幫助；主要失敗是相關性。"
+            },
+            {
+              "text": "可編譯——棄用路徑無法編譯",
+              "fraction": 0,
+              "feedback": "測試能編譯並執行；問題在於其目標不是真實問題。"
+            },
+            {
+              "text": "非不穩定——棄用程式碼是不確定的",
+              "fraction": 0,
+              "feedback": "它可以是確定的；拒絕原因是它瞄準非問題（相關性）。"
+            }
+          ],
+          "generalFeedback": "即使是強力、乾淨、確定的測試，若瞄準已不再重要的程式碼仍會被拒。相關性探問測試是否瞄準真實問題；死路徑是非問題，因此主要失敗是相關性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：牆上時鐘依賴",
+          "text": "<p>某測試由 <code>LocalDate.now()</code> 計算期望值並與程式碼輸出比較，因此可能依它執行的日期而失敗。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——依賴即時日期使結果隨執行而變動",
+              "fraction": 100,
+              "feedback": "正確——牆上時鐘依賴產生不確定結果，屬於非不穩定失敗。"
+            },
+            {
+              "text": "可編譯——日期 API 造成建置錯誤",
+              "fraction": 0,
+              "feedback": "日期 API 能正常編譯；缺陷在於結果取決於執行時機。"
+            },
+            {
+              "text": "強化——使用時鐘代表它抓不到缺陷",
+              "fraction": 0,
+              "feedback": "它或許能抓到缺陷，但結果不確定，那是非不穩定失敗。"
+            },
+            {
+              "text": "風格——呼叫 now() 違反慣例",
+              "fraction": 0,
+              "feedback": "問題是確定性，而非慣例；那是非不穩定維度。"
+            }
+          ],
+          "generalFeedback": "讀取即時時鐘把結果綁在測試執行的當下，因此某天通過、另一天失敗。那種不確定性是非不穩定失敗；修法是注入或凍結一個固定時鐘。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：重複的瑣碎測試",
+          "text": "<p>某生成測試重新檢查一個別處已涵蓋的普通 getter，未新增任何情境或邊界案例。它能編譯、確定、瞄準真實程式碼且符合風格。它在哪個維度最弱？</p>",
+          "answers": [
+            {
+              "text": "強化——它重複既有覆蓋，未新增任何抓錯價值",
+              "fraction": 100,
+              "feedback": "正確——未新增保護價值是強化上的弱點。"
+            },
+            {
+              "text": "可編譯——重複測試無法編譯",
+              "fraction": 0,
+              "feedback": "它能正常編譯；顧慮在於它什麼都沒強化。"
+            },
+            {
+              "text": "相關性——getter 永遠不是相關程式碼",
+              "fraction": 0,
+              "feedback": "getter 可以是相關的真實程式碼；弱點在於測試未新增保護。"
+            },
+            {
+              "text": "風格——重複測試永遠違反慣例",
+              "fraction": 0,
+              "feedback": "該測試符合風格；其弱點是缺乏新的抓錯價值（強化）。"
+            }
+          ],
+          "generalFeedback": "只是重複別處已提供覆蓋的測試，不會增強套件抓到新迴歸的能力。即使其他方面乾淨，它在強化上仍弱，因為它不新增保護價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何測試五個全過",
+          "text": "<p>某測試名為 <code>testPrivacyNullUser</code>，把 <code>null</code> 使用者 id 傳給 <code>logEvent</code>，並斷言追蹤器的 <code>lastUserId</code> 維持 <code>null</code>。它能編譯、確定、遵循慣例，並防護了一個真實的隱私邊界案例。為何它被接受？</p>",
+          "answers": [
+            {
+              "text": "它通過全部五個維度——可編譯、非不穩定、強化、相關性與風格",
+              "fraction": 100,
+              "feedback": "正確——因為每個維度都滿足，所以被接受。"
+            },
+            {
+              "text": "它被接受純粹因為它殺掉一個變異體",
+              "fraction": 0,
+              "feedback": "光殺不保證被接受；此處被接受是因為五個維度全過。"
+            },
+            {
+              "text": "它被接受因為它很短",
+              "fraction": 0,
+              "feedback": "長度無關；被接受來自滿足全部五個維度。"
+            },
+            {
+              "text": "它被接受因為隱私測試可跳過風格維度",
+              "fraction": 0,
+              "feedback": "沒有維度可被跳過；這個測試恰好連風格也一併滿足。"
+            }
+          ],
+          "generalFeedback": "此測試防護了一個真實的隱私邊界案例（null 使用者 id）、有意義地斷言、乾淨建置、確定執行並遵循慣例。因為它滿足全部五個維度，工程師接受它。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "一次殺不能豁免測試",
+          "text": "<p>成功殺掉變異體的測試，仍可能在五個審查維度之一上被工程師拒絕。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——殺變異體的測試若不穩定、瞄準錯誤、瑣碎、無法建置或風格不可接受，仍會被拒。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這是錯的：殺掉變異體並不能讓測試豁免五個驗收維度中的任何一個。"
+            }
+          ],
+          "generalFeedback": "殺掉變異體展示抓錯能力，卻對確定性、相關性、可建置性或風格毫無說明。工程師會套用全部五個維度，因此光殺並不保證被接受。"
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：語法錯誤",
+          "text": "<p>某生成測試少了一個右大括號，因此編譯器回報語法錯誤，檔案無法建置。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "可編譯——語法錯誤是編譯失敗",
+              "fraction": 100,
+              "feedback": "正確——語法錯誤使建置無法進行，屬於可編譯失敗。"
+            },
+            {
+              "text": "風格——少一個括號只是格式偏好",
+              "fraction": 0,
+              "feedback": "少括號不是風格選擇；它是編譯錯誤，屬於可編譯維度。"
+            },
+            {
+              "text": "非不穩定——語法錯誤產生隨機結果",
+              "fraction": 0,
+              "feedback": "語法錯誤確定地讓建置停止；什麼都跑不了，這是可編譯失敗。"
+            },
+            {
+              "text": "強化——壞掉的語法代表它抓不到缺陷",
+              "fraction": 0,
+              "feedback": "測試永遠無法編譯或執行，因此唯一相關的失敗是可編譯。"
+            }
+          ],
+          "generalFeedback": "語法錯誤使編譯停止，因此測試無法建置或執行。那是可編譯失敗，必須先修正才能評估其他任何維度。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "主要關卡：不穩定加上弱斷言",
+          "text": "<p>某測試使用未固定種子的隨機輸入（使它不確定），且唯一斷言只是結果非 null。非不穩定與強化兩者都牽涉其中。哪個單一維度最決定性地迫使拒絕，為什麼？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——不穩定是硬性關卡；只要結果不確定，CI 就完全無法信任它，因此即使更強的斷言也救不了它",
+              "fraction": 100,
+              "feedback": "正確——不確定性使測試直接失格，因此非不穩定是決定性關卡。"
+            },
+            {
+              "text": "強化——弱斷言永遠是最決定性的失敗",
+              "fraction": 0,
+              "feedback": "弱斷言確是真問題，但不穩定測試無論斷言多強都不可信，因此非不穩定才是決定性。"
+            },
+            {
+              "text": "可編譯——隨機輸入破壞建置",
+              "fraction": 0,
+              "feedback": "測試能建置並執行；決定性缺陷是它的不確定性。"
+            },
+            {
+              "text": "風格——使用隨機違反慣例",
+              "fraction": 0,
+              "feedback": "此處風格不是問題；決定性失敗是不穩定（非不穩定）。"
+            }
+          ],
+          "generalFeedback": "當測試失敗於多個維度時，最決定性的是那個無論其他如何修正都仍使它失格的維度。不穩定測試 CI 完全無法信任，因此非不穩定是主要關卡——強化斷言也救不了一個不確定的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "高殺、低驗收",
+          "text": "<p>某生成工具回報很高的殺變異率，但工程師只接受它極少的測試。為何這個落差在實務上是個問題？</p>",
+          "answers": [
+            {
+              "text": "被工程師拒絕的測試永遠不會合併，因此高殺變異率無法轉化為更強的生產套件——被接受的那組才是真正保護程式碼的",
+              "fraction": 100,
+              "feedback": "正確——只有被接受的測試才會落地，因此驗收（而非原始殺變異率）決定真正的改善。"
+            },
+            {
+              "text": "高殺變異率代表變異體太簡單，所以工具壞了",
+              "fraction": 0,
+              "feedback": "殺變異率可能是真的；問題在於被拒的測試永遠進不了程式碼庫。"
+            },
+            {
+              "text": "工程師應降低標準以配合殺變異率",
+              "fraction": 0,
+              "feedback": "降低驗收門檻會放進不穩定或瞄準錯誤的測試；重點是驗收才是真正的衡量。"
+            },
+            {
+              "text": "沒有問題——殺變異率是唯一重要的指標",
+              "fraction": 0,
+              "feedback": "殺變異率忽略其他四個維度；永遠不被接受的測試不增加保護。"
+            }
+          ],
+          "generalFeedback": "殺變異率衡量潛在的缺陷偵測，但只有工程師接受的測試才會合併並在 CI 中執行。若多數生成測試因不穩定、風格或不相關而被拒，高殺變異率就是假象——真正守護生產的只有被接受的那個子集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "微妙的非強化：斷言了錯的東西",
+          "text": "<p>某測試瞄準正確的方法、能編譯、確定、符合風格——但其斷言把一個變數與自己比較（<code>assertEquals(result, result)</code>），因此不論該方法回傳什麼都成立。它未通過哪個維度，為何這很微妙？</p>",
+          "answers": [
+            {
+              "text": "強化——它看起來像真測試且瞄準正確，但自我比較永不會失敗，因此抓不到任何缺陷",
+              "fraction": 100,
+              "feedback": "正確——儘管外觀正常，恆真斷言不提供保護價值，屬於強化失敗。"
+            },
+            {
+              "text": "相關性——把值與自己比較是瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "測試瞄準正確（正確的方法）；缺陷在於其斷言什麼都抓不到（強化）。"
+            },
+            {
+              "text": "非不穩定——自我比較是不確定的",
+              "fraction": 0,
+              "feedback": "它完全確定（永遠通過）；微妙的失敗在於它永遠抓不到缺陷。"
+            },
+            {
+              "text": "可編譯——自我比較無法編譯",
+              "fraction": 0,
+              "feedback": "它能乾淨編譯；問題在於缺乏任何真實檢查（強化）。"
+            }
+          ],
+          "generalFeedback": "陷阱在於測試看似正當——目標正確、風格乾淨、確定——但其斷言是對任何輸出都成立的恆真式。即使對壞掉的程式碼也會通過，因此不提供保護價值：這是強化失敗，而非相關性失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相關卻不穩定",
+          "text": "<p>某測試恰好瞄準了變更的高風險方法並強力斷言，但它連到一個即時的第三方網路服務，當該服務變慢時就間歇性失敗。它被拒的主要原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——它的相關性救不了它，因為即時依賴造成的間歇性失敗使它不確定",
+              "fraction": 100,
+              "feedback": "正確——相關卻不穩定的測試仍在非不穩定維度上被拒。"
+            },
+            {
+              "text": "相關性——連到網路服務代表它瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "它瞄準正確程式碼；缺陷是即時依賴造成的不確定性。"
+            },
+            {
+              "text": "強化——強力斷言代表強化失敗",
+              "fraction": 0,
+              "feedback": "強力斷言是強化的優點；拒絕是因為不穩定。"
+            },
+            {
+              "text": "風格——網路呼叫違反慣例",
+              "fraction": 0,
+              "feedback": "主要失敗是不確定性（非不穩定），而非風格。"
+            }
+          ],
+          "generalFeedback": "相關且斷言良好還不夠。即時外部依賴引入不可控的變動，因此測試間歇性失敗——非不穩定失敗。它必須先被做成確定（例如使用測試替身）才能被接受。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何抓得到缺陷風格仍重要",
+          "text": "<p>某測試可靠地抓到一個真實缺陷，卻忽視程式碼庫的慣例——奇怪的命名、不熟悉的斷言庫、且無 arrange-act-assert 結構。為何工程師仍然拒絕它？</p>",
+          "answers": [
+            {
+              "text": "驗收是人類可維護性的門檻：團隊無法輕易閱讀與維護的測試不會被合併，即使它偵測到缺陷",
+              "fraction": 100,
+              "feedback": "正確——風格保護長期可維護性，那是驗收的一部分。"
+            },
+            {
+              "text": "不合慣例的測試其實抓不到缺陷",
+              "fraction": 0,
+              "feedback": "它確實抓到缺陷；拒絕是關於可維護性與慣例，而非偵測。"
+            },
+            {
+              "text": "風格只對無法編譯的測試才重要",
+              "fraction": 0,
+              "feedback": "編譯是可編譯；風格適用於能正常建置卻忽視慣例的測試。"
+            },
+            {
+              "text": "抓得到缺陷的測試可豁免風格維度",
+              "fraction": 0,
+              "feedback": "沒有維度可豁免；抓得到缺陷的測試仍需可接受的風格。"
+            }
+          ],
+          "generalFeedback": "測試存在於程式碼庫中，必須由人類維護。與團隊慣例衝突的測試帶來長期成本並使審查者困惑，因此即使它偵測到真實缺陷，仍在風格上被拒。驗收衡量的是可維護性，而不只是偵測。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊界：對正確目標的弱斷言",
+          "text": "<p>某測試正對準了變更的高風險方法，但其斷言只檢查回傳值非 null——即使計算出的值是錯的它仍會通過。這主要是相關性失敗還是強化失敗？</p>",
+          "answers": [
+            {
+              "text": "強化——目標正確（相關），但斷言太弱抓不到迴歸，因此未能強化套件",
+              "fraction": 100,
+              "feedback": "正確——目標正確但無抓錯能力是強化失敗，而非相關性失敗。"
+            },
+            {
+              "text": "相關性——弱斷言代表測試瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "目標正確；弱點在於斷言會漏掉錯誤值（強化）。"
+            },
+            {
+              "text": "兩者同等失敗，任一標籤皆可",
+              "fraction": 0,
+              "feedback": "相關性滿足，因為目標正確；具體的失敗是強化。"
+            },
+            {
+              "text": "都不是——非 null 檢查永遠足夠",
+              "fraction": 0,
+              "feedback": "非 null 檢查會漏掉「非 null 但錯」的值，因此它未通過強化。"
+            }
+          ],
+          "generalFeedback": "相關性探問測試是否瞄準正確程式碼；此處是的。強化探問它是否真能抓到缺陷；非 null 檢查對錯誤值仍會通過，因此具體失敗是強化。區分兩者取決於目標（相關性）與抓錯能力（強化）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊界：對非問題的強斷言",
+          "text": "<p>某測試有精確、強力的斷言，且能可靠地抓到變更——但它運用的是一條已永久停用、生產環境永不會執行的功能旗標（feature-flag）程式碼路徑。這主要是強化失敗還是相關性失敗？</p>",
+          "answers": [
+            {
+              "text": "相關性——斷言很強（有強化能力），但目標是非問題，因此測試瞄準了錯誤的東西",
+              "fraction": 100,
+              "feedback": "正確——對死程式碼的強力斷言是相關性失敗。"
+            },
+            {
+              "text": "強化——停用的路徑代表斷言很弱",
+              "fraction": 0,
+              "feedback": "斷言很強；問題在於其目標無關緊要（相關性）。"
+            },
+            {
+              "text": "可編譯——停用路徑無法編譯",
+              "fraction": 0,
+              "feedback": "程式碼能編譯；缺陷在於目標是非問題（相關性）。"
+            },
+            {
+              "text": "風格——測試停用程式碼違反慣例",
+              "fraction": 0,
+              "feedback": "失敗在於它瞄準非問題，屬於相關性，而非風格。"
+            }
+          ],
+          "generalFeedback": "這是弱斷言案例的鏡像。斷言強到足以抓到缺陷（有強化能力），但它對準的是永久死掉的程式碼——非問題。因為目標無關緊要，主要失敗是相關性，而非強化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要原因：不增加信心",
+          "text": "<p>某測試名為 <code>testSomething</code>，呼叫 <code>doStuff()</code>，且只斷言結果非 null。它可編譯且確定，但工程師說它「不增加對系統正確性的信心」。哪個維度最直接對應這項抱怨？</p>",
+          "answers": [
+            {
+              "text": "強化——非 null 檢查沒有驗證任何真實行為，因此測試抓不到真正的缺陷",
+              "fraction": 100,
+              "feedback": "正確——「不增加對正確性的信心」正是強化維度。"
+            },
+            {
+              "text": "可編譯——含糊的名稱破壞建置",
+              "fraction": 0,
+              "feedback": "它能正常建置；抱怨是關於保護價值，屬於強化。"
+            },
+            {
+              "text": "非不穩定——非 null 檢查是不確定的",
+              "fraction": 0,
+              "feedback": "它是確定的；問題在於它什麼都沒有意義地驗證（強化）。"
+            },
+            {
+              "text": "風格——testSomething 這名稱是唯一真正的問題",
+              "fraction": 0,
+              "feedback": "含糊命名也是風格弱點，但「不增加對正確性的信心」最直接指向強化。"
+            }
+          ],
+          "generalFeedback": "這個測試有數個弱點（含糊名稱是不良風格、意圖不明），但具體抱怨——它不增加對正確性的信心——是關於保護價值。非 null 檢查對錯誤結果仍會通過，因此最直接的失敗是強化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為生成流水線排定優先",
+          "text": "<p>在一整批中，某測試生成流水線達到 90% 的殺變異率，但工程師驗收率只有 20%。要讓這條流水線真正有用，團隊應優先處理什麼？</p>",
+          "answers": [
+            {
+              "text": "修正驅動拒絕的維度——不穩定、風格與相關性——使更多能抓錯的測試真正被接受並合併",
+              "fraction": 100,
+              "feedback": "正確——提高驗收才能把殺錯能力轉化為真正的套件改善。"
+            },
+            {
+              "text": "把殺變異率從 90% 推到 99% 並忽視驗收",
+              "fraction": 0,
+              "feedback": "更多仍被拒的殺沒有意義；瓶頸在驗收。"
+            },
+            {
+              "text": "不論審查維度，合併所有生成的測試",
+              "fraction": 0,
+              "feedback": "那會放進不穩定與瞄準錯誤的測試，使套件劣化；驗收標準的存在有其道理。"
+            },
+            {
+              "text": "完全刪除變異測試步驟",
+              "fraction": 0,
+              "feedback": "變異測試是有用的訊號；真正的落差是低驗收率。"
+            }
+          ],
+          "generalFeedback": "90% 殺變異率搭配 20% 驗收，代表多數能抓錯的測試從未落地。槓桿在驗收維度：降低不穩定、符合風格、瞄準相關程式碼。改善這些會把流水線的偵測能力轉化為工程師真正願意合併的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相關但不穩定 對比 純粹不相關",
+          "text": "<p>為何一個瞄準重要、相關程式碼卻不穩定的測試，可能比一個純粹不相關的測試造成<em>更大</em>傷害？</p>",
+          "answers": [
+            {
+              "text": "因為它在重要路徑上注入不確定的失敗，一面看似有價值一面侵蝕對套件的信任——不相關的測試至少會可預測地失敗或容易被排除",
+              "fraction": 100,
+              "feedback": "正確——重要路徑上的不穩定對 CI 信任特別具腐蝕性。"
+            },
+            {
+              "text": "因為不相關的測試永遠無法編譯",
+              "fraction": 0,
+              "feedback": "不相關的測試可以正常編譯；重點是不穩定對受信任路徑的腐蝕作用。"
+            },
+            {
+              "text": "因為不穩定測試永遠有更高的殺變異率",
+              "fraction": 0,
+              "feedback": "殺變異率不是問題；傷害在於重要程式碼上的不確定雜訊。"
+            },
+            {
+              "text": "因為相關的測試可豁免非不穩定維度",
+              "fraction": 0,
+              "feedback": "沒有測試可豁免；相關卻不穩定的測試仍會被拒，且其不穩定特別具傷害性。"
+            }
+          ],
+          "generalFeedback": "相關程式碼上的不穩定測試偽裝成有價值的覆蓋，卻在人們在意的路徑上產生間歇性紅燈。那會訓練團隊忽視重要程式碼上的失敗，因此它必須在非不穩定上被拒，並先做成確定才能有幫助。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何可編譯是其他維度的關卡",
+          "text": "<p>當測試仍未通過可編譯維度時，為何評估它的強化或相關性是徒勞的？</p>",
+          "answers": [
+            {
+              "text": "無法編譯的測試永遠不會執行，因此無法展示任何抓錯價值或目標——可編譯是必須先修正的前置關卡",
+              "fraction": 100,
+              "feedback": "正確——不能建置就無法執行，因此下游維度無從談起。"
+            },
+            {
+              "text": "因為整體而言強化與相關性沒有可編譯重要",
+              "fraction": 0,
+              "feedback": "它們對驗收同等必要；重點是順序——無法建置的測試無法在它們上被評估。"
+            },
+            {
+              "text": "因為無法建置的測試自動就是不穩定",
+              "fraction": 0,
+              "feedback": "建置錯誤是確定的，並非不穩定；問題在於測試無法執行以展示強化或相關性。"
+            },
+            {
+              "text": "因為編譯測試也證明了它是相關的",
+              "fraction": 0,
+              "feedback": "編譯只證明可編譯；相關性與強化是分開的，要在它能建置後才評估。"
+            }
+          ],
+          "generalFeedback": "可編譯是入口關卡。無法編譯的測試不能執行，因此無從觀察它是否抓到缺陷（強化）或瞄準正確程式碼（相關性）。必須先修正建置錯誤，任何下游維度才能被判斷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "區分強化與相關性",
+          "text": "<p>下列哪個陳述最準確地區分強化維度與相關性維度？</p>",
+          "answers": [
+            {
+              "text": "相關性探問測試是否瞄準正確的程式碼；強化探問它是否真能抓到該程式碼中的真實迴歸",
+              "fraction": 100,
+              "feedback": "正確——相關性關乎目標，強化關乎抓錯能力。"
+            },
+            {
+              "text": "強化探問測試是否能編譯；相關性探問它是否確定",
+              "fraction": 0,
+              "feedback": "能編譯是可編譯、確定是非不穩定；該答案混淆了維度。"
+            },
+            {
+              "text": "它們是同一維度的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是不同的：測試可以瞄準正確卻抓不到任何東西，或抓得到缺陷卻對準錯誤程式碼。"
+            },
+            {
+              "text": "相關性關乎風格慣例；強化關乎速度",
+              "fraction": 0,
+              "feedback": "風格與速度都無關；相關性是目標，強化是抓錯價值。"
+            }
+          ],
+          "generalFeedback": "兩者正交。測試可以相關（對準正確、有風險的程式碼）卻未強化（弱斷言什麼都抓不到），也可以有強化能力（強力斷言）卻不相關（對準死掉或無關的程式碼）。相關性＝正確目標；強化＝能抓到缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要拒絕原因：不相關且弱",
+          "text": "<p>某測試既運用一個瑣碎、無關的 getter（不是變更的行為），又只斷言其結果非 null。相關性與強化看起來都不穩。哪一個是拒絕它的更根本原因，為什麼？</p>",
+          "answers": [
+            {
+              "text": "相關性——因為它瞄準錯誤程式碼，即使強化其斷言仍然測不到真正重要的行為，因此錯誤的目標才是根本問題",
+              "fraction": 100,
+              "feedback": "正確——當目標本身就錯時，相關性是更根本的失敗。"
+            },
+            {
+              "text": "強化——因為更強的斷言就能修正一切",
+              "fraction": 0,
+              "feedback": "對錯誤 getter 的更強斷言仍然測不到變更的行為；根本問題是目標（相關性）。"
+            },
+            {
+              "text": "可編譯——無關的 getter 無法編譯",
+              "fraction": 0,
+              "feedback": "它能編譯；根本問題是它對準錯誤程式碼（相關性）。"
+            },
+            {
+              "text": "非不穩定——getter 測試是不確定的",
+              "fraction": 0,
+              "feedback": "它可以是確定的；根本失敗是其目標不相關。"
+            }
+          ],
+          "generalFeedback": "要挑出最根本的失敗，問：修好其他之後還剩什麼壞掉。此處即使強化斷言也沒用，因為測試對準錯誤程式碼——所以相關性是根本失敗。對比之下，對準正確程式碼卻只有弱斷言的測試，是強化失敗。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "殺變異率不保證驗收",
+          "text": "<p>一整批生成測試若有很高的殺變異率，就保證工程師會接受其中大多數。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——驗收取決於全部五個維度，因此高殺變異率不保證測試會被接受。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：測試可以殺掉變異體卻因不穩定、風格或不相關被拒，因此高殺變異率不保證驗收。"
+            }
+          ],
+          "generalFeedback": "殺變異率與驗收是不同的衡量。一整批可以殺掉許多變異體，卻有多數測試因非不穩定、風格或相關性而被拒。跨五個維度的工程師驗收——而非原始殺變異率——才是測試是否改善套件的真正門檻。"
+        },
+        {
+          "type": "multichoice",
+          "name": "主要關卡：無法建置且風格不良",
+          "text": "<p>某生成測試既無法編譯（型別錯誤），又使用忽視團隊慣例的命名。應把哪個單一維度記錄為拒絕的主要原因，為什麼？</p>",
+          "answers": [
+            {
+              "text": "可編譯——因為無法編譯的測試根本無法執行或被審查，所以建置錯誤是最根本的阻礙；在它能建置之前，風格問題無關緊要",
+              "fraction": 100,
+              "feedback": "正確——可編譯是前置關卡，因此在此是主要失敗。"
+            },
+            {
+              "text": "風格——命名是審查者最先注意到的",
+              "fraction": 0,
+              "feedback": "在測試無法編譯時風格問題根本無從著手；可編譯是更根本的阻礙。"
+            },
+            {
+              "text": "兩者同等主要，任選其一即可",
+              "fraction": 0,
+              "feedback": "無法建置的測試不能執行或被審查，因此可編譯是兩者中更根本的。"
+            },
+            {
+              "text": "非不穩定——型別錯誤造成間歇性結果",
+              "fraction": 0,
+              "feedback": "型別錯誤確定地讓建置停止；主要失敗是可編譯，而非非不穩定。"
+            }
+          ],
+          "generalFeedback": "當測試失敗於多個維度時，主要的是最根本的阻礙——那個使其他維度無法評估或修正的失敗。無法編譯的測試不能執行或被審查，因此可編譯是主要；風格問題只有在測試能建置後才變得相關。",
+          "single": true
+        }
+      ]
+    }
+  },
   "testing-flow": {
     "en": {
       "easy": [

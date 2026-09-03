@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Quality Review/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>五個驗收維度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Meta ACH 研究（arXiv 2501.12862）中，LLM 生成的測試必須滿足五個審查維度，工程師才會接受它。哪一組正確列出全部五個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可編譯（Buildable）、非不穩定（Non-flaky）、強化（Hardening）、相關性（Relevant）、風格（Style）</text><feedback><text>正確——這正是五個工程師驗收維度。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯、快速、覆蓋率、相關性、可讀性</text><feedback><text>「快速」「覆蓋率」「可讀性」不是審查維度；五個是可編譯、非不穩定、強化、相關性、風格。</text></feedback></answer>
+    <answer fraction="0"><text>殺變異率、非不穩定、強化、相關性、風格</text><feedback><text>殺變異率是變異測試指標，不是驗收維度；第一個維度是可編譯。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯、非不穩定、效能、安全性、風格</text><feedback><text>效能與安全性不是審查維度；中間兩個是強化與相關性。</text></feedback></answer>
+    <generalfeedback><text>五個工程師驗收維度是：可編譯（能編譯）、非不穩定（結果確定）、強化（強化測試套件）、相關性（針對真實程式碼）、風格（符合慣例）。測試必須五個全部通過才會被接受。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可編譯檢查什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>可編譯（Buildable）</em>維度檢查測試是否：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>能乾淨地編譯與建置，沒有任何建置或編譯錯誤</text><feedback><text>正確——可編譯指測試能無錯誤地編譯／建置。</text></feedback></answer>
+    <answer fraction="0"><text>執行速度比套件中所有其他測試都快</text><feedback><text>速度不屬於可編譯；可編譯只關乎能否乾淨地編譯／建置。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋受測程式碼的每一個分支</text><feedback><text>分支覆蓋率與可編譯無關；可編譯關乎測試能否無錯誤建置。</text></feedback></answer>
+    <answer fraction="0"><text>遵循團隊的命名慣例</text><feedback><text>那描述的是風格維度；可編譯關乎能否乾淨地編譯。</text></feedback></answer>
+    <generalfeedback><text>可編譯是最基本的關卡：若測試無法編譯或建置，就會產生建置錯誤而直接被拒。在測試能實際建置之前，其他維度都無法評估。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非不穩定檢查什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>非不穩定（Non-flaky）</em>維度要求測試：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是確定的——對相同的程式碼，每次執行都產生相同結果</text><feedback><text>正確——非不穩定指每次執行都有確定、可重現的結果。</text></feedback></answer>
+    <answer fraction="0"><text>無論程式碼做什麼都永遠通過</text><feedback><text>永遠通過的測試毫無用處；非不穩定指的是可重現的結果，可能是通過也可能是失敗。</text></feedback></answer>
+    <answer fraction="0"><text>每次執行都使用全新的隨機輸入</text><feedback><text>未固定種子的隨機輸入會使測試不穩定；非不穩定正好相反。</text></feedback></answer>
+    <answer fraction="0"><text>能無錯誤地編譯</text><feedback><text>乾淨地編譯是可編譯維度；非不穩定關乎跨執行的確定性。</text></feedback></answer>
+    <generalfeedback><text>非不穩定的測試每次對相同（未變更）程式碼執行都給出相同判定。時而通過、時而失敗的不穩定測試會破壞 CI 的信任，因此無論其他品質如何都會被拒絕。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>強化檢查什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>強化（Hardening）</em>維度探問測試是否：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有意義地運用並斷言行為，因此能捕捉真實的迴歸或缺陷</text><feedback><text>正確——強化指測試確實增強了套件捕捉缺陷的能力。</text></feedback></answer>
+    <answer fraction="0"><text>永遠通過，因此永不阻擋建置</text><feedback><text>永不會失敗的測試沒有保護價值；那正是強化的失敗，而非通過。</text></feedback></answer>
+    <answer fraction="0"><text>寫在與受測程式碼相同的檔案中</text><feedback><text>檔案位置與強化無關；強化關乎測試是否能捕捉真實缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>在一毫秒內執行完畢</text><feedback><text>執行速度與強化無關；強化衡量的是保護價值。</text></feedback></answer>
+    <generalfeedback><text>強化的測試會增強套件：它運用行為並加以斷言，使真正的迴歸會讓它失敗。永遠通過的瑣碎、空操作或恆真測試未通過強化維度，因為它不增加任何保護價值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>相關性檢查什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>相關性（Relevant）</em>維度探問測試是否：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>針對受測程式碼的真實、相關的問題或行為</text><feedback><text>正確——相關性指測試瞄準受測系統中真正、切題的行為。</text></feedback></answer>
+    <answer fraction="0"><text>運用與此次變更無關的程式碼</text><feedback><text>測試無關程式碼正是相關性失敗，而非通過。</text></feedback></answer>
+    <answer fraction="0"><text>包含至少十個斷言</text><feedback><text>斷言數量不是相關性衡量的對象；重點是是否針對真實問題。</text></feedback></answer>
+    <answer fraction="0"><text>能在每個支援的平台上執行</text><feedback><text>跨平台執行與相關性無關；相關性關乎是否瞄準正確的程式碼。</text></feedback></answer>
+    <generalfeedback><text>相關的測試瞄準受測程式碼的真實問題或行為——而非無關程式碼、死路徑或非問題。測試可能建置良好且確定，卻因為瞄準錯誤而被拒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>風格檢查什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>風格（Style）</em>維度探問測試是否：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>遵循程式碼庫在命名、結構、斷言與慣用寫法上的慣例，使人類願意接受它</text><feedback><text>正確——風格關乎符合團隊慣例，使測試可維護、可審查。</text></feedback></answer>
+    <answer fraction="0"><text>每次執行都產生相同結果</text><feedback><text>那是非不穩定維度；風格關乎符合程式碼庫的慣例。</text></feedback></answer>
+    <answer fraction="0"><text>至少殺掉一個變異體</text><feedback><text>殺變異體是變異測試指標，不是風格維度。</text></feedback></answer>
+    <answer fraction="0"><text>無錯誤地編譯</text><feedback><text>乾淨地編譯是可編譯；風格關乎命名、結構與慣用寫法。</text></feedback></answer>
+    <generalfeedback><text>風格衡量人類審查者是否願意把測試接受進程式碼庫：一致的命名、結構、斷言輔助函式與慣用寫法。風格上不可接受的測試會被拒，因為在合併前它需要重工。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>工程師驗收需要什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要讓 LLM 生成的測試被工程師<em>接受</em>，它必須：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>通過全部五個審查維度——可編譯、非不穩定、強化、相關性與風格</text><feedback><text>正確——驗收要求通過五個維度中的每一個。</text></feedback></answer>
+    <answer fraction="0"><text>通過五個維度中的至少三個</text><feedback><text>多數不夠；任何單一維度失敗都會導致拒絕。</text></feedback></answer>
+    <answer fraction="0"><text>至少殺掉一個變異體，無論五個維度如何</text><feedback><text>殺掉變異體不保證被接受；測試仍須通過全部五個維度。</text></feedback></answer>
+    <answer fraction="0"><text>只通過可編譯維度</text><feedback><text>乾淨建置是必要但遠遠不足；五個維度全部都要通過。</text></feedback></answer>
+    <generalfeedback><text>工程師驗收是一個合取：測試必須同時滿足可編譯且非不穩定且強化且相關且風格。任一維度失敗就足以被拒。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>殺掉變異體並不足夠</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若生成的測試殺掉了一個變異體，光憑這點就足以讓工程師接受它進入程式碼庫。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——殺掉變異體不保證被接受；測試仍須通過全部五個審查維度。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>這是錯的：殺變異體的測試若不穩定、瞄準錯誤、風格不可接受，或其他維度失敗，仍會被拒。</text></feedback></answer>
+    <generalfeedback><text>殺變異率衡量測試能否偵測植入的缺陷，但工程師驗收是更嚴格的人類門檻。殺掉變異體的測試若不能同時做到建置、確定、強化套件、瞄準相關程式碼並遵循慣例，仍會被拒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何光看殺變異率不夠</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼高殺變異率本身，不足以衡量生成測試對工程師的價值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試可能殺掉變異體卻仍因不穩定、瞄準錯誤、瑣碎或風格不可接受而被拒——於是它從未真正進入程式碼庫</text><feedback><text>正確——驗收取決於全部五個維度，而非只看缺陷偵測。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 生成的測試無法量測殺變異率</text><feedback><text>殺變異率量得出來；重點是它未涵蓋其他驗收維度。</text></feedback></answer>
+    <answer fraction="0"><text>高殺變異率保證測試也遵循團隊風格</text><feedback><text>殺變異率完全不說明風格、確定性或相關性；那些要另外判斷。</text></feedback></answer>
+    <answer fraction="0"><text>工程師從不看測試是否偵測缺陷</text><feedback><text>缺陷偵測（強化）重要，但它只是工程師衡量的五個維度之一。</text></feedback></answer>
+    <generalfeedback><text>殺變異率只捕捉測試能否抓到植入的缺陷。工程師還要求測試能建置、確定執行、瞄準相關程式碼並遵循慣例。真正的門檻是五個維度全部通過的驗收，因此套件可能殺變異率很高，卻只有極少測試工程師願意合併。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷：無法編譯</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成測試引用了一個不存在的方法，因此無法編譯。這違反了哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可編譯（Buildable）</text><feedback><text>正確——編譯錯誤是可編譯失敗。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定（Non-flaky）</text><feedback><text>非不穩定關乎跨執行的確定性；永遠無法編譯的測試根本無法執行。</text></feedback></answer>
+    <answer fraction="0"><text>相關性（Relevant）</text><feedback><text>相關性關乎瞄準正確程式碼；此處測試根本無法建置。</text></feedback></answer>
+    <answer fraction="0"><text>風格（Style）</text><feedback><text>風格關乎慣例；缺少方法是建置錯誤，屬於可編譯維度。</text></feedback></answer>
+    <generalfeedback><text>無法編譯的測試未通過可編譯維度。它產生建置錯誤，在其他任何品質能被評估之前就被拒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷：時而通過、時而失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試對相同（未變更）程式碼在某些執行通過、某些執行失敗。這違反了哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非不穩定（Non-flaky）</text><feedback><text>正確——不確定的通過／失敗結果是非不穩定失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯（Buildable）</text><feedback><text>測試能編譯並執行；問題在於其結果在各次執行間變動。</text></feedback></answer>
+    <answer fraction="0"><text>強化（Hardening）</text><feedback><text>強化關乎保護價值；此處問題是不確定性。</text></feedback></answer>
+    <answer fraction="0"><text>風格（Style）</text><feedback><text>風格關乎慣例；間歇性結果是非不穩定失敗。</text></feedback></answer>
+    <generalfeedback><text>對未變更程式碼時而通過、時而失敗，正是不穩定的定義，即非不穩定失敗。不穩定測試破壞 CI 的信號，因此永遠被拒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷：斷言恆為真</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試唯一的檢查是 <code>assertTrue(true)</code>，因此永不會失敗。這違反了哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強化（Hardening）</text><feedback><text>正確——恆真的斷言什麼都抓不到，因此未通過強化維度。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯（Buildable）</text><feedback><text>測試能正常編譯；問題在於它不增加任何保護價值。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定（Non-flaky）</text><feedback><text>測試完全確定（永遠通過）；問題在於它永遠抓不到缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>相關性（Relevant）</text><feedback><text>相關性關乎目標；即使瞄準正確程式碼，斷言無意義仍屬強化失敗。</text></feedback></answer>
+    <generalfeedback><text>永不會失敗的測試不運用任何真實行為，也永遠抓不到迴歸，因此未通過強化維度——它不為套件增加保護價值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷：測試無關程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某次變更修正了付款計算的錯誤，但生成的測試只運用一個無關的字串格式化輔助函式。這違反了哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關性（Relevant）</text><feedback><text>正確——測試與問題無關的程式碼是相關性失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯（Buildable）</text><feedback><text>測試可能正常編譯；問題在於它瞄準了錯誤的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定（Non-flaky）</text><feedback><text>它可以完全確定卻仍瞄準錯誤，那屬於相關性失敗。</text></feedback></answer>
+    <answer fraction="0"><text>強化（Hardening）</text><feedback><text>即使對該輔助函式強力斷言，它瞄準的仍是錯誤程式碼——那是相關性失敗。</text></feedback></answer>
+    <generalfeedback><text>瞄準無關程式碼、而非真正有風險的行為，未通過相關性維度。它對真正重要的變更不提供任何信心。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷：錯誤的命名慣例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 Kotlin 測試命名為 <code>TEST_boundary_AGE</code>，混用 SCREAMING_SNAKE_CASE 與 camelCase，違反團隊慣例。這違反了哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>風格（Style）</text><feedback><text>正確——違反慣例的不一致命名是風格失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯（Buildable）</text><feedback><text>奇怪的命名仍能編譯；問題在於它違反程式碼庫的慣例。</text></feedback></answer>
+    <answer fraction="0"><text>相關性（Relevant）</text><feedback><text>測試可以瞄準正確程式碼卻仍因不合慣例的名稱被拒——那是風格失敗。</text></feedback></answer>
+    <answer fraction="0"><text>強化（Hardening）</text><feedback><text>它可以有意義地斷言卻仍因命名在審查中失敗，那屬於風格維度。</text></feedback></answer>
+    <generalfeedback><text>與程式碼庫慣例衝突的命名、結構與慣用寫法未通過風格維度。即使斷言正確，人類審查者仍會退回要求重工。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>驗收需要五個全過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>唯有通過全部五個審查維度，測試才會被工程師接受。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——驗收要求同時通過可編譯、非不穩定、強化、相關性與風格。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這是錯的：五個維度中任一失敗，就足以使測試被拒。</text></feedback></answer>
+    <generalfeedback><text>工程師驗收是五個維度的合取。通過四個卻失敗一個——例如一個強力、瞄準正確卻不穩定的測試——仍會被拒。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Quality Review/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：隨機輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試以 <code>Random.nextInt()</code>（未固定種子）計算輸入並對結果斷言，因此其結果在各次執行間變動。它未通過哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非不穩定——未固定種子的隨機輸入使結果不確定</text><feedback><text>正確——變動的輸入產生不確定結果，屬於非不穩定失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——隨機數會造成編譯錯誤</text><feedback><text>隨機數不會破壞編譯；此失敗是不確定性（非不穩定）。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——隨機輸入永遠瞄準錯誤程式碼</text><feedback><text>測試可以瞄準正確程式碼；問題在於其結果不可重現。</text></feedback></answer>
+    <answer fraction="0"><text>風格——隨機呼叫違反命名慣例</text><feedback><text>命名不受影響；缺陷是不確定性，屬於非不穩定維度。</text></feedback></answer>
+    <generalfeedback><text>未固定種子的隨機產生器每次執行產生不同輸入，因此測試多半通過、偶爾失敗。那種不確定性是非不穩定失敗，而不穩定測試永遠被拒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：找不到符號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成測試呼叫 <code>calculateDiscuont(order)</code>——真實方法的拼字錯誤——因此測試檔無法編譯。它未通過哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可編譯——無法解析的符號是編譯錯誤</text><feedback><text>正確——無法解析的引用是建置錯誤，屬於可編譯失敗。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——拼錯字意味測試瞄準錯誤功能</text><feedback><text>意圖或許正確，但測試無法編譯；那是可編譯失敗。</text></feedback></answer>
+    <answer fraction="0"><text>強化——拼錯的呼叫永遠抓不到缺陷</text><feedback><text>測試根本無法建置，因此主要失敗是可編譯，而非強化。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——拼字錯誤使結果不確定</text><feedback><text>編譯錯誤是確定的；缺陷在於它無法建置（可編譯）。</text></feedback></answer>
+    <generalfeedback><text>無法解析的方法引用是編譯錯誤，因此測試未通過可編譯維度。在它能編譯之前，其他維度都無法被評估。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：空操作斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試執行了一段計算，但其唯一斷言是 <code>assertEquals(1, 1)</code>，永不會失敗。它未通過哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強化——該斷言是恆真式，抓不到任何缺陷</text><feedback><text>正確——永不會失敗的檢查不增加保護價值，屬於強化失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——常數比較無法編譯</text><feedback><text>它能正常編譯；問題在於它什麼都沒有意義地驗證。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——常數斷言是不確定的</text><feedback><text>它完全確定（永遠通過）；問題在於它什麼都抓不到。</text></feedback></answer>
+    <answer fraction="0"><text>風格——把 1 比較 1 違反慣例</text><feedback><text>缺陷是缺乏保護價值，而非慣例；那是強化。</text></feedback></answer>
+    <generalfeedback><text>把常數與自己比較的斷言恆成立，因此即使程式碼壞了測試仍會通過。它對套件的抓錯能力毫無貢獻，屬於強化失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：瞄準錯誤的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某拉取請求修改了驗證（authentication）邏輯，但生成的測試運用的是無關的日誌模組並對日誌格式斷言。它未通過哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關性——它瞄準與此次審查變更無關的程式碼</text><feedback><text>正確——測試無關程式碼而非驗證邏輯是相關性失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——日誌測試無法和驗證程式碼一起編譯</text><feedback><text>它可能正常編譯；問題在於它瞄準錯誤的模組。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——日誌輸出永遠不確定</text><feedback><text>日誌斷言可以是確定的；此處缺陷是測試瞄準錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>風格——日誌測試使用錯誤的慣用寫法</text><feedback><text>即使風格完美，瞄準錯誤程式碼的測試仍未通過相關性。</text></feedback></answer>
+    <generalfeedback><text>瞄準與受審查行為無關的程式碼，對真正重要的變更不提供信心。無論測試寫得多好，那都是相關性失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：結構不一致</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試正確且確定，但把五個無關情境塞進單一方法、使用寫死的魔術數字，忽視程式碼庫「一情境一測試、arrange-act-assert」的慣例。它未通過哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>風格——其結構與慣用寫法和程式碼庫的慣例衝突</text><feedback><text>正確——違反團隊結構慣例是風格失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——多情境方法無法編譯</text><feedback><text>該方法能編譯並執行；問題在於它忽視程式碼庫的慣例。</text></feedback></answer>
+    <answer fraction="0"><text>強化——把情境綁在一起使它抓不到缺陷</text><feedback><text>它仍能抓到缺陷；問題在於其結構不被審查者接受。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——合併的測試瞄準錯誤程式碼</text><feedback><text>它可以瞄準正確卻仍因不合慣例的結構被拒——那是風格失敗。</text></feedback></answer>
+    <generalfeedback><text>當測試忽視程式碼庫的命名、結構與慣用寫法，即使其他方面正確，審查者仍會退回。那是風格失敗：在人類接受之前它需要重工。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>殺卻被拒：不穩定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成測試殺掉了目標變異體，但它依賴當前的牆上時鐘（wall-clock），每逢跨越午夜就失敗。工程師拒絕了它。是在哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非不穩定——牆上時鐘依賴使結果不確定</text><feedback><text>正確——即使殺掉變異體，間歇性失敗是非不穩定的拒絕。</text></feedback></answer>
+    <answer fraction="0"><text>強化——殺掉變異體代表它未通過強化</text><feedback><text>殺掉變異體是保護價值的證據；拒絕是因為不確定性。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——時鐘程式碼無法編譯</text><feedback><text>測試能編譯並執行；只是結果不確定。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——基於時間的測試永遠瞄準錯誤</text><feedback><text>測試瞄準正確程式碼（它殺掉了變異體）；缺陷是不穩定。</text></feedback></answer>
+    <generalfeedback><text>殺變異體的測試仍可能被拒。此處它意圖上確定，卻讀取即時時鐘，因此間歇性失敗——非不穩定失敗。CI 無法信任它，於是工程師儘管有殺仍拒絕它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>殺卻被拒：風格</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成測試殺掉了變異體，且確定、瞄準正確，但它使用了模組中其他測試都不用的自訂斷言輔助函式與命名。工程師要求重寫。它是在哪個維度被拒？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>風格——它不遵循模組的慣例與慣用寫法</text><feedback><text>正確——一次殺並不能讓測試豁免風格維度。</text></feedback></answer>
+    <answer fraction="0"><text>強化——殺掉代表強化自動失敗</text><feedback><text>殺掉變異體顯示保護價值；拒絕是關於慣例。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——自訂輔助函式是不確定的</text><feedback><text>測試是確定的；問題在於其風格和程式碼庫衝突。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——自訂輔助函式瞄準錯誤程式碼</text><feedback><text>它瞄準正確（它殺掉了變異體）；拒絕是在風格。</text></feedback></answer>
+    <generalfeedback><text>即使是確定、瞄準正確、殺變異體的測試，若忽視程式碼庫慣例仍會被拒。驗收是人類審查門檻，不合慣例的風格就足以退回——風格失敗。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>五中過四仍失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試可編譯、非不穩定、強化且相關，但違反團隊的風格慣例。它仍會被接受，因為它通過了五個維度中的四個。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——驗收要求五個維度全過，因此僅風格失敗就會導致拒絕。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>這是錯的：通過四個維度並不足夠；單一風格失敗就足以被拒。</text></feedback></answer>
+    <generalfeedback><text>驗收是五個維度的合取。一個強力、瞄準正確、確定卻違反風格慣例的測試會被拒並退回重工，說明每個維度都是硬性要求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>較弱的維度：僅正路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試對 <code>add(a, b)</code> 函式只檢查 <code>add(2, 2) == 4</code> 與 <code>add(0, 0) == 0</code>——瑣碎的正路徑輸入，沒有像溢位這樣的邊界案例。此處哪個維度最弱？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強化——它只運用瑣碎輸入，會漏掉邊界案例的迴歸</text><feedback><text>正確——缺乏有意義的邊界案例是強化上的弱點。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——正路徑測試無法編譯</text><feedback><text>測試能正常編譯；顧慮在於它運用得太少。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——固定輸入是不確定的</text><feedback><text>固定輸入完全確定；弱點在於保護價值（強化）。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——測試 add() 是瞄準錯誤</text><feedback><text>測試受變更的函式是瞄準正確；弱點在於它只涵蓋瑣碎案例。</text></feedback></answer>
+    <generalfeedback><text>只檢查瑣碎的正路徑數值，會讓溢位或負數等邊界案例未受測試，因此測試會漏掉那裡的真實迴歸。那是強化維度上的弱點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主要拒絕原因：瞄準錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試建置良好、確定、寫法乾淨，且強力斷言——但只針對一條生產環境已不再走到的棄用（deprecated）程式碼路徑。工程師拒絕它的主要原因是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關性——它瞄準的是非問題，而非真正重要的行為</text><feedback><text>正確——瞄準非問題的強力測試未通過相關性維度。</text></feedback></answer>
+    <answer fraction="0"><text>強化——強力斷言永遠代表強化通過</text><feedback><text>對錯誤目標的強力斷言沒有幫助；主要失敗是相關性。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——棄用路徑無法編譯</text><feedback><text>測試能編譯並執行；問題在於其目標不是真實問題。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——棄用程式碼是不確定的</text><feedback><text>它可以是確定的；拒絕原因是它瞄準非問題（相關性）。</text></feedback></answer>
+    <generalfeedback><text>即使是強力、乾淨、確定的測試，若瞄準已不再重要的程式碼仍會被拒。相關性探問測試是否瞄準真實問題；死路徑是非問題，因此主要失敗是相關性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：牆上時鐘依賴</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試由 <code>LocalDate.now()</code> 計算期望值並與程式碼輸出比較，因此可能依它執行的日期而失敗。它未通過哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非不穩定——依賴即時日期使結果隨執行而變動</text><feedback><text>正確——牆上時鐘依賴產生不確定結果，屬於非不穩定失敗。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——日期 API 造成建置錯誤</text><feedback><text>日期 API 能正常編譯；缺陷在於結果取決於執行時機。</text></feedback></answer>
+    <answer fraction="0"><text>強化——使用時鐘代表它抓不到缺陷</text><feedback><text>它或許能抓到缺陷，但結果不確定，那是非不穩定失敗。</text></feedback></answer>
+    <answer fraction="0"><text>風格——呼叫 now() 違反慣例</text><feedback><text>問題是確定性，而非慣例；那是非不穩定維度。</text></feedback></answer>
+    <generalfeedback><text>讀取即時時鐘把結果綁在測試執行的當下，因此某天通過、另一天失敗。那種不確定性是非不穩定失敗；修法是注入或凍結一個固定時鐘。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：重複的瑣碎測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成測試重新檢查一個別處已涵蓋的普通 getter，未新增任何情境或邊界案例。它能編譯、確定、瞄準真實程式碼且符合風格。它在哪個維度最弱？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強化——它重複既有覆蓋，未新增任何抓錯價值</text><feedback><text>正確——未新增保護價值是強化上的弱點。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——重複測試無法編譯</text><feedback><text>它能正常編譯；顧慮在於它什麼都沒強化。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——getter 永遠不是相關程式碼</text><feedback><text>getter 可以是相關的真實程式碼；弱點在於測試未新增保護。</text></feedback></answer>
+    <answer fraction="0"><text>風格——重複測試永遠違反慣例</text><feedback><text>該測試符合風格；其弱點是缺乏新的抓錯價值（強化）。</text></feedback></answer>
+    <generalfeedback><text>只是重複別處已提供覆蓋的測試，不會增強套件抓到新迴歸的能力。即使其他方面乾淨，它在強化上仍弱，因為它不新增保護價值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何測試五個全過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試名為 <code>testPrivacyNullUser</code>，把 <code>null</code> 使用者 id 傳給 <code>logEvent</code>，並斷言追蹤器的 <code>lastUserId</code> 維持 <code>null</code>。它能編譯、確定、遵循慣例，並防護了一個真實的隱私邊界案例。為何它被接受？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它通過全部五個維度——可編譯、非不穩定、強化、相關性與風格</text><feedback><text>正確——因為每個維度都滿足，所以被接受。</text></feedback></answer>
+    <answer fraction="0"><text>它被接受純粹因為它殺掉一個變異體</text><feedback><text>光殺不保證被接受；此處被接受是因為五個維度全過。</text></feedback></answer>
+    <answer fraction="0"><text>它被接受因為它很短</text><feedback><text>長度無關；被接受來自滿足全部五個維度。</text></feedback></answer>
+    <answer fraction="0"><text>它被接受因為隱私測試可跳過風格維度</text><feedback><text>沒有維度可被跳過；這個測試恰好連風格也一併滿足。</text></feedback></answer>
+    <generalfeedback><text>此測試防護了一個真實的隱私邊界案例（null 使用者 id）、有意義地斷言、乾淨建置、確定執行並遵循慣例。因為它滿足全部五個維度，工程師接受它。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>一次殺不能豁免測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>成功殺掉變異體的測試，仍可能在五個審查維度之一上被工程師拒絕。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——殺變異體的測試若不穩定、瞄準錯誤、瑣碎、無法建置或風格不可接受，仍會被拒。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這是錯的：殺掉變異體並不能讓測試豁免五個驗收維度中的任何一個。</text></feedback></answer>
+    <generalfeedback><text>殺掉變異體展示抓錯能力，卻對確定性、相關性、可建置性或風格毫無說明。工程師會套用全部五個維度，因此光殺並不保證被接受。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：語法錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成測試少了一個右大括號，因此編譯器回報語法錯誤，檔案無法建置。它未通過哪個維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可編譯——語法錯誤是編譯失敗</text><feedback><text>正確——語法錯誤使建置無法進行，屬於可編譯失敗。</text></feedback></answer>
+    <answer fraction="0"><text>風格——少一個括號只是格式偏好</text><feedback><text>少括號不是風格選擇；它是編譯錯誤，屬於可編譯維度。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——語法錯誤產生隨機結果</text><feedback><text>語法錯誤確定地讓建置停止；什麼都跑不了，這是可編譯失敗。</text></feedback></answer>
+    <answer fraction="0"><text>強化——壞掉的語法代表它抓不到缺陷</text><feedback><text>測試永遠無法編譯或執行，因此唯一相關的失敗是可編譯。</text></feedback></answer>
+    <generalfeedback><text>語法錯誤使編譯停止，因此測試無法建置或執行。那是可編譯失敗，必須先修正才能評估其他任何維度。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Quality Review/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>主要關卡：不穩定加上弱斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試使用未固定種子的隨機輸入（使它不確定），且唯一斷言只是結果非 null。非不穩定與強化兩者都牽涉其中。哪個單一維度最決定性地迫使拒絕，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非不穩定——不穩定是硬性關卡；只要結果不確定，CI 就完全無法信任它，因此即使更強的斷言也救不了它</text><feedback><text>正確——不確定性使測試直接失格，因此非不穩定是決定性關卡。</text></feedback></answer>
+    <answer fraction="0"><text>強化——弱斷言永遠是最決定性的失敗</text><feedback><text>弱斷言確是真問題，但不穩定測試無論斷言多強都不可信，因此非不穩定才是決定性。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——隨機輸入破壞建置</text><feedback><text>測試能建置並執行；決定性缺陷是它的不確定性。</text></feedback></answer>
+    <answer fraction="0"><text>風格——使用隨機違反慣例</text><feedback><text>此處風格不是問題；決定性失敗是不穩定（非不穩定）。</text></feedback></answer>
+    <generalfeedback><text>當測試失敗於多個維度時，最決定性的是那個無論其他如何修正都仍使它失格的維度。不穩定測試 CI 完全無法信任，因此非不穩定是主要關卡——強化斷言也救不了一個不確定的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>高殺、低驗收</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成工具回報很高的殺變異率，但工程師只接受它極少的測試。為何這個落差在實務上是個問題？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被工程師拒絕的測試永遠不會合併，因此高殺變異率無法轉化為更強的生產套件——被接受的那組才是真正保護程式碼的</text><feedback><text>正確——只有被接受的測試才會落地，因此驗收（而非原始殺變異率）決定真正的改善。</text></feedback></answer>
+    <answer fraction="0"><text>高殺變異率代表變異體太簡單，所以工具壞了</text><feedback><text>殺變異率可能是真的；問題在於被拒的測試永遠進不了程式碼庫。</text></feedback></answer>
+    <answer fraction="0"><text>工程師應降低標準以配合殺變異率</text><feedback><text>降低驗收門檻會放進不穩定或瞄準錯誤的測試；重點是驗收才是真正的衡量。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題——殺變異率是唯一重要的指標</text><feedback><text>殺變異率忽略其他四個維度；永遠不被接受的測試不增加保護。</text></feedback></answer>
+    <generalfeedback><text>殺變異率衡量潛在的缺陷偵測，但只有工程師接受的測試才會合併並在 CI 中執行。若多數生成測試因不穩定、風格或不相關而被拒，高殺變異率就是假象——真正守護生產的只有被接受的那個子集。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>微妙的非強化：斷言了錯的東西</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試瞄準正確的方法、能編譯、確定、符合風格——但其斷言把一個變數與自己比較（<code>assertEquals(result, result)</code>），因此不論該方法回傳什麼都成立。它未通過哪個維度，為何這很微妙？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強化——它看起來像真測試且瞄準正確，但自我比較永不會失敗，因此抓不到任何缺陷</text><feedback><text>正確——儘管外觀正常，恆真斷言不提供保護價值，屬於強化失敗。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——把值與自己比較是瞄準錯誤程式碼</text><feedback><text>測試瞄準正確（正確的方法）；缺陷在於其斷言什麼都抓不到（強化）。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——自我比較是不確定的</text><feedback><text>它完全確定（永遠通過）；微妙的失敗在於它永遠抓不到缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——自我比較無法編譯</text><feedback><text>它能乾淨編譯；問題在於缺乏任何真實檢查（強化）。</text></feedback></answer>
+    <generalfeedback><text>陷阱在於測試看似正當——目標正確、風格乾淨、確定——但其斷言是對任何輸出都成立的恆真式。即使對壞掉的程式碼也會通過，因此不提供保護價值：這是強化失敗，而非相關性失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>相關卻不穩定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試恰好瞄準了變更的高風險方法並強力斷言，但它連到一個即時的第三方網路服務，當該服務變慢時就間歇性失敗。它被拒的主要原因是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非不穩定——它的相關性救不了它，因為即時依賴造成的間歇性失敗使它不確定</text><feedback><text>正確——相關卻不穩定的測試仍在非不穩定維度上被拒。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——連到網路服務代表它瞄準錯誤程式碼</text><feedback><text>它瞄準正確程式碼；缺陷是即時依賴造成的不確定性。</text></feedback></answer>
+    <answer fraction="0"><text>強化——強力斷言代表強化失敗</text><feedback><text>強力斷言是強化的優點；拒絕是因為不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>風格——網路呼叫違反慣例</text><feedback><text>主要失敗是不確定性（非不穩定），而非風格。</text></feedback></answer>
+    <generalfeedback><text>相關且斷言良好還不夠。即時外部依賴引入不可控的變動，因此測試間歇性失敗——非不穩定失敗。它必須先被做成確定（例如使用測試替身）才能被接受。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何抓得到缺陷風格仍重要</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試可靠地抓到一個真實缺陷，卻忽視程式碼庫的慣例——奇怪的命名、不熟悉的斷言庫、且無 arrange-act-assert 結構。為何工程師仍然拒絕它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收是人類可維護性的門檻：團隊無法輕易閱讀與維護的測試不會被合併，即使它偵測到缺陷</text><feedback><text>正確——風格保護長期可維護性，那是驗收的一部分。</text></feedback></answer>
+    <answer fraction="0"><text>不合慣例的測試其實抓不到缺陷</text><feedback><text>它確實抓到缺陷；拒絕是關於可維護性與慣例，而非偵測。</text></feedback></answer>
+    <answer fraction="0"><text>風格只對無法編譯的測試才重要</text><feedback><text>編譯是可編譯；風格適用於能正常建置卻忽視慣例的測試。</text></feedback></answer>
+    <answer fraction="0"><text>抓得到缺陷的測試可豁免風格維度</text><feedback><text>沒有維度可豁免；抓得到缺陷的測試仍需可接受的風格。</text></feedback></answer>
+    <generalfeedback><text>測試存在於程式碼庫中，必須由人類維護。與團隊慣例衝突的測試帶來長期成本並使審查者困惑，因此即使它偵測到真實缺陷，仍在風格上被拒。驗收衡量的是可維護性，而不只是偵測。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊界：對正確目標的弱斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試正對準了變更的高風險方法，但其斷言只檢查回傳值非 null——即使計算出的值是錯的它仍會通過。這主要是相關性失敗還是強化失敗？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強化——目標正確（相關），但斷言太弱抓不到迴歸，因此未能強化套件</text><feedback><text>正確——目標正確但無抓錯能力是強化失敗，而非相關性失敗。</text></feedback></answer>
+    <answer fraction="0"><text>相關性——弱斷言代表測試瞄準錯誤程式碼</text><feedback><text>目標正確；弱點在於斷言會漏掉錯誤值（強化）。</text></feedback></answer>
+    <answer fraction="0"><text>兩者同等失敗，任一標籤皆可</text><feedback><text>相關性滿足，因為目標正確；具體的失敗是強化。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——非 null 檢查永遠足夠</text><feedback><text>非 null 檢查會漏掉「非 null 但錯」的值，因此它未通過強化。</text></feedback></answer>
+    <generalfeedback><text>相關性探問測試是否瞄準正確程式碼；此處是的。強化探問它是否真能抓到缺陷；非 null 檢查對錯誤值仍會通過，因此具體失敗是強化。區分兩者取決於目標（相關性）與抓錯能力（強化）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊界：對非問題的強斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試有精確、強力的斷言，且能可靠地抓到變更——但它運用的是一條已永久停用、生產環境永不會執行的功能旗標（feature-flag）程式碼路徑。這主要是強化失敗還是相關性失敗？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關性——斷言很強（有強化能力），但目標是非問題，因此測試瞄準了錯誤的東西</text><feedback><text>正確——對死程式碼的強力斷言是相關性失敗。</text></feedback></answer>
+    <answer fraction="0"><text>強化——停用的路徑代表斷言很弱</text><feedback><text>斷言很強；問題在於其目標無關緊要（相關性）。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——停用路徑無法編譯</text><feedback><text>程式碼能編譯；缺陷在於目標是非問題（相關性）。</text></feedback></answer>
+    <answer fraction="0"><text>風格——測試停用程式碼違反慣例</text><feedback><text>失敗在於它瞄準非問題，屬於相關性，而非風格。</text></feedback></answer>
+    <generalfeedback><text>這是弱斷言案例的鏡像。斷言強到足以抓到缺陷（有強化能力），但它對準的是永久死掉的程式碼——非問題。因為目標無關緊要，主要失敗是相關性，而非強化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主要原因：不增加信心</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試名為 <code>testSomething</code>，呼叫 <code>doStuff()</code>，且只斷言結果非 null。它可編譯且確定，但工程師說它「不增加對系統正確性的信心」。哪個維度最直接對應這項抱怨？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強化——非 null 檢查沒有驗證任何真實行為，因此測試抓不到真正的缺陷</text><feedback><text>正確——「不增加對正確性的信心」正是強化維度。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——含糊的名稱破壞建置</text><feedback><text>它能正常建置；抱怨是關於保護價值，屬於強化。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——非 null 檢查是不確定的</text><feedback><text>它是確定的；問題在於它什麼都沒有意義地驗證（強化）。</text></feedback></answer>
+    <answer fraction="0"><text>風格——testSomething 這名稱是唯一真正的問題</text><feedback><text>含糊命名也是風格弱點，但「不增加對正確性的信心」最直接指向強化。</text></feedback></answer>
+    <generalfeedback><text>這個測試有數個弱點（含糊名稱是不良風格、意圖不明），但具體抱怨——它不增加對正確性的信心——是關於保護價值。非 null 檢查對錯誤結果仍會通過，因此最直接的失敗是強化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為生成流水線排定優先</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一整批中，某測試生成流水線達到 90% 的殺變異率，但工程師驗收率只有 20%。要讓這條流水線真正有用，團隊應優先處理什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>修正驅動拒絕的維度——不穩定、風格與相關性——使更多能抓錯的測試真正被接受並合併</text><feedback><text>正確——提高驗收才能把殺錯能力轉化為真正的套件改善。</text></feedback></answer>
+    <answer fraction="0"><text>把殺變異率從 90% 推到 99% 並忽視驗收</text><feedback><text>更多仍被拒的殺沒有意義；瓶頸在驗收。</text></feedback></answer>
+    <answer fraction="0"><text>不論審查維度，合併所有生成的測試</text><feedback><text>那會放進不穩定與瞄準錯誤的測試，使套件劣化；驗收標準的存在有其道理。</text></feedback></answer>
+    <answer fraction="0"><text>完全刪除變異測試步驟</text><feedback><text>變異測試是有用的訊號；真正的落差是低驗收率。</text></feedback></answer>
+    <generalfeedback><text>90% 殺變異率搭配 20% 驗收，代表多數能抓錯的測試從未落地。槓桿在驗收維度：降低不穩定、符合風格、瞄準相關程式碼。改善這些會把流水線的偵測能力轉化為工程師真正願意合併的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>相關但不穩定 對比 純粹不相關</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何一個瞄準重要、相關程式碼卻不穩定的測試，可能比一個純粹不相關的測試造成<em>更大</em>傷害？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為它在重要路徑上注入不確定的失敗，一面看似有價值一面侵蝕對套件的信任——不相關的測試至少會可預測地失敗或容易被排除</text><feedback><text>正確——重要路徑上的不穩定對 CI 信任特別具腐蝕性。</text></feedback></answer>
+    <answer fraction="0"><text>因為不相關的測試永遠無法編譯</text><feedback><text>不相關的測試可以正常編譯；重點是不穩定對受信任路徑的腐蝕作用。</text></feedback></answer>
+    <answer fraction="0"><text>因為不穩定測試永遠有更高的殺變異率</text><feedback><text>殺變異率不是問題；傷害在於重要程式碼上的不確定雜訊。</text></feedback></answer>
+    <answer fraction="0"><text>因為相關的測試可豁免非不穩定維度</text><feedback><text>沒有測試可豁免；相關卻不穩定的測試仍會被拒，且其不穩定特別具傷害性。</text></feedback></answer>
+    <generalfeedback><text>相關程式碼上的不穩定測試偽裝成有價值的覆蓋，卻在人們在意的路徑上產生間歇性紅燈。那會訓練團隊忽視重要程式碼上的失敗，因此它必須在非不穩定上被拒，並先做成確定才能有幫助。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何可編譯是其他維度的關卡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當測試仍未通過可編譯維度時，為何評估它的強化或相關性是徒勞的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>無法編譯的測試永遠不會執行，因此無法展示任何抓錯價值或目標——可編譯是必須先修正的前置關卡</text><feedback><text>正確——不能建置就無法執行，因此下游維度無從談起。</text></feedback></answer>
+    <answer fraction="0"><text>因為整體而言強化與相關性沒有可編譯重要</text><feedback><text>它們對驗收同等必要；重點是順序——無法建置的測試無法在它們上被評估。</text></feedback></answer>
+    <answer fraction="0"><text>因為無法建置的測試自動就是不穩定</text><feedback><text>建置錯誤是確定的，並非不穩定；問題在於測試無法執行以展示強化或相關性。</text></feedback></answer>
+    <answer fraction="0"><text>因為編譯測試也證明了它是相關的</text><feedback><text>編譯只證明可編譯；相關性與強化是分開的，要在它能建置後才評估。</text></feedback></answer>
+    <generalfeedback><text>可編譯是入口關卡。無法編譯的測試不能執行，因此無從觀察它是否抓到缺陷（強化）或瞄準正確程式碼（相關性）。必須先修正建置錯誤，任何下游維度才能被判斷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>區分強化與相關性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個陳述最準確地區分強化維度與相關性維度？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關性探問測試是否瞄準正確的程式碼；強化探問它是否真能抓到該程式碼中的真實迴歸</text><feedback><text>正確——相關性關乎目標，強化關乎抓錯能力。</text></feedback></answer>
+    <answer fraction="0"><text>強化探問測試是否能編譯；相關性探問它是否確定</text><feedback><text>能編譯是可編譯、確定是非不穩定；該答案混淆了維度。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一維度的兩個名稱</text><feedback><text>它們是不同的：測試可以瞄準正確卻抓不到任何東西，或抓得到缺陷卻對準錯誤程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>相關性關乎風格慣例；強化關乎速度</text><feedback><text>風格與速度都無關；相關性是目標，強化是抓錯價值。</text></feedback></answer>
+    <generalfeedback><text>兩者正交。測試可以相關（對準正確、有風險的程式碼）卻未強化（弱斷言什麼都抓不到），也可以有強化能力（強力斷言）卻不相關（對準死掉或無關的程式碼）。相關性＝正確目標；強化＝能抓到缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主要拒絕原因：不相關且弱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試既運用一個瑣碎、無關的 getter（不是變更的行為），又只斷言其結果非 null。相關性與強化看起來都不穩。哪一個是拒絕它的更根本原因，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相關性——因為它瞄準錯誤程式碼，即使強化其斷言仍然測不到真正重要的行為，因此錯誤的目標才是根本問題</text><feedback><text>正確——當目標本身就錯時，相關性是更根本的失敗。</text></feedback></answer>
+    <answer fraction="0"><text>強化——因為更強的斷言就能修正一切</text><feedback><text>對錯誤 getter 的更強斷言仍然測不到變更的行為；根本問題是目標（相關性）。</text></feedback></answer>
+    <answer fraction="0"><text>可編譯——無關的 getter 無法編譯</text><feedback><text>它能編譯；根本問題是它對準錯誤程式碼（相關性）。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——getter 測試是不確定的</text><feedback><text>它可以是確定的；根本失敗是其目標不相關。</text></feedback></answer>
+    <generalfeedback><text>要挑出最根本的失敗，問：修好其他之後還剩什麼壞掉。此處即使強化斷言也沒用，因為測試對準錯誤程式碼——所以相關性是根本失敗。對比之下，對準正確程式碼卻只有弱斷言的測試，是強化失敗。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>殺變異率不保證驗收</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一整批生成測試若有很高的殺變異率，就保證工程師會接受其中大多數。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——驗收取決於全部五個維度，因此高殺變異率不保證測試會被接受。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>這是錯的：測試可以殺掉變異體卻因不穩定、風格或不相關被拒，因此高殺變異率不保證驗收。</text></feedback></answer>
+    <generalfeedback><text>殺變異率與驗收是不同的衡量。一整批可以殺掉許多變異體，卻有多數測試因非不穩定、風格或相關性而被拒。跨五個維度的工程師驗收——而非原始殺變異率——才是測試是否改善套件的真正門檻。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主要關卡：無法建置且風格不良</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某生成測試既無法編譯（型別錯誤），又使用忽視團隊慣例的命名。應把哪個單一維度記錄為拒絕的主要原因，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可編譯——因為無法編譯的測試根本無法執行或被審查，所以建置錯誤是最根本的阻礙；在它能建置之前，風格問題無關緊要</text><feedback><text>正確——可編譯是前置關卡，因此在此是主要失敗。</text></feedback></answer>
+    <answer fraction="0"><text>風格——命名是審查者最先注意到的</text><feedback><text>在測試無法編譯時風格問題根本無從著手；可編譯是更根本的阻礙。</text></feedback></answer>
+    <answer fraction="0"><text>兩者同等主要，任選其一即可</text><feedback><text>無法建置的測試不能執行或被審查，因此可編譯是兩者中更根本的。</text></feedback></answer>
+    <answer fraction="0"><text>非不穩定——型別錯誤造成間歇性結果</text><feedback><text>型別錯誤確定地讓建置停止；主要失敗是可編譯，而非非不穩定。</text></feedback></answer>
+    <generalfeedback><text>當測試失敗於多個維度時，主要的是最根本的阻礙——那個使其他維度無法評估或修正的失敗。無法編譯的測試不能執行或被審查，因此可編譯是主要；風格問題只有在測試能建置後才變得相關。</text></generalfeedback>
+  </question>
+</quiz>
