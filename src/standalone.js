@@ -106818,6 +106818,2590 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "llm-pipeline": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "The three agents in order",
+            "text": "<p>The LLM test-generation pipeline (Meta's ACH flow, FSE 2025) chains three agents. In what order do they run?</p>",
+            "answers": [
+              {
+                "text": "Mutation agent &#8594; Equivalence agent &#8594; Test agent",
+                "fraction": 100,
+                "feedback": "Correct \u2014 mutants are generated, screened for equivalence, then the survivors are targeted by generated tests."
+              },
+              {
+                "text": "Test agent &#8594; Mutation agent &#8594; Equivalence agent",
+                "fraction": 0,
+                "feedback": "Tests are written last, to kill the non-equivalent mutants that survive screening."
+              },
+              {
+                "text": "Equivalence agent &#8594; Mutation agent &#8594; Test agent",
+                "fraction": 0,
+                "feedback": "There is nothing to judge for equivalence until the mutation agent has produced mutants."
+              },
+              {
+                "text": "Mutation agent &#8594; Test agent &#8594; Equivalence agent",
+                "fraction": 0,
+                "feedback": "Equivalence screening happens before test generation, so the test agent is not asked to kill uncatchable mutants."
+              }
+            ],
+            "generalFeedback": "The pipeline is a three-agent flow in the order Mutation &#8594; Equivalence &#8594; Test: the mutation agent seeds faults, the equivalence agent filters out uncatchable (equivalent) mutants, and the test agent generates tests that kill the remaining non-equivalent mutants.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Job of the mutation agent",
+            "text": "<p>What is the job of <strong>Agent 1</strong>, the <em>mutation agent</em>?</p>",
+            "answers": [
+              {
+                "text": "Generate mutants that target specific fault classes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the mutation agent seeds faults aimed at particular fault classes."
+              },
+              {
+                "text": "Decide whether a mutant is equivalent",
+                "fraction": 0,
+                "feedback": "That is the equivalence agent's job (Agent 2)."
+              },
+              {
+                "text": "Write a test that kills a mutant",
+                "fraction": 0,
+                "feedback": "That is the test agent's job (Agent 3)."
+              },
+              {
+                "text": "Run the CI pipeline and reject flaky tests",
+                "fraction": 0,
+                "feedback": "Flakiness is a quality gate on the test agent's output, not the mutation agent's role."
+              }
+            ],
+            "generalFeedback": "The mutation agent (Agent 1) generates mutants, deliberately targeting specific fault classes rather than making blind syntactic tweaks.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Job of the equivalence agent",
+            "text": "<p>What is the job of <strong>Agent 2</strong>, the <em>equivalence agent</em>?</p>",
+            "answers": [
+              {
+                "text": "Decide whether a mutant is equivalent (uncatchable) to the original",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it acts as an LLM-as-judge, filtering out mutants no test could ever kill."
+              },
+              {
+                "text": "Generate the mutants in the first place",
+                "fraction": 0,
+                "feedback": "Generating mutants is the mutation agent's role (Agent 1)."
+              },
+              {
+                "text": "Generate a test that kills the mutant",
+                "fraction": 0,
+                "feedback": "Writing the killing test is the test agent's role (Agent 3)."
+              },
+              {
+                "text": "Measure the code coverage of the resulting suite",
+                "fraction": 0,
+                "feedback": "The equivalence agent judges equivalence; it does not compute coverage."
+              }
+            ],
+            "generalFeedback": "The equivalence agent (Agent 2) is an LLM-as-judge that decides whether a mutant is equivalent \u2014 semantically identical to the original and therefore impossible for any test to kill \u2014 so those mutants are removed before the test agent runs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Job of the test agent",
+            "text": "<p>What is the job of <strong>Agent 3</strong>, the <em>test agent</em>?</p>",
+            "answers": [
+              {
+                "text": "Generate a test that kills the non-equivalent mutant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test agent writes a test whose result distinguishes the mutant from the original."
+              },
+              {
+                "text": "Generate the mutants",
+                "fraction": 0,
+                "feedback": "That is the mutation agent (Agent 1)."
+              },
+              {
+                "text": "Judge whether the mutant is equivalent",
+                "fraction": 0,
+                "feedback": "That is the equivalence agent (Agent 2)."
+              },
+              {
+                "text": "Strip comments from the source before judging",
+                "fraction": 0,
+                "feedback": "Comment stripping is a preprocessing step for the equivalence agent, not the test agent's job."
+              }
+            ],
+            "generalFeedback": "The test agent (Agent 3) generates a test that kills the mutant \u2014 a test that produces a different result on the mutant than on the original \u2014 for the mutants the equivalence agent judged non-equivalent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'What "kill a mutant" means',
+            "text": "<p>In this pipeline, what does it mean for a test to <em>kill</em> a mutant?</p>",
+            "answers": [
+              {
+                "text": "The test produces a different result on the mutant than on the original program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an observable difference between mutant and original is what kills it."
+              },
+              {
+                "text": "The test passes on both the mutant and the original",
+                "fraction": 0,
+                "feedback": "If a test passes on both, it fails to distinguish them and does not kill the mutant."
+              },
+              {
+                "text": "The mutant is deleted from the source tree",
+                "fraction": 0,
+                "feedback": "Killing is about detection by a test, not about removing the mutant from disk."
+              },
+              {
+                "text": "The equivalence agent labels the mutant as equivalent",
+                "fraction": 0,
+                "feedback": "A mutant labelled equivalent is precisely the one that can never be killed."
+              }
+            ],
+            "generalFeedback": "A test kills a mutant when it yields a different, observable result on the mutant than on the original program. The whole point of the test agent is to generate such mutation-killing tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an equivalent mutant is here",
+            "text": "<p>In this pipeline, an <em>equivalent</em> mutant is one that:</p>",
+            "answers": [
+              {
+                "text": "Behaves identically to the original, so no test can ever kill it (uncatchable)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is why the equivalence agent filters it out before the test agent runs."
+              },
+              {
+                "text": "Is killed by every test the test agent generates",
+                "fraction": 0,
+                "feedback": "That describes an easily-killed mutant, the opposite of an equivalent one."
+              },
+              {
+                "text": "Fails to compile and is discarded by the build",
+                "fraction": 0,
+                "feedback": "That is invalid code (a mutation-agent failure mode), not an equivalent mutant."
+              },
+              {
+                "text": "Is a test that is non-deterministic across CI runs",
+                "fraction": 0,
+                "feedback": "That is a flaky test, a test-agent failure mode, not an equivalent mutant."
+              }
+            ],
+            "generalFeedback": "An equivalent mutant is semantically identical to the original: it produces the same behaviour on every input, so no test can distinguish it \u2014 it is uncatchable. The equivalence agent exists to identify and remove such mutants.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which agent judges equivalence",
+            "text": "<p>Which agent decides whether a mutant is equivalent?</p>",
+            "answers": [
+              {
+                "text": "The equivalence agent (Agent 2)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is the LLM-as-judge for equivalence."
+              },
+              {
+                "text": "The mutation agent (Agent 1)",
+                "fraction": 0,
+                "feedback": "Agent 1 generates mutants; it does not judge them."
+              },
+              {
+                "text": "The test agent (Agent 3)",
+                "fraction": 0,
+                "feedback": "Agent 3 writes the killing test; equivalence has already been decided before it runs."
+              },
+              {
+                "text": "The CI system",
+                "fraction": 0,
+                "feedback": "CI runs the generated tests; it does not judge mutant equivalence."
+              }
+            ],
+            "generalFeedback": "The equivalence agent (Agent 2) is the LLM-as-judge that decides whether a given mutant is equivalent to the original.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which agent generates the killing test",
+            "text": "<p>Which agent generates the test that kills a mutant?</p>",
+            "answers": [
+              {
+                "text": "The test agent (Agent 3)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test agent produces the mutation-killing test."
+              },
+              {
+                "text": "The mutation agent (Agent 1)",
+                "fraction": 0,
+                "feedback": "Agent 1 generates mutants, not tests."
+              },
+              {
+                "text": "The equivalence agent (Agent 2)",
+                "fraction": 0,
+                "feedback": "Agent 2 judges equivalence; it does not write tests."
+              },
+              {
+                "text": "The engineer who reviews acceptance",
+                "fraction": 0,
+                "feedback": "Engineers accept or reject the generated tests, but Agent 3 generates them."
+              }
+            ],
+            "generalFeedback": "The test agent (Agent 3) generates the test that kills the non-equivalent mutant handed to it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which agent generates the mutants",
+            "text": "<p>Which agent generates the mutants?</p>",
+            "answers": [
+              {
+                "text": "The mutation agent (Agent 1)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Agent 1 seeds faults targeting specific fault classes."
+              },
+              {
+                "text": "The equivalence agent (Agent 2)",
+                "fraction": 0,
+                "feedback": "Agent 2 judges the mutants Agent 1 produced."
+              },
+              {
+                "text": "The test agent (Agent 3)",
+                "fraction": 0,
+                "feedback": "Agent 3 writes killing tests, not mutants."
+              },
+              {
+                "text": "The rule-based mutator only",
+                "fraction": 0,
+                "feedback": "In the LLM-guided pipeline, the mutation agent is the LLM; rule-based mutation is the baseline being compared against."
+              }
+            ],
+            "generalFeedback": "The mutation agent (Agent 1) generates the mutants, deliberately targeting specific fault classes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Domain-aware vs rule-based",
+            "text": "<p>Compared with the rule-based baseline, the LLM-guided approach is described as:</p>",
+            "answers": [
+              {
+                "text": "Domain- and issue-aware, whereas rule-based mutation is not",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the LLM can target faults relevant to the domain and the issue at hand."
+              },
+              {
+                "text": "Faster to run but blind to the domain",
+                "fraction": 0,
+                "feedback": "It is the LLM approach that is domain-aware; being domain-aware is its advantage, not a blindness."
+              },
+              {
+                "text": "Identical to rule-based mutation in every respect",
+                "fraction": 0,
+                "feedback": "They differ sharply \u2014 notably kill rate and domain awareness."
+              },
+              {
+                "text": "Unable to target specific fault classes",
+                "fraction": 0,
+                "feedback": "Targeting specific fault classes is exactly what the LLM-guided approach does."
+              }
+            ],
+            "generalFeedback": "The LLM-guided pipeline is domain- and issue-aware \u2014 it can target fault classes that matter for the code under test \u2014 while the rule-based baseline applies generic syntactic operators with no such awareness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "LLM-as-judge role",
+            "text": `<p>The phrase "LLM-as-judge" in this pipeline refers to which agent's mode of operation?</p>`,
+            "answers": [
+              {
+                "text": "The equivalence agent deciding whether a mutant is equivalent",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it uses the LLM to judge equivalence."
+              },
+              {
+                "text": "The mutation agent scoring how many faults it seeded",
+                "fraction": 0,
+                "feedback": "The mutation agent generates mutants; the judging role is the equivalence agent's."
+              },
+              {
+                "text": "The test agent grading its own tests",
+                "fraction": 0,
+                "feedback": 'The test agent writes tests; the "judge" is the equivalence agent.'
+              },
+              {
+                "text": "CI deciding whether a test is flaky",
+                "fraction": 0,
+                "feedback": 'CI applies a quality gate, but "LLM-as-judge" names the equivalence agent.'
+              }
+            ],
+            "generalFeedback": '"LLM-as-judge" describes the equivalence agent (Agent 2), which uses the LLM to judge whether a mutant is equivalent to the original.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which mutants reach the test agent",
+            "text": "<p>Which mutants does the test agent try to kill?</p>",
+            "answers": [
+              {
+                "text": "The non-equivalent mutants that survive the equivalence agent",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only mutants that can actually be killed are handed to the test agent."
+              },
+              {
+                "text": "All mutants, including equivalent ones",
+                "fraction": 0,
+                "feedback": "Equivalent mutants are filtered out first, so effort is not wasted on uncatchable ones."
+              },
+              {
+                "text": "Only the equivalent mutants",
+                "fraction": 0,
+                "feedback": "Equivalent mutants can never be killed; the test agent targets the non-equivalent ones."
+              },
+              {
+                "text": "Only mutants that fail to compile",
+                "fraction": 0,
+                "feedback": "Invalid mutants are discarded, not passed on to be killed."
+              }
+            ],
+            "generalFeedback": "The equivalence agent removes equivalent (uncatchable) mutants first, so the test agent only tries to kill the non-equivalent mutants that survive that screening.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Pipeline is three agents",
+            "text": "<p>The LLM test-generation pipeline is a three-agent flow (mutation, equivalence, and test agents).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it chains a mutation agent, an equivalence agent, and a test agent."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "It is a three-agent flow: mutation &#8594; equivalence &#8594; test."
+              }
+            ],
+            "generalFeedback": "The pipeline is a three-agent flow: the mutation agent, the equivalence (LLM-as-judge) agent, and the test agent, running in that order."
+          },
+          {
+            "type": "multichoice",
+            "name": "Overall goal of the pipeline",
+            "text": "<p>What is the overall goal of the pipeline?</p>",
+            "answers": [
+              {
+                "text": "Generate mutation-killing tests that target specific fault classes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the end product is tests that kill mutants aimed at particular fault classes."
+              },
+              {
+                "text": "Maximise the number of equivalent mutants produced",
+                "fraction": 0,
+                "feedback": "Equivalent mutants are an unwanted cost to be filtered, not a goal."
+              },
+              {
+                "text": "Prove the program contains no defects",
+                "fraction": 0,
+                "feedback": "No testing pipeline proves the absence of all defects."
+              },
+              {
+                "text": "Replace human engineers entirely",
+                "fraction": 0,
+                "feedback": "Engineer acceptance is a metric; engineers still review the generated tests."
+              }
+            ],
+            "generalFeedback": "The pipeline generates mutation-killing tests targeting specific fault classes, using three agents to seed faults, filter uncatchable ones, and write the tests that kill the rest.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which agent runs first",
+            "text": "<p>Which agent runs <em>first</em> in the pipeline?</p>",
+            "answers": [
+              {
+                "text": "The mutation agent",
+                "fraction": 100,
+                "feedback": "Correct \u2014 mutants must exist before anything can be judged or killed."
+              },
+              {
+                "text": "The equivalence agent",
+                "fraction": 0,
+                "feedback": "There is nothing to judge until the mutation agent has produced mutants."
+              },
+              {
+                "text": "The test agent",
+                "fraction": 0,
+                "feedback": "Tests are written last, against the surviving non-equivalent mutants."
+              },
+              {
+                "text": "They all run simultaneously with no ordering",
+                "fraction": 0,
+                "feedback": "The agents run in a defined order: mutation &#8594; equivalence &#8594; test."
+              }
+            ],
+            "generalFeedback": "The mutation agent runs first, generating the mutants that the equivalence and test agents then process in turn.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Data flow into the equivalence agent",
+            "text": "<p>What does the equivalence agent receive as its input?</p>",
+            "answers": [
+              {
+                "text": "The mutants produced by the mutation agent, to judge which are equivalent",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it screens the mutation agent's output before the test agent runs."
+              },
+              {
+                "text": "The killing tests produced by the test agent",
+                "fraction": 0,
+                "feedback": "The test agent runs after the equivalence agent, so its tests cannot be the input."
+              },
+              {
+                "text": "Raw coverage reports from CI",
+                "fraction": 0,
+                "feedback": "The equivalence agent judges mutants, not coverage reports."
+              },
+              {
+                "text": "Nothing \u2014 it runs before the mutation agent",
+                "fraction": 0,
+                "feedback": "The order is mutation &#8594; equivalence &#8594; test; there is nothing to judge before mutants exist."
+              }
+            ],
+            "generalFeedback": "The equivalence agent sits between the mutation and test agents: it takes the mutants generated by the mutation agent and decides which are equivalent, passing only the non-equivalent ones to the test agent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the equivalence agent is needed",
+            "text": "<p>Why does the LLM-guided pipeline need a dedicated equivalence agent, when a simpler rule-based flow might not?</p>",
+            "answers": [
+              {
+                "text": "The LLM mutation agent produces a higher rate of equivalent mutants (~25%), so they must be filtered out",
+                "fraction": 100,
+                "feedback": "Correct \u2014 more equivalent mutants means a dedicated judge is worth the cost."
+              },
+              {
+                "text": "The LLM never produces equivalent mutants, so the agent double-checks",
+                "fraction": 0,
+                "feedback": "The opposite is true: the LLM produces more equivalent mutants than the rule-based baseline."
+              },
+              {
+                "text": "Because rule-based mutation cannot compile its mutants",
+                "fraction": 0,
+                "feedback": "The reason is the LLM's higher equivalent-mutant rate, not a compilation issue with rule-based mutation."
+              },
+              {
+                "text": "To increase the number of equivalent mutants on purpose",
+                "fraction": 0,
+                "feedback": "The agent removes equivalent mutants; it does not create more."
+              }
+            ],
+            "generalFeedback": "Because the LLM-guided mutation agent produces a higher equivalent-mutant rate (~25%, versus roughly 10&#8211;15% for rule-based mutation), the pipeline adds an equivalence agent to filter those uncatchable mutants out before the expensive test-generation step.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Kill-rate comparison",
+            "text": "<p>How do the reported mutant kill rates compare between the rule-based baseline and the LLM-guided pipeline?</p>",
+            "answers": [
+              {
+                "text": "Rule-based ~2.4% vs LLM-guided ~15%",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the LLM-guided approach kills a far larger share of mutants."
+              },
+              {
+                "text": "Rule-based ~15% vs LLM-guided ~2.4%",
+                "fraction": 0,
+                "feedback": "The figures are reversed: LLM-guided is the higher one, at ~15%."
+              },
+              {
+                "text": "Both about 25%",
+                "fraction": 0,
+                "feedback": "25% is the LLM's equivalent-mutant rate, not the kill rate."
+              },
+              {
+                "text": "Both close to 100%",
+                "fraction": 0,
+                "feedback": "Neither approach reaches anywhere near 100%; the reported kill rates are 2.4% and 15%."
+              }
+            ],
+            "generalFeedback": "The rule-based baseline kills about 2.4% of mutants, while the LLM-guided pipeline kills about 15% \u2014 a large jump attributed to targeting specific fault classes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Flaky test failure mode",
+            "text": "<p>A generated test passes and fails non-deterministically across CI runs and is rejected. Which agent's failure mode is this?</p>",
+            "answers": [
+              {
+                "text": "The test agent \u2014 it produced a flaky (non-deterministic) test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flaky tests are a test-agent failure mode, caught by the CI quality gate."
+              },
+              {
+                "text": "The mutation agent \u2014 it produced an equivalent mutant",
+                "fraction": 0,
+                "feedback": "Flakiness is about the test's determinism, not about the mutant."
+              },
+              {
+                "text": "The equivalence agent \u2014 it misjudged equivalence",
+                "fraction": 0,
+                "feedback": "A misjudged equivalence is a different symptom; flakiness is a property of the generated test."
+              },
+              {
+                "text": "CI \u2014 it introduced randomness into the test",
+                "fraction": 0,
+                "feedback": "CI detects and rejects the flaky test; the test agent generated it."
+              }
+            ],
+            "generalFeedback": "Generating a flaky (non-deterministic) test that CI rejects is a failure mode of the test agent. A quality gate filters such tests out.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Invalid-code failure mode",
+            "text": "<p>A produced mutant is syntactically invalid and fails to build. Which agent's failure mode is this?</p>",
+            "answers": [
+              {
+                "text": "The mutation agent \u2014 it emitted syntactically invalid code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 emitting invalid, non-building code is a mutation-agent failure mode."
+              },
+              {
+                "text": "The test agent \u2014 it wrote a flaky test",
+                "fraction": 0,
+                "feedback": "Flakiness is a test-agent issue; this is a mutant that fails to build."
+              },
+              {
+                "text": "The equivalence agent \u2014 it marked a mutant equivalent by mistake",
+                "fraction": 0,
+                "feedback": "That is a different failure; here the mutant itself does not compile."
+              },
+              {
+                "text": "The engineer \u2014 they rejected the test",
+                "fraction": 0,
+                "feedback": "The problem is invalid mutant code, produced by the mutation agent."
+              }
+            ],
+            "generalFeedback": "Emitting syntactically invalid code that fails to build is a failure mode of the mutation agent (Agent 1); such mutants are discarded.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why strip comments",
+            "text": "<p>The equivalence agent adds a preprocessing step that strips comments before judging. Why?</p>",
+            "answers": [
+              {
+                "text": "Comment differences caused about 25% of its false positives, so removing them improves accuracy",
+                "fraction": 100,
+                "feedback": "Correct \u2014 comment diffs were a large source of false positives, fixed by stripping comments."
+              },
+              {
+                "text": "Comments make the code compile faster",
+                "fraction": 0,
+                "feedback": "The reason is judging accuracy, not compile speed."
+              },
+              {
+                "text": "Comments are needed by the test agent, so they are moved aside",
+                "fraction": 0,
+                "feedback": "They are stripped to help the equivalence judge, not relocated for the test agent."
+              },
+              {
+                "text": "Stripping comments increases the equivalent-mutant rate on purpose",
+                "fraction": 0,
+                "feedback": "It improves the judge's precision and recall; it is not about inflating equivalence."
+              }
+            ],
+            "generalFeedback": "Comment differences accounted for roughly 25% of the equivalence agent's false positives. Stripping comments as a preprocessing step removes that noise and lifts precision and recall (from 0.79/0.47 to about 0.95/0.96).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Equivalent-mutant rate comparison",
+            "text": "<p>How does the equivalent-mutant rate of the LLM-guided approach compare with the rule-based baseline?</p>",
+            "answers": [
+              {
+                "text": "Higher for the LLM (~25%) than rule-based (~10&#8211;15%)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the LLM produces more equivalent mutants, motivating the equivalence agent."
+              },
+              {
+                "text": "Lower for the LLM (~5%) than rule-based (~25%)",
+                "fraction": 0,
+                "feedback": "The LLM's equivalent-mutant rate is higher, not lower."
+              },
+              {
+                "text": "Identical for both, at ~2.4%",
+                "fraction": 0,
+                "feedback": "2.4% is the rule-based kill rate, not an equivalent-mutant rate."
+              },
+              {
+                "text": "Zero for the LLM",
+                "fraction": 0,
+                "feedback": "The LLM's equivalent-mutant rate is about 25%, not zero."
+              }
+            ],
+            "generalFeedback": "The LLM-guided approach has a higher equivalent-mutant rate (~25%) than the rule-based baseline (~10&#8211;15%) \u2014 a cost of targeting specific fault classes, which is why a dedicated equivalence judge is needed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test-fails-on-both failure mode",
+            "text": "<p>A generated test fails on BOTH the original program and the mutant. Which agent's failure mode is this, most directly?</p>",
+            "answers": [
+              {
+                "text": "The test agent \u2014 it produced a test with a build or logic error, not a valid mutation-killing test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test that fails on the original too cannot be distinguishing the mutant; it is broken."
+              },
+              {
+                "text": "The mutation agent \u2014 the mutant is equivalent",
+                "fraction": 0,
+                "feedback": "Equivalence would make the test pass on both, not fail on both; and this is about the test being broken."
+              },
+              {
+                "text": "The equivalence agent \u2014 it under-counted equivalent mutants",
+                "fraction": 0,
+                "feedback": "The symptom is a broken test, which is the test agent's output."
+              },
+              {
+                "text": "CI \u2014 it ran the test in the wrong order",
+                "fraction": 0,
+                "feedback": "The test itself is faulty; it fails on the original as well as the mutant."
+              }
+            ],
+            "generalFeedback": "A test that fails on both the original and the mutant is not distinguishing them \u2014 it has a build or logic error. That is a test-agent failure mode; a valid killing test must pass on the original and fail on the mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Where equivalence sits in the flow",
+            "text": "<p>Relative to the test agent, when does the equivalence agent run?</p>",
+            "answers": [
+              {
+                "text": "Before the test agent, so uncatchable mutants are removed first",
+                "fraction": 100,
+                "feedback": "Correct \u2014 screening precedes test generation to avoid wasted effort."
+              },
+              {
+                "text": "After the test agent, to check the tests",
+                "fraction": 0,
+                "feedback": "Equivalence is judged on mutants, before the test agent writes tests."
+              },
+              {
+                "text": "In parallel with the mutation agent",
+                "fraction": 0,
+                "feedback": "It runs after the mutation agent and before the test agent."
+              },
+              {
+                "text": "Only after CI rejects a flaky test",
+                "fraction": 0,
+                "feedback": "Equivalence judging is unrelated to CI's flakiness gate and comes earlier."
+              }
+            ],
+            "generalFeedback": "The equivalence agent runs after the mutation agent and before the test agent, filtering out equivalent mutants so the test agent only works on catchable ones.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of comment stripping on scores",
+            "text": "<p>What happens to the equivalence agent's precision and recall after comment stripping is added?</p>",
+            "answers": [
+              {
+                "text": "They rise from about 0.79/0.47 to about 0.95/0.96",
+                "fraction": 100,
+                "feedback": "Correct \u2014 removing comment-diff noise sharply improves both metrics."
+              },
+              {
+                "text": "They fall from about 0.95/0.96 to about 0.79/0.47",
+                "fraction": 0,
+                "feedback": "The direction is reversed: preprocessing improves the scores."
+              },
+              {
+                "text": "They stay unchanged",
+                "fraction": 0,
+                "feedback": "Comment stripping produced a large, measured improvement."
+              },
+              {
+                "text": "Precision rises but recall drops to near zero",
+                "fraction": 0,
+                "feedback": "Both precision and recall rise, to about 0.95 and 0.96."
+              }
+            ],
+            "generalFeedback": "Without preprocessing the equivalence agent scored precision 0.79 and recall 0.47; stripping comments (which caused ~25% of false positives) lifted these to about 0.95 precision and 0.96 recall.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Engineer acceptance as a metric",
+            "text": "<p>Besides kill rate, which of these is reported as a metric for the pipeline?</p>",
+            "answers": [
+              {
+                "text": "Engineer acceptance of the generated tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 whether engineers actually accept the tests is a headline metric."
+              },
+              {
+                "text": "Number of comments per mutant",
+                "fraction": 0,
+                "feedback": "Comments matter only as a preprocessing nuisance for the judge, not as a headline metric."
+              },
+              {
+                "text": "Lines of code deleted per run",
+                "fraction": 0,
+                "feedback": "That is not a reported pipeline metric."
+              },
+              {
+                "text": "Number of agents in the flow",
+                "fraction": 0,
+                "feedback": "The agent count is fixed at three; it is not an evaluation metric."
+              }
+            ],
+            "generalFeedback": "Engineer acceptance \u2014 whether engineers actually adopt the generated tests \u2014 is a reported metric, reflecting that a high kill rate alone is not the only measure of value.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Missed-equivalence failure mode",
+            "text": "<p>An equivalent mutant slips through and is handed to the test agent, which then wastes effort trying to kill it. Which agent's failure mode is this?</p>",
+            "answers": [
+              {
+                "text": "The equivalence agent \u2014 it failed to recognise an equivalent mutant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 missing an equivalent mutant (low recall) sends uncatchable work downstream."
+              },
+              {
+                "text": "The mutation agent \u2014 it produced invalid code",
+                "fraction": 0,
+                "feedback": "The mutant here is valid but equivalent; the miss is the judge's."
+              },
+              {
+                "text": "The test agent \u2014 it wrote a flaky test",
+                "fraction": 0,
+                "feedback": "The wasted effort stems from an equivalent mutant reaching the test agent, a judging miss."
+              },
+              {
+                "text": "CI \u2014 it failed to reject the test",
+                "fraction": 0,
+                "feedback": "The root cause is the equivalence agent letting an equivalent mutant through."
+              }
+            ],
+            "generalFeedback": "Letting an equivalent (uncatchable) mutant through to the test agent is an equivalence-agent failure \u2014 a recall miss. The test agent then wastes effort on a mutant no test can kill.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Higher kill rate, more equivalents",
+            "text": "<p>The LLM-guided pipeline achieves a higher kill rate than rule-based mutation but at the cost of a higher equivalent-mutant rate.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ~15% kill rate vs ~2.4%, but ~25% equivalent mutants vs ~10&#8211;15%."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The trade-off is real: higher kill rate (15% vs 2.4%) but more equivalent mutants (~25% vs ~10&#8211;15%)."
+              }
+            ],
+            "generalFeedback": "Targeting specific fault classes lifts the kill rate from ~2.4% to ~15%, but also raises the equivalent-mutant rate to ~25% (vs ~10&#8211;15% for rule-based), which is why the equivalence agent is added."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the higher kill rate",
+            "text": "<p>What is credited with the LLM-guided pipeline's much higher kill rate?</p>",
+            "answers": [
+              {
+                "text": "Targeting specific fault classes rather than generic syntactic tweaks",
+                "fraction": 100,
+                "feedback": "Correct \u2014 aiming at real fault classes yields far more killable, meaningful mutants."
+              },
+              {
+                "text": "Producing far fewer mutants overall",
+                "fraction": 0,
+                "feedback": "The kill rate gain comes from what is targeted, not from producing fewer mutants."
+              },
+              {
+                "text": "Skipping the equivalence-judging step",
+                "fraction": 0,
+                "feedback": "The equivalence step is added, not skipped; the kill rate comes from fault-class targeting."
+              },
+              {
+                "text": "Running each test only once",
+                "fraction": 0,
+                "feedback": "Run count is unrelated to the kill-rate improvement."
+              }
+            ],
+            "generalFeedback": "The jump from ~2.4% to ~15% kill rate is credited to the LLM targeting specific fault classes, which the coverage-blind rule-based baseline cannot do.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Quality gates on generated tests",
+            "text": "<p>Why does the pipeline need quality gates on the test agent's output?</p>",
+            "answers": [
+              {
+                "text": "Because the test agent can produce flaky or otherwise invalid tests that must be filtered out",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flaky tests and tests that fail on both original and mutant must be rejected."
+              },
+              {
+                "text": "Because the mutation agent never produces valid mutants",
+                "fraction": 0,
+                "feedback": "The gates target the test agent's output; the mutation agent's invalid mutants are handled separately."
+              },
+              {
+                "text": "To increase the equivalent-mutant rate",
+                "fraction": 0,
+                "feedback": "Gates filter bad tests; they do not affect the equivalent-mutant rate."
+              },
+              {
+                "text": "To make the equivalence agent unnecessary",
+                "fraction": 0,
+                "feedback": "The equivalence agent is still needed; quality gates handle a different problem (bad tests)."
+              }
+            ],
+            "generalFeedback": "The test agent can emit flaky (non-deterministic) tests or tests that fail on both the original and the mutant. Quality gates (e.g. CI checks) filter these out so only valid mutation-killing tests remain.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Trade-off drives the equivalence judge",
+            "text": "<p>Which chain of reasoning best explains why the pipeline includes an equivalence agent at all?</p>",
+            "answers": [
+              {
+                "text": "Targeting fault classes raises the kill rate but also the equivalent-mutant rate (~25%), so a judge is needed to drop uncatchable mutants before the costly test step",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the equivalence agent is the direct response to the higher equivalent-mutant rate."
+              },
+              {
+                "text": "The LLM produces fewer equivalent mutants, so a judge cheaply confirms there are none",
+                "fraction": 0,
+                "feedback": "The LLM produces more equivalent mutants, not fewer; that is why the judge is required."
+              },
+              {
+                "text": "Rule-based mutation needs the judge, and the LLM pipeline just inherits it",
+                "fraction": 0,
+                "feedback": "The judge is motivated by the LLM's own higher equivalent-mutant rate, not inherited from rule-based mutation."
+              },
+              {
+                "text": "The judge exists only to raise the kill-rate number",
+                "fraction": 0,
+                "feedback": "The judge removes uncatchable mutants; it does not manufacture kills."
+              }
+            ],
+            "generalFeedback": "Because the LLM-guided mutation agent targets specific fault classes, it kills more mutants (~15% vs ~2.4%) but also generates more equivalent ones (~25% vs ~10&#8211;15%). The equivalence agent is the pipeline's response: it filters those uncatchable mutants out before the expensive test-generation step.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpreting recall 0.47",
+            "text": "<p>The equivalence agent's recall without preprocessing was only 0.47. In this pipeline, what does that low recall concretely cost?</p>",
+            "answers": [
+              {
+                "text": "Many truly-equivalent mutants are missed and passed to the test agent, which wastes effort trying to kill uncatchable mutants",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 low recall on "equivalent" means many equivalents slip through downstream.'
+              },
+              {
+                "text": "Many non-equivalent mutants are wrongly discarded, so real bugs go untested",
+                "fraction": 0,
+                "feedback": "That describes low precision, not low recall."
+              },
+              {
+                "text": "The mutation agent produces fewer mutants",
+                "fraction": 0,
+                "feedback": "Recall of the judge does not change how many mutants the mutation agent generates."
+              },
+              {
+                "text": "Tests become flaky in CI",
+                "fraction": 0,
+                "feedback": "Flakiness is a test-agent issue, unrelated to the judge's recall."
+              }
+            ],
+            "generalFeedback": "Recall of 0.47 means the judge caught fewer than half of the truly-equivalent mutants. The missed ones flow to the test agent, which then wastes effort attempting to kill mutants that no test can ever kill. Comment stripping lifted recall to ~0.96.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpreting precision 0.79",
+            "text": "<p>The equivalence agent's precision without preprocessing was 0.79. What does a precision below 1.0 cost here?</p>",
+            "answers": [
+              {
+                "text": 'Some mutants labelled "equivalent" are actually non-equivalent, so genuinely killable mutants are wrongly dropped and never get a test',
+                "fraction": 100,
+                "feedback": 'Correct \u2014 false positives on "equivalent" discard catchable mutants.'
+              },
+              {
+                "text": "Some equivalent mutants are missed and reach the test agent",
+                "fraction": 0,
+                "feedback": 'That is a recall problem; precision concerns wrong "equivalent" labels.'
+              },
+              {
+                "text": "The kill rate is inflated to 15%",
+                "fraction": 0,
+                "feedback": "The 15% kill rate comes from fault-class targeting, not from judge precision."
+              },
+              {
+                "text": "Mutants fail to compile more often",
+                "fraction": 0,
+                "feedback": "Compilation is a mutation-agent concern, not a function of judge precision."
+              }
+            ],
+            "generalFeedback": 'Precision 0.79 means about a fifth of the mutants the judge called "equivalent" were not \u2014 those genuinely killable mutants are wrongly filtered out and never receive a test. Comment differences caused ~25% of these false positives; stripping comments raised precision to ~0.95.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why comment stripping fixes false positives",
+            "text": "<p>Why would stripping comments specifically reduce the equivalence agent's false positives?</p>",
+            "answers": [
+              {
+                "text": 'Comment-only differences do not change behaviour, yet were nudging the judge toward "equivalent"; removing them lets it compare actual logic \u2014 and they were ~25% of false positives',
+                "fraction": 100,
+                "feedback": "Correct \u2014 comment diffs are behaviour-neutral noise that skewed the judgment."
+              },
+              {
+                "text": "Comments change program behaviour, so removing them changes the mutant",
+                "fraction": 0,
+                "feedback": "Comments do not affect behaviour; that is exactly why they are noise for the judge."
+              },
+              {
+                "text": "Stripping comments speeds up compilation and avoids timeouts",
+                "fraction": 0,
+                "feedback": "The benefit is judging accuracy, not compile time."
+              },
+              {
+                "text": "Comments are where the mutation agent hides invalid code",
+                "fraction": 0,
+                "feedback": "The issue is behaviour-neutral comment diffs confusing the judge, not hidden invalid code."
+              }
+            ],
+            "generalFeedback": "Comment differences are behaviour-neutral, but they were skewing the judge's decisions and caused about 25% of its false positives. Stripping comments as preprocessing lets the judge compare the real logic, raising precision/recall from 0.79/0.47 to ~0.95/0.96.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why rule-based misses fault classes",
+            "text": "<p>Why does the coverage-blind, rule-based baseline achieve only ~2.4% kill rate compared with the LLM's ~15%?</p>",
+            "answers": [
+              {
+                "text": "It applies generic syntactic operators without domain or issue awareness, so it rarely targets the fault classes that matter",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without domain/issue awareness it cannot aim at meaningful faults."
+              },
+              {
+                "text": "It produces too few mutants to kill any",
+                "fraction": 0,
+                "feedback": "Rule-based mutation typically produces many mutants; the problem is relevance, not quantity."
+              },
+              {
+                "text": "It strips comments and loses information",
+                "fraction": 0,
+                "feedback": "Comment stripping is an equivalence-agent preprocessing step, not a rule-based limitation."
+              },
+              {
+                "text": "Its equivalence agent is too aggressive",
+                "fraction": 0,
+                "feedback": "The rule-based baseline is not the one gaining a dedicated equivalence agent; its low kill rate is about lack of domain awareness."
+              }
+            ],
+            "generalFeedback": "Rule-based mutation is domain- and issue-blind: it applies generic operators everywhere and rarely hits the specific fault classes that matter, so its kill rate stays around 2.4%. The LLM-guided approach targets those fault classes, reaching ~15%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom: test fails on original and mutant",
+            "text": "<p>Symptom: a generated test fails on the original program as well as on the mutant. Which agent's failure best explains this, and why?</p>",
+            "answers": [
+              {
+                "text": "The test agent \u2014 a valid killing test must pass on the original and fail on the mutant; failing on both means a build/logic error in the test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test cannot be distinguishing anything if it also fails on the original."
+              },
+              {
+                "text": "The equivalence agent \u2014 it should have caught this as equivalent",
+                "fraction": 0,
+                "feedback": "Equivalence would make the test pass on both, not fail on both; the fault is in the test."
+              },
+              {
+                "text": "The mutation agent \u2014 the mutant is invalid",
+                "fraction": 0,
+                "feedback": "An invalid mutant would not build at all; here a test runs and fails on both versions."
+              },
+              {
+                "text": "CI \u2014 it mislabelled a passing test as failing",
+                "fraction": 0,
+                "feedback": "The consistent failure on both versions points to a broken generated test, not a CI mislabel."
+              }
+            ],
+            "generalFeedback": "A correct mutation-killing test passes on the original and fails on the mutant. Failing on both means the test itself is broken (build or logic error) \u2014 a test-agent failure mode, distinct from an equivalent mutant (passes on both) or an invalid mutant (won't build).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom: mutant will not build",
+            "text": "<p>Symptom: the artifact under test will not compile because a mutant is syntactically malformed. Which agent is responsible?</p>",
+            "answers": [
+              {
+                "text": "The mutation agent \u2014 emitting syntactically invalid code that fails to build is its failure mode",
+                "fraction": 100,
+                "feedback": "Correct \u2014 invalid, non-building mutants come from the mutation agent."
+              },
+              {
+                "text": "The test agent \u2014 its test has a build error",
+                "fraction": 0,
+                "feedback": "Here it is the mutant, not a test, that fails to build."
+              },
+              {
+                "text": "The equivalence agent \u2014 it corrupted the mutant while judging",
+                "fraction": 0,
+                "feedback": "The equivalence agent judges; it does not produce malformed mutants."
+              },
+              {
+                "text": "CI \u2014 the build environment is misconfigured",
+                "fraction": 0,
+                "feedback": "The malformed mutant is generated by the mutation agent, independent of CI setup."
+              }
+            ],
+            "generalFeedback": "A mutant that is syntactically invalid and fails to build is a mutation-agent failure mode. Such mutants are discarded before the rest of the pipeline runs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom: uncatchable mutant wastes the test agent",
+            "text": "<p>Symptom: the test agent repeatedly fails to kill one particular mutant no matter what test it writes, and analysis shows the mutant is behaviourally identical to the original. Which agent should have prevented this?</p>",
+            "answers": [
+              {
+                "text": "The equivalence agent \u2014 it should have judged this mutant equivalent and removed it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an uncatchable mutant reaching the test agent is a missed-equivalence (recall) failure."
+              },
+              {
+                "text": "The test agent \u2014 it just needs a better test",
+                "fraction": 0,
+                "feedback": "No test can kill an equivalent mutant; the fix is to filter it, which is the judge's job."
+              },
+              {
+                "text": "The mutation agent \u2014 it should not generate any equivalent mutants",
+                "fraction": 0,
+                "feedback": "The LLM inevitably produces some (~25%); the equivalence agent exists precisely to catch them."
+              },
+              {
+                "text": "CI \u2014 it should have skipped the mutant",
+                "fraction": 0,
+                "feedback": "CI runs tests; deciding equivalence is the equivalence agent's role."
+              }
+            ],
+            "generalFeedback": "A behaviourally-identical (equivalent) mutant can never be killed. If it reaches the test agent, the equivalence agent missed it \u2014 a recall failure. This is exactly the waste the equivalence agent (with comment-stripping preprocessing lifting recall to ~0.96) is meant to prevent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why kill rate alone is insufficient",
+            "text": "<p>Why does the pipeline report engineer acceptance rather than relying on kill rate alone?</p>",
+            "answers": [
+              {
+                "text": "A test can kill a mutant yet still be flaky, hard to read, or otherwise unwanted, so engineer acceptance measures real-world value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killing a mutant does not guarantee a test engineers will actually keep."
+              },
+              {
+                "text": "Kill rate cannot be measured for LLM-generated tests",
+                "fraction": 0,
+                "feedback": "Kill rate is measured (2.4% vs 15%); acceptance is an additional, complementary metric."
+              },
+              {
+                "text": "Engineer acceptance is identical to the kill rate",
+                "fraction": 0,
+                "feedback": "They are different metrics; acceptance captures value the kill rate misses."
+              },
+              {
+                "text": "Acceptance replaces the need for an equivalence agent",
+                "fraction": 0,
+                "feedback": "Acceptance is an outcome metric; the equivalence agent addresses a different problem."
+              }
+            ],
+            "generalFeedback": "A high kill rate does not mean a test is one engineers will adopt: it may be flaky, unreadable, or low-value. Reporting engineer acceptance captures whether the generated tests deliver real, kept-in-the-suite value, not just mutant kills.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why filter flaky and invalid outputs",
+            "text": "<p>Why is a filtering/acceptance gate essential given the test agent's and mutation agent's failure modes?</p>",
+            "answers": [
+              {
+                "text": "Without gates, flaky tests and tests that fail on both versions (and invalid mutants) would pollute the suite, so they must be filtered before acceptance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 gates keep unreliable and broken outputs out of the delivered suite."
+              },
+              {
+                "text": "Gates increase the equivalent-mutant rate to make the judge's job easier",
+                "fraction": 0,
+                "feedback": "Gates filter bad outputs; they do not manipulate the equivalent-mutant rate."
+              },
+              {
+                "text": "Gates let the pipeline skip the equivalence agent",
+                "fraction": 0,
+                "feedback": "The equivalence agent remains; gates handle a separate problem (bad tests and mutants)."
+              },
+              {
+                "text": "Gates convert equivalent mutants into killable ones",
+                "fraction": 0,
+                "feedback": "Nothing can make an equivalent mutant killable; gates only filter outputs."
+              }
+            ],
+            "generalFeedback": "The mutation agent can emit invalid mutants, and the test agent can emit flaky tests or tests that fail on both original and mutant. A filtering/acceptance gate keeps these unreliable or broken artifacts out of the final suite, so only valid, deterministic mutation-killing tests are accepted.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Net effect of preprocessing on the flow",
+            "text": "<p>After comment stripping raises the equivalence agent to ~0.95 precision / ~0.96 recall, what is the net effect on the downstream test agent?</p>",
+            "answers": [
+              {
+                "text": "Fewer equivalent mutants slip through and fewer killable mutants are wrongly dropped, so the test agent spends its effort on genuinely killable mutants",
+                "fraction": 100,
+                "feedback": "Correct \u2014 high precision and recall together mean the test agent gets a cleaner, catchable input set."
+              },
+              {
+                "text": "The test agent now also has to judge equivalence itself",
+                "fraction": 0,
+                "feedback": "Judging stays with the equivalence agent; preprocessing just makes its output cleaner."
+              },
+              {
+                "text": "The mutation agent stops producing equivalent mutants",
+                "fraction": 0,
+                "feedback": "The mutation agent still produces ~25% equivalents; the judge just filters them better."
+              },
+              {
+                "text": "The kill rate drops below the rule-based 2.4%",
+                "fraction": 0,
+                "feedback": "Better filtering does not lower the kill rate; it focuses the test agent on catchable mutants."
+              }
+            ],
+            "generalFeedback": "High recall (~0.96) means few equivalent mutants slip through to waste the test agent; high precision (~0.95) means few catchable mutants are wrongly discarded. Together they give the test agent a clean set of genuinely killable mutants to target.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Cost accepted for a higher kill rate",
+            "text": "<p>The pipeline accepts a higher equivalent-mutant rate (~25%) as a deliberate cost. What does it buy, and how is the cost contained?</p>",
+            "answers": [
+              {
+                "text": "It buys a much higher kill rate (~15% vs ~2.4%) by targeting fault classes; the cost is contained by the equivalence agent that filters the extra equivalents",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the equivalence judge is the containment mechanism for the extra equivalents."
+              },
+              {
+                "text": "It buys faster builds; the cost is contained by CI",
+                "fraction": 0,
+                "feedback": "The payoff is a higher kill rate, and the containment is the equivalence agent, not build speed."
+              },
+              {
+                "text": "It buys fewer mutants overall; the cost is contained by the test agent",
+                "fraction": 0,
+                "feedback": "The gain is kill rate from fault-class targeting; equivalents are contained by the judge."
+              },
+              {
+                "text": "It buys nothing; the extra equivalents are pure loss",
+                "fraction": 0,
+                "feedback": "They are the price of the ~15% kill rate, and the equivalence agent limits their downstream cost."
+              }
+            ],
+            "generalFeedback": "Targeting specific fault classes lifts the kill rate to ~15% but raises the equivalent-mutant rate to ~25%. The equivalence agent (with comment-stripping preprocessing) contains that cost by filtering the extra equivalent mutants before the test agent runs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Distinguishing equivalent vs broken test",
+            "text": "<p>Two symptoms: (A) a test passes on both the original and the mutant; (B) a test fails on both. Which diagnosis is correct?</p>",
+            "answers": [
+              {
+                "text": "A points to an equivalent (or unkilled) mutant, an equivalence-agent concern; B points to a broken test, a test-agent concern",
+                "fraction": 100,
+                "feedback": "Correct \u2014 passing on both means no distinction (equivalence); failing on both means the test is broken."
+              },
+              {
+                "text": "Both A and B mean the test agent wrote a flaky test",
+                "fraction": 0,
+                "feedback": "Flakiness is non-determinism across runs; neither A nor B is about run-to-run variance."
+              },
+              {
+                "text": "Both A and B mean the mutant failed to build",
+                "fraction": 0,
+                "feedback": "A mutant that fails to build would not run at all; in both A and B a test executes."
+              },
+              {
+                "text": "A means a broken test; B means an equivalent mutant",
+                "fraction": 0,
+                "feedback": "This reverses the two: passing on both is the equivalence signal, failing on both is the broken-test signal."
+              }
+            ],
+            "generalFeedback": "Passing on both original and mutant (A) means the test cannot distinguish them \u2014 the mutant is equivalent or simply unkilled, an equivalence-agent concern. Failing on both (B) means the test is broken (build/logic error) \u2014 a test-agent concern. The two symptoms map to different agents.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Ordering rationale",
+            "text": "<p>Why is equivalence judging placed before, rather than after, test generation?</p>",
+            "answers": [
+              {
+                "text": "So the expensive test agent is never asked to kill uncatchable mutants, saving effort on equivalents that no test could kill",
+                "fraction": 100,
+                "feedback": "Correct \u2014 screening first avoids wasted test-generation work."
+              },
+              {
+                "text": "So the equivalence agent can read the generated tests",
+                "fraction": 0,
+                "feedback": "It judges mutants, not tests, and runs before test generation."
+              },
+              {
+                "text": "Because equivalence can only be judged once a killing test exists",
+                "fraction": 0,
+                "feedback": "Equivalence is a property of the mutant vs the original, independent of any generated test."
+              },
+              {
+                "text": "To raise the equivalent-mutant rate before testing",
+                "fraction": 0,
+                "feedback": "Ordering does not change the rate; it avoids wasting the test agent on equivalents."
+              }
+            ],
+            "generalFeedback": "Test generation is the expensive step. Filtering equivalent mutants first means the test agent is never asked to kill a mutant that no test could ever kill, so the pipeline spends its costly effort only on genuinely catchable mutants.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Consequence of disabling the equivalence agent",
+            "text": "<p>A team disables the equivalence agent to save a step. Given the LLM mutation agent's ~25% equivalent-mutant rate, what is the most likely consequence?</p>",
+            "answers": [
+              {
+                "text": "Roughly a quarter of mutants reaching the test agent are uncatchable, so it wastes effort trying to kill mutants no test can ever kill",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with ~25% equivalents unfiltered, much test-agent effort is spent on uncatchable mutants."
+              },
+              {
+                "text": "The kill rate rises above 15% because more mutants are attempted",
+                "fraction": 0,
+                "feedback": "Attempting equivalent mutants cannot kill them, so the kill rate does not improve."
+              },
+              {
+                "text": "The mutation agent stops producing equivalent mutants",
+                "fraction": 0,
+                "feedback": "The mutation agent's ~25% equivalent rate is unchanged; only the filter is gone."
+              },
+              {
+                "text": "Flaky tests are eliminated",
+                "fraction": 0,
+                "feedback": "Flakiness is a separate test-agent quality-gate issue, unaffected by removing the equivalence judge."
+              }
+            ],
+            "generalFeedback": "Without the equivalence agent, the ~25% of mutants that are equivalent flow straight to the test agent, which then wastes effort on mutants that no test can kill. That wasted work is exactly what the equivalence agent (with comment-stripping preprocessing) is there to prevent.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B\u4EE3\u7406\u7684\u57F7\u884C\u9806\u5E8F",
+            "text": "<p>\u6B64 LLM \u6E2C\u8A66\u751F\u6210\u6D41\u6C34\u7DDA\uFF08Meta \u7684 ACH \u6D41\u7A0B\uFF0CFSE 2025\uFF09\u4E32\u63A5\u4E09\u500B\u4EE3\u7406\u3002\u5B83\u5011\u7684\u57F7\u884C\u9806\u5E8F\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\uFF08Mutation agent\uFF09&#8594; \u7B49\u50F9\u4EE3\u7406\uFF08Equivalence agent\uFF09&#8594; \u6E2C\u8A66\u4EE3\u7406\uFF08Test agent\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u7522\u751F\u7A81\u8B8A\u9AD4\uFF0C\u518D\u7BE9\u6389\u7B49\u50F9\u7684\uFF0C\u6700\u5F8C\u5C0D\u5B58\u6D3B\u8005\u751F\u6210\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\uFF08Test agent\uFF09&#8594; \u7A81\u8B8A\u4EE3\u7406\uFF08Mutation agent\uFF09&#8594; \u7B49\u50F9\u4EE3\u7406\uFF08Equivalence agent\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6700\u5F8C\u624D\u5BEB\uFF0C\u7528\u4F86\u6BBA\u6389\u901A\u904E\u7BE9\u9078\u3001\u975E\u7B49\u50F9\u7684\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\uFF08Equivalence agent\uFF09&#8594; \u7A81\u8B8A\u4EE3\u7406\uFF08Mutation agent\uFF09&#8594; \u6E2C\u8A66\u4EE3\u7406\uFF08Test agent\uFF09",
+                "fraction": 0,
+                "feedback": "\u5728\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u7A81\u8B8A\u9AD4\u4E4B\u524D\uFF0C\u6C92\u6709\u6771\u897F\u53EF\u4F9B\u7B49\u50F9\u5224\u65B7\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\uFF08Mutation agent\uFF09&#8594; \u6E2C\u8A66\u4EE3\u7406\uFF08Test agent\uFF09&#8594; \u7B49\u50F9\u4EE3\u7406\uFF08Equivalence agent\uFF09",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u7BE9\u9078\u767C\u751F\u5728\u6E2C\u8A66\u751F\u6210\u4E4B\u524D\uFF0C\u6E2C\u8A66\u4EE3\u7406\u624D\u4E0D\u6703\u88AB\u8981\u6C42\u53BB\u6BBA\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u6D41\u6C34\u7DDA\u662F\u4E09\u4EE3\u7406\u6D41\u7A0B\uFF0C\u9806\u5E8F\u70BA Mutation &#8594; Equivalence &#8594; Test\uFF1A\u7A81\u8B8A\u4EE3\u7406\u690D\u5165\u932F\u8AA4\uFF0C\u7B49\u50F9\u4EE3\u7406\u6FFE\u9664\u7121\u6CD5\u6BBA\uFF08\u7B49\u50F9\uFF09\u7684\u7A81\u8B8A\u9AD4\uFF0C\u6E2C\u8A66\u4EE3\u7406\u518D\u5C0D\u5176\u9918\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u751F\u6210\u80FD\u6BBA\u6389\u5B83\u5011\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A81\u8B8A\u4EE3\u7406\u7684\u8077\u8CAC",
+            "text": "<p><strong>\u4EE3\u7406 1</strong>\u2014\u2014<em>\u7A81\u8B8A\u4EE3\u7406\uFF08Mutation agent\uFF09</em>\u2014\u2014\u7684\u8077\u8CAC\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7522\u751F\u91DD\u5C0D\u7279\u5B9A\u932F\u8AA4\u985E\u5225\uFF08fault classes\uFF09\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u4EE3\u7406\u690D\u5165\u5C08\u9580\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u7684\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u67D0\u500B\u7A81\u8B8A\u9AD4\u662F\u5426\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u80FD\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u4EE3\u7406\uFF08\u4EE3\u7406 3\uFF09\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u57F7\u884C CI \u6D41\u6C34\u7DDA\u4E26\u62D2\u7D55\u4E0D\u7A69\u5B9A\uFF08flaky\uFF09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E0D\u7A69\u5B9A\u6027\u662F\u5C0D\u6E2C\u8A66\u4EE3\u7406\u8F38\u51FA\u7684\u54C1\u8CEA\u95DC\u5361\uFF0C\u4E0D\u662F\u7A81\u8B8A\u4EE3\u7406\u7684\u8077\u8CAC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09\u7522\u751F\u7A81\u8B8A\u9AD4\uFF0C\u4E26\u523B\u610F\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\uFF0C\u800C\u975E\u76F2\u76EE\u505A\u8A9E\u6CD5\u4E0A\u7684\u5C0F\u66F4\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\u4EE3\u7406\u7684\u8077\u8CAC",
+            "text": "<p><strong>\u4EE3\u7406 2</strong>\u2014\u2014<em>\u7B49\u50F9\u4EE3\u7406\uFF08Equivalence agent\uFF09</em>\u2014\u2014\u7684\u8077\u8CAC\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5224\u65B7\u67D0\u7A81\u8B8A\u9AD4\u662F\u5426\u8207\u539F\u59CB\u7A0B\u5F0F\u7B49\u50F9\uFF08\u7121\u6CD5\u6BBA\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u4F5C\u70BA LLM-as-judge\uFF0C\u6FFE\u9664\u4EFB\u4F55\u6E2C\u8A66\u90FD\u6BBA\u4E0D\u6389\u7684\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u4E00\u958B\u59CB\u5C31\u7522\u751F\u90A3\u4E9B\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u7A81\u8B8A\u9AD4\u662F\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09\u7684\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u751F\u6210\u80FD\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u64B0\u5BEB\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u662F\u6E2C\u8A66\u4EE3\u7406\uFF08\u4EE3\u7406 3\uFF09\u7684\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u6240\u5F97\u6E2C\u8A66\u5957\u4EF6\u7684\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u4EE3\u7406\u5224\u65B7\u7B49\u50F9\u6027\uFF0C\u4E0D\u8A08\u7B97\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09\u662F LLM-as-judge\uFF0C\u5224\u65B7\u67D0\u7A81\u8B8A\u9AD4\u662F\u5426\u7B49\u50F9\u2014\u2014\u5373\u5728\u8A9E\u610F\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u76F8\u540C\u3001\u4EFB\u4F55\u6E2C\u8A66\u90FD\u6BBA\u4E0D\u6389\u2014\u2014\u56E0\u6B64\u9019\u4E9B\u7A81\u8B8A\u9AD4\u6703\u5728\u6E2C\u8A66\u4EE3\u7406\u57F7\u884C\u524D\u88AB\u79FB\u9664\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u4EE3\u7406\u7684\u8077\u8CAC",
+            "text": "<p><strong>\u4EE3\u7406 3</strong>\u2014\u2014<em>\u6E2C\u8A66\u4EE3\u7406\uFF08Test agent\uFF09</em>\u2014\u2014\u7684\u8077\u8CAC\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u751F\u6210\u80FD\u6BBA\u6389\u300C\u975E\u7B49\u50F9\u300D\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u4EE3\u7406\u5BEB\u51FA\u4E00\u500B\u80FD\u8B93\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u7A0B\u5F0F\u7D50\u679C\u4E0D\u540C\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u7522\u751F\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09\u3002"
+              },
+              {
+                "text": "\u5224\u65B7\u7A81\u8B8A\u9AD4\u662F\u5426\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09\u3002"
+              },
+              {
+                "text": "\u5728\u5224\u65B7\u524D\u628A\u539F\u59CB\u78BC\u4E2D\u7684\u8A3B\u89E3\u53BB\u9664",
+                "fraction": 0,
+                "feedback": "\u53BB\u9664\u8A3B\u89E3\u662F\u7B49\u50F9\u4EE3\u7406\u7684\u524D\u8655\u7406\u6B65\u9A5F\uFF0C\u4E0D\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u5DE5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u4EE3\u7406\uFF08\u4EE3\u7406 3\uFF09\u5C0D\u7B49\u50F9\u4EE3\u7406\u5224\u5B9A\u70BA\u975E\u7B49\u50F9\u7684\u7A81\u8B8A\u9AD4\uFF0C\u751F\u6210\u80FD\u6BBA\u6389\u5B83\u7684\u6E2C\u8A66\u2014\u2014\u5373\u5728\u7A81\u8B8A\u9AD4\u4E0A\u7522\u751F\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\u7D50\u679C\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300C\u6BBA\u6389\u7A81\u8B8A\u9AD4\u300D\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u6B64\u6D41\u6C34\u7DDA\u4E2D\uFF0C\u4E00\u500B\u6E2C\u8A66\u300C\u6BBA\u6389\uFF08kill\uFF09\u300D\u4E00\u500B\u7A81\u8B8A\u9AD4\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u6E2C\u8A66\u5728\u7A81\u8B8A\u9AD4\u4E0A\u7522\u751F\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\u7684\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u7A0B\u5F0F\u4E4B\u9593\u53EF\u89C0\u5BDF\u5230\u7684\u5DEE\u7570\u5C31\u662F\u300C\u6BBA\u6389\u300D\u3002"
+              },
+              {
+                "text": "\u8A72\u6E2C\u8A66\u5728\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0A\u90FD\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u82E5\u5728\u5169\u8005\u4E0A\u90FD\u901A\u904E\uFF0C\u4EE3\u8868\u7121\u6CD5\u5340\u5206\u5B83\u5011\uFF0C\u4E26\u672A\u6BBA\u6389\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u8A72\u7A81\u8B8A\u9AD4\u88AB\u5F9E\u539F\u59CB\u78BC\u6A39\u4E2D\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u300C\u6BBA\u6389\u300D\u662F\u6307\u88AB\u6E2C\u8A66\u5075\u6E2C\u5230\uFF0C\u800C\u975E\u628A\u7A81\u8B8A\u9AD4\u5F9E\u78C1\u789F\u79FB\u9664\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u628A\u8A72\u7A81\u8B8A\u9AD4\u6A19\u8A18\u70BA\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u88AB\u6A19\u8A18\u70BA\u7B49\u50F9\u7684\u7A81\u8B8A\u9AD4\u6B63\u662F\u6C38\u9060\u6BBA\u4E0D\u6389\u7684\u90A3\u7A2E\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u67D0\u6E2C\u8A66\u5728\u7A81\u8B8A\u9AD4\u4E0A\u7522\u751F\u8207\u539F\u59CB\u7A0B\u5F0F\u4E0D\u540C\u3001\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\u6642\uFF0C\u8A72\u7A81\u8B8A\u9AD4\u5C31\u88AB\u6BBA\u6389\u3002\u6E2C\u8A66\u4EE3\u7406\u7684\u6574\u500B\u91CD\u9EDE\u5C31\u662F\u751F\u6210\u9019\u7A2E\u80FD\u6BBA\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B64\u8655\u300C\u7B49\u50F9\u7A81\u8B8A\u9AD4\u300D\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u6B64\u6D41\u6C34\u7DDA\u4E2D\uFF0C<em>\u7B49\u50F9\uFF08equivalent\uFF09</em>\u7A81\u8B8A\u9AD4\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u884C\u70BA\u8207\u539F\u59CB\u7A0B\u5F0F\u5B8C\u5168\u76F8\u540C\uFF0C\u56E0\u6B64\u4EFB\u4F55\u6E2C\u8A66\u90FD\u6BBA\u4E0D\u6389\u5B83\uFF08\u7121\u6CD5\u6BBA\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u7B49\u50F9\u4EE3\u7406\u8981\u5728\u6E2C\u8A66\u4EE3\u7406\u57F7\u884C\u524D\u628A\u5B83\u6FFE\u6389\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u88AB\u6E2C\u8A66\u4EE3\u7406\u751F\u6210\u7684\u6BCF\u500B\u6E2C\u8A66\u6BBA\u6389",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F88\u5BB9\u6613\u88AB\u6BBA\u7684\u7A81\u8B8A\u9AD4\uFF0C\u8207\u7B49\u50F9\u7A81\u8B8A\u9AD4\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u7DE8\u8B6F\u3001\u88AB\u5EFA\u7F6E\u6D41\u7A0B\u4E1F\u68C4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7121\u6548\u7A0B\u5F0F\u78BC\uFF08\u7A81\u8B8A\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF09\uFF0C\u4E0D\u662F\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u662F\u4E00\u500B\u5728\u591A\u6B21 CI \u57F7\u884C\u9593\u975E\u6C7A\u5B9A\u6027\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E0D\u7A69\u5B9A\uFF08flaky\uFF09\u6E2C\u8A66\u2014\u2014\u6E2C\u8A66\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\u2014\u2014\u4E0D\u662F\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5728\u8A9E\u610F\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u76F8\u540C\uFF1A\u5C0D\u6BCF\u500B\u8F38\u5165\u90FD\u7522\u751F\u76F8\u540C\u884C\u70BA\uFF0C\u56E0\u6B64\u6C92\u6709\u6E2C\u8A66\u80FD\u5340\u5206\u5B83\u2014\u2014\u5B83\u7121\u6CD5\u88AB\u6BBA\u3002\u7B49\u50F9\u4EE3\u7406\u7684\u5B58\u5728\u5C31\u662F\u70BA\u4E86\u8FA8\u8B58\u4E26\u79FB\u9664\u9019\u985E\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u4EE3\u7406\u5224\u65B7\u7B49\u50F9\u6027",
+            "text": "<p>\u54EA\u500B\u4EE3\u7406\u8CA0\u8CAC\u5224\u65B7\u7A81\u8B8A\u9AD4\u662F\u5426\u7B49\u50F9\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u5224\u65B7\u7B49\u50F9\u6027\u7684 LLM-as-judge\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09",
+                "fraction": 0,
+                "feedback": "\u4EE3\u7406 1 \u7522\u751F\u7A81\u8B8A\u9AD4\uFF0C\u4E26\u4E0D\u5224\u65B7\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\uFF08\u4EE3\u7406 3\uFF09",
+                "fraction": 0,
+                "feedback": "\u4EE3\u7406 3 \u64B0\u5BEB\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\uFF1B\u7B49\u50F9\u6027\u5728\u5B83\u57F7\u884C\u524D\u5C31\u5DF2\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "CI \u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "CI \u57F7\u884C\u751F\u6210\u7684\u6E2C\u8A66\uFF0C\u4E26\u4E0D\u5224\u65B7\u7A81\u8B8A\u9AD4\u7684\u7B49\u50F9\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09\u662F\u5224\u65B7\u67D0\u7A81\u8B8A\u9AD4\u662F\u5426\u8207\u539F\u59CB\u7A0B\u5F0F\u7B49\u50F9\u7684 LLM-as-judge\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u4EE3\u7406\u751F\u6210\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66",
+            "text": "<p>\u54EA\u500B\u4EE3\u7406\u751F\u6210\u80FD\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\uFF08\u4EE3\u7406 3\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u4EE3\u7406\u751F\u6210\u80FD\u6BBA\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09",
+                "fraction": 0,
+                "feedback": "\u4EE3\u7406 1 \u7522\u751F\u7A81\u8B8A\u9AD4\uFF0C\u4E0D\u662F\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09",
+                "fraction": 0,
+                "feedback": "\u4EE3\u7406 2 \u5224\u65B7\u7B49\u50F9\u6027\uFF0C\u4E0D\u64B0\u5BEB\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5BE9\u67E5\u63A5\u53D7\u5EA6\u7684\u5DE5\u7A0B\u5E2B",
+                "fraction": 0,
+                "feedback": "\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u6216\u62D2\u7D55\u751F\u6210\u7684\u6E2C\u8A66\uFF0C\u4F46\u751F\u6210\u5B83\u5011\u7684\u662F\u4EE3\u7406 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u4EE3\u7406\uFF08\u4EE3\u7406 3\uFF09\u70BA\u4EA4\u4ED8\u7D66\u5B83\u7684\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u751F\u6210\u80FD\u6BBA\u6389\u5B83\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u4EE3\u7406\u7522\u751F\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u54EA\u500B\u4EE3\u7406\u7522\u751F\u7A81\u8B8A\u9AD4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE3\u7406 1 \u690D\u5165\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u7684\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09",
+                "fraction": 0,
+                "feedback": "\u4EE3\u7406 2 \u5224\u65B7\u4EE3\u7406 1 \u6240\u7522\u751F\u7684\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\uFF08\u4EE3\u7406 3\uFF09",
+                "fraction": 0,
+                "feedback": "\u4EE3\u7406 3 \u64B0\u5BEB\u6BBA\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\uFF0C\u4E0D\u662F\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u50C5\u662F\u57FA\u65BC\u898F\u5247\uFF08rule-based\uFF09\u7684\u8B8A\u7570\u5668",
+                "fraction": 0,
+                "feedback": "\u5728 LLM \u5C0E\u5F15\u6D41\u6C34\u7DDA\u4E2D\uFF0C\u7A81\u8B8A\u4EE3\u7406\u662F LLM\uFF1B\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u662F\u88AB\u6BD4\u8F03\u7684\u57FA\u6E96\u7DDA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09\u7522\u751F\u7A81\u8B8A\u9AD4\uFF0C\u4E26\u523B\u610F\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9818\u57DF\u611F\u77E5 vs \u57FA\u65BC\u898F\u5247",
+            "text": "<p>\u8207\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\u76F8\u6BD4\uFF0CLLM \u5C0E\u5F15\u65B9\u6CD5\u88AB\u63CF\u8FF0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5177\u5099\u9818\u57DF\u8207\u8B70\u984C\u611F\u77E5\uFF08domain- and issue-aware\uFF09\uFF0C\u800C\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u5247\u5426",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LLM \u80FD\u7784\u6E96\u8207\u9818\u57DF\u53CA\u7576\u4E0B\u8B70\u984C\u76F8\u95DC\u7684\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u8F03\u5FEB\uFF0C\u4F46\u5C0D\u9818\u57DF\u4E00\u7121\u6240\u77E5",
+                "fraction": 0,
+                "feedback": "\u5177\u9818\u57DF\u611F\u77E5\u7684\u662F LLM \u65B9\u6CD5\uFF1B\u9818\u57DF\u611F\u77E5\u662F\u5B83\u7684\u512A\u52E2\uFF0C\u800C\u975E\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u5728\u5404\u65B9\u9762\u90FD\u8207\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5DEE\u7570\u986F\u8457\u2014\u2014\u5C24\u5176\u5728\u6BBA\u6389\u7387\u8207\u9818\u57DF\u611F\u77E5\u4E0A\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225",
+                "fraction": 0,
+                "feedback": "\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u6B63\u662F LLM \u5C0E\u5F15\u65B9\u6CD5\u6240\u505A\u7684\u4E8B\u3002"
+              }
+            ],
+            "generalFeedback": "LLM \u5C0E\u5F15\u6D41\u6C34\u7DDA\u5177\u5099\u9818\u57DF\u8207\u8B70\u984C\u611F\u77E5\u2014\u2014\u80FD\u7784\u6E96\u5C0D\u53D7\u6E2C\u7A0B\u5F0F\u91CD\u8981\u7684\u932F\u8AA4\u985E\u5225\u2014\u2014\u800C\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\u5247\u5230\u8655\u5957\u7528\u901A\u7528\u8A9E\u6CD5\u904B\u7B97\u5B50\uFF0C\u6BEB\u7121\u6B64\u7A2E\u611F\u77E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "LLM-as-judge \u7684\u89D2\u8272",
+            "text": "<p>\u5728\u6B64\u6D41\u6C34\u7DDA\u4E2D\uFF0C\u300CLLM-as-judge\u300D\u4E00\u8A5E\u6307\u7684\u662F\u54EA\u500B\u4EE3\u7406\u7684\u904B\u4F5C\u65B9\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u5224\u65B7\u67D0\u7A81\u8B8A\u9AD4\u662F\u5426\u7B49\u50F9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u4F7F\u7528 LLM \u4F86\u5224\u65B7\u7B49\u50F9\u6027\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u70BA\u5B83\u690D\u5165\u4E86\u591A\u5C11\u932F\u8AA4\u6253\u5206",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u7A81\u8B8A\u9AD4\uFF1B\u64D4\u4EFB\u8A55\u5224\u89D2\u8272\u7684\u662F\u7B49\u50F9\u4EE3\u7406\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u70BA\u81EA\u5DF1\u7684\u6E2C\u8A66\u8A55\u5206",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u4EE3\u7406\u64B0\u5BEB\u6E2C\u8A66\uFF1B\u300C\u8A55\u5224\u8005\u300D\u662F\u7B49\u50F9\u4EE3\u7406\u3002"
+              },
+              {
+                "text": "CI \u5224\u65B7\u67D0\u6E2C\u8A66\u662F\u5426\u4E0D\u7A69\u5B9A",
+                "fraction": 0,
+                "feedback": "CI \u5957\u7528\u54C1\u8CEA\u95DC\u5361\uFF0C\u4F46\u300CLLM-as-judge\u300D\u6307\u7684\u662F\u7B49\u50F9\u4EE3\u7406\u3002"
+              }
+            ],
+            "generalFeedback": "\u300CLLM-as-judge\u300D\u63CF\u8FF0\u7684\u662F\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE3\u7406 2\uFF09\uFF0C\u5B83\u4F7F\u7528 LLM \u4F86\u5224\u65B7\u67D0\u7A81\u8B8A\u9AD4\u662F\u5426\u8207\u539F\u59CB\u7A0B\u5F0F\u7B49\u50F9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E9B\u7A81\u8B8A\u9AD4\u6703\u9001\u5230\u6E2C\u8A66\u4EE3\u7406",
+            "text": "<p>\u6E2C\u8A66\u4EE3\u7406\u6703\u5617\u8A66\u6BBA\u6389\u54EA\u4E9B\u7A81\u8B8A\u9AD4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u901A\u904E\u7B49\u50F9\u4EE3\u7406\u7BE9\u9078\u3001\u5B58\u6D3B\u4E0B\u4F86\u7684\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709\u771F\u6B63\u6BBA\u5F97\u6389\u7684\u7A81\u8B8A\u9AD4\u624D\u6703\u4EA4\u7D66\u6E2C\u8A66\u4EE3\u7406\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u7A81\u8B8A\u9AD4\uFF0C\u5305\u542B\u7B49\u50F9\u7684",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6703\u5148\u88AB\u6FFE\u6389\uFF0C\u624D\u4E0D\u6703\u5728\u6BBA\u4E0D\u6389\u7684\u7A81\u8B8A\u9AD4\u4E0A\u767D\u8CBB\u529B\u6C23\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6C38\u9060\u6BBA\u4E0D\u6389\uFF1B\u6E2C\u8A66\u4EE3\u7406\u7784\u6E96\u7684\u662F\u975E\u7B49\u50F9\u7684\u90A3\u4E9B\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7121\u6CD5\u7DE8\u8B6F\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7121\u6548\u7A81\u8B8A\u9AD4\u6703\u88AB\u4E1F\u68C4\uFF0C\u4E0D\u6703\u88AB\u9001\u53BB\u5617\u8A66\u6BBA\u6389\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u4EE3\u7406\u6703\u5148\u79FB\u9664\u7B49\u50F9\uFF08\u7121\u6CD5\u6BBA\uFF09\u7684\u7A81\u8B8A\u9AD4\uFF0C\u56E0\u6B64\u6E2C\u8A66\u4EE3\u7406\u53EA\u5617\u8A66\u6BBA\u6389\u901A\u904E\u8A72\u7BE9\u9078\u3001\u5B58\u6D3B\u4E0B\u4F86\u7684\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6D41\u6C34\u7DDA\u7531\u4E09\u500B\u4EE3\u7406\u7D44\u6210",
+            "text": "<p>\u6B64 LLM \u6E2C\u8A66\u751F\u6210\u6D41\u6C34\u7DDA\u662F\u4E00\u500B\u4E09\u4EE3\u7406\u6D41\u7A0B\uFF08\u7A81\u8B8A\u3001\u7B49\u50F9\u8207\u6E2C\u8A66\u4EE3\u7406\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u4E32\u63A5\u7A81\u8B8A\u4EE3\u7406\u3001\u7B49\u50F9\u4EE3\u7406\u8207\u6E2C\u8A66\u4EE3\u7406\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u4E09\u4EE3\u7406\u6D41\u7A0B\uFF1AMutation &#8594; Equivalence &#8594; Test\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u6D41\u6C34\u7DDA\u662F\u4E09\u4EE3\u7406\u6D41\u7A0B\uFF1A\u7A81\u8B8A\u4EE3\u7406\u3001\u7B49\u50F9\u4EE3\u7406\uFF08LLM-as-judge\uFF09\u8207\u6E2C\u8A66\u4EE3\u7406\uFF0C\u4F9D\u6B64\u9806\u5E8F\u57F7\u884C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6D41\u6C34\u7DDA\u7684\u6574\u9AD4\u76EE\u6A19",
+            "text": "<p>\u6B64\u6D41\u6C34\u7DDA\u7684\u6574\u9AD4\u76EE\u6A19\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u751F\u6210\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u3001\u80FD\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u7D42\u7522\u7269\u662F\u80FD\u6BBA\u6389\u91DD\u5C0D\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u4E4B\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4F7F\u7522\u751F\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6578\u91CF\u6700\u5927\u5316",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u662F\u8981\u88AB\u6FFE\u6389\u7684\u4E0D\u5FC5\u8981\u6210\u672C\uFF0C\u800C\u975E\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u7A0B\u5F0F\u4E0D\u542B\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u6D41\u6C34\u7DDA\u80FD\u8B49\u660E\u6240\u6709\u7F3A\u9677\u90FD\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u53D6\u4EE3\u4EBA\u985E\u5DE5\u7A0B\u5E2B",
+                "fraction": 0,
+                "feedback": "\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5EA6\u662F\u4E00\u9805\u6307\u6A19\uFF1B\u5DE5\u7A0B\u5E2B\u4ECD\u6703\u5BE9\u67E5\u751F\u6210\u7684\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u6D41\u6C34\u7DDA\u751F\u6210\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u3001\u80FD\u6BBA\u6389\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\uFF0C\u900F\u904E\u4E09\u500B\u4EE3\u7406\u4F86\u690D\u5165\u932F\u8AA4\u3001\u6FFE\u9664\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\uFF0C\u4E26\u70BA\u5176\u9918\u8005\u64B0\u5BEB\u80FD\u6BBA\u6389\u5B83\u5011\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u4EE3\u7406\u6700\u5148\u57F7\u884C",
+            "text": "<p>\u5728\u6D41\u6C34\u7DDA\u4E2D\uFF0C\u54EA\u500B\u4EE3\u7406<em>\u6700\u5148</em>\u57F7\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FC5\u9808\u5148\u6709\u7A81\u8B8A\u9AD4\uFF0C\u624D\u80FD\u5224\u65B7\u6216\u6BBA\u6389\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406",
+                "fraction": 0,
+                "feedback": "\u5728\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u7A81\u8B8A\u9AD4\u4E4B\u524D\uFF0C\u6C92\u6709\u6771\u897F\u53EF\u4F9B\u5224\u65B7\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6700\u5F8C\u624D\u5BEB\uFF0C\u7528\u4F86\u5C0D\u4ED8\u5B58\u6D3B\u7684\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u540C\u6642\u57F7\u884C\uFF0C\u6C92\u6709\u5148\u5F8C\u9806\u5E8F",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u4EE3\u7406\u4F9D\u56FA\u5B9A\u9806\u5E8F\u57F7\u884C\uFF1AMutation &#8594; Equivalence &#8594; Test\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u4EE3\u7406\u6700\u5148\u57F7\u884C\uFF0C\u7522\u751F\u7A81\u8B8A\u9AD4\uFF0C\u7B49\u50F9\u4EE3\u7406\u8207\u6E2C\u8A66\u4EE3\u7406\u518D\u4F9D\u5E8F\u8655\u7406\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u9032\u5165\u7B49\u50F9\u4EE3\u7406\u7684\u8CC7\u6599\u6D41",
+            "text": "<p>\u7B49\u50F9\u4EE3\u7406\u63A5\u6536\u4EC0\u9EBC\u4F5C\u70BA\u8F38\u5165\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u7684\u7A81\u8B8A\u9AD4\uFF0C\u4EE5\u5224\u65B7\u54EA\u4E9B\u662F\u7B49\u50F9\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5728\u6E2C\u8A66\u4EE3\u7406\u57F7\u884C\u524D\uFF0C\u7BE9\u9078\u7A81\u8B8A\u4EE3\u7406\u7684\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u7522\u751F\u7684\u3001\u80FD\u6BBA\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u4EE3\u7406\u5728\u7B49\u50F9\u4EE3\u7406\u4E4B\u5F8C\u57F7\u884C\uFF0C\u5176\u6E2C\u8A66\u4E0D\u53EF\u80FD\u662F\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4F86\u81EA CI \u7684\u539F\u59CB\u8986\u84CB\u7387\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u4EE3\u7406\u5224\u65B7\u7A81\u8B8A\u9AD4\uFF0C\u800C\u975E\u8986\u84CB\u7387\u5831\u544A\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u6C92\u6709\u2014\u2014\u5B83\u5728\u7A81\u8B8A\u4EE3\u7406\u4E4B\u524D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u9806\u5E8F\u662F Mutation &#8594; Equivalence &#8594; Test\uFF1B\u5728\u7A81\u8B8A\u9AD4\u5B58\u5728\u524D\u6C92\u6709\u6771\u897F\u53EF\u5224\u65B7\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u4EE3\u7406\u4F4D\u65BC\u7A81\u8B8A\u4EE3\u7406\u8207\u6E2C\u8A66\u4EE3\u7406\u4E4B\u9593\uFF1A\u5B83\u53D6\u7528\u7A81\u8B8A\u4EE3\u7406\u751F\u6210\u7684\u7A81\u8B8A\u9AD4\uFF0C\u5224\u65B7\u54EA\u4E9B\u7B49\u50F9\uFF0C\u53EA\u628A\u975E\u7B49\u50F9\u7684\u90A3\u4E9B\u50B3\u7D66\u6E2C\u8A66\u4EE3\u7406\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9700\u8981\u7B49\u50F9\u4EE3\u7406",
+            "text": "<p>\u70BA\u4EC0\u9EBC LLM \u5C0E\u5F15\u6D41\u6C34\u7DDA\u9700\u8981\u4E00\u500B\u5C08\u8CAC\u7684\u7B49\u50F9\u4EE3\u7406\uFF0C\u800C\u8F03\u7C21\u55AE\u7684\u57FA\u65BC\u898F\u5247\u6D41\u7A0B\u53EF\u80FD\u4E0D\u9700\u8981\uFF1F</p>",
+            "answers": [
+              {
+                "text": "LLM \u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u8F03\u9AD8\u6BD4\u4F8B\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08\u7D04 25%\uFF09\uFF0C\u56E0\u6B64\u5FC5\u9808\u628A\u5B83\u5011\u6FFE\u6389",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u66F4\u591A\u7B49\u50F9\u7A81\u8B8A\u9AD4\u4F7F\u5F97\u5C08\u8CAC\u7684\u8A55\u5224\u8005\u503C\u5F97\u6295\u5165\u3002"
+              },
+              {
+                "text": "LLM \u5F9E\u4E0D\u7522\u751F\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u6240\u4EE5\u6B64\u4EE3\u7406\u53EA\u662F\u518D\u6B21\u78BA\u8A8D",
+                "fraction": 0,
+                "feedback": "\u4E8B\u5BE6\u76F8\u53CD\uFF1ALLM \u7522\u751F\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6BD4\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\u66F4\u591A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u7121\u6CD5\u7DE8\u8B6F\u5176\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u539F\u56E0\u662F LLM \u8F03\u9AD8\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\uFF0C\u800C\u975E\u57FA\u65BC\u898F\u5247\u8B8A\u7570\u7684\u7DE8\u8B6F\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u523B\u610F\u589E\u52A0\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7684\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u6B64\u4EE3\u7406\u662F\u79FB\u9664\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u800C\u975E\u88FD\u9020\u66F4\u591A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC LLM \u5C0E\u5F15\u7684\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u8F03\u9AD8\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\uFF08\u7D04 25%\uFF0C\u76F8\u5C0D\u65BC\u57FA\u65BC\u898F\u5247\u7D04 10&#8211;15%\uFF09\uFF0C\u6D41\u6C34\u7DDA\u52A0\u5165\u7B49\u50F9\u4EE3\u7406\uFF0C\u5728\u6602\u8CB4\u7684\u6E2C\u8A66\u751F\u6210\u6B65\u9A5F\u524D\u628A\u9019\u4E9B\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\u6FFE\u6389\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6389\u7387\u7684\u6BD4\u8F03",
+            "text": "<p>\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\u8207 LLM \u5C0E\u5F15\u6D41\u6C34\u7DDA\u6240\u56DE\u5831\u7684\u7A81\u8B8A\u9AD4\u6BBA\u6389\u7387\u76F8\u6BD4\u5982\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u57FA\u65BC\u898F\u5247\u7D04 2.4%\uFF0CLLM \u5C0E\u5F15\u7D04 15%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LLM \u5C0E\u5F15\u65B9\u6CD5\u6BBA\u6389\u7684\u7A81\u8B8A\u9AD4\u6BD4\u4F8B\u9AD8\u5F97\u591A\u3002"
+              },
+              {
+                "text": "\u57FA\u65BC\u898F\u5247\u7D04 15%\uFF0CLLM \u5C0E\u5F15\u7D04 2.4%",
+                "fraction": 0,
+                "feedback": "\u6578\u5B57\u76F8\u53CD\uFF1ALLM \u5C0E\u5F15\u624D\u662F\u8F03\u9AD8\u7684\u90A3\u500B\uFF0C\u7D04 15%\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u7D04 25%",
+                "fraction": 0,
+                "feedback": "25% \u662F LLM \u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\uFF0C\u4E0D\u662F\u6BBA\u6389\u7387\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u63A5\u8FD1 100%",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u65B9\u6CD5\u90FD\u9060\u4E0D\u53CA 100%\uFF1B\u56DE\u5831\u7684\u6BBA\u6389\u7387\u662F 2.4% \u8207 15%\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\u7D04\u6BBA\u6389 2.4% \u7684\u7A81\u8B8A\u9AD4\uFF0CLLM \u5C0E\u5F15\u6D41\u6C34\u7DDA\u7D04\u6BBA\u6389 15%\u2014\u2014\u6B64\u5927\u5E45\u8E8D\u5347\u6B78\u56E0\u65BC\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u7684\u5931\u6557\u6A21\u5F0F",
+            "text": "<p>\u4E00\u500B\u751F\u6210\u7684\u6E2C\u8A66\u5728\u591A\u6B21 CI \u57F7\u884C\u9593\u975E\u6C7A\u5B9A\u6027\u5730\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\uFF0C\u4E26\u88AB\u62D2\u7D55\u3002\u9019\u662F\u54EA\u500B\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u2014\u2014\u5B83\u7522\u751F\u4E86\u4E0D\u7A69\u5B9A\uFF08\u975E\u6C7A\u5B9A\u6027\uFF09\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF0C\u6703\u88AB CI \u54C1\u8CEA\u95DC\u5361\u6514\u4E0B\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u2014\u2014\u5B83\u7522\u751F\u4E86\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u4E0D\u7A69\u5B9A\u6027\u95DC\u4E4E\u6E2C\u8A66\u7684\u6C7A\u5B9A\u6027\uFF0C\u800C\u975E\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u2014\u2014\u5B83\u8AA4\u5224\u4E86\u7B49\u50F9\u6027",
+                "fraction": 0,
+                "feedback": "\u8AA4\u5224\u7B49\u50F9\u662F\u53E6\u4E00\u7A2E\u75C7\u72C0\uFF1B\u4E0D\u7A69\u5B9A\u6027\u662F\u751F\u6210\u6E2C\u8A66\u7684\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "CI\u2014\u2014\u5B83\u628A\u96A8\u6A5F\u6027\u5F15\u5165\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "CI \u5075\u6E2C\u4E26\u62D2\u7D55\u4E0D\u7A69\u5B9A\u6E2C\u8A66\uFF1B\u751F\u6210\u5B83\u7684\u662F\u6E2C\u8A66\u4EE3\u7406\u3002"
+              }
+            ],
+            "generalFeedback": "\u751F\u6210\u4E00\u500B\u88AB CI \u62D2\u7D55\u7684\u4E0D\u7A69\u5B9A\uFF08\u975E\u6C7A\u5B9A\u6027\uFF09\u6E2C\u8A66\uFF0C\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\u3002\u54C1\u8CEA\u95DC\u5361\u6703\u628A\u9019\u985E\u6E2C\u8A66\u6FFE\u6389\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121\u6548\u7A0B\u5F0F\u78BC\u7684\u5931\u6557\u6A21\u5F0F",
+            "text": "<p>\u4E00\u500B\u7522\u751F\u7684\u7A81\u8B8A\u9AD4\u5728\u8A9E\u6CD5\u4E0A\u7121\u6548\u3001\u7121\u6CD5\u5EFA\u7F6E\u3002\u9019\u662F\u54EA\u500B\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u2014\u2014\u5B83\u7522\u51FA\u4E86\u8A9E\u6CD5\u4E0A\u7121\u6548\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7522\u51FA\u7121\u6548\u3001\u7121\u6CD5\u5EFA\u7F6E\u7684\u7A0B\u5F0F\u78BC\u662F\u7A81\u8B8A\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u2014\u2014\u5B83\u5BEB\u4E86\u4E0D\u7A69\u5B9A\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E0D\u7A69\u5B9A\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u554F\u984C\uFF1B\u6B64\u8655\u662F\u7A81\u8B8A\u9AD4\u7121\u6CD5\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u2014\u2014\u5B83\u932F\u628A\u7A81\u8B8A\u9AD4\u6A19\u8A18\u70BA\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53E6\u4E00\u7A2E\u5931\u6557\uFF1B\u6B64\u8655\u662F\u7A81\u8B8A\u9AD4\u672C\u8EAB\u7121\u6CD5\u7DE8\u8B6F\u3002"
+              },
+              {
+                "text": "\u5DE5\u7A0B\u5E2B\u2014\u2014\u4ED6\u5011\u62D2\u7D55\u4E86\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u7A81\u8B8A\u4EE3\u7406\u7522\u51FA\u7684\u7121\u6548\u7A81\u8B8A\u9AD4\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7522\u51FA\u8A9E\u6CD5\u4E0A\u7121\u6548\u3001\u7121\u6CD5\u5EFA\u7F6E\u7684\u7A0B\u5F0F\u78BC\uFF0C\u662F\u7A81\u8B8A\u4EE3\u7406\uFF08\u4EE3\u7406 1\uFF09\u7684\u5931\u6557\u6A21\u5F0F\uFF1B\u9019\u985E\u7A81\u8B8A\u9AD4\u6703\u88AB\u4E1F\u68C4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u53BB\u9664\u8A3B\u89E3",
+            "text": "<p>\u7B49\u50F9\u4EE3\u7406\u52A0\u5165\u4E00\u500B\u524D\u8655\u7406\u6B65\u9A5F\uFF0C\u5728\u5224\u65B7\u524D\u53BB\u9664\u8A3B\u89E3\u3002\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A3B\u89E3\u5DEE\u7570\u9020\u6210\u7D04 25% \u7684\u507D\u967D\u6027\uFF0C\u56E0\u6B64\u79FB\u9664\u5B83\u5011\u53EF\u63D0\u5347\u6E96\u78BA\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A3B\u89E3\u5DEE\u7570\u662F\u507D\u967D\u6027\u7684\u4E00\u5927\u4F86\u6E90\uFF0C\u53BB\u9664\u8A3B\u89E3\u5373\u53EF\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u8A3B\u89E3\u6703\u8B93\u7A0B\u5F0F\u7DE8\u8B6F\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u539F\u56E0\u5728\u65BC\u5224\u65B7\u7684\u6E96\u78BA\u5EA6\uFF0C\u800C\u975E\u7DE8\u8B6F\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u9700\u8981\u8A3B\u89E3\uFF0C\u6240\u4EE5\u628A\u5B83\u5011\u79FB\u5230\u4E00\u65C1",
+                "fraction": 0,
+                "feedback": "\u53BB\u9664\u8A3B\u89E3\u662F\u70BA\u4E86\u5E6B\u52A9\u7B49\u50F9\u8A55\u5224\u8005\uFF0C\u800C\u975E\u70BA\u6E2C\u8A66\u4EE3\u7406\u642C\u79FB\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u53BB\u9664\u8A3B\u89E3\u6703\u523B\u610F\u63D0\u9AD8\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387",
+                "fraction": 0,
+                "feedback": "\u5B83\u63D0\u5347\u7684\u662F\u8A55\u5224\u8005\u7684\u7CBE\u78BA\u7387\u8207\u53EC\u56DE\u7387\uFF0C\u8207\u62C9\u9AD8\u7B49\u50F9\u6BD4\u4F8B\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A3B\u89E3\u5DEE\u7570\u5360\u7B49\u50F9\u4EE3\u7406\u7D04 25% \u7684\u507D\u967D\u6027\u3002\u4EE5\u53BB\u9664\u8A3B\u89E3\u4F5C\u70BA\u524D\u8655\u7406\u6B65\u9A5F\u53EF\u79FB\u9664\u6B64\u96DC\u8A0A\uFF0C\u4E26\u628A\u7CBE\u78BA\u7387\u8207\u53EC\u56DE\u7387\uFF08\u5F9E 0.79/0.47\uFF09\u63D0\u5347\u5230\u7D04 0.95/0.96\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u7684\u6BD4\u8F03",
+            "text": "<p>LLM \u5C0E\u5F15\u65B9\u6CD5\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u8207\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\u76F8\u6BD4\u5982\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "LLM \u8F03\u9AD8\uFF08\u7D04 25%\uFF09\uFF0C\u57FA\u65BC\u898F\u5247\u8F03\u4F4E\uFF08\u7D04 10&#8211;15%\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LLM \u7522\u751F\u66F4\u591A\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u9019\u6B63\u662F\u7B49\u50F9\u4EE3\u7406\u5B58\u5728\u7684\u52D5\u6A5F\u3002"
+              },
+              {
+                "text": "LLM \u8F03\u4F4E\uFF08\u7D04 5%\uFF09\uFF0C\u57FA\u65BC\u898F\u5247\u8F03\u9AD8\uFF08\u7D04 25%\uFF09",
+                "fraction": 0,
+                "feedback": "LLM \u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u8F03\u9AD8\uFF0C\u800C\u975E\u8F03\u4F4E\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u76F8\u540C\uFF0C\u7686\u7D04 2.4%",
+                "fraction": 0,
+                "feedback": "2.4% \u662F\u57FA\u65BC\u898F\u5247\u7684\u6BBA\u6389\u7387\uFF0C\u4E0D\u662F\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u3002"
+              },
+              {
+                "text": "LLM \u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "LLM \u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u7D04 25%\uFF0C\u4E26\u975E\u96F6\u3002"
+              }
+            ],
+            "generalFeedback": "LLM \u5C0E\u5F15\u65B9\u6CD5\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u8F03\u9AD8\uFF08\u7D04 25%\uFF09\uFF0C\u9AD8\u65BC\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\uFF08\u7D04 10&#8211;15%\uFF09\u2014\u2014\u9019\u662F\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u7684\u4EE3\u50F9\uFF0C\u4E5F\u662F\u70BA\u4F55\u9700\u8981\u5C08\u8CAC\u7684\u7B49\u50F9\u8A55\u5224\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300C\u5169\u8005\u7686\u5931\u6557\u300D\u7684\u5931\u6557\u6A21\u5F0F",
+            "text": "<p>\u4E00\u500B\u751F\u6210\u7684\u6E2C\u8A66\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u300C\u90FD\u300D\u5931\u6557\u3002\u9019\u6700\u76F4\u63A5\u662F\u54EA\u500B\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u2014\u2014\u5B83\u7522\u751F\u4E86\u5E36\u6709\u5EFA\u7F6E\u6216\u908F\u8F2F\u932F\u8AA4\u7684\u6E2C\u8A66\uFF0C\u800C\u975E\u6709\u6548\u7684\u3001\u80FD\u6BBA\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u539F\u59CB\u7A0B\u5F0F\u4E0A\u4E5F\u5931\u6557\u7684\u6E2C\u8A66\u7121\u6CD5\u5340\u5206\u7A81\u8B8A\u9AD4\uFF0C\u5B83\u58DE\u6389\u4E86\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u2014\u2014\u8A72\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\u7684",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u6703\u4F7F\u6E2C\u8A66\u5728\u5169\u8005\u4E0A\u90FD\u901A\u904E\uFF0C\u800C\u975E\u90FD\u5931\u6557\uFF1B\u4E14\u6B64\u8655\u554F\u984C\u5728\u65BC\u6E2C\u8A66\u58DE\u6389\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u2014\u2014\u5B83\u4F4E\u4F30\u4E86\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7684\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u6B64\u75C7\u72C0\u662F\u58DE\u6389\u7684\u6E2C\u8A66\uFF0C\u5C6C\u6E2C\u8A66\u4EE3\u7406\u7684\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "CI\u2014\u2014\u5B83\u4EE5\u932F\u8AA4\u9806\u5E8F\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u672C\u8EAB\u6709\u7F3A\u9677\uFF1B\u5B83\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u5931\u6557\u7684\u6E2C\u8A66\u7121\u6CD5\u5340\u5206\u5169\u8005\u2014\u2014\u5B83\u6709\u5EFA\u7F6E\u6216\u908F\u8F2F\u932F\u8AA4\u3002\u9019\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF1B\u6709\u6548\u7684\u6BBA\u7A81\u8B8A\u9AD4\u6E2C\u8A66\u5FC5\u9808\u5728\u539F\u59CB\u7A0B\u5F0F\u4E0A\u901A\u904E\u3001\u5728\u7A81\u8B8A\u9AD4\u4E0A\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\u6B65\u9A5F\u5728\u6D41\u7A0B\u4E2D\u7684\u4F4D\u7F6E",
+            "text": "<p>\u76F8\u5C0D\u65BC\u6E2C\u8A66\u4EE3\u7406\uFF0C\u7B49\u50F9\u4EE3\u7406\u4F55\u6642\u57F7\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6E2C\u8A66\u4EE3\u7406\u4E4B\u524D\uFF0C\u56E0\u6B64\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\u6703\u5148\u88AB\u79FB\u9664",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u7BE9\u9078\u518D\u751F\u6210\u6E2C\u8A66\uFF0C\u4EE5\u907F\u514D\u767D\u8CBB\u529B\u6C23\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u4EE3\u7406\u4E4B\u5F8C\uFF0C\u7528\u4F86\u6AA2\u67E5\u90A3\u4E9B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u662F\u91DD\u5C0D\u7A81\u8B8A\u9AD4\u5224\u65B7\uFF0C\u5728\u6E2C\u8A66\u4EE3\u7406\u64B0\u5BEB\u6E2C\u8A66\u4E4B\u524D\u9032\u884C\u3002"
+              },
+              {
+                "text": "\u8207\u7A81\u8B8A\u4EE3\u7406\u5E73\u884C\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728\u7A81\u8B8A\u4EE3\u7406\u4E4B\u5F8C\u3001\u6E2C\u8A66\u4EE3\u7406\u4E4B\u524D\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728 CI \u62D2\u7D55\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u5F8C\u624D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u5224\u65B7\u8207 CI \u7684\u4E0D\u7A69\u5B9A\u95DC\u5361\u7121\u95DC\uFF0C\u4E14\u767C\u751F\u5F97\u66F4\u65E9\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u4EE3\u7406\u5728\u7A81\u8B8A\u4EE3\u7406\u4E4B\u5F8C\u3001\u6E2C\u8A66\u4EE3\u7406\u4E4B\u524D\u57F7\u884C\uFF0C\u6FFE\u6389\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u4F7F\u6E2C\u8A66\u4EE3\u7406\u53EA\u5C0D\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u5DE5\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53BB\u9664\u8A3B\u89E3\u5C0D\u5206\u6578\u7684\u5F71\u97FF",
+            "text": "<p>\u52A0\u5165\u53BB\u9664\u8A3B\u89E3\u5F8C\uFF0C\u7B49\u50F9\u4EE3\u7406\u7684\u7CBE\u78BA\u7387\uFF08precision\uFF09\u8207\u53EC\u56DE\u7387\uFF08recall\uFF09\u6703\u5982\u4F55\u8B8A\u5316\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u7D04 0.79/0.47 \u4E0A\u5347\u5230\u7D04 0.95/0.96",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u79FB\u9664\u8A3B\u89E3\u5DEE\u7570\u7684\u96DC\u8A0A\u5927\u5E45\u6539\u5584\u9019\u5169\u500B\u6307\u6A19\u3002"
+              },
+              {
+                "text": "\u5F9E\u7D04 0.95/0.96 \u4E0B\u964D\u5230\u7D04 0.79/0.47",
+                "fraction": 0,
+                "feedback": "\u65B9\u5411\u76F8\u53CD\uFF1A\u524D\u8655\u7406\u6703\u6539\u5584\u5206\u6578\u3002"
+              },
+              {
+                "text": "\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u53BB\u9664\u8A3B\u89E3\u5E36\u4F86\u5927\u5E45\u3001\u53EF\u91CF\u6E2C\u7684\u6539\u5584\u3002"
+              },
+              {
+                "text": "\u7CBE\u78BA\u7387\u4E0A\u5347\uFF0C\u4F46\u53EC\u56DE\u7387\u964D\u5230\u63A5\u8FD1\u96F6",
+                "fraction": 0,
+                "feedback": "\u7CBE\u78BA\u7387\u8207\u53EC\u56DE\u7387\u90FD\u4E0A\u5347\uFF0C\u5206\u5225\u5230\u7D04 0.95 \u8207 0.96\u3002"
+              }
+            ],
+            "generalFeedback": "\u7121\u524D\u8655\u7406\u6642\uFF0C\u7B49\u50F9\u4EE3\u7406\u7684\u7CBE\u78BA\u7387\u70BA 0.79\u3001\u53EC\u56DE\u7387\u70BA 0.47\uFF1B\u53BB\u9664\u8A3B\u89E3\uFF08\u9020\u6210\u7D04 25% \u507D\u967D\u6027\uFF09\u5F8C\uFF0C\u9019\u4E9B\u6578\u5B57\u63D0\u5347\u5230\u7D04 0.95 \u7CBE\u78BA\u7387\u8207 0.96 \u53EC\u56DE\u7387\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5EA6\u4F5C\u70BA\u6307\u6A19",
+            "text": "<p>\u9664\u4E86\u6BBA\u6389\u7387\u4E4B\u5916\uFF0C\u4E0B\u5217\u4F55\u8005\u88AB\u56DE\u5831\u70BA\u6B64\u6D41\u6C34\u7DDA\u7684\u4E00\u9805\u6307\u6A19\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5DE5\u7A0B\u5E2B\u5C0D\u751F\u6210\u6E2C\u8A66\u7684\u63A5\u53D7\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DE5\u7A0B\u5E2B\u662F\u5426\u771F\u7684\u63A5\u53D7\u9019\u4E9B\u6E2C\u8A66\u662F\u4E00\u9805\u91CD\u8981\u6307\u6A19\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u7A81\u8B8A\u9AD4\u7684\u8A3B\u89E3\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u8A3B\u89E3\u53EA\u662F\u8A55\u5224\u8005\u524D\u8655\u7406\u6642\u7684\u5E72\u64FE\uFF0C\u4E26\u975E\u91CD\u8981\u6307\u6A19\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u57F7\u884C\u522A\u9664\u7684\u7A0B\u5F0F\u78BC\u884C\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F\u56DE\u5831\u7684\u6D41\u6C34\u7DDA\u6307\u6A19\u3002"
+              },
+              {
+                "text": "\u6D41\u7A0B\u4E2D\u7684\u4EE3\u7406\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u4EE3\u7406\u6578\u56FA\u5B9A\u70BA\u4E09\uFF1B\u90A3\u4E0D\u662F\u8A55\u4F30\u6307\u6A19\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5EA6\u2014\u2014\u5DE5\u7A0B\u5E2B\u662F\u5426\u771F\u7684\u63A1\u7528\u751F\u6210\u7684\u6E2C\u8A66\u2014\u2014\u662F\u4E00\u9805\u56DE\u5831\u7684\u6307\u6A19\uFF0C\u53CD\u6620\u51FA\u55AE\u770B\u9AD8\u6BBA\u6389\u7387\u4E26\u975E\u8861\u91CF\u50F9\u503C\u7684\u552F\u4E00\u6A19\u6E96\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6F0F\u5224\u7B49\u50F9\u7684\u5931\u6557\u6A21\u5F0F",
+            "text": "<p>\u4E00\u500B\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6F0F\u7DB2\u3001\u88AB\u4EA4\u7D66\u6E2C\u8A66\u4EE3\u7406\uFF0C\u6E2C\u8A66\u4EE3\u7406\u65BC\u662F\u767D\u8CBB\u529B\u6C23\u60F3\u6BBA\u6389\u5B83\u3002\u9019\u662F\u54EA\u500B\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u2014\u2014\u5B83\u672A\u80FD\u8FA8\u8B58\u51FA\u4E00\u500B\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6F0F\u5224\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08\u4F4E\u53EC\u56DE\u7387\uFF09\u6703\u628A\u7121\u6CD5\u6BBA\u7684\u5DE5\u4F5C\u5F80\u4E0B\u6E38\u63A8\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u2014\u2014\u5B83\u7522\u51FA\u4E86\u7121\u6548\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u7A81\u8B8A\u9AD4\u6709\u6548\u4F46\u7B49\u50F9\uFF1B\u6F0F\u5224\u7684\u662F\u8A55\u5224\u8005\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u2014\u2014\u5B83\u5BEB\u4E86\u4E0D\u7A69\u5B9A\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u767D\u8CBB\u529B\u6C23\u6E90\u65BC\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5230\u9054\u6E2C\u8A66\u4EE3\u7406\uFF0C\u5C6C\u5224\u65B7\u4E0A\u7684\u6F0F\u5931\u3002"
+              },
+              {
+                "text": "CI\u2014\u2014\u5B83\u672A\u80FD\u62D2\u7D55\u8A72\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6839\u56E0\u662F\u7B49\u50F9\u4EE3\u7406\u653E\u884C\u4E86\u4E00\u500B\u7B49\u50F9\u7A81\u8B8A\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u653E\u884C\u4E00\u500B\u7B49\u50F9\uFF08\u7121\u6CD5\u6BBA\uFF09\u7A81\u8B8A\u9AD4\u5230\u6E2C\u8A66\u4EE3\u7406\uFF0C\u662F\u7B49\u50F9\u4EE3\u7406\u7684\u5931\u6557\u2014\u2014\u53EC\u56DE\u7387\u6F0F\u5931\u3002\u6E2C\u8A66\u4EE3\u7406\u63A5\u8457\u6703\u5728\u4E00\u500B\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u7684\u7A81\u8B8A\u9AD4\u4E0A\u767D\u8CBB\u529B\u6C23\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u66F4\u9AD8\u6BBA\u6389\u7387\uFF0C\u66F4\u591A\u7B49\u50F9\u9AD4",
+            "text": "<p>LLM \u5C0E\u5F15\u6D41\u6C34\u7DDA\u9054\u5230\u6BD4\u57FA\u65BC\u898F\u5247\u8B8A\u7570\u66F4\u9AD8\u7684\u6BBA\u6389\u7387\uFF0C\u4F46\u4EE3\u50F9\u662F\u66F4\u9AD8\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6389\u7387\u7D04 15% \u5C0D 2.4%\uFF0C\u4F46\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7D04 25% \u5C0D 10&#8211;15%\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u6B0A\u8861\u78BA\u5BE6\u5B58\u5728\uFF1A\u66F4\u9AD8\u6BBA\u6389\u7387\uFF0815% \u5C0D 2.4%\uFF09\uFF0C\u4F46\u66F4\u591A\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08\u7D04 25% \u5C0D 10&#8211;15%\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u628A\u6BBA\u6389\u7387\u5F9E\u7D04 2.4% \u63D0\u5347\u5230\u7D04 15%\uFF0C\u4F46\u4E5F\u628A\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u63D0\u9AD8\u5230\u7D04 25%\uFF08\u76F8\u5C0D\u57FA\u65BC\u898F\u5247\u7D04 10&#8211;15%\uFF09\uFF0C\u9019\u6B63\u662F\u52A0\u5165\u7B49\u50F9\u4EE3\u7406\u7684\u539F\u56E0\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6BBA\u6389\u7387\u8F03\u9AD8",
+            "text": "<p>LLM \u5C0E\u5F15\u6D41\u6C34\u7DDA\u9AD8\u5F97\u591A\u7684\u6BBA\u6389\u7387\u88AB\u6B78\u529F\u65BC\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\uFF0C\u800C\u975E\u901A\u7528\u7684\u8A9E\u6CD5\u5C0F\u66F4\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7784\u6E96\u771F\u6B63\u7684\u932F\u8AA4\u985E\u5225\u80FD\u7522\u751F\u66F4\u591A\u53EF\u6BBA\u3001\u6709\u610F\u7FA9\u7684\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u6574\u9AD4\u7522\u751F\u7684\u7A81\u8B8A\u9AD4\u5C11\u5F97\u591A",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6389\u7387\u7684\u63D0\u5347\u4F86\u81EA\u300C\u7784\u6E96\u4EC0\u9EBC\u300D\uFF0C\u800C\u975E\u7522\u751F\u66F4\u5C11\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u8DF3\u904E\u7B49\u50F9\u5224\u65B7\u6B65\u9A5F",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u6B65\u9A5F\u662F\u88AB\u52A0\u5165\u800C\u975E\u8DF3\u904E\uFF1B\u6BBA\u6389\u7387\u4F86\u81EA\u5C0D\u932F\u8AA4\u985E\u5225\u7684\u7784\u6E96\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6E2C\u8A66\u53EA\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u6B21\u6578\u8207\u6BBA\u6389\u7387\u7684\u63D0\u5347\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u6389\u7387\u5F9E\u7D04 2.4% \u8E8D\u5347\u5230\u7D04 15%\uFF0C\u88AB\u6B78\u529F\u65BC LLM \u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\uFF0C\u800C\u5C0D\u9818\u57DF\u76F2\u76EE\u7684\u57FA\u65BC\u898F\u5247\u57FA\u6E96\u7DDA\u505A\u4E0D\u5230\u9019\u4E00\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u751F\u6210\u6E2C\u8A66\u7684\u54C1\u8CEA\u95DC\u5361",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6D41\u6C34\u7DDA\u9700\u8981\u5C0D\u6E2C\u8A66\u4EE3\u7406\u7684\u8F38\u51FA\u8A2D\u54C1\u8CEA\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u6E2C\u8A66\u4EE3\u7406\u53EF\u80FD\u7522\u751F\u4E0D\u7A69\u5B9A\u6216\u5176\u4ED6\u7121\u6548\u7684\u6E2C\u8A66\uFF0C\u5FC5\u9808\u628A\u5B83\u5011\u6FFE\u6389",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u8207\u5728\u539F\u59CB\u7A0B\u5F0F\u548C\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u5931\u6557\u7684\u6E2C\u8A66\u90FD\u5FC5\u9808\u88AB\u62D2\u7D55\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7A81\u8B8A\u4EE3\u7406\u5F9E\u4E0D\u7522\u751F\u6709\u6548\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u95DC\u5361\u91DD\u5C0D\u7684\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u8F38\u51FA\uFF1B\u7A81\u8B8A\u4EE3\u7406\u7684\u7121\u6548\u7A81\u8B8A\u9AD4\u53E6\u884C\u8655\u7406\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u63D0\u9AD8\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387",
+                "fraction": 0,
+                "feedback": "\u95DC\u5361\u6FFE\u9664\u58DE\u6E2C\u8A66\uFF0C\u4E0D\u5F71\u97FF\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u8B93\u7B49\u50F9\u4EE3\u7406\u8B8A\u5F97\u4E0D\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u4EE3\u7406\u4ECD\u7136\u9700\u8981\uFF1B\u54C1\u8CEA\u95DC\u5361\u8655\u7406\u7684\u662F\u53E6\u4E00\u500B\u554F\u984C\uFF08\u58DE\u6E2C\u8A66\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u4EE3\u7406\u53EF\u80FD\u7522\u51FA\u4E0D\u7A69\u5B9A\uFF08\u975E\u6C7A\u5B9A\u6027\uFF09\u6E2C\u8A66\uFF0C\u6216\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u5931\u6557\u7684\u6E2C\u8A66\u3002\u54C1\u8CEA\u95DC\u5361\uFF08\u5982 CI \u6AA2\u67E5\uFF09\u628A\u9019\u4E9B\u6FFE\u6389\uFF0C\u53EA\u4FDD\u7559\u6709\u6548\u7684\u3001\u80FD\u6BBA\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u6B0A\u8861\u4FC3\u6210\u7B49\u50F9\u8A55\u5224\u8005",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u689D\u63A8\u7406\u93C8\u6700\u80FD\u8AAA\u660E\u70BA\u4F55\u6D41\u6C34\u7DDA\u8981\u7D0D\u5165\u7B49\u50F9\u4EE3\u7406\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7784\u6E96\u932F\u8AA4\u985E\u5225\u63D0\u9AD8\u4E86\u6BBA\u6389\u7387\uFF0C\u4F46\u4E5F\u63D0\u9AD8\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\uFF08\u7D04 25%\uFF09\uFF0C\u56E0\u6B64\u9700\u8981\u4E00\u500B\u8A55\u5224\u8005\u5728\u6602\u8CB4\u7684\u6E2C\u8A66\u6B65\u9A5F\u524D\u4E1F\u6389\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B49\u50F9\u4EE3\u7406\u6B63\u662F\u5C0D\u8F03\u9AD8\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u7684\u76F4\u63A5\u56DE\u61C9\u3002"
+              },
+              {
+                "text": "LLM \u7522\u751F\u8F03\u5C11\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u6240\u4EE5\u8A55\u5224\u8005\u53EA\u662F\u5EC9\u50F9\u5730\u78BA\u8A8D\u4E26\u6C92\u6709\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "LLM \u7522\u751F\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u66F4\u591A\u800C\u975E\u66F4\u5C11\uFF1B\u9019\u6B63\u662F\u9700\u8981\u8A55\u5224\u8005\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u9700\u8981\u6B64\u8A55\u5224\u8005\uFF0CLLM \u6D41\u6C34\u7DDA\u53EA\u662F\u6CBF\u7528",
+                "fraction": 0,
+                "feedback": "\u8A55\u5224\u8005\u7684\u52D5\u6A5F\u4F86\u81EA LLM \u81EA\u8EAB\u8F03\u9AD8\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\uFF0C\u800C\u975E\u6CBF\u7528\u81EA\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u3002"
+              },
+              {
+                "text": "\u8A55\u5224\u8005\u53EA\u662F\u70BA\u4E86\u62C9\u9AD8\u6BBA\u6389\u7387\u7684\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u8A55\u5224\u8005\u662F\u79FB\u9664\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\uFF0C\u4E26\u4E0D\u88FD\u9020\u6BBA\u6389\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC LLM \u5C0E\u5F15\u7684\u7A81\u8B8A\u4EE3\u7406\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\uFF0C\u5B83\u6BBA\u6389\u66F4\u591A\u7A81\u8B8A\u9AD4\uFF08\u7D04 15% \u5C0D 2.4%\uFF09\uFF0C\u4F46\u4E5F\u7522\u751F\u66F4\u591A\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08\u7D04 25% \u5C0D 10&#8211;15%\uFF09\u3002\u7B49\u50F9\u4EE3\u7406\u662F\u6D41\u6C34\u7DDA\u7684\u56DE\u61C9\uFF1A\u5B83\u5728\u6602\u8CB4\u7684\u6E2C\u8A66\u751F\u6210\u6B65\u9A5F\u524D\u628A\u9019\u4E9B\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\u6FFE\u6389\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u53EC\u56DE\u7387 0.47",
+            "text": "<p>\u7B49\u50F9\u4EE3\u7406\u5728\u7121\u524D\u8655\u7406\u6642\u53EC\u56DE\u7387\u50C5 0.47\u3002\u5728\u6B64\u6D41\u6C34\u7DDA\u4E2D\uFF0C\u9019\u500B\u4F4E\u53EC\u56DE\u7387\u5177\u9AD4\u7684\u4EE3\u50F9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A31\u591A\u771F\u6B63\u7B49\u50F9\u7684\u7A81\u8B8A\u9AD4\u88AB\u6F0F\u6389\u4E26\u50B3\u7D66\u6E2C\u8A66\u4EE3\u7406\uFF0C\u6E2C\u8A66\u4EE3\u7406\u65BC\u662F\u767D\u8CBB\u529B\u6C23\u53BB\u6BBA\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u300C\u7B49\u50F9\u300D\u7684\u4F4E\u53EC\u56DE\u7387\u4EE3\u8868\u8A31\u591A\u7B49\u50F9\u9AD4\u6F0F\u5230\u4E0B\u6E38\u3002"
+              },
+              {
+                "text": "\u8A31\u591A\u975E\u7B49\u50F9\u7A81\u8B8A\u9AD4\u88AB\u932F\u8AA4\u4E1F\u68C4\uFF0C\u5C0E\u81F4\u771F\u6B63\u7684\u932F\u8AA4\u672A\u88AB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u4F4E\u7CBE\u78BA\u7387\uFF0C\u800C\u975E\u4F4E\u53EC\u56DE\u7387\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u8F03\u5C11\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8A55\u5224\u8005\u7684\u53EC\u56DE\u7387\u4E0D\u6703\u6539\u8B8A\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\u591A\u5C11\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5728 CI \u4E2D\u8B8A\u5F97\u4E0D\u7A69\u5B9A",
+                "fraction": 0,
+                "feedback": "\u4E0D\u7A69\u5B9A\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u554F\u984C\uFF0C\u8207\u8A55\u5224\u8005\u7684\u53EC\u56DE\u7387\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EC\u56DE\u7387 0.47 \u4EE3\u8868\u8A55\u5224\u8005\u6293\u5230\u7684\u771F\u6B63\u7B49\u50F9\u7A81\u8B8A\u9AD4\u4E0D\u5230\u4E00\u534A\u3002\u6F0F\u6389\u7684\u90A3\u4E9B\u6703\u6D41\u5411\u6E2C\u8A66\u4EE3\u7406\uFF0C\u6E2C\u8A66\u4EE3\u7406\u65BC\u662F\u767D\u8CBB\u529B\u6C23\u53BB\u5617\u8A66\u6BBA\u6C38\u9060\u6BBA\u4E0D\u6389\u7684\u7A81\u8B8A\u9AD4\u3002\u53BB\u9664\u8A3B\u89E3\u628A\u53EC\u56DE\u7387\u63D0\u5347\u5230\u7D04 0.96\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u7CBE\u78BA\u7387 0.79",
+            "text": "<p>\u7B49\u50F9\u4EE3\u7406\u5728\u7121\u524D\u8655\u7406\u6642\u7CBE\u78BA\u7387\u70BA 0.79\u3002\u6B64\u8655\u7CBE\u78BA\u7387\u4F4E\u65BC 1.0 \u7684\u4EE3\u50F9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6709\u4E9B\u88AB\u6A19\u70BA\u300C\u7B49\u50F9\u300D\u7684\u7A81\u8B8A\u9AD4\u5176\u5BE6\u975E\u7B49\u50F9\uFF0C\u56E0\u6B64\u771F\u6B63\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u88AB\u932F\u8AA4\u4E1F\u68C4\u3001\u6C38\u9060\u62FF\u4E0D\u5230\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u7B49\u50F9\u300D\u4E0A\u7684\u507D\u967D\u6027\u6703\u4E1F\u6389\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u6709\u4E9B\u7B49\u50F9\u7A81\u8B8A\u9AD4\u88AB\u6F0F\u6389\u4E26\u5230\u9054\u6E2C\u8A66\u4EE3\u7406",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EC\u56DE\u7387\u554F\u984C\uFF1B\u7CBE\u78BA\u7387\u95DC\u4E4E\u932F\u8AA4\u7684\u300C\u7B49\u50F9\u300D\u6A19\u8A18\u3002"
+              },
+              {
+                "text": "\u6BBA\u6389\u7387\u88AB\u704C\u6C34\u5230 15%",
+                "fraction": 0,
+                "feedback": "15% \u6BBA\u6389\u7387\u4F86\u81EA\u7784\u6E96\u932F\u8AA4\u985E\u5225\uFF0C\u800C\u975E\u8A55\u5224\u8005\u7684\u7CBE\u78BA\u7387\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u9AD4\u66F4\u5E38\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u662F\u7A81\u8B8A\u4EE3\u7406\u7684\u554F\u984C\uFF0C\u4E26\u975E\u8A55\u5224\u8005\u7CBE\u78BA\u7387\u7684\u51FD\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u7CBE\u78BA\u7387 0.79 \u4EE3\u8868\u8A55\u5224\u8005\u6A19\u70BA\u300C\u7B49\u50F9\u300D\u7684\u7A81\u8B8A\u9AD4\u4E2D\uFF0C\u7D04\u4E94\u5206\u4E4B\u4E00\u5176\u5BE6\u4E0D\u662F\u2014\u2014\u9019\u4E9B\u771F\u6B63\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u88AB\u932F\u8AA4\u6FFE\u6389\u3001\u6C38\u9060\u62FF\u4E0D\u5230\u6E2C\u8A66\u3002\u8A3B\u89E3\u5DEE\u7570\u9020\u6210\u5176\u4E2D\u7D04 25% \u7684\u507D\u967D\u6027\uFF1B\u53BB\u9664\u8A3B\u89E3\u628A\u7CBE\u78BA\u7387\u63D0\u5347\u5230\u7D04 0.95\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u53BB\u9664\u8A3B\u89E3\u80FD\u4FEE\u6B63\u507D\u967D\u6027",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u53BB\u9664\u8A3B\u89E3\u80FD\u7279\u5225\u964D\u4F4E\u7B49\u50F9\u4EE3\u7406\u7684\u507D\u967D\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D14\u8A3B\u89E3\u5DEE\u7570\u4E0D\u6539\u8B8A\u884C\u70BA\uFF0C\u537B\u628A\u8A55\u5224\u8005\u63A8\u5411\u300C\u7B49\u50F9\u300D\uFF1B\u79FB\u9664\u5B83\u5011\u53EF\u8B93\u8A55\u5224\u8005\u6BD4\u8F03\u771F\u6B63\u7684\u908F\u8F2F\u2014\u2014\u800C\u5B83\u5011\u5360\u507D\u967D\u6027\u7684\u7D04 25%",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A3B\u89E3\u5DEE\u7570\u662F\u4E0D\u5F71\u97FF\u884C\u70BA\u7684\u96DC\u8A0A\uFF0C\u537B\u626D\u66F2\u4E86\u5224\u65B7\u3002"
+              },
+              {
+                "text": "\u8A3B\u89E3\u6703\u6539\u8B8A\u7A0B\u5F0F\u884C\u70BA\uFF0C\u6240\u4EE5\u79FB\u9664\u5B83\u5011\u5C31\u6539\u8B8A\u4E86\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8A3B\u89E3\u4E0D\u5F71\u97FF\u884C\u70BA\uFF1B\u9019\u6B63\u662F\u5B83\u5011\u5C0D\u8A55\u5224\u8005\u800C\u8A00\u662F\u96DC\u8A0A\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u53BB\u9664\u8A3B\u89E3\u52A0\u5FEB\u7DE8\u8B6F\u4E26\u907F\u514D\u903E\u6642",
+                "fraction": 0,
+                "feedback": "\u597D\u8655\u5728\u65BC\u5224\u65B7\u7684\u6E96\u78BA\u5EA6\uFF0C\u800C\u975E\u7DE8\u8B6F\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u8A3B\u89E3\u662F\u7A81\u8B8A\u4EE3\u7406\u85CF\u7121\u6548\u7A0B\u5F0F\u78BC\u7684\u5730\u65B9",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u4E0D\u5F71\u97FF\u884C\u70BA\u7684\u8A3B\u89E3\u5DEE\u7570\u6DF7\u6DC6\u4E86\u8A55\u5224\u8005\uFF0C\u800C\u975E\u85CF\u8D77\u4F86\u7684\u7121\u6548\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A3B\u89E3\u5DEE\u7570\u4E0D\u5F71\u97FF\u884C\u70BA\uFF0C\u537B\u626D\u66F2\u4E86\u8A55\u5224\u8005\u7684\u5224\u65B7\uFF0C\u4E26\u9020\u6210\u7D04 25% \u7684\u507D\u967D\u6027\u3002\u4EE5\u53BB\u9664\u8A3B\u89E3\u4F5C\u70BA\u524D\u8655\u7406\u8B93\u8A55\u5224\u8005\u6BD4\u8F03\u771F\u6B63\u7684\u908F\u8F2F\uFF0C\u628A\u7CBE\u78BA\u7387/\u53EC\u56DE\u7387\u5F9E 0.79/0.47 \u63D0\u5347\u5230\u7D04 0.95/0.96\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u57FA\u65BC\u898F\u5247\u6703\u932F\u904E\u932F\u8AA4\u985E\u5225",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5C0D\u8986\u84CB\u7387\u76F2\u76EE\u3001\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\u50C5\u9054\u7D04 2.4% \u6BBA\u6389\u7387\uFF0C\u800C LLM \u7D04 15%\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5957\u7528\u901A\u7528\u8A9E\u6CD5\u904B\u7B97\u5B50\u3001\u6C92\u6709\u9818\u57DF\u6216\u8B70\u984C\u611F\u77E5\uFF0C\u56E0\u6B64\u9BAE\u5C11\u7784\u6E96\u771F\u6B63\u91CD\u8981\u7684\u932F\u8AA4\u985E\u5225",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u9818\u57DF/\u8B70\u984C\u611F\u77E5\uFF0C\u5B83\u5C31\u7121\u6CD5\u7784\u6E96\u6709\u610F\u7FA9\u7684\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u5B83\u7522\u751F\u7684\u7A81\u8B8A\u9AD4\u592A\u5C11\uFF0C\u6BBA\u4E0D\u6389\u4EFB\u4F55",
+                "fraction": 0,
+                "feedback": "\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u901A\u5E38\u7522\u751F\u5F88\u591A\u7A81\u8B8A\u9AD4\uFF1B\u554F\u984C\u5728\u65BC\u76F8\u95DC\u6027\uFF0C\u800C\u975E\u6578\u91CF\u3002"
+              },
+              {
+                "text": "\u5B83\u53BB\u9664\u8A3B\u89E3\u800C\u907A\u5931\u8CC7\u8A0A",
+                "fraction": 0,
+                "feedback": "\u53BB\u9664\u8A3B\u89E3\u662F\u7B49\u50F9\u4EE3\u7406\u7684\u524D\u8655\u7406\u6B65\u9A5F\uFF0C\u800C\u975E\u57FA\u65BC\u898F\u5247\u7684\u9650\u5236\u3002"
+              },
+              {
+                "text": "\u5B83\u7684\u7B49\u50F9\u4EE3\u7406\u592A\u904E\u6FC0\u9032",
+                "fraction": 0,
+                "feedback": "\u53D6\u5F97\u5C08\u8CAC\u7B49\u50F9\u4EE3\u7406\u7684\u4E26\u975E\u57FA\u65BC\u898F\u5247\u7684\u57FA\u6E96\u7DDA\uFF1B\u5176\u4F4E\u6BBA\u6389\u7387\u95DC\u4E4E\u7F3A\u4E4F\u9818\u57DF\u611F\u77E5\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u65BC\u898F\u5247\u7684\u8B8A\u7570\u5C0D\u9818\u57DF\u8207\u8B70\u984C\u76F2\u76EE\uFF1A\u5B83\u5230\u8655\u5957\u7528\u901A\u7528\u904B\u7B97\u5B50\uFF0C\u9BAE\u5C11\u547D\u4E2D\u771F\u6B63\u91CD\u8981\u7684\u7279\u5B9A\u932F\u8AA4\u985E\u5225\uFF0C\u56E0\u6B64\u6BBA\u6389\u7387\u505C\u5728\u7D04 2.4%\u3002LLM \u5C0E\u5F15\u65B9\u6CD5\u7784\u6E96\u90A3\u4E9B\u932F\u8AA4\u985E\u5225\uFF0C\u9054\u5230\u7D04 15%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u6E2C\u8A66\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u5931\u6557",
+            "text": "<p>\u75C7\u72C0\uFF1A\u4E00\u500B\u751F\u6210\u7684\u6E2C\u8A66\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u5931\u6557\u3002\u54EA\u500B\u4EE3\u7406\u7684\u5931\u6557\u6700\u80FD\u89E3\u91CB\u9019\u4E00\u9EDE\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u2014\u2014\u6709\u6548\u7684\u6BBA\u7A81\u8B8A\u9AD4\u6E2C\u8A66\u5FC5\u9808\u5728\u539F\u59CB\u7A0B\u5F0F\u4E0A\u901A\u904E\u3001\u5728\u7A81\u8B8A\u9AD4\u4E0A\u5931\u6557\uFF1B\u5169\u8005\u90FD\u5931\u6557\u4EE3\u8868\u6E2C\u8A66\u6709\u5EFA\u7F6E\uFF0F\u908F\u8F2F\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u82E5\u5728\u539F\u59CB\u7A0B\u5F0F\u4E0A\u4E5F\u5931\u6557\uFF0C\u8A72\u6E2C\u8A66\u5C31\u7121\u6CD5\u5340\u5206\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u2014\u2014\u5B83\u672C\u8A72\u628A\u9019\u5224\u70BA\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u6703\u4F7F\u6E2C\u8A66\u5728\u5169\u8005\u4E0A\u90FD\u901A\u904E\u800C\u975E\u90FD\u5931\u6557\uFF1B\u932F\u5728\u6E2C\u8A66\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u2014\u2014\u8A72\u7A81\u8B8A\u9AD4\u7121\u6548",
+                "fraction": 0,
+                "feedback": "\u7121\u6548\u7A81\u8B8A\u9AD4\u6839\u672C\u7121\u6CD5\u5EFA\u7F6E\uFF1B\u6B64\u8655\u6709\u4E00\u500B\u6E2C\u8A66\u57F7\u884C\u4E26\u5728\u5169\u7248\u4E0A\u90FD\u5931\u6557\u3002"
+              },
+              {
+                "text": "CI\u2014\u2014\u5B83\u628A\u901A\u904E\u7684\u6E2C\u8A66\u8AA4\u6A19\u70BA\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5728\u5169\u7248\u4E0A\u4E00\u81F4\u5931\u6557\u6307\u5411\u4E00\u500B\u58DE\u6389\u7684\u751F\u6210\u6E2C\u8A66\uFF0C\u800C\u975E CI \u8AA4\u6A19\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B63\u78BA\u7684\u6BBA\u7A81\u8B8A\u9AD4\u6E2C\u8A66\u6703\u5728\u539F\u59CB\u7A0B\u5F0F\u4E0A\u901A\u904E\u3001\u5728\u7A81\u8B8A\u9AD4\u4E0A\u5931\u6557\u3002\u5169\u8005\u90FD\u5931\u6557\u4EE3\u8868\u6E2C\u8A66\u672C\u8EAB\u58DE\u6389\uFF08\u5EFA\u7F6E\u6216\u908F\u8F2F\u932F\u8AA4\uFF09\u2014\u2014\u9019\u662F\u6E2C\u8A66\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF0C\u6709\u5225\u65BC\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08\u5169\u8005\u90FD\u901A\u904E\uFF09\u6216\u7121\u6548\u7A81\u8B8A\u9AD4\uFF08\u7121\u6CD5\u5EFA\u7F6E\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u7A81\u8B8A\u9AD4\u7121\u6CD5\u5EFA\u7F6E",
+            "text": "<p>\u75C7\u72C0\uFF1A\u53D7\u6E2C\u7522\u7269\u56E0\u67D0\u7A81\u8B8A\u9AD4\u8A9E\u6CD5\u7578\u5F62\u800C\u7121\u6CD5\u7DE8\u8B6F\u3002\u54EA\u500B\u4EE3\u7406\u61C9\u8CA0\u8CAC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u2014\u2014\u7522\u51FA\u8A9E\u6CD5\u4E0A\u7121\u6548\u3001\u7121\u6CD5\u5EFA\u7F6E\u7684\u7A0B\u5F0F\u78BC\u662F\u5B83\u7684\u5931\u6557\u6A21\u5F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7121\u6548\u3001\u7121\u6CD5\u5EFA\u7F6E\u7684\u7A81\u8B8A\u9AD4\u4F86\u81EA\u7A81\u8B8A\u4EE3\u7406\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u2014\u2014\u5B83\u7684\u6E2C\u8A66\u6709\u5EFA\u7F6E\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u662F\u7A81\u8B8A\u9AD4\u3001\u800C\u975E\u6E2C\u8A66\uFF0C\u7121\u6CD5\u5EFA\u7F6E\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u2014\u2014\u5B83\u5728\u5224\u65B7\u6642\u5F04\u58DE\u4E86\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u4EE3\u7406\u53EA\u505A\u5224\u65B7\uFF0C\u4E0D\u6703\u7522\u51FA\u7578\u5F62\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "CI\u2014\u2014\u5EFA\u7F6E\u74B0\u5883\u8A2D\u5B9A\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u7578\u5F62\u7A81\u8B8A\u9AD4\u7531\u7A81\u8B8A\u4EE3\u7406\u7522\u751F\uFF0C\u8207 CI \u8A2D\u5B9A\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u8A9E\u6CD5\u4E0A\u7121\u6548\u3001\u7121\u6CD5\u5EFA\u7F6E\u7684\u7A81\u8B8A\u9AD4\u662F\u7A81\u8B8A\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\u3002\u9019\u985E\u7A81\u8B8A\u9AD4\u6703\u5728\u6D41\u6C34\u7DDA\u5176\u9918\u90E8\u5206\u57F7\u884C\u524D\u88AB\u4E1F\u68C4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\u6D6A\u8CBB\u6E2C\u8A66\u4EE3\u7406",
+            "text": "<p>\u75C7\u72C0\uFF1A\u6E2C\u8A66\u4EE3\u7406\u7121\u8AD6\u5BEB\u4EC0\u9EBC\u6E2C\u8A66\u90FD\u53CD\u8986\u6BBA\u4E0D\u6389\u67D0\u500B\u7279\u5B9A\u7A81\u8B8A\u9AD4\uFF0C\u5206\u6790\u986F\u793A\u8A72\u7A81\u8B8A\u9AD4\u5728\u884C\u70BA\u4E0A\u8207\u539F\u59CB\u7A0B\u5F0F\u76F8\u540C\u3002\u54EA\u500B\u4EE3\u7406\u672C\u61C9\u9632\u6B62\u9019\u7A2E\u60C5\u6CC1\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u4EE3\u7406\u2014\u2014\u5B83\u672C\u61C9\u628A\u6B64\u7A81\u8B8A\u9AD4\u5224\u70BA\u7B49\u50F9\u4E26\u79FB\u9664",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\u5230\u9054\u6E2C\u8A66\u4EE3\u7406\u662F\u4E00\u7A2E\u6F0F\u5224\u7B49\u50F9\uFF08\u53EC\u56DE\u7387\uFF09\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u2014\u2014\u5B83\u53EA\u662F\u9700\u8981\u66F4\u597D\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF1B\u4FEE\u6B63\u4E4B\u9053\u662F\u628A\u5B83\u6FFE\u6389\uFF0C\u90A3\u662F\u8A55\u5224\u8005\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u2014\u2014\u5B83\u4E0D\u61C9\u7522\u751F\u4EFB\u4F55\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "LLM \u7121\u53EF\u907F\u514D\u6703\u7522\u751F\u4E00\u4E9B\uFF08\u7D04 25%\uFF09\uFF1B\u7B49\u50F9\u4EE3\u7406\u6B63\u662F\u70BA\u4E86\u6293\u4F4F\u5B83\u5011\u800C\u5B58\u5728\u3002"
+              },
+              {
+                "text": "CI\u2014\u2014\u5B83\u61C9\u8A72\u8DF3\u904E\u8A72\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "CI \u57F7\u884C\u6E2C\u8A66\uFF1B\u5224\u65B7\u7B49\u50F9\u6027\u662F\u7B49\u50F9\u4EE3\u7406\u7684\u8077\u8CAC\u3002"
+              }
+            ],
+            "generalFeedback": "\u884C\u70BA\u4E0A\u76F8\u540C\uFF08\u7B49\u50F9\uFF09\u7684\u7A81\u8B8A\u9AD4\u6C38\u9060\u6BBA\u4E0D\u6389\u3002\u82E5\u5B83\u5230\u9054\u6E2C\u8A66\u4EE3\u7406\uFF0C\u5C31\u662F\u7B49\u50F9\u4EE3\u7406\u6F0F\u5224\u4E86\u5B83\u2014\u2014\u53EC\u56DE\u7387\u5931\u6557\u3002\u9019\u6B63\u662F\u7B49\u50F9\u4EE3\u7406\uFF08\u4EE5\u53BB\u9664\u8A3B\u89E3\u524D\u8655\u7406\u628A\u53EC\u56DE\u7387\u63D0\u5347\u5230\u7D04 0.96\uFF09\u8981\u9632\u6B62\u7684\u6D6A\u8CBB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u55AE\u770B\u6BBA\u6389\u7387\u4E0D\u8DB3",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6D41\u6C34\u7DDA\u8981\u56DE\u5831\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5EA6\uFF0C\u800C\u4E0D\u53EA\u4F9D\u8CF4\u6BBA\u6389\u7387\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u6E2C\u8A66\u53EF\u80FD\u6BBA\u6389\u7A81\u8B8A\u9AD4\uFF0C\u537B\u4ECD\u4E0D\u7A69\u5B9A\u3001\u96E3\u4EE5\u95B1\u8B80\u6216\u4E0D\u53D7\u6B61\u8FCE\uFF0C\u56E0\u6B64\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5EA6\u8861\u91CF\u7684\u662F\u771F\u5BE6\u50F9\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6389\u7A81\u8B8A\u9AD4\u4E0D\u4FDD\u8B49\u5DE5\u7A0B\u5E2B\u6703\u771F\u7684\u4FDD\u7559\u8A72\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "LLM \u751F\u6210\u6E2C\u8A66\u7684\u6BBA\u6389\u7387\u7121\u6CD5\u91CF\u6E2C",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6389\u7387\u53EF\u4EE5\u91CF\u6E2C\uFF082.4% \u5C0D 15%\uFF09\uFF1B\u63A5\u53D7\u5EA6\u662F\u53E6\u4E00\u9805\u4E92\u88DC\u6307\u6A19\u3002"
+              },
+              {
+                "text": "\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5EA6\u8207\u6BBA\u6389\u7387\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u4E0D\u540C\u7684\u6307\u6A19\uFF1B\u63A5\u53D7\u5EA6\u6355\u6349\u6BBA\u6389\u7387\u5FFD\u7565\u7684\u50F9\u503C\u3002"
+              },
+              {
+                "text": "\u63A5\u53D7\u5EA6\u53D6\u4EE3\u4E86\u5C0D\u7B49\u50F9\u4EE3\u7406\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u63A5\u53D7\u5EA6\u662F\u6210\u679C\u6307\u6A19\uFF1B\u7B49\u50F9\u4EE3\u7406\u8655\u7406\u7684\u662F\u53E6\u4E00\u500B\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u9AD8\u6BBA\u6389\u7387\u4E0D\u4EE3\u8868\u6E2C\u8A66\u6703\u88AB\u5DE5\u7A0B\u5E2B\u63A1\u7528\uFF1A\u5B83\u53EF\u80FD\u4E0D\u7A69\u5B9A\u3001\u96E3\u8B80\u6216\u50F9\u503C\u4F4E\u3002\u56DE\u5831\u5DE5\u7A0B\u5E2B\u63A5\u53D7\u5EA6\u53EF\u6355\u6349\u751F\u6210\u6E2C\u8A66\u662F\u5426\u5E36\u4F86\u771F\u5BE6\u3001\u88AB\u7559\u5728\u5957\u4EF6\u4E2D\u7684\u50F9\u503C\uFF0C\u800C\u4E0D\u53EA\u662F\u6BBA\u6389\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8981\u6FFE\u6389\u4E0D\u7A69\u5B9A\u8207\u7121\u6548\u8F38\u51FA",
+            "text": "<p>\u9451\u65BC\u6E2C\u8A66\u4EE3\u7406\u8207\u7A81\u8B8A\u4EE3\u7406\u7684\u5931\u6557\u6A21\u5F0F\uFF0C\u70BA\u4EC0\u9EBC\u904E\u6FFE\uFF0F\u63A5\u53D7\u95DC\u5361\u4E0D\u53EF\u6216\u7F3A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u82E5\u7121\u95DC\u5361\uFF0C\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u3001\u5728\u5169\u7248\u4E0A\u90FD\u5931\u6557\u7684\u6E2C\u8A66\uFF08\u4EE5\u53CA\u7121\u6548\u7A81\u8B8A\u9AD4\uFF09\u6703\u6C61\u67D3\u5957\u4EF6\uFF0C\u56E0\u6B64\u5FC5\u9808\u5728\u63A5\u53D7\u524D\u6FFE\u6389\u5B83\u5011",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u95DC\u5361\u628A\u4E0D\u53EF\u9760\u8207\u58DE\u6389\u7684\u8F38\u51FA\u64CB\u5728\u4EA4\u4ED8\u5957\u4EF6\u4E4B\u5916\u3002"
+              },
+              {
+                "text": "\u95DC\u5361\u63D0\u9AD8\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u4EE5\u8B93\u8A55\u5224\u8005\u66F4\u8F15\u9B06",
+                "fraction": 0,
+                "feedback": "\u95DC\u5361\u6FFE\u9664\u58DE\u8F38\u51FA\uFF0C\u4E0D\u6703\u64CD\u5F04\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u3002"
+              },
+              {
+                "text": "\u95DC\u5361\u8B93\u6D41\u6C34\u7DDA\u5F97\u4EE5\u8DF3\u904E\u7B49\u50F9\u4EE3\u7406",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u4EE3\u7406\u4ECD\u5728\uFF1B\u95DC\u5361\u8655\u7406\u7684\u662F\u53E6\u4E00\u500B\u554F\u984C\uFF08\u58DE\u6E2C\u8A66\u8207\u58DE\u7A81\u8B8A\u9AD4\uFF09\u3002"
+              },
+              {
+                "text": "\u95DC\u5361\u628A\u7B49\u50F9\u7A81\u8B8A\u9AD4\u8F49\u70BA\u53EF\u6BBA\u7684",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6771\u897F\u80FD\u8B93\u7B49\u50F9\u7A81\u8B8A\u9AD4\u8B8A\u6210\u53EF\u6BBA\uFF1B\u95DC\u5361\u53EA\u662F\u904E\u6FFE\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u4EE3\u7406\u53EF\u80FD\u7522\u51FA\u7121\u6548\u7A81\u8B8A\u9AD4\uFF0C\u6E2C\u8A66\u4EE3\u7406\u53EF\u80FD\u7522\u51FA\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u6216\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u5931\u6557\u7684\u6E2C\u8A66\u3002\u904E\u6FFE\uFF0F\u63A5\u53D7\u95DC\u5361\u628A\u9019\u4E9B\u4E0D\u53EF\u9760\u6216\u58DE\u6389\u7684\u7522\u7269\u64CB\u5728\u6700\u7D42\u5957\u4EF6\u4E4B\u5916\uFF0C\u53EA\u63A5\u53D7\u6709\u6548\u3001\u6C7A\u5B9A\u6027\u3001\u80FD\u6BBA\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u524D\u8655\u7406\u5C0D\u6D41\u7A0B\u7684\u6DE8\u6548\u679C",
+            "text": "<p>\u5728\u53BB\u9664\u8A3B\u89E3\u628A\u7B49\u50F9\u4EE3\u7406\u63D0\u5347\u5230\u7D04 0.95 \u7CBE\u78BA\u7387\uFF0F\u7D04 0.96 \u53EC\u56DE\u7387\u4E4B\u5F8C\uFF0C\u5C0D\u4E0B\u6E38\u6E2C\u8A66\u4EE3\u7406\u7684\u6DE8\u6548\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8F03\u5C11\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6F0F\u7DB2\u3001\u4E5F\u8F03\u5C11\u53EF\u6BBA\u7A81\u8B8A\u9AD4\u88AB\u932F\u8AA4\u4E1F\u68C4\uFF0C\u56E0\u6B64\u6E2C\u8A66\u4EE3\u7406\u628A\u529B\u6C23\u82B1\u5728\u771F\u6B63\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u4E0A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9AD8\u7CBE\u78BA\u7387\u8207\u9AD8\u53EC\u56DE\u7387\u4E00\u8D77\uFF0C\u8B93\u6E2C\u8A66\u4EE3\u7406\u62FF\u5230\u66F4\u4E7E\u6DE8\u3001\u53EF\u6BBA\u7684\u8F38\u5165\u96C6\u5408\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EE3\u7406\u73FE\u5728\u4E5F\u5FC5\u9808\u81EA\u5DF1\u5224\u65B7\u7B49\u50F9\u6027",
+                "fraction": 0,
+                "feedback": "\u5224\u65B7\u4ECD\u5C6C\u7B49\u50F9\u4EE3\u7406\uFF1B\u524D\u8655\u7406\u53EA\u662F\u8B93\u5B83\u7684\u8F38\u51FA\u66F4\u4E7E\u6DE8\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u505C\u6B62\u7522\u751F\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u4EE3\u7406\u4ECD\u7522\u751F\u7D04 25% \u7B49\u50F9\u9AD4\uFF1B\u53EA\u662F\u8A55\u5224\u8005\u6FFE\u5F97\u66F4\u597D\u3002"
+              },
+              {
+                "text": "\u6BBA\u6389\u7387\u8DCC\u5230\u57FA\u65BC\u898F\u5247\u7684 2.4% \u4EE5\u4E0B",
+                "fraction": 0,
+                "feedback": "\u66F4\u597D\u7684\u904E\u6FFE\u4E0D\u6703\u964D\u4F4E\u6BBA\u6389\u7387\uFF1B\u5B83\u8B93\u6E2C\u8A66\u4EE3\u7406\u5C08\u6CE8\u65BC\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u9AD8\u53EC\u56DE\u7387\uFF08\u7D04 0.96\uFF09\u4EE3\u8868\u5C11\u6709\u7B49\u50F9\u7A81\u8B8A\u9AD4\u6F0F\u7DB2\u53BB\u6D6A\u8CBB\u6E2C\u8A66\u4EE3\u7406\uFF1B\u9AD8\u7CBE\u78BA\u7387\uFF08\u7D04 0.95\uFF09\u4EE3\u8868\u5C11\u6709\u53EF\u6BBA\u7A81\u8B8A\u9AD4\u88AB\u932F\u8AA4\u4E1F\u68C4\u3002\u5169\u8005\u4E00\u8D77\uFF0C\u8B93\u6E2C\u8A66\u4EE3\u7406\u5F97\u5230\u4E00\u7D44\u4E7E\u6DE8\u3001\u771F\u6B63\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u4F86\u7784\u6E96\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u63DB\u53D6\u66F4\u9AD8\u6BBA\u6389\u7387\u800C\u63A5\u53D7\u7684\u4EE3\u50F9",
+            "text": "<p>\u6D41\u6C34\u7DDA\u523B\u610F\u63A5\u53D7\u8F03\u9AD8\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\uFF08\u7D04 25%\uFF09\u4F5C\u70BA\u4EE3\u50F9\u3002\u5B83\u63DB\u4F86\u4EC0\u9EBC\uFF0C\u800C\u4EE3\u50F9\u53C8\u5982\u4F55\u88AB\u63A7\u5236\u4F4F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u85C9\u7531\u7784\u6E96\u932F\u8AA4\u985E\u5225\u63DB\u4F86\u9AD8\u5F97\u591A\u7684\u6BBA\u6389\u7387\uFF08\u7D04 15% \u5C0D 2.4%\uFF09\uFF1B\u4EE3\u50F9\u7531\u6FFE\u9664\u591A\u51FA\u7B49\u50F9\u9AD4\u7684\u7B49\u50F9\u4EE3\u7406\u63A7\u5236\u4F4F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B49\u50F9\u8A55\u5224\u8005\u6B63\u662F\u591A\u51FA\u7B49\u50F9\u9AD4\u7684\u63A7\u5236\u6A5F\u5236\u3002"
+              },
+              {
+                "text": "\u5B83\u63DB\u4F86\u66F4\u5FEB\u7684\u5EFA\u7F6E\uFF1B\u4EE3\u50F9\u7531 CI \u63A7\u5236\u4F4F",
+                "fraction": 0,
+                "feedback": "\u5831\u916C\u662F\u66F4\u9AD8\u7684\u6BBA\u6389\u7387\uFF0C\u63A7\u5236\u6A5F\u5236\u662F\u7B49\u50F9\u4EE3\u7406\uFF0C\u800C\u975E\u5EFA\u7F6E\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u63DB\u4F86\u6574\u9AD4\u66F4\u5C11\u7684\u7A81\u8B8A\u9AD4\uFF1B\u4EE3\u50F9\u7531\u6E2C\u8A66\u4EE3\u7406\u63A7\u5236\u4F4F",
+                "fraction": 0,
+                "feedback": "\u6536\u76CA\u662F\u7784\u6E96\u932F\u8AA4\u985E\u5225\u5E36\u4F86\u7684\u6BBA\u6389\u7387\uFF1B\u7B49\u50F9\u9AD4\u7531\u8A55\u5224\u8005\u63A7\u5236\u3002"
+              },
+              {
+                "text": "\u5B83\u4EC0\u9EBC\u90FD\u6C92\u63DB\u4F86\uFF1B\u591A\u51FA\u7684\u7B49\u50F9\u9AD4\u662F\u7D14\u7CB9\u640D\u5931",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u7D04 15% \u6BBA\u6389\u7387\u7684\u4EE3\u50F9\uFF0C\u800C\u7B49\u50F9\u4EE3\u7406\u9650\u5236\u4E86\u5176\u4E0B\u6E38\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7784\u6E96\u7279\u5B9A\u932F\u8AA4\u985E\u5225\u628A\u6BBA\u6389\u7387\u63D0\u5347\u5230\u7D04 15%\uFF0C\u4F46\u628A\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\u63D0\u9AD8\u5230\u7D04 25%\u3002\u7B49\u50F9\u4EE3\u7406\uFF08\u914D\u5408\u53BB\u9664\u8A3B\u89E3\u524D\u8655\u7406\uFF09\u5728\u6E2C\u8A66\u4EE3\u7406\u57F7\u884C\u524D\u6FFE\u9664\u591A\u51FA\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u85C9\u6B64\u63A7\u5236\u4F4F\u6B64\u4EE3\u50F9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5340\u5206\u7B49\u50F9\u7A81\u8B8A\u9AD4\u8207\u58DE\u6389\u7684\u6E2C\u8A66",
+            "text": "<p>\u5169\u7A2E\u75C7\u72C0\uFF1A(A) \u4E00\u500B\u6E2C\u8A66\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u901A\u904E\uFF1B(B) \u4E00\u500B\u6E2C\u8A66\u5728\u5169\u8005\u4E0A\u90FD\u5931\u6557\u3002\u54EA\u500B\u8A3A\u65B7\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "A \u6307\u5411\u7B49\u50F9\uFF08\u6216\u5C1A\u672A\u88AB\u6BBA\uFF09\u7684\u7A81\u8B8A\u9AD4\uFF0C\u5C6C\u7B49\u50F9\u4EE3\u7406\u7684\u554F\u984C\uFF1BB \u6307\u5411\u58DE\u6389\u7684\u6E2C\u8A66\uFF0C\u5C6C\u6E2C\u8A66\u4EE3\u7406\u7684\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u90FD\u901A\u904E\u4EE3\u8868\u7121\u6CD5\u5340\u5206\uFF08\u7B49\u50F9\uFF09\uFF1B\u5169\u8005\u90FD\u5931\u6557\u4EE3\u8868\u6E2C\u8A66\u58DE\u6389\u3002"
+              },
+              {
+                "text": "A \u8207 B \u90FD\u4EE3\u8868\u6E2C\u8A66\u4EE3\u7406\u5BEB\u4E86\u4E0D\u7A69\u5B9A\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E0D\u7A69\u5B9A\u662F\u591A\u6B21\u57F7\u884C\u9593\u7684\u975E\u6C7A\u5B9A\u6027\uFF1BA \u8207 B \u90FD\u4E0D\u662F\u95DC\u65BC\u57F7\u884C\u9593\u7684\u8B8A\u7570\u3002"
+              },
+              {
+                "text": "A \u8207 B \u90FD\u4EE3\u8868\u7A81\u8B8A\u9AD4\u7121\u6CD5\u5EFA\u7F6E",
+                "fraction": 0,
+                "feedback": "\u7121\u6CD5\u5EFA\u7F6E\u7684\u7A81\u8B8A\u9AD4\u6839\u672C\u4E0D\u6703\u57F7\u884C\uFF1B\u5728 A \u8207 B \u4E2D\u90FD\u6709\u6E2C\u8A66\u5728\u57F7\u884C\u3002"
+              },
+              {
+                "text": "A \u4EE3\u8868\u58DE\u6389\u7684\u6E2C\u8A66\uFF1BB \u4EE3\u8868\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u985B\u5012\u4E86\uFF1A\u5169\u8005\u90FD\u901A\u904E\u662F\u7B49\u50F9\u8A0A\u865F\uFF0C\u5169\u8005\u90FD\u5931\u6557\u662F\u58DE\u6E2C\u8A66\u8A0A\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u539F\u59CB\u7A0B\u5F0F\u8207\u7A81\u8B8A\u9AD4\u4E0A\u90FD\u901A\u904E\uFF08A\uFF09\u4EE3\u8868\u6E2C\u8A66\u7121\u6CD5\u5340\u5206\u5169\u8005\u2014\u2014\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\u6216\u53EA\u662F\u5C1A\u672A\u88AB\u6BBA\uFF0C\u5C6C\u7B49\u50F9\u4EE3\u7406\u7684\u554F\u984C\u3002\u5169\u8005\u90FD\u5931\u6557\uFF08B\uFF09\u4EE3\u8868\u6E2C\u8A66\u58DE\u6389\uFF08\u5EFA\u7F6E\uFF0F\u908F\u8F2F\u932F\u8AA4\uFF09\u2014\u2014\u5C6C\u6E2C\u8A66\u4EE3\u7406\u7684\u554F\u984C\u3002\u5169\u7A2E\u75C7\u72C0\u5C0D\u61C9\u4E0D\u540C\u7684\u4EE3\u7406\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u5E8F\u7684\u7406\u7531",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u7B49\u50F9\u5224\u65B7\u64FA\u5728\u6E2C\u8A66\u751F\u6210\u300C\u4E4B\u524D\u300D\u800C\u975E\u300C\u4E4B\u5F8C\u300D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5982\u6B64\u6602\u8CB4\u7684\u6E2C\u8A66\u4EE3\u7406\u6C38\u9060\u4E0D\u6703\u88AB\u8981\u6C42\u53BB\u6BBA\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\uFF0C\u7701\u4E0B\u5C0D\u6C92\u6709\u6E2C\u8A66\u80FD\u6BBA\u4E4B\u7B49\u50F9\u9AD4\u7684\u529B\u6C23",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u7BE9\u9078\u53EF\u907F\u514D\u6D6A\u8CBB\u6E2C\u8A66\u751F\u6210\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u5982\u6B64\u7B49\u50F9\u4EE3\u7406\u624D\u80FD\u8B80\u53D6\u751F\u6210\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u5224\u65B7\u7684\u662F\u7A81\u8B8A\u9AD4\u800C\u975E\u6E2C\u8A66\uFF0C\u4E14\u5728\u6E2C\u8A66\u751F\u6210\u4E4B\u524D\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7B49\u50F9\u6027\u53EA\u80FD\u5728\u6BBA\u6389\u5B83\u7684\u6E2C\u8A66\u5B58\u5728\u5F8C\u624D\u80FD\u5224\u65B7",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u6027\u662F\u7A81\u8B8A\u9AD4\u5C0D\u539F\u59CB\u7A0B\u5F0F\u7684\u6027\u8CEA\uFF0C\u8207\u4EFB\u4F55\u751F\u6210\u7684\u6E2C\u8A66\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u5728\u6E2C\u8A66\u524D\u63D0\u9AD8\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387",
+                "fraction": 0,
+                "feedback": "\u6392\u5E8F\u4E0D\u6703\u6539\u8B8A\u6BD4\u7387\uFF1B\u5B83\u662F\u70BA\u4E86\u907F\u514D\u5728\u7B49\u50F9\u9AD4\u4E0A\u6D6A\u8CBB\u6E2C\u8A66\u4EE3\u7406\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u751F\u6210\u662F\u6602\u8CB4\u7684\u6B65\u9A5F\u3002\u5148\u6FFE\u9664\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u4EE3\u8868\u6E2C\u8A66\u4EE3\u7406\u6C38\u9060\u4E0D\u6703\u88AB\u8981\u6C42\u53BB\u6BBA\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u7684\u7A81\u8B8A\u9AD4\uFF0C\u56E0\u6B64\u6D41\u6C34\u7DDA\u53EA\u628A\u6602\u8CB4\u7684\u529B\u6C23\u82B1\u5728\u771F\u6B63\u53EF\u6BBA\u7684\u7A81\u8B8A\u9AD4\u4E0A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u505C\u7528\u7B49\u50F9\u4EE3\u7406\u7684\u5F8C\u679C",
+            "text": "<p>\u67D0\u5718\u968A\u70BA\u7701\u4E00\u6B65\u800C\u505C\u7528\u7B49\u50F9\u4EE3\u7406\u3002\u9451\u65BC LLM \u7A81\u8B8A\u4EE3\u7406\u7D04 25% \u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4\u7387\uFF0C\u6700\u53EF\u80FD\u7684\u5F8C\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5230\u9054\u6E2C\u8A66\u4EE3\u7406\u7684\u7A81\u8B8A\u9AD4\u4E2D\u7D04\u6709\u56DB\u5206\u4E4B\u4E00\u662F\u7121\u6CD5\u6BBA\u7684\uFF0C\u56E0\u6B64\u5B83\u767D\u8CBB\u529B\u6C23\u53BB\u6BBA\u6C38\u9060\u6BBA\u4E0D\u6389\u7684\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D04 25% \u7B49\u50F9\u9AD4\u672A\u88AB\u6FFE\u9664\uFF0C\u5927\u91CF\u6E2C\u8A66\u4EE3\u7406\u7684\u529B\u6C23\u5C31\u82B1\u5728\u7121\u6CD5\u6BBA\u7684\u7A81\u8B8A\u9AD4\u4E0A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5617\u8A66\u4E86\u66F4\u591A\u7A81\u8B8A\u9AD4\uFF0C\u6BBA\u6389\u7387\u5347\u5230 15% \u4EE5\u4E0A",
+                "fraction": 0,
+                "feedback": "\u5617\u8A66\u7B49\u50F9\u7A81\u8B8A\u9AD4\u4E26\u4E0D\u80FD\u6BBA\u6389\u5B83\u5011\uFF0C\u6240\u4EE5\u6BBA\u6389\u7387\u4E0D\u6703\u63D0\u5347\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u4EE3\u7406\u505C\u6B62\u7522\u751F\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u4EE3\u7406\u7D04 25% \u7684\u7B49\u50F9\u7387\u4E0D\u8B8A\uFF1B\u53EA\u662F\u904E\u6FFE\u5668\u6C92\u4E86\u3002"
+              },
+              {
+                "text": "\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u88AB\u6D88\u9664",
+                "fraction": 0,
+                "feedback": "\u4E0D\u7A69\u5B9A\u662F\u53E6\u4E00\u500B\u6E2C\u8A66\u4EE3\u7406\u54C1\u8CEA\u95DC\u5361\u7684\u554F\u984C\uFF0C\u8207\u79FB\u9664\u7B49\u50F9\u8A55\u5224\u8005\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C92\u6709\u7B49\u50F9\u4EE3\u7406\uFF0C\u90A3\u7D04 25% \u7B49\u50F9\u7684\u7A81\u8B8A\u9AD4\u6703\u76F4\u63A5\u6D41\u5411\u6E2C\u8A66\u4EE3\u7406\uFF0C\u6E2C\u8A66\u4EE3\u7406\u65BC\u662F\u5728\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6BBA\u7684\u7A81\u8B8A\u9AD4\u4E0A\u767D\u8CBB\u529B\u6C23\u3002\u9019\u6B63\u662F\u7B49\u50F9\u4EE3\u7406\uFF08\u914D\u5408\u53BB\u9664\u8A3B\u89E3\u524D\u8655\u7406\uFF09\u8981\u9632\u6B62\u7684\u6D6A\u8CBB\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "logic-active-clause": {
       "en": {
         "easy": [

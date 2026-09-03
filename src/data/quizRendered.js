@@ -60811,6 +60811,2590 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "llm-pipeline": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "The three agents in order",
+          "text": "<p>The LLM test-generation pipeline (Meta's ACH flow, FSE 2025) chains three agents. In what order do they run?</p>",
+          "answers": [
+            {
+              "text": "Mutation agent &#8594; Equivalence agent &#8594; Test agent",
+              "fraction": 100,
+              "feedback": "Correct — mutants are generated, screened for equivalence, then the survivors are targeted by generated tests."
+            },
+            {
+              "text": "Test agent &#8594; Mutation agent &#8594; Equivalence agent",
+              "fraction": 0,
+              "feedback": "Tests are written last, to kill the non-equivalent mutants that survive screening."
+            },
+            {
+              "text": "Equivalence agent &#8594; Mutation agent &#8594; Test agent",
+              "fraction": 0,
+              "feedback": "There is nothing to judge for equivalence until the mutation agent has produced mutants."
+            },
+            {
+              "text": "Mutation agent &#8594; Test agent &#8594; Equivalence agent",
+              "fraction": 0,
+              "feedback": "Equivalence screening happens before test generation, so the test agent is not asked to kill uncatchable mutants."
+            }
+          ],
+          "generalFeedback": "The pipeline is a three-agent flow in the order Mutation &#8594; Equivalence &#8594; Test: the mutation agent seeds faults, the equivalence agent filters out uncatchable (equivalent) mutants, and the test agent generates tests that kill the remaining non-equivalent mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Job of the mutation agent",
+          "text": "<p>What is the job of <strong>Agent 1</strong>, the <em>mutation agent</em>?</p>",
+          "answers": [
+            {
+              "text": "Generate mutants that target specific fault classes",
+              "fraction": 100,
+              "feedback": "Correct — the mutation agent seeds faults aimed at particular fault classes."
+            },
+            {
+              "text": "Decide whether a mutant is equivalent",
+              "fraction": 0,
+              "feedback": "That is the equivalence agent's job (Agent 2)."
+            },
+            {
+              "text": "Write a test that kills a mutant",
+              "fraction": 0,
+              "feedback": "That is the test agent's job (Agent 3)."
+            },
+            {
+              "text": "Run the CI pipeline and reject flaky tests",
+              "fraction": 0,
+              "feedback": "Flakiness is a quality gate on the test agent's output, not the mutation agent's role."
+            }
+          ],
+          "generalFeedback": "The mutation agent (Agent 1) generates mutants, deliberately targeting specific fault classes rather than making blind syntactic tweaks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Job of the equivalence agent",
+          "text": "<p>What is the job of <strong>Agent 2</strong>, the <em>equivalence agent</em>?</p>",
+          "answers": [
+            {
+              "text": "Decide whether a mutant is equivalent (uncatchable) to the original",
+              "fraction": 100,
+              "feedback": "Correct — it acts as an LLM-as-judge, filtering out mutants no test could ever kill."
+            },
+            {
+              "text": "Generate the mutants in the first place",
+              "fraction": 0,
+              "feedback": "Generating mutants is the mutation agent's role (Agent 1)."
+            },
+            {
+              "text": "Generate a test that kills the mutant",
+              "fraction": 0,
+              "feedback": "Writing the killing test is the test agent's role (Agent 3)."
+            },
+            {
+              "text": "Measure the code coverage of the resulting suite",
+              "fraction": 0,
+              "feedback": "The equivalence agent judges equivalence; it does not compute coverage."
+            }
+          ],
+          "generalFeedback": "The equivalence agent (Agent 2) is an LLM-as-judge that decides whether a mutant is equivalent — semantically identical to the original and therefore impossible for any test to kill — so those mutants are removed before the test agent runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Job of the test agent",
+          "text": "<p>What is the job of <strong>Agent 3</strong>, the <em>test agent</em>?</p>",
+          "answers": [
+            {
+              "text": "Generate a test that kills the non-equivalent mutant",
+              "fraction": 100,
+              "feedback": "Correct — the test agent writes a test whose result distinguishes the mutant from the original."
+            },
+            {
+              "text": "Generate the mutants",
+              "fraction": 0,
+              "feedback": "That is the mutation agent (Agent 1)."
+            },
+            {
+              "text": "Judge whether the mutant is equivalent",
+              "fraction": 0,
+              "feedback": "That is the equivalence agent (Agent 2)."
+            },
+            {
+              "text": "Strip comments from the source before judging",
+              "fraction": 0,
+              "feedback": "Comment stripping is a preprocessing step for the equivalence agent, not the test agent's job."
+            }
+          ],
+          "generalFeedback": "The test agent (Agent 3) generates a test that kills the mutant — a test that produces a different result on the mutant than on the original — for the mutants the equivalence agent judged non-equivalent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"kill a mutant\" means",
+          "text": "<p>In this pipeline, what does it mean for a test to <em>kill</em> a mutant?</p>",
+          "answers": [
+            {
+              "text": "The test produces a different result on the mutant than on the original program",
+              "fraction": 100,
+              "feedback": "Correct — an observable difference between mutant and original is what kills it."
+            },
+            {
+              "text": "The test passes on both the mutant and the original",
+              "fraction": 0,
+              "feedback": "If a test passes on both, it fails to distinguish them and does not kill the mutant."
+            },
+            {
+              "text": "The mutant is deleted from the source tree",
+              "fraction": 0,
+              "feedback": "Killing is about detection by a test, not about removing the mutant from disk."
+            },
+            {
+              "text": "The equivalence agent labels the mutant as equivalent",
+              "fraction": 0,
+              "feedback": "A mutant labelled equivalent is precisely the one that can never be killed."
+            }
+          ],
+          "generalFeedback": "A test kills a mutant when it yields a different, observable result on the mutant than on the original program. The whole point of the test agent is to generate such mutation-killing tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an equivalent mutant is here",
+          "text": "<p>In this pipeline, an <em>equivalent</em> mutant is one that:</p>",
+          "answers": [
+            {
+              "text": "Behaves identically to the original, so no test can ever kill it (uncatchable)",
+              "fraction": 100,
+              "feedback": "Correct — that is why the equivalence agent filters it out before the test agent runs."
+            },
+            {
+              "text": "Is killed by every test the test agent generates",
+              "fraction": 0,
+              "feedback": "That describes an easily-killed mutant, the opposite of an equivalent one."
+            },
+            {
+              "text": "Fails to compile and is discarded by the build",
+              "fraction": 0,
+              "feedback": "That is invalid code (a mutation-agent failure mode), not an equivalent mutant."
+            },
+            {
+              "text": "Is a test that is non-deterministic across CI runs",
+              "fraction": 0,
+              "feedback": "That is a flaky test, a test-agent failure mode, not an equivalent mutant."
+            }
+          ],
+          "generalFeedback": "An equivalent mutant is semantically identical to the original: it produces the same behaviour on every input, so no test can distinguish it — it is uncatchable. The equivalence agent exists to identify and remove such mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent judges equivalence",
+          "text": "<p>Which agent decides whether a mutant is equivalent?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent (Agent 2)",
+              "fraction": 100,
+              "feedback": "Correct — it is the LLM-as-judge for equivalence."
+            },
+            {
+              "text": "The mutation agent (Agent 1)",
+              "fraction": 0,
+              "feedback": "Agent 1 generates mutants; it does not judge them."
+            },
+            {
+              "text": "The test agent (Agent 3)",
+              "fraction": 0,
+              "feedback": "Agent 3 writes the killing test; equivalence has already been decided before it runs."
+            },
+            {
+              "text": "The CI system",
+              "fraction": 0,
+              "feedback": "CI runs the generated tests; it does not judge mutant equivalence."
+            }
+          ],
+          "generalFeedback": "The equivalence agent (Agent 2) is the LLM-as-judge that decides whether a given mutant is equivalent to the original.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent generates the killing test",
+          "text": "<p>Which agent generates the test that kills a mutant?</p>",
+          "answers": [
+            {
+              "text": "The test agent (Agent 3)",
+              "fraction": 100,
+              "feedback": "Correct — the test agent produces the mutation-killing test."
+            },
+            {
+              "text": "The mutation agent (Agent 1)",
+              "fraction": 0,
+              "feedback": "Agent 1 generates mutants, not tests."
+            },
+            {
+              "text": "The equivalence agent (Agent 2)",
+              "fraction": 0,
+              "feedback": "Agent 2 judges equivalence; it does not write tests."
+            },
+            {
+              "text": "The engineer who reviews acceptance",
+              "fraction": 0,
+              "feedback": "Engineers accept or reject the generated tests, but Agent 3 generates them."
+            }
+          ],
+          "generalFeedback": "The test agent (Agent 3) generates the test that kills the non-equivalent mutant handed to it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent generates the mutants",
+          "text": "<p>Which agent generates the mutants?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent (Agent 1)",
+              "fraction": 100,
+              "feedback": "Correct — Agent 1 seeds faults targeting specific fault classes."
+            },
+            {
+              "text": "The equivalence agent (Agent 2)",
+              "fraction": 0,
+              "feedback": "Agent 2 judges the mutants Agent 1 produced."
+            },
+            {
+              "text": "The test agent (Agent 3)",
+              "fraction": 0,
+              "feedback": "Agent 3 writes killing tests, not mutants."
+            },
+            {
+              "text": "The rule-based mutator only",
+              "fraction": 0,
+              "feedback": "In the LLM-guided pipeline, the mutation agent is the LLM; rule-based mutation is the baseline being compared against."
+            }
+          ],
+          "generalFeedback": "The mutation agent (Agent 1) generates the mutants, deliberately targeting specific fault classes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Domain-aware vs rule-based",
+          "text": "<p>Compared with the rule-based baseline, the LLM-guided approach is described as:</p>",
+          "answers": [
+            {
+              "text": "Domain- and issue-aware, whereas rule-based mutation is not",
+              "fraction": 100,
+              "feedback": "Correct — the LLM can target faults relevant to the domain and the issue at hand."
+            },
+            {
+              "text": "Faster to run but blind to the domain",
+              "fraction": 0,
+              "feedback": "It is the LLM approach that is domain-aware; being domain-aware is its advantage, not a blindness."
+            },
+            {
+              "text": "Identical to rule-based mutation in every respect",
+              "fraction": 0,
+              "feedback": "They differ sharply — notably kill rate and domain awareness."
+            },
+            {
+              "text": "Unable to target specific fault classes",
+              "fraction": 0,
+              "feedback": "Targeting specific fault classes is exactly what the LLM-guided approach does."
+            }
+          ],
+          "generalFeedback": "The LLM-guided pipeline is domain- and issue-aware — it can target fault classes that matter for the code under test — while the rule-based baseline applies generic syntactic operators with no such awareness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM-as-judge role",
+          "text": "<p>The phrase \"LLM-as-judge\" in this pipeline refers to which agent's mode of operation?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent deciding whether a mutant is equivalent",
+              "fraction": 100,
+              "feedback": "Correct — it uses the LLM to judge equivalence."
+            },
+            {
+              "text": "The mutation agent scoring how many faults it seeded",
+              "fraction": 0,
+              "feedback": "The mutation agent generates mutants; the judging role is the equivalence agent's."
+            },
+            {
+              "text": "The test agent grading its own tests",
+              "fraction": 0,
+              "feedback": "The test agent writes tests; the \"judge\" is the equivalence agent."
+            },
+            {
+              "text": "CI deciding whether a test is flaky",
+              "fraction": 0,
+              "feedback": "CI applies a quality gate, but \"LLM-as-judge\" names the equivalence agent."
+            }
+          ],
+          "generalFeedback": "\"LLM-as-judge\" describes the equivalence agent (Agent 2), which uses the LLM to judge whether a mutant is equivalent to the original.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which mutants reach the test agent",
+          "text": "<p>Which mutants does the test agent try to kill?</p>",
+          "answers": [
+            {
+              "text": "The non-equivalent mutants that survive the equivalence agent",
+              "fraction": 100,
+              "feedback": "Correct — only mutants that can actually be killed are handed to the test agent."
+            },
+            {
+              "text": "All mutants, including equivalent ones",
+              "fraction": 0,
+              "feedback": "Equivalent mutants are filtered out first, so effort is not wasted on uncatchable ones."
+            },
+            {
+              "text": "Only the equivalent mutants",
+              "fraction": 0,
+              "feedback": "Equivalent mutants can never be killed; the test agent targets the non-equivalent ones."
+            },
+            {
+              "text": "Only mutants that fail to compile",
+              "fraction": 0,
+              "feedback": "Invalid mutants are discarded, not passed on to be killed."
+            }
+          ],
+          "generalFeedback": "The equivalence agent removes equivalent (uncatchable) mutants first, so the test agent only tries to kill the non-equivalent mutants that survive that screening.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Pipeline is three agents",
+          "text": "<p>The LLM test-generation pipeline is a three-agent flow (mutation, equivalence, and test agents).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — it chains a mutation agent, an equivalence agent, and a test agent."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is a three-agent flow: mutation &#8594; equivalence &#8594; test."
+            }
+          ],
+          "generalFeedback": "The pipeline is a three-agent flow: the mutation agent, the equivalence (LLM-as-judge) agent, and the test agent, running in that order."
+        },
+        {
+          "type": "multichoice",
+          "name": "Overall goal of the pipeline",
+          "text": "<p>What is the overall goal of the pipeline?</p>",
+          "answers": [
+            {
+              "text": "Generate mutation-killing tests that target specific fault classes",
+              "fraction": 100,
+              "feedback": "Correct — the end product is tests that kill mutants aimed at particular fault classes."
+            },
+            {
+              "text": "Maximise the number of equivalent mutants produced",
+              "fraction": 0,
+              "feedback": "Equivalent mutants are an unwanted cost to be filtered, not a goal."
+            },
+            {
+              "text": "Prove the program contains no defects",
+              "fraction": 0,
+              "feedback": "No testing pipeline proves the absence of all defects."
+            },
+            {
+              "text": "Replace human engineers entirely",
+              "fraction": 0,
+              "feedback": "Engineer acceptance is a metric; engineers still review the generated tests."
+            }
+          ],
+          "generalFeedback": "The pipeline generates mutation-killing tests targeting specific fault classes, using three agents to seed faults, filter uncatchable ones, and write the tests that kill the rest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent runs first",
+          "text": "<p>Which agent runs <em>first</em> in the pipeline?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent",
+              "fraction": 100,
+              "feedback": "Correct — mutants must exist before anything can be judged or killed."
+            },
+            {
+              "text": "The equivalence agent",
+              "fraction": 0,
+              "feedback": "There is nothing to judge until the mutation agent has produced mutants."
+            },
+            {
+              "text": "The test agent",
+              "fraction": 0,
+              "feedback": "Tests are written last, against the surviving non-equivalent mutants."
+            },
+            {
+              "text": "They all run simultaneously with no ordering",
+              "fraction": 0,
+              "feedback": "The agents run in a defined order: mutation &#8594; equivalence &#8594; test."
+            }
+          ],
+          "generalFeedback": "The mutation agent runs first, generating the mutants that the equivalence and test agents then process in turn.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Data flow into the equivalence agent",
+          "text": "<p>What does the equivalence agent receive as its input?</p>",
+          "answers": [
+            {
+              "text": "The mutants produced by the mutation agent, to judge which are equivalent",
+              "fraction": 100,
+              "feedback": "Correct — it screens the mutation agent's output before the test agent runs."
+            },
+            {
+              "text": "The killing tests produced by the test agent",
+              "fraction": 0,
+              "feedback": "The test agent runs after the equivalence agent, so its tests cannot be the input."
+            },
+            {
+              "text": "Raw coverage reports from CI",
+              "fraction": 0,
+              "feedback": "The equivalence agent judges mutants, not coverage reports."
+            },
+            {
+              "text": "Nothing — it runs before the mutation agent",
+              "fraction": 0,
+              "feedback": "The order is mutation &#8594; equivalence &#8594; test; there is nothing to judge before mutants exist."
+            }
+          ],
+          "generalFeedback": "The equivalence agent sits between the mutation and test agents: it takes the mutants generated by the mutation agent and decides which are equivalent, passing only the non-equivalent ones to the test agent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the equivalence agent is needed",
+          "text": "<p>Why does the LLM-guided pipeline need a dedicated equivalence agent, when a simpler rule-based flow might not?</p>",
+          "answers": [
+            {
+              "text": "The LLM mutation agent produces a higher rate of equivalent mutants (~25%), so they must be filtered out",
+              "fraction": 100,
+              "feedback": "Correct — more equivalent mutants means a dedicated judge is worth the cost."
+            },
+            {
+              "text": "The LLM never produces equivalent mutants, so the agent double-checks",
+              "fraction": 0,
+              "feedback": "The opposite is true: the LLM produces more equivalent mutants than the rule-based baseline."
+            },
+            {
+              "text": "Because rule-based mutation cannot compile its mutants",
+              "fraction": 0,
+              "feedback": "The reason is the LLM's higher equivalent-mutant rate, not a compilation issue with rule-based mutation."
+            },
+            {
+              "text": "To increase the number of equivalent mutants on purpose",
+              "fraction": 0,
+              "feedback": "The agent removes equivalent mutants; it does not create more."
+            }
+          ],
+          "generalFeedback": "Because the LLM-guided mutation agent produces a higher equivalent-mutant rate (~25%, versus roughly 10&#8211;15% for rule-based mutation), the pipeline adds an equivalence agent to filter those uncatchable mutants out before the expensive test-generation step.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill-rate comparison",
+          "text": "<p>How do the reported mutant kill rates compare between the rule-based baseline and the LLM-guided pipeline?</p>",
+          "answers": [
+            {
+              "text": "Rule-based ~2.4% vs LLM-guided ~15%",
+              "fraction": 100,
+              "feedback": "Correct — the LLM-guided approach kills a far larger share of mutants."
+            },
+            {
+              "text": "Rule-based ~15% vs LLM-guided ~2.4%",
+              "fraction": 0,
+              "feedback": "The figures are reversed: LLM-guided is the higher one, at ~15%."
+            },
+            {
+              "text": "Both about 25%",
+              "fraction": 0,
+              "feedback": "25% is the LLM's equivalent-mutant rate, not the kill rate."
+            },
+            {
+              "text": "Both close to 100%",
+              "fraction": 0,
+              "feedback": "Neither approach reaches anywhere near 100%; the reported kill rates are 2.4% and 15%."
+            }
+          ],
+          "generalFeedback": "The rule-based baseline kills about 2.4% of mutants, while the LLM-guided pipeline kills about 15% — a large jump attributed to targeting specific fault classes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Flaky test failure mode",
+          "text": "<p>A generated test passes and fails non-deterministically across CI runs and is rejected. Which agent's failure mode is this?</p>",
+          "answers": [
+            {
+              "text": "The test agent — it produced a flaky (non-deterministic) test",
+              "fraction": 100,
+              "feedback": "Correct — flaky tests are a test-agent failure mode, caught by the CI quality gate."
+            },
+            {
+              "text": "The mutation agent — it produced an equivalent mutant",
+              "fraction": 0,
+              "feedback": "Flakiness is about the test's determinism, not about the mutant."
+            },
+            {
+              "text": "The equivalence agent — it misjudged equivalence",
+              "fraction": 0,
+              "feedback": "A misjudged equivalence is a different symptom; flakiness is a property of the generated test."
+            },
+            {
+              "text": "CI — it introduced randomness into the test",
+              "fraction": 0,
+              "feedback": "CI detects and rejects the flaky test; the test agent generated it."
+            }
+          ],
+          "generalFeedback": "Generating a flaky (non-deterministic) test that CI rejects is a failure mode of the test agent. A quality gate filters such tests out.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Invalid-code failure mode",
+          "text": "<p>A produced mutant is syntactically invalid and fails to build. Which agent's failure mode is this?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent — it emitted syntactically invalid code",
+              "fraction": 100,
+              "feedback": "Correct — emitting invalid, non-building code is a mutation-agent failure mode."
+            },
+            {
+              "text": "The test agent — it wrote a flaky test",
+              "fraction": 0,
+              "feedback": "Flakiness is a test-agent issue; this is a mutant that fails to build."
+            },
+            {
+              "text": "The equivalence agent — it marked a mutant equivalent by mistake",
+              "fraction": 0,
+              "feedback": "That is a different failure; here the mutant itself does not compile."
+            },
+            {
+              "text": "The engineer — they rejected the test",
+              "fraction": 0,
+              "feedback": "The problem is invalid mutant code, produced by the mutation agent."
+            }
+          ],
+          "generalFeedback": "Emitting syntactically invalid code that fails to build is a failure mode of the mutation agent (Agent 1); such mutants are discarded.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why strip comments",
+          "text": "<p>The equivalence agent adds a preprocessing step that strips comments before judging. Why?</p>",
+          "answers": [
+            {
+              "text": "Comment differences caused about 25% of its false positives, so removing them improves accuracy",
+              "fraction": 100,
+              "feedback": "Correct — comment diffs were a large source of false positives, fixed by stripping comments."
+            },
+            {
+              "text": "Comments make the code compile faster",
+              "fraction": 0,
+              "feedback": "The reason is judging accuracy, not compile speed."
+            },
+            {
+              "text": "Comments are needed by the test agent, so they are moved aside",
+              "fraction": 0,
+              "feedback": "They are stripped to help the equivalence judge, not relocated for the test agent."
+            },
+            {
+              "text": "Stripping comments increases the equivalent-mutant rate on purpose",
+              "fraction": 0,
+              "feedback": "It improves the judge's precision and recall; it is not about inflating equivalence."
+            }
+          ],
+          "generalFeedback": "Comment differences accounted for roughly 25% of the equivalence agent's false positives. Stripping comments as a preprocessing step removes that noise and lifts precision and recall (from 0.79/0.47 to about 0.95/0.96).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent-mutant rate comparison",
+          "text": "<p>How does the equivalent-mutant rate of the LLM-guided approach compare with the rule-based baseline?</p>",
+          "answers": [
+            {
+              "text": "Higher for the LLM (~25%) than rule-based (~10&#8211;15%)",
+              "fraction": 100,
+              "feedback": "Correct — the LLM produces more equivalent mutants, motivating the equivalence agent."
+            },
+            {
+              "text": "Lower for the LLM (~5%) than rule-based (~25%)",
+              "fraction": 0,
+              "feedback": "The LLM's equivalent-mutant rate is higher, not lower."
+            },
+            {
+              "text": "Identical for both, at ~2.4%",
+              "fraction": 0,
+              "feedback": "2.4% is the rule-based kill rate, not an equivalent-mutant rate."
+            },
+            {
+              "text": "Zero for the LLM",
+              "fraction": 0,
+              "feedback": "The LLM's equivalent-mutant rate is about 25%, not zero."
+            }
+          ],
+          "generalFeedback": "The LLM-guided approach has a higher equivalent-mutant rate (~25%) than the rule-based baseline (~10&#8211;15%) — a cost of targeting specific fault classes, which is why a dedicated equivalence judge is needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test-fails-on-both failure mode",
+          "text": "<p>A generated test fails on BOTH the original program and the mutant. Which agent's failure mode is this, most directly?</p>",
+          "answers": [
+            {
+              "text": "The test agent — it produced a test with a build or logic error, not a valid mutation-killing test",
+              "fraction": 100,
+              "feedback": "Correct — a test that fails on the original too cannot be distinguishing the mutant; it is broken."
+            },
+            {
+              "text": "The mutation agent — the mutant is equivalent",
+              "fraction": 0,
+              "feedback": "Equivalence would make the test pass on both, not fail on both; and this is about the test being broken."
+            },
+            {
+              "text": "The equivalence agent — it under-counted equivalent mutants",
+              "fraction": 0,
+              "feedback": "The symptom is a broken test, which is the test agent's output."
+            },
+            {
+              "text": "CI — it ran the test in the wrong order",
+              "fraction": 0,
+              "feedback": "The test itself is faulty; it fails on the original as well as the mutant."
+            }
+          ],
+          "generalFeedback": "A test that fails on both the original and the mutant is not distinguishing them — it has a build or logic error. That is a test-agent failure mode; a valid killing test must pass on the original and fail on the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where equivalence sits in the flow",
+          "text": "<p>Relative to the test agent, when does the equivalence agent run?</p>",
+          "answers": [
+            {
+              "text": "Before the test agent, so uncatchable mutants are removed first",
+              "fraction": 100,
+              "feedback": "Correct — screening precedes test generation to avoid wasted effort."
+            },
+            {
+              "text": "After the test agent, to check the tests",
+              "fraction": 0,
+              "feedback": "Equivalence is judged on mutants, before the test agent writes tests."
+            },
+            {
+              "text": "In parallel with the mutation agent",
+              "fraction": 0,
+              "feedback": "It runs after the mutation agent and before the test agent."
+            },
+            {
+              "text": "Only after CI rejects a flaky test",
+              "fraction": 0,
+              "feedback": "Equivalence judging is unrelated to CI's flakiness gate and comes earlier."
+            }
+          ],
+          "generalFeedback": "The equivalence agent runs after the mutation agent and before the test agent, filtering out equivalent mutants so the test agent only works on catchable ones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of comment stripping on scores",
+          "text": "<p>What happens to the equivalence agent's precision and recall after comment stripping is added?</p>",
+          "answers": [
+            {
+              "text": "They rise from about 0.79/0.47 to about 0.95/0.96",
+              "fraction": 100,
+              "feedback": "Correct — removing comment-diff noise sharply improves both metrics."
+            },
+            {
+              "text": "They fall from about 0.95/0.96 to about 0.79/0.47",
+              "fraction": 0,
+              "feedback": "The direction is reversed: preprocessing improves the scores."
+            },
+            {
+              "text": "They stay unchanged",
+              "fraction": 0,
+              "feedback": "Comment stripping produced a large, measured improvement."
+            },
+            {
+              "text": "Precision rises but recall drops to near zero",
+              "fraction": 0,
+              "feedback": "Both precision and recall rise, to about 0.95 and 0.96."
+            }
+          ],
+          "generalFeedback": "Without preprocessing the equivalence agent scored precision 0.79 and recall 0.47; stripping comments (which caused ~25% of false positives) lifted these to about 0.95 precision and 0.96 recall.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Engineer acceptance as a metric",
+          "text": "<p>Besides kill rate, which of these is reported as a metric for the pipeline?</p>",
+          "answers": [
+            {
+              "text": "Engineer acceptance of the generated tests",
+              "fraction": 100,
+              "feedback": "Correct — whether engineers actually accept the tests is a headline metric."
+            },
+            {
+              "text": "Number of comments per mutant",
+              "fraction": 0,
+              "feedback": "Comments matter only as a preprocessing nuisance for the judge, not as a headline metric."
+            },
+            {
+              "text": "Lines of code deleted per run",
+              "fraction": 0,
+              "feedback": "That is not a reported pipeline metric."
+            },
+            {
+              "text": "Number of agents in the flow",
+              "fraction": 0,
+              "feedback": "The agent count is fixed at three; it is not an evaluation metric."
+            }
+          ],
+          "generalFeedback": "Engineer acceptance — whether engineers actually adopt the generated tests — is a reported metric, reflecting that a high kill rate alone is not the only measure of value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missed-equivalence failure mode",
+          "text": "<p>An equivalent mutant slips through and is handed to the test agent, which then wastes effort trying to kill it. Which agent's failure mode is this?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent — it failed to recognise an equivalent mutant",
+              "fraction": 100,
+              "feedback": "Correct — missing an equivalent mutant (low recall) sends uncatchable work downstream."
+            },
+            {
+              "text": "The mutation agent — it produced invalid code",
+              "fraction": 0,
+              "feedback": "The mutant here is valid but equivalent; the miss is the judge's."
+            },
+            {
+              "text": "The test agent — it wrote a flaky test",
+              "fraction": 0,
+              "feedback": "The wasted effort stems from an equivalent mutant reaching the test agent, a judging miss."
+            },
+            {
+              "text": "CI — it failed to reject the test",
+              "fraction": 0,
+              "feedback": "The root cause is the equivalence agent letting an equivalent mutant through."
+            }
+          ],
+          "generalFeedback": "Letting an equivalent (uncatchable) mutant through to the test agent is an equivalence-agent failure — a recall miss. The test agent then wastes effort on a mutant no test can kill.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Higher kill rate, more equivalents",
+          "text": "<p>The LLM-guided pipeline achieves a higher kill rate than rule-based mutation but at the cost of a higher equivalent-mutant rate.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — ~15% kill rate vs ~2.4%, but ~25% equivalent mutants vs ~10&#8211;15%."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The trade-off is real: higher kill rate (15% vs 2.4%) but more equivalent mutants (~25% vs ~10&#8211;15%)."
+            }
+          ],
+          "generalFeedback": "Targeting specific fault classes lifts the kill rate from ~2.4% to ~15%, but also raises the equivalent-mutant rate to ~25% (vs ~10&#8211;15% for rule-based), which is why the equivalence agent is added."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the higher kill rate",
+          "text": "<p>What is credited with the LLM-guided pipeline's much higher kill rate?</p>",
+          "answers": [
+            {
+              "text": "Targeting specific fault classes rather than generic syntactic tweaks",
+              "fraction": 100,
+              "feedback": "Correct — aiming at real fault classes yields far more killable, meaningful mutants."
+            },
+            {
+              "text": "Producing far fewer mutants overall",
+              "fraction": 0,
+              "feedback": "The kill rate gain comes from what is targeted, not from producing fewer mutants."
+            },
+            {
+              "text": "Skipping the equivalence-judging step",
+              "fraction": 0,
+              "feedback": "The equivalence step is added, not skipped; the kill rate comes from fault-class targeting."
+            },
+            {
+              "text": "Running each test only once",
+              "fraction": 0,
+              "feedback": "Run count is unrelated to the kill-rate improvement."
+            }
+          ],
+          "generalFeedback": "The jump from ~2.4% to ~15% kill rate is credited to the LLM targeting specific fault classes, which the coverage-blind rule-based baseline cannot do.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Quality gates on generated tests",
+          "text": "<p>Why does the pipeline need quality gates on the test agent's output?</p>",
+          "answers": [
+            {
+              "text": "Because the test agent can produce flaky or otherwise invalid tests that must be filtered out",
+              "fraction": 100,
+              "feedback": "Correct — flaky tests and tests that fail on both original and mutant must be rejected."
+            },
+            {
+              "text": "Because the mutation agent never produces valid mutants",
+              "fraction": 0,
+              "feedback": "The gates target the test agent's output; the mutation agent's invalid mutants are handled separately."
+            },
+            {
+              "text": "To increase the equivalent-mutant rate",
+              "fraction": 0,
+              "feedback": "Gates filter bad tests; they do not affect the equivalent-mutant rate."
+            },
+            {
+              "text": "To make the equivalence agent unnecessary",
+              "fraction": 0,
+              "feedback": "The equivalence agent is still needed; quality gates handle a different problem (bad tests)."
+            }
+          ],
+          "generalFeedback": "The test agent can emit flaky (non-deterministic) tests or tests that fail on both the original and the mutant. Quality gates (e.g. CI checks) filter these out so only valid mutation-killing tests remain.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Trade-off drives the equivalence judge",
+          "text": "<p>Which chain of reasoning best explains why the pipeline includes an equivalence agent at all?</p>",
+          "answers": [
+            {
+              "text": "Targeting fault classes raises the kill rate but also the equivalent-mutant rate (~25%), so a judge is needed to drop uncatchable mutants before the costly test step",
+              "fraction": 100,
+              "feedback": "Correct — the equivalence agent is the direct response to the higher equivalent-mutant rate."
+            },
+            {
+              "text": "The LLM produces fewer equivalent mutants, so a judge cheaply confirms there are none",
+              "fraction": 0,
+              "feedback": "The LLM produces more equivalent mutants, not fewer; that is why the judge is required."
+            },
+            {
+              "text": "Rule-based mutation needs the judge, and the LLM pipeline just inherits it",
+              "fraction": 0,
+              "feedback": "The judge is motivated by the LLM's own higher equivalent-mutant rate, not inherited from rule-based mutation."
+            },
+            {
+              "text": "The judge exists only to raise the kill-rate number",
+              "fraction": 0,
+              "feedback": "The judge removes uncatchable mutants; it does not manufacture kills."
+            }
+          ],
+          "generalFeedback": "Because the LLM-guided mutation agent targets specific fault classes, it kills more mutants (~15% vs ~2.4%) but also generates more equivalent ones (~25% vs ~10&#8211;15%). The equivalence agent is the pipeline's response: it filters those uncatchable mutants out before the expensive test-generation step.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting recall 0.47",
+          "text": "<p>The equivalence agent's recall without preprocessing was only 0.47. In this pipeline, what does that low recall concretely cost?</p>",
+          "answers": [
+            {
+              "text": "Many truly-equivalent mutants are missed and passed to the test agent, which wastes effort trying to kill uncatchable mutants",
+              "fraction": 100,
+              "feedback": "Correct — low recall on \"equivalent\" means many equivalents slip through downstream."
+            },
+            {
+              "text": "Many non-equivalent mutants are wrongly discarded, so real bugs go untested",
+              "fraction": 0,
+              "feedback": "That describes low precision, not low recall."
+            },
+            {
+              "text": "The mutation agent produces fewer mutants",
+              "fraction": 0,
+              "feedback": "Recall of the judge does not change how many mutants the mutation agent generates."
+            },
+            {
+              "text": "Tests become flaky in CI",
+              "fraction": 0,
+              "feedback": "Flakiness is a test-agent issue, unrelated to the judge's recall."
+            }
+          ],
+          "generalFeedback": "Recall of 0.47 means the judge caught fewer than half of the truly-equivalent mutants. The missed ones flow to the test agent, which then wastes effort attempting to kill mutants that no test can ever kill. Comment stripping lifted recall to ~0.96.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting precision 0.79",
+          "text": "<p>The equivalence agent's precision without preprocessing was 0.79. What does a precision below 1.0 cost here?</p>",
+          "answers": [
+            {
+              "text": "Some mutants labelled \"equivalent\" are actually non-equivalent, so genuinely killable mutants are wrongly dropped and never get a test",
+              "fraction": 100,
+              "feedback": "Correct — false positives on \"equivalent\" discard catchable mutants."
+            },
+            {
+              "text": "Some equivalent mutants are missed and reach the test agent",
+              "fraction": 0,
+              "feedback": "That is a recall problem; precision concerns wrong \"equivalent\" labels."
+            },
+            {
+              "text": "The kill rate is inflated to 15%",
+              "fraction": 0,
+              "feedback": "The 15% kill rate comes from fault-class targeting, not from judge precision."
+            },
+            {
+              "text": "Mutants fail to compile more often",
+              "fraction": 0,
+              "feedback": "Compilation is a mutation-agent concern, not a function of judge precision."
+            }
+          ],
+          "generalFeedback": "Precision 0.79 means about a fifth of the mutants the judge called \"equivalent\" were not — those genuinely killable mutants are wrongly filtered out and never receive a test. Comment differences caused ~25% of these false positives; stripping comments raised precision to ~0.95.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why comment stripping fixes false positives",
+          "text": "<p>Why would stripping comments specifically reduce the equivalence agent's false positives?</p>",
+          "answers": [
+            {
+              "text": "Comment-only differences do not change behaviour, yet were nudging the judge toward \"equivalent\"; removing them lets it compare actual logic — and they were ~25% of false positives",
+              "fraction": 100,
+              "feedback": "Correct — comment diffs are behaviour-neutral noise that skewed the judgment."
+            },
+            {
+              "text": "Comments change program behaviour, so removing them changes the mutant",
+              "fraction": 0,
+              "feedback": "Comments do not affect behaviour; that is exactly why they are noise for the judge."
+            },
+            {
+              "text": "Stripping comments speeds up compilation and avoids timeouts",
+              "fraction": 0,
+              "feedback": "The benefit is judging accuracy, not compile time."
+            },
+            {
+              "text": "Comments are where the mutation agent hides invalid code",
+              "fraction": 0,
+              "feedback": "The issue is behaviour-neutral comment diffs confusing the judge, not hidden invalid code."
+            }
+          ],
+          "generalFeedback": "Comment differences are behaviour-neutral, but they were skewing the judge's decisions and caused about 25% of its false positives. Stripping comments as preprocessing lets the judge compare the real logic, raising precision/recall from 0.79/0.47 to ~0.95/0.96.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why rule-based misses fault classes",
+          "text": "<p>Why does the coverage-blind, rule-based baseline achieve only ~2.4% kill rate compared with the LLM's ~15%?</p>",
+          "answers": [
+            {
+              "text": "It applies generic syntactic operators without domain or issue awareness, so it rarely targets the fault classes that matter",
+              "fraction": 100,
+              "feedback": "Correct — without domain/issue awareness it cannot aim at meaningful faults."
+            },
+            {
+              "text": "It produces too few mutants to kill any",
+              "fraction": 0,
+              "feedback": "Rule-based mutation typically produces many mutants; the problem is relevance, not quantity."
+            },
+            {
+              "text": "It strips comments and loses information",
+              "fraction": 0,
+              "feedback": "Comment stripping is an equivalence-agent preprocessing step, not a rule-based limitation."
+            },
+            {
+              "text": "Its equivalence agent is too aggressive",
+              "fraction": 0,
+              "feedback": "The rule-based baseline is not the one gaining a dedicated equivalence agent; its low kill rate is about lack of domain awareness."
+            }
+          ],
+          "generalFeedback": "Rule-based mutation is domain- and issue-blind: it applies generic operators everywhere and rarely hits the specific fault classes that matter, so its kill rate stays around 2.4%. The LLM-guided approach targets those fault classes, reaching ~15%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: test fails on original and mutant",
+          "text": "<p>Symptom: a generated test fails on the original program as well as on the mutant. Which agent's failure best explains this, and why?</p>",
+          "answers": [
+            {
+              "text": "The test agent — a valid killing test must pass on the original and fail on the mutant; failing on both means a build/logic error in the test",
+              "fraction": 100,
+              "feedback": "Correct — the test cannot be distinguishing anything if it also fails on the original."
+            },
+            {
+              "text": "The equivalence agent — it should have caught this as equivalent",
+              "fraction": 0,
+              "feedback": "Equivalence would make the test pass on both, not fail on both; the fault is in the test."
+            },
+            {
+              "text": "The mutation agent — the mutant is invalid",
+              "fraction": 0,
+              "feedback": "An invalid mutant would not build at all; here a test runs and fails on both versions."
+            },
+            {
+              "text": "CI — it mislabelled a passing test as failing",
+              "fraction": 0,
+              "feedback": "The consistent failure on both versions points to a broken generated test, not a CI mislabel."
+            }
+          ],
+          "generalFeedback": "A correct mutation-killing test passes on the original and fails on the mutant. Failing on both means the test itself is broken (build or logic error) — a test-agent failure mode, distinct from an equivalent mutant (passes on both) or an invalid mutant (won't build).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: mutant will not build",
+          "text": "<p>Symptom: the artifact under test will not compile because a mutant is syntactically malformed. Which agent is responsible?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent — emitting syntactically invalid code that fails to build is its failure mode",
+              "fraction": 100,
+              "feedback": "Correct — invalid, non-building mutants come from the mutation agent."
+            },
+            {
+              "text": "The test agent — its test has a build error",
+              "fraction": 0,
+              "feedback": "Here it is the mutant, not a test, that fails to build."
+            },
+            {
+              "text": "The equivalence agent — it corrupted the mutant while judging",
+              "fraction": 0,
+              "feedback": "The equivalence agent judges; it does not produce malformed mutants."
+            },
+            {
+              "text": "CI — the build environment is misconfigured",
+              "fraction": 0,
+              "feedback": "The malformed mutant is generated by the mutation agent, independent of CI setup."
+            }
+          ],
+          "generalFeedback": "A mutant that is syntactically invalid and fails to build is a mutation-agent failure mode. Such mutants are discarded before the rest of the pipeline runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: uncatchable mutant wastes the test agent",
+          "text": "<p>Symptom: the test agent repeatedly fails to kill one particular mutant no matter what test it writes, and analysis shows the mutant is behaviourally identical to the original. Which agent should have prevented this?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent — it should have judged this mutant equivalent and removed it",
+              "fraction": 100,
+              "feedback": "Correct — an uncatchable mutant reaching the test agent is a missed-equivalence (recall) failure."
+            },
+            {
+              "text": "The test agent — it just needs a better test",
+              "fraction": 0,
+              "feedback": "No test can kill an equivalent mutant; the fix is to filter it, which is the judge's job."
+            },
+            {
+              "text": "The mutation agent — it should not generate any equivalent mutants",
+              "fraction": 0,
+              "feedback": "The LLM inevitably produces some (~25%); the equivalence agent exists precisely to catch them."
+            },
+            {
+              "text": "CI — it should have skipped the mutant",
+              "fraction": 0,
+              "feedback": "CI runs tests; deciding equivalence is the equivalence agent's role."
+            }
+          ],
+          "generalFeedback": "A behaviourally-identical (equivalent) mutant can never be killed. If it reaches the test agent, the equivalence agent missed it — a recall failure. This is exactly the waste the equivalence agent (with comment-stripping preprocessing lifting recall to ~0.96) is meant to prevent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why kill rate alone is insufficient",
+          "text": "<p>Why does the pipeline report engineer acceptance rather than relying on kill rate alone?</p>",
+          "answers": [
+            {
+              "text": "A test can kill a mutant yet still be flaky, hard to read, or otherwise unwanted, so engineer acceptance measures real-world value",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant does not guarantee a test engineers will actually keep."
+            },
+            {
+              "text": "Kill rate cannot be measured for LLM-generated tests",
+              "fraction": 0,
+              "feedback": "Kill rate is measured (2.4% vs 15%); acceptance is an additional, complementary metric."
+            },
+            {
+              "text": "Engineer acceptance is identical to the kill rate",
+              "fraction": 0,
+              "feedback": "They are different metrics; acceptance captures value the kill rate misses."
+            },
+            {
+              "text": "Acceptance replaces the need for an equivalence agent",
+              "fraction": 0,
+              "feedback": "Acceptance is an outcome metric; the equivalence agent addresses a different problem."
+            }
+          ],
+          "generalFeedback": "A high kill rate does not mean a test is one engineers will adopt: it may be flaky, unreadable, or low-value. Reporting engineer acceptance captures whether the generated tests deliver real, kept-in-the-suite value, not just mutant kills.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why filter flaky and invalid outputs",
+          "text": "<p>Why is a filtering/acceptance gate essential given the test agent's and mutation agent's failure modes?</p>",
+          "answers": [
+            {
+              "text": "Without gates, flaky tests and tests that fail on both versions (and invalid mutants) would pollute the suite, so they must be filtered before acceptance",
+              "fraction": 100,
+              "feedback": "Correct — gates keep unreliable and broken outputs out of the delivered suite."
+            },
+            {
+              "text": "Gates increase the equivalent-mutant rate to make the judge's job easier",
+              "fraction": 0,
+              "feedback": "Gates filter bad outputs; they do not manipulate the equivalent-mutant rate."
+            },
+            {
+              "text": "Gates let the pipeline skip the equivalence agent",
+              "fraction": 0,
+              "feedback": "The equivalence agent remains; gates handle a separate problem (bad tests and mutants)."
+            },
+            {
+              "text": "Gates convert equivalent mutants into killable ones",
+              "fraction": 0,
+              "feedback": "Nothing can make an equivalent mutant killable; gates only filter outputs."
+            }
+          ],
+          "generalFeedback": "The mutation agent can emit invalid mutants, and the test agent can emit flaky tests or tests that fail on both original and mutant. A filtering/acceptance gate keeps these unreliable or broken artifacts out of the final suite, so only valid, deterministic mutation-killing tests are accepted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Net effect of preprocessing on the flow",
+          "text": "<p>After comment stripping raises the equivalence agent to ~0.95 precision / ~0.96 recall, what is the net effect on the downstream test agent?</p>",
+          "answers": [
+            {
+              "text": "Fewer equivalent mutants slip through and fewer killable mutants are wrongly dropped, so the test agent spends its effort on genuinely killable mutants",
+              "fraction": 100,
+              "feedback": "Correct — high precision and recall together mean the test agent gets a cleaner, catchable input set."
+            },
+            {
+              "text": "The test agent now also has to judge equivalence itself",
+              "fraction": 0,
+              "feedback": "Judging stays with the equivalence agent; preprocessing just makes its output cleaner."
+            },
+            {
+              "text": "The mutation agent stops producing equivalent mutants",
+              "fraction": 0,
+              "feedback": "The mutation agent still produces ~25% equivalents; the judge just filters them better."
+            },
+            {
+              "text": "The kill rate drops below the rule-based 2.4%",
+              "fraction": 0,
+              "feedback": "Better filtering does not lower the kill rate; it focuses the test agent on catchable mutants."
+            }
+          ],
+          "generalFeedback": "High recall (~0.96) means few equivalent mutants slip through to waste the test agent; high precision (~0.95) means few catchable mutants are wrongly discarded. Together they give the test agent a clean set of genuinely killable mutants to target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cost accepted for a higher kill rate",
+          "text": "<p>The pipeline accepts a higher equivalent-mutant rate (~25%) as a deliberate cost. What does it buy, and how is the cost contained?</p>",
+          "answers": [
+            {
+              "text": "It buys a much higher kill rate (~15% vs ~2.4%) by targeting fault classes; the cost is contained by the equivalence agent that filters the extra equivalents",
+              "fraction": 100,
+              "feedback": "Correct — the equivalence judge is the containment mechanism for the extra equivalents."
+            },
+            {
+              "text": "It buys faster builds; the cost is contained by CI",
+              "fraction": 0,
+              "feedback": "The payoff is a higher kill rate, and the containment is the equivalence agent, not build speed."
+            },
+            {
+              "text": "It buys fewer mutants overall; the cost is contained by the test agent",
+              "fraction": 0,
+              "feedback": "The gain is kill rate from fault-class targeting; equivalents are contained by the judge."
+            },
+            {
+              "text": "It buys nothing; the extra equivalents are pure loss",
+              "fraction": 0,
+              "feedback": "They are the price of the ~15% kill rate, and the equivalence agent limits their downstream cost."
+            }
+          ],
+          "generalFeedback": "Targeting specific fault classes lifts the kill rate to ~15% but raises the equivalent-mutant rate to ~25%. The equivalence agent (with comment-stripping preprocessing) contains that cost by filtering the extra equivalent mutants before the test agent runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Distinguishing equivalent vs broken test",
+          "text": "<p>Two symptoms: (A) a test passes on both the original and the mutant; (B) a test fails on both. Which diagnosis is correct?</p>",
+          "answers": [
+            {
+              "text": "A points to an equivalent (or unkilled) mutant, an equivalence-agent concern; B points to a broken test, a test-agent concern",
+              "fraction": 100,
+              "feedback": "Correct — passing on both means no distinction (equivalence); failing on both means the test is broken."
+            },
+            {
+              "text": "Both A and B mean the test agent wrote a flaky test",
+              "fraction": 0,
+              "feedback": "Flakiness is non-determinism across runs; neither A nor B is about run-to-run variance."
+            },
+            {
+              "text": "Both A and B mean the mutant failed to build",
+              "fraction": 0,
+              "feedback": "A mutant that fails to build would not run at all; in both A and B a test executes."
+            },
+            {
+              "text": "A means a broken test; B means an equivalent mutant",
+              "fraction": 0,
+              "feedback": "This reverses the two: passing on both is the equivalence signal, failing on both is the broken-test signal."
+            }
+          ],
+          "generalFeedback": "Passing on both original and mutant (A) means the test cannot distinguish them — the mutant is equivalent or simply unkilled, an equivalence-agent concern. Failing on both (B) means the test is broken (build/logic error) — a test-agent concern. The two symptoms map to different agents.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ordering rationale",
+          "text": "<p>Why is equivalence judging placed before, rather than after, test generation?</p>",
+          "answers": [
+            {
+              "text": "So the expensive test agent is never asked to kill uncatchable mutants, saving effort on equivalents that no test could kill",
+              "fraction": 100,
+              "feedback": "Correct — screening first avoids wasted test-generation work."
+            },
+            {
+              "text": "So the equivalence agent can read the generated tests",
+              "fraction": 0,
+              "feedback": "It judges mutants, not tests, and runs before test generation."
+            },
+            {
+              "text": "Because equivalence can only be judged once a killing test exists",
+              "fraction": 0,
+              "feedback": "Equivalence is a property of the mutant vs the original, independent of any generated test."
+            },
+            {
+              "text": "To raise the equivalent-mutant rate before testing",
+              "fraction": 0,
+              "feedback": "Ordering does not change the rate; it avoids wasting the test agent on equivalents."
+            }
+          ],
+          "generalFeedback": "Test generation is the expensive step. Filtering equivalent mutants first means the test agent is never asked to kill a mutant that no test could ever kill, so the pipeline spends its costly effort only on genuinely catchable mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Consequence of disabling the equivalence agent",
+          "text": "<p>A team disables the equivalence agent to save a step. Given the LLM mutation agent's ~25% equivalent-mutant rate, what is the most likely consequence?</p>",
+          "answers": [
+            {
+              "text": "Roughly a quarter of mutants reaching the test agent are uncatchable, so it wastes effort trying to kill mutants no test can ever kill",
+              "fraction": 100,
+              "feedback": "Correct — with ~25% equivalents unfiltered, much test-agent effort is spent on uncatchable mutants."
+            },
+            {
+              "text": "The kill rate rises above 15% because more mutants are attempted",
+              "fraction": 0,
+              "feedback": "Attempting equivalent mutants cannot kill them, so the kill rate does not improve."
+            },
+            {
+              "text": "The mutation agent stops producing equivalent mutants",
+              "fraction": 0,
+              "feedback": "The mutation agent's ~25% equivalent rate is unchanged; only the filter is gone."
+            },
+            {
+              "text": "Flaky tests are eliminated",
+              "fraction": 0,
+              "feedback": "Flakiness is a separate test-agent quality-gate issue, unaffected by removing the equivalence judge."
+            }
+          ],
+          "generalFeedback": "Without the equivalence agent, the ~25% of mutants that are equivalent flow straight to the test agent, which then wastes effort on mutants that no test can kill. That wasted work is exactly what the equivalence agent (with comment-stripping preprocessing) is there to prevent.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "三個代理的執行順序",
+          "text": "<p>此 LLM 測試生成流水線（Meta 的 ACH 流程，FSE 2025）串接三個代理。它們的執行順序為何？</p>",
+          "answers": [
+            {
+              "text": "突變代理（Mutation agent）&#8594; 等價代理（Equivalence agent）&#8594; 測試代理（Test agent）",
+              "fraction": 100,
+              "feedback": "正確——先產生突變體，再篩掉等價的，最後對存活者生成測試。"
+            },
+            {
+              "text": "測試代理（Test agent）&#8594; 突變代理（Mutation agent）&#8594; 等價代理（Equivalence agent）",
+              "fraction": 0,
+              "feedback": "測試最後才寫，用來殺掉通過篩選、非等價的突變體。"
+            },
+            {
+              "text": "等價代理（Equivalence agent）&#8594; 突變代理（Mutation agent）&#8594; 測試代理（Test agent）",
+              "fraction": 0,
+              "feedback": "在突變代理產生突變體之前，沒有東西可供等價判斷。"
+            },
+            {
+              "text": "突變代理（Mutation agent）&#8594; 測試代理（Test agent）&#8594; 等價代理（Equivalence agent）",
+              "fraction": 0,
+              "feedback": "等價篩選發生在測試生成之前，測試代理才不會被要求去殺無法殺的突變體。"
+            }
+          ],
+          "generalFeedback": "此流水線是三代理流程，順序為 Mutation &#8594; Equivalence &#8594; Test：突變代理植入錯誤，等價代理濾除無法殺（等價）的突變體，測試代理再對其餘非等價突變體生成能殺掉它們的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變代理的職責",
+          "text": "<p><strong>代理 1</strong>——<em>突變代理（Mutation agent）</em>——的職責是什麼？</p>",
+          "answers": [
+            {
+              "text": "產生針對特定錯誤類別（fault classes）的突變體",
+              "fraction": 100,
+              "feedback": "正確——突變代理植入專門瞄準特定錯誤類別的錯誤。"
+            },
+            {
+              "text": "判斷某個突變體是否等價",
+              "fraction": 0,
+              "feedback": "那是等價代理（代理 2）的工作。"
+            },
+            {
+              "text": "撰寫能殺掉突變體的測試",
+              "fraction": 0,
+              "feedback": "那是測試代理（代理 3）的工作。"
+            },
+            {
+              "text": "執行 CI 流水線並拒絕不穩定（flaky）測試",
+              "fraction": 0,
+              "feedback": "不穩定性是對測試代理輸出的品質關卡，不是突變代理的職責。"
+            }
+          ],
+          "generalFeedback": "突變代理（代理 1）產生突變體，並刻意瞄準特定錯誤類別，而非盲目做語法上的小更動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價代理的職責",
+          "text": "<p><strong>代理 2</strong>——<em>等價代理（Equivalence agent）</em>——的職責是什麼？</p>",
+          "answers": [
+            {
+              "text": "判斷某突變體是否與原始程式等價（無法殺）",
+              "fraction": 100,
+              "feedback": "正確——它作為 LLM-as-judge，濾除任何測試都殺不掉的突變體。"
+            },
+            {
+              "text": "一開始就產生那些突變體",
+              "fraction": 0,
+              "feedback": "產生突變體是突變代理（代理 1）的角色。"
+            },
+            {
+              "text": "生成能殺掉突變體的測試",
+              "fraction": 0,
+              "feedback": "撰寫殺掉突變體的測試是測試代理（代理 3）的角色。"
+            },
+            {
+              "text": "量測所得測試套件的程式碼覆蓋率",
+              "fraction": 0,
+              "feedback": "等價代理判斷等價性，不計算覆蓋率。"
+            }
+          ],
+          "generalFeedback": "等價代理（代理 2）是 LLM-as-judge，判斷某突變體是否等價——即在語意上與原始程式相同、任何測試都殺不掉——因此這些突變體會在測試代理執行前被移除。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試代理的職責",
+          "text": "<p><strong>代理 3</strong>——<em>測試代理（Test agent）</em>——的職責是什麼？</p>",
+          "answers": [
+            {
+              "text": "生成能殺掉「非等價」突變體的測試",
+              "fraction": 100,
+              "feedback": "正確——測試代理寫出一個能讓突變體與原始程式結果不同的測試。"
+            },
+            {
+              "text": "產生突變體",
+              "fraction": 0,
+              "feedback": "那是突變代理（代理 1）。"
+            },
+            {
+              "text": "判斷突變體是否等價",
+              "fraction": 0,
+              "feedback": "那是等價代理（代理 2）。"
+            },
+            {
+              "text": "在判斷前把原始碼中的註解去除",
+              "fraction": 0,
+              "feedback": "去除註解是等價代理的前處理步驟，不是測試代理的工作。"
+            }
+          ],
+          "generalFeedback": "測試代理（代理 3）對等價代理判定為非等價的突變體，生成能殺掉它的測試——即在突變體上產生與原始程式不同結果的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「殺掉突變體」的意義",
+          "text": "<p>在此流水線中，一個測試「殺掉（kill）」一個突變體是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "該測試在突變體上產生與原始程式不同的結果",
+              "fraction": 100,
+              "feedback": "正確——突變體與原始程式之間可觀察到的差異就是「殺掉」。"
+            },
+            {
+              "text": "該測試在突變體與原始程式上都通過",
+              "fraction": 0,
+              "feedback": "若在兩者上都通過，代表無法區分它們，並未殺掉突變體。"
+            },
+            {
+              "text": "該突變體被從原始碼樹中刪除",
+              "fraction": 0,
+              "feedback": "「殺掉」是指被測試偵測到，而非把突變體從磁碟移除。"
+            },
+            {
+              "text": "等價代理把該突變體標記為等價",
+              "fraction": 0,
+              "feedback": "被標記為等價的突變體正是永遠殺不掉的那種。"
+            }
+          ],
+          "generalFeedback": "當某測試在突變體上產生與原始程式不同、可觀察的結果時，該突變體就被殺掉。測試代理的整個重點就是生成這種能殺突變體的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "此處「等價突變體」的定義",
+          "text": "<p>在此流水線中，<em>等價（equivalent）</em>突變體是指：</p>",
+          "answers": [
+            {
+              "text": "行為與原始程式完全相同，因此任何測試都殺不掉它（無法殺）",
+              "fraction": 100,
+              "feedback": "正確——這正是等價代理要在測試代理執行前把它濾掉的原因。"
+            },
+            {
+              "text": "被測試代理生成的每個測試殺掉",
+              "fraction": 0,
+              "feedback": "那是很容易被殺的突變體，與等價突變體相反。"
+            },
+            {
+              "text": "無法編譯、被建置流程丟棄",
+              "fraction": 0,
+              "feedback": "那是無效程式碼（突變代理的失敗模式），不是等價突變體。"
+            },
+            {
+              "text": "是一個在多次 CI 執行間非決定性的測試",
+              "fraction": 0,
+              "feedback": "那是不穩定（flaky）測試——測試代理的失敗模式——不是等價突變體。"
+            }
+          ],
+          "generalFeedback": "等價突變體在語意上與原始程式相同：對每個輸入都產生相同行為，因此沒有測試能區分它——它無法被殺。等價代理的存在就是為了辨識並移除這類突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理判斷等價性",
+          "text": "<p>哪個代理負責判斷突變體是否等價？</p>",
+          "answers": [
+            {
+              "text": "等價代理（代理 2）",
+              "fraction": 100,
+              "feedback": "正確——它是判斷等價性的 LLM-as-judge。"
+            },
+            {
+              "text": "突變代理（代理 1）",
+              "fraction": 0,
+              "feedback": "代理 1 產生突變體，並不判斷它們。"
+            },
+            {
+              "text": "測試代理（代理 3）",
+              "fraction": 0,
+              "feedback": "代理 3 撰寫殺掉突變體的測試；等價性在它執行前就已判定。"
+            },
+            {
+              "text": "CI 系統",
+              "fraction": 0,
+              "feedback": "CI 執行生成的測試，並不判斷突變體的等價性。"
+            }
+          ],
+          "generalFeedback": "等價代理（代理 2）是判斷某突變體是否與原始程式等價的 LLM-as-judge。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理生成殺掉突變體的測試",
+          "text": "<p>哪個代理生成能殺掉突變體的測試？</p>",
+          "answers": [
+            {
+              "text": "測試代理（代理 3）",
+              "fraction": 100,
+              "feedback": "正確——測試代理生成能殺突變體的測試。"
+            },
+            {
+              "text": "突變代理（代理 1）",
+              "fraction": 0,
+              "feedback": "代理 1 產生突變體，不是測試。"
+            },
+            {
+              "text": "等價代理（代理 2）",
+              "fraction": 0,
+              "feedback": "代理 2 判斷等價性，不撰寫測試。"
+            },
+            {
+              "text": "審查接受度的工程師",
+              "fraction": 0,
+              "feedback": "工程師接受或拒絕生成的測試，但生成它們的是代理 3。"
+            }
+          ],
+          "generalFeedback": "測試代理（代理 3）為交付給它的非等價突變體生成能殺掉它的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理產生突變體",
+          "text": "<p>哪個代理產生突變體？</p>",
+          "answers": [
+            {
+              "text": "突變代理（代理 1）",
+              "fraction": 100,
+              "feedback": "正確——代理 1 植入瞄準特定錯誤類別的錯誤。"
+            },
+            {
+              "text": "等價代理（代理 2）",
+              "fraction": 0,
+              "feedback": "代理 2 判斷代理 1 所產生的突變體。"
+            },
+            {
+              "text": "測試代理（代理 3）",
+              "fraction": 0,
+              "feedback": "代理 3 撰寫殺突變體的測試，不是突變體。"
+            },
+            {
+              "text": "僅是基於規則（rule-based）的變異器",
+              "fraction": 0,
+              "feedback": "在 LLM 導引流水線中，突變代理是 LLM；基於規則的變異是被比較的基準線。"
+            }
+          ],
+          "generalFeedback": "突變代理（代理 1）產生突變體，並刻意瞄準特定錯誤類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "領域感知 vs 基於規則",
+          "text": "<p>與基於規則的基準線相比，LLM 導引方法被描述為：</p>",
+          "answers": [
+            {
+              "text": "具備領域與議題感知（domain- and issue-aware），而基於規則的變異則否",
+              "fraction": 100,
+              "feedback": "正確——LLM 能瞄準與領域及當下議題相關的錯誤。"
+            },
+            {
+              "text": "執行較快，但對領域一無所知",
+              "fraction": 0,
+              "feedback": "具領域感知的是 LLM 方法；領域感知是它的優勢，而非缺陷。"
+            },
+            {
+              "text": "在各方面都與基於規則的變異完全相同",
+              "fraction": 0,
+              "feedback": "兩者差異顯著——尤其在殺掉率與領域感知上。"
+            },
+            {
+              "text": "無法瞄準特定錯誤類別",
+              "fraction": 0,
+              "feedback": "瞄準特定錯誤類別正是 LLM 導引方法所做的事。"
+            }
+          ],
+          "generalFeedback": "LLM 導引流水線具備領域與議題感知——能瞄準對受測程式重要的錯誤類別——而基於規則的基準線則到處套用通用語法運算子，毫無此種感知。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM-as-judge 的角色",
+          "text": "<p>在此流水線中，「LLM-as-judge」一詞指的是哪個代理的運作方式？</p>",
+          "answers": [
+            {
+              "text": "等價代理判斷某突變體是否等價",
+              "fraction": 100,
+              "feedback": "正確——它使用 LLM 來判斷等價性。"
+            },
+            {
+              "text": "突變代理為它植入了多少錯誤打分",
+              "fraction": 0,
+              "feedback": "突變代理產生突變體；擔任評判角色的是等價代理。"
+            },
+            {
+              "text": "測試代理為自己的測試評分",
+              "fraction": 0,
+              "feedback": "測試代理撰寫測試；「評判者」是等價代理。"
+            },
+            {
+              "text": "CI 判斷某測試是否不穩定",
+              "fraction": 0,
+              "feedback": "CI 套用品質關卡，但「LLM-as-judge」指的是等價代理。"
+            }
+          ],
+          "generalFeedback": "「LLM-as-judge」描述的是等價代理（代理 2），它使用 LLM 來判斷某突變體是否與原始程式等價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些突變體會送到測試代理",
+          "text": "<p>測試代理會嘗試殺掉哪些突變體？</p>",
+          "answers": [
+            {
+              "text": "通過等價代理篩選、存活下來的非等價突變體",
+              "fraction": 100,
+              "feedback": "正確——只有真正殺得掉的突變體才會交給測試代理。"
+            },
+            {
+              "text": "所有突變體，包含等價的",
+              "fraction": 0,
+              "feedback": "等價突變體會先被濾掉，才不會在殺不掉的突變體上白費力氣。"
+            },
+            {
+              "text": "只有等價突變體",
+              "fraction": 0,
+              "feedback": "等價突變體永遠殺不掉；測試代理瞄準的是非等價的那些。"
+            },
+            {
+              "text": "只有無法編譯的突變體",
+              "fraction": 0,
+              "feedback": "無效突變體會被丟棄，不會被送去嘗試殺掉。"
+            }
+          ],
+          "generalFeedback": "等價代理會先移除等價（無法殺）的突變體，因此測試代理只嘗試殺掉通過該篩選、存活下來的非等價突變體。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "流水線由三個代理組成",
+          "text": "<p>此 LLM 測試生成流水線是一個三代理流程（突變、等價與測試代理）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它串接突變代理、等價代理與測試代理。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "它是三代理流程：Mutation &#8594; Equivalence &#8594; Test。"
+            }
+          ],
+          "generalFeedback": "此流水線是三代理流程：突變代理、等價代理（LLM-as-judge）與測試代理，依此順序執行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "流水線的整體目標",
+          "text": "<p>此流水線的整體目標是什麼？</p>",
+          "answers": [
+            {
+              "text": "生成瞄準特定錯誤類別、能殺掉突變體的測試",
+              "fraction": 100,
+              "feedback": "正確——最終產物是能殺掉針對特定錯誤類別之突變體的測試。"
+            },
+            {
+              "text": "使產生的等價突變體數量最大化",
+              "fraction": 0,
+              "feedback": "等價突變體是要被濾掉的不必要成本，而非目標。"
+            },
+            {
+              "text": "證明程式不含任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何測試流水線能證明所有缺陷都不存在。"
+            },
+            {
+              "text": "完全取代人類工程師",
+              "fraction": 0,
+              "feedback": "工程師接受度是一項指標；工程師仍會審查生成的測試。"
+            }
+          ],
+          "generalFeedback": "此流水線生成瞄準特定錯誤類別、能殺掉突變體的測試，透過三個代理來植入錯誤、濾除無法殺的突變體，並為其餘者撰寫能殺掉它們的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理最先執行",
+          "text": "<p>在流水線中，哪個代理<em>最先</em>執行？</p>",
+          "answers": [
+            {
+              "text": "突變代理",
+              "fraction": 100,
+              "feedback": "正確——必須先有突變體，才能判斷或殺掉任何東西。"
+            },
+            {
+              "text": "等價代理",
+              "fraction": 0,
+              "feedback": "在突變代理產生突變體之前，沒有東西可供判斷。"
+            },
+            {
+              "text": "測試代理",
+              "fraction": 0,
+              "feedback": "測試最後才寫，用來對付存活的非等價突變體。"
+            },
+            {
+              "text": "三者同時執行，沒有先後順序",
+              "fraction": 0,
+              "feedback": "這些代理依固定順序執行：Mutation &#8594; Equivalence &#8594; Test。"
+            }
+          ],
+          "generalFeedback": "突變代理最先執行，產生突變體，等價代理與測試代理再依序處理。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "進入等價代理的資料流",
+          "text": "<p>等價代理接收什麼作為輸入？</p>",
+          "answers": [
+            {
+              "text": "突變代理產生的突變體，以判斷哪些是等價的",
+              "fraction": 100,
+              "feedback": "正確——它在測試代理執行前，篩選突變代理的輸出。"
+            },
+            {
+              "text": "測試代理產生的、能殺突變體的測試",
+              "fraction": 0,
+              "feedback": "測試代理在等價代理之後執行，其測試不可能是輸入。"
+            },
+            {
+              "text": "來自 CI 的原始覆蓋率報告",
+              "fraction": 0,
+              "feedback": "等價代理判斷突變體，而非覆蓋率報告。"
+            },
+            {
+              "text": "什麼都沒有——它在突變代理之前執行",
+              "fraction": 0,
+              "feedback": "順序是 Mutation &#8594; Equivalence &#8594; Test；在突變體存在前沒有東西可判斷。"
+            }
+          ],
+          "generalFeedback": "等價代理位於突變代理與測試代理之間：它取用突變代理生成的突變體，判斷哪些等價，只把非等價的那些傳給測試代理。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何需要等價代理",
+          "text": "<p>為什麼 LLM 導引流水線需要一個專責的等價代理，而較簡單的基於規則流程可能不需要？</p>",
+          "answers": [
+            {
+              "text": "LLM 突變代理產生較高比例的等價突變體（約 25%），因此必須把它們濾掉",
+              "fraction": 100,
+              "feedback": "正確——更多等價突變體使得專責的評判者值得投入。"
+            },
+            {
+              "text": "LLM 從不產生等價突變體，所以此代理只是再次確認",
+              "fraction": 0,
+              "feedback": "事實相反：LLM 產生的等價突變體比基於規則的基準線更多。"
+            },
+            {
+              "text": "因為基於規則的變異無法編譯其突變體",
+              "fraction": 0,
+              "feedback": "原因是 LLM 較高的等價突變體率，而非基於規則變異的編譯問題。"
+            },
+            {
+              "text": "為了刻意增加等價突變體的數量",
+              "fraction": 0,
+              "feedback": "此代理是移除等價突變體，而非製造更多。"
+            }
+          ],
+          "generalFeedback": "由於 LLM 導引的突變代理產生較高的等價突變體率（約 25%，相對於基於規則約 10&#8211;15%），流水線加入等價代理，在昂貴的測試生成步驟前把這些無法殺的突變體濾掉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺掉率的比較",
+          "text": "<p>基於規則的基準線與 LLM 導引流水線所回報的突變體殺掉率相比如何？</p>",
+          "answers": [
+            {
+              "text": "基於規則約 2.4%，LLM 導引約 15%",
+              "fraction": 100,
+              "feedback": "正確——LLM 導引方法殺掉的突變體比例高得多。"
+            },
+            {
+              "text": "基於規則約 15%，LLM 導引約 2.4%",
+              "fraction": 0,
+              "feedback": "數字相反：LLM 導引才是較高的那個，約 15%。"
+            },
+            {
+              "text": "兩者皆約 25%",
+              "fraction": 0,
+              "feedback": "25% 是 LLM 的等價突變體率，不是殺掉率。"
+            },
+            {
+              "text": "兩者皆接近 100%",
+              "fraction": 0,
+              "feedback": "兩種方法都遠不及 100%；回報的殺掉率是 2.4% 與 15%。"
+            }
+          ],
+          "generalFeedback": "基於規則的基準線約殺掉 2.4% 的突變體，LLM 導引流水線約殺掉 15%——此大幅躍升歸因於瞄準特定錯誤類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不穩定測試的失敗模式",
+          "text": "<p>一個生成的測試在多次 CI 執行間非決定性地時而通過、時而失敗，並被拒絕。這是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "測試代理——它產生了不穩定（非決定性）的測試",
+              "fraction": 100,
+              "feedback": "正確——不穩定測試是測試代理的失敗模式，會被 CI 品質關卡攔下。"
+            },
+            {
+              "text": "突變代理——它產生了等價突變體",
+              "fraction": 0,
+              "feedback": "不穩定性關乎測試的決定性，而非突變體。"
+            },
+            {
+              "text": "等價代理——它誤判了等價性",
+              "fraction": 0,
+              "feedback": "誤判等價是另一種症狀；不穩定性是生成測試的性質。"
+            },
+            {
+              "text": "CI——它把隨機性引入測試",
+              "fraction": 0,
+              "feedback": "CI 偵測並拒絕不穩定測試；生成它的是測試代理。"
+            }
+          ],
+          "generalFeedback": "生成一個被 CI 拒絕的不穩定（非決定性）測試，是測試代理的失敗模式。品質關卡會把這類測試濾掉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無效程式碼的失敗模式",
+          "text": "<p>一個產生的突變體在語法上無效、無法建置。這是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "突變代理——它產出了語法上無效的程式碼",
+              "fraction": 100,
+              "feedback": "正確——產出無效、無法建置的程式碼是突變代理的失敗模式。"
+            },
+            {
+              "text": "測試代理——它寫了不穩定測試",
+              "fraction": 0,
+              "feedback": "不穩定是測試代理的問題；此處是突變體無法建置。"
+            },
+            {
+              "text": "等價代理——它錯把突變體標記為等價",
+              "fraction": 0,
+              "feedback": "那是另一種失敗；此處是突變體本身無法編譯。"
+            },
+            {
+              "text": "工程師——他們拒絕了測試",
+              "fraction": 0,
+              "feedback": "問題在於突變代理產出的無效突變體程式碼。"
+            }
+          ],
+          "generalFeedback": "產出語法上無效、無法建置的程式碼，是突變代理（代理 1）的失敗模式；這類突變體會被丟棄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何去除註解",
+          "text": "<p>等價代理加入一個前處理步驟，在判斷前去除註解。為什麼？</p>",
+          "answers": [
+            {
+              "text": "註解差異造成約 25% 的偽陽性，因此移除它們可提升準確度",
+              "fraction": 100,
+              "feedback": "正確——註解差異是偽陽性的一大來源，去除註解即可修正。"
+            },
+            {
+              "text": "註解會讓程式編譯得更快",
+              "fraction": 0,
+              "feedback": "原因在於判斷的準確度，而非編譯速度。"
+            },
+            {
+              "text": "測試代理需要註解，所以把它們移到一旁",
+              "fraction": 0,
+              "feedback": "去除註解是為了幫助等價評判者，而非為測試代理搬移它們。"
+            },
+            {
+              "text": "去除註解會刻意提高等價突變體率",
+              "fraction": 0,
+              "feedback": "它提升的是評判者的精確率與召回率，與拉高等價比例無關。"
+            }
+          ],
+          "generalFeedback": "註解差異占等價代理約 25% 的偽陽性。以去除註解作為前處理步驟可移除此雜訊，並把精確率與召回率（從 0.79/0.47）提升到約 0.95/0.96。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價突變體率的比較",
+          "text": "<p>LLM 導引方法的等價突變體率與基於規則的基準線相比如何？</p>",
+          "answers": [
+            {
+              "text": "LLM 較高（約 25%），基於規則較低（約 10&#8211;15%）",
+              "fraction": 100,
+              "feedback": "正確——LLM 產生更多等價突變體，這正是等價代理存在的動機。"
+            },
+            {
+              "text": "LLM 較低（約 5%），基於規則較高（約 25%）",
+              "fraction": 0,
+              "feedback": "LLM 的等價突變體率較高，而非較低。"
+            },
+            {
+              "text": "兩者相同，皆約 2.4%",
+              "fraction": 0,
+              "feedback": "2.4% 是基於規則的殺掉率，不是等價突變體率。"
+            },
+            {
+              "text": "LLM 為零",
+              "fraction": 0,
+              "feedback": "LLM 的等價突變體率約 25%，並非零。"
+            }
+          ],
+          "generalFeedback": "LLM 導引方法的等價突變體率較高（約 25%），高於基於規則的基準線（約 10&#8211;15%）——這是瞄準特定錯誤類別的代價，也是為何需要專責的等價評判者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「兩者皆失敗」的失敗模式",
+          "text": "<p>一個生成的測試在原始程式與突變體上「都」失敗。這最直接是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "測試代理——它產生了帶有建置或邏輯錯誤的測試，而非有效的、能殺突變體的測試",
+              "fraction": 100,
+              "feedback": "正確——在原始程式上也失敗的測試無法區分突變體，它壞掉了。"
+            },
+            {
+              "text": "突變代理——該突變體是等價的",
+              "fraction": 0,
+              "feedback": "等價會使測試在兩者上都通過，而非都失敗；且此處問題在於測試壞掉。"
+            },
+            {
+              "text": "等價代理——它低估了等價突變體的數量",
+              "fraction": 0,
+              "feedback": "此症狀是壞掉的測試，屬測試代理的輸出。"
+            },
+            {
+              "text": "CI——它以錯誤順序執行測試",
+              "fraction": 0,
+              "feedback": "測試本身有缺陷；它在原始程式與突變體上都失敗。"
+            }
+          ],
+          "generalFeedback": "在原始程式與突變體上都失敗的測試無法區分兩者——它有建置或邏輯錯誤。這是測試代理的失敗模式；有效的殺突變體測試必須在原始程式上通過、在突變體上失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價步驟在流程中的位置",
+          "text": "<p>相對於測試代理，等價代理何時執行？</p>",
+          "answers": [
+            {
+              "text": "在測試代理之前，因此無法殺的突變體會先被移除",
+              "fraction": 100,
+              "feedback": "正確——先篩選再生成測試，以避免白費力氣。"
+            },
+            {
+              "text": "在測試代理之後，用來檢查那些測試",
+              "fraction": 0,
+              "feedback": "等價是針對突變體判斷，在測試代理撰寫測試之前進行。"
+            },
+            {
+              "text": "與突變代理平行執行",
+              "fraction": 0,
+              "feedback": "它在突變代理之後、測試代理之前執行。"
+            },
+            {
+              "text": "只有在 CI 拒絕不穩定測試後才執行",
+              "fraction": 0,
+              "feedback": "等價判斷與 CI 的不穩定關卡無關，且發生得更早。"
+            }
+          ],
+          "generalFeedback": "等價代理在突變代理之後、測試代理之前執行，濾掉等價突變體，使測試代理只對可殺的突變體工作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "去除註解對分數的影響",
+          "text": "<p>加入去除註解後，等價代理的精確率（precision）與召回率（recall）會如何變化？</p>",
+          "answers": [
+            {
+              "text": "從約 0.79/0.47 上升到約 0.95/0.96",
+              "fraction": 100,
+              "feedback": "正確——移除註解差異的雜訊大幅改善這兩個指標。"
+            },
+            {
+              "text": "從約 0.95/0.96 下降到約 0.79/0.47",
+              "fraction": 0,
+              "feedback": "方向相反：前處理會改善分數。"
+            },
+            {
+              "text": "維持不變",
+              "fraction": 0,
+              "feedback": "去除註解帶來大幅、可量測的改善。"
+            },
+            {
+              "text": "精確率上升，但召回率降到接近零",
+              "fraction": 0,
+              "feedback": "精確率與召回率都上升，分別到約 0.95 與 0.96。"
+            }
+          ],
+          "generalFeedback": "無前處理時，等價代理的精確率為 0.79、召回率為 0.47；去除註解（造成約 25% 偽陽性）後，這些數字提升到約 0.95 精確率與 0.96 召回率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "工程師接受度作為指標",
+          "text": "<p>除了殺掉率之外，下列何者被回報為此流水線的一項指標？</p>",
+          "answers": [
+            {
+              "text": "工程師對生成測試的接受度",
+              "fraction": 100,
+              "feedback": "正確——工程師是否真的接受這些測試是一項重要指標。"
+            },
+            {
+              "text": "每個突變體的註解數量",
+              "fraction": 0,
+              "feedback": "註解只是評判者前處理時的干擾，並非重要指標。"
+            },
+            {
+              "text": "每次執行刪除的程式碼行數",
+              "fraction": 0,
+              "feedback": "那不是回報的流水線指標。"
+            },
+            {
+              "text": "流程中的代理數量",
+              "fraction": 0,
+              "feedback": "代理數固定為三；那不是評估指標。"
+            }
+          ],
+          "generalFeedback": "工程師接受度——工程師是否真的採用生成的測試——是一項回報的指標，反映出單看高殺掉率並非衡量價值的唯一標準。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "漏判等價的失敗模式",
+          "text": "<p>一個等價突變體漏網、被交給測試代理，測試代理於是白費力氣想殺掉它。這是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "等價代理——它未能辨識出一個等價突變體",
+              "fraction": 100,
+              "feedback": "正確——漏判等價突變體（低召回率）會把無法殺的工作往下游推。"
+            },
+            {
+              "text": "突變代理——它產出了無效程式碼",
+              "fraction": 0,
+              "feedback": "此處突變體有效但等價；漏判的是評判者。"
+            },
+            {
+              "text": "測試代理——它寫了不穩定測試",
+              "fraction": 0,
+              "feedback": "白費力氣源於等價突變體到達測試代理，屬判斷上的漏失。"
+            },
+            {
+              "text": "CI——它未能拒絕該測試",
+              "fraction": 0,
+              "feedback": "根因是等價代理放行了一個等價突變體。"
+            }
+          ],
+          "generalFeedback": "放行一個等價（無法殺）突變體到測試代理，是等價代理的失敗——召回率漏失。測試代理接著會在一個沒有任何測試能殺的突變體上白費力氣。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "更高殺掉率，更多等價體",
+          "text": "<p>LLM 導引流水線達到比基於規則變異更高的殺掉率，但代價是更高的等價突變體率。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——殺掉率約 15% 對 2.4%，但等價突變體約 25% 對 10&#8211;15%。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此權衡確實存在：更高殺掉率（15% 對 2.4%），但更多等價突變體（約 25% 對 10&#8211;15%）。"
+            }
+          ],
+          "generalFeedback": "瞄準特定錯誤類別把殺掉率從約 2.4% 提升到約 15%，但也把等價突變體率提高到約 25%（相對基於規則約 10&#8211;15%），這正是加入等價代理的原因。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何殺掉率較高",
+          "text": "<p>LLM 導引流水線高得多的殺掉率被歸功於什麼？</p>",
+          "answers": [
+            {
+              "text": "瞄準特定錯誤類別，而非通用的語法小更動",
+              "fraction": 100,
+              "feedback": "正確——瞄準真正的錯誤類別能產生更多可殺、有意義的突變體。"
+            },
+            {
+              "text": "整體產生的突變體少得多",
+              "fraction": 0,
+              "feedback": "殺掉率的提升來自「瞄準什麼」，而非產生更少突變體。"
+            },
+            {
+              "text": "跳過等價判斷步驟",
+              "fraction": 0,
+              "feedback": "等價步驟是被加入而非跳過；殺掉率來自對錯誤類別的瞄準。"
+            },
+            {
+              "text": "每個測試只執行一次",
+              "fraction": 0,
+              "feedback": "執行次數與殺掉率的提升無關。"
+            }
+          ],
+          "generalFeedback": "殺掉率從約 2.4% 躍升到約 15%，被歸功於 LLM 瞄準特定錯誤類別，而對領域盲目的基於規則基準線做不到這一點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對生成測試的品質關卡",
+          "text": "<p>為什麼流水線需要對測試代理的輸出設品質關卡？</p>",
+          "answers": [
+            {
+              "text": "因為測試代理可能產生不穩定或其他無效的測試，必須把它們濾掉",
+              "fraction": 100,
+              "feedback": "正確——不穩定測試與在原始程式和突變體上都失敗的測試都必須被拒絕。"
+            },
+            {
+              "text": "因為突變代理從不產生有效突變體",
+              "fraction": 0,
+              "feedback": "關卡針對的是測試代理的輸出；突變代理的無效突變體另行處理。"
+            },
+            {
+              "text": "為了提高等價突變體率",
+              "fraction": 0,
+              "feedback": "關卡濾除壞測試，不影響等價突變體率。"
+            },
+            {
+              "text": "為了讓等價代理變得不必要",
+              "fraction": 0,
+              "feedback": "等價代理仍然需要；品質關卡處理的是另一個問題（壞測試）。"
+            }
+          ],
+          "generalFeedback": "測試代理可能產出不穩定（非決定性）測試，或在原始程式與突變體上都失敗的測試。品質關卡（如 CI 檢查）把這些濾掉，只保留有效的、能殺突變體的測試。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "權衡促成等價評判者",
+          "text": "<p>下列哪一條推理鏈最能說明為何流水線要納入等價代理？</p>",
+          "answers": [
+            {
+              "text": "瞄準錯誤類別提高了殺掉率，但也提高等價突變體率（約 25%），因此需要一個評判者在昂貴的測試步驟前丟掉無法殺的突變體",
+              "fraction": 100,
+              "feedback": "正確——等價代理正是對較高等價突變體率的直接回應。"
+            },
+            {
+              "text": "LLM 產生較少等價突變體，所以評判者只是廉價地確認並沒有等價突變體",
+              "fraction": 0,
+              "feedback": "LLM 產生的等價突變體更多而非更少；這正是需要評判者的原因。"
+            },
+            {
+              "text": "基於規則的變異需要此評判者，LLM 流水線只是沿用",
+              "fraction": 0,
+              "feedback": "評判者的動機來自 LLM 自身較高的等價突變體率，而非沿用自基於規則的變異。"
+            },
+            {
+              "text": "評判者只是為了拉高殺掉率的數字",
+              "fraction": 0,
+              "feedback": "評判者是移除無法殺的突變體，並不製造殺掉。"
+            }
+          ],
+          "generalFeedback": "由於 LLM 導引的突變代理瞄準特定錯誤類別，它殺掉更多突變體（約 15% 對 2.4%），但也產生更多等價突變體（約 25% 對 10&#8211;15%）。等價代理是流水線的回應：它在昂貴的測試生成步驟前把這些無法殺的突變體濾掉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀召回率 0.47",
+          "text": "<p>等價代理在無前處理時召回率僅 0.47。在此流水線中，這個低召回率具體的代價是什麼？</p>",
+          "answers": [
+            {
+              "text": "許多真正等價的突變體被漏掉並傳給測試代理，測試代理於是白費力氣去殺無法殺的突變體",
+              "fraction": 100,
+              "feedback": "正確——對「等價」的低召回率代表許多等價體漏到下游。"
+            },
+            {
+              "text": "許多非等價突變體被錯誤丟棄，導致真正的錯誤未被測試",
+              "fraction": 0,
+              "feedback": "那描述的是低精確率，而非低召回率。"
+            },
+            {
+              "text": "突變代理產生較少的突變體",
+              "fraction": 0,
+              "feedback": "評判者的召回率不會改變突變代理產生多少突變體。"
+            },
+            {
+              "text": "測試在 CI 中變得不穩定",
+              "fraction": 0,
+              "feedback": "不穩定是測試代理的問題，與評判者的召回率無關。"
+            }
+          ],
+          "generalFeedback": "召回率 0.47 代表評判者抓到的真正等價突變體不到一半。漏掉的那些會流向測試代理，測試代理於是白費力氣去嘗試殺永遠殺不掉的突變體。去除註解把召回率提升到約 0.96。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀精確率 0.79",
+          "text": "<p>等價代理在無前處理時精確率為 0.79。此處精確率低於 1.0 的代價是什麼？</p>",
+          "answers": [
+            {
+              "text": "有些被標為「等價」的突變體其實非等價，因此真正可殺的突變體被錯誤丟棄、永遠拿不到測試",
+              "fraction": 100,
+              "feedback": "正確——「等價」上的偽陽性會丟掉可殺的突變體。"
+            },
+            {
+              "text": "有些等價突變體被漏掉並到達測試代理",
+              "fraction": 0,
+              "feedback": "那是召回率問題；精確率關乎錯誤的「等價」標記。"
+            },
+            {
+              "text": "殺掉率被灌水到 15%",
+              "fraction": 0,
+              "feedback": "15% 殺掉率來自瞄準錯誤類別，而非評判者的精確率。"
+            },
+            {
+              "text": "突變體更常無法編譯",
+              "fraction": 0,
+              "feedback": "編譯是突變代理的問題，並非評判者精確率的函數。"
+            }
+          ],
+          "generalFeedback": "精確率 0.79 代表評判者標為「等價」的突變體中，約五分之一其實不是——這些真正可殺的突變體被錯誤濾掉、永遠拿不到測試。註解差異造成其中約 25% 的偽陽性；去除註解把精確率提升到約 0.95。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何去除註解能修正偽陽性",
+          "text": "<p>為什麼去除註解能特別降低等價代理的偽陽性？</p>",
+          "answers": [
+            {
+              "text": "純註解差異不改變行為，卻把評判者推向「等價」；移除它們可讓評判者比較真正的邏輯——而它們占偽陽性的約 25%",
+              "fraction": 100,
+              "feedback": "正確——註解差異是不影響行為的雜訊，卻扭曲了判斷。"
+            },
+            {
+              "text": "註解會改變程式行為，所以移除它們就改變了突變體",
+              "fraction": 0,
+              "feedback": "註解不影響行為；這正是它們對評判者而言是雜訊的原因。"
+            },
+            {
+              "text": "去除註解加快編譯並避免逾時",
+              "fraction": 0,
+              "feedback": "好處在於判斷的準確度，而非編譯時間。"
+            },
+            {
+              "text": "註解是突變代理藏無效程式碼的地方",
+              "fraction": 0,
+              "feedback": "問題在於不影響行為的註解差異混淆了評判者，而非藏起來的無效程式碼。"
+            }
+          ],
+          "generalFeedback": "註解差異不影響行為，卻扭曲了評判者的判斷，並造成約 25% 的偽陽性。以去除註解作為前處理讓評判者比較真正的邏輯，把精確率/召回率從 0.79/0.47 提升到約 0.95/0.96。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何基於規則會錯過錯誤類別",
+          "text": "<p>為什麼對覆蓋率盲目、基於規則的基準線僅達約 2.4% 殺掉率，而 LLM 約 15%？</p>",
+          "answers": [
+            {
+              "text": "它套用通用語法運算子、沒有領域或議題感知，因此鮮少瞄準真正重要的錯誤類別",
+              "fraction": 100,
+              "feedback": "正確——沒有領域/議題感知，它就無法瞄準有意義的錯誤。"
+            },
+            {
+              "text": "它產生的突變體太少，殺不掉任何",
+              "fraction": 0,
+              "feedback": "基於規則的變異通常產生很多突變體；問題在於相關性，而非數量。"
+            },
+            {
+              "text": "它去除註解而遺失資訊",
+              "fraction": 0,
+              "feedback": "去除註解是等價代理的前處理步驟，而非基於規則的限制。"
+            },
+            {
+              "text": "它的等價代理太過激進",
+              "fraction": 0,
+              "feedback": "取得專責等價代理的並非基於規則的基準線；其低殺掉率關乎缺乏領域感知。"
+            }
+          ],
+          "generalFeedback": "基於規則的變異對領域與議題盲目：它到處套用通用運算子，鮮少命中真正重要的特定錯誤類別，因此殺掉率停在約 2.4%。LLM 導引方法瞄準那些錯誤類別，達到約 15%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：測試在原始程式與突變體上都失敗",
+          "text": "<p>症狀：一個生成的測試在原始程式與突變體上都失敗。哪個代理的失敗最能解釋這一點，為什麼？</p>",
+          "answers": [
+            {
+              "text": "測試代理——有效的殺突變體測試必須在原始程式上通過、在突變體上失敗；兩者都失敗代表測試有建置／邏輯錯誤",
+              "fraction": 100,
+              "feedback": "正確——若在原始程式上也失敗，該測試就無法區分任何東西。"
+            },
+            {
+              "text": "等價代理——它本該把這判為等價",
+              "fraction": 0,
+              "feedback": "等價會使測試在兩者上都通過而非都失敗；錯在測試本身。"
+            },
+            {
+              "text": "突變代理——該突變體無效",
+              "fraction": 0,
+              "feedback": "無效突變體根本無法建置；此處有一個測試執行並在兩版上都失敗。"
+            },
+            {
+              "text": "CI——它把通過的測試誤標為失敗",
+              "fraction": 0,
+              "feedback": "在兩版上一致失敗指向一個壞掉的生成測試，而非 CI 誤標。"
+            }
+          ],
+          "generalFeedback": "正確的殺突變體測試會在原始程式上通過、在突變體上失敗。兩者都失敗代表測試本身壞掉（建置或邏輯錯誤）——這是測試代理的失敗模式，有別於等價突變體（兩者都通過）或無效突變體（無法建置）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：突變體無法建置",
+          "text": "<p>症狀：受測產物因某突變體語法畸形而無法編譯。哪個代理應負責？</p>",
+          "answers": [
+            {
+              "text": "突變代理——產出語法上無效、無法建置的程式碼是它的失敗模式",
+              "fraction": 100,
+              "feedback": "正確——無效、無法建置的突變體來自突變代理。"
+            },
+            {
+              "text": "測試代理——它的測試有建置錯誤",
+              "fraction": 0,
+              "feedback": "此處是突變體、而非測試，無法建置。"
+            },
+            {
+              "text": "等價代理——它在判斷時弄壞了突變體",
+              "fraction": 0,
+              "feedback": "等價代理只做判斷，不會產出畸形突變體。"
+            },
+            {
+              "text": "CI——建置環境設定錯誤",
+              "fraction": 0,
+              "feedback": "畸形突變體由突變代理產生，與 CI 設定無關。"
+            }
+          ],
+          "generalFeedback": "一個語法上無效、無法建置的突變體是突變代理的失敗模式。這類突變體會在流水線其餘部分執行前被丟棄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：無法殺的突變體浪費測試代理",
+          "text": "<p>症狀：測試代理無論寫什麼測試都反覆殺不掉某個特定突變體，分析顯示該突變體在行為上與原始程式相同。哪個代理本應防止這種情況？</p>",
+          "answers": [
+            {
+              "text": "等價代理——它本應把此突變體判為等價並移除",
+              "fraction": 100,
+              "feedback": "正確——無法殺的突變體到達測試代理是一種漏判等價（召回率）失敗。"
+            },
+            {
+              "text": "測試代理——它只是需要更好的測試",
+              "fraction": 0,
+              "feedback": "沒有任何測試能殺等價突變體；修正之道是把它濾掉，那是評判者的工作。"
+            },
+            {
+              "text": "突變代理——它不應產生任何等價突變體",
+              "fraction": 0,
+              "feedback": "LLM 無可避免會產生一些（約 25%）；等價代理正是為了抓住它們而存在。"
+            },
+            {
+              "text": "CI——它應該跳過該突變體",
+              "fraction": 0,
+              "feedback": "CI 執行測試；判斷等價性是等價代理的職責。"
+            }
+          ],
+          "generalFeedback": "行為上相同（等價）的突變體永遠殺不掉。若它到達測試代理，就是等價代理漏判了它——召回率失敗。這正是等價代理（以去除註解前處理把召回率提升到約 0.96）要防止的浪費。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單看殺掉率不足",
+          "text": "<p>為什麼流水線要回報工程師接受度，而不只依賴殺掉率？</p>",
+          "answers": [
+            {
+              "text": "一個測試可能殺掉突變體，卻仍不穩定、難以閱讀或不受歡迎，因此工程師接受度衡量的是真實價值",
+              "fraction": 100,
+              "feedback": "正確——殺掉突變體不保證工程師會真的保留該測試。"
+            },
+            {
+              "text": "LLM 生成測試的殺掉率無法量測",
+              "fraction": 0,
+              "feedback": "殺掉率可以量測（2.4% 對 15%）；接受度是另一項互補指標。"
+            },
+            {
+              "text": "工程師接受度與殺掉率完全相同",
+              "fraction": 0,
+              "feedback": "它們是不同的指標；接受度捕捉殺掉率忽略的價值。"
+            },
+            {
+              "text": "接受度取代了對等價代理的需要",
+              "fraction": 0,
+              "feedback": "接受度是成果指標；等價代理處理的是另一個問題。"
+            }
+          ],
+          "generalFeedback": "高殺掉率不代表測試會被工程師採用：它可能不穩定、難讀或價值低。回報工程師接受度可捕捉生成測試是否帶來真實、被留在套件中的價值，而不只是殺掉突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要濾掉不穩定與無效輸出",
+          "text": "<p>鑑於測試代理與突變代理的失敗模式，為什麼過濾／接受關卡不可或缺？</p>",
+          "answers": [
+            {
+              "text": "若無關卡，不穩定測試、在兩版上都失敗的測試（以及無效突變體）會污染套件，因此必須在接受前濾掉它們",
+              "fraction": 100,
+              "feedback": "正確——關卡把不可靠與壞掉的輸出擋在交付套件之外。"
+            },
+            {
+              "text": "關卡提高等價突變體率以讓評判者更輕鬆",
+              "fraction": 0,
+              "feedback": "關卡濾除壞輸出，不會操弄等價突變體率。"
+            },
+            {
+              "text": "關卡讓流水線得以跳過等價代理",
+              "fraction": 0,
+              "feedback": "等價代理仍在；關卡處理的是另一個問題（壞測試與壞突變體）。"
+            },
+            {
+              "text": "關卡把等價突變體轉為可殺的",
+              "fraction": 0,
+              "feedback": "沒有任何東西能讓等價突變體變成可殺；關卡只是過濾輸出。"
+            }
+          ],
+          "generalFeedback": "突變代理可能產出無效突變體，測試代理可能產出不穩定測試或在原始程式與突變體上都失敗的測試。過濾／接受關卡把這些不可靠或壞掉的產物擋在最終套件之外，只接受有效、決定性、能殺突變體的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "前處理對流程的淨效果",
+          "text": "<p>在去除註解把等價代理提升到約 0.95 精確率／約 0.96 召回率之後，對下游測試代理的淨效果是什麼？</p>",
+          "answers": [
+            {
+              "text": "較少等價突變體漏網、也較少可殺突變體被錯誤丟棄，因此測試代理把力氣花在真正可殺的突變體上",
+              "fraction": 100,
+              "feedback": "正確——高精確率與高召回率一起，讓測試代理拿到更乾淨、可殺的輸入集合。"
+            },
+            {
+              "text": "測試代理現在也必須自己判斷等價性",
+              "fraction": 0,
+              "feedback": "判斷仍屬等價代理；前處理只是讓它的輸出更乾淨。"
+            },
+            {
+              "text": "突變代理停止產生等價突變體",
+              "fraction": 0,
+              "feedback": "突變代理仍產生約 25% 等價體；只是評判者濾得更好。"
+            },
+            {
+              "text": "殺掉率跌到基於規則的 2.4% 以下",
+              "fraction": 0,
+              "feedback": "更好的過濾不會降低殺掉率；它讓測試代理專注於可殺的突變體。"
+            }
+          ],
+          "generalFeedback": "高召回率（約 0.96）代表少有等價突變體漏網去浪費測試代理；高精確率（約 0.95）代表少有可殺突變體被錯誤丟棄。兩者一起，讓測試代理得到一組乾淨、真正可殺的突變體來瞄準。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為換取更高殺掉率而接受的代價",
+          "text": "<p>流水線刻意接受較高的等價突變體率（約 25%）作為代價。它換來什麼，而代價又如何被控制住？</p>",
+          "answers": [
+            {
+              "text": "它藉由瞄準錯誤類別換來高得多的殺掉率（約 15% 對 2.4%）；代價由濾除多出等價體的等價代理控制住",
+              "fraction": 100,
+              "feedback": "正確——等價評判者正是多出等價體的控制機制。"
+            },
+            {
+              "text": "它換來更快的建置；代價由 CI 控制住",
+              "fraction": 0,
+              "feedback": "報酬是更高的殺掉率，控制機制是等價代理，而非建置速度。"
+            },
+            {
+              "text": "它換來整體更少的突變體；代價由測試代理控制住",
+              "fraction": 0,
+              "feedback": "收益是瞄準錯誤類別帶來的殺掉率；等價體由評判者控制。"
+            },
+            {
+              "text": "它什麼都沒換來；多出的等價體是純粹損失",
+              "fraction": 0,
+              "feedback": "它們是約 15% 殺掉率的代價，而等價代理限制了其下游成本。"
+            }
+          ],
+          "generalFeedback": "瞄準特定錯誤類別把殺掉率提升到約 15%，但把等價突變體率提高到約 25%。等價代理（配合去除註解前處理）在測試代理執行前濾除多出的等價突變體，藉此控制住此代價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "區分等價突變體與壞掉的測試",
+          "text": "<p>兩種症狀：(A) 一個測試在原始程式與突變體上都通過；(B) 一個測試在兩者上都失敗。哪個診斷正確？</p>",
+          "answers": [
+            {
+              "text": "A 指向等價（或尚未被殺）的突變體，屬等價代理的問題；B 指向壞掉的測試，屬測試代理的問題",
+              "fraction": 100,
+              "feedback": "正確——兩者都通過代表無法區分（等價）；兩者都失敗代表測試壞掉。"
+            },
+            {
+              "text": "A 與 B 都代表測試代理寫了不穩定測試",
+              "fraction": 0,
+              "feedback": "不穩定是多次執行間的非決定性；A 與 B 都不是關於執行間的變異。"
+            },
+            {
+              "text": "A 與 B 都代表突變體無法建置",
+              "fraction": 0,
+              "feedback": "無法建置的突變體根本不會執行；在 A 與 B 中都有測試在執行。"
+            },
+            {
+              "text": "A 代表壞掉的測試；B 代表等價突變體",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了：兩者都通過是等價訊號，兩者都失敗是壞測試訊號。"
+            }
+          ],
+          "generalFeedback": "在原始程式與突變體上都通過（A）代表測試無法區分兩者——突變體是等價或只是尚未被殺，屬等價代理的問題。兩者都失敗（B）代表測試壞掉（建置／邏輯錯誤）——屬測試代理的問題。兩種症狀對應不同的代理。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序的理由",
+          "text": "<p>為什麼等價判斷擺在測試生成「之前」而非「之後」？</p>",
+          "answers": [
+            {
+              "text": "如此昂貴的測試代理永遠不會被要求去殺無法殺的突變體，省下對沒有測試能殺之等價體的力氣",
+              "fraction": 100,
+              "feedback": "正確——先篩選可避免浪費測試生成的工作。"
+            },
+            {
+              "text": "如此等價代理才能讀取生成的測試",
+              "fraction": 0,
+              "feedback": "它判斷的是突變體而非測試，且在測試生成之前執行。"
+            },
+            {
+              "text": "因為等價性只能在殺掉它的測試存在後才能判斷",
+              "fraction": 0,
+              "feedback": "等價性是突變體對原始程式的性質，與任何生成的測試無關。"
+            },
+            {
+              "text": "為了在測試前提高等價突變體率",
+              "fraction": 0,
+              "feedback": "排序不會改變比率；它是為了避免在等價體上浪費測試代理。"
+            }
+          ],
+          "generalFeedback": "測試生成是昂貴的步驟。先濾除等價突變體，代表測試代理永遠不會被要求去殺沒有任何測試能殺的突變體，因此流水線只把昂貴的力氣花在真正可殺的突變體上。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "停用等價代理的後果",
+          "text": "<p>某團隊為省一步而停用等價代理。鑑於 LLM 突變代理約 25% 的等價突變體率，最可能的後果是什麼？</p>",
+          "answers": [
+            {
+              "text": "到達測試代理的突變體中約有四分之一是無法殺的，因此它白費力氣去殺永遠殺不掉的突變體",
+              "fraction": 100,
+              "feedback": "正確——約 25% 等價體未被濾除，大量測試代理的力氣就花在無法殺的突變體上。"
+            },
+            {
+              "text": "因為嘗試了更多突變體，殺掉率升到 15% 以上",
+              "fraction": 0,
+              "feedback": "嘗試等價突變體並不能殺掉它們，所以殺掉率不會提升。"
+            },
+            {
+              "text": "突變代理停止產生等價突變體",
+              "fraction": 0,
+              "feedback": "突變代理約 25% 的等價率不變；只是過濾器沒了。"
+            },
+            {
+              "text": "不穩定測試被消除",
+              "fraction": 0,
+              "feedback": "不穩定是另一個測試代理品質關卡的問題，與移除等價評判者無關。"
+            }
+          ],
+          "generalFeedback": "沒有等價代理，那約 25% 等價的突變體會直接流向測試代理，測試代理於是在沒有任何測試能殺的突變體上白費力氣。這正是等價代理（配合去除註解前處理）要防止的浪費。",
+          "single": true
+        }
+      ]
+    }
+  },
   "logic-active-clause": {
     "en": {
       "easy": [
