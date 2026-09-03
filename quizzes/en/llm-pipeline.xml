@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/LLM Test Generation Pipeline/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>The three agents in order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The LLM test-generation pipeline (Meta's ACH flow, FSE 2025) chains three agents. In what order do they run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mutation agent &#8594; Equivalence agent &#8594; Test agent</text><feedback><text>Correct — mutants are generated, screened for equivalence, then the survivors are targeted by generated tests.</text></feedback></answer>
+    <answer fraction="0"><text>Test agent &#8594; Mutation agent &#8594; Equivalence agent</text><feedback><text>Tests are written last, to kill the non-equivalent mutants that survive screening.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalence agent &#8594; Mutation agent &#8594; Test agent</text><feedback><text>There is nothing to judge for equivalence until the mutation agent has produced mutants.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation agent &#8594; Test agent &#8594; Equivalence agent</text><feedback><text>Equivalence screening happens before test generation, so the test agent is not asked to kill uncatchable mutants.</text></feedback></answer>
+    <generalfeedback><text>The pipeline is a three-agent flow in the order Mutation &#8594; Equivalence &#8594; Test: the mutation agent seeds faults, the equivalence agent filters out uncatchable (equivalent) mutants, and the test agent generates tests that kill the remaining non-equivalent mutants.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Job of the mutation agent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the job of <strong>Agent 1</strong>, the <em>mutation agent</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generate mutants that target specific fault classes</text><feedback><text>Correct — the mutation agent seeds faults aimed at particular fault classes.</text></feedback></answer>
+    <answer fraction="0"><text>Decide whether a mutant is equivalent</text><feedback><text>That is the equivalence agent's job (Agent 2).</text></feedback></answer>
+    <answer fraction="0"><text>Write a test that kills a mutant</text><feedback><text>That is the test agent's job (Agent 3).</text></feedback></answer>
+    <answer fraction="0"><text>Run the CI pipeline and reject flaky tests</text><feedback><text>Flakiness is a quality gate on the test agent's output, not the mutation agent's role.</text></feedback></answer>
+    <generalfeedback><text>The mutation agent (Agent 1) generates mutants, deliberately targeting specific fault classes rather than making blind syntactic tweaks.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Job of the equivalence agent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the job of <strong>Agent 2</strong>, the <em>equivalence agent</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Decide whether a mutant is equivalent (uncatchable) to the original</text><feedback><text>Correct — it acts as an LLM-as-judge, filtering out mutants no test could ever kill.</text></feedback></answer>
+    <answer fraction="0"><text>Generate the mutants in the first place</text><feedback><text>Generating mutants is the mutation agent's role (Agent 1).</text></feedback></answer>
+    <answer fraction="0"><text>Generate a test that kills the mutant</text><feedback><text>Writing the killing test is the test agent's role (Agent 3).</text></feedback></answer>
+    <answer fraction="0"><text>Measure the code coverage of the resulting suite</text><feedback><text>The equivalence agent judges equivalence; it does not compute coverage.</text></feedback></answer>
+    <generalfeedback><text>The equivalence agent (Agent 2) is an LLM-as-judge that decides whether a mutant is equivalent — semantically identical to the original and therefore impossible for any test to kill — so those mutants are removed before the test agent runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Job of the test agent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the job of <strong>Agent 3</strong>, the <em>test agent</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generate a test that kills the non-equivalent mutant</text><feedback><text>Correct — the test agent writes a test whose result distinguishes the mutant from the original.</text></feedback></answer>
+    <answer fraction="0"><text>Generate the mutants</text><feedback><text>That is the mutation agent (Agent 1).</text></feedback></answer>
+    <answer fraction="0"><text>Judge whether the mutant is equivalent</text><feedback><text>That is the equivalence agent (Agent 2).</text></feedback></answer>
+    <answer fraction="0"><text>Strip comments from the source before judging</text><feedback><text>Comment stripping is a preprocessing step for the equivalence agent, not the test agent's job.</text></feedback></answer>
+    <generalfeedback><text>The test agent (Agent 3) generates a test that kills the mutant — a test that produces a different result on the mutant than on the original — for the mutants the equivalence agent judged non-equivalent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "kill a mutant" means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this pipeline, what does it mean for a test to <em>kill</em> a mutant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test produces a different result on the mutant than on the original program</text><feedback><text>Correct — an observable difference between mutant and original is what kills it.</text></feedback></answer>
+    <answer fraction="0"><text>The test passes on both the mutant and the original</text><feedback><text>If a test passes on both, it fails to distinguish them and does not kill the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant is deleted from the source tree</text><feedback><text>Killing is about detection by a test, not about removing the mutant from disk.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent labels the mutant as equivalent</text><feedback><text>A mutant labelled equivalent is precisely the one that can never be killed.</text></feedback></answer>
+    <generalfeedback><text>A test kills a mutant when it yields a different, observable result on the mutant than on the original program. The whole point of the test agent is to generate such mutation-killing tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an equivalent mutant is here</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this pipeline, an <em>equivalent</em> mutant is one that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Behaves identically to the original, so no test can ever kill it (uncatchable)</text><feedback><text>Correct — that is why the equivalence agent filters it out before the test agent runs.</text></feedback></answer>
+    <answer fraction="0"><text>Is killed by every test the test agent generates</text><feedback><text>That describes an easily-killed mutant, the opposite of an equivalent one.</text></feedback></answer>
+    <answer fraction="0"><text>Fails to compile and is discarded by the build</text><feedback><text>That is invalid code (a mutation-agent failure mode), not an equivalent mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Is a test that is non-deterministic across CI runs</text><feedback><text>That is a flaky test, a test-agent failure mode, not an equivalent mutant.</text></feedback></answer>
+    <generalfeedback><text>An equivalent mutant is semantically identical to the original: it produces the same behaviour on every input, so no test can distinguish it — it is uncatchable. The equivalence agent exists to identify and remove such mutants.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which agent judges equivalence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which agent decides whether a mutant is equivalent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The equivalence agent (Agent 2)</text><feedback><text>Correct — it is the LLM-as-judge for equivalence.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent (Agent 1)</text><feedback><text>Agent 1 generates mutants; it does not judge them.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent (Agent 3)</text><feedback><text>Agent 3 writes the killing test; equivalence has already been decided before it runs.</text></feedback></answer>
+    <answer fraction="0"><text>The CI system</text><feedback><text>CI runs the generated tests; it does not judge mutant equivalence.</text></feedback></answer>
+    <generalfeedback><text>The equivalence agent (Agent 2) is the LLM-as-judge that decides whether a given mutant is equivalent to the original.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which agent generates the killing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which agent generates the test that kills a mutant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test agent (Agent 3)</text><feedback><text>Correct — the test agent produces the mutation-killing test.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent (Agent 1)</text><feedback><text>Agent 1 generates mutants, not tests.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent (Agent 2)</text><feedback><text>Agent 2 judges equivalence; it does not write tests.</text></feedback></answer>
+    <answer fraction="0"><text>The engineer who reviews acceptance</text><feedback><text>Engineers accept or reject the generated tests, but Agent 3 generates them.</text></feedback></answer>
+    <generalfeedback><text>The test agent (Agent 3) generates the test that kills the non-equivalent mutant handed to it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which agent generates the mutants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which agent generates the mutants?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mutation agent (Agent 1)</text><feedback><text>Correct — Agent 1 seeds faults targeting specific fault classes.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent (Agent 2)</text><feedback><text>Agent 2 judges the mutants Agent 1 produced.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent (Agent 3)</text><feedback><text>Agent 3 writes killing tests, not mutants.</text></feedback></answer>
+    <answer fraction="0"><text>The rule-based mutator only</text><feedback><text>In the LLM-guided pipeline, the mutation agent is the LLM; rule-based mutation is the baseline being compared against.</text></feedback></answer>
+    <generalfeedback><text>The mutation agent (Agent 1) generates the mutants, deliberately targeting specific fault classes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Domain-aware vs rule-based</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with the rule-based baseline, the LLM-guided approach is described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Domain- and issue-aware, whereas rule-based mutation is not</text><feedback><text>Correct — the LLM can target faults relevant to the domain and the issue at hand.</text></feedback></answer>
+    <answer fraction="0"><text>Faster to run but blind to the domain</text><feedback><text>It is the LLM approach that is domain-aware; being domain-aware is its advantage, not a blindness.</text></feedback></answer>
+    <answer fraction="0"><text>Identical to rule-based mutation in every respect</text><feedback><text>They differ sharply — notably kill rate and domain awareness.</text></feedback></answer>
+    <answer fraction="0"><text>Unable to target specific fault classes</text><feedback><text>Targeting specific fault classes is exactly what the LLM-guided approach does.</text></feedback></answer>
+    <generalfeedback><text>The LLM-guided pipeline is domain- and issue-aware — it can target fault classes that matter for the code under test — while the rule-based baseline applies generic syntactic operators with no such awareness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>LLM-as-judge role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The phrase "LLM-as-judge" in this pipeline refers to which agent's mode of operation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The equivalence agent deciding whether a mutant is equivalent</text><feedback><text>Correct — it uses the LLM to judge equivalence.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent scoring how many faults it seeded</text><feedback><text>The mutation agent generates mutants; the judging role is the equivalence agent's.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent grading its own tests</text><feedback><text>The test agent writes tests; the "judge" is the equivalence agent.</text></feedback></answer>
+    <answer fraction="0"><text>CI deciding whether a test is flaky</text><feedback><text>CI applies a quality gate, but "LLM-as-judge" names the equivalence agent.</text></feedback></answer>
+    <generalfeedback><text>"LLM-as-judge" describes the equivalence agent (Agent 2), which uses the LLM to judge whether a mutant is equivalent to the original.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which mutants reach the test agent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which mutants does the test agent try to kill?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The non-equivalent mutants that survive the equivalence agent</text><feedback><text>Correct — only mutants that can actually be killed are handed to the test agent.</text></feedback></answer>
+    <answer fraction="0"><text>All mutants, including equivalent ones</text><feedback><text>Equivalent mutants are filtered out first, so effort is not wasted on uncatchable ones.</text></feedback></answer>
+    <answer fraction="0"><text>Only the equivalent mutants</text><feedback><text>Equivalent mutants can never be killed; the test agent targets the non-equivalent ones.</text></feedback></answer>
+    <answer fraction="0"><text>Only mutants that fail to compile</text><feedback><text>Invalid mutants are discarded, not passed on to be killed.</text></feedback></answer>
+    <generalfeedback><text>The equivalence agent removes equivalent (uncatchable) mutants first, so the test agent only tries to kill the non-equivalent mutants that survive that screening.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Pipeline is three agents</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The LLM test-generation pipeline is a three-agent flow (mutation, equivalence, and test agents).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — it chains a mutation agent, an equivalence agent, and a test agent.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>It is a three-agent flow: mutation &#8594; equivalence &#8594; test.</text></feedback></answer>
+    <generalfeedback><text>The pipeline is a three-agent flow: the mutation agent, the equivalence (LLM-as-judge) agent, and the test agent, running in that order.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Overall goal of the pipeline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the overall goal of the pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generate mutation-killing tests that target specific fault classes</text><feedback><text>Correct — the end product is tests that kill mutants aimed at particular fault classes.</text></feedback></answer>
+    <answer fraction="0"><text>Maximise the number of equivalent mutants produced</text><feedback><text>Equivalent mutants are an unwanted cost to be filtered, not a goal.</text></feedback></answer>
+    <answer fraction="0"><text>Prove the program contains no defects</text><feedback><text>No testing pipeline proves the absence of all defects.</text></feedback></answer>
+    <answer fraction="0"><text>Replace human engineers entirely</text><feedback><text>Engineer acceptance is a metric; engineers still review the generated tests.</text></feedback></answer>
+    <generalfeedback><text>The pipeline generates mutation-killing tests targeting specific fault classes, using three agents to seed faults, filter uncatchable ones, and write the tests that kill the rest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which agent runs first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which agent runs <em>first</em> in the pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mutation agent</text><feedback><text>Correct — mutants must exist before anything can be judged or killed.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent</text><feedback><text>There is nothing to judge until the mutation agent has produced mutants.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent</text><feedback><text>Tests are written last, against the surviving non-equivalent mutants.</text></feedback></answer>
+    <answer fraction="0"><text>They all run simultaneously with no ordering</text><feedback><text>The agents run in a defined order: mutation &#8594; equivalence &#8594; test.</text></feedback></answer>
+    <generalfeedback><text>The mutation agent runs first, generating the mutants that the equivalence and test agents then process in turn.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/LLM Test Generation Pipeline/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Data flow into the equivalence agent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the equivalence agent receive as its input?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mutants produced by the mutation agent, to judge which are equivalent</text><feedback><text>Correct — it screens the mutation agent's output before the test agent runs.</text></feedback></answer>
+    <answer fraction="0"><text>The killing tests produced by the test agent</text><feedback><text>The test agent runs after the equivalence agent, so its tests cannot be the input.</text></feedback></answer>
+    <answer fraction="0"><text>Raw coverage reports from CI</text><feedback><text>The equivalence agent judges mutants, not coverage reports.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — it runs before the mutation agent</text><feedback><text>The order is mutation &#8594; equivalence &#8594; test; there is nothing to judge before mutants exist.</text></feedback></answer>
+    <generalfeedback><text>The equivalence agent sits between the mutation and test agents: it takes the mutants generated by the mutation agent and decides which are equivalent, passing only the non-equivalent ones to the test agent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the equivalence agent is needed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the LLM-guided pipeline need a dedicated equivalence agent, when a simpler rule-based flow might not?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The LLM mutation agent produces a higher rate of equivalent mutants (~25%), so they must be filtered out</text><feedback><text>Correct — more equivalent mutants means a dedicated judge is worth the cost.</text></feedback></answer>
+    <answer fraction="0"><text>The LLM never produces equivalent mutants, so the agent double-checks</text><feedback><text>The opposite is true: the LLM produces more equivalent mutants than the rule-based baseline.</text></feedback></answer>
+    <answer fraction="0"><text>Because rule-based mutation cannot compile its mutants</text><feedback><text>The reason is the LLM's higher equivalent-mutant rate, not a compilation issue with rule-based mutation.</text></feedback></answer>
+    <answer fraction="0"><text>To increase the number of equivalent mutants on purpose</text><feedback><text>The agent removes equivalent mutants; it does not create more.</text></feedback></answer>
+    <generalfeedback><text>Because the LLM-guided mutation agent produces a higher equivalent-mutant rate (~25%, versus roughly 10&#8211;15% for rule-based mutation), the pipeline adds an equivalence agent to filter those uncatchable mutants out before the expensive test-generation step.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Kill-rate comparison</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do the reported mutant kill rates compare between the rule-based baseline and the LLM-guided pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Rule-based ~2.4% vs LLM-guided ~15%</text><feedback><text>Correct — the LLM-guided approach kills a far larger share of mutants.</text></feedback></answer>
+    <answer fraction="0"><text>Rule-based ~15% vs LLM-guided ~2.4%</text><feedback><text>The figures are reversed: LLM-guided is the higher one, at ~15%.</text></feedback></answer>
+    <answer fraction="0"><text>Both about 25%</text><feedback><text>25% is the LLM's equivalent-mutant rate, not the kill rate.</text></feedback></answer>
+    <answer fraction="0"><text>Both close to 100%</text><feedback><text>Neither approach reaches anywhere near 100%; the reported kill rates are 2.4% and 15%.</text></feedback></answer>
+    <generalfeedback><text>The rule-based baseline kills about 2.4% of mutants, while the LLM-guided pipeline kills about 15% — a large jump attributed to targeting specific fault classes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Flaky test failure mode</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test passes and fails non-deterministically across CI runs and is rejected. Which agent's failure mode is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test agent — it produced a flaky (non-deterministic) test</text><feedback><text>Correct — flaky tests are a test-agent failure mode, caught by the CI quality gate.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent — it produced an equivalent mutant</text><feedback><text>Flakiness is about the test's determinism, not about the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent — it misjudged equivalence</text><feedback><text>A misjudged equivalence is a different symptom; flakiness is a property of the generated test.</text></feedback></answer>
+    <answer fraction="0"><text>CI — it introduced randomness into the test</text><feedback><text>CI detects and rejects the flaky test; the test agent generated it.</text></feedback></answer>
+    <generalfeedback><text>Generating a flaky (non-deterministic) test that CI rejects is a failure mode of the test agent. A quality gate filters such tests out.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Invalid-code failure mode</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A produced mutant is syntactically invalid and fails to build. Which agent's failure mode is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mutation agent — it emitted syntactically invalid code</text><feedback><text>Correct — emitting invalid, non-building code is a mutation-agent failure mode.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent — it wrote a flaky test</text><feedback><text>Flakiness is a test-agent issue; this is a mutant that fails to build.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent — it marked a mutant equivalent by mistake</text><feedback><text>That is a different failure; here the mutant itself does not compile.</text></feedback></answer>
+    <answer fraction="0"><text>The engineer — they rejected the test</text><feedback><text>The problem is invalid mutant code, produced by the mutation agent.</text></feedback></answer>
+    <generalfeedback><text>Emitting syntactically invalid code that fails to build is a failure mode of the mutation agent (Agent 1); such mutants are discarded.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why strip comments</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The equivalence agent adds a preprocessing step that strips comments before judging. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Comment differences caused about 25% of its false positives, so removing them improves accuracy</text><feedback><text>Correct — comment diffs were a large source of false positives, fixed by stripping comments.</text></feedback></answer>
+    <answer fraction="0"><text>Comments make the code compile faster</text><feedback><text>The reason is judging accuracy, not compile speed.</text></feedback></answer>
+    <answer fraction="0"><text>Comments are needed by the test agent, so they are moved aside</text><feedback><text>They are stripped to help the equivalence judge, not relocated for the test agent.</text></feedback></answer>
+    <answer fraction="0"><text>Stripping comments increases the equivalent-mutant rate on purpose</text><feedback><text>It improves the judge's precision and recall; it is not about inflating equivalence.</text></feedback></answer>
+    <generalfeedback><text>Comment differences accounted for roughly 25% of the equivalence agent's false positives. Stripping comments as a preprocessing step removes that noise and lifts precision and recall (from 0.79/0.47 to about 0.95/0.96).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent-mutant rate comparison</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the equivalent-mutant rate of the LLM-guided approach compare with the rule-based baseline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Higher for the LLM (~25%) than rule-based (~10&#8211;15%)</text><feedback><text>Correct — the LLM produces more equivalent mutants, motivating the equivalence agent.</text></feedback></answer>
+    <answer fraction="0"><text>Lower for the LLM (~5%) than rule-based (~25%)</text><feedback><text>The LLM's equivalent-mutant rate is higher, not lower.</text></feedback></answer>
+    <answer fraction="0"><text>Identical for both, at ~2.4%</text><feedback><text>2.4% is the rule-based kill rate, not an equivalent-mutant rate.</text></feedback></answer>
+    <answer fraction="0"><text>Zero for the LLM</text><feedback><text>The LLM's equivalent-mutant rate is about 25%, not zero.</text></feedback></answer>
+    <generalfeedback><text>The LLM-guided approach has a higher equivalent-mutant rate (~25%) than the rule-based baseline (~10&#8211;15%) — a cost of targeting specific fault classes, which is why a dedicated equivalence judge is needed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test-fails-on-both failure mode</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generated test fails on BOTH the original program and the mutant. Which agent's failure mode is this, most directly?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test agent — it produced a test with a build or logic error, not a valid mutation-killing test</text><feedback><text>Correct — a test that fails on the original too cannot be distinguishing the mutant; it is broken.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent — the mutant is equivalent</text><feedback><text>Equivalence would make the test pass on both, not fail on both; and this is about the test being broken.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent — it under-counted equivalent mutants</text><feedback><text>The symptom is a broken test, which is the test agent's output.</text></feedback></answer>
+    <answer fraction="0"><text>CI — it ran the test in the wrong order</text><feedback><text>The test itself is faulty; it fails on the original as well as the mutant.</text></feedback></answer>
+    <generalfeedback><text>A test that fails on both the original and the mutant is not distinguishing them — it has a build or logic error. That is a test-agent failure mode; a valid killing test must pass on the original and fail on the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where equivalence sits in the flow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Relative to the test agent, when does the equivalence agent run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Before the test agent, so uncatchable mutants are removed first</text><feedback><text>Correct — screening precedes test generation to avoid wasted effort.</text></feedback></answer>
+    <answer fraction="0"><text>After the test agent, to check the tests</text><feedback><text>Equivalence is judged on mutants, before the test agent writes tests.</text></feedback></answer>
+    <answer fraction="0"><text>In parallel with the mutation agent</text><feedback><text>It runs after the mutation agent and before the test agent.</text></feedback></answer>
+    <answer fraction="0"><text>Only after CI rejects a flaky test</text><feedback><text>Equivalence judging is unrelated to CI's flakiness gate and comes earlier.</text></feedback></answer>
+    <generalfeedback><text>The equivalence agent runs after the mutation agent and before the test agent, filtering out equivalent mutants so the test agent only works on catchable ones.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of comment stripping on scores</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What happens to the equivalence agent's precision and recall after comment stripping is added?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They rise from about 0.79/0.47 to about 0.95/0.96</text><feedback><text>Correct — removing comment-diff noise sharply improves both metrics.</text></feedback></answer>
+    <answer fraction="0"><text>They fall from about 0.95/0.96 to about 0.79/0.47</text><feedback><text>The direction is reversed: preprocessing improves the scores.</text></feedback></answer>
+    <answer fraction="0"><text>They stay unchanged</text><feedback><text>Comment stripping produced a large, measured improvement.</text></feedback></answer>
+    <answer fraction="0"><text>Precision rises but recall drops to near zero</text><feedback><text>Both precision and recall rise, to about 0.95 and 0.96.</text></feedback></answer>
+    <generalfeedback><text>Without preprocessing the equivalence agent scored precision 0.79 and recall 0.47; stripping comments (which caused ~25% of false positives) lifted these to about 0.95 precision and 0.96 recall.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Engineer acceptance as a metric</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Besides kill rate, which of these is reported as a metric for the pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Engineer acceptance of the generated tests</text><feedback><text>Correct — whether engineers actually accept the tests is a headline metric.</text></feedback></answer>
+    <answer fraction="0"><text>Number of comments per mutant</text><feedback><text>Comments matter only as a preprocessing nuisance for the judge, not as a headline metric.</text></feedback></answer>
+    <answer fraction="0"><text>Lines of code deleted per run</text><feedback><text>That is not a reported pipeline metric.</text></feedback></answer>
+    <answer fraction="0"><text>Number of agents in the flow</text><feedback><text>The agent count is fixed at three; it is not an evaluation metric.</text></feedback></answer>
+    <generalfeedback><text>Engineer acceptance — whether engineers actually adopt the generated tests — is a reported metric, reflecting that a high kill rate alone is not the only measure of value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Missed-equivalence failure mode</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An equivalent mutant slips through and is handed to the test agent, which then wastes effort trying to kill it. Which agent's failure mode is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The equivalence agent — it failed to recognise an equivalent mutant</text><feedback><text>Correct — missing an equivalent mutant (low recall) sends uncatchable work downstream.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent — it produced invalid code</text><feedback><text>The mutant here is valid but equivalent; the miss is the judge's.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent — it wrote a flaky test</text><feedback><text>The wasted effort stems from an equivalent mutant reaching the test agent, a judging miss.</text></feedback></answer>
+    <answer fraction="0"><text>CI — it failed to reject the test</text><feedback><text>The root cause is the equivalence agent letting an equivalent mutant through.</text></feedback></answer>
+    <generalfeedback><text>Letting an equivalent (uncatchable) mutant through to the test agent is an equivalence-agent failure — a recall miss. The test agent then wastes effort on a mutant no test can kill.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Higher kill rate, more equivalents</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The LLM-guided pipeline achieves a higher kill rate than rule-based mutation but at the cost of a higher equivalent-mutant rate.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — ~15% kill rate vs ~2.4%, but ~25% equivalent mutants vs ~10&#8211;15%.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The trade-off is real: higher kill rate (15% vs 2.4%) but more equivalent mutants (~25% vs ~10&#8211;15%).</text></feedback></answer>
+    <generalfeedback><text>Targeting specific fault classes lifts the kill rate from ~2.4% to ~15%, but also raises the equivalent-mutant rate to ~25% (vs ~10&#8211;15% for rule-based), which is why the equivalence agent is added.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the higher kill rate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is credited with the LLM-guided pipeline's much higher kill rate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Targeting specific fault classes rather than generic syntactic tweaks</text><feedback><text>Correct — aiming at real fault classes yields far more killable, meaningful mutants.</text></feedback></answer>
+    <answer fraction="0"><text>Producing far fewer mutants overall</text><feedback><text>The kill rate gain comes from what is targeted, not from producing fewer mutants.</text></feedback></answer>
+    <answer fraction="0"><text>Skipping the equivalence-judging step</text><feedback><text>The equivalence step is added, not skipped; the kill rate comes from fault-class targeting.</text></feedback></answer>
+    <answer fraction="0"><text>Running each test only once</text><feedback><text>Run count is unrelated to the kill-rate improvement.</text></feedback></answer>
+    <generalfeedback><text>The jump from ~2.4% to ~15% kill rate is credited to the LLM targeting specific fault classes, which the coverage-blind rule-based baseline cannot do.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Quality gates on generated tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the pipeline need quality gates on the test agent's output?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because the test agent can produce flaky or otherwise invalid tests that must be filtered out</text><feedback><text>Correct — flaky tests and tests that fail on both original and mutant must be rejected.</text></feedback></answer>
+    <answer fraction="0"><text>Because the mutation agent never produces valid mutants</text><feedback><text>The gates target the test agent's output; the mutation agent's invalid mutants are handled separately.</text></feedback></answer>
+    <answer fraction="0"><text>To increase the equivalent-mutant rate</text><feedback><text>Gates filter bad tests; they do not affect the equivalent-mutant rate.</text></feedback></answer>
+    <answer fraction="0"><text>To make the equivalence agent unnecessary</text><feedback><text>The equivalence agent is still needed; quality gates handle a different problem (bad tests).</text></feedback></answer>
+    <generalfeedback><text>The test agent can emit flaky (non-deterministic) tests or tests that fail on both the original and the mutant. Quality gates (e.g. CI checks) filter these out so only valid mutation-killing tests remain.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/LLM Test Generation Pipeline/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Trade-off drives the equivalence judge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which chain of reasoning best explains why the pipeline includes an equivalence agent at all?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Targeting fault classes raises the kill rate but also the equivalent-mutant rate (~25%), so a judge is needed to drop uncatchable mutants before the costly test step</text><feedback><text>Correct — the equivalence agent is the direct response to the higher equivalent-mutant rate.</text></feedback></answer>
+    <answer fraction="0"><text>The LLM produces fewer equivalent mutants, so a judge cheaply confirms there are none</text><feedback><text>The LLM produces more equivalent mutants, not fewer; that is why the judge is required.</text></feedback></answer>
+    <answer fraction="0"><text>Rule-based mutation needs the judge, and the LLM pipeline just inherits it</text><feedback><text>The judge is motivated by the LLM's own higher equivalent-mutant rate, not inherited from rule-based mutation.</text></feedback></answer>
+    <answer fraction="0"><text>The judge exists only to raise the kill-rate number</text><feedback><text>The judge removes uncatchable mutants; it does not manufacture kills.</text></feedback></answer>
+    <generalfeedback><text>Because the LLM-guided mutation agent targets specific fault classes, it kills more mutants (~15% vs ~2.4%) but also generates more equivalent ones (~25% vs ~10&#8211;15%). The equivalence agent is the pipeline's response: it filters those uncatchable mutants out before the expensive test-generation step.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting recall 0.47</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The equivalence agent's recall without preprocessing was only 0.47. In this pipeline, what does that low recall concretely cost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Many truly-equivalent mutants are missed and passed to the test agent, which wastes effort trying to kill uncatchable mutants</text><feedback><text>Correct — low recall on "equivalent" means many equivalents slip through downstream.</text></feedback></answer>
+    <answer fraction="0"><text>Many non-equivalent mutants are wrongly discarded, so real bugs go untested</text><feedback><text>That describes low precision, not low recall.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent produces fewer mutants</text><feedback><text>Recall of the judge does not change how many mutants the mutation agent generates.</text></feedback></answer>
+    <answer fraction="0"><text>Tests become flaky in CI</text><feedback><text>Flakiness is a test-agent issue, unrelated to the judge's recall.</text></feedback></answer>
+    <generalfeedback><text>Recall of 0.47 means the judge caught fewer than half of the truly-equivalent mutants. The missed ones flow to the test agent, which then wastes effort attempting to kill mutants that no test can ever kill. Comment stripping lifted recall to ~0.96.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting precision 0.79</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The equivalence agent's precision without preprocessing was 0.79. What does a precision below 1.0 cost here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Some mutants labelled "equivalent" are actually non-equivalent, so genuinely killable mutants are wrongly dropped and never get a test</text><feedback><text>Correct — false positives on "equivalent" discard catchable mutants.</text></feedback></answer>
+    <answer fraction="0"><text>Some equivalent mutants are missed and reach the test agent</text><feedback><text>That is a recall problem; precision concerns wrong "equivalent" labels.</text></feedback></answer>
+    <answer fraction="0"><text>The kill rate is inflated to 15%</text><feedback><text>The 15% kill rate comes from fault-class targeting, not from judge precision.</text></feedback></answer>
+    <answer fraction="0"><text>Mutants fail to compile more often</text><feedback><text>Compilation is a mutation-agent concern, not a function of judge precision.</text></feedback></answer>
+    <generalfeedback><text>Precision 0.79 means about a fifth of the mutants the judge called "equivalent" were not — those genuinely killable mutants are wrongly filtered out and never receive a test. Comment differences caused ~25% of these false positives; stripping comments raised precision to ~0.95.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why comment stripping fixes false positives</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why would stripping comments specifically reduce the equivalence agent's false positives?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Comment-only differences do not change behaviour, yet were nudging the judge toward "equivalent"; removing them lets it compare actual logic — and they were ~25% of false positives</text><feedback><text>Correct — comment diffs are behaviour-neutral noise that skewed the judgment.</text></feedback></answer>
+    <answer fraction="0"><text>Comments change program behaviour, so removing them changes the mutant</text><feedback><text>Comments do not affect behaviour; that is exactly why they are noise for the judge.</text></feedback></answer>
+    <answer fraction="0"><text>Stripping comments speeds up compilation and avoids timeouts</text><feedback><text>The benefit is judging accuracy, not compile time.</text></feedback></answer>
+    <answer fraction="0"><text>Comments are where the mutation agent hides invalid code</text><feedback><text>The issue is behaviour-neutral comment diffs confusing the judge, not hidden invalid code.</text></feedback></answer>
+    <generalfeedback><text>Comment differences are behaviour-neutral, but they were skewing the judge's decisions and caused about 25% of its false positives. Stripping comments as preprocessing lets the judge compare the real logic, raising precision/recall from 0.79/0.47 to ~0.95/0.96.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why rule-based misses fault classes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the coverage-blind, rule-based baseline achieve only ~2.4% kill rate compared with the LLM's ~15%?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It applies generic syntactic operators without domain or issue awareness, so it rarely targets the fault classes that matter</text><feedback><text>Correct — without domain/issue awareness it cannot aim at meaningful faults.</text></feedback></answer>
+    <answer fraction="0"><text>It produces too few mutants to kill any</text><feedback><text>Rule-based mutation typically produces many mutants; the problem is relevance, not quantity.</text></feedback></answer>
+    <answer fraction="0"><text>It strips comments and loses information</text><feedback><text>Comment stripping is an equivalence-agent preprocessing step, not a rule-based limitation.</text></feedback></answer>
+    <answer fraction="0"><text>Its equivalence agent is too aggressive</text><feedback><text>The rule-based baseline is not the one gaining a dedicated equivalence agent; its low kill rate is about lack of domain awareness.</text></feedback></answer>
+    <generalfeedback><text>Rule-based mutation is domain- and issue-blind: it applies generic operators everywhere and rarely hits the specific fault classes that matter, so its kill rate stays around 2.4%. The LLM-guided approach targets those fault classes, reaching ~15%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: test fails on original and mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Symptom: a generated test fails on the original program as well as on the mutant. Which agent's failure best explains this, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test agent — a valid killing test must pass on the original and fail on the mutant; failing on both means a build/logic error in the test</text><feedback><text>Correct — the test cannot be distinguishing anything if it also fails on the original.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent — it should have caught this as equivalent</text><feedback><text>Equivalence would make the test pass on both, not fail on both; the fault is in the test.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent — the mutant is invalid</text><feedback><text>An invalid mutant would not build at all; here a test runs and fails on both versions.</text></feedback></answer>
+    <answer fraction="0"><text>CI — it mislabelled a passing test as failing</text><feedback><text>The consistent failure on both versions points to a broken generated test, not a CI mislabel.</text></feedback></answer>
+    <generalfeedback><text>A correct mutation-killing test passes on the original and fails on the mutant. Failing on both means the test itself is broken (build or logic error) — a test-agent failure mode, distinct from an equivalent mutant (passes on both) or an invalid mutant (won't build).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: mutant will not build</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Symptom: the artifact under test will not compile because a mutant is syntactically malformed. Which agent is responsible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mutation agent — emitting syntactically invalid code that fails to build is its failure mode</text><feedback><text>Correct — invalid, non-building mutants come from the mutation agent.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent — its test has a build error</text><feedback><text>Here it is the mutant, not a test, that fails to build.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalence agent — it corrupted the mutant while judging</text><feedback><text>The equivalence agent judges; it does not produce malformed mutants.</text></feedback></answer>
+    <answer fraction="0"><text>CI — the build environment is misconfigured</text><feedback><text>The malformed mutant is generated by the mutation agent, independent of CI setup.</text></feedback></answer>
+    <generalfeedback><text>A mutant that is syntactically invalid and fails to build is a mutation-agent failure mode. Such mutants are discarded before the rest of the pipeline runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: uncatchable mutant wastes the test agent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Symptom: the test agent repeatedly fails to kill one particular mutant no matter what test it writes, and analysis shows the mutant is behaviourally identical to the original. Which agent should have prevented this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The equivalence agent — it should have judged this mutant equivalent and removed it</text><feedback><text>Correct — an uncatchable mutant reaching the test agent is a missed-equivalence (recall) failure.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent — it just needs a better test</text><feedback><text>No test can kill an equivalent mutant; the fix is to filter it, which is the judge's job.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent — it should not generate any equivalent mutants</text><feedback><text>The LLM inevitably produces some (~25%); the equivalence agent exists precisely to catch them.</text></feedback></answer>
+    <answer fraction="0"><text>CI — it should have skipped the mutant</text><feedback><text>CI runs tests; deciding equivalence is the equivalence agent's role.</text></feedback></answer>
+    <generalfeedback><text>A behaviourally-identical (equivalent) mutant can never be killed. If it reaches the test agent, the equivalence agent missed it — a recall failure. This is exactly the waste the equivalence agent (with comment-stripping preprocessing lifting recall to ~0.96) is meant to prevent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why kill rate alone is insufficient</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the pipeline report engineer acceptance rather than relying on kill rate alone?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test can kill a mutant yet still be flaky, hard to read, or otherwise unwanted, so engineer acceptance measures real-world value</text><feedback><text>Correct — killing a mutant does not guarantee a test engineers will actually keep.</text></feedback></answer>
+    <answer fraction="0"><text>Kill rate cannot be measured for LLM-generated tests</text><feedback><text>Kill rate is measured (2.4% vs 15%); acceptance is an additional, complementary metric.</text></feedback></answer>
+    <answer fraction="0"><text>Engineer acceptance is identical to the kill rate</text><feedback><text>They are different metrics; acceptance captures value the kill rate misses.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance replaces the need for an equivalence agent</text><feedback><text>Acceptance is an outcome metric; the equivalence agent addresses a different problem.</text></feedback></answer>
+    <generalfeedback><text>A high kill rate does not mean a test is one engineers will adopt: it may be flaky, unreadable, or low-value. Reporting engineer acceptance captures whether the generated tests deliver real, kept-in-the-suite value, not just mutant kills.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why filter flaky and invalid outputs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a filtering/acceptance gate essential given the test agent's and mutation agent's failure modes?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Without gates, flaky tests and tests that fail on both versions (and invalid mutants) would pollute the suite, so they must be filtered before acceptance</text><feedback><text>Correct — gates keep unreliable and broken outputs out of the delivered suite.</text></feedback></answer>
+    <answer fraction="0"><text>Gates increase the equivalent-mutant rate to make the judge's job easier</text><feedback><text>Gates filter bad outputs; they do not manipulate the equivalent-mutant rate.</text></feedback></answer>
+    <answer fraction="0"><text>Gates let the pipeline skip the equivalence agent</text><feedback><text>The equivalence agent remains; gates handle a separate problem (bad tests and mutants).</text></feedback></answer>
+    <answer fraction="0"><text>Gates convert equivalent mutants into killable ones</text><feedback><text>Nothing can make an equivalent mutant killable; gates only filter outputs.</text></feedback></answer>
+    <generalfeedback><text>The mutation agent can emit invalid mutants, and the test agent can emit flaky tests or tests that fail on both original and mutant. A filtering/acceptance gate keeps these unreliable or broken artifacts out of the final suite, so only valid, deterministic mutation-killing tests are accepted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Net effect of preprocessing on the flow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After comment stripping raises the equivalence agent to ~0.95 precision / ~0.96 recall, what is the net effect on the downstream test agent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fewer equivalent mutants slip through and fewer killable mutants are wrongly dropped, so the test agent spends its effort on genuinely killable mutants</text><feedback><text>Correct — high precision and recall together mean the test agent gets a cleaner, catchable input set.</text></feedback></answer>
+    <answer fraction="0"><text>The test agent now also has to judge equivalence itself</text><feedback><text>Judging stays with the equivalence agent; preprocessing just makes its output cleaner.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent stops producing equivalent mutants</text><feedback><text>The mutation agent still produces ~25% equivalents; the judge just filters them better.</text></feedback></answer>
+    <answer fraction="0"><text>The kill rate drops below the rule-based 2.4%</text><feedback><text>Better filtering does not lower the kill rate; it focuses the test agent on catchable mutants.</text></feedback></answer>
+    <generalfeedback><text>High recall (~0.96) means few equivalent mutants slip through to waste the test agent; high precision (~0.95) means few catchable mutants are wrongly discarded. Together they give the test agent a clean set of genuinely killable mutants to target.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost accepted for a higher kill rate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The pipeline accepts a higher equivalent-mutant rate (~25%) as a deliberate cost. What does it buy, and how is the cost contained?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It buys a much higher kill rate (~15% vs ~2.4%) by targeting fault classes; the cost is contained by the equivalence agent that filters the extra equivalents</text><feedback><text>Correct — the equivalence judge is the containment mechanism for the extra equivalents.</text></feedback></answer>
+    <answer fraction="0"><text>It buys faster builds; the cost is contained by CI</text><feedback><text>The payoff is a higher kill rate, and the containment is the equivalence agent, not build speed.</text></feedback></answer>
+    <answer fraction="0"><text>It buys fewer mutants overall; the cost is contained by the test agent</text><feedback><text>The gain is kill rate from fault-class targeting; equivalents are contained by the judge.</text></feedback></answer>
+    <answer fraction="0"><text>It buys nothing; the extra equivalents are pure loss</text><feedback><text>They are the price of the ~15% kill rate, and the equivalence agent limits their downstream cost.</text></feedback></answer>
+    <generalfeedback><text>Targeting specific fault classes lifts the kill rate to ~15% but raises the equivalent-mutant rate to ~25%. The equivalence agent (with comment-stripping preprocessing) contains that cost by filtering the extra equivalent mutants before the test agent runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distinguishing equivalent vs broken test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two symptoms: (A) a test passes on both the original and the mutant; (B) a test fails on both. Which diagnosis is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A points to an equivalent (or unkilled) mutant, an equivalence-agent concern; B points to a broken test, a test-agent concern</text><feedback><text>Correct — passing on both means no distinction (equivalence); failing on both means the test is broken.</text></feedback></answer>
+    <answer fraction="0"><text>Both A and B mean the test agent wrote a flaky test</text><feedback><text>Flakiness is non-determinism across runs; neither A nor B is about run-to-run variance.</text></feedback></answer>
+    <answer fraction="0"><text>Both A and B mean the mutant failed to build</text><feedback><text>A mutant that fails to build would not run at all; in both A and B a test executes.</text></feedback></answer>
+    <answer fraction="0"><text>A means a broken test; B means an equivalent mutant</text><feedback><text>This reverses the two: passing on both is the equivalence signal, failing on both is the broken-test signal.</text></feedback></answer>
+    <generalfeedback><text>Passing on both original and mutant (A) means the test cannot distinguish them — the mutant is equivalent or simply unkilled, an equivalence-agent concern. Failing on both (B) means the test is broken (build/logic error) — a test-agent concern. The two symptoms map to different agents.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Ordering rationale</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is equivalence judging placed before, rather than after, test generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So the expensive test agent is never asked to kill uncatchable mutants, saving effort on equivalents that no test could kill</text><feedback><text>Correct — screening first avoids wasted test-generation work.</text></feedback></answer>
+    <answer fraction="0"><text>So the equivalence agent can read the generated tests</text><feedback><text>It judges mutants, not tests, and runs before test generation.</text></feedback></answer>
+    <answer fraction="0"><text>Because equivalence can only be judged once a killing test exists</text><feedback><text>Equivalence is a property of the mutant vs the original, independent of any generated test.</text></feedback></answer>
+    <answer fraction="0"><text>To raise the equivalent-mutant rate before testing</text><feedback><text>Ordering does not change the rate; it avoids wasting the test agent on equivalents.</text></feedback></answer>
+    <generalfeedback><text>Test generation is the expensive step. Filtering equivalent mutants first means the test agent is never asked to kill a mutant that no test could ever kill, so the pipeline spends its costly effort only on genuinely catchable mutants.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence of disabling the equivalence agent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team disables the equivalence agent to save a step. Given the LLM mutation agent's ~25% equivalent-mutant rate, what is the most likely consequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Roughly a quarter of mutants reaching the test agent are uncatchable, so it wastes effort trying to kill mutants no test can ever kill</text><feedback><text>Correct — with ~25% equivalents unfiltered, much test-agent effort is spent on uncatchable mutants.</text></feedback></answer>
+    <answer fraction="0"><text>The kill rate rises above 15% because more mutants are attempted</text><feedback><text>Attempting equivalent mutants cannot kill them, so the kill rate does not improve.</text></feedback></answer>
+    <answer fraction="0"><text>The mutation agent stops producing equivalent mutants</text><feedback><text>The mutation agent's ~25% equivalent rate is unchanged; only the filter is gone.</text></feedback></answer>
+    <answer fraction="0"><text>Flaky tests are eliminated</text><feedback><text>Flakiness is a separate test-agent quality-gate issue, unaffected by removing the equivalence judge.</text></feedback></answer>
+    <generalfeedback><text>Without the equivalence agent, the ~25% of mutants that are equivalent flow straight to the test agent, which then wastes effort on mutants that no test can kill. That wasted work is exactly what the equivalence agent (with comment-stripping preprocessing) is there to prevent.</text></generalfeedback>
+  </question>
+</quiz>

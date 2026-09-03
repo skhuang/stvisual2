@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/LLM Test Generation Pipeline/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>三個代理的執行順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>此 LLM 測試生成流水線（Meta 的 ACH 流程，FSE 2025）串接三個代理。它們的執行順序為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>突變代理（Mutation agent）&#8594; 等價代理（Equivalence agent）&#8594; 測試代理（Test agent）</text><feedback><text>正確——先產生突變體，再篩掉等價的，最後對存活者生成測試。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理（Test agent）&#8594; 突變代理（Mutation agent）&#8594; 等價代理（Equivalence agent）</text><feedback><text>測試最後才寫，用來殺掉通過篩選、非等價的突變體。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理（Equivalence agent）&#8594; 突變代理（Mutation agent）&#8594; 測試代理（Test agent）</text><feedback><text>在突變代理產生突變體之前，沒有東西可供等價判斷。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理（Mutation agent）&#8594; 測試代理（Test agent）&#8594; 等價代理（Equivalence agent）</text><feedback><text>等價篩選發生在測試生成之前，測試代理才不會被要求去殺無法殺的突變體。</text></feedback></answer>
+    <generalfeedback><text>此流水線是三代理流程，順序為 Mutation &#8594; Equivalence &#8594; Test：突變代理植入錯誤，等價代理濾除無法殺（等價）的突變體，測試代理再對其餘非等價突變體生成能殺掉它們的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>突變代理的職責</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>代理 1</strong>——<em>突變代理（Mutation agent）</em>——的職責是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>產生針對特定錯誤類別（fault classes）的突變體</text><feedback><text>正確——突變代理植入專門瞄準特定錯誤類別的錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>判斷某個突變體是否等價</text><feedback><text>那是等價代理（代理 2）的工作。</text></feedback></answer>
+    <answer fraction="0"><text>撰寫能殺掉突變體的測試</text><feedback><text>那是測試代理（代理 3）的工作。</text></feedback></answer>
+    <answer fraction="0"><text>執行 CI 流水線並拒絕不穩定（flaky）測試</text><feedback><text>不穩定性是對測試代理輸出的品質關卡，不是突變代理的職責。</text></feedback></answer>
+    <generalfeedback><text>突變代理（代理 1）產生突變體，並刻意瞄準特定錯誤類別，而非盲目做語法上的小更動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價代理的職責</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>代理 2</strong>——<em>等價代理（Equivalence agent）</em>——的職責是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>判斷某突變體是否與原始程式等價（無法殺）</text><feedback><text>正確——它作為 LLM-as-judge，濾除任何測試都殺不掉的突變體。</text></feedback></answer>
+    <answer fraction="0"><text>一開始就產生那些突變體</text><feedback><text>產生突變體是突變代理（代理 1）的角色。</text></feedback></answer>
+    <answer fraction="0"><text>生成能殺掉突變體的測試</text><feedback><text>撰寫殺掉突變體的測試是測試代理（代理 3）的角色。</text></feedback></answer>
+    <answer fraction="0"><text>量測所得測試套件的程式碼覆蓋率</text><feedback><text>等價代理判斷等價性，不計算覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>等價代理（代理 2）是 LLM-as-judge，判斷某突變體是否等價——即在語意上與原始程式相同、任何測試都殺不掉——因此這些突變體會在測試代理執行前被移除。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試代理的職責</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>代理 3</strong>——<em>測試代理（Test agent）</em>——的職責是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成能殺掉「非等價」突變體的測試</text><feedback><text>正確——測試代理寫出一個能讓突變體與原始程式結果不同的測試。</text></feedback></answer>
+    <answer fraction="0"><text>產生突變體</text><feedback><text>那是突變代理（代理 1）。</text></feedback></answer>
+    <answer fraction="0"><text>判斷突變體是否等價</text><feedback><text>那是等價代理（代理 2）。</text></feedback></answer>
+    <answer fraction="0"><text>在判斷前把原始碼中的註解去除</text><feedback><text>去除註解是等價代理的前處理步驟，不是測試代理的工作。</text></feedback></answer>
+    <generalfeedback><text>測試代理（代理 3）對等價代理判定為非等價的突變體，生成能殺掉它的測試——即在突變體上產生與原始程式不同結果的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「殺掉突變體」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此流水線中，一個測試「殺掉（kill）」一個突變體是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該測試在突變體上產生與原始程式不同的結果</text><feedback><text>正確——突變體與原始程式之間可觀察到的差異就是「殺掉」。</text></feedback></answer>
+    <answer fraction="0"><text>該測試在突變體與原始程式上都通過</text><feedback><text>若在兩者上都通過，代表無法區分它們，並未殺掉突變體。</text></feedback></answer>
+    <answer fraction="0"><text>該突變體被從原始碼樹中刪除</text><feedback><text>「殺掉」是指被測試偵測到，而非把突變體從磁碟移除。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理把該突變體標記為等價</text><feedback><text>被標記為等價的突變體正是永遠殺不掉的那種。</text></feedback></answer>
+    <generalfeedback><text>當某測試在突變體上產生與原始程式不同、可觀察的結果時，該突變體就被殺掉。測試代理的整個重點就是生成這種能殺突變體的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>此處「等價突變體」的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此流水線中，<em>等價（equivalent）</em>突變體是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行為與原始程式完全相同，因此任何測試都殺不掉它（無法殺）</text><feedback><text>正確——這正是等價代理要在測試代理執行前把它濾掉的原因。</text></feedback></answer>
+    <answer fraction="0"><text>被測試代理生成的每個測試殺掉</text><feedback><text>那是很容易被殺的突變體，與等價突變體相反。</text></feedback></answer>
+    <answer fraction="0"><text>無法編譯、被建置流程丟棄</text><feedback><text>那是無效程式碼（突變代理的失敗模式），不是等價突變體。</text></feedback></answer>
+    <answer fraction="0"><text>是一個在多次 CI 執行間非決定性的測試</text><feedback><text>那是不穩定（flaky）測試——測試代理的失敗模式——不是等價突變體。</text></feedback></answer>
+    <generalfeedback><text>等價突變體在語意上與原始程式相同：對每個輸入都產生相同行為，因此沒有測試能區分它——它無法被殺。等價代理的存在就是為了辨識並移除這類突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個代理判斷等價性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個代理負責判斷突變體是否等價？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價代理（代理 2）</text><feedback><text>正確——它是判斷等價性的 LLM-as-judge。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理（代理 1）</text><feedback><text>代理 1 產生突變體，並不判斷它們。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理（代理 3）</text><feedback><text>代理 3 撰寫殺掉突變體的測試；等價性在它執行前就已判定。</text></feedback></answer>
+    <answer fraction="0"><text>CI 系統</text><feedback><text>CI 執行生成的測試，並不判斷突變體的等價性。</text></feedback></answer>
+    <generalfeedback><text>等價代理（代理 2）是判斷某突變體是否與原始程式等價的 LLM-as-judge。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個代理生成殺掉突變體的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個代理生成能殺掉突變體的測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試代理（代理 3）</text><feedback><text>正確——測試代理生成能殺突變體的測試。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理（代理 1）</text><feedback><text>代理 1 產生突變體，不是測試。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理（代理 2）</text><feedback><text>代理 2 判斷等價性，不撰寫測試。</text></feedback></answer>
+    <answer fraction="0"><text>審查接受度的工程師</text><feedback><text>工程師接受或拒絕生成的測試，但生成它們的是代理 3。</text></feedback></answer>
+    <generalfeedback><text>測試代理（代理 3）為交付給它的非等價突變體生成能殺掉它的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個代理產生突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個代理產生突變體？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>突變代理（代理 1）</text><feedback><text>正確——代理 1 植入瞄準特定錯誤類別的錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理（代理 2）</text><feedback><text>代理 2 判斷代理 1 所產生的突變體。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理（代理 3）</text><feedback><text>代理 3 撰寫殺突變體的測試，不是突變體。</text></feedback></answer>
+    <answer fraction="0"><text>僅是基於規則（rule-based）的變異器</text><feedback><text>在 LLM 導引流水線中，突變代理是 LLM；基於規則的變異是被比較的基準線。</text></feedback></answer>
+    <generalfeedback><text>突變代理（代理 1）產生突變體，並刻意瞄準特定錯誤類別。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>領域感知 vs 基於規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>與基於規則的基準線相比，LLM 導引方法被描述為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具備領域與議題感知（domain- and issue-aware），而基於規則的變異則否</text><feedback><text>正確——LLM 能瞄準與領域及當下議題相關的錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>執行較快，但對領域一無所知</text><feedback><text>具領域感知的是 LLM 方法；領域感知是它的優勢，而非缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>在各方面都與基於規則的變異完全相同</text><feedback><text>兩者差異顯著——尤其在殺掉率與領域感知上。</text></feedback></answer>
+    <answer fraction="0"><text>無法瞄準特定錯誤類別</text><feedback><text>瞄準特定錯誤類別正是 LLM 導引方法所做的事。</text></feedback></answer>
+    <generalfeedback><text>LLM 導引流水線具備領域與議題感知——能瞄準對受測程式重要的錯誤類別——而基於規則的基準線則到處套用通用語法運算子，毫無此種感知。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>LLM-as-judge 的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此流水線中，「LLM-as-judge」一詞指的是哪個代理的運作方式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價代理判斷某突變體是否等價</text><feedback><text>正確——它使用 LLM 來判斷等價性。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理為它植入了多少錯誤打分</text><feedback><text>突變代理產生突變體；擔任評判角色的是等價代理。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理為自己的測試評分</text><feedback><text>測試代理撰寫測試；「評判者」是等價代理。</text></feedback></answer>
+    <answer fraction="0"><text>CI 判斷某測試是否不穩定</text><feedback><text>CI 套用品質關卡，但「LLM-as-judge」指的是等價代理。</text></feedback></answer>
+    <generalfeedback><text>「LLM-as-judge」描述的是等價代理（代理 2），它使用 LLM 來判斷某突變體是否與原始程式等價。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些突變體會送到測試代理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試代理會嘗試殺掉哪些突變體？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>通過等價代理篩選、存活下來的非等價突變體</text><feedback><text>正確——只有真正殺得掉的突變體才會交給測試代理。</text></feedback></answer>
+    <answer fraction="0"><text>所有突變體，包含等價的</text><feedback><text>等價突變體會先被濾掉，才不會在殺不掉的突變體上白費力氣。</text></feedback></answer>
+    <answer fraction="0"><text>只有等價突變體</text><feedback><text>等價突變體永遠殺不掉；測試代理瞄準的是非等價的那些。</text></feedback></answer>
+    <answer fraction="0"><text>只有無法編譯的突變體</text><feedback><text>無效突變體會被丟棄，不會被送去嘗試殺掉。</text></feedback></answer>
+    <generalfeedback><text>等價代理會先移除等價（無法殺）的突變體，因此測試代理只嘗試殺掉通過該篩選、存活下來的非等價突變體。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>流水線由三個代理組成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>此 LLM 測試生成流水線是一個三代理流程（突變、等價與測試代理）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——它串接突變代理、等價代理與測試代理。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>它是三代理流程：Mutation &#8594; Equivalence &#8594; Test。</text></feedback></answer>
+    <generalfeedback><text>此流水線是三代理流程：突變代理、等價代理（LLM-as-judge）與測試代理，依此順序執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>流水線的整體目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>此流水線的整體目標是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成瞄準特定錯誤類別、能殺掉突變體的測試</text><feedback><text>正確——最終產物是能殺掉針對特定錯誤類別之突變體的測試。</text></feedback></answer>
+    <answer fraction="0"><text>使產生的等價突變體數量最大化</text><feedback><text>等價突變體是要被濾掉的不必要成本，而非目標。</text></feedback></answer>
+    <answer fraction="0"><text>證明程式不含任何缺陷</text><feedback><text>沒有任何測試流水線能證明所有缺陷都不存在。</text></feedback></answer>
+    <answer fraction="0"><text>完全取代人類工程師</text><feedback><text>工程師接受度是一項指標；工程師仍會審查生成的測試。</text></feedback></answer>
+    <generalfeedback><text>此流水線生成瞄準特定錯誤類別、能殺掉突變體的測試，透過三個代理來植入錯誤、濾除無法殺的突變體，並為其餘者撰寫能殺掉它們的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個代理最先執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在流水線中，哪個代理<em>最先</em>執行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>突變代理</text><feedback><text>正確——必須先有突變體，才能判斷或殺掉任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理</text><feedback><text>在突變代理產生突變體之前，沒有東西可供判斷。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理</text><feedback><text>測試最後才寫，用來對付存活的非等價突變體。</text></feedback></answer>
+    <answer fraction="0"><text>三者同時執行，沒有先後順序</text><feedback><text>這些代理依固定順序執行：Mutation &#8594; Equivalence &#8594; Test。</text></feedback></answer>
+    <generalfeedback><text>突變代理最先執行，產生突變體，等價代理與測試代理再依序處理。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/LLM Test Generation Pipeline/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>進入等價代理的資料流</text></name>
+    <questiontext format="html"><text><![CDATA[<p>等價代理接收什麼作為輸入？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>突變代理產生的突變體，以判斷哪些是等價的</text><feedback><text>正確——它在測試代理執行前，篩選突變代理的輸出。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理產生的、能殺突變體的測試</text><feedback><text>測試代理在等價代理之後執行，其測試不可能是輸入。</text></feedback></answer>
+    <answer fraction="0"><text>來自 CI 的原始覆蓋率報告</text><feedback><text>等價代理判斷突變體，而非覆蓋率報告。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都沒有——它在突變代理之前執行</text><feedback><text>順序是 Mutation &#8594; Equivalence &#8594; Test；在突變體存在前沒有東西可判斷。</text></feedback></answer>
+    <generalfeedback><text>等價代理位於突變代理與測試代理之間：它取用突變代理生成的突變體，判斷哪些等價，只把非等價的那些傳給測試代理。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何需要等價代理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 LLM 導引流水線需要一個專責的等價代理，而較簡單的基於規則流程可能不需要？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LLM 突變代理產生較高比例的等價突變體（約 25%），因此必須把它們濾掉</text><feedback><text>正確——更多等價突變體使得專責的評判者值得投入。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 從不產生等價突變體，所以此代理只是再次確認</text><feedback><text>事實相反：LLM 產生的等價突變體比基於規則的基準線更多。</text></feedback></answer>
+    <answer fraction="0"><text>因為基於規則的變異無法編譯其突變體</text><feedback><text>原因是 LLM 較高的等價突變體率，而非基於規則變異的編譯問題。</text></feedback></answer>
+    <answer fraction="0"><text>為了刻意增加等價突變體的數量</text><feedback><text>此代理是移除等價突變體，而非製造更多。</text></feedback></answer>
+    <generalfeedback><text>由於 LLM 導引的突變代理產生較高的等價突變體率（約 25%，相對於基於規則約 10&#8211;15%），流水線加入等價代理，在昂貴的測試生成步驟前把這些無法殺的突變體濾掉。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>殺掉率的比較</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基於規則的基準線與 LLM 導引流水線所回報的突變體殺掉率相比如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>基於規則約 2.4%，LLM 導引約 15%</text><feedback><text>正確——LLM 導引方法殺掉的突變體比例高得多。</text></feedback></answer>
+    <answer fraction="0"><text>基於規則約 15%，LLM 導引約 2.4%</text><feedback><text>數字相反：LLM 導引才是較高的那個，約 15%。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆約 25%</text><feedback><text>25% 是 LLM 的等價突變體率，不是殺掉率。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆接近 100%</text><feedback><text>兩種方法都遠不及 100%；回報的殺掉率是 2.4% 與 15%。</text></feedback></answer>
+    <generalfeedback><text>基於規則的基準線約殺掉 2.4% 的突變體，LLM 導引流水線約殺掉 15%——此大幅躍升歸因於瞄準特定錯誤類別。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不穩定測試的失敗模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個生成的測試在多次 CI 執行間非決定性地時而通過、時而失敗，並被拒絕。這是哪個代理的失敗模式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試代理——它產生了不穩定（非決定性）的測試</text><feedback><text>正確——不穩定測試是測試代理的失敗模式，會被 CI 品質關卡攔下。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理——它產生了等價突變體</text><feedback><text>不穩定性關乎測試的決定性，而非突變體。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理——它誤判了等價性</text><feedback><text>誤判等價是另一種症狀；不穩定性是生成測試的性質。</text></feedback></answer>
+    <answer fraction="0"><text>CI——它把隨機性引入測試</text><feedback><text>CI 偵測並拒絕不穩定測試；生成它的是測試代理。</text></feedback></answer>
+    <generalfeedback><text>生成一個被 CI 拒絕的不穩定（非決定性）測試，是測試代理的失敗模式。品質關卡會把這類測試濾掉。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無效程式碼的失敗模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個產生的突變體在語法上無效、無法建置。這是哪個代理的失敗模式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>突變代理——它產出了語法上無效的程式碼</text><feedback><text>正確——產出無效、無法建置的程式碼是突變代理的失敗模式。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理——它寫了不穩定測試</text><feedback><text>不穩定是測試代理的問題；此處是突變體無法建置。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理——它錯把突變體標記為等價</text><feedback><text>那是另一種失敗；此處是突變體本身無法編譯。</text></feedback></answer>
+    <answer fraction="0"><text>工程師——他們拒絕了測試</text><feedback><text>問題在於突變代理產出的無效突變體程式碼。</text></feedback></answer>
+    <generalfeedback><text>產出語法上無效、無法建置的程式碼，是突變代理（代理 1）的失敗模式；這類突變體會被丟棄。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何去除註解</text></name>
+    <questiontext format="html"><text><![CDATA[<p>等價代理加入一個前處理步驟，在判斷前去除註解。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>註解差異造成約 25% 的偽陽性，因此移除它們可提升準確度</text><feedback><text>正確——註解差異是偽陽性的一大來源，去除註解即可修正。</text></feedback></answer>
+    <answer fraction="0"><text>註解會讓程式編譯得更快</text><feedback><text>原因在於判斷的準確度，而非編譯速度。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理需要註解，所以把它們移到一旁</text><feedback><text>去除註解是為了幫助等價評判者，而非為測試代理搬移它們。</text></feedback></answer>
+    <answer fraction="0"><text>去除註解會刻意提高等價突變體率</text><feedback><text>它提升的是評判者的精確率與召回率，與拉高等價比例無關。</text></feedback></answer>
+    <generalfeedback><text>註解差異占等價代理約 25% 的偽陽性。以去除註解作為前處理步驟可移除此雜訊，並把精確率與召回率（從 0.79/0.47）提升到約 0.95/0.96。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價突變體率的比較</text></name>
+    <questiontext format="html"><text><![CDATA[<p>LLM 導引方法的等價突變體率與基於規則的基準線相比如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LLM 較高（約 25%），基於規則較低（約 10&#8211;15%）</text><feedback><text>正確——LLM 產生更多等價突變體，這正是等價代理存在的動機。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 較低（約 5%），基於規則較高（約 25%）</text><feedback><text>LLM 的等價突變體率較高，而非較低。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相同，皆約 2.4%</text><feedback><text>2.4% 是基於規則的殺掉率，不是等價突變體率。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 為零</text><feedback><text>LLM 的等價突變體率約 25%，並非零。</text></feedback></answer>
+    <generalfeedback><text>LLM 導引方法的等價突變體率較高（約 25%），高於基於規則的基準線（約 10&#8211;15%）——這是瞄準特定錯誤類別的代價，也是為何需要專責的等價評判者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「兩者皆失敗」的失敗模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個生成的測試在原始程式與突變體上「都」失敗。這最直接是哪個代理的失敗模式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試代理——它產生了帶有建置或邏輯錯誤的測試，而非有效的、能殺突變體的測試</text><feedback><text>正確——在原始程式上也失敗的測試無法區分突變體，它壞掉了。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理——該突變體是等價的</text><feedback><text>等價會使測試在兩者上都通過，而非都失敗；且此處問題在於測試壞掉。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理——它低估了等價突變體的數量</text><feedback><text>此症狀是壞掉的測試，屬測試代理的輸出。</text></feedback></answer>
+    <answer fraction="0"><text>CI——它以錯誤順序執行測試</text><feedback><text>測試本身有缺陷；它在原始程式與突變體上都失敗。</text></feedback></answer>
+    <generalfeedback><text>在原始程式與突變體上都失敗的測試無法區分兩者——它有建置或邏輯錯誤。這是測試代理的失敗模式；有效的殺突變體測試必須在原始程式上通過、在突變體上失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價步驟在流程中的位置</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相對於測試代理，等價代理何時執行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在測試代理之前，因此無法殺的突變體會先被移除</text><feedback><text>正確——先篩選再生成測試，以避免白費力氣。</text></feedback></answer>
+    <answer fraction="0"><text>在測試代理之後，用來檢查那些測試</text><feedback><text>等價是針對突變體判斷，在測試代理撰寫測試之前進行。</text></feedback></answer>
+    <answer fraction="0"><text>與突變代理平行執行</text><feedback><text>它在突變代理之後、測試代理之前執行。</text></feedback></answer>
+    <answer fraction="0"><text>只有在 CI 拒絕不穩定測試後才執行</text><feedback><text>等價判斷與 CI 的不穩定關卡無關，且發生得更早。</text></feedback></answer>
+    <generalfeedback><text>等價代理在突變代理之後、測試代理之前執行，濾掉等價突變體，使測試代理只對可殺的突變體工作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>去除註解對分數的影響</text></name>
+    <questiontext format="html"><text><![CDATA[<p>加入去除註解後，等價代理的精確率（precision）與召回率（recall）會如何變化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從約 0.79/0.47 上升到約 0.95/0.96</text><feedback><text>正確——移除註解差異的雜訊大幅改善這兩個指標。</text></feedback></answer>
+    <answer fraction="0"><text>從約 0.95/0.96 下降到約 0.79/0.47</text><feedback><text>方向相反：前處理會改善分數。</text></feedback></answer>
+    <answer fraction="0"><text>維持不變</text><feedback><text>去除註解帶來大幅、可量測的改善。</text></feedback></answer>
+    <answer fraction="0"><text>精確率上升，但召回率降到接近零</text><feedback><text>精確率與召回率都上升，分別到約 0.95 與 0.96。</text></feedback></answer>
+    <generalfeedback><text>無前處理時，等價代理的精確率為 0.79、召回率為 0.47；去除註解（造成約 25% 偽陽性）後，這些數字提升到約 0.95 精確率與 0.96 召回率。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>工程師接受度作為指標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>除了殺掉率之外，下列何者被回報為此流水線的一項指標？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>工程師對生成測試的接受度</text><feedback><text>正確——工程師是否真的接受這些測試是一項重要指標。</text></feedback></answer>
+    <answer fraction="0"><text>每個突變體的註解數量</text><feedback><text>註解只是評判者前處理時的干擾，並非重要指標。</text></feedback></answer>
+    <answer fraction="0"><text>每次執行刪除的程式碼行數</text><feedback><text>那不是回報的流水線指標。</text></feedback></answer>
+    <answer fraction="0"><text>流程中的代理數量</text><feedback><text>代理數固定為三；那不是評估指標。</text></feedback></answer>
+    <generalfeedback><text>工程師接受度——工程師是否真的採用生成的測試——是一項回報的指標，反映出單看高殺掉率並非衡量價值的唯一標準。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>漏判等價的失敗模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個等價突變體漏網、被交給測試代理，測試代理於是白費力氣想殺掉它。這是哪個代理的失敗模式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價代理——它未能辨識出一個等價突變體</text><feedback><text>正確——漏判等價突變體（低召回率）會把無法殺的工作往下游推。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理——它產出了無效程式碼</text><feedback><text>此處突變體有效但等價；漏判的是評判者。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理——它寫了不穩定測試</text><feedback><text>白費力氣源於等價突變體到達測試代理，屬判斷上的漏失。</text></feedback></answer>
+    <answer fraction="0"><text>CI——它未能拒絕該測試</text><feedback><text>根因是等價代理放行了一個等價突變體。</text></feedback></answer>
+    <generalfeedback><text>放行一個等價（無法殺）突變體到測試代理，是等價代理的失敗——召回率漏失。測試代理接著會在一個沒有任何測試能殺的突變體上白費力氣。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>更高殺掉率，更多等價體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>LLM 導引流水線達到比基於規則變異更高的殺掉率，但代價是更高的等價突變體率。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——殺掉率約 15% 對 2.4%，但等價突變體約 25% 對 10&#8211;15%。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此權衡確實存在：更高殺掉率（15% 對 2.4%），但更多等價突變體（約 25% 對 10&#8211;15%）。</text></feedback></answer>
+    <generalfeedback><text>瞄準特定錯誤類別把殺掉率從約 2.4% 提升到約 15%，但也把等價突變體率提高到約 25%（相對基於規則約 10&#8211;15%），這正是加入等價代理的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何殺掉率較高</text></name>
+    <questiontext format="html"><text><![CDATA[<p>LLM 導引流水線高得多的殺掉率被歸功於什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>瞄準特定錯誤類別，而非通用的語法小更動</text><feedback><text>正確——瞄準真正的錯誤類別能產生更多可殺、有意義的突變體。</text></feedback></answer>
+    <answer fraction="0"><text>整體產生的突變體少得多</text><feedback><text>殺掉率的提升來自「瞄準什麼」，而非產生更少突變體。</text></feedback></answer>
+    <answer fraction="0"><text>跳過等價判斷步驟</text><feedback><text>等價步驟是被加入而非跳過；殺掉率來自對錯誤類別的瞄準。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試只執行一次</text><feedback><text>執行次數與殺掉率的提升無關。</text></feedback></answer>
+    <generalfeedback><text>殺掉率從約 2.4% 躍升到約 15%，被歸功於 LLM 瞄準特定錯誤類別，而對領域盲目的基於規則基準線做不到這一點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對生成測試的品質關卡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼流水線需要對測試代理的輸出設品質關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為測試代理可能產生不穩定或其他無效的測試，必須把它們濾掉</text><feedback><text>正確——不穩定測試與在原始程式和突變體上都失敗的測試都必須被拒絕。</text></feedback></answer>
+    <answer fraction="0"><text>因為突變代理從不產生有效突變體</text><feedback><text>關卡針對的是測試代理的輸出；突變代理的無效突變體另行處理。</text></feedback></answer>
+    <answer fraction="0"><text>為了提高等價突變體率</text><feedback><text>關卡濾除壞測試，不影響等價突變體率。</text></feedback></answer>
+    <answer fraction="0"><text>為了讓等價代理變得不必要</text><feedback><text>等價代理仍然需要；品質關卡處理的是另一個問題（壞測試）。</text></feedback></answer>
+    <generalfeedback><text>測試代理可能產出不穩定（非決定性）測試，或在原始程式與突變體上都失敗的測試。品質關卡（如 CI 檢查）把這些濾掉，只保留有效的、能殺突變體的測試。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/LLM Test Generation Pipeline/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>權衡促成等價評判者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一條推理鏈最能說明為何流水線要納入等價代理？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>瞄準錯誤類別提高了殺掉率，但也提高等價突變體率（約 25%），因此需要一個評判者在昂貴的測試步驟前丟掉無法殺的突變體</text><feedback><text>正確——等價代理正是對較高等價突變體率的直接回應。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 產生較少等價突變體，所以評判者只是廉價地確認並沒有等價突變體</text><feedback><text>LLM 產生的等價突變體更多而非更少；這正是需要評判者的原因。</text></feedback></answer>
+    <answer fraction="0"><text>基於規則的變異需要此評判者，LLM 流水線只是沿用</text><feedback><text>評判者的動機來自 LLM 自身較高的等價突變體率，而非沿用自基於規則的變異。</text></feedback></answer>
+    <answer fraction="0"><text>評判者只是為了拉高殺掉率的數字</text><feedback><text>評判者是移除無法殺的突變體，並不製造殺掉。</text></feedback></answer>
+    <generalfeedback><text>由於 LLM 導引的突變代理瞄準特定錯誤類別，它殺掉更多突變體（約 15% 對 2.4%），但也產生更多等價突變體（約 25% 對 10&#8211;15%）。等價代理是流水線的回應：它在昂貴的測試生成步驟前把這些無法殺的突變體濾掉。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀召回率 0.47</text></name>
+    <questiontext format="html"><text><![CDATA[<p>等價代理在無前處理時召回率僅 0.47。在此流水線中，這個低召回率具體的代價是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>許多真正等價的突變體被漏掉並傳給測試代理，測試代理於是白費力氣去殺無法殺的突變體</text><feedback><text>正確——對「等價」的低召回率代表許多等價體漏到下游。</text></feedback></answer>
+    <answer fraction="0"><text>許多非等價突變體被錯誤丟棄，導致真正的錯誤未被測試</text><feedback><text>那描述的是低精確率，而非低召回率。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理產生較少的突變體</text><feedback><text>評判者的召回率不會改變突變代理產生多少突變體。</text></feedback></answer>
+    <answer fraction="0"><text>測試在 CI 中變得不穩定</text><feedback><text>不穩定是測試代理的問題，與評判者的召回率無關。</text></feedback></answer>
+    <generalfeedback><text>召回率 0.47 代表評判者抓到的真正等價突變體不到一半。漏掉的那些會流向測試代理，測試代理於是白費力氣去嘗試殺永遠殺不掉的突變體。去除註解把召回率提升到約 0.96。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀精確率 0.79</text></name>
+    <questiontext format="html"><text><![CDATA[<p>等價代理在無前處理時精確率為 0.79。此處精確率低於 1.0 的代價是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有些被標為「等價」的突變體其實非等價，因此真正可殺的突變體被錯誤丟棄、永遠拿不到測試</text><feedback><text>正確——「等價」上的偽陽性會丟掉可殺的突變體。</text></feedback></answer>
+    <answer fraction="0"><text>有些等價突變體被漏掉並到達測試代理</text><feedback><text>那是召回率問題；精確率關乎錯誤的「等價」標記。</text></feedback></answer>
+    <answer fraction="0"><text>殺掉率被灌水到 15%</text><feedback><text>15% 殺掉率來自瞄準錯誤類別，而非評判者的精確率。</text></feedback></answer>
+    <answer fraction="0"><text>突變體更常無法編譯</text><feedback><text>編譯是突變代理的問題，並非評判者精確率的函數。</text></feedback></answer>
+    <generalfeedback><text>精確率 0.79 代表評判者標為「等價」的突變體中，約五分之一其實不是——這些真正可殺的突變體被錯誤濾掉、永遠拿不到測試。註解差異造成其中約 25% 的偽陽性；去除註解把精確率提升到約 0.95。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何去除註解能修正偽陽性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼去除註解能特別降低等價代理的偽陽性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>純註解差異不改變行為，卻把評判者推向「等價」；移除它們可讓評判者比較真正的邏輯——而它們占偽陽性的約 25%</text><feedback><text>正確——註解差異是不影響行為的雜訊，卻扭曲了判斷。</text></feedback></answer>
+    <answer fraction="0"><text>註解會改變程式行為，所以移除它們就改變了突變體</text><feedback><text>註解不影響行為；這正是它們對評判者而言是雜訊的原因。</text></feedback></answer>
+    <answer fraction="0"><text>去除註解加快編譯並避免逾時</text><feedback><text>好處在於判斷的準確度，而非編譯時間。</text></feedback></answer>
+    <answer fraction="0"><text>註解是突變代理藏無效程式碼的地方</text><feedback><text>問題在於不影響行為的註解差異混淆了評判者，而非藏起來的無效程式碼。</text></feedback></answer>
+    <generalfeedback><text>註解差異不影響行為，卻扭曲了評判者的判斷，並造成約 25% 的偽陽性。以去除註解作為前處理讓評判者比較真正的邏輯，把精確率/召回率從 0.79/0.47 提升到約 0.95/0.96。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何基於規則會錯過錯誤類別</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼對覆蓋率盲目、基於規則的基準線僅達約 2.4% 殺掉率，而 LLM 約 15%？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它套用通用語法運算子、沒有領域或議題感知，因此鮮少瞄準真正重要的錯誤類別</text><feedback><text>正確——沒有領域/議題感知，它就無法瞄準有意義的錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>它產生的突變體太少，殺不掉任何</text><feedback><text>基於規則的變異通常產生很多突變體；問題在於相關性，而非數量。</text></feedback></answer>
+    <answer fraction="0"><text>它去除註解而遺失資訊</text><feedback><text>去除註解是等價代理的前處理步驟，而非基於規則的限制。</text></feedback></answer>
+    <answer fraction="0"><text>它的等價代理太過激進</text><feedback><text>取得專責等價代理的並非基於規則的基準線；其低殺掉率關乎缺乏領域感知。</text></feedback></answer>
+    <generalfeedback><text>基於規則的變異對領域與議題盲目：它到處套用通用運算子，鮮少命中真正重要的特定錯誤類別，因此殺掉率停在約 2.4%。LLM 導引方法瞄準那些錯誤類別，達到約 15%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：測試在原始程式與突變體上都失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>症狀：一個生成的測試在原始程式與突變體上都失敗。哪個代理的失敗最能解釋這一點，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試代理——有效的殺突變體測試必須在原始程式上通過、在突變體上失敗；兩者都失敗代表測試有建置／邏輯錯誤</text><feedback><text>正確——若在原始程式上也失敗，該測試就無法區分任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理——它本該把這判為等價</text><feedback><text>等價會使測試在兩者上都通過而非都失敗；錯在測試本身。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理——該突變體無效</text><feedback><text>無效突變體根本無法建置；此處有一個測試執行並在兩版上都失敗。</text></feedback></answer>
+    <answer fraction="0"><text>CI——它把通過的測試誤標為失敗</text><feedback><text>在兩版上一致失敗指向一個壞掉的生成測試，而非 CI 誤標。</text></feedback></answer>
+    <generalfeedback><text>正確的殺突變體測試會在原始程式上通過、在突變體上失敗。兩者都失敗代表測試本身壞掉（建置或邏輯錯誤）——這是測試代理的失敗模式，有別於等價突變體（兩者都通過）或無效突變體（無法建置）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：突變體無法建置</text></name>
+    <questiontext format="html"><text><![CDATA[<p>症狀：受測產物因某突變體語法畸形而無法編譯。哪個代理應負責？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>突變代理——產出語法上無效、無法建置的程式碼是它的失敗模式</text><feedback><text>正確——無效、無法建置的突變體來自突變代理。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理——它的測試有建置錯誤</text><feedback><text>此處是突變體、而非測試，無法建置。</text></feedback></answer>
+    <answer fraction="0"><text>等價代理——它在判斷時弄壞了突變體</text><feedback><text>等價代理只做判斷，不會產出畸形突變體。</text></feedback></answer>
+    <answer fraction="0"><text>CI——建置環境設定錯誤</text><feedback><text>畸形突變體由突變代理產生，與 CI 設定無關。</text></feedback></answer>
+    <generalfeedback><text>一個語法上無效、無法建置的突變體是突變代理的失敗模式。這類突變體會在流水線其餘部分執行前被丟棄。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：無法殺的突變體浪費測試代理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>症狀：測試代理無論寫什麼測試都反覆殺不掉某個特定突變體，分析顯示該突變體在行為上與原始程式相同。哪個代理本應防止這種情況？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價代理——它本應把此突變體判為等價並移除</text><feedback><text>正確——無法殺的突變體到達測試代理是一種漏判等價（召回率）失敗。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理——它只是需要更好的測試</text><feedback><text>沒有任何測試能殺等價突變體；修正之道是把它濾掉，那是評判者的工作。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理——它不應產生任何等價突變體</text><feedback><text>LLM 無可避免會產生一些（約 25%）；等價代理正是為了抓住它們而存在。</text></feedback></answer>
+    <answer fraction="0"><text>CI——它應該跳過該突變體</text><feedback><text>CI 執行測試；判斷等價性是等價代理的職責。</text></feedback></answer>
+    <generalfeedback><text>行為上相同（等價）的突變體永遠殺不掉。若它到達測試代理，就是等價代理漏判了它——召回率失敗。這正是等價代理（以去除註解前處理把召回率提升到約 0.96）要防止的浪費。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何單看殺掉率不足</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼流水線要回報工程師接受度，而不只依賴殺掉率？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個測試可能殺掉突變體，卻仍不穩定、難以閱讀或不受歡迎，因此工程師接受度衡量的是真實價值</text><feedback><text>正確——殺掉突變體不保證工程師會真的保留該測試。</text></feedback></answer>
+    <answer fraction="0"><text>LLM 生成測試的殺掉率無法量測</text><feedback><text>殺掉率可以量測（2.4% 對 15%）；接受度是另一項互補指標。</text></feedback></answer>
+    <answer fraction="0"><text>工程師接受度與殺掉率完全相同</text><feedback><text>它們是不同的指標；接受度捕捉殺掉率忽略的價值。</text></feedback></answer>
+    <answer fraction="0"><text>接受度取代了對等價代理的需要</text><feedback><text>接受度是成果指標；等價代理處理的是另一個問題。</text></feedback></answer>
+    <generalfeedback><text>高殺掉率不代表測試會被工程師採用：它可能不穩定、難讀或價值低。回報工程師接受度可捕捉生成測試是否帶來真實、被留在套件中的價值，而不只是殺掉突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何要濾掉不穩定與無效輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>鑑於測試代理與突變代理的失敗模式，為什麼過濾／接受關卡不可或缺？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>若無關卡，不穩定測試、在兩版上都失敗的測試（以及無效突變體）會污染套件，因此必須在接受前濾掉它們</text><feedback><text>正確——關卡把不可靠與壞掉的輸出擋在交付套件之外。</text></feedback></answer>
+    <answer fraction="0"><text>關卡提高等價突變體率以讓評判者更輕鬆</text><feedback><text>關卡濾除壞輸出，不會操弄等價突變體率。</text></feedback></answer>
+    <answer fraction="0"><text>關卡讓流水線得以跳過等價代理</text><feedback><text>等價代理仍在；關卡處理的是另一個問題（壞測試與壞突變體）。</text></feedback></answer>
+    <answer fraction="0"><text>關卡把等價突變體轉為可殺的</text><feedback><text>沒有任何東西能讓等價突變體變成可殺；關卡只是過濾輸出。</text></feedback></answer>
+    <generalfeedback><text>突變代理可能產出無效突變體，測試代理可能產出不穩定測試或在原始程式與突變體上都失敗的測試。過濾／接受關卡把這些不可靠或壞掉的產物擋在最終套件之外，只接受有效、決定性、能殺突變體的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>前處理對流程的淨效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在去除註解把等價代理提升到約 0.95 精確率／約 0.96 召回率之後，對下游測試代理的淨效果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>較少等價突變體漏網、也較少可殺突變體被錯誤丟棄，因此測試代理把力氣花在真正可殺的突變體上</text><feedback><text>正確——高精確率與高召回率一起，讓測試代理拿到更乾淨、可殺的輸入集合。</text></feedback></answer>
+    <answer fraction="0"><text>測試代理現在也必須自己判斷等價性</text><feedback><text>判斷仍屬等價代理；前處理只是讓它的輸出更乾淨。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理停止產生等價突變體</text><feedback><text>突變代理仍產生約 25% 等價體；只是評判者濾得更好。</text></feedback></answer>
+    <answer fraction="0"><text>殺掉率跌到基於規則的 2.4% 以下</text><feedback><text>更好的過濾不會降低殺掉率；它讓測試代理專注於可殺的突變體。</text></feedback></answer>
+    <generalfeedback><text>高召回率（約 0.96）代表少有等價突變體漏網去浪費測試代理；高精確率（約 0.95）代表少有可殺突變體被錯誤丟棄。兩者一起，讓測試代理得到一組乾淨、真正可殺的突變體來瞄準。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為換取更高殺掉率而接受的代價</text></name>
+    <questiontext format="html"><text><![CDATA[<p>流水線刻意接受較高的等價突變體率（約 25%）作為代價。它換來什麼，而代價又如何被控制住？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它藉由瞄準錯誤類別換來高得多的殺掉率（約 15% 對 2.4%）；代價由濾除多出等價體的等價代理控制住</text><feedback><text>正確——等價評判者正是多出等價體的控制機制。</text></feedback></answer>
+    <answer fraction="0"><text>它換來更快的建置；代價由 CI 控制住</text><feedback><text>報酬是更高的殺掉率，控制機制是等價代理，而非建置速度。</text></feedback></answer>
+    <answer fraction="0"><text>它換來整體更少的突變體；代價由測試代理控制住</text><feedback><text>收益是瞄準錯誤類別帶來的殺掉率；等價體由評判者控制。</text></feedback></answer>
+    <answer fraction="0"><text>它什麼都沒換來；多出的等價體是純粹損失</text><feedback><text>它們是約 15% 殺掉率的代價，而等價代理限制了其下游成本。</text></feedback></answer>
+    <generalfeedback><text>瞄準特定錯誤類別把殺掉率提升到約 15%，但把等價突變體率提高到約 25%。等價代理（配合去除註解前處理）在測試代理執行前濾除多出的等價突變體，藉此控制住此代價。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>區分等價突變體與壞掉的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩種症狀：(A) 一個測試在原始程式與突變體上都通過；(B) 一個測試在兩者上都失敗。哪個診斷正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A 指向等價（或尚未被殺）的突變體，屬等價代理的問題；B 指向壞掉的測試，屬測試代理的問題</text><feedback><text>正確——兩者都通過代表無法區分（等價）；兩者都失敗代表測試壞掉。</text></feedback></answer>
+    <answer fraction="0"><text>A 與 B 都代表測試代理寫了不穩定測試</text><feedback><text>不穩定是多次執行間的非決定性；A 與 B 都不是關於執行間的變異。</text></feedback></answer>
+    <answer fraction="0"><text>A 與 B 都代表突變體無法建置</text><feedback><text>無法建置的突變體根本不會執行；在 A 與 B 中都有測試在執行。</text></feedback></answer>
+    <answer fraction="0"><text>A 代表壞掉的測試；B 代表等價突變體</text><feedback><text>這把兩者顛倒了：兩者都通過是等價訊號，兩者都失敗是壞測試訊號。</text></feedback></answer>
+    <generalfeedback><text>在原始程式與突變體上都通過（A）代表測試無法區分兩者——突變體是等價或只是尚未被殺，屬等價代理的問題。兩者都失敗（B）代表測試壞掉（建置／邏輯錯誤）——屬測試代理的問題。兩種症狀對應不同的代理。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>排序的理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼等價判斷擺在測試生成「之前」而非「之後」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>如此昂貴的測試代理永遠不會被要求去殺無法殺的突變體，省下對沒有測試能殺之等價體的力氣</text><feedback><text>正確——先篩選可避免浪費測試生成的工作。</text></feedback></answer>
+    <answer fraction="0"><text>如此等價代理才能讀取生成的測試</text><feedback><text>它判斷的是突變體而非測試，且在測試生成之前執行。</text></feedback></answer>
+    <answer fraction="0"><text>因為等價性只能在殺掉它的測試存在後才能判斷</text><feedback><text>等價性是突變體對原始程式的性質，與任何生成的測試無關。</text></feedback></answer>
+    <answer fraction="0"><text>為了在測試前提高等價突變體率</text><feedback><text>排序不會改變比率；它是為了避免在等價體上浪費測試代理。</text></feedback></answer>
+    <generalfeedback><text>測試生成是昂貴的步驟。先濾除等價突變體，代表測試代理永遠不會被要求去殺沒有任何測試能殺的突變體，因此流水線只把昂貴的力氣花在真正可殺的突變體上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>停用等價代理的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊為省一步而停用等價代理。鑑於 LLM 突變代理約 25% 的等價突變體率，最可能的後果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>到達測試代理的突變體中約有四分之一是無法殺的，因此它白費力氣去殺永遠殺不掉的突變體</text><feedback><text>正確——約 25% 等價體未被濾除，大量測試代理的力氣就花在無法殺的突變體上。</text></feedback></answer>
+    <answer fraction="0"><text>因為嘗試了更多突變體，殺掉率升到 15% 以上</text><feedback><text>嘗試等價突變體並不能殺掉它們，所以殺掉率不會提升。</text></feedback></answer>
+    <answer fraction="0"><text>突變代理停止產生等價突變體</text><feedback><text>突變代理約 25% 的等價率不變；只是過濾器沒了。</text></feedback></answer>
+    <answer fraction="0"><text>不穩定測試被消除</text><feedback><text>不穩定是另一個測試代理品質關卡的問題，與移除等價評判者無關。</text></feedback></answer>
+    <generalfeedback><text>沒有等價代理，那約 25% 等價的突變體會直接流向測試代理，測試代理於是在沒有任何測試能殺的突變體上白費力氣。這正是等價代理（配合去除註解前處理）要防止的浪費。</text></generalfeedback>
+  </question>
+</quiz>

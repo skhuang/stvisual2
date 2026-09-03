@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SAILOR Pipeline/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What SAILOR is for</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>SAILOR</strong> ("Guiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery") is a pipeline whose goal is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Automatically discover vulnerabilities in C/C++ code by combining static analysis, LLMs, and symbolic execution</text><feedback><text>Correct — SAILOR is a vulnerability-discovery pipeline that stitches these three techniques together.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically patch and fix the vulnerabilities it detects</text><feedback><text>No — SAILOR discovers (and confirms) vulnerabilities; it does not repair the code.</text></feedback></answer>
+    <answer fraction="0"><text>Formally prove that a program is completely free of bugs</text><feedback><text>No — it hunts for bugs by exploring paths; it does not produce a whole-program correctness proof.</text></feedback></answer>
+    <answer fraction="0"><text>Measure the statement and branch coverage of an existing test suite</text><feedback><text>No — coverage measurement is a different activity; SAILOR's goal is finding real vulnerabilities.</text></feedback></answer>
+    <generalfeedback><text>SAILOR (Shafiuzzaman, Desai, Guo, Bultan; arXiv:2604.06506, 2026) is a vulnerability-discovery pipeline: static analysis targets suspect code, an LLM synthesizes a harness, symbolic execution explores it, and concrete replay confirms the finding.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How many phases</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many phases make up the SAILOR pipeline, and how are they run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Four phases, run one after another in a fixed sequence</text><feedback><text>Correct — SAILOR is a four-phase pipeline whose phases run in order.</text></feedback></answer>
+    <answer fraction="0"><text>Two phases run in parallel</text><feedback><text>No — SAILOR has four phases, and they run sequentially, not two in parallel.</text></feedback></answer>
+    <answer fraction="0"><text>Three phases run in a loop</text><feedback><text>No — there are four phases; only phase 2 (harness synthesis) has an internal loop.</text></feedback></answer>
+    <answer fraction="0"><text>One monolithic analysis step</text><feedback><text>No — SAILOR deliberately separates the work into four ordered phases.</text></feedback></answer>
+    <generalfeedback><text>SAILOR runs four phases in order: Static Analysis, LLM Harness Synthesis, Symbolic Execution, and Concrete Replay.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of the four phases</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which lists the four SAILOR phases in the correct order?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static Analysis → LLM Harness Synthesis → Symbolic Execution → Concrete Replay</text><feedback><text>Correct — narrow the target, build a driver, explore it, then confirm the finding.</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness Synthesis → Static Analysis → Concrete Replay → Symbolic Execution</text><feedback><text>No — static analysis must run first to tell the harness what to target, and symbolic execution must run before replay.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic Execution → Concrete Replay → Static Analysis → LLM Harness Synthesis</text><feedback><text>No — you cannot symbolically execute before a harness exists, and static analysis comes first.</text></feedback></answer>
+    <answer fraction="0"><text>Static Analysis → Symbolic Execution → LLM Harness Synthesis → Concrete Replay</text><feedback><text>No — the harness must be synthesized before symbolic execution can run it.</text></feedback></answer>
+    <generalfeedback><text>The fixed order is Static Analysis → LLM Harness Synthesis → Symbolic Execution (KLEE) → Concrete Replay. Each phase produces the input the next one needs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Static Analysis does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the job of the <strong>Static Analysis</strong> phase (phase 1)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Scan the code to flag candidate vulnerable sites (sinks) and the preconditions to reach them, narrowing where later phases look</text><feedback><text>Correct — it prunes the search space so symbolic execution is not blind.</text></feedback></answer>
+    <answer fraction="0"><text>Run the program on symbolic inputs to explore its paths</text><feedback><text>No — that is the symbolic execution phase; static analysis does not execute the program.</text></feedback></answer>
+    <answer fraction="0"><text>Write the test harness that drives the suspect code</text><feedback><text>No — synthesizing the harness is the LLM's job in phase 2.</text></feedback></answer>
+    <answer fraction="0"><text>Replay a concrete input to confirm a crash is real</text><feedback><text>No — that is the concrete replay phase (phase 4).</text></feedback></answer>
+    <generalfeedback><text>Static analysis flags suspect sinks, emits the safety precondition needed to reach each one, marks tainted inputs, and thereby narrows (prunes) where the expensive later phases spend effort.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What LLM Harness Synthesis produces</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>LLM Harness Synthesis</strong> phase (phase 2) produce?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A compilable test/fuzz harness (a driver) that exercises the candidate suspect site</text><feedback><text>Correct — the LLM writes the driver that feeds inputs into the flagged code.</text></feedback></answer>
+    <answer fraction="0"><text>A source-code patch that fixes the suspect site</text><feedback><text>No — SAILOR discovers bugs; it does not patch them, and this phase builds a driver, not a fix.</text></feedback></answer>
+    <answer fraction="0"><text>The list of suspect locations to investigate</text><feedback><text>No — that list comes from static analysis; the LLM consumes it to write a harness.</text></feedback></answer>
+    <answer fraction="0"><text>The concrete crashing input that confirms the bug</text><feedback><text>No — the crashing witness comes later, from symbolic execution and replay.</text></feedback></answer>
+    <generalfeedback><text>An LLM turns the static-analysis output into a driver: it declares symbolic inputs, bounds them, and calls the entry function — a harness that can actually be compiled and run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why "iterative" harness synthesis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Phase 2 is described as <strong>iterative</strong>. What does that mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The harness is refined over several rounds, using compiler feedback, until it builds cleanly</text><feedback><text>Correct — a compile/feedback loop repeats until a usable harness compiles.</text></feedback></answer>
+    <answer fraction="0"><text>The LLM writes the harness once and never revises it</text><feedback><text>No — the whole point of "iterative" is repeated refinement, not a single shot.</text></feedback></answer>
+    <answer fraction="0"><text>The harness loops over every source file in the project</text><feedback><text>No — the iteration is over refinement rounds of one harness, not over files.</text></feedback></answer>
+    <answer fraction="0"><text>The compiled harness loops over test inputs while running</text><feedback><text>No — "iterative" refers to synthesis rounds at build time, not a runtime input loop.</text></feedback></answer>
+    <generalfeedback><text>The first draft rarely compiles, so the compiler error is fed back to the LLM, which revises. This loop repeats over rounds until the harness builds cleanly and is usable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which symbolic executor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In SAILOR's symbolic execution phase (phase 3), which symbolic executor runs the harness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>KLEE</text><feedback><text>Correct — SAILOR drives the harness under the KLEE symbolic executor.</text></feedback></answer>
+    <answer fraction="0"><text>AFL</text><feedback><text>No — AFL is a coverage-guided fuzzer, not the symbolic executor SAILOR uses.</text></feedback></answer>
+    <answer fraction="0"><text>Valgrind</text><feedback><text>No — Valgrind is a dynamic instrumentation tool, not SAILOR's symbolic executor.</text></feedback></answer>
+    <answer fraction="0"><text>DART</text><feedback><text>No — DART is an early concolic tool; SAILOR's phase 3 uses KLEE.</text></feedback></answer>
+    <generalfeedback><text>Phase 3 runs the compiled harness under KLEE, which explores feasible paths over the symbolic inputs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Symbolic Execution emits</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the Symbolic Execution (KLEE) phase finds a bug, what does it emit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A VIOLATION (the proven bug) together with a WITNESS (a concrete input that triggers it)</text><feedback><text>Correct — KLEE reports both the violation it proved and the concrete witness input.</text></feedback></answer>
+    <answer fraction="0"><text>A list of suspect sinks and their preconditions</text><feedback><text>No — that is the static-analysis output, not the symbolic-execution result.</text></feedback></answer>
+    <answer fraction="0"><text>A compiled, cleanly building harness</text><feedback><text>No — the harness is the input to this phase, produced earlier by the LLM.</text></feedback></answer>
+    <answer fraction="0"><text>A confirmed crash on the unmodified program</text><feedback><text>No — confirmation on the unmodified program happens in the replay phase, not here.</text></feedback></answer>
+    <generalfeedback><text>KLEE explores feasible paths over the symbolic inputs; when a path reaches the suspect operation in a violating state it records a VIOLATION plus a concrete WITNESS input that triggers it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a VIOLATION is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In SAILOR, a <strong>VIOLATION</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A proven bug / assertion violation found by the symbolic executor</text><feedback><text>Correct — the violation is what KLEE proves about a path.</text></feedback></answer>
+    <answer fraction="0"><text>The concrete input value that triggers the bug</text><feedback><text>No — that is the WITNESS; the VIOLATION is the proven bug itself.</text></feedback></answer>
+    <answer fraction="0"><text>A suspect location flagged by static analysis</text><feedback><text>No — a suspect site is only a candidate; a violation is a proven bug on a path.</text></feedback></answer>
+    <answer fraction="0"><text>A compiler error raised while building the harness</text><feedback><text>No — compiler errors belong to the harness-synthesis loop, not to symbolic execution.</text></feedback></answer>
+    <generalfeedback><text>A VIOLATION is the symbolic executor's proof that a path reaches a bug / assertion violation. The concrete input that drives that path is the separate WITNESS.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a WITNESS is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In SAILOR, a <strong>WITNESS</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete input that triggers the violation</text><feedback><text>Correct — the witness is the actual input value that drives the buggy path.</text></feedback></answer>
+    <answer fraction="0"><text>The proof that a bug exists on a path</text><feedback><text>No — that proof is the VIOLATION; the witness is the concrete triggering input.</text></feedback></answer>
+    <answer fraction="0"><text>The static precondition that must hold to reach the sink</text><feedback><text>No — the precondition comes from static analysis; the witness is a concrete input from KLEE.</text></feedback></answer>
+    <answer fraction="0"><text>The stack trace printed after a crash</text><feedback><text>No — the witness is the input, not the crash output; the trace appears during replay.</text></feedback></answer>
+    <generalfeedback><text>A WITNESS is a concrete input KLEE produces alongside a VIOLATION — the exact value that makes the buggy path execute. Concrete replay later feeds this witness into the real program.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Concrete Replay confirms</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Concrete Replay</strong> phase (phase 4) confirm?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That the vulnerability is real, by replaying the witness on the unmodified program to weed out false positives</text><feedback><text>Correct — replay confirms a genuine crash, not a harness artifact.</text></feedback></answer>
+    <answer fraction="0"><text>That the harness compiles cleanly</text><feedback><text>No — clean compilation is settled in phase 2, before symbolic execution.</text></feedback></answer>
+    <answer fraction="0"><text>How many feasible paths the program has</text><feedback><text>No — path exploration is the symbolic-execution phase; replay just reproduces one witness.</text></feedback></answer>
+    <answer fraction="0"><text>The precondition needed to reach the sink</text><feedback><text>No — the precondition is a static-analysis output, not what replay confirms.</text></feedback></answer>
+    <generalfeedback><text>Concrete replay feeds the WITNESS into the original, unmodified program. If it actually crashes, the finding is CONFIRMED — a real bug, not an artifact of the synthesized harness — filtering out false positives.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The worked example bug type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The worked example targets a <code>strcpy</code> call. What vulnerability type / CWE does it illustrate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CWE-787, an out-of-bounds write (buffer overflow)</text><feedback><text>Correct — strcpy can write past the destination buffer, an out-of-bounds write.</text></feedback></answer>
+    <answer fraction="0"><text>CWE-125, an out-of-bounds read</text><feedback><text>No — strcpy writes past the buffer; the example is an out-of-bounds write (CWE-787), not a read.</text></feedback></answer>
+    <answer fraction="0"><text>CWE-89, SQL injection</text><feedback><text>No — this is a memory-safety bug in C, not an SQL injection.</text></feedback></answer>
+    <answer fraction="0"><text>A use-after-free</text><feedback><text>No — the example is a buffer overflow (out-of-bounds write), not a use-after-free.</text></feedback></answer>
+    <generalfeedback><text>The worked example copies an untrusted string into a fixed 32-byte buffer with strcpy; when the source is longer, the copy writes past the buffer — an out-of-bounds write, CWE-787.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What KLEE is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>KLEE, used in phase 3, is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A symbolic execution engine that explores program paths using symbolic inputs</text><feedback><text>Correct — KLEE is the symbolic executor SAILOR drives.</text></feedback></answer>
+    <answer fraction="0"><text>A static analyzer that flags suspect code without running it</text><feedback><text>No — that describes phase 1; KLEE actually executes paths symbolically.</text></feedback></answer>
+    <answer fraction="0"><text>A large language model that writes the harness</text><feedback><text>No — the LLM writes the harness in phase 2; KLEE runs it in phase 3.</text></feedback></answer>
+    <answer fraction="0"><text>A random fuzzer that mutates concrete inputs</text><feedback><text>No — KLEE reasons over symbolic inputs and path constraints, not random concrete mutations.</text></feedback></answer>
+    <generalfeedback><text>KLEE is a symbolic execution engine: it runs the harness with symbolic inputs, exploring feasible paths and solving constraints to emit violations and witnesses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which phase produces the witness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which phase produces the WITNESS that concrete replay later uses?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Symbolic Execution (KLEE)</text><feedback><text>Correct — KLEE emits the witness input alongside the violation.</text></feedback></answer>
+    <answer fraction="0"><text>Static Analysis</text><feedback><text>No — static analysis produces suspect sites and preconditions, not the concrete witness.</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness Synthesis</text><feedback><text>No — that phase produces the driver; the witness comes from running it under KLEE.</text></feedback></answer>
+    <answer fraction="0"><text>Concrete Replay</text><feedback><text>No — replay consumes the witness; it does not produce it.</text></feedback></answer>
+    <generalfeedback><text>KLEE (phase 3) emits the VIOLATION and the concrete WITNESS. Phase 4 then replays that witness on the unmodified program to confirm the bug.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>SAILOR combines three techniques</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR combines static analysis, LLM-synthesized harnesses, and symbolic execution to discover vulnerabilities.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — those three techniques (plus a concrete-replay confirmation step) make up the pipeline.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>SAILOR's whole design is to combine static analysis, an LLM harness, and symbolic execution, then confirm with concrete replay.</text></feedback></answer>
+    <generalfeedback><text>The pipeline's name says it: "Guiding Symbolic Execution with Static Analysis and LLMs." A fourth phase, concrete replay, confirms the findings.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SAILOR Pipeline/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Match activity: emitting a precondition and taint</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A SAILOR component emits, for a <code>strcpy</code> call, a suspect location, the precondition <code>strlen(raw) &lt; 32</code>, the function entry point, and a taint label marking <code>raw</code> as attacker-controlled. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static Analysis</text><feedback><text>Correct — flagging the sink and emitting its precondition, entry, and taint is static analysis.</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness Synthesis</text><feedback><text>No — that phase writes the driver; it consumes these facts rather than producing them.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic Execution</text><feedback><text>No — symbolic execution explores paths; it does not emit the initial suspect/precondition list.</text></feedback></answer>
+    <answer fraction="0"><text>Concrete Replay</text><feedback><text>No — replay confirms a witness; it does not produce preconditions and taint labels.</text></feedback></answer>
+    <generalfeedback><text>Suspect site + precondition + entry + taint is exactly the static-analysis output that steers the rest of the pipeline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match activity: writing a compilable driver</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A SAILOR component declares symbolic inputs, bounds them, calls <code>load_name(raw)</code>, and revises the code after a compiler error until it builds. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LLM Harness Synthesis</text><feedback><text>Correct — writing and iteratively fixing a compilable driver is the LLM harness phase.</text></feedback></answer>
+    <answer fraction="0"><text>Static Analysis</text><feedback><text>No — static analysis flags the site; it does not write or compile a driver.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic Execution</text><feedback><text>No — symbolic execution runs the finished harness; it does not author it.</text></feedback></answer>
+    <answer fraction="0"><text>Concrete Replay</text><feedback><text>No — replay runs a concrete witness on the real program, not a synthesized driver.</text></feedback></answer>
+    <generalfeedback><text>Declaring/bounding symbolic inputs, calling the entry function, and looping on compiler feedback until it builds is the iterative LLM harness-synthesis phase.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match activity: reporting VIOLATION and WITNESS</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A SAILOR component reports: a safe path when <code>strlen(raw) &lt; 32</code>, an overflowing path when <code>strlen(raw) &ge; 32</code>, a VIOLATION (out-of-bounds write), and a WITNESS <code>raw</code> of 40 bytes. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Symbolic Execution (KLEE)</text><feedback><text>Correct — exploring paths and emitting a violation plus a witness is symbolic execution.</text></feedback></answer>
+    <answer fraction="0"><text>Static Analysis</text><feedback><text>No — static analysis names the suspect and precondition; it does not explore paths or produce a witness.</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness Synthesis</text><feedback><text>No — that phase builds the driver; KLEE running it produces the violation and witness.</text></feedback></answer>
+    <answer fraction="0"><text>Concrete Replay</text><feedback><text>No — replay consumes the witness to confirm; it does not discover the violating path.</text></feedback></answer>
+    <generalfeedback><text>Enumerating feasible paths and, on the violating one, recording a VIOLATION with a concrete WITNESS input is the KLEE symbolic-execution phase.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match activity: rerunning the unmodified program</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A SAILOR component runs the original unmodified program on a 40-byte input, observes an invalid write, and marks the finding CONFIRMED. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concrete Replay</text><feedback><text>Correct — reproducing the crash on the unmodified program is the concrete-replay phase.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic Execution</text><feedback><text>No — symbolic execution runs the harness with symbolic inputs, not the unmodified program on a concrete input.</text></feedback></answer>
+    <answer fraction="0"><text>Static Analysis</text><feedback><text>No — static analysis does not run the program at all.</text></feedback></answer>
+    <answer fraction="0"><text>LLM Harness Synthesis</text><feedback><text>No — that phase writes the driver; it does not confirm crashes on the real program.</text></feedback></answer>
+    <generalfeedback><text>Feeding the concrete witness into the original, unmodified program and confirming the crash is the concrete-replay phase — the false-positive filter.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why static analysis runs first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does static analysis run <em>before</em> symbolic execution in SAILOR?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It narrows the search to suspect sites and preconditions, so symbolic execution is not blind and stays tractable</text><feedback><text>Correct — pruning the space up front is what keeps the expensive exploration feasible.</text></feedback></answer>
+    <answer fraction="0"><text>Because KLEE requires a compiled binary that only static analysis can produce</text><feedback><text>No — the harness (phase 2), not static analysis, is what produces the runnable/compilable driver.</text></feedback></answer>
+    <answer fraction="0"><text>Because the witness must exist before the harness is written</text><feedback><text>No — the witness comes from symbolic execution, which runs after both static analysis and harness synthesis.</text></feedback></answer>
+    <answer fraction="0"><text>Because replay has to confirm the bug before exploration begins</text><feedback><text>No — replay is the last phase; it needs a witness that only symbolic execution can produce.</text></feedback></answer>
+    <generalfeedback><text>Symbolic execution suffers path explosion. Running static analysis first flags where to look and under what precondition, so the executor spends its budget on paths that matter instead of exploring blindly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the phase order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which phrase best summarizes <em>why</em> SAILOR's phases run in their particular order?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static narrows → harness drives → symbolic explores → replay confirms</text><feedback><text>Correct — each phase sets up exactly what the next one needs.</text></feedback></answer>
+    <answer fraction="0"><text>Replay confirms → symbolic explores → harness drives → static narrows</text><feedback><text>No — that reverses the pipeline; nothing can be confirmed before it is discovered.</text></feedback></answer>
+    <answer fraction="0"><text>Harness drives → replay confirms → static narrows → symbolic explores</text><feedback><text>No — a harness cannot be built before static analysis targets a site, and replay needs a witness first.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic explores → static narrows → replay confirms → harness drives</text><feedback><text>No — symbolic execution needs both a target and a harness before it can run.</text></feedback></answer>
+    <generalfeedback><text>Static analysis narrows the target, the LLM builds a driver to reach it, symbolic execution explores that driver to prove a violation with a witness, and replay confirms the witness on the real program.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Full SAILOR headline numbers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On its evaluation, how many vulnerabilities and crashes did the <strong>full</strong> SAILOR pipeline report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>379 distinct vulnerabilities and 421 confirmed crashes</text><feedback><text>Correct — those are the headline figures for the full pipeline.</text></feedback></answer>
+    <answer fraction="0"><text>421 distinct vulnerabilities and 379 confirmed crashes</text><feedback><text>No — the numbers are swapped: 379 distinct vulnerabilities and 421 confirmed crashes.</text></feedback></answer>
+    <answer fraction="0"><text>12 distinct vulnerabilities and 35 confirmed crashes</text><feedback><text>No — 12 is the baseline; the full pipeline found far more.</text></feedback></answer>
+    <answer fraction="0"><text>3790 distinct vulnerabilities and 4210 confirmed crashes</text><feedback><text>No — the reported figures are 379 and 421, not ten times larger.</text></feedback></answer>
+    <generalfeedback><text>Full SAILOR found 379 distinct vulnerabilities and 421 confirmed crashes across the evaluation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of removing static analysis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ablation, removing static analysis ("no-static") had what effect on vulnerabilities found?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>About 12.2× fewer vulnerabilities were found</text><feedback><text>Correct — without targeting, symbolic execution becomes far less effective.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly zero vulnerabilities were found</text><feedback><text>No — zero is the no-LLM result; no-static is a 12.2× drop but still non-zero.</text></feedback></answer>
+    <answer fraction="0"><text>No measurable change</text><feedback><text>No — removing static analysis caused a large 12.2× reduction.</text></feedback></answer>
+    <answer fraction="0"><text>About 12.2× more vulnerabilities were found</text><feedback><text>No — removing the pruning hurts, not helps; it found 12.2× fewer.</text></feedback></answer>
+    <generalfeedback><text>Static analysis is what makes symbolic execution tractable. Remove it and SAILOR finds about 12.2× fewer vulnerabilities — a severe drop, but not all the way to zero.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of removing the LLM harness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ablation, removing the LLM harness synthesis ("no-LLM") yielded:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Zero vulnerabilities found</text><feedback><text>Correct — with no harness there is nothing for KLEE to execute.</text></feedback></answer>
+    <answer fraction="0"><text>About 12.2× fewer vulnerabilities</text><feedback><text>No — 12.2× fewer is the no-static result; no-LLM collapses all the way to zero.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly 12 vulnerabilities (matching the baseline)</text><feedback><text>No — 12 is the baseline tooling; no-LLM produced zero.</text></feedback></answer>
+    <answer fraction="0"><text>Only slightly fewer than the full pipeline</text><feedback><text>No — without a harness the pipeline has nothing to run, so it finds zero.</text></feedback></answer>
+    <generalfeedback><text>No harness means nothing to execute under KLEE, so the no-LLM ablation finds zero vulnerabilities — showing the harness is a hard prerequisite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The baseline number</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The baseline / prior comparison tooling (hand-written harnesses) found how many vulnerabilities?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>Correct — prior tooling found only 12, versus 379 for full SAILOR.</text></feedback></answer>
+    <answer fraction="0"><text>379</text><feedback><text>No — 379 is full SAILOR's distinct-vulnerability count, not the baseline.</text></feedback></answer>
+    <answer fraction="0"><text>421</text><feedback><text>No — 421 is full SAILOR's confirmed-crash count, not the baseline.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>No — zero is the no-LLM ablation result; the baseline found 12.</text></feedback></answer>
+    <generalfeedback><text>The baseline (prior tooling with hand-written harnesses) found only 12, dramatically fewer than full SAILOR's 379 distinct vulnerabilities.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Evaluation scale</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR was evaluated on roughly how much code?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10 open-source projects, about 6.8M lines of C/C++</text><feedback><text>Correct — that is the reported evaluation corpus.</text></feedback></answer>
+    <answer fraction="0"><text>1 project of about 6.8M lines</text><feedback><text>No — it was 10 projects, not a single one.</text></feedback></answer>
+    <answer fraction="0"><text>100 projects of about 6.8K lines each</text><feedback><text>No — the corpus is 10 projects totalling about 6.8M lines.</text></feedback></answer>
+    <answer fraction="0"><text>10 projects of about 6.8K lines total</text><feedback><text>No — the total is about 6.8M lines of C/C++, not 6.8K.</text></feedback></answer>
+    <generalfeedback><text>The evaluation ran on 10 open-source projects comprising roughly 6.8M lines of C/C++.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Why concrete replay exists</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Concrete replay exists mainly to filter out false positives by re-running the witness on the original, unmodified program.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a violation found in the harness is only trusted once the concrete witness reproduces it on the real program.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Replay's purpose is precisely false-positive filtering: confirm the bug is real on the unmodified program, not a harness artifact.</text></feedback></answer>
+    <generalfeedback><text>Symbolic execution can flag a violation on a path feasible only in the harness. Replaying the concrete witness on the unmodified program confirms real bugs and discards harness-only artifacts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The strcpy precondition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the worked example the destination buffer is <code>char name[32]</code>. What precondition did static analysis attach to the <code>strcpy</code> sink as the condition under which the copy stays safe?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[strlen(raw) < 32]]></text><feedback><text>Correct — the source must be shorter than the 32-byte destination for the copy to be safe.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[strlen(raw) < 64]]></text><feedback><text>No — the destination is 32 bytes, so the safe precondition is strlen(raw) &lt; 32, not 64.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[strlen(raw) > 32]]></text><feedback><text>No — that is the overflowing condition, not the safe precondition; safe is strlen(raw) &lt; 32.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[raw != NULL]]></text><feedback><text>No — non-nullness does not bound the length; the length precondition is strlen(raw) &lt; 32.</text></feedback></answer>
+    <generalfeedback><text>With a 32-byte destination, the copy is safe only when strlen(raw) &lt; 32. Static analysis attaches this precondition so symbolic execution can target the path where it is violated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>VIOLATION and WITNESS together</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A single KLEE result carries both a VIOLATION and a WITNESS. What is the relationship between them?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The VIOLATION is the proven bug on a path; the WITNESS is the concrete input driving that path, which replay reuses to reproduce the violation</text><feedback><text>Correct — one is the proof, the other is the triggering input replay depends on.</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for the same object</text><feedback><text>No — the violation (proof) and the witness (input) are distinct artifacts.</text></feedback></answer>
+    <answer fraction="0"><text>The WITNESS is the proof and the VIOLATION is the input</text><feedback><text>No — that reverses them: the violation is the proof, the witness is the input.</text></feedback></answer>
+    <answer fraction="0"><text>Both are static specifications produced before execution</text><feedback><text>No — both are outputs of symbolic execution, not static specs.</text></feedback></answer>
+    <generalfeedback><text>KLEE proves a VIOLATION on some path and reports the concrete WITNESS input that drives that path. Concrete replay feeds the witness (not the violation) into the real program to confirm the bug.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the witness confirms in the example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the worked example, the witness makes the source string exceed the 32-byte destination buffer. Once replay reproduces the crash, what class of bug is confirmed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An out-of-bounds write (CWE-787)</text><feedback><text>Correct — writing past the destination buffer is an out-of-bounds write, CWE-787.</text></feedback></answer>
+    <answer fraction="0"><text>An out-of-bounds read (CWE-125)</text><feedback><text>No — strcpy writes past the buffer; this is a write, not a read.</text></feedback></answer>
+    <answer fraction="0"><text>An integer overflow</text><feedback><text>No — the bug is a memory write past the buffer bound, not an arithmetic overflow.</text></feedback></answer>
+    <answer fraction="0"><text>A null-pointer dereference</text><feedback><text>No — the pointer is valid; the fault is writing beyond the 32-byte buffer.</text></feedback></answer>
+    <generalfeedback><text>When strlen(raw) ≥ 32, strcpy writes past name[32]. Replay reproduces this on the unmodified program, confirming an out-of-bounds write — CWE-787.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SAILOR Pipeline/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why no-static costs 12.2x</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does removing static analysis reduce SAILOR's yield by about 12.2×, rather than leaving it unchanged?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Without suspect sites and preconditions to prune the search, symbolic execution faces path explosion and becomes intractable, so it explores far less usefully within its budget</text><feedback><text>Correct — static analysis is what keeps the exploration focused and feasible.</text></feedback></answer>
+    <answer fraction="0"><text>Because without static analysis the harness no longer compiles</text><feedback><text>No — compilation is the harness loop's concern; removing static analysis hurts targeting, not the build.</text></feedback></answer>
+    <answer fraction="0"><text>Because KLEE is disabled when static analysis is removed</text><feedback><text>No — KLEE still runs; it just runs unguided, so it wastes budget on irrelevant paths.</text></feedback></answer>
+    <answer fraction="0"><text>Because concrete replay rejects every finding without static analysis</text><feedback><text>No — replay still confirms real crashes; the loss comes from unfocused exploration upstream.</text></feedback></answer>
+    <generalfeedback><text>The feasible-path count grows exponentially. Static analysis flags where to look and under what precondition; remove it and KLEE explores blindly, hitting path explosion and reaching far fewer real bugs — about 12.2× fewer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why no-LLM yields exactly zero</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does removing the LLM harness synthesis drop the yield to <em>exactly zero</em>, not just to a smaller number?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>With no synthesized driver there is nothing to compile and run under KLEE, so symbolic execution has no harness to execute and produces no violations or witnesses at all</text><feedback><text>Correct — the harness is a hard prerequisite; without it the pipeline has nothing to run.</text></feedback></answer>
+    <answer fraction="0"><text>Because static analysis also stops emitting suspect sites</text><feedback><text>No — static analysis is unaffected; the gap is that there is no driver to execute.</text></feedback></answer>
+    <answer fraction="0"><text>Because concrete replay then rejects all findings as false positives</text><feedback><text>No — there are no findings to reject; nothing ever runs under KLEE.</text></feedback></answer>
+    <answer fraction="0"><text>Because the number of paths becomes infinite and KLEE times out on every one</text><feedback><text>No — the issue is not timeout; there is simply no harness for KLEE to run.</text></feedback></answer>
+    <generalfeedback><text>Symbolic execution needs something runnable. No LLM means no harness, so KLEE has nothing to execute — hence zero violations and zero witnesses. The harness is a strict enabler, not just an optimizer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the two ablations reveal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Contrast the no-static result (about 12.2× fewer) with the no-LLM result (zero). What does the contrast reveal about the two components' roles?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The harness is a hard prerequisite (nothing runs without it), while static analysis is a strong tractability/efficiency enabler (the pipeline still works without it, but far worse)</text><feedback><text>Correct — zero vs 12.2×-fewer distinguishes an enabler you cannot remove from one that hugely helps.</text></feedback></answer>
+    <answer fraction="0"><text>Both components are equally optional</text><feedback><text>No — removing the LLM harness collapses the pipeline to zero, so it is not optional.</text></feedback></answer>
+    <answer fraction="0"><text>Static analysis is the prerequisite and the LLM harness is the optimizer</text><feedback><text>No — it is the reverse: the harness is the prerequisite (zero without it); static analysis is the efficiency multiplier.</text></feedback></answer>
+    <answer fraction="0"><text>Concrete replay is the real bottleneck the ablation exposes</text><feedback><text>No — the ablation contrasts static analysis and the harness; replay is not what these two numbers isolate.</text></feedback></answer>
+    <generalfeedback><text>No-LLM → zero shows the harness is indispensable to run anything. No-static → 12.2× fewer shows static analysis is a powerful multiplier of effectiveness, but the pipeline can still find some bugs without it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most indispensable single component</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Interpreting the ablation, which single component is the <em>most</em> indispensable, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The LLM harness synthesis — removing it yields zero, whereas removing static analysis only reduces the yield 12.2× (still non-zero)</text><feedback><text>Correct — a total collapse to zero marks the harness as the strictest prerequisite.</text></feedback></answer>
+    <answer fraction="0"><text>Static analysis — because 12.2× is the largest number in the ablation</text><feedback><text>No — a large multiplier is still non-zero; the harness is more indispensable because without it the yield is zero.</text></feedback></answer>
+    <answer fraction="0"><text>Concrete replay — because without it nothing is confirmed</text><feedback><text>No — the ablation shows the harness, not replay, is the component whose removal drops results to zero.</text></feedback></answer>
+    <answer fraction="0"><text>Symbolic execution — because it is what actually finds the bugs</text><feedback><text>No — symbolic execution is central, but the ablation isolates the harness as the removal that gives zero.</text></feedback></answer>
+    <generalfeedback><text>"Most indispensable" means the removal that hurts most. No-LLM gives zero (nothing to run), while no-static gives 12.2× fewer but non-zero — so the LLM harness is the strictest prerequisite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>VIOLATION vs WITNESS and how replay uses each</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Precisely distinguish VIOLATION from WITNESS and state how concrete replay uses each.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>VIOLATION is the executor's proof that a path reaches a bug; WITNESS is the concrete input driving that path; replay feeds the witness (not the violation) into the unmodified program to reproduce and confirm the violation</text><feedback><text>Correct — the witness is the actionable input; the violation is the claim it confirms.</text></feedback></answer>
+    <answer fraction="0"><text>VIOLATION is the concrete input; WITNESS is the proof; replay feeds the violation into the program</text><feedback><text>No — the roles are reversed: the witness is the input and the violation is the proof.</text></feedback></answer>
+    <answer fraction="0"><text>Both are inputs; replay runs whichever one crashes first</text><feedback><text>No — only the witness is an input; the violation is a proof, not something you feed to the program.</text></feedback></answer>
+    <answer fraction="0"><text>Both are proofs; replay picks the stronger proof to report</text><feedback><text>No — the witness is a concrete input, not a proof; replay runs it on the real program.</text></feedback></answer>
+    <generalfeedback><text>The VIOLATION is KLEE's proof that some path reaches the bug; the WITNESS is the concrete triggering input for that path. Replay ignores the abstract violation and instead runs the concrete witness on the unmodified program to confirm the bug is real.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the iterative harness loop matters</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the compiler-feedback iteration in phase 2 essential rather than just a convenience?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A first-draft harness usually fails to compile; without refining it via feedback no runnable harness exists, so KLEE has nothing to execute</text><feedback><text>Correct — the loop is what turns a broken draft into a usable driver.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the compiled harness run faster at execution time</text><feedback><text>No — the loop is about getting a harness that builds at all, not runtime speed.</text></feedback></answer>
+    <answer fraction="0"><text>It directly increases the number of paths KLEE explores</text><feedback><text>No — path count is a symbolic-execution concern; the loop's role is producing a compilable harness.</text></feedback></answer>
+    <answer fraction="0"><text>It filters out false positives before replay</text><feedback><text>No — false-positive filtering is replay's job; the loop's job is producing a buildable harness.</text></feedback></answer>
+    <generalfeedback><text>LLM first drafts rarely compile. The compile/feedback loop refines the harness until it builds; without it there is no runnable driver, which is exactly why the no-LLM ablation yields zero.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How SAILOR combines three strengths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SAILOR combines static, dynamic (symbolic), and LLM techniques. Which mapping of each contribution is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static analysis prunes and targets; the LLM writes the driver a human used to hand-write; symbolic execution proves reachability and yields a witness; replay confirms it on the real program</text><feedback><text>Correct — each technique covers a weakness of the others.</text></feedback></answer>
+    <answer fraction="0"><text>Static analysis writes the driver; the LLM explores paths; symbolic execution prunes the search; replay compiles the harness</text><feedback><text>No — every role is misassigned; static analysis targets, the LLM writes the driver, symbolic execution explores.</text></feedback></answer>
+    <answer fraction="0"><text>The LLM prunes the search; static analysis proves reachability; symbolic execution confirms on the real program; replay targets sinks</text><feedback><text>No — pruning is static analysis, reachability is symbolic execution, confirmation is replay.</text></feedback></answer>
+    <answer fraction="0"><text>All three techniques do the same job redundantly, for reliability</text><feedback><text>No — they are complementary, each supplying what the others cannot.</text></feedback></answer>
+    <generalfeedback><text>Static analysis focuses the effort, the LLM automates the previously-manual harness, symbolic execution proves a reachable violation with a concrete witness, and concrete replay confirms it — combining static, dynamic, and LLM strengths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why unguided symbolic execution is blind</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What specifically makes <em>unguided</em> symbolic execution "blind," and how does static targeting help?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Feasible paths grow exponentially; without preconditions and suspect sinks to steer toward, the executor spends its budget on irrelevant paths and rarely reaches deep bugs — static analysis focuses that budget</text><feedback><text>Correct — targeting is what turns an intractable search into a productive one.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot solve any path constraints without static analysis</text><feedback><text>No — the solver still works; the problem is where to spend effort, which targeting fixes.</text></feedback></answer>
+    <answer fraction="0"><text>By definition it never terminates unless static analysis stops it</text><feedback><text>No — termination is bounded by search limits; the issue is unfocused effort, not non-termination per se.</text></feedback></answer>
+    <answer fraction="0"><text>It needs the witness before it can begin exploring</text><feedback><text>No — the witness is an output of exploration, not a precondition for it.</text></feedback></answer>
+    <generalfeedback><text>The number of feasible paths explodes exponentially. Without static analysis pointing at suspect sinks and their preconditions, the executor wastes its budget exploring irrelevant paths — the 12.2× loss the ablation measures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How the precondition guides KLEE</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the static precondition <code>strlen(raw) &lt; 32</code> help symbolic execution find the overflow?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It marks the safety condition at the sink, so KLEE can target the path where strlen(raw) ≥ 32 — the path that writes past name[32] — instead of exploring everything</text><feedback><text>Correct — knowing the safe condition tells the executor which violating path to chase.</text></feedback></answer>
+    <answer fraction="0"><text>It fixes raw to one concrete value so KLEE need not use symbolic input</text><feedback><text>No — the precondition is a symbolic constraint about safety, not a concrete assignment.</text></feedback></answer>
+    <answer fraction="0"><text>It patches the strcpy so the overflow cannot happen</text><feedback><text>No — static analysis does not modify code; it annotates the sink with a safety condition.</text></feedback></answer>
+    <answer fraction="0"><text>It disables the harness for the safe path</text><feedback><text>No — the harness still runs; the precondition just tells KLEE which path is the violating one.</text></feedback></answer>
+    <generalfeedback><text>The precondition strlen(raw) &lt; 32 is the condition under which the copy is safe. Its negation, strlen(raw) ≥ 32, marks the overflowing path — so KLEE targets that path and finds the out-of-bounds write.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting baseline 12 vs 379/421</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The baseline found 12 while full SAILOR found 379 vulnerabilities / 421 crashes. What is the fair takeaway?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Automating harness synthesis and adding static targeting massively expands what symbolic execution can discover compared with prior hand-harness tooling</text><feedback><text>Correct — the gap reflects automation plus targeting, not a change in what counts as a bug.</text></feedback></answer>
+    <answer fraction="0"><text>The baseline is simply unsound and over-reports; SAILOR is more conservative</text><feedback><text>No — SAILOR found far more, and its replay step confirms bugs; the baseline is not over-reporting.</text></feedback></answer>
+    <answer fraction="0"><text>Both used the same technique, so the difference must be measurement noise</text><feedback><text>No — the baseline used hand-written harnesses; SAILOR automates and targets, a real methodological difference.</text></feedback></answer>
+    <answer fraction="0"><text>SAILOR trades soundness for the higher count</text><feedback><text>No — concrete replay confirms each crash, so the higher count is of confirmed bugs, not a soundness trade.</text></feedback></answer>
+    <generalfeedback><text>Prior tooling relied on hand-written harnesses and found 12. SAILOR's automated, statically-targeted harnesses let symbolic execution reach far more real bugs — 379 distinct vulnerabilities, 421 confirmed crashes — all confirmed by replay.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why replay uses the witness, not the violation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does SAILOR replay the concrete witness rather than simply trusting KLEE's violation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A violation can occur on a path feasible only in the harness/model; replaying the concrete witness on the unmodified program proves the bug is real and filters harness-induced false positives</text><feedback><text>Correct — replay is the reality check on the harness's claim.</text></feedback></answer>
+    <answer fraction="0"><text>Because KLEE is unsound about the paths it actually runs</text><feedback><text>No — the concern is harness-only states, not KLEE's soundness on paths it explores.</text></feedback></answer>
+    <answer fraction="0"><text>Because replay is faster than reading the violation record</text><feedback><text>No — replay is about confirmation quality, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>To recompute the precondition that static analysis produced</text><feedback><text>No — replay confirms the crash; it does not recompute preconditions.</text></feedback></answer>
+    <generalfeedback><text>The harness may create states impossible in the real program, so a violation there could be a false positive. Replaying the concrete witness on the unmodified program is what distinguishes a real bug from a harness artifact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence of an over-constrained harness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose the synthesized harness over-constrains the symbolic input (bounds it too tightly). What is the likely consequence for the pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The real bug may fall outside the explored input space, so KLEE never emits the violation — a false negative — even though every phase runs</text><feedback><text>Correct — hiding the triggering inputs makes the bug unreachable in exploration.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees a false positive that replay will confirm anyway</text><feedback><text>No — over-constraining hides bugs (false negatives); it does not manufacture confirmed crashes.</text></feedback></answer>
+    <answer fraction="0"><text>Concrete replay automatically widens the input space to compensate</text><feedback><text>No — replay only reruns a witness; it cannot recover inputs the harness excluded.</text></feedback></answer>
+    <answer fraction="0"><text>Static analysis re-runs to fix the harness</text><feedback><text>No — the pipeline runs forward; static analysis does not re-run to repair the harness.</text></feedback></answer>
+    <generalfeedback><text>If the harness bounds inputs too tightly, the values that trigger the bug are excluded, so KLEE explores a space where the violation never appears — a false negative. (Under-constraining causes the opposite risk: false positives.)</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Replay cannot precede symbolic execution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Concrete replay cannot meaningfully run before symbolic execution, because it needs the witness that only symbolic execution produces.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the data dependency (witness → replay) fixes the order: explore first, confirm second.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Replay's input is the witness, which symbolic execution emits, so replay must come after it.</text></feedback></answer>
+    <generalfeedback><text>Replay reproduces a specific witness on the unmodified program. Since the witness is an output of symbolic execution, replay is necessarily the later phase — a data dependency, not an arbitrary choice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What manual step the LLM automates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In prior symbolic-execution tooling, which expensive manual step does SAILOR's LLM phase automate, and why does that unlock scale?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hand-writing a compilable harness for each target; automating it lets the pipeline attack many sites across millions of lines without a human per target</text><feedback><text>Correct — the harness bottleneck was the human, and the LLM removes it.</text></feedback></answer>
+    <answer fraction="0"><text>Manually solving the path constraints; automating it removes the need for a solver</text><feedback><text>No — the solver is still used; the LLM automates harness writing, not constraint solving.</text></feedback></answer>
+    <answer fraction="0"><text>Manually confirming each crash; automating it removes the replay phase</text><feedback><text>No — replay still runs; the LLM automates harness synthesis, not confirmation.</text></feedback></answer>
+    <answer fraction="0"><text>Manually labeling each finding with a CWE id</text><feedback><text>No — CWE labeling is not the bottleneck; hand-writing harnesses per target is.</text></feedback></answer>
+    <generalfeedback><text>Classic symbolic-execution setups need a human to hand-write a compilable harness per target — the scaling bottleneck. SAILOR's LLM synthesizes harnesses automatically, so the pipeline can cover many sites across ~6.8M lines without per-target manual effort.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Holistic reading of the ablation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which conclusion is best supported by the full ablation (full: 421 crashes; no-static: 12.2× fewer; no-LLM: zero; baseline: 12)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every component is load-bearing but differently — the LLM harness is a strict enabler (zero without it), static analysis is a tractability multiplier (12.2×), and the combination far exceeds prior tooling (baseline 12)</text><feedback><text>Correct — the numbers together show distinct, complementary roles.</text></feedback></answer>
+    <answer fraction="0"><text>Only the LLM harness matters; the other components are decorative</text><feedback><text>No — no-static's 12.2× drop shows static analysis matters a great deal too.</text></feedback></answer>
+    <answer fraction="0"><text>Only static analysis matters; the harness is optional</text><feedback><text>No — no-LLM yields zero, so the harness is not optional.</text></feedback></answer>
+    <answer fraction="0"><text>The components are redundant, since removing any one leaves the yield unchanged</text><feedback><text>No — removing components changes the yield drastically (to zero, or 12.2× fewer), so they are not redundant.</text></feedback></answer>
+    <generalfeedback><text>The ablation shows each component carries weight in its own way: the harness is indispensable (zero without it), static analysis multiplies effectiveness (12.2×), and full SAILOR (379 vulns / 421 crashes) dwarfs the baseline's 12 — the whole is far more than any part.</text></generalfeedback>
+  </question>
+</quiz>

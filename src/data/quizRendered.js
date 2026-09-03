@@ -38103,6 +38103,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "fault-directed-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Goal of coverage-directed testing",
+          "text": "<p>The goal of a <strong>coverage-directed</strong> (blind) test-generation strategy is to:</p>",
+          "answers": [
+            {
+              "text": "Execute (cover) more lines or branches of the program",
+              "fraction": 100,
+              "feedback": "Correct — a coverage-directed strategy optimises for how much code is exercised."
+            },
+            {
+              "text": "Kill as many injected faults (mutants) as possible",
+              "fraction": 0,
+              "feedback": "That is the goal of fault-directed testing, not coverage-directed testing."
+            },
+            {
+              "text": "Minimise the number of assertions in each test",
+              "fraction": 0,
+              "feedback": "Neither strategy aims to reduce assertions; coverage-directed testing simply targets executed code."
+            },
+            {
+              "text": "Prove the program is free of all defects",
+              "fraction": 0,
+              "feedback": "No test-generation strategy proves the absence of all defects."
+            }
+          ],
+          "generalFeedback": "Coverage-directed generation optimises a structural coverage metric — it aims to run more lines and branches. It says nothing about whether those executed lines are actually checked for faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Goal of fault-directed testing",
+          "text": "<p>The goal of a <strong>fault-directed</strong> (mutation-guided) test-generation strategy is to:</p>",
+          "answers": [
+            {
+              "text": "Kill mutants — detect injected faults by asserting behaviour a fault would break",
+              "fraction": 100,
+              "feedback": "Correct — fault-directed testing targets specific faults and adds assertions that fail on the faulty code."
+            },
+            {
+              "text": "Execute the largest possible fraction of lines and branches",
+              "fraction": 0,
+              "feedback": "That is coverage-directed testing; fault-directed testing measures fault detection instead."
+            },
+            {
+              "text": "Run the fastest tests regardless of what they check",
+              "fraction": 0,
+              "feedback": "Speed is not the objective; detecting faults is."
+            },
+            {
+              "text": "Generate as many random inputs as possible",
+              "fraction": 0,
+              "feedback": "Random input volume is not the aim; killing mutants is."
+            }
+          ],
+          "generalFeedback": "Fault-directed (mutation-guided) generation targets specific fault classes and writes assertions that a seeded fault would violate, so the test fails on the mutated program (kills the mutant).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Coverage equals fault detection",
+          "text": "<p>Executing (covering) a line of code is the same thing as detecting a fault in that line.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Coverage only means the line ran; a test can execute a line without asserting anything that a fault in it would break."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution, not fault detection; the two are distinct."
+            }
+          ],
+          "generalFeedback": "Coverage counts whether code was executed. Fault detection requires an assertion that the faulty behaviour actually violates. A test can add covered lines yet assert nothing meaningful — coverage is not the same as fault detection."
+        },
+        {
+          "type": "multichoice",
+          "name": "What a mutant is",
+          "text": "<p>In this context, a <em>mutant</em> is:</p>",
+          "answers": [
+            {
+              "text": "A version of the program with one deliberately injected fault",
+              "fraction": 100,
+              "feedback": "Correct — a mutant is the program with a small seeded fault."
+            },
+            {
+              "text": "A test case that increases code coverage",
+              "fraction": 0,
+              "feedback": "That is a test, not a mutant; a mutant is an altered program."
+            },
+            {
+              "text": "A line of code that is never executed",
+              "fraction": 0,
+              "feedback": "Unexecuted code is a coverage gap, not a mutant."
+            },
+            {
+              "text": "A production bug reported by a user",
+              "fraction": 0,
+              "feedback": "Mutants are injected on purpose to evaluate tests, not field-reported defects."
+            }
+          ],
+          "generalFeedback": "A mutant is the program with one injected fault. Fault-directed testing uses mutants to represent the faults a good test should catch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What killing a mutant means",
+          "text": "<p>To <em>kill a mutant</em> means that:</p>",
+          "answers": [
+            {
+              "text": "A test detects the injected fault — it fails on the mutated program",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant is exactly detecting the seeded fault."
+            },
+            {
+              "text": "A test executes the mutated line without checking its result",
+              "fraction": 0,
+              "feedback": "Merely executing the line is coverage; killing requires the test to actually fail on the mutant."
+            },
+            {
+              "text": "The mutated program is deleted from the repository",
+              "fraction": 0,
+              "feedback": "Killing is about test detection, not removing code."
+            },
+            {
+              "text": "The mutation is proven to be harmless",
+              "fraction": 0,
+              "feedback": "That is the opposite — a killed mutant is one whose fault a test caught."
+            }
+          ],
+          "generalFeedback": "Killing a mutant means a test detects the injected fault: the test passes on the original but fails on the mutant. Killing a mutant is the operational definition of detecting that fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The 49% finding: what it says",
+          "text": "<p>An empirical finding from the Meta ACH study is that 49% of the generated tests:</p>",
+          "answers": [
+            {
+              "text": "Kill a mutant without adding a single newly-covered line",
+              "fraction": 100,
+              "feedback": "Correct — nearly half the tests caught a fault while covering no new code."
+            },
+            {
+              "text": "Add new covered lines but kill no mutant",
+              "fraction": 0,
+              "feedback": "That is the reverse; the finding is about tests that kill mutants while adding no coverage."
+            },
+            {
+              "text": "Cover every line of the program under test",
+              "fraction": 0,
+              "feedback": "The finding is not about achieving total coverage."
+            },
+            {
+              "text": "Are duplicates of existing tests",
+              "fraction": 0,
+              "feedback": "They are new, fault-catching tests — not duplicates."
+            }
+          ],
+          "generalFeedback": "About 49% of the generated tests killed a mutant without adding any newly-covered line. They strengthened assertions on already-covered code, catching real faults that a coverage metric would score as adding nothing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The 49% finding: what it proves",
+          "text": "<p>The finding that 49% of tests kill a mutant with no new covered line demonstrates that:</p>",
+          "answers": [
+            {
+              "text": "Coverage and fault detection are distinct — a test can catch a fault while adding zero coverage",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly what those tests show."
+            },
+            {
+              "text": "Coverage always predicts how many faults a test catches",
+              "fraction": 0,
+              "feedback": "The finding shows the opposite: these tests add no coverage yet catch faults."
+            },
+            {
+              "text": "Assertions are irrelevant to catching faults",
+              "fraction": 0,
+              "feedback": "It is precisely the strengthened assertions that catch these faults."
+            },
+            {
+              "text": "Tests that add no coverage never find bugs",
+              "fraction": 0,
+              "feedback": "These tests add no coverage yet find bugs, contradicting this claim."
+            }
+          ],
+          "generalFeedback": "Because these tests strengthen assertions on already-covered code, they kill mutants while a coverage metric records no new lines. This proves coverage and fault detection are distinct measures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the goal: a line-chasing test",
+          "text": "<p>A generated test runs a previously-unexecuted branch but only checks that the function \"returns without error\", asserting nothing about the result. Its effective goal is:</p>",
+          "answers": [
+            {
+              "text": "Coverage-directed — it adds covered code but asserts nothing a fault would break",
+              "fraction": 100,
+              "feedback": "Correct — it raises coverage without targeting any fault."
+            },
+            {
+              "text": "Fault-directed — it kills a mutant",
+              "fraction": 0,
+              "feedback": "With no meaningful assertion it cannot fail on a mutated result, so it kills no mutant."
+            },
+            {
+              "text": "Neither — it is an equivalent mutant",
+              "fraction": 0,
+              "feedback": "Equivalent mutant is a property of a mutant, not of a test."
+            },
+            {
+              "text": "Both equally",
+              "fraction": 0,
+              "feedback": "It serves coverage only; without an assertion it detects no fault."
+            }
+          ],
+          "generalFeedback": "Executing a branch while asserting nothing meaningful raises coverage but detects no fault. That is a coverage-directed outcome — coverage without fault detection.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the goal: an assertion-strengthening test",
+          "text": "<p>A generated test runs the same lines as an existing test but adds an assertion that fails when a boundary index is computed with <code>&lt;=</code> instead of <code>&lt;</code>. Its goal is:</p>",
+          "answers": [
+            {
+              "text": "Fault-directed — it kills a mutant even though it adds no new coverage",
+              "fraction": 100,
+              "feedback": "Correct — the new assertion detects the injected off-by-one fault."
+            },
+            {
+              "text": "Coverage-directed — it adds newly-covered lines",
+              "fraction": 0,
+              "feedback": "It runs the same lines as before, so it adds no new coverage."
+            },
+            {
+              "text": "Pointless — it changes nothing measurable",
+              "fraction": 0,
+              "feedback": "It changes fault detection: it kills a mutant a coverage metric would miss."
+            },
+            {
+              "text": "Coverage-directed — it deletes an assertion",
+              "fraction": 0,
+              "feedback": "It adds an assertion; it does not delete one."
+            }
+          ],
+          "generalFeedback": "Strengthening an assertion on already-covered code adds no coverage but can kill a mutant. That is a fault-directed test — exactly the kind the 49% finding describes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four fault classes",
+          "text": "<p>The app illustrates fault-directed testing across four annotated fault classes. Which of the following is <strong>not</strong> one of them?</p>",
+          "answers": [
+            {
+              "text": "Race condition on a shared counter",
+              "fraction": 100,
+              "feedback": "Correct — a data race is not one of the four illustrated classes."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "This is one of the four fault classes."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "This is one of the four fault classes."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "This is one of the four fault classes."
+            }
+          ],
+          "generalFeedback": "The four illustrated fault classes are: null / resource leak, off-by-one, missing cleanup, and unchecked exception. A race condition is not among them.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A covering test can assert nothing meaningful",
+          "text": "<p>A test can add newly-covered lines and yet assert nothing meaningful about whether those lines are correct.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — coverage records execution, not the strength of the assertions."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Coverage only requires the line to run; the test need not check the result, so this is true."
+            }
+          ],
+          "generalFeedback": "Coverage credits a line the moment it executes, regardless of whether the test checks its behaviour. So a test can raise coverage while detecting no fault — coverage and fault detection are distinct."
+        },
+        {
+          "type": "multichoice",
+          "name": "Another name for fault-directed testing",
+          "text": "<p>Fault-directed test generation is also described as:</p>",
+          "answers": [
+            {
+              "text": "Mutation-guided testing",
+              "fraction": 100,
+              "feedback": "Correct — it is guided by whether tests kill mutants (injected faults)."
+            },
+            {
+              "text": "Coverage-maximising testing",
+              "fraction": 0,
+              "feedback": "That describes the coverage-directed goal, the contrast to fault-directed testing."
+            },
+            {
+              "text": "Random (fuzz) testing",
+              "fraction": 0,
+              "feedback": "Fuzzing generates random inputs; fault-directed testing targets specific faults."
+            },
+            {
+              "text": "Load testing",
+              "fraction": 0,
+              "feedback": "Load testing measures performance under load, unrelated to killing mutants."
+            }
+          ],
+          "generalFeedback": "Fault-directed testing is mutation-guided: it uses mutants (injected faults) as the target, generating tests whose assertions kill them.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Strengthening an assertion adds no coverage",
+          "text": "<p>Adding a stronger assertion to a test that already executes the relevant code can kill a mutant while adding zero newly-covered lines.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the code was already covered, so only fault detection improves, not coverage."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The lines already ran, so no new coverage is added; the stronger assertion still catches the fault, so this is true."
+            }
+          ],
+          "generalFeedback": "When the code is already covered, a stronger assertion adds no new lines but can make the test fail on a mutant. This is why 49% of ACH tests killed a mutant with no new coverage."
+        },
+        {
+          "type": "multichoice",
+          "name": "How a coverage metric scores the 49% tests",
+          "text": "<p>How would a pure coverage metric score the 49% of tests that kill a mutant with no new covered line?</p>",
+          "answers": [
+            {
+              "text": "As adding nothing — even though they catch real faults",
+              "fraction": 100,
+              "feedback": "Correct — coverage sees no new lines, so it undervalues these fault-catching tests."
+            },
+            {
+              "text": "As the most valuable tests in the suite",
+              "fraction": 0,
+              "feedback": "Coverage records no new lines for them, so it would not rank them highly."
+            },
+            {
+              "text": "As failing to compile",
+              "fraction": 0,
+              "feedback": "They are valid tests; coverage simply credits them with no new lines."
+            },
+            {
+              "text": "As equivalent mutants",
+              "fraction": 0,
+              "feedback": "Equivalent mutant is a property of a mutant, not a coverage score of a test."
+            }
+          ],
+          "generalFeedback": "A coverage metric sees no newly-covered line and therefore scores these tests as \"adding nothing\", even though each one catches a real fault — the central reason coverage alone under-measures test quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contrast the two goals",
+          "text": "<p>Which pairing correctly contrasts the two test-generation goals?</p>",
+          "answers": [
+            {
+              "text": "Coverage-directed = execute more lines; fault-directed = kill mutants (detect injected faults)",
+              "fraction": 100,
+              "feedback": "Correct — one optimises execution, the other optimises fault detection."
+            },
+            {
+              "text": "Coverage-directed = kill mutants; fault-directed = execute more lines",
+              "fraction": 0,
+              "feedback": "This reverses the two goals."
+            },
+            {
+              "text": "Coverage-directed = detect faults; fault-directed = ignore faults",
+              "fraction": 0,
+              "feedback": "Coverage-directed does not directly target faults, and fault-directed is all about faults."
+            },
+            {
+              "text": "Both aim only to reduce test runtime",
+              "fraction": 0,
+              "feedback": "Neither goal is defined by runtime."
+            }
+          ],
+          "generalFeedback": "Coverage-directed generation aims to execute more code; fault-directed generation aims to kill mutants — detect injected faults. Because coverage is not fault detection, the two goals genuinely diverge.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Scenario: null / resource leak — why coverage misses it",
+          "text": "<p>A function opens a file handle and releases it only on the success path; an error path returns without releasing it (a resource leak). A happy-path test covers the function. Why does it miss the fault, and what does a fault-directed test add?</p>",
+          "answers": [
+            {
+              "text": "The happy path never exercises the leaking error path, and even when reached nothing asserts the handle was released — a fault-directed test drives the error path and asserts the handle is closed",
+              "fraction": 100,
+              "feedback": "Correct — it needs both the error path and an assertion on release."
+            },
+            {
+              "text": "The happy path is uncovered, so more coverage alone would fix it",
+              "fraction": 0,
+              "feedback": "The happy path is covered; the missing piece is exercising the error path and asserting release."
+            },
+            {
+              "text": "The leak is impossible to detect by any test",
+              "fraction": 0,
+              "feedback": "A test that reaches the error path and checks release detects it fine."
+            },
+            {
+              "text": "Adding any assertion on the success path would kill the mutant",
+              "fraction": 0,
+              "feedback": "The fault is on the error path; asserting only on the success path does not reach it."
+            }
+          ],
+          "generalFeedback": "The happy-path test never runs the leaking branch, and covering it would still not assert that the handle was released. A fault-directed test drives the error path and asserts the resource is freed, killing the leak mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: off-by-one — why coverage misses it",
+          "text": "<p>A loop uses <code>i &lt;= n</code> where it should use <code>i &lt; n</code>, reading one element past the end. A test runs the whole loop and only asserts the running total is non-negative. Why does it miss the fault?</p>",
+          "answers": [
+            {
+              "text": "Covering the loop executes every iteration but the assertion never checks the boundary element or the exact result the extra iteration corrupts",
+              "fraction": 100,
+              "feedback": "Correct — coverage of the loop body does not assert the boundary behaviour."
+            },
+            {
+              "text": "The loop body is never executed",
+              "fraction": 0,
+              "feedback": "The loop is fully covered; the problem is the weak assertion, not reachability."
+            },
+            {
+              "text": "Off-by-one faults cannot be detected by assertions",
+              "fraction": 0,
+              "feedback": "Asserting the exact boundary result detects them precisely."
+            },
+            {
+              "text": "The mutant is equivalent",
+              "fraction": 0,
+              "feedback": "Reading past the end changes behaviour, so it is not equivalent."
+            }
+          ],
+          "generalFeedback": "Executing the loop gives full coverage, but a vague assertion (non-negative total) does not catch the corrupted boundary. A fault-directed test asserts the exact expected result or the last valid index so the extra iteration is caught.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: missing cleanup — why coverage misses it",
+          "text": "<p>A function creates a temporary resource and deletes it at the end, but an early <code>return</code> on invalid input skips the deletion (missing cleanup). A test that passes valid input covers the normal path. Why does it miss the fault?</p>",
+          "answers": [
+            {
+              "text": "The normal path runs cleanup, so only the early-return path leaves the resource behind; the covering test never triggers that path or asserts cleanup",
+              "fraction": 100,
+              "feedback": "Correct — the fault lives only on the skipped-cleanup error path."
+            },
+            {
+              "text": "Cleanup is never reached on any path",
+              "fraction": 0,
+              "feedback": "Cleanup runs fine on the normal path; it is skipped only on the early return."
+            },
+            {
+              "text": "The temporary resource is never created",
+              "fraction": 0,
+              "feedback": "It is created; the fault is that it is not deleted on the early-return path."
+            },
+            {
+              "text": "The fault appears on every input",
+              "fraction": 0,
+              "feedback": "It appears only on the invalid-input early-return path."
+            }
+          ],
+          "generalFeedback": "On valid input the cleanup runs, so the covering test sees nothing wrong. A fault-directed test supplies invalid input to force the early return and asserts the temporary resource was cleaned up, killing the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: unchecked exception — why coverage misses it",
+          "text": "<p>A parser throws on a malformed input, but nothing handles or asserts that exception. A test with well-formed input covers the parser. Why does it miss the fault, and what does a fault-directed test add?</p>",
+          "answers": [
+            {
+              "text": "Well-formed input never triggers the exceptional path; a fault-directed test feeds malformed input and asserts the expected exception (or its handling)",
+              "fraction": 100,
+              "feedback": "Correct — the exceptional behaviour surfaces only with exceptional input plus an assertion on it."
+            },
+            {
+              "text": "The parser code is unreachable",
+              "fraction": 0,
+              "feedback": "It is reached with well-formed input; the exceptional branch simply is not exercised."
+            },
+            {
+              "text": "Exceptions can never be asserted in a test",
+              "fraction": 0,
+              "feedback": "Tests routinely assert that a specific exception is thrown."
+            },
+            {
+              "text": "The fault only matters for performance",
+              "fraction": 0,
+              "feedback": "It is a correctness fault on the exceptional path, not a performance issue."
+            }
+          ],
+          "generalFeedback": "Well-formed input runs the parser but never the exceptional path. A fault-directed test supplies malformed input and asserts the expected exception is thrown (or correctly handled), catching the unchecked-exception fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: index past the end",
+          "text": "<p>A routine iterates with <code>for (i = 0; i &lt;= len; i++)</code> and accesses <code>a[i]</code>, reading one slot beyond the array. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Off-by-one",
+              "fraction": 100,
+              "feedback": "Correct — the boundary condition is wrong by one (vs)."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "No teardown is skipped here; the fault is a boundary index error."
+            },
+            {
+              "text": "Unchecked exception",
+              "fraction": 0,
+              "feedback": "The root cause is a boundary error; any exception is a symptom, not the class."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "No resource or null is involved; the fault is a boundary index error."
+            }
+          ],
+          "generalFeedback": "Usingwhereis needed reads one element past the end — the textbook off-by-one fault class.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: early return skips teardown",
+          "text": "<p>A function begins a database transaction, and on an early <code>return</code> for a validation error it neither commits nor rolls back, leaving the transaction open. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Missing cleanup",
+              "fraction": 100,
+              "feedback": "Correct — the teardown (rollback/commit) is skipped on the early-return path."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "No boundary index is involved."
+            },
+            {
+              "text": "Unchecked exception",
+              "fraction": 0,
+              "feedback": "The issue is a skipped teardown step on early return, not an unhandled exception."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "Although related, the defining feature here is that the cleanup/teardown step is skipped on an error path — the missing-cleanup class."
+            }
+          ],
+          "generalFeedback": "An early return that skips the transaction teardown is the missing-cleanup class: cleanup runs on the normal path but is skipped on an error/early-return path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: unchecked null return",
+          "text": "<p><code>lookup(key)</code> may return <code>null</code> when the key is absent, and the caller immediately does <code>lookup(key).name</code> with no null check. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Null / resource leak",
+              "fraction": 100,
+              "feedback": "Correct — dereferencing a possibly-null value is the null part of this class."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "No boundary index is involved."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "Nothing needs to be cleaned up; the fault is an unguarded null dereference."
+            },
+            {
+              "text": "Unchecked exception",
+              "fraction": 0,
+              "feedback": "While a null dereference may throw, the modelled class here is the null / resource-leak class (an unguarded null)."
+            }
+          ],
+          "generalFeedback": "Dereferencing a value that may be null without a guard is the null / resource-leak fault class (its null side).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the defect: throws on bad input, nobody catches",
+          "text": "<p><code>Integer.parseInt(s)</code> throws when <code>s</code> is non-numeric, and neither the code nor any test handles or asserts that case. Which fault class is this?</p>",
+          "answers": [
+            {
+              "text": "Unchecked exception",
+              "fraction": 100,
+              "feedback": "Correct — an exceptional path that is neither handled nor asserted."
+            },
+            {
+              "text": "Off-by-one",
+              "fraction": 0,
+              "feedback": "No boundary index is involved."
+            },
+            {
+              "text": "Missing cleanup",
+              "fraction": 0,
+              "feedback": "No teardown step is skipped here."
+            },
+            {
+              "text": "Null / resource leak",
+              "fraction": 0,
+              "feedback": "No null dereference or leaked resource; the fault is an unhandled/ unasserted exception."
+            }
+          ],
+          "generalFeedback": "An exception path that is neither handled nor asserted is the unchecked-exception class: the code runs on normal input but the fault surfaces only when the exceptional input is supplied and asserted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 100% coverage can still miss a fault",
+          "text": "<p>A suite achieves 100% line coverage yet a mutant survives. What is the most likely reason?</p>",
+          "answers": [
+            {
+              "text": "The faulty line executed, but no assertion checked the behaviour the fault changes",
+              "fraction": 100,
+              "feedback": "Correct — coverage guarantees execution, not that the corrupted result is observed."
+            },
+            {
+              "text": "The faulty line was never executed",
+              "fraction": 0,
+              "feedback": "With 100% line coverage the line did execute; the gap is in the assertions."
+            },
+            {
+              "text": "100% coverage makes every mutant equivalent",
+              "fraction": 0,
+              "feedback": "Coverage has no effect on whether a mutant is equivalent."
+            },
+            {
+              "text": "The suite has too many assertions",
+              "fraction": 0,
+              "feedback": "Surviving mutants indicate too-weak assertions, not too many."
+            }
+          ],
+          "generalFeedback": "Full line coverage only means every line ran. If no assertion observes the value the fault corrupts, the mutant survives — coverage is necessary but not sufficient for fault detection.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Covering a line asserts its correctness",
+          "text": "<p>Reaching (covering) a line in a test guarantees that the test also asserts the line behaves correctly.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Reaching a line only executes it; the test may check nothing about its result."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — execution and assertion are independent; covering a line does not assert it."
+            }
+          ],
+          "generalFeedback": "Coverage records that a line ran, not that the test checked its output. A covered line with no relevant assertion still lets a fault in that line survive."
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing assertion for off-by-one",
+          "text": "<p>To kill a mutant that changes a loop bound from <code>i &lt; n</code> to <code>i &lt;= n</code>, which assertion is most effective?</p>",
+          "answers": [
+            {
+              "text": "Assert the exact expected result (or that no read occurs at index), so the extra iteration is caught",
+              "fraction": 100,
+              "feedback": "Correct — checking the precise boundary outcome fails on the extra iteration."
+            },
+            {
+              "text": "Assert only that the function returns something",
+              "fraction": 0,
+              "feedback": "The mutant still returns a value; a mere existence check does not catch it."
+            },
+            {
+              "text": "Assert the loop variable is an integer",
+              "fraction": 0,
+              "feedback": "The type is unchanged by the fault, so this never fails."
+            },
+            {
+              "text": "Assert the input array is non-empty",
+              "fraction": 0,
+              "feedback": "That checks the input, not the corrupted boundary behaviour."
+            }
+          ],
+          "generalFeedback": "Only an assertion on the exact result affected by the boundary — the precise value or that indexis not read — distinguishesfromand kills the off-by-one mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing approach for missing cleanup",
+          "text": "<p>To kill a missing-cleanup mutant where teardown is skipped on an error path, a fault-directed test should:</p>",
+          "answers": [
+            {
+              "text": "Drive the error/early-return path and assert that the cleanup actually happened (resource freed, transaction closed)",
+              "fraction": 100,
+              "feedback": "Correct — it must reach the faulty path and check the teardown."
+            },
+            {
+              "text": "Run the normal path and assert the return value",
+              "fraction": 0,
+              "feedback": "The normal path already performs cleanup, so it never exposes the fault."
+            },
+            {
+              "text": "Increase overall line coverage without new assertions",
+              "fraction": 0,
+              "feedback": "Coverage without asserting cleanup will not catch a skipped teardown."
+            },
+            {
+              "text": "Assert only that the error was returned",
+              "fraction": 0,
+              "feedback": "The error is returned in both versions; only the cleanup differs."
+            }
+          ],
+          "generalFeedback": "The fault lives on the error path, so the test must trigger that path and assert the cleanup was performed. Only then does the missing-teardown mutant fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing approach for unchecked exception",
+          "text": "<p>To kill an unchecked-exception mutant, a fault-directed test should:</p>",
+          "answers": [
+            {
+              "text": "Supply the exceptional input and assert the expected exception is thrown (or correctly handled)",
+              "fraction": 100,
+              "feedback": "Correct — the exceptional path must be exercised and asserted."
+            },
+            {
+              "text": "Supply only normal input and assert the happy-path result",
+              "fraction": 0,
+              "feedback": "Normal input never reaches the exceptional path."
+            },
+            {
+              "text": "Wrap the whole test in a try/catch and ignore any exception",
+              "fraction": 0,
+              "feedback": "Swallowing the exception means the test asserts nothing about it, so it cannot fail on the mutant."
+            },
+            {
+              "text": "Assert the function name is spelled correctly",
+              "fraction": 0,
+              "feedback": "That checks nothing about the exceptional behaviour."
+            }
+          ],
+          "generalFeedback": "The exceptional behaviour surfaces only with exceptional input plus an explicit assertion (assertThrows or that the handler ran). That is what kills an unchecked-exception mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing approach for a null dereference",
+          "text": "<p>To kill a null-dereference mutant where a missing guard lets an absent value be dereferenced, a fault-directed test should:</p>",
+          "answers": [
+            {
+              "text": "Exercise the case where the value is null/absent and assert the guarded behaviour (a default, or a specific handled outcome)",
+              "fraction": 100,
+              "feedback": "Correct — only the null/absent case triggers the missing guard, and the assertion pins the expected behaviour."
+            },
+            {
+              "text": "Exercise only the case where the value is present and assert its field",
+              "fraction": 0,
+              "feedback": "A present value never triggers the missing null guard."
+            },
+            {
+              "text": "Increase coverage of unrelated methods",
+              "fraction": 0,
+              "feedback": "That does not reach or assert the null path."
+            },
+            {
+              "text": "Assert that the value has the correct type",
+              "fraction": 0,
+              "feedback": "The type is unchanged by the fault; the null case is what matters."
+            }
+          ],
+          "generalFeedback": "The fault surfaces only when the value is null/absent, so the test must exercise that case and assert the guarded outcome — the missing guard then makes the mutant dereference null and fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "An assertion-only test that adds no coverage",
+          "text": "<p>A new test executes exactly the same lines as an existing passing test but adds an assertion that fails on a seeded off-by-one mutant. The coverage tool reports zero new lines. Is the test worthless?</p>",
+          "answers": [
+            {
+              "text": "No — it is a fault-directed test that kills a mutant coverage alone would score as adding nothing",
+              "fraction": 100,
+              "feedback": "Correct — it improves fault detection without changing coverage."
+            },
+            {
+              "text": "Yes — adding no new lines means it adds no value",
+              "fraction": 0,
+              "feedback": "It kills a mutant; catching a real fault is value coverage cannot see."
+            },
+            {
+              "text": "Yes — only tests that raise coverage matter",
+              "fraction": 0,
+              "feedback": "The 49% finding directly refutes this."
+            },
+            {
+              "text": "No — but only because it raised coverage",
+              "fraction": 0,
+              "feedback": "It raised no coverage; its value is the killing assertion."
+            }
+          ],
+          "generalFeedback": "This is exactly the 49% case: same lines, stronger assertion, a killed mutant. A coverage metric records nothing, yet the test catches a real fault — showing coverage and fault detection are distinct.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why coverage and mutation score diverge",
+          "text": "<p>Why can a suite's line coverage be high while its mutation score is low?</p>",
+          "answers": [
+            {
+              "text": "Coverage only requires the faulty code to execute, while killing a mutant additionally requires the corrupted result to be observed by an assertion",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution; killing a mutant needs execution plus an observing assertion."
+            },
+            {
+              "text": "Mutation score counts only lines that were never executed",
+              "fraction": 0,
+              "feedback": "Mutation score is about killed mutants, not unexecuted lines."
+            },
+            {
+              "text": "High coverage forces a high mutation score",
+              "fraction": 0,
+              "feedback": "The premise of the question shows this is false; the two can diverge."
+            },
+            {
+              "text": "Coverage and mutation score always measure the same thing",
+              "fraction": 0,
+              "feedback": "They do not — that is precisely why they can diverge."
+            }
+          ],
+          "generalFeedback": "Coverage credits execution alone. Killing a mutant needs the mutated line to run, corrupt the state, and have that corruption observed by an assertion. Weak assertions leave high coverage but low mutation score.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which test is fault-directed",
+          "text": "<p>Test A raises line coverage but kills no mutant. Test B kills a mutant without raising coverage. Which is fault-directed, and why?</p>",
+          "answers": [
+            {
+              "text": "Test B — it detects an injected fault, which is the fault-directed goal, regardless of coverage",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant is fault detection; coverage is beside the point."
+            },
+            {
+              "text": "Test A — it raises coverage, which is what fault-directed testing optimises",
+              "fraction": 0,
+              "feedback": "Raising coverage is the coverage-directed goal, not the fault-directed one."
+            },
+            {
+              "text": "Both equally, because both are tests",
+              "fraction": 0,
+              "feedback": "Only Test B detects a fault; only it is fault-directed."
+            },
+            {
+              "text": "Neither, because a fault-directed test must do both",
+              "fraction": 0,
+              "feedback": "A fault-directed test need not add coverage; killing a mutant suffices."
+            }
+          ],
+          "generalFeedback": "Fault-directed means detecting injected faults (killing mutants). Test B does that with no new coverage — the 49% case. Test A adds coverage but detects nothing, the coverage-directed outcome.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the assertion that kills a leak mutant",
+          "text": "<p>A resource-leak mutant removes the <code>close()</code> on the error path. Which assertion most directly kills it?</p>",
+          "answers": [
+            {
+              "text": "After driving the error path, assert the handle is closed (e.g. open-handle count returned to zero)",
+              "fraction": 100,
+              "feedback": "Correct — this observes the release the mutant skipped."
+            },
+            {
+              "text": "Assert the function returned an error code",
+              "fraction": 0,
+              "feedback": "Both versions return the same error code; only the release differs."
+            },
+            {
+              "text": "Assert the happy path returns the right value",
+              "fraction": 0,
+              "feedback": "The happy path still closes the handle, so it never exposes the mutant."
+            },
+            {
+              "text": "Assert total line coverage increased",
+              "fraction": 0,
+              "feedback": "Coverage is not an assertion and does not observe the leaked handle."
+            }
+          ],
+          "generalFeedback": "The mutant differs only in whether the handle is released on the error path, so the killing assertion must reach that path and check the handle was actually closed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the assertion that kills an unchecked-exception mutant",
+          "text": "<p>A mutant removes a guard so that malformed input now throws instead of returning an error result. Which assertion kills it?</p>",
+          "answers": [
+            {
+              "text": "Feed malformed input and assert the specified graceful result (so a thrown exception fails the test)",
+              "fraction": 100,
+              "feedback": "Correct — asserting the expected non-throwing behaviour on bad input catches the change."
+            },
+            {
+              "text": "Feed valid input and assert the normal result",
+              "fraction": 0,
+              "feedback": "Valid input never triggers the guarded path."
+            },
+            {
+              "text": "Catch and ignore all exceptions in the test",
+              "fraction": 0,
+              "feedback": "Swallowing the exception hides the change, so the mutant survives."
+            },
+            {
+              "text": "Assert the test file compiles",
+              "fraction": 0,
+              "feedback": "Compilation says nothing about the exceptional behaviour."
+            }
+          ],
+          "generalFeedback": "The mutant changes behaviour on malformed input from a graceful result to a thrown exception. Only a test that supplies that input and asserts the specified behaviour distinguishes the two and kills the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the assertion that kills a null-guard mutant",
+          "text": "<p>A mutant deletes a null check so that an absent lookup now dereferences <code>null</code> instead of returning a default. Which assertion kills it?</p>",
+          "answers": [
+            {
+              "text": "Call with a key that is absent and assert the documented default is returned (so a null dereference fails the test)",
+              "fraction": 100,
+              "feedback": "Correct — exercising the absent-key case and asserting the guarded default catches the missing check."
+            },
+            {
+              "text": "Call with a present key and assert the value",
+              "fraction": 0,
+              "feedback": "A present key never triggers the deleted null guard."
+            },
+            {
+              "text": "Assert the lookup table is non-empty",
+              "fraction": 0,
+              "feedback": "That checks the fixture, not the guarded behaviour."
+            },
+            {
+              "text": "Assert the method signature is unchanged",
+              "fraction": 0,
+              "feedback": "The signature is unaffected by the fault."
+            }
+          ],
+          "generalFeedback": "The guard matters only for the absent-key case, so the killing test uses an absent key and asserts the documented default — the deleted guard then makes the mutant dereference null and fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why fault-directed testing complements coverage",
+          "text": "<p>Why is fault-directed testing best seen as complementing rather than replacing coverage?</p>",
+          "answers": [
+            {
+              "text": "Coverage ensures code is reached; fault-directed assertions ensure the reached code is actually checked for faults — both are needed",
+              "fraction": 100,
+              "feedback": "Correct — reachability and fault detection are complementary requirements."
+            },
+            {
+              "text": "Fault-directed testing makes coverage measurement impossible",
+              "fraction": 0,
+              "feedback": "The two can be measured together; one does not preclude the other."
+            },
+            {
+              "text": "Coverage already guarantees fault detection, so fault-directed testing is redundant",
+              "fraction": 0,
+              "feedback": "Coverage does not guarantee fault detection — that is the whole point of this app."
+            },
+            {
+              "text": "Fault-directed testing only works when coverage is 0%",
+              "fraction": 0,
+              "feedback": "It works at any coverage level; it strengthens assertions on whatever code is reached."
+            }
+          ],
+          "generalFeedback": "You still need coverage to reach the faulty code, and you need fault-directed assertions to detect faults in it. A mutant cannot be killed if its line is never executed, and it survives if the executed line is never checked — so the two are complementary.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which test demonstrates the 49% finding",
+          "text": "<p>Two tests each kill a mutant. Test X reaches a brand-new branch and asserts its result; Test Y adds an assertion to an already-covered branch. Which one demonstrates the 49% finding, and why?</p>",
+          "answers": [
+            {
+              "text": "Test Y — it kills a mutant without adding any newly-covered line, exactly the 49% case",
+              "fraction": 100,
+              "feedback": "Correct — the finding is about kills that add no coverage."
+            },
+            {
+              "text": "Test X — it adds both coverage and a killing assertion",
+              "fraction": 0,
+              "feedback": "Test X adds new coverage, so it is not the no-new-coverage case the finding describes."
+            },
+            {
+              "text": "Both, because both kill a mutant",
+              "fraction": 0,
+              "feedback": "Only Test Y kills a mutant with zero new coverage."
+            },
+            {
+              "text": "Neither, because the finding is about tests that kill no mutant",
+              "fraction": 0,
+              "feedback": "The finding is precisely about tests that do kill a mutant while adding no coverage."
+            }
+          ],
+          "generalFeedback": "The 49% finding is about tests that kill a mutant while adding no newly-covered line. Test Y does that by strengthening an assertion on already-covered code; Test X instead adds coverage too, so it is not the illustrative case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% branch coverage, surviving mutant",
+          "text": "<p>A suite has 100% branch coverage but a non-equivalent mutant survives. What must be added to kill it?</p>",
+          "answers": [
+            {
+              "text": "A stronger assertion that observes the value the mutant corrupts (and, if needed, an input that makes the corruption propagate)",
+              "fraction": 100,
+              "feedback": "Correct — the branch runs, so the gap is in observing the corrupted result."
+            },
+            {
+              "text": "More branches to cover",
+              "fraction": 0,
+              "feedback": "Branch coverage is already 100%, so there are no uncovered branches to add."
+            },
+            {
+              "text": "Deleting the surviving mutant",
+              "fraction": 0,
+              "feedback": "The mutant is a fault model; the fix is a better test, not deleting the mutant."
+            },
+            {
+              "text": "Nothing — 100% branch coverage means the suite is complete",
+              "fraction": 0,
+              "feedback": "A surviving non-equivalent mutant proves the suite is not fault-adequate."
+            }
+          ],
+          "generalFeedback": "With full branch coverage the faulty branch runs, so what is missing is an assertion that observes the corrupted output (and possibly an input that makes it propagate). Coverage is maxed; fault detection is not.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the 49% specifically proves",
+          "text": "<p>Why does \"49% of tests kill a mutant with no new covered line\" specifically prove coverage &#8800; fault detection?</p>",
+          "answers": [
+            {
+              "text": "These tests increase fault detection (a kill) while the coverage measure records no change, so the two measures move independently",
+              "fraction": 100,
+              "feedback": "Correct — fault detection rose while coverage did not, so they are not the same measure."
+            },
+            {
+              "text": "Because they raise coverage without killing mutants",
+              "fraction": 0,
+              "feedback": "That reverses the finding; they kill mutants without raising coverage."
+            },
+            {
+              "text": "Because they neither raise coverage nor kill mutants",
+              "fraction": 0,
+              "feedback": "They do kill mutants; that is the point."
+            },
+            {
+              "text": "Because coverage tools are broken",
+              "fraction": 0,
+              "feedback": "The tools work correctly; there genuinely are no new lines to credit."
+            }
+          ],
+          "generalFeedback": "If coverage and fault detection were the same, no test could improve one without the other. Nearly half the tests improved fault detection with zero coverage change, so the two measures are provably distinct.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Blind spot of a coverage-directed generator",
+          "text": "<p>A generator that only rewards tests adding new lines would deprioritise a test that adds no coverage. What kind of fault does this blind spot let through?</p>",
+          "answers": [
+            {
+              "text": "Faults in already-covered code that need only a stronger assertion to detect",
+              "fraction": 100,
+              "feedback": "Correct — those are exactly the tests a coverage-only reward discards."
+            },
+            {
+              "text": "Faults in unreachable dead code",
+              "fraction": 0,
+              "feedback": "Dead code cannot be covered or killed by any test, so it is not the blind spot here."
+            },
+            {
+              "text": "Faults that only a new branch could reveal",
+              "fraction": 0,
+              "feedback": "A coverage-directed generator actually rewards reaching new branches, so those are not its blind spot."
+            },
+            {
+              "text": "Compilation errors",
+              "fraction": 0,
+              "feedback": "Those are caught by the compiler, not a testing blind spot."
+            }
+          ],
+          "generalFeedback": "Rewarding only new coverage discards assertion-strengthening tests on already-covered code — precisely the 49% that catch faults with no new lines. That is the coverage-directed blind spot fault-directed testing fills.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Off-by-one: from weak assertion to killing assertion",
+          "text": "<p>A test loops fully over an array (full coverage) but only asserts the sum is positive; an <code>i &lt;= n</code> off-by-one mutant that reads a trailing zero survives. What single change makes the test fault-directed?</p>",
+          "answers": [
+            {
+              "text": "Assert the exact expected sum (or that the element at indexis never read), which the extra iteration violates",
+              "fraction": 100,
+              "feedback": "Correct — a precise assertion on the affected value kills the mutant without new coverage."
+            },
+            {
+              "text": "Add another test that covers a different function",
+              "fraction": 0,
+              "feedback": "That does not address the surviving mutant in this loop."
+            },
+            {
+              "text": "Assert the sum is a number",
+              "fraction": 0,
+              "feedback": "The mutant still yields a number, so this never fails."
+            },
+            {
+              "text": "Loop one more time to increase coverage",
+              "fraction": 0,
+              "feedback": "Coverage is already full; the problem is the weak assertion."
+            }
+          ],
+          "generalFeedback": "If reading the trailing zero leaves the sum unchanged, \"sum positive\" cannot catch it; but the exact expected sum (or checking indexis never read) does. This is a fault-directed fix that adds no coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missing cleanup on a non-finally error branch",
+          "text": "<p>Cleanup is written inline at the end of the normal path (not in a <code>finally</code>), and an error branch returns before it. A happy-path test runs the cleanup line and passes. Why does mutation still reveal a fault here?</p>",
+          "answers": [
+            {
+              "text": "The mutant/error path skips the inline cleanup, and only a test that drives the error path and asserts cleanup detects it — the happy path never exercises the skip",
+              "fraction": 100,
+              "feedback": "Correct — the skipped-cleanup behaviour lives on the error path the happy-path test never takes."
+            },
+            {
+              "text": "The cleanup line is unreachable on every path",
+              "fraction": 0,
+              "feedback": "It is reached on the normal path; it is skipped only on the error branch."
+            },
+            {
+              "text": "A happy-path test already exercises the skip",
+              "fraction": 0,
+              "feedback": "The happy path runs cleanup; it never triggers the early-return skip."
+            },
+            {
+              "text": "Moving cleanup into finally would create the fault",
+              "fraction": 0,
+              "feedback": "Awould in fact prevent the skip; the fault is that cleanup is not guaranteed on the error path."
+            }
+          ],
+          "generalFeedback": "Because cleanup is not in a, the early-return error branch skips it. The happy-path test runs the inline cleanup and never sees the skip. A fault-directed test must drive the error path and assert cleanup happened.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why covering normal input is insufficient for an exception fault",
+          "text": "<p>For an unchecked-exception fault, why is covering the function with normal input insufficient even at 100% line coverage of the normal path?</p>",
+          "answers": [
+            {
+              "text": "The fault surfaces only on exceptional input, which normal-input coverage never supplies or asserts",
+              "fraction": 100,
+              "feedback": "Correct — the exceptional path and its assertion are what expose the fault."
+            },
+            {
+              "text": "Line coverage of the normal path already exercises the exceptional path",
+              "fraction": 0,
+              "feedback": "It does not; the exceptional path requires exceptional input."
+            },
+            {
+              "text": "Exceptions are always caught automatically by the runtime",
+              "fraction": 0,
+              "feedback": "An unchecked exception is precisely one that is not handled."
+            },
+            {
+              "text": "100% line coverage guarantees killing all mutants",
+              "fraction": 0,
+              "feedback": "It does not — coverage is not fault detection."
+            }
+          ],
+          "generalFeedback": "Normal input covers the normal path but never triggers the exceptional behaviour. Detecting the fault requires exceptional input plus an explicit assertion on how the exception is thrown or handled.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle case: coverage gain and killing assertion differ",
+          "text": "<p>A single new test reaches a never-before-covered error branch <em>and</em> asserts that a resource is released there, killing a leak mutant. Which statement about its two contributions is correct?</p>",
+          "answers": [
+            {
+              "text": "Reaching the branch is the coverage gain; the release assertion is what kills the mutant — reaching it alone would not have",
+              "fraction": 100,
+              "feedback": "Correct — coverage and the killing assertion are separate contributions, even in one test."
+            },
+            {
+              "text": "Reaching the new branch alone kills the mutant, so the assertion is unnecessary",
+              "fraction": 0,
+              "feedback": "Merely reaching the branch (coverage) does not observe whether the resource was released."
+            },
+            {
+              "text": "The assertion adds the coverage; reaching the branch kills the mutant",
+              "fraction": 0,
+              "feedback": "This swaps the roles — coverage comes from reaching the branch, the kill from the assertion."
+            },
+            {
+              "text": "The two contributions are the same measurement",
+              "fraction": 0,
+              "feedback": "They are distinct: one is execution, the other is fault detection."
+            }
+          ],
+          "generalFeedback": "Even when one test does both, the contributions are separable: reaching the branch raises coverage, but the mutant is killed only by the assertion that observes the release. Without the assertion, the added coverage would leave the leak mutant alive.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "High line coverage guarantees a high mutation score",
+          "text": "<p>A suite with high line coverage is guaranteed to also have a high mutation score.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "High coverage means code runs, but with weak assertions many mutants can still survive, so the mutation score can be low."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution, not fault detection; weak assertions can leave a low mutation score despite high coverage."
+            }
+          ],
+          "generalFeedback": "Coverage credits execution; killing mutants also needs assertions that observe the corrupted results. A high-coverage suite with weak assertions can have a low mutation score — the two measures are distinct, which is the core lesson of fault-directed testing."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "涵蓋率導向測試的目標",
+          "text": "<p><strong>涵蓋率導向</strong>（盲目）測試產生策略的目標是：</p>",
+          "answers": [
+            {
+              "text": "執行（涵蓋）程式中更多的行或分支",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率導向策略以「執行了多少程式碼」為最佳化目標。"
+            },
+            {
+              "text": "盡可能殺死更多注入的缺陷（變異體）",
+              "fraction": 0,
+              "feedback": "那是缺陷導向測試的目標，不是涵蓋率導向測試。"
+            },
+            {
+              "text": "盡量減少每個測試中的斷言數量",
+              "fraction": 0,
+              "feedback": "兩種策略都不以減少斷言為目標；涵蓋率導向只針對被執行的程式碼。"
+            },
+            {
+              "text": "證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何測試產生策略能證明缺陷完全不存在。"
+            }
+          ],
+          "generalFeedback": "涵蓋率導向的產生方式以某個結構涵蓋率指標為最佳化目標——它力求執行更多的行與分支，但並不說明那些被執行的行是否真的被檢查出缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷導向測試的目標",
+          "text": "<p><strong>缺陷導向</strong>（變異引導）測試產生策略的目標是：</p>",
+          "answers": [
+            {
+              "text": "殺死變異體——透過斷言缺陷會破壞的行為來偵測注入的缺陷",
+              "fraction": 100,
+              "feedback": "正確——缺陷導向測試鎖定特定缺陷，並加入在被改動的程式碼上會失敗的斷言。"
+            },
+            {
+              "text": "執行盡可能大比例的行與分支",
+              "fraction": 0,
+              "feedback": "那是涵蓋率導向測試；缺陷導向測試衡量的是缺陷偵測。"
+            },
+            {
+              "text": "不論檢查什麼，都跑最快的測試",
+              "fraction": 0,
+              "feedback": "速度不是目標；偵測缺陷才是。"
+            },
+            {
+              "text": "產生盡可能多的隨機輸入",
+              "fraction": 0,
+              "feedback": "目標不是隨機輸入的數量，而是殺死變異體。"
+            }
+          ],
+          "generalFeedback": "缺陷導向（變異引導）的產生方式鎖定特定缺陷類別，並撰寫植入的缺陷會違反的斷言，使測試在被改動的程式上失敗（殺死變異體）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "涵蓋率等同於缺陷偵測",
+          "text": "<p>執行（涵蓋）一行程式碼，就等於偵測到那一行中的缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "涵蓋率只代表該行被執行；一個測試可以執行某行卻不斷言任何該行缺陷會破壞的事。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率衡量的是執行，而非缺陷偵測；兩者是不同的。"
+            }
+          ],
+          "generalFeedback": "涵蓋率計算的是程式碼是否被執行。偵測缺陷則需要一個會被該缺陷行為違反的斷言。一個測試可以增加被涵蓋的行卻毫無有意義的斷言——涵蓋率與缺陷偵測並不相同。"
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是變異體",
+          "text": "<p>在此脈絡下，<em>變異體（mutant）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "一個被刻意注入單一缺陷的程式版本",
+              "fraction": 100,
+              "feedback": "正確——變異體就是被植入一個小缺陷的程式。"
+            },
+            {
+              "text": "一個能提高程式碼涵蓋率的測試案例",
+              "fraction": 0,
+              "feedback": "那是測試，不是變異體；變異體是被改動過的程式。"
+            },
+            {
+              "text": "一行從未被執行的程式碼",
+              "fraction": 0,
+              "feedback": "未執行的程式碼是涵蓋率缺口，不是變異體。"
+            },
+            {
+              "text": "使用者回報的一個正式環境臭蟲",
+              "fraction": 0,
+              "feedback": "變異體是為了評估測試而刻意注入的，並非現場回報的缺陷。"
+            }
+          ],
+          "generalFeedback": "變異體是被注入一個缺陷的程式。缺陷導向測試以變異體來代表一個好測試應當抓到的缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死變異體的意義",
+          "text": "<p><em>殺死變異體</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "某個測試偵測到注入的缺陷——它在被改動的程式上失敗",
+              "fraction": 100,
+              "feedback": "正確——殺死變異體正是偵測到植入的缺陷。"
+            },
+            {
+              "text": "某個測試執行了被改動的那一行卻沒有檢查其結果",
+              "fraction": 0,
+              "feedback": "只執行該行是涵蓋率；殺死需要測試在變異體上真的失敗。"
+            },
+            {
+              "text": "被改動的程式從版本庫中被刪除",
+              "fraction": 0,
+              "feedback": "殺死講的是測試的偵測，不是刪除程式碼。"
+            },
+            {
+              "text": "該變異被證明是無害的",
+              "fraction": 0,
+              "feedback": "那正好相反——被殺死的變異體是其缺陷被測試抓到的變異體。"
+            }
+          ],
+          "generalFeedback": "殺死變異體代表某測試偵測到注入的缺陷：測試在原始程式上通過，在變異體上失敗。殺死變異體就是偵測該缺陷的操作型定義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "49% 發現：它說了什麼",
+          "text": "<p>Meta ACH 研究的一項實證發現是：所產生的測試中有 49% 會：</p>",
+          "answers": [
+            {
+              "text": "殺死一個變異體，卻沒有增加任何一行新涵蓋的程式碼",
+              "fraction": 100,
+              "feedback": "正確——近半數的測試在未涵蓋任何新程式碼的情況下抓到了缺陷。"
+            },
+            {
+              "text": "增加了新涵蓋的行，卻沒有殺死任何變異體",
+              "fraction": 0,
+              "feedback": "那是相反的情況；這項發現講的是殺死變異體卻不增加涵蓋率的測試。"
+            },
+            {
+              "text": "涵蓋受測程式的每一行",
+              "fraction": 0,
+              "feedback": "這項發現與達成完整涵蓋率無關。"
+            },
+            {
+              "text": "是既有測試的重複",
+              "fraction": 0,
+              "feedback": "它們是全新、能抓缺陷的測試——不是重複。"
+            }
+          ],
+          "generalFeedback": "約 49% 所產生的測試在未增加任何新涵蓋行的情況下殺死了變異體。它們在已被涵蓋的程式碼上強化斷言，抓到了涵蓋率指標會判定為「毫無貢獻」的真實缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "49% 發現：它證明了什麼",
+          "text": "<p>49% 的測試在沒有新涵蓋行的情況下殺死變異體，這項發現證明了：</p>",
+          "answers": [
+            {
+              "text": "涵蓋率與缺陷偵測是不同的——一個測試可以在完全不增加涵蓋率的情況下抓到缺陷",
+              "fraction": 100,
+              "feedback": "正確——那正是這些測試所展現的。"
+            },
+            {
+              "text": "涵蓋率總能預測一個測試會抓到多少缺陷",
+              "fraction": 0,
+              "feedback": "這項發現顯示相反：這些測試不增加涵蓋率卻抓到缺陷。"
+            },
+            {
+              "text": "斷言與抓缺陷無關",
+              "fraction": 0,
+              "feedback": "正是被強化的斷言抓到了這些缺陷。"
+            },
+            {
+              "text": "不增加涵蓋率的測試永遠找不到臭蟲",
+              "fraction": 0,
+              "feedback": "這些測試不增加涵蓋率卻找到臭蟲，與此說法矛盾。"
+            }
+          ],
+          "generalFeedback": "由於這些測試在已被涵蓋的程式碼上強化斷言，它們在殺死變異體的同時，涵蓋率指標卻記錄不到任何新的行。這證明涵蓋率與缺陷偵測是不同的度量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識目標：追行數的測試",
+          "text": "<p>某個產生的測試執行了先前未被執行的分支，但只檢查函式「有沒有出錯地返回」，對結果毫無斷言。它實際的目標是：</p>",
+          "answers": [
+            {
+              "text": "涵蓋率導向——它增加了被涵蓋的程式碼，卻沒有斷言任何缺陷會破壞的事",
+              "fraction": 100,
+              "feedback": "正確——它提高了涵蓋率，卻沒有鎖定任何缺陷。"
+            },
+            {
+              "text": "缺陷導向——它殺死了一個變異體",
+              "fraction": 0,
+              "feedback": "沒有有意義的斷言，它無法在被改動的結果上失敗，因此殺不死任何變異體。"
+            },
+            {
+              "text": "都不是——它是一個等價變異體",
+              "fraction": 0,
+              "feedback": "等價變異體是變異體的性質，不是測試的性質。"
+            },
+            {
+              "text": "兩者兼具",
+              "fraction": 0,
+              "feedback": "它只服務於涵蓋率；沒有斷言，它偵測不到任何缺陷。"
+            }
+          ],
+          "generalFeedback": "執行一個分支卻不做任何有意義的斷言，只會提高涵蓋率而偵測不到缺陷。那是涵蓋率導向的結果——有涵蓋率而無缺陷偵測。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識目標：強化斷言的測試",
+          "text": "<p>某個產生的測試執行的行數與既有測試相同，但加入了一個斷言：當邊界索引用 <code>&lt;=</code> 而非 <code>&lt;</code> 計算時會失敗。它的目標是：</p>",
+          "answers": [
+            {
+              "text": "缺陷導向——即使沒有增加新涵蓋率，它仍殺死了一個變異體",
+              "fraction": 100,
+              "feedback": "正確——新斷言偵測到注入的差一缺陷。"
+            },
+            {
+              "text": "涵蓋率導向——它增加了新涵蓋的行",
+              "fraction": 0,
+              "feedback": "它執行的行與之前相同，因此沒有增加新涵蓋率。"
+            },
+            {
+              "text": "毫無意義——它沒有改變任何可衡量的東西",
+              "fraction": 0,
+              "feedback": "它改變了缺陷偵測：它殺死了一個涵蓋率指標會漏掉的變異體。"
+            },
+            {
+              "text": "涵蓋率導向——它刪除了一個斷言",
+              "fraction": 0,
+              "feedback": "它加入了一個斷言，並未刪除。"
+            }
+          ],
+          "generalFeedback": "在已被涵蓋的程式碼上強化斷言不會增加涵蓋率，卻能殺死變異體。那是缺陷導向的測試——正是 49% 發現所描述的那一種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四種缺陷類別",
+          "text": "<p>本應用以四種標註的缺陷類別來說明缺陷導向測試。以下哪一項<strong>不是</strong>其中之一？</p>",
+          "answers": [
+            {
+              "text": "共享計數器上的競態條件（race condition）",
+              "fraction": 100,
+              "feedback": "正確——資料競態不是所說明的四種類別之一。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "這是四種缺陷類別之一。"
+            },
+            {
+              "text": "差一錯誤（off-by-one）",
+              "fraction": 0,
+              "feedback": "這是四種缺陷類別之一。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "這是四種缺陷類別之一。"
+            }
+          ],
+          "generalFeedback": "所說明的四種缺陷類別為：空值／資源洩漏、差一錯誤、缺少清理，以及未檢查的例外。競態條件不在其中。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "涵蓋型測試可以毫無有意義的斷言",
+          "text": "<p>一個測試可以增加新涵蓋的行，卻對那些行是否正確毫無有意義的斷言。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率記錄的是執行，而非斷言的強度。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "涵蓋率只要求該行被執行；測試不必檢查結果，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "只要某行被執行，涵蓋率就會記上這一行，不管測試是否檢查其行為。因此一個測試可以提高涵蓋率卻偵測不到缺陷——涵蓋率與缺陷偵測是不同的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷導向測試的別稱",
+          "text": "<p>缺陷導向測試產生也被描述為：</p>",
+          "answers": [
+            {
+              "text": "變異引導測試（mutation-guided testing）",
+              "fraction": 100,
+              "feedback": "正確——它由測試是否殺死變異體（注入的缺陷）來引導。"
+            },
+            {
+              "text": "涵蓋率最大化測試",
+              "fraction": 0,
+              "feedback": "那描述的是涵蓋率導向的目標，正是缺陷導向測試的對照。"
+            },
+            {
+              "text": "隨機（模糊）測試",
+              "fraction": 0,
+              "feedback": "模糊測試產生隨機輸入；缺陷導向測試鎖定特定缺陷。"
+            },
+            {
+              "text": "負載測試",
+              "fraction": 0,
+              "feedback": "負載測試衡量負載下的效能，與殺死變異體無關。"
+            }
+          ],
+          "generalFeedback": "缺陷導向測試就是變異引導：它以變異體（注入的缺陷）為目標，產生斷言能殺死它們的測試。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "強化斷言不會增加涵蓋率",
+          "text": "<p>對一個已經執行了相關程式碼的測試加入更強的斷言，可以在完全不增加任何新涵蓋行的情況下殺死一個變異體。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——程式碼已被涵蓋，因此只有缺陷偵測改善，涵蓋率沒有。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "那些行已經執行過，所以沒有增加新涵蓋率；更強的斷言仍抓到缺陷，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "當程式碼已被涵蓋時，更強的斷言不會增加新的行，卻能讓測試在變異體上失敗。這正是為什麼 49% 的 ACH 測試在沒有新涵蓋率的情況下殺死變異體。"
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋率指標如何評分那 49% 的測試",
+          "text": "<p>純涵蓋率指標會如何評分那 49% 在沒有新涵蓋行的情況下殺死變異體的測試？</p>",
+          "answers": [
+            {
+              "text": "視為毫無貢獻——即使它們抓到了真實的缺陷",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率看不到新的行，因此低估了這些能抓缺陷的測試。"
+            },
+            {
+              "text": "視為套件中最有價值的測試",
+              "fraction": 0,
+              "feedback": "涵蓋率記錄不到任何新的行，因此不會將它們評為高分。"
+            },
+            {
+              "text": "視為無法編譯",
+              "fraction": 0,
+              "feedback": "它們是有效的測試；涵蓋率只是記不到任何新的行。"
+            },
+            {
+              "text": "視為等價變異體",
+              "fraction": 0,
+              "feedback": "等價變異體是變異體的性質，不是測試的涵蓋率評分。"
+            }
+          ],
+          "generalFeedback": "涵蓋率指標看不到任何新涵蓋的行，因此把這些測試評為「毫無貢獻」，即使每一個都抓到了真實的缺陷——這正是涵蓋率單獨低估測試品質的核心原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對照兩種目標",
+          "text": "<p>下列哪一組正確對照了兩種測試產生目標？</p>",
+          "answers": [
+            {
+              "text": "涵蓋率導向＝執行更多的行；缺陷導向＝殺死變異體（偵測注入的缺陷）",
+              "fraction": 100,
+              "feedback": "正確——一個以執行為最佳化目標，另一個以缺陷偵測為最佳化目標。"
+            },
+            {
+              "text": "涵蓋率導向＝殺死變異體；缺陷導向＝執行更多的行",
+              "fraction": 0,
+              "feedback": "這把兩個目標弄反了。"
+            },
+            {
+              "text": "涵蓋率導向＝偵測缺陷；缺陷導向＝忽略缺陷",
+              "fraction": 0,
+              "feedback": "涵蓋率導向並不直接鎖定缺陷，而缺陷導向完全以缺陷為核心。"
+            },
+            {
+              "text": "兩者都只求縮短測試執行時間",
+              "fraction": 0,
+              "feedback": "兩種目標都不是由執行時間定義的。"
+            }
+          ],
+          "generalFeedback": "涵蓋率導向的產生方式力求執行更多程式碼；缺陷導向的產生方式力求殺死變異體——偵測注入的缺陷。由於涵蓋率不等於缺陷偵測，這兩個目標確實會分歧。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "情境：空值／資源洩漏——為何涵蓋率漏掉它",
+          "text": "<p>某函式開啟一個檔案控制代碼（handle），只在成功路徑上釋放它；錯誤路徑不釋放就返回（資源洩漏）。一個走順利路徑的測試涵蓋了該函式。它為何漏掉這個缺陷？缺陷導向測試又加入了什麼？</p>",
+          "answers": [
+            {
+              "text": "順利路徑從未走到會洩漏的錯誤路徑，且即使走到也沒有任何斷言檢查控制代碼是否被釋放——缺陷導向測試會驅動錯誤路徑並斷言控制代碼已關閉",
+              "fraction": 100,
+              "feedback": "正確——它同時需要走到錯誤路徑並斷言釋放。"
+            },
+            {
+              "text": "順利路徑未被涵蓋，所以單純提高涵蓋率就能修好",
+              "fraction": 0,
+              "feedback": "順利路徑已被涵蓋；缺的是走到錯誤路徑並斷言釋放。"
+            },
+            {
+              "text": "這個洩漏不可能被任何測試偵測到",
+              "fraction": 0,
+              "feedback": "一個走到錯誤路徑並檢查釋放的測試就能輕鬆偵測。"
+            },
+            {
+              "text": "在成功路徑上加任何斷言都會殺死這個變異體",
+              "fraction": 0,
+              "feedback": "缺陷在錯誤路徑上；只在成功路徑上斷言走不到它。"
+            }
+          ],
+          "generalFeedback": "順利路徑的測試從不執行會洩漏的分支，即使涵蓋了它也不會斷言控制代碼已被釋放。缺陷導向測試會驅動錯誤路徑並斷言資源已被釋放，殺死這個洩漏變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：差一錯誤——為何涵蓋率漏掉它",
+          "text": "<p>某迴圈用了 <code>i &lt;= n</code>，但應該用 <code>i &lt; n</code>，因而讀到超出結尾一個的元素。一個測試跑完整個迴圈，卻只斷言累加總和為非負。它為何漏掉這個缺陷？</p>",
+          "answers": [
+            {
+              "text": "涵蓋迴圈會執行每一次迭代，但斷言從未檢查邊界元素或那次多出的迭代所破壞的確切結果",
+              "fraction": 100,
+              "feedback": "正確——涵蓋迴圈本體並不斷言邊界行為。"
+            },
+            {
+              "text": "迴圈本體從未被執行",
+              "fraction": 0,
+              "feedback": "迴圈已被完整涵蓋；問題在於斷言太弱，而非可達性。"
+            },
+            {
+              "text": "差一錯誤無法被斷言偵測",
+              "fraction": 0,
+              "feedback": "斷言確切的邊界結果就能精準偵測它們。"
+            },
+            {
+              "text": "這個變異體是等價的",
+              "fraction": 0,
+              "feedback": "讀到超出結尾會改變行為，因此它不是等價的。"
+            }
+          ],
+          "generalFeedback": "執行迴圈能達到完整涵蓋率，但模糊的斷言（總和非負）抓不到被破壞的邊界。缺陷導向測試會斷言確切的預期結果或最後的有效索引，讓那次多出的迭代被抓到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：缺少清理——為何涵蓋率漏掉它",
+          "text": "<p>某函式建立一個暫時資源，並在結尾刪除它，但在無效輸入時提早 <code>return</code> 會跳過刪除（缺少清理）。一個傳入有效輸入的測試涵蓋了正常路徑。它為何漏掉這個缺陷？</p>",
+          "answers": [
+            {
+              "text": "正常路徑會執行清理，因此只有提早返回的路徑才會留下資源；涵蓋型測試從未觸發該路徑，也未斷言清理",
+              "fraction": 100,
+              "feedback": "正確——缺陷只存在於被跳過清理的錯誤路徑上。"
+            },
+            {
+              "text": "清理在任何路徑上都不會被走到",
+              "fraction": 0,
+              "feedback": "清理在正常路徑上會正常執行；只有在提早返回時才被跳過。"
+            },
+            {
+              "text": "那個暫時資源從未被建立",
+              "fraction": 0,
+              "feedback": "它有被建立；缺陷在於提早返回的路徑上未刪除它。"
+            },
+            {
+              "text": "這個缺陷在每一種輸入上都會出現",
+              "fraction": 0,
+              "feedback": "它只在無效輸入的提早返回路徑上出現。"
+            }
+          ],
+          "generalFeedback": "在有效輸入下清理會執行，因此涵蓋型測試看不出問題。缺陷導向測試會提供無效輸入以強制提早返回，並斷言暫時資源已被清理，殺死這個變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：未檢查的例外——為何涵蓋率漏掉它",
+          "text": "<p>某剖析器在遇到格式錯誤的輸入時會拋出例外，但沒有任何地方處理或斷言該例外。一個用格式正確輸入的測試涵蓋了剖析器。它為何漏掉這個缺陷？缺陷導向測試又加入了什麼？</p>",
+          "answers": [
+            {
+              "text": "格式正確的輸入從不觸發例外路徑；缺陷導向測試會餵入格式錯誤的輸入，並斷言預期的例外（或其處理）",
+              "fraction": 100,
+              "feedback": "正確——例外行為只有在提供例外輸入並對其斷言時才會浮現。"
+            },
+            {
+              "text": "剖析器程式碼不可達",
+              "fraction": 0,
+              "feedback": "用格式正確的輸入就能走到它；只是例外分支未被執行。"
+            },
+            {
+              "text": "例外永遠無法在測試中被斷言",
+              "fraction": 0,
+              "feedback": "測試經常斷言某個特定例外是否被拋出。"
+            },
+            {
+              "text": "這個缺陷只對效能有影響",
+              "fraction": 0,
+              "feedback": "它是例外路徑上的正確性缺陷，不是效能問題。"
+            }
+          ],
+          "generalFeedback": "格式正確的輸入會執行剖析器，卻從不走例外路徑。缺陷導向測試會提供格式錯誤的輸入，並斷言預期的例外被拋出（或被正確處理），抓到未檢查的例外缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：讀到超出結尾",
+          "text": "<p>某程序以 <code>for (i = 0; i &lt;= len; i++)</code> 迭代並存取 <code>a[i]</code>，讀到陣列結尾之外一格。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "差一錯誤",
+              "fraction": 100,
+              "feedback": "正確——邊界條件差了一（對）。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "這裡沒有跳過任何拆卸步驟；缺陷是邊界索引錯誤。"
+            },
+            {
+              "text": "未檢查的例外",
+              "fraction": 0,
+              "feedback": "根本原因是邊界錯誤；任何例外都是徵狀，不是類別本身。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "這裡不涉及資源或空值；缺陷是邊界索引錯誤。"
+            }
+          ],
+          "generalFeedback": "在需要的地方用了，會讀到超出結尾一個元素——這是典型的差一錯誤類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：提早返回跳過拆卸",
+          "text": "<p>某函式開啟一個資料庫交易，在因驗證錯誤而提早 <code>return</code> 時，既不提交也不回復，留下一個未關閉的交易。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "缺少清理",
+              "fraction": 100,
+              "feedback": "正確——拆卸步驟（回復／提交）在提早返回的路徑上被跳過。"
+            },
+            {
+              "text": "差一錯誤",
+              "fraction": 0,
+              "feedback": "這裡不涉及邊界索引。"
+            },
+            {
+              "text": "未檢查的例外",
+              "fraction": 0,
+              "feedback": "問題是提早返回時跳過了拆卸步驟，而非未處理的例外。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "雖然相關，但這裡的定義特徵是清理／拆卸步驟在錯誤路徑上被跳過——屬於缺少清理類別。"
+            }
+          ],
+          "generalFeedback": "提早返回而跳過交易拆卸屬於缺少清理類別：清理在正常路徑上會執行，卻在錯誤／提早返回的路徑上被跳過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：未檢查的空值回傳",
+          "text": "<p><code>lookup(key)</code> 在鍵不存在時可能回傳 <code>null</code>，而呼叫端未做空值檢查就直接執行 <code>lookup(key).name</code>。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 100,
+              "feedback": "正確——對可能為空的值進行解參考，就是此類別的「空值」面向。"
+            },
+            {
+              "text": "差一錯誤",
+              "fraction": 0,
+              "feedback": "這裡不涉及邊界索引。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "沒有需要清理的東西；缺陷是未加防護的空值解參考。"
+            },
+            {
+              "text": "未檢查的例外",
+              "fraction": 0,
+              "feedback": "雖然空值解參考可能拋出例外，但這裡建模的類別是空值／資源洩漏類別（未加防護的空值）。"
+            }
+          ],
+          "generalFeedback": "未加防護就對可能為空的值進行解參考，屬於空值／資源洩漏缺陷類別（其空值面向）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類缺陷：壞輸入拋例外、無人接手",
+          "text": "<p><code>Integer.parseInt(s)</code> 在 <code>s</code> 非數字時會拋出例外，而程式與任何測試都未處理或斷言該情況。這是哪一種缺陷類別？</p>",
+          "answers": [
+            {
+              "text": "未檢查的例外",
+              "fraction": 100,
+              "feedback": "正確——一條既未處理也未斷言的例外路徑。"
+            },
+            {
+              "text": "差一錯誤",
+              "fraction": 0,
+              "feedback": "這裡不涉及邊界索引。"
+            },
+            {
+              "text": "缺少清理",
+              "fraction": 0,
+              "feedback": "這裡沒有跳過任何拆卸步驟。"
+            },
+            {
+              "text": "空值／資源洩漏",
+              "fraction": 0,
+              "feedback": "沒有空值解參考或洩漏的資源；缺陷是未處理／未斷言的例外。"
+            }
+          ],
+          "generalFeedback": "一條既未處理也未斷言的例外路徑屬於未檢查的例外類別：程式在正常輸入下能執行，缺陷只有在提供例外輸入並對其斷言時才浮現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 100% 涵蓋率仍可能漏掉缺陷",
+          "text": "<p>某套件達成 100% 行涵蓋率，卻仍有一個變異體存活。最可能的原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "有缺陷的那一行被執行了，但沒有任何斷言檢查該缺陷所改變的行為",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率保證執行，卻不保證被破壞的結果被觀察到。"
+            },
+            {
+              "text": "有缺陷的那一行從未被執行",
+              "fraction": 0,
+              "feedback": "在 100% 行涵蓋率下該行確實被執行了；缺口在斷言。"
+            },
+            {
+              "text": "100% 涵蓋率使每個變異體都變成等價的",
+              "fraction": 0,
+              "feedback": "涵蓋率對變異體是否等價毫無影響。"
+            },
+            {
+              "text": "該套件的斷言太多了",
+              "fraction": 0,
+              "feedback": "存活的變異體代表斷言太弱，而非太多。"
+            }
+          ],
+          "generalFeedback": "完整行涵蓋率只代表每一行都執行了。若沒有任何斷言觀察到缺陷所破壞的值，變異體就會存活——涵蓋率對缺陷偵測是必要但不充分的。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "涵蓋一行就等於斷言它正確",
+          "text": "<p>在測試中走到（涵蓋）某一行，就保證該測試也斷言了那一行行為正確。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "走到某行只是執行它；測試可能對其結果毫無檢查。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——執行與斷言是彼此獨立的；涵蓋一行並不等於斷言它。"
+            }
+          ],
+          "generalFeedback": "涵蓋率記錄的是某行有被執行，而非測試檢查了它的輸出。一條被涵蓋卻沒有相關斷言的行，仍會讓該行的缺陷存活。"
+        },
+        {
+          "type": "multichoice",
+          "name": "差一錯誤的殺手斷言",
+          "text": "<p>要殺死一個把迴圈邊界從 <code>i &lt; n</code> 改成 <code>i &lt;= n</code> 的變異體，下列哪個斷言最有效？</p>",
+          "answers": [
+            {
+              "text": "斷言確切的預期結果（或斷言不會在索引處發生讀取），使那次多出的迭代被抓到",
+              "fraction": 100,
+              "feedback": "正確——檢查精確的邊界結果會在多出的那次迭代上失敗。"
+            },
+            {
+              "text": "只斷言函式有回傳某個東西",
+              "fraction": 0,
+              "feedback": "變異體仍會回傳一個值；單純檢查存在抓不到它。"
+            },
+            {
+              "text": "斷言迴圈變數是整數",
+              "fraction": 0,
+              "feedback": "型別不因缺陷而改變，因此這永遠不會失敗。"
+            },
+            {
+              "text": "斷言輸入陣列非空",
+              "fraction": 0,
+              "feedback": "那檢查的是輸入，而非被破壞的邊界行為。"
+            }
+          ],
+          "generalFeedback": "只有針對受邊界影響的確切結果——精確的值，或斷言索引不會被讀取——的斷言，才能區分與，殺死這個差一變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺少清理的殺法",
+          "text": "<p>要殺死一個在錯誤路徑上跳過拆卸的缺少清理變異體，缺陷導向測試應當：</p>",
+          "answers": [
+            {
+              "text": "驅動錯誤／提早返回路徑，並斷言清理確實發生了（資源已釋放、交易已關閉）",
+              "fraction": 100,
+              "feedback": "正確——它必須走到有缺陷的路徑並檢查拆卸。"
+            },
+            {
+              "text": "跑正常路徑並斷言回傳值",
+              "fraction": 0,
+              "feedback": "正常路徑本來就會執行清理，因此永遠不會暴露缺陷。"
+            },
+            {
+              "text": "在不加新斷言的情況下提高整體行涵蓋率",
+              "fraction": 0,
+              "feedback": "沒有斷言清理的涵蓋率抓不到被跳過的拆卸。"
+            },
+            {
+              "text": "只斷言錯誤有被回傳",
+              "fraction": 0,
+              "feedback": "兩個版本都會回傳錯誤；只有清理不同。"
+            }
+          ],
+          "generalFeedback": "缺陷在錯誤路徑上，因此測試必須觸發該路徑並斷言清理已執行。唯有如此，跳過拆卸的變異體才會失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "未檢查例外的殺法",
+          "text": "<p>要殺死一個未檢查的例外變異體，缺陷導向測試應當：</p>",
+          "answers": [
+            {
+              "text": "提供例外輸入，並斷言預期的例外被拋出（或被正確處理）",
+              "fraction": 100,
+              "feedback": "正確——例外路徑必須被執行並被斷言。"
+            },
+            {
+              "text": "只提供正常輸入並斷言順利路徑的結果",
+              "fraction": 0,
+              "feedback": "正常輸入從不走到例外路徑。"
+            },
+            {
+              "text": "用 try/catch 把整個測試包起來並忽略任何例外",
+              "fraction": 0,
+              "feedback": "吞掉例外代表測試對它毫無斷言，因此無法在變異體上失敗。"
+            },
+            {
+              "text": "斷言函式名稱拼寫正確",
+              "fraction": 0,
+              "feedback": "那對例外行為毫無檢查。"
+            }
+          ],
+          "generalFeedback": "例外行為只有在提供例外輸入並加上明確斷言（assertThrows，或斷言處理常式有執行）時才會浮現。那才能殺死未檢查的例外變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "空值解參考的殺法",
+          "text": "<p>要殺死一個因缺少防護、使不存在的值被解參考的空值解參考變異體，缺陷導向測試應當：</p>",
+          "answers": [
+            {
+              "text": "操作值為 null／不存在的情況，並斷言受防護的行為（預設值，或某個特定的處理結果）",
+              "fraction": 100,
+              "feedback": "正確——只有 null／不存在的情況會觸發缺少的防護，而斷言則釘住預期的行為。"
+            },
+            {
+              "text": "只操作值存在的情況並斷言其欄位",
+              "fraction": 0,
+              "feedback": "值存在時從不觸發缺少的空值防護。"
+            },
+            {
+              "text": "提高不相關方法的涵蓋率",
+              "fraction": 0,
+              "feedback": "那既走不到也斷言不了空值路徑。"
+            },
+            {
+              "text": "斷言該值的型別正確",
+              "fraction": 0,
+              "feedback": "型別不因缺陷而改變；重點是 null 的情況。"
+            }
+          ],
+          "generalFeedback": "缺陷只有在值為 null／不存在時才浮現，因此測試必須操作該情況並斷言受防護的結果——缺少的防護就會讓變異體解參考 null 而失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個不增加涵蓋率、只加斷言的測試",
+          "text": "<p>某個新測試執行的行數與既有的通過測試完全相同，卻加入一個會在植入的差一變異體上失敗的斷言。涵蓋率工具回報零新行。這個測試毫無價值嗎？</p>",
+          "answers": [
+            {
+              "text": "不——它是一個缺陷導向測試，殺死了一個涵蓋率單獨會判定為毫無貢獻的變異體",
+              "fraction": 100,
+              "feedback": "正確——它在不改變涵蓋率的情況下改善了缺陷偵測。"
+            },
+            {
+              "text": "是——不增加新行就代表毫無價值",
+              "fraction": 0,
+              "feedback": "它殺死了一個變異體；抓到真實缺陷是涵蓋率看不到的價值。"
+            },
+            {
+              "text": "是——只有提高涵蓋率的測試才重要",
+              "fraction": 0,
+              "feedback": "49% 的發現直接反駁了這一點。"
+            },
+            {
+              "text": "不——但只是因為它提高了涵蓋率",
+              "fraction": 0,
+              "feedback": "它沒有提高任何涵蓋率；它的價值在於那個殺手斷言。"
+            }
+          ],
+          "generalFeedback": "這正是 49% 的情況：相同的行、更強的斷言、一個被殺死的變異體。涵蓋率指標記不到任何東西，測試卻抓到了真實的缺陷——顯示涵蓋率與缺陷偵測是不同的。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何涵蓋率與變異分數會分歧",
+          "text": "<p>為什麼一個套件的行涵蓋率可以很高，而其變異分數卻很低？</p>",
+          "answers": [
+            {
+              "text": "涵蓋率只要求有缺陷的程式碼被執行，而殺死變異體還額外要求被破壞的結果被某個斷言觀察到",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率衡量執行；殺死變異體需要執行加上觀察的斷言。"
+            },
+            {
+              "text": "變異分數只計算從未被執行的行",
+              "fraction": 0,
+              "feedback": "變異分數講的是被殺死的變異體，而非未執行的行。"
+            },
+            {
+              "text": "高涵蓋率會強制產生高變異分數",
+              "fraction": 0,
+              "feedback": "題目的前提就顯示這是錯的；兩者會分歧。"
+            },
+            {
+              "text": "涵蓋率與變異分數永遠衡量相同的東西",
+              "fraction": 0,
+              "feedback": "它們並不相同——這正是它們會分歧的原因。"
+            }
+          ],
+          "generalFeedback": "涵蓋率只記執行本身。殺死變異體需要被改動的行被執行、破壞狀態，並讓該破壞被斷言觀察到。斷言太弱就會留下高涵蓋率卻低變異分數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個測試是缺陷導向的",
+          "text": "<p>測試 A 提高了行涵蓋率卻殺不死任何變異體。測試 B 在不提高涵蓋率的情況下殺死了一個變異體。哪一個是缺陷導向的？為什麼？</p>",
+          "answers": [
+            {
+              "text": "測試 B——它偵測到注入的缺陷，這正是缺陷導向的目標，與涵蓋率無關",
+              "fraction": 100,
+              "feedback": "正確——殺死變異體就是缺陷偵測；涵蓋率無關緊要。"
+            },
+            {
+              "text": "測試 A——它提高了涵蓋率，而那正是缺陷導向測試所最佳化的",
+              "fraction": 0,
+              "feedback": "提高涵蓋率是涵蓋率導向的目標，不是缺陷導向的目標。"
+            },
+            {
+              "text": "兩者一樣，因為兩者都是測試",
+              "fraction": 0,
+              "feedback": "只有測試 B 偵測到缺陷；只有它是缺陷導向的。"
+            },
+            {
+              "text": "都不是，因為缺陷導向測試必須兩者兼具",
+              "fraction": 0,
+              "feedback": "缺陷導向測試不必增加涵蓋率；殺死變異體就足夠。"
+            }
+          ],
+          "generalFeedback": "缺陷導向代表偵測注入的缺陷（殺死變異體）。測試 B 在零新涵蓋率下做到這件事——正是 49% 的情況。測試 A 增加涵蓋率卻偵測不到任何東西，是涵蓋率導向的結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出殺死洩漏變異體的斷言",
+          "text": "<p>某個資源洩漏變異體移除了錯誤路徑上的 <code>close()</code>。哪個斷言最直接殺死它？</p>",
+          "answers": [
+            {
+              "text": "驅動錯誤路徑後，斷言控制代碼已關閉（例如開啟中的控制代碼數已歸零）",
+              "fraction": 100,
+              "feedback": "正確——這觀察到變異體所跳過的釋放。"
+            },
+            {
+              "text": "斷言函式回傳了一個錯誤碼",
+              "fraction": 0,
+              "feedback": "兩個版本都回傳相同的錯誤碼；只有釋放不同。"
+            },
+            {
+              "text": "斷言順利路徑回傳正確的值",
+              "fraction": 0,
+              "feedback": "順利路徑仍會關閉控制代碼，因此永遠不會暴露這個變異體。"
+            },
+            {
+              "text": "斷言整體行涵蓋率提高了",
+              "fraction": 0,
+              "feedback": "涵蓋率不是斷言，也不會觀察到被洩漏的控制代碼。"
+            }
+          ],
+          "generalFeedback": "變異體的唯一差別在於錯誤路徑上控制代碼是否被釋放，因此殺手斷言必須走到該路徑並檢查控制代碼確實已被關閉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出殺死未檢查例外變異體的斷言",
+          "text": "<p>某個變異體移除了一個防護，使格式錯誤的輸入現在會拋出例外，而非回傳一個錯誤結果。哪個斷言能殺死它？</p>",
+          "answers": [
+            {
+              "text": "餵入格式錯誤的輸入，並斷言規格所定義的優雅結果（如此被拋出的例外會讓測試失敗）",
+              "fraction": 100,
+              "feedback": "正確——對壞輸入斷言預期的「不拋出」行為就能抓到這個改動。"
+            },
+            {
+              "text": "餵入有效輸入並斷言正常結果",
+              "fraction": 0,
+              "feedback": "有效輸入從不觸發受防護的路徑。"
+            },
+            {
+              "text": "在測試中攔截並忽略所有例外",
+              "fraction": 0,
+              "feedback": "吞掉例外會隱藏這個改動，變異體因此存活。"
+            },
+            {
+              "text": "斷言測試檔案能編譯",
+              "fraction": 0,
+              "feedback": "能否編譯對例外行為毫無說明。"
+            }
+          ],
+          "generalFeedback": "變異體把格式錯誤輸入的行為從優雅結果改成拋出例外。唯有一個提供該輸入並斷言規格所定義行為的測試，才能區分兩者並殺死變異體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出殺死空值防護變異體的斷言",
+          "text": "<p>某個變異體刪除了一個空值檢查，使得查不到的鍵現在會解參考 <code>null</code>，而非回傳一個預設值。哪個斷言能殺死它？</p>",
+          "answers": [
+            {
+              "text": "用一個不存在的鍵呼叫，並斷言回傳了文件所載的預設值（如此空值解參考會讓測試失敗）",
+              "fraction": 100,
+              "feedback": "正確——操作不存在鍵的情況並斷言受防護的預設值，就能抓到被刪除的檢查。"
+            },
+            {
+              "text": "用一個存在的鍵呼叫並斷言其值",
+              "fraction": 0,
+              "feedback": "存在的鍵從不觸發被刪除的空值防護。"
+            },
+            {
+              "text": "斷言查找表非空",
+              "fraction": 0,
+              "feedback": "那檢查的是測試夾具，而非受防護的行為。"
+            },
+            {
+              "text": "斷言方法簽章未變",
+              "fraction": 0,
+              "feedback": "簽章不因這個缺陷而改變。"
+            }
+          ],
+          "generalFeedback": "該防護只在不存在鍵的情況下才有意義，因此殺手測試會用不存在的鍵並斷言文件所載的預設值——被刪除的防護就會讓變異體解參考 null 而失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何缺陷導向測試是補足涵蓋率",
+          "text": "<p>為什麼缺陷導向測試最好被視為補足涵蓋率、而非取代它？</p>",
+          "answers": [
+            {
+              "text": "涵蓋率確保程式碼被走到；缺陷導向的斷言確保被走到的程式碼真的被檢查缺陷——兩者都需要",
+              "fraction": 100,
+              "feedback": "正確——可達性與缺陷偵測是互補的需求。"
+            },
+            {
+              "text": "缺陷導向測試使涵蓋率量測變得不可能",
+              "fraction": 0,
+              "feedback": "兩者可以一起量測；其一不排斥另一。"
+            },
+            {
+              "text": "涵蓋率已經保證缺陷偵測，所以缺陷導向測試是多餘的",
+              "fraction": 0,
+              "feedback": "涵蓋率並不保證缺陷偵測——那正是本應用的重點。"
+            },
+            {
+              "text": "缺陷導向測試只在涵蓋率為 0% 時才有效",
+              "fraction": 0,
+              "feedback": "它在任何涵蓋率水準都有效；它在被走到的任何程式碼上強化斷言。"
+            }
+          ],
+          "generalFeedback": "你仍需要涵蓋率走到有缺陷的程式碼，也需要缺陷導向的斷言在其中偵測缺陷。變異體所在的行若從不被執行就殺不死，被執行的行若從不被檢查則會存活——因此兩者互補。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個測試展現了 49% 發現",
+          "text": "<p>兩個測試各殺死一個變異體。測試 X 走到一個全新的分支並斷言其結果；測試 Y 對一個已被涵蓋的分支加入斷言。哪一個展現了 49% 發現？為什麼？</p>",
+          "answers": [
+            {
+              "text": "測試 Y——它在未增加任何新涵蓋行的情況下殺死變異體，正是 49% 的情況",
+              "fraction": 100,
+              "feedback": "正確——這項發現講的是不增加涵蓋率的殺死。"
+            },
+            {
+              "text": "測試 X——它同時增加涵蓋率與殺手斷言",
+              "fraction": 0,
+              "feedback": "測試 X 增加了新涵蓋率，因此不是該發現所描述的「零新涵蓋率」情況。"
+            },
+            {
+              "text": "兩者，因為兩者都殺死一個變異體",
+              "fraction": 0,
+              "feedback": "只有測試 Y 在零新涵蓋率下殺死變異體。"
+            },
+            {
+              "text": "都不是，因為該發現講的是殺不死變異體的測試",
+              "fraction": 0,
+              "feedback": "該發現恰恰講的是確實殺死變異體卻不增加涵蓋率的測試。"
+            }
+          ],
+          "generalFeedback": "49% 發現講的是殺死變異體卻不增加任何新涵蓋行的測試。測試 Y 藉由在已被涵蓋的程式碼上強化斷言做到這件事；測試 X 則還增加了涵蓋率，因此不是這個代表性情況。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "100% 分支涵蓋率、變異體卻存活",
+          "text": "<p>某套件有 100% 分支涵蓋率，卻有一個非等價變異體存活。要殺死它必須加入什麼？</p>",
+          "answers": [
+            {
+              "text": "一個能觀察到變異體所破壞之值的更強斷言（若有需要，再加一個能讓破壞傳播的輸入）",
+              "fraction": 100,
+              "feedback": "正確——分支已被執行，因此缺口在於觀察被破壞的結果。"
+            },
+            {
+              "text": "更多要涵蓋的分支",
+              "fraction": 0,
+              "feedback": "分支涵蓋率已是 100%，沒有未涵蓋的分支可加。"
+            },
+            {
+              "text": "刪除那個存活的變異體",
+              "fraction": 0,
+              "feedback": "變異體是缺陷模型；解方是更好的測試，而非刪除變異體。"
+            },
+            {
+              "text": "什麼都不用——100% 分支涵蓋率代表套件已完備",
+              "fraction": 0,
+              "feedback": "一個存活的非等價變異體證明套件並非缺陷適當。"
+            }
+          ],
+          "generalFeedback": "在完整分支涵蓋率下，有缺陷的分支已被執行，因此缺的是一個觀察被破壞輸出的斷言（可能還要一個讓它傳播的輸入）。涵蓋率已達上限；缺陷偵測則否。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "49% 具體證明了什麼",
+          "text": "<p>為什麼「49% 的測試在沒有新涵蓋行的情況下殺死變異體」具體證明了涵蓋率 &#8800; 缺陷偵測？</p>",
+          "answers": [
+            {
+              "text": "這些測試提升了缺陷偵測（一次殺死），而涵蓋率度量卻毫無變化，因此這兩個度量是各自獨立變動的",
+              "fraction": 100,
+              "feedback": "正確——缺陷偵測上升而涵蓋率沒有，因此它們不是同一個度量。"
+            },
+            {
+              "text": "因為它們提高涵蓋率卻殺不死變異體",
+              "fraction": 0,
+              "feedback": "那把發現弄反了；它們是殺死變異體卻不提高涵蓋率。"
+            },
+            {
+              "text": "因為它們既不提高涵蓋率也不殺死變異體",
+              "fraction": 0,
+              "feedback": "它們確實殺死變異體；那正是重點。"
+            },
+            {
+              "text": "因為涵蓋率工具壞了",
+              "fraction": 0,
+              "feedback": "工具運作正常；確實沒有新的行可記。"
+            }
+          ],
+          "generalFeedback": "若涵蓋率與缺陷偵測是同一件事，就不可能有測試在改善其一時不動另一。近半數的測試在涵蓋率零變化下改善了缺陷偵測，因此這兩個度量可被證明是不同的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋率導向產生器的盲點",
+          "text": "<p>一個只獎勵「增加新行」的測試產生器，會把不增加涵蓋率的測試降級。這個盲點會放過哪一種缺陷？</p>",
+          "answers": [
+            {
+              "text": "在已被涵蓋的程式碼中、只需一個更強斷言就能偵測的缺陷",
+              "fraction": 100,
+              "feedback": "正確——那些正是只獎勵涵蓋率的做法會丟棄的測試。"
+            },
+            {
+              "text": "不可達的死碼中的缺陷",
+              "fraction": 0,
+              "feedback": "死碼無法被任何測試涵蓋或殺死，因此不是這裡的盲點。"
+            },
+            {
+              "text": "只有新分支才能揭露的缺陷",
+              "fraction": 0,
+              "feedback": "涵蓋率導向產生器其實會獎勵走到新分支，因此那不是它的盲點。"
+            },
+            {
+              "text": "編譯錯誤",
+              "fraction": 0,
+              "feedback": "那些由編譯器抓到，不是測試的盲點。"
+            }
+          ],
+          "generalFeedback": "只獎勵新涵蓋率會丟棄在已被涵蓋程式碼上強化斷言的測試——正是那 49% 在沒有新行的情況下抓到缺陷的測試。那就是缺陷導向測試所填補的涵蓋率導向盲點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差一錯誤：從弱斷言到殺手斷言",
+          "text": "<p>某個測試完整走遍一個陣列（完整涵蓋率），卻只斷言總和為正；一個讀到尾端零值的 <code>i &lt;= n</code> 差一變異體存活了。哪一個單一改動能讓這個測試變成缺陷導向？</p>",
+          "answers": [
+            {
+              "text": "斷言確切的預期總和（或斷言索引處的元素從不被讀取），那次多出的迭代會違反它",
+              "fraction": 100,
+              "feedback": "正確——對受影響值的精確斷言能在不增加涵蓋率的情況下殺死變異體。"
+            },
+            {
+              "text": "再加一個涵蓋不同函式的測試",
+              "fraction": 0,
+              "feedback": "那並未處理這個迴圈中存活的變異體。"
+            },
+            {
+              "text": "斷言總和是一個數字",
+              "fraction": 0,
+              "feedback": "變異體仍會產生一個數字，因此這永遠不會失敗。"
+            },
+            {
+              "text": "多跑一次迴圈以增加涵蓋率",
+              "fraction": 0,
+              "feedback": "涵蓋率已經完整；問題在於斷言太弱。"
+            }
+          ],
+          "generalFeedback": "若讀到尾端零值不改變總和，「總和為正」就抓不到它；但確切的預期總和（或檢查索引從不被讀取）就能。這是一個不增加涵蓋率的缺陷導向修正。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非 finally 錯誤分支上的缺少清理",
+          "text": "<p>清理被寫在正常路徑的結尾（不在 <code>finally</code> 裡），而一個錯誤分支在它之前就返回。一個順利路徑的測試會執行到清理那一行並通過。為什麼變異測試在這裡仍能揭露缺陷？</p>",
+          "answers": [
+            {
+              "text": "變異體／錯誤路徑會跳過內嵌的清理，唯有驅動錯誤路徑並斷言清理的測試才能偵測——順利路徑從不執行那個跳過",
+              "fraction": 100,
+              "feedback": "正確——被跳過清理的行為存在於順利路徑測試從不走的錯誤路徑上。"
+            },
+            {
+              "text": "那行清理在每一條路徑上都不可達",
+              "fraction": 0,
+              "feedback": "它在正常路徑上會被走到；只有在錯誤分支上才被跳過。"
+            },
+            {
+              "text": "一個順利路徑的測試已經執行了那個跳過",
+              "fraction": 0,
+              "feedback": "順利路徑會執行清理；它從不觸發提早返回的跳過。"
+            },
+            {
+              "text": "把清理搬進 finally 會製造出這個缺陷",
+              "fraction": 0,
+              "feedback": "其實會避免這個跳過；缺陷在於清理在錯誤路徑上沒有被保證執行。"
+            }
+          ],
+          "generalFeedback": "由於清理不在裡，提早返回的錯誤分支會跳過它。順利路徑的測試會執行內嵌的清理，從不看到那個跳過。缺陷導向測試必須驅動錯誤路徑並斷言清理已發生。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何涵蓋正常輸入不足以應付例外缺陷",
+          "text": "<p>對於一個未檢查的例外缺陷，為何即使對正常路徑達成 100% 行涵蓋率，用正常輸入涵蓋該函式仍不足？</p>",
+          "answers": [
+            {
+              "text": "缺陷只在例外輸入下才浮現，而正常輸入的涵蓋從不提供或斷言它",
+              "fraction": 100,
+              "feedback": "正確——例外路徑與其斷言才是揭露缺陷的關鍵。"
+            },
+            {
+              "text": "正常路徑的行涵蓋率已經執行了例外路徑",
+              "fraction": 0,
+              "feedback": "並沒有；例外路徑需要例外輸入。"
+            },
+            {
+              "text": "例外總是被執行環境自動攔截",
+              "fraction": 0,
+              "feedback": "未檢查的例外正是沒有被處理的例外。"
+            },
+            {
+              "text": "100% 行涵蓋率保證殺死所有變異體",
+              "fraction": 0,
+              "feedback": "並不會——涵蓋率不等於缺陷偵測。"
+            }
+          ],
+          "generalFeedback": "正常輸入涵蓋正常路徑，卻從不觸發例外行為。偵測缺陷需要例外輸入，加上對例外如何被拋出或處理的明確斷言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "微妙情況：涵蓋率增益與殺手斷言是兩回事",
+          "text": "<p>某個單一的新測試走到一個前所未涵蓋的錯誤分支，<em>並且</em>斷言該處的資源已被釋放，殺死了一個洩漏變異體。關於它的兩項貢獻，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "走到該分支是涵蓋率增益；釋放斷言才是殺死變異體的東西——光走到它並不會殺死",
+              "fraction": 100,
+              "feedback": "正確——即使在同一個測試裡，涵蓋率與殺手斷言仍是分開的貢獻。"
+            },
+            {
+              "text": "光走到那個新分支就殺死變異體，所以斷言是多餘的",
+              "fraction": 0,
+              "feedback": "光走到該分支（涵蓋率）並不會觀察到資源是否被釋放。"
+            },
+            {
+              "text": "斷言帶來涵蓋率；走到該分支殺死變異體",
+              "fraction": 0,
+              "feedback": "這把角色弄反了——涵蓋率來自走到分支，殺死來自斷言。"
+            },
+            {
+              "text": "這兩項貢獻是同一個度量",
+              "fraction": 0,
+              "feedback": "它們是不同的：一個是執行，另一個是缺陷偵測。"
+            }
+          ],
+          "generalFeedback": "即使一個測試兩者都做，貢獻仍可分離：走到分支提高涵蓋率，但變異體唯有靠觀察釋放的斷言才被殺死。少了斷言，增加的涵蓋率會讓洩漏變異體存活。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "高行涵蓋率保證高變異分數",
+          "text": "<p>一個具有高行涵蓋率的套件，保證也會有高變異分數。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "高涵蓋率代表程式碼有被執行，但斷言若太弱，許多變異體仍會存活，因此變異分數可能很低。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——涵蓋率衡量執行，而非缺陷偵測；弱斷言可以在高涵蓋率下留下低變異分數。"
+            }
+          ],
+          "generalFeedback": "涵蓋率記的是執行；殺死變異體還需要觀察被破壞結果的斷言。一個高涵蓋率但斷言薄弱的套件可以有低變異分數——這兩個度量是不同的，正是缺陷導向測試的核心教訓。"
+        }
+      ]
+    }
+  },
   "flaky-diagnosis": {
     "en": {
       "easy": [
@@ -60807,6 +63325,2590 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "由於三明治整合對上層採由上而下（需為其被呼叫者加樁）、對下層採由下而上（需要驅動程式來呼叫它們），因此同時需要樁與驅動程式。"
+        }
+      ]
+    }
+  },
+  "llm-pipeline": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "The three agents in order",
+          "text": "<p>The LLM test-generation pipeline (Meta's ACH flow, FSE 2025) chains three agents. In what order do they run?</p>",
+          "answers": [
+            {
+              "text": "Mutation agent &#8594; Equivalence agent &#8594; Test agent",
+              "fraction": 100,
+              "feedback": "Correct — mutants are generated, screened for equivalence, then the survivors are targeted by generated tests."
+            },
+            {
+              "text": "Test agent &#8594; Mutation agent &#8594; Equivalence agent",
+              "fraction": 0,
+              "feedback": "Tests are written last, to kill the non-equivalent mutants that survive screening."
+            },
+            {
+              "text": "Equivalence agent &#8594; Mutation agent &#8594; Test agent",
+              "fraction": 0,
+              "feedback": "There is nothing to judge for equivalence until the mutation agent has produced mutants."
+            },
+            {
+              "text": "Mutation agent &#8594; Test agent &#8594; Equivalence agent",
+              "fraction": 0,
+              "feedback": "Equivalence screening happens before test generation, so the test agent is not asked to kill uncatchable mutants."
+            }
+          ],
+          "generalFeedback": "The pipeline is a three-agent flow in the order Mutation &#8594; Equivalence &#8594; Test: the mutation agent seeds faults, the equivalence agent filters out uncatchable (equivalent) mutants, and the test agent generates tests that kill the remaining non-equivalent mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Job of the mutation agent",
+          "text": "<p>What is the job of <strong>Agent 1</strong>, the <em>mutation agent</em>?</p>",
+          "answers": [
+            {
+              "text": "Generate mutants that target specific fault classes",
+              "fraction": 100,
+              "feedback": "Correct — the mutation agent seeds faults aimed at particular fault classes."
+            },
+            {
+              "text": "Decide whether a mutant is equivalent",
+              "fraction": 0,
+              "feedback": "That is the equivalence agent's job (Agent 2)."
+            },
+            {
+              "text": "Write a test that kills a mutant",
+              "fraction": 0,
+              "feedback": "That is the test agent's job (Agent 3)."
+            },
+            {
+              "text": "Run the CI pipeline and reject flaky tests",
+              "fraction": 0,
+              "feedback": "Flakiness is a quality gate on the test agent's output, not the mutation agent's role."
+            }
+          ],
+          "generalFeedback": "The mutation agent (Agent 1) generates mutants, deliberately targeting specific fault classes rather than making blind syntactic tweaks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Job of the equivalence agent",
+          "text": "<p>What is the job of <strong>Agent 2</strong>, the <em>equivalence agent</em>?</p>",
+          "answers": [
+            {
+              "text": "Decide whether a mutant is equivalent (uncatchable) to the original",
+              "fraction": 100,
+              "feedback": "Correct — it acts as an LLM-as-judge, filtering out mutants no test could ever kill."
+            },
+            {
+              "text": "Generate the mutants in the first place",
+              "fraction": 0,
+              "feedback": "Generating mutants is the mutation agent's role (Agent 1)."
+            },
+            {
+              "text": "Generate a test that kills the mutant",
+              "fraction": 0,
+              "feedback": "Writing the killing test is the test agent's role (Agent 3)."
+            },
+            {
+              "text": "Measure the code coverage of the resulting suite",
+              "fraction": 0,
+              "feedback": "The equivalence agent judges equivalence; it does not compute coverage."
+            }
+          ],
+          "generalFeedback": "The equivalence agent (Agent 2) is an LLM-as-judge that decides whether a mutant is equivalent — semantically identical to the original and therefore impossible for any test to kill — so those mutants are removed before the test agent runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Job of the test agent",
+          "text": "<p>What is the job of <strong>Agent 3</strong>, the <em>test agent</em>?</p>",
+          "answers": [
+            {
+              "text": "Generate a test that kills the non-equivalent mutant",
+              "fraction": 100,
+              "feedback": "Correct — the test agent writes a test whose result distinguishes the mutant from the original."
+            },
+            {
+              "text": "Generate the mutants",
+              "fraction": 0,
+              "feedback": "That is the mutation agent (Agent 1)."
+            },
+            {
+              "text": "Judge whether the mutant is equivalent",
+              "fraction": 0,
+              "feedback": "That is the equivalence agent (Agent 2)."
+            },
+            {
+              "text": "Strip comments from the source before judging",
+              "fraction": 0,
+              "feedback": "Comment stripping is a preprocessing step for the equivalence agent, not the test agent's job."
+            }
+          ],
+          "generalFeedback": "The test agent (Agent 3) generates a test that kills the mutant — a test that produces a different result on the mutant than on the original — for the mutants the equivalence agent judged non-equivalent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"kill a mutant\" means",
+          "text": "<p>In this pipeline, what does it mean for a test to <em>kill</em> a mutant?</p>",
+          "answers": [
+            {
+              "text": "The test produces a different result on the mutant than on the original program",
+              "fraction": 100,
+              "feedback": "Correct — an observable difference between mutant and original is what kills it."
+            },
+            {
+              "text": "The test passes on both the mutant and the original",
+              "fraction": 0,
+              "feedback": "If a test passes on both, it fails to distinguish them and does not kill the mutant."
+            },
+            {
+              "text": "The mutant is deleted from the source tree",
+              "fraction": 0,
+              "feedback": "Killing is about detection by a test, not about removing the mutant from disk."
+            },
+            {
+              "text": "The equivalence agent labels the mutant as equivalent",
+              "fraction": 0,
+              "feedback": "A mutant labelled equivalent is precisely the one that can never be killed."
+            }
+          ],
+          "generalFeedback": "A test kills a mutant when it yields a different, observable result on the mutant than on the original program. The whole point of the test agent is to generate such mutation-killing tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an equivalent mutant is here",
+          "text": "<p>In this pipeline, an <em>equivalent</em> mutant is one that:</p>",
+          "answers": [
+            {
+              "text": "Behaves identically to the original, so no test can ever kill it (uncatchable)",
+              "fraction": 100,
+              "feedback": "Correct — that is why the equivalence agent filters it out before the test agent runs."
+            },
+            {
+              "text": "Is killed by every test the test agent generates",
+              "fraction": 0,
+              "feedback": "That describes an easily-killed mutant, the opposite of an equivalent one."
+            },
+            {
+              "text": "Fails to compile and is discarded by the build",
+              "fraction": 0,
+              "feedback": "That is invalid code (a mutation-agent failure mode), not an equivalent mutant."
+            },
+            {
+              "text": "Is a test that is non-deterministic across CI runs",
+              "fraction": 0,
+              "feedback": "That is a flaky test, a test-agent failure mode, not an equivalent mutant."
+            }
+          ],
+          "generalFeedback": "An equivalent mutant is semantically identical to the original: it produces the same behaviour on every input, so no test can distinguish it — it is uncatchable. The equivalence agent exists to identify and remove such mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent judges equivalence",
+          "text": "<p>Which agent decides whether a mutant is equivalent?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent (Agent 2)",
+              "fraction": 100,
+              "feedback": "Correct — it is the LLM-as-judge for equivalence."
+            },
+            {
+              "text": "The mutation agent (Agent 1)",
+              "fraction": 0,
+              "feedback": "Agent 1 generates mutants; it does not judge them."
+            },
+            {
+              "text": "The test agent (Agent 3)",
+              "fraction": 0,
+              "feedback": "Agent 3 writes the killing test; equivalence has already been decided before it runs."
+            },
+            {
+              "text": "The CI system",
+              "fraction": 0,
+              "feedback": "CI runs the generated tests; it does not judge mutant equivalence."
+            }
+          ],
+          "generalFeedback": "The equivalence agent (Agent 2) is the LLM-as-judge that decides whether a given mutant is equivalent to the original.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent generates the killing test",
+          "text": "<p>Which agent generates the test that kills a mutant?</p>",
+          "answers": [
+            {
+              "text": "The test agent (Agent 3)",
+              "fraction": 100,
+              "feedback": "Correct — the test agent produces the mutation-killing test."
+            },
+            {
+              "text": "The mutation agent (Agent 1)",
+              "fraction": 0,
+              "feedback": "Agent 1 generates mutants, not tests."
+            },
+            {
+              "text": "The equivalence agent (Agent 2)",
+              "fraction": 0,
+              "feedback": "Agent 2 judges equivalence; it does not write tests."
+            },
+            {
+              "text": "The engineer who reviews acceptance",
+              "fraction": 0,
+              "feedback": "Engineers accept or reject the generated tests, but Agent 3 generates them."
+            }
+          ],
+          "generalFeedback": "The test agent (Agent 3) generates the test that kills the non-equivalent mutant handed to it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent generates the mutants",
+          "text": "<p>Which agent generates the mutants?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent (Agent 1)",
+              "fraction": 100,
+              "feedback": "Correct — Agent 1 seeds faults targeting specific fault classes."
+            },
+            {
+              "text": "The equivalence agent (Agent 2)",
+              "fraction": 0,
+              "feedback": "Agent 2 judges the mutants Agent 1 produced."
+            },
+            {
+              "text": "The test agent (Agent 3)",
+              "fraction": 0,
+              "feedback": "Agent 3 writes killing tests, not mutants."
+            },
+            {
+              "text": "The rule-based mutator only",
+              "fraction": 0,
+              "feedback": "In the LLM-guided pipeline, the mutation agent is the LLM; rule-based mutation is the baseline being compared against."
+            }
+          ],
+          "generalFeedback": "The mutation agent (Agent 1) generates the mutants, deliberately targeting specific fault classes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Domain-aware vs rule-based",
+          "text": "<p>Compared with the rule-based baseline, the LLM-guided approach is described as:</p>",
+          "answers": [
+            {
+              "text": "Domain- and issue-aware, whereas rule-based mutation is not",
+              "fraction": 100,
+              "feedback": "Correct — the LLM can target faults relevant to the domain and the issue at hand."
+            },
+            {
+              "text": "Faster to run but blind to the domain",
+              "fraction": 0,
+              "feedback": "It is the LLM approach that is domain-aware; being domain-aware is its advantage, not a blindness."
+            },
+            {
+              "text": "Identical to rule-based mutation in every respect",
+              "fraction": 0,
+              "feedback": "They differ sharply — notably kill rate and domain awareness."
+            },
+            {
+              "text": "Unable to target specific fault classes",
+              "fraction": 0,
+              "feedback": "Targeting specific fault classes is exactly what the LLM-guided approach does."
+            }
+          ],
+          "generalFeedback": "The LLM-guided pipeline is domain- and issue-aware — it can target fault classes that matter for the code under test — while the rule-based baseline applies generic syntactic operators with no such awareness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM-as-judge role",
+          "text": "<p>The phrase \"LLM-as-judge\" in this pipeline refers to which agent's mode of operation?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent deciding whether a mutant is equivalent",
+              "fraction": 100,
+              "feedback": "Correct — it uses the LLM to judge equivalence."
+            },
+            {
+              "text": "The mutation agent scoring how many faults it seeded",
+              "fraction": 0,
+              "feedback": "The mutation agent generates mutants; the judging role is the equivalence agent's."
+            },
+            {
+              "text": "The test agent grading its own tests",
+              "fraction": 0,
+              "feedback": "The test agent writes tests; the \"judge\" is the equivalence agent."
+            },
+            {
+              "text": "CI deciding whether a test is flaky",
+              "fraction": 0,
+              "feedback": "CI applies a quality gate, but \"LLM-as-judge\" names the equivalence agent."
+            }
+          ],
+          "generalFeedback": "\"LLM-as-judge\" describes the equivalence agent (Agent 2), which uses the LLM to judge whether a mutant is equivalent to the original.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which mutants reach the test agent",
+          "text": "<p>Which mutants does the test agent try to kill?</p>",
+          "answers": [
+            {
+              "text": "The non-equivalent mutants that survive the equivalence agent",
+              "fraction": 100,
+              "feedback": "Correct — only mutants that can actually be killed are handed to the test agent."
+            },
+            {
+              "text": "All mutants, including equivalent ones",
+              "fraction": 0,
+              "feedback": "Equivalent mutants are filtered out first, so effort is not wasted on uncatchable ones."
+            },
+            {
+              "text": "Only the equivalent mutants",
+              "fraction": 0,
+              "feedback": "Equivalent mutants can never be killed; the test agent targets the non-equivalent ones."
+            },
+            {
+              "text": "Only mutants that fail to compile",
+              "fraction": 0,
+              "feedback": "Invalid mutants are discarded, not passed on to be killed."
+            }
+          ],
+          "generalFeedback": "The equivalence agent removes equivalent (uncatchable) mutants first, so the test agent only tries to kill the non-equivalent mutants that survive that screening.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Pipeline is three agents",
+          "text": "<p>The LLM test-generation pipeline is a three-agent flow (mutation, equivalence, and test agents).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — it chains a mutation agent, an equivalence agent, and a test agent."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is a three-agent flow: mutation &#8594; equivalence &#8594; test."
+            }
+          ],
+          "generalFeedback": "The pipeline is a three-agent flow: the mutation agent, the equivalence (LLM-as-judge) agent, and the test agent, running in that order."
+        },
+        {
+          "type": "multichoice",
+          "name": "Overall goal of the pipeline",
+          "text": "<p>What is the overall goal of the pipeline?</p>",
+          "answers": [
+            {
+              "text": "Generate mutation-killing tests that target specific fault classes",
+              "fraction": 100,
+              "feedback": "Correct — the end product is tests that kill mutants aimed at particular fault classes."
+            },
+            {
+              "text": "Maximise the number of equivalent mutants produced",
+              "fraction": 0,
+              "feedback": "Equivalent mutants are an unwanted cost to be filtered, not a goal."
+            },
+            {
+              "text": "Prove the program contains no defects",
+              "fraction": 0,
+              "feedback": "No testing pipeline proves the absence of all defects."
+            },
+            {
+              "text": "Replace human engineers entirely",
+              "fraction": 0,
+              "feedback": "Engineer acceptance is a metric; engineers still review the generated tests."
+            }
+          ],
+          "generalFeedback": "The pipeline generates mutation-killing tests targeting specific fault classes, using three agents to seed faults, filter uncatchable ones, and write the tests that kill the rest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which agent runs first",
+          "text": "<p>Which agent runs <em>first</em> in the pipeline?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent",
+              "fraction": 100,
+              "feedback": "Correct — mutants must exist before anything can be judged or killed."
+            },
+            {
+              "text": "The equivalence agent",
+              "fraction": 0,
+              "feedback": "There is nothing to judge until the mutation agent has produced mutants."
+            },
+            {
+              "text": "The test agent",
+              "fraction": 0,
+              "feedback": "Tests are written last, against the surviving non-equivalent mutants."
+            },
+            {
+              "text": "They all run simultaneously with no ordering",
+              "fraction": 0,
+              "feedback": "The agents run in a defined order: mutation &#8594; equivalence &#8594; test."
+            }
+          ],
+          "generalFeedback": "The mutation agent runs first, generating the mutants that the equivalence and test agents then process in turn.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Data flow into the equivalence agent",
+          "text": "<p>What does the equivalence agent receive as its input?</p>",
+          "answers": [
+            {
+              "text": "The mutants produced by the mutation agent, to judge which are equivalent",
+              "fraction": 100,
+              "feedback": "Correct — it screens the mutation agent's output before the test agent runs."
+            },
+            {
+              "text": "The killing tests produced by the test agent",
+              "fraction": 0,
+              "feedback": "The test agent runs after the equivalence agent, so its tests cannot be the input."
+            },
+            {
+              "text": "Raw coverage reports from CI",
+              "fraction": 0,
+              "feedback": "The equivalence agent judges mutants, not coverage reports."
+            },
+            {
+              "text": "Nothing — it runs before the mutation agent",
+              "fraction": 0,
+              "feedback": "The order is mutation &#8594; equivalence &#8594; test; there is nothing to judge before mutants exist."
+            }
+          ],
+          "generalFeedback": "The equivalence agent sits between the mutation and test agents: it takes the mutants generated by the mutation agent and decides which are equivalent, passing only the non-equivalent ones to the test agent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the equivalence agent is needed",
+          "text": "<p>Why does the LLM-guided pipeline need a dedicated equivalence agent, when a simpler rule-based flow might not?</p>",
+          "answers": [
+            {
+              "text": "The LLM mutation agent produces a higher rate of equivalent mutants (~25%), so they must be filtered out",
+              "fraction": 100,
+              "feedback": "Correct — more equivalent mutants means a dedicated judge is worth the cost."
+            },
+            {
+              "text": "The LLM never produces equivalent mutants, so the agent double-checks",
+              "fraction": 0,
+              "feedback": "The opposite is true: the LLM produces more equivalent mutants than the rule-based baseline."
+            },
+            {
+              "text": "Because rule-based mutation cannot compile its mutants",
+              "fraction": 0,
+              "feedback": "The reason is the LLM's higher equivalent-mutant rate, not a compilation issue with rule-based mutation."
+            },
+            {
+              "text": "To increase the number of equivalent mutants on purpose",
+              "fraction": 0,
+              "feedback": "The agent removes equivalent mutants; it does not create more."
+            }
+          ],
+          "generalFeedback": "Because the LLM-guided mutation agent produces a higher equivalent-mutant rate (~25%, versus roughly 10&#8211;15% for rule-based mutation), the pipeline adds an equivalence agent to filter those uncatchable mutants out before the expensive test-generation step.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill-rate comparison",
+          "text": "<p>How do the reported mutant kill rates compare between the rule-based baseline and the LLM-guided pipeline?</p>",
+          "answers": [
+            {
+              "text": "Rule-based ~2.4% vs LLM-guided ~15%",
+              "fraction": 100,
+              "feedback": "Correct — the LLM-guided approach kills a far larger share of mutants."
+            },
+            {
+              "text": "Rule-based ~15% vs LLM-guided ~2.4%",
+              "fraction": 0,
+              "feedback": "The figures are reversed: LLM-guided is the higher one, at ~15%."
+            },
+            {
+              "text": "Both about 25%",
+              "fraction": 0,
+              "feedback": "25% is the LLM's equivalent-mutant rate, not the kill rate."
+            },
+            {
+              "text": "Both close to 100%",
+              "fraction": 0,
+              "feedback": "Neither approach reaches anywhere near 100%; the reported kill rates are 2.4% and 15%."
+            }
+          ],
+          "generalFeedback": "The rule-based baseline kills about 2.4% of mutants, while the LLM-guided pipeline kills about 15% — a large jump attributed to targeting specific fault classes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Flaky test failure mode",
+          "text": "<p>A generated test passes and fails non-deterministically across CI runs and is rejected. Which agent's failure mode is this?</p>",
+          "answers": [
+            {
+              "text": "The test agent — it produced a flaky (non-deterministic) test",
+              "fraction": 100,
+              "feedback": "Correct — flaky tests are a test-agent failure mode, caught by the CI quality gate."
+            },
+            {
+              "text": "The mutation agent — it produced an equivalent mutant",
+              "fraction": 0,
+              "feedback": "Flakiness is about the test's determinism, not about the mutant."
+            },
+            {
+              "text": "The equivalence agent — it misjudged equivalence",
+              "fraction": 0,
+              "feedback": "A misjudged equivalence is a different symptom; flakiness is a property of the generated test."
+            },
+            {
+              "text": "CI — it introduced randomness into the test",
+              "fraction": 0,
+              "feedback": "CI detects and rejects the flaky test; the test agent generated it."
+            }
+          ],
+          "generalFeedback": "Generating a flaky (non-deterministic) test that CI rejects is a failure mode of the test agent. A quality gate filters such tests out.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Invalid-code failure mode",
+          "text": "<p>A produced mutant is syntactically invalid and fails to build. Which agent's failure mode is this?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent — it emitted syntactically invalid code",
+              "fraction": 100,
+              "feedback": "Correct — emitting invalid, non-building code is a mutation-agent failure mode."
+            },
+            {
+              "text": "The test agent — it wrote a flaky test",
+              "fraction": 0,
+              "feedback": "Flakiness is a test-agent issue; this is a mutant that fails to build."
+            },
+            {
+              "text": "The equivalence agent — it marked a mutant equivalent by mistake",
+              "fraction": 0,
+              "feedback": "That is a different failure; here the mutant itself does not compile."
+            },
+            {
+              "text": "The engineer — they rejected the test",
+              "fraction": 0,
+              "feedback": "The problem is invalid mutant code, produced by the mutation agent."
+            }
+          ],
+          "generalFeedback": "Emitting syntactically invalid code that fails to build is a failure mode of the mutation agent (Agent 1); such mutants are discarded.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why strip comments",
+          "text": "<p>The equivalence agent adds a preprocessing step that strips comments before judging. Why?</p>",
+          "answers": [
+            {
+              "text": "Comment differences caused about 25% of its false positives, so removing them improves accuracy",
+              "fraction": 100,
+              "feedback": "Correct — comment diffs were a large source of false positives, fixed by stripping comments."
+            },
+            {
+              "text": "Comments make the code compile faster",
+              "fraction": 0,
+              "feedback": "The reason is judging accuracy, not compile speed."
+            },
+            {
+              "text": "Comments are needed by the test agent, so they are moved aside",
+              "fraction": 0,
+              "feedback": "They are stripped to help the equivalence judge, not relocated for the test agent."
+            },
+            {
+              "text": "Stripping comments increases the equivalent-mutant rate on purpose",
+              "fraction": 0,
+              "feedback": "It improves the judge's precision and recall; it is not about inflating equivalence."
+            }
+          ],
+          "generalFeedback": "Comment differences accounted for roughly 25% of the equivalence agent's false positives. Stripping comments as a preprocessing step removes that noise and lifts precision and recall (from 0.79/0.47 to about 0.95/0.96).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent-mutant rate comparison",
+          "text": "<p>How does the equivalent-mutant rate of the LLM-guided approach compare with the rule-based baseline?</p>",
+          "answers": [
+            {
+              "text": "Higher for the LLM (~25%) than rule-based (~10&#8211;15%)",
+              "fraction": 100,
+              "feedback": "Correct — the LLM produces more equivalent mutants, motivating the equivalence agent."
+            },
+            {
+              "text": "Lower for the LLM (~5%) than rule-based (~25%)",
+              "fraction": 0,
+              "feedback": "The LLM's equivalent-mutant rate is higher, not lower."
+            },
+            {
+              "text": "Identical for both, at ~2.4%",
+              "fraction": 0,
+              "feedback": "2.4% is the rule-based kill rate, not an equivalent-mutant rate."
+            },
+            {
+              "text": "Zero for the LLM",
+              "fraction": 0,
+              "feedback": "The LLM's equivalent-mutant rate is about 25%, not zero."
+            }
+          ],
+          "generalFeedback": "The LLM-guided approach has a higher equivalent-mutant rate (~25%) than the rule-based baseline (~10&#8211;15%) — a cost of targeting specific fault classes, which is why a dedicated equivalence judge is needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test-fails-on-both failure mode",
+          "text": "<p>A generated test fails on BOTH the original program and the mutant. Which agent's failure mode is this, most directly?</p>",
+          "answers": [
+            {
+              "text": "The test agent — it produced a test with a build or logic error, not a valid mutation-killing test",
+              "fraction": 100,
+              "feedback": "Correct — a test that fails on the original too cannot be distinguishing the mutant; it is broken."
+            },
+            {
+              "text": "The mutation agent — the mutant is equivalent",
+              "fraction": 0,
+              "feedback": "Equivalence would make the test pass on both, not fail on both; and this is about the test being broken."
+            },
+            {
+              "text": "The equivalence agent — it under-counted equivalent mutants",
+              "fraction": 0,
+              "feedback": "The symptom is a broken test, which is the test agent's output."
+            },
+            {
+              "text": "CI — it ran the test in the wrong order",
+              "fraction": 0,
+              "feedback": "The test itself is faulty; it fails on the original as well as the mutant."
+            }
+          ],
+          "generalFeedback": "A test that fails on both the original and the mutant is not distinguishing them — it has a build or logic error. That is a test-agent failure mode; a valid killing test must pass on the original and fail on the mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where equivalence sits in the flow",
+          "text": "<p>Relative to the test agent, when does the equivalence agent run?</p>",
+          "answers": [
+            {
+              "text": "Before the test agent, so uncatchable mutants are removed first",
+              "fraction": 100,
+              "feedback": "Correct — screening precedes test generation to avoid wasted effort."
+            },
+            {
+              "text": "After the test agent, to check the tests",
+              "fraction": 0,
+              "feedback": "Equivalence is judged on mutants, before the test agent writes tests."
+            },
+            {
+              "text": "In parallel with the mutation agent",
+              "fraction": 0,
+              "feedback": "It runs after the mutation agent and before the test agent."
+            },
+            {
+              "text": "Only after CI rejects a flaky test",
+              "fraction": 0,
+              "feedback": "Equivalence judging is unrelated to CI's flakiness gate and comes earlier."
+            }
+          ],
+          "generalFeedback": "The equivalence agent runs after the mutation agent and before the test agent, filtering out equivalent mutants so the test agent only works on catchable ones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of comment stripping on scores",
+          "text": "<p>What happens to the equivalence agent's precision and recall after comment stripping is added?</p>",
+          "answers": [
+            {
+              "text": "They rise from about 0.79/0.47 to about 0.95/0.96",
+              "fraction": 100,
+              "feedback": "Correct — removing comment-diff noise sharply improves both metrics."
+            },
+            {
+              "text": "They fall from about 0.95/0.96 to about 0.79/0.47",
+              "fraction": 0,
+              "feedback": "The direction is reversed: preprocessing improves the scores."
+            },
+            {
+              "text": "They stay unchanged",
+              "fraction": 0,
+              "feedback": "Comment stripping produced a large, measured improvement."
+            },
+            {
+              "text": "Precision rises but recall drops to near zero",
+              "fraction": 0,
+              "feedback": "Both precision and recall rise, to about 0.95 and 0.96."
+            }
+          ],
+          "generalFeedback": "Without preprocessing the equivalence agent scored precision 0.79 and recall 0.47; stripping comments (which caused ~25% of false positives) lifted these to about 0.95 precision and 0.96 recall.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Engineer acceptance as a metric",
+          "text": "<p>Besides kill rate, which of these is reported as a metric for the pipeline?</p>",
+          "answers": [
+            {
+              "text": "Engineer acceptance of the generated tests",
+              "fraction": 100,
+              "feedback": "Correct — whether engineers actually accept the tests is a headline metric."
+            },
+            {
+              "text": "Number of comments per mutant",
+              "fraction": 0,
+              "feedback": "Comments matter only as a preprocessing nuisance for the judge, not as a headline metric."
+            },
+            {
+              "text": "Lines of code deleted per run",
+              "fraction": 0,
+              "feedback": "That is not a reported pipeline metric."
+            },
+            {
+              "text": "Number of agents in the flow",
+              "fraction": 0,
+              "feedback": "The agent count is fixed at three; it is not an evaluation metric."
+            }
+          ],
+          "generalFeedback": "Engineer acceptance — whether engineers actually adopt the generated tests — is a reported metric, reflecting that a high kill rate alone is not the only measure of value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Missed-equivalence failure mode",
+          "text": "<p>An equivalent mutant slips through and is handed to the test agent, which then wastes effort trying to kill it. Which agent's failure mode is this?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent — it failed to recognise an equivalent mutant",
+              "fraction": 100,
+              "feedback": "Correct — missing an equivalent mutant (low recall) sends uncatchable work downstream."
+            },
+            {
+              "text": "The mutation agent — it produced invalid code",
+              "fraction": 0,
+              "feedback": "The mutant here is valid but equivalent; the miss is the judge's."
+            },
+            {
+              "text": "The test agent — it wrote a flaky test",
+              "fraction": 0,
+              "feedback": "The wasted effort stems from an equivalent mutant reaching the test agent, a judging miss."
+            },
+            {
+              "text": "CI — it failed to reject the test",
+              "fraction": 0,
+              "feedback": "The root cause is the equivalence agent letting an equivalent mutant through."
+            }
+          ],
+          "generalFeedback": "Letting an equivalent (uncatchable) mutant through to the test agent is an equivalence-agent failure — a recall miss. The test agent then wastes effort on a mutant no test can kill.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Higher kill rate, more equivalents",
+          "text": "<p>The LLM-guided pipeline achieves a higher kill rate than rule-based mutation but at the cost of a higher equivalent-mutant rate.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — ~15% kill rate vs ~2.4%, but ~25% equivalent mutants vs ~10&#8211;15%."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The trade-off is real: higher kill rate (15% vs 2.4%) but more equivalent mutants (~25% vs ~10&#8211;15%)."
+            }
+          ],
+          "generalFeedback": "Targeting specific fault classes lifts the kill rate from ~2.4% to ~15%, but also raises the equivalent-mutant rate to ~25% (vs ~10&#8211;15% for rule-based), which is why the equivalence agent is added."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the higher kill rate",
+          "text": "<p>What is credited with the LLM-guided pipeline's much higher kill rate?</p>",
+          "answers": [
+            {
+              "text": "Targeting specific fault classes rather than generic syntactic tweaks",
+              "fraction": 100,
+              "feedback": "Correct — aiming at real fault classes yields far more killable, meaningful mutants."
+            },
+            {
+              "text": "Producing far fewer mutants overall",
+              "fraction": 0,
+              "feedback": "The kill rate gain comes from what is targeted, not from producing fewer mutants."
+            },
+            {
+              "text": "Skipping the equivalence-judging step",
+              "fraction": 0,
+              "feedback": "The equivalence step is added, not skipped; the kill rate comes from fault-class targeting."
+            },
+            {
+              "text": "Running each test only once",
+              "fraction": 0,
+              "feedback": "Run count is unrelated to the kill-rate improvement."
+            }
+          ],
+          "generalFeedback": "The jump from ~2.4% to ~15% kill rate is credited to the LLM targeting specific fault classes, which the coverage-blind rule-based baseline cannot do.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Quality gates on generated tests",
+          "text": "<p>Why does the pipeline need quality gates on the test agent's output?</p>",
+          "answers": [
+            {
+              "text": "Because the test agent can produce flaky or otherwise invalid tests that must be filtered out",
+              "fraction": 100,
+              "feedback": "Correct — flaky tests and tests that fail on both original and mutant must be rejected."
+            },
+            {
+              "text": "Because the mutation agent never produces valid mutants",
+              "fraction": 0,
+              "feedback": "The gates target the test agent's output; the mutation agent's invalid mutants are handled separately."
+            },
+            {
+              "text": "To increase the equivalent-mutant rate",
+              "fraction": 0,
+              "feedback": "Gates filter bad tests; they do not affect the equivalent-mutant rate."
+            },
+            {
+              "text": "To make the equivalence agent unnecessary",
+              "fraction": 0,
+              "feedback": "The equivalence agent is still needed; quality gates handle a different problem (bad tests)."
+            }
+          ],
+          "generalFeedback": "The test agent can emit flaky (non-deterministic) tests or tests that fail on both the original and the mutant. Quality gates (e.g. CI checks) filter these out so only valid mutation-killing tests remain.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Trade-off drives the equivalence judge",
+          "text": "<p>Which chain of reasoning best explains why the pipeline includes an equivalence agent at all?</p>",
+          "answers": [
+            {
+              "text": "Targeting fault classes raises the kill rate but also the equivalent-mutant rate (~25%), so a judge is needed to drop uncatchable mutants before the costly test step",
+              "fraction": 100,
+              "feedback": "Correct — the equivalence agent is the direct response to the higher equivalent-mutant rate."
+            },
+            {
+              "text": "The LLM produces fewer equivalent mutants, so a judge cheaply confirms there are none",
+              "fraction": 0,
+              "feedback": "The LLM produces more equivalent mutants, not fewer; that is why the judge is required."
+            },
+            {
+              "text": "Rule-based mutation needs the judge, and the LLM pipeline just inherits it",
+              "fraction": 0,
+              "feedback": "The judge is motivated by the LLM's own higher equivalent-mutant rate, not inherited from rule-based mutation."
+            },
+            {
+              "text": "The judge exists only to raise the kill-rate number",
+              "fraction": 0,
+              "feedback": "The judge removes uncatchable mutants; it does not manufacture kills."
+            }
+          ],
+          "generalFeedback": "Because the LLM-guided mutation agent targets specific fault classes, it kills more mutants (~15% vs ~2.4%) but also generates more equivalent ones (~25% vs ~10&#8211;15%). The equivalence agent is the pipeline's response: it filters those uncatchable mutants out before the expensive test-generation step.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting recall 0.47",
+          "text": "<p>The equivalence agent's recall without preprocessing was only 0.47. In this pipeline, what does that low recall concretely cost?</p>",
+          "answers": [
+            {
+              "text": "Many truly-equivalent mutants are missed and passed to the test agent, which wastes effort trying to kill uncatchable mutants",
+              "fraction": 100,
+              "feedback": "Correct — low recall on \"equivalent\" means many equivalents slip through downstream."
+            },
+            {
+              "text": "Many non-equivalent mutants are wrongly discarded, so real bugs go untested",
+              "fraction": 0,
+              "feedback": "That describes low precision, not low recall."
+            },
+            {
+              "text": "The mutation agent produces fewer mutants",
+              "fraction": 0,
+              "feedback": "Recall of the judge does not change how many mutants the mutation agent generates."
+            },
+            {
+              "text": "Tests become flaky in CI",
+              "fraction": 0,
+              "feedback": "Flakiness is a test-agent issue, unrelated to the judge's recall."
+            }
+          ],
+          "generalFeedback": "Recall of 0.47 means the judge caught fewer than half of the truly-equivalent mutants. The missed ones flow to the test agent, which then wastes effort attempting to kill mutants that no test can ever kill. Comment stripping lifted recall to ~0.96.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting precision 0.79",
+          "text": "<p>The equivalence agent's precision without preprocessing was 0.79. What does a precision below 1.0 cost here?</p>",
+          "answers": [
+            {
+              "text": "Some mutants labelled \"equivalent\" are actually non-equivalent, so genuinely killable mutants are wrongly dropped and never get a test",
+              "fraction": 100,
+              "feedback": "Correct — false positives on \"equivalent\" discard catchable mutants."
+            },
+            {
+              "text": "Some equivalent mutants are missed and reach the test agent",
+              "fraction": 0,
+              "feedback": "That is a recall problem; precision concerns wrong \"equivalent\" labels."
+            },
+            {
+              "text": "The kill rate is inflated to 15%",
+              "fraction": 0,
+              "feedback": "The 15% kill rate comes from fault-class targeting, not from judge precision."
+            },
+            {
+              "text": "Mutants fail to compile more often",
+              "fraction": 0,
+              "feedback": "Compilation is a mutation-agent concern, not a function of judge precision."
+            }
+          ],
+          "generalFeedback": "Precision 0.79 means about a fifth of the mutants the judge called \"equivalent\" were not — those genuinely killable mutants are wrongly filtered out and never receive a test. Comment differences caused ~25% of these false positives; stripping comments raised precision to ~0.95.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why comment stripping fixes false positives",
+          "text": "<p>Why would stripping comments specifically reduce the equivalence agent's false positives?</p>",
+          "answers": [
+            {
+              "text": "Comment-only differences do not change behaviour, yet were nudging the judge toward \"equivalent\"; removing them lets it compare actual logic — and they were ~25% of false positives",
+              "fraction": 100,
+              "feedback": "Correct — comment diffs are behaviour-neutral noise that skewed the judgment."
+            },
+            {
+              "text": "Comments change program behaviour, so removing them changes the mutant",
+              "fraction": 0,
+              "feedback": "Comments do not affect behaviour; that is exactly why they are noise for the judge."
+            },
+            {
+              "text": "Stripping comments speeds up compilation and avoids timeouts",
+              "fraction": 0,
+              "feedback": "The benefit is judging accuracy, not compile time."
+            },
+            {
+              "text": "Comments are where the mutation agent hides invalid code",
+              "fraction": 0,
+              "feedback": "The issue is behaviour-neutral comment diffs confusing the judge, not hidden invalid code."
+            }
+          ],
+          "generalFeedback": "Comment differences are behaviour-neutral, but they were skewing the judge's decisions and caused about 25% of its false positives. Stripping comments as preprocessing lets the judge compare the real logic, raising precision/recall from 0.79/0.47 to ~0.95/0.96.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why rule-based misses fault classes",
+          "text": "<p>Why does the coverage-blind, rule-based baseline achieve only ~2.4% kill rate compared with the LLM's ~15%?</p>",
+          "answers": [
+            {
+              "text": "It applies generic syntactic operators without domain or issue awareness, so it rarely targets the fault classes that matter",
+              "fraction": 100,
+              "feedback": "Correct — without domain/issue awareness it cannot aim at meaningful faults."
+            },
+            {
+              "text": "It produces too few mutants to kill any",
+              "fraction": 0,
+              "feedback": "Rule-based mutation typically produces many mutants; the problem is relevance, not quantity."
+            },
+            {
+              "text": "It strips comments and loses information",
+              "fraction": 0,
+              "feedback": "Comment stripping is an equivalence-agent preprocessing step, not a rule-based limitation."
+            },
+            {
+              "text": "Its equivalence agent is too aggressive",
+              "fraction": 0,
+              "feedback": "The rule-based baseline is not the one gaining a dedicated equivalence agent; its low kill rate is about lack of domain awareness."
+            }
+          ],
+          "generalFeedback": "Rule-based mutation is domain- and issue-blind: it applies generic operators everywhere and rarely hits the specific fault classes that matter, so its kill rate stays around 2.4%. The LLM-guided approach targets those fault classes, reaching ~15%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: test fails on original and mutant",
+          "text": "<p>Symptom: a generated test fails on the original program as well as on the mutant. Which agent's failure best explains this, and why?</p>",
+          "answers": [
+            {
+              "text": "The test agent — a valid killing test must pass on the original and fail on the mutant; failing on both means a build/logic error in the test",
+              "fraction": 100,
+              "feedback": "Correct — the test cannot be distinguishing anything if it also fails on the original."
+            },
+            {
+              "text": "The equivalence agent — it should have caught this as equivalent",
+              "fraction": 0,
+              "feedback": "Equivalence would make the test pass on both, not fail on both; the fault is in the test."
+            },
+            {
+              "text": "The mutation agent — the mutant is invalid",
+              "fraction": 0,
+              "feedback": "An invalid mutant would not build at all; here a test runs and fails on both versions."
+            },
+            {
+              "text": "CI — it mislabelled a passing test as failing",
+              "fraction": 0,
+              "feedback": "The consistent failure on both versions points to a broken generated test, not a CI mislabel."
+            }
+          ],
+          "generalFeedback": "A correct mutation-killing test passes on the original and fails on the mutant. Failing on both means the test itself is broken (build or logic error) — a test-agent failure mode, distinct from an equivalent mutant (passes on both) or an invalid mutant (won't build).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: mutant will not build",
+          "text": "<p>Symptom: the artifact under test will not compile because a mutant is syntactically malformed. Which agent is responsible?</p>",
+          "answers": [
+            {
+              "text": "The mutation agent — emitting syntactically invalid code that fails to build is its failure mode",
+              "fraction": 100,
+              "feedback": "Correct — invalid, non-building mutants come from the mutation agent."
+            },
+            {
+              "text": "The test agent — its test has a build error",
+              "fraction": 0,
+              "feedback": "Here it is the mutant, not a test, that fails to build."
+            },
+            {
+              "text": "The equivalence agent — it corrupted the mutant while judging",
+              "fraction": 0,
+              "feedback": "The equivalence agent judges; it does not produce malformed mutants."
+            },
+            {
+              "text": "CI — the build environment is misconfigured",
+              "fraction": 0,
+              "feedback": "The malformed mutant is generated by the mutation agent, independent of CI setup."
+            }
+          ],
+          "generalFeedback": "A mutant that is syntactically invalid and fails to build is a mutation-agent failure mode. Such mutants are discarded before the rest of the pipeline runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: uncatchable mutant wastes the test agent",
+          "text": "<p>Symptom: the test agent repeatedly fails to kill one particular mutant no matter what test it writes, and analysis shows the mutant is behaviourally identical to the original. Which agent should have prevented this?</p>",
+          "answers": [
+            {
+              "text": "The equivalence agent — it should have judged this mutant equivalent and removed it",
+              "fraction": 100,
+              "feedback": "Correct — an uncatchable mutant reaching the test agent is a missed-equivalence (recall) failure."
+            },
+            {
+              "text": "The test agent — it just needs a better test",
+              "fraction": 0,
+              "feedback": "No test can kill an equivalent mutant; the fix is to filter it, which is the judge's job."
+            },
+            {
+              "text": "The mutation agent — it should not generate any equivalent mutants",
+              "fraction": 0,
+              "feedback": "The LLM inevitably produces some (~25%); the equivalence agent exists precisely to catch them."
+            },
+            {
+              "text": "CI — it should have skipped the mutant",
+              "fraction": 0,
+              "feedback": "CI runs tests; deciding equivalence is the equivalence agent's role."
+            }
+          ],
+          "generalFeedback": "A behaviourally-identical (equivalent) mutant can never be killed. If it reaches the test agent, the equivalence agent missed it — a recall failure. This is exactly the waste the equivalence agent (with comment-stripping preprocessing lifting recall to ~0.96) is meant to prevent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why kill rate alone is insufficient",
+          "text": "<p>Why does the pipeline report engineer acceptance rather than relying on kill rate alone?</p>",
+          "answers": [
+            {
+              "text": "A test can kill a mutant yet still be flaky, hard to read, or otherwise unwanted, so engineer acceptance measures real-world value",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant does not guarantee a test engineers will actually keep."
+            },
+            {
+              "text": "Kill rate cannot be measured for LLM-generated tests",
+              "fraction": 0,
+              "feedback": "Kill rate is measured (2.4% vs 15%); acceptance is an additional, complementary metric."
+            },
+            {
+              "text": "Engineer acceptance is identical to the kill rate",
+              "fraction": 0,
+              "feedback": "They are different metrics; acceptance captures value the kill rate misses."
+            },
+            {
+              "text": "Acceptance replaces the need for an equivalence agent",
+              "fraction": 0,
+              "feedback": "Acceptance is an outcome metric; the equivalence agent addresses a different problem."
+            }
+          ],
+          "generalFeedback": "A high kill rate does not mean a test is one engineers will adopt: it may be flaky, unreadable, or low-value. Reporting engineer acceptance captures whether the generated tests deliver real, kept-in-the-suite value, not just mutant kills.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why filter flaky and invalid outputs",
+          "text": "<p>Why is a filtering/acceptance gate essential given the test agent's and mutation agent's failure modes?</p>",
+          "answers": [
+            {
+              "text": "Without gates, flaky tests and tests that fail on both versions (and invalid mutants) would pollute the suite, so they must be filtered before acceptance",
+              "fraction": 100,
+              "feedback": "Correct — gates keep unreliable and broken outputs out of the delivered suite."
+            },
+            {
+              "text": "Gates increase the equivalent-mutant rate to make the judge's job easier",
+              "fraction": 0,
+              "feedback": "Gates filter bad outputs; they do not manipulate the equivalent-mutant rate."
+            },
+            {
+              "text": "Gates let the pipeline skip the equivalence agent",
+              "fraction": 0,
+              "feedback": "The equivalence agent remains; gates handle a separate problem (bad tests and mutants)."
+            },
+            {
+              "text": "Gates convert equivalent mutants into killable ones",
+              "fraction": 0,
+              "feedback": "Nothing can make an equivalent mutant killable; gates only filter outputs."
+            }
+          ],
+          "generalFeedback": "The mutation agent can emit invalid mutants, and the test agent can emit flaky tests or tests that fail on both original and mutant. A filtering/acceptance gate keeps these unreliable or broken artifacts out of the final suite, so only valid, deterministic mutation-killing tests are accepted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Net effect of preprocessing on the flow",
+          "text": "<p>After comment stripping raises the equivalence agent to ~0.95 precision / ~0.96 recall, what is the net effect on the downstream test agent?</p>",
+          "answers": [
+            {
+              "text": "Fewer equivalent mutants slip through and fewer killable mutants are wrongly dropped, so the test agent spends its effort on genuinely killable mutants",
+              "fraction": 100,
+              "feedback": "Correct — high precision and recall together mean the test agent gets a cleaner, catchable input set."
+            },
+            {
+              "text": "The test agent now also has to judge equivalence itself",
+              "fraction": 0,
+              "feedback": "Judging stays with the equivalence agent; preprocessing just makes its output cleaner."
+            },
+            {
+              "text": "The mutation agent stops producing equivalent mutants",
+              "fraction": 0,
+              "feedback": "The mutation agent still produces ~25% equivalents; the judge just filters them better."
+            },
+            {
+              "text": "The kill rate drops below the rule-based 2.4%",
+              "fraction": 0,
+              "feedback": "Better filtering does not lower the kill rate; it focuses the test agent on catchable mutants."
+            }
+          ],
+          "generalFeedback": "High recall (~0.96) means few equivalent mutants slip through to waste the test agent; high precision (~0.95) means few catchable mutants are wrongly discarded. Together they give the test agent a clean set of genuinely killable mutants to target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cost accepted for a higher kill rate",
+          "text": "<p>The pipeline accepts a higher equivalent-mutant rate (~25%) as a deliberate cost. What does it buy, and how is the cost contained?</p>",
+          "answers": [
+            {
+              "text": "It buys a much higher kill rate (~15% vs ~2.4%) by targeting fault classes; the cost is contained by the equivalence agent that filters the extra equivalents",
+              "fraction": 100,
+              "feedback": "Correct — the equivalence judge is the containment mechanism for the extra equivalents."
+            },
+            {
+              "text": "It buys faster builds; the cost is contained by CI",
+              "fraction": 0,
+              "feedback": "The payoff is a higher kill rate, and the containment is the equivalence agent, not build speed."
+            },
+            {
+              "text": "It buys fewer mutants overall; the cost is contained by the test agent",
+              "fraction": 0,
+              "feedback": "The gain is kill rate from fault-class targeting; equivalents are contained by the judge."
+            },
+            {
+              "text": "It buys nothing; the extra equivalents are pure loss",
+              "fraction": 0,
+              "feedback": "They are the price of the ~15% kill rate, and the equivalence agent limits their downstream cost."
+            }
+          ],
+          "generalFeedback": "Targeting specific fault classes lifts the kill rate to ~15% but raises the equivalent-mutant rate to ~25%. The equivalence agent (with comment-stripping preprocessing) contains that cost by filtering the extra equivalent mutants before the test agent runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Distinguishing equivalent vs broken test",
+          "text": "<p>Two symptoms: (A) a test passes on both the original and the mutant; (B) a test fails on both. Which diagnosis is correct?</p>",
+          "answers": [
+            {
+              "text": "A points to an equivalent (or unkilled) mutant, an equivalence-agent concern; B points to a broken test, a test-agent concern",
+              "fraction": 100,
+              "feedback": "Correct — passing on both means no distinction (equivalence); failing on both means the test is broken."
+            },
+            {
+              "text": "Both A and B mean the test agent wrote a flaky test",
+              "fraction": 0,
+              "feedback": "Flakiness is non-determinism across runs; neither A nor B is about run-to-run variance."
+            },
+            {
+              "text": "Both A and B mean the mutant failed to build",
+              "fraction": 0,
+              "feedback": "A mutant that fails to build would not run at all; in both A and B a test executes."
+            },
+            {
+              "text": "A means a broken test; B means an equivalent mutant",
+              "fraction": 0,
+              "feedback": "This reverses the two: passing on both is the equivalence signal, failing on both is the broken-test signal."
+            }
+          ],
+          "generalFeedback": "Passing on both original and mutant (A) means the test cannot distinguish them — the mutant is equivalent or simply unkilled, an equivalence-agent concern. Failing on both (B) means the test is broken (build/logic error) — a test-agent concern. The two symptoms map to different agents.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ordering rationale",
+          "text": "<p>Why is equivalence judging placed before, rather than after, test generation?</p>",
+          "answers": [
+            {
+              "text": "So the expensive test agent is never asked to kill uncatchable mutants, saving effort on equivalents that no test could kill",
+              "fraction": 100,
+              "feedback": "Correct — screening first avoids wasted test-generation work."
+            },
+            {
+              "text": "So the equivalence agent can read the generated tests",
+              "fraction": 0,
+              "feedback": "It judges mutants, not tests, and runs before test generation."
+            },
+            {
+              "text": "Because equivalence can only be judged once a killing test exists",
+              "fraction": 0,
+              "feedback": "Equivalence is a property of the mutant vs the original, independent of any generated test."
+            },
+            {
+              "text": "To raise the equivalent-mutant rate before testing",
+              "fraction": 0,
+              "feedback": "Ordering does not change the rate; it avoids wasting the test agent on equivalents."
+            }
+          ],
+          "generalFeedback": "Test generation is the expensive step. Filtering equivalent mutants first means the test agent is never asked to kill a mutant that no test could ever kill, so the pipeline spends its costly effort only on genuinely catchable mutants.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Consequence of disabling the equivalence agent",
+          "text": "<p>A team disables the equivalence agent to save a step. Given the LLM mutation agent's ~25% equivalent-mutant rate, what is the most likely consequence?</p>",
+          "answers": [
+            {
+              "text": "Roughly a quarter of mutants reaching the test agent are uncatchable, so it wastes effort trying to kill mutants no test can ever kill",
+              "fraction": 100,
+              "feedback": "Correct — with ~25% equivalents unfiltered, much test-agent effort is spent on uncatchable mutants."
+            },
+            {
+              "text": "The kill rate rises above 15% because more mutants are attempted",
+              "fraction": 0,
+              "feedback": "Attempting equivalent mutants cannot kill them, so the kill rate does not improve."
+            },
+            {
+              "text": "The mutation agent stops producing equivalent mutants",
+              "fraction": 0,
+              "feedback": "The mutation agent's ~25% equivalent rate is unchanged; only the filter is gone."
+            },
+            {
+              "text": "Flaky tests are eliminated",
+              "fraction": 0,
+              "feedback": "Flakiness is a separate test-agent quality-gate issue, unaffected by removing the equivalence judge."
+            }
+          ],
+          "generalFeedback": "Without the equivalence agent, the ~25% of mutants that are equivalent flow straight to the test agent, which then wastes effort on mutants that no test can kill. That wasted work is exactly what the equivalence agent (with comment-stripping preprocessing) is there to prevent.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "三個代理的執行順序",
+          "text": "<p>此 LLM 測試生成流水線（Meta 的 ACH 流程，FSE 2025）串接三個代理。它們的執行順序為何？</p>",
+          "answers": [
+            {
+              "text": "突變代理（Mutation agent）&#8594; 等價代理（Equivalence agent）&#8594; 測試代理（Test agent）",
+              "fraction": 100,
+              "feedback": "正確——先產生突變體，再篩掉等價的，最後對存活者生成測試。"
+            },
+            {
+              "text": "測試代理（Test agent）&#8594; 突變代理（Mutation agent）&#8594; 等價代理（Equivalence agent）",
+              "fraction": 0,
+              "feedback": "測試最後才寫，用來殺掉通過篩選、非等價的突變體。"
+            },
+            {
+              "text": "等價代理（Equivalence agent）&#8594; 突變代理（Mutation agent）&#8594; 測試代理（Test agent）",
+              "fraction": 0,
+              "feedback": "在突變代理產生突變體之前，沒有東西可供等價判斷。"
+            },
+            {
+              "text": "突變代理（Mutation agent）&#8594; 測試代理（Test agent）&#8594; 等價代理（Equivalence agent）",
+              "fraction": 0,
+              "feedback": "等價篩選發生在測試生成之前，測試代理才不會被要求去殺無法殺的突變體。"
+            }
+          ],
+          "generalFeedback": "此流水線是三代理流程，順序為 Mutation &#8594; Equivalence &#8594; Test：突變代理植入錯誤，等價代理濾除無法殺（等價）的突變體，測試代理再對其餘非等價突變體生成能殺掉它們的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變代理的職責",
+          "text": "<p><strong>代理 1</strong>——<em>突變代理（Mutation agent）</em>——的職責是什麼？</p>",
+          "answers": [
+            {
+              "text": "產生針對特定錯誤類別（fault classes）的突變體",
+              "fraction": 100,
+              "feedback": "正確——突變代理植入專門瞄準特定錯誤類別的錯誤。"
+            },
+            {
+              "text": "判斷某個突變體是否等價",
+              "fraction": 0,
+              "feedback": "那是等價代理（代理 2）的工作。"
+            },
+            {
+              "text": "撰寫能殺掉突變體的測試",
+              "fraction": 0,
+              "feedback": "那是測試代理（代理 3）的工作。"
+            },
+            {
+              "text": "執行 CI 流水線並拒絕不穩定（flaky）測試",
+              "fraction": 0,
+              "feedback": "不穩定性是對測試代理輸出的品質關卡，不是突變代理的職責。"
+            }
+          ],
+          "generalFeedback": "突變代理（代理 1）產生突變體，並刻意瞄準特定錯誤類別，而非盲目做語法上的小更動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價代理的職責",
+          "text": "<p><strong>代理 2</strong>——<em>等價代理（Equivalence agent）</em>——的職責是什麼？</p>",
+          "answers": [
+            {
+              "text": "判斷某突變體是否與原始程式等價（無法殺）",
+              "fraction": 100,
+              "feedback": "正確——它作為 LLM-as-judge，濾除任何測試都殺不掉的突變體。"
+            },
+            {
+              "text": "一開始就產生那些突變體",
+              "fraction": 0,
+              "feedback": "產生突變體是突變代理（代理 1）的角色。"
+            },
+            {
+              "text": "生成能殺掉突變體的測試",
+              "fraction": 0,
+              "feedback": "撰寫殺掉突變體的測試是測試代理（代理 3）的角色。"
+            },
+            {
+              "text": "量測所得測試套件的程式碼覆蓋率",
+              "fraction": 0,
+              "feedback": "等價代理判斷等價性，不計算覆蓋率。"
+            }
+          ],
+          "generalFeedback": "等價代理（代理 2）是 LLM-as-judge，判斷某突變體是否等價——即在語意上與原始程式相同、任何測試都殺不掉——因此這些突變體會在測試代理執行前被移除。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試代理的職責",
+          "text": "<p><strong>代理 3</strong>——<em>測試代理（Test agent）</em>——的職責是什麼？</p>",
+          "answers": [
+            {
+              "text": "生成能殺掉「非等價」突變體的測試",
+              "fraction": 100,
+              "feedback": "正確——測試代理寫出一個能讓突變體與原始程式結果不同的測試。"
+            },
+            {
+              "text": "產生突變體",
+              "fraction": 0,
+              "feedback": "那是突變代理（代理 1）。"
+            },
+            {
+              "text": "判斷突變體是否等價",
+              "fraction": 0,
+              "feedback": "那是等價代理（代理 2）。"
+            },
+            {
+              "text": "在判斷前把原始碼中的註解去除",
+              "fraction": 0,
+              "feedback": "去除註解是等價代理的前處理步驟，不是測試代理的工作。"
+            }
+          ],
+          "generalFeedback": "測試代理（代理 3）對等價代理判定為非等價的突變體，生成能殺掉它的測試——即在突變體上產生與原始程式不同結果的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「殺掉突變體」的意義",
+          "text": "<p>在此流水線中，一個測試「殺掉（kill）」一個突變體是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "該測試在突變體上產生與原始程式不同的結果",
+              "fraction": 100,
+              "feedback": "正確——突變體與原始程式之間可觀察到的差異就是「殺掉」。"
+            },
+            {
+              "text": "該測試在突變體與原始程式上都通過",
+              "fraction": 0,
+              "feedback": "若在兩者上都通過，代表無法區分它們，並未殺掉突變體。"
+            },
+            {
+              "text": "該突變體被從原始碼樹中刪除",
+              "fraction": 0,
+              "feedback": "「殺掉」是指被測試偵測到，而非把突變體從磁碟移除。"
+            },
+            {
+              "text": "等價代理把該突變體標記為等價",
+              "fraction": 0,
+              "feedback": "被標記為等價的突變體正是永遠殺不掉的那種。"
+            }
+          ],
+          "generalFeedback": "當某測試在突變體上產生與原始程式不同、可觀察的結果時，該突變體就被殺掉。測試代理的整個重點就是生成這種能殺突變體的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "此處「等價突變體」的定義",
+          "text": "<p>在此流水線中，<em>等價（equivalent）</em>突變體是指：</p>",
+          "answers": [
+            {
+              "text": "行為與原始程式完全相同，因此任何測試都殺不掉它（無法殺）",
+              "fraction": 100,
+              "feedback": "正確——這正是等價代理要在測試代理執行前把它濾掉的原因。"
+            },
+            {
+              "text": "被測試代理生成的每個測試殺掉",
+              "fraction": 0,
+              "feedback": "那是很容易被殺的突變體，與等價突變體相反。"
+            },
+            {
+              "text": "無法編譯、被建置流程丟棄",
+              "fraction": 0,
+              "feedback": "那是無效程式碼（突變代理的失敗模式），不是等價突變體。"
+            },
+            {
+              "text": "是一個在多次 CI 執行間非決定性的測試",
+              "fraction": 0,
+              "feedback": "那是不穩定（flaky）測試——測試代理的失敗模式——不是等價突變體。"
+            }
+          ],
+          "generalFeedback": "等價突變體在語意上與原始程式相同：對每個輸入都產生相同行為，因此沒有測試能區分它——它無法被殺。等價代理的存在就是為了辨識並移除這類突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理判斷等價性",
+          "text": "<p>哪個代理負責判斷突變體是否等價？</p>",
+          "answers": [
+            {
+              "text": "等價代理（代理 2）",
+              "fraction": 100,
+              "feedback": "正確——它是判斷等價性的 LLM-as-judge。"
+            },
+            {
+              "text": "突變代理（代理 1）",
+              "fraction": 0,
+              "feedback": "代理 1 產生突變體，並不判斷它們。"
+            },
+            {
+              "text": "測試代理（代理 3）",
+              "fraction": 0,
+              "feedback": "代理 3 撰寫殺掉突變體的測試；等價性在它執行前就已判定。"
+            },
+            {
+              "text": "CI 系統",
+              "fraction": 0,
+              "feedback": "CI 執行生成的測試，並不判斷突變體的等價性。"
+            }
+          ],
+          "generalFeedback": "等價代理（代理 2）是判斷某突變體是否與原始程式等價的 LLM-as-judge。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理生成殺掉突變體的測試",
+          "text": "<p>哪個代理生成能殺掉突變體的測試？</p>",
+          "answers": [
+            {
+              "text": "測試代理（代理 3）",
+              "fraction": 100,
+              "feedback": "正確——測試代理生成能殺突變體的測試。"
+            },
+            {
+              "text": "突變代理（代理 1）",
+              "fraction": 0,
+              "feedback": "代理 1 產生突變體，不是測試。"
+            },
+            {
+              "text": "等價代理（代理 2）",
+              "fraction": 0,
+              "feedback": "代理 2 判斷等價性，不撰寫測試。"
+            },
+            {
+              "text": "審查接受度的工程師",
+              "fraction": 0,
+              "feedback": "工程師接受或拒絕生成的測試，但生成它們的是代理 3。"
+            }
+          ],
+          "generalFeedback": "測試代理（代理 3）為交付給它的非等價突變體生成能殺掉它的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理產生突變體",
+          "text": "<p>哪個代理產生突變體？</p>",
+          "answers": [
+            {
+              "text": "突變代理（代理 1）",
+              "fraction": 100,
+              "feedback": "正確——代理 1 植入瞄準特定錯誤類別的錯誤。"
+            },
+            {
+              "text": "等價代理（代理 2）",
+              "fraction": 0,
+              "feedback": "代理 2 判斷代理 1 所產生的突變體。"
+            },
+            {
+              "text": "測試代理（代理 3）",
+              "fraction": 0,
+              "feedback": "代理 3 撰寫殺突變體的測試，不是突變體。"
+            },
+            {
+              "text": "僅是基於規則（rule-based）的變異器",
+              "fraction": 0,
+              "feedback": "在 LLM 導引流水線中，突變代理是 LLM；基於規則的變異是被比較的基準線。"
+            }
+          ],
+          "generalFeedback": "突變代理（代理 1）產生突變體，並刻意瞄準特定錯誤類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "領域感知 vs 基於規則",
+          "text": "<p>與基於規則的基準線相比，LLM 導引方法被描述為：</p>",
+          "answers": [
+            {
+              "text": "具備領域與議題感知（domain- and issue-aware），而基於規則的變異則否",
+              "fraction": 100,
+              "feedback": "正確——LLM 能瞄準與領域及當下議題相關的錯誤。"
+            },
+            {
+              "text": "執行較快，但對領域一無所知",
+              "fraction": 0,
+              "feedback": "具領域感知的是 LLM 方法；領域感知是它的優勢，而非缺陷。"
+            },
+            {
+              "text": "在各方面都與基於規則的變異完全相同",
+              "fraction": 0,
+              "feedback": "兩者差異顯著——尤其在殺掉率與領域感知上。"
+            },
+            {
+              "text": "無法瞄準特定錯誤類別",
+              "fraction": 0,
+              "feedback": "瞄準特定錯誤類別正是 LLM 導引方法所做的事。"
+            }
+          ],
+          "generalFeedback": "LLM 導引流水線具備領域與議題感知——能瞄準對受測程式重要的錯誤類別——而基於規則的基準線則到處套用通用語法運算子，毫無此種感知。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM-as-judge 的角色",
+          "text": "<p>在此流水線中，「LLM-as-judge」一詞指的是哪個代理的運作方式？</p>",
+          "answers": [
+            {
+              "text": "等價代理判斷某突變體是否等價",
+              "fraction": 100,
+              "feedback": "正確——它使用 LLM 來判斷等價性。"
+            },
+            {
+              "text": "突變代理為它植入了多少錯誤打分",
+              "fraction": 0,
+              "feedback": "突變代理產生突變體；擔任評判角色的是等價代理。"
+            },
+            {
+              "text": "測試代理為自己的測試評分",
+              "fraction": 0,
+              "feedback": "測試代理撰寫測試；「評判者」是等價代理。"
+            },
+            {
+              "text": "CI 判斷某測試是否不穩定",
+              "fraction": 0,
+              "feedback": "CI 套用品質關卡，但「LLM-as-judge」指的是等價代理。"
+            }
+          ],
+          "generalFeedback": "「LLM-as-judge」描述的是等價代理（代理 2），它使用 LLM 來判斷某突變體是否與原始程式等價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些突變體會送到測試代理",
+          "text": "<p>測試代理會嘗試殺掉哪些突變體？</p>",
+          "answers": [
+            {
+              "text": "通過等價代理篩選、存活下來的非等價突變體",
+              "fraction": 100,
+              "feedback": "正確——只有真正殺得掉的突變體才會交給測試代理。"
+            },
+            {
+              "text": "所有突變體，包含等價的",
+              "fraction": 0,
+              "feedback": "等價突變體會先被濾掉，才不會在殺不掉的突變體上白費力氣。"
+            },
+            {
+              "text": "只有等價突變體",
+              "fraction": 0,
+              "feedback": "等價突變體永遠殺不掉；測試代理瞄準的是非等價的那些。"
+            },
+            {
+              "text": "只有無法編譯的突變體",
+              "fraction": 0,
+              "feedback": "無效突變體會被丟棄，不會被送去嘗試殺掉。"
+            }
+          ],
+          "generalFeedback": "等價代理會先移除等價（無法殺）的突變體，因此測試代理只嘗試殺掉通過該篩選、存活下來的非等價突變體。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "流水線由三個代理組成",
+          "text": "<p>此 LLM 測試生成流水線是一個三代理流程（突變、等價與測試代理）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它串接突變代理、等價代理與測試代理。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "它是三代理流程：Mutation &#8594; Equivalence &#8594; Test。"
+            }
+          ],
+          "generalFeedback": "此流水線是三代理流程：突變代理、等價代理（LLM-as-judge）與測試代理，依此順序執行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "流水線的整體目標",
+          "text": "<p>此流水線的整體目標是什麼？</p>",
+          "answers": [
+            {
+              "text": "生成瞄準特定錯誤類別、能殺掉突變體的測試",
+              "fraction": 100,
+              "feedback": "正確——最終產物是能殺掉針對特定錯誤類別之突變體的測試。"
+            },
+            {
+              "text": "使產生的等價突變體數量最大化",
+              "fraction": 0,
+              "feedback": "等價突變體是要被濾掉的不必要成本，而非目標。"
+            },
+            {
+              "text": "證明程式不含任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何測試流水線能證明所有缺陷都不存在。"
+            },
+            {
+              "text": "完全取代人類工程師",
+              "fraction": 0,
+              "feedback": "工程師接受度是一項指標；工程師仍會審查生成的測試。"
+            }
+          ],
+          "generalFeedback": "此流水線生成瞄準特定錯誤類別、能殺掉突變體的測試，透過三個代理來植入錯誤、濾除無法殺的突變體，並為其餘者撰寫能殺掉它們的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個代理最先執行",
+          "text": "<p>在流水線中，哪個代理<em>最先</em>執行？</p>",
+          "answers": [
+            {
+              "text": "突變代理",
+              "fraction": 100,
+              "feedback": "正確——必須先有突變體，才能判斷或殺掉任何東西。"
+            },
+            {
+              "text": "等價代理",
+              "fraction": 0,
+              "feedback": "在突變代理產生突變體之前，沒有東西可供判斷。"
+            },
+            {
+              "text": "測試代理",
+              "fraction": 0,
+              "feedback": "測試最後才寫，用來對付存活的非等價突變體。"
+            },
+            {
+              "text": "三者同時執行，沒有先後順序",
+              "fraction": 0,
+              "feedback": "這些代理依固定順序執行：Mutation &#8594; Equivalence &#8594; Test。"
+            }
+          ],
+          "generalFeedback": "突變代理最先執行，產生突變體，等價代理與測試代理再依序處理。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "進入等價代理的資料流",
+          "text": "<p>等價代理接收什麼作為輸入？</p>",
+          "answers": [
+            {
+              "text": "突變代理產生的突變體，以判斷哪些是等價的",
+              "fraction": 100,
+              "feedback": "正確——它在測試代理執行前，篩選突變代理的輸出。"
+            },
+            {
+              "text": "測試代理產生的、能殺突變體的測試",
+              "fraction": 0,
+              "feedback": "測試代理在等價代理之後執行，其測試不可能是輸入。"
+            },
+            {
+              "text": "來自 CI 的原始覆蓋率報告",
+              "fraction": 0,
+              "feedback": "等價代理判斷突變體，而非覆蓋率報告。"
+            },
+            {
+              "text": "什麼都沒有——它在突變代理之前執行",
+              "fraction": 0,
+              "feedback": "順序是 Mutation &#8594; Equivalence &#8594; Test；在突變體存在前沒有東西可判斷。"
+            }
+          ],
+          "generalFeedback": "等價代理位於突變代理與測試代理之間：它取用突變代理生成的突變體，判斷哪些等價，只把非等價的那些傳給測試代理。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何需要等價代理",
+          "text": "<p>為什麼 LLM 導引流水線需要一個專責的等價代理，而較簡單的基於規則流程可能不需要？</p>",
+          "answers": [
+            {
+              "text": "LLM 突變代理產生較高比例的等價突變體（約 25%），因此必須把它們濾掉",
+              "fraction": 100,
+              "feedback": "正確——更多等價突變體使得專責的評判者值得投入。"
+            },
+            {
+              "text": "LLM 從不產生等價突變體，所以此代理只是再次確認",
+              "fraction": 0,
+              "feedback": "事實相反：LLM 產生的等價突變體比基於規則的基準線更多。"
+            },
+            {
+              "text": "因為基於規則的變異無法編譯其突變體",
+              "fraction": 0,
+              "feedback": "原因是 LLM 較高的等價突變體率，而非基於規則變異的編譯問題。"
+            },
+            {
+              "text": "為了刻意增加等價突變體的數量",
+              "fraction": 0,
+              "feedback": "此代理是移除等價突變體，而非製造更多。"
+            }
+          ],
+          "generalFeedback": "由於 LLM 導引的突變代理產生較高的等價突變體率（約 25%，相對於基於規則約 10&#8211;15%），流水線加入等價代理，在昂貴的測試生成步驟前把這些無法殺的突變體濾掉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺掉率的比較",
+          "text": "<p>基於規則的基準線與 LLM 導引流水線所回報的突變體殺掉率相比如何？</p>",
+          "answers": [
+            {
+              "text": "基於規則約 2.4%，LLM 導引約 15%",
+              "fraction": 100,
+              "feedback": "正確——LLM 導引方法殺掉的突變體比例高得多。"
+            },
+            {
+              "text": "基於規則約 15%，LLM 導引約 2.4%",
+              "fraction": 0,
+              "feedback": "數字相反：LLM 導引才是較高的那個，約 15%。"
+            },
+            {
+              "text": "兩者皆約 25%",
+              "fraction": 0,
+              "feedback": "25% 是 LLM 的等價突變體率，不是殺掉率。"
+            },
+            {
+              "text": "兩者皆接近 100%",
+              "fraction": 0,
+              "feedback": "兩種方法都遠不及 100%；回報的殺掉率是 2.4% 與 15%。"
+            }
+          ],
+          "generalFeedback": "基於規則的基準線約殺掉 2.4% 的突變體，LLM 導引流水線約殺掉 15%——此大幅躍升歸因於瞄準特定錯誤類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不穩定測試的失敗模式",
+          "text": "<p>一個生成的測試在多次 CI 執行間非決定性地時而通過、時而失敗，並被拒絕。這是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "測試代理——它產生了不穩定（非決定性）的測試",
+              "fraction": 100,
+              "feedback": "正確——不穩定測試是測試代理的失敗模式，會被 CI 品質關卡攔下。"
+            },
+            {
+              "text": "突變代理——它產生了等價突變體",
+              "fraction": 0,
+              "feedback": "不穩定性關乎測試的決定性，而非突變體。"
+            },
+            {
+              "text": "等價代理——它誤判了等價性",
+              "fraction": 0,
+              "feedback": "誤判等價是另一種症狀；不穩定性是生成測試的性質。"
+            },
+            {
+              "text": "CI——它把隨機性引入測試",
+              "fraction": 0,
+              "feedback": "CI 偵測並拒絕不穩定測試；生成它的是測試代理。"
+            }
+          ],
+          "generalFeedback": "生成一個被 CI 拒絕的不穩定（非決定性）測試，是測試代理的失敗模式。品質關卡會把這類測試濾掉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無效程式碼的失敗模式",
+          "text": "<p>一個產生的突變體在語法上無效、無法建置。這是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "突變代理——它產出了語法上無效的程式碼",
+              "fraction": 100,
+              "feedback": "正確——產出無效、無法建置的程式碼是突變代理的失敗模式。"
+            },
+            {
+              "text": "測試代理——它寫了不穩定測試",
+              "fraction": 0,
+              "feedback": "不穩定是測試代理的問題；此處是突變體無法建置。"
+            },
+            {
+              "text": "等價代理——它錯把突變體標記為等價",
+              "fraction": 0,
+              "feedback": "那是另一種失敗；此處是突變體本身無法編譯。"
+            },
+            {
+              "text": "工程師——他們拒絕了測試",
+              "fraction": 0,
+              "feedback": "問題在於突變代理產出的無效突變體程式碼。"
+            }
+          ],
+          "generalFeedback": "產出語法上無效、無法建置的程式碼，是突變代理（代理 1）的失敗模式；這類突變體會被丟棄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何去除註解",
+          "text": "<p>等價代理加入一個前處理步驟，在判斷前去除註解。為什麼？</p>",
+          "answers": [
+            {
+              "text": "註解差異造成約 25% 的偽陽性，因此移除它們可提升準確度",
+              "fraction": 100,
+              "feedback": "正確——註解差異是偽陽性的一大來源，去除註解即可修正。"
+            },
+            {
+              "text": "註解會讓程式編譯得更快",
+              "fraction": 0,
+              "feedback": "原因在於判斷的準確度，而非編譯速度。"
+            },
+            {
+              "text": "測試代理需要註解，所以把它們移到一旁",
+              "fraction": 0,
+              "feedback": "去除註解是為了幫助等價評判者，而非為測試代理搬移它們。"
+            },
+            {
+              "text": "去除註解會刻意提高等價突變體率",
+              "fraction": 0,
+              "feedback": "它提升的是評判者的精確率與召回率，與拉高等價比例無關。"
+            }
+          ],
+          "generalFeedback": "註解差異占等價代理約 25% 的偽陽性。以去除註解作為前處理步驟可移除此雜訊，並把精確率與召回率（從 0.79/0.47）提升到約 0.95/0.96。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價突變體率的比較",
+          "text": "<p>LLM 導引方法的等價突變體率與基於規則的基準線相比如何？</p>",
+          "answers": [
+            {
+              "text": "LLM 較高（約 25%），基於規則較低（約 10&#8211;15%）",
+              "fraction": 100,
+              "feedback": "正確——LLM 產生更多等價突變體，這正是等價代理存在的動機。"
+            },
+            {
+              "text": "LLM 較低（約 5%），基於規則較高（約 25%）",
+              "fraction": 0,
+              "feedback": "LLM 的等價突變體率較高，而非較低。"
+            },
+            {
+              "text": "兩者相同，皆約 2.4%",
+              "fraction": 0,
+              "feedback": "2.4% 是基於規則的殺掉率，不是等價突變體率。"
+            },
+            {
+              "text": "LLM 為零",
+              "fraction": 0,
+              "feedback": "LLM 的等價突變體率約 25%，並非零。"
+            }
+          ],
+          "generalFeedback": "LLM 導引方法的等價突變體率較高（約 25%），高於基於規則的基準線（約 10&#8211;15%）——這是瞄準特定錯誤類別的代價，也是為何需要專責的等價評判者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「兩者皆失敗」的失敗模式",
+          "text": "<p>一個生成的測試在原始程式與突變體上「都」失敗。這最直接是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "測試代理——它產生了帶有建置或邏輯錯誤的測試，而非有效的、能殺突變體的測試",
+              "fraction": 100,
+              "feedback": "正確——在原始程式上也失敗的測試無法區分突變體，它壞掉了。"
+            },
+            {
+              "text": "突變代理——該突變體是等價的",
+              "fraction": 0,
+              "feedback": "等價會使測試在兩者上都通過，而非都失敗；且此處問題在於測試壞掉。"
+            },
+            {
+              "text": "等價代理——它低估了等價突變體的數量",
+              "fraction": 0,
+              "feedback": "此症狀是壞掉的測試，屬測試代理的輸出。"
+            },
+            {
+              "text": "CI——它以錯誤順序執行測試",
+              "fraction": 0,
+              "feedback": "測試本身有缺陷；它在原始程式與突變體上都失敗。"
+            }
+          ],
+          "generalFeedback": "在原始程式與突變體上都失敗的測試無法區分兩者——它有建置或邏輯錯誤。這是測試代理的失敗模式；有效的殺突變體測試必須在原始程式上通過、在突變體上失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價步驟在流程中的位置",
+          "text": "<p>相對於測試代理，等價代理何時執行？</p>",
+          "answers": [
+            {
+              "text": "在測試代理之前，因此無法殺的突變體會先被移除",
+              "fraction": 100,
+              "feedback": "正確——先篩選再生成測試，以避免白費力氣。"
+            },
+            {
+              "text": "在測試代理之後，用來檢查那些測試",
+              "fraction": 0,
+              "feedback": "等價是針對突變體判斷，在測試代理撰寫測試之前進行。"
+            },
+            {
+              "text": "與突變代理平行執行",
+              "fraction": 0,
+              "feedback": "它在突變代理之後、測試代理之前執行。"
+            },
+            {
+              "text": "只有在 CI 拒絕不穩定測試後才執行",
+              "fraction": 0,
+              "feedback": "等價判斷與 CI 的不穩定關卡無關，且發生得更早。"
+            }
+          ],
+          "generalFeedback": "等價代理在突變代理之後、測試代理之前執行，濾掉等價突變體，使測試代理只對可殺的突變體工作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "去除註解對分數的影響",
+          "text": "<p>加入去除註解後，等價代理的精確率（precision）與召回率（recall）會如何變化？</p>",
+          "answers": [
+            {
+              "text": "從約 0.79/0.47 上升到約 0.95/0.96",
+              "fraction": 100,
+              "feedback": "正確——移除註解差異的雜訊大幅改善這兩個指標。"
+            },
+            {
+              "text": "從約 0.95/0.96 下降到約 0.79/0.47",
+              "fraction": 0,
+              "feedback": "方向相反：前處理會改善分數。"
+            },
+            {
+              "text": "維持不變",
+              "fraction": 0,
+              "feedback": "去除註解帶來大幅、可量測的改善。"
+            },
+            {
+              "text": "精確率上升，但召回率降到接近零",
+              "fraction": 0,
+              "feedback": "精確率與召回率都上升，分別到約 0.95 與 0.96。"
+            }
+          ],
+          "generalFeedback": "無前處理時，等價代理的精確率為 0.79、召回率為 0.47；去除註解（造成約 25% 偽陽性）後，這些數字提升到約 0.95 精確率與 0.96 召回率。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "工程師接受度作為指標",
+          "text": "<p>除了殺掉率之外，下列何者被回報為此流水線的一項指標？</p>",
+          "answers": [
+            {
+              "text": "工程師對生成測試的接受度",
+              "fraction": 100,
+              "feedback": "正確——工程師是否真的接受這些測試是一項重要指標。"
+            },
+            {
+              "text": "每個突變體的註解數量",
+              "fraction": 0,
+              "feedback": "註解只是評判者前處理時的干擾，並非重要指標。"
+            },
+            {
+              "text": "每次執行刪除的程式碼行數",
+              "fraction": 0,
+              "feedback": "那不是回報的流水線指標。"
+            },
+            {
+              "text": "流程中的代理數量",
+              "fraction": 0,
+              "feedback": "代理數固定為三；那不是評估指標。"
+            }
+          ],
+          "generalFeedback": "工程師接受度——工程師是否真的採用生成的測試——是一項回報的指標，反映出單看高殺掉率並非衡量價值的唯一標準。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "漏判等價的失敗模式",
+          "text": "<p>一個等價突變體漏網、被交給測試代理，測試代理於是白費力氣想殺掉它。這是哪個代理的失敗模式？</p>",
+          "answers": [
+            {
+              "text": "等價代理——它未能辨識出一個等價突變體",
+              "fraction": 100,
+              "feedback": "正確——漏判等價突變體（低召回率）會把無法殺的工作往下游推。"
+            },
+            {
+              "text": "突變代理——它產出了無效程式碼",
+              "fraction": 0,
+              "feedback": "此處突變體有效但等價；漏判的是評判者。"
+            },
+            {
+              "text": "測試代理——它寫了不穩定測試",
+              "fraction": 0,
+              "feedback": "白費力氣源於等價突變體到達測試代理，屬判斷上的漏失。"
+            },
+            {
+              "text": "CI——它未能拒絕該測試",
+              "fraction": 0,
+              "feedback": "根因是等價代理放行了一個等價突變體。"
+            }
+          ],
+          "generalFeedback": "放行一個等價（無法殺）突變體到測試代理，是等價代理的失敗——召回率漏失。測試代理接著會在一個沒有任何測試能殺的突變體上白費力氣。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "更高殺掉率，更多等價體",
+          "text": "<p>LLM 導引流水線達到比基於規則變異更高的殺掉率，但代價是更高的等價突變體率。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——殺掉率約 15% 對 2.4%，但等價突變體約 25% 對 10&#8211;15%。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此權衡確實存在：更高殺掉率（15% 對 2.4%），但更多等價突變體（約 25% 對 10&#8211;15%）。"
+            }
+          ],
+          "generalFeedback": "瞄準特定錯誤類別把殺掉率從約 2.4% 提升到約 15%，但也把等價突變體率提高到約 25%（相對基於規則約 10&#8211;15%），這正是加入等價代理的原因。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何殺掉率較高",
+          "text": "<p>LLM 導引流水線高得多的殺掉率被歸功於什麼？</p>",
+          "answers": [
+            {
+              "text": "瞄準特定錯誤類別，而非通用的語法小更動",
+              "fraction": 100,
+              "feedback": "正確——瞄準真正的錯誤類別能產生更多可殺、有意義的突變體。"
+            },
+            {
+              "text": "整體產生的突變體少得多",
+              "fraction": 0,
+              "feedback": "殺掉率的提升來自「瞄準什麼」，而非產生更少突變體。"
+            },
+            {
+              "text": "跳過等價判斷步驟",
+              "fraction": 0,
+              "feedback": "等價步驟是被加入而非跳過；殺掉率來自對錯誤類別的瞄準。"
+            },
+            {
+              "text": "每個測試只執行一次",
+              "fraction": 0,
+              "feedback": "執行次數與殺掉率的提升無關。"
+            }
+          ],
+          "generalFeedback": "殺掉率從約 2.4% 躍升到約 15%，被歸功於 LLM 瞄準特定錯誤類別，而對領域盲目的基於規則基準線做不到這一點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對生成測試的品質關卡",
+          "text": "<p>為什麼流水線需要對測試代理的輸出設品質關卡？</p>",
+          "answers": [
+            {
+              "text": "因為測試代理可能產生不穩定或其他無效的測試，必須把它們濾掉",
+              "fraction": 100,
+              "feedback": "正確——不穩定測試與在原始程式和突變體上都失敗的測試都必須被拒絕。"
+            },
+            {
+              "text": "因為突變代理從不產生有效突變體",
+              "fraction": 0,
+              "feedback": "關卡針對的是測試代理的輸出；突變代理的無效突變體另行處理。"
+            },
+            {
+              "text": "為了提高等價突變體率",
+              "fraction": 0,
+              "feedback": "關卡濾除壞測試，不影響等價突變體率。"
+            },
+            {
+              "text": "為了讓等價代理變得不必要",
+              "fraction": 0,
+              "feedback": "等價代理仍然需要；品質關卡處理的是另一個問題（壞測試）。"
+            }
+          ],
+          "generalFeedback": "測試代理可能產出不穩定（非決定性）測試，或在原始程式與突變體上都失敗的測試。品質關卡（如 CI 檢查）把這些濾掉，只保留有效的、能殺突變體的測試。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "權衡促成等價評判者",
+          "text": "<p>下列哪一條推理鏈最能說明為何流水線要納入等價代理？</p>",
+          "answers": [
+            {
+              "text": "瞄準錯誤類別提高了殺掉率，但也提高等價突變體率（約 25%），因此需要一個評判者在昂貴的測試步驟前丟掉無法殺的突變體",
+              "fraction": 100,
+              "feedback": "正確——等價代理正是對較高等價突變體率的直接回應。"
+            },
+            {
+              "text": "LLM 產生較少等價突變體，所以評判者只是廉價地確認並沒有等價突變體",
+              "fraction": 0,
+              "feedback": "LLM 產生的等價突變體更多而非更少；這正是需要評判者的原因。"
+            },
+            {
+              "text": "基於規則的變異需要此評判者，LLM 流水線只是沿用",
+              "fraction": 0,
+              "feedback": "評判者的動機來自 LLM 自身較高的等價突變體率，而非沿用自基於規則的變異。"
+            },
+            {
+              "text": "評判者只是為了拉高殺掉率的數字",
+              "fraction": 0,
+              "feedback": "評判者是移除無法殺的突變體，並不製造殺掉。"
+            }
+          ],
+          "generalFeedback": "由於 LLM 導引的突變代理瞄準特定錯誤類別，它殺掉更多突變體（約 15% 對 2.4%），但也產生更多等價突變體（約 25% 對 10&#8211;15%）。等價代理是流水線的回應：它在昂貴的測試生成步驟前把這些無法殺的突變體濾掉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀召回率 0.47",
+          "text": "<p>等價代理在無前處理時召回率僅 0.47。在此流水線中，這個低召回率具體的代價是什麼？</p>",
+          "answers": [
+            {
+              "text": "許多真正等價的突變體被漏掉並傳給測試代理，測試代理於是白費力氣去殺無法殺的突變體",
+              "fraction": 100,
+              "feedback": "正確——對「等價」的低召回率代表許多等價體漏到下游。"
+            },
+            {
+              "text": "許多非等價突變體被錯誤丟棄，導致真正的錯誤未被測試",
+              "fraction": 0,
+              "feedback": "那描述的是低精確率，而非低召回率。"
+            },
+            {
+              "text": "突變代理產生較少的突變體",
+              "fraction": 0,
+              "feedback": "評判者的召回率不會改變突變代理產生多少突變體。"
+            },
+            {
+              "text": "測試在 CI 中變得不穩定",
+              "fraction": 0,
+              "feedback": "不穩定是測試代理的問題，與評判者的召回率無關。"
+            }
+          ],
+          "generalFeedback": "召回率 0.47 代表評判者抓到的真正等價突變體不到一半。漏掉的那些會流向測試代理，測試代理於是白費力氣去嘗試殺永遠殺不掉的突變體。去除註解把召回率提升到約 0.96。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀精確率 0.79",
+          "text": "<p>等價代理在無前處理時精確率為 0.79。此處精確率低於 1.0 的代價是什麼？</p>",
+          "answers": [
+            {
+              "text": "有些被標為「等價」的突變體其實非等價，因此真正可殺的突變體被錯誤丟棄、永遠拿不到測試",
+              "fraction": 100,
+              "feedback": "正確——「等價」上的偽陽性會丟掉可殺的突變體。"
+            },
+            {
+              "text": "有些等價突變體被漏掉並到達測試代理",
+              "fraction": 0,
+              "feedback": "那是召回率問題；精確率關乎錯誤的「等價」標記。"
+            },
+            {
+              "text": "殺掉率被灌水到 15%",
+              "fraction": 0,
+              "feedback": "15% 殺掉率來自瞄準錯誤類別，而非評判者的精確率。"
+            },
+            {
+              "text": "突變體更常無法編譯",
+              "fraction": 0,
+              "feedback": "編譯是突變代理的問題，並非評判者精確率的函數。"
+            }
+          ],
+          "generalFeedback": "精確率 0.79 代表評判者標為「等價」的突變體中，約五分之一其實不是——這些真正可殺的突變體被錯誤濾掉、永遠拿不到測試。註解差異造成其中約 25% 的偽陽性；去除註解把精確率提升到約 0.95。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何去除註解能修正偽陽性",
+          "text": "<p>為什麼去除註解能特別降低等價代理的偽陽性？</p>",
+          "answers": [
+            {
+              "text": "純註解差異不改變行為，卻把評判者推向「等價」；移除它們可讓評判者比較真正的邏輯——而它們占偽陽性的約 25%",
+              "fraction": 100,
+              "feedback": "正確——註解差異是不影響行為的雜訊，卻扭曲了判斷。"
+            },
+            {
+              "text": "註解會改變程式行為，所以移除它們就改變了突變體",
+              "fraction": 0,
+              "feedback": "註解不影響行為；這正是它們對評判者而言是雜訊的原因。"
+            },
+            {
+              "text": "去除註解加快編譯並避免逾時",
+              "fraction": 0,
+              "feedback": "好處在於判斷的準確度，而非編譯時間。"
+            },
+            {
+              "text": "註解是突變代理藏無效程式碼的地方",
+              "fraction": 0,
+              "feedback": "問題在於不影響行為的註解差異混淆了評判者，而非藏起來的無效程式碼。"
+            }
+          ],
+          "generalFeedback": "註解差異不影響行為，卻扭曲了評判者的判斷，並造成約 25% 的偽陽性。以去除註解作為前處理讓評判者比較真正的邏輯，把精確率/召回率從 0.79/0.47 提升到約 0.95/0.96。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何基於規則會錯過錯誤類別",
+          "text": "<p>為什麼對覆蓋率盲目、基於規則的基準線僅達約 2.4% 殺掉率，而 LLM 約 15%？</p>",
+          "answers": [
+            {
+              "text": "它套用通用語法運算子、沒有領域或議題感知，因此鮮少瞄準真正重要的錯誤類別",
+              "fraction": 100,
+              "feedback": "正確——沒有領域/議題感知，它就無法瞄準有意義的錯誤。"
+            },
+            {
+              "text": "它產生的突變體太少，殺不掉任何",
+              "fraction": 0,
+              "feedback": "基於規則的變異通常產生很多突變體；問題在於相關性，而非數量。"
+            },
+            {
+              "text": "它去除註解而遺失資訊",
+              "fraction": 0,
+              "feedback": "去除註解是等價代理的前處理步驟，而非基於規則的限制。"
+            },
+            {
+              "text": "它的等價代理太過激進",
+              "fraction": 0,
+              "feedback": "取得專責等價代理的並非基於規則的基準線；其低殺掉率關乎缺乏領域感知。"
+            }
+          ],
+          "generalFeedback": "基於規則的變異對領域與議題盲目：它到處套用通用運算子，鮮少命中真正重要的特定錯誤類別，因此殺掉率停在約 2.4%。LLM 導引方法瞄準那些錯誤類別，達到約 15%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：測試在原始程式與突變體上都失敗",
+          "text": "<p>症狀：一個生成的測試在原始程式與突變體上都失敗。哪個代理的失敗最能解釋這一點，為什麼？</p>",
+          "answers": [
+            {
+              "text": "測試代理——有效的殺突變體測試必須在原始程式上通過、在突變體上失敗；兩者都失敗代表測試有建置／邏輯錯誤",
+              "fraction": 100,
+              "feedback": "正確——若在原始程式上也失敗，該測試就無法區分任何東西。"
+            },
+            {
+              "text": "等價代理——它本該把這判為等價",
+              "fraction": 0,
+              "feedback": "等價會使測試在兩者上都通過而非都失敗；錯在測試本身。"
+            },
+            {
+              "text": "突變代理——該突變體無效",
+              "fraction": 0,
+              "feedback": "無效突變體根本無法建置；此處有一個測試執行並在兩版上都失敗。"
+            },
+            {
+              "text": "CI——它把通過的測試誤標為失敗",
+              "fraction": 0,
+              "feedback": "在兩版上一致失敗指向一個壞掉的生成測試，而非 CI 誤標。"
+            }
+          ],
+          "generalFeedback": "正確的殺突變體測試會在原始程式上通過、在突變體上失敗。兩者都失敗代表測試本身壞掉（建置或邏輯錯誤）——這是測試代理的失敗模式，有別於等價突變體（兩者都通過）或無效突變體（無法建置）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：突變體無法建置",
+          "text": "<p>症狀：受測產物因某突變體語法畸形而無法編譯。哪個代理應負責？</p>",
+          "answers": [
+            {
+              "text": "突變代理——產出語法上無效、無法建置的程式碼是它的失敗模式",
+              "fraction": 100,
+              "feedback": "正確——無效、無法建置的突變體來自突變代理。"
+            },
+            {
+              "text": "測試代理——它的測試有建置錯誤",
+              "fraction": 0,
+              "feedback": "此處是突變體、而非測試，無法建置。"
+            },
+            {
+              "text": "等價代理——它在判斷時弄壞了突變體",
+              "fraction": 0,
+              "feedback": "等價代理只做判斷，不會產出畸形突變體。"
+            },
+            {
+              "text": "CI——建置環境設定錯誤",
+              "fraction": 0,
+              "feedback": "畸形突變體由突變代理產生，與 CI 設定無關。"
+            }
+          ],
+          "generalFeedback": "一個語法上無效、無法建置的突變體是突變代理的失敗模式。這類突變體會在流水線其餘部分執行前被丟棄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：無法殺的突變體浪費測試代理",
+          "text": "<p>症狀：測試代理無論寫什麼測試都反覆殺不掉某個特定突變體，分析顯示該突變體在行為上與原始程式相同。哪個代理本應防止這種情況？</p>",
+          "answers": [
+            {
+              "text": "等價代理——它本應把此突變體判為等價並移除",
+              "fraction": 100,
+              "feedback": "正確——無法殺的突變體到達測試代理是一種漏判等價（召回率）失敗。"
+            },
+            {
+              "text": "測試代理——它只是需要更好的測試",
+              "fraction": 0,
+              "feedback": "沒有任何測試能殺等價突變體；修正之道是把它濾掉，那是評判者的工作。"
+            },
+            {
+              "text": "突變代理——它不應產生任何等價突變體",
+              "fraction": 0,
+              "feedback": "LLM 無可避免會產生一些（約 25%）；等價代理正是為了抓住它們而存在。"
+            },
+            {
+              "text": "CI——它應該跳過該突變體",
+              "fraction": 0,
+              "feedback": "CI 執行測試；判斷等價性是等價代理的職責。"
+            }
+          ],
+          "generalFeedback": "行為上相同（等價）的突變體永遠殺不掉。若它到達測試代理，就是等價代理漏判了它——召回率失敗。這正是等價代理（以去除註解前處理把召回率提升到約 0.96）要防止的浪費。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單看殺掉率不足",
+          "text": "<p>為什麼流水線要回報工程師接受度，而不只依賴殺掉率？</p>",
+          "answers": [
+            {
+              "text": "一個測試可能殺掉突變體，卻仍不穩定、難以閱讀或不受歡迎，因此工程師接受度衡量的是真實價值",
+              "fraction": 100,
+              "feedback": "正確——殺掉突變體不保證工程師會真的保留該測試。"
+            },
+            {
+              "text": "LLM 生成測試的殺掉率無法量測",
+              "fraction": 0,
+              "feedback": "殺掉率可以量測（2.4% 對 15%）；接受度是另一項互補指標。"
+            },
+            {
+              "text": "工程師接受度與殺掉率完全相同",
+              "fraction": 0,
+              "feedback": "它們是不同的指標；接受度捕捉殺掉率忽略的價值。"
+            },
+            {
+              "text": "接受度取代了對等價代理的需要",
+              "fraction": 0,
+              "feedback": "接受度是成果指標；等價代理處理的是另一個問題。"
+            }
+          ],
+          "generalFeedback": "高殺掉率不代表測試會被工程師採用：它可能不穩定、難讀或價值低。回報工程師接受度可捕捉生成測試是否帶來真實、被留在套件中的價值，而不只是殺掉突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要濾掉不穩定與無效輸出",
+          "text": "<p>鑑於測試代理與突變代理的失敗模式，為什麼過濾／接受關卡不可或缺？</p>",
+          "answers": [
+            {
+              "text": "若無關卡，不穩定測試、在兩版上都失敗的測試（以及無效突變體）會污染套件，因此必須在接受前濾掉它們",
+              "fraction": 100,
+              "feedback": "正確——關卡把不可靠與壞掉的輸出擋在交付套件之外。"
+            },
+            {
+              "text": "關卡提高等價突變體率以讓評判者更輕鬆",
+              "fraction": 0,
+              "feedback": "關卡濾除壞輸出，不會操弄等價突變體率。"
+            },
+            {
+              "text": "關卡讓流水線得以跳過等價代理",
+              "fraction": 0,
+              "feedback": "等價代理仍在；關卡處理的是另一個問題（壞測試與壞突變體）。"
+            },
+            {
+              "text": "關卡把等價突變體轉為可殺的",
+              "fraction": 0,
+              "feedback": "沒有任何東西能讓等價突變體變成可殺；關卡只是過濾輸出。"
+            }
+          ],
+          "generalFeedback": "突變代理可能產出無效突變體，測試代理可能產出不穩定測試或在原始程式與突變體上都失敗的測試。過濾／接受關卡把這些不可靠或壞掉的產物擋在最終套件之外，只接受有效、決定性、能殺突變體的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "前處理對流程的淨效果",
+          "text": "<p>在去除註解把等價代理提升到約 0.95 精確率／約 0.96 召回率之後，對下游測試代理的淨效果是什麼？</p>",
+          "answers": [
+            {
+              "text": "較少等價突變體漏網、也較少可殺突變體被錯誤丟棄，因此測試代理把力氣花在真正可殺的突變體上",
+              "fraction": 100,
+              "feedback": "正確——高精確率與高召回率一起，讓測試代理拿到更乾淨、可殺的輸入集合。"
+            },
+            {
+              "text": "測試代理現在也必須自己判斷等價性",
+              "fraction": 0,
+              "feedback": "判斷仍屬等價代理；前處理只是讓它的輸出更乾淨。"
+            },
+            {
+              "text": "突變代理停止產生等價突變體",
+              "fraction": 0,
+              "feedback": "突變代理仍產生約 25% 等價體；只是評判者濾得更好。"
+            },
+            {
+              "text": "殺掉率跌到基於規則的 2.4% 以下",
+              "fraction": 0,
+              "feedback": "更好的過濾不會降低殺掉率；它讓測試代理專注於可殺的突變體。"
+            }
+          ],
+          "generalFeedback": "高召回率（約 0.96）代表少有等價突變體漏網去浪費測試代理；高精確率（約 0.95）代表少有可殺突變體被錯誤丟棄。兩者一起，讓測試代理得到一組乾淨、真正可殺的突變體來瞄準。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為換取更高殺掉率而接受的代價",
+          "text": "<p>流水線刻意接受較高的等價突變體率（約 25%）作為代價。它換來什麼，而代價又如何被控制住？</p>",
+          "answers": [
+            {
+              "text": "它藉由瞄準錯誤類別換來高得多的殺掉率（約 15% 對 2.4%）；代價由濾除多出等價體的等價代理控制住",
+              "fraction": 100,
+              "feedback": "正確——等價評判者正是多出等價體的控制機制。"
+            },
+            {
+              "text": "它換來更快的建置；代價由 CI 控制住",
+              "fraction": 0,
+              "feedback": "報酬是更高的殺掉率，控制機制是等價代理，而非建置速度。"
+            },
+            {
+              "text": "它換來整體更少的突變體；代價由測試代理控制住",
+              "fraction": 0,
+              "feedback": "收益是瞄準錯誤類別帶來的殺掉率；等價體由評判者控制。"
+            },
+            {
+              "text": "它什麼都沒換來；多出的等價體是純粹損失",
+              "fraction": 0,
+              "feedback": "它們是約 15% 殺掉率的代價，而等價代理限制了其下游成本。"
+            }
+          ],
+          "generalFeedback": "瞄準特定錯誤類別把殺掉率提升到約 15%，但把等價突變體率提高到約 25%。等價代理（配合去除註解前處理）在測試代理執行前濾除多出的等價突變體，藉此控制住此代價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "區分等價突變體與壞掉的測試",
+          "text": "<p>兩種症狀：(A) 一個測試在原始程式與突變體上都通過；(B) 一個測試在兩者上都失敗。哪個診斷正確？</p>",
+          "answers": [
+            {
+              "text": "A 指向等價（或尚未被殺）的突變體，屬等價代理的問題；B 指向壞掉的測試，屬測試代理的問題",
+              "fraction": 100,
+              "feedback": "正確——兩者都通過代表無法區分（等價）；兩者都失敗代表測試壞掉。"
+            },
+            {
+              "text": "A 與 B 都代表測試代理寫了不穩定測試",
+              "fraction": 0,
+              "feedback": "不穩定是多次執行間的非決定性；A 與 B 都不是關於執行間的變異。"
+            },
+            {
+              "text": "A 與 B 都代表突變體無法建置",
+              "fraction": 0,
+              "feedback": "無法建置的突變體根本不會執行；在 A 與 B 中都有測試在執行。"
+            },
+            {
+              "text": "A 代表壞掉的測試；B 代表等價突變體",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了：兩者都通過是等價訊號，兩者都失敗是壞測試訊號。"
+            }
+          ],
+          "generalFeedback": "在原始程式與突變體上都通過（A）代表測試無法區分兩者——突變體是等價或只是尚未被殺，屬等價代理的問題。兩者都失敗（B）代表測試壞掉（建置／邏輯錯誤）——屬測試代理的問題。兩種症狀對應不同的代理。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序的理由",
+          "text": "<p>為什麼等價判斷擺在測試生成「之前」而非「之後」？</p>",
+          "answers": [
+            {
+              "text": "如此昂貴的測試代理永遠不會被要求去殺無法殺的突變體，省下對沒有測試能殺之等價體的力氣",
+              "fraction": 100,
+              "feedback": "正確——先篩選可避免浪費測試生成的工作。"
+            },
+            {
+              "text": "如此等價代理才能讀取生成的測試",
+              "fraction": 0,
+              "feedback": "它判斷的是突變體而非測試，且在測試生成之前執行。"
+            },
+            {
+              "text": "因為等價性只能在殺掉它的測試存在後才能判斷",
+              "fraction": 0,
+              "feedback": "等價性是突變體對原始程式的性質，與任何生成的測試無關。"
+            },
+            {
+              "text": "為了在測試前提高等價突變體率",
+              "fraction": 0,
+              "feedback": "排序不會改變比率；它是為了避免在等價體上浪費測試代理。"
+            }
+          ],
+          "generalFeedback": "測試生成是昂貴的步驟。先濾除等價突變體，代表測試代理永遠不會被要求去殺沒有任何測試能殺的突變體，因此流水線只把昂貴的力氣花在真正可殺的突變體上。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "停用等價代理的後果",
+          "text": "<p>某團隊為省一步而停用等價代理。鑑於 LLM 突變代理約 25% 的等價突變體率，最可能的後果是什麼？</p>",
+          "answers": [
+            {
+              "text": "到達測試代理的突變體中約有四分之一是無法殺的，因此它白費力氣去殺永遠殺不掉的突變體",
+              "fraction": 100,
+              "feedback": "正確——約 25% 等價體未被濾除，大量測試代理的力氣就花在無法殺的突變體上。"
+            },
+            {
+              "text": "因為嘗試了更多突變體，殺掉率升到 15% 以上",
+              "fraction": 0,
+              "feedback": "嘗試等價突變體並不能殺掉它們，所以殺掉率不會提升。"
+            },
+            {
+              "text": "突變代理停止產生等價突變體",
+              "fraction": 0,
+              "feedback": "突變代理約 25% 的等價率不變；只是過濾器沒了。"
+            },
+            {
+              "text": "不穩定測試被消除",
+              "fraction": 0,
+              "feedback": "不穩定是另一個測試代理品質關卡的問題，與移除等價評判者無關。"
+            }
+          ],
+          "generalFeedback": "沒有等價代理，那約 25% 等價的突變體會直接流向測試代理，測試代理於是在沒有任何測試能殺的突變體上白費力氣。這正是等價代理（配合去除註解前處理）要防止的浪費。",
+          "single": true
         }
       ]
     }
@@ -93583,6 +98685,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "sailor-pipeline": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What SAILOR is for",
+          "text": "<p><strong>SAILOR</strong> (\"Guiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery\") is a pipeline whose goal is to:</p>",
+          "answers": [
+            {
+              "text": "Automatically discover vulnerabilities in C/C++ code by combining static analysis, LLMs, and symbolic execution",
+              "fraction": 100,
+              "feedback": "Correct — SAILOR is a vulnerability-discovery pipeline that stitches these three techniques together."
+            },
+            {
+              "text": "Automatically patch and fix the vulnerabilities it detects",
+              "fraction": 0,
+              "feedback": "No — SAILOR discovers (and confirms) vulnerabilities; it does not repair the code."
+            },
+            {
+              "text": "Formally prove that a program is completely free of bugs",
+              "fraction": 0,
+              "feedback": "No — it hunts for bugs by exploring paths; it does not produce a whole-program correctness proof."
+            },
+            {
+              "text": "Measure the statement and branch coverage of an existing test suite",
+              "fraction": 0,
+              "feedback": "No — coverage measurement is a different activity; SAILOR's goal is finding real vulnerabilities."
+            }
+          ],
+          "generalFeedback": "SAILOR (Shafiuzzaman, Desai, Guo, Bultan; arXiv:2604.06506, 2026) is a vulnerability-discovery pipeline: static analysis targets suspect code, an LLM synthesizes a harness, symbolic execution explores it, and concrete replay confirms the finding.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How many phases",
+          "text": "<p>How many phases make up the SAILOR pipeline, and how are they run?</p>",
+          "answers": [
+            {
+              "text": "Four phases, run one after another in a fixed sequence",
+              "fraction": 100,
+              "feedback": "Correct — SAILOR is a four-phase pipeline whose phases run in order."
+            },
+            {
+              "text": "Two phases run in parallel",
+              "fraction": 0,
+              "feedback": "No — SAILOR has four phases, and they run sequentially, not two in parallel."
+            },
+            {
+              "text": "Three phases run in a loop",
+              "fraction": 0,
+              "feedback": "No — there are four phases; only phase 2 (harness synthesis) has an internal loop."
+            },
+            {
+              "text": "One monolithic analysis step",
+              "fraction": 0,
+              "feedback": "No — SAILOR deliberately separates the work into four ordered phases."
+            }
+          ],
+          "generalFeedback": "SAILOR runs four phases in order: Static Analysis, LLM Harness Synthesis, Symbolic Execution, and Concrete Replay.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order of the four phases",
+          "text": "<p>Which lists the four SAILOR phases in the correct order?</p>",
+          "answers": [
+            {
+              "text": "Static Analysis → LLM Harness Synthesis → Symbolic Execution → Concrete Replay",
+              "fraction": 100,
+              "feedback": "Correct — narrow the target, build a driver, explore it, then confirm the finding."
+            },
+            {
+              "text": "LLM Harness Synthesis → Static Analysis → Concrete Replay → Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — static analysis must run first to tell the harness what to target, and symbolic execution must run before replay."
+            },
+            {
+              "text": "Symbolic Execution → Concrete Replay → Static Analysis → LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — you cannot symbolically execute before a harness exists, and static analysis comes first."
+            },
+            {
+              "text": "Static Analysis → Symbolic Execution → LLM Harness Synthesis → Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — the harness must be synthesized before symbolic execution can run it."
+            }
+          ],
+          "generalFeedback": "The fixed order is Static Analysis → LLM Harness Synthesis → Symbolic Execution (KLEE) → Concrete Replay. Each phase produces the input the next one needs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Static Analysis does",
+          "text": "<p>What is the job of the <strong>Static Analysis</strong> phase (phase 1)?</p>",
+          "answers": [
+            {
+              "text": "Scan the code to flag candidate vulnerable sites (sinks) and the preconditions to reach them, narrowing where later phases look",
+              "fraction": 100,
+              "feedback": "Correct — it prunes the search space so symbolic execution is not blind."
+            },
+            {
+              "text": "Run the program on symbolic inputs to explore its paths",
+              "fraction": 0,
+              "feedback": "No — that is the symbolic execution phase; static analysis does not execute the program."
+            },
+            {
+              "text": "Write the test harness that drives the suspect code",
+              "fraction": 0,
+              "feedback": "No — synthesizing the harness is the LLM's job in phase 2."
+            },
+            {
+              "text": "Replay a concrete input to confirm a crash is real",
+              "fraction": 0,
+              "feedback": "No — that is the concrete replay phase (phase 4)."
+            }
+          ],
+          "generalFeedback": "Static analysis flags suspect sinks, emits the safety precondition needed to reach each one, marks tainted inputs, and thereby narrows (prunes) where the expensive later phases spend effort.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What LLM Harness Synthesis produces",
+          "text": "<p>What does the <strong>LLM Harness Synthesis</strong> phase (phase 2) produce?</p>",
+          "answers": [
+            {
+              "text": "A compilable test/fuzz harness (a driver) that exercises the candidate suspect site",
+              "fraction": 100,
+              "feedback": "Correct — the LLM writes the driver that feeds inputs into the flagged code."
+            },
+            {
+              "text": "A source-code patch that fixes the suspect site",
+              "fraction": 0,
+              "feedback": "No — SAILOR discovers bugs; it does not patch them, and this phase builds a driver, not a fix."
+            },
+            {
+              "text": "The list of suspect locations to investigate",
+              "fraction": 0,
+              "feedback": "No — that list comes from static analysis; the LLM consumes it to write a harness."
+            },
+            {
+              "text": "The concrete crashing input that confirms the bug",
+              "fraction": 0,
+              "feedback": "No — the crashing witness comes later, from symbolic execution and replay."
+            }
+          ],
+          "generalFeedback": "An LLM turns the static-analysis output into a driver: it declares symbolic inputs, bounds them, and calls the entry function — a harness that can actually be compiled and run.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why \"iterative\" harness synthesis",
+          "text": "<p>Phase 2 is described as <strong>iterative</strong>. What does that mean?</p>",
+          "answers": [
+            {
+              "text": "The harness is refined over several rounds, using compiler feedback, until it builds cleanly",
+              "fraction": 100,
+              "feedback": "Correct — a compile/feedback loop repeats until a usable harness compiles."
+            },
+            {
+              "text": "The LLM writes the harness once and never revises it",
+              "fraction": 0,
+              "feedback": "No — the whole point of \"iterative\" is repeated refinement, not a single shot."
+            },
+            {
+              "text": "The harness loops over every source file in the project",
+              "fraction": 0,
+              "feedback": "No — the iteration is over refinement rounds of one harness, not over files."
+            },
+            {
+              "text": "The compiled harness loops over test inputs while running",
+              "fraction": 0,
+              "feedback": "No — \"iterative\" refers to synthesis rounds at build time, not a runtime input loop."
+            }
+          ],
+          "generalFeedback": "The first draft rarely compiles, so the compiler error is fed back to the LLM, which revises. This loop repeats over rounds until the harness builds cleanly and is usable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which symbolic executor",
+          "text": "<p>In SAILOR's symbolic execution phase (phase 3), which symbolic executor runs the harness?</p>",
+          "answers": [
+            {
+              "text": "KLEE",
+              "fraction": 100,
+              "feedback": "Correct — SAILOR drives the harness under the KLEE symbolic executor."
+            },
+            {
+              "text": "AFL",
+              "fraction": 0,
+              "feedback": "No — AFL is a coverage-guided fuzzer, not the symbolic executor SAILOR uses."
+            },
+            {
+              "text": "Valgrind",
+              "fraction": 0,
+              "feedback": "No — Valgrind is a dynamic instrumentation tool, not SAILOR's symbolic executor."
+            },
+            {
+              "text": "DART",
+              "fraction": 0,
+              "feedback": "No — DART is an early concolic tool; SAILOR's phase 3 uses KLEE."
+            }
+          ],
+          "generalFeedback": "Phase 3 runs the compiled harness under KLEE, which explores feasible paths over the symbolic inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Symbolic Execution emits",
+          "text": "<p>When the Symbolic Execution (KLEE) phase finds a bug, what does it emit?</p>",
+          "answers": [
+            {
+              "text": "A VIOLATION (the proven bug) together with a WITNESS (a concrete input that triggers it)",
+              "fraction": 100,
+              "feedback": "Correct — KLEE reports both the violation it proved and the concrete witness input."
+            },
+            {
+              "text": "A list of suspect sinks and their preconditions",
+              "fraction": 0,
+              "feedback": "No — that is the static-analysis output, not the symbolic-execution result."
+            },
+            {
+              "text": "A compiled, cleanly building harness",
+              "fraction": 0,
+              "feedback": "No — the harness is the input to this phase, produced earlier by the LLM."
+            },
+            {
+              "text": "A confirmed crash on the unmodified program",
+              "fraction": 0,
+              "feedback": "No — confirmation on the unmodified program happens in the replay phase, not here."
+            }
+          ],
+          "generalFeedback": "KLEE explores feasible paths over the symbolic inputs; when a path reaches the suspect operation in a violating state it records a VIOLATION plus a concrete WITNESS input that triggers it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a VIOLATION is",
+          "text": "<p>In SAILOR, a <strong>VIOLATION</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A proven bug / assertion violation found by the symbolic executor",
+              "fraction": 100,
+              "feedback": "Correct — the violation is what KLEE proves about a path."
+            },
+            {
+              "text": "The concrete input value that triggers the bug",
+              "fraction": 0,
+              "feedback": "No — that is the WITNESS; the VIOLATION is the proven bug itself."
+            },
+            {
+              "text": "A suspect location flagged by static analysis",
+              "fraction": 0,
+              "feedback": "No — a suspect site is only a candidate; a violation is a proven bug on a path."
+            },
+            {
+              "text": "A compiler error raised while building the harness",
+              "fraction": 0,
+              "feedback": "No — compiler errors belong to the harness-synthesis loop, not to symbolic execution."
+            }
+          ],
+          "generalFeedback": "A VIOLATION is the symbolic executor's proof that a path reaches a bug / assertion violation. The concrete input that drives that path is the separate WITNESS.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a WITNESS is",
+          "text": "<p>In SAILOR, a <strong>WITNESS</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A concrete input that triggers the violation",
+              "fraction": 100,
+              "feedback": "Correct — the witness is the actual input value that drives the buggy path."
+            },
+            {
+              "text": "The proof that a bug exists on a path",
+              "fraction": 0,
+              "feedback": "No — that proof is the VIOLATION; the witness is the concrete triggering input."
+            },
+            {
+              "text": "The static precondition that must hold to reach the sink",
+              "fraction": 0,
+              "feedback": "No — the precondition comes from static analysis; the witness is a concrete input from KLEE."
+            },
+            {
+              "text": "The stack trace printed after a crash",
+              "fraction": 0,
+              "feedback": "No — the witness is the input, not the crash output; the trace appears during replay."
+            }
+          ],
+          "generalFeedback": "A WITNESS is a concrete input KLEE produces alongside a VIOLATION — the exact value that makes the buggy path execute. Concrete replay later feeds this witness into the real program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Concrete Replay confirms",
+          "text": "<p>What does the <strong>Concrete Replay</strong> phase (phase 4) confirm?</p>",
+          "answers": [
+            {
+              "text": "That the vulnerability is real, by replaying the witness on the unmodified program to weed out false positives",
+              "fraction": 100,
+              "feedback": "Correct — replay confirms a genuine crash, not a harness artifact."
+            },
+            {
+              "text": "That the harness compiles cleanly",
+              "fraction": 0,
+              "feedback": "No — clean compilation is settled in phase 2, before symbolic execution."
+            },
+            {
+              "text": "How many feasible paths the program has",
+              "fraction": 0,
+              "feedback": "No — path exploration is the symbolic-execution phase; replay just reproduces one witness."
+            },
+            {
+              "text": "The precondition needed to reach the sink",
+              "fraction": 0,
+              "feedback": "No — the precondition is a static-analysis output, not what replay confirms."
+            }
+          ],
+          "generalFeedback": "Concrete replay feeds the WITNESS into the original, unmodified program. If it actually crashes, the finding is CONFIRMED — a real bug, not an artifact of the synthesized harness — filtering out false positives.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The worked example bug type",
+          "text": "<p>The worked example targets a <code>strcpy</code> call. What vulnerability type / CWE does it illustrate?</p>",
+          "answers": [
+            {
+              "text": "CWE-787, an out-of-bounds write (buffer overflow)",
+              "fraction": 100,
+              "feedback": "Correct — strcpy can write past the destination buffer, an out-of-bounds write."
+            },
+            {
+              "text": "CWE-125, an out-of-bounds read",
+              "fraction": 0,
+              "feedback": "No — strcpy writes past the buffer; the example is an out-of-bounds write (CWE-787), not a read."
+            },
+            {
+              "text": "CWE-89, SQL injection",
+              "fraction": 0,
+              "feedback": "No — this is a memory-safety bug in C, not an SQL injection."
+            },
+            {
+              "text": "A use-after-free",
+              "fraction": 0,
+              "feedback": "No — the example is a buffer overflow (out-of-bounds write), not a use-after-free."
+            }
+          ],
+          "generalFeedback": "The worked example copies an untrusted string into a fixed 32-byte buffer with strcpy; when the source is longer, the copy writes past the buffer — an out-of-bounds write, CWE-787.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What KLEE is",
+          "text": "<p>KLEE, used in phase 3, is best described as:</p>",
+          "answers": [
+            {
+              "text": "A symbolic execution engine that explores program paths using symbolic inputs",
+              "fraction": 100,
+              "feedback": "Correct — KLEE is the symbolic executor SAILOR drives."
+            },
+            {
+              "text": "A static analyzer that flags suspect code without running it",
+              "fraction": 0,
+              "feedback": "No — that describes phase 1; KLEE actually executes paths symbolically."
+            },
+            {
+              "text": "A large language model that writes the harness",
+              "fraction": 0,
+              "feedback": "No — the LLM writes the harness in phase 2; KLEE runs it in phase 3."
+            },
+            {
+              "text": "A random fuzzer that mutates concrete inputs",
+              "fraction": 0,
+              "feedback": "No — KLEE reasons over symbolic inputs and path constraints, not random concrete mutations."
+            }
+          ],
+          "generalFeedback": "KLEE is a symbolic execution engine: it runs the harness with symbolic inputs, exploring feasible paths and solving constraints to emit violations and witnesses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which phase produces the witness",
+          "text": "<p>Which phase produces the WITNESS that concrete replay later uses?</p>",
+          "answers": [
+            {
+              "text": "Symbolic Execution (KLEE)",
+              "fraction": 100,
+              "feedback": "Correct — KLEE emits the witness input alongside the violation."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis produces suspect sites and preconditions, not the concrete witness."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase produces the driver; the witness comes from running it under KLEE."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay consumes the witness; it does not produce it."
+            }
+          ],
+          "generalFeedback": "KLEE (phase 3) emits the VIOLATION and the concrete WITNESS. Phase 4 then replays that witness on the unmodified program to confirm the bug.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "SAILOR combines three techniques",
+          "text": "<p>SAILOR combines static analysis, LLM-synthesized harnesses, and symbolic execution to discover vulnerabilities.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — those three techniques (plus a concrete-replay confirmation step) make up the pipeline."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SAILOR's whole design is to combine static analysis, an LLM harness, and symbolic execution, then confirm with concrete replay."
+            }
+          ],
+          "generalFeedback": "The pipeline's name says it: \"Guiding Symbolic Execution with Static Analysis and LLMs.\" A fourth phase, concrete replay, confirms the findings."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Match activity: emitting a precondition and taint",
+          "text": "<p>A SAILOR component emits, for a <code>strcpy</code> call, a suspect location, the precondition <code>strlen(raw) &lt; 32</code>, the function entry point, and a taint label marking <code>raw</code> as attacker-controlled. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "Static Analysis",
+              "fraction": 100,
+              "feedback": "Correct — flagging the sink and emitting its precondition, entry, and taint is static analysis."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase writes the driver; it consumes these facts rather than producing them."
+            },
+            {
+              "text": "Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — symbolic execution explores paths; it does not emit the initial suspect/precondition list."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay confirms a witness; it does not produce preconditions and taint labels."
+            }
+          ],
+          "generalFeedback": "Suspect site + precondition + entry + taint is exactly the static-analysis output that steers the rest of the pipeline.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match activity: writing a compilable driver",
+          "text": "<p>A SAILOR component declares symbolic inputs, bounds them, calls <code>load_name(raw)</code>, and revises the code after a compiler error until it builds. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 100,
+              "feedback": "Correct — writing and iteratively fixing a compilable driver is the LLM harness phase."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis flags the site; it does not write or compile a driver."
+            },
+            {
+              "text": "Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — symbolic execution runs the finished harness; it does not author it."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay runs a concrete witness on the real program, not a synthesized driver."
+            }
+          ],
+          "generalFeedback": "Declaring/bounding symbolic inputs, calling the entry function, and looping on compiler feedback until it builds is the iterative LLM harness-synthesis phase.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match activity: reporting VIOLATION and WITNESS",
+          "text": "<p>A SAILOR component reports: a safe path when <code>strlen(raw) &lt; 32</code>, an overflowing path when <code>strlen(raw) &ge; 32</code>, a VIOLATION (out-of-bounds write), and a WITNESS <code>raw</code> of 40 bytes. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "Symbolic Execution (KLEE)",
+              "fraction": 100,
+              "feedback": "Correct — exploring paths and emitting a violation plus a witness is symbolic execution."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis names the suspect and precondition; it does not explore paths or produce a witness."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase builds the driver; KLEE running it produces the violation and witness."
+            },
+            {
+              "text": "Concrete Replay",
+              "fraction": 0,
+              "feedback": "No — replay consumes the witness to confirm; it does not discover the violating path."
+            }
+          ],
+          "generalFeedback": "Enumerating feasible paths and, on the violating one, recording a VIOLATION with a concrete WITNESS input is the KLEE symbolic-execution phase.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match activity: rerunning the unmodified program",
+          "text": "<p>A SAILOR component runs the original unmodified program on a 40-byte input, observes an invalid write, and marks the finding CONFIRMED. Which phase is this?</p>",
+          "answers": [
+            {
+              "text": "Concrete Replay",
+              "fraction": 100,
+              "feedback": "Correct — reproducing the crash on the unmodified program is the concrete-replay phase."
+            },
+            {
+              "text": "Symbolic Execution",
+              "fraction": 0,
+              "feedback": "No — symbolic execution runs the harness with symbolic inputs, not the unmodified program on a concrete input."
+            },
+            {
+              "text": "Static Analysis",
+              "fraction": 0,
+              "feedback": "No — static analysis does not run the program at all."
+            },
+            {
+              "text": "LLM Harness Synthesis",
+              "fraction": 0,
+              "feedback": "No — that phase writes the driver; it does not confirm crashes on the real program."
+            }
+          ],
+          "generalFeedback": "Feeding the concrete witness into the original, unmodified program and confirming the crash is the concrete-replay phase — the false-positive filter.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why static analysis runs first",
+          "text": "<p>Why does static analysis run <em>before</em> symbolic execution in SAILOR?</p>",
+          "answers": [
+            {
+              "text": "It narrows the search to suspect sites and preconditions, so symbolic execution is not blind and stays tractable",
+              "fraction": 100,
+              "feedback": "Correct — pruning the space up front is what keeps the expensive exploration feasible."
+            },
+            {
+              "text": "Because KLEE requires a compiled binary that only static analysis can produce",
+              "fraction": 0,
+              "feedback": "No — the harness (phase 2), not static analysis, is what produces the runnable/compilable driver."
+            },
+            {
+              "text": "Because the witness must exist before the harness is written",
+              "fraction": 0,
+              "feedback": "No — the witness comes from symbolic execution, which runs after both static analysis and harness synthesis."
+            },
+            {
+              "text": "Because replay has to confirm the bug before exploration begins",
+              "fraction": 0,
+              "feedback": "No — replay is the last phase; it needs a witness that only symbolic execution can produce."
+            }
+          ],
+          "generalFeedback": "Symbolic execution suffers path explosion. Running static analysis first flags where to look and under what precondition, so the executor spends its budget on paths that matter instead of exploring blindly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the phase order",
+          "text": "<p>Which phrase best summarizes <em>why</em> SAILOR's phases run in their particular order?</p>",
+          "answers": [
+            {
+              "text": "Static narrows → harness drives → symbolic explores → replay confirms",
+              "fraction": 100,
+              "feedback": "Correct — each phase sets up exactly what the next one needs."
+            },
+            {
+              "text": "Replay confirms → symbolic explores → harness drives → static narrows",
+              "fraction": 0,
+              "feedback": "No — that reverses the pipeline; nothing can be confirmed before it is discovered."
+            },
+            {
+              "text": "Harness drives → replay confirms → static narrows → symbolic explores",
+              "fraction": 0,
+              "feedback": "No — a harness cannot be built before static analysis targets a site, and replay needs a witness first."
+            },
+            {
+              "text": "Symbolic explores → static narrows → replay confirms → harness drives",
+              "fraction": 0,
+              "feedback": "No — symbolic execution needs both a target and a harness before it can run."
+            }
+          ],
+          "generalFeedback": "Static analysis narrows the target, the LLM builds a driver to reach it, symbolic execution explores that driver to prove a violation with a witness, and replay confirms the witness on the real program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Full SAILOR headline numbers",
+          "text": "<p>On its evaluation, how many vulnerabilities and crashes did the <strong>full</strong> SAILOR pipeline report?</p>",
+          "answers": [
+            {
+              "text": "379 distinct vulnerabilities and 421 confirmed crashes",
+              "fraction": 100,
+              "feedback": "Correct — those are the headline figures for the full pipeline."
+            },
+            {
+              "text": "421 distinct vulnerabilities and 379 confirmed crashes",
+              "fraction": 0,
+              "feedback": "No — the numbers are swapped: 379 distinct vulnerabilities and 421 confirmed crashes."
+            },
+            {
+              "text": "12 distinct vulnerabilities and 35 confirmed crashes",
+              "fraction": 0,
+              "feedback": "No — 12 is the baseline; the full pipeline found far more."
+            },
+            {
+              "text": "3790 distinct vulnerabilities and 4210 confirmed crashes",
+              "fraction": 0,
+              "feedback": "No — the reported figures are 379 and 421, not ten times larger."
+            }
+          ],
+          "generalFeedback": "Full SAILOR found 379 distinct vulnerabilities and 421 confirmed crashes across the evaluation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of removing static analysis",
+          "text": "<p>In the ablation, removing static analysis (\"no-static\") had what effect on vulnerabilities found?</p>",
+          "answers": [
+            {
+              "text": "About 12.2× fewer vulnerabilities were found",
+              "fraction": 100,
+              "feedback": "Correct — without targeting, symbolic execution becomes far less effective."
+            },
+            {
+              "text": "Exactly zero vulnerabilities were found",
+              "fraction": 0,
+              "feedback": "No — zero is the no-LLM result; no-static is a 12.2× drop but still non-zero."
+            },
+            {
+              "text": "No measurable change",
+              "fraction": 0,
+              "feedback": "No — removing static analysis caused a large 12.2× reduction."
+            },
+            {
+              "text": "About 12.2× more vulnerabilities were found",
+              "fraction": 0,
+              "feedback": "No — removing the pruning hurts, not helps; it found 12.2× fewer."
+            }
+          ],
+          "generalFeedback": "Static analysis is what makes symbolic execution tractable. Remove it and SAILOR finds about 12.2× fewer vulnerabilities — a severe drop, but not all the way to zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of removing the LLM harness",
+          "text": "<p>In the ablation, removing the LLM harness synthesis (\"no-LLM\") yielded:</p>",
+          "answers": [
+            {
+              "text": "Zero vulnerabilities found",
+              "fraction": 100,
+              "feedback": "Correct — with no harness there is nothing for KLEE to execute."
+            },
+            {
+              "text": "About 12.2× fewer vulnerabilities",
+              "fraction": 0,
+              "feedback": "No — 12.2× fewer is the no-static result; no-LLM collapses all the way to zero."
+            },
+            {
+              "text": "Exactly 12 vulnerabilities (matching the baseline)",
+              "fraction": 0,
+              "feedback": "No — 12 is the baseline tooling; no-LLM produced zero."
+            },
+            {
+              "text": "Only slightly fewer than the full pipeline",
+              "fraction": 0,
+              "feedback": "No — without a harness the pipeline has nothing to run, so it finds zero."
+            }
+          ],
+          "generalFeedback": "No harness means nothing to execute under KLEE, so the no-LLM ablation finds zero vulnerabilities — showing the harness is a hard prerequisite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The baseline number",
+          "text": "<p>The baseline / prior comparison tooling (hand-written harnesses) found how many vulnerabilities?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — prior tooling found only 12, versus 379 for full SAILOR."
+            },
+            {
+              "text": "379",
+              "fraction": 0,
+              "feedback": "No — 379 is full SAILOR's distinct-vulnerability count, not the baseline."
+            },
+            {
+              "text": "421",
+              "fraction": 0,
+              "feedback": "No — 421 is full SAILOR's confirmed-crash count, not the baseline."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "No — zero is the no-LLM ablation result; the baseline found 12."
+            }
+          ],
+          "generalFeedback": "The baseline (prior tooling with hand-written harnesses) found only 12, dramatically fewer than full SAILOR's 379 distinct vulnerabilities.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluation scale",
+          "text": "<p>SAILOR was evaluated on roughly how much code?</p>",
+          "answers": [
+            {
+              "text": "10 open-source projects, about 6.8M lines of C/C++",
+              "fraction": 100,
+              "feedback": "Correct — that is the reported evaluation corpus."
+            },
+            {
+              "text": "1 project of about 6.8M lines",
+              "fraction": 0,
+              "feedback": "No — it was 10 projects, not a single one."
+            },
+            {
+              "text": "100 projects of about 6.8K lines each",
+              "fraction": 0,
+              "feedback": "No — the corpus is 10 projects totalling about 6.8M lines."
+            },
+            {
+              "text": "10 projects of about 6.8K lines total",
+              "fraction": 0,
+              "feedback": "No — the total is about 6.8M lines of C/C++, not 6.8K."
+            }
+          ],
+          "generalFeedback": "The evaluation ran on 10 open-source projects comprising roughly 6.8M lines of C/C++.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Why concrete replay exists",
+          "text": "<p>Concrete replay exists mainly to filter out false positives by re-running the witness on the original, unmodified program.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a violation found in the harness is only trusted once the concrete witness reproduces it on the real program."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Replay's purpose is precisely false-positive filtering: confirm the bug is real on the unmodified program, not a harness artifact."
+            }
+          ],
+          "generalFeedback": "Symbolic execution can flag a violation on a path feasible only in the harness. Replaying the concrete witness on the unmodified program confirms real bugs and discards harness-only artifacts."
+        },
+        {
+          "type": "multichoice",
+          "name": "The strcpy precondition",
+          "text": "<p>In the worked example the destination buffer is <code>char name[32]</code>. What precondition did static analysis attach to the <code>strcpy</code> sink as the condition under which the copy stays safe?</p>",
+          "answers": [
+            {
+              "text": "strlen(raw) < 32",
+              "fraction": 100,
+              "feedback": "Correct — the source must be shorter than the 32-byte destination for the copy to be safe."
+            },
+            {
+              "text": "strlen(raw) < 64",
+              "fraction": 0,
+              "feedback": "No — the destination is 32 bytes, so the safe precondition is strlen(raw) < 32, not 64."
+            },
+            {
+              "text": "strlen(raw) > 32",
+              "fraction": 0,
+              "feedback": "No — that is the overflowing condition, not the safe precondition; safe is strlen(raw) < 32."
+            },
+            {
+              "text": "raw != NULL",
+              "fraction": 0,
+              "feedback": "No — non-nullness does not bound the length; the length precondition is strlen(raw) < 32."
+            }
+          ],
+          "generalFeedback": "With a 32-byte destination, the copy is safe only when strlen(raw) < 32. Static analysis attaches this precondition so symbolic execution can target the path where it is violated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION and WITNESS together",
+          "text": "<p>A single KLEE result carries both a VIOLATION and a WITNESS. What is the relationship between them?</p>",
+          "answers": [
+            {
+              "text": "The VIOLATION is the proven bug on a path; the WITNESS is the concrete input driving that path, which replay reuses to reproduce the violation",
+              "fraction": 100,
+              "feedback": "Correct — one is the proof, the other is the triggering input replay depends on."
+            },
+            {
+              "text": "They are two names for the same object",
+              "fraction": 0,
+              "feedback": "No — the violation (proof) and the witness (input) are distinct artifacts."
+            },
+            {
+              "text": "The WITNESS is the proof and the VIOLATION is the input",
+              "fraction": 0,
+              "feedback": "No — that reverses them: the violation is the proof, the witness is the input."
+            },
+            {
+              "text": "Both are static specifications produced before execution",
+              "fraction": 0,
+              "feedback": "No — both are outputs of symbolic execution, not static specs."
+            }
+          ],
+          "generalFeedback": "KLEE proves a VIOLATION on some path and reports the concrete WITNESS input that drives that path. Concrete replay feeds the witness (not the violation) into the real program to confirm the bug.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the witness confirms in the example",
+          "text": "<p>In the worked example, the witness makes the source string exceed the 32-byte destination buffer. Once replay reproduces the crash, what class of bug is confirmed?</p>",
+          "answers": [
+            {
+              "text": "An out-of-bounds write (CWE-787)",
+              "fraction": 100,
+              "feedback": "Correct — writing past the destination buffer is an out-of-bounds write, CWE-787."
+            },
+            {
+              "text": "An out-of-bounds read (CWE-125)",
+              "fraction": 0,
+              "feedback": "No — strcpy writes past the buffer; this is a write, not a read."
+            },
+            {
+              "text": "An integer overflow",
+              "fraction": 0,
+              "feedback": "No — the bug is a memory write past the buffer bound, not an arithmetic overflow."
+            },
+            {
+              "text": "A null-pointer dereference",
+              "fraction": 0,
+              "feedback": "No — the pointer is valid; the fault is writing beyond the 32-byte buffer."
+            }
+          ],
+          "generalFeedback": "When strlen(raw) ≥ 32, strcpy writes past name[32]. Replay reproduces this on the unmodified program, confirming an out-of-bounds write — CWE-787.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why no-static costs 12.2x",
+          "text": "<p>Why does removing static analysis reduce SAILOR's yield by about 12.2×, rather than leaving it unchanged?</p>",
+          "answers": [
+            {
+              "text": "Without suspect sites and preconditions to prune the search, symbolic execution faces path explosion and becomes intractable, so it explores far less usefully within its budget",
+              "fraction": 100,
+              "feedback": "Correct — static analysis is what keeps the exploration focused and feasible."
+            },
+            {
+              "text": "Because without static analysis the harness no longer compiles",
+              "fraction": 0,
+              "feedback": "No — compilation is the harness loop's concern; removing static analysis hurts targeting, not the build."
+            },
+            {
+              "text": "Because KLEE is disabled when static analysis is removed",
+              "fraction": 0,
+              "feedback": "No — KLEE still runs; it just runs unguided, so it wastes budget on irrelevant paths."
+            },
+            {
+              "text": "Because concrete replay rejects every finding without static analysis",
+              "fraction": 0,
+              "feedback": "No — replay still confirms real crashes; the loss comes from unfocused exploration upstream."
+            }
+          ],
+          "generalFeedback": "The feasible-path count grows exponentially. Static analysis flags where to look and under what precondition; remove it and KLEE explores blindly, hitting path explosion and reaching far fewer real bugs — about 12.2× fewer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why no-LLM yields exactly zero",
+          "text": "<p>Why does removing the LLM harness synthesis drop the yield to <em>exactly zero</em>, not just to a smaller number?</p>",
+          "answers": [
+            {
+              "text": "With no synthesized driver there is nothing to compile and run under KLEE, so symbolic execution has no harness to execute and produces no violations or witnesses at all",
+              "fraction": 100,
+              "feedback": "Correct — the harness is a hard prerequisite; without it the pipeline has nothing to run."
+            },
+            {
+              "text": "Because static analysis also stops emitting suspect sites",
+              "fraction": 0,
+              "feedback": "No — static analysis is unaffected; the gap is that there is no driver to execute."
+            },
+            {
+              "text": "Because concrete replay then rejects all findings as false positives",
+              "fraction": 0,
+              "feedback": "No — there are no findings to reject; nothing ever runs under KLEE."
+            },
+            {
+              "text": "Because the number of paths becomes infinite and KLEE times out on every one",
+              "fraction": 0,
+              "feedback": "No — the issue is not timeout; there is simply no harness for KLEE to run."
+            }
+          ],
+          "generalFeedback": "Symbolic execution needs something runnable. No LLM means no harness, so KLEE has nothing to execute — hence zero violations and zero witnesses. The harness is a strict enabler, not just an optimizer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the two ablations reveal",
+          "text": "<p>Contrast the no-static result (about 12.2× fewer) with the no-LLM result (zero). What does the contrast reveal about the two components' roles?</p>",
+          "answers": [
+            {
+              "text": "The harness is a hard prerequisite (nothing runs without it), while static analysis is a strong tractability/efficiency enabler (the pipeline still works without it, but far worse)",
+              "fraction": 100,
+              "feedback": "Correct — zero vs 12.2×-fewer distinguishes an enabler you cannot remove from one that hugely helps."
+            },
+            {
+              "text": "Both components are equally optional",
+              "fraction": 0,
+              "feedback": "No — removing the LLM harness collapses the pipeline to zero, so it is not optional."
+            },
+            {
+              "text": "Static analysis is the prerequisite and the LLM harness is the optimizer",
+              "fraction": 0,
+              "feedback": "No — it is the reverse: the harness is the prerequisite (zero without it); static analysis is the efficiency multiplier."
+            },
+            {
+              "text": "Concrete replay is the real bottleneck the ablation exposes",
+              "fraction": 0,
+              "feedback": "No — the ablation contrasts static analysis and the harness; replay is not what these two numbers isolate."
+            }
+          ],
+          "generalFeedback": "No-LLM → zero shows the harness is indispensable to run anything. No-static → 12.2× fewer shows static analysis is a powerful multiplier of effectiveness, but the pipeline can still find some bugs without it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most indispensable single component",
+          "text": "<p>Interpreting the ablation, which single component is the <em>most</em> indispensable, and why?</p>",
+          "answers": [
+            {
+              "text": "The LLM harness synthesis — removing it yields zero, whereas removing static analysis only reduces the yield 12.2× (still non-zero)",
+              "fraction": 100,
+              "feedback": "Correct — a total collapse to zero marks the harness as the strictest prerequisite."
+            },
+            {
+              "text": "Static analysis — because 12.2× is the largest number in the ablation",
+              "fraction": 0,
+              "feedback": "No — a large multiplier is still non-zero; the harness is more indispensable because without it the yield is zero."
+            },
+            {
+              "text": "Concrete replay — because without it nothing is confirmed",
+              "fraction": 0,
+              "feedback": "No — the ablation shows the harness, not replay, is the component whose removal drops results to zero."
+            },
+            {
+              "text": "Symbolic execution — because it is what actually finds the bugs",
+              "fraction": 0,
+              "feedback": "No — symbolic execution is central, but the ablation isolates the harness as the removal that gives zero."
+            }
+          ],
+          "generalFeedback": "\"Most indispensable\" means the removal that hurts most. No-LLM gives zero (nothing to run), while no-static gives 12.2× fewer but non-zero — so the LLM harness is the strictest prerequisite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION vs WITNESS and how replay uses each",
+          "text": "<p>Precisely distinguish VIOLATION from WITNESS and state how concrete replay uses each.</p>",
+          "answers": [
+            {
+              "text": "VIOLATION is the executor's proof that a path reaches a bug; WITNESS is the concrete input driving that path; replay feeds the witness (not the violation) into the unmodified program to reproduce and confirm the violation",
+              "fraction": 100,
+              "feedback": "Correct — the witness is the actionable input; the violation is the claim it confirms."
+            },
+            {
+              "text": "VIOLATION is the concrete input; WITNESS is the proof; replay feeds the violation into the program",
+              "fraction": 0,
+              "feedback": "No — the roles are reversed: the witness is the input and the violation is the proof."
+            },
+            {
+              "text": "Both are inputs; replay runs whichever one crashes first",
+              "fraction": 0,
+              "feedback": "No — only the witness is an input; the violation is a proof, not something you feed to the program."
+            },
+            {
+              "text": "Both are proofs; replay picks the stronger proof to report",
+              "fraction": 0,
+              "feedback": "No — the witness is a concrete input, not a proof; replay runs it on the real program."
+            }
+          ],
+          "generalFeedback": "The VIOLATION is KLEE's proof that some path reaches the bug; the WITNESS is the concrete triggering input for that path. Replay ignores the abstract violation and instead runs the concrete witness on the unmodified program to confirm the bug is real.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the iterative harness loop matters",
+          "text": "<p>Why is the compiler-feedback iteration in phase 2 essential rather than just a convenience?</p>",
+          "answers": [
+            {
+              "text": "A first-draft harness usually fails to compile; without refining it via feedback no runnable harness exists, so KLEE has nothing to execute",
+              "fraction": 100,
+              "feedback": "Correct — the loop is what turns a broken draft into a usable driver."
+            },
+            {
+              "text": "It makes the compiled harness run faster at execution time",
+              "fraction": 0,
+              "feedback": "No — the loop is about getting a harness that builds at all, not runtime speed."
+            },
+            {
+              "text": "It directly increases the number of paths KLEE explores",
+              "fraction": 0,
+              "feedback": "No — path count is a symbolic-execution concern; the loop's role is producing a compilable harness."
+            },
+            {
+              "text": "It filters out false positives before replay",
+              "fraction": 0,
+              "feedback": "No — false-positive filtering is replay's job; the loop's job is producing a buildable harness."
+            }
+          ],
+          "generalFeedback": "LLM first drafts rarely compile. The compile/feedback loop refines the harness until it builds; without it there is no runnable driver, which is exactly why the no-LLM ablation yields zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How SAILOR combines three strengths",
+          "text": "<p>SAILOR combines static, dynamic (symbolic), and LLM techniques. Which mapping of each contribution is correct?</p>",
+          "answers": [
+            {
+              "text": "Static analysis prunes and targets; the LLM writes the driver a human used to hand-write; symbolic execution proves reachability and yields a witness; replay confirms it on the real program",
+              "fraction": 100,
+              "feedback": "Correct — each technique covers a weakness of the others."
+            },
+            {
+              "text": "Static analysis writes the driver; the LLM explores paths; symbolic execution prunes the search; replay compiles the harness",
+              "fraction": 0,
+              "feedback": "No — every role is misassigned; static analysis targets, the LLM writes the driver, symbolic execution explores."
+            },
+            {
+              "text": "The LLM prunes the search; static analysis proves reachability; symbolic execution confirms on the real program; replay targets sinks",
+              "fraction": 0,
+              "feedback": "No — pruning is static analysis, reachability is symbolic execution, confirmation is replay."
+            },
+            {
+              "text": "All three techniques do the same job redundantly, for reliability",
+              "fraction": 0,
+              "feedback": "No — they are complementary, each supplying what the others cannot."
+            }
+          ],
+          "generalFeedback": "Static analysis focuses the effort, the LLM automates the previously-manual harness, symbolic execution proves a reachable violation with a concrete witness, and concrete replay confirms it — combining static, dynamic, and LLM strengths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why unguided symbolic execution is blind",
+          "text": "<p>What specifically makes <em>unguided</em> symbolic execution \"blind,\" and how does static targeting help?</p>",
+          "answers": [
+            {
+              "text": "Feasible paths grow exponentially; without preconditions and suspect sinks to steer toward, the executor spends its budget on irrelevant paths and rarely reaches deep bugs — static analysis focuses that budget",
+              "fraction": 100,
+              "feedback": "Correct — targeting is what turns an intractable search into a productive one."
+            },
+            {
+              "text": "It cannot solve any path constraints without static analysis",
+              "fraction": 0,
+              "feedback": "No — the solver still works; the problem is where to spend effort, which targeting fixes."
+            },
+            {
+              "text": "By definition it never terminates unless static analysis stops it",
+              "fraction": 0,
+              "feedback": "No — termination is bounded by search limits; the issue is unfocused effort, not non-termination per se."
+            },
+            {
+              "text": "It needs the witness before it can begin exploring",
+              "fraction": 0,
+              "feedback": "No — the witness is an output of exploration, not a precondition for it."
+            }
+          ],
+          "generalFeedback": "The number of feasible paths explodes exponentially. Without static analysis pointing at suspect sinks and their preconditions, the executor wastes its budget exploring irrelevant paths — the 12.2× loss the ablation measures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How the precondition guides KLEE",
+          "text": "<p>How does the static precondition <code>strlen(raw) &lt; 32</code> help symbolic execution find the overflow?</p>",
+          "answers": [
+            {
+              "text": "It marks the safety condition at the sink, so KLEE can target the path where strlen(raw) ≥ 32 — the path that writes past name[32] — instead of exploring everything",
+              "fraction": 100,
+              "feedback": "Correct — knowing the safe condition tells the executor which violating path to chase."
+            },
+            {
+              "text": "It fixes raw to one concrete value so KLEE need not use symbolic input",
+              "fraction": 0,
+              "feedback": "No — the precondition is a symbolic constraint about safety, not a concrete assignment."
+            },
+            {
+              "text": "It patches the strcpy so the overflow cannot happen",
+              "fraction": 0,
+              "feedback": "No — static analysis does not modify code; it annotates the sink with a safety condition."
+            },
+            {
+              "text": "It disables the harness for the safe path",
+              "fraction": 0,
+              "feedback": "No — the harness still runs; the precondition just tells KLEE which path is the violating one."
+            }
+          ],
+          "generalFeedback": "The precondition strlen(raw) < 32 is the condition under which the copy is safe. Its negation, strlen(raw) ≥ 32, marks the overflowing path — so KLEE targets that path and finds the out-of-bounds write.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting baseline 12 vs 379/421",
+          "text": "<p>The baseline found 12 while full SAILOR found 379 vulnerabilities / 421 crashes. What is the fair takeaway?</p>",
+          "answers": [
+            {
+              "text": "Automating harness synthesis and adding static targeting massively expands what symbolic execution can discover compared with prior hand-harness tooling",
+              "fraction": 100,
+              "feedback": "Correct — the gap reflects automation plus targeting, not a change in what counts as a bug."
+            },
+            {
+              "text": "The baseline is simply unsound and over-reports; SAILOR is more conservative",
+              "fraction": 0,
+              "feedback": "No — SAILOR found far more, and its replay step confirms bugs; the baseline is not over-reporting."
+            },
+            {
+              "text": "Both used the same technique, so the difference must be measurement noise",
+              "fraction": 0,
+              "feedback": "No — the baseline used hand-written harnesses; SAILOR automates and targets, a real methodological difference."
+            },
+            {
+              "text": "SAILOR trades soundness for the higher count",
+              "fraction": 0,
+              "feedback": "No — concrete replay confirms each crash, so the higher count is of confirmed bugs, not a soundness trade."
+            }
+          ],
+          "generalFeedback": "Prior tooling relied on hand-written harnesses and found 12. SAILOR's automated, statically-targeted harnesses let symbolic execution reach far more real bugs — 379 distinct vulnerabilities, 421 confirmed crashes — all confirmed by replay.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why replay uses the witness, not the violation",
+          "text": "<p>Why does SAILOR replay the concrete witness rather than simply trusting KLEE's violation?</p>",
+          "answers": [
+            {
+              "text": "A violation can occur on a path feasible only in the harness/model; replaying the concrete witness on the unmodified program proves the bug is real and filters harness-induced false positives",
+              "fraction": 100,
+              "feedback": "Correct — replay is the reality check on the harness's claim."
+            },
+            {
+              "text": "Because KLEE is unsound about the paths it actually runs",
+              "fraction": 0,
+              "feedback": "No — the concern is harness-only states, not KLEE's soundness on paths it explores."
+            },
+            {
+              "text": "Because replay is faster than reading the violation record",
+              "fraction": 0,
+              "feedback": "No — replay is about confirmation quality, not speed."
+            },
+            {
+              "text": "To recompute the precondition that static analysis produced",
+              "fraction": 0,
+              "feedback": "No — replay confirms the crash; it does not recompute preconditions."
+            }
+          ],
+          "generalFeedback": "The harness may create states impossible in the real program, so a violation there could be a false positive. Replaying the concrete witness on the unmodified program is what distinguishes a real bug from a harness artifact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Consequence of an over-constrained harness",
+          "text": "<p>Suppose the synthesized harness over-constrains the symbolic input (bounds it too tightly). What is the likely consequence for the pipeline?</p>",
+          "answers": [
+            {
+              "text": "The real bug may fall outside the explored input space, so KLEE never emits the violation — a false negative — even though every phase runs",
+              "fraction": 100,
+              "feedback": "Correct — hiding the triggering inputs makes the bug unreachable in exploration."
+            },
+            {
+              "text": "It guarantees a false positive that replay will confirm anyway",
+              "fraction": 0,
+              "feedback": "No — over-constraining hides bugs (false negatives); it does not manufacture confirmed crashes."
+            },
+            {
+              "text": "Concrete replay automatically widens the input space to compensate",
+              "fraction": 0,
+              "feedback": "No — replay only reruns a witness; it cannot recover inputs the harness excluded."
+            },
+            {
+              "text": "Static analysis re-runs to fix the harness",
+              "fraction": 0,
+              "feedback": "No — the pipeline runs forward; static analysis does not re-run to repair the harness."
+            }
+          ],
+          "generalFeedback": "If the harness bounds inputs too tightly, the values that trigger the bug are excluded, so KLEE explores a space where the violation never appears — a false negative. (Under-constraining causes the opposite risk: false positives.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Replay cannot precede symbolic execution",
+          "text": "<p>Concrete replay cannot meaningfully run before symbolic execution, because it needs the witness that only symbolic execution produces.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the data dependency (witness → replay) fixes the order: explore first, confirm second."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Replay's input is the witness, which symbolic execution emits, so replay must come after it."
+            }
+          ],
+          "generalFeedback": "Replay reproduces a specific witness on the unmodified program. Since the witness is an output of symbolic execution, replay is necessarily the later phase — a data dependency, not an arbitrary choice."
+        },
+        {
+          "type": "multichoice",
+          "name": "What manual step the LLM automates",
+          "text": "<p>In prior symbolic-execution tooling, which expensive manual step does SAILOR's LLM phase automate, and why does that unlock scale?</p>",
+          "answers": [
+            {
+              "text": "Hand-writing a compilable harness for each target; automating it lets the pipeline attack many sites across millions of lines without a human per target",
+              "fraction": 100,
+              "feedback": "Correct — the harness bottleneck was the human, and the LLM removes it."
+            },
+            {
+              "text": "Manually solving the path constraints; automating it removes the need for a solver",
+              "fraction": 0,
+              "feedback": "No — the solver is still used; the LLM automates harness writing, not constraint solving."
+            },
+            {
+              "text": "Manually confirming each crash; automating it removes the replay phase",
+              "fraction": 0,
+              "feedback": "No — replay still runs; the LLM automates harness synthesis, not confirmation."
+            },
+            {
+              "text": "Manually labeling each finding with a CWE id",
+              "fraction": 0,
+              "feedback": "No — CWE labeling is not the bottleneck; hand-writing harnesses per target is."
+            }
+          ],
+          "generalFeedback": "Classic symbolic-execution setups need a human to hand-write a compilable harness per target — the scaling bottleneck. SAILOR's LLM synthesizes harnesses automatically, so the pipeline can cover many sites across ~6.8M lines without per-target manual effort.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Holistic reading of the ablation",
+          "text": "<p>Which conclusion is best supported by the full ablation (full: 421 crashes; no-static: 12.2× fewer; no-LLM: zero; baseline: 12)?</p>",
+          "answers": [
+            {
+              "text": "Every component is load-bearing but differently — the LLM harness is a strict enabler (zero without it), static analysis is a tractability multiplier (12.2×), and the combination far exceeds prior tooling (baseline 12)",
+              "fraction": 100,
+              "feedback": "Correct — the numbers together show distinct, complementary roles."
+            },
+            {
+              "text": "Only the LLM harness matters; the other components are decorative",
+              "fraction": 0,
+              "feedback": "No — no-static's 12.2× drop shows static analysis matters a great deal too."
+            },
+            {
+              "text": "Only static analysis matters; the harness is optional",
+              "fraction": 0,
+              "feedback": "No — no-LLM yields zero, so the harness is not optional."
+            },
+            {
+              "text": "The components are redundant, since removing any one leaves the yield unchanged",
+              "fraction": 0,
+              "feedback": "No — removing components changes the yield drastically (to zero, or 12.2× fewer), so they are not redundant."
+            }
+          ],
+          "generalFeedback": "The ablation shows each component carries weight in its own way: the harness is indispensable (zero without it), static analysis multiplies effectiveness (12.2×), and full SAILOR (379 vulns / 421 crashes) dwarfs the baseline's 12 — the whole is far more than any part.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "SAILOR 的用途",
+          "text": "<p><strong>SAILOR</strong>（「Guiding Symbolic Execution with Static Analysis and LLMs for Vulnerability Discovery」）是一條流程，其目標是：</p>",
+          "answers": [
+            {
+              "text": "結合靜態分析、LLM 與符號執行，自動發現 C/C++ 程式碼中的漏洞",
+              "fraction": 100,
+              "feedback": "正確——SAILOR 是把這三種技術串接起來的漏洞偵測流程。"
+            },
+            {
+              "text": "自動修補並修復它偵測到的漏洞",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 負責發現（並確認）漏洞，並不修復程式碼。"
+            },
+            {
+              "text": "形式化證明某程式完全沒有 bug",
+              "fraction": 0,
+              "feedback": "不對——它靠探索路徑尋找 bug，並不產出整支程式的正確性證明。"
+            },
+            {
+              "text": "量測既有測試套件的敘述與分支覆蓋率",
+              "fraction": 0,
+              "feedback": "不對——覆蓋率量測是另一回事；SAILOR 的目標是找出真實漏洞。"
+            }
+          ],
+          "generalFeedback": "SAILOR（Shafiuzzaman、Desai、Guo、Bultan；arXiv:2604.06506，2026）是一條漏洞偵測流程：靜態分析鎖定可疑程式碼、LLM 合成 harness、符號執行加以探索、具體重播確認發現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有幾個階段",
+          "text": "<p>SAILOR 流程由幾個階段組成，又是如何執行的？</p>",
+          "answers": [
+            {
+              "text": "四個階段，依固定順序一個接一個執行",
+              "fraction": 100,
+              "feedback": "正確——SAILOR 是四階段流程，各階段依序執行。"
+            },
+            {
+              "text": "兩個階段平行執行",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 有四個階段，且是循序執行，不是兩個平行。"
+            },
+            {
+              "text": "三個階段以迴圈執行",
+              "fraction": 0,
+              "feedback": "不對——共有四個階段；只有第 2 階段（harness 合成）內部有迴圈。"
+            },
+            {
+              "text": "單一整體的分析步驟",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 刻意把工作拆成四個有序階段。"
+            }
+          ],
+          "generalFeedback": "SAILOR 依序執行四個階段：靜態分析、LLM Harness 合成、符號執行、具體重播。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個階段的順序",
+          "text": "<p>下列何者正確列出 SAILOR 四個階段的順序？</p>",
+          "answers": [
+            {
+              "text": "靜態分析 → LLM Harness 合成 → 符號執行 → 具體重播",
+              "fraction": 100,
+              "feedback": "正確——先鎖定目標、再建 driver、接著探索、最後確認發現。"
+            },
+            {
+              "text": "LLM Harness 合成 → 靜態分析 → 具體重播 → 符號執行",
+              "fraction": 0,
+              "feedback": "不對——靜態分析必須先跑以告訴 harness 要鎖定什麼，且符號執行必須在重播之前。"
+            },
+            {
+              "text": "符號執行 → 具體重播 → 靜態分析 → LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——沒有 harness 就無法進行符號執行，且靜態分析要最先。"
+            },
+            {
+              "text": "靜態分析 → 符號執行 → LLM Harness 合成 → 具體重播",
+              "fraction": 0,
+              "feedback": "不對——必須先合成 harness，符號執行才有東西可跑。"
+            }
+          ],
+          "generalFeedback": "固定順序為：靜態分析 → LLM Harness 合成 → 符號執行（KLEE）→ 具體重播。每一階段都產出下一階段所需的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態分析在做什麼",
+          "text": "<p><strong>靜態分析</strong>階段（第 1 階段）的工作是什麼？</p>",
+          "answers": [
+            {
+              "text": "掃描程式碼，標出候選漏洞位置（sink）與抵達它們所需的前置條件，收斂後續階段要看的範圍",
+              "fraction": 100,
+              "feedback": "正確——它修剪搜尋空間，讓符號執行不至於盲目。"
+            },
+            {
+              "text": "以符號輸入執行程式以探索其路徑",
+              "fraction": 0,
+              "feedback": "不對——那是符號執行階段；靜態分析並不執行程式。"
+            },
+            {
+              "text": "撰寫驅動可疑程式碼的測試 harness",
+              "fraction": 0,
+              "feedback": "不對——合成 harness 是第 2 階段 LLM 的工作。"
+            },
+            {
+              "text": "重播一個具體輸入以確認 crash 為真",
+              "fraction": 0,
+              "feedback": "不對——那是具體重播階段（第 4 階段）。"
+            }
+          ],
+          "generalFeedback": "靜態分析標出可疑 sink、輸出抵達每個 sink 所需的安全前置條件、標記受污染輸入，藉此收斂（修剪）昂貴的後續階段該花力氣的地方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM Harness 合成產出什麼",
+          "text": "<p><strong>LLM Harness 合成</strong>階段（第 2 階段）產出什麼？</p>",
+          "answers": [
+            {
+              "text": "一個可編譯的測試／fuzz harness（driver），用來運行候選的可疑位置",
+              "fraction": 100,
+              "feedback": "正確——LLM 寫出把輸入餵進被標記程式碼的 driver。"
+            },
+            {
+              "text": "一份修補可疑位置的原始碼 patch",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 只發現 bug 而不修補；此階段建的是 driver，不是修補。"
+            },
+            {
+              "text": "要調查的可疑位置清單",
+              "fraction": 0,
+              "feedback": "不對——該清單來自靜態分析；LLM 消費它來寫 harness。"
+            },
+            {
+              "text": "確認 bug 的具體崩潰輸入",
+              "fraction": 0,
+              "feedback": "不對——崩潰的 witness 來得更晚，來自符號執行與重播。"
+            }
+          ],
+          "generalFeedback": "LLM 把靜態分析輸出轉成 driver：宣告符號輸入、加上邊界、呼叫進入函式——一個真的能編譯與執行的 harness。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 harness 合成是「迭代」的",
+          "text": "<p>第 2 階段被描述為<strong>迭代</strong>。這是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "harness 會利用編譯器回饋，歷經數輪逐步修正，直到乾淨編譯為止",
+              "fraction": 100,
+              "feedback": "正確——一個編譯／回饋迴圈反覆進行，直到可用的 harness 編譯成功。"
+            },
+            {
+              "text": "LLM 一次寫好 harness 而從不修改",
+              "fraction": 0,
+              "feedback": "不對——「迭代」的重點正是反覆修正，而非一次到位。"
+            },
+            {
+              "text": "harness 對專案裡的每個原始檔逐一迴圈",
+              "fraction": 0,
+              "feedback": "不對——迭代是對同一個 harness 的修正輪次，不是對檔案。"
+            },
+            {
+              "text": "編譯好的 harness 在執行時對測試輸入迴圈",
+              "fraction": 0,
+              "feedback": "不對——「迭代」指的是建置時的合成輪次，不是執行期的輸入迴圈。"
+            }
+          ],
+          "generalFeedback": "初稿幾乎不會通過編譯，於是把編譯錯誤回饋給 LLM 修正。此迴圈反覆進行數輪，直到 harness 乾淨編譯且可用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "使用哪個符號執行器",
+          "text": "<p>在 SAILOR 的符號執行階段（第 3 階段），是哪個符號執行器在運行 harness？</p>",
+          "answers": [
+            {
+              "text": "KLEE",
+              "fraction": 100,
+              "feedback": "正確——SAILOR 在 KLEE 符號執行器下驅動 harness。"
+            },
+            {
+              "text": "AFL",
+              "fraction": 0,
+              "feedback": "不對——AFL 是覆蓋率導向的 fuzzer，不是 SAILOR 使用的符號執行器。"
+            },
+            {
+              "text": "Valgrind",
+              "fraction": 0,
+              "feedback": "不對——Valgrind 是動態插樁工具，不是 SAILOR 的符號執行器。"
+            },
+            {
+              "text": "DART",
+              "fraction": 0,
+              "feedback": "不對——DART 是早期的 concolic 工具；SAILOR 第 3 階段用的是 KLEE。"
+            }
+          ],
+          "generalFeedback": "第 3 階段在 KLEE 下運行編譯好的 harness，探索符號輸入上的可行路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號執行會輸出什麼",
+          "text": "<p>當符號執行（KLEE）階段找到 bug 時，會輸出什麼？</p>",
+          "answers": [
+            {
+              "text": "一個 VIOLATION（被證明的 bug）連同一個 WITNESS（觸發它的具體輸入）",
+              "fraction": 100,
+              "feedback": "正確——KLEE 同時報告它證明的違反與具體的 witness 輸入。"
+            },
+            {
+              "text": "可疑 sink 及其前置條件的清單",
+              "fraction": 0,
+              "feedback": "不對——那是靜態分析輸出，不是符號執行結果。"
+            },
+            {
+              "text": "一個已編譯、可乾淨建置的 harness",
+              "fraction": 0,
+              "feedback": "不對——harness 是本階段的輸入，由稍早的 LLM 產出。"
+            },
+            {
+              "text": "在未修改程式上確認的 crash",
+              "fraction": 0,
+              "feedback": "不對——在未修改程式上確認發生在重播階段，不在這裡。"
+            }
+          ],
+          "generalFeedback": "KLEE 探索符號輸入上的可行路徑；當某條路徑在違反狀態下抵達可疑操作，就記錄一個 VIOLATION 及觸發它的具體 WITNESS 輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION 是什麼",
+          "text": "<p>在 SAILOR 中，<strong>VIOLATION</strong> 是：</p>",
+          "answers": [
+            {
+              "text": "由符號執行器找到、被證明的 bug／assertion 違反",
+              "fraction": 100,
+              "feedback": "正確——violation 是 KLEE 對某條路徑所證明的東西。"
+            },
+            {
+              "text": "觸發該 bug 的具體輸入值",
+              "fraction": 0,
+              "feedback": "不對——那是 WITNESS；VIOLATION 是被證明的 bug 本身。"
+            },
+            {
+              "text": "靜態分析標出的可疑位置",
+              "fraction": 0,
+              "feedback": "不對——可疑位置只是候選；violation 是某條路徑上被證明的 bug。"
+            },
+            {
+              "text": "建置 harness 時出現的編譯錯誤",
+              "fraction": 0,
+              "feedback": "不對——編譯錯誤屬於 harness 合成迴圈，不屬於符號執行。"
+            }
+          ],
+          "generalFeedback": "VIOLATION 是符號執行器證明「某條路徑抵達 bug／assertion 違反」的結果。驅動該路徑的具體輸入則是另外的 WITNESS。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "WITNESS 是什麼",
+          "text": "<p>在 SAILOR 中，<strong>WITNESS</strong> 是：</p>",
+          "answers": [
+            {
+              "text": "觸發該 violation 的具體輸入",
+              "fraction": 100,
+              "feedback": "正確——witness 是驅動有問題路徑的實際輸入值。"
+            },
+            {
+              "text": "某條路徑上存在 bug 的證明",
+              "fraction": 0,
+              "feedback": "不對——那個證明是 VIOLATION；witness 是具體的觸發輸入。"
+            },
+            {
+              "text": "抵達 sink 所需成立的靜態前置條件",
+              "fraction": 0,
+              "feedback": "不對——前置條件來自靜態分析；witness 是 KLEE 產出的具體輸入。"
+            },
+            {
+              "text": "crash 後印出的堆疊追蹤",
+              "fraction": 0,
+              "feedback": "不對——witness 是輸入而非崩潰輸出；追蹤出現在重播時。"
+            }
+          ],
+          "generalFeedback": "WITNESS 是 KLEE 與 VIOLATION 一起產出的具體輸入——正是讓有問題路徑執行的值。稍後的具體重播會把這個 witness 餵進真實程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體重播確認什麼",
+          "text": "<p><strong>具體重播</strong>階段（第 4 階段）確認什麼？</p>",
+          "answers": [
+            {
+              "text": "把 witness 在未修改程式上重播，確認漏洞為真、藉此濾除假陽性",
+              "fraction": 100,
+              "feedback": "正確——重播確認的是真實 crash，而非 harness 造成的假象。"
+            },
+            {
+              "text": "harness 可乾淨編譯",
+              "fraction": 0,
+              "feedback": "不對——乾淨編譯在第 2 階段、符號執行之前就已解決。"
+            },
+            {
+              "text": "程式有多少條可行路徑",
+              "fraction": 0,
+              "feedback": "不對——路徑探索是符號執行階段；重播只是重現單一 witness。"
+            },
+            {
+              "text": "抵達 sink 所需的前置條件",
+              "fraction": 0,
+              "feedback": "不對——前置條件是靜態分析輸出，不是重播確認的對象。"
+            }
+          ],
+          "generalFeedback": "具體重播把 WITNESS 餵進原始、未修改的程式。若真的崩潰，該發現即 CONFIRMED——是真實 bug，而非合成 harness 的假象，藉此濾除假陽性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "範例的 bug 類型",
+          "text": "<p>範例鎖定一個 <code>strcpy</code> 呼叫。它示範的是哪種漏洞類型／CWE？</p>",
+          "answers": [
+            {
+              "text": "CWE-787，越界寫入（buffer overflow）",
+              "fraction": 100,
+              "feedback": "正確——strcpy 可能寫過目標緩衝區，屬越界寫入。"
+            },
+            {
+              "text": "CWE-125，越界讀取",
+              "fraction": 0,
+              "feedback": "不對——strcpy 是寫過緩衝區；本例是越界寫入（CWE-787），不是讀取。"
+            },
+            {
+              "text": "CWE-89，SQL 注入",
+              "fraction": 0,
+              "feedback": "不對——這是 C 的記憶體安全 bug，不是 SQL 注入。"
+            },
+            {
+              "text": "use-after-free",
+              "fraction": 0,
+              "feedback": "不對——本例是 buffer overflow（越界寫入），不是 use-after-free。"
+            }
+          ],
+          "generalFeedback": "範例用 strcpy 把不可信字串複製進固定的 32 位元組緩衝區；當來源較長時，複製會寫過緩衝區——即越界寫入，CWE-787。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "KLEE 是什麼",
+          "text": "<p>第 3 階段使用的 KLEE，最適合描述為：</p>",
+          "answers": [
+            {
+              "text": "一個以符號輸入探索程式路徑的符號執行引擎",
+              "fraction": 100,
+              "feedback": "正確——KLEE 是 SAILOR 驅動的符號執行器。"
+            },
+            {
+              "text": "一個不執行程式、只標出可疑碼的靜態分析器",
+              "fraction": 0,
+              "feedback": "不對——那描述的是第 1 階段；KLEE 會實際以符號方式執行路徑。"
+            },
+            {
+              "text": "一個負責撰寫 harness 的大型語言模型",
+              "fraction": 0,
+              "feedback": "不對——LLM 在第 2 階段寫 harness；KLEE 在第 3 階段運行它。"
+            },
+            {
+              "text": "一個對具體輸入做突變的隨機 fuzzer",
+              "fraction": 0,
+              "feedback": "不對——KLEE 是對符號輸入與路徑約束推理，而非隨機的具體突變。"
+            }
+          ],
+          "generalFeedback": "KLEE 是符號執行引擎：它以符號輸入運行 harness，探索可行路徑並求解約束，以輸出 violation 與 witness。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個階段產出 witness",
+          "text": "<p>哪個階段產出稍後供具體重播使用的 WITNESS？</p>",
+          "answers": [
+            {
+              "text": "符號執行（KLEE）",
+              "fraction": 100,
+              "feedback": "正確——KLEE 與 violation 一起輸出 witness 輸入。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析產出可疑位置與前置條件，不是具體的 witness。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段產出 driver；witness 來自在 KLEE 下運行它。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播消費 witness，並不產出它。"
+            }
+          ],
+          "generalFeedback": "KLEE（第 3 階段）輸出 VIOLATION 與具體的 WITNESS。第 4 階段再把該 witness 在未修改程式上重播以確認 bug。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "SAILOR 結合三種技術",
+          "text": "<p>SAILOR 結合靜態分析、LLM 合成的 harness 與符號執行來發現漏洞。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這三種技術（外加具體重播確認步驟）構成整條流程。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SAILOR 的整體設計正是結合靜態分析、LLM harness 與符號執行，再以具體重播確認。"
+            }
+          ],
+          "generalFeedback": "流程的名稱已說明：「Guiding Symbolic Execution with Static Analysis and LLMs」。第四階段的具體重播負責確認發現。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "對應活動：輸出前置條件與污染標記",
+          "text": "<p>某 SAILOR 元件針對一個 <code>strcpy</code> 呼叫，輸出了可疑位置、前置條件 <code>strlen(raw) &lt; 32</code>、函式進入點，以及把 <code>raw</code> 標為受攻擊者控制的污染標記。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "靜態分析",
+              "fraction": 100,
+              "feedback": "正確——標出 sink 並輸出其前置條件、進入點與污染標記，即靜態分析。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段是寫 driver；它消費這些資訊而非產出它們。"
+            },
+            {
+              "text": "符號執行",
+              "fraction": 0,
+              "feedback": "不對——符號執行探索路徑，並不產出初始的可疑／前置條件清單。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播確認 witness，並不產出前置條件與污染標記。"
+            }
+          ],
+          "generalFeedback": "可疑位置＋前置條件＋進入點＋污染，正是引導後續流程的靜態分析輸出。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對應活動：撰寫可編譯的 driver",
+          "text": "<p>某 SAILOR 元件宣告符號輸入、加上邊界、呼叫 <code>load_name(raw)</code>，並在編譯錯誤後修改程式碼直到能建置。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 100,
+              "feedback": "正確——撰寫並反覆修正一個可編譯的 driver，即 LLM harness 階段。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析標出位置，並不撰寫或編譯 driver。"
+            },
+            {
+              "text": "符號執行",
+              "fraction": 0,
+              "feedback": "不對——符號執行運行完成的 harness，並不撰寫它。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播是在真實程式上跑具體 witness，而非合成的 driver。"
+            }
+          ],
+          "generalFeedback": "宣告／加界符號輸入、呼叫進入函式、依編譯回饋反覆修正直到建置成功，即迭代式 LLM harness 合成階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對應活動：報告 VIOLATION 與 WITNESS",
+          "text": "<p>某 SAILOR 元件報告：<code>strlen(raw) &lt; 32</code> 時為安全路徑、<code>strlen(raw) &ge; 32</code> 時為溢位路徑、一個 VIOLATION（越界寫入），以及一個 40 位元組的 WITNESS <code>raw</code>。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "符號執行（KLEE）",
+              "fraction": 100,
+              "feedback": "正確——探索路徑並輸出 violation 加 witness，即符號執行。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析點名可疑處與前置條件，並不探索路徑或產出 witness。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段建 driver；由 KLEE 運行它才產出 violation 與 witness。"
+            },
+            {
+              "text": "具體重播",
+              "fraction": 0,
+              "feedback": "不對——重播消費 witness 以確認，並不發現違反路徑。"
+            }
+          ],
+          "generalFeedback": "列舉可行路徑，並在違反路徑上記錄一個 VIOLATION 及具體 WITNESS 輸入，即 KLEE 符號執行階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對應活動：重跑未修改的程式",
+          "text": "<p>某 SAILOR 元件用一個 40 位元組輸入運行原始未修改的程式，觀察到 invalid write，並把發現標記為 CONFIRMED。這是哪個階段？</p>",
+          "answers": [
+            {
+              "text": "具體重播",
+              "fraction": 100,
+              "feedback": "正確——在未修改程式上重現 crash，即具體重播階段。"
+            },
+            {
+              "text": "符號執行",
+              "fraction": 0,
+              "feedback": "不對——符號執行以符號輸入運行 harness，而非以具體輸入運行未修改程式。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "不對——靜態分析根本不執行程式。"
+            },
+            {
+              "text": "LLM Harness 合成",
+              "fraction": 0,
+              "feedback": "不對——該階段寫 driver，並不在真實程式上確認 crash。"
+            }
+          ],
+          "generalFeedback": "把具體 witness 餵進原始未修改程式並確認 crash，即具體重播階段——假陽性的過濾器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何靜態分析最先跑",
+          "text": "<p>SAILOR 中，為何靜態分析要跑在符號執行<em>之前</em>？</p>",
+          "answers": [
+            {
+              "text": "它把搜尋收斂到可疑位置與前置條件，使符號執行不盲目、維持可行",
+              "fraction": 100,
+              "feedback": "正確——先修剪空間，才能讓昂貴的探索維持可行。"
+            },
+            {
+              "text": "因為 KLEE 需要只有靜態分析才能產出的已編譯二進位檔",
+              "fraction": 0,
+              "feedback": "不對——產出可執行／可編譯 driver 的是 harness（第 2 階段），不是靜態分析。"
+            },
+            {
+              "text": "因為 witness 必須在寫 harness 之前就存在",
+              "fraction": 0,
+              "feedback": "不對——witness 來自符號執行，而它在靜態分析與 harness 合成之後才跑。"
+            },
+            {
+              "text": "因為重播必須在探索開始前就確認 bug",
+              "fraction": 0,
+              "feedback": "不對——重播是最後階段，它需要只有符號執行能產出的 witness。"
+            }
+          ],
+          "generalFeedback": "符號執行會遭遇路徑爆炸。先跑靜態分析標出何處、在何前置條件下該看，執行器就把預算花在重要路徑，而非盲目探索。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何是這個階段順序",
+          "text": "<p>下列哪句最能總結 SAILOR 各階段採此特定順序的<em>原因</em>？</p>",
+          "answers": [
+            {
+              "text": "靜態收斂 → harness 驅動 → 符號探索 → 重播確認",
+              "fraction": 100,
+              "feedback": "正確——每個階段都恰好備妥下一個階段所需之物。"
+            },
+            {
+              "text": "重播確認 → 符號探索 → harness 驅動 → 靜態收斂",
+              "fraction": 0,
+              "feedback": "不對——這把流程反過來了；還沒發現就無法確認任何東西。"
+            },
+            {
+              "text": "harness 驅動 → 重播確認 → 靜態收斂 → 符號探索",
+              "fraction": 0,
+              "feedback": "不對——靜態分析鎖定位置前無法建 harness，且重播需先有 witness。"
+            },
+            {
+              "text": "符號探索 → 靜態收斂 → 重播確認 → harness 驅動",
+              "fraction": 0,
+              "feedback": "不對——符號執行在能跑之前，需要目標與 harness 兩者。"
+            }
+          ],
+          "generalFeedback": "靜態分析收斂目標、LLM 建 driver 以抵達它、符號執行探索該 driver 以用 witness 證明違反、重播在真實程式上確認 witness。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整 SAILOR 的頭條數字",
+          "text": "<p>在評估中，<strong>完整</strong>的 SAILOR 流程回報了多少漏洞與 crash？</p>",
+          "answers": [
+            {
+              "text": "379 個獨立漏洞與 421 個確認 crash",
+              "fraction": 100,
+              "feedback": "正確——這是完整流程的頭條數字。"
+            },
+            {
+              "text": "421 個獨立漏洞與 379 個確認 crash",
+              "fraction": 0,
+              "feedback": "不對——數字對調了：是 379 個獨立漏洞與 421 個確認 crash。"
+            },
+            {
+              "text": "12 個獨立漏洞與 35 個確認 crash",
+              "fraction": 0,
+              "feedback": "不對——12 是基準值；完整流程找到的多得多。"
+            },
+            {
+              "text": "3790 個獨立漏洞與 4210 個確認 crash",
+              "fraction": 0,
+              "feedback": "不對——回報的數字是 379 與 421，不是十倍大。"
+            }
+          ],
+          "generalFeedback": "完整 SAILOR 在整個評估中找到 379 個獨立漏洞與 421 個確認 crash。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "移除靜態分析的效果",
+          "text": "<p>在消融實驗中，移除靜態分析（「no-static」）對找到的漏洞有何效果？</p>",
+          "answers": [
+            {
+              "text": "找到的漏洞少了約 12.2 倍",
+              "fraction": 100,
+              "feedback": "正確——沒有鎖定目標，符號執行的效能大幅下降。"
+            },
+            {
+              "text": "找到的漏洞恰為零",
+              "fraction": 0,
+              "feedback": "不對——歸零是 no-LLM 的結果；no-static 是少 12.2 倍但仍非零。"
+            },
+            {
+              "text": "沒有可量測的變化",
+              "fraction": 0,
+              "feedback": "不對——移除靜態分析造成 12.2 倍的大幅減少。"
+            },
+            {
+              "text": "找到的漏洞多了約 12.2 倍",
+              "fraction": 0,
+              "feedback": "不對——移除修剪只會有害不會有益；它是少 12.2 倍。"
+            }
+          ],
+          "generalFeedback": "靜態分析正是讓符號執行可行的關鍵。移除它，SAILOR 找到的漏洞少約 12.2 倍——嚴重下降，但未到歸零。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "移除 LLM harness 的效果",
+          "text": "<p>在消融實驗中，移除 LLM harness 合成（「no-LLM」）的結果是：</p>",
+          "answers": [
+            {
+              "text": "找到零個漏洞",
+              "fraction": 100,
+              "feedback": "正確——沒有 harness，KLEE 就沒東西可執行。"
+            },
+            {
+              "text": "少約 12.2 倍",
+              "fraction": 0,
+              "feedback": "不對——少 12.2 倍是 no-static 的結果；no-LLM 一路崩到零。"
+            },
+            {
+              "text": "恰好 12 個（與基準相同）",
+              "fraction": 0,
+              "feedback": "不對——12 是既有基準工具；no-LLM 產出零。"
+            },
+            {
+              "text": "只比完整流程略少一些",
+              "fraction": 0,
+              "feedback": "不對——沒有 harness，流程就沒東西可跑，因此找到零個。"
+            }
+          ],
+          "generalFeedback": "沒有 harness 就沒東西能在 KLEE 下執行，所以 no-LLM 消融找到零個漏洞——顯示 harness 是硬性前提。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基準的數字",
+          "text": "<p>基準／既有比較工具（手寫 harness）找到多少漏洞？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——既有工具只找到 12，相對於完整 SAILOR 的 379。"
+            },
+            {
+              "text": "379",
+              "fraction": 0,
+              "feedback": "不對——379 是完整 SAILOR 的獨立漏洞數，不是基準。"
+            },
+            {
+              "text": "421",
+              "fraction": 0,
+              "feedback": "不對——421 是完整 SAILOR 的確認 crash 數，不是基準。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "不對——零是 no-LLM 消融的結果；基準找到 12。"
+            }
+          ],
+          "generalFeedback": "基準（使用手寫 harness 的既有工具）只找到 12，遠少於完整 SAILOR 的 379 個獨立漏洞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "評估規模",
+          "text": "<p>SAILOR 在大約多少程式碼上進行評估？</p>",
+          "answers": [
+            {
+              "text": "10 個開源專案，約 680 萬行 C/C++",
+              "fraction": 100,
+              "feedback": "正確——這是回報的評估語料。"
+            },
+            {
+              "text": "1 個約 680 萬行的專案",
+              "fraction": 0,
+              "feedback": "不對——是 10 個專案，不是單一個。"
+            },
+            {
+              "text": "100 個各約 6800 行的專案",
+              "fraction": 0,
+              "feedback": "不對——語料是 10 個專案，合計約 680 萬行。"
+            },
+            {
+              "text": "10 個合計約 6800 行的專案",
+              "fraction": 0,
+              "feedback": "不對——合計約 680 萬行 C/C++，不是 6800 行。"
+            }
+          ],
+          "generalFeedback": "評估在 10 個開源專案上進行，合計約 680 萬行 C/C++。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "為何需要具體重播",
+          "text": "<p>具體重播的存在，主要是為了把 witness 在原始未修改的程式上重跑，以濾除假陽性。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——在 harness 裡找到的違反，唯有具體 witness 在真實程式上重現後才被採信。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "重播的目的正是過濾假陽性：在未修改程式上確認 bug 為真，而非 harness 的假象。"
+            }
+          ],
+          "generalFeedback": "符號執行可能在只有 harness 中才可行的路徑上報違反。把具體 witness 在未修改程式上重播，可確認真實 bug 並丟棄只存在於 harness 的假象。"
+        },
+        {
+          "type": "multichoice",
+          "name": "strcpy 的前置條件",
+          "text": "<p>在範例中目標緩衝區為 <code>char name[32]</code>。靜態分析對 <code>strcpy</code> sink 附加了什麼前置條件，作為複製維持安全的條件？</p>",
+          "answers": [
+            {
+              "text": "strlen(raw) < 32",
+              "fraction": 100,
+              "feedback": "正確——來源必須短於 32 位元組的目標，複製才安全。"
+            },
+            {
+              "text": "strlen(raw) < 64",
+              "fraction": 0,
+              "feedback": "不對——目標是 32 位元組，安全前置條件是 strlen(raw) < 32，不是 64。"
+            },
+            {
+              "text": "strlen(raw) > 32",
+              "fraction": 0,
+              "feedback": "不對——那是溢位條件，不是安全前置條件；安全是 strlen(raw) < 32。"
+            },
+            {
+              "text": "raw != NULL",
+              "fraction": 0,
+              "feedback": "不對——非空並不限制長度；長度前置條件是 strlen(raw) < 32。"
+            }
+          ],
+          "generalFeedback": "目標為 32 位元組時，唯有 strlen(raw) < 32 複製才安全。靜態分析附加此前置條件，讓符號執行能鎖定其被違反的路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION 與 WITNESS 一起",
+          "text": "<p>單一 KLEE 結果同時帶有 VIOLATION 與 WITNESS。兩者的關係為何？</p>",
+          "answers": [
+            {
+              "text": "VIOLATION 是某條路徑上被證明的 bug；WITNESS 是驅動該路徑的具體輸入，重播會重用它來重現違反",
+              "fraction": 100,
+              "feedback": "正確——一個是證明，另一個是重播所依賴的觸發輸入。"
+            },
+            {
+              "text": "它們是同一個東西的兩個名字",
+              "fraction": 0,
+              "feedback": "不對——violation（證明）與 witness（輸入）是不同的產物。"
+            },
+            {
+              "text": "WITNESS 是證明，VIOLATION 是輸入",
+              "fraction": 0,
+              "feedback": "不對——這對調了：violation 是證明，witness 是輸入。"
+            },
+            {
+              "text": "兩者都是執行前產出的靜態規格",
+              "fraction": 0,
+              "feedback": "不對——兩者都是符號執行的輸出，不是靜態規格。"
+            }
+          ],
+          "generalFeedback": "KLEE 在某條路徑上證明 VIOLATION，並回報驅動該路徑的具體 WITNESS 輸入。具體重播把 witness（而非 violation）餵進真實程式以確認 bug。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "範例中 witness 確認了什麼",
+          "text": "<p>在範例中，witness 讓來源字串超過 32 位元組的目標緩衝區。一旦重播重現 crash，確認的是哪一類 bug？</p>",
+          "answers": [
+            {
+              "text": "越界寫入（CWE-787）",
+              "fraction": 100,
+              "feedback": "正確——寫過目標緩衝區即越界寫入，CWE-787。"
+            },
+            {
+              "text": "越界讀取（CWE-125）",
+              "fraction": 0,
+              "feedback": "不對——strcpy 是寫過緩衝區；這是寫入，不是讀取。"
+            },
+            {
+              "text": "整數溢位",
+              "fraction": 0,
+              "feedback": "不對——這個 bug 是記憶體寫過緩衝區邊界，不是算術溢位。"
+            },
+            {
+              "text": "空指標解參考",
+              "fraction": 0,
+              "feedback": "不對——指標有效；問題在於寫過 32 位元組緩衝區。"
+            }
+          ],
+          "generalFeedback": "當 strlen(raw) ≥ 32 時，strcpy 寫過 name[32]。重播在未修改程式上重現此情形，確認為越界寫入——CWE-787。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何 no-static 讓成果少 12.2 倍",
+          "text": "<p>為何移除靜態分析會讓 SAILOR 的成果約少 12.2 倍，而不是維持不變？</p>",
+          "answers": [
+            {
+              "text": "沒有可疑位置與前置條件來修剪搜尋，符號執行便遭遇路徑爆炸而變得不可行，在預算內探索得遠為無效",
+              "fraction": 100,
+              "feedback": "正確——靜態分析正是讓探索聚焦且可行的關鍵。"
+            },
+            {
+              "text": "因為沒有靜態分析，harness 就無法再編譯",
+              "fraction": 0,
+              "feedback": "不對——編譯是 harness 迴圈的事；移除靜態分析傷的是鎖定目標，不是建置。"
+            },
+            {
+              "text": "因為移除靜態分析時 KLEE 會被停用",
+              "fraction": 0,
+              "feedback": "不對——KLEE 仍會跑，只是失去引導，把預算浪費在無關路徑上。"
+            },
+            {
+              "text": "因為沒有靜態分析，具體重播會拒絕每個發現",
+              "fraction": 0,
+              "feedback": "不對——重播仍會確認真實 crash；損失來自上游探索失焦。"
+            }
+          ],
+          "generalFeedback": "可行路徑數呈指數成長。靜態分析標出何處、在何前置條件下該看；移除它，KLEE 便盲目探索、遭遇路徑爆炸，抵達的真實 bug 遠少——約少 12.2 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 no-LLM 恰好歸零",
+          "text": "<p>為何移除 LLM harness 合成會讓成果<em>恰好歸零</em>，而不只是降到較小的數字？</p>",
+          "answers": [
+            {
+              "text": "沒有合成的 driver 就沒東西能在 KLEE 下編譯與執行，符號執行沒有 harness 可跑，因而完全不產出 violation 或 witness",
+              "fraction": 100,
+              "feedback": "正確——harness 是硬性前提；沒有它，流程就沒東西可跑。"
+            },
+            {
+              "text": "因為靜態分析也停止輸出可疑位置",
+              "fraction": 0,
+              "feedback": "不對——靜態分析不受影響；缺口在於沒有 driver 可執行。"
+            },
+            {
+              "text": "因為具體重播接著把所有發現都判為假陽性",
+              "fraction": 0,
+              "feedback": "不對——根本沒有發現可拒絕；沒有東西在 KLEE 下跑過。"
+            },
+            {
+              "text": "因為路徑數變成無限，KLEE 對每一條都逾時",
+              "fraction": 0,
+              "feedback": "不對——問題不是逾時；而是根本沒有 harness 給 KLEE 跑。"
+            }
+          ],
+          "generalFeedback": "符號執行需要可執行之物。沒有 LLM 就沒有 harness，KLEE 便沒東西可跑——於是零 violation、零 witness。harness 是硬性使能元件，不只是最佳化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個消融揭示了什麼",
+          "text": "<p>把 no-static 結果（約少 12.2 倍）與 no-LLM 結果（歸零）對比。此對比揭示了這兩個元件角色的什麼？</p>",
+          "answers": [
+            {
+              "text": "harness 是硬性前提（沒有它什麼都跑不了），而靜態分析是強力的可行性／效率使能元件（沒有它流程仍能運作，只是差很多）",
+              "fraction": 100,
+              "feedback": "正確——歸零 vs 少 12.2 倍，區分了「不可移除的使能元件」與「大幅有助的元件」。"
+            },
+            {
+              "text": "兩個元件同樣可有可無",
+              "fraction": 0,
+              "feedback": "不對——移除 LLM harness 會讓流程崩到零，所以它並非可有可無。"
+            },
+            {
+              "text": "靜態分析是前提，LLM harness 是最佳化元件",
+              "fraction": 0,
+              "feedback": "不對——恰好相反：harness 才是前提（沒它就歸零）；靜態分析是效率倍增器。"
+            },
+            {
+              "text": "具體重播才是此消融暴露的真正瓶頸",
+              "fraction": 0,
+              "feedback": "不對——此消融對比的是靜態分析與 harness；重播不是這兩個數字所隔離的對象。"
+            }
+          ],
+          "generalFeedback": "no-LLM → 零，顯示 harness 是「能跑任何東西」的不可或缺前提。no-static → 少 12.2 倍，顯示靜態分析是強力的效能倍增器，但沒有它流程仍能找到一些 bug。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最不可或缺的單一元件",
+          "text": "<p>從消融實驗來詮釋，哪個單一元件<em>最</em>不可或缺，為什麼？</p>",
+          "answers": [
+            {
+              "text": "LLM harness 合成——移除它成果歸零，而移除靜態分析只是少 12.2 倍（仍非零）",
+              "fraction": 100,
+              "feedback": "正確——完全崩到零，標示 harness 是最嚴格的前提。"
+            },
+            {
+              "text": "靜態分析——因為 12.2 倍是消融中最大的數字",
+              "fraction": 0,
+              "feedback": "不對——大倍數仍非零；harness 更不可或缺，因為沒有它成果為零。"
+            },
+            {
+              "text": "具體重播——因為沒有它什麼都無法確認",
+              "fraction": 0,
+              "feedback": "不對——消融顯示是 harness 而非重播，其移除會讓成果歸零。"
+            },
+            {
+              "text": "符號執行——因為它才是真正找出 bug 的元件",
+              "fraction": 0,
+              "feedback": "不對——符號執行固然核心，但消融把 harness 隔離為「移除即歸零」者。"
+            }
+          ],
+          "generalFeedback": "「最不可或缺」意指移除後傷害最大者。no-LLM 歸零（沒東西可跑），而 no-static 少 12.2 倍但非零——所以 LLM harness 是最嚴格的前提。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "VIOLATION 與 WITNESS 及重播如何各自使用",
+          "text": "<p>精確區分 VIOLATION 與 WITNESS，並說明具體重播如何各自使用它們。</p>",
+          "answers": [
+            {
+              "text": "VIOLATION 是執行器對「某條路徑抵達 bug」的證明；WITNESS 是驅動該路徑的具體輸入；重播把 witness（而非 violation）餵進未修改程式，以重現並確認違反",
+              "fraction": 100,
+              "feedback": "正確——witness 是可操作的輸入，violation 是它所確認的主張。"
+            },
+            {
+              "text": "VIOLATION 是具體輸入；WITNESS 是證明；重播把 violation 餵進程式",
+              "fraction": 0,
+              "feedback": "不對——角色反了：witness 是輸入，violation 是證明。"
+            },
+            {
+              "text": "兩者都是輸入；重播先跑哪個先崩就用哪個",
+              "fraction": 0,
+              "feedback": "不對——只有 witness 是輸入；violation 是證明，不是能餵給程式的東西。"
+            },
+            {
+              "text": "兩者都是證明；重播挑較強的證明來回報",
+              "fraction": 0,
+              "feedback": "不對——witness 是具體輸入而非證明；重播把它在真實程式上跑。"
+            }
+          ],
+          "generalFeedback": "VIOLATION 是 KLEE 對「某條路徑抵達 bug」的證明；WITNESS 是該路徑的具體觸發輸入。重播不理會抽象的 violation，而是把具體 witness 在未修改程式上跑，以確認 bug 為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何迭代 harness 迴圈重要",
+          "text": "<p>為何第 2 階段的編譯回饋迭代是必要的，而非只是方便？</p>",
+          "answers": [
+            {
+              "text": "初稿 harness 通常編譯不過；若不靠回饋修正，就沒有可執行的 harness，KLEE 便沒東西可跑",
+              "fraction": 100,
+              "feedback": "正確——這個迴圈把壞掉的初稿變成可用的 driver。"
+            },
+            {
+              "text": "它讓編譯好的 harness 在執行時跑更快",
+              "fraction": 0,
+              "feedback": "不對——迴圈是為了讓 harness 能建置，而非執行速度。"
+            },
+            {
+              "text": "它直接增加 KLEE 探索的路徑數",
+              "fraction": 0,
+              "feedback": "不對——路徑數是符號執行的事；迴圈的角色是產出可編譯的 harness。"
+            },
+            {
+              "text": "它在重播前濾除假陽性",
+              "fraction": 0,
+              "feedback": "不對——濾除假陽性是重播的工作；迴圈的工作是產出可建置的 harness。"
+            }
+          ],
+          "generalFeedback": "LLM 初稿鮮少能編譯。編譯／回饋迴圈反覆修正直到能建置；沒有它就沒有可執行的 driver——這正是 no-LLM 消融歸零的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SAILOR 如何結合三種強項",
+          "text": "<p>SAILOR 結合靜態、動態（符號）與 LLM 技術。下列各自貢獻的對應何者正確？</p>",
+          "answers": [
+            {
+              "text": "靜態分析修剪與鎖定；LLM 寫出過去需人工手寫的 driver；符號執行證明可達性並產出 witness；重播在真實程式上確認",
+              "fraction": 100,
+              "feedback": "正確——每種技術都補足其他技術的弱點。"
+            },
+            {
+              "text": "靜態分析寫 driver；LLM 探索路徑；符號執行修剪搜尋；重播編譯 harness",
+              "fraction": 0,
+              "feedback": "不對——每個角色都錯置了；修剪是靜態分析、寫 driver 是 LLM、探索是符號執行。"
+            },
+            {
+              "text": "LLM 修剪搜尋；靜態分析證明可達性；符號執行在真實程式上確認；重播鎖定 sink",
+              "fraction": 0,
+              "feedback": "不對——修剪是靜態分析、可達性是符號執行、確認是重播。"
+            },
+            {
+              "text": "三種技術冗餘地做同一件事以求可靠",
+              "fraction": 0,
+              "feedback": "不對——它們是互補的，各自提供其他技術做不到的部分。"
+            }
+          ],
+          "generalFeedback": "靜態分析聚焦力氣、LLM 把過去人工的 harness 自動化、符號執行以具體 witness 證明可達的違反、具體重播加以確認——結合靜態、動態與 LLM 的強項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何無引導的符號執行是盲目的",
+          "text": "<p>具體而言，是什麼讓<em>無引導</em>的符號執行「盲目」，而靜態鎖定又如何幫上忙？</p>",
+          "answers": [
+            {
+              "text": "可行路徑呈指數成長；沒有前置條件與可疑 sink 可導向，執行器會把預算花在無關路徑上、鮮少抵達深層 bug——靜態分析聚焦該預算",
+              "fraction": 100,
+              "feedback": "正確——鎖定正是把不可行的搜尋變成有成效搜尋的關鍵。"
+            },
+            {
+              "text": "沒有靜態分析它就無法求解任何路徑約束",
+              "fraction": 0,
+              "feedback": "不對——求解器仍能運作；問題在於力氣該花在哪，而鎖定解決此事。"
+            },
+            {
+              "text": "依定義它除非被靜態分析叫停否則永不終止",
+              "fraction": 0,
+              "feedback": "不對——終止由搜尋上限所界；問題是力氣失焦，而非本質不終止。"
+            },
+            {
+              "text": "它需要先有 witness 才能開始探索",
+              "fraction": 0,
+              "feedback": "不對——witness 是探索的輸出，不是探索的前提。"
+            }
+          ],
+          "generalFeedback": "可行路徑數呈指數爆炸。沒有靜態分析指向可疑 sink 及其前置條件，執行器會把預算浪費在探索無關路徑——正是消融量到的 12.2 倍損失。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "前置條件如何引導 KLEE",
+          "text": "<p>靜態前置條件 <code>strlen(raw) &lt; 32</code> 如何幫助符號執行找到溢位？</p>",
+          "answers": [
+            {
+              "text": "它在 sink 處標出安全條件，於是 KLEE 能鎖定 strlen(raw) ≥ 32 的路徑——即寫過 name[32] 的路徑——而非探索一切",
+              "fraction": 100,
+              "feedback": "正確——知道安全條件，就等於告訴執行器該追哪條違反路徑。"
+            },
+            {
+              "text": "它把 raw 固定成一個具體值，讓 KLEE 不需用符號輸入",
+              "fraction": 0,
+              "feedback": "不對——前置條件是關於安全的符號約束，不是具體賦值。"
+            },
+            {
+              "text": "它修補 strcpy 使溢位不會發生",
+              "fraction": 0,
+              "feedback": "不對——靜態分析不修改程式碼；它為 sink 標註安全條件。"
+            },
+            {
+              "text": "它為安全路徑停用 harness",
+              "fraction": 0,
+              "feedback": "不對——harness 仍會跑；前置條件只是告訴 KLEE 哪條是違反路徑。"
+            }
+          ],
+          "generalFeedback": "前置條件 strlen(raw) < 32 是複製維持安全的條件。它的否定 strlen(raw) ≥ 32 標出溢位路徑——於是 KLEE 鎖定該路徑並找到越界寫入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "詮釋基準 12 對比 379/421",
+          "text": "<p>基準找到 12，而完整 SAILOR 找到 379 個漏洞／421 個 crash。公允的結論為何？</p>",
+          "answers": [
+            {
+              "text": "把 harness 合成自動化並加上靜態鎖定，大幅擴展了符號執行相較於既有手寫 harness 工具所能發現的範圍",
+              "fraction": 100,
+              "feedback": "正確——差距反映的是自動化加鎖定，而非「什麼算 bug」的定義改變。"
+            },
+            {
+              "text": "基準單純不健全而過度回報；SAILOR 較保守",
+              "fraction": 0,
+              "feedback": "不對——SAILOR 找到的多得多，且其重播步驟會確認 bug；基準並非過度回報。"
+            },
+            {
+              "text": "兩者用同一種技術，所以差異必是量測雜訊",
+              "fraction": 0,
+              "feedback": "不對——基準用手寫 harness；SAILOR 自動化並鎖定，是真實的方法差異。"
+            },
+            {
+              "text": "SAILOR 以犧牲健全性換取更高的數字",
+              "fraction": 0,
+              "feedback": "不對——具體重播會確認每個 crash，所以更高的數字是「已確認的 bug」，而非犧牲健全性。"
+            }
+          ],
+          "generalFeedback": "既有工具依賴手寫 harness、找到 12。SAILOR 自動化且靜態鎖定的 harness 讓符號執行抵達遠更多真實 bug——379 個獨立漏洞、421 個確認 crash，且全經重播確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何重播用 witness 而非 violation",
+          "text": "<p>為何 SAILOR 要重播具體 witness，而非直接採信 KLEE 的 violation？</p>",
+          "answers": [
+            {
+              "text": "violation 可能發生在只有 harness／模型中才可行的路徑上；把具體 witness 在未修改程式上重播能證明 bug 為真，並濾除 harness 造成的假陽性",
+              "fraction": 100,
+              "feedback": "正確——重播是對 harness 主張的現實檢驗。"
+            },
+            {
+              "text": "因為 KLEE 對它實際跑過的路徑不健全",
+              "fraction": 0,
+              "feedback": "不對——顧慮的是 harness-only 狀態，而非 KLEE 對其所探索路徑的健全性。"
+            },
+            {
+              "text": "因為重播比讀取 violation 記錄更快",
+              "fraction": 0,
+              "feedback": "不對——重播是關於確認品質，不是速度。"
+            },
+            {
+              "text": "為了重新計算靜態分析產出的前置條件",
+              "fraction": 0,
+              "feedback": "不對——重播確認 crash，並不重新計算前置條件。"
+            }
+          ],
+          "generalFeedback": "harness 可能製造出真實程式中不可能的狀態，因此其上的 violation 可能是假陽性。把具體 witness 在未修改程式上重播，正是區分真實 bug 與 harness 假象的手段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "過度約束 harness 的後果",
+          "text": "<p>假設合成的 harness 過度約束了符號輸入（邊界收得太緊）。對流程可能的後果是什麼？</p>",
+          "answers": [
+            {
+              "text": "真實 bug 可能落在被探索的輸入空間之外，於是 KLEE 永遠不輸出該 violation——即偽陰性——即使各階段都有跑",
+              "fraction": 100,
+              "feedback": "正確——藏起觸發輸入，就讓該 bug 在探索中不可達。"
+            },
+            {
+              "text": "它保證產生一個重播仍會確認的假陽性",
+              "fraction": 0,
+              "feedback": "不對——過度約束是藏起 bug（偽陰性），不會製造出已確認的 crash。"
+            },
+            {
+              "text": "具體重播會自動放寬輸入空間來補償",
+              "fraction": 0,
+              "feedback": "不對——重播只重跑一個 witness；無法找回 harness 排除掉的輸入。"
+            },
+            {
+              "text": "靜態分析會重跑以修正 harness",
+              "fraction": 0,
+              "feedback": "不對——流程是往前跑的；靜態分析不會重跑來修補 harness。"
+            }
+          ],
+          "generalFeedback": "若 harness 把輸入界得太緊，觸發 bug 的值被排除，於是 KLEE 探索的空間裡違反從不出現——偽陰性。（約束太鬆則相反：造成假陽性。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "重播不能先於符號執行",
+          "text": "<p>具體重播無法有意義地在符號執行之前進行，因為它需要只有符號執行才能產出的 witness。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——資料相依（witness → 重播）固定了順序：先探索、後確認。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "重播的輸入是 witness，而它由符號執行產出，因此重播必在其後。"
+            }
+          ],
+          "generalFeedback": "重播在未修改程式上重現某個特定 witness。既然 witness 是符號執行的輸出，重播必然是較後的階段——這是資料相依，而非任意選擇。"
+        },
+        {
+          "type": "multichoice",
+          "name": "LLM 自動化了哪個人工步驟",
+          "text": "<p>在既有的符號執行工具中，SAILOR 的 LLM 階段自動化了哪個昂貴的人工步驟，又為何能因此解鎖規模？</p>",
+          "answers": [
+            {
+              "text": "為每個目標手寫一個可編譯的 harness；把它自動化，流程就能在數百萬行程式碼中攻擊眾多位置，而不需為每個目標配一個人",
+              "fraction": 100,
+              "feedback": "正確——harness 的瓶頸就是那個人，而 LLM 移除了它。"
+            },
+            {
+              "text": "手動求解路徑約束；把它自動化就不再需要求解器",
+              "fraction": 0,
+              "feedback": "不對——求解器仍在用；LLM 自動化的是寫 harness，不是求解約束。"
+            },
+            {
+              "text": "手動確認每個 crash；把它自動化就移除了重播階段",
+              "fraction": 0,
+              "feedback": "不對——重播仍會跑；LLM 自動化的是 harness 合成，不是確認。"
+            },
+            {
+              "text": "手動為每個發現標上 CWE 編號",
+              "fraction": 0,
+              "feedback": "不對——瓶頸不是 CWE 標記，而是為每個目標手寫 harness。"
+            }
+          ],
+          "generalFeedback": "傳統符號執行需要人為每個目標手寫可編譯 harness——這是規模的瓶頸。SAILOR 的 LLM 自動合成 harness，使流程能在約 680 萬行程式碼中涵蓋眾多位置，而不需每目標的人工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對消融的整體解讀",
+          "text": "<p>下列哪個結論最受完整消融支持（完整：421 crash；no-static：少 12.2 倍；no-LLM：零；基準：12）？</p>",
+          "answers": [
+            {
+              "text": "每個元件都不可或缺但方式不同——LLM harness 是嚴格的使能元件（沒它就零）、靜態分析是可行性倍增器（12.2 倍），而三者結合遠勝既有工具（基準 12）",
+              "fraction": 100,
+              "feedback": "正確——這些數字合起來顯示各自不同且互補的角色。"
+            },
+            {
+              "text": "只有 LLM harness 重要；其他元件只是裝飾",
+              "fraction": 0,
+              "feedback": "不對——no-static 的 12.2 倍下降顯示靜態分析也極其重要。"
+            },
+            {
+              "text": "只有靜態分析重要；harness 可有可無",
+              "fraction": 0,
+              "feedback": "不對——no-LLM 歸零，所以 harness 並非可有可無。"
+            },
+            {
+              "text": "各元件冗餘，因為移除任一個成果都不變",
+              "fraction": 0,
+              "feedback": "不對——移除元件會使成果劇變（歸零，或少 12.2 倍），所以它們並不冗餘。"
+            }
+          ],
+          "generalFeedback": "消融顯示每個元件各以自身方式舉足輕重：harness 不可或缺（沒它就零）、靜態分析倍增效能（12.2 倍），而完整 SAILOR（379 漏洞／421 crash）遠勝基準的 12——整體遠大於任一部分。",
+          "single": true
+        }
+      ]
+    }
+  },
   "spec-mutation": {
     "en": {
       "easy": [
@@ -106322,6 +113986,2524 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "依序為每個目標各生成一個測試，可能把整個預算耗在苦戰單一不可行或無梯度的目標上，讓容易的目標乾等，且忽略一個測試常能覆蓋多個目標。整套（以及多目標）方法對所有剩餘目標一起最佳化單一套件，故搜尋能自適應地分配心力，並收下個別測試帶來的附帶覆蓋。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "test-quality": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "The five acceptance dimensions",
+          "text": "<p>In the Meta ACH study (arXiv 2501.12862), an LLM-generated test must satisfy five review dimensions before engineers accept it. Which set names all five correctly?</p>",
+          "answers": [
+            {
+              "text": "Buildable, Non-flaky, Hardening, Relevant, Style",
+              "fraction": 100,
+              "feedback": "Correct — these are exactly the five engineer-acceptance dimensions."
+            },
+            {
+              "text": "Buildable, Fast, Coverage, Relevant, Readable",
+              "fraction": 0,
+              "feedback": "Fast, Coverage and Readable are not the review dimensions; the five are Buildable, Non-flaky, Hardening, Relevant, Style."
+            },
+            {
+              "text": "Kill rate, Non-flaky, Hardening, Relevant, Style",
+              "fraction": 0,
+              "feedback": "Kill rate is a mutation metric, not an acceptance dimension; the first dimension is Buildable."
+            },
+            {
+              "text": "Buildable, Non-flaky, Performance, Security, Style",
+              "fraction": 0,
+              "feedback": "Performance and Security are not the review dimensions; the middle two are Hardening and Relevant."
+            }
+          ],
+          "generalFeedback": "The five engineer-acceptance dimensions are Buildable (it compiles), Non-flaky (deterministic), Hardening (strengthens the suite), Relevant (targets real code), and Style (follows conventions). A test must pass all five to be accepted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Buildable checks",
+          "text": "<p>The <em>Buildable</em> dimension checks that a test:</p>",
+          "answers": [
+            {
+              "text": "Compiles and builds cleanly, with no build or compilation errors",
+              "fraction": 100,
+              "feedback": "Correct — Buildable means the test compiles/builds without errors."
+            },
+            {
+              "text": "Runs faster than every other test in the suite",
+              "fraction": 0,
+              "feedback": "Speed is not part of Buildable; Buildable is only about compiling/building cleanly."
+            },
+            {
+              "text": "Covers every branch of the code under test",
+              "fraction": 0,
+              "feedback": "Branch coverage is unrelated to Buildable, which is about whether the test builds without errors."
+            },
+            {
+              "text": "Follows the team's naming conventions",
+              "fraction": 0,
+              "feedback": "That describes the Style dimension; Buildable is about compiling cleanly."
+            }
+          ],
+          "generalFeedback": "Buildable is the most basic gate: if the test does not compile or build, it produces a build error and is rejected outright. Nothing else can be evaluated until the test actually builds.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Non-flaky checks",
+          "text": "<p>The <em>Non-flaky</em> dimension requires that a test:</p>",
+          "answers": [
+            {
+              "text": "Is deterministic — it produces the same result on every run of the same code",
+              "fraction": 100,
+              "feedback": "Correct — Non-flaky means a deterministic, repeatable result every run."
+            },
+            {
+              "text": "Always passes no matter what the code does",
+              "fraction": 0,
+              "feedback": "A test that always passes is useless; Non-flaky means a repeatable outcome, which may be pass or fail."
+            },
+            {
+              "text": "Uses fresh random inputs on every run",
+              "fraction": 0,
+              "feedback": "Unseeded random inputs make a test flaky; Non-flaky is the opposite property."
+            },
+            {
+              "text": "Compiles without any errors",
+              "fraction": 0,
+              "feedback": "Compiling cleanly is the Buildable dimension; Non-flaky is about determinism across runs."
+            }
+          ],
+          "generalFeedback": "A non-flaky test gives the same verdict every time it runs against unchanged code. A flaky test that intermittently passes and fails destroys CI trust and is always rejected, regardless of its other qualities.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Hardening checks",
+          "text": "<p>The <em>Hardening</em> dimension asks whether a test:</p>",
+          "answers": [
+            {
+              "text": "Meaningfully exercises and asserts behaviour, so it would catch a real regression or fault",
+              "fraction": 100,
+              "feedback": "Correct — Hardening means the test actually strengthens the suite's ability to catch faults."
+            },
+            {
+              "text": "Always passes so it never blocks a build",
+              "fraction": 0,
+              "feedback": "A test that can never fail adds no protective value; that is exactly a Hardening failure, not a pass."
+            },
+            {
+              "text": "Is written in the same file as the code under test",
+              "fraction": 0,
+              "feedback": "File location is irrelevant to Hardening, which is about whether the test would catch a real fault."
+            },
+            {
+              "text": "Executes in under one millisecond",
+              "fraction": 0,
+              "feedback": "Execution speed is unrelated to Hardening, which measures protective value."
+            }
+          ],
+          "generalFeedback": "A hardening test strengthens the suite: it exercises behaviour and asserts on it so that a genuine regression would make it fail. A trivial, no-op, or tautological test that always passes fails the Hardening dimension because it adds no protective value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Relevant checks",
+          "text": "<p>The <em>Relevant</em> dimension asks whether a test:</p>",
+          "answers": [
+            {
+              "text": "Targets a real, relevant issue or behaviour of the code under test",
+              "fraction": 100,
+              "feedback": "Correct — Relevant means the test is aimed at genuine, on-target behaviour of the system under test."
+            },
+            {
+              "text": "Exercises unrelated code that is not the subject of the change",
+              "fraction": 0,
+              "feedback": "Testing unrelated code is precisely a Relevance failure, not a pass."
+            },
+            {
+              "text": "Contains at least ten assertions",
+              "fraction": 0,
+              "feedback": "The number of assertions is not what Relevant measures; it is whether the target is a real issue."
+            },
+            {
+              "text": "Runs on every supported platform",
+              "fraction": 0,
+              "feedback": "Cross-platform execution is unrelated to Relevance, which is about targeting the right code."
+            }
+          ],
+          "generalFeedback": "A relevant test is aimed at a genuine issue or behaviour of the code under test — not at unrelated code, dead paths, or a non-issue. A test can be perfectly built and deterministic yet be rejected because it is off-target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Style checks",
+          "text": "<p>The <em>Style</em> dimension asks whether a test:</p>",
+          "answers": [
+            {
+              "text": "Follows the codebase's conventions for naming, structure, assertions, and idioms so a human would accept it",
+              "fraction": 100,
+              "feedback": "Correct — Style is about conforming to the team's conventions so the test is maintainable and reviewable."
+            },
+            {
+              "text": "Produces the same result on every run",
+              "fraction": 0,
+              "feedback": "That is the Non-flaky dimension; Style is about matching the codebase's conventions."
+            },
+            {
+              "text": "Kills at least one mutant",
+              "fraction": 0,
+              "feedback": "Killing mutants is a mutation-testing metric, not the Style dimension."
+            },
+            {
+              "text": "Compiles without errors",
+              "fraction": 0,
+              "feedback": "Compiling cleanly is Buildable; Style is about naming, structure, and idioms."
+            }
+          ],
+          "generalFeedback": "Style captures whether a human reviewer would accept the test into the codebase: consistent naming, structure, assertion helpers, and idioms. A stylistically unacceptable test is rejected because it would need rework before it could be merged.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What engineer acceptance requires",
+          "text": "<p>For an LLM-generated test to be <em>accepted</em> by engineers, it must:</p>",
+          "answers": [
+            {
+              "text": "Pass all five review dimensions — Buildable, Non-flaky, Hardening, Relevant, and Style",
+              "fraction": 100,
+              "feedback": "Correct — acceptance requires passing every one of the five dimensions."
+            },
+            {
+              "text": "Pass at least three of the five dimensions",
+              "fraction": 0,
+              "feedback": "A majority is not enough; a failure on any single dimension leads to rejection."
+            },
+            {
+              "text": "Kill at least one mutant, regardless of the five dimensions",
+              "fraction": 0,
+              "feedback": "Killing a mutant does not guarantee acceptance; the test must still pass all five dimensions."
+            },
+            {
+              "text": "Pass the Buildable dimension only",
+              "fraction": 0,
+              "feedback": "Building cleanly is necessary but far from sufficient; all five dimensions must pass."
+            }
+          ],
+          "generalFeedback": "Engineer acceptance is a conjunction: the test must satisfy Buildable AND Non-flaky AND Hardening AND Relevant AND Style. A failure on any one dimension is enough for rejection.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Killing a mutant is not enough",
+          "text": "<p>If a generated test kills a mutant, that alone is enough for engineers to accept it into the codebase.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — killing a mutant does not guarantee acceptance; the test must still pass all five review dimensions."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: a mutation-killing test can still be rejected if it is flaky, off-target, stylistically unacceptable, or otherwise fails a dimension."
+            }
+          ],
+          "generalFeedback": "Mutation kill rate measures whether a test can detect an injected fault, but engineer acceptance is a stricter, human bar. A test that kills a mutant is still rejected unless it also builds, is deterministic, hardens the suite, targets relevant code, and follows conventions."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why kill rate alone is not enough",
+          "text": "<p>Why is a high mutation kill rate, on its own, an insufficient measure of a generated test's value to engineers?</p>",
+          "answers": [
+            {
+              "text": "A test can kill mutants yet still be rejected for being flaky, off-target, trivial, or stylistically unacceptable — so it never actually lands in the codebase",
+              "fraction": 100,
+              "feedback": "Correct — acceptance depends on all five dimensions, not just fault detection."
+            },
+            {
+              "text": "Kill rate cannot be measured for LLM-generated tests",
+              "fraction": 0,
+              "feedback": "Kill rate can be measured fine; the point is that it does not capture the other acceptance dimensions."
+            },
+            {
+              "text": "A high kill rate guarantees the test also follows the team's style",
+              "fraction": 0,
+              "feedback": "Kill rate says nothing about style, determinism, or relevance; those are judged separately."
+            },
+            {
+              "text": "Engineers never look at whether a test detects faults",
+              "fraction": 0,
+              "feedback": "Fault detection matters (Hardening), but it is only one of five dimensions engineers weigh."
+            }
+          ],
+          "generalFeedback": "Kill rate captures only whether a test can catch an injected fault. Engineers additionally require the test to build, run deterministically, target relevant code, and follow conventions. The true bar is acceptance across all five dimensions, so a suite can have a high kill rate yet very few tests engineers will actually merge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: does not compile",
+          "text": "<p>A generated test references a method that does not exist, so it fails to compile. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Buildable",
+              "fraction": 100,
+              "feedback": "Correct — a compilation error is a Buildable failure."
+            },
+            {
+              "text": "Non-flaky",
+              "fraction": 0,
+              "feedback": "Non-flaky is about determinism across runs; a test that never compiles cannot even run."
+            },
+            {
+              "text": "Relevant",
+              "fraction": 0,
+              "feedback": "Relevance is about targeting the right code; here the test does not build at all."
+            },
+            {
+              "text": "Style",
+              "fraction": 0,
+              "feedback": "Style is about conventions; a missing method is a build error, which is the Buildable dimension."
+            }
+          ],
+          "generalFeedback": "A test that will not compile fails the Buildable dimension. It produces a build error and is rejected before any other quality can even be assessed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: passes sometimes, fails sometimes",
+          "text": "<p>A test passes on some runs and fails on others against the same unchanged code. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky",
+              "fraction": 100,
+              "feedback": "Correct — a non-deterministic pass/fail result is a Non-flaky failure."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "The test compiles and runs; the problem is that its result varies between runs."
+            },
+            {
+              "text": "Hardening",
+              "fraction": 0,
+              "feedback": "Hardening is about protective value; here the issue is non-determinism."
+            },
+            {
+              "text": "Style",
+              "fraction": 0,
+              "feedback": "Style is about conventions; an intermittent result is a Non-flaky failure."
+            }
+          ],
+          "generalFeedback": "Intermittent pass/fail on unchanged code is the definition of flakiness, a Non-flaky failure. Flaky tests break CI's signal and are always rejected.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: assertion is always true",
+          "text": "<p>A test's only check is <code>assertTrue(true)</code>, so it can never fail. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Hardening",
+              "fraction": 100,
+              "feedback": "Correct — a tautological assertion catches nothing, so it fails the Hardening dimension."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "The test compiles fine; the problem is that it adds no protective value."
+            },
+            {
+              "text": "Non-flaky",
+              "fraction": 0,
+              "feedback": "The test is perfectly deterministic (always passes); the issue is that it never catches a fault."
+            },
+            {
+              "text": "Relevant",
+              "fraction": 0,
+              "feedback": "Relevance concerns the target; a test that asserts nothing meaningful fails Hardening even if aimed at the right code."
+            }
+          ],
+          "generalFeedback": "A test that can never fail exercises no real behaviour and would never catch a regression, so it fails the Hardening dimension — it adds no protective value to the suite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: tests unrelated code",
+          "text": "<p>A change fixes a payment-calculation bug, but the generated test only exercises an unrelated string-formatting helper. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Relevant",
+              "fraction": 100,
+              "feedback": "Correct — testing code unrelated to the issue is a Relevance failure."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "The test may compile fine; the problem is that it is aimed at the wrong code."
+            },
+            {
+              "text": "Non-flaky",
+              "fraction": 0,
+              "feedback": "It can be perfectly deterministic yet still off-target, which is a Relevance failure."
+            },
+            {
+              "text": "Hardening",
+              "fraction": 0,
+              "feedback": "Even if it asserts strongly on the helper, it targets the wrong code — that is a Relevance failure."
+            }
+          ],
+          "generalFeedback": "A test aimed at unrelated code, rather than the behaviour actually at risk, fails the Relevant dimension. It provides no confidence about the change that matters.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Defect: wrong naming convention",
+          "text": "<p>A Kotlin test is named <code>TEST_boundary_AGE</code>, mixing SCREAMING_SNAKE_CASE with camelCase against the team's conventions. Which dimension does this violate?</p>",
+          "answers": [
+            {
+              "text": "Style",
+              "fraction": 100,
+              "feedback": "Correct — inconsistent naming that breaks conventions is a Style failure."
+            },
+            {
+              "text": "Buildable",
+              "fraction": 0,
+              "feedback": "Odd naming still compiles; the problem is that it violates the codebase's conventions."
+            },
+            {
+              "text": "Relevant",
+              "fraction": 0,
+              "feedback": "The test can target the right code and still be rejected for its non-conforming name — a Style failure."
+            },
+            {
+              "text": "Hardening",
+              "fraction": 0,
+              "feedback": "It can assert meaningfully and still fail review on naming, which is the Style dimension."
+            }
+          ],
+          "generalFeedback": "Naming, structure, and idioms that clash with the codebase's conventions fail the Style dimension. A human reviewer would send it back for rework even if the assertions are sound.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Acceptance needs all five",
+          "text": "<p>A test is accepted by engineers only if it passes all five review dimensions.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — acceptance requires passing Buildable, Non-flaky, Hardening, Relevant, and Style together."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: a failure on any one of the five dimensions is enough for the test to be rejected."
+            }
+          ],
+          "generalFeedback": "Engineer acceptance is a conjunction of all five dimensions. Passing four but failing one — for example, a strong, on-target test that is flaky — still results in rejection."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Classify: random input",
+          "text": "<p>A test computes an input with <code>Random.nextInt()</code> (no fixed seed) and asserts on the result, so its outcome varies from run to run. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — the unseeded random input makes the result non-deterministic",
+              "fraction": 100,
+              "feedback": "Correct — the varying input produces a non-deterministic result, a Non-flaky failure."
+            },
+            {
+              "text": "Buildable — random numbers cause compilation errors",
+              "fraction": 0,
+              "feedback": "Random numbers do not break compilation; the failure is non-determinism (Non-flaky)."
+            },
+            {
+              "text": "Relevant — random inputs always target the wrong code",
+              "fraction": 0,
+              "feedback": "The test can target the right code; the problem is that its result is not reproducible."
+            },
+            {
+              "text": "Style — random calls violate naming conventions",
+              "fraction": 0,
+              "feedback": "Naming is unaffected; the defect is non-determinism, which is the Non-flaky dimension."
+            }
+          ],
+          "generalFeedback": "An unseeded random generator produces different inputs each run, so the test can pass most of the time and fail occasionally. That non-determinism is a Non-flaky failure, and flaky tests are always rejected.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: missing symbol",
+          "text": "<p>A generated test calls <code>calculateDiscuont(order)</code> — a misspelling of the real method — so the test file will not compile. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Buildable — the unresolved symbol is a compilation error",
+              "fraction": 100,
+              "feedback": "Correct — an unresolved reference is a build error, a Buildable failure."
+            },
+            {
+              "text": "Relevant — a typo means the test targets the wrong feature",
+              "fraction": 0,
+              "feedback": "The intent may be on-target, but the test cannot compile; that is a Buildable failure."
+            },
+            {
+              "text": "Hardening — misspelled calls never catch faults",
+              "fraction": 0,
+              "feedback": "The test never even builds, so the primary failure is Buildable, not Hardening."
+            },
+            {
+              "text": "Non-flaky — typos make results non-deterministic",
+              "fraction": 0,
+              "feedback": "A compile error is deterministic; the defect is that it does not build (Buildable)."
+            }
+          ],
+          "generalFeedback": "An unresolved method reference is a compilation error, so the test fails the Buildable dimension. Until it compiles, none of the other dimensions can even be evaluated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: no-op assertion",
+          "text": "<p>A test runs a computation but its only assertion is <code>assertEquals(1, 1)</code>, which can never fail. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Hardening — the assertion is a tautology and catches no fault",
+              "fraction": 100,
+              "feedback": "Correct — a check that can never fail adds no protective value, a Hardening failure."
+            },
+            {
+              "text": "Buildable — a constant comparison will not compile",
+              "fraction": 0,
+              "feedback": "It compiles fine; the problem is that it verifies nothing meaningful."
+            },
+            {
+              "text": "Non-flaky — a constant assertion is non-deterministic",
+              "fraction": 0,
+              "feedback": "It is fully deterministic (always passes); the issue is that it catches nothing."
+            },
+            {
+              "text": "Style — comparing 1 to 1 breaks conventions",
+              "fraction": 0,
+              "feedback": "The defect is the lack of protective value, not conventions; that is Hardening."
+            }
+          ],
+          "generalFeedback": "An assertion comparing a constant to itself always holds, so the test would pass even if the code were broken. It contributes nothing to the suite's fault-catching power, which is a Hardening failure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: off-target test",
+          "text": "<p>A pull request modifies the authentication logic, but the generated test exercises the unrelated logging module and asserts on log formatting. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Relevant — it targets code unrelated to the change under review",
+              "fraction": 100,
+              "feedback": "Correct — testing unrelated code instead of the authentication logic is a Relevance failure."
+            },
+            {
+              "text": "Buildable — logging tests never compile with auth code",
+              "fraction": 0,
+              "feedback": "It may compile fine; the problem is that it is aimed at the wrong module."
+            },
+            {
+              "text": "Non-flaky — logging output is always non-deterministic",
+              "fraction": 0,
+              "feedback": "Log assertions can be deterministic; here the defect is that the test is off-target."
+            },
+            {
+              "text": "Style — logging tests use the wrong idioms",
+              "fraction": 0,
+              "feedback": "Even in perfect style, a test aimed at the wrong code fails Relevance."
+            }
+          ],
+          "generalFeedback": "A test aimed at code unrelated to the behaviour under review provides no confidence about the change that matters. That is a Relevant failure, regardless of how well the test is written.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: inconsistent structure",
+          "text": "<p>A test is correct and deterministic but crams five unrelated scenarios into one method with hard-coded magic numbers, ignoring the codebase's one-scenario-per-test, arrange-act-assert convention. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Style — the structure and idioms clash with the codebase's conventions",
+              "fraction": 100,
+              "feedback": "Correct — violating the team's structural conventions is a Style failure."
+            },
+            {
+              "text": "Buildable — multi-scenario methods do not compile",
+              "fraction": 0,
+              "feedback": "The method compiles and runs; the problem is that it ignores the codebase's conventions."
+            },
+            {
+              "text": "Hardening — bundling scenarios means it catches no faults",
+              "fraction": 0,
+              "feedback": "It can still catch faults; the issue is that its structure is not acceptable to reviewers."
+            },
+            {
+              "text": "Relevant — combined tests target the wrong code",
+              "fraction": 0,
+              "feedback": "It can be on-target and still be rejected for its non-conforming structure — a Style failure."
+            }
+          ],
+          "generalFeedback": "When a test ignores the codebase's naming, structure, and idioms, a reviewer will send it back even if it is otherwise correct. That is a Style failure: it needs rework before a human would accept it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill but reject: flaky",
+          "text": "<p>A generated test kills the target mutant, but it relies on the current wall-clock time and fails whenever it runs across midnight. Engineers reject it. On which dimension?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — the wall-clock dependence makes the result non-deterministic",
+              "fraction": 100,
+              "feedback": "Correct — despite killing the mutant, the intermittent failure is a Non-flaky rejection."
+            },
+            {
+              "text": "Hardening — killing a mutant means it fails Hardening",
+              "fraction": 0,
+              "feedback": "Killing a mutant is evidence of protective value; the rejection is for non-determinism."
+            },
+            {
+              "text": "Buildable — clock code does not compile",
+              "fraction": 0,
+              "feedback": "The test compiles and runs; it just gives a non-deterministic result."
+            },
+            {
+              "text": "Relevant — time-based tests are always off-target",
+              "fraction": 0,
+              "feedback": "The test targets the right code (it kills the mutant); the defect is flakiness."
+            }
+          ],
+          "generalFeedback": "A mutation-killing test can still be rejected. Here it is deterministic in intent but reads the live clock, so it fails intermittently — a Non-flaky failure. CI cannot trust it, so engineers reject it despite the kill.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Kill but reject: style",
+          "text": "<p>A generated test kills the mutant and is deterministic and on-target, but it uses a bespoke assertion helper and naming that no other test in the module uses. Engineers ask for it to be rewritten. On which dimension is it rejected?</p>",
+          "answers": [
+            {
+              "text": "Style — it does not follow the module's conventions and idioms",
+              "fraction": 100,
+              "feedback": "Correct — a kill does not exempt a test from the Style dimension."
+            },
+            {
+              "text": "Hardening — a kill means Hardening automatically fails",
+              "fraction": 0,
+              "feedback": "Killing the mutant shows protective value; the rejection is about conventions."
+            },
+            {
+              "text": "Non-flaky — bespoke helpers are non-deterministic",
+              "fraction": 0,
+              "feedback": "The test is deterministic; the issue is that its style clashes with the codebase."
+            },
+            {
+              "text": "Relevant — custom helpers target the wrong code",
+              "fraction": 0,
+              "feedback": "It is on-target (it kills the mutant); the rejection is on Style."
+            }
+          ],
+          "generalFeedback": "Even a deterministic, on-target, mutant-killing test is rejected if it ignores the codebase's conventions. Acceptance is a human review bar, and non-conforming style is enough to send the test back — a Style failure.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Four out of five still fails",
+          "text": "<p>A test is buildable, non-flaky, hardening, and relevant, but violates the team's style conventions. It is still accepted because it passes four of five dimensions.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — acceptance requires all five dimensions, so a Style failure alone causes rejection."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: passing four dimensions is not enough; a single Style failure is sufficient for rejection."
+            }
+          ],
+          "generalFeedback": "Acceptance is a conjunction of all five dimensions. A strong, on-target, deterministic test that violates style conventions is rejected and returned for rework, illustrating that every dimension is a hard requirement."
+        },
+        {
+          "type": "multichoice",
+          "name": "Weak dimension: happy-path only",
+          "text": "<p>A test for an <code>add(a, b)</code> function only checks <code>add(2, 2) == 4</code> and <code>add(0, 0) == 0</code> — trivial happy-path inputs, with no edge cases such as overflow. Which dimension is weakest here?</p>",
+          "answers": [
+            {
+              "text": "Hardening — it exercises only trivial inputs and would miss edge-case regressions",
+              "fraction": 100,
+              "feedback": "Correct — the lack of meaningful edge cases is a Hardening weakness."
+            },
+            {
+              "text": "Buildable — happy-path tests do not compile",
+              "fraction": 0,
+              "feedback": "The test compiles fine; the concern is how little it exercises."
+            },
+            {
+              "text": "Non-flaky — fixed inputs are non-deterministic",
+              "fraction": 0,
+              "feedback": "Fixed inputs are fully deterministic; the weakness is in protective value (Hardening)."
+            },
+            {
+              "text": "Relevant — testing add() is off-target",
+              "fraction": 0,
+              "feedback": "Testing the function under change is on-target; the weakness is that it only covers trivial cases."
+            }
+          ],
+          "generalFeedback": "Checking only trivial happy-path values leaves edge cases such as overflow or negative inputs untested, so the test would miss real regressions there. That is a weakness on the Hardening dimension.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary rejection: off-target",
+          "text": "<p>A test is well-built, deterministic, and cleanly written, and it asserts strongly — but only on a deprecated code path that production no longer reaches. What is the primary reason engineers reject it?</p>",
+          "answers": [
+            {
+              "text": "Relevant — it targets a non-issue rather than behaviour that actually matters",
+              "fraction": 100,
+              "feedback": "Correct — a strong test aimed at a non-issue fails the Relevant dimension."
+            },
+            {
+              "text": "Hardening — a strong assertion always means Hardening passes",
+              "fraction": 0,
+              "feedback": "A strong assertion on the wrong target does not help; the primary failure is Relevance."
+            },
+            {
+              "text": "Buildable — deprecated paths do not compile",
+              "fraction": 0,
+              "feedback": "The test compiles and runs; the problem is that its target is not a real issue."
+            },
+            {
+              "text": "Non-flaky — deprecated code is non-deterministic",
+              "fraction": 0,
+              "feedback": "It can be deterministic; the rejection is that it targets a non-issue (Relevant)."
+            }
+          ],
+          "generalFeedback": "Even a strong, clean, deterministic test is rejected if it targets code that no longer matters. Relevance asks whether the test aims at a real issue; a dead path is a non-issue, so the primary failure is Relevant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: wall-clock dependence",
+          "text": "<p>A test computes an expected value from <code>LocalDate.now()</code> and compares it to the code's output, so it can fail depending on the day it runs. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — depending on the live date makes the result vary by run",
+              "fraction": 100,
+              "feedback": "Correct — a wall-clock dependence produces a non-deterministic result, a Non-flaky failure."
+            },
+            {
+              "text": "Buildable — date APIs cause build errors",
+              "fraction": 0,
+              "feedback": "Date APIs compile fine; the defect is that the result depends on when it runs."
+            },
+            {
+              "text": "Hardening — using the clock means it catches no faults",
+              "fraction": 0,
+              "feedback": "It might catch faults, but its result is non-deterministic, which is the Non-flaky failure."
+            },
+            {
+              "text": "Style — calling now() breaks conventions",
+              "fraction": 0,
+              "feedback": "The problem is determinism, not conventions; that is the Non-flaky dimension."
+            }
+          ],
+          "generalFeedback": "Reading the live clock ties the outcome to the moment the test runs, so it can pass on one day and fail on another. That non-determinism is a Non-flaky failure; the fix is to inject or freeze a fixed clock.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: duplicate trivial test",
+          "text": "<p>A generated test re-checks a plain getter that is already covered elsewhere and adds no new scenario or edge case. It compiles, is deterministic, targets real code, and matches the style. Which dimension is it weakest on?</p>",
+          "answers": [
+            {
+              "text": "Hardening — it duplicates existing coverage and adds no new fault-catching value",
+              "fraction": 100,
+              "feedback": "Correct — adding no new protective value is a Hardening weakness."
+            },
+            {
+              "text": "Buildable — duplicate tests do not compile",
+              "fraction": 0,
+              "feedback": "It compiles fine; the concern is that it strengthens nothing."
+            },
+            {
+              "text": "Relevant — a getter is never relevant code",
+              "fraction": 0,
+              "feedback": "A getter can be relevant real code; the weakness is that the test adds no new protection."
+            },
+            {
+              "text": "Style — duplicate tests always break conventions",
+              "fraction": 0,
+              "feedback": "The test matches the style; its weakness is the absence of new fault-catching value (Hardening)."
+            }
+          ],
+          "generalFeedback": "A test that merely repeats coverage already provided elsewhere does not strengthen the suite's ability to catch new regressions. Even though it is otherwise clean, it is weak on Hardening because it adds no protective value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a test passes all five",
+          "text": "<p>A test named <code>testPrivacyNullUser</code> passes a <code>null</code> user id to <code>logEvent</code> and asserts the tracker's <code>lastUserId</code> stays <code>null</code>. It compiles, is deterministic, follows conventions, and guards a real privacy edge case. Why is it accepted?</p>",
+          "answers": [
+            {
+              "text": "It passes all five dimensions — buildable, non-flaky, hardening, relevant, and style",
+              "fraction": 100,
+              "feedback": "Correct — acceptance follows because every dimension is satisfied."
+            },
+            {
+              "text": "It is accepted purely because it kills a mutant",
+              "fraction": 0,
+              "feedback": "A kill alone would not guarantee acceptance; here it is accepted because all five dimensions pass."
+            },
+            {
+              "text": "It is accepted because it is short",
+              "fraction": 0,
+              "feedback": "Length is irrelevant; acceptance comes from satisfying all five dimensions."
+            },
+            {
+              "text": "It is accepted because privacy tests skip the Style dimension",
+              "fraction": 0,
+              "feedback": "No dimension is skipped; this test happens to satisfy Style along with the other four."
+            }
+          ],
+          "generalFeedback": "This test guards a genuine privacy edge case (a null user id), asserts meaningfully, builds cleanly, runs deterministically, and follows conventions. Because it satisfies all five dimensions, engineers accept it.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A kill does not exempt a test",
+          "text": "<p>A test that successfully kills a mutant can still be rejected by engineers on one of the five review dimensions.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a mutation-killing test is still rejected if it is flaky, off-target, trivial, unbuildable, or stylistically unacceptable."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: killing a mutant does not exempt a test from any of the five acceptance dimensions."
+            }
+          ],
+          "generalFeedback": "Killing a mutant demonstrates fault-detection power but says nothing about determinism, relevance, buildability, or style. Engineers apply all five dimensions, so a kill alone does not guarantee acceptance."
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: syntax error",
+          "text": "<p>A generated test is missing a closing brace, so the compiler reports a syntax error and the file will not build. Which dimension does it fail?</p>",
+          "answers": [
+            {
+              "text": "Buildable — a syntax error is a compilation failure",
+              "fraction": 100,
+              "feedback": "Correct — a syntax error prevents the build, a Buildable failure."
+            },
+            {
+              "text": "Style — a missing brace is just a formatting preference",
+              "fraction": 0,
+              "feedback": "A missing brace is not a style choice; it is a compilation error, which is the Buildable dimension."
+            },
+            {
+              "text": "Non-flaky — syntax errors produce random results",
+              "fraction": 0,
+              "feedback": "A syntax error deterministically stops the build; nothing runs, so this is a Buildable failure."
+            },
+            {
+              "text": "Hardening — broken syntax means it catches no faults",
+              "fraction": 0,
+              "feedback": "The test never compiles or runs, so the primary and only relevant failure is Buildable."
+            }
+          ],
+          "generalFeedback": "A syntax error stops compilation, so the test cannot build or run. That is a Buildable failure, and it must be fixed before any other dimension can be evaluated.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Primary gate: flaky plus weak",
+          "text": "<p>A test uses an unseeded random input (making it non-deterministic) and its only assertion is that the result is non-null. Both Non-flaky and Hardening are in play. Which single dimension most decisively forces rejection, and why?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — flakiness is a hard gate; while the result is non-deterministic, CI cannot trust it at all, so even a stronger assertion would not save it",
+              "fraction": 100,
+              "feedback": "Correct — non-determinism disqualifies the test outright, making Non-flaky the decisive gate."
+            },
+            {
+              "text": "Hardening — a weak assertion is always the most decisive failure",
+              "fraction": 0,
+              "feedback": "The weak assertion is a real problem, but a flaky test is untrustworthy regardless of assertion strength, so Non-flaky is decisive."
+            },
+            {
+              "text": "Buildable — random inputs break the build",
+              "fraction": 0,
+              "feedback": "The test builds and runs; the decisive defect is its non-determinism."
+            },
+            {
+              "text": "Style — random usage violates conventions",
+              "fraction": 0,
+              "feedback": "Style is not the issue here; the decisive failure is flakiness (Non-flaky)."
+            }
+          ],
+          "generalFeedback": "When a test fails more than one dimension, the most decisive is the one that disqualifies it no matter what else is fixed. A flaky test cannot be trusted by CI at all, so Non-flaky is the primary gate — strengthening the assertion would not rescue a non-deterministic test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "High kill, low acceptance",
+          "text": "<p>A generation tool reports a high mutation kill rate, but engineers accept very few of its tests. Why is this gap a problem in practice?</p>",
+          "answers": [
+            {
+              "text": "Tests that engineers reject never merge, so a high kill rate does not translate into a stronger production suite — the accepted set is what actually protects the code",
+              "fraction": 100,
+              "feedback": "Correct — only accepted tests land, so acceptance, not raw kill rate, determines real improvement."
+            },
+            {
+              "text": "A high kill rate means the mutants were too easy, so the tool is broken",
+              "fraction": 0,
+              "feedback": "The kill rate may be genuine; the problem is that rejected tests never reach the codebase."
+            },
+            {
+              "text": "Engineers should lower their standards to match the kill rate",
+              "fraction": 0,
+              "feedback": "Lowering the acceptance bar would admit flaky or off-target tests; the point is that acceptance is the true measure."
+            },
+            {
+              "text": "There is no problem — kill rate is the only metric that matters",
+              "fraction": 0,
+              "feedback": "Kill rate ignores the other four dimensions; a test that is never accepted adds no protection."
+            }
+          ],
+          "generalFeedback": "Kill rate measures potential fault detection, but only tests engineers accept are merged and run in CI. If most generated tests are rejected for flakiness, style, or irrelevance, the high kill rate is illusory — the suite that actually guards production is only the accepted subset.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle non-hardening: asserts the wrong thing",
+          "text": "<p>A test targets the correct method, compiles, is deterministic, and matches the style — but its assertion compares a variable to itself (<code>assertEquals(result, result)</code>), so it holds no matter what the method returns. Which dimension does it fail, and why is that subtle?</p>",
+          "answers": [
+            {
+              "text": "Hardening — it looks like a real test and is on-target, but the self-comparison can never fail, so it catches no fault",
+              "fraction": 100,
+              "feedback": "Correct — despite appearances, a tautological assertion provides no protective value, a Hardening failure."
+            },
+            {
+              "text": "Relevant — comparing a value to itself targets the wrong code",
+              "fraction": 0,
+              "feedback": "The test is on-target (the right method); the defect is that its assertion catches nothing (Hardening)."
+            },
+            {
+              "text": "Non-flaky — self-comparison is non-deterministic",
+              "fraction": 0,
+              "feedback": "It is perfectly deterministic (always passes); the subtle failure is that it never catches a fault."
+            },
+            {
+              "text": "Buildable — self-comparison does not compile",
+              "fraction": 0,
+              "feedback": "It compiles cleanly; the problem is the absence of any real check (Hardening)."
+            }
+          ],
+          "generalFeedback": "The trap is that the test appears legitimate — right target, clean style, deterministic — yet its assertion is a tautology that holds for any output. It would pass even against broken code, so it adds no protective value: a Hardening failure, not a Relevance one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Relevant but flaky",
+          "text": "<p>A test targets exactly the high-risk method that changed and asserts strongly on it, but it reaches a live third-party network service and fails intermittently when that service is slow. What is the primary reason it is rejected?</p>",
+          "answers": [
+            {
+              "text": "Non-flaky — its relevance does not rescue it, because the intermittent failures from the live dependency make it non-deterministic",
+              "fraction": 100,
+              "feedback": "Correct — a relevant test that is flaky is still rejected on the Non-flaky dimension."
+            },
+            {
+              "text": "Relevant — reaching a network service means it targets the wrong code",
+              "fraction": 0,
+              "feedback": "It targets the right code; the defect is the non-determinism from the live dependency."
+            },
+            {
+              "text": "Hardening — a strong assertion means Hardening fails",
+              "fraction": 0,
+              "feedback": "A strong assertion is a Hardening strength; the rejection is for flakiness."
+            },
+            {
+              "text": "Style — network calls violate conventions",
+              "fraction": 0,
+              "feedback": "The primary failure is non-determinism (Non-flaky), not style."
+            }
+          ],
+          "generalFeedback": "Being relevant and well-asserted is not enough. A live external dependency introduces uncontrolled variability, so the test fails intermittently — a Non-flaky failure. It must be made deterministic (for example with a test double) before it can be accepted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why style matters despite catching faults",
+          "text": "<p>A test reliably catches a real fault but ignores the codebase's conventions — odd naming, an unfamiliar assertion library, and no arrange-act-assert structure. Why do engineers still reject it?</p>",
+          "answers": [
+            {
+              "text": "Acceptance is a human maintainability bar: a test the team cannot easily read and maintain will not be merged, even if it detects a fault",
+              "fraction": 100,
+              "feedback": "Correct — Style protects long-term maintainability, which is part of acceptance."
+            },
+            {
+              "text": "A non-conforming test cannot actually catch faults",
+              "fraction": 0,
+              "feedback": "It does catch the fault; the rejection is about maintainability and conventions, not detection."
+            },
+            {
+              "text": "Style only matters for tests that fail to compile",
+              "fraction": 0,
+              "feedback": "Compilation is Buildable; Style applies to tests that build fine but ignore conventions."
+            },
+            {
+              "text": "Fault-catching tests are exempt from the Style dimension",
+              "fraction": 0,
+              "feedback": "No dimension is exempt; a fault-catching test still needs acceptable style."
+            }
+          ],
+          "generalFeedback": "Tests live in the codebase and must be maintained by humans. A test that clashes with the team's conventions imposes a long-term cost and confuses reviewers, so it is rejected on Style even when it detects a real fault. Acceptance weighs maintainability, not just detection.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Borderline: weak assertion on the right target",
+          "text": "<p>A test is aimed squarely at the risky method that changed, but its assertion only checks that the return value is not null — it would still pass if the computed value were wrong. Is this primarily a Relevant or a Hardening failure?</p>",
+          "answers": [
+            {
+              "text": "Hardening — the target is right (relevant), but the assertion is too weak to catch a regression, so it fails to strengthen the suite",
+              "fraction": 100,
+              "feedback": "Correct — right target but no fault-catching power is a Hardening failure, not a Relevance one."
+            },
+            {
+              "text": "Relevant — a weak assertion means the test targets the wrong code",
+              "fraction": 0,
+              "feedback": "The target is correct; the weakness is that the assertion would miss a wrong value (Hardening)."
+            },
+            {
+              "text": "Both fail equally, so either label is fine",
+              "fraction": 0,
+              "feedback": "Relevance is satisfied because the target is right; the specific failure is Hardening."
+            },
+            {
+              "text": "Neither — a non-null check is always sufficient",
+              "fraction": 0,
+              "feedback": "A non-null check misses wrong-but-non-null values, so it fails Hardening."
+            }
+          ],
+          "generalFeedback": "Relevance asks whether the test aims at the right code; here it does. Hardening asks whether it would actually catch a fault; a non-null check would pass on a wrong value, so the specific failure is Hardening. Distinguishing the two hinges on target (Relevant) versus fault-catching power (Hardening).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Borderline: strong assertion on a non-issue",
+          "text": "<p>A test has a precise, strong assertion and would reliably catch a change — but it exercises a feature-flagged code path that has been permanently disabled and can never run in production. Is this primarily a Hardening or a Relevant failure?</p>",
+          "answers": [
+            {
+              "text": "Relevant — the assertion is strong (hardening-capable), but the target is a non-issue, so the test aims at the wrong thing",
+              "fraction": 100,
+              "feedback": "Correct — a strong assertion on dead code is a Relevance failure."
+            },
+            {
+              "text": "Hardening — a disabled path means the assertion is weak",
+              "fraction": 0,
+              "feedback": "The assertion is strong; the problem is that its target does not matter (Relevant)."
+            },
+            {
+              "text": "Buildable — disabled paths do not compile",
+              "fraction": 0,
+              "feedback": "The code compiles; the defect is that the target is a non-issue (Relevant)."
+            },
+            {
+              "text": "Style — testing disabled code breaks conventions",
+              "fraction": 0,
+              "feedback": "The failure is that it targets a non-issue, which is Relevance, not Style."
+            }
+          ],
+          "generalFeedback": "This is the mirror image of a weak-assertion case. The assertion is strong enough to catch a fault (hardening-capable), but it is pointed at permanently dead code — a non-issue. Because the target does not matter, the primary failure is Relevant, not Hardening.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary reason: adds no confidence",
+          "text": "<p>A test named <code>testSomething</code> calls <code>doStuff()</code> and only asserts the result is not null. It is buildable and deterministic, but engineers say it \"adds no confidence in the system's correctness.\" Which dimension most directly captures that complaint?</p>",
+          "answers": [
+            {
+              "text": "Hardening — a non-null check verifies no real behaviour, so the test would not catch a genuine fault",
+              "fraction": 100,
+              "feedback": "Correct — \"adds no confidence in correctness\" is precisely the Hardening dimension."
+            },
+            {
+              "text": "Buildable — the vague name breaks the build",
+              "fraction": 0,
+              "feedback": "It builds fine; the complaint is about protective value, which is Hardening."
+            },
+            {
+              "text": "Non-flaky — a non-null check is non-deterministic",
+              "fraction": 0,
+              "feedback": "It is deterministic; the issue is that it verifies nothing meaningful (Hardening)."
+            },
+            {
+              "text": "Style — the name testSomething is the only real problem",
+              "fraction": 0,
+              "feedback": "The vague name is a Style weakness too, but \"no confidence in correctness\" points most directly at Hardening."
+            }
+          ],
+          "generalFeedback": "This test has several weaknesses (a vague name is poor style, the intent is unclear), but the specific complaint — that it gives no confidence in correctness — is about protective value. A non-null check would pass on a wrong result, so the most direct failure is Hardening.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prioritizing a generation pipeline",
+          "text": "<p>Over a batch, a test-generation pipeline achieves a 90% mutation kill rate but only a 20% engineer-acceptance rate. To make the pipeline genuinely useful, what should the team prioritize?</p>",
+          "answers": [
+            {
+              "text": "Fixing the dimensions that drive rejection — flakiness, style, and relevance — so that more of the fault-catching tests are actually accepted and merged",
+              "fraction": 100,
+              "feedback": "Correct — raising acceptance is what turns kill power into real suite improvement."
+            },
+            {
+              "text": "Pushing the kill rate from 90% to 99% and ignoring acceptance",
+              "fraction": 0,
+              "feedback": "More kills that are still rejected add nothing; the bottleneck is acceptance."
+            },
+            {
+              "text": "Merging all generated tests regardless of the review dimensions",
+              "fraction": 0,
+              "feedback": "That would admit flaky and off-target tests, degrading the suite; acceptance standards exist for good reason."
+            },
+            {
+              "text": "Deleting the mutation-testing step entirely",
+              "fraction": 0,
+              "feedback": "Mutation testing is useful signal; the real gap is the low acceptance rate."
+            }
+          ],
+          "generalFeedback": "A 90% kill rate with 20% acceptance means most fault-catching tests never land. The leverage is in the acceptance dimensions: reduce flakiness, conform to style, and target relevant code. Improving those converts the pipeline's detection power into tests engineers will actually merge.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Flaky-relevant versus plainly irrelevant",
+          "text": "<p>Why can a flaky test that targets important, relevant code do <em>more</em> damage than a test that is simply irrelevant?</p>",
+          "answers": [
+            {
+              "text": "Because it injects non-deterministic failures onto important paths, it erodes trust in the suite while looking valuable — an irrelevant test at least fails predictably or is easy to dismiss",
+              "fraction": 100,
+              "feedback": "Correct — flakiness on relevant paths is especially corrosive to CI trust."
+            },
+            {
+              "text": "Because irrelevant tests never compile",
+              "fraction": 0,
+              "feedback": "Irrelevant tests can compile fine; the point is the corrosive effect of flakiness on trusted paths."
+            },
+            {
+              "text": "Because a flaky test always has a higher kill rate",
+              "fraction": 0,
+              "feedback": "Kill rate is not the issue; the harm is the non-deterministic noise on important code."
+            },
+            {
+              "text": "Because relevant tests are exempt from the Non-flaky dimension",
+              "fraction": 0,
+              "feedback": "No test is exempt; a relevant test that is flaky is still rejected, and its flakiness is especially damaging."
+            }
+          ],
+          "generalFeedback": "A flaky test on relevant code masquerades as valuable coverage while producing intermittent red builds on paths people care about. That trains the team to ignore failures on important code, so it must be rejected on Non-flaky and made deterministic before it can help.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why Buildable gates the rest",
+          "text": "<p>Why is it pointless to assess a test's Hardening or Relevance while it still fails the Buildable dimension?</p>",
+          "answers": [
+            {
+              "text": "A test that does not compile never runs, so it cannot demonstrate any fault-catching value or target — Buildable is a prerequisite gate that must be fixed first",
+              "fraction": 100,
+              "feedback": "Correct — without building, the test cannot execute, so downstream dimensions are moot."
+            },
+            {
+              "text": "Because Hardening and Relevance are less important than Buildable in general",
+              "fraction": 0,
+              "feedback": "They are equally required for acceptance; the point is ordering — a non-building test cannot be evaluated on them."
+            },
+            {
+              "text": "Because a non-building test is automatically flaky",
+              "fraction": 0,
+              "feedback": "A build error is deterministic, not flaky; the issue is that the test cannot run to show hardening or relevance."
+            },
+            {
+              "text": "Because compiling a test also proves it is relevant",
+              "fraction": 0,
+              "feedback": "Compiling proves only Buildable; relevance and hardening are separate and assessed once it builds."
+            }
+          ],
+          "generalFeedback": "Buildable is the entry gate. A test that will not compile cannot execute, so there is no way to observe whether it catches faults (Hardening) or targets the right code (Relevant). The build error must be fixed before any downstream dimension can even be judged.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Separating Hardening from Relevant",
+          "text": "<p>Which statement most accurately distinguishes the Hardening dimension from the Relevant dimension?</p>",
+          "answers": [
+            {
+              "text": "Relevant asks whether the test targets the right code; Hardening asks whether it would actually catch a real regression in that code",
+              "fraction": 100,
+              "feedback": "Correct — Relevant is about the target, Hardening is about fault-catching power."
+            },
+            {
+              "text": "Hardening asks whether the test compiles; Relevant asks whether it is deterministic",
+              "fraction": 0,
+              "feedback": "Compiling is Buildable and determinism is Non-flaky; that answer confuses the dimensions."
+            },
+            {
+              "text": "They are the same dimension under two names",
+              "fraction": 0,
+              "feedback": "They are distinct: a test can be on-target yet catch nothing, or catch faults but on the wrong code."
+            },
+            {
+              "text": "Relevant is about style conventions; Hardening is about speed",
+              "fraction": 0,
+              "feedback": "Style and speed are unrelated; Relevant is the target and Hardening is fault-catching value."
+            }
+          ],
+          "generalFeedback": "The two are orthogonal. A test can be relevant (aimed at the right, risky code) yet fail to harden (a weak assertion that catches nothing), or it can be hardening-capable (a strong assertion) yet irrelevant (aimed at dead or unrelated code). Relevant = right target; Hardening = would catch a fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary rejection: irrelevant and weak",
+          "text": "<p>A test both exercises a trivial, unrelated getter (not the changed behaviour) and asserts only that its result is not null. Both Relevant and Hardening look shaky. Which is the more fundamental reason to reject it, and why?</p>",
+          "answers": [
+            {
+              "text": "Relevant — because it targets the wrong code, strengthening its assertion would still not test the behaviour that matters, so the wrong target is the root problem",
+              "fraction": 100,
+              "feedback": "Correct — when the target itself is wrong, Relevance is the more fundamental failure."
+            },
+            {
+              "text": "Hardening — because a stronger assertion would fix everything",
+              "fraction": 0,
+              "feedback": "A stronger assertion on the wrong getter still would not test the changed behaviour; the root issue is the target (Relevant)."
+            },
+            {
+              "text": "Buildable — unrelated getters do not compile",
+              "fraction": 0,
+              "feedback": "It compiles; the root problem is that it is aimed at the wrong code (Relevant)."
+            },
+            {
+              "text": "Non-flaky — getter tests are non-deterministic",
+              "fraction": 0,
+              "feedback": "It can be deterministic; the fundamental failure is that its target is irrelevant."
+            }
+          ],
+          "generalFeedback": "When picking the most fundamental failure, ask what remains broken after the others are fixed. Here, even a strong assertion would not help because the test is pointed at the wrong code — so Relevance is the root failure. Contrast this with a test on the right code whose only flaw is a weak assertion, which is a Hardening failure.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Kill rate does not guarantee acceptance",
+          "text": "<p>A high mutation kill rate across a batch of generated tests guarantees that engineers will accept most of them.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — acceptance depends on all five dimensions, so a high kill rate does not guarantee that tests will be accepted."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: tests can kill mutants yet be rejected for flakiness, style, or irrelevance, so a high kill rate does not guarantee acceptance."
+            }
+          ],
+          "generalFeedback": "Kill rate and acceptance are different measures. A batch can kill many mutants while most tests are rejected on Non-flaky, Style, or Relevant grounds. Engineer acceptance across all five dimensions — not raw kill rate — is the true bar for whether the tests improve the suite."
+        },
+        {
+          "type": "multichoice",
+          "name": "Primary gate: does not build and bad style",
+          "text": "<p>A generated test both fails to compile (a type error) and uses naming that ignores the team's conventions. Which single dimension should be recorded as the primary reason for rejection, and why?</p>",
+          "answers": [
+            {
+              "text": "Buildable — because a test that does not compile cannot be run or reviewed at all, so the build error is the most fundamental blocker; the style issue is moot until it builds",
+              "fraction": 100,
+              "feedback": "Correct — Buildable is the prerequisite gate, so it is the primary failure here."
+            },
+            {
+              "text": "Style — naming is what reviewers notice first",
+              "fraction": 0,
+              "feedback": "The style issue cannot even be acted on while the test fails to compile; Buildable is the more fundamental blocker."
+            },
+            {
+              "text": "Both are equally primary, so pick either",
+              "fraction": 0,
+              "feedback": "A non-building test cannot be run or reviewed, so Buildable is the more fundamental of the two."
+            },
+            {
+              "text": "Non-flaky — type errors cause intermittent results",
+              "fraction": 0,
+              "feedback": "A type error deterministically stops the build; the primary failure is Buildable, not Non-flaky."
+            }
+          ],
+          "generalFeedback": "When a test fails several dimensions, the primary one is the most fundamental blocker — the failure that makes the others impossible to assess or fix. A test that does not compile cannot run or be reviewed, so Buildable is primary; the style problem only becomes relevant once the test builds.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "五個驗收維度",
+          "text": "<p>在 Meta ACH 研究（arXiv 2501.12862）中，LLM 生成的測試必須滿足五個審查維度，工程師才會接受它。哪一組正確列出全部五個？</p>",
+          "answers": [
+            {
+              "text": "可編譯（Buildable）、非不穩定（Non-flaky）、強化（Hardening）、相關性（Relevant）、風格（Style）",
+              "fraction": 100,
+              "feedback": "正確——這正是五個工程師驗收維度。"
+            },
+            {
+              "text": "可編譯、快速、覆蓋率、相關性、可讀性",
+              "fraction": 0,
+              "feedback": "「快速」「覆蓋率」「可讀性」不是審查維度；五個是可編譯、非不穩定、強化、相關性、風格。"
+            },
+            {
+              "text": "殺變異率、非不穩定、強化、相關性、風格",
+              "fraction": 0,
+              "feedback": "殺變異率是變異測試指標，不是驗收維度；第一個維度是可編譯。"
+            },
+            {
+              "text": "可編譯、非不穩定、效能、安全性、風格",
+              "fraction": 0,
+              "feedback": "效能與安全性不是審查維度；中間兩個是強化與相關性。"
+            }
+          ],
+          "generalFeedback": "五個工程師驗收維度是：可編譯（能編譯）、非不穩定（結果確定）、強化（強化測試套件）、相關性（針對真實程式碼）、風格（符合慣例）。測試必須五個全部通過才會被接受。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可編譯檢查什麼",
+          "text": "<p><em>可編譯（Buildable）</em>維度檢查測試是否：</p>",
+          "answers": [
+            {
+              "text": "能乾淨地編譯與建置，沒有任何建置或編譯錯誤",
+              "fraction": 100,
+              "feedback": "正確——可編譯指測試能無錯誤地編譯／建置。"
+            },
+            {
+              "text": "執行速度比套件中所有其他測試都快",
+              "fraction": 0,
+              "feedback": "速度不屬於可編譯；可編譯只關乎能否乾淨地編譯／建置。"
+            },
+            {
+              "text": "覆蓋受測程式碼的每一個分支",
+              "fraction": 0,
+              "feedback": "分支覆蓋率與可編譯無關；可編譯關乎測試能否無錯誤建置。"
+            },
+            {
+              "text": "遵循團隊的命名慣例",
+              "fraction": 0,
+              "feedback": "那描述的是風格維度；可編譯關乎能否乾淨地編譯。"
+            }
+          ],
+          "generalFeedback": "可編譯是最基本的關卡：若測試無法編譯或建置，就會產生建置錯誤而直接被拒。在測試能實際建置之前，其他維度都無法評估。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非不穩定檢查什麼",
+          "text": "<p><em>非不穩定（Non-flaky）</em>維度要求測試：</p>",
+          "answers": [
+            {
+              "text": "是確定的——對相同的程式碼，每次執行都產生相同結果",
+              "fraction": 100,
+              "feedback": "正確——非不穩定指每次執行都有確定、可重現的結果。"
+            },
+            {
+              "text": "無論程式碼做什麼都永遠通過",
+              "fraction": 0,
+              "feedback": "永遠通過的測試毫無用處；非不穩定指的是可重現的結果，可能是通過也可能是失敗。"
+            },
+            {
+              "text": "每次執行都使用全新的隨機輸入",
+              "fraction": 0,
+              "feedback": "未固定種子的隨機輸入會使測試不穩定；非不穩定正好相反。"
+            },
+            {
+              "text": "能無錯誤地編譯",
+              "fraction": 0,
+              "feedback": "乾淨地編譯是可編譯維度；非不穩定關乎跨執行的確定性。"
+            }
+          ],
+          "generalFeedback": "非不穩定的測試每次對相同（未變更）程式碼執行都給出相同判定。時而通過、時而失敗的不穩定測試會破壞 CI 的信任，因此無論其他品質如何都會被拒絕。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "強化檢查什麼",
+          "text": "<p><em>強化（Hardening）</em>維度探問測試是否：</p>",
+          "answers": [
+            {
+              "text": "有意義地運用並斷言行為，因此能捕捉真實的迴歸或缺陷",
+              "fraction": 100,
+              "feedback": "正確——強化指測試確實增強了套件捕捉缺陷的能力。"
+            },
+            {
+              "text": "永遠通過，因此永不阻擋建置",
+              "fraction": 0,
+              "feedback": "永不會失敗的測試沒有保護價值；那正是強化的失敗，而非通過。"
+            },
+            {
+              "text": "寫在與受測程式碼相同的檔案中",
+              "fraction": 0,
+              "feedback": "檔案位置與強化無關；強化關乎測試是否能捕捉真實缺陷。"
+            },
+            {
+              "text": "在一毫秒內執行完畢",
+              "fraction": 0,
+              "feedback": "執行速度與強化無關；強化衡量的是保護價值。"
+            }
+          ],
+          "generalFeedback": "強化的測試會增強套件：它運用行為並加以斷言，使真正的迴歸會讓它失敗。永遠通過的瑣碎、空操作或恆真測試未通過強化維度，因為它不增加任何保護價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相關性檢查什麼",
+          "text": "<p><em>相關性（Relevant）</em>維度探問測試是否：</p>",
+          "answers": [
+            {
+              "text": "針對受測程式碼的真實、相關的問題或行為",
+              "fraction": 100,
+              "feedback": "正確——相關性指測試瞄準受測系統中真正、切題的行為。"
+            },
+            {
+              "text": "運用與此次變更無關的程式碼",
+              "fraction": 0,
+              "feedback": "測試無關程式碼正是相關性失敗，而非通過。"
+            },
+            {
+              "text": "包含至少十個斷言",
+              "fraction": 0,
+              "feedback": "斷言數量不是相關性衡量的對象；重點是是否針對真實問題。"
+            },
+            {
+              "text": "能在每個支援的平台上執行",
+              "fraction": 0,
+              "feedback": "跨平台執行與相關性無關；相關性關乎是否瞄準正確的程式碼。"
+            }
+          ],
+          "generalFeedback": "相關的測試瞄準受測程式碼的真實問題或行為——而非無關程式碼、死路徑或非問題。測試可能建置良好且確定，卻因為瞄準錯誤而被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風格檢查什麼",
+          "text": "<p><em>風格（Style）</em>維度探問測試是否：</p>",
+          "answers": [
+            {
+              "text": "遵循程式碼庫在命名、結構、斷言與慣用寫法上的慣例，使人類願意接受它",
+              "fraction": 100,
+              "feedback": "正確——風格關乎符合團隊慣例，使測試可維護、可審查。"
+            },
+            {
+              "text": "每次執行都產生相同結果",
+              "fraction": 0,
+              "feedback": "那是非不穩定維度；風格關乎符合程式碼庫的慣例。"
+            },
+            {
+              "text": "至少殺掉一個變異體",
+              "fraction": 0,
+              "feedback": "殺變異體是變異測試指標，不是風格維度。"
+            },
+            {
+              "text": "無錯誤地編譯",
+              "fraction": 0,
+              "feedback": "乾淨地編譯是可編譯；風格關乎命名、結構與慣用寫法。"
+            }
+          ],
+          "generalFeedback": "風格衡量人類審查者是否願意把測試接受進程式碼庫：一致的命名、結構、斷言輔助函式與慣用寫法。風格上不可接受的測試會被拒，因為在合併前它需要重工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "工程師驗收需要什麼",
+          "text": "<p>要讓 LLM 生成的測試被工程師<em>接受</em>，它必須：</p>",
+          "answers": [
+            {
+              "text": "通過全部五個審查維度——可編譯、非不穩定、強化、相關性與風格",
+              "fraction": 100,
+              "feedback": "正確——驗收要求通過五個維度中的每一個。"
+            },
+            {
+              "text": "通過五個維度中的至少三個",
+              "fraction": 0,
+              "feedback": "多數不夠；任何單一維度失敗都會導致拒絕。"
+            },
+            {
+              "text": "至少殺掉一個變異體，無論五個維度如何",
+              "fraction": 0,
+              "feedback": "殺掉變異體不保證被接受；測試仍須通過全部五個維度。"
+            },
+            {
+              "text": "只通過可編譯維度",
+              "fraction": 0,
+              "feedback": "乾淨建置是必要但遠遠不足；五個維度全部都要通過。"
+            }
+          ],
+          "generalFeedback": "工程師驗收是一個合取：測試必須同時滿足可編譯且非不穩定且強化且相關且風格。任一維度失敗就足以被拒。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "殺掉變異體並不足夠",
+          "text": "<p>若生成的測試殺掉了一個變異體，光憑這點就足以讓工程師接受它進入程式碼庫。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——殺掉變異體不保證被接受；測試仍須通過全部五個審查維度。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：殺變異體的測試若不穩定、瞄準錯誤、風格不可接受，或其他維度失敗，仍會被拒。"
+            }
+          ],
+          "generalFeedback": "殺變異率衡量測試能否偵測植入的缺陷，但工程師驗收是更嚴格的人類門檻。殺掉變異體的測試若不能同時做到建置、確定、強化套件、瞄準相關程式碼並遵循慣例，仍會被拒。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何光看殺變異率不夠",
+          "text": "<p>為什麼高殺變異率本身，不足以衡量生成測試對工程師的價值？</p>",
+          "answers": [
+            {
+              "text": "測試可能殺掉變異體卻仍因不穩定、瞄準錯誤、瑣碎或風格不可接受而被拒——於是它從未真正進入程式碼庫",
+              "fraction": 100,
+              "feedback": "正確——驗收取決於全部五個維度，而非只看缺陷偵測。"
+            },
+            {
+              "text": "LLM 生成的測試無法量測殺變異率",
+              "fraction": 0,
+              "feedback": "殺變異率量得出來；重點是它未涵蓋其他驗收維度。"
+            },
+            {
+              "text": "高殺變異率保證測試也遵循團隊風格",
+              "fraction": 0,
+              "feedback": "殺變異率完全不說明風格、確定性或相關性；那些要另外判斷。"
+            },
+            {
+              "text": "工程師從不看測試是否偵測缺陷",
+              "fraction": 0,
+              "feedback": "缺陷偵測（強化）重要，但它只是工程師衡量的五個維度之一。"
+            }
+          ],
+          "generalFeedback": "殺變異率只捕捉測試能否抓到植入的缺陷。工程師還要求測試能建置、確定執行、瞄準相關程式碼並遵循慣例。真正的門檻是五個維度全部通過的驗收，因此套件可能殺變異率很高，卻只有極少測試工程師願意合併。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：無法編譯",
+          "text": "<p>某生成測試引用了一個不存在的方法，因此無法編譯。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 100,
+              "feedback": "正確——編譯錯誤是可編譯失敗。"
+            },
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 0,
+              "feedback": "非不穩定關乎跨執行的確定性；永遠無法編譯的測試根本無法執行。"
+            },
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 0,
+              "feedback": "相關性關乎瞄準正確程式碼；此處測試根本無法建置。"
+            },
+            {
+              "text": "風格（Style）",
+              "fraction": 0,
+              "feedback": "風格關乎慣例；缺少方法是建置錯誤，屬於可編譯維度。"
+            }
+          ],
+          "generalFeedback": "無法編譯的測試未通過可編譯維度。它產生建置錯誤，在其他任何品質能被評估之前就被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：時而通過、時而失敗",
+          "text": "<p>某測試對相同（未變更）程式碼在某些執行通過、某些執行失敗。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 100,
+              "feedback": "正確——不確定的通過／失敗結果是非不穩定失敗。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "測試能編譯並執行；問題在於其結果在各次執行間變動。"
+            },
+            {
+              "text": "強化（Hardening）",
+              "fraction": 0,
+              "feedback": "強化關乎保護價值；此處問題是不確定性。"
+            },
+            {
+              "text": "風格（Style）",
+              "fraction": 0,
+              "feedback": "風格關乎慣例；間歇性結果是非不穩定失敗。"
+            }
+          ],
+          "generalFeedback": "對未變更程式碼時而通過、時而失敗，正是不穩定的定義，即非不穩定失敗。不穩定測試破壞 CI 的信號，因此永遠被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：斷言恆為真",
+          "text": "<p>某測試唯一的檢查是 <code>assertTrue(true)</code>，因此永不會失敗。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "強化（Hardening）",
+              "fraction": 100,
+              "feedback": "正確——恆真的斷言什麼都抓不到，因此未通過強化維度。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "測試能正常編譯；問題在於它不增加任何保護價值。"
+            },
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 0,
+              "feedback": "測試完全確定（永遠通過）；問題在於它永遠抓不到缺陷。"
+            },
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 0,
+              "feedback": "相關性關乎目標；即使瞄準正確程式碼，斷言無意義仍屬強化失敗。"
+            }
+          ],
+          "generalFeedback": "永不會失敗的測試不運用任何真實行為，也永遠抓不到迴歸，因此未通過強化維度——它不為套件增加保護價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：測試無關程式碼",
+          "text": "<p>某次變更修正了付款計算的錯誤，但生成的測試只運用一個無關的字串格式化輔助函式。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 100,
+              "feedback": "正確——測試與問題無關的程式碼是相關性失敗。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "測試可能正常編譯；問題在於它瞄準了錯誤的程式碼。"
+            },
+            {
+              "text": "非不穩定（Non-flaky）",
+              "fraction": 0,
+              "feedback": "它可以完全確定卻仍瞄準錯誤，那屬於相關性失敗。"
+            },
+            {
+              "text": "強化（Hardening）",
+              "fraction": 0,
+              "feedback": "即使對該輔助函式強力斷言，它瞄準的仍是錯誤程式碼——那是相關性失敗。"
+            }
+          ],
+          "generalFeedback": "瞄準無關程式碼、而非真正有風險的行為，未通過相關性維度。它對真正重要的變更不提供任何信心。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷：錯誤的命名慣例",
+          "text": "<p>某 Kotlin 測試命名為 <code>TEST_boundary_AGE</code>，混用 SCREAMING_SNAKE_CASE 與 camelCase，違反團隊慣例。這違反了哪個維度？</p>",
+          "answers": [
+            {
+              "text": "風格（Style）",
+              "fraction": 100,
+              "feedback": "正確——違反慣例的不一致命名是風格失敗。"
+            },
+            {
+              "text": "可編譯（Buildable）",
+              "fraction": 0,
+              "feedback": "奇怪的命名仍能編譯；問題在於它違反程式碼庫的慣例。"
+            },
+            {
+              "text": "相關性（Relevant）",
+              "fraction": 0,
+              "feedback": "測試可以瞄準正確程式碼卻仍因不合慣例的名稱被拒——那是風格失敗。"
+            },
+            {
+              "text": "強化（Hardening）",
+              "fraction": 0,
+              "feedback": "它可以有意義地斷言卻仍因命名在審查中失敗，那屬於風格維度。"
+            }
+          ],
+          "generalFeedback": "與程式碼庫慣例衝突的命名、結構與慣用寫法未通過風格維度。即使斷言正確，人類審查者仍會退回要求重工。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "驗收需要五個全過",
+          "text": "<p>唯有通過全部五個審查維度，測試才會被工程師接受。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——驗收要求同時通過可編譯、非不穩定、強化、相關性與風格。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這是錯的：五個維度中任一失敗，就足以使測試被拒。"
+            }
+          ],
+          "generalFeedback": "工程師驗收是五個維度的合取。通過四個卻失敗一個——例如一個強力、瞄準正確卻不穩定的測試——仍會被拒。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "分類：隨機輸入",
+          "text": "<p>某測試以 <code>Random.nextInt()</code>（未固定種子）計算輸入並對結果斷言，因此其結果在各次執行間變動。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——未固定種子的隨機輸入使結果不確定",
+              "fraction": 100,
+              "feedback": "正確——變動的輸入產生不確定結果，屬於非不穩定失敗。"
+            },
+            {
+              "text": "可編譯——隨機數會造成編譯錯誤",
+              "fraction": 0,
+              "feedback": "隨機數不會破壞編譯；此失敗是不確定性（非不穩定）。"
+            },
+            {
+              "text": "相關性——隨機輸入永遠瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "測試可以瞄準正確程式碼；問題在於其結果不可重現。"
+            },
+            {
+              "text": "風格——隨機呼叫違反命名慣例",
+              "fraction": 0,
+              "feedback": "命名不受影響；缺陷是不確定性，屬於非不穩定維度。"
+            }
+          ],
+          "generalFeedback": "未固定種子的隨機產生器每次執行產生不同輸入，因此測試多半通過、偶爾失敗。那種不確定性是非不穩定失敗，而不穩定測試永遠被拒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：找不到符號",
+          "text": "<p>某生成測試呼叫 <code>calculateDiscuont(order)</code>——真實方法的拼字錯誤——因此測試檔無法編譯。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "可編譯——無法解析的符號是編譯錯誤",
+              "fraction": 100,
+              "feedback": "正確——無法解析的引用是建置錯誤，屬於可編譯失敗。"
+            },
+            {
+              "text": "相關性——拼錯字意味測試瞄準錯誤功能",
+              "fraction": 0,
+              "feedback": "意圖或許正確，但測試無法編譯；那是可編譯失敗。"
+            },
+            {
+              "text": "強化——拼錯的呼叫永遠抓不到缺陷",
+              "fraction": 0,
+              "feedback": "測試根本無法建置，因此主要失敗是可編譯，而非強化。"
+            },
+            {
+              "text": "非不穩定——拼字錯誤使結果不確定",
+              "fraction": 0,
+              "feedback": "編譯錯誤是確定的；缺陷在於它無法建置（可編譯）。"
+            }
+          ],
+          "generalFeedback": "無法解析的方法引用是編譯錯誤，因此測試未通過可編譯維度。在它能編譯之前，其他維度都無法被評估。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：空操作斷言",
+          "text": "<p>某測試執行了一段計算，但其唯一斷言是 <code>assertEquals(1, 1)</code>，永不會失敗。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "強化——該斷言是恆真式，抓不到任何缺陷",
+              "fraction": 100,
+              "feedback": "正確——永不會失敗的檢查不增加保護價值，屬於強化失敗。"
+            },
+            {
+              "text": "可編譯——常數比較無法編譯",
+              "fraction": 0,
+              "feedback": "它能正常編譯；問題在於它什麼都沒有意義地驗證。"
+            },
+            {
+              "text": "非不穩定——常數斷言是不確定的",
+              "fraction": 0,
+              "feedback": "它完全確定（永遠通過）；問題在於它什麼都抓不到。"
+            },
+            {
+              "text": "風格——把 1 比較 1 違反慣例",
+              "fraction": 0,
+              "feedback": "缺陷是缺乏保護價值，而非慣例；那是強化。"
+            }
+          ],
+          "generalFeedback": "把常數與自己比較的斷言恆成立，因此即使程式碼壞了測試仍會通過。它對套件的抓錯能力毫無貢獻，屬於強化失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：瞄準錯誤的測試",
+          "text": "<p>某拉取請求修改了驗證（authentication）邏輯，但生成的測試運用的是無關的日誌模組並對日誌格式斷言。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "相關性——它瞄準與此次審查變更無關的程式碼",
+              "fraction": 100,
+              "feedback": "正確——測試無關程式碼而非驗證邏輯是相關性失敗。"
+            },
+            {
+              "text": "可編譯——日誌測試無法和驗證程式碼一起編譯",
+              "fraction": 0,
+              "feedback": "它可能正常編譯；問題在於它瞄準錯誤的模組。"
+            },
+            {
+              "text": "非不穩定——日誌輸出永遠不確定",
+              "fraction": 0,
+              "feedback": "日誌斷言可以是確定的；此處缺陷是測試瞄準錯誤。"
+            },
+            {
+              "text": "風格——日誌測試使用錯誤的慣用寫法",
+              "fraction": 0,
+              "feedback": "即使風格完美，瞄準錯誤程式碼的測試仍未通過相關性。"
+            }
+          ],
+          "generalFeedback": "瞄準與受審查行為無關的程式碼，對真正重要的變更不提供信心。無論測試寫得多好，那都是相關性失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：結構不一致",
+          "text": "<p>某測試正確且確定，但把五個無關情境塞進單一方法、使用寫死的魔術數字，忽視程式碼庫「一情境一測試、arrange-act-assert」的慣例。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "風格——其結構與慣用寫法和程式碼庫的慣例衝突",
+              "fraction": 100,
+              "feedback": "正確——違反團隊結構慣例是風格失敗。"
+            },
+            {
+              "text": "可編譯——多情境方法無法編譯",
+              "fraction": 0,
+              "feedback": "該方法能編譯並執行；問題在於它忽視程式碼庫的慣例。"
+            },
+            {
+              "text": "強化——把情境綁在一起使它抓不到缺陷",
+              "fraction": 0,
+              "feedback": "它仍能抓到缺陷；問題在於其結構不被審查者接受。"
+            },
+            {
+              "text": "相關性——合併的測試瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "它可以瞄準正確卻仍因不合慣例的結構被拒——那是風格失敗。"
+            }
+          ],
+          "generalFeedback": "當測試忽視程式碼庫的命名、結構與慣用寫法，即使其他方面正確，審查者仍會退回。那是風格失敗：在人類接受之前它需要重工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺卻被拒：不穩定",
+          "text": "<p>某生成測試殺掉了目標變異體，但它依賴當前的牆上時鐘（wall-clock），每逢跨越午夜就失敗。工程師拒絕了它。是在哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——牆上時鐘依賴使結果不確定",
+              "fraction": 100,
+              "feedback": "正確——即使殺掉變異體，間歇性失敗是非不穩定的拒絕。"
+            },
+            {
+              "text": "強化——殺掉變異體代表它未通過強化",
+              "fraction": 0,
+              "feedback": "殺掉變異體是保護價值的證據；拒絕是因為不確定性。"
+            },
+            {
+              "text": "可編譯——時鐘程式碼無法編譯",
+              "fraction": 0,
+              "feedback": "測試能編譯並執行；只是結果不確定。"
+            },
+            {
+              "text": "相關性——基於時間的測試永遠瞄準錯誤",
+              "fraction": 0,
+              "feedback": "測試瞄準正確程式碼（它殺掉了變異體）；缺陷是不穩定。"
+            }
+          ],
+          "generalFeedback": "殺變異體的測試仍可能被拒。此處它意圖上確定，卻讀取即時時鐘，因此間歇性失敗——非不穩定失敗。CI 無法信任它，於是工程師儘管有殺仍拒絕它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺卻被拒：風格",
+          "text": "<p>某生成測試殺掉了變異體，且確定、瞄準正確，但它使用了模組中其他測試都不用的自訂斷言輔助函式與命名。工程師要求重寫。它是在哪個維度被拒？</p>",
+          "answers": [
+            {
+              "text": "風格——它不遵循模組的慣例與慣用寫法",
+              "fraction": 100,
+              "feedback": "正確——一次殺並不能讓測試豁免風格維度。"
+            },
+            {
+              "text": "強化——殺掉代表強化自動失敗",
+              "fraction": 0,
+              "feedback": "殺掉變異體顯示保護價值；拒絕是關於慣例。"
+            },
+            {
+              "text": "非不穩定——自訂輔助函式是不確定的",
+              "fraction": 0,
+              "feedback": "測試是確定的；問題在於其風格和程式碼庫衝突。"
+            },
+            {
+              "text": "相關性——自訂輔助函式瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "它瞄準正確（它殺掉了變異體）；拒絕是在風格。"
+            }
+          ],
+          "generalFeedback": "即使是確定、瞄準正確、殺變異體的測試，若忽視程式碼庫慣例仍會被拒。驗收是人類審查門檻，不合慣例的風格就足以退回——風格失敗。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "五中過四仍失敗",
+          "text": "<p>某測試可編譯、非不穩定、強化且相關，但違反團隊的風格慣例。它仍會被接受，因為它通過了五個維度中的四個。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——驗收要求五個維度全過，因此僅風格失敗就會導致拒絕。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：通過四個維度並不足夠；單一風格失敗就足以被拒。"
+            }
+          ],
+          "generalFeedback": "驗收是五個維度的合取。一個強力、瞄準正確、確定卻違反風格慣例的測試會被拒並退回重工，說明每個維度都是硬性要求。"
+        },
+        {
+          "type": "multichoice",
+          "name": "較弱的維度：僅正路徑",
+          "text": "<p>某測試對 <code>add(a, b)</code> 函式只檢查 <code>add(2, 2) == 4</code> 與 <code>add(0, 0) == 0</code>——瑣碎的正路徑輸入，沒有像溢位這樣的邊界案例。此處哪個維度最弱？</p>",
+          "answers": [
+            {
+              "text": "強化——它只運用瑣碎輸入，會漏掉邊界案例的迴歸",
+              "fraction": 100,
+              "feedback": "正確——缺乏有意義的邊界案例是強化上的弱點。"
+            },
+            {
+              "text": "可編譯——正路徑測試無法編譯",
+              "fraction": 0,
+              "feedback": "測試能正常編譯；顧慮在於它運用得太少。"
+            },
+            {
+              "text": "非不穩定——固定輸入是不確定的",
+              "fraction": 0,
+              "feedback": "固定輸入完全確定；弱點在於保護價值（強化）。"
+            },
+            {
+              "text": "相關性——測試 add() 是瞄準錯誤",
+              "fraction": 0,
+              "feedback": "測試受變更的函式是瞄準正確；弱點在於它只涵蓋瑣碎案例。"
+            }
+          ],
+          "generalFeedback": "只檢查瑣碎的正路徑數值，會讓溢位或負數等邊界案例未受測試，因此測試會漏掉那裡的真實迴歸。那是強化維度上的弱點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要拒絕原因：瞄準錯誤",
+          "text": "<p>某測試建置良好、確定、寫法乾淨，且強力斷言——但只針對一條生產環境已不再走到的棄用（deprecated）程式碼路徑。工程師拒絕它的主要原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "相關性——它瞄準的是非問題，而非真正重要的行為",
+              "fraction": 100,
+              "feedback": "正確——瞄準非問題的強力測試未通過相關性維度。"
+            },
+            {
+              "text": "強化——強力斷言永遠代表強化通過",
+              "fraction": 0,
+              "feedback": "對錯誤目標的強力斷言沒有幫助；主要失敗是相關性。"
+            },
+            {
+              "text": "可編譯——棄用路徑無法編譯",
+              "fraction": 0,
+              "feedback": "測試能編譯並執行；問題在於其目標不是真實問題。"
+            },
+            {
+              "text": "非不穩定——棄用程式碼是不確定的",
+              "fraction": 0,
+              "feedback": "它可以是確定的；拒絕原因是它瞄準非問題（相關性）。"
+            }
+          ],
+          "generalFeedback": "即使是強力、乾淨、確定的測試，若瞄準已不再重要的程式碼仍會被拒。相關性探問測試是否瞄準真實問題；死路徑是非問題，因此主要失敗是相關性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：牆上時鐘依賴",
+          "text": "<p>某測試由 <code>LocalDate.now()</code> 計算期望值並與程式碼輸出比較，因此可能依它執行的日期而失敗。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——依賴即時日期使結果隨執行而變動",
+              "fraction": 100,
+              "feedback": "正確——牆上時鐘依賴產生不確定結果，屬於非不穩定失敗。"
+            },
+            {
+              "text": "可編譯——日期 API 造成建置錯誤",
+              "fraction": 0,
+              "feedback": "日期 API 能正常編譯；缺陷在於結果取決於執行時機。"
+            },
+            {
+              "text": "強化——使用時鐘代表它抓不到缺陷",
+              "fraction": 0,
+              "feedback": "它或許能抓到缺陷，但結果不確定，那是非不穩定失敗。"
+            },
+            {
+              "text": "風格——呼叫 now() 違反慣例",
+              "fraction": 0,
+              "feedback": "問題是確定性，而非慣例；那是非不穩定維度。"
+            }
+          ],
+          "generalFeedback": "讀取即時時鐘把結果綁在測試執行的當下，因此某天通過、另一天失敗。那種不確定性是非不穩定失敗；修法是注入或凍結一個固定時鐘。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：重複的瑣碎測試",
+          "text": "<p>某生成測試重新檢查一個別處已涵蓋的普通 getter，未新增任何情境或邊界案例。它能編譯、確定、瞄準真實程式碼且符合風格。它在哪個維度最弱？</p>",
+          "answers": [
+            {
+              "text": "強化——它重複既有覆蓋，未新增任何抓錯價值",
+              "fraction": 100,
+              "feedback": "正確——未新增保護價值是強化上的弱點。"
+            },
+            {
+              "text": "可編譯——重複測試無法編譯",
+              "fraction": 0,
+              "feedback": "它能正常編譯；顧慮在於它什麼都沒強化。"
+            },
+            {
+              "text": "相關性——getter 永遠不是相關程式碼",
+              "fraction": 0,
+              "feedback": "getter 可以是相關的真實程式碼；弱點在於測試未新增保護。"
+            },
+            {
+              "text": "風格——重複測試永遠違反慣例",
+              "fraction": 0,
+              "feedback": "該測試符合風格；其弱點是缺乏新的抓錯價值（強化）。"
+            }
+          ],
+          "generalFeedback": "只是重複別處已提供覆蓋的測試，不會增強套件抓到新迴歸的能力。即使其他方面乾淨，它在強化上仍弱，因為它不新增保護價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何測試五個全過",
+          "text": "<p>某測試名為 <code>testPrivacyNullUser</code>，把 <code>null</code> 使用者 id 傳給 <code>logEvent</code>，並斷言追蹤器的 <code>lastUserId</code> 維持 <code>null</code>。它能編譯、確定、遵循慣例，並防護了一個真實的隱私邊界案例。為何它被接受？</p>",
+          "answers": [
+            {
+              "text": "它通過全部五個維度——可編譯、非不穩定、強化、相關性與風格",
+              "fraction": 100,
+              "feedback": "正確——因為每個維度都滿足，所以被接受。"
+            },
+            {
+              "text": "它被接受純粹因為它殺掉一個變異體",
+              "fraction": 0,
+              "feedback": "光殺不保證被接受；此處被接受是因為五個維度全過。"
+            },
+            {
+              "text": "它被接受因為它很短",
+              "fraction": 0,
+              "feedback": "長度無關；被接受來自滿足全部五個維度。"
+            },
+            {
+              "text": "它被接受因為隱私測試可跳過風格維度",
+              "fraction": 0,
+              "feedback": "沒有維度可被跳過；這個測試恰好連風格也一併滿足。"
+            }
+          ],
+          "generalFeedback": "此測試防護了一個真實的隱私邊界案例（null 使用者 id）、有意義地斷言、乾淨建置、確定執行並遵循慣例。因為它滿足全部五個維度，工程師接受它。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "一次殺不能豁免測試",
+          "text": "<p>成功殺掉變異體的測試，仍可能在五個審查維度之一上被工程師拒絕。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——殺變異體的測試若不穩定、瞄準錯誤、瑣碎、無法建置或風格不可接受，仍會被拒。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這是錯的：殺掉變異體並不能讓測試豁免五個驗收維度中的任何一個。"
+            }
+          ],
+          "generalFeedback": "殺掉變異體展示抓錯能力，卻對確定性、相關性、可建置性或風格毫無說明。工程師會套用全部五個維度，因此光殺並不保證被接受。"
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：語法錯誤",
+          "text": "<p>某生成測試少了一個右大括號，因此編譯器回報語法錯誤，檔案無法建置。它未通過哪個維度？</p>",
+          "answers": [
+            {
+              "text": "可編譯——語法錯誤是編譯失敗",
+              "fraction": 100,
+              "feedback": "正確——語法錯誤使建置無法進行，屬於可編譯失敗。"
+            },
+            {
+              "text": "風格——少一個括號只是格式偏好",
+              "fraction": 0,
+              "feedback": "少括號不是風格選擇；它是編譯錯誤，屬於可編譯維度。"
+            },
+            {
+              "text": "非不穩定——語法錯誤產生隨機結果",
+              "fraction": 0,
+              "feedback": "語法錯誤確定地讓建置停止；什麼都跑不了，這是可編譯失敗。"
+            },
+            {
+              "text": "強化——壞掉的語法代表它抓不到缺陷",
+              "fraction": 0,
+              "feedback": "測試永遠無法編譯或執行，因此唯一相關的失敗是可編譯。"
+            }
+          ],
+          "generalFeedback": "語法錯誤使編譯停止，因此測試無法建置或執行。那是可編譯失敗，必須先修正才能評估其他任何維度。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "主要關卡：不穩定加上弱斷言",
+          "text": "<p>某測試使用未固定種子的隨機輸入（使它不確定），且唯一斷言只是結果非 null。非不穩定與強化兩者都牽涉其中。哪個單一維度最決定性地迫使拒絕，為什麼？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——不穩定是硬性關卡；只要結果不確定，CI 就完全無法信任它，因此即使更強的斷言也救不了它",
+              "fraction": 100,
+              "feedback": "正確——不確定性使測試直接失格，因此非不穩定是決定性關卡。"
+            },
+            {
+              "text": "強化——弱斷言永遠是最決定性的失敗",
+              "fraction": 0,
+              "feedback": "弱斷言確是真問題，但不穩定測試無論斷言多強都不可信，因此非不穩定才是決定性。"
+            },
+            {
+              "text": "可編譯——隨機輸入破壞建置",
+              "fraction": 0,
+              "feedback": "測試能建置並執行；決定性缺陷是它的不確定性。"
+            },
+            {
+              "text": "風格——使用隨機違反慣例",
+              "fraction": 0,
+              "feedback": "此處風格不是問題；決定性失敗是不穩定（非不穩定）。"
+            }
+          ],
+          "generalFeedback": "當測試失敗於多個維度時，最決定性的是那個無論其他如何修正都仍使它失格的維度。不穩定測試 CI 完全無法信任，因此非不穩定是主要關卡——強化斷言也救不了一個不確定的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "高殺、低驗收",
+          "text": "<p>某生成工具回報很高的殺變異率，但工程師只接受它極少的測試。為何這個落差在實務上是個問題？</p>",
+          "answers": [
+            {
+              "text": "被工程師拒絕的測試永遠不會合併，因此高殺變異率無法轉化為更強的生產套件——被接受的那組才是真正保護程式碼的",
+              "fraction": 100,
+              "feedback": "正確——只有被接受的測試才會落地，因此驗收（而非原始殺變異率）決定真正的改善。"
+            },
+            {
+              "text": "高殺變異率代表變異體太簡單，所以工具壞了",
+              "fraction": 0,
+              "feedback": "殺變異率可能是真的；問題在於被拒的測試永遠進不了程式碼庫。"
+            },
+            {
+              "text": "工程師應降低標準以配合殺變異率",
+              "fraction": 0,
+              "feedback": "降低驗收門檻會放進不穩定或瞄準錯誤的測試；重點是驗收才是真正的衡量。"
+            },
+            {
+              "text": "沒有問題——殺變異率是唯一重要的指標",
+              "fraction": 0,
+              "feedback": "殺變異率忽略其他四個維度；永遠不被接受的測試不增加保護。"
+            }
+          ],
+          "generalFeedback": "殺變異率衡量潛在的缺陷偵測，但只有工程師接受的測試才會合併並在 CI 中執行。若多數生成測試因不穩定、風格或不相關而被拒，高殺變異率就是假象——真正守護生產的只有被接受的那個子集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "微妙的非強化：斷言了錯的東西",
+          "text": "<p>某測試瞄準正確的方法、能編譯、確定、符合風格——但其斷言把一個變數與自己比較（<code>assertEquals(result, result)</code>），因此不論該方法回傳什麼都成立。它未通過哪個維度，為何這很微妙？</p>",
+          "answers": [
+            {
+              "text": "強化——它看起來像真測試且瞄準正確，但自我比較永不會失敗，因此抓不到任何缺陷",
+              "fraction": 100,
+              "feedback": "正確——儘管外觀正常，恆真斷言不提供保護價值，屬於強化失敗。"
+            },
+            {
+              "text": "相關性——把值與自己比較是瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "測試瞄準正確（正確的方法）；缺陷在於其斷言什麼都抓不到（強化）。"
+            },
+            {
+              "text": "非不穩定——自我比較是不確定的",
+              "fraction": 0,
+              "feedback": "它完全確定（永遠通過）；微妙的失敗在於它永遠抓不到缺陷。"
+            },
+            {
+              "text": "可編譯——自我比較無法編譯",
+              "fraction": 0,
+              "feedback": "它能乾淨編譯；問題在於缺乏任何真實檢查（強化）。"
+            }
+          ],
+          "generalFeedback": "陷阱在於測試看似正當——目標正確、風格乾淨、確定——但其斷言是對任何輸出都成立的恆真式。即使對壞掉的程式碼也會通過，因此不提供保護價值：這是強化失敗，而非相關性失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相關卻不穩定",
+          "text": "<p>某測試恰好瞄準了變更的高風險方法並強力斷言，但它連到一個即時的第三方網路服務，當該服務變慢時就間歇性失敗。它被拒的主要原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "非不穩定——它的相關性救不了它，因為即時依賴造成的間歇性失敗使它不確定",
+              "fraction": 100,
+              "feedback": "正確——相關卻不穩定的測試仍在非不穩定維度上被拒。"
+            },
+            {
+              "text": "相關性——連到網路服務代表它瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "它瞄準正確程式碼；缺陷是即時依賴造成的不確定性。"
+            },
+            {
+              "text": "強化——強力斷言代表強化失敗",
+              "fraction": 0,
+              "feedback": "強力斷言是強化的優點；拒絕是因為不穩定。"
+            },
+            {
+              "text": "風格——網路呼叫違反慣例",
+              "fraction": 0,
+              "feedback": "主要失敗是不確定性（非不穩定），而非風格。"
+            }
+          ],
+          "generalFeedback": "相關且斷言良好還不夠。即時外部依賴引入不可控的變動，因此測試間歇性失敗——非不穩定失敗。它必須先被做成確定（例如使用測試替身）才能被接受。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何抓得到缺陷風格仍重要",
+          "text": "<p>某測試可靠地抓到一個真實缺陷，卻忽視程式碼庫的慣例——奇怪的命名、不熟悉的斷言庫、且無 arrange-act-assert 結構。為何工程師仍然拒絕它？</p>",
+          "answers": [
+            {
+              "text": "驗收是人類可維護性的門檻：團隊無法輕易閱讀與維護的測試不會被合併，即使它偵測到缺陷",
+              "fraction": 100,
+              "feedback": "正確——風格保護長期可維護性，那是驗收的一部分。"
+            },
+            {
+              "text": "不合慣例的測試其實抓不到缺陷",
+              "fraction": 0,
+              "feedback": "它確實抓到缺陷；拒絕是關於可維護性與慣例，而非偵測。"
+            },
+            {
+              "text": "風格只對無法編譯的測試才重要",
+              "fraction": 0,
+              "feedback": "編譯是可編譯；風格適用於能正常建置卻忽視慣例的測試。"
+            },
+            {
+              "text": "抓得到缺陷的測試可豁免風格維度",
+              "fraction": 0,
+              "feedback": "沒有維度可豁免；抓得到缺陷的測試仍需可接受的風格。"
+            }
+          ],
+          "generalFeedback": "測試存在於程式碼庫中，必須由人類維護。與團隊慣例衝突的測試帶來長期成本並使審查者困惑，因此即使它偵測到真實缺陷，仍在風格上被拒。驗收衡量的是可維護性，而不只是偵測。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊界：對正確目標的弱斷言",
+          "text": "<p>某測試正對準了變更的高風險方法，但其斷言只檢查回傳值非 null——即使計算出的值是錯的它仍會通過。這主要是相關性失敗還是強化失敗？</p>",
+          "answers": [
+            {
+              "text": "強化——目標正確（相關），但斷言太弱抓不到迴歸，因此未能強化套件",
+              "fraction": 100,
+              "feedback": "正確——目標正確但無抓錯能力是強化失敗，而非相關性失敗。"
+            },
+            {
+              "text": "相關性——弱斷言代表測試瞄準錯誤程式碼",
+              "fraction": 0,
+              "feedback": "目標正確；弱點在於斷言會漏掉錯誤值（強化）。"
+            },
+            {
+              "text": "兩者同等失敗，任一標籤皆可",
+              "fraction": 0,
+              "feedback": "相關性滿足，因為目標正確；具體的失敗是強化。"
+            },
+            {
+              "text": "都不是——非 null 檢查永遠足夠",
+              "fraction": 0,
+              "feedback": "非 null 檢查會漏掉「非 null 但錯」的值，因此它未通過強化。"
+            }
+          ],
+          "generalFeedback": "相關性探問測試是否瞄準正確程式碼；此處是的。強化探問它是否真能抓到缺陷；非 null 檢查對錯誤值仍會通過，因此具體失敗是強化。區分兩者取決於目標（相關性）與抓錯能力（強化）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊界：對非問題的強斷言",
+          "text": "<p>某測試有精確、強力的斷言，且能可靠地抓到變更——但它運用的是一條已永久停用、生產環境永不會執行的功能旗標（feature-flag）程式碼路徑。這主要是強化失敗還是相關性失敗？</p>",
+          "answers": [
+            {
+              "text": "相關性——斷言很強（有強化能力），但目標是非問題，因此測試瞄準了錯誤的東西",
+              "fraction": 100,
+              "feedback": "正確——對死程式碼的強力斷言是相關性失敗。"
+            },
+            {
+              "text": "強化——停用的路徑代表斷言很弱",
+              "fraction": 0,
+              "feedback": "斷言很強；問題在於其目標無關緊要（相關性）。"
+            },
+            {
+              "text": "可編譯——停用路徑無法編譯",
+              "fraction": 0,
+              "feedback": "程式碼能編譯；缺陷在於目標是非問題（相關性）。"
+            },
+            {
+              "text": "風格——測試停用程式碼違反慣例",
+              "fraction": 0,
+              "feedback": "失敗在於它瞄準非問題，屬於相關性，而非風格。"
+            }
+          ],
+          "generalFeedback": "這是弱斷言案例的鏡像。斷言強到足以抓到缺陷（有強化能力），但它對準的是永久死掉的程式碼——非問題。因為目標無關緊要，主要失敗是相關性，而非強化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要原因：不增加信心",
+          "text": "<p>某測試名為 <code>testSomething</code>，呼叫 <code>doStuff()</code>，且只斷言結果非 null。它可編譯且確定，但工程師說它「不增加對系統正確性的信心」。哪個維度最直接對應這項抱怨？</p>",
+          "answers": [
+            {
+              "text": "強化——非 null 檢查沒有驗證任何真實行為，因此測試抓不到真正的缺陷",
+              "fraction": 100,
+              "feedback": "正確——「不增加對正確性的信心」正是強化維度。"
+            },
+            {
+              "text": "可編譯——含糊的名稱破壞建置",
+              "fraction": 0,
+              "feedback": "它能正常建置；抱怨是關於保護價值，屬於強化。"
+            },
+            {
+              "text": "非不穩定——非 null 檢查是不確定的",
+              "fraction": 0,
+              "feedback": "它是確定的；問題在於它什麼都沒有意義地驗證（強化）。"
+            },
+            {
+              "text": "風格——testSomething 這名稱是唯一真正的問題",
+              "fraction": 0,
+              "feedback": "含糊命名也是風格弱點，但「不增加對正確性的信心」最直接指向強化。"
+            }
+          ],
+          "generalFeedback": "這個測試有數個弱點（含糊名稱是不良風格、意圖不明），但具體抱怨——它不增加對正確性的信心——是關於保護價值。非 null 檢查對錯誤結果仍會通過，因此最直接的失敗是強化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為生成流水線排定優先",
+          "text": "<p>在一整批中，某測試生成流水線達到 90% 的殺變異率，但工程師驗收率只有 20%。要讓這條流水線真正有用，團隊應優先處理什麼？</p>",
+          "answers": [
+            {
+              "text": "修正驅動拒絕的維度——不穩定、風格與相關性——使更多能抓錯的測試真正被接受並合併",
+              "fraction": 100,
+              "feedback": "正確——提高驗收才能把殺錯能力轉化為真正的套件改善。"
+            },
+            {
+              "text": "把殺變異率從 90% 推到 99% 並忽視驗收",
+              "fraction": 0,
+              "feedback": "更多仍被拒的殺沒有意義；瓶頸在驗收。"
+            },
+            {
+              "text": "不論審查維度，合併所有生成的測試",
+              "fraction": 0,
+              "feedback": "那會放進不穩定與瞄準錯誤的測試，使套件劣化；驗收標準的存在有其道理。"
+            },
+            {
+              "text": "完全刪除變異測試步驟",
+              "fraction": 0,
+              "feedback": "變異測試是有用的訊號；真正的落差是低驗收率。"
+            }
+          ],
+          "generalFeedback": "90% 殺變異率搭配 20% 驗收，代表多數能抓錯的測試從未落地。槓桿在驗收維度：降低不穩定、符合風格、瞄準相關程式碼。改善這些會把流水線的偵測能力轉化為工程師真正願意合併的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相關但不穩定 對比 純粹不相關",
+          "text": "<p>為何一個瞄準重要、相關程式碼卻不穩定的測試，可能比一個純粹不相關的測試造成<em>更大</em>傷害？</p>",
+          "answers": [
+            {
+              "text": "因為它在重要路徑上注入不確定的失敗，一面看似有價值一面侵蝕對套件的信任——不相關的測試至少會可預測地失敗或容易被排除",
+              "fraction": 100,
+              "feedback": "正確——重要路徑上的不穩定對 CI 信任特別具腐蝕性。"
+            },
+            {
+              "text": "因為不相關的測試永遠無法編譯",
+              "fraction": 0,
+              "feedback": "不相關的測試可以正常編譯；重點是不穩定對受信任路徑的腐蝕作用。"
+            },
+            {
+              "text": "因為不穩定測試永遠有更高的殺變異率",
+              "fraction": 0,
+              "feedback": "殺變異率不是問題；傷害在於重要程式碼上的不確定雜訊。"
+            },
+            {
+              "text": "因為相關的測試可豁免非不穩定維度",
+              "fraction": 0,
+              "feedback": "沒有測試可豁免；相關卻不穩定的測試仍會被拒，且其不穩定特別具傷害性。"
+            }
+          ],
+          "generalFeedback": "相關程式碼上的不穩定測試偽裝成有價值的覆蓋，卻在人們在意的路徑上產生間歇性紅燈。那會訓練團隊忽視重要程式碼上的失敗，因此它必須在非不穩定上被拒，並先做成確定才能有幫助。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何可編譯是其他維度的關卡",
+          "text": "<p>當測試仍未通過可編譯維度時，為何評估它的強化或相關性是徒勞的？</p>",
+          "answers": [
+            {
+              "text": "無法編譯的測試永遠不會執行，因此無法展示任何抓錯價值或目標——可編譯是必須先修正的前置關卡",
+              "fraction": 100,
+              "feedback": "正確——不能建置就無法執行，因此下游維度無從談起。"
+            },
+            {
+              "text": "因為整體而言強化與相關性沒有可編譯重要",
+              "fraction": 0,
+              "feedback": "它們對驗收同等必要；重點是順序——無法建置的測試無法在它們上被評估。"
+            },
+            {
+              "text": "因為無法建置的測試自動就是不穩定",
+              "fraction": 0,
+              "feedback": "建置錯誤是確定的，並非不穩定；問題在於測試無法執行以展示強化或相關性。"
+            },
+            {
+              "text": "因為編譯測試也證明了它是相關的",
+              "fraction": 0,
+              "feedback": "編譯只證明可編譯；相關性與強化是分開的，要在它能建置後才評估。"
+            }
+          ],
+          "generalFeedback": "可編譯是入口關卡。無法編譯的測試不能執行，因此無從觀察它是否抓到缺陷（強化）或瞄準正確程式碼（相關性）。必須先修正建置錯誤，任何下游維度才能被判斷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "區分強化與相關性",
+          "text": "<p>下列哪個陳述最準確地區分強化維度與相關性維度？</p>",
+          "answers": [
+            {
+              "text": "相關性探問測試是否瞄準正確的程式碼；強化探問它是否真能抓到該程式碼中的真實迴歸",
+              "fraction": 100,
+              "feedback": "正確——相關性關乎目標，強化關乎抓錯能力。"
+            },
+            {
+              "text": "強化探問測試是否能編譯；相關性探問它是否確定",
+              "fraction": 0,
+              "feedback": "能編譯是可編譯、確定是非不穩定；該答案混淆了維度。"
+            },
+            {
+              "text": "它們是同一維度的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是不同的：測試可以瞄準正確卻抓不到任何東西，或抓得到缺陷卻對準錯誤程式碼。"
+            },
+            {
+              "text": "相關性關乎風格慣例；強化關乎速度",
+              "fraction": 0,
+              "feedback": "風格與速度都無關；相關性是目標，強化是抓錯價值。"
+            }
+          ],
+          "generalFeedback": "兩者正交。測試可以相關（對準正確、有風險的程式碼）卻未強化（弱斷言什麼都抓不到），也可以有強化能力（強力斷言）卻不相關（對準死掉或無關的程式碼）。相關性＝正確目標；強化＝能抓到缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要拒絕原因：不相關且弱",
+          "text": "<p>某測試既運用一個瑣碎、無關的 getter（不是變更的行為），又只斷言其結果非 null。相關性與強化看起來都不穩。哪一個是拒絕它的更根本原因，為什麼？</p>",
+          "answers": [
+            {
+              "text": "相關性——因為它瞄準錯誤程式碼，即使強化其斷言仍然測不到真正重要的行為，因此錯誤的目標才是根本問題",
+              "fraction": 100,
+              "feedback": "正確——當目標本身就錯時，相關性是更根本的失敗。"
+            },
+            {
+              "text": "強化——因為更強的斷言就能修正一切",
+              "fraction": 0,
+              "feedback": "對錯誤 getter 的更強斷言仍然測不到變更的行為；根本問題是目標（相關性）。"
+            },
+            {
+              "text": "可編譯——無關的 getter 無法編譯",
+              "fraction": 0,
+              "feedback": "它能編譯；根本問題是它對準錯誤程式碼（相關性）。"
+            },
+            {
+              "text": "非不穩定——getter 測試是不確定的",
+              "fraction": 0,
+              "feedback": "它可以是確定的；根本失敗是其目標不相關。"
+            }
+          ],
+          "generalFeedback": "要挑出最根本的失敗，問：修好其他之後還剩什麼壞掉。此處即使強化斷言也沒用，因為測試對準錯誤程式碼——所以相關性是根本失敗。對比之下，對準正確程式碼卻只有弱斷言的測試，是強化失敗。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "殺變異率不保證驗收",
+          "text": "<p>一整批生成測試若有很高的殺變異率，就保證工程師會接受其中大多數。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——驗收取決於全部五個維度，因此高殺變異率不保證測試會被接受。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：測試可以殺掉變異體卻因不穩定、風格或不相關被拒，因此高殺變異率不保證驗收。"
+            }
+          ],
+          "generalFeedback": "殺變異率與驗收是不同的衡量。一整批可以殺掉許多變異體，卻有多數測試因非不穩定、風格或相關性而被拒。跨五個維度的工程師驗收——而非原始殺變異率——才是測試是否改善套件的真正門檻。"
+        },
+        {
+          "type": "multichoice",
+          "name": "主要關卡：無法建置且風格不良",
+          "text": "<p>某生成測試既無法編譯（型別錯誤），又使用忽視團隊慣例的命名。應把哪個單一維度記錄為拒絕的主要原因，為什麼？</p>",
+          "answers": [
+            {
+              "text": "可編譯——因為無法編譯的測試根本無法執行或被審查，所以建置錯誤是最根本的阻礙；在它能建置之前，風格問題無關緊要",
+              "fraction": 100,
+              "feedback": "正確——可編譯是前置關卡，因此在此是主要失敗。"
+            },
+            {
+              "text": "風格——命名是審查者最先注意到的",
+              "fraction": 0,
+              "feedback": "在測試無法編譯時風格問題根本無從著手；可編譯是更根本的阻礙。"
+            },
+            {
+              "text": "兩者同等主要，任選其一即可",
+              "fraction": 0,
+              "feedback": "無法建置的測試不能執行或被審查，因此可編譯是兩者中更根本的。"
+            },
+            {
+              "text": "非不穩定——型別錯誤造成間歇性結果",
+              "fraction": 0,
+              "feedback": "型別錯誤確定地讓建置停止；主要失敗是可編譯，而非非不穩定。"
+            }
+          ],
+          "generalFeedback": "當測試失敗於多個維度時，主要的是最根本的阻礙——那個使其他維度無法評估或修正的失敗。無法編譯的測試不能執行或被審查，因此可編譯是主要；風格問題只有在測試能建置後才變得相關。",
           "single": true
         }
       ]
