@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Group Theory/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the automorphism group Aut(f) is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Group Theory Testing explorer, what is the <strong>automorphism group Aut(f)</strong> of a Boolean formula <code>f</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The set of all permutations of the variables that leave the formula's truth table unchanged</text><feedback><text>Correct — Aut(f) collects every relabelling of the variables that preserves f on every input row.</text></feedback></answer>
+    <answer fraction="0"><text>The set of all input rows for which the formula evaluates to true</text><feedback><text>That is the on-set of the formula, not a group of permutations.</text></feedback></answer>
+    <answer fraction="0"><text>The list of all sub-formulas appearing inside f</text><feedback><text>Aut(f) is about symmetries of the variables, not a syntax tree of sub-formulas.</text></feedback></answer>
+    <answer fraction="0"><text>The number of AND, OR and NOT operators in f</text><feedback><text>That is a syntactic size measure; Aut(f) is a group of variable permutations.</text></feedback></answer>
+    <generalfeedback><text>The explorer computes Aut(f) as every permutation of the variables that maps the truth table onto itself. It is a subgroup of the symmetric group Sₙ on the n variables, and its size is shown as |Aut(f)|.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The four group axioms</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A set with an operation is a <strong>group</strong> when it satisfies which four axioms?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Closure, associativity, identity, and inverse</text><feedback><text>Correct — these are exactly the four group axioms.</text></feedback></answer>
+    <answer fraction="0"><text>Closure, commutativity, identity, and distributivity</text><feedback><text>Commutativity and distributivity are not required for a group; associativity and inverses are.</text></feedback></answer>
+    <answer fraction="0"><text>Reflexivity, symmetry, transitivity, and closure</text><feedback><text>Those are properties of an equivalence relation, not the group axioms.</text></feedback></answer>
+    <answer fraction="0"><text>Identity, inverse, distributivity, and ordering</text><feedback><text>Distributivity and ordering are not group axioms; closure and associativity are missing.</text></feedback></answer>
+    <generalfeedback><text>A group must be closed under its operation, the operation must be associative, there must be an identity element, and every element must have an inverse. Aut(f) satisfies all four under composition of permutations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The identity element of Aut(f)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer always lists one element as <code>id</code>. What is this <strong>identity element</strong> of Aut(f)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The permutation that leaves every variable in place (relabels nothing)</text><feedback><text>Correct — id is the do-nothing permutation, the identity of the group.</text></feedback></answer>
+    <answer fraction="0"><text>The permutation that swaps the first two variables</text><feedback><text>That is a transposition, not the identity.</text></feedback></answer>
+    <answer fraction="0"><text>The input row where every variable is false</text><feedback><text>An input row is not a group element; the identity is the do-nothing permutation.</text></feedback></answer>
+    <answer fraction="0"><text>The formula that is always true</text><feedback><text>The identity is a permutation, not a formula.</text></feedback></answer>
+    <generalfeedback><text>Every group has an identity element e with e·g = g·e = g for all g. In Aut(f) that element is id, the permutation that keeps every variable in its original position. The explorer always shows it, even when the group is otherwise trivial.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the order of a group means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The panel shows <code>Order |Aut(f)| = n</code>. What does the <strong>order</strong> of a group mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of elements in the group</text><feedback><text>Correct — the order of a finite group is its number of elements.</text></feedback></answer>
+    <answer fraction="0"><text>The number of variables in the formula</text><feedback><text>That is n, the degree of Sₙ; the group's order counts permutations that preserve f, which may be smaller.</text></feedback></answer>
+    <answer fraction="0"><text>The length of the longest cycle in any element</text><feedback><text>That describes an element's cycle structure, not the group's order.</text></feedback></answer>
+    <answer fraction="0"><text>The number of orbits in the truth table</text><feedback><text>Orbit count is a separate quantity; the order is the number of group elements.</text></feedback></answer>
+    <generalfeedback><text>The order of a finite group is simply how many elements it contains. For Aut(f) it is written |Aut(f)| and equals the number of variable permutations that leave the truth table unchanged (id always counts as one).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an inverse element is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>inverse</strong> axiom says every group element g has an inverse g⁻¹. What must g⁻¹ satisfy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Composing g with g⁻¹ gives the identity element</text><feedback><text>Correct — g · g⁻¹ = g⁻¹ · g = id.</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹ is the largest element of the group</text><feedback><text>Groups need not be ordered; the inverse is defined by composing to the identity.</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹ maps every variable to false</text><feedback><text>The inverse is a permutation defined by g · g⁻¹ = id, not a fixed truth assignment.</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹ is any other element different from g</text><feedback><text>Only the specific element that composes with g to id is its inverse.</text></feedback></answer>
+    <generalfeedback><text>For each element g the inverse g⁻¹ is the element that undoes it: g · g⁻¹ = g⁻¹ · g = id. In Aut(f) the inverse of a variable permutation is the permutation that relabels the variables back to their original positions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The group operation of Aut(f)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>operation</strong> that combines two elements of Aut(f)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Composition of the two variable permutations (apply one, then the other)</text><feedback><text>Correct — the group operation is function composition of permutations.</text></feedback></answer>
+    <answer fraction="0"><text>Logical AND of the two permutations</text><feedback><text>AND is a Boolean connective on values, not the operation on permutations.</text></feedback></answer>
+    <answer fraction="0"><text>Adding the number of variables each permutation moves</text><feedback><text>The operation composes permutations; it does not add counts.</text></feedback></answer>
+    <answer fraction="0"><text>Taking the union of their truth tables</text><feedback><text>Permutations are composed as functions; truth tables are not unioned.</text></feedback></answer>
+    <generalfeedback><text>Aut(f) is a group under composition: combining two symmetries means applying one permutation and then the other, which yields another permutation that also preserves the truth table.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an orbit is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Orbit Explorer, what is an <strong>orbit</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A set of truth-table rows that the group's permutations map onto one another</text><feedback><text>Correct — an orbit groups all rows reachable from one another by applying Aut(f).</text></feedback></answer>
+    <answer fraction="0"><text>A single row of the truth table chosen at random</text><feedback><text>An orbit is a whole set of mutually reachable rows, not one random row.</text></feedback></answer>
+    <answer fraction="0"><text>The list of variables that appear in the formula</text><feedback><text>Those are the variables; an orbit is a set of truth-table rows under the group action.</text></feedback></answer>
+    <answer fraction="0"><text>The set of operators used to build the formula</text><feedback><text>Operators are syntax; an orbit is a symmetry class of input rows.</text></feedback></answer>
+    <generalfeedback><text>Acting with Aut(f) on the truth table partitions its rows into orbits: two rows are in the same orbit when some symmetry of f maps one to the other. Rows in one orbit always share the same f value and the same colour in the table.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of Aut(A AND B)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the preset formula <code>A AND B</code>, the explorer reports how many elements in Aut(f)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — Aut(A AND B) = {id, (AB)}, order 2, because AND is symmetric in A and B.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Order 1 would mean no symmetry, but swapping A and B leaves A AND B unchanged, so there are two elements.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of truth-table rows (2²), not the group order.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is |Aut| for the 3-variable majority formula, not for A AND B.</text></feedback></answer>
+    <generalfeedback><text>Because A AND B is symmetric, swapping A and B preserves the truth table. Aut(f) therefore contains id and the transposition (AB), giving order 2 — which is the full symmetric group S₂ on two variables.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A formula with trivial symmetry</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the preset <code>A AND NOT B</code>, the panel says "No variable symmetry". What is |Aut(f)|?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 — only the identity id is in the group</text><feedback><text>Correct — no non-trivial permutation preserves A AND NOT B, so Aut(f) = {id}, order 1.</text></feedback></answer>
+    <answer fraction="0"><text>2 — id and the swap (AB)</text><feedback><text>Swapping A and B changes the truth table here, so (AB) is not an automorphism.</text></feedback></answer>
+    <answer fraction="0"><text>0 — the group is empty</text><feedback><text>A group is never empty; it always contains at least the identity.</text></feedback></answer>
+    <answer fraction="0"><text>4 — every row is its own orbit</text><feedback><text>4 is the number of orbits (all singletons), not the group order.</text></feedback></answer>
+    <generalfeedback><text>A AND NOT B treats A and B differently, so swapping them changes the truth table and is not a symmetry. Only id remains, so |Aut(f)| = 1 — the trivial group — and every input row forms its own orbit.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading a value off the orbit table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the orbit table for <code>A AND B</code>, what is <code>f(x)</code> in the row where A=T and B=T?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>T</text><feedback><text>Correct — A AND B is true only when both are true, so the T,T row gives f = T.</text></feedback></answer>
+    <answer fraction="0"><text>F</text><feedback><text>Both variables are true, so A AND B is true, not false.</text></feedback></answer>
+    <answer fraction="0"><text>It depends on the orbit colour</text><feedback><text>The colour shows the orbit, but f(x) is a fixed value read from the table; here it is T.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>Every row has a defined f value; for T,T it is T.</text></feedback></answer>
+    <generalfeedback><text>The f(x) column shows the formula's value for each input row. For A AND B, only the row A=T, B=T evaluates to T; the other three rows are F.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of the star representative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the orbit table, what does the <strong>★ Rep</strong> mark on a row mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That row is the chosen representative of its orbit (the smallest row index)</text><feedback><text>Correct — ★ marks the representative, and the explorer picks the smallest-index row in each orbit.</text></feedback></answer>
+    <answer fraction="0"><text>That row makes the formula true</text><feedback><text>★ marks the orbit representative, unrelated to whether f is true there.</text></feedback></answer>
+    <answer fraction="0"><text>That row can be deleted from the truth table</text><feedback><text>The representative is the one you keep as a test; the non-starred rows in its orbit are the ones it stands in for.</text></feedback></answer>
+    <answer fraction="0"><text>That row belongs to no orbit</text><feedback><text>Every row belongs to an orbit; ★ marks the representative of one.</text></feedback></answer>
+    <generalfeedback><text>Each orbit is collapsed to a single representative test. The explorer marks that representative with ★ and chooses the row with the smallest index in the orbit, so testing just the starred rows covers every symmetry class.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cycle notation for a swap</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer lists a non-identity element as <code>(AB)</code>. In cycle notation, what does <code>(AB)</code> mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A permutation that swaps variables A and B and fixes the rest</text><feedback><text>Correct — the 2-cycle (AB) exchanges A and B, leaving other variables in place.</text></feedback></answer>
+    <answer fraction="0"><text>The logical AND of A and B</text><feedback><text>(AB) is a permutation in cycle notation, not a Boolean AND.</text></feedback></answer>
+    <answer fraction="0"><text>An orbit containing rows A and B</text><feedback><text>Cycle notation describes a permutation, not an orbit of rows.</text></feedback></answer>
+    <answer fraction="0"><text>A formula equal to A followed by B</text><feedback><text>It is a permutation that swaps two variables, not a formula.</text></feedback></answer>
+    <generalfeedback><text>Cycle notation (AB) denotes the permutation that sends A to B and B to A while leaving every other variable unmoved. The explorer prints each non-identity symmetry this way; a lone id means no non-trivial symmetry.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Aut(f) as a subgroup</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The automorphism group Aut(f) of an n-variable formula is a subgroup of which group?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The symmetric group Sₙ of all permutations of the n variables</text><feedback><text>Correct — Aut(f) consists of those permutations in Sₙ that preserve the truth table.</text></feedback></answer>
+    <answer fraction="0"><text>The additive group of integers</text><feedback><text>Aut(f) is a group of variable permutations, a subgroup of Sₙ, not of the integers.</text></feedback></answer>
+    <answer fraction="0"><text>The group of rows of the truth table under XOR</text><feedback><text>Aut(f) acts on rows but its elements are permutations of variables, sitting inside Sₙ.</text></feedback></answer>
+    <answer fraction="0"><text>The multiplicative group of GF(p)</text><feedback><text>GF(p) appears in the covering-array tab; Aut(f) is a subgroup of Sₙ.</text></feedback></answer>
+    <generalfeedback><text>Every element of Aut(f) permutes the n variables, so Aut(f) is a subset of Sₙ, the group of all n! permutations. Because it is closed, contains id, and has inverses, it is a subgroup of Sₙ.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Covering array alphabet must be prime</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Covering Array tab, the alphabet size <code>p</code> for the GF(p) construction must be a prime number.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the construction uses the finite field GF(p), which requires p to be prime (the tab offers 2, 3, 5).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The GF(p) construction relies on a finite field of order p, so p must be prime.</text></feedback></answer>
+    <generalfeedback><text>The orthogonal-array construction in the explorer works over the finite field GF(p), which exists only when p is prime (or a prime power). The tab restricts p to the primes 2, 3, and 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Truth-table size for three variables</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The majority formula <code>(A∧B)∨(B∧C)∨(A∧C)</code> has three variables. How many rows does its truth table have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — with n = 3 variables there are 2³ = 8 input rows.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the number of variables, not the number of rows.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is |Aut(f)| for this formula, not the number of rows.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is a covering-array row count for GF(3); the truth table has 2³ = 8 rows.</text></feedback></answer>
+    <generalfeedback><text>A Boolean formula with n variables has a truth table of 2ⁿ rows. For the 3-variable majority formula that is 2³ = 8 rows, which the explorer then partitions into orbits.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Group Theory/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Aut(f) is closed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the <strong>closure</strong> axiom hold for Aut(f): composing two symmetries of f gives an element of Aut(f)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>If each permutation leaves the truth table unchanged, applying them in turn also leaves it unchanged, so the composition preserves f too</text><feedback><text>Correct — preservation is preserved under composition, so the result is again a symmetry of f.</text></feedback></answer>
+    <answer fraction="0"><text>Because any two permutations of the same variables are always equal</text><feedback><text>Distinct permutations are generally different; closure comes from both preserving the truth table.</text></feedback></answer>
+    <answer fraction="0"><text>Because composition always yields the identity permutation</text><feedback><text>Composition usually yields a non-identity permutation; it stays inside Aut(f) because f is preserved.</text></feedback></answer>
+    <answer fraction="0"><text>Because the truth table has an even number of rows</text><feedback><text>The row count is irrelevant; closure follows from both permutations preserving f.</text></feedback></answer>
+    <generalfeedback><text>If g and h each map the truth table onto itself, then applying g and then h still maps it onto itself. So g·h also preserves f and is again in Aut(f). This is exactly the closure axiom, and it is why Aut(f) is a group under composition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of the majority group</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the majority formula <code>(A∧B)∨(B∧C)∨(A∧C)</code>, what is |Aut(f)|?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6 — every permutation of A, B, C preserves the formula, so Aut(f) = S₃</text><feedback><text>Correct — majority is fully symmetric, so all 3! = 6 permutations are automorphisms.</text></feedback></answer>
+    <answer fraction="0"><text>3 — only the three cyclic rotations</text><feedback><text>The transpositions preserve majority too, so the group is the full S₃ of order 6, not just the 3 rotations.</text></feedback></answer>
+    <answer fraction="0"><text>2 — only id and one swap</text><feedback><text>All six permutations preserve majority, so the order is 6, not 2.</text></feedback></answer>
+    <answer fraction="0"><text>8 — one per truth-table row</text><feedback><text>8 is the number of rows; |Aut(f)| counts symmetries and equals 6.</text></feedback></answer>
+    <generalfeedback><text>Majority-of-three is symmetric in all three variables: any relabelling of A, B, C leaves the truth table unchanged. Hence Aut(f) is the entire symmetric group S₃, of order 3! = 6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why A AND NOT B has no symmetry</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is Aut(<code>A AND NOT B</code>) trivial (order 1)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Swapping A and B changes the truth table, so the swap is not an automorphism and only id remains</text><feedback><text>Correct — A and B play different roles, so exchanging them alters f and cannot be a symmetry.</text></feedback></answer>
+    <answer fraction="0"><text>The formula is always false, so it has no symmetry</text><feedback><text>A AND NOT B is true when A=T, B=F; it is not constant. The lack of symmetry is because A and B differ in role.</text></feedback></answer>
+    <answer fraction="0"><text>NOT is not allowed inside an automorphism</text><feedback><text>NOT is fine in the formula; the point is that swapping the variables changes the truth table.</text></feedback></answer>
+    <answer fraction="0"><text>Because it has only two variables</text><feedback><text>A AND B also has two variables yet has a non-trivial symmetry; the asymmetry is due to the differing roles of A and B.</text></feedback></answer>
+    <generalfeedback><text>In A AND NOT B the two variables are not interchangeable: A must be true and B false to satisfy f. Swapping them yields B AND NOT A, a different truth table, so (AB) is not a symmetry. Only id survives, giving the trivial group.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of orbits for A AND B</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>A AND B</code>, into how many orbits does Aut(f) partition the 4 truth-table rows?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — the orbits are {F,F}, {F,T ; T,F}, and {T,T}: three classes.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The swap symmetry merges the rows F,T and T,F, so there are 3 orbits, not 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only the two mixed rows merge; the F,F and T,T rows stay separate, giving 3 orbits.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Rows with different f values cannot share an orbit, so there is more than one.</text></feedback></answer>
+    <generalfeedback><text>The symmetry (AB) fixes F,F and T,T but swaps the two mixed rows F,T and T,F into one orbit. That gives three orbits — one fewer than the four rows — so one test is saved.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of the orbit representative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the testing role of an orbit's <strong>representative</strong> in the explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is the single test kept for the whole orbit, since all rows in the orbit are symmetry-equivalent</text><feedback><text>Correct — one representative per orbit suffices because its orbit-mates carry the same test obligation.</text></feedback></answer>
+    <answer fraction="0"><text>It is the row most likely to reveal a fault</text><feedback><text>The representative is chosen by smallest index, not by fault likelihood; it simply stands in for its orbit.</text></feedback></answer>
+    <answer fraction="0"><text>It is the row that must never be tested</text><feedback><text>The opposite — the representative is exactly the row you do test for that orbit.</text></feedback></answer>
+    <answer fraction="0"><text>It is the identity element of the group</text><feedback><text>The identity is a permutation; a representative is a truth-table row.</text></feedback></answer>
+    <generalfeedback><text>Rows in the same orbit are related by a symmetry of f, so they share the same test obligation. Keeping one representative per orbit collapses the equivalent rows into a single test, which is how the group reduces the required test count.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Metamorphic relation from an orbit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>A AND B</code>, the orbit {A=F,B=T ; A=T,B=F} yields which metamorphic relation shown by the explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>f(A=F, B=T) = f(A=T, B=F)</text><feedback><text>Correct — rows in one orbit must give equal outputs, which is the metamorphic relation.</text></feedback></answer>
+    <answer fraction="0"><text>f(A=F, B=T) = NOT f(A=T, B=F)</text><feedback><text>Orbit-mates give equal outputs, not negated ones.</text></feedback></answer>
+    <answer fraction="0"><text>f(A=T, B=T) = f(A=F, B=F)</text><feedback><text>Those two rows are in different orbits (T,T and F,F) and are not related this way.</text></feedback></answer>
+    <answer fraction="0"><text>f(A=F, B=T) = A OR B</text><feedback><text>A metamorphic relation equates two runs of the same function, not the function with a different formula.</text></feedback></answer>
+    <generalfeedback><text>Because a symmetry of f maps one orbit-mate to the other, the formula must give the same value on both. The explorer turns each orbit into a metamorphic relation of the form f(row₁) = f(row₂), here f(A=F,B=T) = f(A=T,B=F).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inverse of a transposition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Aut(f), what is the inverse of the transposition <code>(AB)</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(AB) itself — a swap is its own inverse</text><feedback><text>Correct — applying (AB) twice restores the original, so (AB)⁻¹ = (AB).</text></feedback></answer>
+    <answer fraction="0"><text>id — the identity is its own inverse and everyone else's</text><feedback><text>id is only its own inverse; (AB) undoes itself, not id.</text></feedback></answer>
+    <answer fraction="0"><text>A 3-cycle (ABC)</text><feedback><text>A 3-cycle is not the inverse of a 2-cycle; a swap is its own inverse.</text></feedback></answer>
+    <answer fraction="0"><text>(AB) has no inverse</text><feedback><text>Every group element has an inverse; for a transposition it is the transposition itself.</text></feedback></answer>
+    <generalfeedback><text>Swapping A and B and then swapping again returns every variable to its place: (AB)·(AB) = id. So a transposition is its own inverse and has order 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Covering array rows for GF(3)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Covering Array tab with alphabet <code>p = 3</code> and strength <code>t = 2</code>, how many test rows does the GF(p) construction produce?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — a strength-2 array over GF(3) has p² = 9 rows.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 rows is the strength-1 (t=1) case; strength 2 needs p² = 9.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is not p²; the strength-2 construction over GF(3) gives 9 rows.</text></feedback></answer>
+    <answer fraction="0"><text>27</text><feedback><text>27 = 3³ is an exhaustive count for three parameters; the OA needs only p² = 9 rows.</text></feedback></answer>
+    <generalfeedback><text>For strength t = 2 the GF(p) orthogonal-array construction uses p² rows. With p = 3 that is 9 test rows, which still guarantees every pair of values across the parameters is covered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Orbit count for the majority formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>(A∧B)∨(B∧C)∨(A∧C)</code>, how many orbits does S₃ create among the 8 truth-table rows?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the orbits group rows by how many variables are true: 0, 1, 2, or 3.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>Full symmetry merges rows, so there are fewer than 8 orbits.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is |Aut(f)|; the number of orbits is 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There are four orbits (weights 0,1,2,3), not two.</text></feedback></answer>
+    <generalfeedback><text>Because every permutation of the variables is a symmetry, two rows are in the same orbit exactly when they have the same number of true variables. The possible counts 0, 1, 2, 3 give four orbits (sizes 1, 3, 3, 1).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why symmetry reduces the test count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can rows sharing the same orbit colour be collapsed into one test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are related by a symmetry of f, so they share the same test obligation — testing one covers the rest</text><feedback><text>Correct — symmetry-equivalent inputs impose the same obligation, so one representative suffices.</text></feedback></answer>
+    <answer fraction="0"><text>They always evaluate to false, so they need not be tested</text><feedback><text>Orbit-mates can be true or false; they are collapsed because they are symmetry-equivalent, not because they are false.</text></feedback></answer>
+    <answer fraction="0"><text>They are duplicate rows literally repeated in the table</text><feedback><text>The rows are distinct inputs; they are equivalent only under the group's symmetry.</text></feedback></answer>
+    <answer fraction="0"><text>They are outside the formula's domain</text><feedback><text>All rows are valid inputs; they are merged because a symmetry maps one to another.</text></feedback></answer>
+    <generalfeedback><text>A symmetry of f maps one orbit-mate onto another while preserving the output, so the rows carry identical test obligations. Exercising a single representative therefore discharges the obligation for the whole orbit, which is the saving the explorer reports.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of a derived CACC pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the CACC Bridge tab, what does a pair labelled <strong>✓ Derived (free)</strong> mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is the orbit-image of a seed pair, so the required test is already covered and no extra test is needed</text><feedback><text>Correct — a derived pair is a symmetry image of a seed pair, so it costs no additional test.</text></feedback></answer>
+    <answer fraction="0"><text>It is a pair that can be ignored because it never changes the outcome</text><feedback><text>Determination pairs do change the outcome; a derived pair is still exercised, just for free via symmetry.</text></feedback></answer>
+    <answer fraction="0"><text>It is a pair with no relationship to any other pair</text><feedback><text>A derived pair is precisely related — it is the orbit image of a seed pair.</text></feedback></answer>
+    <answer fraction="0"><text>It is a syntactically invalid pair</text><feedback><text>Derived pairs are valid determination pairs; they are simply covered by a seed pair's symmetry.</text></feedback></answer>
+    <generalfeedback><text>Seed pairs must be tested independently. A derived pair is a symmetry (orbit) image of a seed pair, so the same relabelling that proves the seed also discharges the derived one — the required test is already covered, hence "free".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a set can fail to be a group</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The set of permutations <code>{(AB)}</code> (a single swap, without id) is not a group. Which axiom fails first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Identity — the set does not contain the identity element id</text><feedback><text>Correct — a group must contain the identity, and {(AB)} does not.</text></feedback></answer>
+    <answer fraction="0"><text>Associativity — composition of permutations is not associative</text><feedback><text>Composition of permutations is always associative; the missing element is the identity.</text></feedback></answer>
+    <answer fraction="0"><text>Commutativity — the swap does not commute with itself</text><feedback><text>Commutativity is not a group axiom, and any element commutes with itself anyway.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing fails; it is already a group</text><feedback><text>It cannot be a group: it lacks the identity (and is not closed, since (AB)·(AB) = id is absent).</text></feedback></answer>
+    <generalfeedback><text>Every group must contain an identity element. The set {(AB)} has no id, so it fails the identity axiom; it is also not closed, since (AB)·(AB) = id is not in the set. Adding id gives {id, (AB)}, which is a valid group of order 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Parameter cap for strength-2 arrays</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a strength <code>t = 2</code> covering array over GF(p), the explorer caps the number of parameters k. What is the cap?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>k ≤ p + 1</text><feedback><text>Correct — the standard GF(p) construction supports up to p + 1 parameters at strength 2.</text></feedback></answer>
+    <answer fraction="0"><text>k ≤ p − 1</text><feedback><text>The construction allows one more than that: up to p + 1 parameters.</text></feedback></answer>
+    <answer fraction="0"><text>k ≤ p²</text><feedback><text>p² is the row count, not the parameter cap; the cap is p + 1.</text></feedback></answer>
+    <answer fraction="0"><text>There is no cap</text><feedback><text>The GF(p) construction limits k to p + 1 at strength 2, and the explorer warns when k exceeds it.</text></feedback></answer>
+    <generalfeedback><text>The GF(p)-based orthogonal-array construction can cover up to p + 1 mutually orthogonal parameters at strength 2. Beyond that the field runs out of independent slopes, so the explorer caps k at p + 1 and shows a warning.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which rows share the orbit of TFF in majority</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the majority formula, the row A=T, B=F, C=F is in the same orbit as which rows?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The other two rows with exactly one true variable: F,F,T and F,T,F</text><feedback><text>Correct — S₃ permutes the single true variable to any position, so all weight-1 rows share one orbit.</text></feedback></answer>
+    <answer fraction="0"><text>The row T,T,T only</text><feedback><text>T,T,T has three trues (weight 3); it is in a different orbit from a weight-1 row.</text></feedback></answer>
+    <answer fraction="0"><text>The rows with two true variables</text><feedback><text>Weight-2 rows form a separate orbit; T,F,F has weight 1.</text></feedback></answer>
+    <answer fraction="0"><text>No other rows — it is alone in its orbit</text><feedback><text>Under full symmetry all three weight-1 rows merge, so it is not alone.</text></feedback></answer>
+    <generalfeedback><text>Under S₃, rows are equivalent exactly when they have the same number of true variables. The row T,F,F has one true variable, so its orbit is all weight-1 rows: T,F,F, F,T,F, and F,F,T.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Orbit equality is a metamorphic relation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer treats the equality of f across the rows of one orbit, f(x) = f(σx) for a symmetry σ, as a metamorphic relation, and even offers a bridge to the Metamorphic Testing explorer.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — orbit-mates must give equal outputs, which is exactly a metamorphic relation the tool exports.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The tool does derive metamorphic relations from orbits and links to the Metamorphic Testing explorer to verify them.</text></feedback></answer>
+    <generalfeedback><text>Because a symmetry σ of f maps a row x to σx without changing the output, f(x) = f(σx) must hold. This is a metamorphic relation, and the explorer lists these relations from orbits and provides a bridge button to the Metamorphic Testing explorer.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Group Theory/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Composing two transpositions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In S₃ = Aut(majority), composing the two transpositions <code>(AB)</code> and <code>(AC)</code> yields what kind of element?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A 3-cycle (a rotation of all three variables)</text><feedback><text>Correct — the product of two distinct transpositions in S₃ is a 3-cycle.</text></feedback></answer>
+    <answer fraction="0"><text>The identity id</text><feedback><text>Composing a transposition with itself gives id, but (AB) and (AC) are different, so the product is a 3-cycle.</text></feedback></answer>
+    <answer fraction="0"><text>Another transposition</text><feedback><text>Two distinct transpositions compose to a 3-cycle, not a transposition.</text></feedback></answer>
+    <answer fraction="0"><text>An element outside the group</text><feedback><text>By closure the product stays inside S₃; it is the 3-cycle.</text></feedback></answer>
+    <generalfeedback><text>In S₃ the product of two distinct transpositions is always a 3-cycle. This is why {id, (AB), (AC)} is not closed — composing its two swaps produces a rotation that the set does not contain.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of a 3-cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>order of the element</strong> <code>(ABC)</code> in Aut(majority) — the smallest k with (ABC)ᵏ = id?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — a 3-cycle returns to the identity only after being applied three times.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Applying a 3-cycle twice gives another 3-cycle (its inverse), not id; the order is 3.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the group's order; the element (ABC) has order 3.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Only id has order 1; (ABC) is non-trivial, with order 3.</text></feedback></answer>
+    <generalfeedback><text>The order of an element is the smallest positive k with gᵏ = id. Rotating three variables once gives (ABC), twice gives (ACB), and three times returns everything to place, so the order of a 3-cycle is 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identifying a subgroup of S₃</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which subset of Aut(majority) = S₃ is itself a <strong>subgroup</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{id, (ABC), (ACB)} — the two rotations together with id</text><feedback><text>Correct — this is the cyclic group of order 3 (the alternating group A₃), closed under composition.</text></feedback></answer>
+    <answer fraction="0"><text>{id, (AB), (AC)}</text><feedback><text>Not closed — composing (AB) and (AC) gives a 3-cycle that is not in the set.</text></feedback></answer>
+    <answer fraction="0"><text>{(AB), (AC), (BC)}</text><feedback><text>This lacks id and is not closed (a product of two transpositions is a 3-cycle), so it is not a subgroup.</text></feedback></answer>
+    <answer fraction="0"><text>{id, (AB), (AC), (BC)}</text><feedback><text>Not closed — (AB)·(AC) is a 3-cycle outside the set — and its size 4 does not divide 6.</text></feedback></answer>
+    <generalfeedback><text>{id, (ABC), (ACB)} is closed (each product of rotations is again a rotation or id), contains id, and has inverses ((ABC)⁻¹ = (ACB)). It is the order-3 cyclic subgroup A₃. The other sets are not closed or lack id.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Lagrange's theorem on possible orders</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Aut(f) is a subgroup of Sₙ, so by Lagrange's theorem |Aut(f)| divides n!. For a 3-variable formula, which value can <strong>not</strong> be |Aut(f)|?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 4 does not divide 3! = 6, so it cannot be the order of a subgroup of S₃.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 divides 6 (the trivial group), so it is a possible order.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 divides 6, so an order-2 subgroup is possible.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 divides 6 — this is the full group S₃, e.g. for majority.</text></feedback></answer>
+    <generalfeedback><text>By Lagrange's theorem the order of a subgroup divides the order of the group. For S₃, |S₃| = 6, so subgroup orders must divide 6: the possibilities are 1, 2, 3, 6. Since 4 does not divide 6, |Aut(f)| can never be 4 for a 3-variable formula.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Orbits of a fully symmetric function</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If an n-variable formula is fully symmetric (Aut(f) = Sₙ), how many orbits does it have on the truth table, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n + 1 orbits — one per possible number of true variables (Hamming weight 0 through n)</text><feedback><text>Correct — Sₙ merges all rows of equal weight, giving one orbit for each weight 0..n.</text></feedback></answer>
+    <answer fraction="0"><text>2ⁿ orbits — every row stays separate</text><feedback><text>Full symmetry merges rows of equal weight, so there are far fewer than 2ⁿ orbits.</text></feedback></answer>
+    <answer fraction="0"><text>n orbits — one per variable</text><feedback><text>The orbits are indexed by weight 0..n, which is n + 1 classes, not n.</text></feedback></answer>
+    <answer fraction="0"><text>2 orbits — true rows and false rows</text><feedback><text>Rows split by weight, not merely by output; there are n + 1 orbits.</text></feedback></answer>
+    <generalfeedback><text>Under the full symmetric group, two truth-table rows are equivalent exactly when they have the same number of true variables. The weight ranges from 0 to n, giving n + 1 orbits. For n = 3 (majority) that is 4 orbits, matching the explorer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Tests saved by the majority group</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For majority-of-three (8 rows, 4 orbits), how many tests does the symmetry save, as reported by the explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — keep 4 representatives instead of all 8 rows</text><feedback><text>Correct — 8 rows collapse to 4 orbit representatives, saving 8 − 4 = 4 tests.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>The saving is rows minus orbits = 8 − 4 = 4, not 2.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is |Aut(f)|; the tests saved equal 8 − 4 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Symmetry does reduce the count here: from 8 rows to 4 orbits, saving 4.</text></feedback></answer>
+    <generalfeedback><text>The explorer reports "Saves N tests" where N = total rows − orbit representatives. For majority that is 8 − 4 = 4: only the four weight-classes need a representative test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>CACC seed and derived pairs for A AND B</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>A AND B</code>, the CACC Bridge finds 2 determination pairs in total. How many are derived for free by symmetry, and how many are seeds?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 seed and 1 derived — the A-pair seeds it and the B-pair is its orbit image via the A↔B swap</text><feedback><text>Correct — the swap symmetry maps the A determination pair onto the B one, so only one seed is needed.</text></feedback></answer>
+    <answer fraction="0"><text>2 seeds and 0 derived</text><feedback><text>The A↔B symmetry derives the second pair for free, so there is 1 seed and 1 derived.</text></feedback></answer>
+    <answer fraction="0"><text>0 seeds and 2 derived</text><feedback><text>At least one pair must be an independent seed; here it is 1 seed and 1 derived.</text></feedback></answer>
+    <answer fraction="0"><text>1 seed and 0 derived</text><feedback><text>There are 2 pairs total; the second is derived, giving 1 seed and 1 derived.</text></feedback></answer>
+    <generalfeedback><text>A AND B has one determination pair for A and one for B. Processing A first makes its pair a seed; the swap (AB) maps that pair onto B's pair, marking it derived. So 1 seed plus 1 derived — the symmetry halves the independent CACC obligation.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Element order divides group order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Aut(f), the order of any element must divide the order of the group |Aut(f)|.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — this is a corollary of Lagrange's theorem: an element generates a cyclic subgroup whose order divides |Aut(f)|.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The order of an element equals the size of the cyclic subgroup it generates, which by Lagrange divides the group order.</text></feedback></answer>
+    <generalfeedback><text>An element g generates the cyclic subgroup {id, g, g², …} whose size is the order of g. By Lagrange's theorem this size divides |Aut(f)|. In S₃ (order 6), element orders are 1, 2, and 3 — all divisors of 6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Orthogonal array name and guarantee</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Covering Array tab with p = 3, k = 4, t = 2, the explorer names the array <code>OA(9; 2, 4, 3)</code>. What does it guarantee?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its 9 rows cover every 2-way combination of the 4 parameters over the 3 values</text><feedback><text>Correct — a strength-2 OA with these parameters covers all pairwise value combinations in 9 rows.</text></feedback></answer>
+    <answer fraction="0"><text>Its 9 rows cover every 3-way combination of the parameters</text><feedback><text>Strength t = 2 guarantees 2-way (pairwise) coverage, not 3-way.</text></feedback></answer>
+    <answer fraction="0"><text>It lists all 3⁴ = 81 combinations exhaustively</text><feedback><text>The point of the OA is to avoid exhaustive testing: 9 rows suffice for pairwise coverage instead of 81.</text></feedback></answer>
+    <answer fraction="0"><text>It covers only the single most important parameter</text><feedback><text>It covers all pairs across all four parameters, not just one.</text></feedback></answer>
+    <generalfeedback><text>In OA(N; t, k, p), N is the row count, t the strength, k the number of parameters, and p the alphabet size. OA(9; 2, 4, 3) uses 9 rows to guarantee that every pair of values among the 4 parameters (each over 3 values) appears together in some row.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Counting 2-way combinations to cover</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For p = 3, k = 4, t = 2, how many distinct 2-way (pairwise) value combinations must the covering array cover in total?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>54</text><feedback><text>Correct — there are C(4,2) = 6 column pairs, each with p² = 9 value combinations: 6 × 9 = 54.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the number of value combinations for one column pair (p²), not across all 6 pairs.</text></feedback></answer>
+    <answer fraction="0"><text>36</text><feedback><text>That would use 4 column pairs; there are C(4,2) = 6 pairs, giving 6 × 9 = 54.</text></feedback></answer>
+    <answer fraction="0"><text>81</text><feedback><text>81 = 3⁴ is the exhaustive number of full rows, not the count of 2-way combinations.</text></feedback></answer>
+    <generalfeedback><text>The number of pairwise combinations is (number of column pairs) × pᵗ = C(k,2) × p². With k = 4 and p = 3 that is 6 × 9 = 54 distinct 2-way value combinations, all covered by the 9-row OA.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why {id,(AB),(AC)} is not a subgroup</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is <code>{id, (AB), (AC)}</code> not a subgroup of S₃?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is not closed: composing (AB) and (AC) gives a 3-cycle that is not in the set</text><feedback><text>Correct — closure fails, so the subset is not a subgroup.</text></feedback></answer>
+    <answer fraction="0"><text>It lacks the identity element</text><feedback><text>It does contain id; the failure is closure, not the identity.</text></feedback></answer>
+    <answer fraction="0"><text>Its elements have no inverses</text><feedback><text>Each transposition is its own inverse; the problem is that closure fails.</text></feedback></answer>
+    <answer fraction="0"><text>Composition of permutations is not associative</text><feedback><text>Composition is always associative; the subset simply is not closed.</text></feedback></answer>
+    <generalfeedback><text>A subgroup must be closed. But (AB)·(AC) is a 3-cycle, which is not among {id, (AB), (AC)}. Since applying the operation leaves the set, closure fails and it cannot be a subgroup — its size 3 would be allowed by Lagrange, but closure still fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Formula symmetry versus group size</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Comparing <code>(A∧B)∨(B∧C)∨(A∧C)</code> with <code>A AND NOT B</code>, why does the first have |Aut(f)| = 6 while the second has |Aut(f)| = 1?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Majority treats all variables interchangeably (every permutation preserves it), while A AND NOT B assigns distinct roles, so no non-trivial permutation preserves it</text><feedback><text>Correct — the more interchangeable the variables, the larger Aut(f); asymmetric roles collapse it to id.</text></feedback></answer>
+    <answer fraction="0"><text>Majority has more operators, and operator count sets the group size</text><feedback><text>Group size reflects variable symmetry, not the number of operators.</text></feedback></answer>
+    <answer fraction="0"><text>A AND NOT B has fewer variables, and fewer variables always means order 1</text><feedback><text>A AND B also has two variables yet has order 2; the difference is symmetry of roles, not variable count.</text></feedback></answer>
+    <answer fraction="0"><text>Majority is always true, so all permutations trivially preserve it</text><feedback><text>Majority is not constant; permutations preserve it because the variables are interchangeable.</text></feedback></answer>
+    <generalfeedback><text>|Aut(f)| measures how interchangeable the variables are. In majority every variable plays the same role, so all 3! = 6 permutations preserve the truth table. In A AND NOT B the variables have opposite roles, so only id survives and |Aut(f)| = 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Metamorphic relation from a majority orbit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For majority, the orbit {F,F,T ; F,T,F ; T,F,F} gives the metamorphic relation maj(F,F,T) = maj(F,T,F) = maj(T,F,F). What common value do these outputs share?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>F — each input has only one true variable, so the majority is false</text><feedback><text>Correct — with just one variable true, fewer than half are true, so majority is F for all three.</text></feedback></answer>
+    <answer fraction="0"><text>T — a majority orbit is always true</text><feedback><text>Weight-1 rows have only one true variable, so the majority is F, not T.</text></feedback></answer>
+    <answer fraction="0"><text>The three outputs differ from one another</text><feedback><text>Orbit-mates must share a value; here they are all F, which is why they form a metamorphic relation.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined, because the inputs differ</text><feedback><text>The outputs are all defined and equal to F; the differing inputs are related by symmetry.</text></feedback></answer>
+    <generalfeedback><text>Majority-of-three is true only when at least two variables are true. Each row in this orbit has exactly one true variable, so all three evaluate to F. Being in one orbit, they must share a value — which the metamorphic relation records as maj(F,F,T) = maj(F,T,F) = maj(T,F,F) = F.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Inverse of a composition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For two elements g, h of Aut(f), what is the inverse of their composition (g·h)⁻¹?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>h⁻¹·g⁻¹ — the inverses in reverse order</text><feedback><text>Correct — undoing g then h means undoing h first, then g: (g·h)⁻¹ = h⁻¹·g⁻¹.</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹·h⁻¹ — the inverses in the same order</text><feedback><text>The order must reverse; (g·h)⁻¹ = h⁻¹·g⁻¹, not g⁻¹·h⁻¹ (unless they commute).</text></feedback></answer>
+    <answer fraction="0"><text>g·h again</text><feedback><text>That would only equal the inverse if g·h had order 2; in general the inverse is h⁻¹·g⁻¹.</text></feedback></answer>
+    <answer fraction="0"><text>id, because compositions are always self-inverse</text><feedback><text>Compositions are not generally self-inverse; the inverse is h⁻¹·g⁻¹.</text></feedback></answer>
+    <generalfeedback><text>The "socks and shoes" rule: to undo applying g then h, you must undo h first, then g. So (g·h)⁻¹ = h⁻¹·g⁻¹. For transpositions, which are self-inverse, this becomes (g·h)⁻¹ = h·g.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How the symmetry group cuts test obligations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Across the explorer's tabs, how does the symmetry group Aut(f) reduce testing effort overall?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It collapses symmetry-equivalent truth-table rows into one orbit representative and derives CACC pairs as orbit images, and these orbit equalities become metamorphic relations to verify</text><feedback><text>Correct — orbits reduce rows, symmetry derives CACC pairs for free, and orbit equalities export as metamorphic relations.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the program correct without any testing</text><feedback><text>Group symmetry reduces and relates tests; it never proves correctness on its own.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for a test oracle entirely</text><feedback><text>The orbit equalities act as metamorphic relations — partial oracles — but do not eliminate oracles altogether.</text></feedback></answer>
+    <answer fraction="0"><text>It increases the number of required tests to be safe</text><feedback><text>The whole point is a reduction: fewer representatives, derived CACC pairs, and reusable metamorphic relations.</text></feedback></answer>
+    <generalfeedback><text>Aut(f) ties the three tabs together: in the Orbit Explorer it merges equivalent rows into representatives (fewer tests); in the CACC Bridge it derives determination pairs as orbit images of seeds (free coverage); and the resulting orbit equalities f(x) = f(σx) become metamorphic relations that the Metamorphic Testing explorer can verify.</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Exploratory Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What is exploratory testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Exploratory testing</em> is best defined as an approach in which:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Learning, test design, and test execution happen simultaneously, with each result guiding the next test</text><feedback><text>Correct — exploration interleaves learning, designing, and running tests rather than separating them into phases.</text></feedback></answer>
+    <answer fraction="0"><text>Every test case is written and reviewed in full before any test is run</text><feedback><text>That describes fully scripted testing; exploratory testing designs and runs tests together.</text></feedback></answer>
+    <answer fraction="0"><text>Tests are generated automatically from source code without a human</text><feedback><text>That is automated/generated testing; exploratory testing is a human, thinking-driven activity.</text></feedback></answer>
+    <answer fraction="0"><text>Random inputs are thrown at the program with no thought or record</text><feedback><text>That is ad-hoc or random testing; exploratory testing is structured and deliberate.</text></feedback></answer>
+    <generalfeedback><text>Exploratory testing is the simultaneous learning, test design, and test execution of a product. The tester learns about the product as they test, uses what they observe to design the next test, and runs it immediately — a tight, thinking-driven loop rather than separate write-then-run phases.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a charter</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Exploratory Testing explorer, a <em>session charter</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A short statement of what you are testing and what you hope to find, giving the session a focused mission</text><feedback><text>Correct — the charter defines the mission and scope of the session.</text></feedback></answer>
+    <answer fraction="0"><text>A detailed, step-by-step script listing every action to perform</text><feedback><text>A charter sets a mission, not exact steps; step-by-step scripts belong to scripted testing.</text></feedback></answer>
+    <answer fraction="0"><text>The final defect report submitted after release</text><feedback><text>That is an output document; a charter is written before/at the start of a session to guide it.</text></feedback></answer>
+    <answer fraction="0"><text>The list of testers assigned to the project</text><feedback><text>That is staffing; a charter states the testing mission for a session.</text></feedback></answer>
+    <generalfeedback><text>A charter is a brief mission for an exploratory session — it says what to test and what kinds of problems to look for (the explorer's example: "Test the login flow with invalid credentials to find security issues"). It scopes and focuses the session without prescribing exact steps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is session-based test management</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Session-based test management (SBTM)</em> organises exploratory testing into:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Time-boxed, chartered sessions in which the tester records notes of what was done and found</text><feedback><text>Correct — SBTM combines a charter, a fixed time-box, and recorded session notes.</text></feedback></answer>
+    <answer fraction="0"><text>A single uninterrupted run that continues until every possible input is tried</text><feedback><text>Sessions are deliberately time-boxed, not open-ended, and exhaustive input is not the goal.</text></feedback></answer>
+    <answer fraction="0"><text>A phase where only pre-written scripts are executed in order</text><feedback><text>That is scripted execution; SBTM manages exploratory sessions, which design tests as they go.</text></feedback></answer>
+    <answer fraction="0"><text>The automatic scheduling of nightly regression jobs</text><feedback><text>That is CI/regression scheduling; SBTM is about managing human exploratory sessions.</text></feedback></answer>
+    <generalfeedback><text>Session-based test management gives exploratory testing structure and accountability: work is split into time-boxed sessions, each guided by a charter and captured in session notes. This makes an otherwise free-form activity trackable and reportable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a heuristic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>testing heuristic</em> (such as SFDIPOT) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A guiding rule of thumb or mnemonic that prompts ideas about what to test</text><feedback><text>Correct — a heuristic is a fallible but useful aid that sparks test ideas.</text></feedback></answer>
+    <answer fraction="0"><text>A guaranteed algorithm that always finds every defect</text><feedback><text>Heuristics are fallible aids, not guarantees of complete defect detection.</text></feedback></answer>
+    <answer fraction="0"><text>A legal contract that specifies acceptance criteria</text><feedback><text>That is a requirement/contract; a heuristic just prompts testing ideas.</text></feedback></answer>
+    <answer fraction="0"><text>A fixed pass/fail threshold measured by a tool</text><feedback><text>That is a metric threshold; a heuristic is a thinking aid, not a numeric gate.</text></feedback></answer>
+    <generalfeedback><text>A heuristic is a rule of thumb — a fallible but handy mental prompt. In exploratory testing, heuristics such as SFDIPOT and HICCUPPS help testers quickly generate ideas about what to cover and how to judge results, without pretending to be exhaustive or guaranteed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exploratory versus scripted testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The key difference between exploratory testing and scripted testing is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In exploratory testing tests are designed and executed together; in scripted testing they are designed in advance and then executed</text><feedback><text>Correct — the difference is when test design happens relative to execution.</text></feedback></answer>
+    <answer fraction="0"><text>Exploratory testing needs no thinking, while scripted testing needs a lot</text><feedback><text>Exploratory testing is intensely thinking-driven; the difference is timing of design, not amount of thought.</text></feedback></answer>
+    <answer fraction="0"><text>Exploratory testing can only be done by machines</text><feedback><text>Exploratory testing is a human activity; the contrast is with pre-designed scripts, not with automation.</text></feedback></answer>
+    <answer fraction="0"><text>Scripted testing never uses any written documents</text><feedback><text>The opposite is true: scripted testing relies on pre-written test scripts.</text></feedback></answer>
+    <generalfeedback><text>Scripted testing separates design (write the cases) from execution (run them later, often by someone else). Exploratory testing fuses the two: the tester designs the next test from what the last one revealed and runs it immediately. Both are legitimate and often used together.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What SFDIPOT represents</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer, the <strong>SFDIPOT</strong> checklist (Structure, Function, Data, Interfaces, Platform, Operations, Time) is used to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prompt which areas of the product to cover in the session</text><feedback><text>Correct — SFDIPOT is a product-coverage heuristic that suggests areas to explore.</text></feedback></answer>
+    <answer fraction="0"><text>Decide whether an observed behaviour is a bug</text><feedback><text>That is what the oracle heuristic (HICCUPPS) is for; SFDIPOT is about coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Measure the exact percentage of code lines executed</text><feedback><text>SFDIPOT is a thinking prompt, not a numeric code-coverage meter.</text></feedback></answer>
+    <answer fraction="0"><text>Set the length of the time-box in minutes</text><feedback><text>The time-box is set separately; SFDIPOT lists product areas to cover.</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT (Structure, Function, Data, Interfaces, Platform, Operations, Time) is a product-element coverage heuristic. The explorer presents it as a checklist of areas you plan to cover, helping you avoid fixating on one part of the product and forgetting others.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What HICCUPPS represents</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer, <strong>HICCUPPS</strong> (History, Image, Comparable products, Claims, User expectations, Product, Purpose, Standards) is a list of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Oracles — consistency heuristics for deciding whether behaviour is a problem</text><feedback><text>Correct — HICCUPPS gives several oracles for judging results.</text></feedback></answer>
+    <answer fraction="0"><text>Product areas to schedule for coverage</text><feedback><text>That is SFDIPOT's role; HICCUPPS is about judging results, not selecting coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Steps of a fixed regression script</text><feedback><text>HICCUPPS is a set of oracles, not a scripted procedure.</text></feedback></answer>
+    <answer fraction="0"><text>Names of automated testing tools</text><feedback><text>They are consistency oracles (heuristics), not tools.</text></feedback></answer>
+    <generalfeedback><text>HICCUPPS is a heuristic list of oracles — ways to recognise a problem by an inconsistency: with History, Image, Comparable products, Claims, User expectations, the Product itself, its Purpose, and Standards. It answers "how would I know this is a bug?"</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is an oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In testing, an <em>oracle</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A source or principle used to decide whether the observed behaviour is correct or a problem</text><feedback><text>Correct — an oracle is how you tell right from wrong.</text></feedback></answer>
+    <answer fraction="0"><text>The input data fed into the program</text><feedback><text>That is the test input; the oracle judges the output, not supplies the input.</text></feedback></answer>
+    <answer fraction="0"><text>The number of test cases executed in a session</text><feedback><text>That is a count; an oracle is the basis for a pass/fail judgement.</text></feedback></answer>
+    <answer fraction="0"><text>A tool that records the screen during testing</text><feedback><text>That is a recording aid; an oracle is the principle used to judge correctness.</text></feedback></answer>
+    <generalfeedback><text>An oracle is any source of expectation you use to decide whether a result is right or a problem — a specification, a comparable product, user expectations, and so on. HICCUPPS collects several such oracles so a tester is not reliant on a single spec.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of the time-box</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer's <em>time-box timer</em> (a session length in minutes) is used to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Keep the exploratory session focused within a fixed, uninterrupted block of time</text><feedback><text>Correct — the time-box bounds the session so it stays focused.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantee that every defect in the product is found</text><feedback><text>A timer cannot guarantee complete defect detection; it just bounds the session.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically write the test cases for you</text><feedback><text>The timer only times the session; the tester designs and runs the tests.</text></feedback></answer>
+    <answer fraction="0"><text>Measure code coverage percentage</text><feedback><text>The timer measures time, not coverage.</text></feedback></answer>
+    <generalfeedback><text>A time-box gives a session a fixed, uninterrupted length (typically 60 to 120 minutes). This keeps the tester focused, makes sessions comparable, and prevents endless rabbit-holing — a core discipline of session-based test management.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Note types in the observation log</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer's Observation Log lets you tag each note as one of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Bug, Observation, Question, or Idea</text><feedback><text>Correct — those are the four note types the log offers.</text></feedback></answer>
+    <answer fraction="0"><text>Pass, Fail, Blocked, or Skipped</text><feedback><text>Those are scripted-test-case outcomes; the exploratory log uses Bug/Observation/Question/Idea.</text></feedback></answer>
+    <answer fraction="0"><text>Low, Medium, High, or Critical</text><feedback><text>Those are severity levels, not the log's note types.</text></feedback></answer>
+    <answer fraction="0"><text>Sprint, Epic, Story, or Task</text><feedback><text>Those are agile backlog items, not exploratory note types.</text></feedback></answer>
+    <generalfeedback><text>The Observation Log captures findings as they happen, tagged Bug, Observation, Question, or Idea. Recording notes during the session is what turns free exploration into an auditable, session-based record.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>ET is structured not ad-hoc</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Exploratory testing is a structured, disciplined activity — not the same as unstructured ad-hoc or random testing.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — charters, heuristics, time-boxes, and notes give it structure and accountability.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Exploratory testing is deliberately structured; the free-form, unrecorded approach is ad-hoc testing, which is different.</text></feedback></answer>
+    <generalfeedback><text>Exploratory testing is disciplined: it is guided by charters, shaped by heuristics such as SFDIPOT and HICCUPPS, bounded by time-boxes, and documented in session notes. Ad-hoc or random testing lacks these; conflating the two is a common misconception.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Recognise a charter statement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of these is written as a <em>charter</em> for an exploratory session?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Test the login flow with invalid credentials to find security issues"</text><feedback><text>Correct — it states a mission (what to test, what to look for) without prescribing exact steps.</text></feedback></answer>
+    <answer fraction="0"><text>"Step 1: open the app. Step 2: type the address. Step 3: assert error 401."</text><feedback><text>That is a scripted test case with exact steps, not a charter.</text></feedback></answer>
+    <answer fraction="0"><text>"Defect 482: login button unresponsive on Safari 17"</text><feedback><text>That is a defect report produced during/after testing, not a charter.</text></feedback></answer>
+    <answer fraction="0"><text>"Release 3.2 is scheduled for 15 March"</text><feedback><text>That is a schedule note, unrelated to a testing mission.</text></feedback></answer>
+    <generalfeedback><text>A charter names a mission and a focus — what area to explore and what kind of problem to hunt for — while leaving the tester free to choose the steps. "Test the login flow with invalid credentials to find security issues" is exactly that shape.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of S in SFDIPOT</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer's SFDIPOT checklist, the <strong>S</strong> stands for <em>Structure</em>, described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Code paths, branches, and modules</text><feedback><text>Correct — Structure covers the internal make-up: code paths, branches, modules.</text></feedback></answer>
+    <answer fraction="0"><text>The OS, browser, and hardware environment</text><feedback><text>That is Platform (P), not Structure.</text></feedback></answer>
+    <answer fraction="0"><text>Timing, delays, expiry, and concurrency</text><feedback><text>That is Time (T), not Structure.</text></feedback></answer>
+    <answer fraction="0"><text>APIs, UIs, and system boundaries</text><feedback><text>That is Interfaces (I), not Structure.</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT = Structure, Function, Data, Interfaces, Platform, Operations, Time. Structure is the product's internal make-up — code paths, branches, and modules — one of several product elements the heuristic reminds you to cover.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of exporting session notes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer can export the session's notes as a Markdown (.md) file. The main value of this is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Produce a shareable record of what was explored and found during the session</text><feedback><text>Correct — the export turns the session into a durable, reportable artifact.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically fix the bugs that were logged</text><feedback><text>Exporting only records findings; it does not fix anything.</text></feedback></answer>
+    <answer fraction="0"><text>Prevent the tester from taking any further notes</text><feedback><text>Exporting does not lock the log; it just saves the current notes.</text></feedback></answer>
+    <answer fraction="0"><text>Convert the exploratory session into a fully scripted test suite</text><feedback><text>An export is a record of the session, not a generated script suite.</text></feedback></answer>
+    <generalfeedback><text>Exporting the notes to Markdown produces a shareable session record — charter plus grouped Bugs, Observations, Questions, and Ideas. This is what gives session-based exploratory testing its accountability: the work leaves an auditable trail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of H in HICCUPPS</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In HICCUPPS, the first <strong>H</strong> is the <em>History</em> oracle, meaning behaviour should be consistent with:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The product's own prior versions</text><feedback><text>Correct — History checks consistency with how earlier versions behaved.</text></feedback></answer>
+    <answer fraction="0"><text>Legal, technical, or industry standards</text><feedback><text>That is the Standards oracle, not History.</text></feedback></answer>
+    <answer fraction="0"><text>Similar competing products</text><feedback><text>That is the Comparable-products oracle, not History.</text></feedback></answer>
+    <answer fraction="0"><text>The written specifications and documentation</text><feedback><text>That is the Claims oracle, not History.</text></feedback></answer>
+    <generalfeedback><text>The History oracle says a product's behaviour should usually be consistent with its own past versions; a sudden unexplained change from prior behaviour is a signal worth investigating. It is one of the eight HICCUPPS consistency oracles.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Exploratory Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>When exploratory testing fits best</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In which situation is exploratory testing usually the <strong>most</strong> valuable choice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A new or poorly understood feature with sparse specs, where you must learn the product while testing it</text><feedback><text>Correct — ET shines when learning and testing must happen together.</text></feedback></answer>
+    <answer fraction="0"><text>A stable feature that must be re-checked identically on every build</text><feedback><text>Repeatable identical re-checks favour scripted/automated regression, not exploration.</text></feedback></answer>
+    <answer fraction="0"><text>A safety function that legally requires documented, repeatable evidence for every run</text><feedback><text>Regulated, evidence-heavy checks favour pre-scripted tests; ET is weaker on exact repeatability.</text></feedback></answer>
+    <answer fraction="0"><text>A nightly job that must run unattended with no human present</text><feedback><text>Unattended runs need automation; ET is a human, in-the-moment activity.</text></feedback></answer>
+    <generalfeedback><text>Exploratory testing is strongest when there is much to learn and little to go on — new features, thin specifications, investigating a vague bug report. Its simultaneous learn-design-execute loop turns each observation into the next test, which is exactly what those situations need.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When scripted testing is preferred</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When is <em>scripted</em> (pre-designed) testing generally preferable to exploratory testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When the same checks must be repeated identically and documented, e.g. regulated or regression scenarios</text><feedback><text>Correct — exact repeatability and an audit trail of steps favour scripts.</text></feedback></answer>
+    <answer fraction="0"><text>When the feature is brand new and barely understood</text><feedback><text>Poorly understood features favour exploration, not fixed scripts.</text></feedback></answer>
+    <answer fraction="0"><text>When you want to discover unexpected behaviour you did not anticipate</text><feedback><text>Finding the unanticipated is a strength of exploratory testing, not scripts.</text></feedback></answer>
+    <answer fraction="0"><text>Whenever a tester is skilled, because skill makes scripts unnecessary</text><feedback><text>Skill helps either style; the case for scripts is repeatability and documentation, not tester skill.</text></feedback></answer>
+    <generalfeedback><text>Scripted testing is preferable when precise, repeatable, documented steps matter — regulatory evidence, contractual acceptance, and stable regression checks that must run the same way every time. Exploratory and scripted testing are complementary; the choice depends on the goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a charter should scope</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A well-written exploratory <em>charter</em> should mainly define:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mission and focus of the session — what area to explore and what to look for</text><feedback><text>Correct — a charter scopes the mission, leaving steps to the tester.</text></feedback></answer>
+    <answer fraction="0"><text>The exact keystrokes and expected result of every step</text><feedback><text>Prescribing exact steps turns it into a script; a charter leaves steps open.</text></feedback></answer>
+    <answer fraction="0"><text>The names of all defects that will be found</text><feedback><text>Defects are discovered during the session, not pre-listed in the charter.</text></feedback></answer>
+    <answer fraction="0"><text>The CI pipeline configuration for the build</text><feedback><text>That is unrelated infrastructure; a charter states a testing mission.</text></feedback></answer>
+    <generalfeedback><text>A charter scopes a session: it names the area under test and the kind of information or problems sought, giving direction without dictating steps. That balance — focused mission, free method — is what makes chartered exploration both purposeful and adaptive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why simultaneous design and execution helps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is designing and executing tests <em>simultaneously</em> an advantage in exploratory testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each result immediately informs the next test, so the tester follows up on surprises while the context is fresh</text><feedback><text>Correct — the feedback loop lets discoveries steer the very next test.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for the tester to understand the product</text><feedback><text>The opposite — the loop is how the tester builds understanding of the product.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees 100% code coverage automatically</text><feedback><text>Simultaneity does not guarantee any coverage figure; it enables adaptive follow-up.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the session perfectly repeatable step-by-step</text><feedback><text>Adaptive, in-the-moment testing is actually harder to repeat exactly, not easier.</text></feedback></answer>
+    <generalfeedback><text>Because design and execution are fused, an unexpected result can be pursued immediately with a new, better-targeted test, while the tester's mental context is still fresh. A pre-scripted approach would have to wait for a later cycle to react to the same surprise.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: SFDIPOT to its role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which role does <strong>SFDIPOT</strong> play in an exploratory session?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A coverage heuristic — it prompts which product elements to test</text><feedback><text>Correct — SFDIPOT drives what areas to cover.</text></feedback></answer>
+    <answer fraction="0"><text>An oracle heuristic — it decides whether a result is a bug</text><feedback><text>Judging results is HICCUPPS's job; SFDIPOT is about coverage.</text></feedback></answer>
+    <answer fraction="0"><text>A timing tool — it sets the session length</text><feedback><text>The time-box sets length; SFDIPOT lists product elements.</text></feedback></answer>
+    <answer fraction="0"><text>A reporting format — it structures the exported notes</text><feedback><text>Reporting is the log/export; SFDIPOT is a coverage prompt.</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT and HICCUPPS play complementary roles: SFDIPOT is a coverage heuristic (what to test — Structure, Function, Data, Interfaces, Platform, Operations, Time), while HICCUPPS is an oracle heuristic (how to judge what you see).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: HICCUPPS to its role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which role does <strong>HICCUPPS</strong> play in an exploratory session?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An oracle heuristic — it helps decide whether observed behaviour is a problem</text><feedback><text>Correct — HICCUPPS supplies oracles for judging results.</text></feedback></answer>
+    <answer fraction="0"><text>A coverage heuristic — it lists which product areas to test</text><feedback><text>Listing areas to cover is SFDIPOT's job; HICCUPPS judges results.</text></feedback></answer>
+    <answer fraction="0"><text>A charter template — it writes the session mission</text><feedback><text>The mission comes from the charter; HICCUPPS is about oracles.</text></feedback></answer>
+    <answer fraction="0"><text>A timer preset — it chooses the time-box</text><feedback><text>The time-box is separate; HICCUPPS is an oracle heuristic.</text></feedback></answer>
+    <generalfeedback><text>HICCUPPS (History, Image, Comparable products, Claims, User expectations, Product, Purpose, Standards) is a list of oracles — consistency checks for recognising a problem. It answers "how would I know this is a bug?", complementing SFDIPOT's "what should I test?".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: which oracle for a spec mismatch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester finds that the app rounds currency differently from what the written specification says. Which HICCUPPS oracle is being applied?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Claims — consistency with specs and documentation</text><feedback><text>Correct — comparing behaviour against the spec uses the Claims oracle.</text></feedback></answer>
+    <answer fraction="0"><text>History — consistency with prior versions</text><feedback><text>No prior version is referenced; the mismatch is against the written spec (Claims).</text></feedback></answer>
+    <answer fraction="0"><text>Comparable products — consistency with similar apps</text><feedback><text>No comparable product is referenced; the standard here is the spec (Claims).</text></feedback></answer>
+    <answer fraction="0"><text>Standards — consistency with legal or industry standards</text><feedback><text>The reference is the product's own specification, which is the Claims oracle, not external Standards.</text></feedback></answer>
+    <generalfeedback><text>When the product contradicts what its specifications or documentation promise, you are using the Claims oracle. Each HICCUPPS oracle names a different source of expectation; here the source is the documented claim about behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of the time-box in SBTM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Within session-based test management, fixing a <em>time-box</em> for each session mainly serves to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Keep sessions focused and comparable, and make effort trackable in uniform units</text><feedback><text>Correct — uniform time-boxes give focus and a unit for reporting effort.</text></feedback></answer>
+    <answer fraction="0"><text>Force the tester to find a fixed quota of bugs</text><feedback><text>A time-box bounds time, not a bug quota.</text></feedback></answer>
+    <answer fraction="0"><text>Replace the need for a charter</text><feedback><text>The charter and the time-box are separate parts of the same session structure.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantee complete coverage of the product</text><feedback><text>Bounding time does not guarantee complete coverage.</text></feedback></answer>
+    <generalfeedback><text>Time-boxing gives each session a fixed, focused length. That focus prevents endless rabbit-holing, and because sessions share a common unit of time, managers can track and compare testing effort across charters — a defining feature of SBTM.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why record notes during a session</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does session-based exploratory testing insist on recording notes (as in the Observation Log) during the session?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Notes create an auditable record of what was covered and found, giving the free-form work accountability</text><feedback><text>Correct — notes are what make exploration trackable and reportable.</text></feedback></answer>
+    <answer fraction="0"><text>Notes turn the session into a fully automated regression suite</text><feedback><text>Notes document the session; they do not become automated tests.</text></feedback></answer>
+    <answer fraction="0"><text>Notes are required before the tester is allowed to think</text><feedback><text>Notes capture thinking; they do not gate it.</text></feedback></answer>
+    <answer fraction="0"><text>Notes replace the charter and the oracles</text><feedback><text>Notes complement the charter and oracles; they do not replace them.</text></feedback></answer>
+    <generalfeedback><text>Recording notes as findings occur is what distinguishes session-based exploration from ad-hoc testing. The notes — tagged Bug, Observation, Question, Idea — document coverage and discoveries, so the session can be reviewed, reported, and defended for coverage accountability.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a tour is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In exploratory testing, a <em>tour</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exploring the product through one consistent theme or lens (e.g. all money-handling features, or all error messages)</text><feedback><text>Correct — a tour follows a single theme to structure exploration.</text></feedback></answer>
+    <answer fraction="0"><text>A single automated script replayed on every build</text><feedback><text>A tour is a human exploration theme, not a replayed script.</text></feedback></answer>
+    <answer fraction="0"><text>The final sign-off meeting after testing ends</text><feedback><text>That is a review/ceremony, not an exploration theme.</text></feedback></answer>
+    <answer fraction="0"><text>A guarantee that every feature has been covered</text><feedback><text>A tour is a lens for exploring; it does not guarantee complete coverage.</text></feedback></answer>
+    <generalfeedback><text>A tour is a heuristic that picks a single theme or perspective — the "money tour", the "error-handling tour", the "configuration tour" — and explores the product through it. Tours, like SFDIPOT, give exploration structure by suggesting a coherent path through the product.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>ET and scripted are complementary</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Exploratory testing is meant to replace scripted testing entirely on every project.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>They are complementary, not mutually exclusive; each suits different goals and they are commonly combined.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — exploratory and scripted testing complement each other; neither generally replaces the other outright.</text></feedback></answer>
+    <generalfeedback><text>Exploratory and scripted testing serve different goals — discovery and learning versus repeatable, documented checks — and most teams use both. Exploration finds surprising problems; scripts and automation lock in repeatable regression coverage. Treating one as a total replacement for the other is a mistake.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Using SFDIPOT to broaden coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester has only exercised a feature's normal UI clicks. How does the SFDIPOT heuristic most directly help next?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It prompts other elements to try — e.g. Data ranges, Platforms, Time/concurrency — revealing untested areas</text><feedback><text>Correct — SFDIPOT surfaces product elements the tester has not yet touched.</text></feedback></answer>
+    <answer fraction="0"><text>It tells the tester the exact defect that exists in the code</text><feedback><text>SFDIPOT prompts areas to explore; it does not name defects.</text></feedback></answer>
+    <answer fraction="0"><text>It decides whether the clicks already done revealed a bug</text><feedback><text>Judging results is HICCUPPS's role; SFDIPOT expands coverage.</text></feedback></answer>
+    <answer fraction="0"><text>It automatically ends the session at the time limit</text><feedback><text>Ending the session is the time-box's job, not SFDIPOT's.</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT counters tunnel vision. Having covered Function via UI clicks, the tester is reminded of Data (boundary/typed inputs), Platform (other browsers/OS), Interfaces (the API behind the UI), Time (expiry, concurrency), and so on — turning a narrow pass into broad, deliberate coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which oracle for a usability surprise</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Nothing in the spec is violated, but a tester feels a confirmation dialog behaves in a way ordinary users would find surprising and wrong. Which HICCUPPS oracle best fits?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>User expectations — consistency with common sense and what users reasonably expect</text><feedback><text>Correct — a surprise that violates reasonable user expectation uses that oracle.</text></feedback></answer>
+    <answer fraction="0"><text>Claims — consistency with the written spec</text><feedback><text>The scenario says the spec is not violated, so Claims does not apply.</text></feedback></answer>
+    <answer fraction="0"><text>Standards — consistency with legal/industry standards</text><feedback><text>No standard is cited; the issue is what users would reasonably expect.</text></feedback></answer>
+    <answer fraction="0"><text>History — consistency with prior versions</text><feedback><text>No earlier version is referenced; the mismatch is with user expectation.</text></feedback></answer>
+    <generalfeedback><text>A problem can be real even when no document is contradicted. The User-expectations oracle lets a tester flag behaviour that clashes with common sense or reasonable expectation — one reason HICCUPPS lists several oracles rather than relying on the spec alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: finding to note type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During a session the tester wonders "should a locked account still receive the password-reset email?" but cannot resolve it there and then. In the Observation Log, which note type fits best?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Question — an open point to follow up, not yet a confirmed defect</text><feedback><text>Correct — an unresolved point to raise later is a Question.</text></feedback></answer>
+    <answer fraction="0"><text>Bug — a confirmed defect in the product</text><feedback><text>Nothing is confirmed broken yet; it is an open question, not a Bug.</text></feedback></answer>
+    <answer fraction="0"><text>Idea — a suggestion for a future test or feature</text><feedback><text>It is a doubt to resolve, not a proposal; that makes it a Question rather than an Idea.</text></feedback></answer>
+    <answer fraction="0"><text>Observation — a neutral note of something seen</text><feedback><text>An Observation records what was seen; this is an unanswered doubt, better tagged Question.</text></feedback></answer>
+    <generalfeedback><text>The log's four note types capture different kinds of finding: Bug (a confirmed problem), Observation (a neutral fact seen), Question (an open point to resolve), and Idea (a suggestion for later). An unresolved doubt about expected behaviour is a Question — flagged now so it is not lost, and answered later.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why ET suits a vague bug report</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A user reports "the app sometimes loses my draft, but I don't know how." Why is exploratory testing well suited to investigating this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The tester can follow clues adaptively, forming and testing hypotheses about the cause as each result narrows the search</text><feedback><text>Correct — the adaptive learn-design-execute loop is ideal for tracking down an ill-defined problem.</text></feedback></answer>
+    <answer fraction="0"><text>Because a fixed script written in advance is guaranteed to reproduce an unknown cause</text><feedback><text>A pre-written script cannot target a cause nobody yet understands; adaptive investigation can.</text></feedback></answer>
+    <answer fraction="0"><text>Because exploratory testing needs no thinking, so it is faster</text><feedback><text>Investigating a vague report is intensely thinking-driven, not thought-free.</text></feedback></answer>
+    <answer fraction="0"><text>Because it guarantees the bug will be found within the time-box</text><feedback><text>No approach guarantees the bug is found; ET simply suits adaptive investigation.</text></feedback></answer>
+    <generalfeedback><text>A vague, intermittent report has no known steps to script. Exploratory testing lets the tester form a hypothesis, test it, and use the result to refine the next hypothesis — steadily narrowing toward the cause. This adaptive investigation is exactly where scripted testing, fixed in advance, cannot help.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Exploratory Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Reproducibility limitation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A known limitation of exploratory testing is that a bug found on the fly can be hard to reproduce. What most directly mitigates this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Recording detailed session notes (steps, inputs, environment) as findings occur, so the path can be reconstructed</text><feedback><text>Correct — good session notes are the primary defence against irreproducibility.</text></feedback></answer>
+    <answer fraction="0"><text>Never writing anything down, to keep the session fast</text><feedback><text>That makes reproduction harder, not easier — the opposite of the fix.</text></feedback></answer>
+    <answer fraction="0"><text>Extending the time-box to several hours</text><feedback><text>A longer session does not by itself capture how a bug was reached.</text></feedback></answer>
+    <answer fraction="0"><text>Assuming the developer will remember the steps</text><feedback><text>Reproduction must be documented, not left to memory.</text></feedback></answer>
+    <generalfeedback><text>Because tests are designed on the fly, the exact route to a defect can be lost. Session notes — captured in the Observation Log and exported as a record — preserve the inputs, steps, and environment so the finding can be reproduced and reported. This is why note-taking is treated as non-optional in SBTM.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage accountability in ET</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Managers worry that exploratory testing gives no visibility into what was covered. Session-based test management answers this chiefly by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Using charters plus session notes so each session's coverage and findings are explicit and reviewable</text><feedback><text>Correct — charters scope the work and notes record it, making coverage accountable.</text></feedback></answer>
+    <answer fraction="0"><text>Producing a code-coverage percentage that proves everything was tested</text><feedback><text>ET does not yield a guaranteed coverage percentage; accountability comes from charters and notes.</text></feedback></answer>
+    <answer fraction="0"><text>Forbidding testers from deviating from a fixed script</text><feedback><text>Fixing a script would abandon exploration; SBTM keeps exploration but documents it.</text></feedback></answer>
+    <answer fraction="0"><text>Skipping documentation to save time</text><feedback><text>Skipping documentation destroys accountability, the opposite of the goal.</text></feedback></answer>
+    <generalfeedback><text>SBTM makes exploration accountable without scripting it: each session has a charter (declaring its intended coverage) and produces notes (recording what was actually done and found). Reviewing charters and notes gives managers visibility into coverage — the answer to the "what did you actually test?" concern.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combining ET with automation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the soundest way to combine exploratory testing with automated/scripted regression testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Use exploration to discover new and unexpected problems, then encode the important, stable checks as automated regression tests</text><feedback><text>Correct — exploration finds; automation locks in the repeatable checks.</text></feedback></answer>
+    <answer fraction="0"><text>Automate the exploratory sessions so no human is needed</text><feedback><text>Exploration is human, thinking-driven; automating it away removes what makes it valuable.</text></feedback></answer>
+    <answer fraction="0"><text>Drop all automation because exploration covers everything</text><feedback><text>Exploration does not give repeatable regression coverage; automation still earns its place.</text></feedback></answer>
+    <answer fraction="0"><text>Run them so they never share any information</text><feedback><text>The value is precisely that discoveries from exploration feed the automated suite.</text></feedback></answer>
+    <generalfeedback><text>The two techniques reinforce each other: exploratory testing is good at finding the unexpected, while automation is good at cheaply repeating known checks. A common pattern is to explore, and when a discovery is important and stable, capture it as an automated regression test — so it is checked forever after without re-exploration.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a test idea by SFDIPOT</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester decides to check what happens when a discount code expires at midnight while a purchase is mid-flight. Which SFDIPOT element does this idea most directly exercise?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Time — timing, delays, expiry, and concurrency</text><feedback><text>Correct — expiry and mid-flight timing are the Time element.</text></feedback></answer>
+    <answer fraction="0"><text>Platform — OS, browser, hardware environment</text><feedback><text>No environment change is involved; the idea is about timing/expiry (Time).</text></feedback></answer>
+    <answer fraction="0"><text>Structure — code paths, branches, modules</text><feedback><text>The idea is framed by timing behaviour, not internal code make-up.</text></feedback></answer>
+    <answer fraction="0"><text>Image — consistency with brand or persona</text><feedback><text>Image is a HICCUPPS oracle, not an SFDIPOT coverage element, and unrelated to expiry timing.</text></feedback></answer>
+    <generalfeedback><text>Expiry, delays, and concurrent timing sit squarely in the Time element of SFDIPOT (Structure, Function, Data, Interfaces, Platform, Operations, Time). Mapping a test idea back to the element it exercises helps a tester see which parts of the product are — and are not — being covered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which oracle: cross-product comparison</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester argues a date picker is buggy because "every other calendar app lets you type the date directly, and this one does not." Which HICCUPPS oracle is being invoked?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Comparable products — similar apps behave similarly</text><feedback><text>Correct — the argument rests on how comparable apps behave.</text></feedback></answer>
+    <answer fraction="0"><text>Claims — consistency with the spec</text><feedback><text>No spec is cited; the reference is other products (Comparable products).</text></feedback></answer>
+    <answer fraction="0"><text>Purpose — fulfilling the stated goal</text><feedback><text>The argument is about parity with other apps, not the product's stated purpose.</text></feedback></answer>
+    <answer fraction="0"><text>Product — internal self-consistency</text><feedback><text>The comparison is external, to other apps, not to another part of the same product.</text></feedback></answer>
+    <generalfeedback><text>Appealing to how similar applications behave is the Comparable-products oracle. It is a heuristic, not proof — the comparable behaviour might itself be wrong — but it is a legitimate way to surface a candidate problem, which is why HICCUPPS includes it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ET coverage cannot be a simple number</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can exploratory-testing coverage not be summed up in a single guaranteed percentage the way some scripted metrics are, and how is that handled?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage is judgement-based and multi-dimensional, so heuristics like SFDIPOT and session notes are used to structure and evidence it instead</text><feedback><text>Correct — ET substitutes structured heuristics and documented notes for a single number.</text></feedback></answer>
+    <answer fraction="0"><text>Because exploratory testers never cover anything measurable</text><feedback><text>They cover a great deal; the point is that coverage is judged and documented, not that it is absent.</text></feedback></answer>
+    <answer fraction="0"><text>Because a single percentage is in fact produced automatically</text><feedback><text>No such guaranteed percentage exists for ET; that is the premise of the question.</text></feedback></answer>
+    <answer fraction="0"><text>Because coverage does not matter in exploratory testing</text><feedback><text>Coverage matters greatly; it is simply expressed through heuristics and notes rather than one metric.</text></feedback></answer>
+    <generalfeedback><text>"Coverage" in exploration spans many dimensions (SFDIPOT's elements, risks, oracles) and depends on tester judgement, so it resists a single guaranteed figure. Instead, heuristics such as SFDIPOT make the intended coverage explicit, and session notes evidence what was actually covered — structured accountability rather than one number.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ET is not ad-hoc — the distinction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer dismisses exploratory testing as "just clicking around randomly." What is the most accurate correction?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exploratory testing is structured by charters, heuristics, time-boxes, and recorded notes; ad-hoc clicking has none of these</text><feedback><text>Correct — structure and documentation separate ET from ad-hoc testing.</text></feedback></answer>
+    <answer fraction="0"><text>There is no real difference; the two terms mean the same thing</text><feedback><text>They differ sharply: ET is disciplined and documented, ad-hoc testing is not.</text></feedback></answer>
+    <answer fraction="0"><text>Exploratory testing is actually slower and less thoughtful than ad-hoc testing</text><feedback><text>ET is more thoughtful and disciplined, not less; the claim is backwards.</text></feedback></answer>
+    <answer fraction="0"><text>The developer is right; exploration has no method at all</text><feedback><text>Exploration has substantial method — charters, heuristics, notes — so the dismissal is wrong.</text></feedback></answer>
+    <generalfeedback><text>The defining answer to the "random clicking" charge is structure: a charter sets the mission, heuristics like SFDIPOT and HICCUPPS drive coverage and judgement, a time-box bounds the session, and notes record what happened. That discipline is exactly what distinguishes exploratory testing from ad-hoc testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distinctive value of ET</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with a mature automated regression suite, what does exploratory testing distinctively add?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The ability to notice unexpected, unspecified problems that no pre-written test was designed to catch</text><feedback><text>Correct — ET finds the surprises that scripts, by construction, cannot anticipate.</text></feedback></answer>
+    <answer fraction="0"><text>Cheap, identical re-execution of the same checks on every build</text><feedback><text>That is automation's strength, not ET's distinctive contribution.</text></feedback></answer>
+    <answer fraction="0"><text>A guarantee that the product is defect-free</text><feedback><text>No technique guarantees a defect-free product; ET does not either.</text></feedback></answer>
+    <answer fraction="0"><text>Removal of the need for any human judgement</text><feedback><text>ET depends heavily on human judgement; it does not remove it.</text></feedback></answer>
+    <generalfeedback><text>Automated regression excels at repeating known checks cheaply, but it only checks what someone already thought to script. Exploratory testing's distinctive value is discovery — a thinking tester following surprises can find problems no pre-written test anticipated. The two together cover more than either alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Value of a session debrief</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a session, the exported notes (charter plus grouped Bugs, Observations, Questions, Ideas) are reviewed. What is the main management value of this debrief record?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It communicates what was covered, what was found, and what remains open, feeding planning of the next sessions</text><feedback><text>Correct — the record turns a session into shared, actionable information.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the tester spent exactly the scheduled minutes</text><feedback><text>Time is only one detail; the debrief's value is the coverage and findings it conveys.</text></feedback></answer>
+    <answer fraction="0"><text>It automatically closes all the logged bugs</text><feedback><text>A record does not close bugs; it informs the people who will.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the need for any further testing</text><feedback><text>Open questions and ideas in the notes usually point to more testing, not less.</text></feedback></answer>
+    <generalfeedback><text>The exported session record — mission, plus findings grouped by type — is how exploration communicates. It tells stakeholders what was covered, surfaces open Questions and Ideas, and shapes the charters for subsequent sessions. This closes the SBTM loop of charter, session, and debrief.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trade-off of a short time-box</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team sets very short (15-minute) time-boxes for every exploratory session. What is the main trade-off?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tight focus and easy tracking, but too little time to pursue a thread deeply before the session ends</text><feedback><text>Correct — very short boxes sharpen focus but can cut off deep investigation.</text></feedback></answer>
+    <answer fraction="0"><text>Guaranteed complete coverage of the product in each box</text><feedback><text>Short boxes do not guarantee complete coverage; if anything they limit depth.</text></feedback></answer>
+    <answer fraction="0"><text>No effect at all on how the sessions go</text><feedback><text>Session length materially affects how deeply threads can be pursued.</text></feedback></answer>
+    <answer fraction="0"><text>Elimination of the need to take any notes</text><feedback><text>Notes are still needed regardless of the box length.</text></feedback></answer>
+    <generalfeedback><text>Time-boxing is a balance. Short boxes keep sessions sharply focused and make effort easy to track and compare, but a promising line of investigation may be cut off before it pays out. Typical SBTM sessions run around 60 to 120 minutes to trade focus against depth; 15 minutes leans hard toward focus at the cost of depth.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choose the technique for a regulated regression</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A medical-device screen must be re-verified identically before every release, with documented evidence of each step. Which approach fits best, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Scripted/automated testing, because it gives exact repeatability and a documented, auditable step trail</text><feedback><text>Correct — regulated, repeatable, evidence-heavy checks are scripted testing's home ground.</text></feedback></answer>
+    <answer fraction="0"><text>Pure exploratory testing, because it is faster and needs no documentation</text><feedback><text>Exact repeatable evidence is exactly where free exploration is weakest; this case favours scripts.</text></feedback></answer>
+    <answer fraction="0"><text>Exploratory testing, because reproducibility is one of its core strengths</text><feedback><text>Reproducibility is a known limitation of ET, not a strength; scripts win here.</text></feedback></answer>
+    <answer fraction="0"><text>No testing is needed if the screen passed once before</text><feedback><text>Regulated re-verification requires testing every release, not a one-off pass.</text></feedback></answer>
+    <generalfeedback><text>When a check must run identically every release and produce documented evidence for each step, scripted (often automated) testing is the right tool — that is precisely the repeatability and auditability exploratory testing does not natively provide. This is a clear case where the two techniques divide the work by their strengths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Map a charter to SFDIPOT elements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Charter: "Explore the file-upload feature across different browsers and file types to find failures." Which SFDIPOT elements does this charter most directly emphasise?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Platform (different browsers) and Data (different file types)</text><feedback><text>Correct — browsers map to Platform and file types to Data.</text></feedback></answer>
+    <answer fraction="0"><text>History and Standards</text><feedback><text>Those are HICCUPPS oracles, not the SFDIPOT elements the charter emphasises.</text></feedback></answer>
+    <answer fraction="0"><text>Time and Purpose</text><feedback><text>Purpose is a HICCUPPS oracle; the charter is about browsers (Platform) and file types (Data), not timing.</text></feedback></answer>
+    <answer fraction="0"><text>Image and Claims</text><feedback><text>Those are HICCUPPS oracles, not coverage elements; the charter emphasises Platform and Data.</text></feedback></answer>
+    <generalfeedback><text>"Different browsers" is the Platform element (OS, browser, hardware); "different file types" is the Data element (input values, types, ranges). Reading a charter through SFDIPOT shows which product elements it will drive coverage toward — here Platform and Data.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why multiple oracles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does HICCUPPS provide several oracles instead of relying only on the specification?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Specs are often incomplete, missing, or themselves wrong, so multiple consistency oracles catch problems a single spec would miss</text><feedback><text>Correct — several oracles cover the gaps a lone spec leaves.</text></feedback></answer>
+    <answer fraction="0"><text>Because the specification is always perfectly complete and correct</text><feedback><text>If specs were always perfect, multiple oracles would be unnecessary; in reality they are not.</text></feedback></answer>
+    <answer fraction="0"><text>Because oracles are only decorative and never used</text><feedback><text>Oracles are actively used to judge behaviour; they are far from decorative.</text></feedback></answer>
+    <answer fraction="0"><text>Because using more than one oracle is forbidden in a session</text><feedback><text>Using several oracles is encouraged, not forbidden.</text></feedback></answer>
+    <generalfeedback><text>Real specifications are frequently incomplete, ambiguous, out of date, or wrong, and some problems (poor usability, brand inconsistency) are not in any spec at all. HICCUPPS gives a tester several independent yardsticks — history, comparable products, user expectations, standards, and more — so a problem can be recognised even when the spec is silent or mistaken.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Traceability from charter to notes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do the charter, the time-box, and the observation log together provide traceability in session-based test management?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The charter states intended scope, the time-box bounds the effort, and the notes record what was actually done and found — linking intent to evidence</text><feedback><text>Correct — together they connect declared intent, bounded effort, and recorded outcome.</text></feedback></answer>
+    <answer fraction="0"><text>They eliminate the need to test more than once</text><feedback><text>They provide traceability for a session; they do not make further testing unnecessary.</text></feedback></answer>
+    <answer fraction="0"><text>They convert exploration into a fixed script automatically</text><feedback><text>They document exploration; they do not turn it into a script.</text></feedback></answer>
+    <answer fraction="0"><text>They guarantee that no residual risk remains</text><feedback><text>No process guarantees zero residual risk; they provide traceability, not certainty.</text></feedback></answer>
+    <generalfeedback><text>The three artifacts form a chain: the charter declares what the session intends to cover, the time-box fixes how much effort it gets, and the observation log records what actually happened and what was found. Reviewing them together traces intent through effort to evidence — the accountability that makes exploratory testing manageable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dependence on tester skill</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best captures a genuine limitation of exploratory testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its effectiveness depends heavily on the individual tester's skill, product knowledge, and diligence in note-taking</text><feedback><text>Correct — outcomes vary with tester skill and discipline, a real limitation.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot find any defects that were not written into a script</text><feedback><text>Finding unscripted defects is a strength of ET, not a limitation.</text></feedback></answer>
+    <answer fraction="0"><text>It always produces an exact numeric coverage guarantee</text><feedback><text>ET does not produce a guaranteed coverage number; that is one reason it needs heuristics and notes.</text></feedback></answer>
+    <answer fraction="0"><text>It can only be performed by fully automated tools</text><feedback><text>ET is a human, thinking-driven activity, not an automated-only one.</text></feedback></answer>
+    <generalfeedback><text>Because exploration is driven by a thinking human in the moment, its results hinge on that person's skill, domain knowledge, and discipline in recording notes. Heuristics (SFDIPOT, HICCUPPS) and session structure reduce this variability but do not remove it — a genuine limitation to weigh when choosing the technique.</text></generalfeedback>
+  </question>
+</quiz>

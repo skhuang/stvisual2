@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Usage-Model Statistical Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>使用模型是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在使用模型統計測試中，<em>使用模型（usage model）</em>最貼切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一條馬可夫鏈：狀態是使用情境，轉移帶有操作機率</text><feedback><text>正確——模型是一條由機率加權轉移連結各狀態的馬可夫鏈。</text></feedback></answer>
+    <answer fraction="0"><text>一份依優先序排好的測試案例清單</text><feedback><text>不對——使用模型是狀態轉移鏈，而非排序過的測試清單。</text></feedback></answer>
+    <answer fraction="0"><text>一份列出應用程式每個畫面的檢核表</text><feedback><text>不對——它以機率描述使用者在情境間的移動，而非畫面清單。</text></feedback></answer>
+    <answer fraction="0"><text>一張回應時間對並發負載的效能圖</text><feedback><text>那是效能剖析，與使用模型無關。</text></feedback></answer>
+    <generalfeedback><text>使用模型是一條馬可夫鏈：狀態是使用情境（Home、Browse、Cart、Checkout、Exit），每條轉移帶有操作機率。測試是依該 profile 加權的隨機漫步。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>馬可夫性質</text></name>
+    <questiontext format="html"><text><![CDATA[<p>因為使用模型是一條<em>馬可夫鏈</em>，下一條轉移的機率取決於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只取決於目前狀態，而非漫步先前的歷史</text><feedback><text>正確——這種無記憶性正是使它成為馬可夫鏈的原因。</text></feedback></answer>
+    <answer fraction="0"><text>目前為止走過的整串狀態序列</text><feedback><text>不對——馬可夫鏈無記憶，只有目前狀態重要。</text></feedback></answer>
+    <answer fraction="0"><text>目前為止已生成的測試總數</text><feedback><text>不對——每條漫步彼此獨立，只取決於目前狀態。</text></feedback></answer>
+    <answer fraction="0"><text>此工作階段已耗費的實際時間</text><feedback><text>不對——這條鏈沒有時間概念，只有目前狀態決定下一步。</text></feedback></answer>
+    <generalfeedback><text>在馬可夫鏈中，下一條轉移只依目前狀態的離開機率來選擇，抵達該狀態所走的路徑無關緊要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>操作 profile 是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模型所捕捉的 <em>operational profile（操作 profile）</em> 是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>真實使用者採取每個動作的機率——也就是實際使用的分佈</text><feedback><text>正確——操作 profile 就是編碼在轉移上的真實使用分佈。</text></feedback></answer>
+    <answer fraction="0"><text>伺服器的 CPU 與記憶體用量</text><feedback><text>不對——那是資源剖析，不是操作（使用）profile。</text></feedback></answer>
+    <answer fraction="0"><text>依嚴重度排好的缺陷清單</text><feedback><text>不對——操作 profile 描述使用者行為，不是缺陷嚴重度。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件涵蓋的原始碼百分比</text><feedback><text>不對——那是程式碼涵蓋率，不是操作 profile。</text></feedback></answer>
+    <generalfeedback><text>操作 profile 是真實使用者行為的機率分佈。在此它就落在「機率」欄：使用者在每個狀態採取各離開動作的可能性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移機率的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一條轉移的機率（<em>機率</em>欄）代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>處於該狀態的使用者，下一步採取該特定動作的可能性</text><feedback><text>正確——它是給定目前狀態下該動作的條件機率。</text></feedback></answer>
+    <answer fraction="0"><text>該轉移執行所需的時間</text><feedback><text>不對——機率是可能性，不是時間長短。</text></feedback></answer>
+    <answer fraction="0"><text>該轉移含有多少缺陷</text><feedback><text>不對——這個數是使用可能性，不是缺陷數。</text></feedback></answer>
+    <answer fraction="0"><text>測試該轉移的成本</text><feedback><text>不對——它衡量使用者採取該動作的頻率，不是測試成本。</text></feedback></answer>
+    <generalfeedback><text>每條轉移機率是「目前在起始狀態的使用者下一步採取該動作」的機率。一個狀態的離開機率構成一個分佈，總和為 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一條生成測試是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本探索器中，單一一條生成的測試案例對應於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一次從 Home 到 Exit、依機率加權的隨機漫步</text><feedback><text>正確——每條測試就是一次穿過鏈、從初始到終止狀態的隨機漫步。</text></feedback></answer>
+    <answer fraction="0"><text>把模型中每條路徑完整列舉一次</text><feedback><text>不對——統計測試是取樣漫步，而非列舉所有路徑。</text></feedback></answer>
+    <answer fraction="0"><text>從表格中選出的單一一條轉移</text><feedback><text>不對——一條測試是整條從 Home 到 Exit 的漫步，不是單一邊。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋次數統計中的一列</text><feedback><text>不對——涵蓋統計是在計數漫步，本身不是測試。</text></feedback></answer>
+    <generalfeedback><text>一條生成測試就是一次隨機漫步：從 Home 出發，依機率加權的轉移前進，直到抵達吸收狀態 Exit。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>統計測試如何生成測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>統計（以使用為基礎）測試生成測試的方式是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>依操作 profile 加權、隨機取樣漫步，使常見路徑被較常測到</text><feedback><text>正確——依使用分佈取樣正是統計測試的核心思想。</text></feedback></answer>
+    <answer fraction="0"><text>把每條轉移不多不少各涵蓋一次</text><feedback><text>不對——那是涵蓋準則，不是依使用加權的取樣。</text></feedback></answer>
+    <answer fraction="0"><text>每次都選抵達 Exit 的最短路徑</text><feedback><text>不對——漫步是隨機且依使用加權，不是最小化。</text></feedback></answer>
+    <answer fraction="0"><text>總是優先操練最罕見的轉移</text><feedback><text>不對——正因取樣依使用而行，罕見轉移才會被取樣不足。</text></feedback></answer>
+    <generalfeedback><text>統計測試依操作 profile 抽取隨機漫步。因此測試心力貼合真實使用：高機率路徑常被走到，罕見的很少走到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取機率：Home 到 Browse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模型中，Home 的使用者前往 <em>Browse</em> 的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.80</text><feedback><text>正確——Home 到 Browse（browse）的轉移是 0.80。</text></feedback></answer>
+    <answer fraction="0"><text>0.20</text><feedback><text>不對——0.20 是 Home 到 Exit（leave）的機率。</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>不對——0.50 出現在 Browse 與 Cart 的轉移，不是 Home 到 Browse。</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>不對——Home 分為 Browse（0.80）與 Exit（0.20）。</text></feedback></answer>
+    <generalfeedback><text>表格列出 Home 到 Browse（browse）為 p = 0.80；唯一的另一條離開邊 Home 到 Exit（leave）為 0.20。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取機率：Home 到 Exit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用者直接從 <em>Home</em> 離開到 <em>Exit</em>（leave 事件）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.20</text><feedback><text>正確——Home 到 Exit（leave）是 0.20。</text></feedback></answer>
+    <answer fraction="0"><text>0.80</text><feedback><text>不對——0.80 是 Home 到 Browse 的機率。</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>不對——0.10 是 Cart 到 Exit（abandon），不是 Home 到 Exit。</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>不對——Home 的邊是 0.80 與 0.20。</text></feedback></answer>
+    <generalfeedback><text>Home 有兩條離開邊：browse（0.80）與 leave 到 Exit（0.20），兩者總和為 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取機率：Cart 到 Checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Cart</em> 的使用者前往 <em>Checkout</em> 的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.50</text><feedback><text>正確——Cart 到 Checkout（checkout）是 0.50。</text></feedback></answer>
+    <answer fraction="0"><text>0.40</text><feedback><text>不對——0.40 是 Cart 到 Browse（keepShopping）。</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>不對——0.10 是 Cart 到 Exit（abandon）。</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>不對——1.00 是 Checkout 到 Exit（pay），不是 Cart 到 Checkout。</text></feedback></answer>
+    <generalfeedback><text>Cart 三向分流：keepShopping 到 Browse（0.40）、checkout 到 Checkout（0.50）、abandon 到 Exit（0.10）。checkout 邊是 0.50。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取機率：Checkout 到 Exit</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>pay</em> 轉移（Checkout 到 Exit）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.00</text><feedback><text>正確——Checkout 只有一條離開邊 pay 到 Exit，為 1.00。</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>不對——0.50 是 Cart 到 Checkout，不是 Checkout 到 Exit。</text></feedback></answer>
+    <answer fraction="0"><text>0.90</text><feedback><text>不對——Checkout 一定前往 Exit，其邊為 1.00。</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>不對——0.10 是 Cart 到 Exit（abandon）。</text></feedback></answer>
+    <generalfeedback><text>Checkout 只有單一離開轉移 pay 到 Exit，機率 1.00，因此其離開機率總和顯然為 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>初始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>每條生成的漫步都從哪個狀態開始？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Home</text><feedback><text>正確——Home 是模型的初始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>Exit</text><feedback><text>不對——Exit 是漫步結束的終止狀態，不是開始。</text></feedback></answer>
+    <answer fraction="0"><text>Browse</text><feedback><text>不對——Browse 由 Home 抵達，不是起點。</text></feedback></answer>
+    <answer fraction="0"><text>Cart</text><feedback><text>不對——Cart 是中間狀態，不是初始狀態。</text></feedback></answer>
+    <generalfeedback><text>模型的初始狀態是 Home；漫步從那裡開始，並在吸收狀態 Exit 結束。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>吸收狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個狀態是每條漫步都會結束於此的終止（吸收）狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exit</text><feedback><text>正確——Exit 是吸收狀態：它沒有離開轉移。</text></feedback></answer>
+    <answer fraction="0"><text>Home</text><feedback><text>不對——Home 是初始狀態，不是終止狀態。</text></feedback></answer>
+    <answer fraction="0"><text>Checkout</text><feedback><text>不對——Checkout 仍有一條 pay 轉移到 Exit。</text></feedback></answer>
+    <answer fraction="0"><text>Cart</text><feedback><text>不對——Cart 有三條離開轉移，並非吸收狀態。</text></feedback></answer>
+    <generalfeedback><text>Exit 是吸收終止狀態：漫步一旦抵達便沒有離開邊，於是停止。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>被標為罕見的轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模型把一條轉移標為<em>罕見</em>（p &lt; 0.15）。是哪一條？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cart 到 Exit（abandon），p = 0.10</text><feedback><text>正確——abandon 為 0.10，是唯一低於 0.15 門檻的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>Home 到 Exit（leave），p = 0.20</text><feedback><text>不對——0.20 高於 0.15 的罕見門檻。</text></feedback></answer>
+    <answer fraction="0"><text>Browse 到 Exit（leave），p = 0.20</text><feedback><text>不對——0.20 高於 0.15 的罕見門檻。</text></feedback></answer>
+    <answer fraction="0"><text>Cart 到 Browse（keepShopping），p = 0.40</text><feedback><text>不對——0.40 遠高於罕見門檻。</text></feedback></answer>
+    <generalfeedback><text>罕見門檻是 p &lt; 0.15。只有 Cart 到 Exit（abandon，0.10）低於它，因此是唯一被標上警示記號的一列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取機率：Browse 到 Browse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Browse</em> 的使用者繼續瀏覽（Browse 到 Browse 的自迴圈）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.50</text><feedback><text>正確——Browse 上的 viewMore 自迴圈是 0.50。</text></feedback></answer>
+    <answer fraction="0"><text>0.30</text><feedback><text>不對——0.30 是 Browse 到 Cart（addToCart）。</text></feedback></answer>
+    <answer fraction="0"><text>0.20</text><feedback><text>不對——0.20 是 Browse 到 Exit（leave）。</text></feedback></answer>
+    <answer fraction="0"><text>0.80</text><feedback><text>不對——0.80 是 Home 到 Browse 的機率，不是 Browse 的自迴圈。</text></feedback></answer>
+    <generalfeedback><text>Browse 有三條離開邊：viewMore 回到 Browse（0.50）、addToCart 到 Cart（0.30）、leave 到 Exit（0.20）。自迴圈是 0.50。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>顯示的預期測試長度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>本探索器把此模型的預期測試案例長度標示為大約：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4.05 條轉移</text><feedback><text>正確——本鏈的預期長度為 4.05 條轉移。</text></feedback></answer>
+    <answer fraction="0"><text>5 條轉移（每個狀態一條）</text><feedback><text>不對——預期長度並非狀態數；迴圈與機率會改變它。</text></feedback></answer>
+    <answer fraction="0"><text>9 條轉移（每條邊一條）</text><feedback><text>不對——它不是表格中的邊數。</text></feedback></answer>
+    <answer fraction="0"><text>1.00 條轉移</text><feedback><text>不對——多數漫步在抵達 Exit 前會走好幾條轉移。</text></feedback></answer>
+    <generalfeedback><text>從 Home 起算的吸收型鏈預期步數約為 4.05 條轉移，探索器顯示在模型表格下方。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Usage-Model Statistical Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何離開機率總和為 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼每個狀態的離開機率必須剛好總和為 1？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們構成使用者下一動作的機率分佈——使用者恰好會採取一條離開轉移</text><feedback><text>正確——一個狀態的離開邊互斥且窮盡，因此總和為 1。</text></feedback></answer>
+    <answer fraction="0"><text>因為每個狀態的離開轉移數量都相同</text><feedback><text>不對——各狀態邊數不同（Checkout 一條、Cart 三條），總和仍為 1。</text></feedback></answer>
+    <answer fraction="0"><text>好讓預期測試長度算出整數</text><feedback><text>不對——預期長度是 4.05，不是整數；與總和為 1 無關。</text></feedback></answer>
+    <answer fraction="0"><text>為了保證每條轉移至少被測一次</text><feedback><text>不對——總和為 1 不保證涵蓋；罕見邊常被漏掉。</text></feedback></answer>
+    <generalfeedback><text>從任一狀態出發，使用者下一步一定會採取其中一個可用動作。因此離開邊構成機率分佈，必須總和為 1（Home：0.8+0.2；Browse：0.5+0.3+0.2；Cart：0.4+0.5+0.1）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗證 Browse 的分佈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Browse 的 viewMore = 0.50、addToCart = 0.30、leave = 0.20。三者總和為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.00——是一個有效的機率分佈</text><feedback><text>正確——0.50 + 0.30 + 0.20 = 1.00。</text></feedback></answer>
+    <answer fraction="0"><text>0.80</text><feedback><text>不對——那漏掉一條邊；三者總和為 1.00。</text></feedback></answer>
+    <answer fraction="0"><text>1.10</text><feedback><text>不對——0.50 + 0.30 + 0.20 = 1.00，不是 1.10。</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>不對——0.50 只是自迴圈；三條邊合計為 1.00。</text></feedback></answer>
+    <generalfeedback><text>0.50 + 0.30 + 0.20 = 1.00。每個狀態的離開機率都必須總和為 1，模型的說明也明確指出這點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>心力集中在哪裡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於漫步依操作 profile 加權，測試心力會集中在：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>真實使用者最常走的路徑</text><feedback><text>正確——使用加權把心力導向常見路徑。</text></feedback></answer>
+    <answer fraction="0"><text>最難抵達的路徑</text><feedback><text>不對——難抵達（罕見）的路徑會被取樣不足，而非被偏好。</text></feedback></answer>
+    <answer fraction="0"><text>不論使用頻率，每條路徑一律等量</text><feedback><text>不對——那是均勻取樣，不是使用加權。</text></feedback></answer>
+    <answer fraction="0"><text>只走到 Exit 的單一最短路徑</text><feedback><text>不對——漫步是隨機的，會生成許多不同長度的路徑。</text></feedback></answer>
+    <generalfeedback><text>依操作 profile 取樣，代表高機率路徑最常被走到，於是測試心力貼合真實使用，可靠度也反映實地經驗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑機率：Home 到 Browse 到 Exit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>漫步 Home &#8594; Browse &#8594; Exit（先 browse 再 leave）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.16</text><feedback><text>正確——0.80 &#215; 0.20 = 0.16。</text></feedback></answer>
+    <answer fraction="0"><text>0.20</text><feedback><text>不對——那只是 Browse 到 Exit 這條邊；整條漫步還要乘 0.80。</text></feedback></answer>
+    <answer fraction="0"><text>0.40</text><feedback><text>不對——路徑機率是各邊相乘，不是兩者相加再折半。</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>不對——這只是眾多漫步中的一條，其機率為 0.16。</text></feedback></answer>
+    <generalfeedback><text>沿漫步把各邊機率相乘：Home 到 Browse（0.80）&#215; Browse 到 Exit（0.20）= 0.16。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑機率：購買漫步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>成功購買的漫步 Home &#8594; Browse &#8594; Cart &#8594; Checkout &#8594; Exit 的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.12</text><feedback><text>正確——0.80 &#215; 0.30 &#215; 0.50 &#215; 1.00 = 0.12。</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>不對——那只是 0.80 &#215; 0.30；還要繼續乘 0.50 與 1.00。</text></feedback></answer>
+    <answer fraction="0"><text>0.06</text><feedback><text>不對——0.06 是多了一個 viewMore 迴圈的較長漫步，不是這條直達漫步。</text></feedback></answer>
+    <answer fraction="0"><text>0.016</text><feedback><text>不對——那是各邊相乘算錯了；乘積為 0.12。</text></feedback></answer>
+    <generalfeedback><text>0.80（browse）&#215; 0.30（addToCart）&#215; 0.50（checkout）&#215; 1.00（pay）= 0.12。這是最短的成功購買路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cart 最可能的動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Cart</em> 的使用者最可能：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>前往 Checkout（p = 0.50）</text><feedback><text>正確——checkout 為 0.50，是 Cart 各離開機率中最大的。</text></feedback></answer>
+    <answer fraction="0"><text>繼續購物、回到 Browse（p = 0.40）</text><feedback><text>不對——0.40 排第二；checkout 的 0.50 更可能。</text></feedback></answer>
+    <answer fraction="0"><text>放棄、離開到 Exit（p = 0.10）</text><feedback><text>不對——abandon 的 0.10 是最不可能的動作。</text></feedback></answer>
+    <answer fraction="0"><text>直接回到 Home</text><feedback><text>不對——模型中沒有 Cart 到 Home 的轉移。</text></feedback></answer>
+    <generalfeedback><text>Cart 的邊是 keepShopping（0.40）、checkout（0.50）、abandon（0.10）。最大者是 checkout 的 0.50，故最可能的下一動作是前往 Checkout。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>操作 profile 的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此模型中，<em>operational profile</em> 由哪個元素扮演？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>各邊上的一組轉移機率</text><feedback><text>正確——轉移上的機率就是操作 profile。</text></feedback></answer>
+    <answer fraction="0"><text>狀態清單（Home、Browse、Cart、Checkout、Exit）</text><feedback><text>不對——狀態是情境；profile 是為情境間移動加權的那些機率。</text></feedback></answer>
+    <answer fraction="0"><text>Cart 到 Checkout 上的缺陷轉移標記</text><feedback><text>不對——缺陷標記標示的是故障，不是使用分佈。</text></feedback></answer>
+    <answer fraction="0"><text>表格下方顯示的預期長度數字</text><feedback><text>不對——預期長度由 profile 推導而來，本身不是 profile。</text></feedback></answer>
+    <generalfeedback><text>操作 profile 是使用者動作的機率分佈，即轉移上「機率」欄的數字。狀態與推導出的數字都不是 profile。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從 Checkout 的預期步數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>漫步一旦抵達 <em>Checkout</em>，到 Exit 之前還要走幾條轉移（預期值）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>恰好 1——Checkout 到 Exit（pay）的機率是 1.0</text><feedback><text>正確——Checkout 只有一條到 Exit 的邊，故恰好再走一步。</text></feedback></answer>
+    <answer fraction="0"><text>0——Checkout 本身已是終止狀態</text><feedback><text>不對——終止狀態是 Exit；Checkout 還要走一步 pay 才到。</text></feedback></answer>
+    <answer fraction="0"><text>2——pay 之後再一次確認</text><feedback><text>不對——模型中 Checkout 只有單一 pay 轉移。</text></feedback></answer>
+    <answer fraction="0"><text>在 0 到 3 之間隨機變動</text><feedback><text>不對——只有一條機率為 1.0 的邊，故確定為一步。</text></feedback></answer>
+    <generalfeedback><text>Checkout 唯一的離開邊是機率 1.0 的 pay 到 Exit，故 E[Checkout] = 1：恰好再一條轉移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 Exit 是吸收狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Exit 被稱為<em>吸收</em>狀態，是因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它沒有離開轉移，漫步一旦進入 Exit 就停止</text><feedback><text>正確——沒有邊離開 Exit，故漫步在此終止。</text></feedback></answer>
+    <answer fraction="0"><text>它有最高的離開機率</text><feedback><text>不對——Exit 根本沒有任何離開邊。</text></feedback></answer>
+    <answer fraction="0"><text>它會迴圈回 Home 以重啟工作階段</text><feedback><text>不對——沒有 Exit 到 Home 的邊；漫步就此結束。</text></feedback></answer>
+    <answer fraction="0"><text>它是植入缺陷所在之處</text><feedback><text>不對——缺陷在 Cart 到 Checkout，不在 Exit。</text></feedback></answer>
+    <generalfeedback><text>吸收狀態沒有離開轉移。凡抵達 Exit 的漫步都在此結束，這也正是預期長度為有限且良好定義的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪條轉移使測試失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本探索器中，一條生成測試「失敗」是因為它的漫步觸發了哪條轉移？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cart 到 Checkout——checkout 事件，標有缺陷圖示</text><feedback><text>正確——植入的故障落在 Cart 到 Checkout，任何觸發它的漫步都失敗。</text></feedback></answer>
+    <answer fraction="0"><text>Checkout 到 Exit（pay）</text><feedback><text>不對——pay 不是缺陷邊；缺陷在 Cart 到 Checkout。</text></feedback></answer>
+    <answer fraction="0"><text>Cart 到 Exit（abandon）</text><feedback><text>不對——abandon 是罕見邊，不是缺陷邊。</text></feedback></answer>
+    <answer fraction="0"><text>Home 到 Browse（browse）</text><feedback><text>不對——這條常見邊不是故障所在。</text></feedback></answer>
+    <generalfeedback><text>模型把缺陷植在 Cart 到 Checkout 轉移。當且僅當隨機漫步觸發該轉移時測試才失敗，否則通過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>路徑機率：放棄漫步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>漫步 Home &#8594; Browse &#8594; Cart &#8594; Exit（abandon）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.024</text><feedback><text>正確——0.80 &#215; 0.30 &#215; 0.10 = 0.024。</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>不對——那只是 Cart 到 Exit 這條邊；還要乘上前面的邊。</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>不對——那是 0.80 &#215; 0.30（抵達 Cart）；還要再乘 0.10 才是 abandon。</text></feedback></answer>
+    <answer fraction="0"><text>0.048</text><feedback><text>不對——乘積是 0.024，不是 0.048。</text></feedback></answer>
+    <generalfeedback><text>0.80（browse）&#215; 0.30（addToCart）&#215; 0.10（abandon）= 0.024。罕見的 abandon 邊使這條漫步不太可能。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何依使用加權而非均勻</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於每條路徑等量測試，依操作 profile 為測試加權所得的可靠度估計會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>反映使用者在實地實際可能遇到的失敗</text><feedback><text>正確——使用加權使估計成為貼近實地的可靠度。</text></feedback></answer>
+    <answer fraction="0"><text>保證模型 100% 的路徑涵蓋</text><feedback><text>不對——依使用取樣不保證涵蓋；罕見路徑常被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text>永遠高於真實可靠度</text><feedback><text>不對——該估計對使用加權可靠度是不偏的，並非系統性偏高。</text></feedback></answer>
+    <answer fraction="0"><text>完全忽略最常見的路徑</text><feedback><text>不對——它強調常見路徑，恰與忽略相反。</text></feedback></answer>
+    <generalfeedback><text>使用加權可靠度回答「真實使用者多常遇到失敗？」由於測試依操作 profile 取樣，通過率即估計使用者實際體驗到的可靠度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 abandon 被取樣不足</text></name>
+    <questiontext format="html"><text><![CDATA[<p>罕見路徑警示標出 abandon（Cart 到 Exit，p = 0.10），因為統計測試會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>很少生成走到它的漫步，因此對它取樣不足</text><feedback><text>正確——低使用機率代表很少漫步會觸發該邊。</text></feedback></answer>
+    <answer fraction="0"><text>對它的測試多於任何其他轉移</text><feedback><text>不對——低機率代表它被操練得最少，而非最多。</text></feedback></answer>
+    <answer fraction="0"><text>根本無法抵達 Cart</text><feedback><text>不對——Cart 可抵達（p = 0.48）；罕見的特別是 abandon 這條邊。</text></feedback></answer>
+    <answer fraction="0"><text>自動把它當成最高風險的路徑</text><feedback><text>不對——使用加權不知風險，這正是建議以風險導向測試補強的原因。</text></feedback></answer>
+    <generalfeedback><text>由於取樣依使用而行，像 abandon（0.10）這種低機率邊很少被走到，因而測試不足。若這條罕見路徑同時又高風險，僅靠使用加權會使它危險地被操練不足。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩步抵達 Cart 的機率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個工作階段前兩條轉移剛好是 Home &#8594; Browse &#8594; Cart（恰好兩步抵達 Cart）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.24</text><feedback><text>正確——0.80 &#215; 0.30 = 0.24。</text></feedback></answer>
+    <answer fraction="0"><text>0.30</text><feedback><text>不對——那只是 Browse 到 Cart 這條邊；還要乘 Home 到 Browse 的邊。</text></feedback></answer>
+    <answer fraction="0"><text>0.11</text><feedback><text>不對——0.80 與 0.30 的乘積是 0.24，不是 0.11。</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>不對——0.80 &#215; 0.30 = 0.24。</text></feedback></answer>
+    <generalfeedback><text>Home 到 Browse（0.80）&#215; Browse 到 Cart（0.30）= 0.24。注意這只是兩步路徑；Cart 也可透過 Browse 自迴圈抵達，故整體可達機率更高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>每根涵蓋長條計數什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>執行後顯示的轉移涵蓋統計中，每根長條計數的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有多少生成的隨機漫步走過該條轉移</text><feedback><text>正確——統計計數的是所有測試中每條邊被觸發的次數。</text></feedback></answer>
+    <answer fraction="0"><text>寫在該條轉移上的機率</text><feedback><text>不對——機率在模型中是固定的；統計計數的是實際的走訪次數。</text></feedback></answer>
+    <answer fraction="0"><text>該邊到 Exit 之間的狀態數</text><feedback><text>不對——它是走訪次數，不是距離。</text></feedback></answer>
+    <answer fraction="0"><text>該邊對預期測試長度的貢獻</text><feedback><text>不對——長條是該次執行的觀測次數，不是預期長度的貢獻。</text></feedback></answer>
+    <generalfeedback><text>每根涵蓋長條是觸發該條轉移的生成漫步觀測數。高使用邊長條高；罕見的 abandon 邊長條最短。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Usage-Model Statistical Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>計算預期測試長度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對各暫態狀態使用 E[s] = 1 + &#931; p(s&#8594;s&#8242;)&#183;E[s&#8242;]，從 Home 起算的生成測試預期長度最接近：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4.05 條轉移</text><feedback><text>正確——解該遞迴得 E[Home] &#8776; 4.05。</text></feedback></answer>
+    <answer fraction="0"><text>3.05 條轉移</text><feedback><text>不對——那低估了；E[Home] = 1 + 0.8&#183;E[Browse] &#8776; 4.05。</text></feedback></answer>
+    <answer fraction="0"><text>5.00 條轉移</text><feedback><text>不對——狀態數不是預期長度。</text></feedback></answer>
+    <answer fraction="0"><text>9.00 條轉移</text><feedback><text>不對——邊數不是預期長度。</text></feedback></answer>
+    <generalfeedback><text>E[Checkout] = 1；E[Cart] = 1 + 0.4&#183;E[Browse] + 0.5&#183;1；E[Browse] = 1 + 0.5&#183;E[Browse] + 0.3&#183;E[Cart]，解得 E[Browse] &#8776; 3.82、E[Cart] &#8776; 3.03；再 E[Home] = 1 + 0.8&#183;3.82 &#8776; 4.05。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算從 Cart 的預期步數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從 <em>Cart</em> 起算、到 Exit 之前的預期剩餘轉移數最接近：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3.03</text><feedback><text>正確——E[Cart] = 1 + 0.4&#183;E[Browse] + 0.5&#183;1 = 1.5 + 0.4&#183;3.82 &#8776; 3.03。</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>不對——1.00 是 E[Checkout]；Cart 可經 Browse 迴圈折返，使其更大。</text></feedback></answer>
+    <answer fraction="0"><text>3.82</text><feedback><text>不對——3.82 是 E[Browse]；E[Cart] 略小，為 3.03。</text></feedback></answer>
+    <answer fraction="0"><text>4.05</text><feedback><text>不對——4.05 是 E[Home]，整條漫步的期望值。</text></feedback></answer>
+    <generalfeedback><text>E[Cart] = 1 + 0.4&#183;E[Browse] + 0.5&#183;E[Checkout] + 0.1&#183;0 = 1.5 + 0.4&#183;3.82 &#8776; 3.03（其中 0.5&#183;1 來自直接 checkout 再 pay 的路徑）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算從 Browse 的預期步數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從 <em>Browse</em> 起算、到 Exit 之前的預期剩餘轉移數最接近：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3.82</text><feedback><text>正確——解 0.5&#183;E[Browse] = 1 + 0.3&#183;E[Cart] 得 E[Browse] &#8776; 3.82。</text></feedback></answer>
+    <answer fraction="0"><text>2.00</text><feedback><text>不對——2.00 忽略了 Cart 的貢獻；自迴圈與 addToCart 把它拉高到 3.82。</text></feedback></answer>
+    <answer fraction="0"><text>3.03</text><feedback><text>不對——3.03 是 E[Cart]；E[Browse] 略大。</text></feedback></answer>
+    <answer fraction="0"><text>4.05</text><feedback><text>不對——4.05 是 E[Home]。</text></feedback></answer>
+    <generalfeedback><text>E[Browse] = 1 + 0.5&#183;E[Browse] + 0.3&#183;E[Cart]，故 0.5&#183;E[Browse] = 1 + 0.3&#183;3.03，得 E[Browse] &#8776; 3.82。viewMore 自迴圈使它膨脹。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>曾抵達 Cart 的機率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在整條漫步中（含 Browse 自迴圈），一個工作階段曾抵達 <em>Cart</em> 的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.48</text><feedback><text>正確——0.8 &#215; 0.6 = 0.48，其中 0.6 是最終經 addToCart 離開 Browse 的機率。</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>不對——0.24 只是兩步路徑；Browse 自迴圈提供了額外抵達 Cart 的機會。</text></feedback></answer>
+    <answer fraction="0"><text>0.30</text><feedback><text>不對——0.30 只是 addToCart 邊的機率，忽略了抵達並在 Browse 中迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>0.60</text><feedback><text>不對——0.60 是「已在 Browse」時抵達 Cart 的機率；還要乘 0.8 先抵達 Browse。</text></feedback></answer>
+    <generalfeedback><text>從 Browse 起，P(抵達 Cart) = g，其中 g = 0.5g + 0.3，故 g = 0.6（自迴圈不斷提供 0.3 對 0.2 的抉擇）。先抵達 Browse 的機率是 0.8，故 P(抵達 Cart) = 0.8 &#215; 0.6 = 0.48。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>抵達 Checkout 的機率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一條生成漫步抵達 <em>Checkout</em>（即該工作階段的轉換機率）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>約 0.316（31.6%）</text><feedback><text>正確——進入 Checkout 的唯一途徑是 Cart 到 Checkout，其整體機率約為 0.316。</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>不對——0.50 是 Cart 到 Checkout 這條邊；還必須先抵達 Cart，使總機率降到 0.316。</text></feedback></answer>
+    <answer fraction="0"><text>0.48</text><feedback><text>不對——0.48 是抵達 Cart 的機率；其中只有一半會續往 Checkout。</text></feedback></answer>
+    <answer fraction="0"><text>0.12</text><feedback><text>不對——0.12 是一條特定購買路徑；其他（含迴圈的）路徑也會抵達 Checkout，合計為 0.316。</text></feedback></answer>
+    <generalfeedback><text>P(抵達 Checkout) = P(抵達 Cart) &#215; P(最終從 Cart 走 checkout)。解 f(Cart) = 0.5 + 0.4&#183;f(Browse)、f(Browse) = 0.6&#183;f(Cart) 得 f(Home) &#8776; 0.316。這也等於觸發缺陷邊的工作階段比例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算依使用加權的可靠度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當且僅當漫步觸發 Cart 到 Checkout 時測試才失敗。此模型真實的依使用加權可靠度（漫步<em>未</em>觸發它的機率）是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>約 0.684（68.4%）</text><feedback><text>正確——1 &#8722; P(觸發 Cart 到 Checkout) = 1 &#8722; 0.316 &#8776; 0.684。</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>不對——0.50 只是 checkout 邊的機率，不是整體通過率。</text></feedback></answer>
+    <answer fraction="0"><text>0.90</text><feedback><text>不對——那高估了可靠度；約 31.6% 的漫步會觸發缺陷邊。</text></feedback></answer>
+    <answer fraction="0"><text>0.316</text><feedback><text>不對——0.316 是失敗機率；可靠度是其補數 0.684。</text></feedback></answer>
+    <generalfeedback><text>觸發缺陷邊 Cart 到 Checkout 的機率約 0.316，故依使用加權的可靠度為 1 &#8722; 0.316 &#8776; 0.684。單次執行顯示的估計會在此值附近波動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含一次瀏覽迴圈的路徑機率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>漫步 Home &#8594; Browse &#8594; Browse &#8594; Cart &#8594; Checkout &#8594; Exit（加入 cart 前先 viewMore 一次）的機率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.06</text><feedback><text>正確——0.80 &#215; 0.50 &#215; 0.30 &#215; 0.50 &#215; 1.00 = 0.06。</text></feedback></answer>
+    <answer fraction="0"><text>0.12</text><feedback><text>不對——0.12 是沒有額外 viewMore 迴圈的漫步；該迴圈要再乘 0.50。</text></feedback></answer>
+    <answer fraction="0"><text>0.03</text><feedback><text>不對——乘積是 0.06，不是 0.03。</text></feedback></answer>
+    <answer fraction="0"><text>0.024</text><feedback><text>不對——0.024 是 abandon 漫步，是不同的路徑。</text></feedback></answer>
+    <generalfeedback><text>0.80（browse）&#215; 0.50（viewMore）&#215; 0.30（addToCart）&#215; 0.50（checkout）&#215; 1.00（pay）= 0.06——恰為無迴圈購買路徑（0.12）的一半，因為多出的 viewMore 步驟帶來 0.50 的因子。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何預期長度不是單純計數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼預期測試長度（4.05）不就是模型中的狀態數或邊數？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Browse 自迴圈讓漫步能重訪狀態，故長度是機率加權的平均，可超過任一單一路徑的步數</text><feedback><text>正確——迴圈與分支使長度成為加權期望，而非固定計數。</text></feedback></answer>
+    <answer fraction="0"><text>因為機率不總和為 1，計數被縮小了</text><feedback><text>不對——機率確實總和為 1；原因是迴圈與分支，不是縮放。</text></feedback></answer>
+    <answer fraction="0"><text>因為每條漫步恰好各造訪五個狀態一次</text><feedback><text>不對——多數漫步略過某些狀態，有些會重訪 Browse；造訪並不均勻。</text></feedback></answer>
+    <answer fraction="0"><text>因為預期長度忽略了終止狀態</text><feedback><text>不對——遞迴已納入抵達 Exit；驅動因素是迴圈結構。</text></feedback></answer>
+    <generalfeedback><text>不同漫步長度不同，而 viewMore 自迴圈可任意延長一條漫步。預期長度是對所有這些漫步取機率加權平均（E[Home] &#8776; 4.05），因此不是簡單的狀態或邊計數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算信賴區間半寬</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器回報 95% 區間為 &#177;1.96&#183;&#8730;(r(1&#8722;r)/n)。若一次 n = 100 條測試的執行得可靠度 r = 0.50，半寬最接近：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>&#177;9.8%</text><feedback><text>正確——1.96 &#215; &#8730;(0.25/100) = 1.96 &#215; 0.05 = 0.098。</text></feedback></answer>
+    <answer fraction="0"><text>&#177;1.96%</text><feedback><text>不對——那漏掉 &#8730;(r(1&#8722;r)/n) 因子；半寬是 0.098。</text></feedback></answer>
+    <answer fraction="0"><text>&#177;0.5%</text><feedback><text>不對——0.5% 需要遠更大的 n；此處是 9.8%。</text></feedback></answer>
+    <answer fraction="0"><text>&#177;25%</text><feedback><text>不對——0.25 是 r(1&#8722;r)，不是區間；還要除以 n 再開根號。</text></feedback></answer>
+    <generalfeedback><text>半寬 = 1.96 &#215; &#8730;(r(1&#8722;r)/n) = 1.96 &#215; &#8730;(0.5&#183;0.5/100) = 1.96 &#215; 0.05 = 0.098，即 &#177;9.8%。當 r = 0.5 時估計最寬。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>要多少測試才能把區間減半</text></name>
+    <questiontext format="html"><text><![CDATA[<p>信賴區間隨 1/&#8730;n 縮放。從 50 條測試的按鈕改到哪個數量，大約可把區間半寬減半？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>200 條測試（四倍）</text><feedback><text>正確——把 1/&#8730;n 減半需要 4&#215; 的樣本，故 50 到 200。</text></feedback></answer>
+    <answer fraction="0"><text>100 條測試（兩倍）</text><feedback><text>不對——n 加倍只把區間縮為 1/&#8730;2 &#8776; 0.71，並非一半。</text></feedback></answer>
+    <answer fraction="0"><text>75 條測試</text><feedback><text>不對——那幾乎不改變區間；需要 4&#215; 的樣本。</text></feedback></answer>
+    <answer fraction="0"><text>1000 條測試</text><feedback><text>不對——1000 會把它縮為約 1/&#8730;20；若只要減半，200 就夠。</text></feedback></answer>
+    <generalfeedback><text>由於半寬正比於 1/&#8730;n，要減半就得把 n 變四倍。探索器的 50 與 200 按鈕剛好差 4&#215;，故 200 條測試的區間約為 50 條的一半。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何優先常見路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼以使用加權的測試刻意優先常見路徑而非罕見路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>常見路徑上的失敗影響最多使用者，故最重測它們可最大化交付的可靠度</text><feedback><text>正確——心力隨使用而行，可靠度估計便貼合使用者體驗。</text></feedback></answer>
+    <answer fraction="0"><text>常見路徑總是最難正確實作</text><feedback><text>不對——難度無關；理由是使用者影響與實地可靠度。</text></feedback></answer>
+    <answer fraction="0"><text>罕見路徑絕不可能含有缺陷</text><feedback><text>不對——罕見路徑也可能有缺陷，那正是本 app 警示的罕見卻高風險缺口。</text></feedback></answer>
+    <answer fraction="0"><text>它保證模型完整的路徑涵蓋</text><feedback><text>不對——它不保證涵蓋；它針對的是使用加權的可靠度。</text></feedback></answer>
+    <generalfeedback><text>重度使用路徑上的缺陷會使許多工作階段失敗，而少用路徑上的缺陷只影響少數。依使用加權把心力集中在失敗最傷之處，故量測到的可靠度反映真實使用者體驗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>罕見卻高風險的缺口</text></name>
+    <questiontext format="html"><text><![CDATA[<p>abandon 邊（p = 0.10）被取樣不足。若這條罕見路徑同時攸關安全，正確的因應是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以風險導向測試補強使用導向測試，強制涵蓋這條罕見卻高風險的路徑</text><feedback><text>正確——使用加權不理會風險，故對高風險罕見路徑要加上風險導向測試。</text></feedback></answer>
+    <answer fraction="0"><text>只靠統計執行即可，因為它已涵蓋一切</text><feedback><text>不對——它會對罕見邊取樣不足，關鍵的罕見路徑可能未被測到。</text></feedback></answer>
+    <answer fraction="0"><text>把 abandon 轉移從模型中刪除</text><feedback><text>不對——該轉移是真實行為，移除會讓模型錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>調高 abandon 機率好讓它被多取樣</text><feedback><text>不對——竄改操作 profile 會扭曲可靠度估計。</text></feedback></answer>
+    <generalfeedback><text>使用加權依頻率而非風險分配心力。罕見卻高風險的路徑，需在統計執行之外另加明確的風險導向測試——這正是探索器橋接到風險導向測試檢視的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>統計最操練哪條轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>大量執行後，涵蓋統計會最重度操練到哪條轉移？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Browse 到 Browse（viewMore）——自迴圈會重複，且 Browse 在主要路徑上</text><feedback><text>正確——每條漫步平均約觸發自迴圈 1.05 次，是所有邊中最高的。</text></feedback></answer>
+    <answer fraction="0"><text>Cart 到 Exit（abandon）</text><feedback><text>不對——abandon 是最罕見的邊（每條漫步約 0.06 次），操練最少。</text></feedback></answer>
+    <answer fraction="0"><text>Checkout 到 Exit（pay）</text><feedback><text>不對——pay 只在約 31.6% 的漫步被走到，遠少於 Browse 自迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>Cart 到 Checkout（checkout）</text><feedback><text>不對——缺陷邊在約 31.6% 的漫步被觸發，遠低於自迴圈的平均次數。</text></feedback></answer>
+    <generalfeedback><text>Browse 每條漫步平均被造訪約 2.1 次，且以 0.5 的機率走自迴圈，故 viewMore 每條漫步平均約觸發 1.05 次——多於任何其他邊。abandon 邊每條漫步約 0.06 次，操練最少。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>profile 估錯的影響</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設真實使用者放棄的比例遠高於模型假設（真實 Cart 到 Exit 更高、Cart 到 Checkout 更低）。相較於現實，探索器的可靠度估計會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有偏差：因為模型過度加權缺陷 checkout 邊，它低估了真實使用者體驗到的可靠度</text><feedback><text>正確——錯的 profile 會使使用加權可靠度偏差；此處模型觸發缺陷的頻率高於現實。</text></feedback></answer>
+    <answer fraction="0"><text>不受影響，因為可靠度與 profile 無關</text><feedback><text>不對——使用加權可靠度完全取決於轉移機率。</text></feedback></answer>
+    <answer fraction="0"><text>完全正確，因為這條鏈是馬可夫鏈</text><feedback><text>不對——是馬可夫鏈並不會讓錯的 profile 變準；數字必須貼合真實使用。</text></feedback></answer>
+    <answer fraction="0"><text>不論哪條邊錯，都永遠高於現實</text><feedback><text>不對——偏差方向取決於機率往哪個方向錯。</text></feedback></answer>
+    <generalfeedback><text>可靠度估計的好壞取決於操作 profile。若模型相對真實放棄率過度加權缺陷 Cart 到 Checkout 邊，它觸發缺陷的頻率會高於真實使用者，使估計偏差。錯的 profile 可能低估或高估可靠度，並可能讓真正常見的缺陷被測試不足。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何可靠度等於一減轉換率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>此模型中，依使用加權的可靠度（&#8776;0.684）剛好是 1 減去轉換機率（&#8776;0.316）。為什麼這兩個數會一致？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷位於 Cart 到 Checkout，也就是進入 Checkout 的唯一邊，故漫步失敗當且僅當它完成轉換</text><feedback><text>正確——觸發缺陷邊與抵達 Checkout 是同一事件，故失敗機率等於轉換率。</text></feedback></answer>
+    <answer fraction="0"><text>純屬巧合，並無結構性原因</text><feedback><text>不對——這是結構性的：缺陷邊恰好是進入 Checkout 的唯一入口。</text></feedback></answer>
+    <answer fraction="0"><text>因為 pay 邊（Checkout 到 Exit）也有缺陷</text><feedback><text>不對——只有 Cart 到 Checkout 有缺陷；pay 沒有。</text></feedback></answer>
+    <answer fraction="0"><text>因為每條漫步最終都會抵達 Checkout</text><feedback><text>不對——只有約 31.6% 的漫步抵達 Checkout，其餘會提早離開並通過。</text></feedback></answer>
+    <generalfeedback><text>Cart 到 Checkout 既是進入 Checkout 的唯一途徑，也是缺陷邊，故「觸發缺陷」、「抵達 Checkout」與「完成轉換」是同一事件。因此失敗機率 = 轉換率 &#8776; 0.316，可靠度 = 1 &#8722; 0.316 &#8776; 0.684。</text></generalfeedback>
+  </question>
+</quiz>

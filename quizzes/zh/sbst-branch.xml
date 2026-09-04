@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SBST Branch Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>SBST 代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>SBST</strong> 代表什麼？其核心概念為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>搜尋式軟體測試（Search-Based Software Testing）——把測試輸入的產生視為一個由適應度函數引導、以元啟發式求解的搜尋（最佳化）問題</text><feedback><text>正確——SBST 在輸入空間中搜尋能達成測試目標的輸入，由適應度引導。</text></feedback></answer>
+    <answer fraction="0"><text>靜態二進位符號追蹤——對編譯後的二進位檔進行符號執行</text><feedback><text>那描述的是二進位檔的符號執行，不是 SBST。</text></feedback></answer>
+    <answer fraction="0"><text>結構化行為規格測試——從形式規格推導測試</text><feedback><text>SBST 是在輸入空間中搜尋，而非從規格推導。</text></feedback></answer>
+    <answer fraction="0"><text>語句式套件調校——重新排序語句以提高覆蓋率</text><feedback><text>SBST 以搜尋產生輸入，並不重排程式語句。</text></feedback></answer>
+    <generalfeedback><text>搜尋式軟體測試把測試產生重新表述為最佳化：適應度函數評分某個候選輸入距離目標（例如覆蓋某個分支）有多近，再由元啟發式——此處是遺傳演算法——在輸入空間中搜尋能達成目標的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是適應度函數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 SBST 中，什麼是<strong>適應度函數（fitness function）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個以數值衡量候選輸入距離達成測試目標有多近的度量，搜尋要將它最小化（0 代表已達成目標）</text><feedback><text>正確——適應度把「有沒有達成目標」轉成搜尋可下降的平滑數值。</text></feedback></answer>
+    <answer fraction="0"><text>程式對每個輸入的確切期望輸出</text><feedback><text>適應度評分距離覆蓋目標有多近，並非期望輸出的斷言器。</text></feedback></answer>
+    <answer fraction="0"><text>目前套件中測試案例的數量</text><feedback><text>那是套件大小的指標，不是作用於輸入的適應度函數。</text></feedback></answer>
+    <answer fraction="0"><text>用來讓搜尋可重現的隨機種子</text><feedback><text>種子驅動亂數產生器；適應度函數才是評分候選者的。</text></feedback></answer>
+    <generalfeedback><text>適應度函數是 SBST 的核心。在本程式中它是 cost = 進入層級 + 正規化分支距離，cost 越低代表候選輸入越接近覆蓋目標分支，cost 為 0 表示分支已被覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>cost 為 0 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本探索器中，輸入的適應度以其 <strong>cost（成本）</strong> 顯示。cost 為 <code>0</code> 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該輸入覆蓋了目標分支——搜尋目標已達成</text><feedback><text>正確——cost 為 0 正是「已覆蓋」的條件，並會出現「分支已覆蓋」橫幅。</text></feedback></answer>
+    <answer fraction="0"><text>該輸入從未被程式執行</text><feedback><text>未被執行的決策會給出很大（最差）的 cost，而非 0。</text></feedback></answer>
+    <answer fraction="0"><text>該輸入距離目標是可能中最遠的</text><feedback><text>正好相反：0 是可能中最佳的 cost，而非最差。</text></feedback></answer>
+    <answer fraction="0"><text>世代編號歸零了</text><feedback><text>cost 衡量的是距離分支的遠近，不是世代計數。</text></feedback></answer>
+    <generalfeedback><text>cost 的定義使得 cost === 0 當且僅當該輸入覆蓋目標分支。搜尋將 cost 最小化並驅使它趨近 0；任何非零值都告訴你該輸入距分支還有多遠。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是分支距離</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>分支距離（branch distance）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>衡量某個決策的運算元距離使謂詞為真有多遠（已為真時為 0）的度量</text><feedback><text>正確——分支距離量化一個條件距離翻轉成所要結果有多近。</text></feedback></answer>
+    <answer fraction="0"><text>程式進入點與目標之間所隔的分支數目</text><feedback><text>那較接近路徑長度；分支距離講的是單一決策的運算元。</text></feedback></answer>
+    <answer fraction="0"><text>兩個分支之間在原始碼行數上的實際距離</text><feedback><text>分支距離關乎謂詞的數值，而非原始碼行的位置。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法已執行的世代數</text><feedback><text>那是世代計數，不是分支距離。</text></feedback></answer>
+    <generalfeedback><text>對於像 a == b 或 y &gt; 100 的決策，分支距離採用標準的 Korel/Tracey 公式：等式為 |a - b|，而 y &gt; 100 在測試為假時為 (100 - y) + 1。當謂詞已為真時恰為 0。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>分支距離越小越接近</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>較小</strong>的分支距離代表該輸入<strong>較接近</strong>滿足謂詞。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——分支距離會隨謂詞趨近成真而縮小到 0。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>較小的分支距離的確代表較接近；0 表示謂詞已為真。</text></feedback></answer>
+    <generalfeedback><text>分支距離是一種「距離為真有多遠」的度量：越小代表運算元越接近滿足謂詞，0 代表已滿足。正是這種單調意義讓搜尋能把它當成梯度來跟隨。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是進入層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相對於一個巢狀目標分支，候選輸入的<strong>進入層級（approach level）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在控制流從通往目標的路徑分岔之處，目標的外圍守衛謂詞中仍未被滿足的數目</text><feedback><text>正確——進入層級計算還有幾層控制相依的巢狀尚未被滿足。</text></feedback></answer>
+    <answer fraction="0"><text>目前遺傳演算法族群中的輸入個數</text><feedback><text>那是族群大小，不是進入層級。</text></feedback></answer>
+    <answer fraction="0"><text>目前為止已覆蓋分支的百分比</text><feedback><text>那是覆蓋率數字；進入層級計算的是尚未滿足的外圍守衛。</text></feedback></answer>
+    <answer fraction="0"><text>兩個運算元之間的絕對差</text><feedback><text>那是等式的分支距離，不是進入層級。</text></feedback></answer>
+    <generalfeedback><text>進入層級計算在分岔點與目標之間，有幾個巢狀守衛沒有以正確方向被取用。在巢狀條件守衛範例中，x 錯誤（未滿足 x === 17）的輸入其進入層級為 1，因為它根本沒到達內層的 y &gt; 100 守衛。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何引導式搜尋勝過隨機</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何<strong>由適應度引導</strong>的搜尋能比<strong>隨機</strong>搜尋更快到達一個困難分支？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>適應度函數提供回饋，告訴搜尋哪些輸入「越來越接近」，因而能把新候選導向目標；隨機搜尋沒有這種回饋</text><feedback><text>正確——引導把盲目的抽獎變成有方向的下降。</text></feedback></answer>
+    <answer fraction="0"><text>引導式搜尋評估每個輸入的速度遠比隨機搜尋快</text><feedback><text>每次評估的速度相近；優勢在於方向，而非原始速度。</text></feedback></answer>
+    <answer fraction="0"><text>引導式搜尋被允許使用大得多的評估預算</text><feedback><text>此處兩者用相同預算；差別在於是否運用回饋。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋根本無法覆蓋任何分支</text><feedback><text>隨機搜尋能覆蓋容易的分支；它只是難以應付罕見、深巢狀的分支。</text></feedback></answer>
+    <generalfeedback><text>隨機搜尋各自獨立取樣，對「哪個較接近」毫無記憶。由適應度引導的搜尋會讀取分支距離與進入層級，保留最佳候選並讓新候選偏向它們，因而能收斂到隨機取樣幾乎不可能靠運氣命中的罕見目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分支搜尋分頁採用哪種元啟發式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>此分支搜尋分頁執行哪種元啟發式來到達目標分支？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>遺傳演算法——以選擇、交配、突變與菁英保留演化一整個輸入向量族群</text><feedback><text>正確——此分頁執行以族群為基礎的遺傳演算法。</text></feedback></answer>
+    <answer fraction="0"><text>在控制流圖上的廣度優先搜尋</text><feedback><text>SBST 以元啟發式搜尋輸入空間，而非以 BFS 搜尋 CFG。</text></feedback></answer>
+    <answer fraction="0"><text>窮舉列舉每一個可能的輸入</text><feedback><text>SBST 的重點正是以引導式搜尋避免窮舉列舉。</text></feedback></answer>
+    <answer fraction="0"><text>使用程式解析導數的梯度下降</text><feedback><text>程式不可微分；遺傳演算法在沒有導數的情況下跟隨適應度地景。</text></feedback></answer>
+    <generalfeedback><text>分支分頁以遺傳演算法（錦標賽選擇、單點交配、逐分量突變與菁英保留）演化候選輸入族群，用適應度（cost）為每個評分，並與隨機搜尋基準相比較。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>預設的範例程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器首次載入時，選取的是哪個範例程式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「巢狀條件守衛」——classify(x, y)，帶有一個外層守衛與一個巢狀目標分支</text><feedback><text>正確——巢狀條件守衛是第一個（預設）範例晶片。</text></feedback></answer>
+    <answer fraction="0"><text>「三角形分類器」——classify(a, b, c)</text><feedback><text>三角形是可選範例，但不是預設。</text></feedback></answer>
+    <answer fraction="0"><text>「多峰函數（mod 20）」——check(x)</text><feedback><text>多峰函數是可選範例，但不是最先顯示的那個。</text></feedback></answer>
+    <answer fraction="0"><text>「二分搜尋」——search(arr, key)</text><feedback><text>此探索器中並沒有二分搜尋範例。</text></feedback></answer>
+    <generalfeedback><text>探索器以巢狀條件守衛範例 classify(x, y) 開場：外層守衛 x === 17 包住目標分支 y &gt; 100。你可透過範例晶片切換到三角形分類器或多峰函數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀條件守衛中的目標分支</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在巢狀條件守衛範例中，目標行以箭頭標示。哪一個謂詞是目標分支？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>內層巢狀條件 y &gt; 100</text><feedback><text>正確——目標是內層分支 y &gt; 100，以為真取用。</text></feedback></answer>
+    <answer fraction="0"><text>外層條件 x === 17</text><feedback><text>x === 17 是外圍守衛，並非被標示的目標本身。</text></feedback></answer>
+    <answer fraction="0"><text>最後的 return "none"</text><feedback><text>那是落空分支，不是目標分支。</text></feedback></answer>
+    <answer fraction="0"><text>函式標頭 classify(x, y)</text><feedback><text>標頭不是分支；目標是內層 if。</text></feedback></answer>
+    <generalfeedback><text>程式碼面板會突顯以箭頭標示的那一行：內層 if (y &gt; 100)。要以為真覆蓋它，輸入必須先通過外層守衛 x === 17，再滿足 y &gt; 100。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>到達目標所需的外層守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在巢狀條件守衛範例中，控制流要能夠到達目標分支的守衛，哪個條件必須先成立？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x === 17</text><feedback><text>正確——內層 if 巢狀於 if (x === 17) 之中，所以 x 必須先等於 17。</text></feedback></answer>
+    <answer fraction="0"><text>y &gt; 100</text><feedback><text>那是目標本身；外圍守衛是 x === 17。</text></feedback></answer>
+    <answer fraction="0"><text>x &gt; 17</text><feedback><text>守衛是精確等式 x === 17，而非不等式。</text></feedback></answer>
+    <answer fraction="0"><text>y === 100</text><feedback><text>外圍守衛作用在 x 上，而非 y。</text></feedback></answer>
+    <generalfeedback><text>目標 y &gt; 100 位於 if (x === 17) 之內。x 不等於 17 的輸入永遠到不了內層決策，這正是這類輸入帶有進入層級 1 的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等式的分支距離</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於決策 <code>a == b</code>，要使它為<strong>真</strong>的分支距離如何計算？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>|a - b|——兩運算元的絕對差</text><feedback><text>正確——等式距離是絕對差距，當 a 等於 b 時恰為 0。</text></feedback></answer>
+    <answer fraction="0"><text>a + b</text><feedback><text>當兩運算元趨於相等時，總和並不會縮小到 0。</text></feedback></answer>
+    <answer fraction="0"><text>a 不等於 b 時為 1，否則為 0</text><feedback><text>那是平坦的 0/1 距離；等式改用有分級的 |a - b|。</text></feedback></answer>
+    <answer fraction="0"><text>a * b</text><feedback><text>乘積與 a、b 有多接近無關。</text></feedback></answer>
+    <generalfeedback><text>等式採用分支距離 |a - b|。因為它隨差距平滑分級，搜尋便能看到一道斜坡：當候選的 a 趨近 b，距離降向 0，引導遺傳演算法去滿足該等式。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>已覆蓋橫幅與 cost 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「分支已覆蓋」橫幅恰好在搜尋找到一個 cost 為 <code>0</code> 的輸入時出現。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——「已覆蓋」的定義即最佳 cost === 0，並會觸發橫幅。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>橫幅與 cost 0 綁定；覆蓋的輸入正是 cost 為 0 者。</text></feedback></answer>
+    <generalfeedback><text>當畫面中最佳 cost 達到 0，即找到一個取用目標分支的輸入時，族群面板會顯示「分支已覆蓋」橫幅。在此之前，最佳 cost 維持為正。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隨機基準面板顯示什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>隨機基準</strong>面板顯示什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機搜尋所達到的最佳 cost，以及隨機搜尋是否覆蓋了該分支</text><feedback><text>正確——它摘要隨機搜尋基準以供並排比較。</text></feedback></answer>
+    <answer fraction="0"><text>目標函式的原始碼</text><feedback><text>那是程式碼面板；隨機面板顯示隨機搜尋的結果。</text></feedback></answer>
+    <answer fraction="0"><text>目前遺傳演算法世代的族群</text><feedback><text>那是族群面板；隨機面板是基準摘要。</text></feedback></answer>
+    <answer fraction="0"><text>範例的原始碼行數</text><feedback><text>隨機面板顯示的是最佳 cost 與是否覆蓋，而非行數。</text></feedback></answer>
+    <generalfeedback><text>探索器在遺傳演算法之外，也用相同範例與預算執行隨機搜尋基準；隨機基準面板顯示其最佳 cost 與是否覆蓋分支——通常沒有覆蓋，這正是比較的重點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有多少個範例程式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>透過探索器頂端的晶片，你可以在幾個範例程式之間選擇？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>三個——巢狀條件守衛、三角形分類器，以及多峰函數（mod 20）</text><feedback><text>正確——共提供三個範例晶片。</text></feedback></answer>
+    <answer fraction="0"><text>一個——只有巢狀條件守衛</text><feedback><text>有三個範例，不是一個。</text></feedback></answer>
+    <answer fraction="0"><text>兩個——巢狀條件守衛與三角形分類器</text><feedback><text>還有第三個，即多峰函數範例。</text></feedback></answer>
+    <answer fraction="0"><text>五個</text><feedback><text>探索器提供三個範例程式。</text></feedback></answer>
+    <generalfeedback><text>晶片讓你在三個目標之間切換：巢狀條件守衛（classify(x, y)）、三角形分類器（等邊），以及多峰函數（x % 20 == 7 之後 x &gt; 50）。每個都有不同的適應度地景。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Branch Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何遺傳演算法更快覆蓋巢狀分支</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何遺傳演算法覆蓋巢狀目標分支的速度遠比隨機搜尋<strong>快</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>遺傳演算法沿著適應度梯度前進——分支距離與進入層級引導每一代的後代更接近目標</text><feedback><text>正確——適應度地景給了遺傳演算法可下降的方向；隨機搜尋沒有。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法只是碰巧幸運；平均而言兩種策略的評估次數相同</text><feedback><text>不是運氣——這種引導系統性地降低了期望所需工作量。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法探索更大的搜尋空間，因此統計上更可能偶然找到目標</text><feedback><text>兩者搜尋相同空間；遺傳演算法靠方向取勝，而非盲目地覆蓋更多地方。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法每代都重設為隨機個體，因而比隨機搜尋有更多全新嘗試</text><feedback><text>遺傳演算法會把最佳者帶往下一代（菁英保留）；它不會每代丟棄進度。</text></feedback></answer>
+    <generalfeedback><text>適應度函數讓「距離分支較近」變得可量測，因而選擇與突變能把族群沿梯度往下推——先趨近外層守衛，再趨近內層謂詞。隨機搜尋沒有梯度可循，只能靠機率命中罕見目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分支距離如何引導趨近 x === 17</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在巢狀條件守衛中，分支距離如何幫助遺傳演算法滿足外層守衛 <code>x === 17</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>距離 |x - 17| 隨 x 趨近 17 而縮小，形成一道斜坡，讓選擇與突變能沿它前往那個確切值</text><feedback><text>正確——有分級的等式距離把「精確命中 17」變成一座可往下走的山。</text></feedback></answer>
+    <answer fraction="0"><text>等式沒有梯度，所以分支距離在這裡毫無幫助</text><feedback><text>等式距離是 |x - 17|，它是有分級的、非平坦的——確實提供斜坡。</text></feedback></answer>
+    <answer fraction="0"><text>它獎勵 |x - 17| 最大的輸入，把 x 推離 17</text><feedback><text>搜尋要最小化距離，因此偏好較小的 |x - 17|，把 x 移向 17。</text></feedback></answer>
+    <answer fraction="0"><text>它完全忽略 x，只看 y</text><feedback><text>在 x === 17 成立之前，適應度由 x 的距離主導，而非 y。</text></feedback></answer>
+    <generalfeedback><text>因為等式採用 |x - 17|，x = 15 的個體其距離比 x = 3 者小，所以遺傳演算法會偏好它並在其周圍突變。一步步地，族群被拉向 x = 17，之後由內層謂詞接手。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何隨機搜尋很少覆蓋巢狀條件守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何隨機搜尋在其預算內很少能覆蓋巢狀條件守衛的目標？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每次盲目取樣必須同時精確命中 x === 17 且 y &gt; 100，機率既低又固定，且各次取樣之間沒有學習</text><feedback><text>正確——精確等式使得每次獨立抽樣都極不可能落在目標上。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋錯誤地評估輸入，因此它的 cost 沒有意義</text><feedback><text>它使用相同的適應度；問題在於缺乏引導，而非評估錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋被給予遠比遺傳演算法少的評估次數</text><feedback><text>兩者用相同預算；隨機搜尋只是盲目取樣而浪費了它。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋總是重複挑選同一個輸入</text><feedback><text>它每次都抽全新輸入；問題在於沒有任何一個被導向目標。</text></feedback></answer>
+    <generalfeedback><text>要覆蓋分支，輸入需要 x 恰為 17（x 於 [0, 50] 中約 51 分之 1）且同時 y &gt; 100（y 於 [0, 200] 中約一半）——每次抽樣約百分之一的機率，且各次獨立。遺傳演算法則跨世代累積進度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>較小 cost 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某候選的 <strong>cost</strong> 比另一個小。這告訴你什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它較接近覆蓋目標——未滿足的外圍守衛較少，且/或謂詞較接近成真</text><feedback><text>正確——cost 越低代表越接近目標，這正是搜尋所要最小化的。</text></feedback></answer>
+    <answer fraction="0"><text>它讓程式跑得更快</text><feedback><text>cost 關乎距離分支的遠近，與執行時間無關。</text></feedback></answer>
+    <answer fraction="0"><text>它是在較早的世代產生的</text><feedback><text>cost 與哪個世代產生該輸入無關。</text></feedback></answer>
+    <answer fraction="0"><text>它使用較少的輸入變數</text><feedback><text>cost 衡量趨向目標的適應度，而非變數的數量。</text></feedback></answer>
+    <generalfeedback><text>cost = 進入層級 + 正規化分支距離，因此較小的 cost 代表候選較接近目標分支。遺傳演算法保留 cost 最低的個體，並致力把最佳 cost 往下推向 0。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀介於 1 與 2 的 cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在巢狀條件守衛中，某候選的 cost 介於 <code>1</code> 與 <code>2</code> 之間。這告訴你關於它的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它仍未通過外層守衛 x === 17（進入層級 1），因此連內層謂詞都還沒到達</text><feedback><text>正確——整數部分 1 是進入層級；小數部分是 x 上的正規化距離。</text></feedback></answer>
+    <answer fraction="0"><text>它覆蓋了分支，只是餘裕很小</text><feedback><text>覆蓋的輸入其 cost 為 0，不會介於 1 與 2 之間。</text></feedback></answer>
+    <answer fraction="0"><text>它滿足 x === 17 且在 y 上很接近</text><feedback><text>一旦 x === 17 成立，進入層級為 0，cost 會低於 1。</text></feedback></answer>
+    <answer fraction="0"><text>它根本沒有執行</text><feedback><text>未到達的決策會把 cost 推向最差值；此處進入層級 1 只是表示 x 還不是 17。</text></feedback></answer>
+    <generalfeedback><text>cost 的整數部分即進入層級。介於 1 與 2 之間表示進入層級 1（x 不是 17）加上衡量 |x - 17| 的正規化分支距離（位於 [0, 1)）。該候選尚未到達內層 y &gt; 100 守衛。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀低於 1 的 cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在巢狀條件守衛中，某候選的 cost 低於 <code>1</code> 但不為 <code>0</code>。這告訴你什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>外層守衛 x === 17 已成立（進入層級 0）；只剩內層謂詞 y &gt; 100 尚未滿足</text><feedback><text>正確——進入層級 0 使 cost 上限低於 1，故小數值就是內層分支距離。</text></feedback></answer>
+    <answer fraction="0"><text>該輸入仍未通過 x === 17</text><feedback><text>未通過外層守衛會給出進入層級 1、cost 至少為 1。</text></feedback></answer>
+    <answer fraction="0"><text>分支已被覆蓋</text><feedback><text>已覆蓋代表 cost 恰為 0；低於 1 但非零代表很接近但尚未到達。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法已耗盡預算</text><feedback><text>cost 描述的是候選本身，而非剩餘預算。</text></feedback></answer>
+    <generalfeedback><text>當 x === 17 成立時，進入層級降為 0，因此 cost 等於 y &gt; 100 的正規化分支距離，落在 [0, 1) 之間。像 0.5 這樣的值代表輸入已到達內層守衛，只需把 y 推到 100 以上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：進入層級與其角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一組「術語對角色」的配對是<strong>正確</strong>的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>進入層級 = 未滿足的外圍守衛數目；分支距離 = 分岔處謂詞距離翻轉有多近</text><feedback><text>正確——進入層級是粗略的巢狀計數；分支距離是層內的精細度量。</text></feedback></answer>
+    <answer fraction="0"><text>進入層級 = 謂詞距離翻轉有多近；分支距離 = 未滿足的守衛數目</text><feedback><text>這兩個角色被對調了。</text></feedback></answer>
+    <answer fraction="0"><text>進入層級 = 輸入在族群中的適應度排名；分支距離 = 世代索引</text><feedback><text>兩者角色皆不正確；它們描述的是與目標的關係，而非排名或索引。</text></feedback></answer>
+    <answer fraction="0"><text>進入層級 = 落在 [0, 1) 的正規化值；分支距離 = 守衛數目的整數計數</text><feedback><text>正好相反：分支距離被正規化到 [0, 1)；進入層級才是整數計數。</text></feedback></answer>
+    <generalfeedback><text>進入層級計算通往目標途中有幾個外圍守衛沒被正確取用；分支距離衡量分岔點的謂詞距離翻轉有多近。cost 以「進入層級 + 正規化分支距離」把兩者結合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何把分支距離正規化到 [0, 1)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何在把分支距離加到進入層級之前，先把它<strong>正規化</strong>到 <code>[0, 1)</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>如此它永遠無法蓋過一整個進入層級單位——進入層級主導排序，分支距離只在同一層內作為平手判定</text><feedback><text>正確——正規化讓層級計數作為主鍵、距離作為判定依據。</text></feedback></answer>
+    <answer fraction="0"><text>如此 cost 才能以百分比顯示</text><feedback><text>正規化是為了排序，而非顯示單位。</text></feedback></answer>
+    <answer fraction="0"><text>如此隨機搜尋與遺傳演算法才能共用同一個種子</text><feedback><text>種子與分支距離的正規化無關。</text></feedback></answer>
+    <answer fraction="0"><text>如此分支距離才會變成整數</text><feedback><text>正規化把它映射成 [0, 1) 的分數，而非整數。</text></feedback></answer>
+    <generalfeedback><text>以 d / (d + 1) 正規化距離會使它嚴格小於 1。於是把進入層級降低一級，總是比任何分支距離的變化更能降低 cost，因此「巢狀更近一層」永遠排得比僅僅推動一個謂詞更前面。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>菁英保留與選擇的作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此遺傳演算法中，<strong>菁英保留</strong>與<strong>錦標賽選擇</strong>貢獻了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們保存並繁衍 cost 最低的個體，因而保住趨向分支的進度，並讓搜尋集中在有希望的輸入附近</text><feedback><text>正確——它們保留好的候選，並讓繁殖偏向它們。</text></feedback></answer>
+    <answer fraction="0"><text>它們每代丟棄最佳個體以維持多樣性</text><feedback><text>菁英保留正好相反：它把最佳個體帶往下一代。</text></feedback></answer>
+    <answer fraction="0"><text>它們讓適應度函數的計算更便宜</text><feedback><text>它們塑造誰能存活與繁殖，而非評估的成本。</text></feedback></answer>
+    <answer fraction="0"><text>它們把分支距離轉換成進入層級</text><feedback><text>那是適應度的定義，不是選擇或菁英保留的工作。</text></feedback></answer>
+    <generalfeedback><text>菁英保留把目前最佳個體帶進下一代，使好的解不會遺失；錦標賽選擇則讓 cost 較低的個體更可能繁殖。兩者合力讓族群的搜尋聚焦在輸入空間中最有希望的區域。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>突變在到達分支中的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>突變</strong>在推動遺傳演算法覆蓋分支時扮演什麼角色？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它對輸入的分量做小幅隨機更動，讓搜尋探索好個體的鄰居並沿適應度梯度下降（例如把 x 微調向 17）</text><feedback><text>正確——突變提供跟隨梯度所需的局部移動。</text></feedback></answer>
+    <answer fraction="0"><text>它每代都用全新的隨機輸入取代整個族群</text><feedback><text>那會丟棄進度；突變是擾動個體，而非重設所有人。</text></feedback></answer>
+    <answer fraction="0"><text>它為每個候選計算適應度函數</text><feedback><text>適應度評估是另一回事；突變只產生新候選。</text></feedback></answer>
+    <answer fraction="0"><text>它保證一步就覆蓋分支</text><feedback><text>突變做的是漸進移動；覆蓋是跨世代浮現，而非一步保證達成。</text></feedback></answer>
+    <generalfeedback><text>突變以小幅度擾動輸入分量，產生目前好個體的鄰居。搭配保留 cost 較低結果的選擇，這讓族群能沿適應度地景往下走，趨向能覆蓋分支的數值。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>隨機搜尋不使用梯度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>隨機搜尋會運用適應度梯度來把下一次取樣導向目標分支。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>不對——隨機搜尋各自獨立取樣，抽下一個時會忽略先前取樣的適應度。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——隨機搜尋盲目地抽每個輸入；只有引導式搜尋才跟隨梯度。</text></feedback></answer>
+    <generalfeedback><text>隨機搜尋雖記錄所見的最佳 cost，卻不用它來挑選下一個輸入——每次抽樣都獨立。跟隨適應度梯度、把新候選偏向低 cost 區域的，是遺傳演算法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何在三角形上遺傳演算法較快</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在三角形分類器中，等邊目標需要 <code>a == b</code> 而後 <code>b == c</code>。為何遺傳演算法比隨機搜尋更快到達它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>遺傳演算法沿 |a - b| 而後 |b - c| 往下走，一次滿足一個等式；隨機搜尋則必須靠機率同時命中兩個等式（約 900 分之 1）</text><feedback><text>正確——有分級的等式距離讓遺傳演算法能循序求解兩個約束。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法只需要 a == b；b == c 與目標無關</text><feedback><text>等邊目標需要兩個等式皆成立。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋被禁止產生相等的值</text><feedback><text>隨機搜尋能產生相等的值；只是不太可能同時滿足兩個等式。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法對三角形使用完全不同的適應度函數</text><feedback><text>它使用相同的「進入層級 + 分支距離」適應度，只是套用到此範例。</text></feedback></answer>
+    <generalfeedback><text>當 a、b、c 於 [1, 30] 中，靠運氣同時命中 a == b 與 b == c 約為 (1/30)(1/30)，大約 900 分之 1。遺傳演算法則先下降 |a - b| 對齊 a 與 b，再下降 |b - c|，以少得多的評估次數到達等邊分支。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>適應度歷程走勢圖顯示什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>適應度歷程</strong>走勢圖跨世代繪出什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每一世代所達到的最佳 cost，隨遺傳演算法收斂而向下趨近 0</text><feedback><text>正確——它繪出遺傳演算法「每世代最佳 cost」的曲線。</text></feedback></answer>
+    <answer fraction="0"><text>每一世代中的個體數目</text><feedback><text>族群大小固定；走勢圖追蹤的是最佳 cost，而非數目。</text></feedback></answer>
+    <answer fraction="0"><text>每一世代所用的隨機種子</text><feedback><text>本次執行的種子固定；走勢圖顯示的是適應度進度。</text></feedback></answer>
+    <answer fraction="0"><text>原始碼長度隨時間的變化</text><feedback><text>程式碼不會改變；走勢圖繪的是每世代最佳 cost。</text></feedback></answer>
+    <generalfeedback><text>走勢圖每世代顯示一個最佳 cost 值，讓你能觀察遺傳演算法的適應度改善。一條往下、最後落到 0 的階梯，正是搜尋收斂到目標分支的視覺特徵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何遺傳演算法所需評估較少</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何隨機搜尋在這些巢狀目標上常耗盡預算，而遺傳演算法卻能在預算內順利覆蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機搜尋盲目精確命中的機率既低又固定，而遺傳演算法透過回饋跨世代累積進度，因此覆蓋所需的期望評估次數少得多</text><feedback><text>正確——無記憶的取樣對上累積且有引導的改善。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法被給予比隨機搜尋更大的預算</text><feedback><text>兩者用相同預算；遺傳演算法只是用得更有效。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋在第一代之後就停止</text><feedback><text>隨機搜尋會一直取樣直到覆蓋或耗盡預算；它只是沒有累積進度。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法不執行程式就能評估適應度</text><feedback><text>兩者都執行被插裝的程式來為輸入評分；遺傳演算法只是導引取樣的位置。</text></feedback></answer>
+    <generalfeedback><text>隨機搜尋是無記憶的：每次抽樣命中目標的機率都相同且很低，因此往往燒光整個預算。遺傳演算法重用資訊——保留最佳者並在其周圍突變——因此每一代都比前一代更可能到達分支。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>交配的貢獻</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當遺傳演算法處理像三角形分類器這樣的多變數範例時，<strong>單點交配</strong>貢獻了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把兩個好親代的分量組合到一個子代——例如從其中一個取調得好的 a、從另一個取調得好的 c——組裝出部分解</text><feedback><text>正確——交配把不同個體找到的有用組件重組起來。</text></feedback></answer>
+    <answer fraction="0"><text>它用全新的隨機值取代子代的輸入</text><feedback><text>那較接近隨機重新初始化；交配是重組既有親代的分量。</text></feedback></answer>
+    <answer fraction="0"><text>它為每個親代計算進入層級</text><feedback><text>進入層級來自適應度評估，而非交配。</text></feedback></answer>
+    <answer fraction="0"><text>它保證子代的 cost 比兩個親代都低</text><feedback><text>交配也可能產生更差的子代；保留好的是選擇的工作。</text></feedback></answer>
+    <generalfeedback><text>單點交配切開兩個親代向量並接合，因此子代可從一個親代繼承某變數的好值、從另一個繼承另一變數的好值。在多變數目標上，這讓遺傳演算法能組裝起單一突變鏈可能只能緩慢達到的部分進度。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Branch Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何結合進入層級與分支距離</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何適應度要<strong>結合</strong>進入層級與分支距離，而不單用其中之一？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>進入層級單獨使用是粗略整數、層內沒有梯度；分支距離單獨使用則無法辨別你在哪一層巢狀分岔。結合後，層級給出粗略進度，距離在層內給出精細梯度</text><feedback><text>正確——兩個分量涵蓋「接近程度」的互補尺度。</text></feedback></answer>
+    <answer fraction="0"><text>結合它們會使 cost 變成整數，較易排序</text><feedback><text>結合後的 cost 通常是分數；那並非原因。</text></feedback></answer>
+    <answer fraction="0"><text>結合它們只是為了教學而刻意放慢搜尋</text><feedback><text>正是這種結合讓引導有效，而非刻意放慢。</text></feedback></answer>
+    <answer fraction="0"><text>進入層級用於隨機搜尋，分支距離用於遺傳演算法</text><feedback><text>兩種策略使用相同的結合式適應度。</text></feedback></answer>
+    <generalfeedback><text>進入層級告訴搜尋還剩幾個外圍守衛，提供逐層的粗略進度；分支距離在目前層內給出平滑斜坡，讓搜尋知道該往哪個方向推動分岔的謂詞。單靠任一個都不足以引導到深巢狀分支。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何正規化能保住排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>分支距離在加到進入層級前，會以 <code>d / (d + 1)</code> 正規化。這保證了哪一項排序性質？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每一層的距離貢獻都維持小於 1，因此降低進入層級總是比任何分支距離的變化更能降低 cost——巢狀更近一層的候選總是排得更前面</text><feedback><text>正確——正規化讓進入層級成為主導的排序鍵。</text></feedback></answer>
+    <answer fraction="0"><text>它讓分支距離在謂詞幾近為真時得以蓋過進入層級</text><feedback><text>那正是正規化所防止的：距離被上限在 1 以下，因此無法蓋過一整層。</text></feedback></answer>
+    <answer fraction="0"><text>它讓所有 cost 相等，使搜尋一視同仁地對待候選</text><feedback><text>cost 仍各不相同；正規化只限制小數部分。</text></feedback></answer>
+    <answer fraction="0"><text>它把進入層級轉換成機率</text><feedback><text>進入層級仍是整數計數；只有距離被正規化。</text></feedback></answer>
+    <generalfeedback><text>因為 d / (d + 1) 恆落在 [0, 1)，小數部分永遠跨不過一整個進入層級單位。於是 cost 主要以進入層級（巢狀進度）排序，僅次要地看分岔謂詞有多近——這正是搜尋所需的優先次序。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>會造成平台的謂詞形式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種謂詞形式會產生<strong>平坦</strong>的分支距離（一個沒有方向梯度的平台）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>像 a != b 這種不等式，其分支距離只有 0 或一個常數 K——完全沒有「有多近」的訊息</text><feedback><text>正確——a != b 不是已滿足（0）就是未滿足（常數），是平坦地景。</text></feedback></answer>
+    <answer fraction="0"><text>等式 a == b，其距離為 |a - b|</text><feedback><text>等式給出有分級的斜坡 |a - b|，不是平台。</text></feedback></answer>
+    <answer fraction="0"><text>次序比較 a &lt; b，其距離隨 (a - b) 增長</text><feedback><text>次序比較給出有分級的距離，因此具有可用的梯度。</text></feedback></answer>
+    <answer fraction="0"><text>比較 a &gt; b，其距離隨 (b - a) 增長</text><feedback><text>這也隨差距分級，提供斜坡而非平台。</text></feedback></answer>
+    <generalfeedback><text>對於 a != b，分支距離在兩者已相異時為 0、否則為常數 K：沒有梯度告訴搜尋往哪個方向能減少它。等式與次序比較則隨運算元差距平滑分級，這正是它們能良好引導搜尋的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何多峰函數範例困難</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在多峰函數範例中，守衛是 <code>x % 20 == 7</code>。為何這造成困難的適應度地景？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>取模使得距離 r == 7 對 x 呈非單調，於是在 x = 7、27、47、67、87 形成一個個盆地——是許多局部最小值而非單一斜坡</text><feedback><text>正確——週期性餘數產生多峰、鋸齒狀的地景。</text></feedback></answer>
+    <answer fraction="0"><text>取模使分支距離對 x 嚴格遞減，是單一平滑的山丘</text><feedback><text>正好相反：餘數每 20 就重置，因此地景並非單調。</text></feedback></answer>
+    <answer fraction="0"><text>此範例沒有目標分支，所以適應度未定義</text><feedback><text>它確實有目標（r == 7 內的 x &gt; 50）；困難在於多峰的形狀。</text></feedback></answer>
+    <answer fraction="0"><text>x % 20 == 7 對任何 x 都無法滿足</text><feedback><text>它在 x = 7、27、47、67、87 都滿足；只是地景崎嶇。</text></feedback></answer>
+    <generalfeedback><text>因為 x % 20 循環，到 r == 7 的距離每 20 單位就形成重複的谷地，局部搜尋可能落進錯誤的盆地。只有 x = 67 與 x = 87 的盆地同時滿足內層 x &gt; 50，這使得完整目標難以捉摸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀多峰函數中的 x = 47</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在多峰函數範例中，考慮輸入 <code>x = 47</code>。哪一項描述正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>r = 7 故外層守衛通過（進入層級 0），但 x &gt; 50 為假——cost 低於 1，然而把 x 移動 1 以修正 x &gt; 50 會破壞 r == 7</text><feedback><text>正確——x = 47 的 cost 很接近，卻位於一個具欺騙性的盆地邊緣。</text></feedback></answer>
+    <answer fraction="0"><text>r = 7 且 x &gt; 50，所以 x = 47 覆蓋了目標</text><feedback><text>47 並不大於 50，因此內層謂詞為假。</text></feedback></answer>
+    <answer fraction="0"><text>r 不是 7，所以外層守衛失敗，進入層級為 1</text><feedback><text>47 % 20 = 7，因此外層守衛通過；進入層級為 0。</text></feedback></answer>
+    <answer fraction="0"><text>x = 47 使 cost 恰為 0</text><feedback><text>cost 為 0 需要 r == 7 且 x &gt; 50；在 x = 47 時第二個為假。</text></feedback></answer>
+    <generalfeedback><text>在 x = 47，47 % 20 = 7 故外層守衛成立、進入層級為 0；剩下的 cost 是 47 &gt; 50（為假）的正規化距離。把 x 上調到 48 以滿足 x &gt; 50，會把餘數變成 8、破壞 r == 7 並提高進入層級——這是一個局部欺騙性的移動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>族群相對於單一軌跡在平台上</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何以<strong>族群</strong>為基礎的遺傳演算法能在單一爬山軌跡會卡在局部盆地或平台之處，仍持續取得進展？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單一軌跡沒有可改善的鄰居可移動，但多樣的族群加上交配能同時取樣多個盆地，並得以跳出陷阱</text><feedback><text>正確——多樣性與重組讓族群能逃離會卡住單一路徑的陷阱。</text></feedback></answer>
+    <answer fraction="0"><text>族群比單一點更準確地評估適應度</text><feedback><text>準確度相同；優勢在於平行探索多個區域。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法無法計算分支距離</text><feedback><text>爬山法使用相同的適應度；它只是沿單一路徑而可能卡住。</text></feedback></answer>
+    <answer fraction="0"><text>族群會移除地景中所有的局部最小值</text><feedback><text>地景並未改變；族群只是更能逃離其陷阱。</text></feedback></answer>
+    <generalfeedback><text>單一軌跡在沒有任何小步能改善適應度時就卡住。族群在多個盆地中維持候選，而交配能把不同個體的部分組合起來，給了搜尋離開局部最優、或越過會困住單一爬山者的平台的辦法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>搜尋式測試何時陷入困難</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪些情況會讓搜尋式測試<strong>難以</strong>覆蓋一個分支？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使地景平坦的旗標或 != 謂詞、進入層級很高的深巢狀守衛，以及梯度缺失或誤導的多峰或欺騙性適應度</text><feedback><text>正確——這些正是會讓引導失去養分或被誤導的情況。</text></feedback></answer>
+    <answer fraction="0"><text>任何使用像 &gt; 或 &lt; 的次序比較的謂詞</text><feedback><text>次序比較提供良好的分級梯度；它們是容易的情況。</text></feedback></answer>
+    <answer fraction="0"><text>只有單一、非巢狀分支的程式</text><feedback><text>單一淺分支很容易；困難來自平坦、巢狀與欺騙。</text></feedback></answer>
+    <answer fraction="0"><text>任何具有超過一個輸入變數的程式</text><feedback><text>多個變數本身沒問題；困難在於地景形狀，而非變數數量。</text></feedback></answer>
+    <generalfeedback><text>SBST 仰賴適應度梯度。當梯度不存在（布林旗標、給出平坦距離的 !=）、目標被埋在許多守衛之下（進入層級高而頂層距離訊號薄弱）、或地景多峰或具欺騙性以致局部移動指向錯誤方向時，它就會陷入困難。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>比較兩個候選的 cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在巢狀條件守衛中，哪個候選的 cost <strong>較低</strong>：<code>(x=17, y=90)</code> 還是 <code>(x=15, y=200)</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(x=17, y=90)——它的進入層級為 0（x 是 17）故 cost 低於 1；而 (x=15, y=200) 未通過外層守衛，進入層級為 1、cost 高於 1</text><feedback><text>正確——到達內層守衛勝過在 y 上很接近卻在 x 上錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>(x=15, y=200)——因為 y = 200 已滿足 y &gt; 100</text><feedback><text>y &gt; 100 只有在 x === 17 之後才有意義；x = 15 時內層守衛永遠到不了。</text></feedback></answer>
+    <answer fraction="0"><text>兩者 cost 相等，因為各自滿足兩個條件之一</text><feedback><text>兩個條件並不對稱：未通過外層守衛會多加一整個進入層級。</text></feedback></answer>
+    <answer fraction="0"><text>(x=15, y=200)——因為 15 只離 17 差 2</text><feedback><text>在 x 上很接近仍留有進入層級 1，其排序高於已通過守衛候選那個低於 1 的 cost。</text></feedback></answer>
+    <generalfeedback><text>(x=17, y=90) 通過 x === 17，故進入層級為 0，cost 是 y &gt; 100 的正規化距離——一個低於 1 的值。(x=15, y=200) 未通過 x === 17，故進入層級為 1，不論 y 為何 cost 都超過 1。進入層級主導，因此 (17, 90) 較接近。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>分支距離小不代表幾乎覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>不論進入層級為何，分支距離非常小的候選總是幾乎覆蓋目標。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>不對——進入層級高時，即使分支距離很小仍然很遠，因為必須先清掉整個進入層級。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——進入層級主導；進入層級 1 上的微小距離，比進入層級 0 上的較大距離更遠。</text></feedback></answer>
+    <generalfeedback><text>因為分支距離被正規化到小於 1，它只在單一進入層級內細化排序。在外層守衛分岔（進入層級 1）而距離很小的候選，其 cost 仍高於 1，比已在守衛內（進入層級 0）而距離較大者更遠。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何等式有梯度而旗標沒有</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何外層守衛 <code>x === 17</code> 能給遺傳演算法一道可用的梯度，而單純的布林旗標卻不能？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>|x - 17| 隨 x 連續變化，因此鄰近輸入有可量測的適應度差異——一道可循的斜坡；布林旗標只有 0 或 1，中間沒有可趨近的過渡</text><feedback><text>正確——有分級的數值差距正是使等式可搜尋的原因。</text></feedback></answer>
+    <answer fraction="0"><text>等式謂詞被評估的次數比旗標多</text><feedback><text>評估頻率不是重點；重點是有分級的距離。</text></feedback></answer>
+    <answer fraction="0"><text>布林旗標的分支距離較大，所以較容易</text><feedback><text>旗標的距離是平坦的 0/1、沒有梯度，這較困難而非較容易。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法完全忽略等式謂詞</text><feedback><text>遺傳演算法正是靠等式距離 |x - 17| 把 x 導向 17。</text></feedback></answer>
+    <generalfeedback><text>等式距離 |x - 17| 隨 x 移動而平滑變化，因此搜尋能判斷 x = 16 優於 x = 3 並持續改善。布林旗標把一切壓成真/假、毫無接近程度的度量，讓搜尋無從下降。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀走勢圖形狀</text></name>
+    <questiontext format="html"><text><![CDATA[<p>適應度歷程走勢圖呈現一段長而<strong>平坦</strong>的區段，隨後驟降至 <code>0</code>。這代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>遺傳演算法停留在某個盆地或某一進入層級、適應度沒有改善，直到某次突變或交配跨進了能覆蓋目標的輸入</text><feedback><text>正確——先平台後突破是典型的搜尋地景特徵。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法在平坦區段時停止執行，並在驟降處恢復</text><feedback><text>遺傳演算法持續執行；平坦部分代表最佳 cost 沒有改善，而非暫停。</text></feedback></answer>
+    <answer fraction="0"><text>族群大小在驟降處增加了</text><feedback><text>族群大小固定；驟降反映的是適應度突破。</text></feedback></answer>
+    <answer fraction="0"><text>隨機基準在該世代覆蓋了分支</text><feedback><text>走勢圖繪的是遺傳演算法的最佳 cost，而非隨機基準。</text></feedback></answer>
+    <generalfeedback><text>平坦的最佳 cost 曲線代表數個世代未能改善最佳個體——搜尋卡在某個盆地或守住某一進入層級。驟降到 0 是重組或突變終於產生覆蓋輸入的那一代。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何距離較小不總是幾乎覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何較小的分支距離<strong>不</strong>總是目標幾乎被覆蓋的徵兆？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為進入層級更重要：外層守衛（進入層級 1）上的微小距離，仍比已在守衛內（進入層級 0）的較大距離離目標更遠</text><feedback><text>正確——cost 的整數進入層級勝過其小數距離。</text></feedback></answer>
+    <answer fraction="0"><text>因為分支距離每一世代以不同單位量測</text><feedback><text>單位是一致的；排序問題在於進入層級的主導。</text></feedback></answer>
+    <answer fraction="0"><text>因為距離小總是代表輸入沒有執行</text><feedback><text>距離小代表謂詞幾近滿足，而非輸入失敗。</text></feedback></answer>
+    <answer fraction="0"><text>因為遺傳演算法在比較候選時會把距離反轉</text><feedback><text>遺傳演算法直接最小化 cost；它不會反轉距離。</text></feedback></answer>
+    <generalfeedback><text>cost 是進入層級加上一個小於 1 的正規化距離。因此進入層級 1、距離極小的候選其 cost 仍略高於 1；而進入層級 0、距離中等者其 cost 低於 1——後者才是真正較近，即使它的分支距離較大。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>同一進入層級內的平手判定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當兩個候選具有<strong>相同</strong>的進入層級時，正規化分支距離扮演什麼角色？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它做平手判定：距離較小的候選較受青睞，驅使族群去翻轉那個分岔的謂詞</text><feedback><text>正確——在同一層內，分支距離就是搜尋所跟隨的精細梯度。</text></feedback></answer>
+    <answer fraction="0"><text>它被忽略，因此兩個候選永遠被當成相同</text><feedback><text>它正是同一層內的平手判定依據，並非被忽略。</text></feedback></answer>
+    <answer fraction="0"><text>它會提高較差候選的進入層級</text><feedback><text>分支距離不會改變進入層級；它只在同一層內排序。</text></feedback></answer>
+    <answer fraction="0"><text>它隨機對調兩個候選的適應度值</text><feedback><text>比較是決定性的：距離較小者勝出。</text></feedback></answer>
+    <generalfeedback><text>在進入層級相同時，cost 只在小數部分有別，因此分岔謂詞較接近翻轉的候選其 cost 較低。接著選擇會青睞它，穩定地把那個謂詞推向滿足，最終進到下一層。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>拓寬 x 的範圍及其效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設把巢狀條件守衛中 <code>x</code> 的輸入範圍從 <code>[0, 50]</code> 拓寬到 <code>[0, 5000]</code>。你會預測什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機搜尋變得糟糕許多——命中 x === 17 的機率從約 1/51 降到約 1/5001——而遺傳演算法仍沿 |x - 17| 梯度前進，因此遺傳演算法的優勢擴大</text><feedback><text>正確——擴大空間會傷害盲目取樣，卻幾乎不影響梯度引導的搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>兩種策略都按比例變差，因此相對表現不變</text><feedback><text>只有隨機搜尋隨精確命中機率退化；遺傳演算法的梯度下降大致不受影響。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法變差，因為較寬的範圍使分支距離失去意義</text><feedback><text>分支距離 |x - 17| 仍是有效的斜坡；遺傳演算法只是多花幾代。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋變好，因為有更多輸入可嘗試</text><feedback><text>更多輸入使每次抽樣命中確切目標更罕見，故隨機搜尋變差。</text></feedback></answer>
+    <generalfeedback><text>隨機搜尋必須精確落在 x = 17，其機率隨範圍增大而縮小，因此較寬的範圍大致按比例讓它更糟。遺傳演算法讀取 |x - 17| 並朝 17 下降，不論範圍如何，只需多幾代。這正是引導式搜尋能擴展到大型輸入空間、而隨機搜尋卻崩潰的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>拆解 cost 為 1.5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在巢狀條件守衛中，某候選的 cost 正好是 <code>1.5</code>。已知 cost = 進入層級 + d/(d+1)，你能推得什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>進入層級為 1（故 x 不是 17），正規化距離為 0.5，代表原始距離 |x - 17| 為 1——所以 x 是 16 或 18</text><feedback><text>正確——整數部分給出層級；解 d/(d+1) = 0.5 得 d = 1。</text></feedback></answer>
+    <answer fraction="0"><text>進入層級為 0，且該候選覆蓋了分支</text><feedback><text>覆蓋的候選 cost 為 0；cost 為 1.5 的進入層級是 1。</text></feedback></answer>
+    <answer fraction="0"><text>原始分支距離就是 1.5</text><feedback><text>1.5 是整個 cost；分支距離被正規化，故小數 0.5 對應的原始距離為 1。</text></feedback></answer>
+    <answer fraction="0"><text>x 等於 17，但 y 距離 100 有 1.5</text><feedback><text>若 x 為 17，進入層級會是 0、cost 會低於 1，而非 1.5。</text></feedback></answer>
+    <generalfeedback><text>整數部分 1 是進入層級，故外層守衛 x === 17 未通過。小數部分 0.5 是正規化距離；反解 d/(d+1) = 0.5 得 d = 1，即 |x - 17| = 1，所以 x 是 16 或 18。這顯示如何從單一 cost 值直接讀出兩個適應度分量。</text></generalfeedback>
+  </question>
+</quiz>

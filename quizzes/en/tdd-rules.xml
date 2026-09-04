@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/TDD Rules/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the TDD Rules Explorer does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>TDD Rules Explorer</strong> let you do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Apply TDD actions one at a time; illegal moves are blocked and the violated discipline rule is explained</text><feedback><text>Correct — you try actions and the explorer enforces the TDD discipline rules, explaining any blocked move.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically play through the red-green-refactor phases with no input from you</text><feedback><text>That is a passive walkthrough; the Rules Explorer is interactive and enforces which moves are legal.</text></feedback></answer>
+    <answer fraction="0"><text>Measure how much of the production code the test suite covers</text><feedback><text>That is code coverage; the Rules Explorer enforces TDD discipline rules, not coverage metrics.</text></feedback></answer>
+    <answer fraction="0"><text>Generate production code automatically from a written test</text><feedback><text>It does not generate code; it checks whether each action you take obeys the TDD rules.</text></feedback></answer>
+    <generalfeedback><text>The TDD Rules Explorer lets you apply TDD actions one at a time. When an action would break a discipline rule it is blocked and the explorer names the rule that was violated, so you learn the rules by seeing which move each one forbids.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When production code may be written</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the rules, <strong>when</strong> may you write production code?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only when there is a failing test</text><feedback><text>Correct — production code may be written only to make a failing test pass.</text></feedback></answer>
+    <answer fraction="0"><text>At any time, whenever you feel like adding code</text><feedback><text>No — production code always needs a failing test to justify it first.</text></feedback></answer>
+    <answer fraction="0"><text>Only when all tests are already passing</text><feedback><text>If all tests pass there is nothing failing to drive the code; you need a failing test first.</text></feedback></answer>
+    <answer fraction="0"><text>Only immediately after a refactor</text><feedback><text>Refactoring does not authorise new production code; a failing test does.</text></feedback></answer>
+    <generalfeedback><text>The most fundamental rule: you may not write production code without a failing test. The explorer blocks a "write production code" move whenever there is no failing test, telling you to write a failing test first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Writing code with no failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You write production code while <strong>no test is failing</strong>. Which rule does this break?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You may not write production code without a failing test — write a failing test first</text><feedback><text>Correct — production code must be justified by a failing test.</text></feedback></answer>
+    <answer fraction="0"><text>You may not write two tests in a row</text><feedback><text>That is not the rule here; the broken rule is writing production code with no failing test.</text></feedback></answer>
+    <answer fraction="0"><text>You may not refactor while a test is failing</text><feedback><text>That rule is about refactoring; here the problem is code written with no failing test.</text></feedback></answer>
+    <answer fraction="0"><text>No rule is broken; this is always allowed</text><feedback><text>It is blocked: production code requires a failing test to justify it.</text></feedback></answer>
+    <generalfeedback><text>Writing production code with nothing failing violates the rule "you may not write production code without a failing test." The explorer blocks the move and tells you to write a failing test first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a new failing test may be written</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the rules, when may you write a new <strong>failing test</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only when you do not already have a failing test — make the current one pass first</text><feedback><text>Correct — you may not stack a second failing test on top of an unpassed one.</text></feedback></answer>
+    <answer fraction="0"><text>At any time, even with a test already failing</text><feedback><text>No — if a test is already failing you must make it pass before writing another.</text></feedback></answer>
+    <answer fraction="0"><text>Only after refactoring the production code</text><feedback><text>Refactoring is not a precondition; you just need no test currently failing.</text></feedback></answer>
+    <answer fraction="0"><text>Only when the cycle count is zero</text><feedback><text>You can start new tests in later cycles too; the condition is that no test is currently failing.</text></feedback></answer>
+    <generalfeedback><text>You may write a failing test only when you do not already have one. If a failing test exists, the rule requires you to make it pass before writing another, keeping you focused on one behaviour at a time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Writing a second failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is currently failing, and you try to write <strong>another</strong> failing test. Does this obey or break a rule?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It breaks a rule — you already have a failing test, so make it pass before writing another</text><feedback><text>Correct — only one failing test at a time; make it pass first.</text></feedback></answer>
+    <answer fraction="0"><text>It obeys the rules — you may have as many failing tests as you like</text><feedback><text>No — the rule permits only one failing test at a time.</text></feedback></answer>
+    <answer fraction="0"><text>It obeys the rules only if the tests are unrelated</text><feedback><text>The rule does not depend on relatedness; a test is already failing, so this is blocked.</text></feedback></answer>
+    <answer fraction="0"><text>It breaks the rule about refactoring while red</text><feedback><text>Wrong rule — this concerns writing a second failing test, not refactoring.</text></feedback></answer>
+    <generalfeedback><text>The explorer blocks this move: "you already have a failing test. Make it pass before writing another." The discipline keeps you working on a single failing test at a time.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>No refactoring while a test is failing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under the rules, you may <strong>not</strong> refactor while a test is failing.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — you must get to green before refactoring.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Refactoring while red is blocked; the rule says get to green first.</text></feedback></answer>
+    <generalfeedback><text>Refactoring is only safe when the tests are green, because green tests are the safety net that proves behaviour is preserved. The explorer blocks a refactor while a test is failing and tells you to get to green first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When refactoring is allowed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the rules, <strong>when</strong> is refactoring allowed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only when all tests pass, none is failing, and at least one red-green cycle is complete</text><feedback><text>Correct — refactor from green, with something actually built to refactor.</text></feedback></answer>
+    <answer fraction="0"><text>At any time, including before any test is written</text><feedback><text>No — refactoring needs green tests and at least one completed cycle first.</text></feedback></answer>
+    <answer fraction="0"><text>Only while a test is failing, so you can fix it</text><feedback><text>Fixing a failing test is writing production code; refactoring requires green.</text></feedback></answer>
+    <answer fraction="0"><text>Only before writing any production code</text><feedback><text>There is nothing to refactor before production code exists; you need a completed cycle.</text></feedback></answer>
+    <generalfeedback><text>Refactoring is legal only from a green state: all tests pass, none is failing, and at least one red-green cycle has produced code worth cleaning up. Otherwise the explorer blocks the move.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The only legal first move</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At the very start (nothing written yet), which action is <strong>legal</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Write a failing test</text><feedback><text>Correct — the only legal opening move is to write a failing test.</text></feedback></answer>
+    <answer fraction="0"><text>Write production code</text><feedback><text>Blocked — there is no failing test yet to justify production code.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor</text><feedback><text>Blocked — there is nothing built yet to refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Any of the three actions is equally legal</text><feedback><text>Only writing a failing test is legal at the start; the other two are blocked.</text></feedback></answer>
+    <generalfeedback><text>From the initial state there is no failing test and no completed cycle, so writing production code and refactoring are both blocked. The only legal opening move is to write a failing test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Starting with a failing test obeys the rules</text></name>
+    <questiontext format="html"><text><![CDATA[<p>From a fresh start you write a failing test first. Does this <strong>obey</strong> the rules?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — writing a failing test is the legal opening move</text><feedback><text>Correct — this is exactly how a TDD cycle is meant to begin.</text></feedback></answer>
+    <answer fraction="0"><text>No — you should write the production code first</text><feedback><text>Production code first is blocked; the failing test comes first.</text></feedback></answer>
+    <answer fraction="0"><text>No — you should refactor first</text><feedback><text>There is nothing to refactor at the start; the failing test comes first.</text></feedback></answer>
+    <answer fraction="0"><text>Only if a previous cycle already exists</text><feedback><text>No prior cycle is needed; a failing test is legal from the very start.</text></feedback></answer>
+    <generalfeedback><text>Writing a failing test first obeys the rules and is the intended opening of a TDD cycle. It sets up the failing test that then justifies writing production code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of the "Has failing test" field</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer's state panel, what does <strong>Has failing test</strong> indicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That a written test is currently not yet passing</text><feedback><text>Correct — it flags an unpassed (red) test.</text></feedback></answer>
+    <answer fraction="0"><text>That the production code failed to compile</text><feedback><text>The field tracks an unpassed test, not compilation status.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of tests ever written</text><feedback><text>It is a yes/no flag for a currently-failing test, not a count.</text></feedback></answer>
+    <answer fraction="0"><text>That the last refactor introduced a bug</text><feedback><text>It simply marks whether a written test is not yet passing.</text></feedback></answer>
+    <generalfeedback><text>"Has failing test" is true when a written test is not yet passing. It is the flag the rules check: it must be true to write production code, and false to write a new failing test or to refactor.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of the "All green" field</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the state panel, what does <strong>All green</strong> mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every written test passes (it is vacuously true at the start, when none exist)</text><feedback><text>Correct — all green means no test is currently failing.</text></feedback></answer>
+    <answer fraction="0"><text>The user interface is using a green colour theme</text><feedback><text>It refers to test status, not the visual theme.</text></feedback></answer>
+    <answer fraction="0"><text>The production code compiled successfully</text><feedback><text>It is about tests passing, not compilation.</text></feedback></answer>
+    <answer fraction="0"><text>At least one test has been written</text><feedback><text>It means every written test passes; at the start it is true even though none exist.</text></feedback></answer>
+    <generalfeedback><text>"All green" is true when every written test passes. At the start it is vacuously true because there are no failing tests. Refactoring requires this to be true (plus a completed cycle).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of "Cycles completed"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the state panel, what does <strong>Cycles completed</strong> count?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of completed red-to-green cycles</text><feedback><text>Correct — it counts how many times a failing test was driven to passing.</text></feedback></answer>
+    <answer fraction="0"><text>The number of refactorings performed</text><feedback><text>Refactoring does not advance this count; completing red-to-green does.</text></feedback></answer>
+    <answer fraction="0"><text>The number of tests currently failing</text><feedback><text>That is a different field; this counts completed red-to-green cycles.</text></feedback></answer>
+    <answer fraction="0"><text>The number of lines of production code written</text><feedback><text>It counts completed cycles, not lines of code.</text></feedback></answer>
+    <generalfeedback><text>"Cycles completed" counts completed red-to-green cycles — each time you take a failing test to passing. It must be at least one before refactoring is allowed, because otherwise there is nothing built to refactor.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Refactoring at the very start is blocked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At the very start, with nothing written, you try to refactor and it is blocked. What is the reason?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nothing to refactor yet — complete at least one red-green cycle first</text><feedback><text>Correct — there is no code produced yet, so there is nothing to clean up.</text></feedback></answer>
+    <answer fraction="0"><text>A test is currently failing</text><feedback><text>No test is failing at the start; the reason is that nothing has been built yet.</text></feedback></answer>
+    <answer fraction="0"><text>You must write production code before refactoring</text><feedback><text>The precise reason the explorer gives is that no cycle is complete yet, so there is nothing to refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring is never allowed in TDD</text><feedback><text>Refactoring is allowed from green after a cycle; at the start there is simply nothing to refactor.</text></feedback></answer>
+    <generalfeedback><text>At the start all tests are (vacuously) green, but no cycle is complete, so the explorer blocks refactoring with "nothing to refactor yet — complete at least one red-green cycle first."</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Only legal move after a failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Right after you write a failing test, the only legal next action is to <strong>write production code</strong> (to make it pass).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — with a test failing, you cannot write another test or refactor; you must write production code.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>With a test failing, writing another failing test and refactoring are both blocked, so only writing production code is legal.</text></feedback></answer>
+    <generalfeedback><text>After writing a failing test the state has a failing test and is not all green. Writing another failing test is blocked (one at a time) and refactoring is blocked (not green), so the only legal move is to write production code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the explorer does with an illegal move</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When you attempt an <strong>illegal</strong> move, what does the explorer do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Blocks the move, leaves the state unchanged, and explains the violated rule</text><feedback><text>Correct — an illegal move is refused and the broken rule is named.</text></feedback></answer>
+    <answer fraction="0"><text>Applies the move anyway but shows a warning</text><feedback><text>No — the move is blocked and the state is left unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Resets the whole explorer to the start</text><feedback><text>It does not reset; it just blocks the illegal move and explains why.</text></feedback></answer>
+    <answer fraction="0"><text>Silently ignores the click with no feedback</text><feedback><text>It gives feedback — it explains which discipline rule the move would break.</text></feedback></answer>
+    <generalfeedback><text>An illegal move is blocked: the state does not change and the explorer shows which discipline rule the move would have violated. A legal move, by contrast, is applied and the state advances.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Rules/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: implementing before any test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer starts a new class and immediately writes its implementation before writing any test. Which rule is broken?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You may not write production code without a failing test</text><feedback><text>Correct — code written with no failing test violates the first rule.</text></feedback></answer>
+    <answer fraction="0"><text>You may not have two failing tests at once</text><feedback><text>No test exists here at all; the broken rule is writing code with no failing test.</text></feedback></answer>
+    <answer fraction="0"><text>You may not refactor while red</text><feedback><text>Nothing is being refactored; the issue is production code with no failing test.</text></feedback></answer>
+    <answer fraction="0"><text>You may not complete more than one cycle per test</text><feedback><text>That is not a rule; the violation is writing code before any failing test.</text></feedback></answer>
+    <generalfeedback><text>Writing the implementation before any test means there is no failing test to justify it, breaking "you may not write production code without a failing test." A failing test must come first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: piling on a second failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer has one test failing and, before making it pass, writes a second failing test. Which rule is broken?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You already have a failing test — make it pass before writing another</text><feedback><text>Correct — only one failing test at a time.</text></feedback></answer>
+    <answer fraction="0"><text>You may not write production code without a failing test</text><feedback><text>That rule concerns production code; here a second failing test was added.</text></feedback></answer>
+    <answer fraction="0"><text>You may not refactor while a test is failing</text><feedback><text>No refactoring is happening; the issue is a second failing test.</text></feedback></answer>
+    <answer fraction="0"><text>You may not refactor before a cycle completes</text><feedback><text>Wrong rule — this is about adding a second failing test, not refactoring.</text></feedback></answer>
+    <generalfeedback><text>Adding a second failing test before resolving the first breaks the rule "you already have a failing test. Make it pass before writing another." The discipline keeps you on one behaviour at a time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: cleaning up while red</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is currently failing and the developer starts tidying up (refactoring) the code. Which rule is broken?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You may not refactor while a test is failing — get to green first</text><feedback><text>Correct — refactoring needs a green safety net.</text></feedback></answer>
+    <answer fraction="0"><text>You may not write production code without a failing test</text><feedback><text>There is a failing test here; the broken rule is refactoring while red.</text></feedback></answer>
+    <answer fraction="0"><text>You already have a failing test, so you cannot write another</text><feedback><text>No new test is being written; the issue is refactoring while a test is failing.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing to refactor yet</text><feedback><text>That reason applies before any cycle; here the block is because a test is failing.</text></feedback></answer>
+    <generalfeedback><text>Refactoring while a test is red breaks "you may not refactor while a test is failing. Get to green first." Only green tests can prove that a refactor preserved behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: refactoring on a brand-new project</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a brand-new project with nothing written, a developer tries to refactor. Which reason blocks the move?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nothing to refactor yet — complete at least one red-green cycle first</text><feedback><text>Correct — with no completed cycle there is nothing to clean up.</text></feedback></answer>
+    <answer fraction="0"><text>A test is currently failing</text><feedback><text>No test is failing on a brand-new project; the reason is that nothing has been built.</text></feedback></answer>
+    <answer fraction="0"><text>Production code exists without a failing test</text><feedback><text>No production code exists yet; the reason is that no cycle is complete.</text></feedback></answer>
+    <answer fraction="0"><text>Two tests are failing at once</text><feedback><text>No tests exist; the block is that there is nothing to refactor yet.</text></feedback></answer>
+    <generalfeedback><text>Even though all tests are vacuously green at the start, no red-green cycle is complete, so there is literally nothing built to refactor. The explorer blocks with "nothing to refactor yet — complete at least one red-green cycle first."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence: every line of code is justified</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because production code may be written only to pass a failing test, what does the rule force?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every piece of production code is justified by a test that demanded it</text><feedback><text>Correct — no code exists without a test that required it.</text></feedback></answer>
+    <answer fraction="0"><text>Production code can be added speculatively for future needs</text><feedback><text>The opposite — speculative code has no failing test to justify it, so it is forbidden.</text></feedback></answer>
+    <answer fraction="0"><text>Tests become optional once the design is clear</text><feedback><text>Tests are never optional here; they are what authorise the code.</text></feedback></answer>
+    <answer fraction="0"><text>The whole feature must be coded before any test runs</text><feedback><text>That inverts the rule; a failing test must precede the code.</text></feedback></answer>
+    <generalfeedback><text>Requiring a failing test before production code means each piece of code exists to satisfy a specific test. Speculative, untested code has no justification, so the rule steers you toward minimal, demand-driven code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence: tiny increments</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because you must make the current failing test pass before writing another, what discipline results?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You work in tiny increments — one small failing test, make it pass, then repeat</text><feedback><text>Correct — the one-at-a-time rule enforces small steps.</text></feedback></answer>
+    <answer fraction="0"><text>You batch many failing tests and fix them all at the end</text><feedback><text>That is exactly what the one-at-a-time rule forbids.</text></feedback></answer>
+    <answer fraction="0"><text>You may skip tests when the change is small</text><feedback><text>No — each increment still starts from a failing test.</text></feedback></answer>
+    <answer fraction="0"><text>You must refactor between every keystroke</text><feedback><text>Refactoring is optional and only from green; the rule here is about small increments.</text></feedback></answer>
+    <generalfeedback><text>Allowing only one failing test at a time forces small increments: write one failing test, make it pass, and only then move on. Each step is a small, verified advance rather than a large risky leap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: precondition for production code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Write production code" is legal only when ___.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>there is a failing test</text><feedback><text>Correct — production code is written to make a failing test pass.</text></feedback></answer>
+    <answer fraction="0"><text>all tests are green</text><feedback><text>If everything is green there is nothing failing to drive the code.</text></feedback></answer>
+    <answer fraction="0"><text>at least one cycle is complete</text><feedback><text>That is the precondition for refactoring, not for writing production code.</text></feedback></answer>
+    <answer fraction="0"><text>you have just refactored</text><feedback><text>Refactoring does not authorise production code; a failing test does.</text></feedback></answer>
+    <generalfeedback><text>Production code is a legal move only when a failing test exists to justify it. That is the direct match for the rule "you may not write production code without a failing test."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: precondition for refactoring</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Refactor" is legal only when ___.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>all tests pass, none is failing, and at least one red-green cycle is complete</text><feedback><text>Correct — refactor from green, with something already built.</text></feedback></answer>
+    <answer fraction="0"><text>a test is currently failing</text><feedback><text>Refactoring while red is blocked; you must be green first.</text></feedback></answer>
+    <answer fraction="0"><text>no test has been written yet</text><feedback><text>With nothing written there is nothing to refactor.</text></feedback></answer>
+    <answer fraction="0"><text>you are about to write your first test</text><feedback><text>Refactoring needs a completed cycle; the first test has not even produced code yet.</text></feedback></answer>
+    <generalfeedback><text>Refactoring is legal only from a green state that also has at least one completed red-green cycle, so there is passing, tested code worth cleaning up while the tests guard behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: refactoring from green is legal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After completing one red-green cycle, all tests pass and none is failing. The developer refactors. Is this legal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — all tests are green and a cycle is complete, so refactoring is allowed</text><feedback><text>Correct — this is precisely when refactoring is permitted.</text></feedback></answer>
+    <answer fraction="0"><text>No — you must write another failing test before refactoring</text><feedback><text>A new failing test is not required; green plus a completed cycle is enough.</text></feedback></answer>
+    <answer fraction="0"><text>No — refactoring is never legal in this model</text><feedback><text>Refactoring is legal from green after a cycle; it is one of the three actions.</text></feedback></answer>
+    <answer fraction="0"><text>Only if the cycle count is exactly zero</text><feedback><text>The count must be at least one; a completed cycle is required.</text></feedback></answer>
+    <generalfeedback><text>Green tests and at least one completed cycle satisfy the refactoring rule, so the move is legal. This is the intended moment to improve the code's structure while the tests hold behaviour steady.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: starting the next cycle from green</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All tests are green after one completed cycle. The developer writes a new failing test. Is this legal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — no test is currently failing, so a new failing test starts the next cycle</text><feedback><text>Correct — from green you may begin the next cycle with a fresh failing test.</text></feedback></answer>
+    <answer fraction="0"><text>No — you must refactor before writing any new test</text><feedback><text>Refactoring is optional; you may go straight to a new failing test.</text></feedback></answer>
+    <answer fraction="0"><text>No — a new test may only be written in the first cycle</text><feedback><text>New failing tests are legal in later cycles too, as long as none is currently failing.</text></feedback></answer>
+    <answer fraction="0"><text>Only if you first write more production code</text><feedback><text>Production code needs a failing test; from green the legal opening is a new failing test.</text></feedback></answer>
+    <generalfeedback><text>From a green state with no failing test, writing a new failing test is legal and begins the next red-green cycle. Refactoring is also legal there, but writing production code is not, because nothing is failing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State change after writing production code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You legally write production code that makes the failing test pass. How does the state change?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The failing test is cleared, all tests are green, and the completed-cycle count increases by one</text><feedback><text>Correct — reaching green completes a red-green cycle.</text></feedback></answer>
+    <answer fraction="0"><text>The failing test remains, but the cycle count still increases</text><feedback><text>No — passing the test clears the failing flag as part of reaching green.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing changes except a log entry</text><feedback><text>The state advances: failing cleared, all green, and one more completed cycle.</text></feedback></answer>
+    <answer fraction="0"><text>The cycle count resets to zero</text><feedback><text>The count increases by one; it does not reset.</text></feedback></answer>
+    <generalfeedback><text>Writing production code to pass the failing test moves you to green: the failing flag clears, all tests pass, and the completed-cycle count goes up by one, recording that a red-green cycle finished.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State change after writing a failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>From a green state you legally write a failing test. How does the state change?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test is now failing and the state is no longer all green</text><feedback><text>Correct — writing a failing test turns the state red.</text></feedback></answer>
+    <answer fraction="0"><text>The completed-cycle count increases by one</text><feedback><text>The cycle count advances only when you reach green, not when you write a failing test.</text></feedback></answer>
+    <answer fraction="0"><text>All tests remain green</text><feedback><text>No — a newly written failing test means the state is no longer all green.</text></feedback></answer>
+    <answer fraction="0"><text>The state is unchanged</text><feedback><text>It changes: there is now a failing test and the state is red.</text></feedback></answer>
+    <generalfeedback><text>Writing a failing test sets the failing flag and makes the state no longer all green (it turns red). The completed-cycle count does not change yet; that only advances when the test is made to pass.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match the reason: refactor while red</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which situation triggers the message "you may not refactor while a test is failing. Get to green first"?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Attempting to refactor while a test is currently failing</text><feedback><text>Correct — this exact reason is shown for refactoring while red.</text></feedback></answer>
+    <answer fraction="0"><text>Attempting to refactor at the very start with nothing written</text><feedback><text>That case shows "nothing to refactor yet", not "get to green first".</text></feedback></answer>
+    <answer fraction="0"><text>Writing production code with no failing test</text><feedback><text>That shows the "write a failing test first" reason, a different message.</text></feedback></answer>
+    <answer fraction="0"><text>Writing a second failing test</text><feedback><text>That shows "make it pass before writing another", a different message.</text></feedback></answer>
+    <generalfeedback><text>The "get to green first" message is specific to trying to refactor while a test is failing. Refactoring before any cycle instead reports "nothing to refactor yet", so the two blocked-refactor cases have distinct reasons.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match the reason: production code with no failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which situation triggers the message "you may not write production code without a failing test. Write a failing test first"?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Trying to write production code when no test is failing</text><feedback><text>Correct — production code with nothing failing shows this exact reason.</text></feedback></answer>
+    <answer fraction="0"><text>Trying to refactor while a test is failing</text><feedback><text>That shows "get to green first", a different message.</text></feedback></answer>
+    <answer fraction="0"><text>Writing a second failing test</text><feedback><text>That shows "make it pass before writing another", a different message.</text></feedback></answer>
+    <answer fraction="0"><text>Trying to refactor at the very start with nothing written</text><feedback><text>That shows "nothing to refactor yet", a different message.</text></feedback></answer>
+    <generalfeedback><text>The "write a failing test first" message is specific to attempting production code when no test is failing. Each blocked action has its own reason: refactoring while red reports "get to green first", a second failing test reports "make it pass before writing another", and refactoring before any cycle reports "nothing to refactor yet".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why illegal moves are blocked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the explorer block illegal moves instead of just letting them happen?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To enforce the TDD discipline and teach the rules by naming the one each blocked move would break</text><feedback><text>Correct — blocking plus an explanation is how it teaches the discipline.</text></feedback></answer>
+    <answer fraction="0"><text>To make the exercise slower on purpose</text><feedback><text>The purpose is to enforce and explain the rules, not to slow you down.</text></feedback></answer>
+    <answer fraction="0"><text>Because the underlying tools cannot run those actions</text><feedback><text>The block is a deliberate teaching of discipline, not a technical limitation.</text></feedback></answer>
+    <answer fraction="0"><text>To hide the current state from the learner</text><feedback><text>The state stays visible; blocking a move explains which rule it would break.</text></feedback></answer>
+    <generalfeedback><text>By blocking an illegal move and naming the violated rule, the explorer makes the TDD discipline concrete: you experience exactly which rule each mis-step breaks, rather than only reading about it.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Rules/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the rules yield high coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the rule "no production code without a failing test" tend to produce high test coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because every piece of production code is written to satisfy some test, the behaviour is covered by construction</text><feedback><text>Correct — code only exists to pass a test, so tests exercise it by design.</text></feedback></answer>
+    <answer fraction="0"><text>Because the explorer counts coverage automatically</text><feedback><text>Coverage is a side effect of the rule, not something the explorer measures.</text></feedback></answer>
+    <answer fraction="0"><text>Because tests are added after the code to reach a target percentage</text><feedback><text>Tests come first here; coverage follows from code only existing to pass a test.</text></feedback></answer>
+    <answer fraction="0"><text>Because refactoring adds new tests</text><feedback><text>Refactoring preserves behaviour and does not add tests; coverage comes from the test-first rule.</text></feedback></answer>
+    <generalfeedback><text>If code may only be written to pass a failing test, then every behaviour that made it into the code was demanded by a test. Coverage therefore arises by construction rather than being chased after the fact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why small steps give fast feedback</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does allowing only one failing test at a time produce <strong>fast feedback</strong> on defects?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each step is tiny, so when something breaks, the failure points to the last small change</text><feedback><text>Correct — small increments make defects easy to localise.</text></feedback></answer>
+    <answer fraction="0"><text>Because tests run on a faster machine</text><feedback><text>Feedback speed here is about small steps, not hardware.</text></feedback></answer>
+    <answer fraction="0"><text>Because many failing tests are debugged together</text><feedback><text>The rule forbids many failing tests at once; single steps are what localise failures.</text></feedback></answer>
+    <answer fraction="0"><text>Because production code is written before the test</text><feedback><text>The test comes first; the fast feedback comes from tiny one-at-a-time steps.</text></feedback></answer>
+    <generalfeedback><text>Because you advance one small failing test at a time, a new failure almost always traces to the last tiny change. That tight loop makes diagnosis quick, which is a core benefit of the discipline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the rules keep code minimal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does requiring a failing test before production code keep the codebase minimal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Code is added only to pass a specific failing test, so there is no speculative, unrequested code</text><feedback><text>Correct — every line answers a test, discouraging gold-plating.</text></feedback></answer>
+    <answer fraction="0"><text>The explorer deletes any code above a size limit</text><feedback><text>There is no size limit; minimalism comes from code only existing to pass a test.</text></feedback></answer>
+    <answer fraction="0"><text>It bans refactoring, so code never grows</text><feedback><text>Refactoring is allowed from green; minimalism comes from the test-first rule.</text></feedback></answer>
+    <answer fraction="0"><text>It requires deleting a test for every line added</text><feedback><text>No such rule exists; code stays minimal because each piece must pass a failing test.</text></feedback></answer>
+    <generalfeedback><text>Since production code is authorised only by a failing test, code written "just in case" has no justification and is forbidden. The discipline therefore pushes toward minimal, demand-driven code rather than speculative additions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the refactor action reveals about refactoring</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the model, the refactor action changes only the phase; it does not clear a failing test, change "all green", or increment the cycle count. What does this reflect about refactoring in TDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Refactoring changes structure, not behaviour — the tests stay green throughout</text><feedback><text>Correct — a behaviour-preserving step leaves the test status untouched.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring completes a new red-green cycle</text><feedback><text>No — the cycle count does not change; refactoring is not a red-green cycle.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring introduces a new failing test</text><feedback><text>It leaves the failing flag untouched; refactoring must keep tests green.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring turns the state red so you can add code</text><feedback><text>Refactoring stays green; you do not go red to refactor.</text></feedback></answer>
+    <generalfeedback><text>Because refactor leaves the test flags and cycle count unchanged, the model captures that refactoring is behaviour-preserving: you improve structure while all tests remain green, so no new failing test appears and no cycle is completed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why "all green" is true at the start</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer reports <strong>All green = true</strong> at the very start, before any test exists. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is vacuously true — with no tests written, none is failing</text><feedback><text>Correct — no failing tests means the "all pass" condition holds trivially.</text></feedback></answer>
+    <answer fraction="0"><text>Because a hidden passing test is created at startup</text><feedback><text>No hidden test exists; the flag is vacuously true because nothing is failing.</text></feedback></answer>
+    <answer fraction="0"><text>Because the first cycle has already completed</text><feedback><text>No cycle is complete at the start; the flag is simply vacuously true.</text></feedback></answer>
+    <answer fraction="0"><text>Because the production code compiled</text><feedback><text>It is about test status, not compilation; with no tests, none fails.</text></feedback></answer>
+    <generalfeedback><text>"All green" means every written test passes. When no test has been written, that condition is vacuously satisfied. This is why refactoring still needs a completed cycle: green alone is not enough, because green can hold trivially.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which action increments the cycle count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which action increments the <strong>completed-cycle</strong> count?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Writing production code that takes the failing test to passing (reaching green)</text><feedback><text>Correct — completing red-to-green is what advances the count.</text></feedback></answer>
+    <answer fraction="0"><text>Writing a failing test</text><feedback><text>Writing a failing test turns the state red; it does not complete a cycle.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring</text><feedback><text>Refactoring preserves behaviour and leaves the count unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Resetting the explorer</text><feedback><text>Resetting returns to the initial state; it does not complete a cycle.</text></feedback></answer>
+    <generalfeedback><text>The completed-cycle count advances only when production code makes the failing test pass, i.e. when a red-green cycle finishes. Writing a failing test and refactoring both leave the count unchanged.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting the explorer's self-check</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer's built-in self-check asks which action is <em>always illegal</em> in strict TDD. What is the answer, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Writing production code before any failing test exists — you must never write production code without a failing test to justify it</text><feedback><text>Correct — that is the first and most important rule.</text></feedback></answer>
+    <answer fraction="0"><text>Writing a failing test when all tests pass — because tests should never change once green</text><feedback><text>That is legal; a new failing test starts the next cycle from green.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring after achieving green — because green code must never be touched</text><feedback><text>Refactoring from green is legal and encouraged; it is not the illegal action.</text></feedback></answer>
+    <answer fraction="0"><text>Writing production code when there is a failing test — because tests block code</text><feedback><text>That is exactly the legal case: production code is written to pass a failing test.</text></feedback></answer>
+    <generalfeedback><text>The self-check's answer is that writing production code before any failing test exists is always illegal. That reflects the governing rule: never write production code without a failing test to justify it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Green but nothing to refactor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At the start, all tests are green, yet refactoring is still blocked. Why does green alone not permit a refactor?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because no red-green cycle is complete yet, so no code has been produced to refactor</text><feedback><text>Correct — refactoring also requires at least one completed cycle.</text></feedback></answer>
+    <answer fraction="0"><text>Because green at the start actually means a test is failing</text><feedback><text>No — green means nothing is failing; the block is that no cycle is complete.</text></feedback></answer>
+    <answer fraction="0"><text>Because refactoring requires two completed cycles</text><feedback><text>One completed cycle is enough; the start simply has none.</text></feedback></answer>
+    <answer fraction="0"><text>Because the reset button must be pressed first</text><feedback><text>Reset is unrelated; refactoring needs a completed cycle, which the start lacks.</text></feedback></answer>
+    <generalfeedback><text>Refactoring requires green and at least one completed red-green cycle. At the start green holds vacuously but no cycle is complete, so there is nothing built to clean up and the move is blocked with "nothing to refactor yet."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the rules build a safety net</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do these rules build a <strong>regression safety net</strong> over time?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests are written before the code and always brought back to green, so a growing suite guards against later breakages</text><feedback><text>Correct — the accumulating green suite is the safety net.</text></feedback></answer>
+    <answer fraction="0"><text>The explorer keeps a backup copy of the code after each move</text><feedback><text>The safety net is the test suite, not code backups.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring deletes old tests to keep the suite small</text><feedback><text>Tests are kept and stay green; deleting them would remove the safety net.</text></feedback></answer>
+    <answer fraction="0"><text>Production code is never changed once written</text><feedback><text>Code is changed and refactored; the green suite is what catches regressions.</text></feedback></answer>
+    <generalfeedback><text>Each cycle adds a test and drives it to green, so the suite grows steadily. Because you always return to green, that accumulating suite will fail if a later change breaks earlier behaviour — a regression safety net produced by following the rules.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge: two refactors in a row</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After one completed cycle you refactor, then try to refactor again immediately. Is the second refactor legal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — the tests are still green and a cycle is already complete, so refactoring remains legal</text><feedback><text>Correct — refactoring does not consume the green state or the completed cycle.</text></feedback></answer>
+    <answer fraction="0"><text>No — you may refactor only once per cycle</text><feedback><text>There is no once-per-cycle limit; the conditions still hold, so it is legal.</text></feedback></answer>
+    <answer fraction="0"><text>No — the first refactor turned the state red</text><feedback><text>Refactoring keeps the state green; it does not go red.</text></feedback></answer>
+    <answer fraction="0"><text>Only if you write a failing test in between</text><feedback><text>No new test is required; green plus a completed cycle already permits refactoring.</text></feedback></answer>
+    <generalfeedback><text>Refactoring leaves the state green and the completed-cycle count unchanged, so the refactoring conditions still hold afterwards. A second consecutive refactor is therefore legal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mapping the production-code rule to Uncle Bob's laws</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The rule behind the message "you may not write production code without a failing test" corresponds to which of Uncle Bob's Three Laws of TDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The first law: write no production code except to make a failing test pass</text><feedback><text>Correct — this is the first law of TDD.</text></feedback></answer>
+    <answer fraction="0"><text>The law that you must refactor after every test</text><feedback><text>Refactoring after green is part of the cycle, not the first law about production code.</text></feedback></answer>
+    <answer fraction="0"><text>The law that tests must run in under a second</text><feedback><text>Test speed is a guideline, not the law this message reflects.</text></feedback></answer>
+    <answer fraction="0"><text>The law that every method needs a test</text><feedback><text>The rule is about not writing code without a failing test, which is the first law.</text></feedback></answer>
+    <generalfeedback><text>"You may not write production code without a failing test" is Uncle Bob's first law of TDD: write no production code except to make a failing test pass. The explorer enforces exactly this by blocking production code when nothing is failing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Legal moves from green after one cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After exactly one completed cycle, with all tests green and none failing (and no refactor yet), which actions are legal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Writing a new failing test or refactoring; writing production code is illegal</text><feedback><text>Correct — from green you may start a new test or refactor, but not write code with nothing failing.</text></feedback></answer>
+    <answer fraction="0"><text>Only writing production code</text><feedback><text>Production code is the one blocked move here, since no test is failing.</text></feedback></answer>
+    <answer fraction="0"><text>Only refactoring</text><feedback><text>Writing a new failing test is also legal from green.</text></feedback></answer>
+    <answer fraction="0"><text>All three actions are legal</text><feedback><text>Writing production code is blocked because no test is failing.</text></feedback></answer>
+    <generalfeedback><text>From green after a cycle, there is no failing test, so production code is blocked. Writing a new failing test (start the next cycle) and refactoring (green plus a completed cycle) are both legal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Benefit of one failing test at a time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The rules permit only one failing test at a time. What practical benefit does this give the moment a test goes red?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You always know exactly which single expectation is unmet, so diagnosis is immediate</text><feedback><text>Correct — one red test pinpoints the unmet behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>You can ignore the red test until several accumulate</text><feedback><text>The rule forbids accumulating failing tests; you resolve the one red test now.</text></feedback></answer>
+    <answer fraction="0"><text>You never have to run the test suite</text><feedback><text>You still run tests; the benefit is that a single red test is easy to interpret.</text></feedback></answer>
+    <answer fraction="0"><text>The explorer fixes the test for you</text><feedback><text>It does not fix code; the benefit is a clear, single failing expectation.</text></feedback></answer>
+    <generalfeedback><text>With at most one failing test, a red result identifies exactly which expectation is currently unmet. There is no ambiguity about which of several failures to chase, so you can diagnose and resolve it right away.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>An illegal move leaves the state unchanged</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a move is blocked as illegal, the explorer leaves the current state <strong>unchanged</strong>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a blocked move does not advance the state; only the explanation is shown.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>An illegal move is refused and the state stays exactly as it was.</text></feedback></answer>
+    <generalfeedback><text>A legal move advances the state; an illegal move is blocked, so the phase, failing-test flag, all-green flag, and cycle count all stay unchanged while the violated rule is explained. This lets you retry a different, legal action from the same state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Rules Explorer captures versus the cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the TDD Rules Explorer differ in focus from a red-green-refactor <em>cycle</em> walkthrough?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It defines which actions are permitted in each state and why illegal ones are forbidden — the discipline, not just the phase sequence</text><feedback><text>Correct — the Rules Explorer is about legality and discipline.</text></feedback></answer>
+    <answer fraction="0"><text>It only animates the colours red, green, and refactor with no rules</text><feedback><text>That is closer to a cycle walkthrough; the Rules Explorer enforces legality.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces tests with a coverage percentage</text><feedback><text>It does not deal in coverage; it enforces the discipline rules.</text></feedback></answer>
+    <answer fraction="0"><text>It is only about naming the three phases in order</text><feedback><text>Naming the phases is the cycle view; the Rules Explorer is about which actions are legal and why.</text></feedback></answer>
+    <generalfeedback><text>A cycle walkthrough shows the phases red, green, and refactor in sequence. The Rules Explorer instead enforces the discipline: from any state it decides which of the three actions are legal and, when one is not, explains exactly which rule that move would break.</text></generalfeedback>
+  </question>
+</quiz>

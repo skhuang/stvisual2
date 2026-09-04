@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Program Slicing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Program slice definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>program slice</strong> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The set of statements that can affect (or be affected by) the value of a chosen variable at a chosen point</text><feedback><text>Correct — a slice keeps only the statements relevant to a variable at a program point.</text></feedback></answer>
+    <answer fraction="0"><text>The set of all statements that a test suite executes at least once</text><feedback><text>That is executed/covered code, not a slice; a slice is defined by dependence on a variable at a point.</text></feedback></answer>
+    <answer fraction="0"><text>A contiguous block of source lines between two line numbers</text><feedback><text>A slice need not be contiguous; it is any subset of statements linked by dependences to the criterion.</text></feedback></answer>
+    <answer fraction="0"><text>The list of variables that a function declares</text><feedback><text>A slice is a set of statements, not a set of variable declarations.</text></feedback></answer>
+    <generalfeedback><text>A slice is the subset of a program's statements that influence, or are influenced by, a variable at a specific location — computed via control and data dependences.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Slicing criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer, a <strong>slicing criterion</strong> is specified as which pair?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A statement (program point) together with a variable</text><feedback><text>Correct — the criterion is ⟨statement, variable⟩; you pick a statement and then one of its variables.</text></feedback></answer>
+    <answer fraction="0"><text>A test input together with an expected output</text><feedback><text>That describes a test case, not a slicing criterion.</text></feedback></answer>
+    <answer fraction="0"><text>A start line together with an end line</text><feedback><text>A criterion is a point and a variable, not a line range.</text></feedback></answer>
+    <answer fraction="0"><text>A function name together with its return type</text><feedback><text>The criterion targets a variable at a statement, not a function signature.</text></feedback></answer>
+    <generalfeedback><text>A slicing criterion is a pair ⟨statement s, variable v⟩. The explorer builds it when you click a statement and then choose one of its variables.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Backward slice definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For criterion ⟨s, v⟩, the <strong>backward</strong> slice contains the statements that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>May affect the value of v at s</text><feedback><text>Correct — a backward slice gathers everything that could influence v at s.</text></feedback></answer>
+    <answer fraction="0"><text>May be affected by the value of v at s</text><feedback><text>That is the forward slice, the opposite direction.</text></feedback></answer>
+    <answer fraction="0"><text>Are executed after s in every run</text><feedback><text>Position in the run does not define the backward slice; dependence on v does.</text></feedback></answer>
+    <answer fraction="0"><text>Assign a constant to v</text><feedback><text>The backward slice is not restricted to constant assignments; it is any statement transitively influencing v at s.</text></feedback></answer>
+    <generalfeedback><text>The backward slice on ⟨s, v⟩ is the set of statements that may affect the value of v at s, following control and data dependences backwards.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Forward slice definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For criterion ⟨s, v⟩, the <strong>forward</strong> slice contains the statements that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>May be affected by the value of v at s</text><feedback><text>Correct — a forward slice gathers everything that the value of v at s could influence.</text></feedback></answer>
+    <answer fraction="0"><text>May affect the value of v at s</text><feedback><text>That is the backward slice, the opposite direction.</text></feedback></answer>
+    <answer fraction="0"><text>Are executed before s in every run</text><feedback><text>The forward slice is about being influenced by v, not about textual or temporal position.</text></feedback></answer>
+    <answer fraction="0"><text>Read v but never define any variable</text><feedback><text>Forward-slice statements can define variables; they are simply reachable from v at s via dependences.</text></feedback></answer>
+    <generalfeedback><text>The forward slice on ⟨s, v⟩ is the set of statements that may be affected by the value of v at s, following dependences forward.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Static vs dynamic slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What distinguishes a <strong>dynamic</strong> slice from a <strong>static</strong> slice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A dynamic slice is computed for one specific execution (a given input/trace); a static slice holds for all possible executions</text><feedback><text>Correct — the dynamic slice is restricted to the statements and dependences actually exercised by a chosen run.</text></feedback></answer>
+    <answer fraction="0"><text>A dynamic slice uses only data dependences; a static slice uses only control dependences</text><feedback><text>Both kinds use control and data dependences; the difference is per-run versus all-runs.</text></feedback></answer>
+    <answer fraction="0"><text>A dynamic slice is always the forward slice; a static slice is always the backward slice</text><feedback><text>Direction (forward/backward) is independent of static/dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>A dynamic slice ignores the criterion; a static slice needs one</text><feedback><text>Both need a criterion; the dynamic slice adds a specific execution.</text></feedback></answer>
+    <generalfeedback><text>A static slice is valid for every possible run; a dynamic slice is specialised to one execution (a specific input/trace), so it keeps only the dependences that were actually live in that run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Data dependence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>There is a <strong>data dependence</strong> from statement A to statement B when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A defines a variable that B later uses, with no redefinition in between</text><feedback><text>Correct — a def in A reaches a use in B (a def-use relationship).</text></feedback></answer>
+    <answer fraction="0"><text>A and B appear on consecutive source lines</text><feedback><text>Adjacency is irrelevant; a data dependence is a reaching def-use link.</text></feedback></answer>
+    <answer fraction="0"><text>A decides whether B executes</text><feedback><text>That is a control dependence, not a data dependence.</text></feedback></answer>
+    <answer fraction="0"><text>A and B call the same function</text><feedback><text>Sharing a callee is not what creates a data dependence.</text></feedback></answer>
+    <generalfeedback><text>A data dependence A → B (on variable v) means A defines v and B uses that value of v — a def reaching a use.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Control dependence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>There is a <strong>control dependence</strong> from statement A to statement B when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Whether B executes depends on the outcome of a predicate at A (e.g. an if or loop condition)</text><feedback><text>Correct — A is a branch/loop predicate that governs whether B runs.</text></feedback></answer>
+    <answer fraction="0"><text>A defines a variable that B reads</text><feedback><text>That is a data dependence, not a control dependence.</text></feedback></answer>
+    <answer fraction="0"><text>A and B are in the same function</text><feedback><text>Being co-located in a function does not create a control dependence.</text></feedback></answer>
+    <answer fraction="0"><text>B always executes immediately after A</text><feedback><text>Sequential order alone is not control dependence; a governing predicate is required.</text></feedback></answer>
+    <generalfeedback><text>A control dependence A → B means A is a predicate (branch or loop condition) whose outcome decides whether B is executed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the PDG represents</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>program dependence graph (PDG)</strong> drawn by the explorer has nodes and edges standing for:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nodes are statements; edges are control and data dependences</text><feedback><text>Correct — the PDG links statements by their control and data dependences.</text></feedback></answer>
+    <answer fraction="0"><text>Nodes are variables; edges are assignments</text><feedback><text>PDG nodes are statements, not variables.</text></feedback></answer>
+    <answer fraction="0"><text>Nodes are functions; edges are calls</text><feedback><text>That describes a call graph, not a PDG.</text></feedback></answer>
+    <answer fraction="0"><text>Nodes are basic blocks; edges are the sequential flow of control only</text><feedback><text>That is closer to a control-flow graph; a PDG carries both control and data dependence edges over statements.</text></feedback></answer>
+    <generalfeedback><text>In a PDG each node is a statement and each edge is a control or data dependence. Slicing is graph reachability over these edges from the criterion.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Slice contains the criterion statement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every slice computed by the explorer always contains the criterion statement itself.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the slice is seeded with the criterion statement, so it is always a member.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The slice always includes the criterion statement; the algorithm seeds the result set with it.</text></feedback></answer>
+    <generalfeedback><text>Both backward and forward slices start from the criterion statement and add dependent statements, so the criterion statement is always in the slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the slice: grade on return</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <em>Grade Average</em> example:</p>
+<pre>2:  total = 0
+3:  count = 0
+4:  for (const s of scores)
+5:    total = total + s
+6:    count = count + 1
+8:  avg = total / count
+9:  grade = avg &gt;= 60 ? "pass" : "fail"
+10: return grade</pre>
+<p>What is the backward slice for criterion ⟨line 10, grade⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All eight statements (lines 2,3,4,5,6,8,9,10)</text><feedback><text>Correct — grade depends on avg, which depends on both total and count, which depend on the loop and the initialisations, so the whole function is in the slice.</text></feedback></answer>
+    <answer fraction="0"><text>Only line 10</text><feedback><text>The return uses grade, which transitively depends on almost every other statement, so the slice is far larger.</text></feedback></answer>
+    <answer fraction="0"><text>Only lines 9 and 10</text><feedback><text>grade (line 9) depends on avg, which pulls in total and count and their loop — the slice is the whole function.</text></feedback></answer>
+    <answer fraction="0"><text>Only lines 8, 9, 10</text><feedback><text>avg depends on total and count, dragging in lines 2–6 as well; the slice is all eight statements.</text></feedback></answer>
+    <generalfeedback><text>Backward from grade: 10 ← 9 (grade) ← 8 (avg) ← 5,6 (total,count) ← 4 (loop), 2, 3. Every statement is reached, so the slice is the whole function.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Classify: sign excluded from label slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <em>Classify</em> example, the backward slice for criterion ⟨return label, label⟩ excludes every statement that assigns <code>sign</code>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — sign never influences label, so the sign assignments (lines 3, 6, 9) are not in the slice.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The sign assignments do not affect label at all, so slicing on label drops them — a classic illustration of slicing's focus.</text></feedback></answer>
+    <generalfeedback><text>label depends only on the label assignments and the predicates that guard them; the parallel sign computations are irrelevant and fall outside the slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the app: the loop node kind</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <em>Grade Average</em> example, line 4 <code>for (const s of scores)</code> appears in the PDG as which kind of node?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A control (predicate) node that governs whether the loop body runs</text><feedback><text>Correct — the loop header is a control node; lines 5 and 6 are control-dependent on it.</text></feedback></answer>
+    <answer fraction="0"><text>An output node</text><feedback><text>The output node is the return statement, not the loop header.</text></feedback></answer>
+    <answer fraction="0"><text>A pure data node with no outgoing control edges</text><feedback><text>The loop header has control edges to the body statements it guards.</text></feedback></answer>
+    <answer fraction="0"><text>A comment that is ignored by the slicer</text><feedback><text>The loop header is an executable control statement, not a comment.</text></feedback></answer>
+    <generalfeedback><text>The loop header is a control node: statements in the loop body (lines 5 and 6) are control-dependent on it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Direction wording match</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing of direction and meaning is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Backward = "what may affect v"; Forward = "what v may affect"</text><feedback><text>Correct — backward looks at influences on v, forward at what v influences.</text></feedback></answer>
+    <answer fraction="0"><text>Backward = "what v may affect"; Forward = "what may affect v"</text><feedback><text>These are swapped: backward is influences on v, forward is what v affects.</text></feedback></answer>
+    <answer fraction="0"><text>Backward = earlier lines only; Forward = later lines only</text><feedback><text>Slices are defined by dependence, not by textual line order.</text></feedback></answer>
+    <answer fraction="0"><text>Backward = data only; Forward = control only</text><feedback><text>Both directions follow control and data dependences.</text></feedback></answer>
+    <generalfeedback><text>Backward slice = statements that may affect v at s; forward slice = statements that may be affected by v at s.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Dynamic slice never larger than static</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the same criterion and program, a dynamic slice (for one run) is never larger than the corresponding static slice.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the dynamic slice is restricted to executed statements and live dependences, so it is a subset of the static slice.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Restricting to one run can only drop statements, never add them, so a dynamic slice is at most the size of the static slice.</text></feedback></answer>
+    <generalfeedback><text>A dynamic slice keeps only the statements and dependence edges actually exercised in the chosen run, so it is a subset of (and at most as large as) the static slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why slicing is useful</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A primary practical benefit of program slicing is that it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Narrows attention to only the statements relevant to a variable at a point, aiding debugging and comprehension</text><feedback><text>Correct — a slice removes irrelevant code so you can focus on what can influence a suspect value.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees the program is free of defects</text><feedback><text>Slicing isolates relevant code; it does not prove correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically fixes the faulty statement</text><feedback><text>Slicing highlights relevant statements; it does not repair them.</text></feedback></answer>
+    <answer fraction="0"><text>Increases the program's runtime performance</text><feedback><text>Slicing is an analysis aid, not a performance optimisation of the shipped program.</text></feedback></answer>
+    <generalfeedback><text>Slicing reduces the code a developer must consider to the statements that can influence (or be influenced by) a variable at a point — valuable for debugging, understanding, and regression analysis.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Program Slicing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Backward slice: total at avg</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> example:</p>
+<pre>2:  total = 0
+3:  count = 0
+4:  for (const s of scores)
+5:    total = total + s
+6:    count = count + 1
+8:  avg = total / count
+9:  grade = avg &gt;= 60 ? "pass" : "fail"
+10: return grade</pre>
+<p>What is the backward slice for criterion ⟨line 8, total⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 2, 4, 5, 8</text><feedback><text>Correct — total at line 8 comes from line 5 (total+s), which is in the loop (line 4) and uses total from line 2.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 3, 4, 6, 8</text><feedback><text>Those are the count-related statements; the criterion variable is total, not count.</text></feedback></answer>
+    <answer fraction="0"><text>All eight statements</text><feedback><text>Slicing on total at line 8 excludes the count computations (3, 6) and everything after line 8.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 5, 8 only</text><feedback><text>Line 5 depends on the loop (4) and the initial total (2), so those belong too.</text></feedback></answer>
+    <generalfeedback><text>Backward from total at 8: 8 ← 5 (total = total+s) ← 4 (loop) and ← 2 (total = 0). count statements (3, 6) do not affect total, so they are excluded. Slice = {2, 4, 5, 8}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Backward slice: count at avg</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using the same <em>Grade Average</em> program, what is the backward slice for criterion ⟨line 8, count⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 3, 4, 6, 8</text><feedback><text>Correct — count at line 8 comes from line 6 (count+1), in the loop (line 4), initialised at line 3.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 4, 5, 8</text><feedback><text>Those are the total-related statements; here the variable is count.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 3, 6, 8</text><feedback><text>Line 6 is control-dependent on the loop header (line 4), so line 4 belongs in the slice too.</text></feedback></answer>
+    <answer fraction="0"><text>All eight statements</text><feedback><text>The total computations (2, 5) and the statements after line 8 do not affect count at line 8.</text></feedback></answer>
+    <generalfeedback><text>Backward from count at 8: 8 ← 6 (count = count+1) ← 4 (loop) and ← 3 (count = 0). Slice = {3, 4, 6, 8}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why count is excluded from the total slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the backward slice ⟨line 8, total⟩ of <em>Grade Average</em>, line 3 <code>count = 0</code> is <strong>not</strong> included. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No dependence chain from count reaches total, so count cannot affect total's value at line 8</text><feedback><text>Correct — total and count are computed independently; count never flows into total.</text></feedback></answer>
+    <answer fraction="0"><text>Because line 3 executes before the loop</text><feedback><text>Textual position is irrelevant; line 2 also runs before the loop yet is included. It is the absence of a dependence that excludes line 3.</text></feedback></answer>
+    <answer fraction="0"><text>Because line 3 is a control statement</text><feedback><text>Line 3 is a plain assignment, not a control node; it is excluded because it does not affect total.</text></feedback></answer>
+    <answer fraction="0"><text>Because count is used only after line 8</text><feedback><text>count is used at line 8 (in avg), but on the count operand, not on total; there is simply no total-dependence on count.</text></feedback></answer>
+    <generalfeedback><text>A backward slice keeps only statements connected to the criterion variable by dependence edges. count is computed in a separate chain and never reaches total, so its initialisation is excluded.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Forward slice: total from init</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> example (lines as before). What is the <strong>forward</strong> slice for criterion ⟨line 2, total⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 2, 5, 8, 9, 10</text><feedback><text>Correct — total (line 2) flows into line 5, then into avg (8), grade (9), and the return (10).</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 3, 5, 6</text><feedback><text>Forward slicing follows where total's value goes; it does not pull in the count statements (3, 6).</text></feedback></answer>
+    <answer fraction="0"><text>All eight statements</text><feedback><text>The initialisation line 3 and loop line 4 are upstream of, not affected by, total at line 2.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 5 only</text><feedback><text>total reaches avg (8) via line 5, and avg then reaches grade (9) and the return (10).</text></feedback></answer>
+    <generalfeedback><text>Forward from total at 2: 2 → 5 (total = total+s) → 8 (avg) → 9 (grade) → 10 (return). Slice = {2, 5, 8, 9, 10}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Backward slice: label in Classify</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> example:</p>
+<pre>2:  label = "zero"
+3:  sign = 0
+4:  if (n &gt; 0)
+5:    label = "positive"
+6:    sign = 1
+7:  else if (n &lt; 0)
+8:    label = "negative"
+9:    sign = -1
+11: return label</pre>
+<p>What is the backward slice for criterion ⟨line 11, label⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 2, 4, 5, 7, 8, 11</text><feedback><text>Correct — label comes from the three label assignments (2, 5, 8) plus the predicates (4, 7) that guard 5 and 8.</text></feedback></answer>
+    <answer fraction="0"><text>All nine statements</text><feedback><text>The sign assignments (3, 6, 9) never affect label and are excluded.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 5, 8, 11</text><feedback><text>Lines 5 and 8 are control-dependent on the predicates 4 and 7, which must be in the slice too.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 5, 8, 11</text><feedback><text>The unconditional default label = "zero" (line 2) also reaches the return, and the guarding predicates belong too.</text></feedback></answer>
+    <generalfeedback><text>label at 11 has reaching defs 2, 5, 8. Lines 5 and 8 are control-dependent on predicates 4 and 7. The sign statements (3, 6, 9) never influence label. Slice = {2, 4, 5, 7, 8, 11}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why sign is excluded from label slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <em>Classify</em> backward slice ⟨line 11, label⟩, line 6 <code>sign = 1</code> is excluded. The best reason is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>sign is never used to compute label, so no data dependence carries it into the return</text><feedback><text>Correct — label and sign are independent; sign has no path to label.</text></feedback></answer>
+    <answer fraction="0"><text>sign = 1 is inside an if-branch, and slicing ignores branch bodies</text><feedback><text>Slicing does include branch bodies (line 5 is included); line 6 is dropped only because it does not affect label.</text></feedback></answer>
+    <answer fraction="0"><text>sign = 1 executes only when n &gt; 0, and the slice ignores conditional runs</text><feedback><text>Static slicing does not ignore conditional statements; line 6 is excluded for lack of dependence on label.</text></feedback></answer>
+    <answer fraction="0"><text>sign is a constant, and constants are never sliced</text><feedback><text>Constant assignments can appear in slices (line 2 is one); the reason is that sign does not reach label.</text></feedback></answer>
+    <generalfeedback><text>Slicing on label keeps only statements that reach label through dependences. sign is computed on a parallel, independent chain, so all sign assignments are excluded.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the loop header enters the slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <em>Grade Average</em>, the backward slice ⟨line 5, total⟩ = {2, 4, 5}. Why is line 4 <code>for (const s of scores)</code> included, even though it does not assign total?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Line 5 is control-dependent on the loop header, so the header must be in the slice</text><feedback><text>Correct — whether line 5 runs depends on the loop predicate at line 4, a control dependence.</text></feedback></answer>
+    <answer fraction="0"><text>The loop header assigns total</text><feedback><text>The header defines the loop variable s, not total; it enters via control dependence.</text></feedback></answer>
+    <answer fraction="0"><text>Line 4 is textually adjacent to line 5</text><feedback><text>Adjacency does not force inclusion; the control dependence does.</text></feedback></answer>
+    <answer fraction="0"><text>Every slice always includes line 4</text><feedback><text>Line 4 is included only when a sliced statement is control-dependent on it, not unconditionally.</text></feedback></answer>
+    <generalfeedback><text>Line 5 runs only when the loop iterates, so it is control-dependent on the loop header (line 4). Control dependences are followed in slicing, pulling line 4 in.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: data dependence role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which explorer relationship is captured by a <strong>data-dependence</strong> edge?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>total = 0 (line 2) → total = total + s (line 5): a value defined then used</text><feedback><text>Correct — line 2 defines total, line 5 uses it; that is a def-use (data) dependence.</text></feedback></answer>
+    <answer fraction="0"><text>for (line 4) → total = total + s (line 5): the loop deciding the body runs</text><feedback><text>That is a control dependence, not a data dependence.</text></feedback></answer>
+    <answer fraction="0"><text>if (n &gt; 0) (line 4) → label = "positive" (line 5) in Classify</text><feedback><text>That predicate-to-guarded-body link is a control dependence.</text></feedback></answer>
+    <answer fraction="0"><text>return grade being the last line of the function</text><feedback><text>Being last is a positional fact, not a dependence edge.</text></feedback></answer>
+    <generalfeedback><text>A data-dependence edge links a definition of a variable to a later use of that value. total defined at line 2 and used at line 5 is a data dependence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: control dependence role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which explorer relationship is captured by a <strong>control-dependence</strong> edge?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>if (n &gt; 0) (line 4) → label = "positive" (line 5): the predicate governs whether the statement runs</text><feedback><text>Correct — line 5 executes only if the predicate at line 4 is true; that is a control dependence.</text></feedback></answer>
+    <answer fraction="0"><text>total = total + s (line 5) → avg = total / count (line 8): a value flowing forward</text><feedback><text>That is a data dependence on total, not control.</text></feedback></answer>
+    <answer fraction="0"><text>count = 0 (line 3) → count = count + 1 (line 6): a definition reused</text><feedback><text>That is a data dependence on count, not control.</text></feedback></answer>
+    <answer fraction="0"><text>avg = total / count (line 8) → grade = ... (line 9): avg used to compute grade</text><feedback><text>That is a data dependence on avg, not control.</text></feedback></answer>
+    <generalfeedback><text>A control-dependence edge links a predicate to the statements whose execution it governs. if (n &gt; 0) governing label = "positive" is such an edge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Backward slice: total at line 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> example. What is the backward slice for criterion ⟨line 5, total⟩ (the accumulation statement)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 2, 4, 5</text><feedback><text>Correct — total at line 5 uses total from line 2 and is control-dependent on the loop header at line 4.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 5</text><feedback><text>Line 5 is control-dependent on the loop header (line 4), which must be included.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 4, 5, 8</text><feedback><text>Line 8 uses total but is downstream (forward), not something line 5 depends on.</text></feedback></answer>
+    <answer fraction="0"><text>Line 5 only</text><feedback><text>total at line 5 depends on its initial value (line 2) and on the loop header (line 4).</text></feedback></answer>
+    <generalfeedback><text>Backward from total at 5: it uses total (defined at line 2) and is control-dependent on the loop header (line 4). Slice = {2, 4, 5}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Forward slice: label in Classify</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> example. What is the <strong>forward</strong> slice for criterion ⟨line 2, label⟩ (the default assignment)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 2 and 11</text><feedback><text>Correct — the value assigned at line 2 can reach only the return that uses label (line 11).</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 5, 8, 11</text><feedback><text>Lines 5 and 8 redefine label independently; they are not affected by the value written at line 2.</text></feedback></answer>
+    <answer fraction="0"><text>All nine statements</text><feedback><text>The value from line 2 flows only to the return; it does not reach the sign statements or the predicates.</text></feedback></answer>
+    <answer fraction="0"><text>Line 2 only</text><feedback><text>label defined at line 2 is used at the return (line 11), so line 11 is in the forward slice.</text></feedback></answer>
+    <generalfeedback><text>Forward from label at 2: the only use of that value is the return (line 11). Slice = {2, 11}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why return is not in a backward slice on avg</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <em>Grade Average</em>, the backward slice ⟨line 9, avg⟩ = {2, 3, 4, 5, 6, 8, 9} — it does not contain line 10 <code>return grade</code>. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The return depends on line 9, not the other way round; a backward slice keeps only statements that affect the criterion</text><feedback><text>Correct — line 10 is downstream of line 9, so it would appear in a forward slice, not this backward one.</text></feedback></answer>
+    <answer fraction="0"><text>The return has no variables, so it is never sliced</text><feedback><text>The return uses grade and can appear in slices; it is excluded here only because it does not affect avg at line 9.</text></feedback></answer>
+    <answer fraction="0"><text>Line 10 is unreachable</text><feedback><text>The return is reachable; it is simply downstream of the criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Backward slices never include the last statement</text><feedback><text>There is no such rule; the last statement can be in a backward slice if it affects the criterion.</text></feedback></answer>
+    <generalfeedback><text>A backward slice gathers statements that affect the criterion. The return is affected by (comes after) line 9, so it belongs to the forward slice, not the backward one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why avg enters the grade slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <em>Grade Average</em>, the backward slice ⟨line 10, grade⟩ includes line 8 <code>avg = total / count</code>. Which chain explains this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>return uses grade; grade (line 9) uses avg; avg is defined at line 8 — a data-dependence chain</text><feedback><text>Correct — grade ← avg follows the def-use chain back to line 8.</text></feedback></answer>
+    <answer fraction="0"><text>Line 8 is control-dependent on the return</text><feedback><text>There is no control dependence from the return to line 8; the link is data dependence via grade and avg.</text></feedback></answer>
+    <answer fraction="0"><text>Line 8 and line 10 are on the same execution path, which is enough</text><feedback><text>Sharing a path is not sufficient; a dependence chain (grade ← avg) is what includes line 8.</text></feedback></answer>
+    <answer fraction="0"><text>avg is a global variable</text><feedback><text>avg is a local; its inclusion is due to the data-dependence chain into grade.</text></feedback></answer>
+    <generalfeedback><text>10 uses grade → 9 defines grade from avg → 8 defines avg. Following these data dependences backward pulls line 8 into the slice.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>sign = 1 in the label slice?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <em>Classify</em> example, line 6 <code>sign = 1</code> belongs to the backward slice for criterion ⟨return label, label⟩.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — sign never affects label, so line 6 is not in the slice.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>sign is independent of label; the label slice is {2, 4, 5, 7, 8, 11} and excludes all sign assignments.</text></feedback></answer>
+    <generalfeedback><text>The backward slice on label keeps only the label assignments and their guarding predicates; the sign computations (including line 6) are excluded.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Forward slice: count from init</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> example. What is the <strong>forward</strong> slice for criterion ⟨line 3, count⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 3, 6, 8, 9, 10</text><feedback><text>Correct — count (line 3) flows into line 6, then avg (8), grade (9), and the return (10).</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 5, 8, 9, 10</text><feedback><text>That is the forward slice from total (line 2); here the variable is count.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 3, 6 only</text><feedback><text>count reaches avg at line 8, which then reaches grade (9) and the return (10).</text></feedback></answer>
+    <answer fraction="0"><text>All eight statements</text><feedback><text>The total statements (2, 5) and the loop header are not affected by count's value at line 3.</text></feedback></answer>
+    <generalfeedback><text>Forward from count at 3: 3 → 6 (count = count+1) → 8 (avg) → 9 (grade) → 10 (return). Slice = {3, 6, 8, 9, 10}.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Program Slicing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Dynamic slice: Classify with n = 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> example, run with input <code>n = 5</code> (trace executes lines 2, 3, 4, 5, 6, 11). What is the <strong>dynamic</strong> backward slice for criterion ⟨line 11, label⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 4, 5, 11</text><feedback><text>Correct — on this run label at the return came from line 5 (guarded by line 4); the default line 2 was overwritten and never reaches the return.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 4, 5, 7, 8, 11</text><feedback><text>That is the static slice; the dynamic slice for n = 5 is smaller because line 5 overwrote label, and lines 7, 8 did not execute.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 5, 11</text><feedback><text>The default line 2 is dead on this run (label was reassigned at line 5); line 4 guards line 5 and is included instead.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 3, 4, 5, 6, 11</text><feedback><text>The dynamic slice keeps only statements that actually influenced label — not every executed statement (lines 3 and 6 compute sign; line 2 was overwritten).</text></feedback></answer>
+    <generalfeedback><text>On n = 5 the live definition of label reaching the return is line 5, control-dependent on line 4. Line 2's assignment is overwritten (dead), and lines 7, 8 never run. Dynamic slice = {4, 5, 11}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Static vs dynamic slice size (Classify, n = 5)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <em>Classify</em> ⟨line 11, label⟩, the static backward slice has 6 statements while the dynamic slice for <code>n = 5</code> has 3. What does this size difference chiefly reflect?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The static slice must account for all inputs (all branches), while the one run took only one branch and made the other label definitions irrelevant</text><feedback><text>Correct — specialising to a single execution drops the untaken branches and dead definitions.</text></feedback></answer>
+    <answer fraction="0"><text>The dynamic slice found extra dependences the static analysis missed</text><feedback><text>The dynamic slice is a subset; it cannot contain statements absent from the static slice.</text></feedback></answer>
+    <answer fraction="0"><text>The static analysis was imprecise and over-approximated by mistake</text><feedback><text>The larger static slice is correct, not a mistake — it must be safe for every possible input.</text></feedback></answer>
+    <answer fraction="0"><text>The two slices used different criteria</text><feedback><text>Both use the same criterion ⟨line 11, label⟩; only the scope (all runs vs one run) differs.</text></feedback></answer>
+    <generalfeedback><text>The static slice covers every possible execution, so it includes all three label definitions and both predicates. The dynamic slice for n = 5 keeps only the statements that actually determined label on that run, hence it is smaller.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dynamic slice: Classify with n = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> example, run with input <code>n = 0</code> (trace executes lines 2, 3, 4, 7, 11). What is the <strong>dynamic</strong> backward slice for criterion ⟨line 11, label⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 2, 11</text><feedback><text>Correct — neither branch reassigns label, so the returned label is the default from line 2; the predicates did not change it.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 4, 7, 11</text><feedback><text>Lines 4 and 7 executed, but label = "zero" (line 2) is unconditional — it is not control-dependent on those predicates, so they are not in the dynamic slice.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 4, 5, 7, 8, 11</text><feedback><text>That is the static slice; on n = 0 neither label reassignment (5, 8) executes.</text></feedback></answer>
+    <answer fraction="0"><text>Line 11 only</text><feedback><text>The value returned came from line 2, so line 2 is in the slice.</text></feedback></answer>
+    <generalfeedback><text>On n = 0 both branches are skipped, so label keeps its default from line 2. Line 2 is unconditional (not control-dependent on the predicates), so the executed predicates 4 and 7 stay out. Dynamic slice = {2, 11}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dynamic slice: Classify with n = -3</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> example, run with input <code>n = -3</code> (trace executes lines 2, 3, 4, 7, 8, 9, 11). What is the <strong>dynamic</strong> backward slice for criterion ⟨line 11, label⟩?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 4, 7, 8, 11</text><feedback><text>Correct — label came from line 8, which is control-dependent on line 7 (else-if), which is control-dependent on line 4.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 2, 4, 7, 8, 11</text><feedback><text>Line 8 overwrote the default label; line 2's assignment is dead on this run and drops out.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 7, 8, 11</text><feedback><text>Line 7 is itself control-dependent on line 4 (it is only reached when n &gt; 0 is false), so line 4 is included too.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 8, 11</text><feedback><text>Line 8 is guarded by predicate 7, which is guarded by predicate 4; both belong in the slice.</text></feedback></answer>
+    <generalfeedback><text>On n = -3 the live def of label is line 8, control-dependent on line 7, which is control-dependent on line 4. Line 2 is overwritten. Dynamic slice = {4, 7, 8, 11}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dynamic equals static (Grade Average)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <em>Grade Average</em>, the static backward slice ⟨line 10, grade⟩ is all eight statements. For the run <code>scores = [50]</code> the dynamic slice is also all eight. Why is there no reduction here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every statement executed and each one's value genuinely contributed to grade on that run, so nothing could be dropped</text><feedback><text>Correct — with no untaken branches or dead definitions relevant to grade, the dynamic slice equals the static one.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic slices always equal static slices</text><feedback><text>Not in general — the Classify example shows strict reductions; here they happen to coincide.</text></feedback></answer>
+    <answer fraction="0"><text>The run failed, and failing runs are not sliced</text><feedback><text>Runs are sliced regardless of outcome; the coincidence is due to every statement contributing.</text></feedback></answer>
+    <answer fraction="0"><text>The criterion variable grade is global</text><feedback><text>grade is local; the equality comes from all statements genuinely influencing grade on this run.</text></feedback></answer>
+    <generalfeedback><text>A dynamic slice shrinks when some statements did not execute or their definitions were killed before reaching the criterion. Here every statement ran and each fed into grade, so the dynamic slice matches the full static slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why dynamic ⊆ static</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can a dynamic slice never contain a statement that the static slice (same criterion) omits?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The dynamic slice only restricts the static one to executed statements and live dependences; restriction can remove but never add statements</text><feedback><text>Correct — the dynamic slice is a filtered subset of the static slice.</text></feedback></answer>
+    <answer fraction="0"><text>A dynamic slice uses more dependence edges than the static one</text><feedback><text>It uses fewer — only those live in the run — so it cannot exceed the static slice.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic analysis discovers new statements at runtime</text><feedback><text>No new statements appear; the run selects among the program's existing statements.</text></feedback></answer>
+    <answer fraction="0"><text>The static slice ignores control dependences</text><feedback><text>Static slicing uses control dependences too; the subset relation holds because the dynamic slice is a restriction.</text></feedback></answer>
+    <generalfeedback><text>A dynamic slice keeps only the executed statements and the dependence edges that were live in the chosen run — a subset of what the static slice considers, so it is always contained in the static slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Slicing pinpoints the bug</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>Grade Average (buggy)</em> example changes line 6 to <code>count = count + s</code> (it adds the score instead of 1), so the average is wrong. For criterion ⟨line 10, grade⟩, how does the backward slice help debugging?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The faulty line 6 is inside the backward slice of grade, so it is among the statements a developer must inspect for a wrong grade</text><feedback><text>Correct — count feeds avg feeds grade, so the buggy count update is in the slice for the wrong output.</text></feedback></answer>
+    <answer fraction="0"><text>The slice excludes line 6, proving it cannot be the fault</text><feedback><text>On the contrary, line 6 is in the slice via count → avg → grade, so it is a suspect.</text></feedback></answer>
+    <answer fraction="0"><text>The slice automatically rewrites line 6 to the correct code</text><feedback><text>Slicing narrows the suspects; it does not repair code.</text></feedback></answer>
+    <answer fraction="0"><text>The slice proves the bug is in the return statement</text><feedback><text>The return merely propagates grade; slicing points to the whole influencing set, which includes the actual fault at line 6.</text></feedback></answer>
+    <generalfeedback><text>Because count flows into avg and then grade, the buggy line 6 is inside the backward slice for grade. Slicing confines the search for a wrong grade to exactly the statements that could have caused it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace the dependence chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <em>Grade Average</em>, which chain of data dependences shows that line 2 <code>total = 0</code> can influence the returned grade?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 (total) → 5 (total) → 8 (avg) → 9 (grade) → 10 (return)</text><feedback><text>Correct — total flows into the accumulation, then avg, then grade, then the return.</text></feedback></answer>
+    <answer fraction="0"><text>2 (total) → 3 (count) → 8 (avg) → 10 (return)</text><feedback><text>total does not flow into count (line 3); the chain runs through line 5, not line 3.</text></feedback></answer>
+    <answer fraction="0"><text>2 (total) → 8 (avg) → 10 (return)</text><feedback><text>total reaches avg via the accumulation at line 5; the direct 2 → 8 edge does not exist, and grade (9) sits between avg and the return.</text></feedback></answer>
+    <answer fraction="0"><text>2 (total) → 4 (loop) → 9 (grade) → 10 (return)</text><feedback><text>Line 2 has no data edge into the loop header, and grade is computed from avg, not directly from the loop.</text></feedback></answer>
+    <generalfeedback><text>Forward from total at line 2: total is used at line 5, whose result feeds avg (8), which feeds grade (9), which the return (10) uses. That is the data-dependence chain.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Regression: which tests to re-run</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under the static slice-based regression criterion, after changing statement S, which tests must be re-run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every test that executed at least one statement in the forward slice (impact set) of S</text><feedback><text>Correct — the forward slice of S bounds everything the edit can affect, so any test touching it must re-run.</text></feedback></answer>
+    <answer fraction="0"><text>Only the single test with the highest coverage</text><feedback><text>Coverage magnitude is irrelevant; what matters is whether a test touches S's impact set.</text></feedback></answer>
+    <answer fraction="0"><text>Only tests that executed S itself, never any downstream statement</text><feedback><text>A test can be affected by touching a statement downstream of S even if it did not execute S directly.</text></feedback></answer>
+    <answer fraction="0"><text>Every test in the suite, unconditionally</text><feedback><text>Slice-based selection avoids re-running tests that cannot be affected by the change.</text></feedback></answer>
+    <generalfeedback><text>The forward slice of the changed statement is its impact set. The static criterion re-runs any test that executed at least one statement in that set, and safely skips the rest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why slicing helps regression testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does slicing reduce the cost of regression testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It bounds the effect of a change to the change's slice (impact set), so tests that cannot reach that set can be safely skipped</text><feedback><text>Correct — only tests touching the impact set need re-running, saving effort.</text></feedback></answer>
+    <answer fraction="0"><text>It deletes the tests that previously failed</text><feedback><text>Slicing selects which tests to re-run; it does not delete tests.</text></feedback></answer>
+    <answer fraction="0"><text>It makes each test execute faster</text><feedback><text>Slicing reduces the number of tests to run, not the speed of an individual test.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the change introduced no defects</text><feedback><text>Slicing helps choose tests; it cannot by itself guarantee correctness.</text></feedback></answer>
+    <generalfeedback><text>A change can only affect statements in its (forward) slice. Tests that never execute any statement in that impact set cannot observe the change, so they need not be re-run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Forward slice from a loop variable</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> example. What is the <strong>forward</strong> slice for criterion ⟨line 4, s⟩ (the loop variable)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lines 4, 5, 6, 8, 9, 10</text><feedback><text>Correct — line 4 controls the body (lines 5, 6) and its variable s feeds line 5; the effect then propagates through avg, grade, and the return.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 4, 5, 8, 9, 10</text><feedback><text>Line 6 is control-dependent on the loop header (line 4), so it belongs to the forward slice too.</text></feedback></answer>
+    <answer fraction="0"><text>All eight statements</text><feedback><text>The initialisations at lines 2 and 3 precede the loop and are not affected by s at line 4.</text></feedback></answer>
+    <answer fraction="0"><text>Lines 4, 5, 6</text><feedback><text>The loop body updates total and count, whose values then reach avg (8), grade (9), and the return (10).</text></feedback></answer>
+    <generalfeedback><text>Forward from the loop header: it controls lines 5 and 6, and s feeds line 5. Their effects flow into avg (8), grade (9), and the return (10). Lines 2 and 3 are upstream and excluded. Slice = {4, 5, 6, 8, 9, 10}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate in a slice via control dependence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <em>Classify</em>, the backward slice ⟨line 11, label⟩ contains line 4 <code>if (n &gt; 0)</code>, even though line 4 assigns no variable that label uses. What justifies its inclusion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Line 5 (label = "positive") is control-dependent on line 4, and line 5 is in the slice, so its controlling predicate is pulled in</text><feedback><text>Correct — control dependences are followed backward, so a predicate guarding a sliced statement is included.</text></feedback></answer>
+    <answer fraction="0"><text>Line 4 defines n, which label uses</text><feedback><text>label does not use n, and line 4 does not define it; inclusion is by control dependence of line 5.</text></feedback></answer>
+    <answer fraction="0"><text>Every if-statement is always added to every slice</text><feedback><text>A predicate is added only when it controls a statement already in the slice.</text></feedback></answer>
+    <answer fraction="0"><text>Line 4 is the first executable line</text><feedback><text>Being early does not force inclusion; the control dependence of line 5 does.</text></feedback></answer>
+    <generalfeedback><text>label = "positive" (line 5) is in the slice and is control-dependent on the predicate at line 4. Slicing follows that control edge, so the predicate joins the slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the default label drops out (n = 5)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic slice of <em>Classify</em> for <code>n = 5</code> ⟨line 11, label⟩, line 2 <code>label = "zero"</code> executed but is <strong>not</strong> in the slice. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Line 5 redefined label after line 2, so by the last-definition rule the value reaching the return came from line 5, not line 2</text><feedback><text>Correct — line 2's write is killed by line 5 before the return uses label, so it is a dead definition on this run.</text></feedback></answer>
+    <answer fraction="0"><text>Line 2 never executed on this run</text><feedback><text>Line 2 did execute; it is excluded because its value was overwritten, not because it was skipped.</text></feedback></answer>
+    <answer fraction="0"><text>Constant assignments are always excluded from dynamic slices</text><feedback><text>Constant assignments can appear in slices (line 5 assigns a constant and is included); line 2 is dropped as a dead definition.</text></feedback></answer>
+    <answer fraction="0"><text>label = "zero" is control-dependent on line 4</text><feedback><text>Line 2 is unconditional; it is excluded because its value did not reach the return, not by control dependence.</text></feedback></answer>
+    <generalfeedback><text>By the last-definition rule, only the most recent def of a variable before a use is live. On n = 5, line 5 overwrote label before the return, so line 2's definition is dead and excluded from the dynamic slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Smallest dynamic slice among the runs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <em>Classify</em> ⟨line 11, label⟩, compare the dynamic slices for the three inputs. Which input yields the <strong>smallest</strong> dynamic slice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n = 0 (slice = {2, 11}, size 2)</text><feedback><text>Correct — with neither branch reassigning label, only the default and the return remain, the smallest slice.</text></feedback></answer>
+    <answer fraction="0"><text>n = 5 (slice = {4, 5, 11}, size 3)</text><feedback><text>That is size 3; the n = 0 run gives a smaller slice of size 2.</text></feedback></answer>
+    <answer fraction="0"><text>n = -3 (slice = {4, 7, 8, 11}, size 4)</text><feedback><text>That is size 4, the largest of the three dynamic slices.</text></feedback></answer>
+    <answer fraction="0"><text>All three are the same size</text><feedback><text>They differ: sizes 2 (n = 0), 3 (n = 5), and 4 (n = -3).</text></feedback></answer>
+    <generalfeedback><text>Dynamic slices: n = 0 → {2, 11} (2), n = 5 → {4, 5, 11} (3), n = -3 → {4, 7, 8, 11} (4). The n = 0 run is smallest because the returned label is just the unconditional default.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How slicing aids debugging in general</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Overall, how does program slicing most directly help debugging?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It narrows the search for a fault to the statements that can influence the incorrect variable at the failure point</text><feedback><text>Correct — the backward slice of the faulty value bounds the set of statements to inspect.</text></feedback></answer>
+    <answer fraction="0"><text>It reruns the program until the bug disappears</text><feedback><text>Slicing is a static/dynamic analysis of dependences, not a retry mechanism.</text></feedback></answer>
+    <answer fraction="0"><text>It ranks statements by execution time</text><feedback><text>Slicing is about dependences, not profiling execution time.</text></feedback></answer>
+    <answer fraction="0"><text>It formally verifies the absence of the fault</text><feedback><text>Slicing focuses attention; it does not prove correctness.</text></feedback></answer>
+    <generalfeedback><text>When a variable holds a wrong value at some point, its backward slice contains exactly the statements that could have caused it, so the developer can ignore the rest of the program.</text></generalfeedback>
+  </question>
+</quiz>

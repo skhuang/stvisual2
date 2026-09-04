@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/TDD Cycle/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Red 階段是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 TDD 循環中，<strong>紅（Red）</strong>階段會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>你為尚未存在的行為寫一個新測試，而它會失敗</text><feedback><text>正確——紅表示在正式程式碼存在之前，先寫一個會失敗的測試。</text></feedback></answer>
+    <answer fraction="0"><text>你在所有測試持續通過的情況下整理程式碼</text><feedback><text>那是重構（Refactor）；紅是寫一個會失敗的測試。</text></feedback></answer>
+    <answer fraction="0"><text>你寫剛好足夠的正式程式碼讓某個測試通過</text><feedback><text>那是綠（Green）；紅是先出現的失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>你刪掉執行太慢的測試</text><feedback><text>紅不是刪測試，而是寫一個新的失敗測試。</text></feedback></answer>
+    <generalfeedback><text>紅是循環的第一階段：你寫一個小測試描述尚未實作的行為，執行後看到它失敗（紅燈）。這個失敗的測試證明行為尚未存在，並為下一階段提供明確的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Green 階段是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 TDD 循環中，<strong>綠（Green）</strong>階段會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>你寫剛好足夠的正式程式碼，讓失敗的測試通過</text><feedback><text>正確——綠是寫出讓測試轉綠所需的最小程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>你為下一段行為寫一個會失敗的測試</text><feedback><text>那是紅；綠是讓目前失敗的測試通過。</text></feedback></answer>
+    <answer fraction="0"><text>你改善已經通過的程式碼的結構</text><feedback><text>那是重構；綠是先讓失敗的測試通過。</text></feedback></answer>
+    <answer fraction="0"><text>你量測測試套件跑得多快</text><feedback><text>綠是讓測試通過，不是量測速度。</text></feedback></answer>
+    <generalfeedback><text>綠是第二階段：你加入讓目前失敗的測試通過所需的最小正式程式碼，此時先不追求優雅。目標只是盡快回到通過（綠燈）的測試套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Refactor 階段是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 TDD 循環中，<strong>重構（Refactor）</strong>階段會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>你在保持所有測試維持綠燈的情況下，改善程式碼的內部結構</text><feedback><text>正確——重構在不改變行為下整理程式碼，測試維持綠燈。</text></feedback></answer>
+    <answer fraction="0"><text>你為下一個功能加入一個會失敗的新測試</text><feedback><text>那是紅；重構是在測試通過時整理既有程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>你寫出第一段讓失敗測試通過的程式碼</text><feedback><text>那是綠；重構發生在測試已經通過之後。</text></feedback></answer>
+    <answer fraction="0"><text>你改變行為，讓測試重新開始失敗</text><feedback><text>重構必須維持測試綠燈；改變行為不是重構。</text></feedback></answer>
+    <generalfeedback><text>重構是第三階段：在套件為綠燈時，你整理程式碼——移除重複、改名、抽出方法——在保留行為的前提下改善結構。因為測試仍然通過，你就知道整理沒有弄壞任何東西。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>TDD 循環的順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>TDD 循環三個階段的正確順序是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>紅（Red），接著綠（Green），接著重構（Refactor）</text><feedback><text>正確——先寫失敗測試，讓它通過，再整理。</text></feedback></answer>
+    <answer fraction="0"><text>綠（Green），接著紅（Red），接著重構（Refactor）</text><feedback><text>在寫出失敗測試之前，無法讓測試通過；紅在最前面。</text></feedback></answer>
+    <answer fraction="0"><text>重構（Refactor），接著紅（Red），接著綠（Green）</text><feedback><text>在紅-綠循環產生通過的程式碼之前，沒有東西可以重構。</text></feedback></answer>
+    <answer fraction="0"><text>紅（Red），接著重構（Refactor），接著綠（Green）</text><feedback><text>只有在測試轉綠後才重構，所以綠必須在重構之前。</text></feedback></answer>
+    <generalfeedback><text>TDD 微循環是紅（寫一個失敗測試）、綠（寫剛好足夠的程式碼讓它通過）、再重構（在測試維持綠燈時整理）。接著循環為下一小段行為重複進行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>綠階段要寫多少程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>綠（Green）</strong>階段，你應該寫多少正式程式碼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>剛好足夠讓失敗的測試通過——不多也不少</text><feedback><text>正確——綠寫出讓目前測試通過所需的最小程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>盡量寫出你能預想到會用到的通用、功能完整的程式碼</text><feedback><text>那是臆測性的；綠只寫讓目前測試通過的最小程度。</text></feedback></answer>
+    <answer fraction="0"><text>不寫——綠只是執行測試而已</text><feedback><text>綠確實會加程式碼：讓失敗測試通過所需的最小量。</text></feedback></answer>
+    <answer fraction="0"><text>足以通過測試，再加一些沒有測試的額外功能</text><feedback><text>沒有測試的額外功能違反紀律；只寫測試要求的部分。</text></feedback></answer>
+    <generalfeedback><text>「通過所需的最小程式碼」是 TDD 的核心紀律。在綠階段你只寫目前失敗測試所要求的程式碼。額外的通用性稍後由更多測試逼出，使每一行都由測試證成，並避免臆測、未受測試的程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>紅燈具體代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 TDD 循環中，「<strong>紅（red）</strong>」具體是指什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個失敗的測試</text><feedback><text>正確——紅是測試失敗的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>一個通過的測試</text><feedback><text>通過的測試是綠；紅表示失敗。</text></feedback></answer>
+    <answer fraction="0"><text>完全無法編譯的程式碼</text><feedback><text>紅特指失敗的測試，不僅僅是編譯錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>一個已被刪除的測試</text><feedback><text>紅是失敗的測試，不是被刪除的測試。</text></feedback></answer>
+    <generalfeedback><text>這些名稱來自測試執行工具的顏色：失敗的測試顯示紅燈，通過的測試顯示綠燈。因此「紅」代表你在每個循環中刻意先製造出的失敗測試狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>重構的前提條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在進入<strong>重構（Refactor）</strong>階段之前，什麼條件必須成立？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有測試都通過（套件為綠燈）</text><feedback><text>正確——只從綠燈開始重構，才能判斷沒有弄壞任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>目前至少有一個測試在失敗</text><feedback><text>測試失敗時不可重構；先回到綠燈。</text></feedback></answer>
+    <answer fraction="0"><text>你還完全沒有寫任何測試</text><feedback><text>沒有通過的測試就沒有安全網；要從綠燈開始重構。</text></feedback></answer>
+    <answer fraction="0"><text>下一個功能的失敗測試已經寫好</text><feedback><text>重構在同一循環中緊接著綠；不需要下一個紅。</text></feedback></answer>
+    <generalfeedback><text>重構意指在不改變行為下改善結構。你只在套件為綠燈時進入，因為通過的測試正是讓你確認整理沒有改變行為的依據。在紅燈上重構會失去這張安全網。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識階段：寫一個失敗測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你為一個尚不存在的函式寫了一個測試，執行後它失敗了。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>紅（Red）</text><feedback><text>正確——剛寫出的失敗測試就是紅階段。</text></feedback></answer>
+    <answer fraction="0"><text>綠（Green）</text><feedback><text>綠是讓測試通過；失敗的測試是紅。</text></feedback></answer>
+    <answer fraction="0"><text>重構（Refactor）</text><feedback><text>重構發生在測試通過時；失敗的測試是紅。</text></feedback></answer>
+    <answer fraction="0"><text>發布（Release）</text><feedback><text>發布不是 TDD 循環的階段；失敗的測試是紅。</text></feedback></answer>
+    <generalfeedback><text>為尚未實作的行為寫測試並看著它失敗，正是紅階段——開啟每個循環的失敗測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識階段：讓測試通過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你加入剛好足夠的程式碼，把目前失敗的測試變成通過。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>綠（Green）</text><feedback><text>正確——寫出讓測試通過的最小程式碼就是綠階段。</text></feedback></answer>
+    <answer fraction="0"><text>紅（Red）</text><feedback><text>紅是失敗的測試；讓它通過是綠。</text></feedback></answer>
+    <answer fraction="0"><text>重構（Refactor）</text><feedback><text>重構整理的是已經通過的程式碼；先讓測試通過是綠。</text></feedback></answer>
+    <answer fraction="0"><text>討論（Discuss）</text><feedback><text>討論屬於 ATDD，不是紅-綠-重構循環；這是綠。</text></feedback></answer>
+    <generalfeedback><text>加入讓失敗測試通過所需的最小正式程式碼就是綠階段——讓套件回到通過（綠燈）狀態的步驟。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識階段：測試綠燈下整理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>所有測試都通過，而你在不改變行為下把一個變數改名並抽出一個輔助方法。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重構（Refactor）</text><feedback><text>正確——在測試維持綠燈下改善結構就是重構階段。</text></feedback></answer>
+    <answer fraction="0"><text>紅（Red）</text><feedback><text>紅是寫失敗測試；整理通過的程式碼是重構。</text></feedback></answer>
+    <answer fraction="0"><text>綠（Green）</text><feedback><text>綠是讓失敗測試通過；此處測試已通過，所以是重構。</text></feedback></answer>
+    <answer fraction="0"><text>展示（Demo）</text><feedback><text>展示屬於 ATDD；整理綠燈的程式碼是重構。</text></feedback></answer>
+    <generalfeedback><text>在所有測試維持綠燈下改名並抽出方法——在不改變可觀察行為下改善內部結構——正是重構階段。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>測試先於正式程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 TDD 中，你在寫出讓測試通過的正式程式碼<strong>之前</strong>就先寫測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——TDD 是測試先行：失敗測試（紅）先於程式碼（綠）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>TDD 是測試先行：紅的失敗測試先於綠的正式程式碼。</text></feedback></answer>
+    <generalfeedback><text>Test-Driven Development 中的「Driven」代表測試先行。每個循環都以一個失敗測試（紅）開始，再驅動出滿足它所寫的最小正式程式碼（綠）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>TDD 的縮寫代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>縮寫 <strong>TDD</strong> 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試驅動開發（Test-Driven Development）</text><feedback><text>正確——TDD 就是 Test-Driven Development。</text></feedback></answer>
+    <answer fraction="0"><text>型別驅動設計（Type-Driven Design）</text><feedback><text>TDD 代表 Test-Driven Development。</text></feedback></answer>
+    <answer fraction="0"><text>全面缺陷偵測（Total Defect Detection）</text><feedback><text>TDD 代表 Test-Driven Development。</text></feedback></answer>
+    <answer fraction="0"><text>測試資料定義（Test Data Definition）</text><feedback><text>TDD 代表 Test-Driven Development。</text></feedback></answer>
+    <generalfeedback><text>TDD = Test-Driven Development（測試驅動開發）：一種紀律，先寫小的失敗測試來驅動正式程式碼，一次一個紅-綠-重構循環進行。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>重構期間測試維持綠燈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在重構階段，測試應該<strong>自始至終維持通過</strong>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——重構保留行為，因此測試全程維持綠燈。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>重構不得改變行為，因此套件維持綠燈；若測試轉紅，你就改變了行為，不是純重構。</text></feedback></answer>
+    <generalfeedback><text>重構在不改變行為下改善結構。通過的測試就是安全網：若某次變動把燈變紅，代表它改變了行為，不是純粹的重構。全程維持綠燈正是讓重構安全的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完成一個循環之後做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你剛完成重構，所有測試都是綠燈。在 TDD 中接下來做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>開始新的循環，寫下一個小的失敗測試（紅）</text><feedback><text>正確——循環重複，再次從一個新的失敗測試開始。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉你剛讓它通過的測試，好讓套件保持精簡</text><feedback><text>通過的測試要留作回歸網；改為開始下一個紅。</text></feedback></answer>
+    <answer fraction="0"><text>寫一大批正式程式碼，不再寫測試</text><feedback><text>TDD 維持測試先行；下一步是新的失敗測試，不是沒有測試的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>不加行為，反覆重構</text><feedback><text>一旦乾淨且綠燈，就用新的紅測試驅動下一段行為。</text></feedback></answer>
+    <generalfeedback><text>TDD 是反覆進行的。當紅-綠-重構讓你處於乾淨且綠燈之後，你為下一小片行為寫另一個失敗測試，開始下一個循環，讓系統一次一個受測步驟地成長。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>綠不是最通用的解</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在綠階段，你應該寫出你能想到最完整、最通用的解，遠超過目前測試的需要。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——綠只寫讓目前測試通過所需的最小程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>綠只寫剛好讓目前測試通過的程度；通用性稍後由更多測試逼出。</text></feedback></answer>
+    <generalfeedback><text>綠的紀律是最小化：只寫目前失敗測試所要求的。額外的通用性會是臆測且未受測試的。後續循環中的更多測試才是把程式碼推向更完整、通用解的力量。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Cycle/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>紅之後的下一步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你剛寫好一個失敗測試（紅）。TDD 的下一步是什麼，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>寫剛好足夠的正式程式碼讓測試通過（綠），好盡快回到通過的套件</text><feedback><text>正確——紅之後是綠：讓測試通過的最小程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>先重構正式程式碼，再讓測試通過</text><feedback><text>在紅燈上無法重構；先讓測試轉綠。</text></feedback></answer>
+    <answer fraction="0"><text>先寫另一個失敗測試來三角定位，再寫任何程式碼</text><feedback><text>嚴格的 TDD 會先讓目前失敗測試通過再加下一個；下一步做綠。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉這個失敗測試，因為它很麻煩</text><feedback><text>失敗測試就是目標；用最小程式碼（綠）滿足它。</text></feedback></answer>
+    <generalfeedback><text>紅之後你走向綠：加入讓失敗測試通過的最小正式程式碼。盡快回到綠燈是目標；整理（重構）在其後，而下一個失敗測試開始下一個循環。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>綠燈但雜亂時的下一步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的測試剛通過，所有測試都是綠燈，但你加入的程式碼有明顯的重複。TDD 的下一步是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>現在就重構，在測試維持綠燈時移除重複</text><feedback><text>正確——在綠燈下，你重構整理後再往下走。</text></feedback></answer>
+    <answer fraction="0"><text>保留重複，立刻寫下一個失敗測試</text><feedback><text>循環的重構步驟正是要趁你有綠燈安全網時整理。</text></feedback></answer>
+    <answer fraction="0"><text>讓其中一個測試失敗，好讓你安全地重構</text><feedback><text>你從綠燈開始重構，而非刻意轉紅；此時燈已經是綠的。</text></feedback></answer>
+    <answer fraction="0"><text>改寫測試以配合重複的程式碼</text><feedback><text>重構改變的是程式碼結構，不是測試；請改為移除重複。</text></feedback></answer>
+    <generalfeedback><text>一旦綠燈，重構階段就是你移除重複、改善結構的時機。趁測試通過時進行，能讓安全網持續存在，並防止小亂象累積成技術債。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何不在紅燈時重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼在測試失敗（紅）時<strong>不</strong>應重構？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重構必須保留行為，而沒有綠燈時你無法分辨是你的變動弄壞了東西，還是它本來就壞的</text><feedback><text>正確——綠的基準線才能讓你確認重構沒有改變任何可觀察之處。</text></feedback></answer>
+    <answer fraction="0"><text>因為重構每個專案只允許一次</text><feedback><text>重構每個循環都會發生；真正的問題是缺少綠的安全網。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試失敗代表程式碼已經完美</text><feedback><text>測試失敗代表行為缺失或錯誤，不是完美；你需要先綠。</text></feedback></answer>
+    <answer fraction="0"><text>因為重構會自動刪掉失敗的測試</text><feedback><text>重構不會刪測試；問題在於你沒有可信任的通過基準線。</text></feedback></answer>
+    <generalfeedback><text>重構的定義是在不改變行為下改變結構。通過的套件是你驗證行為未變的方式。在紅燈上你沒有可信任的基準線，因此無法區分重構的錯誤與既有的失敗。先回到綠，再重構。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何先寫測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在嚴格的 TDD 中，為什麼必須在寫正式程式碼<strong>之前</strong>先寫一個失敗測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>好讓每一段正式程式碼都由一個要求它的測試證成，使程式碼保持由測試驅動</text><feedback><text>正確——測試先行代表沒有任何正式程式碼在缺少失敗測試要求時存在。</text></feedback></answer>
+    <answer fraction="0"><text>好讓編譯器能從程式碼產生測試</text><feedback><text>測試由開發者先寫；不是從程式碼產生。</text></feedback></answer>
+    <answer fraction="0"><text>好讓你之後可以略過執行測試</text><feedback><text>測試每個循環都要執行；先寫測試並不會免除這點。</text></feedback></answer>
+    <answer fraction="0"><text>好讓重構能在任何程式碼存在之前進行</text><feedback><text>程式碼存在之前沒有東西可重構；理由是使每一行程式碼都被證成。</text></feedback></answer>
+    <generalfeedback><text>TDD 的第一條規則禁止在沒有失敗測試時寫正式程式碼。先寫測試確保每一行正式程式碼都是為了滿足某個具體需求而存在，維持全面覆蓋，並讓測試驅動設計，而非事後補上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在紅燈時再加一個失敗測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你已經有一個失敗測試。在嚴格的 TDD 中，可以在處理第一個之前先寫第二個失敗測試嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不行——你應該先讓目前的失敗測試通過，再寫下一個</text><feedback><text>正確——嚴格的 TDD 讓你一次只處理一個失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>可以——在寫程式碼之前，想堆多少失敗測試都行</text><feedback><text>嚴格的 TDD 一次只處理一個紅；先讓目前這個通過。</text></feedback></answer>
+    <answer fraction="0"><text>可以——第二個失敗測試會自動修好第一個</text><feedback><text>新測試不會修好既有的；先讓目前測試轉綠。</text></feedback></answer>
+    <answer fraction="0"><text>只有在你刪掉第一個失敗測試時才可以</text><feedback><text>你要保留測試並讓它通過，而不是刪掉它以便加另一個。</text></feedback></answer>
+    <generalfeedback><text>嚴格的 TDD 讓進行中的失敗測試恰好只有一個：你把它驅動到綠，再寫下一個。堆積多個紅測試會失去緊密的回饋迴圈，以及每個綠步驟所仰賴的明確、最小目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對應活動：偽造回傳值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為了通過「新堆疊是空的」這個測試，你把 <code>isEmpty()</code> 寫成無條件回傳 <code>true</code>。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>綠——這是讓目前測試通過的最小（偽造）程式碼</text><feedback><text>正確——回傳常數以通過測試是綠的「先偽造」步驟。</text></feedback></answer>
+    <answer fraction="0"><text>紅——因為這個實作明顯是錯的</text><feedback><text>測試通過了，所以燈是綠的；naive 不代表它就是紅。</text></feedback></answer>
+    <answer fraction="0"><text>重構——因為你改了正式程式碼</text><feedback><text>重構改善的是已正確的程式碼；此處你是先讓測試通過（綠）。</text></feedback></answer>
+    <answer fraction="0"><text>這完全不屬於 TDD</text><feedback><text>「先偽造」以通過目前測試是 TDD 中正當的綠動作。</text></feedback></answer>
+    <generalfeedback><text>回傳寫死的值以讓目前測試通過，是經典的「先偽造（fake it）」綠步驟。它刻意最小化；稍後的失敗測試會逼出真正的行為，透過三角定位（triangulation）驅逐這個偽造。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對應活動：以一個方法表達另一個</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在所有測試通過時，你加入一個 <code>size()</code> 方法，並把 <code>isEmpty()</code> 改寫為回傳 <code>size() === 0</code>，行為不變。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重構——結構改善、行為不變且測試維持綠燈</text><feedback><text>正確——在綠燈下透過輔助方法去除重複是重構步驟。</text></feedback></answer>
+    <answer fraction="0"><text>紅——你寫了新程式碼，所以一定有測試在失敗</text><feedback><text>沒有測試失敗；行為不變且燈維持綠，所以是重構。</text></feedback></answer>
+    <answer fraction="0"><text>綠——你正在讓一個失敗測試通過</text><feedback><text>沒有東西在失敗；你是在整理通過的程式碼，這是重構。</text></feedback></answer>
+    <answer fraction="0"><text>萃取（Distill）——把範例轉成驗收測試</text><feedback><text>萃取是 ATDD 的階段；以一個方法表達另一個是重構。</text></feedback></answer>
+    <generalfeedback><text>引入 <code>size()</code> 並以它來定義 <code>isEmpty()</code>，在不改變可觀察行為下改善內部設計，且測試全程維持綠燈——是教科書等級的重構。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對應活動：加入程式碼無法通過的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的 <code>fizzbuzz</code> 已處理 3 與 5，現在你加入一個測試，要求 <code>fizzbuzz(15)</code> 回傳 "FizzBuzz"，而目前程式碼無法通過。這是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>紅——一個新加入的失敗測試</text><feedback><text>正確——加入目前程式碼無法通過的測試是紅階段。</text></feedback></answer>
+    <answer fraction="0"><text>綠——因為其他大多數測試仍然通過</text><feedback><text>新測試失敗，所以無論其他是否通過，這一步都是紅。</text></feedback></answer>
+    <answer fraction="0"><text>重構——因為你在編輯測試套件</text><feedback><text>加入失敗測試是紅；重構是在所有測試通過時整理程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>展示（Demo）——向利害關係人展示行為</text><feedback><text>展示是 ATDD 的階段；加入失敗測試是紅階段。</text></feedback></answer>
+    <generalfeedback><text>當程式碼只處理 3 與 5 時加入 <code>fizzbuzz(15) === "FizzBuzz"</code> 會產生一個失敗測試——紅階段——接著驅動下一個綠步驟（先加入 %15 分支）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 naive 的綠程式碼可接受</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼綠階段留下明顯不完整的程式碼（例如 <code>fizzbuzz</code> 無條件回傳 "1"）是可以接受的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>綠只需讓目前測試通過；稍後的失敗測試會逼使程式碼一般化（三角定位）</text><feedback><text>正確——最小的綠程式碼由後續的紅測試精煉。</text></feedback></answer>
+    <answer fraction="0"><text>因為這段 naive 的程式碼其實就是最終正確解</text><feedback><text>它刻意不完整；更多測試會把它推向正確。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試會在下一個循環前被刪掉</text><feedback><text>測試會保留；正是它們逼使 naive 程式碼改善。</text></feedback></answer>
+    <answer fraction="0"><text>因為綠禁止寫出正確的程式碼</text><feedback><text>綠不禁止正確性；它只要求現在寫出通過所需的最小程度。</text></feedback></answer>
+    <generalfeedback><text>綠是刻意最小化的。回傳一個常數沒問題，因為唯一的義務是讓目前測試通過。後續循環中每個新的失敗測試都移除一個捷徑，於是實作逐步被一般化——這就是驅逐偽造的「三角定位」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>新行為的第一個 TDD 動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你即將從零打造一個 <code>Stack</code> 類別，並希望它的 <code>isEmpty()</code> 能運作。第一個 TDD 動作是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在任何實作存在之前，寫一個斷言新堆疊是空的失敗測試（紅）</text><feedback><text>正確——TDD 從失敗測試開始，即使類別還沒有任何行為。</text></feedback></answer>
+    <answer fraction="0"><text>先寫完整的 Stack 實作，再測試它</text><feedback><text>那不是測試先行；嚴格的 TDD 在程式碼之前先寫失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>在寫任何測試之前先重構空類別</text><feedback><text>此時沒有東西可重構；第一步是失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>直接一次寫好多個失敗測試</text><feedback><text>先從一個失敗測試開始，把它驅動到綠，再加更多。</text></feedback></answer>
+    <generalfeedback><text>每個 TDD 循環都以紅開場。即使是全新的程式碼，你先寫一個小的失敗測試（新堆疊應該是空的），看它因為沒有實作而失敗，然後才寫讓它通過的最小程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>任何循環之前無法重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在專案最一開始、還沒完成任何紅-綠循環之前，為什麼你無法「重構」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>此時沒有東西可重構——你需要先至少完成一個紅-綠循環以產生通過的程式碼</text><feedback><text>正確——重構改善的是既有的通過程式碼，而它還不存在。</text></feedback></answer>
+    <answer fraction="0"><text>任何專案的第一個小時都禁止重構</text><feedback><text>沒有時間規則；問題在於沒有通過的程式碼可改善。</text></feedback></answer>
+    <answer fraction="0"><text>因為第一個測試必須永遠失敗</text><feedback><text>第一個測試會在綠階段被讓通過；重點是此時沒有程式碼可重構。</text></feedback></answer>
+    <answer fraction="0"><text>因為重構必須先於寫任何測試</text><feedback><text>重構在循環中最後進行，在程式碼存在且為綠燈之後。</text></feedback></answer>
+    <generalfeedback><text>重構作用於既有、通過的程式碼。在你至少完成一個紅-綠循環之前，沒有行為、沒有綠燈，因此根本沒有東西可整理。先寫一個失敗測試並讓它通過；之後重構才有意義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼確認重構是安全的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在重構階段重整某段程式碼之後，什麼讓你有信心自己沒有改變行為？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變動之後整個測試套件仍然通過（維持綠燈）</text><feedback><text>正確——維持綠燈的套件就是行為被保留的證據。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼現在比較短，所以一定正確</text><feedback><text>較短不是證明；通過的測試才是確認行為不變的依據。</text></feedback></answer>
+    <answer fraction="0"><text>你為了省時間沒有執行測試</text><feedback><text>你必須執行測試；它們維持綠燈正是安全網的全部意義。</text></feedback></answer>
+    <answer fraction="0"><text>同事看了差異且很喜歡</text><feedback><text>審查有幫助，但客觀的安全檢查是仍然維持綠燈的測試套件。</text></feedback></answer>
+    <generalfeedback><text>你之所以從綠燈開始重構，正是為了讓重新執行測試能驗證你的整理。若每個測試仍然通過，可觀察行為就未改變；紅的結果代表你改變了行為，必須修正或還原。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>沒有失敗測試就寫正式程式碼是違規的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在嚴格的 TDD 中，當沒有任何失敗測試要求時，寫正式程式碼是可以接受的。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——TDD 的第一條規則禁止在沒有失敗測試時寫正式程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>嚴格的 TDD 禁止沒有失敗測試要求的正式程式碼；先寫測試。</text></feedback></answer>
+    <generalfeedback><text>最根本的 TDD 紀律是：你絕不在沒有失敗測試證成時寫正式程式碼。沒有紅測試要求的程式碼是未受測試且臆測的；先寫失敗測試，再寫滿足它的程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從乾淨綠燈套件出發的下一步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你有一個乾淨、完全綠燈的測試套件，想加入一段新行為。TDD 的下一步是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>寫一個描述新行為的新失敗測試（紅）</text><feedback><text>正確——新循環從為新行為寫一個失敗測試開始。</text></feedback></answer>
+    <answer fraction="0"><text>不先寫測試就直接寫新行為的正式程式碼</text><feedback><text>那違反測試先行；用一個失敗測試（紅）來開始新行為。</text></feedback></answer>
+    <answer fraction="0"><text>即使沒有新東西可整理，也再重構一次</text><feedback><text>套件已經乾淨；新行為由一個新的失敗測試驅動。</text></feedback></answer>
+    <answer fraction="0"><text>向利害關係人展示目前的建置</text><feedback><text>展示是 ATDD 的階段；TDD 的下一步是新的失敗測試（紅）。</text></feedback></answer>
+    <generalfeedback><text>從乾淨的綠燈狀態出發，加入行為總是以紅開始下一個循環：寫一個指明新行為的小失敗測試。之後你才寫最小程式碼（綠）並整理（重構）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>綠要求整個套件都通過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的新程式碼讓目標測試通過了，但一個先前通過的測試現在開始失敗。你達到綠了嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有——綠要求整個套件通過；這個新的失敗是回歸，你必須在重構之前修好它</text><feedback><text>正確——綠代表所有測試都通過，而不只是你針對的那一個。</text></feedback></answer>
+    <answer fraction="0"><text>有——目標測試通過了，所以你是綠的，可以重構</text><feedback><text>既有測試壞掉代表你不是綠的；整個套件都必須通過。</text></feedback></answer>
+    <answer fraction="0"><text>有——一旦你加了新測試，舊測試就不算了</text><feedback><text>所有測試都算；套件必須全綠才能往下走。</text></feedback></answer>
+    <answer fraction="0"><text>沒差；反正就重構整理一下</text><feedback><text>重構需要完全綠燈；先修好這個回歸。</text></feedback></answer>
+    <generalfeedback><text>綠代表整個套件通過，而不只是你正在處理的那個測試。若你的變動讓先前通過的測試失敗，你就引入了回歸，整體上仍是紅。先把它修好讓整個套件轉綠，再進入重構。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Cycle/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>先寫測試最有力的理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在正式程式碼<strong>之前</strong>而非之後寫測試，最有力的理由是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它逼你事先陳述預期行為，並讓測試驅動設計，於是每一行程式碼都由測試要求，程式碼也天生可測試</text><feedback><text>正確——測試先行界定意圖、驅動設計，並使所有程式碼被證成且受覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>它保證產生的程式碼零缺陷</text><feedback><text>沒有實踐能保證零缺陷；測試先行驅動的是設計與覆蓋，而非完美。</text></feedback></answer>
+    <answer fraction="0"><text>它讓你從此不必執行測試套件</text><feedback><text>測試每個循環都要執行；價值在於設計壓力與被證成的程式碼，而非略過執行。</text></feedback></answer>
+    <answer fraction="0"><text>它讓重構變得不必要</text><feedback><text>重構仍是每個循環的一個階段；測試先行不會免除它。</text></feedback></answer>
+    <generalfeedback><text>先寫測試會在你決定實作之前釘住預期行為，施加朝向易於測試的程式碼的設計壓力，並確保沒有任何未被某測試要求的正式程式碼存在。事後才寫測試往往讓測試配合程式碼，因而失去這種設計回饋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>先綠再重構所保持的不變量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當你只在達到綠燈之後才重構，「先綠再重構」的順序保持了什麼不變量？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可觀察行為維持不變，而內部結構改變——測試在整個重構過程維持綠燈</text><feedback><text>正確——行為被固定（綠燈）住，同時改善結構。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼每次重構都一定變短</text><feedback><text>重構改善的是結構，不一定變短；不變量是行為不變。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件每次都被改寫以配合新結構</text><feedback><text>測試維持固定作為行為規格；那正是證明行為被保留的依據。</text></feedback></answer>
+    <answer fraction="0"><text>重構期間會加入新行為</text><feedback><text>加入行為屬於紅-綠；重構讓行為維持不變。</text></feedback></answer>
+    <generalfeedback><text>從綠燈開始重構會讓可觀察行為維持不變：測試編碼了行為，而它們在你改變結構時維持綠燈，正是只有內部移動的證明。新行為另外透過紅-綠步驟引入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>反模式：先寫程式碼、後補測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某開發者寫了大量正式程式碼，事後才為它補上測試。為什麼這不是 TDD，又失去了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>TDD 是測試先行；先寫程式碼會放棄失敗測試帶來的設計壓力，並可能留下沒有任何測試要求的程式碼路徑</text><feedback><text>正確——先寫程式碼會失去測試的驅動角色，並可能留下未受測試、測試配合程式碼的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>只要測試最終存在，它仍然是 TDD</text><feedback><text>TDD 中的「Driven」要求測試先行；事後補的測試不會驅動設計。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都沒失去；TDD 中順序從不重要</text><feedback><text>順序至關重要：失敗測試必須先來以驅動程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>它比 TDD 更好，因為打字比較快</text><feedback><text>打字速度不是目標；測試先行的設計與覆蓋才是 TDD 提供的。</text></feedback></answer>
+    <generalfeedback><text>在 TDD 中，失敗測試把程式碼驅動出來，塑造出可測試的設計，並保證每一行都由測試要求。先寫程式碼則倒轉了這點：測試被配合到已建好的東西，設計回饋消失，某些程式碼路徑可能永遠沒有測試釘住。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>反模式：在紅燈時重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某開發者在有一個測試正在失敗時，開始改名並重整正式程式碼，「順手整理一下」。為什麼這有風險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有綠的基準線時，新的失敗無法與既有的失敗區分，因此你無法判斷重整是否弄壞了任何東西</text><feedback><text>正確——重構需要綠燈才能確認行為未變。</text></feedback></answer>
+    <answer fraction="0"><text>變數改名一定會改變程式行為</text><feedback><text>純粹改名不一定改變行為；風險在於缺少綠的基準線去驗證這點。</text></feedback></answer>
+    <answer fraction="0"><text>一點也不危險；重構在任何狀態都安全</text><feedback><text>重構只在綠燈時安全，那時測試能確認行為被保留。</text></feedback></answer>
+    <answer fraction="0"><text>因為 TDD 中整理程式碼從不被允許</text><feedback><text>整理是被鼓勵的——但在重構階段、從綠燈開始，而非在紅燈時。</text></feedback></answer>
+    <generalfeedback><text>重構的安全來自通過的套件：改變結構、重新執行、確認仍為綠。當已有一個測試在失敗時，就沒有可信任的基準線，任何新問題都被既有的紅遮蓋。先回到綠，再重構。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 FizzBuzz：寫死的 "1"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 FizzBuzz kata 中，第一個通過的實作是 <code>function fizzbuzz(n) { return "1"; }</code>，一般而言顯然是錯的。為什麼寫出這個是正當的 TDD 動作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是通過唯一現有測試（fizzbuzz(1) === "1"）的最小綠程式碼；下一個失敗測試會逼使它一般化</text><feedback><text>正確——它滿足目前測試，稍後的紅測試會驅逐這個偽造。</text></feedback></answer>
+    <answer fraction="0"><text>因為 "1" 對所有輸入都是正確答案</text><feedback><text>它只對目前這一個測試正確；更多測試會揭穿它是偽造。</text></feedback></answer>
+    <answer fraction="0"><text>因為 FizzBuzz 從不需要任何其他情況</text><feedback><text>它需要——3、5、15 接著出現；常數只是第一個最小綠步驟。</text></feedback></answer>
+    <answer fraction="0"><text>因為 fizzbuzz(3) 的測試已經被刪掉</text><feedback><text>沒有測試被刪；fizzbuzz(3) 的測試接著加入並逼使程式碼成長。</text></feedback></answer>
+    <generalfeedback><text>在那個時點唯一的測試是 fizzbuzz(1) === "1"，所以回傳常數 "1" 是通過它的最小綠步驟。這個刻意的偽造是誠實的 TDD：下一個循環立刻加入 fizzbuzz(3) === "Fizz"，一個常數無法滿足的紅測試，逼出真正的分支。三角定位一次一個測試地移除偽造。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 FizzBuzz：%15 的守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 FizzBuzz 中，加入 <code>fizzbuzz(15) === "FizzBuzz"</code> 會失敗，因為模 3 的分支先觸發並回傳 "Fizz"。正確的綠修正是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>加入一個模 15 的分支，並在模 3 與模 5 的分支之前檢查，使四個測試都通過</text><feedback><text>正確——%15 的守衛必須先於 %3 與 %5 才能產生 "FizzBuzz"。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉 fizzbuzz(3) 的測試，讓衝突消失</text><feedback><text>你要保留所有測試；修正是先加入 %15 分支，而非移除測試。</text></feedback></answer>
+    <answer fraction="0"><text>在讓新測試通過之前先重構程式碼</text><feedback><text>你正在紅燈上；先回到綠（加入 %15 分支）再重構。</text></feedback></answer>
+    <answer fraction="0"><text>改 %3 的分支，讓它把 15 也當成 "Fizz"</text><feedback><text>15 必須回傳 "FizzBuzz"，所以 %15 分支必須在 %3 之前執行。</text></feedback></answer>
+    <generalfeedback><text>因為 15 可被 3 整除，貪婪的 %3 檢查會先回傳 "Fizz"。最小的綠修正是在 %3 與 %5 之前檢查 %15，並在那裡回傳 "FizzBuzz"。只有在四個測試都綠之後，你才會重構（例如改成 fizz+buzz 串接的形式）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 FizzBuzz：最後的改寫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>FizzBuzz kata 最後把分支改寫為 <code>const fizz = n % 3 === 0 ? "Fizz" : ""; const buzz = n % 5 === 0 ? "Buzz" : ""; return (fizz + buzz) || String(n);</code>，所有測試仍然通過。這是什麼步驟，為什麼安全？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重構——它在不改變行為下改善結構，仍為綠的套件證明行為被保留</text><feedback><text>正確——由綠測試驗證的保留行為改寫就是重構。</text></feedback></answer>
+    <answer fraction="0"><text>紅步驟，因為程式碼被改寫了</text><feedback><text>沒有測試失敗；由綠測試驗證的保留行為改寫是重構，不是紅。</text></feedback></answer>
+    <answer fraction="0"><text>綠步驟，因為它讓一個失敗測試通過</text><feedback><text>此前沒有東西在失敗；這是整理已通過的程式碼，所以是重構。</text></feedback></answer>
+    <answer fraction="0"><text>它不安全，因為改寫邏輯一定會弄壞測試</text><feedback><text>它之所以安全，正是因為測試維持綠燈，確認行為未變。</text></feedback></answer>
+    <generalfeedback><text>最後的變動把一連串分支換成更清楚的 fizz 與 buzz 部分串接。它沒有加入行為，而每個測試維持綠燈——這張安全網確認可觀察結果未變。這使它成為重構，循環的第三階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 Stack：偽造無法通過第二個測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Stack kata 中，<code>isEmpty()</code> 被偽造成回傳 <code>true</code>。一個新測試 push 一個元素後斷言 <code>isEmpty()</code> 為 false，而它失敗了。綠階段現在需要什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>引入真正的狀態（例如一個 items 陣列），使兩個 isEmpty 測試都通過</text><feedback><text>正確——偽造必須被真正的狀態取代，以滿足兩個測試。</text></feedback></answer>
+    <answer fraction="0"><text>把新測試改成預期 true，好讓偽造仍能通過</text><feedback><text>你不會削弱測試去配合偽造；你要加入真正的狀態去通過它。</text></feedback></answer>
+    <answer fraction="0"><text>在新測試通過之前先重構偽造</text><feedback><text>燈是紅的；先以真正的狀態讓它轉綠，再重構。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉第一個 isEmpty 測試以消除衝突</text><feedback><text>兩個測試都要保留；真正的狀態才是讓兩者都通過的方法。</text></feedback></answer>
+    <generalfeedback><text>第二個測試進行三角定位：一個常數 true 無法同時回報堆疊為空與非空。綠步驟是引入真正的狀態（一個 items 陣列）並由它計算是否為空，使「新堆疊是空的」與「push 後不為空」兩個測試都通過。偽造已完成任務並被驅逐。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何先偽造再三角定位有效</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼「先偽造（回傳常數）再三角定位」的技巧能可靠地導向正確、通用的實作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個新增的測試都排除掉另一個捷徑，於是一連串最小的綠步驟被逐步逼成通用解</text><feedback><text>正確——每個新的紅測試移除一個偽造，把程式碼推向通用。</text></feedback></answer>
+    <answer fraction="0"><text>因為單一常數已經正確處理所有情況</text><feedback><text>常數只處理一種情況；是更多測試逼出一般化。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試被放寬到偽造能全部通過為止</text><feedback><text>測試不會被放寬；是加入測試以逼使程式碼變通用。</text></feedback></answer>
+    <answer fraction="0"><text>因為光靠重構就能把常數變成通用演算法</text><feedback><text>一般化由新的失敗測試（紅-綠）驅動，而非由重構行為。</text></feedback></answer>
+    <generalfeedback><text>三角定位之所以有效，是因為每個新範例（測試）都被挑選成目前的偽造無法滿足，逼出稍微更通用的實作。對著不斷增長的測試集重複最小的綠步驟，會擠出捷徑，直到只剩下真正通用的解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>將打亂的 TDD 動作排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把以下三個動作排成正確的 TDD 順序：(1) 在測試維持綠燈下抽出一個輔助方法；(2) 為新行為寫一個失敗測試；(3) 寫出讓該測試通過的最小程式碼。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2，接著 3，接著 1</text><feedback><text>正確——紅 (2)、綠 (3)、重構 (1)。</text></feedback></answer>
+    <answer fraction="0"><text>3，接著 2，接著 1</text><feedback><text>在失敗測試存在之前無法寫出通過的程式碼；紅 (2) 在最前面。</text></feedback></answer>
+    <answer fraction="0"><text>1，接著 2，接著 3</text><feedback><text>在任何程式碼寫出並為綠之前無法重構；重構在最後。</text></feedback></answer>
+    <answer fraction="0"><text>2，接著 1，接著 3</text><feedback><text>你必須先達到綠 (3) 再重構 (1)；在紅燈上重構不安全。</text></feedback></answer>
+    <generalfeedback><text>對應到各階段：(2) 是紅，(3) 是綠，(1) 是重構。因此循環是 2、3、1——寫失敗測試、用最小程式碼讓它通過、再在測試維持綠燈下整理。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>嚴格 TDD 中永遠違規的事</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在嚴格的 TDD 中，下列何者<strong>永遠</strong>是違規的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在任何失敗測試存在之前就寫正式程式碼</text><feedback><text>正確——第一條規則禁止沒有失敗測試證成的正式程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>在所有測試目前都通過時寫一個失敗測試</text><feedback><text>那正是開始新循環（紅）的方式；是合法的。</text></feedback></answer>
+    <answer fraction="0"><text>在達到綠燈之後重構</text><feedback><text>從綠燈重構是循環的第三階段；合法且被鼓勵。</text></feedback></answer>
+    <answer fraction="0"><text>用最小程式碼讓失敗測試通過</text><feedback><text>那是綠階段；正是你該做的。</text></feedback></answer>
+    <generalfeedback><text>最根本的 TDD 紀律禁止寫沒有任何失敗測試要求的正式程式碼。用失敗測試開始新循環、用最小程式碼讓它通過、從綠燈重構，全都合法——唯有未被證成的正式程式碼是禁區。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最小程式碼是紀律而非偷懶</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼「只寫讓測試通過的最小程式碼」被當作一種紀律，而不是偷懶？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它讓每一行都被測試覆蓋、避免臆測且未受測試的通用性，並讓測試漸進地驅動設計</text><feedback><text>正確——最小化使程式碼被證成且受測試，並讓設計從測試中浮現。</text></feedback></answer>
+    <answer fraction="0"><text>它代表你整體上永遠不必寫太多程式碼</text><feedback><text>總量取決於測試的要求；最小化是每一步的，不是整體少做的藉口。</text></feedback></answer>
+    <answer fraction="0"><text>它讓你能完全略過重構階段</text><feedback><text>重構仍會發生；最小的綠程式碼往往正是你接著整理的對象。</text></feedback></answer>
+    <answer fraction="0"><text>它保證第一版實作就是最終版</text><feedback><text>最小實作通常會隨更多測試加入而演進。</text></feedback></answer>
+    <generalfeedback><text>只寫目前測試所要求的，能確保沒有未受測試、臆測性的程式碼混入（一種 YAGNI 紀律），維持覆蓋緊密，並讓每個測試一次一個具體步驟地把設計往前拉。這是一種刻意的約束，產生受良好測試、由需求驅動的程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>重構與加入行為的區別</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 TDD 中，<strong>重構</strong>與<strong>加入行為</strong>的本質差別是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重構在保持可觀察行為（與測試）不變下改變內部結構；加入行為則由紅-綠中的新失敗測試驅動</text><feedback><text>正確——重構保留行為；新行為透過紅-綠而來。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一件事，只是在一天中不同時間做</text><feedback><text>它們本質不同：一個保留行為，另一個加入行為。</text></feedback></answer>
+    <answer fraction="0"><text>重構在讓結構完全不變下加入功能</text><feedback><text>正好相反——重構改變結構並保留行為／功能。</text></feedback></answer>
+    <answer fraction="0"><text>加入行為必須在重構中進行以省下一個循環</text><feedback><text>新行為需要它自己的失敗測試（紅）先行；它不屬於重構。</text></feedback></answer>
+    <generalfeedback><text>重構是一種保留行為的結構變動：測試維持綠燈，因為沒有任何可觀察之處移動。加入行為是不同的工作——它必須透過一個新的失敗測試以及讓它通過的最小程式碼引入。把兩者分開，正是讓各自都安全且清楚的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 Stack：引入 size()</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Stack kata 的最後一步，加入了 <code>size()</code>，並把 <code>isEmpty()</code> 重新定義為 <code>this.size() === 0</code>，所有測試維持綠燈。請將這一步歸類並說明理由。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重構——它以一個方法表達另一個來移除重複，仍為綠的套件確認行為未變</text><feedback><text>正確——由綠測試驗證的保留行為去重是重構。</text></feedback></answer>
+    <answer fraction="0"><text>紅——因為引入了一個新方法</text><feedback><text>沒有測試失敗；在行為不變下引入輔助方法是重構，不是紅。</text></feedback></answer>
+    <answer fraction="0"><text>綠——因為它讓一個先前失敗的測試通過</text><feedback><text>沒有東西在失敗；測試原本就是綠的，所以這是重構。</text></feedback></answer>
+    <answer fraction="0"><text>它不是有效的 TDD 步驟，因為沒有測試改變</text><feedback><text>重構刻意讓測試不變且維持綠燈；它是有效的第三階段步驟。</text></feedback></answer>
+    <generalfeedback><text>以一個新的 <code>size()</code> 來定義 <code>isEmpty()</code>，把「有多少元素」的邏輯集中在一處並改善設計。行為不變且測試全程維持綠燈，這正是把它辨識為重構的依據——收尾循環的整理階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何重構前整個套件都要綠</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 TDD 堅持在你重構之前，<strong>整個</strong>測試套件都要綠——而不只是你剛寫的那個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整個套件是保證重構未改變任何東西的行為規格；單一通過的測試無法抓到程式碼他處的回歸</text><feedback><text>正確——只有全綠的套件才能確認結構變動在任何地方都沒弄壞東西。</text></feedback></answer>
+    <answer fraction="0"><text>因為一旦最新的測試通過，就只有它重要</text><feedback><text>所有測試組成安全網；較舊的測試能抓到新測試抓不到的回歸。</text></feedback></answer>
+    <answer fraction="0"><text>因為重構會刪掉除了最新測試以外的每個測試</text><feedback><text>重構會保留所有測試；正是它們共同讓重構安全。</text></feedback></answer>
+    <answer fraction="0"><text>因為部分綠的套件跑得比較快</text><feedback><text>速度無關緊要；整個套件必須通過才能證明各處行為都被保留。</text></feedback></answer>
+    <generalfeedback><text>重構的安全程度僅取決於驗證它的測試。整個套件編碼了程式碼必須保留的所有行為，因此在結構變動後重新執行它，正是證明任何地方都沒弄壞的依據——不只是最新測試所在的區域。單一綠測試會讓系統其餘部分未受檢查，所以 TDD 要求你在重構之前整個套件都要綠。</text></generalfeedback>
+  </question>
+</quiz>

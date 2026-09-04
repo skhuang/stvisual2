@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Model Mutation Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What model mutation mutates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Model Mutation Explorer, mutation operators are applied to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A behavioural model (here a Mealy FSM: its transitions, next-states and outputs), not the program's source code</text><feedback><text>Correct — model mutation edits the FSM, leaving code and tests unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>The program's source code</text><feedback><text>Editing source code is code-level (program) mutation, a different technique.</text></feedback></answer>
+    <answer fraction="0"><text>The test suite's input sequences</text><feedback><text>The suite is what we run against the mutants; the operator changes the model.</text></feedback></answer>
+    <answer fraction="0"><text>The output traces produced by the suite</text><feedback><text>Traces are computed results, not the artifact that is mutated.</text></feedback></answer>
+    <generalfeedback><text>Model mutation seeds one small change into the model (an FSM) — a transition, its target state, or its output — rather than into the code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model-mutant definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>model-mutant</em> in the explorer is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A copy of the base FSM with exactly one mutation operator applied (e.g. one transition deleted or retargeted)</text><feedback><text>Correct — one operator makes one small change to the base model.</text></feedback></answer>
+    <answer fraction="0"><text>A copy of the base FSM with every transition changed at once</text><feedback><text>A mutant carries a single deliberate change, not many.</text></feedback></answer>
+    <answer fraction="0"><text>A test case that fails on the base model</text><feedback><text>That is a test, not a mutated model.</text></feedback></answer>
+    <answer fraction="0"><text>A second FSM designed independently from scratch</text><feedback><text>A mutant is derived from the base by one operator, not written anew.</text></feedback></answer>
+    <generalfeedback><text>Each mutant (M1–M5) is the base FSM with one operator applied: delete a transition, retarget it, or change its output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Killing a model-mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A model-mutant is <em>killed</em> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Some test's output trace on the mutant differs from its output trace on the base model</text><feedback><text>Correct — a distinguishing output trace kills the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant FSM has fewer states than the base</text><feedback><text>State count does not decide killing; a differing trace does.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant fails to load</text><feedback><text>Killing is about distinguishing behaviour, not loading.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant produces the same output trace as the base on every test</text><feedback><text>That is the definition of surviving, not of being killed.</text></feedback></answer>
+    <generalfeedback><text>A killing test is one whose output trace on the mutant differs from the base — that observable difference is what "kills" the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model vs code mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does model mutation differ from I-series code (program) mutation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Model mutation edits the FSM/model; code mutation edits the program source</text><feedback><text>Correct — the two differ in which artifact is mutated.</text></feedback></answer>
+    <answer fraction="0"><text>Model mutation uses random inputs while code mutation is systematic</text><feedback><text>Both apply systematic operators; the difference is the mutated artifact.</text></feedback></answer>
+    <answer fraction="0"><text>Model mutation needs no mutation operators</text><feedback><text>Both use operators; model mutation applies them to the model.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same technique under two names</text><feedback><text>They are distinct: one mutates a model, the other source code.</text></feedback></answer>
+    <generalfeedback><text>Model mutation works at a higher abstraction — mutants are FSM edits, not source edits.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a model mutation operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is one of the model mutation operators used in the explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Retarget a transition (change its next state)</text><feedback><text>Correct — retarget is one of the three operators.</text></feedback></answer>
+    <answer fraction="0"><text>Rename a C++ variable</text><feedback><text>That is a code-level change, not a model operator.</text></feedback></answer>
+    <answer fraction="0"><text>Delete a source-code statement</text><feedback><text>Deleting source is code mutation, not model mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Insert a unary minus into a program expression</text><feedback><text>That is a code mutation operator (UOI), not a model operator.</text></feedback></answer>
+    <generalfeedback><text>The explorer's three operators are: delete a transition, retarget a transition, and change a transition's output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The delete operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>delete</em> model mutation operator:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Removes a transition, so on that input the mutant gets stuck and its trace shows ⊥</text><feedback><text>Correct — a deleted-transition mutant has no move for that input.</text></feedback></answer>
+    <answer fraction="0"><text>Deletes an entire state and all of its transitions</text><feedback><text>The operator removes a single transition, not a whole state.</text></feedback></answer>
+    <answer fraction="0"><text>Changes a transition's output symbol</text><feedback><text>That is the output operator, not delete.</text></feedback></answer>
+    <answer fraction="0"><text>Redirects a transition to a different state</text><feedback><text>That is the retarget operator, not delete.</text></feedback></answer>
+    <generalfeedback><text>Delete drops one transition; when a run needs it, the trace records ⊥ because no transition matches.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The retarget operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>retarget</em> operator changes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The next state (destination) a transition leads to</text><feedback><text>Correct — retarget changes where a transition goes.</text></feedback></answer>
+    <answer fraction="0"><text>The output symbol a transition emits</text><feedback><text>That is the output operator.</text></feedback></answer>
+    <answer fraction="0"><text>The input symbol that triggers a transition</text><feedback><text>The explorer's retarget changes the destination, not the trigger.</text></feedback></answer>
+    <answer fraction="0"><text>The initial state of the FSM</text><feedback><text>Retarget alters a transition's target, not the initial state.</text></feedback></answer>
+    <generalfeedback><text>Retarget (e.g. "Retarget q2a → state q1") points a transition at a new destination state while keeping its input and output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The output operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>output</em> operator changes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The output symbol emitted on a transition (e.g. q1 on 'a' emits 1 instead of 0)</text><feedback><text>Correct — the output operator alters what a transition emits.</text></feedback></answer>
+    <answer fraction="0"><text>The destination state of the transition</text><feedback><text>That is retarget, not the output operator.</text></feedback></answer>
+    <answer fraction="0"><text>The input that triggers the transition</text><feedback><text>The output operator changes the emitted symbol, not the trigger.</text></feedback></answer>
+    <answer fraction="0"><text>The number of states in the machine</text><feedback><text>No states are added or removed by the output operator.</text></feedback></answer>
+    <generalfeedback><text>The output operator (e.g. "Change output of q1a → 1") replaces the symbol a transition emits, leaving its source, input and target unchanged.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mealy machine outputs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The base model is a Mealy machine. In a Mealy machine each output is associated with:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A transition (an input taken in a state), so a run yields an output trace</text><feedback><text>Correct — Mealy outputs are on transitions.</text></feedback></answer>
+    <answer fraction="0"><text>A state only</text><feedback><text>That describes a Moore machine, not the Mealy model used here.</text></feedback></answer>
+    <answer fraction="0"><text>The whole machine, emitted once</text><feedback><text>Each transition emits an output; it is not a single machine-wide value.</text></feedback></answer>
+    <answer fraction="0"><text>The final state only</text><feedback><text>Outputs appear on every transition along the run, not just at the end.</text></feedback></answer>
+    <generalfeedback><text>In the Mealy FSM here, each transition carries an output symbol; running an input sequence produces the output trace the explorer compares.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model mutation score meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>model mutation score</em> reported by the explorer measures:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fraction of model-mutants the suite kills — test adequacy at the model abstraction level</text><feedback><text>Correct — it is killed/total, a model-level adequacy measure.</text></feedback></answer>
+    <answer fraction="0"><text>The number of states in the FSM</text><feedback><text>The score is about mutants killed, not state count.</text></feedback></answer>
+    <answer fraction="0"><text>The runtime of the suite</text><feedback><text>Runtime is unrelated to the mutation score.</text></feedback></answer>
+    <answer fraction="0"><text>The number of transitions that were mutated</text><feedback><text>The score is the proportion killed, not how many were mutated.</text></feedback></answer>
+    <generalfeedback><text>The model mutation score is the proportion of model-mutants distinguished (killed) by the suite, gauging test adequacy at the model level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Survived meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A model-mutant that <em>survived</em> means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every test in the suite produced the same output trace on the mutant as on the base model</text><feedback><text>Correct — no test distinguished it.</text></feedback></answer>
+    <answer fraction="0"><text>At least one test distinguished it from the base</text><feedback><text>That would make it killed, not a survivor.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant failed to parse</text><feedback><text>Surviving is about matching traces, not parsing.</text></feedback></answer>
+    <answer fraction="0"><text>The base model is faulty</text><feedback><text>Surviving says nothing about the base being wrong.</text></feedback></answer>
+    <generalfeedback><text>A survivor produced base-identical traces on every test — either a suite gap or an equivalent mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of the ⊥ symbol</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an output trace, the symbol <code>⊥</code> indicates:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A missing transition — the model had no move for that input in the current state, so the run got stuck</text><feedback><text>Correct — ⊥ marks a stuck run at a missing transition.</text></feedback></answer>
+    <answer fraction="0"><text>The output symbol 0</text><feedback><text>0 is a normal output; ⊥ specifically marks a missing transition.</text></feedback></answer>
+    <answer fraction="0"><text>The end of the input sequence</text><feedback><text>⊥ signals a stuck run, not the normal end of input.</text></feedback></answer>
+    <answer fraction="0"><text>That the mutant is equivalent</text><feedback><text>⊥ is unrelated to equivalence; it marks a missing transition.</text></feedback></answer>
+    <generalfeedback><text>runTrace appends ⊥ when no transition matches the current state and input — a deleted-transition mutant gets stuck.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent model-mutant definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>equivalent</em> model-mutant is one that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Differs from the base model syntactically but behaves identically, so no test can ever kill it</text><feedback><text>Correct — identical behaviour makes it unkillable.</text></feedback></answer>
+    <answer fraction="0"><text>Is textually identical to the base model</text><feedback><text>A mutant always makes a change; identical text is not a mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Is always killed by the first test</text><feedback><text>An equivalent mutant is never killed, by definition.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot be produced by any operator</text><feedback><text>It is produced by an operator; it just happens to preserve behaviour.</text></feedback></answer>
+    <generalfeedback><text>An equivalent mutant is a real syntactic change that leaves behaviour unchanged (here q2a→q4, since q3 and q4 behave identically), so no test distinguishes it.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Model mutation mutates the code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Model mutation testing works by mutating the program's source code and running tests against it.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Mutating source code is code-level mutation. Model mutation changes the model (the FSM) instead.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — model mutation edits the FSM's transitions, targets and outputs, not the source code.</text></feedback></answer>
+    <generalfeedback><text>Model mutation seeds changes into a behavioural model; mutating source code is the separate technique of program (code) mutation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test is here</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer, each test in the suite is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An input sequence (a string of input symbols) fed to the model, yielding an output trace</text><feedback><text>Correct — e.g. "aa", "aba"; the run produces an output trace.</text></feedback></answer>
+    <answer fraction="0"><text>A single output symbol</text><feedback><text>A test is a sequence of inputs, not one output.</text></feedback></answer>
+    <answer fraction="0"><text>A whole mutant FSM</text><feedback><text>A mutant is a model; a test is an input sequence run on it.</text></feedback></answer>
+    <answer fraction="0"><text>A state of the FSM</text><feedback><text>A test drives the FSM through states; it is not itself a state.</text></feedback></answer>
+    <generalfeedback><text>The suite is a set of input strings (aa, ab, ba, aaa, aba); each is run to produce an output trace compared between base and mutant.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Model Mutation Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What test aa reveals for the delete mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The mutant that <em>deletes</em> transition q2-a is killed by input <code>aa</code>. What does <code>aa</code> show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Base trace "01" vs mutant trace "0⊥": the mutant gets stuck when it needs q2-a</text><feedback><text>Correct — after q1-a emits 0 into q2, the deleted q2-a leaves the run stuck (⊥).</text></feedback></answer>
+    <answer fraction="0"><text>Base "01" vs mutant "01": identical, so it is not killed</text><feedback><text>The mutant cannot take q2-a, so its trace is "0⊥", not "01".</text></feedback></answer>
+    <answer fraction="0"><text>Both produce ⊥ immediately on the first input</text><feedback><text>The first input q1-a still works; ⊥ appears only at the second step.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant simply has one more state</text><feedback><text>Delete removes a transition, not adds a state; the trace difference is what kills it.</text></feedback></answer>
+    <generalfeedback><text>On "aa" the base yields "01" but the delete-q2a mutant yields "0⊥"; the differing trace kills it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: output symbol change</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Changing q1-a's output from 0 to 1 is an instance of which operator?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The output operator (change a transition's output symbol)</text><feedback><text>Correct — only the emitted symbol changed.</text></feedback></answer>
+    <answer fraction="0"><text>The retarget operator</text><feedback><text>Retarget changes the destination state, not the output.</text></feedback></answer>
+    <answer fraction="0"><text>The delete operator</text><feedback><text>Nothing was removed; the output was changed.</text></feedback></answer>
+    <answer fraction="0"><text>Adding a new state</text><feedback><text>No state was added; this is an output change.</text></feedback></answer>
+    <generalfeedback><text>Altering the symbol a transition emits (q1-a: 0→1) is the output operator — exactly mutant M3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: change of destination</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Making transition q2-a lead to q1 instead of q3, with its output unchanged, is which operator?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Retarget (change the transition's next state)</text><feedback><text>Correct — the destination changed while the output stayed the same.</text></feedback></answer>
+    <answer fraction="0"><text>Output change</text><feedback><text>The output was not changed; the destination was.</text></feedback></answer>
+    <answer fraction="0"><text>Delete</text><feedback><text>The transition still exists; only its target changed.</text></feedback></answer>
+    <answer fraction="0"><text>Input-symbol change</text><feedback><text>The triggering input is unchanged; the target state changed.</text></feedback></answer>
+    <generalfeedback><text>Redirecting q2-a to a new state is the retarget operator (mutant M2 sends it to q1).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the q3-b output mutant survives</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The mutant that changes q3-b's output to 0 survives the whole suite. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No test in the suite ever takes the q3-b transition, so the changed output is never observed — a suite gap, not equivalence</text><feedback><text>Correct — aa, ab, ba, aaa, aba never take b from q3.</text></feedback></answer>
+    <answer fraction="0"><text>Because q3-b's output can never be observed in principle (an equivalent mutant)</text><feedback><text>It is not equivalent: a test reaching q3 then taking b would kill it.</text></feedback></answer>
+    <answer fraction="0"><text>Because changing an output never changes any trace</text><feedback><text>Output changes do change traces — when the transition is exercised.</text></feedback></answer>
+    <answer fraction="0"><text>Because the base model is wrong</text><feedback><text>The base is fine; the suite simply misses q3-b.</text></feedback></answer>
+    <generalfeedback><text>The suite leaves q3-b uncovered, so the mutation is never triggered — a fixable suite gap rather than an equivalent mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why deleted transitions are easy to kill</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a delete-transition mutant usually easy to kill once its transition is exercised?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The run cannot continue, ending the trace in ⊥, which differs from the base's output at that point</text><feedback><text>Correct — the stuck run yields ⊥, an immediate observable difference.</text></feedback></answer>
+    <answer fraction="0"><text>Because deletion adds a new state that the base lacks</text><feedback><text>Deletion removes a transition; it does not add a state.</text></feedback></answer>
+    <answer fraction="0"><text>Because deletion changes the initial state</text><feedback><text>The initial state is unchanged by a transition deletion.</text></feedback></answer>
+    <answer fraction="0"><text>It is never killable</text><feedback><text>It is killed by any test that reaches the deleted transition.</text></feedback></answer>
+    <generalfeedback><text>Any test that reaches the deleted transition produces ⊥ instead of the base's output — an immediate distinguishing difference.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Traces for the q1-a output mutant on aa</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the mutant that makes q1-a output 1 instead of 0, running <code>aa</code> gives which comparison?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Base "01" vs mutant "11" — they differ at the first output, so aa kills it</text><feedback><text>Correct — q1-a now emits 1, changing the first symbol.</text></feedback></answer>
+    <answer fraction="0"><text>Base "11" vs mutant "01"</text><feedback><text>The base emits 0 first (its q1-a output is 0); the mutant emits 1.</text></feedback></answer>
+    <answer fraction="0"><text>Both give "01" — it survives</text><feedback><text>The mutant emits 1 at the first step, so its trace is "11".</text></feedback></answer>
+    <answer fraction="0"><text>Both give "11"</text><feedback><text>The base's q1-a output is 0, so the base trace is "01".</text></feedback></answer>
+    <generalfeedback><text>On "aa" the base yields "01" and the q1-a-output mutant yields "11"; the difference at position 1 kills it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a retarget-killing test must do</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A retarget mutant sends q2-a to a different state but keeps its output. For a test to kill it, the test must:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Continue past that transition until the different destination causes a different output symbol; a differing state alone is not observable</text><feedback><text>Correct — only a divergent output makes the difference visible.</text></feedback></answer>
+    <answer fraction="0"><text>Simply reach the retargeted transition once</text><feedback><text>Reaching it is not enough if the emitted outputs still match.</text></feedback></answer>
+    <answer fraction="0"><text>Have the same length as the FSM's state count</text><feedback><text>Length matters only insofar as it exposes an output difference, not as a fixed count.</text></feedback></answer>
+    <answer fraction="0"><text>End immediately after the retargeted transition</text><feedback><text>Stopping there hides the difference, since the retarget keeps the same output.</text></feedback></answer>
+    <generalfeedback><text>Killing is defined by output traces, so a retarget (which keeps the transition's output) is only exposed when a later input yields a different output from the new destination.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Two explanations for a survivor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A model-mutant survived the suite. The two possible explanations are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The suite is too weak to reach or distinguish the mutation, or the mutant is equivalent (no test can ever kill it)</text><feedback><text>Correct — a survivor is a suite gap or an equivalent mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The base model is defective, or the suite ran too fast</text><feedback><text>Neither speed nor a base defect explains a survivor.</text></feedback></answer>
+    <answer fraction="0"><text>It is always an equivalent mutant</text><feedback><text>Many survivors are fixable suite gaps, not equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>It is always a suite gap</text><feedback><text>Some survivors are genuinely equivalent and unkillable.</text></feedback></answer>
+    <generalfeedback><text>Distinguishing the two — suite gap vs equivalent — requires human analysis; only the gap is fixable by adding tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: removing a transition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Remove the q2-a transition entirely" is which operator?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Delete</text><feedback><text>Correct — the transition is removed.</text></feedback></answer>
+    <answer fraction="0"><text>Retarget</text><feedback><text>Retarget keeps the transition but changes its target.</text></feedback></answer>
+    <answer fraction="0"><text>Output change</text><feedback><text>Output change keeps the transition and alters its emitted symbol.</text></feedback></answer>
+    <answer fraction="0"><text>Guard negation</text><feedback><text>The explorer has no guard operator; removing a transition is delete.</text></feedback></answer>
+    <generalfeedback><text>Removing a transition outright is the delete operator (mutant M1 deletes q2-a).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Suite gap vs equivalent survivor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do you tell a <em>suite-gap</em> survivor from an <em>equivalent</em> survivor?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A gap survivor is killable by some test that covers or distinguishes the mutation; an equivalent survivor cannot be killed by any test</text><feedback><text>Correct — killability is what separates the two.</text></feedback></answer>
+    <answer fraction="0"><text>A gap survivor is unkillable; an equivalent one is killable</text><feedback><text>This is reversed: the gap is killable, the equivalent is not.</text></feedback></answer>
+    <answer fraction="0"><text>Both are killable by the same single test</text><feedback><text>An equivalent mutant is killable by no test at all.</text></feedback></answer>
+    <answer fraction="0"><text>You compare their state counts</text><feedback><text>State counts do not distinguish gaps from equivalents.</text></feedback></answer>
+    <generalfeedback><text>Adding a covering test kills a gap survivor; no test can ever kill an equivalent mutant, because its behaviour matches the base.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the q2-a→q1 mutant survives the suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The mutant retargeting q2-a to q1 (instead of q3) survives the suite, yet it is <em>not</em> equivalent. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The suite's sequences are too short to reach an input where landing in q1 vs q3 yields a different output — a suite gap, so a longer test could kill it</text><feedback><text>Correct — the difference only shows on a longer input.</text></feedback></answer>
+    <answer fraction="0"><text>q1 and q3 are behaviourally identical, so it can never be killed</text><feedback><text>q1 and q3 are distinguishable (e.g. by "aa"), so it is not equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>The retarget operator never changes behaviour</text><feedback><text>Retarget can change behaviour; here it does, just not within the suite.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant failed to build</text><feedback><text>It builds fine; it simply is not distinguished by these tests.</text></feedback></answer>
+    <generalfeedback><text>q1 and q3 differ, so the mutant is killable, but only by an input long enough to expose the difference — the suite lacks such a test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exact meaning of killing here</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this Mealy-FSM setting, <em>killing</em> a mutant strictly means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Finding a test whose output trace on the mutant differs from the base's output trace</text><feedback><text>Correct — killing is defined by a divergent output trace.</text></feedback></answer>
+    <answer fraction="0"><text>Reaching a different state than the base, regardless of outputs</text><feedback><text>A differing internal state is not observable; only outputs count.</text></feedback></answer>
+    <answer fraction="0"><text>Producing a longer trace than the base</text><feedback><text>Trace length is not the criterion; a differing symbol is.</text></feedback></answer>
+    <answer fraction="0"><text>Visiting more states than the base</text><feedback><text>State visits are internal; killing requires an output difference.</text></feedback></answer>
+    <generalfeedback><text>evalMutant compares output traces; a mutant is killed only when some test's output trace differs from the base's.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the adjusted score excludes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer's <em>adjusted</em> mutation score differs from the raw score by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Excluding equivalent mutants from the denominator, since they can never be killed</text><feedback><text>Correct — adjusted = killed / (total − equivalent).</text></feedback></answer>
+    <answer fraction="0"><text>Excluding killed mutants from the numerator</text><feedback><text>Killed mutants remain in the numerator; equivalents leave the denominator.</text></feedback></answer>
+    <answer fraction="0"><text>Counting only delete mutants</text><feedback><text>All operators count; only equivalents are excluded.</text></feedback></answer>
+    <answer fraction="0"><text>Doubling the raw score</text><feedback><text>The adjustment removes equivalents, not a doubling.</text></feedback></answer>
+    <generalfeedback><text>The adjusted score removes equivalent mutants from the total so they do not unfairly depress the measure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Base trace for ab</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the base model, the output trace for input <code>ab</code> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"01"</text><feedback><text>Correct — q1-a emits 0 into q2, then q2-b emits 1.</text></feedback></answer>
+    <answer fraction="0"><text>"10"</text><feedback><text>That is the trace for "ba", not "ab".</text></feedback></answer>
+    <answer fraction="0"><text>"010"</text><feedback><text>That is a length-3 trace (e.g. "aaa"); "ab" has two inputs.</text></feedback></answer>
+    <answer fraction="0"><text>"0⊥"</text><feedback><text>Both transitions exist in the base, so there is no ⊥.</text></feedback></answer>
+    <generalfeedback><text>q1 on a emits 0 and moves to q2; q2 on b emits 1 and moves to q4 — trace "01".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match term to role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing of a term with its role is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"killed" = the suite distinguished the mutant's output trace from the base's</text><feedback><text>Correct — that is exactly what killed means.</text></feedback></answer>
+    <answer fraction="0"><text>"survived" = the suite distinguished the mutant from the base</text><feedback><text>Distinguishing means killed; surviving means not distinguished.</text></feedback></answer>
+    <answer fraction="0"><text>"equivalent" = the mutant has fewer states than the base</text><feedback><text>Equivalent means identical behaviour, not fewer states.</text></feedback></answer>
+    <answer fraction="0"><text>"⊥" = the model reached its initial state</text><feedback><text>⊥ marks a missing transition (stuck run), not the initial state.</text></feedback></answer>
+    <generalfeedback><text>Killed = distinguished; survived = not distinguished; equivalent = behaviourally identical (unkillable); ⊥ = stuck at a missing transition.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Model Mutation Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Which two mutants are killed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer reports a raw model mutation score of 40% (2 of 5). Which two mutants are killed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The delete-q2-a mutant and the q1-a-output-change mutant; the other three survive</text><feedback><text>Correct — M1 and M3 are killed (both by "aa").</text></feedback></answer>
+    <answer fraction="0"><text>The two retarget mutants (q2-a→q1 and q2-a→q4)</text><feedback><text>Both retargets survive the suite; they are not killed.</text></feedback></answer>
+    <answer fraction="0"><text>All three mutants that touch q2-a</text><feedback><text>Only the delete of q2-a is killed; the two q2-a retargets survive.</text></feedback></answer>
+    <answer fraction="0"><text>The equivalent mutant and one output mutant</text><feedback><text>The equivalent mutant survives; only M1 (delete) and M3 (q1-a output) are killed.</text></feedback></answer>
+    <generalfeedback><text>On "aa", delete-q2-a gives "0⊥" and the q1-a output change gives "11" — both differ from the base "01" and are killed; the two retargets and the q3-b output change survive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why adjusted is 50% not 40%</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The raw score is 40% (2/5) but the adjusted score is 50%. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One mutant is equivalent and is excluded from the denominator: 2/(5−1) = 50%</text><feedback><text>Correct — dropping the equivalent mutant leaves 2 of 4.</text></feedback></answer>
+    <answer fraction="0"><text>Because one killed mutant is counted twice</text><feedback><text>No double counting; the equivalent mutant is removed from the total.</text></feedback></answer>
+    <answer fraction="0"><text>Because equivalent mutants are counted as killed</text><feedback><text>Equivalents are excluded, not counted as killed.</text></feedback></answer>
+    <answer fraction="0"><text>Because 5 mutants somehow become 4 killed</text><feedback><text>Still 2 killed; the denominator shrinks to 4.</text></feedback></answer>
+    <generalfeedback><text>Adjusted = killed / (total − equivalent) = 2 / (5 − 1) = 50%, since the equivalent mutant can never be killed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why q2-a→q4 is equivalent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The mutant retargeting q2-a from q3 to q4 is marked <em>equivalent</em> because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>States q3 and q4 are behaviourally identical, so sending q2-a to q4 instead of q3 never changes any output</text><feedback><text>Correct — q3 and q4 produce the same outputs on every input.</text></feedback></answer>
+    <answer fraction="0"><text>State q4 is unreachable in the base model</text><feedback><text>q4 is reachable (via q2-b); equivalence comes from q3 ≡ q4.</text></feedback></answer>
+    <answer fraction="0"><text>The retarget operator is always equivalent</text><feedback><text>Retarget to q1 is not equivalent; only q3 ≡ q4 makes this one equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>The output of q2-a was also deleted</text><feedback><text>Retarget keeps the output; nothing was deleted.</text></feedback></answer>
+    <generalfeedback><text>q3 (a→0→q3, b→1→q1) and q4 (a→0→q4, b→1→q1) are behaviourally identical, so retargeting between them changes no output — an equivalent mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why no test kills the equivalent mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can no test ever kill the q2-a→q4 (equivalent) mutant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>From q3 and from q4 every input sequence yields the same output trace, so no sequence can expose the difference</text><feedback><text>Correct — the two states are indistinguishable, so the retarget is invisible.</text></feedback></answer>
+    <answer fraction="0"><text>Because the suite happens to be too short</text><feedback><text>No suite of any length works; the difference is unobservable, not just uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>Because q2-a has no output symbol</text><feedback><text>q2-a does emit an output; the mutant is equivalent because q3 ≡ q4.</text></feedback></answer>
+    <answer fraction="0"><text>Because q4 is the initial state</text><feedback><text>q1 is the initial state; equivalence comes from q3 and q4 behaving alike.</text></feedback></answer>
+    <generalfeedback><text>Because q3 and q4 emit identical outputs on all inputs, arriving in q4 rather than q3 never changes a trace — no test can ever distinguish the mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>An added test that kills q2-a→q1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The q2-a→q1 mutant survives the given suite but is killable. Which additional input sequence distinguishes it from the base?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA["aaaa" — base trace "0100" vs mutant "0101" (they diverge at the 4th output)]]></text><feedback><text>Correct — the fourth input exposes that the mutant looped back through q1/q2.</text></feedback></answer>
+    <answer fraction="0"><text>"ab" — but both give "01"</text><feedback><text>"ab" does not exercise the difference; both traces are "01".</text></feedback></answer>
+    <answer fraction="0"><text>"ba" — but both give "10"</text><feedback><text>"ba" gives "10" on both; it does not kill the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>No sequence can kill it; it is equivalent</text><feedback><text>It is not equivalent; "aaaa" kills it.</text></feedback></answer>
+    <generalfeedback><text>On "aaaa" the base yields "0100" but the q2-a→q1 mutant yields "0101"; the differing fourth output kills it, confirming it is a suite gap, not equivalent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>An added test that kills the q3-b output mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which added test would kill the mutant that changes q3-b's output to 0?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA["aab" — it reaches q3 and takes b, giving base "011" vs mutant "010"]]></text><feedback><text>Correct — "aa" lands in q3, then b exercises the mutated output.</text></feedback></answer>
+    <answer fraction="0"><text>"aa" — because it visits q3</text><feedback><text>"aa" ends at q3 without taking b, so it never exercises q3-b.</text></feedback></answer>
+    <answer fraction="0"><text>"ba" — because it is short</text><feedback><text>"ba" never reaches q3, so it cannot take q3-b.</text></feedback></answer>
+    <answer fraction="0"><text>No test can kill it; it is equivalent</text><feedback><text>It is a suite gap, not equivalent — "aab" kills it.</text></feedback></answer>
+    <generalfeedback><text>"aab" drives q1→q2→q3 then takes q3-b: base emits 1 ("011"), the mutant emits 0 ("010"), so the trace differs and the mutant is killed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Does a 100% model score guarantee code adequacy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose the suite kills every non-equivalent model-mutant. Does that guarantee a high code-level mutation score?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — the model abstracts away code-level detail, so a model-adequate suite can still miss faults in the implementation's code</text><feedback><text>Correct — model adequacy does not imply code-branch adequacy.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — model adequacy always implies code adequacy</text><feedback><text>The model omits code detail, so this implication does not hold.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — because both techniques use mutation operators</text><feedback><text>Sharing the mutation idea does not make the abstraction levels equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>No — because model mutation cannot generate tests</text><feedback><text>It can drive test design; the real reason is the abstraction gap.</text></feedback></answer>
+    <generalfeedback><text>A killed model-mutant proves the suite distinguishes model behaviours, not that it covers code branches — model mutation works at a higher abstraction than code mutation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a killed model-mutant proves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer's framing, a killed model-mutant proves that the suite:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Distinguishes model behaviours — not that it covers the implementation's code branches</text><feedback><text>Correct — killing is about behavioural distinction at the model level.</text></feedback></answer>
+    <answer fraction="0"><text>Covers every branch in the source code</text><feedback><text>Model mutation says nothing directly about code branch coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Achieves 100% statement coverage</text><feedback><text>Statement coverage is a code metric, unrelated to killing a model-mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Contains no equivalent mutants</text><feedback><text>Killing one mutant says nothing about whether others are equivalent.</text></feedback></answer>
+    <generalfeedback><text>Model-level mutation proves the suite can tell model behaviours apart; it does not measure code-branch coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the delete mutant's trace ends in ⊥</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the delete-q2-a mutant, test <code>aa</code> yields base "01" and mutant "0⊥". The ⊥ appears because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>After q1-a outputs 0 and moves to q2, the mutant has no q2-a transition, so the run is stuck and the trace records ⊥</text><feedback><text>Correct — the missing transition halts the run.</text></feedback></answer>
+    <answer fraction="0"><text>The delete operator changes the first output symbol to ⊥</text><feedback><text>The first output is a normal 0; ⊥ appears only when a transition is missing.</text></feedback></answer>
+    <answer fraction="0"><text>⊥ is q2's designated output symbol</text><feedback><text>States do not have output symbols here; ⊥ marks a stuck run.</text></feedback></answer>
+    <answer fraction="0"><text>The base model also produces ⊥ on aa</text><feedback><text>The base has q2-a, so it completes as "01" with no ⊥.</text></feedback></answer>
+    <generalfeedback><text>runTrace returns the output so far plus ⊥ when no transition matches; the deleted q2-a leaves the second step with no move.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why exclude the equivalent mutant from the score</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the explorer report an adjusted score that excludes the equivalent mutant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An equivalent mutant is unkillable by definition, so counting it would unfairly depress the adequacy measure</text><feedback><text>Correct — including unkillable mutants understates the suite's real adequacy.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent mutants are always killed, so they inflate the score</text><feedback><text>They are never killed, which is exactly why they are excluded.</text></feedback></answer>
+    <answer fraction="0"><text>Because the equivalent mutant has the most states</text><feedback><text>State count is irrelevant; unkillability is the reason.</text></feedback></answer>
+    <answer fraction="0"><text>To make the reported score lower</text><feedback><text>Excluding an unkillable mutant raises the fair score, not lowers it.</text></feedback></answer>
+    <generalfeedback><text>Since no test can kill an equivalent mutant, leaving it in the denominator penalises the suite for something impossible; the adjusted score removes it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Correct classification of all five mutants</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under the given suite, which classification of the five mutants is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Two killed (delete q2-a, output q1-a); two survive as suite gaps (retarget q2-a→q1, output q3-b); one survives as equivalent (retarget q2-a→q4)</text><feedback><text>Correct — 2 killed, 2 gaps, 1 equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>All five are killed</text><feedback><text>Three survive: two gaps and one equivalent.</text></feedback></answer>
+    <answer fraction="0"><text>Three killed, two equivalent</text><feedback><text>Only one mutant is equivalent, and only two are killed.</text></feedback></answer>
+    <answer fraction="0"><text>One killed, four equivalent</text><feedback><text>Two are killed and only one is equivalent.</text></feedback></answer>
+    <generalfeedback><text>M1 and M3 are killed by "aa"; M2 (q2-a→q1) and M4 (q3-b output) are suite gaps; M5 (q2-a→q4) is equivalent because q3 ≡ q4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why only one of two retargets is equivalent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two mutants both retarget q2-a: one to q1, one to q4. Why is only one of them equivalent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>q2-a→q4 is equivalent because q4 ≡ q3, but q2-a→q1 is not, because q1 and q3 are distinguishable (e.g. by "aa")</text><feedback><text>Correct — equivalence depends on whether the new destination behaves like the old one.</text></feedback></answer>
+    <answer fraction="0"><text>Both are equivalent because they retarget the same transition</text><feedback><text>Retargeting the same transition does not force equivalence; the destination's behaviour decides it.</text></feedback></answer>
+    <answer fraction="0"><text>Both are killable, so neither is equivalent</text><feedback><text>The q2-a→q4 mutant is unkillable because q3 and q4 behave identically.</text></feedback></answer>
+    <answer fraction="0"><text>q2-a→q1 is equivalent because q1 is the initial state</text><feedback><text>Being the initial state does not make q1 behave like q3; that mutant is killable.</text></feedback></answer>
+    <generalfeedback><text>Equivalence hinges on the destination: q3 and q4 are behaviourally identical (so →q4 is equivalent), whereas q1 differs from q3 (so →q1 is a killable suite gap).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the missed q2-a→q1 mutant illustrates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The retarget-to-q1 mutant is killable only by a length-4 input ("aaaa"), but the suite's longest test is length 3. This illustrates that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A survivor can be a pure suite gap: the operators reveal a needed test the suite lacks, even when the mutant is non-equivalent</text><feedback><text>Correct — model mutation exposes a missing (longer) test.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant must be equivalent since the suite cannot kill it</text><feedback><text>Not being killed by this suite does not make it equivalent — "aaaa" kills it.</text></feedback></answer>
+    <answer fraction="0"><text>Longer tests are never useful in model mutation</text><feedback><text>Here a longer test is exactly what is needed to kill the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Model mutation cannot detect retargeting faults</text><feedback><text>It can: the surviving retarget flags a genuine gap in the suite.</text></feedback></answer>
+    <generalfeedback><text>The surviving-but-killable mutant points to a concrete test the suite is missing — the value of mutation analysis is exposing such gaps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of adding test aab</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If test <code>aab</code> is added to the suite, how does the score change?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The q3-b output mutant is now killed: 3 of 5 killed (raw 60%, adjusted 75%); the retarget-to-q1 and equivalent mutants still survive</text><feedback><text>Correct — "aab" exercises q3-b, killing M4; M2 (needs "aaaa") and M5 (equivalent) still survive.</text></feedback></answer>
+    <answer fraction="0"><text>All five mutants are now killed</text><feedback><text>M2 needs a length-4 input and M5 is equivalent, so both still survive.</text></feedback></answer>
+    <answer fraction="0"><text>No change, because "aab" kills nothing new</text><feedback><text>"aab" takes q3-b, which the old suite never did, killing M4.</text></feedback></answer>
+    <answer fraction="0"><text>Only the equivalent mutant is now killed</text><feedback><text>The equivalent mutant can never be killed; "aab" kills M4 instead.</text></feedback></answer>
+    <generalfeedback><text>"aab" gives base "011" vs the q3-b mutant "010", killing it. Now 3 of 5 are killed (raw 60%); excluding the one equivalent mutant gives adjusted 3/4 = 75%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model- vs code-mutation trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A key trade-off of model-level versus code-level mutation is that model mutation:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Works at a higher abstraction — it can expose design/spec-level test gaps early, but a high model score does not guarantee code-branch coverage, and equivalent mutants still arise</text><feedback><text>Correct — higher abstraction brings both an advantage and limitations.</text></feedback></answer>
+    <answer fraction="0"><text>Is strictly more powerful than code mutation in every respect</text><feedback><text>It is not strictly superior; it abstracts away code detail.</text></feedback></answer>
+    <answer fraction="0"><text>Removes the equivalent-mutant problem entirely</text><feedback><text>Equivalent mutants still arise (e.g. q2-a→q4).</text></feedback></answer>
+    <answer fraction="0"><text>Requires the program's source code in order to run</text><feedback><text>It runs on the model, needing no source code.</text></feedback></answer>
+    <generalfeedback><text>Model mutation catches behavioural test gaps at the model level and needs no source, but its score does not imply code-branch adequacy and equivalent mutants remain a challenge.</text></generalfeedback>
+  </question>
+</quiz>

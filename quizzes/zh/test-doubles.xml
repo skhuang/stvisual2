@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Doubles/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Dummy（虛擬物件）的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在測試替身（test double）分類法中，<em>dummy（虛擬物件）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>僅為滿足必要參數而傳入，但從未被實際呼叫或使用</text><feedback><text>正確——dummy 只是填補介面上必要的參數槽；受測程式路徑從不呼叫它。</text></feedback></answer>
+    <answer fraction="0"><text>被設定成對收到的呼叫回傳固定（canned）答案</text><feedback><text>那是 stub（存根）；dummy 從不被實際呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>相依物件的一個輕量但功能完整的實作</text><feedback><text>那是 fake（假物件）；dummy 沒有可運作的行為，也從不被使用。</text></feedback></answer>
+    <answer fraction="0"><text>預先設定期望，若未達成則使測試失敗</text><feedback><text>那是 mock（模擬物件）；dummy 不驗證任何東西。</text></feedback></answer>
+    <generalfeedback><text>dummy 只為滿足必要參數而傳入，在受測程式路徑中從不被實際呼叫或使用。它是最簡單的替身：純粹的填充物。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Stub（存根）的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>stub（存根）</em>是一種測試替身，它會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對呼叫提供固定（canned）答案，取代真實相依物件以完成測試</text><feedback><text>正確——stub 回傳預先安排好的固定值，讓 SUT 能在不使用真實系統的情況下受測。</text></feedback></answer>
+    <answer fraction="0"><text>被傳入但在測試中從不被實際呼叫</text><feedback><text>那是 dummy；stub 會被呼叫並回傳固定值。</text></feedback></answer>
+    <answer fraction="0"><text>包裝真實物件並記錄對它的每一次互動</text><feedback><text>那是 spy（間諜物件）；stub 不會包裝真實實作。</text></feedback></answer>
+    <answer fraction="0"><text>若預期的呼叫未發生便自動使測試失敗</text><feedback><text>那是 mock；stub 本身不做任何驗證。</text></feedback></answer>
+    <generalfeedback><text>stub 對收到的呼叫提供固定答案，代替真實相依物件，讓 SUT 看到受控的回傳值。它支援狀態驗證（state verification），而非行為驗證（behaviour verification）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fake（假物件）的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>fake（假物件）</em>是一種測試替身，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具有真實可運作的實作，但採用不適合生產環境的捷徑</text><feedback><text>正確——fake 真的能運作（例如記憶體中的資料庫），但以某些方式簡化，使其不適合生產環境。</text></feedback></answer>
+    <answer fraction="0"><text>只回傳單一固定的 canned 值，沒有內部邏輯</text><feedback><text>那是 stub；fake 具有能跨呼叫維持狀態的真實運作邏輯。</text></feedback></answer>
+    <answer fraction="0"><text>在測試中從不被呼叫</text><feedback><text>那是 dummy；fake 是 SUT 會實際使用的可運作實作。</text></feedback></answer>
+    <answer fraction="0"><text>預先設定期望，並在測試後驗證它們</text><feedback><text>那是 mock；fake 不驗證任何東西——它只是運作。</text></feedback></answer>
+    <generalfeedback><text>fake 具有真實可運作的實作，但採用捷徑（例如以記憶體儲存資料而非真實資料庫），使其不適合生產環境。記憶體使用者儲存庫與記憶體快取都是典型的 fake。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mock（模擬物件）的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>mock（模擬物件）</em>是一種測試替身，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>預先設定期望，若收到的呼叫與期望不符便使測試失敗</text><feedback><text>正確——mock 帶有「哪些呼叫應以哪些引數發生」的期望，並加以驗證。</text></feedback></answer>
+    <answer fraction="0"><text>只回傳固定值，從不檢查它是如何被呼叫的</text><feedback><text>那是 stub；mock 會主動驗證互動。</text></feedback></answer>
+    <answer fraction="0"><text>是相依物件的一個可運作的記憶體內實作</text><feedback><text>那是 fake；mock 不提供真實可運作的行為。</text></feedback></answer>
+    <answer fraction="0"><text>被傳入但在測試路徑中從不被呼叫</text><feedback><text>那是 dummy；mock 正是為了檢查對它所做的呼叫而存在。</text></feedback></answer>
+    <generalfeedback><text>mock 預先設定期望；若收到的呼叫與那些期望不符（正確的方法、正確的引數），它便使測試失敗。這就是行為驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spy（間諜物件）的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>spy（間諜物件）</em>是一種測試替身，它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>包裝真實物件、透傳（call through）給它，並記錄所有互動</text><feedback><text>正確——spy 委派給真實實作，同時記錄每一次呼叫，讓測試事後能對它們斷言。</text></feedback></answer>
+    <answer fraction="0"><text>回傳固定值而不執行任何真實邏輯</text><feedback><text>那是 stub；spy 會透傳給真實物件，因此真實邏輯仍會執行。</text></feedback></answer>
+    <answer fraction="0"><text>被傳入但從不被實際呼叫</text><feedback><text>那是 dummy；spy 會被使用並記錄每一次呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>當它的期望未達成時，由它自己使測試失敗</text><feedback><text>那是 mock；spy 只記錄——事後由測試進行斷言。</text></feedback></answer>
+    <generalfeedback><text>spy 包裝真實物件、透傳給它（因此真實行為被保留），並記錄所有互動。測試接著在事後檢視所記錄的呼叫。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識替身：純粹填充物</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試把一個物件傳入 SUT 只為滿足必要參數；受測程式路徑從不呼叫它的任何方法。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy（虛擬物件）</text><feedback><text>正確——它從不被實際呼叫或使用；它只是填補必要參數。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 會被呼叫並回傳固定值；此處沒有任何呼叫發生。</text></feedback></answer>
+    <answer fraction="0"><text>Spy（間諜物件）</text><feedback><text>spy 會記錄呼叫，但此處從未有可記錄的呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 會驗證呼叫，但此處沒有互動可供驗證。</text></feedback></answer>
+    <generalfeedback><text>當相依物件在 API 上為必要，但與測試無關——在受測路徑上從不被呼叫——正確的替身是 dummy。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識替身：固定回傳</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某替身取代儲存庫，使 <code>findById</code> 永遠回傳固定紀錄 <code>{ name: 'Alice', role: 'admin' }</code>，且沒有真實資料庫。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub（存根）</text><feedback><text>正確——它對呼叫提供固定答案，取代真實相依物件。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 會有真實運作邏輯（例如儲存並取回多筆紀錄）；此處只回傳一個固定值。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 會驗證預期的互動；此處沒有任何東西檢查該替身是如何被呼叫的。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫；此替身會被呼叫並回傳值。</text></feedback></answer>
+    <generalfeedback><text>回傳固定、預先安排好的值以控制 SUT 所看到的內容——且不使用真實系統——正是 stub。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識替身：記憶體內實作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某替身是一個記憶體使用者儲存庫，具有真實的 <code>save</code>/<code>findById</code>，在 <code>Map</code> 中儲存並取回紀錄，避開真實資料庫。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake（假物件）</text><feedback><text>正確——它具有真實可運作的實作，但採用不適合生產環境的捷徑（記憶體儲存）。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 回傳固定的 canned 值；此物件實際上以真實邏輯跨呼叫儲存並取回資料。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 會驗證期望；此替身提供的是可運作的行為，而非驗證。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被使用；此儲存庫被積極用來儲存與讀取資料。</text></feedback></answer>
+    <generalfeedback><text>一個可運作但簡化的實作——例如真的能儲存與讀取紀錄的記憶體資料庫——就是 fake。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識替身：驗證期望</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某替身事先被設定成期望 <code>send</code> 以 <code>('alice@example.com', 'Password Reset')</code> 被呼叫；SUT 執行後，呼叫 <code>verify()</code> 時若該呼叫未發生便使測試失敗。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock（模擬物件）</text><feedback><text>正確——它預先設定期望，若呼叫不符便使測試失敗。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 只回傳固定值；它從不驗證自己是如何被呼叫的。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 是可運作的實作；它不帶有使測試失敗的期望。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫，因此無法驗證任何互動。</text></feedback></answer>
+    <generalfeedback><text>預設期望加上「不符即使測試失敗」的驗證步驟，正是 mock 的定義性行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識替身：包裝並記錄</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某替身包裝真實計算機，透傳給它真實的 <code>add</code>/<code>multiply</code>（因此結果是真的），並記錄每一次呼叫，讓測試事後能加以計數。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy（間諜物件）</text><feedback><text>正確——它透傳給真實物件並記錄互動，供測試稍後斷言。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 會以固定值取代真實邏輯；此處真實算術仍會執行。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 在期望未達成時由自己使測試失敗；此替身只記錄——由測試事後斷言。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫；此替身會被呼叫並記錄每一次呼叫。</text></feedback></answer>
+    <generalfeedback><text>包裝真實實作、透傳給它、並記錄互動供稍後檢視，正是 spy。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>特徵：回傳固定值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種替身以<em>回傳固定值</em>為特徵？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub（存根）</text><feedback><text>正確——stub 對呼叫回傳固定的 canned 值。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 因為從不被呼叫，不會回傳任何有意義的值。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 的定義性特徵是驗證期望，而非僅回傳固定值。</text></feedback></answer>
+    <answer fraction="0"><text>Spy（間諜物件）</text><feedback><text>spy 會透傳給真實物件並記錄；它不只是回傳固定值。</text></feedback></answer>
+    <generalfeedback><text>「回傳固定值」是 stub 的招牌特徵——它提供預先安排好的答案，讓 SUT 看到受控的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>特徵：驗證期望</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種替身以<em>驗證期望</em>為特徵？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock（模擬物件）</text><feedback><text>正確——mock 會驗證預期的互動是否發生，否則使測試失敗。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 回傳固定值，不驗證任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 是可運作的實作；它不驗證期望。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫，因此不驗證任何東西。</text></feedback></answer>
+    <generalfeedback><text>「驗證期望」是 mock 的招牌特徵：它預先被設定預期的呼叫，若未達成便使測試失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>特徵：透傳並記錄</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種替身以<em>透傳給真實物件並記錄互動</em>為特徵？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy（間諜物件）</text><feedback><text>正確——spy 透傳給真實實作並記錄每一次互動。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 回傳固定值，而非執行真實邏輯。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 驗證預設的期望；它不一定會透傳給真實物件。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 是一個獨立的可運作實作，而非透傳給真實物件的包裝。</text></feedback></answer>
+    <generalfeedback><text>「透傳 + 記錄」是 spy 的招牌特徵：它在保留真實行為的同時，記錄互動供稍後斷言。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>dummy 從不被呼叫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>dummy 物件在受測程式路徑中從不被實際呼叫或使用。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——dummy 只為滿足必要參數而存在；受測路徑不會呼叫它。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>dummy 確實從不被呼叫；若 SUT 呼叫它並依賴其回傳，你就需要 stub 或其他替身。</text></feedback></answer>
+    <generalfeedback><text>dummy 的重點就在於它是純粹的填充物：為滿足介面而傳入，但在受測路徑上從不被實際呼叫或使用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>特徵：真實邏輯，簡化版</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種替身最適合描述為具有<em>真實邏輯，但簡化</em>（例如：具有真正 TTL 逐出但沒有 Redis 的記憶體快取）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake（假物件）</text><feedback><text>正確——fake 具有真實可運作的實作，但採用不適合生產環境的捷徑。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 回傳固定值，沒有真實的內部邏輯。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 驗證期望；它不提供簡化的可運作實作。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 完全沒有行為，也從不被呼叫。</text></feedback></answer>
+    <generalfeedback><text>「真實邏輯，簡化版」描述的是 fake——一個可運作的實作（如具有真正 TTL 逐出的記憶體快取），但採用使其不適合生產環境的捷徑。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Doubles/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：不連網卻要固定值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的 SUT 呼叫遠端天氣 API 取得目前溫度。你想在不連網的情況下，以固定回傳值測試它。你應該使用哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub（存根）</text><feedback><text>正確——你需要在不使用真實系統下取得 canned 回傳值，這就是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>你並不是要驗證某個呼叫是否發生；你只需要受控的回傳值，所以 stub 才是正解。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>你不需要一整個可運作的天氣服務，只要一個固定值——stub 更簡單且足夠。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>該相依物件實際上會被呼叫且其回傳值很重要，所以 dummy 行不通。</text></feedback></answer>
+    <generalfeedback><text>當你需要在不執行真實系統下控制相依物件的回傳時，使用 stub——它對 SUT 的呼叫提供固定答案。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：驗證某互動確實發生</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你想驗證：當使用者被刪除時，稽核日誌服務必須以正確的使用者 ID 被呼叫恰好一次。你應該使用哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock（模擬物件）</text><feedback><text>正確——你必須以精確引數驗證某個特定互動，這是行為驗證，正是 mock 的職責。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 只回傳固定值；它不驗證某個呼叫是否被做出。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 提供可運作的行為，但它本身不會斷言某個特定呼叫是否發生。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫；它無法驗證互動。</text></feedback></answer>
+    <generalfeedback><text>當測試必須驗證某個呼叫以精確引數被做出時，使用 mock——它預先被設定該期望，若未達成便失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：不用真實資料庫的可運作儲存庫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的 SUT 需要一個以資料庫為後端的使用者儲存庫。你想要一個功能完整、但在單元測試期間不連接真實資料庫的實作。你應該使用哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake（假物件）</text><feedback><text>正確——fake 是一個真實可運作的實作（例如記憶體內），可避開真實資料庫。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 回傳固定值，無法在多次 save/find 操作間表現得像真實儲存庫。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 驗證互動；此處你需要的是真實可運作的行為，而非驗證。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被使用；你需要一個 SUT 會實際呼叫的可運作儲存庫。</text></feedback></answer>
+    <generalfeedback><text>當你需要真實但快速的行為——一個不含真實相依物件的可運作實作——就用 fake，例如記憶體使用者儲存庫。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：真實實作外加呼叫記錄</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你想在測試中使用真正的 Email 服務實作，同時記錄每一次呼叫，以便事後對呼叫次數斷言。你應該使用哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy（間諜物件）</text><feedback><text>正確——spy 包裝真實實作、透傳給它，並記錄互動供稍後斷言。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 會以固定值取代真實實作；而你明確想要真實的那個執行。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 預設期望且通常取代真實實作；此處你想要真實的那個執行並在事後斷言。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫，也不記錄任何東西。</text></feedback></answer>
+    <generalfeedback><text>當你想觀察對真實實作的互動——保留其行為的同時記錄呼叫——使用 spy。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：必要但從不被呼叫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的 SUT 建構式需要一個 logger 物件，但你正在測試的程式路徑從不實際呼叫它。你應該使用哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy（虛擬物件）</text><feedback><text>正確——logger 在 API 上為必要，但與此測試無關且從不被呼叫，因此 dummy 就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 用於控制「被呼叫的」相依物件回傳值；此處 logger 從不被呼叫，所以 dummy 更簡單且正確。</text></feedback></answer>
+    <answer fraction="0"><text>Spy（間諜物件）</text><feedback><text>spy 會記錄呼叫，但此路徑上沒有可記錄的呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 會驗證互動，但此處你並未要驗證與 logger 的任何互動。</text></feedback></answer>
+    <generalfeedback><text>當相依物件在 API 上為必要、但與測試無關且從不被呼叫時，最簡單且正確的替身是 dummy。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>行為驗證的代表性替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>行為驗證（behaviour verification）</em>——斷言某個特定互動（呼叫）曾發生——是哪一種替身的定義性目的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock（模擬物件）</text><feedback><text>正確——mock 的存在就是為了驗證預期的互動是否發生，即行為驗證。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 支援狀態驗證（檢查 SUT 的結果值），而非行為驗證。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 透過其可運作行為支援狀態驗證；它不驗證互動。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫，也不驗證任何東西。</text></feedback></answer>
+    <generalfeedback><text>行為驗證檢查是否做出了正確的呼叫。這正是 mock 的用途；stub 與 fake 則支援狀態驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>stub 支援哪一種驗證</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個回傳 canned 值、讓你能對 SUT 結果輸出斷言的 stub，支援哪一種驗證？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>狀態驗證（state verification）</text><feedback><text>正確——你檢查的是 SUT 的結果狀態／回傳值，而非做了哪些呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>行為驗證（behaviour verification）</text><feedback><text>行為驗證檢查呼叫是否發生；stub 不驗證呼叫——那是 mock 的職責。</text></feedback></answer>
+    <answer fraction="0"><text>不符即使測試失敗的期望驗證</text><feedback><text>那是 mock 的行為，而非 stub；stub 從不由自己使測試失敗。</text></feedback></answer>
+    <answer fraction="0"><text>使用 stub 無法進行任何驗證</text><feedback><text>stub 能讓你進行狀態驗證：你對 SUT 由其 canned 回傳所算出的值加以斷言。</text></feedback></answer>
+    <generalfeedback><text>stub（與 fake）支援狀態驗證：你給 SUT 受控的輸入，並對其結果狀態或回傳值斷言。mock 則支援行為驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對術語：記錄對真實物件的互動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個術語指的是「包裝真實實作並記錄對它所做呼叫」的替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy（間諜物件）</text><feedback><text>正確——spy 包裝真實物件並記錄互動。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 預設期望並由自己驗證；它並非以「包裝真實物件」來定義。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 以固定值取代相依物件，而非包裝真實的那個。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 是一個獨立的可運作實作，而非包裝真實物件的記錄器。</text></feedback></answer>
+    <generalfeedback><text>spy 包裝真實物件、透傳給它，並記錄互動供稍後檢視。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：具有真正 TTL 的記憶體快取</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你以一個記憶體快取取代 Redis，它會真正儲存值，並在其 TTL 過期時逐出它們。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake（假物件）</text><feedback><text>正確——它具有真實運作邏輯（TTL 逐出），但採用不適合生產環境的捷徑（記憶體內、沒有 Redis）。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 回傳固定值；此快取跨呼叫執行真實的 set/get/逐出邏輯。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 驗證期望；此替身提供的是可運作的行為。</text></feedback></answer>
+    <answer fraction="0"><text>Spy（間諜物件）</text><feedback><text>spy 包裝並記錄一個真實物件；這是一個獨立的可運作實作，而非記錄用的包裝。</text></feedback></answer>
+    <generalfeedback><text>一個可運作但簡化的實作，具有真實邏輯（真正的 TTL 逐出）與不適合生產環境的捷徑（記憶體內），就是 fake。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：為 getUserProfile 提供 canned 檔案</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為測試 <code>getUserProfile(id, repo)</code>，某替身的 <code>findById</code> 永遠回傳 <code>{ name: 'Alice', role: 'admin' }</code>，讓你能斷言 profile 是否被正確建構。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub（存根）</text><feedback><text>正確——它提供 canned 回傳，讓你能對 SUT 建構出的 profile 做狀態驗證。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>此處沒有任何東西驗證 findById 以特定方式被呼叫；你只斷言結果 profile——那是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 會維持真實狀態；此處回傳的是單一固定紀錄，那是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫；此儲存庫被呼叫並回傳值。</text></feedback></answer>
+    <generalfeedback><text>回傳一筆 canned 紀錄，讓測試能對 SUT 算出的輸出斷言，就是以 stub 進行狀態驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：驗證 charge 的引數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某付款替身被預先設定，使你能在結帳後呼叫 <code>verify()</code>；除非 <code>charge</code> 曾以 <code>5000</code> 與 <code>'USD'</code> 被呼叫，否則它會失敗。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock（模擬物件）</text><feedback><text>正確——它帶有關於該精確呼叫的期望，若未達成便使測試失敗。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 只回傳固定值；它不會依「如何被呼叫」而使測試失敗。</text></feedback></answer>
+    <answer fraction="0"><text>Spy（間諜物件）</text><feedback><text>spy 記錄呼叫供測試事後斷言；此處是替身自己透過 verify() 驗證期望，那是 mock。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 是可運作的實作；它不帶有使測試失敗的期望。</text></feedback></answer>
+    <generalfeedback><text>關於精確呼叫的預設期望，由替身自己的驗證步驟檢查，正是 mock 的標誌。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：真實運算外加呼叫次數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某計算機替身讓 <code>computeTotal</code> 使用真實的 <code>add</code>/<code>multiply</code> 回傳真正的總和（40），同時也讓測試斷言 <code>multiply</code> 被呼叫了兩次。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy（間諜物件）</text><feedback><text>正確——真實算術會執行（透傳），且每一次呼叫都被記錄供稍後斷言。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 會回傳固定值，因此真正的總和（40）不會被算出。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 會在期望未達成時由自己失敗；此處是測試在事後對所記錄的呼叫斷言，那是 spy。</text></feedback></answer>
+    <answer fraction="0"><text>Fake（假物件）</text><feedback><text>fake 是替代實作；此處真實計算機會執行，只是被包裝並記錄——那是 spy。</text></feedback></answer>
+    <generalfeedback><text>在保留真實行為的同時記錄呼叫供稍後斷言，正是 spy。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：只檢查 result.ok 的歡迎信</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為測試 <code>registerUser</code>，某替身的 <code>send</code> 永遠回傳 <code>{ ok: true, messageId: 'stub-msg-001' }</code>，讓 SUT 看到寄送成功；測試只斷言回傳的註冊物件，從不斷言 <code>send</code> 是如何被呼叫的。這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub（存根）</text><feedback><text>正確——它提供 canned 成功回應讓 SUT 得以繼續；測試對結果做狀態驗證，而非對呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>此處沒有任何東西依 send 如何被呼叫而使測試失敗；只斷言回傳值，所以這是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>Spy（間諜物件）</text><feedback><text>spy 會包裝真實 Email 服務並記錄呼叫；此處是以 canned 回應取代真實的那個，那是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫；此處 send 被呼叫且其 canned 回傳驅動 SUT。</text></feedback></answer>
+    <generalfeedback><text>回傳固定的成功回應讓 SUT 得以繼續，接著只對 SUT 自己的輸出斷言，就是支援狀態驗證的 stub。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對術語：不預期呼叫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種替身具有<em>不預期呼叫</em>的特徵？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy（虛擬物件）</text><feedback><text>正確——dummy 從不被呼叫；不預期與它有任何互動。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 被預期會被呼叫並回傳固定值。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 預期特定呼叫並加以驗證。</text></feedback></answer>
+    <answer fraction="0"><text>Spy（間諜物件）</text><feedback><text>spy 預期呼叫，以便記錄它們。</text></feedback></answer>
+    <generalfeedback><text>「不預期呼叫」是 dummy 的特徵：它只填補必要參數，從不被呼叫。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>stub 不會由自己使測試失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>與 mock 不同，stub 從不依「它是如何被呼叫的」而由自己使測試失敗——它只提供固定值。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——stub 不做任何驗證；只有 mock 被預先設定成在期望未達成時使測試失敗。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>stub 確實不做驗證；在期望未達成時使測試失敗的替身是 mock。</text></feedback></answer>
+    <generalfeedback><text>stub 提供固定答案並支援狀態驗證；它從不由自己使測試失敗。依所收到的呼叫使測試失敗，是 mock 的行為驗證。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Doubles/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>在 stub 就足夠處誤用 mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SUT 只需要相依物件的回傳值來算出你隨後要斷言的結果。一位同事卻寫了一個 mock，額外斷言該相依物件曾被呼叫。最恰當的替身是哪一種，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>stub——你只需要狀態驗證，因此對互動斷言會過度規格化測試並使其脆弱</text><feedback><text>正確——當只有回傳值重要時，stub 讓測試專注於結果，而非實作的呼叫模式。</text></feedback></answer>
+    <answer fraction="0"><text>mock——為求保險，永遠驗證每一個呼叫</text><feedback><text>驗證你並不在意的呼叫，會把測試耦合到實作細節並使其脆弱；此處 stub 才是正確工具。</text></feedback></answer>
+    <answer fraction="0"><text>fake——你需要一個功能完整的實作</text><feedback><text>此處不需要可運作的實作；一個 canned 回傳（stub）就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>dummy——該相依物件無關緊要</text><feedback><text>該相依物件的回傳值確實被使用，所以 dummy 行不通；你需要 stub。</text></feedback></answer>
+    <generalfeedback><text>在只有結果重要處使用 mock 是典型的 mock/stub 誤用：它驗證你並不在意的互動，把測試耦合到 SUT 的實作方式。應改用 stub 並進行狀態驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>過度 mock 的徵兆</text></name>
+    <questiontext format="html"><text><![CDATA[<p>每次重構 SUT——即使其可觀察輸出不變——某測試都會壞掉，因為它斷言了內部呼叫的精確順序。這是何種典型徵兆？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>過度 mock（over-mocking）——對無關緊要互動的行為驗證，把測試耦合到實作</text><feedback><text>正確——以嚴格期望過度使用 mock，會使測試對無害的重構變得脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>stub 不足——canned 回傳值太少</text><feedback><text>問題不在於缺少回傳值；而在於斷言了不該檢查的內部呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>使用 fake 而非真實資料庫</text><feedback><text>fake 不會在重構時造成壞掉；成因是嚴格的互動斷言。</text></feedback></answer>
+    <answer fraction="0"><text>使用一個從不被呼叫的 dummy</text><feedback><text>dummy 完全不造成任何斷言；脆弱的成因是過度 mock。</text></feedback></answer>
+    <generalfeedback><text>過度 mock 把測試釘死在 SUT 的內部呼叫結構上。當你斷言不影響可觀察行為的互動時，無害的重構就會弄壞測試。除非互動本身正是受測對象，否則應偏好狀態驗證（stub/fake）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>當 stub 不夠用時</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SUT 儲存一筆紀錄後再讀回，期望跨多次呼叫維持一致狀態，並且還依賴 TTL 過期。回傳單一固定值的 stub 無法重現這一點。你應該改用什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>fake——一個能跨呼叫維持狀態的可運作實作（例如具有真正 TTL 的記憶體儲存）</text><feedback><text>正確——重現跨呼叫的一致、有狀態行為需要一個可運作的實作，也就是 fake。</text></feedback></answer>
+    <answer fraction="0"><text>mock——驗證每一次 save 與 read 呼叫</text><feedback><text>驗證呼叫並不能給你 SUT 所依賴的一致有狀態行為；你需要一個可運作的 fake。</text></feedback></answer>
+    <answer fraction="0"><text>dummy——該相依物件無關緊要</text><feedback><text>該相依物件是行為的核心；dummy 從不被呼叫，也無法儲存狀態。</text></feedback></answer>
+    <answer fraction="0"><text>更多 stub——每次呼叫給一個 canned 值</text><feedback><text>為每次呼叫手動調整 canned 值既脆弱，也無法模擬像 TTL 過期這類真實互動；fake 才是正確工具。</text></feedback></answer>
+    <generalfeedback><text>當 SUT 需要跨多次呼叫的真實、有狀態行為（save/read 一致性、TTL 過期）時，stub 的單一 canned 值並不足夠。fake——一個輕量的可運作實作——才是正確的取捨。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>spy 與 mock 有何不同</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項最能刻劃 <em>spy</em> 與 <em>mock</em> 的差異？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>spy 透傳給真實物件並記錄互動供測試事後斷言；mock 則預先設定期望，並由自己在未達成時使測試失敗</text><feedback><text>正確——spy 記錄並讓測試稍後驗證；mock 自己帶有並強制執行期望。</text></feedback></answer>
+    <answer fraction="0"><text>spy 由自己驗證期望，而 mock 只記錄呼叫</text><feedback><text>這把兩者顛倒了：mock 驗證期望；spy 記錄供稍後斷言。</text></feedback></answer>
+    <answer fraction="0"><text>spy 只回傳固定值，而 mock 執行真實實作</text><feedback><text>透傳給真實實作的是 spy；回傳固定值的是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>兩者沒有差別；這些術語可互換</text><feedback><text>它們有別：記錄供稍後（spy）對比 預設期望且會使測試失敗（mock）。</text></feedback></answer>
+    <generalfeedback><text>spy 包裝並透傳給真實物件，記錄呼叫讓測試事後斷言。mock 預先設定期望，並在未達成時由自己使測試失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>臨界：記錄但不自我驗證</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某替身記錄它收到的每一次呼叫，但從不由自己使測試失敗；由測試在事後檢視所記錄的呼叫來決定通過或失敗。最精確而言，這是哪一種替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy（間諜物件）</text><feedback><text>正確——記錄互動供測試稍後斷言、而不自我驗證，就是 spy。</text></feedback></answer>
+    <answer fraction="0"><text>Mock（模擬物件）</text><feedback><text>mock 會在期望未達成時由自己使測試失敗；此處替身只記錄，由測試事後決定。</text></feedback></answer>
+    <answer fraction="0"><text>Stub（存根）</text><feedback><text>stub 回傳固定值；記錄呼叫供稍後檢視是 spy 的角色。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy（虛擬物件）</text><feedback><text>dummy 從不被呼叫，因此不記錄任何東西。</text></feedback></answer>
+    <generalfeedback><text>區分關鍵在於「由誰驗證」：spy 記錄、由測試事後斷言；mock 預先設定、並由自己使測試失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>mock 與 stub 的本質差異</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>mock</em> 與 <em>stub</em> 的本質差異是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>mock 預先設定期望，若呼叫不符便使測試失敗（行為驗證）；stub 只提供固定值、從不由自己失敗（狀態驗證）</text><feedback><text>正確——mock 驗證互動，stub 提供受控的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>mock 回傳固定值，而 stub 驗證互動</text><feedback><text>這把兩者顛倒了：stub 回傳固定值，mock 驗證互動。</text></feedback></answer>
+    <answer fraction="0"><text>mock 是可運作的實作，而 stub 從不被呼叫</text><feedback><text>可運作的實作是 fake，從不被呼叫的替身是 dummy——都不是 mock/stub 的區別。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相同；都驗證期望</text><feedback><text>只有 mock 驗證期望；stub 不驗證。</text></feedback></answer>
+    <generalfeedback><text>兩者都能提供回傳值，但只有 mock 帶有期望並在互動不符時使測試失敗。stub 不做任何驗證——它為狀態驗證而存在。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把 spy 換成 stub</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 spy 包裝真實計算機，讓 <code>computeTotal</code> 回傳真正的 40，同時記錄呼叫。若你把該 spy 換成 stub，會有什麼改變？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>stub 會回傳固定值，因此真實算術不再執行，真正的總和也不會被算出</text><feedback><text>正確——stub 以固定答案取代真實邏輯，失去 spy 所保留的真實行為。</text></feedback></answer>
+    <answer fraction="0"><text>沒有改變——stub 與 spy 行為相同</text><feedback><text>它們有別：spy 透傳給真實物件；stub 則改為回傳固定值。</text></feedback></answer>
+    <answer fraction="0"><text>stub 會在期望未達成時使測試失敗</text><feedback><text>在期望未達成時失敗是 mock 的行為，而非 stub。</text></feedback></answer>
+    <answer fraction="0"><text>stub 會像 spy 一樣記錄呼叫</text><feedback><text>記錄呼叫是 spy 的角色；純 stub 不會記錄供稍後斷言。</text></feedback></answer>
+    <generalfeedback><text>spy 透傳給真實實作（真實運算會執行）並記錄。stub 則會替換成固定值，因此真正的計算——以及它可能揭露的任何錯誤——都不會執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對純值協作者做 mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某協作者只是回傳一個值，對 SUT 的合約而言沒有任何要緊的副作用。對它做 mock 並斷言它曾被呼叫，會導致：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試被耦合到實作細節，而一個回傳該值的 stub 本來會更簡單且足夠</text><feedback><text>正確——對無副作用的協作者驗證呼叫，只會增加脆弱性而無價值；此處 stub 才是正確選擇。</text></feedback></answer>
+    <answer fraction="0"><text>更強的測試，因為驗證每一個呼叫總是更好</text><feedback><text>驗證對合約無關緊要的呼叫，會把測試耦合到實作，且不增加任何真正的保證。</text></feedback></answer>
+    <answer fraction="0"><text>反而需要改用 fake</text><feedback><text>此處不需要可運作的實作；一個對回傳值的簡單 stub 就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>應改用 dummy，因為該協作者無關緊要</text><feedback><text>該協作者的回傳值有被使用，所以並非無關緊要；stub 才恰當。</text></feedback></answer>
+    <generalfeedback><text>對一個只負責回傳值的協作者，stub 能乾淨地支援狀態驗證。對它做 mock 會驗證無關緊要的互動，把測試耦合到實作並使其脆弱。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>fake 的缺點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個 fake 記憶體資料庫在測試中提供真實、有狀態的行為。依賴它的一個真正缺點是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為它具有採用不適合生產環境捷徑的真實邏輯，fake 本身可能含有錯誤，或與真實相依物件的行為產生偏差</text><feedback><text>正確——fake 是帶有捷徑的真實程式碼，因此必須維護，且行為可能與生產環境不同。</text></feedback></answer>
+    <answer fraction="0"><text>它無法跨呼叫維持狀態</text><feedback><text>跨呼叫維持狀態正是 fake 擅長之處；那是它的優點。</text></feedback></answer>
+    <answer fraction="0"><text>它驗證互動，因而使測試脆弱</text><feedback><text>驗證是 mock 的職責；fake 不驗證互動。</text></feedback></answer>
+    <answer fraction="0"><text>它只回傳單一 canned 值</text><feedback><text>那描述的是 stub，而非 fake；fake 具有真實的運作邏輯。</text></feedback></answer>
+    <generalfeedback><text>fake 是帶有不適合生產環境捷徑的可運作實作。那真實邏輯本身就是程式碼：它可能藏有錯誤，也可能與生產相依物件不符，因此帶有維護與擬真度風險。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最精確：從不被呼叫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某相依物件是建構 SUT 所必需的，但在受測路徑上它完全不被呼叫。使用帶 canned 回傳的 stub 也行得通，但並非必要。最精確而正確的替身是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy——因為完全沒有任何呼叫，純粹填充物是最精確的選擇</text><feedback><text>正確——完全沒有互動時，dummy 是最小且最精準的選擇。</text></feedback></answer>
+    <answer fraction="0"><text>Stub——為求保險永遠提供 canned 回傳</text><feedback><text>stub 也能運作但過度規格化：沒有任何呼叫需要回傳，因此 dummy 才是最精確的選擇。</text></feedback></answer>
+    <answer fraction="0"><text>Spy——用來記錄它未被呼叫</text><feedback><text>沒有東西可記錄；spy 為從未發生的互動增添機制。</text></feedback></answer>
+    <answer fraction="0"><text>Mock——用來驗證它從不被呼叫</text><feedback><text>你確實可驗證「零呼叫」的期望，但此情境只需要填補參數，因此 dummy 才是最精確的選擇。</text></feedback></answer>
+    <generalfeedback><text>當替身只為滿足必要參數而傳入、且從不被呼叫時，最精確而正確的選擇是 dummy。stub 雖能運作，卻隱含著從不需要的 canned 回傳。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最精確：必須確認呼叫確實發生</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試的全部重點在於確認 <code>send</code> 確實以主旨 <code>'Password Reset'</code> 被呼叫，若沒有，測試就必須失敗。最精確而合適的替身是哪一種？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock——需求是行為驗證，帶有一個「不符即使測試失敗」的精確預期呼叫</text><feedback><text>正確——mock 預先被設定該期望，若呼叫不符便失敗。</text></feedback></answer>
+    <answer fraction="0"><text>Stub——回傳 canned 值後就繼續</text><feedback><text>stub 無法依「呼叫是否發生」使測試失敗；那是行為驗證，是 mock 的職責。</text></feedback></answer>
+    <answer fraction="0"><text>Fake——一個可運作的 Email 服務</text><feedback><text>可運作的實作本身並不會斷言預期的呼叫是否發生。</text></feedback></answer>
+    <answer fraction="0"><text>Dummy——該 Email 服務無關緊要</text><feedback><text>互動正是此測試所在意的，所以 dummy 是錯的。</text></feedback></answer>
+    <generalfeedback><text>當確認某個特定呼叫（以精確引數）發生正是測試的目的時，使用 mock——它驗證該期望並在不符時失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>stub 如何遮蔽缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試在使用 stub 相依物件時通過，但系統在生產環境卻失敗。stub 如何可能遮蔽了一個真實缺陷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>stub 回傳固定值，因此真實相依物件（可能有錯的）邏輯在測試中從未被執行</text><feedback><text>正確——以固定答案取代真實邏輯，意味著那段邏輯中真正的錯誤未被測到。</text></feedback></answer>
+    <answer fraction="0"><text>stub 驗證了太多期望</text><feedback><text>stub 不驗證任何東西；遮蔽源自繞過真實邏輯，而非驗證。</text></feedback></answer>
+    <answer fraction="0"><text>stub 透傳給真實物件</text><feedback><text>透傳是 spy 的行為；stub 以固定值替換，正是造成遮蔽的原因。</text></feedback></answer>
+    <answer fraction="0"><text>stub 跨呼叫維持真實狀態</text><feedback><text>維持真實狀態是 fake 的行為；stub 回傳固定值，因此可能隱藏真實缺陷。</text></feedback></answer>
+    <generalfeedback><text>因為 stub 提供固定答案而非執行真實相依物件，那段真實邏輯中的任何缺陷都不會被測試觸發——所以測試可能通過而生產環境卻失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>設定與驗證的順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考量 mock 與 spy 的典型使用順序。下列哪一項正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使用 mock 時，你在執行 SUT 前設定期望、在之後驗證；使用 spy 時，你事前不設定期望，只在事後對所記錄的呼叫斷言</text><feedback><text>正確——mock 的期望先被宣告（例如 expect(...)）並在之後檢查；spy 只是記錄並在稍後被斷言。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都要求在 SUT 執行前宣告期望</text><feedback><text>只有 mock 事前宣告期望；spy 不帶預設期望地記錄。</text></feedback></answer>
+    <answer fraction="0"><text>spy 事前宣告期望；mock 從不宣告</text><feedback><text>這把兩者顛倒了：mock 宣告期望；spy 不宣告。</text></feedback></answer>
+    <answer fraction="0"><text>兩者在 SUT 執行後都無法被驗證</text><feedback><text>兩者都在 SUT 執行後被檢查——mock 透過它自己的 verify，spy 則透過測試對所記錄呼叫的斷言。</text></feedback></answer>
+    <generalfeedback><text>mock 是預先設定的：期望在 SUT 執行前設好，並在之後驗證。spy 事前不設定期望——它記錄呼叫，測試在事後對那些紀錄斷言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最精確：計數呼叫時仍要真實輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試需要真實 logger 真正產生 <code>'[LOG] Processing 5'</code>，同時計數 <code>log</code> 與 <code>warn</code> 各被呼叫幾次。回傳 canned 值的 stub 會失去真實輸出。最精確而合適的替身是哪一種？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy——它包裝真實 logger、透傳以產生真正輸出，並記錄呼叫供計數</text><feedback><text>正確——同時需要真實行為與呼叫紀錄，正是 spy 所提供的。</text></feedback></answer>
+    <answer fraction="0"><text>Stub——回傳 canned 日誌字串</text><feedback><text>canned 回傳會捨棄真實 logger 的真正輸出，而那正是測試明確需要的。</text></feedback></answer>
+    <answer fraction="0"><text>Mock——預設會使測試失敗的期望</text><feedback><text>此測試在事後對所記錄的次數斷言，而非事前宣告嚴格期望；那是 spy，且 mock 通常會取代真實實作。</text></feedback></answer>
+    <answer fraction="0"><text>Fake——一個獨立的簡化 logger</text><feedback><text>fake 是替代實作；此處真實 logger 必須執行，只是被包裝並記錄，那是 spy。</text></feedback></answer>
+    <generalfeedback><text>當測試需要保留真實實作的真正行為、並記錄呼叫供稍後計數時，最精確的替身是 spy：它透傳並記錄，不同於 stub（固定值）或 mock（預設且自我驗證的期望）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>修正過度驗證的脆弱測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試套件同時斷言 SUT 的輸出<em>以及</em>每個協作者都以精確引數被呼叫；它幾乎在每次重構時都壞掉。最佳的補救方法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>盡可能以 stub/fake 偏好狀態驗證，並僅在互動確實要緊時（例如真實副作用）才保留 mock</text><feedback><text>正確——減少不必要的行為驗證能把測試與實作解耦，降低脆弱性。</text></feedback></answer>
+    <answer fraction="0"><text>加入更多 mock，讓每個呼叫都被驗證</text><feedback><text>更多互動斷言會增加耦合與脆弱性——與修正方向相反。</text></feedback></answer>
+    <answer fraction="0"><text>把所有替身都換成 dummy</text><feedback><text>dummy 從不被呼叫；SUT 依賴真實回傳值與某些真正的互動，dummy 無法取代它們。</text></feedback></answer>
+    <answer fraction="0"><text>刪除對 SUT 輸出的斷言</text><feedback><text>輸出斷言才是有價值且穩定的部分；該被修剪的是對互動的過度驗證。</text></feedback></answer>
+    <generalfeedback><text>此處的脆弱性源自過度 mock——驗證無關緊要的互動。應倚重狀態驗證（stub 與 fake），並僅在確認某互動（例如真實副作用）確實是重點時才使用 mock。</text></generalfeedback>
+  </question>
+</quiz>

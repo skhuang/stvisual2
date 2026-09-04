@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Doubles/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a dummy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the test-double taxonomy, a <em>dummy</em> object is one that is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Passed to satisfy a required parameter but never actually called or used</text><feedback><text>Correct — a dummy only fills a required slot in the interface; the code path under test never invokes it.</text></feedback></answer>
+    <answer fraction="0"><text>Programmed to return canned answers to the calls it receives</text><feedback><text>That describes a stub; a dummy is never actually called.</text></feedback></answer>
+    <answer fraction="0"><text>A lightweight but fully working implementation of the dependency</text><feedback><text>That describes a fake; a dummy has no working behaviour and is never used.</text></feedback></answer>
+    <answer fraction="0"><text>Pre-programmed with expectations that fail the test if they are not met</text><feedback><text>That describes a mock; a dummy verifies nothing.</text></feedback></answer>
+    <generalfeedback><text>A dummy is passed only to satisfy a required parameter and is never actually called or used during the code path being tested. It is the simplest double: pure filler.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a stub</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>stub</em> is a test double that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Provides canned answers to calls, replacing a real dependency for testing</text><feedback><text>Correct — a stub returns pre-arranged, fixed values so the SUT can be tested without the real system.</text></feedback></answer>
+    <answer fraction="0"><text>Is passed in but never actually called during the test</text><feedback><text>That describes a dummy; a stub is called and returns canned values.</text></feedback></answer>
+    <answer fraction="0"><text>Wraps the real object and records every interaction with it</text><feedback><text>That describes a spy; a stub does not wrap a real implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Fails the test automatically if the expected calls are not made</text><feedback><text>That describes a mock; a stub performs no verification of its own.</text></feedback></answer>
+    <generalfeedback><text>A stub provides canned answers to the calls it receives, standing in for a real dependency so the SUT sees controlled return values. It supports state verification, not behaviour verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a fake</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>fake</em> is a test double that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Has a real working implementation but takes shortcuts unsuitable for production</text><feedback><text>Correct — a fake really works (e.g. an in-memory database) but is simplified in ways that make it inappropriate for production.</text></feedback></answer>
+    <answer fraction="0"><text>Returns a single fixed canned value and has no internal logic</text><feedback><text>That describes a stub; a fake has genuine working logic that maintains state across calls.</text></feedback></answer>
+    <answer fraction="0"><text>Is never called during the test</text><feedback><text>That describes a dummy; a fake is a working implementation the SUT actually uses.</text></feedback></answer>
+    <answer fraction="0"><text>Is pre-programmed with expectations and verifies them after the test</text><feedback><text>That describes a mock; a fake verifies nothing — it just works.</text></feedback></answer>
+    <generalfeedback><text>A fake has a real, working implementation but takes shortcuts (such as storing data in memory instead of a real database) that make it unsuitable for production. The in-memory user repository and in-memory cache are classic fakes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>mock</em> is a test double that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Is pre-programmed with expectations and fails the test if the calls it receives do not match them</text><feedback><text>Correct — a mock carries expectations about which calls should happen with which arguments, and verifies them.</text></feedback></answer>
+    <answer fraction="0"><text>Only returns canned values and never checks how it was called</text><feedback><text>That describes a stub; a mock actively verifies the interactions.</text></feedback></answer>
+    <answer fraction="0"><text>Is a working in-memory implementation of the dependency</text><feedback><text>That describes a fake; a mock does not provide real working behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Is passed in but never called during the test path</text><feedback><text>That describes a dummy; a mock exists precisely to check the calls made to it.</text></feedback></answer>
+    <generalfeedback><text>A mock is pre-programmed with expectations; if the calls it receives do not match those expectations (right method, right arguments), it fails the test. This is behaviour verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a spy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>spy</em> is a test double that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Wraps the real object, calls through to it, and records all interactions</text><feedback><text>Correct — a spy delegates to the real implementation while recording each call so the test can assert on them afterward.</text></feedback></answer>
+    <answer fraction="0"><text>Returns canned values instead of running any real logic</text><feedback><text>That describes a stub; a spy calls through to the real object, so the real logic still runs.</text></feedback></answer>
+    <answer fraction="0"><text>Is passed in but never actually called</text><feedback><text>That describes a dummy; a spy is used and records every call.</text></feedback></answer>
+    <answer fraction="0"><text>Fails the test by itself when its expectations are not met</text><feedback><text>That describes a mock; a spy only records — the test does the asserting afterward.</text></feedback></answer>
+    <generalfeedback><text>A spy wraps the real object, calls through to it (so real behaviour is preserved), and records all interactions. The test then inspects the recorded calls afterward.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the double: pure filler</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test passes an object into the SUT only to satisfy a required parameter; the code path under test never invokes any of its methods. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy</text><feedback><text>Correct — it is never actually called or used; it merely fills a required parameter.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub would be called and would return canned values; here nothing is called.</text></feedback></answer>
+    <answer fraction="0"><text>Spy</text><feedback><text>A spy records calls, but here no call is ever made to record.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies calls, but here there are no interactions to verify.</text></feedback></answer>
+    <generalfeedback><text>When a dependency is required by the API but irrelevant to the test — never invoked on the path under test — the right double is a dummy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the double: canned return</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A double replaces a repository so that <code>findById</code> always returns the fixed record <code>{ name: 'Alice', role: 'admin' }</code>, with no real database. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub</text><feedback><text>Correct — it provides canned answers to calls, replacing the real dependency.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake would have real working logic (e.g. store and retrieve many records); this just returns one fixed value.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies expected interactions; nothing here checks how the double was called.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called; this double is called and returns a value.</text></feedback></answer>
+    <generalfeedback><text>Returning a fixed, pre-arranged value to control what the SUT sees — without a real system — is exactly a stub.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the double: in-memory implementation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A double is an in-memory user repository with a real <code>save</code>/<code>findById</code> that store and retrieve records in a <code>Map</code>, avoiding a real database. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake</text><feedback><text>Correct — it has a real working implementation but takes shortcuts (in-memory storage) unsuitable for production.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub returns fixed canned values; this one actually stores and retrieves data with real logic across calls.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies expectations; this double provides working behaviour, not verification.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never used; this repository is actively used to store and read data.</text></feedback></answer>
+    <generalfeedback><text>A working but simplified implementation — such as an in-memory database that really saves and reads records — is a fake.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the double: verifies expectations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A double is set up in advance to expect that <code>send</code> is called with <code>('alice@example.com', 'Password Reset')</code>; after the SUT runs, calling <code>verify()</code> fails the test if that call did not happen. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock</text><feedback><text>Correct — it is pre-programmed with expectations and fails the test if the calls do not match.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub only returns canned values; it never verifies how it was called.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake is a working implementation; it does not carry expectations that fail the test.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called, so it cannot verify any interaction.</text></feedback></answer>
+    <generalfeedback><text>Pre-set expectations plus a verification step that fails the test on mismatch is the defining behaviour of a mock.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the double: wraps and records</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A double wraps the real calculator, calls through to its real <code>add</code>/<code>multiply</code> so results are genuine, and records every call so the test can count them afterward. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy</text><feedback><text>Correct — it calls through to the real object and records interactions for the test to assert on later.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub replaces the real logic with canned values; here the real arithmetic still runs.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock fails the test by itself on unmet expectations; this double only records — the test asserts afterward.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called; this double is called and records every call.</text></feedback></answer>
+    <generalfeedback><text>Wrapping a real implementation, calling through to it, and recording interactions for later inspection is exactly a spy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trait: returns fixed values</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which double is characterised by <em>returning fixed values</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub</text><feedback><text>Correct — a stub returns fixed, canned values in response to calls.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy returns nothing meaningful because it is never called.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock's defining trait is verifying expectations, not merely returning fixed values.</text></feedback></answer>
+    <answer fraction="0"><text>Spy</text><feedback><text>A spy calls through to the real object and records; it does not just return fixed values.</text></feedback></answer>
+    <generalfeedback><text>"Returns fixed values" is the signature trait of a stub — it supplies pre-arranged answers so the SUT sees controlled inputs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trait: verifies expectations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which double is characterised by <em>verifying expectations</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock</text><feedback><text>Correct — a mock verifies that the expected interactions occurred and fails the test otherwise.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub returns fixed values and verifies nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake is a working implementation; it does not verify expectations.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called, so it verifies nothing.</text></feedback></answer>
+    <generalfeedback><text>"Verifies expectations" is the signature trait of a mock: it is pre-programmed with expected calls and fails the test if they are not met.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trait: calls through and records</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which double is characterised by <em>calling through to the real object and recording interactions</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy</text><feedback><text>Correct — a spy calls through to the real implementation and records every interaction.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub returns canned values instead of running the real logic.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies pre-set expectations; it does not necessarily call through to a real object.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake is a separate working implementation, not a wrapper that calls through to the real object.</text></feedback></answer>
+    <generalfeedback><text>"Calls through + records" is the signature trait of a spy: it preserves real behaviour while logging the interactions for later assertions.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A dummy is never called</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A dummy object is never actually called or used during the code path being tested.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a dummy exists only to satisfy a required parameter; the tested path does not invoke it.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A dummy really is never called; if the SUT invoked it and relied on its return, you would need a stub or another double.</text></feedback></answer>
+    <generalfeedback><text>The whole point of a dummy is that it is pure filler: passed to satisfy the interface but never actually called or used on the path under test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Characteristic: real logic, simplified</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which double is best described as having <em>real logic, but simplified</em> (for example, an in-memory cache with genuine TTL eviction but no Redis)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake</text><feedback><text>Correct — a fake has a real working implementation with production-unsuitable shortcuts.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub returns fixed values and has no real internal logic.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies expectations; it does not provide a simplified working implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy has no behaviour at all and is never called.</text></feedback></answer>
+    <generalfeedback><text>"Real logic, simplified" describes a fake — a working implementation (like an in-memory cache with real TTL eviction) that takes shortcuts making it unsuitable for production.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Doubles/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: fixed value without network</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your SUT calls a remote weather API for the current temperature. You want to test it with a fixed return value without hitting the network. Which double should you use?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub</text><feedback><text>Correct — you need canned return values without a real system, which is a stub.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>You are not verifying that a particular call happened; you just need a controlled return value, so a stub is the right fit.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>You do not need a whole working weather service, just a fixed value — a stub is simpler and sufficient.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>The dependency is actually called and its return value matters, so a dummy will not work.</text></feedback></answer>
+    <generalfeedback><text>When you need to control what a dependency returns without running the real system, use a stub — it provides canned answers to the SUT's calls.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: verify an interaction happened</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You want to verify that when a user is deleted, an audit-log service is called exactly once with the correct user ID. Which double should you use?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock</text><feedback><text>Correct — you must verify a specific interaction with exact arguments, which is behaviour verification, the job of a mock.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub only returns canned values; it does not verify that a call was made.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake provides working behaviour but does not, by itself, assert that a particular call occurred.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called; it cannot verify an interaction.</text></feedback></answer>
+    <generalfeedback><text>When the test must verify that a specific call was made with exact arguments, use a mock — it is pre-programmed with that expectation and fails if it is not met.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: working repository without a real DB</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your SUT needs a database-backed user repository. You want a full working implementation that avoids hitting a real database during unit tests. Which double should you use?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake</text><feedback><text>Correct — a fake is a real working implementation (e.g. in-memory) that avoids the real database.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub returns fixed values and cannot behave like a real repository across many save/find operations.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies interactions; here you need realistic working behaviour, not verification.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never used; you need a working repository the SUT actually calls.</text></feedback></answer>
+    <generalfeedback><text>When you need realistic but fast behaviour — a working implementation without the real dependency — use a fake, such as an in-memory user repository.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: real impl plus call recording</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You want to use the real email-service implementation in your test but also record every call so you can assert on the call counts afterward. Which double should you use?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy</text><feedback><text>Correct — a spy wraps the real implementation, calls through to it, and records interactions for later assertions.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub replaces the real implementation with canned values; you specifically want the real one to run.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock is pre-programmed with expectations and typically replaces the real implementation; here you want the real one to run and to assert afterward.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called and records nothing.</text></feedback></answer>
+    <generalfeedback><text>When you want to observe interactions with the real implementation — keeping its behaviour while recording calls — use a spy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: required but never invoked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your SUT's constructor requires a logger object, but the code path you are testing never actually calls it. Which double should you use?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy</text><feedback><text>Correct — the logger is required by the API but irrelevant to the test and never invoked, so a dummy suffices.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub is for controlling return values of a called dependency; here the logger is never called, so a dummy is simpler and correct.</text></feedback></answer>
+    <answer fraction="0"><text>Spy</text><feedback><text>A spy records calls, but there are no calls to record on this path.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies interactions, but here you are not verifying any interaction with the logger.</text></feedback></answer>
+    <generalfeedback><text>When a dependency is required by the API but irrelevant to the test and never invoked, the simplest correct double is a dummy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Behaviour verification's defining double</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Behaviour verification</em> — asserting that a particular interaction (call) occurred — is the defining purpose of which double?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock</text><feedback><text>Correct — a mock exists to verify that expected interactions happened, i.e. behaviour verification.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub supports state verification (checking the SUT's resulting value), not behaviour verification.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake supports state verification through its working behaviour; it does not verify interactions.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called and verifies nothing.</text></feedback></answer>
+    <generalfeedback><text>Behaviour verification checks that the right calls were made. That is exactly what a mock is for; stubs and fakes instead support state verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What kind of verification a stub supports</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A stub that returns a canned value so you can assert on the SUT's resulting output supports which kind of verification?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>State verification</text><feedback><text>Correct — you check the SUT's resulting state/return value, not which calls were made.</text></feedback></answer>
+    <answer fraction="0"><text>Behaviour verification</text><feedback><text>Behaviour verification checks that calls occurred; a stub does not verify calls — that is a mock's job.</text></feedback></answer>
+    <answer fraction="0"><text>Expectation verification that fails the test on mismatch</text><feedback><text>That is a mock's behaviour, not a stub's; a stub never fails the test on its own.</text></feedback></answer>
+    <answer fraction="0"><text>No verification is possible with a stub</text><feedback><text>The stub enables state verification: you assert on the value the SUT computes from its canned return.</text></feedback></answer>
+    <generalfeedback><text>Stubs (and fakes) support state verification: you feed the SUT controlled inputs and assert on its resulting state or return value. Mocks support behaviour verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match the term: records interactions on a real object</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which term names a double that wraps a real implementation and records the calls made to it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy</text><feedback><text>Correct — a spy wraps the real object and records interactions.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock is pre-programmed with expectations and verifies them itself; it is not defined by wrapping the real object.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub replaces the dependency with canned values rather than wrapping the real one.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake is a separate working implementation, not a recording wrapper around the real object.</text></feedback></answer>
+    <generalfeedback><text>A spy wraps the real object, calls through to it, and records the interactions for later inspection.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: in-memory cache with real TTL</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You replace Redis with an in-memory cache that genuinely stores values and evicts them when their TTL expires. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fake</text><feedback><text>Correct — it has real working logic (TTL eviction) but takes shortcuts (in-memory, no Redis) unsuitable for production.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub returns fixed values; this cache runs real set/get/eviction logic across calls.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock verifies expectations; this double provides working behaviour instead.</text></feedback></answer>
+    <answer fraction="0"><text>Spy</text><feedback><text>A spy wraps and records a real object; this is a standalone working implementation, not a recording wrapper.</text></feedback></answer>
+    <generalfeedback><text>A working but simplified implementation with genuine logic (real TTL eviction) and production-unsuitable shortcuts (in-memory) is a fake.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: canned profile for getUserProfile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To test <code>getUserProfile(id, repo)</code>, a double's <code>findById</code> always returns <code>{ name: 'Alice', role: 'admin' }</code> so you can assert the profile is built correctly. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub</text><feedback><text>Correct — it supplies a canned return so you can do state verification on the profile the SUT builds.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>Nothing here verifies that findById was called a certain way; you only assert on the resulting profile — that is a stub.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake would maintain real state; here a single fixed record is returned, which is a stub.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called; this repository is called and returns a value.</text></feedback></answer>
+    <generalfeedback><text>Returning a canned record so the test can assert on the SUT's computed output is state verification with a stub.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: verify the charge arguments</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A payment double is pre-programmed so that after checkout you can call <code>verify()</code>, which fails unless <code>charge</code> was called with <code>5000</code> and <code>'USD'</code>. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock</text><feedback><text>Correct — it carries an expectation about the exact call and fails the test if it is not met.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub only returns canned values; it does not fail the test based on how it was called.</text></feedback></answer>
+    <answer fraction="0"><text>Spy</text><feedback><text>A spy records calls for the test to assert afterward; here the double itself verifies the expectation via verify(), which is a mock.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake is a working implementation; it does not carry expectations that fail the test.</text></feedback></answer>
+    <generalfeedback><text>Pre-set expectations about the exact call, checked by the double's own verification step, are the hallmark of a mock.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: real math plus call counts</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A calculator double lets <code>computeTotal</code> return the genuine total (40) using the real <code>add</code>/<code>multiply</code>, while also letting the test assert that <code>multiply</code> was called twice. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy</text><feedback><text>Correct — the real arithmetic runs (calls through) and every call is recorded for later assertions.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub would return canned values, so the real total (40) would not be computed.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock would fail by itself on unmet expectations; here the test asserts on recorded calls afterward, which is a spy.</text></feedback></answer>
+    <answer fraction="0"><text>Fake</text><feedback><text>A fake is a substitute implementation; here the real calculator runs and is merely wrapped and recorded — a spy.</text></feedback></answer>
+    <generalfeedback><text>Preserving real behaviour while recording calls for later assertions is exactly a spy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: welcome email that only checks result.ok</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To test <code>registerUser</code>, a double's <code>send</code> always returns <code>{ ok: true, messageId: 'stub-msg-001' }</code> so the SUT sees the send succeeded, and the test only asserts on the returned registration object — never on how <code>send</code> was called. Which double is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stub</text><feedback><text>Correct — it supplies a canned success response so the SUT can proceed; the test does state verification on the result, not the call.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>Nothing here fails the test based on how send was called; only the returned value is asserted, so this is a stub.</text></feedback></answer>
+    <answer fraction="0"><text>Spy</text><feedback><text>A spy would wrap a real email service and record calls; here a canned response replaces the real one, which is a stub.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called; here send is called and its canned return drives the SUT.</text></feedback></answer>
+    <generalfeedback><text>Returning a fixed success response so the SUT can continue, then asserting only on the SUT's own output, is a stub supporting state verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match the term: no calls expected</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which double has the characteristic <em>no calls expected</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy</text><feedback><text>Correct — a dummy is never called; no interactions with it are expected.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub is expected to be called and to return canned values.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock expects specific calls and verifies them.</text></feedback></answer>
+    <answer fraction="0"><text>Spy</text><feedback><text>A spy expects calls so it can record them.</text></feedback></answer>
+    <generalfeedback><text>"No calls expected" is the trait of a dummy: it merely fills a required parameter and is never invoked.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A stub does not fail the test on its own</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Unlike a mock, a stub never fails the test by itself based on how it was called — it only supplies canned values.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a stub performs no verification; only a mock is pre-programmed to fail the test when its expectations are not met.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A stub really does no verification; the double that fails the test on unmet expectations is the mock.</text></feedback></answer>
+    <generalfeedback><text>Stubs supply canned answers and support state verification; they never fail a test on their own. Failing the test based on the calls received is the mock's behaviour verification.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Doubles/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Mock used where a stub suffices</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The SUT only needs a dependency's return value to compute a result you then assert on. A colleague writes a mock that also asserts the dependency was called. What is the most appropriate double, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A stub — you only need state verification, so asserting on the interaction over-specifies the test and makes it brittle</text><feedback><text>Correct — when the return value is all that matters, a stub keeps the test focused on the outcome rather than the implementation's call pattern.</text></feedback></answer>
+    <answer fraction="0"><text>A mock — always verify every call to be safe</text><feedback><text>Verifying calls you do not care about couples the test to implementation details and makes it brittle; a stub is the right tool here.</text></feedback></answer>
+    <answer fraction="0"><text>A fake — you need a full working implementation</text><feedback><text>No working implementation is needed; a single canned return (a stub) is enough.</text></feedback></answer>
+    <answer fraction="0"><text>A dummy — the dependency is irrelevant</text><feedback><text>The dependency's return value is actually used, so a dummy will not work; you need a stub.</text></feedback></answer>
+    <generalfeedback><text>Using a mock where only the outcome matters is a classic mock/stub misuse: it verifies interactions you do not care about, coupling the test to how the SUT is implemented. Prefer a stub and do state verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom of over-mocking</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test breaks every time the SUT is refactored — even when its observable output is unchanged — because it asserts on the exact sequence of internal calls. This is a classic symptom of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Over-mocking — behaviour verification of interactions that do not matter couples the test to the implementation</text><feedback><text>Correct — over-using mocks with strict expectations makes tests brittle against harmless refactors.</text></feedback></answer>
+    <answer fraction="0"><text>Under-stubbing — too few canned return values</text><feedback><text>The problem is not missing return values; it is asserting on internal calls that should not be checked.</text></feedback></answer>
+    <answer fraction="0"><text>Using a fake instead of a real database</text><feedback><text>A fake would not cause breakage on refactors; the cause is strict interaction assertions.</text></feedback></answer>
+    <answer fraction="0"><text>Using a dummy that is never called</text><feedback><text>A dummy causes no assertions at all; over-mocking is the cause of the brittleness.</text></feedback></answer>
+    <generalfeedback><text>Over-mocking pins tests to the SUT's internal call structure. When you assert on interactions that do not affect observable behaviour, harmless refactors break the tests. Favour state verification (stubs/fakes) unless the interaction is genuinely the thing under test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a stub is not enough</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The SUT saves a record and later reads it back, expecting consistent state across several calls, and also relies on TTL expiry. A stub returning one fixed value cannot reproduce this. What should you use instead?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A fake — a working implementation that maintains state across calls (e.g. in-memory store with real TTL)</text><feedback><text>Correct — reproducing consistent, stateful behaviour across calls requires a working implementation, i.e. a fake.</text></feedback></answer>
+    <answer fraction="0"><text>A mock — verify each save and read call</text><feedback><text>Verifying calls does not give you the consistent stateful behaviour the SUT depends on; you need a working fake.</text></feedback></answer>
+    <answer fraction="0"><text>A dummy — the dependency is irrelevant</text><feedback><text>The dependency is central to the behaviour; a dummy is never called and cannot store state.</text></feedback></answer>
+    <answer fraction="0"><text>More stubs — one canned value per call</text><feedback><text>Hand-tuning canned values for every call is fragile and cannot model real interactions like TTL expiry; a fake is the proper tool.</text></feedback></answer>
+    <generalfeedback><text>When the SUT needs realistic, stateful behaviour across many calls (save/read consistency, TTL expiry), a stub's single canned value is insufficient. A fake — a lightweight working implementation — is the right trade-off.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How a spy differs from a mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best captures how a <em>spy</em> differs from a <em>mock</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A spy calls through to the real object and records interactions for the test to assert on afterward; a mock is pre-programmed with expectations and fails the test itself if they are not met</text><feedback><text>Correct — the spy records and lets the test verify later; the mock carries and enforces expectations by itself.</text></feedback></answer>
+    <answer fraction="0"><text>A spy verifies expectations by itself, whereas a mock only records calls</text><feedback><text>This reverses them: the mock verifies expectations; the spy records for later assertion.</text></feedback></answer>
+    <answer fraction="0"><text>A spy returns only canned values, whereas a mock runs the real implementation</text><feedback><text>It is the spy that calls through to the real implementation; a stub returns canned values.</text></feedback></answer>
+    <answer fraction="0"><text>There is no difference; the terms are interchangeable</text><feedback><text>They differ: recording-for-later (spy) versus pre-set-expectations-that-fail-the-test (mock).</text></feedback></answer>
+    <generalfeedback><text>A spy wraps and calls through to the real object, recording calls so the test asserts on them afterward. A mock is pre-programmed with expectations and fails the test by itself when they are not met.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Borderline: records but does not self-verify</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A double records every call it receives but never fails the test by itself; the test inspects the recorded calls afterward to decide pass/fail. Which double is this, most specifically?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy</text><feedback><text>Correct — recording interactions for the test to assert on later, without self-verifying, is a spy.</text></feedback></answer>
+    <answer fraction="0"><text>Mock</text><feedback><text>A mock fails the test itself on unmet expectations; here the double only records and the test decides afterward.</text></feedback></answer>
+    <answer fraction="0"><text>Stub</text><feedback><text>A stub returns canned values; recording calls for later inspection is the spy's role.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy</text><feedback><text>A dummy is never called, so it records nothing.</text></feedback></answer>
+    <generalfeedback><text>The distinguishing line is who verifies: a spy records and the test asserts afterward; a mock is pre-programmed and fails the test on its own.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Essential mock-vs-stub difference</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the essential difference between a <em>mock</em> and a <em>stub</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A mock is pre-programmed with expectations and fails the test if the calls do not match (behaviour verification); a stub only supplies canned values and never fails on its own (state verification)</text><feedback><text>Correct — mocks verify interactions, stubs supply controlled state.</text></feedback></answer>
+    <answer fraction="0"><text>A mock returns canned values while a stub verifies interactions</text><feedback><text>This reverses them: stubs return canned values, mocks verify interactions.</text></feedback></answer>
+    <answer fraction="0"><text>A mock is a working implementation while a stub is never called</text><feedback><text>A working implementation is a fake, and a never-called double is a dummy — neither is the mock/stub distinction.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same; both verify expectations</text><feedback><text>Only the mock verifies expectations; the stub does not.</text></feedback></answer>
+    <generalfeedback><text>Both can supply return values, but only a mock carries expectations and fails the test when the interactions do not match. A stub does no verification — it exists for state verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Replacing a spy with a stub</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spy wraps the real calculator so <code>computeTotal</code> returns the genuine 40 while recording calls. If you replaced the spy with a stub, what would change?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The stub would return canned values, so the real arithmetic would no longer run and the genuine total would not be produced</text><feedback><text>Correct — a stub replaces the real logic with fixed answers, losing the real behaviour a spy preserves.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — a stub and a spy behave identically</text><feedback><text>They differ: a spy calls through to the real object; a stub returns canned values instead.</text></feedback></answer>
+    <answer fraction="0"><text>The stub would fail the test on unmet expectations</text><feedback><text>Failing on unmet expectations is a mock's behaviour, not a stub's.</text></feedback></answer>
+    <answer fraction="0"><text>The stub would record calls just like the spy</text><feedback><text>Recording calls is the spy's role; a plain stub does not record for later assertions.</text></feedback></answer>
+    <generalfeedback><text>A spy calls through to the real implementation (real math runs) while recording. A stub would substitute canned values, so the genuine computation — and any bug it might reveal — would not run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mocking a pure value collaborator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A collaborator simply returns a value and has no side effects that matter to the SUT's contract. Mocking it and asserting it was called leads to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests coupled to implementation details, when a stub returning the value would have been simpler and sufficient</text><feedback><text>Correct — verifying calls to a side-effect-free collaborator adds brittleness without value; a stub is the right choice.</text></feedback></answer>
+    <answer fraction="0"><text>Stronger tests, because verifying every call is always better</text><feedback><text>Verifying calls that do not matter to the contract couples the test to implementation and adds no real assurance.</text></feedback></answer>
+    <answer fraction="0"><text>A need for a fake instead</text><feedback><text>No working implementation is required; a simple stub of the return value is enough.</text></feedback></answer>
+    <answer fraction="0"><text>A dummy, since the collaborator is irrelevant</text><feedback><text>The collaborator's return value is used, so it is not irrelevant; a stub is appropriate.</text></feedback></answer>
+    <generalfeedback><text>For a collaborator whose only role is returning a value, a stub supports state verification cleanly. Mocking it verifies interactions that do not matter, coupling the test to implementation and making it brittle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Drawback of a fake</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A fake in-memory database gives realistic, stateful behaviour in tests. What is a genuine drawback of relying on it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because it has real logic that takes production-unsuitable shortcuts, the fake itself can contain bugs or diverge from the real dependency's behaviour</text><feedback><text>Correct — a fake is real code with shortcuts, so it must be maintained and can behave differently from production.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot maintain state across calls</text><feedback><text>Maintaining state across calls is precisely what a fake does well; that is its strength.</text></feedback></answer>
+    <answer fraction="0"><text>It verifies interactions and so makes tests brittle</text><feedback><text>Verification is a mock concern; a fake does not verify interactions.</text></feedback></answer>
+    <answer fraction="0"><text>It returns only a single canned value</text><feedback><text>That describes a stub, not a fake; a fake has genuine working logic.</text></feedback></answer>
+    <generalfeedback><text>A fake is a working implementation with shortcuts unsuitable for production. That real logic is itself code: it can harbour bugs and may not match the production dependency, so it carries maintenance and fidelity risk.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most specific: never invoked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A dependency is required to construct the SUT, but on the path under test it is never invoked at all. Using a stub with canned returns would work but is unnecessary. What is the most specific correct double?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dummy — because nothing is ever called, pure filler is the most specific fit</text><feedback><text>Correct — with no interaction at all, a dummy is the minimal and most precise choice.</text></feedback></answer>
+    <answer fraction="0"><text>Stub — always provide canned returns to be safe</text><feedback><text>A stub would work but over-specifies: there are no calls needing a return, so a dummy is the most specific fit.</text></feedback></answer>
+    <answer fraction="0"><text>Spy — to record that it was not called</text><feedback><text>There is nothing to record; a spy adds machinery for interactions that never happen.</text></feedback></answer>
+    <answer fraction="0"><text>Mock — to verify it is never called</text><feedback><text>You could verify a no-call expectation, but the scenario only requires filling the parameter, so a dummy is the most specific choice.</text></feedback></answer>
+    <generalfeedback><text>When a double is passed only to satisfy a required parameter and is never invoked, the most specific correct choice is a dummy. A stub would function but implies canned returns that are never needed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most specific: must confirm the call happened</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The whole point of a test is to confirm that <code>send</code> was actually called with subject <code>'Password Reset'</code>, and the test must fail if it was not. Which double is the most specific fit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mock — the requirement is behaviour verification with an exact expected call that fails the test on mismatch</text><feedback><text>Correct — a mock is pre-programmed with that expectation and fails if the call does not match.</text></feedback></answer>
+    <answer fraction="0"><text>Stub — return a canned value and move on</text><feedback><text>A stub cannot make the test fail based on whether the call happened; that is behaviour verification, a mock's job.</text></feedback></answer>
+    <answer fraction="0"><text>Fake — a working email service</text><feedback><text>A working implementation does not, by itself, assert that the expected call occurred.</text></feedback></answer>
+    <answer fraction="0"><text>Dummy — the email service is irrelevant</text><feedback><text>The interaction is exactly what the test cares about, so a dummy is wrong.</text></feedback></answer>
+    <generalfeedback><text>When confirming that a specific call happened (with exact arguments) is the purpose of the test, use a mock — it verifies the expectation and fails on mismatch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How a stub can mask a defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test passes with a stubbed dependency, yet the system fails in production. How can a stub mask a real defect?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The stub returns canned values, so the real dependency's (possibly buggy) logic is never exercised in the test</text><feedback><text>Correct — replacing the real logic with fixed answers means genuine faults in that logic go untested.</text></feedback></answer>
+    <answer fraction="0"><text>The stub verifies too many expectations</text><feedback><text>Stubs verify nothing; masking comes from bypassing the real logic, not from verification.</text></feedback></answer>
+    <answer fraction="0"><text>The stub calls through to the real object</text><feedback><text>Calling through is a spy's behaviour; a stub substitutes canned values, which is what causes the masking.</text></feedback></answer>
+    <answer fraction="0"><text>The stub maintains real state across calls</text><feedback><text>Maintaining real state is a fake's behaviour; a stub returns fixed values and therefore can hide real defects.</text></feedback></answer>
+    <generalfeedback><text>Because a stub supplies canned answers instead of running the real dependency, any defect in that dependency's genuine logic is never triggered by the test — so the test can pass while production fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of setup and verification</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider the typical usage order for a mock versus a spy. Which statement is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>With a mock you set expectations before exercising the SUT and verify after; with a spy you set no expectations up front and only assert on recorded calls afterward</text><feedback><text>Correct — the mock's expectations are declared first (e.g. expect(...)) and checked after; the spy simply records and is asserted on later.</text></feedback></answer>
+    <answer fraction="0"><text>Both require expectations to be declared before the SUT runs</text><feedback><text>Only the mock declares expectations up front; a spy records without pre-set expectations.</text></feedback></answer>
+    <answer fraction="0"><text>A spy declares expectations up front; a mock never does</text><feedback><text>This reverses them: the mock declares expectations; the spy does not.</text></feedback></answer>
+    <answer fraction="0"><text>Neither can be verified after the SUT runs</text><feedback><text>Both are checked after the SUT runs — the mock via its own verify, the spy via test assertions on recorded calls.</text></feedback></answer>
+    <generalfeedback><text>A mock is pre-programmed: expectations are set before the SUT runs and verified afterward. A spy sets no expectations up front — it records calls, and the test asserts on those records after the fact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most specific: real output must run while counting calls</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test needs the real logger to genuinely produce <code>'[LOG] Processing 5'</code> while also counting how many times <code>log</code> and <code>warn</code> were called. A stub returning canned values would lose the real output. Which double is the most specific fit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spy — it wraps the real logger, calls through so the genuine output is produced, and records the calls for counting</text><feedback><text>Correct — needing the real behaviour and a record of the calls is exactly what a spy provides.</text></feedback></answer>
+    <answer fraction="0"><text>Stub — return canned log strings</text><feedback><text>Canned returns would discard the real logger's genuine output, which the test specifically requires.</text></feedback></answer>
+    <answer fraction="0"><text>Mock — pre-set expectations that fail the test</text><feedback><text>The test asserts on recorded counts afterward rather than pre-declaring a strict expectation; that is a spy, and a mock would typically replace the real implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Fake — a separate simplified logger</text><feedback><text>A fake is a substitute implementation; here the real logger must run and merely be wrapped and recorded, which is a spy.</text></feedback></answer>
+    <generalfeedback><text>When the test needs the real implementation's genuine behaviour preserved and the calls recorded for later counting, the most specific double is a spy: it calls through and records, unlike a stub (canned values) or a mock (pre-set self-verifying expectations).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fixing brittle over-verified tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite asserts on the SUT's output <em>and</em> that every collaborator was called with exact arguments; it breaks on nearly every refactor. What is the best remedy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prefer state verification with stubs/fakes where possible, and reserve mocks for interactions that genuinely matter (e.g. real side effects)</text><feedback><text>Correct — reducing needless behaviour verification decouples tests from implementation and cuts brittleness.</text></feedback></answer>
+    <answer fraction="0"><text>Add more mocks so every call is verified</text><feedback><text>More interaction assertions increase coupling and brittleness — the opposite of the fix.</text></feedback></answer>
+    <answer fraction="0"><text>Replace all doubles with dummies</text><feedback><text>Dummies are never called; the SUT relies on real return values and some genuine interactions, so dummies cannot replace them.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the assertions on the SUT's output</text><feedback><text>The output assertions are the valuable, stable ones; it is the over-verification of interactions that should be trimmed.</text></feedback></answer>
+    <generalfeedback><text>Brittleness here comes from over-mocking — verifying interactions that do not matter. Lean on state verification (stubs and fakes) and use mocks only where confirming an interaction (such as a real side effect) is genuinely the point.</text></generalfeedback>
+  </question>
+</quiz>

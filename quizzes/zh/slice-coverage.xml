@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Slice Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>切片覆蓋率定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在切片覆蓋探索器中，測試套件的<strong>切片覆蓋率（slice coverage）</strong>最適當的定義是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>條件變數的後向切片中，被執行到的陳述句所佔的比例</text><feedback><text>正確——切片覆蓋率計算測試套件執行了該後向切片中多少陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件執行到的所有可執行陳述句所佔的比例</text><feedback><text>那是純陳述句覆蓋率；切片覆蓋率只在切片上衡量。</text></feedback></answer>
+    <answer fraction="0"><text>忽略資料流、只看分支結果被取到的比例</text><feedback><text>那是分支覆蓋率；切片覆蓋率具資料流感知，目標是切片。</text></feedback></answer>
+    <answer fraction="0"><text>被探索的不同輸入值數量</text><feedback><text>那是計算輸入，而非已執行的切片陳述句。</text></feedback></answer>
+    <generalfeedback><text>切片覆蓋率 =（已執行的切片陳述句）/（切片陳述句總數）。切片即為輸出陳述句上、以條件變數所取的後向切片。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋目標由誰界定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本應用中，切片覆蓋率所衡量的<strong>覆蓋目標</strong>是由什麼界定的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>輸出陳述句的後向切片</text><feedback><text>正確——說明指出輸出陳述句的後向切片界定了覆蓋目標。</text></feedback></answer>
+    <answer fraction="0"><text>包含註解在內的全部原始碼行</text><feedback><text>目標是後向切片，而非每一行原始碼。</text></feedback></answer>
+    <answer fraction="0"><text>第一個輸入的前向切片</text><feedback><text>本應用使用輸出陳述句的後向切片，而非輸入的前向切片。</text></feedback></answer>
+    <answer fraction="0"><text>所有分支結果的集合</text><feedback><text>切片覆蓋率目標是切片中的陳述句，而非分支結果。</text></feedback></answer>
+    <generalfeedback><text>輸出陳述句的後向切片界定了覆蓋目標；學習者接著切換軌跡，觀察該切片被執行的程度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何採用以切片為基礎的充分性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何說<strong>以切片為基礎</strong>的覆蓋是一種具資料流感知的充分性準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把注意力限縮到真正會影響所選輸出的陳述句</text><feedback><text>正確——後向切片恰好保留可影響輸出的陳述句，使覆蓋聚焦於與輸出相關的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>它計算每個迴圈迭代幾次</text><feedback><text>切片覆蓋率關注哪些切片陳述句被執行，而非迭代次數。</text></feedback></answer>
+    <answer fraction="0"><text>它忽略資料相依，只看控制流</text><feedback><text>切片同時由控制相依與資料相依建立，因此具資料流感知。</text></feedback></answer>
+    <answer fraction="0"><text>它衡量輸入域的大小</text><feedback><text>它衡量已執行的切片陳述句，而非輸入域。</text></feedback></answer>
+    <generalfeedback><text>後向切片只保留能透過控制與資料相依影響輸出的陳述句，因此切片覆蓋率鎖定與輸出相關的程式碼——是一種具資料流感知的充分性準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片覆蓋率 vs 陳述句覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>本應用把切片覆蓋率與純陳述句覆蓋率並列顯示。兩者的關鍵差異是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>切片覆蓋率只在切片陳述句上衡量；陳述句覆蓋率則在全部陳述句上衡量</text><feedback><text>正確——分母不同：一個是切片大小，一個是陳述句總數。</text></feedback></answer>
+    <answer fraction="0"><text>切片覆蓋率計算分支，陳述句覆蓋率計算陳述句</text><feedback><text>兩者都計算陳述句；差別只在衡量的集合。</text></feedback></answer>
+    <answer fraction="0"><text>陳述句覆蓋率需要切片；切片覆蓋率不需要</text><feedback><text>恰好相反——切片覆蓋率需要切片；陳述句覆蓋率用全部陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>兩者總是回報相同的百分比</text><feedback><text>兩者可以不同，例如在 Classify 例中單一軌跡的切片與陳述句百分比就不同。</text></feedback></answer>
+    <generalfeedback><text>切片覆蓋率 = 已執行切片陳述句 / 切片大小；陳述句覆蓋率 = 已執行陳述句 / 陳述句總數。計數方式相同，參照集合不同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋缺口列出什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>本應用的<strong>覆蓋缺口</strong>面板列出的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>未被作用中軌跡執行到的切片陳述句</text><feedback><text>正確——缺口就是切片中未被覆蓋的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>在切片之外被執行到的陳述句</text><feedback><text>那些另外顯示在「已執行但不在切片中」，不是缺口。</text></feedback></answer>
+    <answer fraction="0"><text>所有至少被執行過一次的陳述句</text><feedback><text>缺口是未被覆蓋的切片陳述句，而非已執行者。</text></feedback></answer>
+    <answer fraction="0"><text>每個未被取到的分支結果</text><feedback><text>本應用追蹤切片陳述句，而非分支結果。</text></feedback></answer>
+    <generalfeedback><text>覆蓋缺口是沒有任何作用中軌跡執行到的切片陳述句。當沒有缺口時，應用會回報輸出已被完整執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>已執行但不在切片中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本應用中，<em>「已執行但不在切片中」</em>這一列所列的陳述句是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被某作用中軌跡執行到、但不屬於切片的陳述句</text><feedback><text>正確——它們有被執行，卻不影響所選輸出，因此落在切片之外。</text></feedback></answer>
+    <answer fraction="0"><text>在切片中但從未被執行的陳述句</text><feedback><text>那些是覆蓋缺口，不是「已執行但不在切片中」清單。</text></feedback></answer>
+    <answer fraction="0"><text>從未被執行且在切片之外的陳述句</text><feedback><text>此清單要求陳述句必須已被執行。</text></feedback></answer>
+    <answer fraction="0"><text>註解與空行</text><feedback><text>只追蹤可執行陳述句，且這些是已執行的非切片陳述句。</text></feedback></answer>
+    <generalfeedback><text>已執行但不在切片中的陳述句於軌跡執行期間有跑到，卻無法影響輸出，因此只增加陳述句覆蓋率，不增加切片覆蓋率。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>條件變數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>本應用把切片建為輸出陳述句的後向切片。作為切片準則的是哪一個變數？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>輸出陳述句所使用的變數（例如被回傳的值）</text><feedback><text>正確——應用以輸出陳述句所讀取的那個變數進行切片。</text></feedback></answer>
+    <answer fraction="0"><text>程式中任何地方定義的每一個變數</text><feedback><text>準則是單一變數——輸出所使用的那一個。</text></feedback></answer>
+    <answer fraction="0"><text>函式的第一個輸入參數</text><feedback><text>準則是輸出所使用的變數，而非輸入參數。</text></feedback></answer>
+    <answer fraction="0"><text>迴圈計數器</text><feedback><text>準則是輸出陳述句所讀取的變數。</text></feedback></answer>
+    <generalfeedback><text>輸出陳述句（kind「output」）讀取一個變數——例如被回傳的值——該變數即為後向切片的切片準則。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>空切片視為已完整覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本應用的度量中，不含任何陳述句的切片會被視為 100% 覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——空切片為「空泛地」100% 覆蓋，因為沒有任何東西未被覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>既然沒有切片陳述句可漏，度量便依慣例回報 100%。</text></feedback></answer>
+    <generalfeedback><text>切片覆蓋率以已執行切片陳述句除以切片大小；當切片大小為零時，應用定義結果為 100%（空泛覆蓋）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片覆蓋率公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>本應用如何計算切片覆蓋率百分比？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>已覆蓋切片陳述句 / 切片陳述句總數，四捨五入為整數百分比</text><feedback><text>正確——即已覆蓋對切片總數的比值，並以四捨五入百分比連同 (已覆蓋/總數) 明細顯示。</text></feedback></answer>
+    <answer fraction="0"><text>已執行陳述句 / 陳述句總數</text><feedback><text>那是另一列顯示的陳述句覆蓋率公式。</text></feedback></answer>
+    <answer fraction="0"><text>切片大小 / 陳述句總數</text><feedback><text>那會衡量切片的相對大小，而非它被覆蓋的程度。</text></feedback></answer>
+    <answer fraction="0"><text>已覆蓋切片陳述句 / 陳述句總數</text><feedback><text>分母應為切片大小，而非陳述句總數。</text></feedback></answer>
+    <generalfeedback><text>切片覆蓋率 = 已覆蓋切片陳述句 / 切片大小，四捨五入。應用同時在百分比旁印出原始 (已覆蓋 / 總數) 計數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取切片覆蓋值（4 of 6）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>度量中切片覆蓋率那一列顯示明細 <code>(4/6)</code>。應用會顯示多少百分比？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67%</text><feedback><text>正確——4 / 6 = 0.667，四捨五入為 67%。</text></feedback></answer>
+    <answer fraction="0"><text>46%</text><feedback><text>4 / 6 = 67%，不是把數字拼接成 46%。</text></feedback></answer>
+    <answer fraction="0"><text>60%</text><feedback><text>4 / 6 四捨五入為 67%，不是 60%。</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% 是 3 of 4；此處是 4 of 6 = 67%。</text></feedback></answer>
+    <generalfeedback><text>應用把 已覆蓋/總數 四捨五入為整數百分比：4 / 6 = 66.7% -&gt; 67%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>顯示的兩個度量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>切片覆蓋探索器並列顯示哪兩個覆蓋度量？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>切片覆蓋率與陳述句覆蓋率</text><feedback><text>正確——度量面板顯示一列切片覆蓋率與一列陳述句覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>分支覆蓋率與路徑覆蓋率</text><feedback><text>本應用顯示切片與陳述句覆蓋率，而非分支或路徑。</text></feedback></answer>
+    <answer fraction="0"><text>條件覆蓋率與 MC/DC</text><feedback><text>那些屬於邏輯覆蓋工具，不在本探索器。</text></feedback></answer>
+    <answer fraction="0"><text>突變分數與切片覆蓋率</text><feedback><text>此處沒有突變分數；第二個度量是陳述句覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>本探索器把切片覆蓋率與純陳述句覆蓋率對照，讓你看出已執行者中有多少真正與輸出相關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取所有軌跡開啟時的成績平均</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>成績平均</strong>例中，每個陳述句都落在切片內，且每個軌跡本身就跑遍了全部。兩個軌跡都作用時，應用顯示的切片覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100%</text><feedback><text>正確——整個切片都被執行，因此量表顯示 100%（8/8）。</text></feedback></answer>
+    <answer fraction="0"><text>67%</text><feedback><text>此處所有切片陳述句都被覆蓋，所以是 100%，不是 67%。</text></feedback></answer>
+    <answer fraction="0"><text>0%</text><feedback><text>0% 需要沒有任何切片陳述句被執行；此處每一個都有跑到。</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>切片被完整覆蓋，得 100%。</text></feedback></answer>
+    <generalfeedback><text>在成績平均例中，回傳值的後向切片是全部 8 個陳述句，兩個軌跡都跑遍它們，因此切片覆蓋率為 8/8 = 100%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片覆蓋率作為充分性準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>本應用把切片覆蓋率當作測試<strong>充分性準則（adequacy criterion）</strong>。這代表它被用來：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>判斷測試套件是否充分地執行了與輸出相關的程式碼</text><feedback><text>正確——充分性準則決定套件相對於目標（此處是切片）是否「夠好」。</text></feedback></answer>
+    <answer fraction="0"><text>自動產生新的測試輸入</text><feedback><text>它衡量充分性，並不產生輸入。</text></feedback></answer>
+    <answer fraction="0"><text>證明程式沒有缺陷</text><feedback><text>覆蓋率顯示什麼被執行，而非輸出是否正確。</text></feedback></answer>
+    <answer fraction="0"><text>依執行時間排序輸入</text><feedback><text>它衡量被執行的切片陳述句，而非時間。</text></feedback></answer>
+    <generalfeedback><text>充分性準則說明相對於某目標何時測試已足夠。切片覆蓋率以輸出的後向切片為目標判斷充分性。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>切片可忽略與輸出無關的陳述句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>無法影響所選輸出的陳述句會被排除在切片之外，因此不執行它並不會降低切片覆蓋率。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——只有切片陳述句計入切片覆蓋率，因此與輸出無關的陳述句不影響它。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>切片之外的陳述句不影響輸出，也不計入切片覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>切片覆蓋率只在後向切片上衡量。無法抵達輸出的陳述句落在切片之外，因此其執行與否不會改變切片覆蓋率（雖仍可能改變陳述句覆蓋率）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>關閉一個軌跡的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本應用中，把某個軌跡標籤關閉會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把該軌跡執行到的陳述句從聯集移除，可能同時降低兩個度量</text><feedback><text>正確——已執行集合是所有作用中軌跡的聯集，移掉一個可能使切片陳述句變成未覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>從程式中刪除那些陳述句</text><feedback><text>程式不變；只有作用中軌跡的集合改變。</text></feedback></answer>
+    <answer fraction="0"><text>從頭重新計算切片</text><feedback><text>切片取決於輸出準則，與哪些軌跡作用無關。</text></feedback></answer>
+    <answer fraction="0"><text>一定會提高切片覆蓋率</text><feedback><text>移除軌跡只會使已覆蓋集合維持或縮小，絕不會擴大。</text></feedback></answer>
+    <generalfeedback><text>已執行集合是所有作用中軌跡步驟的聯集。關閉一個軌跡會縮小該聯集，因此已覆蓋切片陳述句只會維持或減少。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：輸出切片的大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮 <strong>Classify</strong> 例：</p><pre>function classify(n) {
+  let label = "zero";     // s2
+  let sign  = 0;          // s3
+  if (n &gt; 0) {           // s4
+    label = "positive";   // s5
+    sign  = 1;            // s6
+  } else if (n &lt; 0) {    // s7
+    label = "negative";   // s8
+    sign  = -1;           // s9
+  }
+  return label;           // s11
+}</pre><p>共有 9 個可執行陳述句。被回傳的 <code>label</code> 的後向切片中有幾個陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——切片是 {s2, s4, s5, s7, s8, s11}；三個 <code>sign</code> 指派被排除。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>三個 <code>sign</code> 陳述句（s3, s6, s9）不影響 <code>label</code>，因此切片是 6 而非全部 9。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是被排除的陳述句數（<code>sign</code> 指派）；切片保留其餘 6 個。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>切片是 {s2, s4, s5, s7, s8, s11} = 6 個陳述句。</text></feedback></answer>
+    <generalfeedback><text><code>label</code> 在 s2/s5/s8 被定義、由判定 s4/s7 控制、在 s11 被回傳：切片 = {s2, s4, s5, s7, s8, s11} = 9 中的 6。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：切片之外的陳述句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 例中，哪些陳述句<strong>不</strong>在 <code>label</code> 的後向切片內？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s3、s6、s9——三個 <code>sign</code> 指派</text><feedback><text>正確——<code>sign</code> 從不流入 <code>label</code>，因此這三個陳述句在切片之外。</text></feedback></answer>
+    <answer fraction="0"><text>s4、s7——兩個判定</text><feedback><text>判定控制哪個 <code>label</code> 指派會執行，因此在切片內。</text></feedback></answer>
+    <answer fraction="0"><text>s2、s11——初始化與回傳</text><feedback><text>兩者都寫入或讀取 <code>label</code>，因此在切片內。</text></feedback></answer>
+    <answer fraction="0"><text>s5、s8——分支中的標籤</text><feedback><text>這些指派 <code>label</code>，因此在切片內。</text></feedback></answer>
+    <generalfeedback><text><code>label</code> 的切片排除 s3、s6、s9，因為 <code>sign</code> 在通往被回傳 <code>label</code> 的路徑上沒有資料或控制相依。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：positive 軌跡的切片覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，只啟用 <code>n=5</code>（「positive」）軌跡。它執行 s2, s3, s4, s5, s6, s11。切片為 {s2, s4, s5, s7, s8, s11}。應用顯示的切片覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67% (4/6)</text><feedback><text>正確——它覆蓋切片中的 s2, s4, s5, s11（6 中的 4）= 67%。</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6)</text><feedback><text>positive 軌跡漏掉 s7 與 s8，因此只覆蓋 6 個切片陳述句中的 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>100% (6/6)</text><feedback><text>s7 與 s8（negative 分支）從未被執行，因此不可能是 100%。</text></feedback></answer>
+    <answer fraction="0"><text>67% (6/9)</text><feedback><text>67% 沒錯，但計數是對切片（4/6），不是全部陳述句（6/9 是陳述句覆蓋率）。</text></feedback></answer>
+    <generalfeedback><text>positive 軌跡覆蓋切片陳述句 s2, s4, s5, s11，漏掉 s7 與 s8，因此切片覆蓋率 = 4/6 = 67%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：negative 軌跡的切片覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，只啟用 <code>n=-3</code>（「negative」）軌跡。它執行 s2, s3, s4, s7, s8, s9, s11。切片為 {s2, s4, s5, s7, s8, s11}。顯示的切片覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>83% (5/6)</text><feedback><text>正確——它覆蓋 s2, s4, s7, s8, s11（6 中的 5）；只漏掉 s5。</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6)</text><feedback><text>negative 軌跡有跑到 s7 與 s8，因此覆蓋 6 個切片陳述句中的 5 個。</text></feedback></answer>
+    <answer fraction="0"><text>100% (6/6)</text><feedback><text>s5（positive 分支的標籤）從未被執行，因此是 5/6 而非 6/6。</text></feedback></answer>
+    <answer fraction="0"><text>78% (7/9)</text><feedback><text>78% 是此軌跡的陳述句覆蓋率；切片覆蓋率是 5/6 = 83%。</text></feedback></answer>
+    <generalfeedback><text>negative 軌跡覆蓋 s2, s4, s7, s8, s11，只漏掉 s5，因此切片覆蓋率 = 5/6 = 83%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：zero 軌跡的切片覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，只啟用 <code>n=0</code>（「zero」）軌跡。它執行 s2, s3, s4, s7, s11。切片為 {s2, s4, s5, s7, s8, s11}。顯示的切片覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67% (4/6)</text><feedback><text>正確——它覆蓋 s2, s4, s7, s11（6 中的 4）；漏掉 s5 與 s8。</text></feedback></answer>
+    <answer fraction="0"><text>56% (5/9)</text><feedback><text>56% 是此軌跡的陳述句覆蓋率；切片覆蓋率在 6 個切片陳述句上衡量 = 4/6 = 67%。</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6)</text><feedback><text>s5 與 s8 都被漏掉，因此只覆蓋 6 個切片陳述句中的 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>50% (3/6)</text><feedback><text>有四個切片陳述句被執行（s2, s4, s7, s11），得 4/6 = 67%。</text></feedback></answer>
+    <generalfeedback><text>zero 軌跡從未進入任何改變標籤的分支，因此覆蓋 s2, s4, s7, s11，漏掉 s5 與 s8：切片覆蓋率 = 4/6 = 67%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：positive 軌跡的陳述句覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中（9 個可執行陳述句），只啟用 <code>n=5</code> 軌跡，它執行 s2, s3, s4, s5, s6, s11（6 個陳述句）。應用顯示的<strong>陳述句</strong>覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67% (6/9)</text><feedback><text>正確——9 個中有 6 個被執行，因此 6/9 = 67%。</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6)</text><feedback><text>4/6 是切片覆蓋率；陳述句覆蓋率是對全部 9 個 = 6/9。</text></feedback></answer>
+    <answer fraction="0"><text>100% (9/9)</text><feedback><text>negative 分支（s7, s8, s9）從未執行，因此是 6/9 而非 9/9。</text></feedback></answer>
+    <answer fraction="0"><text>78% (7/9)</text><feedback><text>positive 軌跡執行 6 個而非 7 個陳述句，因此 6/9 = 67%。</text></feedback></answer>
+    <generalfeedback><text>陳述句覆蓋率 = 已執行 / 總數 = 6/9 = 67%。注意此處切片覆蓋率恰好也是 67%，但它在不同集合上衡量（4/6）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：negative 軌跡的陳述句覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中（9 個陳述句），只啟用 <code>n=-3</code> 軌跡，它執行 s2, s3, s4, s7, s8, s9, s11（7 個陳述句）。顯示的<strong>陳述句</strong>覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>78% (7/9)</text><feedback><text>正確——9 個中有 7 個被執行，因此 7/9 = 78%。</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6)</text><feedback><text>83% 是此軌跡的切片覆蓋率；陳述句覆蓋率是 7/9 = 78%。</text></feedback></answer>
+    <answer fraction="0"><text>67% (6/9)</text><feedback><text>negative 軌跡執行 7 個而非 6 個陳述句，因此 7/9 = 78%。</text></feedback></answer>
+    <answer fraction="0"><text>100% (9/9)</text><feedback><text>positive 分支（s5, s6）從未執行，因此是 7/9 而非 9/9。</text></feedback></answer>
+    <generalfeedback><text>陳述句覆蓋率 = 7/9 = 78%。同一軌跡的切片覆蓋率為 5/6 = 83%，較高是因為被漏掉的非切片陳述句 s6 不計入切片。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：positive 軌跡下的缺口</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，只有 <code>n=5</code>（「positive」）軌跡作用時，哪些切片陳述句會出現在<strong>覆蓋缺口</strong>面板？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s7 與 s8——negative 分支的判定與標籤</text><feedback><text>正確——positive 軌跡從不進入 negative 分支，因此 s7 與 s8 仍未被覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>s3 與 s6——<code>sign</code> 指派</text><feedback><text>那些在切片之外，因此不是缺口（會出現在「已執行但不在切片中」）。</text></feedback></answer>
+    <answer fraction="0"><text>只有 s5</text><feedback><text>s5 被 positive 軌跡執行，因此已覆蓋，不是缺口。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——切片已完整覆蓋</text><feedback><text>s7 與 s8 從未被抵達，因此仍有兩個缺口。</text></feedback></answer>
+    <generalfeedback><text>缺口是未被覆蓋的切片陳述句。positive 軌跡漏掉 negative 分支，因此缺口是 s7 與 s8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：為何 sign=1 在切片之外</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，為何 <code>s6: sign = 1</code> 不在被回傳 <code>label</code> 的後向切片內？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為 <code>sign</code> 從不流入 <code>label</code>，所以 s6 無法影響輸出</text><feedback><text>正確——沒有資料或控制相依把 s6 帶到被回傳的 <code>label</code>，因此被排除。</text></feedback></answer>
+    <answer fraction="0"><text>因為 s6 從未被任何軌跡執行</text><feedback><text>s6 在 positive 軌跡確有執行；它被排除是因為無法影響 <code>label</code>，而非從未執行。</text></feedback></answer>
+    <answer fraction="0"><text>因為它在 <code>if</code> 區塊內</text><feedback><text>s5 也在 <code>if</code> 區塊內卻在切片中；原因在於對 <code>label</code> 的資料流相關性。</text></feedback></answer>
+    <answer fraction="0"><text>因為它指派一個常數</text><feedback><text>s2 也指派常數卻在切片中；關鍵在於它是否抵達 <code>label</code>。</text></feedback></answer>
+    <generalfeedback><text>後向切片只保留能影響準則的陳述句。<code>sign</code> 在任何通往被回傳 <code>label</code> 的路徑上都不會被讀取，因此 s6 在切片之外。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：positive 下已執行但不在切片中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，只有 <code>n=5</code> 軌跡作用時，應用在<em>「已執行但不在切片中」</em>底下列出哪些陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s3 與 s6</text><feedback><text>正確——兩者都在 positive 軌跡中執行，但落在 <code>label</code> 的切片之外。</text></feedback></answer>
+    <answer fraction="0"><text>s7 與 s8</text><feedback><text>那些在切片內且未被執行，因此是缺口，不是切片之外。</text></feedback></answer>
+    <answer fraction="0"><text>s3、s6、s9</text><feedback><text>s9 不被 positive 軌跡執行，因此此處只有 s3 與 s6。</text></feedback></answer>
+    <answer fraction="0"><text>s2 與 s5</text><feedback><text>s2 與 s5 在切片內，因此不會列為切片之外。</text></feedback></answer>
+    <generalfeedback><text>positive 軌跡執行 s2, s3, s4, s5, s6, s11。其中 s3 與 s6 在切片之外，因此出現在「已執行但不在切片中」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>術語與角色配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在切片覆蓋探索器中，下列哪一組術語與角色的配對是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後向切片＝覆蓋目標；缺口＝未被覆蓋的切片陳述句</text><feedback><text>正確——切片是必須被覆蓋的對象，缺口是沒有任何作用中軌跡抵達的切片陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>已執行集合＝覆蓋目標；缺口＝非切片陳述句</text><feedback><text>目標是切片而非已執行集合，且缺口是未被覆蓋的切片陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>切片＝已執行聯集；切片之外＝未被覆蓋的切片陳述句</text><feedback><text>切片是目標而非已執行聯集，且切片之外的陳述句是已執行者，非未被覆蓋者。</text></feedback></answer>
+    <answer fraction="0"><text>陳述句覆蓋率＝切片大小；缺口＝被取到的分支</text><feedback><text>陳述句覆蓋率是 已執行/總數，缺口是未被覆蓋的切片陳述句而非分支。</text></feedback></answer>
+    <generalfeedback><text>切片＝覆蓋目標；已執行集合＝作用中軌跡步驟的聯集；缺口＝未被覆蓋的切片陳述句；切片之外＝不在切片內的已執行陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：達成完整切片覆蓋所需最少軌跡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，哪一組軌跡是達到 <strong>100% 切片覆蓋率</strong>的最小集合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>positive + negative</text><feedback><text>正確——positive 軌跡提供 s5，negative 軌跡提供 s7、s8；兩者合起來覆蓋全部 6 個切片陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>positive + zero</text><feedback><text>兩者都到不了 s8，因此仍有缺口（5/6 = 83%）。</text></feedback></answer>
+    <answer fraction="0"><text>只有 negative</text><feedback><text>negative 軌跡漏掉 s5，只到 5/6 = 83%。</text></feedback></answer>
+    <answer fraction="0"><text>zero + positive + negative 全部三個</text><feedback><text>三個確實能到 100%，但 positive + negative 已足夠，因此這不是最小集合。</text></feedback></answer>
+    <generalfeedback><text>s5 只被 positive 軌跡執行，s8 只被 negative 軌跡執行，因此兩者都必要；positive + negative 以兩個軌跡覆蓋整個切片。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：negative 軌跡下的缺口</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，只有 <code>n=-3</code>（「negative」）軌跡作用時，唯一的覆蓋缺口是哪個切片陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s5——<code>label = "positive"</code></text><feedback><text>正確——negative 軌跡從不進入 positive 分支，因此 s5 仍未被覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>s8——<code>label = "negative"</code></text><feedback><text>s8 被 negative 軌跡執行，因此已覆蓋，不是缺口。</text></feedback></answer>
+    <answer fraction="0"><text>s6——<code>sign = 1</code></text><feedback><text>s6 在切片之外，因此永遠不可能是切片缺口。</text></feedback></answer>
+    <answer fraction="0"><text>s11——<code>return label</code></text><feedback><text>回傳在每個軌跡都執行，因此總是被覆蓋。</text></feedback></answer>
+    <generalfeedback><text>negative 軌跡覆蓋 s2, s4, s7, s8, s11，只剩 s5（positive 分支的標籤）未被覆蓋：一個缺口，切片覆蓋率 5/6 = 83%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>成績平均：為何切片是每個陳述句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在成績平均例中，被回傳成績的後向切片是<em>全部 8 個</em>陳述句。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個陳述句都直接或間接地對被回傳的成績有所貢獻</text><feedback><text>正確——total、count、迴圈、avg 與 grade 都饋入回傳，因此切片是整個函式。</text></feedback></answer>
+    <answer fraction="0"><text>因為應用總是把每個陳述句放進切片</text><feedback><text>並非如此——在 Classify 中切片只有 9 中的 6；它取決於通往輸出的資料流。</text></feedback></answer>
+    <answer fraction="0"><text>因為函式有迴圈</text><feedback><text>迴圈有關係，但切片是全的，是因為每個陳述句都抵達輸出，而非僅僅存在迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>因為沒有分支</text><feedback><text>成績有一個條件式；切片是全的是因為所有陳述句都影響被回傳的值。</text></feedback></answer>
+    <generalfeedback><text>grade 取決於 avg，avg 取決於 total 與 count，兩者又取決於迴圈與初始化。每個陳述句都在通往回傳的相依路徑上，因此切片是全部 8 個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：zero 軌跡的陳述句覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中（9 個陳述句），只啟用 <code>n=0</code> 軌跡，它執行 s2, s3, s4, s7, s11（5 個陳述句）。顯示的<strong>陳述句</strong>覆蓋率是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>56% (5/9)</text><feedback><text>正確——9 個中有 5 個被執行，因此 5/9 = 56%。</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6)</text><feedback><text>4/6 是切片覆蓋率；陳述句覆蓋率是 5/9 = 56%。</text></feedback></answer>
+    <answer fraction="0"><text>67% (6/9)</text><feedback><text>zero 軌跡執行 5 個而非 6 個陳述句，因此 5/9 = 56%。</text></feedback></answer>
+    <answer fraction="0"><text>44% (4/9)</text><feedback><text>有五個陳述句執行（s2, s3, s4, s7, s11），得 5/9 = 56%。</text></feedback></answer>
+    <generalfeedback><text>陳述句覆蓋率 = 5/9 = 56%。zero 軌跡不進入任何改變標籤的分支，因此在三者中執行最少陳述句。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：為何 negative 軌跡切片%高於陳述句%</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，<code>n=-3</code> 軌跡顯示切片覆蓋率 <strong>83%</strong>（5/6）但陳述句覆蓋率 <strong>78%</strong>（7/9）。為何切片數字較高？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它漏掉 s5 與 s6，但只有 s5 在切片內，因此陳述句覆蓋率被兩者拖累，切片覆蓋率只被一個拖累</text><feedback><text>正確——s6 在切片之外，因此它的漏失降低陳述句覆蓋率，但不降低切片覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>切片比全部陳述句集合還大</text><feedback><text>切片（6）小於全部陳述句（9）；差別在於哪個漏失被計入。</text></feedback></answer>
+    <answer fraction="0"><text>切片覆蓋率無條件進位，陳述句覆蓋率無條件捨去</text><feedback><text>兩者取整方式相同；差距來自 s6 在切片之外。</text></feedback></answer>
+    <answer fraction="0"><text>該軌跡執行的切片陳述句比全部陳述句還多</text><feedback><text>那不可能；切片是子集。數字有別是因為被漏掉的一個陳述句（s6）落在切片之外。</text></feedback></answer>
+    <generalfeedback><text>negative 軌跡漏掉 s5（在切片內）與 s6（在切片外）。陳述句覆蓋率計入兩個漏失（7/9 = 78%）；切片覆蓋率只計入 s5 的漏失（5/6 = 83%）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：zero 軌跡兩個缺口揭示什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，<code>n=0</code> 軌跡給出切片覆蓋率 67%（4/6），缺口為 s5 與 s8。這兩個缺口揭示了套件的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>positive 標籤與 negative 標籤的情形都未被執行，因此兩條改變標籤的路徑都未受測</text><feedback><text>正確——s5 與 s8 分別是「positive」與「negative」的標籤指派，而 zero 輸入兩者都不觸發。</text></feedback></answer>
+    <answer fraction="0"><text>回傳陳述句從未被抵達</text><feedback><text>s11（回傳）在每個軌跡都執行；缺口是兩個分支標籤，而非回傳。</text></feedback></answer>
+    <answer fraction="0"><text><code>sign</code> 變數計算錯誤</text><feedback><text><code>sign</code> 陳述句在切片之外；缺口關乎 <code>label</code>，而非 <code>sign</code>。</text></feedback></answer>
+    <answer fraction="0"><text>判定 s4 與 s7 從未被評估</text><feedback><text>兩個判定都被 zero 軌跡評估；未受測的是兩個標籤指派。</text></feedback></answer>
+    <generalfeedback><text>缺口 s5 與 s8 是 positive 與 negative 的標籤指派。單一 zero 輸入兩者都不執行，因此任一標籤中的缺陷都將無法被偵測。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：切片覆蓋率最高的單一軌跡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，若只能啟用<strong>一個</strong>軌跡，哪一個給出最高切片覆蓋率？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>negative 軌跡（n=-3），83%</text><feedback><text>正確——negative 給出 5/6 = 83%，而 positive 與 zero 各為 4/6 = 67%。</text></feedback></answer>
+    <answer fraction="0"><text>positive 軌跡（n=5），83%</text><feedback><text>positive 軌跡是 4/6 = 67%；negative 軌跡才達 83%。</text></feedback></answer>
+    <answer fraction="0"><text>zero 軌跡（n=0），83%</text><feedback><text>zero 軌跡最低，為 4/6 = 67%。</text></feedback></answer>
+    <answer fraction="0"><text>三者都是 67% 平手</text><feedback><text>negative 軌跡較高（83%），因為它覆蓋 s7 與 s8；positive 與 zero 為 67%。</text></feedback></answer>
+    <generalfeedback><text>positive = 4/6（67%），zero = 4/6（67%），negative = 5/6（83%）。negative 軌跡單獨覆蓋最多切片陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個度量間的子集蘊含關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於後向切片是全部陳述句的子集，下列哪個蘊含關係恆成立？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% 陳述句覆蓋率保證 100% 切片覆蓋率，但反之不然</text><feedback><text>正確——若每個陳述句都跑到，每個切片陳述句也跑到；但完整切片覆蓋仍可能有非切片陳述句未被執行。</text></feedback></answer>
+    <answer fraction="0"><text>100% 切片覆蓋率保證 100% 陳述句覆蓋率</text><feedback><text>反了——覆蓋切片並不表示切片之外的陳述句被覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>兩個百分比恆相等</text><feedback><text>當切片是真子集時兩者不同，如 Classify。</text></feedback></answer>
+    <answer fraction="0"><text>除非其一達 100%，否則另一個也到不了 100%</text><feedback><text>切片覆蓋率可為 100%，而陳述句覆蓋率仍低於 100%。</text></feedback></answer>
+    <generalfeedback><text>切片陳述句是全部陳述句的子集。執行全部陳述句即執行全部切片陳述句（陳述句 100% =&gt; 切片 100%）；反向不成立，因為非切片陳述句可能仍未執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：positive + zero 的結果與剩餘缺口</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，一起啟用 positive（n=5）與 zero（n=0）軌跡。得到多少切片覆蓋率，且哪個切片陳述句仍是缺口？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>83% (5/6)，s8 仍未被覆蓋</text><feedback><text>正確——兩者合起來覆蓋 s2, s4, s5, s7, s11；只漏掉 s8（negative 標籤）。</text></feedback></answer>
+    <answer fraction="0"><text>100% (6/6)，無缺口</text><feedback><text>兩個軌跡都不進入 negative 分支，因此 s8 仍未被覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6)，s7 與 s8 未被覆蓋</text><feedback><text>zero 軌跡覆蓋 s7，因此只剩 s8——5/6 = 83%。</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6)，s5 仍未被覆蓋</text><feedback><text>s5 被 positive 軌跡覆蓋；剩餘缺口是 s8。</text></feedback></answer>
+    <generalfeedback><text>positive 覆蓋 s5；zero 覆蓋 s7。聯集覆蓋 s2, s4, s5, s7, s11 = 6 中的 5。只漏掉 s8（negative 標籤），因此 83%，缺口 s8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>成績平均：為何兩度量一致</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在成績平均例中切片是全部 8 個陳述句。對該例的<em>任何</em>套件而言，這對切片覆蓋率與陳述句覆蓋率數字意味著什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者恆相等，因為切片等於全部陳述句集合</text><feedback><text>正確——當切片＝全部陳述句時，對每個套件兩度量的分子與分母都相同。</text></feedback></answer>
+    <answer fraction="0"><text>切片覆蓋率恆較高</text><feedback><text>兩者恰好相等，因為此處參照集合相同。</text></feedback></answer>
+    <answer fraction="0"><text>陳述句覆蓋率恆較高</text><feedback><text>兩者不分高低；當切片是整個程式時兩數字相等。</text></feedback></answer>
+    <answer fraction="0"><text>兩者無關</text><feedback><text>此處兩者相同，因為切片含每個陳述句。</text></feedback></answer>
+    <generalfeedback><text>當切片等於全部陳述句集合時，已執行切片/切片大小 = 已執行/總數 對每個套件皆成立，因此兩度量回報相同百分比。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片缺口比綠色進度條多揭示什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於一條很高的陳述句覆蓋率進度條，切片覆蓋缺口多提供什麼診斷價值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它指出一個確實會影響輸出、卻未被執行的陳述句，使注意力聚焦於與輸出相關的未受測程式碼</text><feedback><text>正確——缺口是切片內未被覆蓋的陳述句，因此已知會影響輸出。</text></feedback></answer>
+    <answer fraction="0"><text>它證明已執行的陳述句產生正確輸出</text><feedback><text>覆蓋率從不證明正確性，只證明什麼被執行。</text></feedback></answer>
+    <answer fraction="0"><text>它計算嘗試了多少輸入</text><feedback><text>缺口是切片陳述句，而非輸入計數。</text></feedback></answer>
+    <answer fraction="0"><text>它衡量切片的執行時間</text><feedback><text>缺口關乎切片陳述句的覆蓋，而非時間。</text></feedback></answer>
+    <generalfeedback><text>陳述句覆蓋率可能看似很高，卻把與輸出相關的程式碼藏在眾多無關陳述句中而漏掉。切片缺口恰好標示出一個仍未受測、且會影響輸出的陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片覆蓋率 vs 分支覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>切片覆蓋率在意圖上與分支（判定）覆蓋率有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>切片覆蓋率鎖定會影響所選輸出的陳述句；分支覆蓋率鎖定每個判定的真/假結果，與輸出無關</text><feedback><text>正確——切片覆蓋率以輸出為導向且具資料流感知，而分支覆蓋率關乎判定結果。</text></feedback></answer>
+    <answer fraction="0"><text>兩者衡量同一件事，只是名稱不同</text><feedback><text>兩者不同：一個是資料流切片目標，一個計算分支結果。</text></feedback></answer>
+    <answer fraction="0"><text>切片覆蓋率計算分支結果；分支覆蓋率計算陳述句</text><feedback><text>反了——切片覆蓋率計算切片陳述句，而非分支結果。</text></feedback></answer>
+    <answer fraction="0"><text>分支覆蓋率需要切片；切片覆蓋率不需要</text><feedback><text>分支覆蓋率不需切片；建立在後向切片上的是切片覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>分支覆蓋率問每個判定是否取到兩種結果。切片覆蓋率問會影響所選輸出的陳述句是否被執行——一個具資料流感知、以輸出為導向的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：negative 軌跡缺口的意涵</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，<code>n=-3</code> 軌跡恰好留下一個缺口 s5（<code>label = "positive"</code>）。這個缺口對缺陷偵測意味著什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>positive 標籤指派方式中的缺陷可能不被偵測，因為沒有作用中的測試執行到 s5</text><feedback><text>正確——未被覆蓋的切片陳述句代表該處的缺陷不會被套件執行到。</text></feedback></answer>
+    <answer fraction="0"><text>negative 標籤未受測</text><feedback><text>negative 標籤 s8 被此軌跡覆蓋；缺口是 positive 標籤 s5。</text></feedback></answer>
+    <answer fraction="0"><text>回傳值從未產生</text><feedback><text>s11 有執行；缺口是 s5，即 positive 分支的指派。</text></feedback></answer>
+    <answer fraction="0"><text>沒什麼——單一缺口無關緊要</text><feedback><text>未被覆蓋的切片陳述句正是缺陷可能對套件藏身之處。</text></feedback></answer>
+    <generalfeedback><text>s5 指派 positive 標籤。只有 negative 軌跡作用時 s5 從不執行，因此 positive 標籤情形中的臭蟲，要等到加入 positive 輸入才會被抓到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：單一軌跡能否達成完整切片覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，是否有任何<strong>單一</strong>軌跡能達到 100% 切片覆蓋率？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不能——s5 與 s8 位於互斥的分支上，因此至少需要兩個軌跡</text><feedback><text>正確——單一輸入只走一條分支，能到 s5 或 s8，但無法同時到；最佳單一軌跡為 83%。</text></feedback></answer>
+    <answer fraction="0"><text>能——單靠 negative 軌跡即達 100%</text><feedback><text>negative 軌跡漏掉 s5，給出 83% 而非 100%。</text></feedback></answer>
+    <answer fraction="0"><text>能——單靠 zero 軌跡即達 100%</text><feedback><text>zero 軌跡漏掉 s5 與 s8，只有 67%。</text></feedback></answer>
+    <answer fraction="0"><text>不能——因為切片是空的</text><feedback><text>切片有 6 個陳述句；原因是 s5 與 s8 位於互斥分支。</text></feedback></answer>
+    <generalfeedback><text>s5（positive）與 s8（negative）位於互斥分支，因此沒有單一輸入能同時覆蓋兩者。要達 100% 需要兩個軌跡（positive + negative）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：覆蓋 sign 陳述句的價值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，所有軌跡作用時兩個度量都是 100%。對<em>切片</em>（label）準則而言，執行 <code>sign</code> 陳述句（s3, s6, s9）帶來什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>什麼都沒有——它們在切片之外，因此對 <code>label</code> 的切片充分性沒有貢獻</text><feedback><text>正確——<code>sign</code> 無法影響 <code>label</code>，因此覆蓋那些陳述句不會改善 label 準則的切片覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>要達到 100% 切片覆蓋率必須有它們</text><feedback><text>它們在切片之外，因此對 <code>label</code> 的切片覆蓋率無關緊要。</text></feedback></answer>
+    <answer fraction="0"><text>它們把切片大小提升到 9</text><feedback><text>切片維持 6；非切片陳述句永遠不會被加入。</text></feedback></answer>
+    <answer fraction="0"><text>它們把切片覆蓋率從 100% 翻轉為 67%</text><feedback><text>非切片陳述句永遠不改變切片覆蓋率。</text></feedback></answer>
+    <generalfeedback><text><code>label</code> 的切片覆蓋率只在 6 個切片陳述句上衡量。執行 s3, s6, s9 會提高陳述句覆蓋率，但對 label 準則的切片充分性毫無貢獻。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>成績平均：對切片準則的冗餘</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在成績平均例中，每個軌跡本身就已產生 100% 切片覆蓋率。對切片（回傳值）準則而言，這說明第二個軌跡是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對切片覆蓋率而言是冗餘的——一個軌跡就已完整執行切片</text><feedback><text>正確——若一個軌跡已覆蓋整個切片，再加一個對切片覆蓋率不增加任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>要達到 100% 切片覆蓋率必須有它</text><feedback><text>單一軌跡已達 100%，因此第二個對切片覆蓋率並非必要。</text></feedback></answer>
+    <answer fraction="0"><text>它降低切片覆蓋率</text><feedback><text>加入軌跡只會使已覆蓋集合維持或增加，絕不會降低。</text></feedback></answer>
+    <answer fraction="0"><text>它改變切片</text><feedback><text>切片取決於輸出準則，而非作用中軌跡。</text></feedback></answer>
+    <generalfeedback><text>成績平均的兩個軌跡都到全部 8 個切片陳述句，因此對切片準則而言第二個軌跡是冗餘的——雖然對其他目標（如不同資料值）仍可能有價值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：合併兩個 67% 軌跡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，positive 與 zero 軌跡各給出 67% 切片覆蓋率，但缺口不同（positive 漏 s7, s8；zero 漏 s5, s8）。同時啟用兩者得到多少，且為何不是 100%？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>83%——合起來覆蓋 s5 與 s7，但 s8 被兩者都漏掉</text><feedback><text>正確——s8（negative 標籤）不在任一軌跡中，因此剩一個缺口：5/6 = 83%。</text></feedback></answer>
+    <answer fraction="0"><text>100%——它們的缺口互補</text><feedback><text>兩者都漏 s8，因此聯集並不完整；是 83%。</text></feedback></answer>
+    <answer fraction="0"><text>67%——合併軌跡無法提高覆蓋率</text><feedback><text>合併軌跡是取其已覆蓋集合的聯集，因此可提高覆蓋率；此處到 83%。</text></feedback></answer>
+    <answer fraction="0"><text>134%——百分比相加</text><feedback><text>覆蓋率是同一切片的分數，上限 100%；要取已覆蓋集合的聯集，而非相加百分比。</text></feedback></answer>
+    <generalfeedback><text>positive 覆蓋 s5；zero 覆蓋 s7；兩者都漏 s8。聯集覆蓋 6 個切片陳述句中的 5 個 = 83%，因此相同的單一軌跡百分比仍可能留下共同缺口。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何是「資料流感知」的充分性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>切片覆蓋率被稱為<strong>資料流感知（data-flow-aware）</strong>的充分性準則，是因為目標集合是這樣建立的：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從輸出向後追蹤控制與資料相依，恰好保留能影響它的陳述句</text><feedback><text>正確——後向切片沿相依追蹤至輸出，因此準則由資料（與控制）流所界定。</text></feedback></answer>
+    <answer fraction="0"><text>依檔案順序列出每一行原始碼</text><feedback><text>切片沿相依而行，而非依文字順序。</text></feedback></answer>
+    <answer fraction="0"><text>列舉所有分支結果</text><feedback><text>那描述的是分支覆蓋率，並非由資料流切片建立。</text></feedback></answer>
+    <answer fraction="0"><text>抽樣隨機輸入並記錄當機</text><feedback><text>那是模糊測試；切片覆蓋率由相依結構所界定。</text></feedback></answer>
+    <generalfeedback><text>後向切片是從輸出陳述句沿控制與資料相依邊走訪而算出的。由於該走訪由資料流驅動，切片覆蓋率是一種資料流感知的準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify：百分比相同、意義不同</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Classify 中，positive 軌跡顯示切片覆蓋率 67%（4/6）與陳述句覆蓋率 67%（6/9）——百分比相同。正確的解讀是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>百分比相同只是比值的巧合；兩個度量計算不同集合（6 個切片陳述句中的 4 個 vs 全部 9 個中的 6 個）</text><feedback><text>正確——4/6 與 6/9 都四捨五入為 67%，卻是在不同參照集合上衡量覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>此處切片與陳述句集合必然相同</text><feedback><text>並非如此——切片是 6 個陳述句，全集是 9 個。</text></feedback></answer>
+    <answer fraction="0"><text>百分比相同代表覆蓋了相同的陳述句</text><feedback><text>不一定；計數在不同集合上，因此百分比相同不代表相同的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>其中一個數字必是顯示錯誤</text><feedback><text>兩者都正確；4/6 = 6/9 = 66.7% -&gt; 67%。</text></feedback></answer>
+    <generalfeedback><text>4/6 與 6/9 都等於 0.667，因此都顯示 67%。此相等是算術巧合；切片覆蓋率在 6 個切片陳述句上，陳述句覆蓋率在全部 9 個上。</text></generalfeedback>
+  </question>
+</quiz>

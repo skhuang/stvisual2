@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Slice-Based Regression/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What regression test selection is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Regression test selection</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>After a change, running only the subset of tests that the change could affect, instead of re-running the whole suite</text><feedback><text>Correct — selection narrows the re-run to the tests a change can affect, skipping the provably-unaffected ones.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting every test that the latest change did not touch</text><feedback><text>Selection chooses what to re-run this time; the unselected tests are kept, not deleted.</text></feedback></answer>
+    <answer fraction="0"><text>Writing brand-new tests for the changed code</text><feedback><text>That is authoring new tests; selection re-runs a subset of existing tests.</text></feedback></answer>
+    <answer fraction="0"><text>Running the tests in a faster random order</text><feedback><text>Ordering is unrelated; selection is about which tests to run given the change.</text></feedback></answer>
+    <generalfeedback><text>Regression test selection uses the change and the program's dependences to decide which existing tests could be affected, and re-runs only those. Tests that cannot be affected are skipped this cycle, cutting cost while still catching regressions the change could introduce.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an affected test is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer a test is badged <em>Must Re-run</em>. What does that mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The change could affect this test's result, so it must be executed again to check for a regression</text><feedback><text>Correct — an affected test is one whose outcome the change might alter, so it is selected.</text></feedback></answer>
+    <answer fraction="0"><text>The test has already failed and cannot be fixed</text><feedback><text>The badge is about selection, not about a past pass or fail verdict.</text></feedback></answer>
+    <answer fraction="0"><text>The test is redundant and should be deleted</text><feedback><text>Must Re-run marks relevance to the change, not redundancy.</text></feedback></answer>
+    <answer fraction="0"><text>The test is slow and needs optimisation</text><feedback><text>Speed is unrelated; the badge means the change could affect the test.</text></feedback></answer>
+    <generalfeedback><text>An affected test (Must Re-run) is one the change could influence — its execution touches something the edit can reach. Because its result might change, it is selected for re-execution. The complementary set is Safe to Skip: tests the change provably cannot affect.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why slices identify affected tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can slices and dependences be used to decide which tests a change affects?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A change to a statement can only affect a test that executes some statement the change can reach — the change's forward slice (impact set)</text><feedback><text>Correct — if a test never touches the impact set, the edit cannot influence its behaviour, so it is provably unaffected.</text></feedback></answer>
+    <answer fraction="0"><text>Tests written near the changed line in the source file are the affected ones</text><feedback><text>Source-line distance is irrelevant; dependence reachability, not proximity, decides impact.</text></feedback></answer>
+    <answer fraction="0"><text>The most recently added tests are always the affected ones</text><feedback><text>Recency does not determine impact; what the change can reach does.</text></feedback></answer>
+    <answer fraction="0"><text>The slowest tests are the ones a change affects</text><feedback><text>Runtime is unrelated to whether a change can reach what a test executes.</text></feedback></answer>
+    <generalfeedback><text>Effects propagate only along data- and control-dependence edges. So a change to statement S can reach exactly the statements in S's forward slice (its impact set). A test that executes none of those statements cannot be affected by the change, which is what makes it safe to skip.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Safe to Skip means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is badged <em>Safe to Skip</em>. What is the explorer claiming about it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The change provably cannot affect this test's result, so re-running it would waste time</text><feedback><text>Correct — a safe-to-skip test is provably unaffected under the criterion, so skipping it loses no fault-detection.</text></feedback></answer>
+    <answer fraction="0"><text>The test is known to pass on every version of the code</text><feedback><text>Safe to Skip is relative to this change, not a claim that the test can never fail.</text></feedback></answer>
+    <answer fraction="0"><text>The test is disabled permanently</text><feedback><text>It is skipped for this change only, not disabled forever.</text></feedback></answer>
+    <answer fraction="0"><text>The test is a duplicate of another test</text><feedback><text>Safe to Skip is about being unaffected by the change, not about duplication.</text></feedback></answer>
+    <generalfeedback><text>Safe to Skip means the change cannot reach anything the test executes, so its result cannot differ from before. Skipping it this cycle sacrifices no ability to catch a regression the change might cause — the whole point of selection.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What safe selection means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A regression test selection technique is called <em>safe</em> when it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Never omits a test that the change could affect — every possibly-affected test is selected</text><feedback><text>Correct — safety means no affected test is wrongly skipped, so no regression can slip through the selection.</text></feedback></answer>
+    <answer fraction="0"><text>Always selects the smallest possible number of tests</text><feedback><text>That is precision, not safety; the smallest set can be unsafe if it drops an affected test.</text></feedback></answer>
+    <answer fraction="0"><text>Runs the tests in the fastest order</text><feedback><text>Ordering is unrelated to safety.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees every selected test will pass</text><feedback><text>Safety is about not skipping affected tests, not about the pass/fail outcome.</text></feedback></answer>
+    <generalfeedback><text>Safety is the essential correctness property of selection: it must never exclude a test the change could affect. A safe technique may re-run some tests that turn out to be unaffected (imprecision), but it never wrongly skips an affected one — so it cannot let a regression escape.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Static mode uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer's <em>Static</em> mode, a test is selected when its executed statements intersect which set?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The forward slice (impact set) of the changed statement — every statement the edit can reach</text><feedback><text>Correct — Static mode is the conservative criterion: any test that executes a statement in the impact set is selected.</text></feedback></answer>
+    <answer fraction="0"><text>The backward slice of the changed statement</text><feedback><text>Static mode uses the forward slice (what the change reaches), not the backward slice.</text></feedback></answer>
+    <answer fraction="0"><text>The set of statements on the same source line</text><feedback><text>It uses dependence reachability (the impact set), not lines.</text></feedback></answer>
+    <answer fraction="0"><text>The set of statements the test never executes</text><feedback><text>Selection is by intersection with the impact set of executed statements, not with unexecuted ones.</text></feedback></answer>
+    <generalfeedback><text>Static mode computes the forward slice of the changed statement — the impact set of everything the edit can reach through dependences — and selects every test whose recorded execution includes at least one statement in that set. It is the conservative, safe criterion described in the explorer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Dynamic mode uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer's <em>Dynamic</em> mode selects a test when the changed statement lies in which set?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That test's trace-aware backward slice from the output criterion</text><feedback><text>Correct — Dynamic mode selects a test only if the change is in its dynamic backward slice from the output.</text></feedback></answer>
+    <answer fraction="0"><text>The forward slice of the output statement</text><feedback><text>Dynamic mode uses a backward slice from the output, computed per trace, not a forward slice.</text></feedback></answer>
+    <answer fraction="0"><text>The set of all statements in the program</text><feedback><text>That would select every test; Dynamic restricts to each trace's backward slice.</text></feedback></answer>
+    <answer fraction="0"><text>The statements executed most often in the trace</text><feedback><text>Frequency is irrelevant; membership in the trace-aware backward slice is what matters.</text></feedback></answer>
+    <generalfeedback><text>Dynamic mode is the precise criterion: for each test it computes the backward slice from the output criterion restricted to that test's recorded trace and its live data-dependence edges, and selects the test only if the changed statement is inside it. This prunes tests whose actual run did not depend on the change.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the output criterion in classify</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With the <code>classify</code> example loaded, the explorer shows an <em>Output criterion</em> badge. What does it read?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s11 → label (the returned variable at the return statement)</text><feedback><text>Correct — the output criterion is the returned variable label at the return statement s11.</text></feedback></answer>
+    <answer fraction="0"><text>s4 → n (the branch condition)</text><feedback><text>The criterion is the program's output, not the branch condition.</text></feedback></answer>
+    <answer fraction="0"><text>s3 → sign (an internal variable)</text><feedback><text>sign is an internal variable that is never returned; the output is label at s11.</text></feedback></answer>
+    <answer fraction="0"><text>s2 → label (the initial assignment)</text><feedback><text>The criterion is anchored at the return statement s11, not the initial assignment s2.</text></feedback></answer>
+    <generalfeedback><text>The explorer builds the output criterion from the return statement (kind:'output') and the variable it uses. For classify that is s11 returning label, shown as s11 → label. Dynamic mode's backward slices all start from this criterion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read a selection: classify, Static, change sign = 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode, you mark <code>s6 (sign = 1)</code> as changed. The three tests are <code>pos (n=5)</code>, <code>neg (n=-3)</code>, <code>zero (n=0)</code>. Which test is badged Must Re-run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only pos</text><feedback><text>Correct — the impact set of s6 is just {s6}, and only pos (n=5) executes s6, so only pos is selected.</text></feedback></answer>
+    <answer fraction="0"><text>Only neg</text><feedback><text>neg (n=-3) takes the else-if branch and never executes s6, so it is Safe to Skip.</text></feedback></answer>
+    <answer fraction="0"><text>All three tests</text><feedback><text>Only pos executes s6; neg and zero do not, so they are Safe to Skip.</text></feedback></answer>
+    <answer fraction="0"><text>None of the tests</text><feedback><text>pos executes s6, so under Static mode it is selected.</text></feedback></answer>
+    <generalfeedback><text>The forward slice of s6 (sign = 1) is just {s6}: sign is never used again, so the impact set does not grow. Static mode selects any test whose execution intersects {s6}. Only pos (n&gt;0) runs the if-branch containing s6, so pos is Must Re-run and neg, zero are Safe to Skip.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read a selection: classify, Static, change sign = -1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode, you mark <code>s9 (sign = -1)</code> as changed. Which test is badged Must Re-run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only neg</text><feedback><text>Correct — the impact set of s9 is {s9}, and only neg (n=-3) executes the else-if branch containing s9.</text></feedback></answer>
+    <answer fraction="0"><text>Only pos</text><feedback><text>pos (n=5) takes the if-branch and never executes s9.</text></feedback></answer>
+    <answer fraction="0"><text>Only zero</text><feedback><text>zero (n=0) skips both assignment branches and never executes s9.</text></feedback></answer>
+    <answer fraction="0"><text>All three tests</text><feedback><text>Only neg executes s9; pos and zero are Safe to Skip.</text></feedback></answer>
+    <generalfeedback><text>s9 (sign = -1) defines sign, which is never used again, so its forward slice is just {s9}. Only the neg run (n&lt;0) executes the else-if branch that contains s9, so Static mode selects only neg. The metric reads Re-run 1 of 3 tests — 67% skipped.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the metric line</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer prints a metric such as <em>Re-run 1 of 3 tests — 67% skipped</em>. What is it reporting?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How many tests were selected (Must Re-run) out of the whole suite, and the percentage that were skipped</text><feedback><text>Correct — it summarises the selection: selected count of the total, and the share skipped.</text></feedback></answer>
+    <answer fraction="0"><text>How many tests passed out of how many ran</text><feedback><text>The metric is about selection, not pass/fail results.</text></feedback></answer>
+    <answer fraction="0"><text>How many lines of code the change touched</text><feedback><text>It counts tests selected versus skipped, not lines of code.</text></feedback></answer>
+    <answer fraction="0"><text>How much faster the dynamic mode is than the static mode</text><feedback><text>It reports the selection for the current mode, not a speed comparison.</text></feedback></answer>
+    <generalfeedback><text>The metric quantifies the savings from selection: A of N tests are Must Re-run, and X% are Safe to Skip. A higher skip percentage means the change reaches less of the suite, so selection saves more work this cycle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read a selection: grade-average gives no savings</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <code>grade-average</code> example (tests <code>pass</code> and <code>fail</code>), you mark <code>s5 (total = total + s)</code> as changed in Static mode. What is the selection?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both pass and fail are Must Re-run — 0% skipped</text><feedback><text>Correct — both tests execute the whole chain from total to the returned grade, so both are selected.</text></feedback></answer>
+    <answer fraction="0"><text>Only pass is Must Re-run</text><feedback><text>Both tests execute s5 and the statements it reaches, so both are selected.</text></feedback></answer>
+    <answer fraction="0"><text>Only fail is Must Re-run</text><feedback><text>Both runs accumulate into total and reach the output, so both are selected.</text></feedback></answer>
+    <answer fraction="0"><text>Neither test is selected</text><feedback><text>s5 flows through avg and grade to the output that both tests check, so both are selected.</text></feedback></answer>
+    <generalfeedback><text>In grade-average both tests exercise every statement, and the value of total flows through avg and grade to the returned result. So the impact set of s5 reaches statements both tests execute, and both are Must Re-run — 0% skipped. This is a case where selection buys nothing because every test covers the whole affected slice.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Selection can skip provably-unaffected tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a change, a regression test selection technique may skip tests that the change provably cannot affect, rather than always re-running the entire suite.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — skipping provably-unaffected tests is exactly what selection does to cut cost.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: selection's whole purpose is to skip tests the change cannot affect while re-running those it can.</text></feedback></answer>
+    <generalfeedback><text>Selection re-runs only the tests a change could affect and skips those it provably cannot, so it does not have to re-run everything. As long as the criterion is safe, no affected test is skipped, so no regression escapes despite running fewer tests.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Safe to Skip is a claim of no impact</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the explorer badges a test <em>Safe to Skip</em>, it is asserting that the current change cannot affect that test's result.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — Safe to Skip means the change provably cannot reach anything that test executes.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: the badge is precisely the claim that the change cannot affect the test's outcome.</text></feedback></answer>
+    <generalfeedback><text>Safe to Skip is relative to the current change: the change cannot reach any statement the test executes, so the test's result cannot differ from before. It is not a claim that the test always passes — only that this edit leaves it unaffected.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The goal of slice-based selection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the goal of slice-based regression test selection?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cut the cost of regression testing by skipping provably-unaffected tests, without losing the ability to catch regressions the change could cause</text><feedback><text>Correct — it trades away wasted re-runs while preserving fault-detection for the change.</text></feedback></answer>
+    <answer fraction="0"><text>Increase code coverage by adding more tests each release</text><feedback><text>Selection re-runs a subset of existing tests; it does not add tests or raise coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantee the program has no defects at all</text><feedback><text>No selection technique guarantees defect-freedom; it decides which tests to re-run.</text></feedback></answer>
+    <answer fraction="0"><text>Make every test run in constant time</text><feedback><text>It reduces how many tests run, not the runtime of an individual test.</text></feedback></answer>
+    <generalfeedback><text>Slice-based selection uses the change's slice/impact set to decide which tests could be affected and re-runs only those. The aim is cheaper regression cycles that still detect any regression the change could introduce — savings without sacrificing safety.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice-Based Regression/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Static, change sign = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode, you mark <code>s3 (sign = 0)</code> as changed. Which tests are Must Re-run, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All three (pos, neg, zero) — because every test executes s3, and s3 is itself the whole impact set</text><feedback><text>Correct — the impact set of s3 is {s3}, and all three runs execute s3 at the top of the function, so all are selected.</text></feedback></answer>
+    <answer fraction="0"><text>None — because sign is never returned</text><feedback><text>That is the Dynamic result. Static mode ignores whether sign reaches the output; every test executes s3, so all are selected.</text></feedback></answer>
+    <answer fraction="0"><text>Only pos — because it takes the first branch</text><feedback><text>s3 runs before any branch, so all three tests execute it, not just pos.</text></feedback></answer>
+    <answer fraction="0"><text>Only zero — because it returns the initial label</text><feedback><text>That reasoning is about label, not s3; every test executes s3, so Static selects all three.</text></feedback></answer>
+    <generalfeedback><text>sign is defined at s3 and never used again, so the forward slice of s3 is just {s3}. But s3 runs unconditionally at the top of classify, so pos, neg and zero all execute it. Static mode therefore selects all three — even though sign never influences the returned label. This over-selection is imprecision, not unsafety.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Static, change label = "positive"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode, you mark <code>s5 (label = "positive")</code> as changed. Which tests are Must Re-run, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All three — the impact set is {s5, s11}, and every test executes the return statement s11</text><feedback><text>Correct — s5 flows into the returned label at s11, which all three tests execute, so all are selected.</text></feedback></answer>
+    <answer fraction="0"><text>Only pos — the impact set is confined to the if-branch</text><feedback><text>The impact set reaches s11 (the shared return), which every test executes, so all three are selected under Static mode.</text></feedback></answer>
+    <answer fraction="0"><text>Only neg and zero</text><feedback><text>pos also executes s5 and s11, so it is selected too — all three are.</text></feedback></answer>
+    <answer fraction="0"><text>None</text><feedback><text>s5 reaches the output; every test executes the return, so all are selected.</text></feedback></answer>
+    <generalfeedback><text>The forward slice of s5 (label = "positive") includes the return statement s11, because s5's value flows into the returned label. Every test executes s11, so their executions all intersect the impact set and Static mode selects all three. neg and zero are false inclusions: they execute s11 but their returned value did not come from s5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Dynamic, change label = "positive"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode, you mark <code>s5 (label = "positive")</code> as changed. Which tests are Must Re-run, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only pos — in its run, the returned label was the value defined at s5; neg and zero returned a different definition</text><feedback><text>Correct — s5 is in pos's dynamic backward slice from the output, but not in neg's or zero's.</text></feedback></answer>
+    <answer fraction="0"><text>All three — every test executes the return statement</text><feedback><text>That is the Static result. Dynamic mode follows each run's live definitions; only pos's returned label came from s5.</text></feedback></answer>
+    <answer fraction="0"><text>Only neg</text><feedback><text>neg's returned label was defined at s8, not s5, so s5 is not in its dynamic slice.</text></feedback></answer>
+    <answer fraction="0"><text>None</text><feedback><text>pos's output value was defined at s5, so pos is selected.</text></feedback></answer>
+    <generalfeedback><text>Dynamic mode traces the last definition of label that actually reached the output in each run. For pos (n=5) that is s5, so s5 is in pos's backward slice and pos is selected. neg's output came from s8 and zero's from s2, so s5 is not in their slices — they are Safe to Skip. The metric reads Re-run 1 of 3 tests — 67% skipped.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Dynamic, change sign = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode, you mark <code>s3 (sign = 0)</code> as changed. What is the selection, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>None — sign never flows to the returned label, so s3 is in no test's backward slice from the output</text><feedback><text>Correct — the output depends only on label; sign is a dead-end variable, so Dynamic selects no test.</text></feedback></answer>
+    <answer fraction="0"><text>All three — every test executes s3</text><feedback><text>That is the Static result. Dynamic mode starts from the output and never reaches s3, so none are selected.</text></feedback></answer>
+    <answer fraction="0"><text>Only zero — it returns the initial state</text><feedback><text>zero's backward slice from the output contains s11 and s2 (label), not s3 (sign).</text></feedback></answer>
+    <answer fraction="0"><text>Only pos</text><feedback><text>sign is never used to compute the returned label in any run, so no test's slice contains s3.</text></feedback></answer>
+    <generalfeedback><text>Dynamic mode computes each test's backward slice from the output criterion s11 → label. sign (defined at s3) is never used to compute label, so s3 appears in no test's slice. Dynamic mode selects zero tests: Re-run 0 of 3 tests — 100% skipped. Static, by contrast, re-ran all three because they execute s3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify: Static vs Dynamic for sign = 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, you mark <code>s6 (sign = 1)</code> as changed. How do the two modes classify the tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static selects pos (it executes s6); Dynamic selects none (sign never reaches the returned label)</text><feedback><text>Correct — Static keys on executing the impact set, Dynamic on the change reaching the output.</text></feedback></answer>
+    <answer fraction="0"><text>Both modes select all three tests</text><feedback><text>Static selects only pos, and Dynamic selects none, because sign does not reach the output.</text></feedback></answer>
+    <answer fraction="0"><text>Static selects none; Dynamic selects pos</text><feedback><text>It is the reverse: Static selects pos (it executes s6), Dynamic selects none.</text></feedback></answer>
+    <answer fraction="0"><text>Both modes select only neg</text><feedback><text>neg never executes s6; Static selects pos, Dynamic selects none.</text></feedback></answer>
+    <generalfeedback><text>Static mode selects a test if it executes any statement in the impact set {s6}; only pos runs the if-branch, so Static selects pos. Dynamic mode asks whether the change reaches the output value; sign never influences label, so s6 is in no backward slice and Dynamic selects none. The change is real code but dead with respect to the output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Dynamic, change label = "zero"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode, you mark <code>s2 (label = "zero")</code> as changed. Which test is Must Re-run, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only zero — in the n=0 run neither branch fires, so the returned label is still the value from s2</text><feedback><text>Correct — only zero's output came from s2's initial assignment; pos and neg overwrote label.</text></feedback></answer>
+    <answer fraction="0"><text>All three — every test executes s2</text><feedback><text>That is the Static result. Dynamically, pos and neg overwrote label, so their output did not come from s2.</text></feedback></answer>
+    <answer fraction="0"><text>Only pos</text><feedback><text>pos overwrote label at s5, so its returned value did not come from s2.</text></feedback></answer>
+    <answer fraction="0"><text>None</text><feedback><text>zero returns the s2 value, so s2 is in zero's backward slice and zero is selected.</text></feedback></answer>
+    <generalfeedback><text>Every run executes s2 (label = "zero") first, but pos overwrites label at s5 and neg at s8. Only in the zero run (n=0) does neither branch fire, so the returned label is still the value from s2. Thus s2 is in zero's dynamic backward slice alone, and Dynamic selects only zero — while Static selected all three.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Static, change else if (n &lt; 0)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode, you mark <code>s7 (else if (n < 0))</code> as changed. Which tests are Must Re-run, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All three — the impact set reaches the shared return statement s11, which every test executes</text><feedback><text>Correct — s7 controls s8, whose value flows to s11; the impact set includes s11, executed by all tests.</text></feedback></answer>
+    <answer fraction="0"><text>Only neg — it is the run that takes the else-if branch</text><feedback><text>Static mode is not trace-precise: the impact set reaches s11, which pos and zero also execute, so all three are selected.</text></feedback></answer>
+    <answer fraction="0"><text>Only neg and zero</text><feedback><text>pos also executes s11, which is in the impact set, so pos is selected too.</text></feedback></answer>
+    <answer fraction="0"><text>None</text><feedback><text>s7 controls s8 and the returned label at s11, so its impact set is non-empty and reaches every test.</text></feedback></answer>
+    <generalfeedback><text>The changed statement s7 controls s8 (label = "negative"), whose value can flow to the returned label at s11. So the forward slice of s7 includes s11, and every test executes the return. Static mode therefore selects all three — pos and zero are false inclusions, since their returned label did not actually depend on s7.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Dynamic, change else if (n &lt; 0)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode, you mark <code>s7 (else if (n < 0))</code> as changed. Which test is Must Re-run, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only neg — in its run the returned label (negative) was set at s8, inside the branch controlled by s7</text><feedback><text>Correct — s8 is control-dependent on s7, so s7 is in neg's backward slice; pos and zero returned a label not controlled by s7.</text></feedback></answer>
+    <answer fraction="0"><text>All three — every test executes the return statement</text><feedback><text>That is the Static result. Dynamically, only neg's returned label was set within an s7-controlled branch.</text></feedback></answer>
+    <answer fraction="0"><text>Only zero</text><feedback><text>zero returned the s2 value, which is not control-dependent on s7, so zero is Safe to Skip.</text></feedback></answer>
+    <answer fraction="0"><text>None</text><feedback><text>neg's returned label came from s8, controlled by s7, so neg is selected.</text></feedback></answer>
+    <generalfeedback><text>In the neg run (n=-3) the else-if branch fires and label is set at s8, which is control-dependent on s7; so s7 is in neg's dynamic backward slice and neg is selected. pos returned the value from s5 and zero from s2, neither control-dependent on s7, so both are Safe to Skip. Dynamic selects only neg — while Static selected all three.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match term to role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing of a term with its role in the explorer is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Impact set = the forward slice of the changed statement = everything the edit can reach</text><feedback><text>Correct — the impact set is the forward slice, and Static mode selects tests that execute any of it.</text></feedback></answer>
+    <answer fraction="0"><text>Impact set = the set of tests that always pass</text><feedback><text>The impact set is a set of statements (the forward slice), not tests.</text></feedback></answer>
+    <answer fraction="0"><text>Output criterion = the changed statement</text><feedback><text>The output criterion is the returned variable at the return statement, not the changed statement.</text></feedback></answer>
+    <answer fraction="0"><text>Safe to Skip = a test the change could affect</text><feedback><text>Safe to Skip is the opposite: a test the change provably cannot affect.</text></feedback></answer>
+    <generalfeedback><text>The impact set is exactly the forward slice of the changed statement — every statement reachable from it via dependences. Static mode re-runs any test that executes a statement in this set. The output criterion (a returned variable at the return statement) anchors Dynamic mode's backward slices; Must Re-run/Safe to Skip are the affected/unaffected verdicts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify, Dynamic, change if (n &gt; 0)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode, you mark <code>s4 (if (n > 0))</code> as changed. Which tests are Must Re-run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>pos and neg are Must Re-run; zero is Safe to Skip</text><feedback><text>Correct — in the pos and neg runs the returned label was set inside a branch controlled by s4; in the zero run the output came from s2, which is not control-dependent on s4.</text></feedback></answer>
+    <answer fraction="0"><text>All three are Must Re-run</text><feedback><text>zero's returned label (from s2) is not control-dependent on s4 in its trace, so Dynamic marks zero Safe to Skip.</text></feedback></answer>
+    <answer fraction="0"><text>Only zero is Must Re-run</text><feedback><text>It is the reverse: pos and neg are selected; zero is skipped by Dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>None are Must Re-run</text><feedback><text>pos and neg both returned a label set within an s4-controlled branch, so they are selected.</text></feedback></answer>
+    <generalfeedback><text>In pos, label came from s5 (in the if-branch controlled by s4); in neg, from s8 (in the branch controlled by s7, itself controlled by s4). So s4 is in both backward slices. In zero (n=0), the returned label came from s2, which is not control-dependent on s4, so s4 is not in zero's slice — Dynamic marks zero Safe to Skip. (Static, by contrast, selects all three.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Metric for classify Dynamic, sign = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode, changing <code>s3 (sign = 0)</code> selects no tests. What does the metric line read?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-run 0 of 3 tests — 100% skipped</text><feedback><text>Correct — no test is affected, so all three are skipped.</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 3 of 3 tests — 0% skipped</text><feedback><text>That is the all-selected case; here Dynamic selects none.</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 1 of 3 tests — 67% skipped</text><feedback><text>No test is selected, so the count is 0, not 1.</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 0 of 3 tests — 0% skipped</text><feedback><text>If 0 of 3 are selected, then all 3 are skipped, which is 100%, not 0%.</text></feedback></answer>
+    <generalfeedback><text>With no test affected, A=0 and N=3, so the metric reads Re-run 0 of 3 tests — 100% skipped. This is the maximal saving: the change (to the dead variable sign) reaches none of the outputs the tests check.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Metric for classify Static, sign = 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode, changing <code>s6 (sign = 1)</code> selects only pos. What does the metric line read?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-run 1 of 3 tests — 67% skipped</text><feedback><text>Correct — 1 of 3 selected means 2 of 3 skipped, which rounds to 67%.</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 1 of 3 tests — 33% skipped</text><feedback><text>2 of the 3 tests are skipped, which is 67%, not 33%.</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 2 of 3 tests — 67% skipped</text><feedback><text>Only pos is selected, so the count is 1, not 2.</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 3 of 3 tests — 0% skipped</text><feedback><text>Static selects only pos here, not all three.</text></feedback></answer>
+    <generalfeedback><text>With A=1 selected of N=3, the skipped share is 2/3 = 67%, so the metric reads Re-run 1 of 3 tests — 67% skipped. Only pos executes s6, so the other two are Safe to Skip.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>grade-average change gives no savings</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>grade-average</code>, changing <code>s8 (avg = total / count)</code> in either mode selects both tests. Why does selection save nothing here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both tests exercise the whole chain from the change through avg and grade to the returned output, so both are genuinely affected</text><feedback><text>Correct — when every test covers the affected slice, all are selected and there is nothing to skip.</text></feedback></answer>
+    <answer fraction="0"><text>The example has no dependence edges, so slicing cannot run</text><feedback><text>The example is richly connected; that connectivity is exactly why both tests are affected.</text></feedback></answer>
+    <answer fraction="0"><text>Selection is disabled for two-test suites</text><feedback><text>Selection runs normally; it just happens that both tests are affected here.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic mode always selects every test</text><feedback><text>Dynamic mode prunes when it can; here both tests really depend on the change, so both are selected.</text></feedback></answer>
+    <generalfeedback><text>In grade-average both the pass and fail runs execute every statement, and the value at s8 flows through grade to the returned output that both tests check. So the change reaches something both tests genuinely depend on, and both are Must Re-run in both modes — 0% skipped. Selection only saves work when some tests do not touch the affected slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Static re-runs more than Dynamic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the same change in <code>classify</code>, Static mode often selects more tests than Dynamic. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static over-approximates: it selects any test that executes a statement the change could reach, even if that test's actual output did not depend on the change</text><feedback><text>Correct — the conservative impact-set criterion admits false inclusions that the trace-aware dynamic criterion prunes.</text></feedback></answer>
+    <answer fraction="0"><text>Static uses a different, larger test suite than Dynamic</text><feedback><text>Both modes classify the same suite; only the criterion differs.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic mode ignores control dependences entirely</text><feedback><text>Dynamic mode does use control dependences, restricted to the recorded trace; the difference is precision, not ignoring a kind of edge.</text></feedback></answer>
+    <answer fraction="0"><text>Static mode counts each test twice</text><feedback><text>No double counting occurs; Static simply admits more tests via a conservative criterion.</text></feedback></answer>
+    <generalfeedback><text>Static mode is a safe over-approximation: any test that executes something in the change's forward slice is selected, including tests whose actual output did not depend on the change (false inclusions), often because they share the return statement. Dynamic mode follows each recorded trace's live dependences and prunes those, so it usually selects fewer — at the cost of safety.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Dynamic prunes sign changes to nothing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, changing any of the sign assignments (s3, s6, or s9) in Dynamic mode selects no tests, because sign is never used to compute the returned label.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — sign is a dead-end with respect to the output, so none of its definitions appear in any test's backward slice from label.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: sign never flows to the returned label, so Dynamic mode selects no test for any sign change.</text></feedback></answer>
+    <generalfeedback><text>The output criterion is s11 → label. sign is assigned at s3, s6 and s9 but never read to compute label, so no sign definition is in any test's backward slice from the output. Dynamic mode therefore skips all tests for a sign change (100% skipped). Static mode, keyed on execution rather than reachability to the output, would still select tests that execute those statements.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice-Based Regression/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Which criterion is safe</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Considering the safety property (never skip a possibly-affected test), which of the explorer's two modes is safe?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static mode — the conservative impact-set criterion selects every test that executes anything the change can reach, so it never skips an affected test</text><feedback><text>Correct — over-approximating the impact keeps the selection safe, at the cost of some false inclusions.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic mode — because it is more precise</text><feedback><text>Precision is not safety. Dynamic mode reasons from a single recorded trace and can skip a test the change might actually affect.</text></feedback></answer>
+    <answer fraction="0"><text>Both modes are equally safe</text><feedback><text>Only Static is safe here; Dynamic can under-select when a change alters control flow the recorded trace did not reveal.</text></feedback></answer>
+    <answer fraction="0"><text>Neither mode is safe</text><feedback><text>Static mode is safe by construction; it never drops a test that executes a reachable statement.</text></feedback></answer>
+    <generalfeedback><text>Static mode selects any test whose execution intersects the change's forward slice, so no possibly-affected test is skipped — it is safe, though imprecise. Dynamic mode is precise but reasons only about each recorded execution; a change that would alter a branch not taken in that trace can be missed, so it is not safe in general.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret a false inclusion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode selects all three tests when <code>s3 (sign = 0)</code> changes, yet sign never affects the returned label. What is this an instance of?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A false inclusion — the safe criterion re-runs tests that the change cannot actually affect, wasting time but risking nothing</text><feedback><text>Correct — over-selection (imprecision) costs extra runs but never hides a regression.</text></feedback></answer>
+    <answer fraction="0"><text>A false exclusion — an affected test was wrongly skipped</text><feedback><text>The opposite: nothing was skipped; extra tests were included. That is a false inclusion.</text></feedback></answer>
+    <answer fraction="0"><text>A bug in the explorer's slicing</text><feedback><text>It is correct conservative behaviour: Static keys on execution of the impact set, not on reaching the output.</text></feedback></answer>
+    <answer fraction="0"><text>Proof that Static mode is unsafe</text><feedback><text>Over-inclusion is the price of safety, not a violation of it; unsafety would be skipping an affected test.</text></feedback></answer>
+    <generalfeedback><text>All three tests execute s3, so the safe Static criterion re-runs them even though sign is dead with respect to the output. That is a false inclusion: imprecision that costs wasted re-runs but never lets a regression slip through. False exclusions — skipping an affected test — are the dangerous error a safe criterion must avoid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Dynamic can be unsafe: the if condition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode marks the <code>zero</code> test <em>Safe to Skip</em> when <code>s4 (if (n > 0))</code> changes. Why is trusting this potentially unsafe?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Editing the branch condition could change which branch the n=0 input takes, altering zero's output — but the recorded trace, which never entered a branch, cannot reveal that</text><feedback><text>Correct — dynamic slicing reasons from one execution, so a change that redirects control flow can affect a test the trace marked unaffected.</text></feedback></answer>
+    <answer fraction="0"><text>The zero test is a duplicate, so skipping it is always fine</text><feedback><text>zero is not a duplicate; the risk is that the edit could change its behaviour undetected.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic mode never uses control dependences, so it always misses conditions</text><feedback><text>Dynamic mode does use control dependences, but only those exercised by the recorded trace — that is the limitation.</text></feedback></answer>
+    <answer fraction="0"><text>It is perfectly safe; the zero output truly cannot change</text><feedback><text>Changing the condition to, say, n &gt;= 0 would flip the n=0 case, so the zero output can change — the dynamic verdict is not safe.</text></feedback></answer>
+    <generalfeedback><text>In the recorded zero run (n=0) neither branch fired, so its output came from s2 and its dynamic slice excludes s4. But changing the condition (e.g. to n &gt;= 0) could make n=0 enter a branch and change the returned label. The single trace cannot foresee this, so Dynamic's Safe to Skip verdict is not sound for a control-flow-altering edit — which is why Static (conservative) mode should gate correctness-critical decisions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost versus retest-all</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with retest-all (re-running the whole suite), what does safe slice-based selection buy, and what must hold for the trade to be worthwhile?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It skips provably-unaffected tests with no loss of fault-detection; it pays off when the affected subset is much smaller than the suite and the analysis is cheaper than the runs it saves</text><feedback><text>Correct — savings come only when many tests are unaffected and the selection analysis is cheap relative to the avoided test runs.</text></feedback></answer>
+    <answer fraction="0"><text>It always runs strictly fewer tests than retest-all, in every case</text><feedback><text>Not always: when every test is affected (as in grade-average) selection re-runs them all, matching retest-all.</text></feedback></answer>
+    <answer fraction="0"><text>It finds more defects than retest-all</text><feedback><text>A safe selection detects the same regressions as retest-all for the change; it does not find more.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need ever to run the full suite again</text><feedback><text>Selection is per-change; broader or full runs still have their place.</text></feedback></answer>
+    <generalfeedback><text>A safe selection detects exactly the regressions retest-all would for the change, while skipping tests it proves unaffected. The benefit materialises only when a large share of the suite is unaffected and the cost of computing the selection is less than the cost of the runs it avoids. When nearly all tests are affected, selection degenerates to retest-all with extra analysis overhead.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret grade-average: no savings</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>grade-average</code>, every change selects both tests in both modes. What does this tell you about that example?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both tests exercise the entire dependence chain to the output, so every statement is in the slice both tests depend on — leaving nothing to safely skip</text><feedback><text>Correct — with two whole-program traces that both reach the output through every statement, no test is ever provably unaffected.</text></feedback></answer>
+    <answer fraction="0"><text>The example is mislabelled; selection should always save something</text><feedback><text>Selection cannot save when every test genuinely depends on the changed code; that is correct behaviour, not a mislabel.</text></feedback></answer>
+    <answer fraction="0"><text>Its tests are flaky, so the tool cannot classify them</text><feedback><text>Flakiness is unrelated; the tests are deterministic and both genuinely affected.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic mode is broken for this example</text><feedback><text>Dynamic mode works; it correctly finds both tests depend on the change through the accumulation into the output.</text></feedback></answer>
+    <generalfeedback><text>grade-average is a straight-line accumulation where total and count both flow through avg and grade to the returned result, and both tests execute every statement. So whatever you change, both tests genuinely depend on it, and both are Must Re-run in both modes. It is the honest counter-example: selection helps only when some tests avoid the affected slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why never skip a possibly-affected test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why must a regression selection technique never skip a test that the change could possibly affect?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A skipped affected test could have revealed a regression the change introduced; skipping it lets that regression escape undetected</text><feedback><text>Correct — a false exclusion silently forfeits the protection the test provided for this change.</text></feedback></answer>
+    <answer fraction="0"><text>Because skipping any test always makes the suite slower</text><feedback><text>Skipping tests makes runs faster; the danger is missing a regression, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>Because every test must run the same number of times</text><feedback><text>There is no such rule; the concern is not omitting an affected test.</text></feedback></answer>
+    <answer fraction="0"><text>Because the tool cannot compute metrics otherwise</text><feedback><text>Metrics are unaffected; the reason is fault-detection safety.</text></feedback></answer>
+    <generalfeedback><text>The point of selection is to skip work without losing coverage of the change. If an affected test is skipped, a regression it would have caught can ship unnoticed — the selection actively hid a defect. That is why safety (no false exclusions) is the non-negotiable property, and false inclusions are the tolerable price for it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the false inclusions for label = "positive"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Static mode selects all three tests when <code>s5 (label = "positive")</code> changes. Which selected tests are false inclusions, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>neg and zero — they execute the shared return statement (in the impact set) but their returned label was not the value defined at s5</text><feedback><text>Correct — they intersect the impact set only via s11, so the conservative criterion includes them though the change cannot alter their output.</text></feedback></answer>
+    <answer fraction="0"><text>pos — its output actually came from s5</text><feedback><text>pos is a true inclusion: its returned label was defined at s5, so the change can affect it.</text></feedback></answer>
+    <answer fraction="0"><text>None — all three genuinely depend on s5</text><feedback><text>Only pos's output came from s5; neg and zero are included only because they execute the shared return.</text></feedback></answer>
+    <answer fraction="0"><text>All three, since sign is unaffected</text><feedback><text>pos genuinely depends on s5, so it is not a false inclusion; only neg and zero are.</text></feedback></answer>
+    <generalfeedback><text>The impact set of s5 is {s5, s11}. All three tests execute s11 (the return), so Static selects all three. But only pos's returned label was actually defined at s5; neg's came from s8 and zero's from s2. So neg and zero are false inclusions — selected safely, but the change cannot really affect them. Dynamic mode, tracing the live definition to the output, selects only pos.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The precision-safety trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best captures the trade-off between the explorer's two modes?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static is safe but imprecise (it may over-select); Dynamic is precise but not safe in general (it may under-select based on one trace)</text><feedback><text>Correct — safety and precision pull against each other; Static favours safety, Dynamic favours precision.</text></feedback></answer>
+    <answer fraction="0"><text>Static is both safer and more precise than Dynamic</text><feedback><text>Static is safer but less precise; it over-selects where Dynamic prunes.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic is both safer and more precise than Static</text><feedback><text>Dynamic is more precise but not safe in general, because it reasons from a single recorded trace.</text></feedback></answer>
+    <answer fraction="0"><text>The two modes always produce identical selections</text><feedback><text>They differ whenever a test executes the impact set but its recorded output did not depend on the change.</text></feedback></answer>
+    <generalfeedback><text>Static's conservative impact-set criterion never skips an affected test (safe) but re-runs some unaffected ones (imprecise). Dynamic's trace-aware backward slice prunes those false inclusions (precise) but can miss a test whose behaviour a control-flow-altering change would affect (unsafe). Choosing between them is choosing where on the safety-precision spectrum to sit.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A safe selection may still over-select</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A safe regression selection may still re-run some tests that the change cannot actually affect.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — safety forbids false exclusions, but it permits false inclusions (over-selection), as Static mode shows.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: safety only requires that no affected test is skipped; re-running some unaffected tests is allowed.</text></feedback></answer>
+    <generalfeedback><text>Safety is about not missing affected tests, not about minimality. A safe technique may include extra, unaffected tests (false inclusions) — the price of a conservative over-approximation. Static mode in the explorer does exactly this, for example selecting all three classify tests on a change to the dead variable sign.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Dynamic selection is not guaranteed safe</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer's Dynamic mode is guaranteed to be safe: it never marks a possibly-affected test as Safe to Skip.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — Dynamic reasons from one recorded trace, so a control-flow-altering change can affect a test it marked Safe to Skip.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: Dynamic mode can under-select, e.g. marking zero Safe to Skip when the if-condition changes.</text></feedback></answer>
+    <generalfeedback><text>Dynamic mode's backward slice is computed from a single recorded execution. A change that would alter control flow not exercised in that trace can still affect the test, yet the dynamic slice will not contain the change — so the test is wrongly marked Safe to Skip. That is precisely why Dynamic is precise but not safe, and Static is the mode to trust for correctness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret last-definition reasoning for zero</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, Dynamic mode selects only <code>zero</code> when <code>s2 (label = "zero")</code> changes. What reasoning yields this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only in the zero run was s2's value the last definition of label to reach the output; pos and neg overwrote label before returning</text><feedback><text>Correct — the live (last-definition) data-dependence to the output holds from s2 only in the zero run.</text></feedback></answer>
+    <answer fraction="0"><text>zero executes s2 and pos and neg do not</text><feedback><text>All three execute s2; the difference is which definition of label survived to the output.</text></feedback></answer>
+    <answer fraction="0"><text>zero is the slowest test, so it is always selected</text><feedback><text>Runtime plays no role; the live-definition analysis does.</text></feedback></answer>
+    <answer fraction="0"><text>s2 is the output criterion, so its own test is always chosen</text><feedback><text>The output criterion is s11 → label; s2 is selected only where its definition reaches the output.</text></feedback></answer>
+    <generalfeedback><text>Dynamic mode keeps only the live data-dependence edges — the last definition of a variable that actually reached each use. All three tests assign label at s2, but pos reassigns it at s5 and neg at s8, so those later definitions are the live ones reaching the return. Only in the zero run (neither branch taken) does s2's definition survive to the output, so s2 is in zero's backward slice alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When is selection worth the analysis cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the two examples in the explorer, when is slice-based selection clearly worthwhile versus barely better than retest-all?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Worthwhile like classify, where changes to dead or branch-local statements leave many tests provably unaffected; barely better like grade-average, where every test depends on the change</text><feedback><text>Correct — savings track how much of the suite the change fails to reach.</text></feedback></answer>
+    <answer fraction="0"><text>Always worthwhile, because analysis is free</text><feedback><text>The analysis has a cost; when every test is affected, that cost is pure overhead.</text></feedback></answer>
+    <answer fraction="0"><text>Never worthwhile, because retest-all is always safer</text><feedback><text>Safe selection is as safe as retest-all for the change, and can be much cheaper.</text></feedback></answer>
+    <answer fraction="0"><text>Worthwhile only for suites of exactly three tests</text><feedback><text>Suite size alone does not decide it; the affected fraction does.</text></feedback></answer>
+    <generalfeedback><text>In classify, changing sign (dead) or a branch-local statement leaves several tests provably unaffected, so selection skips real work. In grade-average every test depends on the change, so selection re-runs them all and adds only analysis overhead — no better than retest-all. The deciding factor is what fraction of the suite the change cannot reach.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Safe versus precise for sign = -1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>classify</code>, changing <code>s9 (sign = -1)</code>: Static selects only neg, Dynamic selects none. Which verdict is safe, and how do you reconcile them?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both are safe here, because sign genuinely never reaches the output; Static merely over-selects neg (which executes s9) while Dynamic correctly prunes it</text><feedback><text>Correct — no affected test is skipped either way; Static's neg is a false inclusion, Dynamic's empty set is exact.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic is unsafe because it skips neg</text><feedback><text>neg is not actually affected — sign never reaches the output — so skipping it is not a false exclusion.</text></feedback></answer>
+    <answer fraction="0"><text>Static is unsafe because it selects too many</text><feedback><text>Over-selecting is not unsafe; safety forbids skipping affected tests, which Static does not do.</text></feedback></answer>
+    <answer fraction="0"><text>They contradict each other, so one must be a bug</text><feedback><text>They differ only in precision; both avoid skipping a genuinely affected test, so both are safe.</text></feedback></answer>
+    <generalfeedback><text>s9 defines sign, which never flows to the returned label, so no test is truly affected. Dynamic correctly selects none. Static selects neg only because neg executes s9 — a false inclusion, not a false exclusion, so Static is still safe. The two verdicts differ in precision, not safety; here Dynamic happens to be both precise and safe because the change is dead with respect to the output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of the output criterion in Dynamic mode</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Dynamic mode computes each test's backward slice from the <em>output criterion</em> (for classify, s11 → label). Why start from the output?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A change can only make a test fail differently if it can influence the value the test ultimately observes, so the relevant tests are those whose output depends on the change</text><feedback><text>Correct — anchoring at the output captures exactly what a test checks, so the backward slice finds the changes that can alter it.</text></feedback></answer>
+    <answer fraction="0"><text>Because the output statement is always the changed statement</text><feedback><text>The output is the criterion, not the change; they are usually different statements.</text></feedback></answer>
+    <answer fraction="0"><text>Because backward slices are cheaper to compute than forward slices</text><feedback><text>The choice is about correctness of the criterion, not computational cost.</text></feedback></answer>
+    <answer fraction="0"><text>Because the output statement executes first in every trace</text><feedback><text>The output (return) executes last, not first; it is chosen because it is what the test observes.</text></feedback></answer>
+    <generalfeedback><text>A test's verdict depends on the value it observes at the output. If a change cannot influence that value (it is not in the backward slice from the output), the test's result cannot change. Starting the dynamic backward slice at the output criterion therefore selects exactly the tests whose observed result the change could alter — the precise affected set for that trace.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which mode should gate a release</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You must ensure no regression escapes when selecting tests before a release. Which mode should gate the decision, and why accept its downside?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static (safe) mode — its false inclusions cost extra test runs, but it never skips a possibly-affected test, so no regression can slip past the selection</text><feedback><text>Correct — for a correctness gate, safety outranks precision; the wasted runs are an acceptable price.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic mode — its precision means fewer tests and thus fewer bugs</text><feedback><text>Fewer tests does not mean fewer bugs; Dynamic can skip an affected test, letting a regression escape.</text></feedback></answer>
+    <answer fraction="0"><text>Either mode; they never differ on real programs</text><feedback><text>They differ whenever a control-flow-altering change is involved, which is exactly the risky case.</text></feedback></answer>
+    <answer fraction="0"><text>Neither; you should skip regression testing to save time before a release</text><feedback><text>Skipping regression before a release is the worst option — it removes the safety net entirely.</text></feedback></answer>
+    <generalfeedback><text>A release gate must not let a regression through, so it needs the safe criterion. Static mode over-approximates the impact and may re-run some unaffected tests, but it never skips a possibly-affected one — no false exclusions. Dynamic mode's precision is valuable for fast local feedback, but its trace-based reasoning can under-select, so it is the wrong tool for a correctness-critical gate. Accepting a few wasted runs is the sensible price for guaranteed safety.</text></generalfeedback>
+  </question>
+</quiz>

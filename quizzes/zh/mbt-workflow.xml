@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/MBT Workflow/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>模型階段產出什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 MBT 工作流程中，<strong>模型</strong>階段做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把非形式化的規格轉成精確的行為模型，通常是有限狀態機</text><feedback><text>正確——模型階段描述系統可能處於的狀態，以及在狀態間移動的事件。</text></feedback></answer>
+    <answer fraction="0"><text>對真實系統執行具體測試</text><feedback><text>那是執行階段，不是模型。</text></feedback></answer>
+    <answer fraction="0"><text>把抽象事件對應到真實的 API 呼叫與資料值</text><feedback><text>那是具體化，不是模型。</text></feedback></answer>
+    <answer fraction="0"><text>把觀察到的行為與預測行為比對</text><feedback><text>那是一致性判定，不是模型。</text></feedback></answer>
+    <generalfeedback><text>模型階段把非形式化規格轉成精確的行為模型（通常是 FSM）。後續所有步驟都由此推導，模型錯則測試全錯。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>生成準則階段做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>生成準則</strong>階段的工作是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>決定要多徹底地操練模型，把它轉成一組測試義務</text><feedback><text>正確——準則決定要涵蓋每個狀態、每個轉移、每對相鄰轉移，或每條來回路徑。</text></feedback></answer>
+    <answer fraction="0"><text>為每個事件挑選真實輸入值</text><feedback><text>那發生在具體化階段，不是選擇準則時。</text></feedback></answer>
+    <answer fraction="0"><text>記錄每一步觀察到的輸出</text><feedback><text>那是執行階段，不是生成準則。</text></feedback></answer>
+    <answer fraction="0"><text>把非形式化規格改寫成 FSM</text><feedback><text>那是模型階段；準則在模型存在之後才出現。</text></feedback></answer>
+    <generalfeedback><text>生成準則決定要多徹底操練模型（每個狀態、每個轉移、每對相鄰轉移，或每條來回路徑），並把模型轉成一組具體的測試義務。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>抽象測試套件中「抽象」的意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼<strong>抽象測試套件</strong>裡的測試被稱為「抽象」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們是模型層級的事件序列，只命名事件，還沒有真正的 API 呼叫或資料值</text><feedback><text>正確——抽象測試是像「validCard · push · timeout」這樣沒有具體值的序列。</text></feedback></answer>
+    <answer fraction="0"><text>它們描述的是架構而非行為</text><feedback><text>這裡的抽象指的是模型層級的事件，不是架構。</text></feedback></answer>
+    <answer fraction="0"><text>它們已經對真實系統執行過</text><feedback><text>執行發生在後面的執行階段；抽象測試還沒有真實值。</text></feedback></answer>
+    <answer fraction="0"><text>它們含有具體的 API 呼叫但沒有預期輸出</text><feedback><text>抽象測試完全不含具體 API 呼叫，那是在具體化階段才加入的。</text></feedback></answer>
+    <generalfeedback><text>抽象測試是模型層級的事件序列（如「validCard · push · timeout」）。它們只命名事件，沒有真正的 API 呼叫或資料值——那些在具體化階段提供。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具體化階段做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>具體化</strong>階段做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把每個抽象事件對應到對真實系統的具體動作，並挑選真實輸入值</text><feedback><text>正確——這裡模型與真實的受測系統（SUT）接軌。</text></feedback></answer>
+    <answer fraction="0"><text>選擇要滿足哪個涵蓋準則</text><feedback><text>那是生成準則，不是具體化。</text></feedback></answer>
+    <answer fraction="0"><text>判定系統是否符合模型</text><feedback><text>那是一致性判定，不是具體化。</text></feedback></answer>
+    <answer fraction="0"><text>從規格建立有限狀態機</text><feedback><text>那是模型階段。</text></feedback></answer>
+    <generalfeedback><text>具體化把每個抽象事件對應到具體動作（API 呼叫、UI 操作、時鐘前進），並挑選真實輸入值。模型在此與真實 SUT 接軌。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>執行階段做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>執行</strong>階段做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對 SUT 執行具體測試，並記錄觀察到的輸出與狀態轉移</text><feedback><text>正確——執行記錄每一步實際發生的事。</text></feedback></answer>
+    <answer fraction="0"><text>從模型推導抽象事件序列</text><feedback><text>那是抽象測試套件階段，不是執行。</text></feedback></answer>
+    <answer fraction="0"><text>為每個抽象事件挑選真實輸入值</text><feedback><text>那是具體化，發生在執行之前。</text></feedback></answer>
+    <answer fraction="0"><text>判斷模型是否遺漏了重要狀態</text><feedback><text>那個顧慮屬於模型階段。</text></feedback></answer>
+    <generalfeedback><text>執行對 SUT 執行具體測試，記錄每一步實際發生的事：觀察到的輸出與狀態轉移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一致性判定做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>一致性判定</strong>階段做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把觀察到的 SUT 行為與模型的預測比對</text><feedback><text>正確——相符為通過；分歧為失敗，而失敗的那一步能把問題定位出來。</text></feedback></answer>
+    <answer fraction="0"><text>選擇要多徹底地操練模型</text><feedback><text>那是生成準則。</text></feedback></answer>
+    <answer fraction="0"><text>把非形式化規格轉成行為模型</text><feedback><text>那是模型階段。</text></feedback></answer>
+    <answer fraction="0"><text>把抽象事件對應到真實 API 呼叫</text><feedback><text>那是具體化。</text></feedback></answer>
+    <generalfeedback><text>一致性判定把觀察到的 SUT 行為與模型的預測比對。相符→通過；分歧→失敗，而失敗的那一步能指出是系統有缺陷，還是模型已不符現實。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>門鎖 FSM 例子的狀態數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在門鎖的實例中，FSM 有幾個<strong>狀態</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——Locked、Unlocked、Open</text><feedback><text>正確——模型剛好有三個狀態。</text></feedback></answer>
+    <answer fraction="0"><text>2——Locked 與 Unlocked</text><feedback><text>例子還有 Open 狀態，所以共三個。</text></feedback></answer>
+    <answer fraction="0"><text>4——Locked、Unlocked、Open、Timeout</text><feedback><text>Timeout 是事件，不是狀態；共三個狀態。</text></feedback></answer>
+    <answer fraction="0"><text>5——每個轉移一個</text><feedback><text>狀態不是按轉移計算；模型有三個狀態。</text></feedback></answer>
+    <generalfeedback><text>門鎖 FSM 有三個狀態：Locked、Unlocked、Open。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>門鎖 FSM 例子的轉移數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在門鎖的實例中，FSM 有幾個<strong>轉移</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——validCard、invalidCard、push、timeout。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>例子有四個轉移，每個命名事件一個。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>模型列出四個轉移。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>模型列出四個轉移。</text></feedback></answer>
+    <generalfeedback><text>門鎖 FSM 有四個轉移：Locked --validCard--&gt; Unlocked、Locked --invalidCard--&gt; Locked、Unlocked --push--&gt; Open、Open --timeout--&gt; Locked。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>使門解鎖的事件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在門鎖 FSM 中，哪個事件使系統從 <strong>Locked</strong> 移到 <strong>Unlocked</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>validCard</text><feedback><text>正確——有效卡使已上鎖的門解鎖。</text></feedback></answer>
+    <answer fraction="0"><text>push</text><feedback><text>push 使 Unlocked 到 Open，不是 Locked 到 Unlocked。</text></feedback></answer>
+    <answer fraction="0"><text>timeout</text><feedback><text>timeout 使 Open 回到 Locked。</text></feedback></answer>
+    <answer fraction="0"><text>invalidCard</text><feedback><text>invalidCard 使門維持 Locked。</text></feedback></answer>
+    <generalfeedback><text>Locked --validCard--&gt; Unlocked：有效卡使門解鎖。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>invalidCard 使門維持上鎖</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在門鎖 FSM 中，於 Locked 狀態發生 <strong>invalidCard</strong> 事件會使系統維持在 Locked 狀態。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——Locked --invalidCard--&gt; Locked，門維持上鎖。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>規格說門在無效卡時維持上鎖；這是 Locked 上的自迴圈。</text></feedback></answer>
+    <generalfeedback><text>規格說門「stays locked on an invalid card」，建模為自迴圈 Locked --invalidCard--&gt; Locked。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SUT 的意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此工作流程中，<strong>SUT</strong> 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>受測系統（system under test）</text><feedback><text>正確——SUT 是具體測試實際執行的真實系統。</text></feedback></answer>
+    <answer fraction="0"><text>受測套件（suite under test）</text><feedback><text>SUT 指的是系統，不是套件。</text></feedback></answer>
+    <answer fraction="0"><text>受測狀態（state under test）</text><feedback><text>SUT 是受測系統，不是單一狀態。</text></feedback></answer>
+    <answer fraction="0"><text>規格單元測試（specification unit test）</text><feedback><text>SUT 是受測系統。</text></feedback></answer>
+    <generalfeedback><text>SUT 是受測系統——執行階段中具體測試實際執行的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>離線 MBT 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依探索器所述，<strong>離線 MBT</strong> 的特徵是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試在執行開始前就全部生成完畢，產出可重用、可檢視的套件</text><feedback><text>正確——離線 MBT 事先建好整個套件。</text></feedback></answer>
+    <answer fraction="0"><text>生成與執行交錯，由觀察到的狀態決定下一步</text><feedback><text>那描述的是線上 MBT，不是離線。</text></feedback></answer>
+    <answer fraction="0"><text>不產出儲存的套件；走訪即時調整</text><feedback><text>那是線上 MBT；離線產出可重用的儲存套件。</text></feedback></answer>
+    <answer fraction="0"><text>只適用於非決定性系統</text><feedback><text>離線最適合決定性系統與回歸測試。</text></feedback></answer>
+    <generalfeedback><text>離線 MBT 在執行開始前就把測試全部生成，產出可重用、可檢視的套件——最適合決定性系統與回歸測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>線上 MBT 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依探索器所述，<strong>線上 MBT</strong> 的特徵是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成與執行交錯進行——下一步由觀察到的狀態決定</text><feedback><text>正確——線上 MBT 即時走訪模型，不儲存套件。</text></feedback></answer>
+    <answer fraction="0"><text>整個測試套件在任何測試執行前就生成完畢</text><feedback><text>那是離線 MBT，不是線上。</text></feedback></answer>
+    <answer fraction="0"><text>總是產出可重用、可檢視的套件</text><feedback><text>線上 MBT 不儲存套件；走訪即時調整。</text></feedback></answer>
+    <answer fraction="0"><text>只適合小型決定性系統</text><feedback><text>線上 MBT 最適合大型或非決定性系統與浸泡測試。</text></feedback></answer>
+    <generalfeedback><text>線上 MBT 讓生成與執行交錯：下一步由觀察到的狀態決定，不儲存套件，走訪即時調整——最適合大型或非決定性系統與長時間的浸泡測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>管線的第一個階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>MBT 工作流程管線中，哪個階段<strong>最先</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模型</text><feedback><text>正確——管線由建立模型開始；後續一切由它推導。</text></feedback></answer>
+    <answer fraction="0"><text>具體化</text><feedback><text>具體化是第四個階段，不是第一個。</text></feedback></answer>
+    <answer fraction="0"><text>執行</text><feedback><text>執行是第五個階段。</text></feedback></answer>
+    <answer fraction="0"><text>一致性判定</text><feedback><text>判定是最後一個階段。</text></feedback></answer>
+    <generalfeedback><text>管線順序為：模型、生成準則、抽象測試套件、具體化、執行、一致性判定。模型最先。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>通過代表觀察與預測相符</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一致性判定為<strong>通過</strong>，代表觀察到的 SUT 行為與模型的預測相符。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——觀察與預測行為相符即為通過。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>當觀察行為與模型預測相符時，判定正是通過。</text></feedback></answer>
+    <generalfeedback><text>例子中模型預測 Locked → Unlocked → Open → Locked，而觀察到 SUT 做出相同行為，故判定為通過（一致性成立）。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/MBT Workflow/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>門鎖 FSM 的 all-transitions 義務數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對門鎖 FSM（3 狀態、4 轉移）選擇 <strong>all-transitions</strong> 準則會產生幾個測試義務？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——每個轉移一個（validCard、invalidCard、push、timeout）</text><feedback><text>正確——all-transitions 每個轉移產生一個義務，共四個。</text></feedback></answer>
+    <answer fraction="0"><text>3——每個狀態一個</text><feedback><text>那是狀態涵蓋；all-transitions 按轉移計，共四個。</text></feedback></answer>
+    <answer fraction="0"><text>7——狀態加轉移</text><feedback><text>all-transitions 下每個轉移一個義務，即四個。</text></feedback></answer>
+    <answer fraction="0"><text>12——每個狀態的每個事件</text><feedback><text>all-transitions 只涵蓋四個有效轉移。</text></feedback></answer>
+    <generalfeedback><text>實例顯示 criterion = all-transitions，obligations = { t1 validCard, t2 invalidCard, t3 push, t4 timeout }——四個義務。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>reader.swipe(...) 屬於哪個階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把抽象事件 <em>validCard</em> 的真實動作寫成 <code>reader.swipe(card="EMP-4417")</code>，發生在哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具體化</text><feedback><text>正確——把抽象事件對應到帶真實值的具體 API 呼叫就是具體化。</text></feedback></answer>
+    <answer fraction="0"><text>抽象測試套件</text><feedback><text>抽象套件只命名事件 validCard；真實呼叫在具體化階段加入。</text></feedback></answer>
+    <answer fraction="0"><text>執行</text><feedback><text>執行是跑這個具體呼叫；具體化才是寫出它的地方。</text></feedback></answer>
+    <answer fraction="0"><text>模型</text><feedback><text>模型階段建 FSM，不是具體 API 呼叫。</text></feedback></answer>
+    <generalfeedback><text>具體化把抽象事件 validCard 對應到具體動作 reader.swipe(card="EMP-4417")，並帶入真實卡號值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何抽象先於具體化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼管線要在具體化<strong>之前</strong>先推導出抽象測試套件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模型走訪先產生事件序列；具體化再把這些事件對應到真實動作與值</text><feedback><text>正確——要先有抽象事件序列，才能把每個事件對應到具體動作。</text></feedback></answer>
+    <answer fraction="0"><text>具體化必須在選擇準則之前執行</text><feedback><text>準則更早就選好了；具體化在抽象套件之後。</text></feedback></answer>
+    <answer fraction="0"><text>因為必須先執行 SUT 才能走訪模型</text><feedback><text>執行在具體化之後，不在模型走訪之前。</text></feedback></answer>
+    <answer fraction="0"><text>因為抽象測試已含真實 API 呼叫</text><feedback><text>抽象測試不含真實呼叫，這正是後面要具體化的原因。</text></feedback></answer>
+    <generalfeedback><text>抽象套件是走訪模型以滿足準則而得的事件序列。具體化再把每個事件對應到真實動作與值——所以它必須在抽象階段之後。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：走訪模型以滿足準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「走訪模型以滿足準則，產生事件序列」描述的是哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>抽象測試套件</text><feedback><text>正確——走訪模型以滿足準則正是抽象測試套件階段。</text></feedback></answer>
+    <answer fraction="0"><text>生成準則</text><feedback><text>準則階段選定涵蓋目標；走訪模型去達成它是抽象測試套件階段。</text></feedback></answer>
+    <answer fraction="0"><text>具體化</text><feedback><text>具體化把事件對應到真實動作；走訪本身是抽象測試套件階段。</text></feedback></answer>
+    <answer fraction="0"><text>一致性判定</text><feedback><text>判定比對行為，不走訪模型。</text></feedback></answer>
+    <generalfeedback><text>抽象測試套件階段走訪模型以滿足所選準則，產生模型層級的事件序列，如「validCard · push · timeout」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>timeout 的具體對應</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在實例中，哪個具體動作是抽象事件 <em>timeout</em> 的對應？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>clock.advance(5_000)</text><feedback><text>正確——把時鐘前進 5 秒即實現 timeout 事件。</text></feedback></answer>
+    <answer fraction="0"><text>reader.swipe(card="EMP-4417")</text><feedback><text>那是 validCard 的具體對應。</text></feedback></answer>
+    <answer fraction="0"><text>door.push()</text><feedback><text>那是 push 的具體對應。</text></feedback></answer>
+    <answer fraction="0"><text>door.lock()</text><feedback><text>實例用 clock.advance(5_000) 對應 timeout，不是 lock 呼叫。</text></feedback></answer>
+    <generalfeedback><text>具體化把 timeout 對應到 clock.advance(5_000)，符合規格「re-locks 5 s after opening」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>push() 後的 SUT 狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在執行軌跡中，執行 <code>push()</code> 這一步之後，SUT 狀態被記錄為哪個狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Open</text><feedback><text>正確——push 使 Unlocked 的門變為 Open。</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked</text><feedback><text>Unlocked 是 push 之前的狀態；push 使其變為 Open。</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked 是稍後 timeout 那一步才到達。</text></feedback></answer>
+    <answer fraction="0"><text>Timeout</text><feedback><text>Timeout 是事件，不是狀態。</text></feedback></answer>
+    <generalfeedback><text>執行軌跡記錄：swipe → Unlocked、push() → Open、advance(5000) → Locked。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「模型漂移」屬於哪個階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>失效「規格改了但模型沒更新，於是測試驗證的是昨天的行為」屬於哪個階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模型</text><feedback><text>正確——模型漂移是模型階段的失效模式。</text></feedback></answer>
+    <answer fraction="0"><text>執行</text><feedback><text>模型漂移是模型變陳舊，屬於模型階段失效。</text></feedback></answer>
+    <answer fraction="0"><text>具體化</text><feedback><text>具體化失效是對應缺口與輸入資料不當，不是模型漂移。</text></feedback></answer>
+    <answer fraction="0"><text>一致性判定</text><feedback><text>判定失效是誤判通過與誤判失敗；漂移是模型階段失效。</text></feedback></answer>
+    <generalfeedback><text>模型漂移——規格改了但模型沒更新——是模型階段的失效模式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何選 all-transitions 而非狀態涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼可能選擇 all-transitions 準則，而非只做狀態涵蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只做狀態涵蓋會讓可達狀態間損壞的轉移漏掉</text><feedback><text>正確——太弱（只做狀態）的準則會漏掉有缺陷的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋要花組合爆炸般更久才能滿足</text><feedback><text>狀態涵蓋是較弱、較便宜的準則；會爆炸的是所有路徑準則。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋需要先把每個事件具體化</text><feedback><text>涵蓋準則在具體化之前選定；這不是原因。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋無法在 FSM 上量測</text><feedback><text>狀態涵蓋完全可量測；它只是比較弱。</text></feedback></answer>
+    <generalfeedback><text>準則太弱（只做狀態涵蓋）會讓可達狀態間損壞的轉移漏掉——所以常偏好 all-transitions。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>回歸測試最適合的模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個 MBT 模式被描述為最適合決定性系統與<strong>回歸測試</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>離線 MBT</text><feedback><text>正確——離線產出可重用、可檢視的套件，理想於回歸。</text></feedback></answer>
+    <answer fraction="0"><text>線上 MBT</text><feedback><text>線上最適合大型或非決定性系統與浸泡測試，不是回歸。</text></feedback></answer>
+    <answer fraction="0"><text>兩者一樣適合</text><feedback><text>探索器明確把回歸測試連到離線 MBT。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都不支援回歸</text><feedback><text>離線 MBT 的可重用套件很適合回歸。</text></feedback></answer>
+    <generalfeedback><text>離線 MBT 最適合決定性系統與回歸測試，因為它產出可重用、可檢視的測試套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由觀察狀態決定下一步的模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試時哪個模式由<strong>觀察到的狀態</strong>決定下一步？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>線上 MBT</text><feedback><text>正確——線上交錯生成與執行，由觀察到的狀態決定下一步。</text></feedback></answer>
+    <answer fraction="0"><text>離線 MBT</text><feedback><text>離線在執行前就生成整個套件，無法對觀察狀態反應。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相同</text><feedback><text>只有線上會因應觀察狀態；離線是事先固定的。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆非；步驟順序總是固定的</text><feedback><text>線上明確會即時調整走訪。</text></feedback></answer>
+    <generalfeedback><text>線上 MBT 交錯生成與執行：下一步由觀察到的狀態決定，走訪即時調整。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>抽象測試 1 的模型路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>抽象測試 1 是 <em>validCard · push · timeout</em>。它在門鎖 FSM 中操練哪一串狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Locked → Unlocked → Open → Locked</text><feedback><text>正確——validCard、接著 push、再 timeout 走過這些狀態。</text></feedback></answer>
+    <answer fraction="0"><text>Locked → Open → Unlocked → Locked</text><feedback><text>push 不能從 Locked 觸發；順序是 Locked → Unlocked → Open → Locked。</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked → Open → Locked → Unlocked</text><feedback><text>測試由 Locked 以 validCard 開始。</text></feedback></answer>
+    <answer fraction="0"><text>Locked → Unlocked → Locked → Open</text><feedback><text>push 使 Unlocked 到 Open，不是回到 Locked。</text></feedback></answer>
+    <generalfeedback><text>validCard：Locked → Unlocked；push：Unlocked → Open；timeout：Open → Locked。路徑為 Locked → Unlocked → Open → Locked。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>V 模型橋接指向何處</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器的橋接把 MBT 連到 V 模型探索器。它陳述的關係是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>MBT 把 V 字右側的驗證活動具體落實</text><feedback><text>正確——橋接正是這樣描述這個連結。</text></feedback></answer>
+    <answer fraction="0"><text>MBT 取代 V 字左側的規格活動</text><feedback><text>橋接把 MBT 連到右側驗證，不是左側。</text></feedback></answer>
+    <answer fraction="0"><text>MBT 與 V 模型無關</text><feedback><text>橋接明確把兩者連起來。</text></feedback></answer>
+    <answer fraction="0"><text>MBT 只適用於 V 字的單元測試層</text><feedback><text>橋接講的是整個右側驗證，不是單一層級。</text></feedback></answer>
+    <generalfeedback><text>橋接指出模型驅動測試把 V 模型右側的驗證活動具體落實。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型錯誤的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器強調「後續所有步驟都由此模型推導」。若模型是錯的，會怎樣？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成的測試也是錯的，因為它們全都由該模型推導</text><feedback><text>正確——模型錯則測試全錯。</text></feedback></answer>
+    <answer fraction="0"><text>只有具體化步驟受影響</text><feedback><text>因為後續各階段都由模型推導，整個套件都受影響，不只具體化。</text></feedback></answer>
+    <answer fraction="0"><text>不論模型如何，判定總是通過</text><feedback><text>錯的模型可能產生誤判；並不會強制通過。</text></feedback></answer>
+    <answer fraction="0"><text>沒事，因為執行忽略模型</text><feedback><text>執行與判定都依賴模型的預測。</text></feedback></answer>
+    <generalfeedback><text>後續所有步驟都由模型推導，所以模型錯會使整條管線的測試全錯。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>記錄輸出與轉移的階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個階段記錄每一步觀察到的輸出與狀態轉移？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>執行</text><feedback><text>正確——執行記錄每一步實際發生的事。</text></feedback></answer>
+    <answer fraction="0"><text>一致性判定</text><feedback><text>判定把這些記錄與預測比對；記錄由執行產生。</text></feedback></answer>
+    <answer fraction="0"><text>抽象測試套件</text><feedback><text>抽象套件還沒有真實輸出。</text></feedback></answer>
+    <answer fraction="0"><text>生成準則</text><feedback><text>準則選定涵蓋，不記錄輸出。</text></feedback></answer>
+    <generalfeedback><text>執行對 SUT 執行具體測試，記錄觀察到的輸出與狀態轉移，判定再據以比對。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>準則把模型轉成什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依探索器所述，生成準則把模型轉成什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組具體的測試義務</text><feedback><text>正確——準則把模型轉成測試義務。</text></feedback></answer>
+    <answer fraction="0"><text>一組具體的 API 呼叫</text><feedback><text>具體 API 呼叫來自具體化，不是準則。</text></feedback></answer>
+    <answer fraction="0"><text>一個通過／失敗的判定</text><feedback><text>判定在最後才產生，不是由準則。</text></feedback></answer>
+    <answer fraction="0"><text>一個有限狀態機</text><feedback><text>FSM 是模型本身，更早就建好了。</text></feedback></answer>
+    <generalfeedback><text>準則把模型「轉成一組具體的測試義務」。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/MBT Workflow/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>詮釋一致性失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個一致性測試失敗了：模型預測系統應到達 <em>Locked</em>，但 SUT 仍停在 <em>Open</em>。這個判定告訴你什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>要嘛系統有缺陷，要嘛模型已不符系統——失敗的那一步告訴你該往哪裡查</text><feedback><text>正確——一致性失敗是分歧；缺陷在模型或系統之一，失敗的那一步把它定位。</text></feedback></answer>
+    <answer fraction="0"><text>生成準則太弱</text><feedback><text>執行時的分歧是一致性問題，不是準則強度問題。</text></feedback></answer>
+    <answer fraction="0"><text>抽象測試套件有冗餘序列</text><feedback><text>冗餘會膨脹套件；不會造成預測／觀察的分歧。</text></feedback></answer>
+    <answer fraction="0"><text>具體化一定會造成這種情形，可以忽略</text><feedback><text>一致性失敗絕不可忽略；它代表真正的分歧。</text></feedback></answer>
+    <generalfeedback><text>一致性失敗是模型與系統的分歧：缺陷在兩者之一，而失敗的那一步把它定位出來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤判失敗的風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個一致性測試失敗，但調查發現是<strong>模型</strong>錯而非系統錯。這個失效模式指出的危險是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有人去「修」一個正確的系統以迎合錯誤的模型</text><feedback><text>正確——誤判失敗可能導致更動一個正確的系統去配合壞掉的模型。</text></feedback></answer>
+    <answer fraction="0"><text>真正的缺陷被太粗的比對藏起來</text><feedback><text>那是誤判通過的危險，不是誤判失敗。</text></feedback></answer>
+    <answer fraction="0"><text>義務集合組合爆炸</text><feedback><text>那是所有路徑準則的危險，不是判定失效。</text></feedback></answer>
+    <answer fraction="0"><text>某個抽象事件沒有具體對應</text><feedback><text>那是具體化的對應缺口，不是誤判失敗。</text></feedback></answer>
+    <generalfeedback><text>誤判失敗：測試失敗是因為模型錯而非系統錯——結果有人去「修」一個正確的系統以迎合壞掉的模型。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤判通過的風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>判定階段的比對太粗，把分歧的輸出當成相符。這個失效模式造成什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>誤判通過，把真正的缺陷藏起來</text><feedback><text>正確——太粗的比對讓真正的分歧當成通過溜過去。</text></feedback></answer>
+    <answer fraction="0"><text>誤判失敗，讓正確的系統蒙冤</text><feedback><text>誤判失敗來自模型錯，不是比對太粗。</text></feedback></answer>
+    <answer fraction="0"><text>不可行的抽象序列</text><feedback><text>那是抽象套件的失效，與比對粒度無關。</text></feedback></answer>
+    <answer fraction="0"><text>具體化時的對應缺口</text><feedback><text>那是具體化失效，不是判定比對失效。</text></feedback></answer>
+    <generalfeedback><text>誤判通過：比對太粗，把分歧的輸出當成相符，把真正的缺陷藏起來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何所有路徑永遠跑不完</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼選擇「所有來回路徑」準則被描述為一種風險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>義務集合組合爆炸，套件永遠跑不完</text><feedback><text>正確——太強的準則會產生無界的義務集合。</text></feedback></answer>
+    <answer fraction="0"><text>它讓可達的轉移未被測試</text><feedback><text>那是太弱準則的弱點，不是所有路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它無法在有限狀態機上表達</text><feedback><text>它可以表達；問題在義務集合的大小。</text></feedback></answer>
+    <answer fraction="0"><text>它完全跳過具體化步驟</text><feedback><text>每個準則仍要餵入具體化；問題是組合爆炸。</text></feedback></answer>
+    <generalfeedback><text>準則太強（所有路徑）使義務集合組合爆炸，套件永遠跑不完。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>執行時的非決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>執行階段的一個失效模式是<em>非決定性</em>。它會產生什麼症狀？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>時序或非同步行為使同一個測試在多次執行間時過時敗</text><feedback><text>正確——非決定性造成不穩、逐次不一致。</text></feedback></answer>
+    <answer fraction="0"><text>某個抽象事件無法對應到具體動作</text><feedback><text>那是具體化的對應缺口，不是非決定性。</text></feedback></answer>
+    <answer fraction="0"><text>模型遺漏了真正重要的狀態</text><feedback><text>那是模型階段的過度抽象。</text></feedback></answer>
+    <answer fraction="0"><text>義務集合大到跑不動</text><feedback><text>那是所有路徑準則的問題。</text></feedback></answer>
+    <generalfeedback><text>非決定性：時序或非同步行為使同一個測試在多次執行間時過時敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可觀察性缺口的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若執行時 SUT 的內部狀態無法觀察，所述的後果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>分歧被晚發現或根本沒發現</text><feedback><text>正確——沒有可觀察性，不相符可能沒被看見。</text></feedback></answer>
+    <answer fraction="0"><text>義務集合組合爆炸</text><feedback><text>那是所有路徑準則的問題，不是可觀察性缺口。</text></feedback></answer>
+    <answer fraction="0"><text>抽象套件含冗餘序列</text><feedback><text>冗餘是抽象套件的失效，與可觀察性無關。</text></feedback></answer>
+    <answer fraction="0"><text>每張有效卡都被拒絕</text><feedback><text>那不是可觀察性缺口所描述的。</text></feedback></answer>
+    <generalfeedback><text>可觀察性缺口：SUT 的內部狀態無法觀察，分歧因此被晚發現或根本沒發現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具體化時的輸入資料不當</text></name>
+    <questiontext format="html"><text><![CDATA[<p>具體化時，挑的具體值觸發了抽象測試本不打算操練的守衛條件。這是哪個失效模式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>輸入資料不當——真實值把執行引向了非預期的守衛轉移</text><feedback><text>正確——不佳的值選擇會啟動測試本意之外的守衛。</text></feedback></answer>
+    <answer fraction="0"><text>對應缺口——某個抽象事件沒有具體對應</text><feedback><text>那是另一種具體化失效；這裡對應存在，只是值選錯。</text></feedback></answer>
+    <answer fraction="0"><text>模型漂移——規格改了但模型沒改</text><feedback><text>那是模型階段的失效。</text></feedback></answer>
+    <answer fraction="0"><text>誤判通過——太粗的比對藏起缺陷</text><feedback><text>那是判定階段的失效。</text></feedback></answer>
+    <generalfeedback><text>輸入資料不當：挑的具體值觸發了抽象測試本不打算操練的守衛條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對應缺口的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>具體化時，某個抽象事件沒有具體對應。直接後果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試無法執行</text><feedback><text>正確——沒有為每個事件提供具體動作，測試就不可執行。</text></feedback></answer>
+    <answer fraction="0"><text>判定自動變成通過</text><feedback><text>缺少對應會阻擋執行；不會強制通過。</text></feedback></answer>
+    <answer fraction="0"><text>義務集合翻倍</text><feedback><text>對應缺口不改變義務數量。</text></feedback></answer>
+    <answer fraction="0"><text>模型多出一個狀態</text><feedback><text>具體化不會修改模型。</text></feedback></answer>
+    <generalfeedback><text>對應缺口：某個抽象事件沒有具體對應，測試因此無法執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行序列的來源</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個階段會產生<em>不可行序列</em>——真實系統永遠無法達到的事件順序？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>抽象測試套件（模型走訪）</text><feedback><text>正確——走訪可能產生真實系統永遠達不到的順序。</text></feedback></answer>
+    <answer fraction="0"><text>執行</text><feedback><text>執行會揭露問題，但不可行順序是走訪模型時產生的。</text></feedback></answer>
+    <answer fraction="0"><text>一致性判定</text><feedback><text>判定比對行為，不生成序列。</text></feedback></answer>
+    <answer fraction="0"><text>生成準則</text><feedback><text>準則設定涵蓋目標；不可行順序來自抽象套件階段的走訪。</text></feedback></answer>
+    <generalfeedback><text>不可行序列是抽象測試套件的失效：走訪產生了真實系統永遠無法達到的事件順序。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>冗餘測試的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>許多抽象測試涵蓋同一個轉移。探索器說這會怎樣？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>套件膨脹卻沒增加涵蓋</text><feedback><text>正確——冗餘測試讓套件變大卻沒操練到新東西。</text></feedback></answer>
+    <answer fraction="0"><text>增加每對轉移的涵蓋</text><feedback><text>重複同一個轉移不會增加新涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>保證判定誤判通過</text><feedback><text>冗餘影響套件大小，不影響判定正確性。</text></feedback></answer>
+    <answer fraction="0"><text>免去具體化的需要</text><feedback><text>每個抽象測試仍需具體化。</text></feedback></answer>
+    <generalfeedback><text>冗餘測試：許多抽象測試涵蓋同一個轉移，套件膨脹卻沒增加涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為大型非決定性系統選模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你要測一個大型、非決定性且需長時間浸泡的系統。哪個模式合適，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>線上 MBT，因為它交錯生成與執行，並依觀察到的狀態調整走訪</text><feedback><text>正確——線上 MBT 被描述為最適合大型或非決定性系統與浸泡測試。</text></feedback></answer>
+    <answer fraction="0"><text>離線 MBT，因為固定套件更能處理非決定性</text><feedback><text>固定套件無法因應非決定性行為；這裡偏好線上。</text></feedback></answer>
+    <answer fraction="0"><text>離線 MBT，因為它不產出儲存的套件</text><feedback><text>不儲存套件的是線上；離線產出可重用套件。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆不；MBT 無法測非決定性系統</text><feedback><text>線上 MBT 正是被推薦用於非決定性系統。</text></feedback></answer>
+    <generalfeedback><text>線上 MBT 交錯生成與執行、即時調整，最適合大型或非決定性系統與長時間的浸泡測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>幾條抽象測試涵蓋全部四個義務</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在實例中，套件用幾條抽象測試涵蓋全部四個轉移義務？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2——validCard·push·timeout 涵蓋三個，invalidCard 涵蓋第四個</text><feedback><text>正確——抽象測試 1 涵蓋 t1、t3、t4，抽象測試 2 涵蓋 t2。</text></feedback></answer>
+    <answer fraction="0"><text>4——每個轉移一條測試</text><feedback><text>一條測試可依序涵蓋多個轉移；例子只用兩條。</text></feedback></answer>
+    <answer fraction="0"><text>1——單一路徑涵蓋一切</text><feedback><text>invalidCard 是獨立的自迴圈，需要第二條測試。</text></feedback></answer>
+    <answer fraction="0"><text>3——每個狀態一條</text><feedback><text>是按測試數計，例子列出兩條。</text></feedback></answer>
+    <generalfeedback><text>抽象套件列出兩條測試：「validCard · push · timeout」（涵蓋 t1、t3、t4）與「invalidCard」（涵蓋 t2）——兩條測試涵蓋四個義務。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>抽象測試 2 操練的轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>抽象測試 2 只是 <em>invalidCard</em>。它操練哪個轉移，特別之處是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Locked → Locked——一個自迴圈，因為無效卡使門維持上鎖</text><feedback><text>正確——invalidCard 是讓門維持 Locked 的自迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>Locked → Unlocked——它使門解鎖</text><feedback><text>只有有效卡使門解鎖；invalidCard 使門維持上鎖。</text></feedback></answer>
+    <answer fraction="0"><text>Open → Locked——它使門重新上鎖</text><feedback><text>那是 timeout 轉移，不是 invalidCard。</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked → Open——它使門打開</text><feedback><text>那是 push 轉移。</text></feedback></answer>
+    <generalfeedback><text>invalidCard 操練自迴圈 Locked --invalidCard--&gt; Locked：門在無效卡時維持上鎖。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>規格改了但模型沒更新</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格改成門在 10 秒（而非 5 秒）後重新上鎖，但 FSM 的 timeout 仍留在 5 秒。這是哪個失效模式，測試接著驗證什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模型漂移——測試驗證的是昨天的 5 秒行為，而非現行 10 秒規格</text><feedback><text>正確——未更新的模型讓測試檢查陳舊的行為。</text></feedback></answer>
+    <answer fraction="0"><text>輸入資料不當——挑錯了具體值</text><feedback><text>這裡是模型本身陳舊，不是具體化值的問題。</text></feedback></answer>
+    <answer fraction="0"><text>可觀察性缺口——timeout 無法觀察</text><feedback><text>timeout 可觀察；問題是模型沒更新。</text></feedback></answer>
+    <answer fraction="0"><text>不可行序列——timeout 順序無法達到</text><feedback><text>序列仍可行；只是模型過時。</text></feedback></answer>
+    <generalfeedback><text>模型漂移：規格改了但模型沒更新，於是測試驗證昨天的行為（舊的 5 秒 timeout），而非現行規格。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何抽象測試須先具體化才能執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>執行是對真實 SUT 跑的，但抽象測試 <em>validCard · push · timeout</em> 無法直接執行。為什麼必須先具體化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>抽象測試只命名事件，沒有真實 API 呼叫或值；具體化提供執行所需的具體動作與值</text><feedback><text>正確——SUT 需要真實呼叫與值，這由具體化提供。</text></feedback></answer>
+    <answer fraction="0"><text>判定必須在執行開始前算出</text><feedback><text>判定是最後階段；不可能先於執行。</text></feedback></answer>
+    <answer fraction="0"><text>生成準則會在執行時重新選擇</text><feedback><text>準則早就固定，不會在執行時重選。</text></feedback></answer>
+    <answer fraction="0"><text>要先從觀察到的輸出重建模型</text><feedback><text>執行不重建模型；它跑的是已具體化的測試。</text></feedback></answer>
+    <generalfeedback><text>抽象測試是模型層級的事件序列，沒有真實 API 呼叫或資料值。具體化把每個事件對應到具體動作（如 reader.swipe(card="EMP-4417")）與真實值，這正是執行對 SUT 所需。</text></generalfeedback>
+  </question>
+</quiz>
