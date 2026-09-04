@@ -88682,7 +88682,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           {
             "type": "multichoice",
             "name": "succeeds \u72C0\u614B\u7684\u610F\u7FA9",
-            "text": "<p>\u5728 app \u7684\u9632\u79A6\u9762\u677F\u4E2D\uFF0C\u72C0\u614B <strong>Payload succeeds</strong> \u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "text": "<p>\u5728 app \u7684\u9632\u79A6\u9762\u677F\u4E2D\uFF0C\u72C0\u614B <strong>\u653B\u64CA\u8F09\u8377\u6210\u529F</strong>\uFF08Payload succeeds\uFF09\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
             "answers": [
               {
                 "text": "\u6C92\u6709\u4EFB\u4F55\u7DE9\u89E3\u63AA\u65BD\u5728\u4F5C\u7528\uFF0C\u56E0\u6B64\u6A19\u6E96\u7684\u88AB\u6CE8\u5165\u547D\u4EE4\u6703\u88AB\u57F7\u884C",
@@ -88705,13 +88705,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "\u90A3\u6703\u628A\u8F09\u8377\u64CB\u4E0B\uFF1Bsucceeds \u8868\u793A\u6C92\u6709\u4EFB\u4F55\u9632\u79A6\u5728\u4F5C\u7528\u3002"
               }
             ],
-            "generalFeedback": "\u7576\u6C92\u6709\u9632\u79A6\u88AB\u5207\u63DB\u70BA\u958B\u6642\uFF0Capp \u986F\u793A Payload succeeds\uFF1A\u6A19\u6E96\u8F09\u8377\u4E2D\u88AB\u6CE8\u5165\u7684\u547D\u4EE4\u6703\u57F7\u884C\u3002\u555F\u7528\u4E00\u9805\u9632\u79A6\u6703\u628A\u72C0\u614B\u8B8A\u70BA gated\uFF0C\u800C\u5168\u90E8\u555F\u7528\u5247\u986F\u793A\u300C\u6240\u6709\u9632\u79A6\u555F\u7528\u300D\u3002",
+            "generalFeedback": "\u7576\u6C92\u6709\u9632\u79A6\u88AB\u5207\u63DB\u70BA\u958B\u6642\uFF0Capp \u986F\u793A\u300C\u653B\u64CA\u8F09\u8377\u6210\u529F\u300D\uFF08Payload succeeds\uFF09\uFF1A\u6A19\u6E96\u8F09\u8377\u4E2D\u88AB\u6CE8\u5165\u7684\u547D\u4EE4\u6703\u57F7\u884C\u3002\u555F\u7528\u4E00\u9805\u9632\u79A6\u6703\u628A\u72C0\u614B\u8B8A\u70BA gated\uFF0C\u800C\u5168\u90E8\u555F\u7528\u5247\u986F\u793A\u300C\u6240\u6709\u9632\u79A6\u555F\u7528\u300D\u3002",
             "single": true
           },
           {
             "type": "multichoice",
             "name": "gated \u72C0\u614B\u7684\u610F\u7FA9",
-            "text": "<p>app \u7684\u72C0\u614B <strong>Payload gated by an active defense</strong> \u8868\u793A\u4EC0\u9EBC\uFF1F</p>",
+            "text": "<p>app \u7684\u72C0\u614B <strong>\u653B\u64CA\u8F09\u8377\u88AB\u555F\u7528\u7684\u9632\u79A6\u963B\u64CB</strong>\uFF08Payload gated by an active defense\uFF09\u8868\u793A\u4EC0\u9EBC\uFF1F</p>",
             "answers": [
               {
                 "text": "\u81F3\u5C11\u6709\u4E00\u9805\u7DE9\u89E3\u63AA\u65BD\u88AB\u555F\u7528\uFF0C\u4E14\u5B83\u64CB\u4E0B\u4E86\u6A19\u6E96\u8F09\u8377",
@@ -96482,7 +96482,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           {
             "type": "multichoice",
             "name": "\u300Cgated\u300D\u72C0\u614B\u7684\u610F\u7FA9",
-            "text": "<p>\u63A2\u7D22\u5668\u986F\u793A\u7684\u916C\u8F09\u72C0\u614B\u70BA\u300CPayload gated by an active defense\u300D\u3002\u9019\u88E1\u7684 <strong>gated</strong> \u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "text": "<p>\u63A2\u7D22\u5668\u986F\u793A\u7684\u916C\u8F09\u72C0\u614B\u70BA\u300C\u653B\u64CA\u8F09\u8377\u88AB\u555F\u7528\u7684\u9632\u79A6\u963B\u64CB\u300D\uFF08Payload gated by an active defense\uFF09\u3002\u9019\u88E1\u7684 <strong>gated</strong> \u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
             "answers": [
               {
                 "text": "\u81F3\u5C11\u6709\u4E00\u9805\u5DF2\u555F\u7528\u7684\u9632\u79A6\u5C01\u4F4F\u4E86\u6A19\u6E96\u916C\u8F09\uFF0C\u4F46\u4E26\u975E\u6240\u6709\u9632\u79A6\u90FD\u5DF2\u555F\u7528",
@@ -96492,7 +96492,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "\u7121\u8AD6\u555F\u7528\u54EA\u4E9B\u9632\u79A6\uFF0C\u916C\u8F09\u90FD\u4E00\u5F8B\u6210\u529F",
                 "fraction": 0,
-                "feedback": "\u90A3\u6703\u662F\u300CPayload succeeds\u300D\u72C0\u614B\uFF0C\u800C\u975E\u300Cgated\u300D\u3002"
+                "feedback": "\u90A3\u6703\u662F\u300C\u653B\u64CA\u8F09\u8377\u6210\u529F\u300D\uFF08Payload succeeds\uFF09\u72C0\u614B\uFF0C\u800C\u975E\u300Cgated\u300D\u3002"
               },
               {
                 "text": "\u76EE\u524D\u5217\u51FA\u7684\u6BCF\u4E00\u9805\u9632\u79A6\u90FD\u5DF2\u555F\u7528",
@@ -182963,7 +182963,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           },
           {
             "type": "multichoice",
-            "name": "\u5DE2\u72C0\u9632\u885B\u7BC4\u4F8B\u4E2D\u7684\u9644\u5E36\u8986\u84CB",
+            "name": "\u5DE2\u72C0\u5B88\u885B\u7BC4\u4F8B\u4E2D\u7684\u9644\u5E36\u8986\u84CB",
             "text": "<p>\u5728 nested-guard \u7BC4\u4F8B\u4E2D\uFF0C\u6E2C\u8A66 x = 17 \u4E14 y = 150 \u4F7F\u5169\u500B\u5206\u652F\u90FD\u70BA\u771F\uFF08b1 \u70BA x === 17\uFF0Cb2 \u70BA y \u5927\u65BC 100\uFF09\u3002\u9019\u4E00\u500B\u6E2C\u8A66\u8986\u84CB\u4E86\u54EA\u4E9B\u76EE\u6A19\uFF1F</p>",
             "answers": [
               {

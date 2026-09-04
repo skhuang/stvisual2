@@ -42675,7 +42675,7 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "succeeds 狀態的意義",
-          "text": "<p>在 app 的防禦面板中，狀態 <strong>Payload succeeds</strong> 是什麼意思？</p>",
+          "text": "<p>在 app 的防禦面板中，狀態 <strong>攻擊載荷成功</strong>（Payload succeeds）是什麼意思？</p>",
           "answers": [
             {
               "text": "沒有任何緩解措施在作用，因此標準的被注入命令會被執行",
@@ -42698,13 +42698,13 @@ export const QUIZ_RENDERED = {
               "feedback": "那會把載荷擋下；succeeds 表示沒有任何防禦在作用。"
             }
           ],
-          "generalFeedback": "當沒有防禦被切換為開時，app 顯示 Payload succeeds：標準載荷中被注入的命令會執行。啟用一項防禦會把狀態變為 gated，而全部啟用則顯示「所有防禦啟用」。",
+          "generalFeedback": "當沒有防禦被切換為開時，app 顯示「攻擊載荷成功」（Payload succeeds）：標準載荷中被注入的命令會執行。啟用一項防禦會把狀態變為 gated，而全部啟用則顯示「所有防禦啟用」。",
           "single": true
         },
         {
           "type": "multichoice",
           "name": "gated 狀態的意義",
-          "text": "<p>app 的狀態 <strong>Payload gated by an active defense</strong> 表示什麼？</p>",
+          "text": "<p>app 的狀態 <strong>攻擊載荷被啟用的防禦阻擋</strong>（Payload gated by an active defense）表示什麼？</p>",
           "answers": [
             {
               "text": "至少有一項緩解措施被啟用，且它擋下了標準載荷",
@@ -50467,7 +50467,7 @@ export const QUIZ_RENDERED = {
         {
           "type": "multichoice",
           "name": "「gated」狀態的意義",
-          "text": "<p>探索器顯示的酬載狀態為「Payload gated by an active defense」。這裡的 <strong>gated</strong> 是什麼意思？</p>",
+          "text": "<p>探索器顯示的酬載狀態為「攻擊載荷被啟用的防禦阻擋」（Payload gated by an active defense）。這裡的 <strong>gated</strong> 是什麼意思？</p>",
           "answers": [
             {
               "text": "至少有一項已啟用的防禦封住了標準酬載，但並非所有防禦都已啟用",
@@ -50477,7 +50477,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "無論啟用哪些防禦，酬載都一律成功",
               "fraction": 0,
-              "feedback": "那會是「Payload succeeds」狀態，而非「gated」。"
+              "feedback": "那會是「攻擊載荷成功」（Payload succeeds）狀態，而非「gated」。"
             },
             {
               "text": "目前列出的每一項防禦都已啟用",
@@ -136948,7 +136948,7 @@ export const QUIZ_RENDERED = {
         },
         {
           "type": "multichoice",
-          "name": "巢狀防衛範例中的附帶覆蓋",
+          "name": "巢狀守衛範例中的附帶覆蓋",
           "text": "<p>在 nested-guard 範例中，測試 x = 17 且 y = 150 使兩個分支都為真（b1 為 x === 17，b2 為 y 大於 100）。這一個測試覆蓋了哪些目標？</p>",
           "answers": [
             {

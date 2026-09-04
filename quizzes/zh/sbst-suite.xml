@@ -324,7 +324,7 @@
     <generalfeedback><text>在端點上，成本 0 與覆蓋率 100% 說的是同一件事。成本的價值在於途中：當測試接近未覆蓋目標時它連續下降，在離散覆蓋計數尚未跳升的那些階段給搜尋一條梯度。</text></generalfeedback>
   </question>
   <question type="multichoice">
-    <name><text>巢狀防衛範例中的附帶覆蓋</text></name>
+    <name><text>巢狀守衛範例中的附帶覆蓋</text></name>
     <questiontext format="html"><text><![CDATA[<p>在 nested-guard 範例中，測試 x = 17 且 y = 150 使兩個分支都為真（b1 為 x === 17，b2 為 y 大於 100）。這一個測試覆蓋了哪些目標？</p>]]></text></questiontext>
     <single>true</single>
     <answer fraction="100"><text>b1 與 b2 的真結果目標——一個測試作為附帶覆蓋覆蓋了兩個目標</text><feedback><text>正確——抵達內層真結果也覆蓋了外層分支的真結果。</text></feedback></answer>
