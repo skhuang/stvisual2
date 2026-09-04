@@ -36,11 +36,14 @@ test('escape closes the overlay', async ({ page }) => {
   await expect(page.locator('#quiz-viewer')).toBeHidden();
 });
 
-test('units without a bank show no quiz button', async ({ page }) => {
-  // group-theory is a math explorer with no quiz bank.
+// Every explorer in the catalog now ships a quiz bank, so group-theory —
+// once the bankless example here — auto-wires a quiz button. The "no bank →
+// no button" guard itself is covered catalog-independently in
+// src/tests/quizViewerHas.test.js (QuizViewer.has()).
+test('a formerly-bankless explorer now shows the quiz button', async ({ page }) => {
   await page.goto('/?explorer=group-theory');
   await expect(page.getByTestId('unit-app')).toBeVisible();
-  await expect(page.getByTestId('unit-quiz-btn')).toHaveCount(0);
+  await expect(page.getByTestId('unit-quiz-btn')).toBeVisible();
 });
 
 test('shared quizId: mutation-score unit opens the mutation-testing bank', async ({ page }) => {
