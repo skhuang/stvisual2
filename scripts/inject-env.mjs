@@ -41,6 +41,9 @@ const PLACEHOLDERS = {
   __FIREBASE_MEASUREMENT_ID__: 'FIREBASE_MEASUREMENT_ID',
   __DRIVE_UPLOAD_FOLDER_ID__: 'DRIVE_UPLOAD_FOLDER_ID',
   __DRIVE_PRIVATE_SLIDES_FOLDER_ID__: 'DRIVE_PRIVATE_SLIDES_FOLDER_ID',
+  // maccount SSO login (the sign-in worker). Empty => the SSO client stays a
+  // no-op stub, so builds without it still work (login just does nothing).
+  __MACCOUNT_WORKER_URL__: 'MACCOUNT_WORKER_URL',
 };
 
 let source = await readFile(configPath, 'utf8');
