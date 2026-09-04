@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SBST Suite Generation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What whole-suite generation is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Whole-Suite Evolution explorer, what does <strong>whole-suite generation</strong> do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It evolves an entire test suite at once so that the suite together maximises coverage of a chosen goal (all branches), rather than searching for one test at a time</text><feedback><text>Correct — the search optimises a whole suite toward covering every goal together.</text></feedback></answer>
+    <answer fraction="0"><text>It searches for a single input vector that reaches one chosen target branch</text><feedback><text>That is single-branch targeting (the sbst-branch explorer); whole-suite generation optimises a whole suite for all goals.</text></feedback></answer>
+    <answer fraction="0"><text>It measures the coverage of a fixed, hand-written suite without changing it</text><feedback><text>Whole-suite generation evolves the suite; it does not just measure a fixed one.</text></feedback></answer>
+    <answer fraction="0"><text>It formally proves that the suite covers every reachable branch</text><feedback><text>It is a metaheuristic search that seeks coverage; it does not prove anything.</text></feedback></answer>
+    <generalfeedback><text>Whole-suite generation (the EvoSuite idea) treats an entire test suite as one candidate and evolves it with a genetic algorithm so the suite as a whole covers all of the coverage goals, while keeping the suite small. This differs from targeting one branch with one evolving input vector.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an individual is here</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this whole-suite genetic algorithm, what is a single <strong>individual</strong> (candidate) in the population?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A whole test suite — a fixed-size set of test inputs evaluated together</text><feedback><text>Correct — each individual is an entire suite, not a single test.</text></feedback></answer>
+    <answer fraction="0"><text>A single test input vector</text><feedback><text>In single-branch search an individual is one input vector; in whole-suite search it is a whole suite.</text></feedback></answer>
+    <answer fraction="0"><text>One branch-outcome coverage goal</text><feedback><text>Goals are what the suite must cover; they are not the evolving individuals.</text></feedback></answer>
+    <answer fraction="0"><text>The fitness value of the best suite so far</text><feedback><text>That is a score computed from an individual, not the individual itself.</text></feedback></answer>
+    <generalfeedback><text>The defining move of whole-suite generation is that the unit of search is a suite. The GA holds a population of suites, scores each with a suite-level fitness, and evolves them with selection, crossover and mutation applied at the suite level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The coverage goal of the search</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What <strong>coverage goal</strong> does the explorer drive the suite toward?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Branch coverage — covering every branch of the target function, both outcomes</text><feedback><text>Correct — the gauge reads "Branch coverage" and the goals are the branch outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>Path coverage — covering every complete execution path</text><feedback><text>The explorer's goal set is branch outcomes, not whole paths.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation score — killing seeded mutants</text><feedback><text>Mutation testing is a different criterion; here the goal is branch coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Minimising running time of the suite</text><feedback><text>Speed is not the coverage goal; the goal is to cover all branches.</text></feedback></answer>
+    <generalfeedback><text>The explorer optimises the suite for branch coverage: every branch contributes two goals (its true and its false outcome), and the suite is driven to cover all of them. The coverage gauge shows the percentage of those goals covered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What counts as a coverage goal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For branch coverage, what does the engine treat as a single <strong>coverage goal</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One particular outcome of one branch — each branch yields two goals: taking it true and taking it false</text><feedback><text>Correct — every branch contributes a true-goal and a false-goal.</text></feedback></answer>
+    <answer fraction="0"><text>One whole branch, counted once regardless of outcome</text><feedback><text>Each branch counts as two goals here, one per outcome.</text></feedback></answer>
+    <answer fraction="0"><text>One test in the suite</text><feedback><text>Tests cover goals; a test is not itself a goal.</text></feedback></answer>
+    <answer fraction="0"><text>One complete path through the function</text><feedback><text>Goals are branch outcomes, not paths.</text></feedback></answer>
+    <generalfeedback><text>The engine's coverageGoals() lists, for every branch, both the true and the false outcome. So a function with b branches has 2b goals, and the suite must exercise each outcome at least once for full coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of goals for a two-branch example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Each example in the explorer has two branches. How many branch-outcome <strong>goals</strong> must the suite cover for 100%?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 goals — two branches, two outcomes each</text><feedback><text>Correct — 2 branches, 2 outcomes each, gives 4 goals, as the "Covered: n / 4 goals" readout shows.</text></feedback></answer>
+    <answer fraction="0"><text>2 goals — one per branch</text><feedback><text>Each branch contributes two goals (true and false), so two branches give four.</text></feedback></answer>
+    <answer fraction="0"><text>8 goals — one per test in the suite</text><feedback><text>Goals come from branch outcomes, not from the four tests.</text></feedback></answer>
+    <answer fraction="0"><text>16 goals — one per individual in the population</text><feedback><text>The population size does not set the number of goals.</text></feedback></answer>
+    <generalfeedback><text>With two branches, each having a true and a false outcome, there are 2 times 2 = 4 coverage goals. The tests panel reports coverage as "n / 4 goals", and 4/4 lights the full-coverage banner.</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>The default suite size</text></name>
+    <questiontext format="html"><text><![CDATA[<p>By default, how many test inputs make up each candidate suite in the explorer? (Enter a number.)</p>]]></text></questiontext>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the default suiteSize is 4, so the evolved suite panel lists four tests.</text></feedback></answer>
+    <answer fraction="100"><text>four</text><feedback><text>Correct — four tests per suite.</text></feedback></answer>
+    <generalfeedback><text>wholeSuiteGA runs with suiteSize 4, so each individual is a suite of four test inputs and the "Evolved suite" panel shows Test 1 through Test 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What suite-level fitness sums</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>suite-level fitness</strong> add up across the goals?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For each goal, the best (smallest) cost that any single test in the suite achieves toward that goal — summed over all goals</text><feedback><text>Correct — the per-goal contribution is the minimum test cost, summed over every goal.</text></feedback></answer>
+    <answer fraction="0"><text>The cost of the first test only, ignoring the rest of the suite</text><feedback><text>Every goal takes the best across all tests, not just the first test.</text></feedback></answer>
+    <answer fraction="0"><text>The total running time of all the tests</text><feedback><text>Fitness sums branch-distance costs, not run time.</text></feedback></answer>
+    <answer fraction="0"><text>The number of tests in the suite</text><feedback><text>Suite size is a separate concern (minimisation), not the fitness sum.</text></feedback></answer>
+    <generalfeedback><text>suiteFitness() walks every coverage goal, takes the minimum costForGoal over all tests in the suite (the closest any one test comes to that goal), and sums those minima. A lower sum means the suite as a whole is closer to covering everything.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When suite cost is zero</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The suite-level fitness cost reaches <strong>0</strong> exactly when what is true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every goal is covered by at least one test — full branch coverage</text><feedback><text>Correct — a zero sum means each goal's best cost is 0, so all goals are covered.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly one goal is covered</text><feedback><text>One covered goal zeroes only one term; the sum is zero only when all terms are zero.</text></feedback></answer>
+    <answer fraction="0"><text>The suite has been reduced to a single test</text><feedback><text>Cost measures coverage distance, not suite size.</text></feedback></answer>
+    <answer fraction="0"><text>The population has converged to identical suites</text><feedback><text>Convergence is unrelated to the cost being zero.</text></feedback></answer>
+    <generalfeedback><text>Each goal contributes 0 to the sum precisely when some test covers it. The whole sum is 0 only when every goal is covered, which is full branch coverage — the point at which the explorer shows "Full branch coverage achieved."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimising suite size</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Besides maximising coverage, what second objective does whole-suite generation pursue?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Minimising the suite's size — keeping the number of tests as small as possible for the coverage achieved</text><feedback><text>Correct — coverage is maximised while the suite is kept small.</text></feedback></answer>
+    <answer fraction="0"><text>Maximising the number of tests, to be thorough</text><feedback><text>The aim is fewer tests, not more, for the same coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Maximising the branch distance of each test</text><feedback><text>Branch distance is minimised toward zero, and it is not the size objective.</text></feedback></answer>
+    <answer fraction="0"><text>Maximising how long the search runs</text><feedback><text>Run length is a budget, not an objective.</text></feedback></answer>
+    <generalfeedback><text>Whole-suite generation balances two goals: cover as much as possible and stay small. In the explorer, once full coverage is reached the "Minimised suite" panel drops redundant tests, showing the smaller suite that still covers everything.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of redundant tests removed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The "Minimised suite" panel says <em>Redundant tests removed</em>. Which tests does minimisation drop?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests whose removal leaves the set of covered goals unchanged — they add no coverage the other tests do not already provide</text><feedback><text>Correct — a test is redundant if dropping it does not lose any covered goal.</text></feedback></answer>
+    <answer fraction="0"><text>The slowest-running tests, regardless of coverage</text><feedback><text>Minimisation looks at coverage, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>Tests with the largest input values</text><feedback><text>Input magnitude is irrelevant; only coverage contribution matters.</text></feedback></answer>
+    <answer fraction="0"><text>A fixed number of tests, always half the suite</text><feedback><text>The count removed depends on which tests are redundant, not a fixed fraction.</text></feedback></answer>
+    <generalfeedback><text>minimiseSuite() checks each test: if the suite covers the same set of goals without it, that test is redundant and removed. The result is a smaller suite that still covers every goal the full suite did.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why evolve a suite, not one test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why evolve a whole suite instead of running a separate single-test search once per goal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One suite-level search pushes toward all goals at once, and a single test often covers several goals as a side effect — so one run produces a small suite covering everything</text><feedback><text>Correct — the suite is optimised for all goals together, with collateral coverage along the way.</text></feedback></answer>
+    <answer fraction="0"><text>Because a suite can cover goals that are individually impossible to reach</text><feedback><text>Infeasible goals stay infeasible; the benefit is optimising all reachable goals together.</text></feedback></answer>
+    <answer fraction="0"><text>Because a suite needs no fitness function</text><feedback><text>The suite is guided by a suite-level fitness; it is not fitness-free.</text></feedback></answer>
+    <answer fraction="0"><text>Because evolving a suite guarantees the minimum possible number of tests</text><feedback><text>Minimisation reduces size but does not guarantee a global minimum.</text></feedback></answer>
+    <generalfeedback><text>Targeting one goal at a time can waste budget and ignores that a single test frequently satisfies several goals. Whole-suite generation optimises the entire suite against every goal simultaneously, then minimises, yielding a compact suite from a single search.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of full branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer displays "Full branch coverage achieved." What does that indicate about the suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The coverage reading is 100% — every branch-outcome goal is covered by at least one test in the suite</text><feedback><text>Correct — the banner appears when coverage reaches 1 (all goals covered).</text></feedback></answer>
+    <answer fraction="0"><text>Every test in the suite covers every goal</text><feedback><text>Full coverage needs each goal covered by some test, not every test covering every goal.</text></feedback></answer>
+    <answer fraction="0"><text>The suite has been minimised to one test</text><feedback><text>The banner is about coverage, not the minimised size.</text></feedback></answer>
+    <answer fraction="0"><text>No further generations are possible</text><feedback><text>The banner reflects coverage reached, not exhaustion of generations.</text></feedback></answer>
+    <generalfeedback><text>The success banner shows when the current generation's best suite has coverage of 1 — all 4 goals covered. Suite cost is then 0, and the minimised-suite panel appears.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The population size</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many candidate suites make up the population the genetic algorithm evolves?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16 suites</text><feedback><text>Correct — the explorer runs with populationSize 16.</text></feedback></answer>
+    <answer fraction="0"><text>4 suites</text><feedback><text>4 is the number of tests per suite (suiteSize), not the population size.</text></feedback></answer>
+    <answer fraction="0"><text>1 suite</text><feedback><text>The GA evolves a population of suites, not a single one.</text></feedback></answer>
+    <answer fraction="0"><text>5000 suites</text><feedback><text>5000 is the evaluation budget, not the number of suites per generation.</text></feedback></answer>
+    <generalfeedback><text>wholeSuiteGA uses populationSize 16: sixteen suites per generation, evolved with tournament selection, crossover, mutation and elitism until the budget of 5000 evaluations runs out or full coverage is reached.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Run to end does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Run to end</strong> button do in the explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It jumps the view to the first generation at which the best suite reaches full coverage</text><feedback><text>Correct — it advances to the earliest fully-covering generation.</text></feedback></answer>
+    <answer fraction="0"><text>It restarts the search from generation 1</text><feedback><text>That is Reset; Run to end jumps forward to full coverage.</text></feedback></answer>
+    <answer fraction="0"><text>It re-runs the genetic algorithm with a new random seed</text><feedback><text>The seed is fixed at 1; Run to end only moves the view forward.</text></feedback></answer>
+    <answer fraction="0"><text>It removes redundant tests from the current suite</text><feedback><text>Minimisation happens automatically once coverage is full; the button jumps the generation view.</text></feedback></answer>
+    <generalfeedback><text>Run to end sets the displayed generation to the first one whose best suite has coverage of 1, so you can skip straight to the fully-covering result and its minimised suite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How coverage percentage is computed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How is the <strong>coverage percentage</strong> on the gauge computed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Covered goals divided by total goals — e.g. 3 of 4 goals is 75%</text><feedback><text>Correct — coverage is covered divided by total goals.</text></feedback></answer>
+    <answer fraction="0"><text>Covered goals divided by the number of tests in the suite</text><feedback><text>The denominator is the total goal count, not the suite size.</text></feedback></answer>
+    <answer fraction="0"><text>The suite-level cost expressed as a percentage</text><feedback><text>Cost and coverage are related but distinct; coverage is a ratio of goals covered.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of the evaluation budget used</text><feedback><text>Budget usage is unrelated to the coverage percentage.</text></feedback></answer>
+    <generalfeedback><text>suiteFitness() returns coverage as covered divided by goals. With four goals, covering three gives 0.75, shown as 75% on the gauge; covering all four gives 100% and the full-coverage banner.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Suite Generation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why summing over all goals avoids per-branch bias</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does a suite-level fitness that sums the cost over <em>all</em> goals avoid the bias of a single-branch fitness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because the single sum accounts for every goal at once, the search improves the suite wherever it is weakest instead of fixating on one chosen target branch</text><feedback><text>Correct — all goals enter one fitness, so no single branch dominates the search.</text></feedback></answer>
+    <answer fraction="0"><text>Because summing removes the need for branch distance</text><feedback><text>Branch distance is still used inside each per-goal term; the sum just aggregates them.</text></feedback></answer>
+    <answer fraction="0"><text>Because it weights the hardest branch to zero</text><feedback><text>No branch is zeroed out; every goal contributes its best-test cost.</text></feedback></answer>
+    <answer fraction="0"><text>Because it ignores easy goals entirely</text><feedback><text>Easy goals are still summed in (contributing 0 once covered); none are ignored.</text></feedback></answer>
+    <generalfeedback><text>Single-branch search commits its whole budget to one target. Whole-suite fitness folds every goal into one number, so progress on any uncovered goal lowers the fitness. The search is guided toward all goals together rather than biased toward a single branch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Whole-suite versus single-branch fitness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the whole-suite fitness differ from a single-branch fitness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It sums the branch-distance cost across all branch-outcome goals simultaneously, guiding one suite toward full coverage — unlike single-branch fitness, which targets one goal at a time</text><feedback><text>Correct — whole-suite fitness aggregates all goals; single-branch fitness handles one.</text></feedback></answer>
+    <answer fraction="0"><text>It is identical to single-branch fitness; only the number of individuals evolved in parallel differs</text><feedback><text>The fitness itself differs: it aggregates all goals rather than one target.</text></feedback></answer>
+    <answer fraction="0"><text>It assigns a random weight to each goal every generation to avoid overfitting</text><feedback><text>The goals are summed on equal footing; no random weighting is applied.</text></feedback></answer>
+    <answer fraction="0"><text>It counts covered branches directly, so it is just a coverage percentage</text><feedback><text>It sums continuous branch distances, not a discrete covered-branch count.</text></feedback></answer>
+    <generalfeedback><text>A single-branch fitness scores one input vector against one target branch. The whole-suite fitness scores an entire suite against every branch-outcome goal at once by summing each goal's best-test cost, so a single search drives the suite to full coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Collateral coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>collateral coverage</strong> in whole-suite generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A single test, while being driven toward one goal, incidentally covers other goals along its execution — so goals are covered for free</text><feedback><text>Correct — one test often satisfies several goals at once.</text></feedback></answer>
+    <answer fraction="0"><text>Goals that can only be covered by combining two tests' executions</text><feedback><text>Coverage of a goal is per-test; collateral coverage is one test covering several goals.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage lost when a redundant test is removed</text><feedback><text>Minimisation removes tests without losing coverage; that is not collateral coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Extra branches added to the function during search</text><feedback><text>The function is fixed; collateral coverage is about goals covered as a side effect.</text></feedback></answer>
+    <generalfeedback><text>Reaching a deep goal usually requires traversing earlier branches, so a test aimed at one goal frequently covers several others on the way. Whole-suite generation exploits this collateral coverage, which is why one suite can cover many goals without one test per goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The coverage-versus-size trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Whole-suite generation trades off two things. Which pair?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage (maximise) against suite size (minimise) — cover everything with as few tests as possible</text><feedback><text>Correct — high coverage with a small suite is the balance being struck.</text></feedback></answer>
+    <answer fraction="0"><text>Branch distance against approach level</text><feedback><text>Those are the two components of one per-goal cost, not the suite-level trade-off.</text></feedback></answer>
+    <answer fraction="0"><text>Population size against generation count</text><feedback><text>Those are GA parameters, not the coverage/size objective.</text></feedback></answer>
+    <answer fraction="0"><text>Running time against memory use</text><feedback><text>The trade-off concerns coverage and suite size, not resource use.</text></feedback></answer>
+    <generalfeedback><text>A bigger suite can cover more but is costlier to run and maintain. Whole-suite generation seeks maximum coverage with minimum size: it first drives coverage up, then minimises by removing redundant tests, giving a small suite that still covers everything.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the best per-goal cost is credited</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For each goal, the suite fitness takes the <em>minimum</em> cost over the suite's tests. Why the minimum rather than the average?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A goal is covered if any single test reaches it, so only the closest test matters; averaging would penalise a suite for also containing tests aimed elsewhere</text><feedback><text>Correct — coverage is existential, so the best test per goal is what counts.</text></feedback></answer>
+    <answer fraction="0"><text>The average is undefined when a goal is uncovered</text><feedback><text>The average is well-defined; the minimum is used because coverage needs only one test.</text></feedback></answer>
+    <answer fraction="0"><text>The minimum is cheaper to compute than the average</text><feedback><text>The reason is semantic (existential coverage), not computational cost.</text></feedback></answer>
+    <answer fraction="0"><text>Averaging would always give zero</text><feedback><text>Averaging would generally be positive; the point is that only one covering test is needed.</text></feedback></answer>
+    <generalfeedback><text>A goal counts as covered when at least one test satisfies it. Crediting the minimum cost reflects that existential requirement: the suite is judged by its closest test to each goal. Averaging would wrongly punish a suite whose other tests target different goals.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Adding a test never lowers coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because each goal is credited to the best test in the suite, adding another test to a suite can never <em>reduce</em> the set of covered goals.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a new test can only match or improve each goal's best cost, so covered goals can only stay the same or increase.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Adding a test cannot worsen any goal's minimum cost, so coverage is monotone under adding tests.</text></feedback></answer>
+    <generalfeedback><text>Each goal's contribution is the minimum cost over the tests. Adding a test can only lower or leave unchanged that minimum, so no covered goal is ever lost. This monotonicity is why minimisation works by removal: only redundant tests can go.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What minimisation keeps invariant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the explorer minimises the suite, what does it keep unchanged?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The set of covered goals — the smaller suite covers exactly the goals the full suite covered</text><feedback><text>Correct — minimisation removes tests only if coverage is preserved.</text></feedback></answer>
+    <answer fraction="0"><text>The number of tests in the suite</text><feedback><text>Minimisation reduces the test count; that is the point.</text></feedback></answer>
+    <answer fraction="0"><text>The exact input values of every remaining test change</text><feedback><text>Remaining tests keep their inputs; only redundant tests are dropped.</text></feedback></answer>
+    <answer fraction="0"><text>The order in which generations were explored</text><feedback><text>Generation history is unrelated to suite minimisation.</text></feedback></answer>
+    <generalfeedback><text>minimiseSuite() removes a test only when the covered-goal set is the same without it. So the invariant preserved is the coverage achieved: the minimised suite covers precisely what the full suite did, using fewer tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match term to role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which mapping of terms to roles is correct for whole-suite generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Individual is a whole suite; goal is one branch outcome; suite fitness is the summed best-test cost over goals; minimisation drops redundant tests</text><feedback><text>Correct — each term maps to its whole-suite role.</text></feedback></answer>
+    <answer fraction="0"><text>Individual is one branch outcome; goal is a whole suite; suite fitness is suite size; minimisation adds tests</text><feedback><text>These roles are swapped and wrong; minimisation removes tests, not adds them.</text></feedback></answer>
+    <answer fraction="0"><text>Individual is one test input; goal is a path; suite fitness is running time; minimisation widens inputs</text><feedback><text>An individual is a suite, a goal is a branch outcome, and fitness sums branch distances.</text></feedback></answer>
+    <answer fraction="0"><text>Individual is a mutant; goal is a seed; suite fitness is a mutation score; minimisation reseeds</text><feedback><text>These are mutation-testing terms, not whole-suite generation roles.</text></feedback></answer>
+    <generalfeedback><text>In whole-suite generation an individual is an entire suite, a goal is a single branch outcome, the suite fitness is the sum over goals of each goal's best-test cost, and minimisation drops tests whose removal does not lose coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why not a raw coverage count as fitness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the suite fitness sum continuous branch distances rather than just counting how many goals are already covered?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A raw covered-goal count is flat between coverings, giving the search no gradient; summed branch distances measure how close uncovered goals are and guide improvement</text><feedback><text>Correct — the continuous distance provides a gradient a discrete count lacks.</text></feedback></answer>
+    <answer fraction="0"><text>A count would always equal the number of tests</text><feedback><text>The count equals covered goals, not tests; the real issue is the missing gradient.</text></feedback></answer>
+    <answer fraction="0"><text>Branch distances are cheaper to compute than a count</text><feedback><text>The reason is search guidance, not computation cost.</text></feedback></answer>
+    <answer fraction="0"><text>A count cannot reach full coverage</text><feedback><text>A count can reach full coverage; it just gives no guidance on the way there.</text></feedback></answer>
+    <generalfeedback><text>Counting covered goals is a step function: it does not change until a goal flips from uncovered to covered, so the search has nothing to follow between steps. Summing branch distances makes near-misses score better than far-misses, giving the GA a smooth gradient toward coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the evolved suite achieves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the explorer finishes on one of its examples, what does the evolved suite achieve?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Full branch coverage — all four goals covered — after which redundant tests are removed to give a smaller suite</text><feedback><text>Correct — the examples reach 100% and then minimise.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage of the single target branch only</text><feedback><text>That is single-branch search; whole-suite generation covers all goals.</text></feedback></answer>
+    <answer fraction="0"><text>A suite that always has exactly four tests after minimisation</text><feedback><text>Minimisation may leave fewer than four tests.</text></feedback></answer>
+    <answer fraction="0"><text>A proof that no smaller suite exists</text><feedback><text>Minimisation is a heuristic removal, not a proof of minimality.</text></feedback></answer>
+    <generalfeedback><text>On each example the search drives the best suite to full branch coverage (4/4 goals), lights the success banner, and then the minimised-suite panel shows the reduced suite after redundant tests are dropped.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of elitism</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The whole-suite GA uses <strong>elitism</strong>. What does it do at the suite level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It carries the best suite of the current generation unchanged into the next, so the best coverage found is never lost</text><feedback><text>Correct — the elite suite survives to the next generation intact.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the whole population with fresh random suites each generation</text><feedback><text>That would discard progress; elitism preserves the best suite.</text></feedback></answer>
+    <answer fraction="0"><text>It mutates every test in the best suite before copying it</text><feedback><text>The elite is carried forward unchanged, not mutated.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the worst suite from the population</text><feedback><text>Elitism is about keeping the best, not deleting the worst.</text></feedback></answer>
+    <generalfeedback><text>Elitism copies the current best suite straight into the next generation (and its cost is carried without re-evaluation). This guarantees the best coverage-so-far cannot regress as crossover and mutation explore new suites.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Crossover on suites</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>crossover</strong> combine two parent suites in this GA?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It splices the two suites at a cut point, taking some tests from one parent and the rest from the other to form a child suite</text><feedback><text>Correct — one-point crossover mixes whole tests between the two parent suites.</text></feedback></answer>
+    <answer fraction="0"><text>It averages the numeric inputs of the two suites element by element</text><feedback><text>Crossover here recombines whole tests, not averaged numbers.</text></feedback></answer>
+    <answer fraction="0"><text>It merges both suites into one twice-as-large suite</text><feedback><text>The child keeps the suite size; it does not grow.</text></feedback></answer>
+    <answer fraction="0"><text>It swaps individual digits within a single test's number</text><feedback><text>The cut is between tests of the suite, not within a number.</text></feedback></answer>
+    <generalfeedback><text>Suite-level crossover picks a cut index and concatenates the first parent's tests up to the cut with the second parent's tests after it, producing a child suite of the same size that inherits tests from both parents.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation on a suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>mutation</strong> alter a suite in this GA?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>With a small probability per test, it replaces a test with a freshly generated random test, injecting new inputs into the suite</text><feedback><text>Correct — mutation swaps in a new random test now and then.</text></feedback></answer>
+    <answer fraction="0"><text>It deletes a test from the suite, shrinking it</text><feedback><text>Mutation replaces rather than removes; suite size stays fixed until minimisation.</text></feedback></answer>
+    <answer fraction="0"><text>It copies the best test over all the others</text><feedback><text>Mutation adds variety, not uniformity.</text></feedback></answer>
+    <answer fraction="0"><text>It reorders the tests without changing their inputs</text><feedback><text>Reordering does not change coverage; mutation introduces new inputs.</text></feedback></answer>
+    <generalfeedback><text>Suite mutation visits each test and, with probability 1/suiteSize, replaces it with a brand-new random test. This keeps injecting fresh inputs so the search can reach goals the current tests miss, while mostly preserving the suite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting a partial coverage reading</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generation's best suite shows "Covered: 3 / 4 goals" and the gauge reads 75%. What can you conclude?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One branch outcome is still uncovered, so the suite cost is above zero and the full-coverage banner has not appeared</text><feedback><text>Correct — 3 of 4 goals means one outcome remains, cost above 0.</text></feedback></answer>
+    <answer fraction="0"><text>Three of the four tests have been removed as redundant</text><feedback><text>3/4 counts goals, not tests; minimisation only runs at full coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The suite cost is exactly 0.75</text><feedback><text>Coverage is 0.75, but the cost is the summed distance of the remaining uncovered goal, not 0.75 by definition.</text></feedback></answer>
+    <answer fraction="0"><text>The search has failed and will stop</text><feedback><text>The search continues; later generations may reach the last goal.</text></feedback></answer>
+    <generalfeedback><text>Coverage 3/4 is 75% and means one branch outcome is still uncovered. The suite's cost is therefore positive (the summed best-test distance to that last goal), and the "Full branch coverage achieved" banner and minimised-suite panel stay hidden until the last goal is covered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why one fitness for all goals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why fold every goal into a <em>single</em> suite fitness value rather than optimising goals one after another?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A single fitness lets the GA improve the suite against all goals at once, so progress on any uncovered goal is rewarded and the whole search budget serves the whole suite</text><feedback><text>Correct — one aggregate fitness drives balanced progress across all goals.</text></feedback></answer>
+    <answer fraction="0"><text>Optimising goals one after another is impossible</text><feedback><text>It is possible (that is per-goal search); the aggregate fitness is simply more efficient for whole suites.</text></feedback></answer>
+    <answer fraction="0"><text>A single fitness makes each test cover every goal</text><feedback><text>Tests still cover different goals; the fitness just aggregates them.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for a population</text><feedback><text>The GA still evolves a population of suites.</text></feedback></answer>
+    <generalfeedback><text>Aggregating all goals into one fitness means every generation's selection pressure improves the suite wherever it is weakest, and collateral coverage is captured automatically. Sequential per-goal optimisation would repeatedly restart and ignore that one test covers many goals.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Suite Generation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why summed branch distances beat boolean coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two suites each cover 2 of 4 goals but differ on the two uncovered goals: suite A's tests come very close to the missing outcomes; suite B's are far away. Why does the summed-branch-distance fitness prefer A?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both score the same on a boolean 2/4 count, but A's smaller summed distance to the uncovered goals gives a lower fitness, so the search follows the gradient toward covering them</text><feedback><text>Correct — the continuous sum distinguishes near-misses from far-misses that a count cannot.</text></feedback></answer>
+    <answer fraction="0"><text>A covers more goals than B, so it obviously scores better</text><feedback><text>Both cover the same 2 goals; the difference is the distance to the uncovered ones.</text></feedback></answer>
+    <answer fraction="0"><text>A has fewer tests than B</text><feedback><text>Size is not what the fitness compares here; it is the summed distance.</text></feedback></answer>
+    <answer fraction="0"><text>The fitness prefers B, because larger distances explore more</text><feedback><text>Lower cost is better; the fitness prefers the smaller summed distance, which is A.</text></feedback></answer>
+    <generalfeedback><text>A boolean covered-count is 2 for both suites and cannot rank them. The summed branch distance adds how far each uncovered goal is; A's near-misses sum to a smaller cost, so the GA prefers A and is steadily guided toward flipping those goals to covered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading a coverage and cost combination</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Across generations the best suite's coverage rises from 50% to 100% while its suite cost falls to 0. What does the cost reaching 0 tell you that the coverage reading alone did not?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nothing extra at 100% — cost 0 and coverage 100% are equivalent — but during the climb the falling cost showed the suite getting closer to uncovered goals even while the coverage count was momentarily flat</text><feedback><text>Correct — at full coverage the two agree, but cost moves continuously between coverage steps.</text></feedback></answer>
+    <answer fraction="0"><text>Cost 0 means the suite has exactly one test</text><feedback><text>Cost measures coverage distance, not suite size.</text></feedback></answer>
+    <answer fraction="0"><text>Cost 0 means every test covers every goal</text><feedback><text>It means each goal is covered by some test, not every test.</text></feedback></answer>
+    <answer fraction="0"><text>Cost 0 contradicts 100% coverage</text><feedback><text>They coincide: zero summed distance is exactly full coverage.</text></feedback></answer>
+    <generalfeedback><text>At the endpoints cost 0 and coverage 100% say the same thing. The value of the cost is on the way there: it decreases continuously as tests approach uncovered goals, giving the search a gradient during the stretches where the discrete coverage count has not yet ticked up.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Collateral coverage in the nested guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the nested-guard example, a test with x = 17 and y = 150 makes both branches true (b1 is x === 17, b2 is y greater than 100). Which goals does this one test cover?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The true-outcome goals of both b1 and b2 — one test covers two goals as collateral coverage</text><feedback><text>Correct — reaching the inner true outcome also covers the outer branch's true outcome.</text></feedback></answer>
+    <answer fraction="0"><text>Only the true-outcome goal of b2</text><feedback><text>To reach b2 the test must first take b1 true, so it covers that goal too.</text></feedback></answer>
+    <answer fraction="0"><text>All four goals at once</text><feedback><text>The false outcomes of b1 and b2 need different inputs; one test cannot take a branch both ways.</text></feedback></answer>
+    <answer fraction="0"><text>None, unless three more tests are added</text><feedback><text>This single test already covers two goals.</text></feedback></answer>
+    <generalfeedback><text>x = 17 makes b1 true, and reaching b2 with y = 150 makes it true as well, so one test covers the b1-true and b2-true goals together. The two false-outcome goals require other inputs, illustrating why a small suite — not one test — is needed for full coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why minimisation runs after full coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the explorer minimise the suite only once full coverage is reached, not during the search?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Minimisation removes tests that do not change the covered-goal set; doing it before full coverage could discard tests still needed as the search continues to close remaining goals</text><feedback><text>Correct — minimising the final covering suite is what yields a safe reduction.</text></feedback></answer>
+    <answer fraction="0"><text>Because minimisation is what produces coverage in the first place</text><feedback><text>Coverage comes from the search; minimisation only trims the covering suite.</text></feedback></answer>
+    <answer fraction="0"><text>Because minimisation increases coverage</text><feedback><text>Minimisation preserves coverage; it does not increase it.</text></feedback></answer>
+    <answer fraction="0"><text>Because the population size must shrink first</text><feedback><text>Minimisation acts on the best suite's tests, not the population size.</text></feedback></answer>
+    <generalfeedback><text>Minimisation is a post-processing step on the final covering suite: it drops tests whose removal keeps the covered-goal set intact. Applied mid-search it might remove tests whose coverage contribution only matters relative to the final suite, so the explorer waits until full coverage, then minimises.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the minimised suite may be smaller than four</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The evolved suite has four tests, but the minimised suite often has fewer. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Thanks to collateral coverage, a few tests can cover all four goals, leaving the others redundant — removable without losing any covered goal</text><feedback><text>Correct — overlapping coverage makes some tests redundant.</text></feedback></answer>
+    <answer fraction="0"><text>Minimisation always halves the suite</text><feedback><text>The number removed depends on redundancy, not a fixed ratio.</text></feedback></answer>
+    <answer fraction="0"><text>Some tests are deleted because they run too slowly</text><feedback><text>Removal is based on coverage redundancy, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>The four goals cannot all be covered, so tests are dropped</text><feedback><text>The examples do reach full coverage; redundant tests are what get dropped.</text></feedback></answer>
+    <generalfeedback><text>Because a single test frequently covers several goals, the four evolved tests can cover the four goals with overlap. Any test whose goals are all also covered by the others is redundant and removed, so the minimised suite is often two or three tests.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Existential nature of goal coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a goal to count as covered by the suite, it is enough that <em>at least one</em> test in the suite takes that branch outcome.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — coverage of a goal is existential: one covering test suffices, which is why the fitness credits each goal's best test.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A goal needs only one test to reach it; not all tests must.</text></feedback></answer>
+    <generalfeedback><text>suiteFitness credits each goal with the minimum cost over the suite's tests, and a goal is covered when that minimum is 0 — i.e. some test reaches it. Coverage is existential over the suite, which underpins both collateral coverage and minimisation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Covering a hard goal within a suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>One goal in the multimodal example (x % 20 === 7 and x greater than 50) is hard to hit. In whole-suite generation, what must happen for that goal to be covered?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Just one test in the suite must land on an input satisfying it; the other tests can pursue different goals</text><feedback><text>Correct — a single covering test in the suite is enough for that goal.</text></feedback></answer>
+    <answer fraction="0"><text>Every test in the suite must satisfy it</text><feedback><text>Coverage is existential; only one test needs to reach the goal.</text></feedback></answer>
+    <answer fraction="0"><text>The goal must be removed because it is too hard</text><feedback><text>Goals are not removed; the search keeps trying to cover them.</text></feedback></answer>
+    <answer fraction="0"><text>Two tests must jointly execute it in one run</text><feedback><text>A goal is covered by a single test's execution, not two combined.</text></feedback></answer>
+    <generalfeedback><text>Even for a hard goal, the suite covers it as soon as one of its tests hits a satisfying input. The suite fitness rewards the closest test to that goal, so mutation and crossover concentrate on nudging some test onto it while the rest of the suite handles the easier goals.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distinguishing two fully-covering suites</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two suites both reach full coverage, so both have suite cost 0. How does whole-suite generation prefer one over the other?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>By size — the second objective is minimisation, so the smaller covering suite (after redundant tests are removed) is preferred</text><feedback><text>Correct — with coverage tied at full, fewer tests wins.</text></feedback></answer>
+    <answer fraction="0"><text>By whichever was found in an earlier generation</text><feedback><text>Generation order is not the tie-breaker; suite size is.</text></feedback></answer>
+    <answer fraction="0"><text>By larger input values, which are more thorough</text><feedback><text>Input magnitude does not decide preference; size does.</text></feedback></answer>
+    <answer fraction="0"><text>They cannot be distinguished at all</text><feedback><text>They can: minimisation favours the smaller covering suite.</text></feedback></answer>
+    <generalfeedback><text>Once coverage is tied at full (cost 0), the size objective breaks the tie. Minimisation strips redundant tests from the covering suite, and a suite that covers everything with fewer tests is the better result.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Approach level inside a per-goal cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a per-goal cost within the suite fitness, what does the <strong>approach level</strong> term contribute?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It counts how many required enclosing branches the test still failed to satisfy before diverging from the goal's path, added to the normalised branch distance at the divergence point</text><feedback><text>Correct — approach level plus normalised branch distance make up each per-goal cost.</text></feedback></answer>
+    <answer fraction="0"><text>It counts how many tests in the suite are redundant</text><feedback><text>That is minimisation; approach level concerns one test's path to one goal.</text></feedback></answer>
+    <answer fraction="0"><text>It is the number of goals still uncovered</text><feedback><text>Approach level is per-goal, per-test structural distance, not a global count.</text></feedback></answer>
+    <answer fraction="0"><text>It is the suite's coverage percentage</text><feedback><text>Coverage percentage is a separate readout; approach level is inside a per-goal cost.</text></feedback></answer>
+    <generalfeedback><text>costForGoal walks the goal's required branches; at the first one the test fails to satisfy, the approach level is how many required branches remain beyond it, and the normalised branch distance measures how close that decision came. Their sum is the per-goal cost, and the suite fitness sums the best such cost over all goals.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Whole-suite generation versus per-branch search</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with running a separate single-branch search once per goal, what is the key advantage of whole-suite generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A single search evolves one suite against all goals together, sharing budget and exploiting collateral coverage, and directly optimises the whole suite's coverage and size</text><feedback><text>Correct — one integrated search over the suite, not many isolated per-goal runs.</text></feedback></answer>
+    <answer fraction="0"><text>It can cover goals that are individually infeasible</text><feedback><text>Infeasible goals remain uncovered either way; the gain is efficiency, not feasibility.</text></feedback></answer>
+    <answer fraction="0"><text>It needs no fitness function at all</text><feedback><text>It uses a suite-level fitness; it is not fitness-free.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the globally smallest suite</text><feedback><text>Minimisation is heuristic; it does not guarantee global minimality.</text></feedback></answer>
+    <generalfeedback><text>Per-goal search restarts for each target and ignores that one test can satisfy several goals. Whole-suite generation optimises the entire suite against every goal in one run, spends its budget across all goals, harvests collateral coverage, and jointly manages coverage and suite size.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost and coverage across generations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>As you step through generations with Next, how do the best suite's cost and coverage typically move together?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cost trends down while coverage trends up (or holds), because elitism prevents the best suite from regressing, until cost hits 0 at full coverage</text><feedback><text>Correct — elitism makes the best suite non-worsening, so cost falls as coverage rises.</text></feedback></answer>
+    <answer fraction="0"><text>Cost and coverage both rise together</text><feedback><text>Lower cost means better coverage; they move oppositely.</text></feedback></answer>
+    <answer fraction="0"><text>Cost rises until coverage suddenly drops to 0</text><feedback><text>Elitism prevents the best suite from getting worse; cost does not climb.</text></feedback></answer>
+    <answer fraction="0"><text>Both stay constant for the whole run</text><feedback><text>The search improves the best suite over generations; they change.</text></feedback></answer>
+    <generalfeedback><text>Because the elite suite is carried forward, the best suite's cost never increases from one generation to the next. As tests approach and then cover goals, cost decreases and coverage increases, reaching cost 0 and 100% coverage at the fully-covering generation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of an unreachable goal on suite cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose one branch outcome were infeasible (no input could ever take it). What would happen to the suite cost and coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That goal's best-test cost could never reach 0, so the suite cost would stay above 0 and coverage would plateau below 100%</text><feedback><text>Correct — an uncoverable goal leaves a permanent positive term in the sum.</text></feedback></answer>
+    <answer fraction="0"><text>The suite cost would still reach 0 by covering the other goals</text><feedback><text>The sum includes the infeasible goal's positive cost, so it cannot reach 0.</text></feedback></answer>
+    <answer fraction="0"><text>The infeasible goal would be automatically removed from the goal set</text><feedback><text>The engine does not drop goals; the term simply never zeroes.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage would still read 100%</text><feedback><text>Coverage counts covered goals; an uncovered one keeps it below 100%.</text></feedback></answer>
+    <generalfeedback><text>The suite fitness sums every goal's best-test cost. An infeasible goal contributes a positive term no test can drive to 0, so the sum has a positive floor and coverage tops out below full — a useful signal that a goal may be unreachable (though the explorer's examples are all fully coverable).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why suite fitness is not the sum of test costs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the suite fitness a sum over <em>goals</em> (best test per goal) rather than a sum over the suite's <em>tests</em> of each test's own cost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage is a property of the suite as a whole: it matters that each goal is reached by some test, not that every individual test is good — summing per-test costs would reward redundancy and mis-rank suites</text><feedback><text>Correct — the goal-oriented sum measures what actually matters, whole-suite coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Per-test costs are impossible to compute</text><feedback><text>They are computable; they just do not measure suite coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Summing per-test costs always gives the same answer</text><feedback><text>It gives a different, coverage-blind answer that mis-ranks suites.</text></feedback></answer>
+    <answer fraction="0"><text>A per-test sum would already equal the coverage percentage</text><feedback><text>It would not; it ignores whether each goal is covered by some test.</text></feedback></answer>
+    <generalfeedback><text>What matters is that the suite covers every goal, so the fitness sums per goal the best test's cost. A per-test sum would penalise a suite for containing tests aimed at other goals and could favour many mediocre tests over a few that together cover everything.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why one lucky test is not enough</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite contains one excellent test that covers three of the four goals, but the fourth goal stays uncovered by every test. What is the suite's status?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage is 75% and cost is positive — one strong test cannot substitute for covering the last goal, which needs some test to reach it</text><feedback><text>Correct — the fourth goal's positive term keeps cost above 0 and coverage below full.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage is 100%, because one test covering three goals is enough</text><feedback><text>The fourth goal is still uncovered, so coverage is not full.</text></feedback></answer>
+    <answer fraction="0"><text>Cost is 0, because the best test is very good</text><feedback><text>Cost is a sum over goals; the uncovered goal keeps it positive.</text></feedback></answer>
+    <answer fraction="0"><text>The suite is minimised to that one test</text><feedback><text>Minimisation only runs at full coverage, which has not been reached.</text></feedback></answer>
+    <generalfeedback><text>The suite fitness sums each goal's best-test cost. Three covered goals contribute 0, but the fourth contributes its positive distance, so cost stays above 0 and coverage is 75%. Full coverage requires some test to reach that last goal, illustrating that whole-suite quality is about goals covered, not one test's brilliance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a minimised suite of N tests implies</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After minimisation the suite has N tests. What does that imply about each remaining test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Removing any one of them would drop at least one covered goal — each remaining test is needed to keep the covered-goal set intact</text><feedback><text>Correct — minimisation leaves only non-redundant tests.</text></feedback></answer>
+    <answer fraction="0"><text>Each remaining test covers exactly one goal</text><feedback><text>A remaining test may cover several goals; it just must be non-redundant.</text></feedback></answer>
+    <answer fraction="0"><text>N is guaranteed to be the smallest possible suite for full coverage</text><feedback><text>Greedy removal gives a non-redundant suite, not a proven global minimum.</text></feedback></answer>
+    <answer fraction="0"><text>Each remaining test has a cost of 0 toward every goal</text><feedback><text>A test need only cover the goals it is responsible for, not all goals.</text></feedback></answer>
+    <generalfeedback><text>Minimisation removes a test only when coverage is preserved without it, so once it stops, every remaining test is non-redundant: dropping it would lose a covered goal. This yields a minimal (in the removal sense) covering suite, though not necessarily the globally smallest one.</text></generalfeedback>
+  </question>
+</quiz>

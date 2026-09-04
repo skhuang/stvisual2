@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Program Slicing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>程式切片定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>程式切片（program slice）</strong>最適當的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>能影響（或被影響於）某點某選定變數之值的陳述句集合</text><feedback><text>正確——切片只保留與某程式點某變數相關的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件至少執行一次的所有陳述句集合</text><feedback><text>那是被執行／被涵蓋的程式碼，不是切片；切片是由對某點某變數的相依關係所定義。</text></feedback></answer>
+    <answer fraction="0"><text>兩個行號之間的一段連續原始碼</text><feedback><text>切片未必連續；它是由相依關係連到切片條件的任意陳述句子集。</text></feedback></answer>
+    <answer fraction="0"><text>某函式所宣告的變數清單</text><feedback><text>切片是陳述句的集合，而非變數宣告的集合。</text></feedback></answer>
+    <generalfeedback><text>切片是程式中會影響、或被影響於某特定位置變數的陳述句子集——透過控制與資料相依計算而得。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此探索器中，<strong>切片條件（slicing criterion）</strong>是以哪一對指定？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個陳述句（程式點）加上一個變數</text><feedback><text>正確——切片條件是 ⟨陳述句, 變數⟩；你先點選陳述句，再選其中一個變數。</text></feedback></answer>
+    <answer fraction="0"><text>一個測試輸入加上一個預期輸出</text><feedback><text>那是描述測試案例，不是切片條件。</text></feedback></answer>
+    <answer fraction="0"><text>一個起始行加上一個結束行</text><feedback><text>切片條件是某點加上某變數，而非行號範圍。</text></feedback></answer>
+    <answer fraction="0"><text>一個函式名稱加上它的回傳型別</text><feedback><text>切片條件鎖定的是某陳述句上的某變數，而非函式簽章。</text></feedback></answer>
+    <generalfeedback><text>切片條件是一對 ⟨陳述句 s, 變數 v⟩。當你點選陳述句再選其中一個變數時，探索器就建立它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後向切片定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對切片條件 ⟨s, v⟩，<strong>後向（backward）</strong>切片包含哪些陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可能影響 v 在 s 之值的陳述句</text><feedback><text>正確——後向切片收集所有可能影響 v 在 s 的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>可能被 v 在 s 之值所影響的陳述句</text><feedback><text>那是前向切片，方向相反。</text></feedback></answer>
+    <answer fraction="0"><text>每次執行中都在 s 之後執行的陳述句</text><feedback><text>執行中的位置不定義後向切片；對 v 的相依關係才是。</text></feedback></answer>
+    <answer fraction="0"><text>把常數指派給 v 的陳述句</text><feedback><text>後向切片不限於常數指派；它是任何遞移影響 v 在 s 的陳述句。</text></feedback></answer>
+    <generalfeedback><text>⟨s, v⟩ 的後向切片是所有可能影響 v 在 s 之值的陳述句集合，沿控制與資料相依向後追蹤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>前向切片定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對切片條件 ⟨s, v⟩，<strong>前向（forward）</strong>切片包含哪些陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可能被 v 在 s 之值所影響的陳述句</text><feedback><text>正確——前向切片收集所有 v 在 s 之值可能影響到的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>可能影響 v 在 s 之值的陳述句</text><feedback><text>那是後向切片，方向相反。</text></feedback></answer>
+    <answer fraction="0"><text>每次執行中都在 s 之前執行的陳述句</text><feedback><text>前向切片談的是被 v 影響，而非文字或時間位置。</text></feedback></answer>
+    <answer fraction="0"><text>讀取 v 但從不定義任何變數的陳述句</text><feedback><text>前向切片的陳述句可以定義變數；它們只是由 v 在 s 經相依關係可達到。</text></feedback></answer>
+    <generalfeedback><text>⟨s, v⟩ 的前向切片是所有可能被 v 在 s 之值影響的陳述句集合，沿相依關係向前追蹤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態與動態切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>動態（dynamic）</strong>切片與<strong>靜態（static）</strong>切片的區別為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>動態切片是針對某一次特定執行（給定輸入／軌跡）計算；靜態切片對所有可能執行皆成立</text><feedback><text>正確——動態切片限縮到某次執行實際觸及的陳述句與相依關係。</text></feedback></answer>
+    <answer fraction="0"><text>動態切片只用資料相依；靜態切片只用控制相依</text><feedback><text>兩者都用控制與資料相依；差別在於單次執行對比所有執行。</text></feedback></answer>
+    <answer fraction="0"><text>動態切片一定是前向切片；靜態切片一定是後向切片</text><feedback><text>方向（前向／後向）與靜態／動態彼此無關。</text></feedback></answer>
+    <answer fraction="0"><text>動態切片不需要切片條件；靜態切片才需要</text><feedback><text>兩者都需要切片條件；動態切片另外加上一次特定執行。</text></feedback></answer>
+    <generalfeedback><text>靜態切片對每一次可能的執行都有效；動態切片專門化到某一次執行（特定輸入／軌跡），只保留該次執行中實際存活的相依關係。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>資料相依</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當滿足什麼條件時，陳述句 A 到陳述句 B 有<strong>資料相依（data dependence）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A 定義了某變數，B 稍後使用它，且中間沒有重新定義</text><feedback><text>正確——A 的定義到達 B 的使用（def-use 關係）。</text></feedback></answer>
+    <answer fraction="0"><text>A 與 B 出現在相鄰的原始碼行</text><feedback><text>相鄰無關緊要；資料相依是「定義到達使用」的連結。</text></feedback></answer>
+    <answer fraction="0"><text>A 決定 B 是否執行</text><feedback><text>那是控制相依，不是資料相依。</text></feedback></answer>
+    <answer fraction="0"><text>A 與 B 呼叫同一個函式</text><feedback><text>共用被呼叫者並不會產生資料相依。</text></feedback></answer>
+    <generalfeedback><text>資料相依 A → B（對變數 v）表示 A 定義 v，而 B 使用該 v 值——定義到達使用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>控制相依</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當滿足什麼條件時，陳述句 A 到陳述句 B 有<strong>控制相依（control dependence）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>B 是否執行取決於 A 處某判定式的結果（例如 if 或迴圈條件）</text><feedback><text>正確——A 是主宰 B 是否執行的分支／迴圈判定式。</text></feedback></answer>
+    <answer fraction="0"><text>A 定義了某變數而 B 讀取它</text><feedback><text>那是資料相依，不是控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>A 與 B 在同一個函式內</text><feedback><text>同處一個函式並不會產生控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>B 總是緊接在 A 之後執行</text><feedback><text>僅有先後順序不構成控制相依；必須有主宰的判定式。</text></feedback></answer>
+    <generalfeedback><text>控制相依 A → B 表示 A 是一個判定式（分支或迴圈條件），其結果決定 B 是否被執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PDG 代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器繪製的<strong>程式相依圖（PDG）</strong>，其節點與邊分別代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>節點是陳述句；邊是控制與資料相依</text><feedback><text>正確——PDG 以控制與資料相依連結各陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>節點是變數；邊是指派</text><feedback><text>PDG 的節點是陳述句，不是變數。</text></feedback></answer>
+    <answer fraction="0"><text>節點是函式；邊是呼叫</text><feedback><text>那描述的是呼叫圖，不是 PDG。</text></feedback></answer>
+    <answer fraction="0"><text>節點是基本區塊；邊只有循序的控制流</text><feedback><text>那較接近控制流圖；PDG 在陳述句之上同時帶有控制與資料相依邊。</text></feedback></answer>
+    <generalfeedback><text>在 PDG 中每個節點是一個陳述句，每條邊是一個控制或資料相依。切片就是從切片條件出發、對這些邊做圖上可達性。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>切片包含切片條件的陳述句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器計算的每個切片都一定包含切片條件本身的陳述句。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——切片以切片條件的陳述句為種子，所以它一定是成員。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>切片一定包含切片條件的陳述句；演算法以它為種子放入結果集合。</text></feedback></answer>
+    <generalfeedback><text>後向與前向切片都由切片條件的陳述句出發，再加入相依的陳述句，故切片條件的陳述句一定在切片中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀切片：回傳處的 grade</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 範例中：</p>
+<pre>2:  total = 0
+3:  count = 0
+4:  for (const s of scores)
+5:    total = total + s
+6:    count = count + 1
+8:  avg = total / count
+9:  grade = avg &gt;= 60 ? "pass" : "fail"
+10: return grade</pre>
+<p>切片條件 ⟨行 10, grade⟩ 的後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>全部八個陳述句（行 2,3,4,5,6,8,9,10）</text><feedback><text>正確——grade 相依於 avg，avg 相依於 total 與 count，兩者又相依於迴圈與初始化，故整個函式都在切片中。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 10</text><feedback><text>return 使用 grade，而 grade 遞移相依於幾乎所有其他陳述句，故切片大得多。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 9 與 10</text><feedback><text>grade（行 9）相依於 avg，avg 又拉進 total、count 與迴圈——切片是整個函式。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 8、9、10</text><feedback><text>avg 相依於 total 與 count，也拖進行 2–6；切片是全部八個陳述句。</text></feedback></answer>
+    <generalfeedback><text>從 grade 向後：10 ← 9（grade）← 8（avg）← 5,6（total,count）← 4（迴圈）、2、3。每個陳述句都被觸及，故切片是整個函式。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Classify：sign 被排除於 label 切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Classify</em> 範例中，切片條件 ⟨return label, label⟩ 的後向切片排除了所有指派 <code>sign</code> 的陳述句。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——sign 從不影響 label，故 sign 的指派（行 3、6、9）不在切片中。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>sign 的指派完全不影響 label，因此對 label 切片會捨棄它們——這正是切片聚焦特性的經典示範。</text></feedback></answer>
+    <generalfeedback><text>label 只相依於 label 的各指派與主宰它們的判定式；平行的 sign 計算無關，落在切片之外。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取應用：迴圈節點種類</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 範例中，行 4 <code>for (const s of scores)</code> 在 PDG 中屬於哪一種節點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個控制（判定）節點，主宰迴圈本體是否執行</text><feedback><text>正確——迴圈標頭是控制節點；行 5 與 6 對它有控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>一個輸出節點</text><feedback><text>輸出節點是 return 陳述句，不是迴圈標頭。</text></feedback></answer>
+    <answer fraction="0"><text>一個沒有外向控制邊的純資料節點</text><feedback><text>迴圈標頭有指向它所主宰之本體陳述句的控制邊。</text></feedback></answer>
+    <answer fraction="0"><text>一段被切片器忽略的註解</text><feedback><text>迴圈標頭是可執行的控制陳述句，不是註解。</text></feedback></answer>
+    <generalfeedback><text>迴圈標頭是控制節點：迴圈本體中的陳述句（行 5 與 6）對它有控制相依。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>方向用語配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>方向與意義的哪一組配對是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後向＝「什麼可能影響 v」；前向＝「v 可能影響什麼」</text><feedback><text>正確——後向看的是對 v 的影響，前向看的是 v 影響到什麼。</text></feedback></answer>
+    <answer fraction="0"><text>後向＝「v 可能影響什麼」；前向＝「什麼可能影響 v」</text><feedback><text>這兩者對調了：後向是對 v 的影響，前向是 v 影響到什麼。</text></feedback></answer>
+    <answer fraction="0"><text>後向＝只看較前面的行；前向＝只看較後面的行</text><feedback><text>切片由相依關係定義，而非文字行序。</text></feedback></answer>
+    <answer fraction="0"><text>後向＝只有資料；前向＝只有控制</text><feedback><text>兩個方向都沿控制與資料相依追蹤。</text></feedback></answer>
+    <generalfeedback><text>後向切片＝可能影響 v 在 s 的陳述句；前向切片＝可能被 v 在 s 影響的陳述句。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>動態切片不大於靜態切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對相同切片條件與相同程式，動態切片（針對某一次執行）不會大於相應的靜態切片。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——動態切片限縮到已執行的陳述句與存活的相依關係，故是靜態切片的子集。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>限縮到某一次執行只會移除陳述句而不會新增，故動態切片至多與靜態切片一樣大。</text></feedback></answer>
+    <generalfeedback><text>動態切片只保留在該次執行中實際觸及的陳述句與相依邊，故它是靜態切片的子集（大小至多相同）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何切片有用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>程式切片的主要實務益處在於它能：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把注意力縮小到只與某點某變數相關的陳述句，有助於除錯與理解</text><feedback><text>正確——切片移除無關程式碼，讓你能專注在可能影響可疑值的部分。</text></feedback></answer>
+    <answer fraction="0"><text>保證程式沒有任何缺陷</text><feedback><text>切片隔離相關程式碼；它不證明正確性。</text></feedback></answer>
+    <answer fraction="0"><text>自動修正有錯的陳述句</text><feedback><text>切片凸顯相關陳述句；它不會修復它們。</text></feedback></answer>
+    <answer fraction="0"><text>提升程式的執行期效能</text><feedback><text>切片是分析輔助，並非對出貨程式的效能最佳化。</text></feedback></answer>
+    <generalfeedback><text>切片把開發者需考慮的程式碼縮小到可能影響（或被影響於）某點某變數的陳述句——對除錯、理解與回歸分析都很有價值。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Program Slicing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>後向切片：avg 處的 total</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> 範例：</p>
+<pre>2:  total = 0
+3:  count = 0
+4:  for (const s of scores)
+5:    total = total + s
+6:    count = count + 1
+8:  avg = total / count
+9:  grade = avg &gt;= 60 ? "pass" : "fail"
+10: return grade</pre>
+<p>切片條件 ⟨行 8, total⟩ 的後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 2、4、5、8</text><feedback><text>正確——行 8 的 total 來自行 5（total+s），行 5 在迴圈（行 4）內並使用行 2 的 total。</text></feedback></answer>
+    <answer fraction="0"><text>行 3、4、6、8</text><feedback><text>那些是與 count 相關的陳述句；切片條件的變數是 total，不是 count。</text></feedback></answer>
+    <answer fraction="0"><text>全部八個陳述句</text><feedback><text>對行 8 的 total 做切片會排除 count 的計算（3、6）以及行 8 之後的所有內容。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 5、8</text><feedback><text>行 5 相依於迴圈（4）與初始的 total（2），故它們也屬於切片。</text></feedback></answer>
+    <generalfeedback><text>從行 8 的 total 向後：8 ← 5（total = total+s）← 4（迴圈）與 ← 2（total = 0）。count 陳述句（3、6）不影響 total，故被排除。切片＝{2, 4, 5, 8}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後向切片：avg 處的 count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>沿用同一 <em>Grade Average</em> 程式，切片條件 ⟨行 8, count⟩ 的後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 3、4、6、8</text><feedback><text>正確——行 8 的 count 來自行 6（count+1），行 6 在迴圈（行 4）內，並在行 3 初始化。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、4、5、8</text><feedback><text>那些是與 total 相關的陳述句；這裡的變數是 count。</text></feedback></answer>
+    <answer fraction="0"><text>行 3、6、8</text><feedback><text>行 6 對迴圈標頭（行 4）有控制相依，故行 4 也屬於切片。</text></feedback></answer>
+    <answer fraction="0"><text>全部八個陳述句</text><feedback><text>total 的計算（2、5）與行 8 之後的陳述句不影響行 8 的 count。</text></feedback></answer>
+    <generalfeedback><text>從行 8 的 count 向後：8 ← 6（count = count+1）← 4（迴圈）與 ← 3（count = 0）。切片＝{3, 4, 6, 8}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 count 被排除於 total 切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 的後向切片 ⟨行 8, total⟩ 中，行 3 <code>count = 0</code><strong>不</strong>被包含。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有任何從 count 出發的相依鏈到達 total，故 count 無法影響行 8 的 total 之值</text><feedback><text>正確——total 與 count 各自獨立計算；count 從不流入 total。</text></feedback></answer>
+    <answer fraction="0"><text>因為行 3 在迴圈之前執行</text><feedback><text>文字位置無關緊要；行 2 同樣在迴圈前執行卻被包含。排除行 3 是因為缺乏相依。</text></feedback></answer>
+    <answer fraction="0"><text>因為行 3 是控制陳述句</text><feedback><text>行 3 是普通指派，不是控制節點；它被排除是因為不影響 total。</text></feedback></answer>
+    <answer fraction="0"><text>因為 count 只在行 8 之後才被使用</text><feedback><text>count 在行 8 被使用（於 avg），但是在 count 運算元上，而非 total；就是沒有 total 對 count 的相依。</text></feedback></answer>
+    <generalfeedback><text>後向切片只保留由相依邊連到切片條件變數的陳述句。count 在另一條獨立的鏈上計算，從不到達 total，故其初始化被排除。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>前向切片：從初始化出發的 total</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> 範例（行號同前）。切片條件 ⟨行 2, total⟩ 的<strong>前向</strong>切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 2、5、8、9、10</text><feedback><text>正確——total（行 2）流入行 5，再進入 avg（8）、grade（9）與 return（10）。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、3、5、6</text><feedback><text>前向切片追蹤 total 值的去向；它不會拉進 count 陳述句（3、6）。</text></feedback></answer>
+    <answer fraction="0"><text>全部八個陳述句</text><feedback><text>初始化行 3 與迴圈行 4 位於行 2 的 total 上游，不會被它影響。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 2、5</text><feedback><text>total 經行 5 到達 avg（8），avg 再到達 grade（9）與 return（10）。</text></feedback></answer>
+    <generalfeedback><text>從行 2 的 total 向前：2 → 5（total = total+s）→ 8（avg）→ 9（grade）→ 10（return）。切片＝{2, 5, 8, 9, 10}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後向切片：Classify 中的 label</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> 範例：</p>
+<pre>2:  label = "zero"
+3:  sign = 0
+4:  if (n &gt; 0)
+5:    label = "positive"
+6:    sign = 1
+7:  else if (n &lt; 0)
+8:    label = "negative"
+9:    sign = -1
+11: return label</pre>
+<p>切片條件 ⟨行 11, label⟩ 的後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 2、4、5、7、8、11</text><feedback><text>正確——label 來自三個 label 指派（2、5、8）加上主宰 5 與 8 的判定式（4、7）。</text></feedback></answer>
+    <answer fraction="0"><text>全部九個陳述句</text><feedback><text>sign 的指派（3、6、9）從不影響 label，故被排除。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、5、8、11</text><feedback><text>行 5 與 8 對判定式 4 與 7 有控制相依，這兩者也必須在切片中。</text></feedback></answer>
+    <answer fraction="0"><text>行 5、8、11</text><feedback><text>無條件的預設 label = "zero"（行 2）也會到達 return，而主宰的判定式也屬於切片。</text></feedback></answer>
+    <generalfeedback><text>行 11 的 label 有到達定義 2、5、8。行 5 與 8 對判定式 4 與 7 有控制相依。sign 陳述句（3、6、9）從不影響 label。切片＝{2, 4, 5, 7, 8, 11}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 sign 被排除於 label 切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Classify</em> 的後向切片 ⟨行 11, label⟩ 中，行 6 <code>sign = 1</code> 被排除。最佳理由是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>sign 從不被用來計算 label，故沒有任何資料相依把它帶進 return</text><feedback><text>正確——label 與 sign 互相獨立；sign 沒有通往 label 的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>sign = 1 在 if 分支內，而切片會忽略分支本體</text><feedback><text>切片確實包含分支本體（行 5 被包含）；行 6 被捨棄僅因它不影響 label。</text></feedback></answer>
+    <answer fraction="0"><text>sign = 1 只在 n &gt; 0 時執行，而切片忽略有條件的執行</text><feedback><text>靜態切片不會忽略有條件的陳述句；行 6 被排除是因對 label 缺乏相依。</text></feedback></answer>
+    <answer fraction="0"><text>sign 是常數，而常數從不被切片</text><feedback><text>常數指派可以出現在切片中（行 2 就是其一）；理由是 sign 不會到達 label。</text></feedback></answer>
+    <generalfeedback><text>對 label 切片只保留經相依到達 label 的陳述句。sign 在一條平行且獨立的鏈上計算，故所有 sign 指派都被排除。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何迴圈標頭進入切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 中，後向切片 ⟨行 5, total⟩ = {2, 4, 5}。行 4 <code>for (const s of scores)</code> 並未指派 total，為何仍被包含？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 5 對迴圈標頭有控制相依，故標頭必須在切片中</text><feedback><text>正確——行 5 是否執行取決於行 4 的迴圈判定式，這是控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>迴圈標頭指派了 total</text><feedback><text>標頭定義的是迴圈變數 s，不是 total；它透過控制相依進入。</text></feedback></answer>
+    <answer fraction="0"><text>行 4 在文字上與行 5 相鄰</text><feedback><text>相鄰不會強制包含；是控制相依所致。</text></feedback></answer>
+    <answer fraction="0"><text>每個切片都一定包含行 4</text><feedback><text>只有當切片中的某陳述句對行 4 有控制相依時，行 4 才被包含，而非無條件。</text></feedback></answer>
+    <generalfeedback><text>行 5 只在迴圈迭代時執行，故它對迴圈標頭（行 4）有控制相依。切片會追蹤控制相依，因而拉進行 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：資料相依角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一項探索器中的關係是由<strong>資料相依</strong>邊所刻畫？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>total = 0（行 2）→ total = total + s（行 5）：一個值被定義後被使用</text><feedback><text>正確——行 2 定義 total，行 5 使用它；那是 def-use（資料）相依。</text></feedback></answer>
+    <answer fraction="0"><text>for（行 4）→ total = total + s（行 5）：迴圈決定本體是否執行</text><feedback><text>那是控制相依，不是資料相依。</text></feedback></answer>
+    <answer fraction="0"><text>if (n &gt; 0)（行 4）→ label = "positive"（行 5）於 Classify</text><feedback><text>那條判定式到被主宰本體的連結是控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>return grade 是函式的最後一行</text><feedback><text>「是最後一行」是位置事實，不是相依邊。</text></feedback></answer>
+    <generalfeedback><text>資料相依邊連結某變數的定義到其值稍後的使用。total 在行 2 定義、於行 5 使用，就是資料相依。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：控制相依角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一項探索器中的關係是由<strong>控制相依</strong>邊所刻畫？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>if (n &gt; 0)（行 4）→ label = "positive"（行 5）：判定式主宰該陳述句是否執行</text><feedback><text>正確——行 5 只在行 4 判定式為真時執行；那是控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>total = total + s（行 5）→ avg = total / count（行 8）：一個值向前流動</text><feedback><text>那是對 total 的資料相依，不是控制。</text></feedback></answer>
+    <answer fraction="0"><text>count = 0（行 3）→ count = count + 1（行 6）：一個定義被再度使用</text><feedback><text>那是對 count 的資料相依，不是控制。</text></feedback></answer>
+    <answer fraction="0"><text>avg = total / count（行 8）→ grade = ...（行 9）：avg 被用來計算 grade</text><feedback><text>那是對 avg 的資料相依，不是控制。</text></feedback></answer>
+    <generalfeedback><text>控制相依邊連結某判定式到它所主宰執行的陳述句。if (n &gt; 0) 主宰 label = "positive" 就是這種邊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後向切片：行 5 處的 total</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> 範例。切片條件 ⟨行 5, total⟩（累加陳述句）的後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 2、4、5</text><feedback><text>正確——行 5 的 total 使用行 2 的 total，並對行 4 的迴圈標頭有控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、5</text><feedback><text>行 5 對迴圈標頭（行 4）有控制相依，必須包含。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、4、5、8</text><feedback><text>行 8 使用 total 但位於下游（前向），並非行 5 所相依的對象。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 5</text><feedback><text>行 5 的 total 相依於其初始值（行 2）與迴圈標頭（行 4）。</text></feedback></answer>
+    <generalfeedback><text>從行 5 的 total 向後：它使用 total（在行 2 定義），並對迴圈標頭（行 4）有控制相依。切片＝{2, 4, 5}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>前向切片：Classify 中的 label</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> 範例。切片條件 ⟨行 2, label⟩（預設指派）的<strong>前向</strong>切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 2 與 11</text><feedback><text>正確——行 2 所指派的值只能到達使用 label 的 return（行 11）。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、5、8、11</text><feedback><text>行 5 與 8 各自重新定義 label；它們不受行 2 所寫入之值的影響。</text></feedback></answer>
+    <answer fraction="0"><text>全部九個陳述句</text><feedback><text>行 2 的值只流向 return；它不會到達 sign 陳述句或判定式。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 2</text><feedback><text>行 2 定義的 label 在 return（行 11）被使用，故行 11 在前向切片中。</text></feedback></answer>
+    <generalfeedback><text>從行 2 的 label 向前：該值唯一的使用處是 return（行 11）。切片＝{2, 11}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 return 不在對 avg 的後向切片中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 中，後向切片 ⟨行 9, avg⟩ = {2, 3, 4, 5, 6, 8, 9}——它不含行 10 <code>return grade</code>。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>return 相依於行 9，而非反過來；後向切片只保留會影響切片條件的陳述句</text><feedback><text>正確——行 10 位於行 9 下游，故它會出現在前向切片中，而非此後向切片。</text></feedback></answer>
+    <answer fraction="0"><text>return 沒有變數，故從不被切片</text><feedback><text>return 使用 grade，可以出現在切片中；這裡被排除只因它不影響行 9 的 avg。</text></feedback></answer>
+    <answer fraction="0"><text>行 10 無法到達</text><feedback><text>return 是可到達的；它只是位於切片條件的下游。</text></feedback></answer>
+    <answer fraction="0"><text>後向切片從不包含最後一個陳述句</text><feedback><text>並無此規則；若最後一個陳述句影響切片條件，它可在後向切片中。</text></feedback></answer>
+    <generalfeedback><text>後向切片收集會影響切片條件的陳述句。return 被行 9 影響（在其之後），故它屬於前向切片，而非後向切片。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 avg 進入 grade 切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 中，後向切片 ⟨行 10, grade⟩ 包含行 8 <code>avg = total / count</code>。哪條鏈解釋了這一點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>return 使用 grade；grade（行 9）使用 avg；avg 在行 8 定義——一條資料相依鏈</text><feedback><text>正確——grade ← avg 沿 def-use 鏈回到行 8。</text></feedback></answer>
+    <answer fraction="0"><text>行 8 對 return 有控制相依</text><feedback><text>從 return 到行 8 並無控制相依；連結是經由 grade 與 avg 的資料相依。</text></feedback></answer>
+    <answer fraction="0"><text>行 8 與行 10 在同一條執行路徑上，這就足夠了</text><feedback><text>共處一條路徑並不充分；是相依鏈（grade ← avg）使行 8 被包含。</text></feedback></answer>
+    <answer fraction="0"><text>avg 是全域變數</text><feedback><text>avg 是區域變數；它被包含是因為進入 grade 的資料相依鏈。</text></feedback></answer>
+    <generalfeedback><text>10 使用 grade → 9 由 avg 定義 grade → 8 定義 avg。沿這些資料相依向後追蹤即把行 8 拉進切片。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>sign = 1 在 label 切片中嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Classify</em> 範例中，行 6 <code>sign = 1</code> 屬於切片條件 ⟨return label, label⟩ 的後向切片。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——sign 從不影響 label，故行 6 不在切片中。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>sign 與 label 互相獨立；label 切片是 {2, 4, 5, 7, 8, 11}，排除所有 sign 指派。</text></feedback></answer>
+    <generalfeedback><text>對 label 的後向切片只保留 label 的各指派與主宰它們的判定式；sign 的計算（含行 6）被排除。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>前向切片：從初始化出發的 count</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> 範例。切片條件 ⟨行 3, count⟩ 的<strong>前向</strong>切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 3、6、8、9、10</text><feedback><text>正確——count（行 3）流入行 6，再進入 avg（8）、grade（9）與 return（10）。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、5、8、9、10</text><feedback><text>那是從 total（行 2）出發的前向切片；這裡的變數是 count。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 3、6</text><feedback><text>count 在行 8 到達 avg，avg 再到達 grade（9）與 return（10）。</text></feedback></answer>
+    <answer fraction="0"><text>全部八個陳述句</text><feedback><text>total 陳述句（2、5）與迴圈標頭不受行 3 的 count 之值影響。</text></feedback></answer>
+    <generalfeedback><text>從行 3 的 count 向前：3 → 6（count = count+1）→ 8（avg）→ 9（grade）→ 10（return）。切片＝{3, 6, 8, 9, 10}。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Program Slicing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>動態切片：Classify 輸入 n = 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> 範例，以輸入 <code>n = 5</code> 執行（軌跡執行行 2、3、4、5、6、11）。切片條件 ⟨行 11, label⟩ 的<strong>動態</strong>後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 4、5、11</text><feedback><text>正確——此次執行中，return 處的 label 來自行 5（由行 4 主宰）；預設的行 2 被覆寫且不會到達 return。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、4、5、7、8、11</text><feedback><text>那是靜態切片；n = 5 的動態切片較小，因為行 5 覆寫了 label，且行 7、8 未執行。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、5、11</text><feedback><text>此次執行中預設的行 2 已死（label 在行 5 被重新指派）；行 4 主宰行 5，改為被包含。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、3、4、5、6、11</text><feedback><text>動態切片只保留實際影響 label 的陳述句——並非每個已執行的陳述句（行 3 與 6 計算 sign；行 2 被覆寫）。</text></feedback></answer>
+    <generalfeedback><text>在 n = 5 時，到達 return 的 label 存活定義是行 5，對行 4 有控制相依。行 2 的指派被覆寫（死），行 7、8 從未執行。動態切片＝{4, 5, 11}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態與動態切片大小（Classify, n = 5）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <em>Classify</em> ⟨行 11, label⟩，靜態後向切片有 6 個陳述句，而 <code>n = 5</code> 的動態切片有 3 個。這個大小差異主要反映什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態切片必須顧及所有輸入（所有分支），而那一次執行只走了一個分支，使其他的 label 定義變得無關</text><feedback><text>正確——專門化到單次執行會捨棄未走的分支與死定義。</text></feedback></answer>
+    <answer fraction="0"><text>動態切片找到了靜態分析漏掉的額外相依</text><feedback><text>動態切片是子集；它不可能含有靜態切片沒有的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析不精確，誤做了過度近似</text><feedback><text>較大的靜態切片是正確的，並非錯誤——它必須對每個可能輸入都安全。</text></feedback></answer>
+    <answer fraction="0"><text>兩個切片使用了不同的切片條件</text><feedback><text>兩者都用相同的切片條件 ⟨行 11, label⟩；只是範圍（所有執行對比單次執行）不同。</text></feedback></answer>
+    <generalfeedback><text>靜態切片涵蓋每一次可能的執行，故包含全部三個 label 定義與兩個判定式。n = 5 的動態切片只保留那一次真正決定 label 的陳述句，因而較小。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>動態切片：Classify 輸入 n = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> 範例，以輸入 <code>n = 0</code> 執行（軌跡執行行 2、3、4、7、11）。切片條件 ⟨行 11, label⟩ 的<strong>動態</strong>後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 2、11</text><feedback><text>正確——兩個分支都未重新指派 label，故回傳的 label 是行 2 的預設值；判定式並未改變它。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、4、7、11</text><feedback><text>行 4 與 7 有執行，但 label = "zero"（行 2）是無條件的——它不對那些判定式有控制相依，故不在動態切片中。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、4、5、7、8、11</text><feedback><text>那是靜態切片；在 n = 0 時 label 的兩個重新指派（5、8）都未執行。</text></feedback></answer>
+    <answer fraction="0"><text>只有行 11</text><feedback><text>回傳的值來自行 2，故行 2 在切片中。</text></feedback></answer>
+    <generalfeedback><text>在 n = 0 時兩個分支都被跳過，故 label 保留行 2 的預設值。行 2 是無條件的（不對判定式有控制相依），故已執行的判定式 4 與 7 不進入。動態切片＝{2, 11}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>動態切片：Classify 輸入 n = -3</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Classify</em> 範例，以輸入 <code>n = -3</code> 執行（軌跡執行行 2、3、4、7、8、9、11）。切片條件 ⟨行 11, label⟩ 的<strong>動態</strong>後向切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 4、7、8、11</text><feedback><text>正確——label 來自行 8，行 8 對行 7（else-if）有控制相依，行 7 又對行 4 有控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>行 2、4、7、8、11</text><feedback><text>行 8 覆寫了預設的 label；此次執行中行 2 的指派已死並被剔除。</text></feedback></answer>
+    <answer fraction="0"><text>行 7、8、11</text><feedback><text>行 7 本身對行 4 有控制相依（它只在 n &gt; 0 為假時才被到達），故行 4 也被包含。</text></feedback></answer>
+    <answer fraction="0"><text>行 8、11</text><feedback><text>行 8 由判定式 7 主宰，判定式 7 又由判定式 4 主宰；兩者都屬於切片。</text></feedback></answer>
+    <generalfeedback><text>在 n = -3 時，label 的存活定義是行 8，對行 7 有控制相依，行 7 又對行 4 有控制相依。行 2 被覆寫。動態切片＝{4, 7, 8, 11}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>動態等於靜態（Grade Average）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 中，靜態後向切片 ⟨行 10, grade⟩ 是全部八個陳述句。對於 <code>scores = [50]</code> 這次執行，動態切片也是全部八個。為何此處沒有縮減？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個陳述句都執行了，且在該次執行中每個的值都確實貢獻到 grade，故無法捨棄任何一個</text><feedback><text>正確——沒有未走的分支、也沒有與 grade 相關的死定義，故動態切片等於靜態切片。</text></feedback></answer>
+    <answer fraction="0"><text>動態切片一定等於靜態切片</text><feedback><text>一般並非如此——Classify 範例就有嚴格縮減；此處只是恰好一致。</text></feedback></answer>
+    <answer fraction="0"><text>該次執行失敗了，而失敗的執行不會被切片</text><feedback><text>不論結果如何都會被切片；這裡的一致是因為每個陳述句都有貢獻。</text></feedback></answer>
+    <answer fraction="0"><text>切片條件變數 grade 是全域的</text><feedback><text>grade 是區域變數；一致是因為此次執行中所有陳述句都確實影響 grade。</text></feedback></answer>
+    <generalfeedback><text>當有陳述句未執行、或其定義在到達切片條件前被覆寫時，動態切片才會縮小。此處每個陳述句都執行且都餵入 grade，故動態切片與完整靜態切片相符。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何動態 ⊆ 靜態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何動態切片絕不會包含（相同切片條件的）靜態切片所省略的陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>動態切片只是把靜態切片限縮到已執行的陳述句與存活的相依；限縮只會移除而不會新增陳述句</text><feedback><text>正確——動態切片是靜態切片經過濾後的子集。</text></feedback></answer>
+    <answer fraction="0"><text>動態切片使用的相依邊比靜態切片更多</text><feedback><text>它使用的更少——只有該次執行存活的——故不可能超過靜態切片。</text></feedback></answer>
+    <answer fraction="0"><text>動態分析會在執行期發現新的陳述句</text><feedback><text>不會出現新陳述句；執行只是在程式既有的陳述句中做選擇。</text></feedback></answer>
+    <answer fraction="0"><text>靜態切片忽略控制相依</text><feedback><text>靜態切片同樣使用控制相依；子集關係成立是因為動態切片是一種限縮。</text></feedback></answer>
+    <generalfeedback><text>動態切片只保留已執行的陳述句與在該次執行中存活的相依邊——是靜態切片所考量者的子集，故它一定被包含於靜態切片。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片鎖定錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average（含 bug）</em>範例把行 6 改為 <code>count = count + s</code>（它加上分數而非加 1），使平均值出錯。對切片條件 ⟨行 10, grade⟩，後向切片如何幫助除錯？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有錯的行 6 落在 grade 的後向切片內，故它屬於開發者為錯誤的 grade 必須檢查的陳述句之一</text><feedback><text>正確——count 餵入 avg 再餵入 grade，故有錯的 count 更新在錯誤輸出的切片中。</text></feedback></answer>
+    <answer fraction="0"><text>切片排除行 6，證明它不可能是錯誤所在</text><feedback><text>恰恰相反，行 6 透過 count → avg → grade 在切片中，故它是嫌疑。</text></feedback></answer>
+    <answer fraction="0"><text>切片會自動把行 6 改寫成正確程式碼</text><feedback><text>切片縮小嫌疑範圍；它不會修復程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>切片證明錯誤在 return 陳述句</text><feedback><text>return 只是傳遞 grade；切片指向整個影響集合，其中包含真正的錯誤處行 6。</text></feedback></answer>
+    <generalfeedback><text>由於 count 流入 avg 再流入 grade，有錯的行 6 落在 grade 的後向切片內。切片把對錯誤 grade 的搜尋限縮到正是可能造成它的那些陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤相依鏈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Grade Average</em> 中，哪一條資料相依鏈顯示行 2 <code>total = 0</code> 能影響回傳的 grade？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 (total) → 5 (total) → 8 (avg) → 9 (grade) → 10 (return)</text><feedback><text>正確——total 流入累加，再到 avg，再到 grade，再到 return。</text></feedback></answer>
+    <answer fraction="0"><text>2 (total) → 3 (count) → 8 (avg) → 10 (return)</text><feedback><text>total 不會流入 count（行 3）；鏈是經由行 5，而非行 3。</text></feedback></answer>
+    <answer fraction="0"><text>2 (total) → 8 (avg) → 10 (return)</text><feedback><text>total 經行 5 的累加到達 avg；不存在直接的 2 → 8 邊，且 grade（9）位於 avg 與 return 之間。</text></feedback></answer>
+    <answer fraction="0"><text>2 (total) → 4 (loop) → 9 (grade) → 10 (return)</text><feedback><text>行 2 沒有資料邊進入迴圈標頭，且 grade 由 avg 計算，而非直接由迴圈。</text></feedback></answer>
+    <generalfeedback><text>從行 2 的 total 向前：total 在行 5 被使用，其結果餵入 avg（8），avg 餵入 grade（9），grade 被 return（10）使用。這就是資料相依鏈。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>回歸測試：該重跑哪些測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以切片為基礎的靜態回歸準則下，變更陳述句 S 之後，哪些測試必須重跑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>凡執行到 S 的前向切片（影響集合）中至少一個陳述句的每個測試</text><feedback><text>正確——S 的前向切片界定了此變更所能影響的一切，故任何觸及它的測試都必須重跑。</text></feedback></answer>
+    <answer fraction="0"><text>只有涵蓋率最高的那一個測試</text><feedback><text>涵蓋率高低無關緊要；重點是測試是否觸及 S 的影響集合。</text></feedback></answer>
+    <answer fraction="0"><text>只有執行到 S 本身、從不觸及任何下游陳述句的測試</text><feedback><text>即使測試未直接執行 S，只要觸及 S 下游的陳述句就可能受影響。</text></feedback></answer>
+    <answer fraction="0"><text>套件中的每一個測試，無條件全跑</text><feedback><text>以切片為基礎的挑選可避免重跑那些不可能受變更影響的測試。</text></feedback></answer>
+    <generalfeedback><text>被變更陳述句的前向切片就是它的影響集合。靜態準則會重跑凡執行到該集合中至少一個陳述句的測試，並安全地略過其餘測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何切片有助於回歸測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何切片能降低回歸測試的成本？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把變更的影響界定在變更的切片（影響集合）內，故無法到達該集合的測試可被安全略過</text><feedback><text>正確——只有觸及影響集合的測試需要重跑，因而省力。</text></feedback></answer>
+    <answer fraction="0"><text>它刪除先前失敗的測試</text><feedback><text>切片是挑選要重跑哪些測試；它不會刪除測試。</text></feedback></answer>
+    <answer fraction="0"><text>它使每個測試執行得更快</text><feedback><text>切片減少的是要跑的測試數量，而非單一測試的速度。</text></feedback></answer>
+    <answer fraction="0"><text>它保證此變更未引入任何缺陷</text><feedback><text>切片幫助挑選測試；它本身無法保證正確性。</text></feedback></answer>
+    <generalfeedback><text>一次變更只能影響它（前向）切片中的陳述句。從不執行該影響集合中任何陳述句的測試無法觀察到此變更，故無需重跑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從迴圈變數出發的前向切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Grade Average</em> 範例。切片條件 ⟨行 4, s⟩（迴圈變數）的<strong>前向</strong>切片為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 4、5、6、8、9、10</text><feedback><text>正確——行 4 主宰本體（行 5、6），其變數 s 餵入行 5；效果接著透過 avg、grade 與 return 傳播。</text></feedback></answer>
+    <answer fraction="0"><text>行 4、5、8、9、10</text><feedback><text>行 6 對迴圈標頭（行 4）有控制相依，故它也屬於前向切片。</text></feedback></answer>
+    <answer fraction="0"><text>全部八個陳述句</text><feedback><text>行 2 與 3 的初始化在迴圈之前，不受行 4 的 s 影響。</text></feedback></answer>
+    <answer fraction="0"><text>行 4、5、6</text><feedback><text>迴圈本體更新 total 與 count，其值接著到達 avg（8）、grade（9）與 return（10）。</text></feedback></answer>
+    <generalfeedback><text>從迴圈標頭向前：它主宰行 5 與 6，且 s 餵入行 5。它們的效果流入 avg（8）、grade（9）與 return（10）。行 2 與 3 在上游而被排除。切片＝{4, 5, 6, 8, 9, 10}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>判定式經控制相依進入切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Classify</em> 中，後向切片 ⟨行 11, label⟩ 含有行 4 <code>if (n &gt; 0)</code>，即使行 4 並未指派任何 label 使用的變數。何者可為其被包含辯護？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 5（label = "positive"）對行 4 有控制相依，而行 5 在切片中，故主宰它的判定式被拉進</text><feedback><text>正確——控制相依會向後追蹤，故主宰某切片陳述句的判定式會被包含。</text></feedback></answer>
+    <answer fraction="0"><text>行 4 定義 n，而 label 使用 n</text><feedback><text>label 不使用 n，行 4 也不定義它；被包含是因為行 5 的控制相依。</text></feedback></answer>
+    <answer fraction="0"><text>每個 if 陳述句都一定加入每個切片</text><feedback><text>只有當某判定式主宰已在切片中的陳述句時，它才會被加入。</text></feedback></answer>
+    <answer fraction="0"><text>行 4 是第一個可執行的行</text><feedback><text>是否靠前不會強制包含；是行 5 的控制相依所致。</text></feedback></answer>
+    <generalfeedback><text>label = "positive"（行 5）在切片中，並對行 4 的判定式有控制相依。切片追蹤該控制邊，故判定式加入切片。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何預設 label 被剔除（n = 5）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <em>Classify</em> 對 <code>n = 5</code> 的動態切片 ⟨行 11, label⟩ 中，行 2 <code>label = "zero"</code> 有執行，卻<strong>不</strong>在切片中。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>行 5 在行 2 之後重新定義 label，故依「最後定義規則」，到達 return 的值來自行 5，而非行 2</text><feedback><text>正確——在 return 使用 label 之前，行 2 的寫入已被行 5 覆蓋，故它在此次執行中是死定義。</text></feedback></answer>
+    <answer fraction="0"><text>行 2 在此次執行中從未執行</text><feedback><text>行 2 確實有執行；它被排除是因其值被覆寫，而非被跳過。</text></feedback></answer>
+    <answer fraction="0"><text>常數指派一律被排除於動態切片之外</text><feedback><text>常數指派可以出現在切片中（行 5 指派常數且被包含）；行 2 是因死定義而被剔除。</text></feedback></answer>
+    <answer fraction="0"><text>label = "zero" 對行 4 有控制相依</text><feedback><text>行 2 是無條件的；它被排除是因其值未到達 return，而非因控制相依。</text></feedback></answer>
+    <generalfeedback><text>依最後定義規則，某變數某次使用之前只有最近的定義存活。在 n = 5 時，行 5 在 return 之前覆寫了 label，故行 2 的定義已死，被排除於動態切片之外。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>各次執行中最小的動態切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <em>Classify</em> ⟨行 11, label⟩，比較三種輸入的動態切片。哪個輸入產生<strong>最小</strong>的動態切片？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n = 0（切片 = {2, 11}，大小 2）</text><feedback><text>正確——兩個分支都未重新指派 label，只剩預設值與 return，是最小的切片。</text></feedback></answer>
+    <answer fraction="0"><text>n = 5（切片 = {4, 5, 11}，大小 3）</text><feedback><text>那是大小 3；n = 0 的執行給出更小的大小 2 切片。</text></feedback></answer>
+    <answer fraction="0"><text>n = -3（切片 = {4, 7, 8, 11}，大小 4）</text><feedback><text>那是大小 4，是三個動態切片中最大的。</text></feedback></answer>
+    <answer fraction="0"><text>三者大小相同</text><feedback><text>它們不同：大小為 2（n = 0）、3（n = 5）與 4（n = -3）。</text></feedback></answer>
+    <generalfeedback><text>動態切片：n = 0 → {2, 11}（2），n = 5 → {4, 5, 11}（3），n = -3 → {4, 7, 8, 11}（4）。n = 0 的執行最小，因為回傳的 label 只是無條件的預設值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片整體如何有助於除錯</text></name>
+    <questiontext format="html"><text><![CDATA[<p>整體而言，程式切片最直接地如何幫助除錯？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把找錯的範圍縮小到可能影響失敗點上錯誤變數的那些陳述句</text><feedback><text>正確——錯誤值的後向切片界定了需檢查的陳述句集合。</text></feedback></answer>
+    <answer fraction="0"><text>它反覆重跑程式直到 bug 消失</text><feedback><text>切片是對相依關係的靜態／動態分析，並非重試機制。</text></feedback></answer>
+    <answer fraction="0"><text>它依執行時間為陳述句排名</text><feedback><text>切片談的是相依關係，而非執行時間剖析。</text></feedback></answer>
+    <answer fraction="0"><text>它形式化地證明錯誤不存在</text><feedback><text>切片聚焦注意力；它不證明正確性。</text></feedback></answer>
+    <generalfeedback><text>當某變數在某點持有錯誤值時，它的後向切片正好包含可能造成它的那些陳述句，故開發者可略過程式其餘部分。</text></generalfeedback>
+  </question>
+</quiz>

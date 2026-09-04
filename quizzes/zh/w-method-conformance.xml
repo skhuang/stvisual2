@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/W-Method Conformance/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>特徵集 W 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 W 方法中，<strong>特徵集 W</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組輸入序列，合起來能區分任兩個狀態——任兩狀態至少在 W 中某一條序列的輸出上不同</text><feedback><text>正確——W 藉由輸出反應來區分狀態。</text></feedback></answer>
+    <answer fraction="0"><text>每個狀態各一條最短、能抵達該狀態的輸入序列，含 ε</text><feedback><text>那是狀態涵蓋集 P，不是 W。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋集，再把每條涵蓋序列各接一個輸入</text><feedback><text>那是轉移涵蓋集，不是 W。</text></feedback></answer>
+    <answer fraction="0"><text>餵給實作的完整測試清單</text><feedback><text>那是整個測試集；W 只是其中一個組成元件。</text></feedback></answer>
+    <generalfeedback><text>特徵（區分）集 W 收集一組輸入序列，使機器中任兩個不同狀態至少在 W 中某一條序列上產生不同輸出。在探索器的範例中 W = {a, aa}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>狀態涵蓋集 P 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 W 方法中，<strong>狀態涵蓋集 P</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組序列，每個狀態各保留一條最短、能抵達該狀態的輸入序列，並以 ε 對應初始狀態</text><feedback><text>正確——P 抵達每個狀態，初始狀態用 ε。</text></feedback></answer>
+    <answer fraction="0"><text>一組能區分任兩個狀態的序列</text><feedback><text>那是特徵集 W。</text></feedback></answer>
+    <answer fraction="0"><text>每條轉移後接一條區分序列</text><feedback><text>那混合了不同元件；P 只負責抵達狀態。</text></feedback></answer>
+    <answer fraction="0"><text>所有長度不超過 m 的輸入序列之聯集</text><feedback><text>那是 X^≤m 中段，不是 P。</text></feedback></answer>
+    <generalfeedback><text>狀態涵蓋集 P 為每個狀態各保留一條最短的抵達序列——以 ε（空序列）對應初始狀態。範例中 P = {ε, a, aa}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移涵蓋集的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 W 方法中，<strong>轉移涵蓋集</strong>如何建構？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>狀態涵蓋集 P，再加上 P 後接一個輸入符號：P ∪ P·X</text><feedback><text>正確——P ∪ P·X 讓每條轉移至少被走一次。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋集 P 後接特徵集 W</text><feedback><text>那較接近測試集；轉移涵蓋集不會接上 W。</text></feedback></answer>
+    <answer fraction="0"><text>每一對狀態以一條區分序列相連</text><feedback><text>轉移涵蓋集不是這樣定義的。</text></feedback></answer>
+    <answer fraction="0"><text>所有長度不超過 m 的輸入序列之聯集</text><feedback><text>那是 X^≤m 段，不是轉移涵蓋集。</text></feedback></answer>
+    <generalfeedback><text>轉移涵蓋集為 P ∪ P·X：每條狀態涵蓋序列，以及每條再接一個輸入符號。這強迫每條轉移都被走到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一致性測試的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>以 W 方法進行的<strong>一致性測試</strong>在檢查什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>實作的行為是否與規格 FSM 相同</text><feedback><text>正確——一致性即實作與規格機器行為相符。</text></feedback></answer>
+    <answer fraction="0"><text>規格 FSM 是否為最小化</text><feedback><text>最小化是方法的前提，而非一致性測試所檢查的對象。</text></feedback></answer>
+    <answer fraction="0"><text>實作的原始碼是否能編譯</text><feedback><text>能否編譯與行為一致性無關。</text></feedback></answer>
+    <answer fraction="0"><text>實作是否夠快</text><feedback><text>那是效能測試，不是一致性測試。</text></feedback></answer>
+    <generalfeedback><text>一致性測試在問：黑箱實作對每一條相關輸入序列，是否產生與規格 FSM 相同的輸出。W 測試集正是這樣一組輸入序列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完整的 W 測試集公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個式子是完整的 <strong>W 方法測試集</strong>（如探索器所示）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(P ∪ P·X) · X^≤m · W</text><feedback><text>正確——轉移涵蓋集、再接中段 X^≤m、再接 W。</text></feedback></answer>
+    <answer fraction="0"><text>P · W</text><feedback><text>這漏了 P·X 延伸與 X^≤m 中段。</text></feedback></answer>
+    <answer fraction="0"><text>P ∪ W</text><feedback><text>測試集是把各部分串接，而非 P 與 W 的聯集。</text></feedback></answer>
+    <answer fraction="0"><text>(P ∪ P·X) · X^≤m</text><feedback><text>這少了特徵集 W，抵達的狀態便無從檢查。</text></feedback></answer>
+    <generalfeedback><text>探索器把測試集建為 (P ∪ P·X) · X^≤m · W：轉移涵蓋集，串接長度不超過 m 的輸入序列，再串接特徵集。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從範例讀出 P</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器的 3 狀態範例中，<strong>狀態涵蓋集 P</strong> 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ε, a, aa}</text><feedback><text>正確——ε 抵達 q1、a 抵達 q2、aa 抵達 q3。</text></feedback></answer>
+    <answer fraction="0"><text>{a, aa}</text><feedback><text>這漏了 ε，而 ε 對應初始狀態 q1。</text></feedback></answer>
+    <answer fraction="0"><text>{ε, a, b}</text><feedback><text>b 不出現在抵達三個狀態的最短路徑中。</text></feedback></answer>
+    <answer fraction="0"><text>{a, b, aa}</text><feedback><text>初始狀態由 ε 抵達，而非任何單一輸入。</text></feedback></answer>
+    <generalfeedback><text>最短路徑：q1 由 ε、q2 由 a（q1 —a→ q2）、q3 由 aa（q1 —a→ q2 —a→ q3）。故 P = {ε, a, aa}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從範例讀出 W</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器的範例中，<strong>特徵集 W</strong> 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{a, aa}</text><feedback><text>正確——a 分開 q1/q2 與 q2/q3；aa 分開 q1/q3。</text></feedback></answer>
+    <answer fraction="0"><text>{ε, a}</text><feedback><text>ε 不產生輸出，無法區分任何狀態。</text></feedback></answer>
+    <answer fraction="0"><text>{a, b}</text><feedback><text>b 對每個狀態都輸出 1，單獨無法區分任何狀態。</text></feedback></answer>
+    <answer fraction="0"><text>{aa, ab}</text><feedback><text>探索器的 W 是 {a, aa}；不需要 ab。</text></feedback></answer>
+    <generalfeedback><text>探索器算出 W = {a, aa}：a 區分 q1 與 q2、以及 q2 與 q3；而區分 q1 與 q3 則需要 aa。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>規格的狀態數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器中的規格 FSM 有幾個狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 個（q1, q2, q3）</text><feedback><text>正確——規格是一台 3 狀態的 Mealy 機器。</text></feedback></answer>
+    <answer fraction="0"><text>2 個</text><feedback><text>探索器顯示三個狀態：q1、q2、q3。</text></feedback></answer>
+    <answer fraction="0"><text>4 個</text><feedback><text>範例中只有三個狀態。</text></feedback></answer>
+    <answer fraction="0"><text>6 個</text><feedback><text>6 是轉移的數目，不是狀態數。</text></feedback></answer>
+    <generalfeedback><text>規格機器有 q1、q2、q3 三個狀態，以 q1 為初始狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例的輸入字母表</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器的 FSM 之<strong>輸入字母表 X</strong> 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{a, b}</text><feedback><text>正確——兩個輸入是 a 與 b。</text></feedback></answer>
+    <answer fraction="0"><text>{0, 1}</text><feedback><text>0 與 1 是輸出，不是輸入字母表。</text></feedback></answer>
+    <answer fraction="0"><text>{a, b, c}</text><feedback><text>範例中沒有輸入 c。</text></feedback></answer>
+    <answer fraction="0"><text>{q1, q2, q3}</text><feedback><text>那些是狀態，不是輸入。</text></feedback></answer>
+    <generalfeedback><text>此 FSM 讀取的輸入來自 X = {a, b}，並輸出 {0, 1}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例的初始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器 FSM 的<strong>初始狀態</strong>是哪一個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>q1</text><feedback><text>正確——q1 被標記為初始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>q2</text><feedback><text>q2 由 q1 在輸入 a 後抵達，不是起點。</text></feedback></answer>
+    <answer fraction="0"><text>q3</text><feedback><text>q3 要在兩個 a 輸入後才抵達。</text></feedback></answer>
+    <answer fraction="0"><text>沒有初始狀態</text><feedback><text>這裡每台 FSM 都有起始狀態，即 q1。</text></feedback></answer>
+    <generalfeedback><text>q1 是初始狀態；這也是為何在狀態涵蓋集 P 中由 ε（空序列）對應它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mealy 機器在何處輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格是一台 <strong>Mealy</strong> 機器。Mealy 機器在何處產生輸出？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在轉移上——輸出取決於目前狀態與輸入</text><feedback><text>正確——Mealy 的輸出標在轉移上。</text></feedback></answer>
+    <answer fraction="0"><text>在狀態上——輸出只取決於目前狀態</text><feedback><text>那描述的是 Moore 機器，不是 Mealy。</text></feedback></answer>
+    <answer fraction="0"><text>只在抵達最終狀態時</text><feedback><text>機器在每條轉移都輸出，而非只在最後。</text></feedback></answer>
+    <answer fraction="0"><text>Mealy 機器不產生輸出</text><feedback><text>Mealy 機器會輸出——在每條轉移上。</text></feedback></answer>
+    <generalfeedback><text>在 Mealy 機器中，每條轉移都帶有一個輸出，取決於來源狀態與輸入，例如 q1 —a/0→ q2。（Moore 機器則把輸出附在狀態上。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ε 對應哪個狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在狀態涵蓋集 P 中，空序列 ε 是哪個狀態的涵蓋項？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>初始狀態 q1</text><feedback><text>正確——沒有任何輸入時，機器就停在起始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>q2</text><feedback><text>q2 需要輸入 a；它的涵蓋項是 a，不是 ε。</text></feedback></answer>
+    <answer fraction="0"><text>q3</text><feedback><text>q3 需要 aa；ε 無法抵達它。</text></feedback></answer>
+    <answer fraction="0"><text>同時對應所有狀態</text><feedback><text>ε 只讓機器停在初始狀態。</text></feedback></answer>
+    <generalfeedback><text>不餵任何輸入（ε）會讓機器停在初始狀態 q1，所以 ε 是 q1 在 P 中的項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移涵蓋集的大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器的範例中，去除重複後，<strong>轉移涵蓋集</strong>（P ∪ P·X）有幾條序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——{ε, a, aa, b, ab, aaa, aab}。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是加入 P·X 前、P 本身的大小。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是轉移的數目，不是去重後的涵蓋集大小。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是在去除重複 a 與 aa 之前，P·X 與 P 的合計。</text></feedback></answer>
+    <generalfeedback><text>P = {ε, a, aa}，P·X 加入 {a, b, aa, ab, aaa, aab}；去重後的聯集為 {ε, a, aa, b, ab, aaa, aab}——共 7 條。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>點運算子的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在測試集公式中，兩個序列集合之間的 <strong>·</strong> 運算子是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>串接——左集合的每條序列後接右集合的每條序列</text><feedback><text>正確——這是序列的集合串接。</text></feedback></answer>
+    <answer fraction="0"><text>兩集合的聯集</text><feedback><text>聯集寫作 ∪；· 是串接。</text></feedback></answer>
+    <answer fraction="0"><text>集合的交集</text><feedback><text>· 不是交集；它把序列首尾相接。</text></feedback></answer>
+    <answer fraction="0"><text>兩個狀態集合的笛卡兒積</text><feedback><text>此運算子作用於序列，產生串接結果，而非狀態對。</text></feedback></answer>
+    <generalfeedback><text>A·B 是所有串接 x·y 之集合，其中 x 來自 A、y 來自 B——例如 {a}·{a, aa} = {aa, aaa}。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>q1 在輸入 a</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在規格 FSM 中，狀態 <code>q1</code> 於輸入 <code>a</code> 時輸出 <code>0</code> 並轉移到狀態 <code>q2</code>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——該轉移是 q1 —a/0→ q2。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>表格顯示 q1 —a/0→ q2，故敘述為真。</text></feedback></answer>
+    <generalfeedback><text>規格定義 q1 —a/0→ q2：q1 在輸入 a 時輸出 0 並轉移到 q2。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/W-Method Conformance/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>抵達 q3 的最短路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從初始狀態出發，抵達狀態 <code>q3</code> 的最短輸入序列是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aa</text><feedback><text>正確——q1 —a→ q2 —a→ q3。</text></feedback></answer>
+    <answer fraction="0"><text>a</text><feedback><text>a 只抵達 q2。</text></feedback></answer>
+    <answer fraction="0"><text>ab</text><feedback><text>q1 —a→ q2 —b→ q1 回到 q1，不是 q3。</text></feedback></answer>
+    <answer fraction="0"><text>b</text><feedback><text>q1 —b→ q1 是自環，永遠離不開 q1。</text></feedback></answer>
+    <generalfeedback><text>從 q1 起，輸入 a 移到 q2，再一個 a 移到 q3，故 aa 是最短抵達序列——這也是 q3 在狀態涵蓋集 P 中的項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>區分 q2 與 q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>能<strong>區分</strong> q2 與 q3 的最短輸入序列是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a——q2 輸出 1、q3 輸出 0</text><feedback><text>正確——一個輸入 a 就已把兩者分開。</text></feedback></answer>
+    <answer fraction="0"><text>b——兩者都輸出 1</text><feedback><text>q2 —b/1→ 與 q3 —b/1→ 輸出相同，故 b 無法區分。</text></feedback></answer>
+    <answer fraction="0"><text>aa</text><feedback><text>單一 a 已能區分 q2 與 q3；aa 過長。</text></feedback></answer>
+    <answer fraction="0"><text>ab</text><feedback><text>最短區分序列是 a，不是 ab。</text></feedback></answer>
+    <generalfeedback><text>q2 —a/1→ q3 輸出 1，但 q3 —a/0→ q3 輸出 0；輸出在第一個輸入就不同，故 a 可區分 q2 與 q3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何要接上 W</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼要在測試集的每個前綴後面接上一條來自 <strong>W</strong> 的序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把前綴所抵達的狀態變成可觀察的輸出軌跡，錯誤的落點狀態便會以錯誤輸出顯露</text><feedback><text>正確——W 讓內部狀態透過輸出變得可觀察。</text></feedback></answer>
+    <answer fraction="0"><text>它讓每個前綴抵達一個先前未曾造訪的新狀態</text><feedback><text>W 是檢查抵達的狀態，並不會抵達新狀態。</text></feedback></answer>
+    <answer fraction="0"><text>它藉由移除重複前綴來縮短測試集</text><feedback><text>接上 W 不會去重；它是在驗證狀態。</text></feedback></answer>
+    <answer fraction="0"><text>它以布林條件守衛每條轉移</text><feedback><text>守衛屬於 FSM，不屬於測試集的建構。</text></feedback></answer>
+    <generalfeedback><text>黑箱測試者無法直接讀取內部狀態。接上一條來自 W 的區分序列後，前綴所抵達的狀態就以特定輸出軌跡顯露，於是次態錯誤變成可見的輸出差異。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移涵蓋集中的元素</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一條序列屬於<strong>轉移涵蓋集</strong>（P ∪ P·X），但不屬於 P 本身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ab</text><feedback><text>正確——ab 是 a（在 P 中）再接 b，屬於 P·X 但不屬於 P。</text></feedback></answer>
+    <answer fraction="0"><text>aa</text><feedback><text>aa 已在 P 中（它抵達 q3）。</text></feedback></answer>
+    <answer fraction="0"><text>ε</text><feedback><text>ε 在 P 中（它涵蓋 q1）。</text></feedback></answer>
+    <answer fraction="0"><text>a</text><feedback><text>a 在 P 中（它抵達 q2）。</text></feedback></answer>
+    <generalfeedback><text>P = {ε, a, aa}。將每條各接一個輸入得到 P·X，貢獻出 b、ab、aaa、aab 等新序列。故 ab 在轉移涵蓋集中，但不在 P。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>P ∪ P·X 的大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當 |P| = 3、|X| = 2 時，對此 FSM 而言，<strong>P ∪ P·X</strong> 去除重複後有幾條序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——P 的 3 條加上 P·X 的 6 條，扣掉重複的 a 與 aa 兩條。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是扣除重複 a、aa 前的 3 + 6。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 只是 P·X 本身的大小。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>只有兩條序列（a 與 aa）重複，故 9 − 2 = 7。</text></feedback></answer>
+    <generalfeedback><text>P·X = {a, b, aa, ab, aaa, aab}。與 P = {ε, a, aa} 聯集會去掉重複的 a 與 aa，剩下 {ε, a, aa, b, ab, aaa, aab}——共 7 條。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>W 的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把元件對應到其角色：在 W 方法中，<strong>特徵集 W</strong> 的作用是……</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>藉由輸出反應區分狀態，使抵達的狀態可被驗證</text><feedback><text>正確——這正是 W 的職責。</text></feedback></answer>
+    <answer fraction="0"><text>至少抵達每個狀態一次</text><feedback><text>那是狀態涵蓋集 P 的角色。</text></feedback></answer>
+    <answer fraction="0"><text>至少走過每條轉移一次</text><feedback><text>那是轉移涵蓋集 P ∪ P·X 的角色。</text></feedback></answer>
+    <answer fraction="0"><text>列舉所有長度不超過 m 的輸入序列</text><feedback><text>那是 X^≤m 中段的角色。</text></feedback></answer>
+    <generalfeedback><text>每個元件各司其職：P 抵達狀態、P ∪ P·X 走過轉移、X^≤m 容納額外狀態、W 區分狀態使抵達狀態可驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>q1 對 q2 的分歧位置</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 q1 與 q2 而言，區分輸入是 <code>a</code>。它們的輸出軌跡在第幾個位置首次分歧？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>第 1 個位置——q1 輸出 0、q2 輸出 1</text><feedback><text>正確——它們在第一個輸出就不同。</text></feedback></answer>
+    <answer fraction="0"><text>第 2 個位置</text><feedback><text>它們在第 1 個位置就已不同，不需第二個輸入。</text></feedback></answer>
+    <answer fraction="0"><text>第 3 個位置</text><feedback><text>軌跡在第 1 個位置就立刻分歧。</text></feedback></answer>
+    <answer fraction="0"><text>永不分歧</text><feedback><text>q1 —a/0→ 與 q2 —a/1→ 不同，故軌跡確實會分歧。</text></feedback></answer>
+    <generalfeedback><text>q1 —a/0→ q2 輸出 0，而 q2 —a/1→ q3 輸出 1，故單一 a 就產生不同輸出——第 1 個位置分歧。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>m = 0 時的中段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當 m = 0 時，測試集的中段 <strong>X^≤m</strong> 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ε}——故測試集化簡為 (P ∪ P·X) · W</text><feedback><text>正確——X^≤0 就只是空序列。</text></feedback></answer>
+    <answer fraction="0"><text>{a, b}</text><feedback><text>那是 X^1，用於 m ≥ 1，不是 m = 0。</text></feedback></answer>
+    <answer fraction="0"><text>{ε, a, b}</text><feedback><text>那是 X^≤1（m = 1），不是 m = 0。</text></feedback></answer>
+    <answer fraction="0"><text>空集合 { }</text><feedback><text>X^≤0 含 ε，故非空；空的中段會使測試集消失。</text></feedback></answer>
+    <generalfeedback><text>X^≤0 = {ε}。所以 m = 0 時中段不額外貢獻，測試集為 (P ∪ P·X) · W。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從 q1 執行 aa 的輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從狀態 <code>q1</code> 執行輸入序列 <code>aa</code>，此 Mealy 機器產生什麼輸出？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>01</text><feedback><text>正確——q1 —a/0→ q2 —a/1→ q3 依序輸出 0 再 1。</text></feedback></answer>
+    <answer fraction="0"><text>00</text><feedback><text>00 是 q3 對 aa 的輸出，不是 q1。</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>從 q1 的第一個 a 輸出 0，不是 1。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>輸出依序是 0 再 1，得到 01，不是 10。</text></feedback></answer>
+    <generalfeedback><text>從 q1 起：a 輸出 0 並移到 q2；下一個 a 輸出 1 並移到 q3。故軌跡為 01。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 W 需要 aa</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 W 要含 <code>aa</code>，而不能只靠 <code>a</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>輸入 a 從 q1 與 q3 都輸出 0，故 a 無法分開兩者；aa 可以（01 對 00）</text><feedback><text>正確——需要 aa 才能分開 q1 與 q3。</text></feedback></answer>
+    <answer fraction="0"><text>a 不是合法輸入，所以需要較長的序列</text><feedback><text>a 是合法輸入；問題在於它無法分開 q1 與 q3。</text></feedback></answer>
+    <answer fraction="0"><text>aa 較短，因此較受偏好</text><feedback><text>aa 比 a 長；納入它是因為有必要，而非較短。</text></feedback></answer>
+    <answer fraction="0"><text>W 必須包含所有長度為 2 的序列</text><feedback><text>W 只含區分狀態所需者，並非所有長度 2 的序列。</text></feedback></answer>
+    <generalfeedback><text>q1 —a/0→ 與 q3 —a/0→ 都輸出 0，故單靠 a 無法分開 q1 與 q3。延伸為 aa 後，q1 得 01、q3 得 00，即可區分——所以 W 必須含 aa。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一條測試的結構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>W 測試集中的每一條測試序列如何組成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一段轉移涵蓋前綴，接一段來自 X^≤m 的中段，再接一段來自 W 的區分後綴</text><feedback><text>正確——前綴 · 中段 · W 後綴。</text></feedback></answer>
+    <answer fraction="0"><text>先接 W 後綴，再接轉移涵蓋前綴</text><feedback><text>順序是前綴在前、W 在最後，並非相反。</text></feedback></answer>
+    <answer fraction="0"><text>只有一段來自 W 的序列</text><feedback><text>每條測試還帶有涵蓋前綴與中段。</text></feedback></answer>
+    <answer fraction="0"><text>只有一段來自狀態涵蓋集 P 的序列</text><feedback><text>W 測試集的一條測試還會接上中段與 W 後綴。</text></feedback></answer>
+    <generalfeedback><text>每個測試集元素為（涵蓋序列）·（來自 X^≤m 的中段序列）·（來自 W 的區分序列）：抵達或走過一條轉移、可選地繞經額外輸入，再驗證所得狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個集合強迫走過每條轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>W 方法的哪個元件強迫每條轉移至少被走一次？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移涵蓋集 P ∪ P·X</text><feedback><text>正確——把 P 再接一個輸入即走過每條外向轉移。</text></feedback></answer>
+    <answer fraction="0"><text>特徵集 W</text><feedback><text>W 區分狀態；它本身並不會走過每條轉移。</text></feedback></answer>
+    <answer fraction="0"><text>X^≤m 中段</text><feedback><text>X^≤m 是容納額外狀態，並非保證轉移涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>只靠狀態涵蓋集 P</text><feedback><text>P 只抵達狀態；要走過每條轉移還需 P·X 延伸。</text></feedback></answer>
+    <generalfeedback><text>P 抵達每個狀態，再接一個輸入（P·X）即走過每條外向轉移。合起來 P ∪ P·X 走過規格的每條轉移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例中 W 的大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器的範例中，特徵集 <strong>W</strong> 有幾條序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2——即 a 與 aa</text><feedback><text>正確——W = {a, aa}。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>一條不夠：a 無法區分 q1 與 q3，故還需要 aa。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>探索器的 W 恰有兩條序列。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是轉移的數目，不是 W 的大小。</text></feedback></answer>
+    <generalfeedback><text>W = {a, aa}——兩條序列：a 分開 q1/q2 與 q2/q3，aa 分開 q1/q3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>區分 q1 與 q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>能<strong>區分</strong> q1 與 q3 的最短輸入序列是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aa——q1 得 01、q3 得 00</text><feedback><text>正確——輸出在第二個位置不同。</text></feedback></answer>
+    <answer fraction="0"><text>a——兩者都得 0</text><feedback><text>q1 —a/0→ 與 q3 —a/0→ 都輸出 0，故 a 無法區分。</text></feedback></answer>
+    <answer fraction="0"><text>b——兩者都得 1</text><feedback><text>q1 —b/1→ 與 q3 —b/1→ 都輸出 1，故 b 無法區分。</text></feedback></answer>
+    <answer fraction="0"><text>ab</text><feedback><text>aa 已能區分 q1 與 q3，且是能做到的最短序列。</text></feedback></answer>
+    <generalfeedback><text>a 與 b 從 q1 與 q3 都給出相同的第一個輸出。只有 aa 能分開：q1 得 01（經由 q2），q3 得 00（自環），在第 2 個位置不同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>m = 0 時的測試集大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當 m = 0 時，對此 FSM 而言，探索器的測試集含幾條<strong>相異</strong>測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>11</text><feedback><text>正確——探索器在 m = 0 回報 11 條相異測試。</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 是去除重複序列前的 7 × 2。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>去重後的測試集有 11 條，不是 9。</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 是 m = 1 時的測試集大小，不是 m = 0。</text></feedback></answer>
+    <generalfeedback><text>m = 0 時測試集為 (P ∪ P·X) · W：7 條涵蓋序列 × W 中 2 條 = 原始 14，去重後化為 11 條相異測試。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/W-Method Conformance/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>突變體的錯誤類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器的突變體把 <code>q3 —b→</code> 從 q2 改接到 q1，同時保持輸出為 <code>1</code>。這是哪種錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移（次態）錯誤——輸出正確，但目標狀態錯誤</text><feedback><text>正確——輸出未變，但目的地錯了。</text></feedback></answer>
+    <answer fraction="0"><text>輸出錯誤——該轉移輸出了錯誤符號</text><feedback><text>輸出仍是 1；只有目標狀態改變，故不是輸出錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>額外狀態錯誤——實作多加了一個狀態</text><feedback><text>並沒有新增狀態；只是把既有轉移改向。</text></feedback></answer>
+    <answer fraction="0"><text>潛行路徑（sneak path）——在未規定之處接受了事件</text><feedback><text>事件 b 在 q3 本就有規定；只是目標移動了。</text></feedback></answer>
+    <generalfeedback><text>突變體保留 q3 —b/1→，但改送到 q1 而非 q2：輸出相同、次態錯誤。這是典型的轉移（次態）錯誤——單靠轉移涵蓋可能漏掉的情形。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何轉移涵蓋會漏掉</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼單純的<strong>轉移涵蓋</strong>可能漏掉此突變體，而 W 測試集卻能抓到？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移涵蓋只檢查該轉移是否以正確輸出被觸發，不驗證你落在哪個狀態；接上 W 才檢查落點狀態</text><feedback><text>正確——W 揭露了涵蓋所忽略的錯誤目標。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋根本不會走 q3 —b→ 這條轉移</text><feedback><text>它確實會走；只是沒有 W 就看不出錯誤目標。</text></feedback></answer>
+    <answer fraction="0"><text>突變體改了輸出，而涵蓋無法觀察輸出</text><feedback><text>輸出未變；不同的是目標狀態。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋需要更長的字母表</text><feedback><text>問題不在字母表大小，而在於驗證抵達的狀態。</text></feedback></answer>
+    <generalfeedback><text>即使落在錯誤狀態，只要輸出相符地走過該轉移，就已滿足轉移涵蓋。W 測試集在轉移後接上一條區分序列，錯誤落點便產生不同的輸出軌跡，於是抓到錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>第一條失敗測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器 m = 0 時，第一條揭露突變體的測試是 <code>aaba</code>。規格與突變體在它上面如何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格輸出 0111，但突變體輸出 0110——它們在最後一個符號分歧</text><feedback><text>正確——錯誤的目標狀態改變了最終輸出。</text></feedback></answer>
+    <answer fraction="0"><text>規格輸出 0110，突變體輸出 0111</text><feedback><text>剛好相反：規格 0111、突變體 0110。</text></feedback></answer>
+    <answer fraction="0"><text>兩者輸出相同，但突變體較短</text><feedback><text>兩條軌跡等長；不同的是輸出。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都輸出 0111，故測試通過</text><feedback><text>突變體輸出 0110，故測試失敗。</text></feedback></answer>
+    <generalfeedback><text>在 aaba 上，規格走 q1→q2→q3→q2→q3 輸出 0111，而突變體的 q3 —b→ q1 使它走 q1→q2→q3→q1→q2 輸出 0110——最後一個輸出不同，揭露了錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>額外狀態假設</text></name>
+    <questiontext format="html"><text><![CDATA[<p>W 方法的錯誤偵測保證，是在對實作的哪個假設下成立？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>實作相對於規格的 n 個狀態，最多多出 m 個額外狀態</text><feedback><text>正確——保證是相對於「最多 m 個額外狀態」的上界。</text></feedback></answer>
+    <answer fraction="0"><text>實作有完全相同、名稱一致的狀態</text><feedback><text>方法容許額外狀態（最多 m 個）；不要求名稱一致。</text></feedback></answer>
+    <answer fraction="0"><text>實作使用二元輸入字母表</text><feedback><text>字母表大小與此保證無關。</text></feedback></answer>
+    <answer fraction="0"><text>規格不含任何自環</text><feedback><text>自環是允許的；假設講的是額外狀態。</text></feedback></answer>
+    <generalfeedback><text>W 方法只有在實作相對規格 n 個狀態最多多出 m 個額外狀態時，才保證偵測輸出與轉移錯誤——中段 X^≤m 正是用來涵蓋那些額外狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>假設被違反時</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若實作的額外狀態<strong>超過</strong>假設上界 m，這個保證會怎樣？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>保證失效——有些錯誤可能逃過測試集而未被偵測</text><feedback><text>正確——超過 m 個額外狀態後，完備性證明便不再成立。</text></feedback></answer>
+    <answer fraction="0"><text>沒有影響；保證對任何實作都仍成立</text><feedback><text>保證是以額外狀態上界為條件的。</text></feedback></answer>
+    <answer fraction="0"><text>測試集會變成無限</text><feedback><text>測試集仍為有限；只是保證變弱。</text></feedback></answer>
+    <answer fraction="0"><text>W 會無法再區分規格的狀態</text><feedback><text>W 仍能區分規格的狀態；只是可能抵達不到某個隱藏的額外狀態。</text></feedback></answer>
+    <generalfeedback><text>X^≤m 段只涵蓋最多 m 個額外狀態。若實作隱藏更多，某個有錯的狀態只能靠比測試集所走更長的序列才抵達，於是錯誤可能未被偵測。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試集隨 m 成長的動因</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器中，m 從 0 → 1 → 2 時測試集成長為 11 → 23 → 47。是什麼驅動這個成長？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每增加一個 m 就加入更長的中段序列（X^≤m 以 |X| 的次方成長），使測試數倍增</text><feedback><text>正確——隨 m 擴張的是 X^≤m 中段。</text></feedback></answer>
+    <answer fraction="0"><text>W 隨 m 成長，加入更多區分序列</text><feedback><text>W 取決於規格，不取決於 m；它維持 {a, aa}。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋集 P 隨 m 成長</text><feedback><text>P 取決於規格的狀態，不取決於 m。</text></feedback></answer>
+    <answer fraction="0"><text>輸入字母表隨 m 成長</text><feedback><text>字母表固定為 {a, b}。</text></feedback></answer>
+    <generalfeedback><text>只有中段 X^≤m 取決於 m。m 越大，它就納入更長的輸入序列（每步多一個 |X| 次方），故測試集大致以字母表大小為倍數成長——範例中的 11、23、47。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 W 能驗證確切狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼接上 W 能讓測試集驗證「確切抵達的狀態」，而不只是沿途所見的輸出？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>最小化 FSM 中任兩個不同狀態都會在 W 的某條序列上不同，故錯誤落點會產生不同的 W 輸出軌跡</text><feedback><text>正確——W 是狀態的完備分離器。</text></feedback></answer>
+    <answer fraction="0"><text>W 會在檢查前把機器重設回初始狀態</text><feedback><text>W 不會重設機器；它是讀取目前狀態的行為。</text></feedback></answer>
+    <answer fraction="0"><text>W 逐一列出每個可抵達狀態的名稱</text><feedback><text>W 是一組輸入序列，不是狀態名稱的清單。</text></feedback></answer>
+    <answer fraction="0"><text>W 只施加於初始狀態</text><feedback><text>W 接在每個前綴之後，即施加於該前綴抵達的任何狀態。</text></feedback></answer>
+    <generalfeedback><text>因為 W 能區分任兩個狀態，兩個不同落點必在至少一條 W 序列上相異。所以若前綴落在錯誤狀態，接上的 W 就產生不同、可觀察的輸出軌跡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>方法所偵測的錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在其假設下，W 方法保證能偵測哪些類別的錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>輸出錯誤與轉移（次態）錯誤</text><feedback><text>正確——在額外狀態上界下，兩者都有保證。</text></feedback></answer>
+    <answer fraction="0"><text>只有輸出錯誤</text><feedback><text>轉移錯誤也會被抓到，如突變體範例所示。</text></feedback></answer>
+    <answer fraction="0"><text>只有缺失的狀態</text><feedback><text>方法針對的是輸出與轉移錯誤，不只是缺失狀態。</text></feedback></answer>
+    <answer fraction="0"><text>時間與效能錯誤</text><feedback><text>W 方法談的是功能行為，不是時間。</text></feedback></answer>
+    <generalfeedback><text>在最多 m 個額外狀態的前提下，W 測試集能偵測每一個輸出錯誤（錯誤符號）與每一個轉移錯誤（錯誤次態）——轉移涵蓋走過每條轉移，W 則驗證其輸出與所得狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何規格須最小化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼規格 FSM 必須<strong>最小化</strong>（沒有兩個等價狀態），W 方法才能如預期運作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>唯有如此 W 才能區分全部 n 個狀態，且 n 才是額外狀態上界所依據的真實狀態數</text><feedback><text>正確——最小化使 W 成為完備分離器並固定 n。</text></feedback></answer>
+    <answer fraction="0"><text>最小化能讓測試集變小</text><feedback><text>測試集變小只是副作用；真正的理由是 W 與 n 的正確性。</text></feedback></answer>
+    <answer fraction="0"><text>最小化只是畫圖的慣例</text><feedback><text>它是正確性要求，不是畫圖選擇。</text></feedback></answer>
+    <answer fraction="0"><text>最小化能讓 ε 從狀態涵蓋集中省去</text><feedback><text>ε 恆對應初始狀態；最小化不會移除它。</text></feedback></answer>
+    <generalfeedback><text>若規格有等價狀態，就沒有任何 W 序列能分開它們，且狀態數 n 會高估相異行為。最小化保證 W 能分離全部 n 個狀態，且 n 是「最多 m 個額外狀態」假設的正確基準。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試集大小如何隨 n 成長</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在字母表與 m 固定下，W 測試集大小如何隨狀態數 <strong>n</strong> 成長？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>多項式成長——大致與 n²（狀態涵蓋集 × 特徵集）成正比，再乘上 |X|^(m+1)</text><feedback><text>正確——|P| 與 |W| 各隨 n 成長，得多項式而非指數的大小。</text></feedback></answer>
+    <answer fraction="0"><text>不隨 n 成長——特徵集大小是常數</text><feedback><text>|W| 隨 n 成長，故測試集對 n 並非常數。</text></feedback></answer>
+    <answer fraction="0"><text>隨 n 線性成長——每個狀態剛好一條測試</text><feedback><text>|P| 與 |W| 都隨 n 成長，故乘積不只是線性。</text></feedback></answer>
+    <answer fraction="0"><text>隨 n 指數成長——每一對狀態各一條專屬測試</text><feedback><text>成長是多項式（約 n²），對 n 並非指數。</text></feedback></answer>
+    <generalfeedback><text>轉移涵蓋集隨 n 成長、W 隨 n 成長，故乘積約為 n²；X^≤m 中段再加上 |X|^(m+1) 的因子。整體而言，在字母表與 m 固定下，測試集對 n 是多項式成長。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何同輸出的突變體難抓</text></name>
+    <questiontext format="html"><text><![CDATA[<p>突變體在被改向的轉移上保持相同輸出（<code>1</code>）。為什麼這讓它難以抓到？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>任何只讀那一條轉移輸出的測試都會通過；錯誤要到後來、透過從錯誤狀態出發的 W 行為才浮現</text><feedback><text>正確——錯誤只在下游、經由 W 才可見。</text></feedback></answer>
+    <answer fraction="0"><text>該轉移永遠不會被任何測試抵達</text><feedback><text>它是可抵達的；困難在於它當下的輸出看起來正確。</text></feedback></answer>
+    <answer fraction="0"><text>突變體完全不產生輸出</text><feedback><text>它仍輸出 1；只是輸出未變。</text></feedback></answer>
+    <answer fraction="0"><text>此錯誤改變了輸入字母表</text><feedback><text>字母表未變；只有目標狀態移動了。</text></feedback></answer>
+    <generalfeedback><text>由於該轉移本身的輸出未變，停在該轉移的檢查看不出任何異常。錯誤的目標狀態只在之後執行一條來自 W 的區分序列時才顯露，揭示不同的下游行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>抓到次數的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>m = 0 時，探索器回報測試集中 <strong>11 條有 2 條</strong>抓到突變體。這個次數的實務意義是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只要一條失敗的測試就足以揭露錯誤；在該假設下測試集保證至少存在一條</text><feedback><text>正確——完備性只需一個見證，而這裡有兩條。</text></feedback></answer>
+    <answer fraction="0"><text>突變體只有 2/11 的機率隨機被抓到</text><feedback><text>測試集是確定性的；那兩條測試對突變體必定失敗。</text></feedback></answer>
+    <answer fraction="0"><text>你必須跑完全部 11 條才能看到錯誤</text><feedback><text>那兩條失敗測試中的任一條就已揭露它。</text></feedback></answer>
+    <answer fraction="0"><text>11 條中 2 條代表測試集不完備</text><feedback><text>完備性只需至少一條失敗測試；在該假設下此測試集是完備的。</text></feedback></answer>
+    <generalfeedback><text>只要一條測試失敗，錯誤就被揭露。11 條有 2 條抓到，只是說明保證（在額外狀態假設下至少一條失敗測試）被輕鬆滿足。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移涵蓋與 W 如何協作</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>轉移涵蓋集</strong>與 <strong>W</strong> 在測試集中如何協同運作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移涵蓋集驅動機器走過每條轉移；W 接著檢查每條轉移是否落在正確狀態並產生正確輸出</text><feedback><text>正確——涵蓋負責可達性，W 負責狀態驗證。</text></feedback></answer>
+    <answer fraction="0"><text>W 挑選要走哪些轉移，涵蓋集則驗證輸出</text><feedback><text>角色顛倒了：涵蓋集走轉移，W 驗證狀態。</text></feedback></answer>
+    <answer fraction="0"><text>兩者做同樣的事，故其一多餘</text><feedback><text>它們角色互補，缺一不可。</text></feedback></answer>
+    <answer fraction="0"><text>m = 0 時涵蓋集可取代 W 的必要性</text><feedback><text>即使 m = 0 也會接上 W；沒有它落點狀態無從驗證。</text></feedback></answer>
+    <generalfeedback><text>轉移涵蓋集（P ∪ P·X）保證每條轉移都被走過；把 W 接在每個前綴後，就把抵達的狀態變成可觀察軌跡，於是每條轉移的輸出與所得狀態都被檢查。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>選較大 m 的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>實務上選擇<strong>較大的 m</strong> 有什麼效果？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它能容納更多可能的額外狀態（更強的保證），但使測試集以字母表次方擴大，代價是更多測試</text><feedback><text>正確——更強的保證、更大的測試集。</text></feedback></answer>
+    <answer fraction="0"><text>它在維持相同保證下縮小測試集</text><feedback><text>較大的 m 會擴大測試集，而非縮小。</text></feedback></answer>
+    <answer fraction="0"><text>它對錯誤偵測保證沒有影響</text><feedback><text>較大的 m 涵蓋更多額外狀態，強化保證。</text></feedback></answer>
+    <answer fraction="0"><text>它完全移除額外狀態假設</text><feedback><text>假設仍在；m 正是其中的上界。</text></feedback></answer>
+    <generalfeedback><text>較大的 m 表示 X^≤m 段納入更長的序列，故測試集能揭露藏在更多額外狀態後的錯誤——但測試數每步以字母表大小為倍數成長（範例中的 11、23、47）。這是涵蓋與成本的取捨。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>P·X 比 P 多了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>除了狀態涵蓋集 P，為什麼測試集還要納入 <strong>P·X</strong>（每條涵蓋序列各接一個輸入）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單靠 P 只抵達狀態；P·X 讓每條外向轉移各被走一次，配合 W 即可驗證每條轉移的目標</text><feedback><text>正確——P·X 提供轉移涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>P·X 能抵達原本無法抵達的狀態</text><feedback><text>P 已抵達所有狀態；P·X 走的是狀態之間的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>P·X 取代了對 W 的需求</text><feedback><text>仍需 W 來驗證每條轉移所抵達的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>P·X 只在非最小化機器時才需要</text><feedback><text>P·X 是任何規格（無論是否最小化）標準建構的一部分。</text></feedback></answer>
+    <generalfeedback><text>P 抵達每個狀態，但不一定走過每條轉移。將每條涵蓋序列各接一個輸入（P·X）即觸發每條外向轉移；再接上 W 便確認它落在正確狀態——這正是抓出轉移錯誤的方式。</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SBST Search Comparison/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the comparison explorer does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Metaheuristic Comparison explorer runs three search strategies on the same example. What does it compare them on?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How quickly each strategy drives the best cost toward zero (coverage) — a convergence-and-coverage comparison of random search, hill climbing, and a genetic algorithm</text><feedback><text>Correct — the explorer runs all three side by side and charts best cost versus number of evaluations.</text></feedback></answer>
+    <answer fraction="0"><text>Which strategy has the shortest source code</text><feedback><text>The explorer compares search behaviour (convergence and coverage), not code length.</text></feedback></answer>
+    <answer fraction="0"><text>Which programming language runs the target function fastest</text><feedback><text>All strategies run on the same instrumented example; language speed is not what is compared.</text></feedback></answer>
+    <answer fraction="0"><text>How many lines of the target function each strategy rewrites</text><feedback><text>The strategies generate test inputs; they never rewrite the target function.</text></feedback></answer>
+    <generalfeedback><text>The comparison tab runs randomSearch, hillClimb, and geneticAlgorithm on one selected example (nested guard, triangle, or multimodal) and shows each strategy's coverage status, best cost, and a convergence chart of best cost against evaluations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of random search</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this explorer, what is <strong>random search</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It samples input vectors uniformly at random and simply keeps the best (lowest-cost) one seen so far</text><feedback><text>Correct — random search draws inputs uniformly and remembers the best, with no guidance from cost.</text></feedback></answer>
+    <answer fraction="0"><text>It moves from a start point to the best improving neighbour step by step</text><feedback><text>That is hill climbing, not random search.</text></feedback></answer>
+    <answer fraction="0"><text>It evolves a population with crossover and mutation</text><feedback><text>That is the genetic algorithm, not random search.</text></feedback></answer>
+    <answer fraction="0"><text>It enumerates every possible input in order</text><feedback><text>Random search samples at random; it does not exhaustively enumerate inputs.</text></feedback></answer>
+    <generalfeedback><text>Random search is the unguided baseline: it repeatedly draws a random input vector, evaluates its cost, and keeps the lowest-cost individual found. It uses the cost only to decide which sample to remember, never to steer the next sample.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of hill climbing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this explorer, what is <strong>hill climbing</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>From one random starting point it repeatedly moves to the best improving neighbour, stopping when no neighbour improves the cost</text><feedback><text>Correct — hill climbing is a single-trajectory local search that halts at a local optimum.</text></feedback></answer>
+    <answer fraction="0"><text>It keeps a whole population of individuals and recombines them</text><feedback><text>That describes the genetic algorithm; hill climbing follows one trajectory.</text></feedback></answer>
+    <answer fraction="0"><text>It draws every candidate uniformly at random</text><feedback><text>That is random search; hill climbing moves deliberately to improving neighbours.</text></feedback></answer>
+    <answer fraction="0"><text>It always finds the global optimum given enough steps</text><feedback><text>Hill climbing can halt at a local optimum and never reach the global one.</text></feedback></answer>
+    <generalfeedback><text>Hill climbing starts from a single random individual and, each step, examines the plus/minus-one neighbours, moving to the best one that lowers the cost. When no neighbour improves, it stops — it has reached a local optimum.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a genetic algorithm</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this explorer, what is a <strong>genetic algorithm (GA)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A population-based search that evolves many candidate inputs using selection, crossover, mutation, and elitism</text><feedback><text>Correct — the GA maintains a population and evolves it with these genetic operators.</text></feedback></answer>
+    <answer fraction="0"><text>A single-trajectory search that moves to the best neighbour each step</text><feedback><text>That is hill climbing; the GA works on a whole population.</text></feedback></answer>
+    <answer fraction="0"><text>Uniform random sampling with no operators</text><feedback><text>That is random search; the GA applies selection, crossover, and mutation.</text></feedback></answer>
+    <answer fraction="0"><text>An exhaustive enumeration of the input space</text><feedback><text>The GA samples and evolves candidates; it does not enumerate the whole space.</text></feedback></answer>
+    <generalfeedback><text>The genetic algorithm keeps a population (here 20 individuals), selects parents by tournament, forms offspring by one-point crossover, perturbs them by mutation, and carries the best individual forward unchanged (elitism), generation after generation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a local optimum</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>local optimum</strong> in this search setting?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A point whose neighbours are all at least as costly, so a local move cannot improve it, even though it may not cover the target</text><feedback><text>Correct — no neighbouring step lowers the cost, yet the global goal (cost 0) may be unreached.</text></feedback></answer>
+    <answer fraction="0"><text>The input with the globally lowest possible cost, always cost 0</text><feedback><text>That is the global optimum; a local optimum need not reach cost 0.</text></feedback></answer>
+    <answer fraction="0"><text>Any input drawn at random during the search</text><feedback><text>A random draw is not necessarily a local optimum.</text></feedback></answer>
+    <answer fraction="0"><text>The starting point of a hill-climb run</text><feedback><text>The start is just an initial guess; a local optimum is where local moves stop improving.</text></feedback></answer>
+    <generalfeedback><text>A local optimum is a solution that no small (neighbour) move can improve. Hill climbing halts there. It may still have positive cost — meaning the target branch is not covered — which is exactly the trap the explorer illustrates on the multimodal example.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a population</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>population</strong> in the genetic algorithm?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The set of candidate input vectors the GA maintains and evolves together each generation</text><feedback><text>Correct — the population is the collection of individuals evolved in parallel.</text></feedback></answer>
+    <answer fraction="0"><text>The single current point of a hill-climb run</text><feedback><text>Hill climbing tracks one point; a population is many individuals at once.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of evaluations the budget allows</text><feedback><text>That is the evaluation budget, not the population.</text></feedback></answer>
+    <answer fraction="0"><text>The list of branches in the target function</text><feedback><text>Branches belong to the program; the population is the GA's set of candidate inputs.</text></feedback></answer>
+    <generalfeedback><text>A population is the group of candidate solutions (input vectors) the GA holds at once — here 20. Evolving a whole population, rather than a single point, is what lets the GA explore several regions of the search space simultaneously.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the single-trajectory strategy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which strategy explores from a <strong>single</strong> starting point, moving to an improving neighbour each step?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hill climbing</text><feedback><text>Correct — hill climbing follows one trajectory from a single random start.</text></feedback></answer>
+    <answer fraction="0"><text>Genetic algorithm</text><feedback><text>The GA evolves a whole population, not a single point.</text></feedback></answer>
+    <answer fraction="0"><text>Random search</text><feedback><text>Random search draws independent samples; it does not follow a trajectory of neighbours.</text></feedback></answer>
+    <answer fraction="0"><text>All three equally</text><feedback><text>Only hill climbing follows a single improving trajectory.</text></feedback></answer>
+    <generalfeedback><text>Hill climbing is the one strategy defined by a single trajectory: one random start, then step-by-step moves to the best improving neighbour. Random search draws independent samples and the GA evolves a population.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the population-based strategy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which strategy maintains a <strong>population</strong> evolved with crossover and mutation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Genetic algorithm</text><feedback><text>Correct — only the GA keeps a population and applies crossover and mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing</text><feedback><text>Hill climbing has one current point and no crossover or mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Random search</text><feedback><text>Random search draws independent uniform samples; it has no population or operators.</text></feedback></answer>
+    <answer fraction="0"><text>None of them</text><feedback><text>The genetic algorithm is exactly the population-based strategy here.</text></feedback></answer>
+    <generalfeedback><text>Crossover and mutation are genetic operators applied to a population. Only the genetic algorithm uses them; hill climbing and random search operate without a population.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the unguided strategy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which strategy samples inputs <strong>uniformly at random</strong> with no guidance from the cost when choosing the next input?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Random search</text><feedback><text>Correct — random search draws each new input uniformly, ignoring cost when choosing it.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing</text><feedback><text>Hill climbing uses cost to pick the best improving neighbour; it is guided.</text></feedback></answer>
+    <answer fraction="0"><text>Genetic algorithm</text><feedback><text>The GA uses cost for selection; its search is guided.</text></feedback></answer>
+    <answer fraction="0"><text>All three</text><feedback><text>Only random search is unguided when choosing the next input.</text></feedback></answer>
+    <generalfeedback><text>Random search is the unguided baseline: each new input is drawn uniformly at random, and cost is used only to decide which sample to keep. Hill climbing and the GA both use cost to steer the search.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of the Stuck badge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer shows a <strong>Stuck</strong> badge on the hill-climbing panel. What does it indicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hill climbing stopped at a local optimum with positive best cost — no neighbour improved, and the target was not covered</text><feedback><text>Correct — the badge marks a run that halted at a local optimum without reaching cost 0.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing covered the target and stopped early</text><feedback><text>Covering the target means cost 0; the Stuck badge marks the opposite — a run that could not improve further.</text></feedback></answer>
+    <answer fraction="0"><text>The chart failed to render</text><feedback><text>The badge is about the search outcome, not a rendering error.</text></feedback></answer>
+    <answer fraction="0"><text>The genetic algorithm ran out of budget</text><feedback><text>The Stuck badge is shown only for hill climbing, not for the GA.</text></feedback></answer>
+    <generalfeedback><text>The Stuck badge appears when the hill-climb result has positive best cost at termination — it moved to a local optimum where no neighbouring step lowered the cost, so the target branch was never covered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the convergence chart plots</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the explorer's <strong>convergence chart</strong> plot for each strategy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Best cost so far against the number of evaluations</text><feedback><text>Correct — each polyline traces best cost as evaluations accumulate.</text></feedback></answer>
+    <answer fraction="0"><text>Source-code length against runtime</text><feedback><text>The chart tracks search progress (best cost vs evaluations), not code metrics.</text></feedback></answer>
+    <answer fraction="0"><text>The population size against the generation number</text><feedback><text>Population size is fixed; the chart plots best cost over evaluations.</text></feedback></answer>
+    <answer fraction="0"><text>The number of branches against the input value</text><feedback><text>The chart is about cost convergence, not branch counts.</text></feedback></answer>
+    <generalfeedback><text>The convergence chart draws one polyline per strategy — best cost on the vertical axis, evaluation index on the horizontal axis — so you can see how fast each strategy drives cost down and whether it reaches zero.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a lower best cost means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the explorer, a <strong>lower best cost</strong> means what, and what does a best cost of exactly 0 mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Lower cost means closer to covering the target branch; a cost of 0 means the target is covered</text><feedback><text>Correct — cost measures distance to coverage, and cost 0 is exactly coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Lower cost means the code ran faster; 0 means instant</text><feedback><text>Cost measures distance to coverage, not runtime.</text></feedback></answer>
+    <answer fraction="0"><text>Lower cost means fewer evaluations were used; 0 means none</text><feedback><text>Cost is about coverage distance, not the number of evaluations.</text></feedback></answer>
+    <answer fraction="0"><text>Higher cost is better; 0 is the worst</text><feedback><text>It is the reverse — cost 0 is the goal, and lower is better.</text></feedback></answer>
+    <generalfeedback><text>Cost is approach level plus normalized branch distance; it is zero exactly when the input covers the target branch. So driving best cost to 0 is the whole objective, and a strategy whose curve reaches 0 has achieved coverage.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Hill climbing has no population</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Hill climbing, as used in this explorer, maintains a whole population of candidate solutions each step.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — hill climbing tracks a single current point; only the genetic algorithm keeps a population.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — hill climbing follows one trajectory from one point; the population belongs to the GA.</text></feedback></answer>
+    <generalfeedback><text>Hill climbing is a single-trajectory local search: it holds one current individual and moves to an improving neighbour. Maintaining a population of candidates evolved together is the defining feature of the genetic algorithm, not hill climbing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of crossover</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>crossover</strong> in the genetic algorithm?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An operator that combines parts of two parent individuals to form an offspring</text><feedback><text>Correct — crossover recombines two parents into a child.</text></feedback></answer>
+    <answer fraction="0"><text>A random perturbation applied to a single individual's components</text><feedback><text>That is mutation, not crossover.</text></feedback></answer>
+    <answer fraction="0"><text>Carrying the best individual unchanged to the next generation</text><feedback><text>That is elitism, not crossover.</text></feedback></answer>
+    <answer fraction="0"><text>Drawing a brand-new individual uniformly at random</text><feedback><text>That is random initialization, not crossover.</text></feedback></answer>
+    <generalfeedback><text>Crossover takes two selected parents and combines their components (here by a one-point cut) to build an offspring, letting good pieces from different parents come together. It is distinct from mutation (random perturbation) and elitism (carrying the best forward).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>mutation</strong> in the genetic algorithm?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A small random change applied to an individual's components, introducing new variation</text><feedback><text>Correct — mutation randomly perturbs an individual to add diversity.</text></feedback></answer>
+    <answer fraction="0"><text>Combining two parents into a child</text><feedback><text>That is crossover, not mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Selecting the fitter of two random individuals</text><feedback><text>That is tournament selection, not mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Moving to the best improving neighbour</text><feedback><text>That is a hill-climb step, not a GA mutation.</text></feedback></answer>
+    <generalfeedback><text>Mutation perturbs an individual's components by small random amounts (with some per-component probability), injecting fresh variation into the population. This diversity is a key way the GA reaches regions that selection and crossover alone might not explore.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Search Comparison/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why hill climbing loses to the GA on multimodal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the multimodal example, why does hill climbing <strong>underperform</strong> the genetic algorithm?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A single hill-climb trajectory gets trapped in a local optimum that does not cover the target, while the GA population escapes such traps through diversity and its operators</text><feedback><text>Correct — this is exactly the local-optimum trap the explorer demonstrates.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing is given a smaller evaluation budget than the GA</text><feedback><text>Both run under the same budget; the difference is the local-optimum trap, not the budget.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing samples inputs uniformly at random, unlike the structured GA</text><feedback><text>Hill climbing is guided, not random; random sampling describes the baseline strategy.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing follows the gradient too aggressively and overshoots the optimum</text><feedback><text>The problem is being trapped at a local optimum, not overshooting a global one.</text></feedback></answer>
+    <generalfeedback><text>The multimodal landscape has many basins. A single hill-climb run descends into one basin and halts at a local optimum with positive cost, missing the target. The GA's population and mutation keep enough diversity to escape those basins and reach coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the modulo makes multimodal hard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The multimodal example computes <code>r = x % 20</code> and targets <code>r == 7</code> and then <code>x &gt; 50</code>. Why does this defeat hill climbing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The modulo makes the branch-distance landscape non-monotone, creating many basins; small plus/minus-one steps lead into a local optimum rather than toward the covering input</text><feedback><text>Correct — the non-monotone modulo landscape traps a local, step-by-step search.</text></feedback></answer>
+    <answer fraction="0"><text>The modulo makes every input have the same cost, so no move ever improves</text><feedback><text>Costs do vary; the problem is that the landscape is non-monotone, not flat.</text></feedback></answer>
+    <answer fraction="0"><text>The target branch is unreachable for every input</text><feedback><text>It is reachable — inputs such as 67 and 87 cover it; the issue is that local search cannot get there.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing cannot compute the modulo operator</text><feedback><text>The search only reads costs from the trace; it does not need to compute the modulo itself.</text></feedback></answer>
+    <generalfeedback><text>Because <code>x % 20</code> is non-monotone in x, the branch distance for <code>r == 7</code> rises and falls repeatedly, carving many basins. A plus/minus-one search settles into one basin whose bottom does not satisfy both <code>r == 7</code> and <code>x &gt; 50</code>, so it gets stuck.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a population adds over one trajectory</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does maintaining a <strong>population</strong> add over a single hill-climb trajectory?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It explores several regions of the search space at once, so the whole search is not doomed when one region is a dead-end local optimum</text><feedback><text>Correct — many individuals cover many basins, giving the search a way out of any single trap.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the global optimum is found in one generation</text><feedback><text>A population improves the odds of escaping traps but guarantees nothing in a single generation.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need to evaluate cost at all</text><feedback><text>The GA still evaluates cost for every individual; the population is about coverage of the space.</text></feedback></answer>
+    <answer fraction="0"><text>It makes each evaluation cheaper</text><feedback><text>Per-evaluation cost is unchanged; the benefit is exploring multiple regions simultaneously.</text></feedback></answer>
+    <generalfeedback><text>A single trajectory can only ever be in one place, so one bad basin dooms it. A population spreads individuals across many basins; selection concentrates effort on the promising ones while others keep exploring, which is how the GA avoids the trap that stops hill climbing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What mutation adds</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>mutation</strong> contribute to the genetic algorithm's search?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It injects fresh random variation, letting the population reach inputs that selection and crossover alone would not produce — helping it escape local optima</text><feedback><text>Correct — mutation is the diversity source that keeps the search from stagnating.</text></feedback></answer>
+    <answer fraction="0"><text>It carries the best individual unchanged to the next generation</text><feedback><text>That is elitism, not mutation.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees every offspring has lower cost than its parents</text><feedback><text>Mutation is random; it can raise or lower cost, and offers no such guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>It sorts the population by cost</text><feedback><text>Sorting/ranking relates to selection, not mutation.</text></feedback></answer>
+    <generalfeedback><text>Mutation randomly perturbs components of an individual, adding variation the current population lacks. Without it, selection and crossover could converge prematurely; with it, the population keeps reaching new regions, which is central to escaping local optima.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What crossover adds</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>crossover</strong> contribute in a multi-variable example such as the triangle classifier (inputs a, b, c)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It recombines components from two parents, so a child can inherit good values on some variables from one parent and on others from the second</text><feedback><text>Correct — crossover mixes partial solutions across variables from different parents.</text></feedback></answer>
+    <answer fraction="0"><text>It applies a random perturbation to a single individual</text><feedback><text>That is mutation, not crossover.</text></feedback></answer>
+    <answer fraction="0"><text>It discards the whole population and restarts randomly</text><feedback><text>Crossover builds offspring from parents; it does not restart the search.</text></feedback></answer>
+    <answer fraction="0"><text>It measures how many branches were covered</text><feedback><text>Crossover is a reproduction operator, not a coverage measurement.</text></feedback></answer>
+    <generalfeedback><text>With several input variables, one parent may already have a good value for a and another a good value for c. A one-point crossover can combine those into a single child, assembling partial solutions faster than mutation alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Hill-climbing panel on multimodal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the multimodal example, what does the explorer typically show on the <strong>hill-climbing</strong> panel?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Stuck badge, a not-covered / budget-exhausted status, and a best cost above zero</text><feedback><text>Correct — the seed is chosen so hill climbing halts at a local optimum without covering the target.</text></feedback></answer>
+    <answer fraction="0"><text>Covered, with a best cost of exactly zero</text><feedback><text>Hill climbing does not cover the multimodal target; that is the point of the example.</text></feedback></answer>
+    <answer fraction="0"><text>An empty panel with no result</text><feedback><text>The panel shows a completed (stuck) run, not an empty result.</text></feedback></answer>
+    <answer fraction="0"><text>A Stuck badge but a best cost of zero</text><feedback><text>If the best cost were zero the target would be covered, which contradicts being stuck.</text></feedback></answer>
+    <generalfeedback><text>For the multimodal example the explorer deliberately picks a hill-climb seed that lands in a local optimum without covering the target, so the panel carries the Stuck badge, reports budget exhausted / not covered, and shows a best cost strictly above zero.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GA panel on multimodal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the multimodal example, what does the explorer show for the <strong>genetic algorithm</strong>, according to the takeaway?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It covers the target — the GA consistently finds coverage goals that hill climbing misses on multimodal landscapes</text><feedback><text>Correct — that is precisely the explorer's stated takeaway.</text></feedback></answer>
+    <answer fraction="0"><text>It also gets stuck at the same local optimum as hill climbing</text><feedback><text>The takeaway is that the GA finds goals hill climbing misses, so it does not share the trap.</text></feedback></answer>
+    <answer fraction="0"><text>It never finishes within the budget</text><feedback><text>The GA reaches coverage on this example; it does not merely exhaust the budget.</text></feedback></answer>
+    <answer fraction="0"><text>It refuses to run without crossover</text><feedback><text>The GA runs on this single-variable example; the takeaway is that it covers the target.</text></feedback></answer>
+    <generalfeedback><text>The explorer's takeaway states that genetic algorithms consistently find coverage goals that hill climbing misses on multimodal landscapes — so the GA panel reports coverage where the hill-climbing panel is stuck.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: which is guided local search</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which strategy is best described as <strong>guided local search</strong> — using cost to move, but confined to one region?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hill climbing</text><feedback><text>Correct — it uses cost to pick the best neighbour but stays within one basin, a local search.</text></feedback></answer>
+    <answer fraction="0"><text>Random search</text><feedback><text>Random search is unguided global sampling, not guided local search.</text></feedback></answer>
+    <answer fraction="0"><text>Genetic algorithm</text><feedback><text>The GA is a guided but population-based global search, not confined to one region.</text></feedback></answer>
+    <answer fraction="0"><text>None of them use cost</text><feedback><text>Both hill climbing and the GA use cost; hill climbing is the local one.</text></feedback></answer>
+    <generalfeedback><text>Hill climbing is guided (it follows cost to the best neighbour) yet local (it stays in the region of its start). Random search is unguided global sampling; the GA is guided global search over a population.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why include random search as a baseline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is <strong>random search</strong> included in the comparison at all?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>As an unguided baseline: it shows what search guidance actually buys, since a guided strategy that cannot beat random search offers no real advantage</text><feedback><text>Correct — random search is the reference point that guidance must improve upon.</text></feedback></answer>
+    <answer fraction="0"><text>Because it is guaranteed to be the fastest on every example</text><feedback><text>Random search is unguided and often not the fastest; it is a baseline, not a champion.</text></feedback></answer>
+    <answer fraction="0"><text>Because it always fails, making the others look good</text><feedback><text>Random search can succeed (e.g. when covering inputs are plentiful); it is an honest baseline, not a strawman.</text></feedback></answer>
+    <answer fraction="0"><text>Because it is the only strategy that uses the cost function</text><feedback><text>It is the one strategy that does not use cost to steer; hill climbing and the GA do.</text></feedback></answer>
+    <generalfeedback><text>A baseline sets the bar. Random search makes no use of cost to steer, so it shows how hard coverage is by luck alone. Guided strategies earn their complexity only by beating this baseline; on easy examples random search may already suffice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading a curve that reaches zero</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the convergence chart, a strategy's curve <strong>reaches the bottom (cost 0)</strong> while another's flattens above it. What does that show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The curve reaching 0 achieved coverage; the one flattening above 0 stalled without covering the target</text><feedback><text>Correct — cost 0 is coverage, and a flat positive plateau is a stalled (e.g. stuck) search.</text></feedback></answer>
+    <answer fraction="0"><text>Both strategies covered the target; the heights are arbitrary</text><feedback><text>Only the curve at 0 covered the target; a positive plateau means no coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The higher curve is better because it used fewer evaluations</text><feedback><text>Lower cost is better; a higher plateau means the target was not reached.</text></feedback></answer>
+    <answer fraction="0"><text>The flattening curve will always drop to 0 with a few more evaluations</text><feedback><text>A plateau at a local optimum can persist regardless of extra evaluations.</text></feedback></answer>
+    <generalfeedback><text>The vertical axis is best cost, so a curve reaching 0 has covered the target, and a curve that flattens at a positive value has stalled — typically hill climbing stuck at a local optimum, while the GA's curve descends all the way to 0.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a special hill-climb seed is chosen</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the multimodal example the explorer scans several seeds for the hill-climb run. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To reliably pick a start that lands in a local optimum without covering the target, so the panel clearly illustrates the trap</text><feedback><text>Correct — the scan finds a seed where hill climbing is stuck and not covered, making the lesson visible.</text></feedback></answer>
+    <answer fraction="0"><text>To find the seed that lets hill climbing cover the target fastest</text><feedback><text>It is the opposite — the scan looks for a seed where hill climbing gets stuck without covering.</text></feedback></answer>
+    <answer fraction="0"><text>To give hill climbing a larger evaluation budget than the others</text><feedback><text>The budget is unchanged; only the starting seed is chosen.</text></feedback></answer>
+    <answer fraction="0"><text>To randomise the GA's population</text><feedback><text>The seed scan concerns the hill-climb start, not the GA population.</text></feedback></answer>
+    <generalfeedback><text>On the multimodal example the explorer scans seeds and picks one where the hill-climb run ends stuck and uncovered. This makes the local-optimum trap reproducible and clearly visible next to the GA, which does reach coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What guides a hill-climb step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When hill climbing chooses its next move, what information guides it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The cost of each neighbour — it moves to the neighbour with the lowest cost, provided that cost is an improvement</text><feedback><text>Correct — hill climbing is greedy on the fitness/cost of neighbouring inputs.</text></feedback></answer>
+    <answer fraction="0"><text>A coin flip — it picks a neighbour uniformly at random</text><feedback><text>That would be a random walk; hill climbing chooses the best improving neighbour by cost.</text></feedback></answer>
+    <answer fraction="0"><text>The generation number of the GA</text><feedback><text>Hill climbing is independent of the GA's generations.</text></feedback></answer>
+    <answer fraction="0"><text>The order in which branches appear in the source</text><feedback><text>It is guided by neighbour cost, not by source ordering.</text></feedback></answer>
+    <generalfeedback><text>Each step, hill climbing evaluates the plus/minus-one neighbours and moves to the one with the lowest cost, as long as that lowers the current cost. The cost — approach level plus normalized branch distance — is the gradient signal it follows.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What elitism guarantees</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The genetic algorithm uses <strong>elitism</strong>. What does that guarantee about the best cost across generations?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The best individual is carried forward unchanged, so the best cost never gets worse from one generation to the next</text><feedback><text>Correct — elitism makes the best cost monotonically non-increasing.</text></feedback></answer>
+    <answer fraction="0"><text>Every individual in the next generation is at least as good as every individual in the current one</text><feedback><text>Elitism protects only the single best individual, not every member of the population.</text></feedback></answer>
+    <answer fraction="0"><text>The population size shrinks each generation</text><feedback><text>Population size is fixed; elitism concerns which individual is preserved, not the size.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation is disabled for the elite's offspring</text><feedback><text>Elitism preserves the elite itself; it does not disable mutation elsewhere.</text></feedback></answer>
+    <generalfeedback><text>Elitism carries the best-so-far individual into the next generation untouched. Because that individual (and thus its cost) survives, the best cost can only stay the same or improve — it never regresses, which is why the GA's convergence curve is monotonically non-increasing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why hill climbing succeeds on nested guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Hill climbing covers the nested-guard example (<code>x == 17</code> then <code>y &gt; 100</code>) but not multimodal. Why the difference?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The nested-guard branch distances vary smoothly and monotonically toward the target, so local plus/minus-one steps descend to coverage, whereas the modulo makes multimodal non-monotone</text><feedback><text>Correct — a smooth landscape rewards local search; a non-monotone one traps it.</text></feedback></answer>
+    <answer fraction="0"><text>The nested-guard example has no branches to cover</text><feedback><text>It has a nested target branch; the point is that its landscape is smooth.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing is given more evaluations on nested guard</text><feedback><text>The budget is the same; the difference is the shape of the landscape.</text></feedback></answer>
+    <answer fraction="0"><text>The GA cannot run on the nested-guard example</text><feedback><text>All three strategies run on every example; the question is why hill climbing succeeds here.</text></feedback></answer>
+    <generalfeedback><text>For <code>x == 17</code> and <code>y &gt; 100</code>, branch distance decreases steadily as x nears 17 and y nears 100, so plus/minus-one steps climb straight to coverage. The multimodal modulo instead makes the landscape rise and fall, so local steps stall in a basin.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Population plus mutation can escape a trap</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A genetic algorithm can escape a local optimum that traps a single hill-climb run, because its population and mutation maintain diversity across the search space.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — population diversity and mutation let the GA reach basins a single trajectory cannot.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The GA's population and mutation are exactly what let it escape traps that stop a single hill-climb trajectory.</text></feedback></answer>
+    <generalfeedback><text>A single hill-climb trajectory is confined to one basin and halts at its local optimum. The GA keeps many individuals spread across the space and adds random mutation, so even if some individuals sit in a bad basin, others (or their mutated offspring) can reach the covering region.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Search Comparison/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Concrete local-optimum trap on multimodal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On multimodal, hill climbing reaches an input where <code>x % 20 == 7</code> but <code>x &lt;= 50</code> (for example x = 47, so the first guard is satisfied but <code>x &gt; 50</code> is not). Why can it not improve from here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Raising x by one breaks <code>x % 20 == 7</code>, which fails the outer guard and raises the approach level, so cost goes up; the covering inputs (67, 87) are many steps away and unreachable by single improving moves</text><feedback><text>Correct — either neighbour raises cost, so it is a local optimum that never covers the target.</text></feedback></answer>
+    <answer fraction="0"><text>Both neighbours lower the cost, so it keeps moving and eventually covers</text><feedback><text>If a neighbour lowered cost it would not be stuck; here both neighbours raise it.</text></feedback></answer>
+    <answer fraction="0"><text>The cost is already zero, so there is nothing to improve</text><feedback><text>The target <code>x &gt; 50</code> is unmet, so cost is positive, not zero.</text></feedback></answer>
+    <answer fraction="0"><text>The evaluation budget is exhausted at exactly this point</text><feedback><text>The trap is structural: it halts because no neighbour improves, independent of the budget.</text></feedback></answer>
+    <generalfeedback><text>At x = 47 the outer guard <code>x % 20 == 7</code> holds but <code>x &gt; 50</code> does not, so cost is the normalized distance for that comparison. Stepping to x = 46 or x = 48 makes <code>x % 20</code> leave 7, which fails the first guard and adds a whole approach level — a higher cost. Both neighbours are worse, so hill climbing stops, and the nearest covering inputs (67, 87) are unreachable by single improving steps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exploration versus exploitation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In terms of <strong>exploration versus exploitation</strong>, how do hill climbing and the GA differ, and what does hill climbing's stance cost it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hill climbing is almost pure exploitation of the local gradient, so it converges fast but can be trapped; the GA balances exploitation (selection) with exploration (population diversity and mutation), trading some speed for the ability to escape traps</text><feedback><text>Correct — that trade-off is exactly why the GA reaches coverage the local search misses.</text></feedback></answer>
+    <answer fraction="0"><text>Both are pure exploration, so neither can converge</text><feedback><text>Hill climbing exploits the gradient greedily; it is not pure exploration.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing explores globally while the GA only exploits</text><feedback><text>It is the reverse: hill climbing is local exploitation; the GA adds global exploration.</text></feedback></answer>
+    <answer fraction="0"><text>Exploration and exploitation are irrelevant to search-based testing</text><feedback><text>They are the central trade-off distinguishing these strategies.</text></feedback></answer>
+    <generalfeedback><text>Hill climbing exploits: it greedily follows the local gradient and converges quickly, but pure exploitation gets stuck at the first local optimum. The GA mixes exploitation (fitness-based selection and elitism) with exploration (population diversity and mutation), which is slower per unit of progress but escapes basins that trap a purely local search.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When the GA advantage disappears</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On which kind of landscape does the GA's advantage over hill climbing <strong>disappear</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>On a smooth, essentially unimodal landscape (like the nested guard), where local search already descends straight to coverage, so the GA's extra machinery buys nothing and may even be slower</text><feedback><text>Correct — when there is no local-optimum trap, the simpler local search suffices.</text></feedback></answer>
+    <answer fraction="0"><text>On a landscape with many deceptive local optima</text><feedback><text>That is where the GA's advantage is largest, not where it disappears.</text></feedback></answer>
+    <answer fraction="0"><text>On any landscape, because the GA is always strictly better</text><feedback><text>The GA is not universally better; on smooth landscapes hill climbing matches it more cheaply.</text></feedback></answer>
+    <answer fraction="0"><text>Whenever the evaluation budget is large</text><feedback><text>Budget size is not what removes the GA's edge; landscape shape is.</text></feedback></answer>
+    <generalfeedback><text>The GA earns its keep only when there are traps to escape. On a smooth, unimodal landscape such as the nested guard, hill climbing walks straight down to cost 0, and the GA's population, crossover, and mutation add overhead without adding value. There is no free lunch: the best strategy depends on the landscape.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Crossover is not the source of the edge on multimodal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The multimodal example has a <strong>single</strong> input variable x. Given that, why is <em>crossover</em> not the source of the GA's advantage here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>With one variable, one-point crossover has nothing to recombine and effectively returns a parent copy, so the GA's edge on multimodal comes from population diversity and mutation, not crossover</text><feedback><text>Correct — single-variable crossover is a no-op, so diversity and mutation do the work.</text></feedback></answer>
+    <answer fraction="0"><text>Crossover mixes the x values of two parents to produce an intermediate x, which is what covers the target</text><feedback><text>One-point crossover on a single component cannot produce an intermediate value; it just copies a parent.</text></feedback></answer>
+    <answer fraction="0"><text>Crossover is disabled for all examples in the explorer</text><feedback><text>Crossover runs; it is simply a no-op when there is only one variable to cut.</text></feedback></answer>
+    <answer fraction="0"><text>Crossover is the only operator that matters, even with one variable</text><feedback><text>With one variable there is no cut point, so crossover contributes nothing here.</text></feedback></answer>
+    <generalfeedback><text>One-point crossover needs at least two components to have a meaningful cut. The multimodal example has a single variable, so crossover returns a copy of a parent and contributes nothing. The GA still beats hill climbing here purely through its population diversity and mutation — a good reminder to attribute each strategy's properties precisely.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting fast-but-trapped versus slow-but-global</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On multimodal, the hill-climb curve drops below the random curve early but then flattens above zero, while the GA curve descends more gradually and reaches zero. What does this pattern illustrate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hill climbing converges quickly on its local gradient but gets trapped, while the GA makes slower, broader progress that ultimately achieves coverage — fast-but-local versus slower-but-global</text><feedback><text>Correct — the shapes capture the exploitation-versus-exploration trade-off directly.</text></feedback></answer>
+    <answer fraction="0"><text>Random search is the best strategy because its curve starts highest</text><feedback><text>Starting high is not an advantage; the GA is the one that reaches coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The GA is worse because it takes more evaluations to start improving</text><feedback><text>Reaching cost 0 is the goal; the GA's broader search is what gets there.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing will reach zero if you read the chart long enough</text><feedback><text>Its curve flattens at a local optimum; it will not reach zero however long you look.</text></feedback></answer>
+    <generalfeedback><text>The early steep drop of the hill-climb curve is fast local exploitation; its flat positive tail is the local-optimum trap. The GA's more gradual descent to zero reflects a broader, population-driven search that pays a little early speed to gain global reach and coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Random restarts and the population analogy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A single hill-climb run has no restarts. How would adding <strong>random restarts</strong> relate to the GA's population?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Random restarts run several independent hill climbs from different starts, giving multiple chances to find a good basin — similar in spirit to how the GA's population spreads across many basins at once</text><feedback><text>Correct — restarts approximate parallel local searches, echoing the population's coverage of the space.</text></feedback></answer>
+    <answer fraction="0"><text>Random restarts guarantee the global optimum in a single run</text><feedback><text>Restarts improve the odds but guarantee nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Random restarts would make hill climbing identical to random search</text><feedback><text>Between restarts it still climbs the gradient locally; it is not pure random sampling.</text></feedback></answer>
+    <answer fraction="0"><text>Random restarts remove the need to evaluate cost</text><feedback><text>Each restarted climb still evaluates cost to choose neighbours.</text></feedback></answer>
+    <generalfeedback><text>Restarting hill climbing from several random starts explores several basins, much as the GA's population occupies several basins simultaneously. The population can additionally share information via selection and crossover, but the core intuition — many starts beat one when the landscape has traps — is shared.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Unlimited budget does not save hill climbing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose you gave hill climbing an <strong>unlimited</strong> evaluation budget on the multimodal example. Would it then cover the target?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — it terminates as soon as no neighbour improves the cost, so once it reaches a local optimum extra budget changes nothing</text><feedback><text>Correct — the halt is structural (a local optimum), not caused by running out of budget.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — with enough evaluations any local search reaches the global optimum</text><feedback><text>A basic hill climb stops at a local optimum regardless of remaining budget.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the extra budget lets it try new random starts automatically</text><feedback><text>This hill climb has no restarts; it just stops when no neighbour improves.</text></feedback></answer>
+    <answer fraction="0"><text>Only if the population size is increased</text><feedback><text>Hill climbing has no population; the issue is that it halts at a local optimum.</text></feedback></answer>
+    <generalfeedback><text>Plain hill climbing stops the moment no neighbouring step lowers the cost. At a local optimum that condition holds forever, so no amount of extra budget helps. Escaping requires a different mechanism — random restarts, or a population as in the GA.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why approach level dominates branch distance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The cost is <em>approach level</em> plus a <em>normalized branch distance</em> in the range [0, 1). Why does the approach level dominate the total cost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Approach level is a whole number of unsatisfied nesting levels, while normalized branch distance is always below 1, so being one nesting level further from the target always costs more than any branch distance within a level</text><feedback><text>Correct — the integer approach level outweighs the sub-1 branch-distance term.</text></feedback></answer>
+    <answer fraction="0"><text>Branch distance is always larger than the approach level</text><feedback><text>Normalized branch distance is below 1, so it cannot exceed a whole approach level.</text></feedback></answer>
+    <answer fraction="0"><text>Approach level is normalized to [0, 1) and branch distance is an integer</text><feedback><text>It is the other way round: approach level is the integer, branch distance is normalized below 1.</text></feedback></answer>
+    <answer fraction="0"><text>The two terms are added only when the target is already covered</text><feedback><text>They are combined precisely when the target is not yet covered; once covered the cost is 0.</text></feedback></answer>
+    <generalfeedback><text>Approach level counts how many enclosing guards are still unsatisfied — an integer — while branch distance is squashed into [0, 1). So reducing the approach level (getting past an outer guard) always lowers cost more than any improvement in branch distance at the current level, which is why the search first tries to enter deeper nesting before fine-tuning the final comparison.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the GA curve never rises</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the genetic algorithm's <strong>best-cost</strong> curve never rise across generations in the explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Best cost tracks the lowest cost seen so far and elitism preserves the best individual, so the recorded best can only stay level or fall</text><feedback><text>Correct — a running minimum protected by elitism is monotonically non-increasing.</text></feedback></answer>
+    <answer fraction="0"><text>Because mutation can only ever decrease an individual's cost</text><feedback><text>Mutation is random and can raise cost; monotonicity comes from tracking the best-so-far, not from mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Because the GA re-sorts the whole population every evaluation</text><feedback><text>Sorting does not explain a monotone best-cost curve; tracking a running minimum does.</text></feedback></answer>
+    <answer fraction="0"><text>Because the population size grows each generation</text><feedback><text>Population size is fixed; the curve is monotone because it records the best-so-far.</text></feedback></answer>
+    <generalfeedback><text>The plotted value is the best cost found up to that evaluation — a running minimum. Individual offspring can be worse than their parents, but the recorded best only updates when something better appears, and elitism keeps the current best alive, so the curve is monotonically non-increasing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why random search still covers multimodal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Random search has no guidance, yet it can still cover the multimodal target, whose inputs range over x in [0, 100] with only x = 67 and x = 87 covering. Why here, and why is this not a general endorsement of random search?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The space is tiny (about 101 values) with a generous budget, so uniform sampling almost certainly hits a covering value; in larger or sparser spaces the odds collapse and unguided sampling scales badly</text><feedback><text>Correct — luck works when covering inputs are relatively common and the budget dwarfs the space, but not in general.</text></feedback></answer>
+    <answer fraction="0"><text>Random search is guided toward covering values, so it reliably finds them</text><feedback><text>Random search is unguided; it succeeds here by sheer sampling density, not guidance.</text></feedback></answer>
+    <answer fraction="0"><text>Random search always covers any target given enough time, so it is generally the best strategy</text><feedback><text>In vast or sparse spaces the required samples explode; coverage by luck does not scale.</text></feedback></answer>
+    <answer fraction="0"><text>The multimodal target is actually unreachable, so no strategy covers it</text><feedback><text>It is reachable at x = 67 and x = 87; random search hits one of these by chance.</text></feedback></answer>
+    <generalfeedback><text>With roughly 101 possible x values and a budget far larger than that, uniform random sampling is nearly certain to draw a covering value (67 or 87). But this is a property of a tiny, dense target space; in realistic programs the covering region is a vanishing fraction of an enormous space, so unguided sampling becomes hopeless and guidance is what pays off.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Population size trade-off under a fixed budget</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under a <strong>fixed</strong> evaluation budget, what is the tension in choosing the GA's population size?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A larger population explores more per generation but, since each individual costs an evaluation, the budget allows fewer generations; too small under-explores and too large leaves too little evolution</text><feedback><text>Correct — population size and generation count trade off against each other under a fixed budget.</text></feedback></answer>
+    <answer fraction="0"><text>There is no tension; larger populations are strictly better under any budget</text><feedback><text>A larger population consumes the budget faster, leaving fewer generations to evolve.</text></feedback></answer>
+    <answer fraction="0"><text>Population size has no effect on how the budget is spent</text><feedback><text>Every individual is an evaluation, so population size directly determines how the budget is spent.</text></feedback></answer>
+    <answer fraction="0"><text>A smaller population always converges to the global optimum faster</text><feedback><text>Too small a population under-explores and is more prone to premature convergence.</text></feedback></answer>
+    <generalfeedback><text>Each individual evaluated spends part of the budget. A big population samples many regions per generation but burns the budget in few generations, limiting refinement; a tiny population evolves for many generations but explores too little and can converge prematurely. The right size balances breadth against the number of generations affordable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why compare across several examples</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the explorer let you compare the strategies across <strong>several</strong> examples rather than just one?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because a strategy's ranking depends on the landscape — the GA clearly wins only on the multimodal (trap-laden) example, so a single example could mislead about which strategy is best</text><feedback><text>Correct — comparing across landscapes shows that the best strategy is problem-dependent.</text></feedback></answer>
+    <answer fraction="0"><text>Because more examples make the convergence chart look nicer</text><feedback><text>The reason is validity of the comparison, not aesthetics.</text></feedback></answer>
+    <answer fraction="0"><text>Because each example uses a different cost function unrelated to the others</text><feedback><text>All examples use the same approach-level-plus-branch-distance cost; what differs is the landscape shape.</text></feedback></answer>
+    <answer fraction="0"><text>Because the GA can only run on the triangle example</text><feedback><text>The GA runs on all examples; multiple examples reveal how ranking changes with the landscape.</text></feedback></answer>
+    <generalfeedback><text>On smooth landscapes (nested guard) hill climbing is as good and cheaper; the GA's advantage shows up on the trap-laden multimodal example. Comparing across examples prevents the mistake of crowning one strategy from a single, unrepresentative landscape.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why only hill climbing shows Stuck</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>Stuck</strong> badge appears only on the hill-climbing panel, never on random search or the GA. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only hill climbing has a local-optimum termination condition (no improving neighbour) that leaves it stuck with positive cost; random search and the GA run until coverage or the budget ends, so no equivalent stuck state is reported</text><feedback><text>Correct — the stuck state is specific to a local search that halts when no neighbour improves.</text></feedback></answer>
+    <answer fraction="0"><text>Random search and the GA always cover the target, so they can never be stuck</text><feedback><text>They can also fail to cover, but they simply exhaust the budget rather than halt at a local optimum.</text></feedback></answer>
+    <answer fraction="0"><text>The badge is randomly assigned to one panel each run</text><feedback><text>The badge reflects the hill-climb result's stuck flag, not a random choice.</text></feedback></answer>
+    <answer fraction="0"><text>The GA hides its stuck state to look better</text><feedback><text>The GA has no local-optimum halt to hide; it runs to coverage or budget.</text></feedback></answer>
+    <generalfeedback><text>Being stuck means halting at a local optimum with cost still positive — a condition that only hill climbing's stop rule produces. Random search and the GA do not stop early on a local optimum; they either reach coverage or use up the budget, so there is no stuck state to badge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Characterize each strategy's use of cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement correctly characterizes how each strategy uses the <strong>cost</strong> (fitness) when deciding what to try next?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Random search ignores cost when choosing the next input (using it only to keep the best); hill climbing greedily follows the local cost gradient; the GA uses cost for selection pressure while keeping diversity</text><feedback><text>Correct — none, greedy-local, and selection-guided-global respectively.</text></feedback></answer>
+    <answer fraction="0"><text>All three ignore cost entirely and rely on luck</text><feedback><text>Hill climbing and the GA both use cost to steer; only random search ignores it when choosing.</text></feedback></answer>
+    <answer fraction="0"><text>All three greedily follow the local gradient like hill climbing</text><feedback><text>Random search does not follow a gradient, and the GA balances selection with exploration.</text></feedback></answer>
+    <answer fraction="0"><text>Random search follows the gradient while the GA and hill climbing sample uniformly</text><feedback><text>That inverts reality: random search is the uniform one; the others use cost to steer.</text></feedback></answer>
+    <generalfeedback><text>The three sit on a spectrum of how much they exploit the fitness signal to choose the next input: random search not at all (it only keeps the best seen), hill climbing greedily and locally, and the GA through selection pressure that concentrates on fitter individuals while mutation and population diversity keep it exploring.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>GA is not universally the best choice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because the GA covers the multimodal target where hill climbing gets stuck, the genetic algorithm is therefore the best choice for every coverage target.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — on smooth landscapes hill climbing reaches coverage just as well and more cheaply; the GA's advantage is landscape-dependent.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — there is no universally best strategy; the GA wins only where local optima trap simpler searches.</text></feedback></answer>
+    <generalfeedback><text>The GA's win on multimodal comes from its ability to escape local optima, which matters only when such traps exist. On a smooth landscape like the nested guard, hill climbing covers the target with far less machinery. The right strategy depends on the problem's landscape — no single one dominates everywhere.</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SBST Suite Generation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是整體測試套件生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在「整體測試套件演化」探索器中，<strong>整體測試套件生成</strong>做的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它一次演化整個測試套件，讓套件整體最大化對某個目標（所有分支）的覆蓋，而不是一次只搜尋一個測試</text><feedback><text>正確——搜尋是對整個套件最佳化，使其一起覆蓋每個目標。</text></feedback></answer>
+    <answer fraction="0"><text>它搜尋能抵達某個選定目標分支的單一輸入向量</text><feedback><text>那是單一分支鎖定（sbst-branch 探索器）；整體測試套件生成是為所有目標最佳化整個套件。</text></feedback></answer>
+    <answer fraction="0"><text>它衡量一個固定、手寫套件的覆蓋率，而不改動它</text><feedback><text>整體測試套件生成會演化套件，不只是衡量固定套件。</text></feedback></answer>
+    <answer fraction="0"><text>它形式化地證明套件覆蓋了每一個可達分支</text><feedback><text>它是一種追求覆蓋的元啟發式搜尋，並不做任何證明。</text></feedback></answer>
+    <generalfeedback><text>整體測試套件生成（EvoSuite 的理念）把整個測試套件視為一個候選解，並以遺傳演算法演化它，使套件整體覆蓋所有覆蓋目標，同時保持套件精簡。這與用一個演化中的輸入向量鎖定單一分支不同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>此處的個體是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在這個整體測試套件的遺傳演算法中，族群裡單一的<strong>個體</strong>（候選解）是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一整個測試套件——一組固定大小、一起評估的測試輸入</text><feedback><text>正確——每個個體是一整個套件，而非單一測試。</text></feedback></answer>
+    <answer fraction="0"><text>單一測試輸入向量</text><feedback><text>在單一分支搜尋中個體是一個輸入向量；在整體套件搜尋中它是一整個套件。</text></feedback></answer>
+    <answer fraction="0"><text>一個分支結果覆蓋目標</text><feedback><text>目標是套件必須覆蓋的對象；它們不是演化中的個體。</text></feedback></answer>
+    <answer fraction="0"><text>目前為止最佳套件的適應度值</text><feedback><text>那是由個體算出的分數，不是個體本身。</text></feedback></answer>
+    <generalfeedback><text>整體測試套件生成的關鍵在於：搜尋的單位是套件。遺傳演算法持有一個由套件組成的族群，用套件層級的適應度為每個套件評分，並在套件層級套用選擇、交配與突變加以演化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>搜尋的覆蓋目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器驅動套件朝向哪一種<strong>覆蓋目標</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>分支覆蓋——覆蓋目標函數的每個分支的兩種結果</text><feedback><text>正確——量表顯示「分支覆蓋率」，目標就是各分支結果。</text></feedback></answer>
+    <answer fraction="0"><text>路徑覆蓋——覆蓋每一條完整的執行路徑</text><feedback><text>探索器的目標集合是分支結果，而非完整路徑。</text></feedback></answer>
+    <answer fraction="0"><text>突變分數——殺死植入的突變體</text><feedback><text>突變測試是不同的準則；這裡的目標是分支覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>最小化套件的執行時間</text><feedback><text>速度不是覆蓋目標；目標是覆蓋所有分支。</text></feedback></answer>
+    <generalfeedback><text>探索器為分支覆蓋最佳化套件：每個分支貢獻兩個目標（真結果與假結果），套件被驅動去覆蓋全部。覆蓋率量表顯示這些目標被覆蓋的百分比。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼算作一個覆蓋目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對分支覆蓋而言，引擎把什麼視為單一的<strong>覆蓋目標</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某個分支的某一種結果——每個分支產生兩個目標：走真與走假</text><feedback><text>正確——每個分支貢獻一個真目標與一個假目標。</text></feedback></answer>
+    <answer fraction="0"><text>一整個分支，不論結果只計一次</text><feedback><text>這裡每個分支算兩個目標，一種結果一個。</text></feedback></answer>
+    <answer fraction="0"><text>套件中的一個測試</text><feedback><text>測試會覆蓋目標；測試本身不是目標。</text></feedback></answer>
+    <answer fraction="0"><text>穿過函數的一條完整路徑</text><feedback><text>目標是分支結果，不是路徑。</text></feedback></answer>
+    <generalfeedback><text>引擎的 coverageGoals() 對每個分支列出真結果與假結果。所以有 b 個分支的函數有 2b 個目標，而套件必須讓每種結果至少被執行一次才算完整覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩分支範例的目標數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器中每個範例都有兩個分支。套件要達到 100% 須覆蓋幾個分支結果<strong>目標</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 個目標——兩個分支，各有兩種結果</text><feedback><text>正確——2 個分支、各 2 種結果，共 4 個目標，正如「已覆蓋：n / 4 個目標」的顯示。</text></feedback></answer>
+    <answer fraction="0"><text>2 個目標——每個分支一個</text><feedback><text>每個分支貢獻兩個目標（真與假），所以兩個分支有四個。</text></feedback></answer>
+    <answer fraction="0"><text>8 個目標——套件裡每個測試一個</text><feedback><text>目標來自分支結果，而不是那四個測試。</text></feedback></answer>
+    <answer fraction="0"><text>16 個目標——族群中每個個體一個</text><feedback><text>族群大小不決定目標數量。</text></feedback></answer>
+    <generalfeedback><text>有兩個分支、各有真與假結果，就有 2 乘 2 等於 4 個覆蓋目標。測試面板以「n / 4 個目標」顯示覆蓋率，4/4 會點亮完整覆蓋橫幅。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>預設的套件大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>預設情況下，探索器中每個候選套件由幾個測試輸入組成？（請輸入數字。）</p>]]></text></questiontext>
+    <answer fraction="100"><text>4</text><feedback><text>正確——預設的 suiteSize 是 4，所以演化後套件面板列出四個測試。</text></feedback></answer>
+    <answer fraction="100"><text>四</text><feedback><text>正確——每個套件四個測試。</text></feedback></answer>
+    <generalfeedback><text>wholeSuiteGA 以 suiteSize 4 執行，所以每個個體是四個測試輸入組成的套件，「演化後的測試套件」面板會顯示測試 1 到測試 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套件層級適應度加總的是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>套件層級適應度</strong>在各目標上加總的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對每個目標，取套件中任一測試對該目標達成的最佳（最小）成本——再對所有目標加總</text><feedback><text>正確——每個目標的貢獻是最小的測試成本，再對每個目標加總。</text></feedback></answer>
+    <answer fraction="0"><text>只取第一個測試的成本，忽略套件其餘部分</text><feedback><text>每個目標都取所有測試中的最佳者，不只是第一個測試。</text></feedback></answer>
+    <answer fraction="0"><text>所有測試的總執行時間</text><feedback><text>適應度加總的是分支距離成本，而非執行時間。</text></feedback></answer>
+    <answer fraction="0"><text>套件中的測試數量</text><feedback><text>套件大小是另一件事（最小化），不是適應度的加總。</text></feedback></answer>
+    <generalfeedback><text>suiteFitness() 走訪每個覆蓋目標，取套件中所有測試的 costForGoal 最小值（任一測試最接近該目標的程度），再把這些最小值加總。總和越低，代表套件整體越接近覆蓋一切。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套件成本何時為零</text></name>
+    <questiontext format="html"><text><![CDATA[<p>套件層級適應度成本恰好在何種情況下達到 <strong>0</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個目標都至少被一個測試覆蓋——完整分支覆蓋</text><feedback><text>正確——總和為零代表每個目標的最佳成本都是 0，故所有目標皆已覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>恰好有一個目標被覆蓋</text><feedback><text>一個被覆蓋的目標只會讓一項歸零；只有所有項都為零時總和才為零。</text></feedback></answer>
+    <answer fraction="0"><text>套件已縮減為單一測試</text><feedback><text>成本衡量的是覆蓋距離，不是套件大小。</text></feedback></answer>
+    <answer fraction="0"><text>族群已收斂為相同的套件</text><feedback><text>收斂與成本為零無關。</text></feedback></answer>
+    <generalfeedback><text>每個目標恰好在有某個測試覆蓋它時對總和貢獻 0。整個總和只有在每個目標都被覆蓋時才為 0，也就是完整分支覆蓋——此時探索器顯示「已達成完整分支覆蓋。」</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最小化套件大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>除了最大化覆蓋率，整體測試套件生成還追求哪個第二目標？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>最小化套件大小——在既有覆蓋下把測試數量保持得越少越好</text><feedback><text>正確——在最大化覆蓋的同時保持套件精簡。</text></feedback></answer>
+    <answer fraction="0"><text>最大化測試數量，以求周全</text><feedback><text>目標是在相同覆蓋下用更少測試，而非更多。</text></feedback></answer>
+    <answer fraction="0"><text>最大化每個測試的分支距離</text><feedback><text>分支距離是朝零最小化，而且它不是大小目標。</text></feedback></answer>
+    <answer fraction="0"><text>最大化搜尋的執行時間</text><feedback><text>執行時間是預算，不是目標。</text></feedback></answer>
+    <generalfeedback><text>整體測試套件生成平衡兩個目標：盡量多覆蓋，並保持精簡。在探索器中，一旦達到完整覆蓋，「最小化套件」面板便移除冗餘測試，顯示仍覆蓋一切的較小套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「已移除冗餘測試」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「最小化套件」面板寫著<em>已移除冗餘測試</em>。最小化會捨棄哪些測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>移除後不改變已覆蓋目標集合的那些測試——它們沒有提供其他測試尚未提供的覆蓋</text><feedback><text>正確——若捨棄某測試不會失去任何已覆蓋目標，它就是冗餘的。</text></feedback></answer>
+    <answer fraction="0"><text>執行最慢的測試，不論覆蓋如何</text><feedback><text>最小化看的是覆蓋，不是速度。</text></feedback></answer>
+    <answer fraction="0"><text>輸入值最大的測試</text><feedback><text>輸入大小無關緊要；只有覆蓋貢獻才重要。</text></feedback></answer>
+    <answer fraction="0"><text>固定數量的測試，永遠是套件的一半</text><feedback><text>移除的數量取決於哪些測試是冗餘的，而非固定比例。</text></feedback></answer>
+    <generalfeedback><text>minimiseSuite() 逐一檢查每個測試：若少了它套件仍覆蓋相同的目標集合，該測試就是冗餘並被移除。結果是一個較小、卻仍覆蓋原完整套件所覆蓋每個目標的套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何演化套件而非單一測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼要演化整個套件，而不是每個目標各跑一次單一測試的搜尋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單一套件層級搜尋同時朝所有目標推進，且一個測試常順帶覆蓋多個目標——因此一次執行就能產生覆蓋一切的小套件</text><feedback><text>正確——套件是對所有目標一起最佳化，途中還有附帶覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>因為套件能覆蓋單獨無法抵達的目標</text><feedback><text>不可行的目標仍然不可行；好處在於一起最佳化所有可達目標。</text></feedback></answer>
+    <answer fraction="0"><text>因為套件不需要適應度函數</text><feedback><text>套件是由套件層級適應度引導的；並非無適應度。</text></feedback></answer>
+    <answer fraction="0"><text>因為演化套件保證得到最少的測試數量</text><feedback><text>最小化會縮小規模，但不保證全域最小。</text></feedback></answer>
+    <generalfeedback><text>一次只鎖定一個目標可能浪費預算，且忽略了一個測試常同時滿足多個目標。整體測試套件生成同時對每個目標最佳化整個套件，再最小化，從單次搜尋就產生精簡套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完整分支覆蓋的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器顯示「已達成完整分支覆蓋。」這代表套件的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>覆蓋率讀數為 100%——每個分支結果目標都至少被套件中的一個測試覆蓋</text><feedback><text>正確——覆蓋率達到 1（所有目標皆覆蓋）時橫幅出現。</text></feedback></answer>
+    <answer fraction="0"><text>套件中每個測試都覆蓋每個目標</text><feedback><text>完整覆蓋只需每個目標被某個測試覆蓋，而非每個測試覆蓋每個目標。</text></feedback></answer>
+    <answer fraction="0"><text>套件已被最小化為一個測試</text><feedback><text>橫幅關乎覆蓋，而非最小化後的大小。</text></feedback></answer>
+    <answer fraction="0"><text>不可能再有更多世代</text><feedback><text>橫幅反映達成的覆蓋，而非世代已用盡。</text></feedback></answer>
+    <generalfeedback><text>成功橫幅在目前世代的最佳套件覆蓋率為 1 時出現——4 個目標全數覆蓋。此時套件成本為 0，最小化套件面板隨之出現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>族群大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>遺傳演算法演化的族群由幾個候選套件組成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16 個套件</text><feedback><text>正確——探索器以 populationSize 16 執行。</text></feedback></answer>
+    <answer fraction="0"><text>4 個套件</text><feedback><text>4 是每個套件的測試數（suiteSize），不是族群大小。</text></feedback></answer>
+    <answer fraction="0"><text>1 個套件</text><feedback><text>遺傳演算法演化的是一個由套件組成的族群，而非單一套件。</text></feedback></answer>
+    <answer fraction="0"><text>5000 個套件</text><feedback><text>5000 是評估預算，而非每世代的套件數。</text></feedback></answer>
+    <generalfeedback><text>wholeSuiteGA 使用 populationSize 16：每世代十六個套件，以競賽選擇、交配、突變與菁英保留演化，直到 5000 次評估的預算用盡或達成完整覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「執行至結束」的作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器中的<strong>執行至結束</strong>按鈕做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把檢視跳到最佳套件首次達到完整覆蓋的那個世代</text><feedback><text>正確——它前進到最早達成完整覆蓋的世代。</text></feedback></answer>
+    <answer fraction="0"><text>它從第 1 世代重新開始搜尋</text><feedback><text>那是重設；執行至結束是往前跳到完整覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>它以新的隨機種子重跑遺傳演算法</text><feedback><text>種子固定為 1；執行至結束只把檢視往前移。</text></feedback></answer>
+    <answer fraction="0"><text>它從目前套件移除冗餘測試</text><feedback><text>一旦覆蓋完整，最小化會自動進行；此按鈕是跳轉世代檢視。</text></feedback></answer>
+    <generalfeedback><text>執行至結束把顯示的世代設為第一個其最佳套件覆蓋率為 1 的世代，讓你直接跳到完整覆蓋的結果及其最小化套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋率百分比如何計算</text></name>
+    <questiontext format="html"><text><![CDATA[<p>量表上的<strong>覆蓋率百分比</strong>是怎麼計算的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>已覆蓋目標除以總目標數——例如 4 個中的 3 個是 75%</text><feedback><text>正確——覆蓋率是已覆蓋數除以總目標數。</text></feedback></answer>
+    <answer fraction="0"><text>已覆蓋目標除以套件中的測試數</text><feedback><text>分母是總目標數，不是套件大小。</text></feedback></answer>
+    <answer fraction="0"><text>套件層級成本以百分比表示</text><feedback><text>成本與覆蓋相關但不同；覆蓋率是已覆蓋目標的比例。</text></feedback></answer>
+    <answer fraction="0"><text>已用掉的評估預算比例</text><feedback><text>預算使用量與覆蓋率百分比無關。</text></feedback></answer>
+    <generalfeedback><text>suiteFitness() 回傳的覆蓋率是已覆蓋數除以目標數。有四個目標時，覆蓋三個是 0.75，量表顯示 75%；覆蓋全部四個是 100% 並出現完整覆蓋橫幅。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Suite Generation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何對所有目標加總可避免對個別分支的偏差</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼把成本對<em>所有</em>目標加總的套件層級適應度，能避免單一分支適應度的偏差？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單一總和同時顧及每個目標，因此搜尋會在套件最弱之處加以改善，而不會執著於某個選定的目標分支</text><feedback><text>正確——所有目標納入同一適應度，故沒有單一分支主導搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>因為加總消除了對分支距離的需要</text><feedback><text>分支距離仍用於每個目標項中；加總只是把它們彙整起來。</text></feedback></answer>
+    <answer fraction="0"><text>因為它把最難的分支加權為零</text><feedback><text>沒有任何分支被歸零；每個目標都貢獻其最佳測試成本。</text></feedback></answer>
+    <answer fraction="0"><text>因為它完全忽略容易的目標</text><feedback><text>容易的目標仍納入加總（覆蓋後貢獻 0）；沒有任何目標被忽略。</text></feedback></answer>
+    <generalfeedback><text>單一分支搜尋把全部預算投在一個目標上。整體套件適應度把每個目標折入同一個數字，因此任何未覆蓋目標上的進展都會降低適應度。搜尋因而被引導同時朝所有目標，而非偏向單一分支。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整體套件與單一分支適應度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>整體套件適應度與單一分支適應度有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它同時對所有分支結果目標加總分支距離成本，引導單一套件走向完整覆蓋——而單一分支適應度每次只針對一個目標</text><feedback><text>正確——整體套件適應度彙整所有目標；單一分支適應度只處理一個。</text></feedback></answer>
+    <answer fraction="0"><text>它與單一分支適應度完全相同；只差在平行演化的個體數量</text><feedback><text>適應度本身就不同：它彙整所有目標，而非單一目標。</text></feedback></answer>
+    <answer fraction="0"><text>它每代對各目標隨機賦予權重，以避免過度擬合</text><feedback><text>各目標是以對等地位加總；並未套用隨機加權。</text></feedback></answer>
+    <answer fraction="0"><text>它直接計算已覆蓋分支數，因此就是覆蓋率百分比</text><feedback><text>它加總的是連續的分支距離，而非離散的已覆蓋分支數。</text></feedback></answer>
+    <generalfeedback><text>單一分支適應度是把一個輸入向量對一個目標分支評分。整體套件適應度則以加總每個目標的最佳測試成本，一次對整個套件就每個分支結果目標評分，因此單次搜尋就能驅動套件達成完整覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>附帶覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在整體測試套件生成中，什麼是<strong>附帶覆蓋</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單一測試在被驅向某個目標時，沿其執行順帶覆蓋了其他目標——於是那些目標是免費被覆蓋的</text><feedback><text>正確——一個測試常一次滿足多個目標。</text></feedback></answer>
+    <answer fraction="0"><text>只有結合兩個測試的執行才能覆蓋的目標</text><feedback><text>目標的覆蓋是以單一測試為單位；附帶覆蓋是一個測試覆蓋多個目標。</text></feedback></answer>
+    <answer fraction="0"><text>移除冗餘測試時失去的覆蓋</text><feedback><text>最小化移除測試而不損失覆蓋；那不是附帶覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>搜尋期間加到函數上的額外分支</text><feedback><text>函數是固定的；附帶覆蓋講的是順帶被覆蓋的目標。</text></feedback></answer>
+    <generalfeedback><text>抵達深層目標通常必須先穿過較早的分支，因此針對某個目標的測試常在途中覆蓋數個其他目標。整體測試套件生成善用這種附帶覆蓋，這也是為何一個套件能覆蓋許多目標而不需每個目標一個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>覆蓋與大小的權衡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>整體測試套件生成在兩件事之間權衡。是哪一對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>覆蓋（最大化）對套件大小（最小化）——用盡量少的測試覆蓋一切</text><feedback><text>正確——高覆蓋搭配小套件正是所追求的平衡。</text></feedback></answer>
+    <answer fraction="0"><text>分支距離對逼近層級</text><feedback><text>那是單一目標成本的兩個構成部分，不是套件層級的權衡。</text></feedback></answer>
+    <answer fraction="0"><text>族群大小對世代數</text><feedback><text>那些是遺傳演算法的參數，不是覆蓋/大小目標。</text></feedback></answer>
+    <answer fraction="0"><text>執行時間對記憶體用量</text><feedback><text>這項權衡關乎覆蓋與套件大小，而非資源用量。</text></feedback></answer>
+    <generalfeedback><text>較大的套件能覆蓋更多，但執行與維護成本更高。整體測試套件生成追求以最小規模達到最大覆蓋：先把覆蓋推高，再以移除冗餘測試來最小化，得到仍覆蓋一切的小套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何記入每個目標的最佳成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對每個目標，套件適應度取套件各測試中的<em>最小</em>成本。為何用最小值而非平均值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只要有任一測試抵達某目標，該目標即被覆蓋，故只有最接近的測試重要；用平均值會因套件另含瞄準他處的測試而懲罰它</text><feedback><text>正確——覆蓋是存在性的，因此每個目標取最佳測試才對。</text></feedback></answer>
+    <answer fraction="0"><text>當目標未被覆蓋時平均值沒有定義</text><feedback><text>平均值有定義；用最小值是因為覆蓋只需一個測試。</text></feedback></answer>
+    <answer fraction="0"><text>最小值比平均值更省計算</text><feedback><text>理由是語意（存在性覆蓋），而非計算成本。</text></feedback></answer>
+    <answer fraction="0"><text>取平均會永遠得到零</text><feedback><text>取平均一般會是正值；重點在於只需一個覆蓋測試。</text></feedback></answer>
+    <generalfeedback><text>只要至少一個測試滿足某目標，該目標即算覆蓋。記入最小成本反映了這種存在性要求：套件是以它對每個目標最接近的測試來評判。取平均會不當地懲罰其他測試瞄準不同目標的套件。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>加入測試絕不會降低覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於每個目標都記入套件中最佳測試的成本，往套件加入另一個測試絕不會<em>縮小</em>已覆蓋目標的集合。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——新測試只會使每個目標的最佳成本持平或更好，故已覆蓋目標只會不變或增加。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>加入測試不會惡化任何目標的最小成本，故覆蓋對於加入測試是單調的。</text></feedback></answer>
+    <generalfeedback><text>每個目標的貢獻是各測試中的最小成本。加入測試只會降低或維持該最小值，故任何已覆蓋目標都不會失去。正是這種單調性，使最小化能以移除來運作：只有冗餘測試可以拿掉。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最小化保持不變的是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器最小化套件時，保持不變的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>已覆蓋目標的集合——較小的套件恰好覆蓋完整套件所覆蓋的那些目標</text><feedback><text>正確——最小化只有在覆蓋被保留時才移除測試。</text></feedback></answer>
+    <answer fraction="0"><text>套件中的測試數量</text><feedback><text>最小化會減少測試數；那正是重點。</text></feedback></answer>
+    <answer fraction="0"><text>每個保留測試的確切輸入值都改變</text><feedback><text>保留的測試維持其輸入；只有冗餘測試被捨棄。</text></feedback></answer>
+    <answer fraction="0"><text>探索各世代的順序</text><feedback><text>世代歷史與套件最小化無關。</text></feedback></answer>
+    <generalfeedback><text>minimiseSuite() 只在少了某測試後已覆蓋目標集合不變時才移除它。所以保持不變的不變量是所達成的覆蓋：最小化後的套件用更少測試，覆蓋完整套件所覆蓋的完全相同者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>術語配對角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對整體測試套件生成而言，哪一組術語對角色的對應是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>個體是一整個套件；目標是一個分支結果；套件適應度是各目標最佳測試成本的加總；最小化捨棄冗餘測試</text><feedback><text>正確——每個術語都對應到它的整體套件角色。</text></feedback></answer>
+    <answer fraction="0"><text>個體是一個分支結果；目標是一整個套件；套件適應度是套件大小；最小化是加入測試</text><feedback><text>這些角色被調換且錯誤；最小化是移除測試，不是加入。</text></feedback></answer>
+    <answer fraction="0"><text>個體是一個測試輸入；目標是一條路徑；套件適應度是執行時間；最小化是放寬輸入</text><feedback><text>個體是套件，目標是分支結果，適應度加總的是分支距離。</text></feedback></answer>
+    <answer fraction="0"><text>個體是一個突變體；目標是一個種子；套件適應度是突變分數；最小化是重新播種</text><feedback><text>這些是突變測試的術語，不是整體測試套件生成的角色。</text></feedback></answer>
+    <generalfeedback><text>在整體測試套件生成中，個體是一整個套件，目標是單一分支結果，套件適應度是對各目標最佳測試成本的加總，最小化則捨棄移除後不損失覆蓋的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何不以原始覆蓋計數作為適應度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼套件適應度加總的是連續的分支距離，而不只是計算已覆蓋目標的數量？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>原始已覆蓋目標計數在兩次覆蓋之間是平坦的，給搜尋沒有梯度；加總的分支距離量度未覆蓋目標有多接近，可引導改善</text><feedback><text>正確——連續距離提供了離散計數所缺的梯度。</text></feedback></answer>
+    <answer fraction="0"><text>計數會永遠等於測試數量</text><feedback><text>計數等於已覆蓋目標數，而非測試數；真正問題是缺少梯度。</text></feedback></answer>
+    <answer fraction="0"><text>分支距離比計數更省計算</text><feedback><text>理由是搜尋引導，而非計算成本。</text></feedback></answer>
+    <answer fraction="0"><text>計數無法達到完整覆蓋</text><feedback><text>計數可以達到完整覆蓋；它只是在途中不提供引導。</text></feedback></answer>
+    <generalfeedback><text>計算已覆蓋目標數是階梯函數：在某目標由未覆蓋翻為覆蓋之前它不會變，故搜尋在階梯之間無所依循。加總分支距離讓接近的比遙遠的得分更好，給遺傳演算法一條朝覆蓋前進的平滑梯度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>演化後的套件達成了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當探索器在某個範例上結束時，演化後的套件達成了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完整分支覆蓋——四個目標全數覆蓋——之後移除冗餘測試以得到較小套件</text><feedback><text>正確——這些範例會達到 100% 再最小化。</text></feedback></answer>
+    <answer fraction="0"><text>只覆蓋單一目標分支</text><feedback><text>那是單一分支搜尋；整體測試套件生成覆蓋所有目標。</text></feedback></answer>
+    <answer fraction="0"><text>最小化後永遠恰好有四個測試的套件</text><feedback><text>最小化可能留下少於四個測試。</text></feedback></answer>
+    <answer fraction="0"><text>不存在更小套件的證明</text><feedback><text>最小化是啟發式移除，不是最小性的證明。</text></feedback></answer>
+    <generalfeedback><text>在每個範例上，搜尋把最佳套件推向完整分支覆蓋（4/4 個目標），點亮成功橫幅，然後最小化套件面板在捨棄冗餘測試後顯示縮減後的套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>菁英保留的作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>整體套件遺傳演算法使用<strong>菁英保留</strong>。它在套件層級做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把目前世代的最佳套件原封不動帶入下一代，使已找到的最佳覆蓋不會流失</text><feedback><text>正確——菁英套件完整存活到下一代。</text></feedback></answer>
+    <answer fraction="0"><text>它每代以全新隨機套件取代整個族群</text><feedback><text>那會丟棄進展；菁英保留是保住最佳套件。</text></feedback></answer>
+    <answer fraction="0"><text>它在複製前突變最佳套件中的每個測試</text><feedback><text>菁英是原封不動帶入，而非被突變。</text></feedback></answer>
+    <answer fraction="0"><text>它從族群移除最差的套件</text><feedback><text>菁英保留是留住最佳，而非刪除最差。</text></feedback></answer>
+    <generalfeedback><text>菁英保留把目前最佳套件直接複製到下一代（其成本也一併帶過而不重新評估）。這保證在交配與突變探索新套件時，目前為止的最佳覆蓋不會倒退。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套件上的交配</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在這個遺傳演算法中，<strong>交配</strong>如何結合兩個親代套件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它在切點處拼接兩個套件，從一個親代取部分測試、其餘取自另一個親代，形成子代套件</text><feedback><text>正確——單點交配在兩個親代套件之間混合整個測試。</text></feedback></answer>
+    <answer fraction="0"><text>它把兩個套件的數值輸入逐元素取平均</text><feedback><text>這裡的交配重組的是整個測試，而非取平均的數字。</text></feedback></answer>
+    <answer fraction="0"><text>它把兩個套件合併成一個兩倍大的套件</text><feedback><text>子代維持套件大小；不會變大。</text></feedback></answer>
+    <answer fraction="0"><text>它在單一測試的數字內交換個別位數</text><feedback><text>切點是在套件的各測試之間，不是在一個數字之內。</text></feedback></answer>
+    <generalfeedback><text>套件層級的交配挑一個切點索引，把第一個親代切點前的測試與第二個親代切點後的測試相接，產生同樣大小、繼承兩個親代測試的子代套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套件上的突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在這個遺傳演算法中，<strong>突變</strong>如何改變套件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以每個測試一個小機率，把某測試換成新產生的隨機測試，為套件注入新輸入</text><feedback><text>正確——突變時不時換入一個新的隨機測試。</text></feedback></answer>
+    <answer fraction="0"><text>它從套件刪除一個測試，使其縮小</text><feedback><text>突變是替換而非移除；在最小化之前套件大小固定。</text></feedback></answer>
+    <answer fraction="0"><text>它把最佳測試複製覆蓋到其他所有測試</text><feedback><text>突變增添多樣性，而非趨於一致。</text></feedback></answer>
+    <answer fraction="0"><text>它重新排列測試而不改變其輸入</text><feedback><text>重新排列不改變覆蓋；突變引入新輸入。</text></feedback></answer>
+    <generalfeedback><text>套件突變走訪每個測試，並以 1/suiteSize 的機率把它換成全新的隨機測試。這持續注入新輸入，讓搜尋能抵達現有測試錯過的目標，同時大致保留套件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀部分覆蓋讀數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某世代的最佳套件顯示「已覆蓋：3 / 4 個目標」，量表讀數為 75%。你能得出什麼結論？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>仍有一個分支結果未覆蓋，故套件成本大於零，且完整覆蓋橫幅尚未出現</text><feedback><text>正確——4 個中的 3 個表示還剩一個結果，成本大於 0。</text></feedback></answer>
+    <answer fraction="0"><text>四個測試中有三個已作為冗餘被移除</text><feedback><text>3/4 計的是目標，不是測試；最小化只在完整覆蓋時進行。</text></feedback></answer>
+    <answer fraction="0"><text>套件成本恰好是 0.75</text><feedback><text>覆蓋率是 0.75，但成本是剩餘未覆蓋目標的加總距離，並非依定義就是 0.75。</text></feedback></answer>
+    <answer fraction="0"><text>搜尋已失敗並將停止</text><feedback><text>搜尋會繼續；後續世代可能抵達最後一個目標。</text></feedback></answer>
+    <generalfeedback><text>覆蓋 3/4 是 75%，代表仍有一個分支結果未覆蓋。套件成本因而為正（到最後那個目標的加總最佳測試距離），而「已達成完整分支覆蓋」橫幅與最小化套件面板會維持隱藏，直到最後一個目標被覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何以單一適應度涵蓋所有目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼要把每個目標折入<em>單一</em>套件適應度值，而不是一個接一個地最佳化各目標？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單一適應度讓遺傳演算法同時對所有目標改善套件，故任何未覆蓋目標上的進展都獲得獎勵，整個搜尋預算服務整個套件</text><feedback><text>正確——單一彙整適應度驅動對所有目標的均衡進展。</text></feedback></answer>
+    <answer fraction="0"><text>一個接一個地最佳化各目標是不可能的</text><feedback><text>那是可能的（即逐目標搜尋）；彙整適應度只是對整個套件更有效率。</text></feedback></answer>
+    <answer fraction="0"><text>單一適應度會讓每個測試都覆蓋每個目標</text><feedback><text>測試仍覆蓋不同目標；適應度只是把它們彙整起來。</text></feedback></answer>
+    <answer fraction="0"><text>它免除了對族群的需要</text><feedback><text>遺傳演算法仍演化一個由套件組成的族群。</text></feedback></answer>
+    <generalfeedback><text>把所有目標彙整入單一適應度，意味著每一代的選擇壓力都在套件最弱之處改善它，並自動獲取附帶覆蓋。逐目標循序最佳化則會一再重啟，並忽略一個測試能覆蓋許多目標。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Suite Generation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何加總的分支距離勝過布林覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>有兩個套件各覆蓋 4 個目標中的 2 個，但在未覆蓋的兩個目標上不同：套件 A 的測試非常接近缺少的結果；套件 B 的則相距甚遠。為什麼加總分支距離的適應度偏好 A？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在布林 2/4 計數上兩者相同，但 A 到未覆蓋目標的加總距離較小，給出較低的適應度，故搜尋沿梯度朝覆蓋它們前進</text><feedback><text>正確——連續總和能區分計數所無法區分的接近與遙遠。</text></feedback></answer>
+    <answer fraction="0"><text>A 覆蓋的目標比 B 多，所以顯然得分較好</text><feedback><text>兩者覆蓋相同的 2 個目標；差別在到未覆蓋目標的距離。</text></feedback></answer>
+    <answer fraction="0"><text>A 的測試比 B 少</text><feedback><text>這裡適應度比較的不是大小，而是加總距離。</text></feedback></answer>
+    <answer fraction="0"><text>適應度偏好 B，因為較大的距離能探索更多</text><feedback><text>成本越低越好；適應度偏好較小的加總距離，也就是 A。</text></feedback></answer>
+    <generalfeedback><text>布林已覆蓋計數對兩個套件都是 2，無法排序。加總分支距離把每個未覆蓋目標有多遠加進來；A 的接近之處加總成較小成本，故遺傳演算法偏好 A，並被穩定引導去把那些目標翻為已覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀覆蓋與成本的組合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>跨世代之間，最佳套件的覆蓋率從 50% 升到 100%，同時套件成本降到 0。成本降到 0 告訴你覆蓋率讀數本身所沒有的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在 100% 時沒有額外資訊——成本 0 與覆蓋率 100% 是等價的——但在攀升途中，下降的成本顯示套件即使在覆蓋計數暫時持平時仍更接近未覆蓋目標</text><feedback><text>正確——在完整覆蓋時兩者一致，但成本在覆蓋階梯之間連續移動。</text></feedback></answer>
+    <answer fraction="0"><text>成本 0 表示套件恰好有一個測試</text><feedback><text>成本量度的是覆蓋距離，不是套件大小。</text></feedback></answer>
+    <answer fraction="0"><text>成本 0 表示每個測試都覆蓋每個目標</text><feedback><text>它表示每個目標被某個測試覆蓋，而非每個測試。</text></feedback></answer>
+    <answer fraction="0"><text>成本 0 與 100% 覆蓋率矛盾</text><feedback><text>兩者一致：加總距離為零正是完整覆蓋。</text></feedback></answer>
+    <generalfeedback><text>在端點上，成本 0 與覆蓋率 100% 說的是同一件事。成本的價值在於途中：當測試接近未覆蓋目標時它連續下降，在離散覆蓋計數尚未跳升的那些階段給搜尋一條梯度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>巢狀防衛範例中的附帶覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 nested-guard 範例中，測試 x = 17 且 y = 150 使兩個分支都為真（b1 為 x === 17，b2 為 y 大於 100）。這一個測試覆蓋了哪些目標？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>b1 與 b2 的真結果目標——一個測試作為附帶覆蓋覆蓋了兩個目標</text><feedback><text>正確——抵達內層真結果也覆蓋了外層分支的真結果。</text></feedback></answer>
+    <answer fraction="0"><text>只有 b2 的真結果目標</text><feedback><text>要抵達 b2，測試須先讓 b1 為真，故也覆蓋了那個目標。</text></feedback></answer>
+    <answer fraction="0"><text>一次覆蓋全部四個目標</text><feedback><text>b1 與 b2 的假結果需要不同輸入；一個測試無法讓一個分支同時走兩邊。</text></feedback></answer>
+    <answer fraction="0"><text>都沒覆蓋，除非再加三個測試</text><feedback><text>這單一測試已覆蓋兩個目標。</text></feedback></answer>
+    <generalfeedback><text>x = 17 使 b1 為真，而以 y = 150 抵達 b2 也使其為真，故一個測試一併覆蓋 b1-真與 b2-真兩個目標。兩個假結果目標需要其他輸入，說明了為何需要小套件——而非一個測試——來達成完整覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何最小化在完整覆蓋之後才執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼探索器只在達成完整覆蓋後才最小化套件，而不在搜尋期間進行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>最小化移除不改變已覆蓋目標集合的測試；在完整覆蓋前這麼做，可能捨棄搜尋為關閉剩餘目標而仍需的測試</text><feedback><text>正確——對最終覆蓋套件進行最小化才能安全地縮減。</text></feedback></answer>
+    <answer fraction="0"><text>因為最小化本身就是最初產生覆蓋的來源</text><feedback><text>覆蓋來自搜尋；最小化只是修剪覆蓋套件。</text></feedback></answer>
+    <answer fraction="0"><text>因為最小化會提升覆蓋</text><feedback><text>最小化保留覆蓋；它不會提升覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>因為必須先縮小族群大小</text><feedback><text>最小化作用於最佳套件的各測試，而非族群大小。</text></feedback></answer>
+    <generalfeedback><text>最小化是對最終覆蓋套件的後處理步驟：它捨棄移除後仍保持已覆蓋目標集合不變的測試。若在搜尋途中套用，可能移除其覆蓋貢獻只相對於最終套件才重要的測試，因此探索器等到完整覆蓋才最小化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何最小化後套件可能少於四個</text></name>
+    <questiontext format="html"><text><![CDATA[<p>演化後的套件有四個測試，但最小化後的套件常更少。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由於附帶覆蓋，少數測試就能覆蓋全部四個目標，使其餘成為冗餘——可在不失去任何已覆蓋目標下移除</text><feedback><text>正確——覆蓋重疊使某些測試變成冗餘。</text></feedback></answer>
+    <answer fraction="0"><text>最小化永遠把套件減半</text><feedback><text>移除的數量取決於冗餘程度，而非固定比例。</text></feedback></answer>
+    <answer fraction="0"><text>有些測試因為執行太慢而被刪除</text><feedback><text>移除是依覆蓋冗餘，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>四個目標無法全部覆蓋，故有測試被捨棄</text><feedback><text>這些範例確實達成完整覆蓋；被捨棄的是冗餘測試。</text></feedback></answer>
+    <generalfeedback><text>由於一個測試常覆蓋數個目標，四個演化測試可帶重疊地覆蓋四個目標。任何其目標全都被其他測試也覆蓋的測試即為冗餘並被移除，故最小化後的套件常是兩到三個測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>目標覆蓋的存在性本質</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個目標要算作被套件覆蓋，只要套件中<em>至少一個</em>測試走了該分支結果就足夠。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——目標覆蓋是存在性的：一個覆蓋測試就足夠，這正是為何適應度記入每個目標的最佳測試。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>一個目標只需一個測試抵達；並非所有測試都要。</text></feedback></answer>
+    <generalfeedback><text>suiteFitness 記入每個目標為套件各測試中的最小成本，而當該最小值為 0（即有某測試抵達它）時該目標即被覆蓋。覆蓋在套件上是存在性的，這支撐了附帶覆蓋與最小化兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在套件內覆蓋一個困難目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>multimodal 範例中的一個目標（x % 20 === 7 且 x 大於 50）很難命中。在整體測試套件生成中，該目標要被覆蓋須發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>套件中只要有一個測試落在滿足它的輸入上；其他測試可追求不同目標</text><feedback><text>正確——套件中一個覆蓋測試對該目標就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>套件中每個測試都必須滿足它</text><feedback><text>覆蓋是存在性的；只需一個測試抵達該目標。</text></feedback></answer>
+    <answer fraction="0"><text>該目標因為太難而必須被移除</text><feedback><text>目標不會被移除；搜尋會持續嘗試覆蓋它們。</text></feedback></answer>
+    <answer fraction="0"><text>必須有兩個測試在一次執行中共同執行它</text><feedback><text>目標是由單一測試的執行覆蓋，而非兩個測試合併。</text></feedback></answer>
+    <generalfeedback><text>即使是困難目標，只要套件中有一個測試命中滿足它的輸入，套件就覆蓋了它。套件適應度獎勵最接近該目標的測試，故突變與交配會集中把某個測試推上它，其餘測試處理較容易的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>區分兩個都達完整覆蓋的套件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個套件都達到完整覆蓋，故兩者的套件成本都是 0。整體測試套件生成如何偏好其中一個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以大小——第二目標是最小化，故偏好較小的覆蓋套件（在移除冗餘測試後）</text><feedback><text>正確——覆蓋在完整處打平時，測試較少者勝出。</text></feedback></answer>
+    <answer fraction="0"><text>以哪一個在較早世代被找到</text><feedback><text>世代順序不是決勝關鍵；套件大小才是。</text></feedback></answer>
+    <answer fraction="0"><text>以較大的輸入值，因為較周全</text><feedback><text>輸入大小不決定偏好；大小才是。</text></feedback></answer>
+    <answer fraction="0"><text>完全無法區分</text><feedback><text>可以區分：最小化偏好較小的覆蓋套件。</text></feedback></answer>
+    <generalfeedback><text>一旦覆蓋在完整處打平（成本 0），大小目標打破平手。最小化從覆蓋套件剝除冗餘測試，用更少測試覆蓋一切的套件即為較佳結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單一目標成本中的逼近層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在套件適應度中的某個單一目標成本裡，<strong>逼近層級</strong>這一項貢獻什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它計算測試在偏離該目標路徑之前，還有幾個必需的外圍分支未能滿足，再加上偏離點的正規化分支距離</text><feedback><text>正確——逼近層級加上正規化分支距離構成每個單一目標成本。</text></feedback></answer>
+    <answer fraction="0"><text>它計算套件中有幾個測試是冗餘的</text><feedback><text>那是最小化；逼近層級關乎一個測試到一個目標的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它是仍未覆蓋的目標數量</text><feedback><text>逼近層級是每目標、每測試的結構距離，而非全域計數。</text></feedback></answer>
+    <answer fraction="0"><text>它是套件的覆蓋率百分比</text><feedback><text>覆蓋率百分比是另一個讀數；逼近層級在單一目標成本之內。</text></feedback></answer>
+    <generalfeedback><text>costForGoal 走訪目標的必需分支；在測試未能滿足的第一個分支處，逼近層級是其後還剩幾個必需分支，而正規化分支距離量度該判斷有多接近。兩者之和是單一目標成本，套件適應度再對所有目標加總這種最佳成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整體測試套件生成與逐分支搜尋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>與每個目標各跑一次單一分支搜尋相比，整體測試套件生成的關鍵優勢是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單次搜尋對所有目標一起演化一個套件，共享預算並善用附帶覆蓋，且直接最佳化整個套件的覆蓋與大小</text><feedback><text>正確——對套件的一次整合搜尋，而非許多孤立的逐目標執行。</text></feedback></answer>
+    <answer fraction="0"><text>它能覆蓋單獨不可行的目標</text><feedback><text>不可行的目標無論如何都仍未覆蓋；優勢在於效率，而非可行性。</text></feedback></answer>
+    <answer fraction="0"><text>它完全不需要適應度函數</text><feedback><text>它使用套件層級適應度；並非無適應度。</text></feedback></answer>
+    <answer fraction="0"><text>它保證全域最小的套件</text><feedback><text>最小化是啟發式的；它不保證全域最小性。</text></feedback></answer>
+    <generalfeedback><text>逐目標搜尋為每個目標重啟，並忽略一個測試能滿足多個目標。整體測試套件生成在一次執行中對每個目標最佳化整個套件，把預算花在所有目標上，收穫附帶覆蓋，並同時管理覆蓋與套件大小。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>跨世代的成本與覆蓋關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當你以「下一代」逐步前進時，最佳套件的成本與覆蓋通常如何一起變動？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>成本呈下降趨勢而覆蓋呈上升（或持平），因為菁英保留防止最佳套件倒退，直到在完整覆蓋時成本達到 0</text><feedback><text>正確——菁英保留使最佳套件不會變差，故覆蓋上升時成本下降。</text></feedback></answer>
+    <answer fraction="0"><text>成本與覆蓋一起上升</text><feedback><text>成本較低代表覆蓋較好；兩者反向移動。</text></feedback></answer>
+    <answer fraction="0"><text>成本上升，直到覆蓋突然掉到 0</text><feedback><text>菁英保留防止最佳套件變差；成本不會攀升。</text></feedback></answer>
+    <answer fraction="0"><text>整個過程兩者都維持不變</text><feedback><text>搜尋會逐世代改善最佳套件；兩者會變動。</text></feedback></answer>
+    <generalfeedback><text>由於菁英套件被帶入下一代，最佳套件的成本從一代到下一代絕不增加。當測試接近並進而覆蓋目標時，成本下降、覆蓋上升，在完整覆蓋的世代達到成本 0 與 100% 覆蓋率。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可達目標對套件成本的影響</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設某個分支結果不可行（沒有任何輸入能走它）。套件成本與覆蓋會怎樣？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該目標的最佳測試成本永遠無法達到 0，故套件成本會維持大於 0，覆蓋會停在 100% 以下</text><feedback><text>正確——一個不可覆蓋的目標在總和中留下一項永久的正值。</text></feedback></answer>
+    <answer fraction="0"><text>套件成本仍能藉由覆蓋其他目標而達到 0</text><feedback><text>總和含該不可行目標的正成本，故無法達到 0。</text></feedback></answer>
+    <answer fraction="0"><text>該不可行目標會自動從目標集合移除</text><feedback><text>引擎不會捨棄目標；該項只是永遠不歸零。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率仍會顯示 100%</text><feedback><text>覆蓋率計的是已覆蓋目標；有一個未覆蓋就會使其低於 100%。</text></feedback></answer>
+    <generalfeedback><text>套件適應度加總每個目標的最佳測試成本。不可行目標貢獻一項沒有測試能驅到 0 的正值，故總和有一個正的下限，覆蓋率封頂於完整之下——這是某目標可能不可達的有用訊號（不過探索器的範例都可完整覆蓋）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何套件適應度不是各測試成本的加總</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼套件適應度是對<em>各目標</em>加總（每個目標取最佳測試），而不是對套件的<em>各測試</em>加總每個測試自身的成本？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>覆蓋是整個套件的性質：重要的是每個目標被某個測試抵達，而非每個測試各自都好——對各測試加總會獎勵冗餘並錯排套件</text><feedback><text>正確——以目標為導向的加總量度的正是真正重要者：整個套件的覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>各測試成本無法計算</text><feedback><text>它們可以計算；只是無法量度套件覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>對各測試加總永遠得到相同答案</text><feedback><text>它會給出一個不同、對覆蓋盲目的答案，並錯排套件。</text></feedback></answer>
+    <answer fraction="0"><text>對各測試加總本來就等於覆蓋率百分比</text><feedback><text>並不會；它忽略每個目標是否被某個測試覆蓋。</text></feedback></answer>
+    <generalfeedback><text>重要的是套件覆蓋每個目標，故適應度對各目標加總最佳測試的成本。對各測試加總會因套件含瞄準其他目標的測試而懲罰它，並可能偏好許多平庸測試，而非少數合起來覆蓋一切者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何一個幸運測試不夠</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件含有一個絕佳測試，覆蓋了四個目標中的三個，但第四個目標沒有任何測試覆蓋。這個套件的狀態如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>覆蓋率是 75%、成本為正——一個強測試無法替代覆蓋最後那個目標，它需要某個測試去抵達</text><feedback><text>正確——第四個目標的正值項使成本大於 0、覆蓋低於完整。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率是 100%，因為一個測試覆蓋三個目標就夠了</text><feedback><text>第四個目標仍未覆蓋，故覆蓋不完整。</text></feedback></answer>
+    <answer fraction="0"><text>成本是 0，因為那個最佳測試非常好</text><feedback><text>成本是對各目標的加總；未覆蓋目標使其維持為正。</text></feedback></answer>
+    <answer fraction="0"><text>套件被最小化為那一個測試</text><feedback><text>最小化只在完整覆蓋時進行，而此處尚未達成。</text></feedback></answer>
+    <generalfeedback><text>套件適應度加總每個目標的最佳測試成本。三個已覆蓋目標貢獻 0，但第四個貢獻其正距離，故成本維持大於 0、覆蓋率為 75%。完整覆蓋需要某個測試抵達最後那個目標，說明整體套件品質取決於覆蓋的目標，而非某個測試的出色。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最小化後含 N 個測試的套件代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>最小化後套件有 N 個測試。這對每個保留測試意味著什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>移除其中任何一個都會失去至少一個已覆蓋目標——每個保留測試都是維持已覆蓋目標集合不變所必需的</text><feedback><text>正確——最小化只留下非冗餘的測試。</text></feedback></answer>
+    <answer fraction="0"><text>每個保留測試恰好覆蓋一個目標</text><feedback><text>保留測試可能覆蓋數個目標；它只須非冗餘。</text></feedback></answer>
+    <answer fraction="0"><text>N 保證是達成完整覆蓋的最小可能套件</text><feedback><text>貪婪式移除給出非冗餘套件，而非經證明的全域最小。</text></feedback></answer>
+    <answer fraction="0"><text>每個保留測試對每個目標的成本都是 0</text><feedback><text>一個測試只須覆蓋它負責的目標，而非所有目標。</text></feedback></answer>
+    <generalfeedback><text>最小化只在少了某測試後覆蓋仍被保留時才移除它，故一旦它停止，每個保留測試都是非冗餘的：捨棄它會失去一個已覆蓋目標。這產生一個（在移除意義下的）最小覆蓋套件，但不必然是全域最小者。</text></generalfeedback>
+  </question>
+</quiz>

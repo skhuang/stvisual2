@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/TDD Rules/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>TDD 規則探索器的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>TDD 規則探索器</strong>讓你做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每次套用一個 TDD 操作；不合法的操作會被阻止，並說明違反的紀律規則</text><feedback><text>正確——你嘗試操作，探索器會執行 TDD 紀律規則，並針對被阻止的操作加以說明。</text></feedback></answer>
+    <answer fraction="0"><text>在你不需輸入的情況下自動播放紅燈／綠燈／重構各階段</text><feedback><text>那是被動的逐步導覽；規則探索器是互動式的，會判定哪些操作合法。</text></feedback></answer>
+    <answer fraction="0"><text>量測測試套件涵蓋了多少正式程式碼</text><feedback><text>那是程式碼涵蓋率；規則探索器執行的是 TDD 紀律規則，而非涵蓋率指標。</text></feedback></answer>
+    <answer fraction="0"><text>根據已寫的測試自動產生正式程式碼</text><feedback><text>它不會產生程式碼；它檢查你採取的每個操作是否遵守 TDD 規則。</text></feedback></answer>
+    <generalfeedback><text>TDD 規則探索器讓你每次套用一個 TDD 操作。當某操作會違反紀律規則時就會被阻止，並指出被違反的規則，讓你透過看到每條規則禁止哪個操作來學習規則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時可以撰寫正式程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依規則，<strong>何時</strong>可以撰寫正式程式碼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有在有一個失敗測試時</text><feedback><text>正確——正式程式碼只能為了讓某個失敗測試通過而撰寫。</text></feedback></answer>
+    <answer fraction="0"><text>任何時候，只要你想加程式碼就行</text><feedback><text>不對——正式程式碼一定要先有一個失敗測試來正當化。</text></feedback></answer>
+    <answer fraction="0"><text>只有在所有測試都已通過時</text><feedback><text>若所有測試都通過，就沒有失敗的測試來驅動程式碼；你需要先有一個失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>只有在剛重構完之後</text><feedback><text>重構並不授權撰寫新的正式程式碼；失敗測試才會。</text></feedback></answer>
+    <generalfeedback><text>最根本的規則：沒有失敗測試就不能撰寫正式程式碼。只要沒有失敗測試，探索器就會阻止「撰寫正式程式碼」的操作，並要你先寫一個失敗測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在沒有失敗測試時寫程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你在<strong>沒有任何測試失敗</strong>時撰寫正式程式碼。這違反了哪條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有失敗測試就不能撰寫正式程式碼——請先寫一個失敗測試</text><feedback><text>正確——正式程式碼必須由一個失敗測試來正當化。</text></feedback></answer>
+    <answer fraction="0"><text>不能連續寫兩個測試</text><feedback><text>這裡的問題不是那條規則；被違反的是在沒有失敗測試時撰寫正式程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>有測試失敗時不能重構</text><feedback><text>那條規則講的是重構；這裡的問題是在沒有失敗測試時寫程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>沒有違反任何規則；這永遠是允許的</text><feedback><text>這會被阻止：正式程式碼需要一個失敗測試來正當化。</text></feedback></answer>
+    <generalfeedback><text>在沒有任何失敗的情況下撰寫正式程式碼，違反了「沒有失敗測試就不能撰寫正式程式碼」。探索器會阻止此操作，並要你先寫一個失敗測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時可以寫新的失敗測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依規則，何時可以寫一個新的<strong>失敗測試</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有在你尚未有一個失敗測試時——先讓目前這個通過</text><feedback><text>正確——你不能在一個尚未通過的失敗測試之上再疊一個。</text></feedback></answer>
+    <answer fraction="0"><text>任何時候，即使已有一個測試在失敗</text><feedback><text>不對——若已有測試在失敗，你必須先讓它通過，才能寫下一個。</text></feedback></answer>
+    <answer fraction="0"><text>只有在重構過正式程式碼之後</text><feedback><text>重構不是前提；你只需要目前沒有任何測試在失敗。</text></feedback></answer>
+    <answer fraction="0"><text>只有在循環數為零時</text><feedback><text>在後續循環中也可以開始新測試；條件是目前沒有任何測試在失敗。</text></feedback></answer>
+    <generalfeedback><text>只有在你尚未有失敗測試時，才可以寫失敗測試。若已存在失敗測試，規則要求你先讓它通過再寫下一個，讓你一次專注於一個行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>寫第二個失敗測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>目前有一個測試在失敗，而你嘗試再寫<strong>另一個</strong>失敗測試。這遵守還是違反規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>違反規則——你已有一個失敗測試，請先讓它通過再寫下一個</text><feedback><text>正確——一次只能有一個失敗測試；先讓它通過。</text></feedback></answer>
+    <answer fraction="0"><text>遵守規則——你想要幾個失敗測試都可以</text><feedback><text>不對——規則只允許一次一個失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>只有在兩個測試不相關時才遵守規則</text><feedback><text>規則與是否相關無關；已有測試在失敗，因此這會被阻止。</text></feedback></answer>
+    <answer fraction="0"><text>違反了「紅燈時不能重構」的規則</text><feedback><text>規則搞錯了——這關乎寫第二個失敗測試，而非重構。</text></feedback></answer>
+    <generalfeedback><text>探索器會阻止此操作：「你已有一個失敗測試。先讓它通過再寫下一個。」此紀律讓你一次只處理一個失敗測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>有測試失敗時不得重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依規則，有測試在失敗時你<strong>不能</strong>重構。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——你必須先達到綠燈再重構。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>紅燈時重構會被阻止；規則要求先達到綠燈。</text></feedback></answer>
+    <generalfeedback><text>只有在測試為綠燈時重構才安全，因為綠燈測試是證明行為被保留的安全網。有測試失敗時，探索器會阻止重構並要你先達到綠燈。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時允許重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依規則，<strong>何時</strong>允許重構？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有在所有測試通過、沒有任何失敗、且至少完成一個紅燈-綠燈循環時</text><feedback><text>正確——從綠燈開始重構，且確實已建出可重構的東西。</text></feedback></answer>
+    <answer fraction="0"><text>任何時候，包括在寫任何測試之前</text><feedback><text>不對——重構需要先有綠燈測試且至少完成一個循環。</text></feedback></answer>
+    <answer fraction="0"><text>只有在有測試失敗時，才能修正它</text><feedback><text>修正失敗測試屬於撰寫正式程式碼；重構需要綠燈。</text></feedback></answer>
+    <answer fraction="0"><text>只有在撰寫任何正式程式碼之前</text><feedback><text>正式程式碼存在之前沒有可重構的東西；你需要一個已完成的循環。</text></feedback></answer>
+    <generalfeedback><text>重構只有在綠燈狀態下才合法：所有測試通過、沒有任何失敗、且至少完成一個紅燈-綠燈循環而產出值得整理的程式碼。否則探索器會阻止此操作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>唯一合法的第一步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在最開始（尚未寫任何東西）時，哪個操作是<strong>合法</strong>的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>寫一個失敗測試</text><feedback><text>正確——唯一合法的開場操作就是寫一個失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>撰寫正式程式碼</text><feedback><text>被阻止——尚無失敗測試來正當化正式程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>重構</text><feedback><text>被阻止——尚未建出任何可重構的東西。</text></feedback></answer>
+    <answer fraction="0"><text>三個操作都一樣合法</text><feedback><text>在最開始只有寫失敗測試合法；其餘兩個都會被阻止。</text></feedback></answer>
+    <generalfeedback><text>從初始狀態出發，沒有失敗測試、也沒有完成任何循環，因此撰寫正式程式碼與重構都會被阻止。唯一合法的開場操作是寫一個失敗測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以失敗測試起手是遵守規則的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從全新開始，你先寫一個失敗測試。這<strong>遵守</strong>規則嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是——寫失敗測試是合法的開場操作</text><feedback><text>正確——這正是一個 TDD 循環該有的起手方式。</text></feedback></answer>
+    <answer fraction="0"><text>否——你應該先寫正式程式碼</text><feedback><text>先寫正式程式碼會被阻止；失敗測試要先來。</text></feedback></answer>
+    <answer fraction="0"><text>否——你應該先重構</text><feedback><text>最開始沒有可重構的東西；失敗測試要先來。</text></feedback></answer>
+    <answer fraction="0"><text>只有在已存在前一個循環時才算遵守</text><feedback><text>不需要先前的循環；失敗測試從最開始就合法。</text></feedback></answer>
+    <generalfeedback><text>先寫失敗測試遵守規則，也是 TDD 循環該有的起手。它建立了失敗測試，接著才能正當化撰寫正式程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「有失敗測試」欄位的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器的狀態面板中，<strong>有失敗測試</strong>代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有一個已寫的測試目前尚未通過</text><feedback><text>正確——它標示一個尚未通過（紅燈）的測試。</text></feedback></answer>
+    <answer fraction="0"><text>正式程式碼編譯失敗</text><feedback><text>此欄位追蹤的是尚未通過的測試，而非編譯狀態。</text></feedback></answer>
+    <answer fraction="0"><text>歷來寫過的測試總數</text><feedback><text>它是針對「目前有無失敗測試」的是／否旗標，而非計數。</text></feedback></answer>
+    <answer fraction="0"><text>上一次重構引入了缺陷</text><feedback><text>它只標示是否有一個已寫的測試尚未通過。</text></feedback></answer>
+    <generalfeedback><text>當有一個已寫的測試尚未通過時，「有失敗測試」為真。它是規則檢查的旗標：撰寫正式程式碼時它必須為真，而寫新的失敗測試或重構時它必須為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「全部通過」欄位的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在狀態面板中，<strong>全部通過</strong>代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每一個已寫的測試都通過（在最開始尚無測試時為虛真）</text><feedback><text>正確——全部通過表示目前沒有任何測試失敗。</text></feedback></answer>
+    <answer fraction="0"><text>使用者介面採用綠色主題</text><feedback><text>它指的是測試狀態，而非視覺主題。</text></feedback></answer>
+    <answer fraction="0"><text>正式程式碼編譯成功</text><feedback><text>它關乎測試通過，而非編譯。</text></feedback></answer>
+    <answer fraction="0"><text>至少已寫了一個測試</text><feedback><text>它表示每個已寫的測試都通過；在最開始即使尚無測試它也為真。</text></feedback></answer>
+    <generalfeedback><text>當每個已寫的測試都通過時，「全部通過」為真。最開始由於沒有失敗測試，它為虛真。重構要求此欄位為真（並加上一個已完成的循環）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「已完成循環數」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在狀態面板中，<strong>已完成循環數</strong>計算什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>已完成的紅燈到綠燈循環數</text><feedback><text>正確——它計算把失敗測試驅動到通過的次數。</text></feedback></answer>
+    <answer fraction="0"><text>執行過的重構次數</text><feedback><text>重構不會推進此計數；完成紅燈到綠燈才會。</text></feedback></answer>
+    <answer fraction="0"><text>目前失敗的測試數</text><feedback><text>那是另一個欄位；此欄位計算已完成的紅燈到綠燈循環數。</text></feedback></answer>
+    <answer fraction="0"><text>已寫的正式程式碼行數</text><feedback><text>它計算已完成的循環數，而非程式碼行數。</text></feedback></answer>
+    <generalfeedback><text>「已完成循環數」計算已完成的紅燈到綠燈循環——每次你把失敗測試帶到通過。它必須至少為一才允許重構，否則沒有已建出的東西可重構。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最開始重構會被阻止</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在最開始、尚未寫任何東西時，你嘗試重構卻被阻止。原因是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>尚無可重構的內容——先完成至少一個紅燈-綠燈循環</text><feedback><text>正確——尚未產出任何程式碼，因此沒有可整理的東西。</text></feedback></answer>
+    <answer fraction="0"><text>目前有一個測試在失敗</text><feedback><text>最開始沒有測試在失敗；原因是尚未建出任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>你必須先撰寫正式程式碼再重構</text><feedback><text>探索器給出的確切原因是尚未完成任何循環，因此沒有可重構的東西。</text></feedback></answer>
+    <answer fraction="0"><text>TDD 中永遠不允許重構</text><feedback><text>在一個循環後從綠燈是允許重構的；最開始只是沒有可重構的東西。</text></feedback></answer>
+    <generalfeedback><text>最開始所有測試都（虛）為綠燈，但沒有完成任何循環，因此探索器以「尚無可重構的內容——先完成至少一個紅燈-綠燈循環」阻止重構。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>寫失敗測試後唯一合法的操作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在你剛寫完一個失敗測試後，唯一合法的下一步操作就是<strong>撰寫正式程式碼</strong>（讓它通過）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——有測試在失敗時，你不能再寫另一個測試或重構；你必須撰寫正式程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>有測試在失敗時，再寫一個失敗測試與重構都會被阻止，因此唯一合法的是撰寫正式程式碼。</text></feedback></answer>
+    <generalfeedback><text>寫完失敗測試後，狀態有一個失敗測試且非全部通過。再寫一個失敗測試會被阻止（一次一個），重構也會被阻止（非綠燈），因此唯一合法的操作是撰寫正式程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探索器對不合法操作的處理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當你嘗試一個<strong>不合法</strong>的操作時，探索器會怎麼做？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>阻止該操作、保持狀態不變，並說明被違反的規則</text><feedback><text>正確——不合法的操作會被拒絕，並指出被違反的規則。</text></feedback></answer>
+    <answer fraction="0"><text>仍套用該操作，只是顯示警告</text><feedback><text>不對——該操作會被阻止，且狀態維持不變。</text></feedback></answer>
+    <answer fraction="0"><text>把整個探索器重置回最開始</text><feedback><text>它不會重置；它只是阻止不合法的操作並說明原因。</text></feedback></answer>
+    <answer fraction="0"><text>無聲忽略點擊、不給任何回饋</text><feedback><text>它會給出回饋——說明該操作會違反哪條紀律規則。</text></feedback></answer>
+    <generalfeedback><text>不合法的操作會被阻止：狀態不變，探索器會顯示該操作原本會違反哪條紀律規則。相對地，合法的操作會被套用，狀態隨之推進。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Rules/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：在任何測試之前就實作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一位開發者開了一個新類別，並在寫任何測試之前就立刻寫好它的實作。違反了哪條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有失敗測試就不能撰寫正式程式碼</text><feedback><text>正確——在沒有失敗測試時寫的程式碼違反了第一條規則。</text></feedback></answer>
+    <answer fraction="0"><text>不能同時有兩個失敗測試</text><feedback><text>這裡根本沒有任何測試；被違反的是在沒有失敗測試時寫程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>紅燈時不能重構</text><feedback><text>沒有在重構；問題是在沒有失敗測試時寫正式程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試不能完成超過一個循環</text><feedback><text>那不是規則；違反的是在任何失敗測試之前就寫程式碼。</text></feedback></answer>
+    <generalfeedback><text>在任何測試之前就寫實作，代表沒有失敗測試來正當化它，違反了「沒有失敗測試就不能撰寫正式程式碼」。失敗測試必須先來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：再疊上第二個失敗測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一位開發者有一個測試在失敗，卻在讓它通過之前就寫了第二個失敗測試。違反了哪條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>你已有一個失敗測試——先讓它通過再寫下一個</text><feedback><text>正確——一次只能有一個失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>沒有失敗測試就不能撰寫正式程式碼</text><feedback><text>那條規則講的是正式程式碼；這裡是又加了一個失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>有測試失敗時不能重構</text><feedback><text>沒有在重構；問題是第二個失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>循環完成前不能重構</text><feedback><text>規則搞錯了——這關乎加第二個失敗測試，而非重構。</text></feedback></answer>
+    <generalfeedback><text>在解決第一個之前就加第二個失敗測試，違反了「你已有一個失敗測試。先讓它通過再寫下一個」。此紀律讓你一次只處理一個行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：紅燈時整理程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>目前有一個測試在失敗，而開發者開始整理（重構）程式碼。違反了哪條規則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有測試失敗時不能重構——請先達到綠燈</text><feedback><text>正確——重構需要一張綠燈安全網。</text></feedback></answer>
+    <answer fraction="0"><text>沒有失敗測試就不能撰寫正式程式碼</text><feedback><text>這裡有失敗測試；被違反的是紅燈時重構。</text></feedback></answer>
+    <answer fraction="0"><text>你已有一個失敗測試，所以不能再寫一個</text><feedback><text>沒有在寫新測試；問題是有測試在失敗時重構。</text></feedback></answer>
+    <answer fraction="0"><text>尚無可重構的內容</text><feedback><text>那個原因適用於任何循環之前；這裡被阻止是因為有測試在失敗。</text></feedback></answer>
+    <generalfeedback><text>紅燈時重構違反了「有測試失敗時不能重構。請先達到綠燈」。只有綠燈測試才能證明重構保留了行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：在全新專案上重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一個尚未寫任何東西的全新專案上，開發者嘗試重構。哪個原因阻止了這個操作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>尚無可重構的內容——先完成至少一個紅燈-綠燈循環</text><feedback><text>正確——沒有完成任何循環就沒有可整理的東西。</text></feedback></answer>
+    <answer fraction="0"><text>目前有一個測試在失敗</text><feedback><text>全新專案上沒有測試在失敗；原因是尚未建出任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>存在沒有失敗測試的正式程式碼</text><feedback><text>尚無任何正式程式碼；原因是沒有完成任何循環。</text></feedback></answer>
+    <answer fraction="0"><text>同時有兩個測試在失敗</text><feedback><text>沒有任何測試；被阻止是因為尚無可重構的內容。</text></feedback></answer>
+    <generalfeedback><text>雖然最開始所有測試都虛為綠燈，但沒有完成任何紅燈-綠燈循環，因此確實沒有已建出的東西可重構。探索器會以「尚無可重構的內容——先完成至少一個紅燈-綠燈循環」阻止它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後果：每一行程式碼都有正當理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於正式程式碼只能為了讓失敗測試通過而撰寫，這條規則會迫使什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每一段正式程式碼都由一個要求它的測試來正當化</text><feedback><text>正確——沒有測試要求它的程式碼就不會存在。</text></feedback></answer>
+    <answer fraction="0"><text>可以為了未來需求先臆測性地加正式程式碼</text><feedback><text>正好相反——臆測性的程式碼沒有失敗測試來正當化，因此被禁止。</text></feedback></answer>
+    <answer fraction="0"><text>設計清楚之後測試就變成非必要</text><feedback><text>在這裡測試永遠不是非必要；它們正是授權程式碼的依據。</text></feedback></answer>
+    <answer fraction="0"><text>必須在任何測試執行前把整個功能寫完</text><feedback><text>那顛倒了規則；失敗測試必須先於程式碼。</text></feedback></answer>
+    <generalfeedback><text>要求正式程式碼之前先有失敗測試，意味著每段程式碼都為了滿足某個特定測試而存在。臆測、未經測試的程式碼沒有正當理由，因此規則引導你走向最小、由需求驅動的程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後果：微小的增量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於你必須先讓目前的失敗測試通過才能寫下一個，這會帶來什麼紀律？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>你以微小增量工作——一個小的失敗測試、讓它通過、再重複</text><feedback><text>正確——一次一個的規則強制小步前進。</text></feedback></answer>
+    <answer fraction="0"><text>你把許多失敗測試累積起來，最後一次全部修好</text><feedback><text>那正是一次一個的規則所禁止的。</text></feedback></answer>
+    <answer fraction="0"><text>變更很小時可以略過測試</text><feedback><text>不對——每個增量仍從一個失敗測試開始。</text></feedback></answer>
+    <answer fraction="0"><text>每敲一個鍵就要重構一次</text><feedback><text>重構是選擇性的且只能從綠燈開始；這裡的規則講的是小增量。</text></feedback></answer>
+    <generalfeedback><text>一次只允許一個失敗測試，強制小增量：寫一個失敗測試、讓它通過，然後才前進。每一步都是小而經驗證的進展，而非一次大而有風險的跳躍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：撰寫正式程式碼的前提</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「撰寫正式程式碼」只有在 ___ 時才合法。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有一個失敗測試</text><feedback><text>正確——正式程式碼是為了讓失敗測試通過而撰寫。</text></feedback></answer>
+    <answer fraction="0"><text>所有測試都是綠燈</text><feedback><text>若一切都是綠燈，就沒有失敗來驅動程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>至少完成一個循環</text><feedback><text>那是重構的前提，而非撰寫正式程式碼的前提。</text></feedback></answer>
+    <answer fraction="0"><text>你剛剛重構過</text><feedback><text>重構不會授權正式程式碼；失敗測試才會。</text></feedback></answer>
+    <generalfeedback><text>正式程式碼只有在存在失敗測試來正當化時才是合法操作。這正好對應規則「沒有失敗測試就不能撰寫正式程式碼」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：重構的前提</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「重構」只有在 ___ 時才合法。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有測試通過、沒有任何失敗、且至少完成一個紅燈-綠燈循環</text><feedback><text>正確——從綠燈開始重構，且已建出東西。</text></feedback></answer>
+    <answer fraction="0"><text>目前有一個測試在失敗</text><feedback><text>紅燈時重構會被阻止；你必須先是綠燈。</text></feedback></answer>
+    <answer fraction="0"><text>尚未寫任何測試</text><feedback><text>尚未寫任何東西就沒有可重構的內容。</text></feedback></answer>
+    <answer fraction="0"><text>你正要寫你的第一個測試</text><feedback><text>重構需要一個已完成的循環；第一個測試甚至還沒產出程式碼。</text></feedback></answer>
+    <generalfeedback><text>重構只有在綠燈狀態、且同時至少完成一個紅燈-綠燈循環時才合法，如此才有通過且經測試的程式碼值得整理，同時測試守護著行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：從綠燈重構是合法的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>完成一個紅燈-綠燈循環後，所有測試通過且沒有任何失敗。開發者進行重構。這合法嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>合法——所有測試為綠燈且已完成一個循環，因此允許重構</text><feedback><text>正確——這正是允許重構的時機。</text></feedback></answer>
+    <answer fraction="0"><text>不合法——你必須先寫另一個失敗測試才能重構</text><feedback><text>不需要新的失敗測試；綠燈加上一個已完成的循環就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>不合法——這個模型中重構永不合法</text><feedback><text>在一個循環後從綠燈重構是合法的；它是三個操作之一。</text></feedback></answer>
+    <answer fraction="0"><text>只有在循環數剛好為零時</text><feedback><text>循環數必須至少為一；需要一個已完成的循環。</text></feedback></answer>
+    <generalfeedback><text>綠燈測試加上至少一個已完成的循環滿足了重構規則，因此此操作合法。這正是趁測試守住行為時改善程式碼結構的時機。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：從綠燈開始下一個循環</text></name>
+    <questiontext format="html"><text><![CDATA[<p>完成一個循環後所有測試都是綠燈。開發者寫了一個新的失敗測試。這合法嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>合法——目前沒有任何測試在失敗，因此一個新的失敗測試會開始下一個循環</text><feedback><text>正確——從綠燈你可以用一個新的失敗測試開始下一個循環。</text></feedback></answer>
+    <answer fraction="0"><text>不合法——你必須先重構才能寫任何新測試</text><feedback><text>重構是選擇性的；你可以直接寫一個新的失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>不合法——新測試只能在第一個循環寫</text><feedback><text>只要目前沒有任何測試在失敗，後續循環也可以寫新的失敗測試。</text></feedback></answer>
+    <answer fraction="0"><text>只有在你先寫更多正式程式碼時</text><feedback><text>正式程式碼需要一個失敗測試；從綠燈開始，合法的開場是一個新的失敗測試。</text></feedback></answer>
+    <generalfeedback><text>從綠燈狀態且沒有失敗測試出發，寫一個新的失敗測試是合法的，並開始下一個紅燈-綠燈循環。此時重構也合法，但撰寫正式程式碼不合法，因為沒有任何失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>撰寫正式程式碼後的狀態變化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你合法地撰寫正式程式碼讓失敗測試通過。狀態如何變化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>失敗測試被清除、所有測試變綠燈，且已完成循環數加一</text><feedback><text>正確——達到綠燈完成了一個紅燈-綠燈循環。</text></feedback></answer>
+    <answer fraction="0"><text>失敗測試仍在，但循環數還是加一</text><feedback><text>不對——讓測試通過會在達到綠燈時一併清除失敗旗標。</text></feedback></answer>
+    <answer fraction="0"><text>除了一筆記錄之外沒有任何變化</text><feedback><text>狀態會推進：失敗被清除、全部綠燈、且多完成一個循環。</text></feedback></answer>
+    <answer fraction="0"><text>循環數歸零</text><feedback><text>循環數加一；不會歸零。</text></feedback></answer>
+    <generalfeedback><text>撰寫正式程式碼讓失敗測試通過會使你進入綠燈：失敗旗標清除、所有測試通過，且已完成循環數加一，記錄一個紅燈-綠燈循環已結束。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>寫失敗測試後的狀態變化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從綠燈狀態你合法地寫了一個失敗測試。狀態如何變化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>現在有一個測試在失敗，且狀態不再是全部通過</text><feedback><text>正確——寫一個失敗測試會使狀態轉為紅燈。</text></feedback></answer>
+    <answer fraction="0"><text>已完成循環數加一</text><feedback><text>循環數只有在你達到綠燈時才推進，寫失敗測試時不會。</text></feedback></answer>
+    <answer fraction="0"><text>所有測試仍是綠燈</text><feedback><text>不對——新寫的失敗測試代表狀態不再是全部通過。</text></feedback></answer>
+    <answer fraction="0"><text>狀態不變</text><feedback><text>它會變化：現在有一個失敗測試，狀態為紅燈。</text></feedback></answer>
+    <generalfeedback><text>寫失敗測試會設定失敗旗標，並使狀態不再全部通過（轉為紅燈）。已完成循環數此時不變；它只有在讓測試通過時才推進。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對原因：紅燈時重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個情況會觸發訊息「有測試失敗時不能重構。請先達到綠燈」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在目前有測試失敗時嘗試重構</text><feedback><text>正確——紅燈時重構顯示的就是這個原因。</text></feedback></answer>
+    <answer fraction="0"><text>在最開始、尚未寫任何東西時嘗試重構</text><feedback><text>那個情況顯示「尚無可重構的內容」，而非「請先達到綠燈」。</text></feedback></answer>
+    <answer fraction="0"><text>在沒有失敗測試時撰寫正式程式碼</text><feedback><text>那顯示「請先寫一個失敗測試」的原因，是不同的訊息。</text></feedback></answer>
+    <answer fraction="0"><text>寫第二個失敗測試</text><feedback><text>那顯示「先讓它通過再寫下一個」，是不同的訊息。</text></feedback></answer>
+    <generalfeedback><text>「請先達到綠燈」這則訊息專屬於在有測試失敗時嘗試重構。在任何循環之前重構則回報「尚無可重構的內容」，因此兩種被阻止的重構情況各有不同原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對原因：沒有失敗測試時的正式程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個情況會觸發訊息「沒有失敗測試就不能撰寫正式程式碼。請先寫一個失敗測試」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在沒有任何測試失敗時嘗試撰寫正式程式碼</text><feedback><text>正確——在沒有任何失敗時寫正式程式碼顯示的就是這個原因。</text></feedback></answer>
+    <answer fraction="0"><text>在有測試失敗時嘗試重構</text><feedback><text>那顯示「請先達到綠燈」，是不同的訊息。</text></feedback></answer>
+    <answer fraction="0"><text>寫第二個失敗測試</text><feedback><text>那顯示「先讓它通過再寫下一個」，是不同的訊息。</text></feedback></answer>
+    <answer fraction="0"><text>在最開始、尚未寫任何東西時嘗試重構</text><feedback><text>那顯示「尚無可重構的內容」，是不同的訊息。</text></feedback></answer>
+    <generalfeedback><text>「請先寫一個失敗測試」這則訊息專屬於在沒有任何測試失敗時嘗試撰寫正式程式碼。每個被阻止的操作各有原因：紅燈時重構回報「請先達到綠燈」、第二個失敗測試回報「先讓它通過再寫下一個」、而在任何循環之前重構則回報「尚無可重構的內容」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何要阻止不合法的操作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器為何要阻止不合法的操作，而不是任其發生？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>為了執行 TDD 紀律，並藉由指出每個被阻止的操作違反了哪條規則來教學</text><feedback><text>正確——阻止加上說明，正是它教學紀律的方式。</text></feedback></answer>
+    <answer fraction="0"><text>為了刻意讓練習變慢</text><feedback><text>目的在於執行並說明規則，而非拖慢你。</text></feedback></answer>
+    <answer fraction="0"><text>因為底層工具無法執行那些操作</text><feedback><text>阻止是刻意的紀律教學，而非技術限制。</text></feedback></answer>
+    <answer fraction="0"><text>為了對學習者隱藏目前狀態</text><feedback><text>狀態仍可見；阻止操作是為了說明它會違反哪條規則。</text></feedback></answer>
+    <generalfeedback><text>藉由阻止不合法的操作並指出被違反的規則，探索器把 TDD 紀律具體化：你會親身體驗每個失誤違反了哪條規則，而不只是讀到它。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Rules/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何規則帶來高涵蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何「沒有失敗測試就不寫正式程式碼」這條規則傾向產生高測試涵蓋率？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為每段正式程式碼都是為了滿足某個測試而寫，行為由此在構造上被涵蓋</text><feedback><text>正確——程式碼只為通過測試而存在，因此設計上就被測試所運行。</text></feedback></answer>
+    <answer fraction="0"><text>因為探索器會自動計算涵蓋率</text><feedback><text>涵蓋率是這條規則的副作用，而非探索器所量測的東西。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試是在程式碼之後補上以達到某個目標百分比</text><feedback><text>這裡測試先行；涵蓋率來自程式碼只為通過測試而存在。</text></feedback></answer>
+    <answer fraction="0"><text>因為重構會加入新測試</text><feedback><text>重構保留行為、不會加測試；涵蓋率來自測試先行的規則。</text></feedback></answer>
+    <generalfeedback><text>若程式碼只能為了通過失敗測試而寫，那麼進入程式碼的每個行為都是某個測試所要求的。因此涵蓋率是由構造而來，而非事後追趕。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何小步驟帶來快速回饋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何一次只允許一個失敗測試，能對缺陷產生<strong>快速回饋</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每一步都很小，因此一旦出問題，失敗就指向上一個小變更</text><feedback><text>正確——小增量讓缺陷容易定位。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試跑在更快的機器上</text><feedback><text>這裡的回饋速度關乎小步驟，而非硬體。</text></feedback></answer>
+    <answer fraction="0"><text>因為許多失敗測試一起除錯</text><feedback><text>規則禁止一次有許多失敗測試；單一步驟才能定位失敗。</text></feedback></answer>
+    <answer fraction="0"><text>因為正式程式碼寫在測試之前</text><feedback><text>測試先行；快速回饋來自一次一個的微小步驟。</text></feedback></answer>
+    <generalfeedback><text>由於你一次只推進一個小的失敗測試，新的失敗幾乎總能追溯到上一個微小變更。這個緊湊的循環讓診斷變快，是此紀律的核心好處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何規則讓程式碼保持最小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要求正式程式碼之前先有失敗測試，如何讓程式碼庫保持最小？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>程式碼只為通過某個特定失敗測試而加入，因此不會有臆測、未被要求的程式碼</text><feedback><text>正確——每一行都回應一個測試，抑制過度設計。</text></feedback></answer>
+    <answer fraction="0"><text>探索器會刪除超過大小上限的程式碼</text><feedback><text>沒有大小上限；最小性來自程式碼只為通過測試而存在。</text></feedback></answer>
+    <answer fraction="0"><text>它禁止重構，因此程式碼永不增長</text><feedback><text>從綠燈允許重構；最小性來自測試先行的規則。</text></feedback></answer>
+    <answer fraction="0"><text>它要求每加一行就刪一個測試</text><feedback><text>沒有這種規則；程式碼保持最小是因為每段都必須通過一個失敗測試。</text></feedback></answer>
+    <generalfeedback><text>由於正式程式碼只能由失敗測試授權，「以防萬一」而寫的程式碼沒有正當理由、因而被禁止。此紀律因此推向最小、由需求驅動的程式碼，而非臆測性的增添。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>重構操作揭示了重構的什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此模型中，重構操作只改變階段；它不會清除失敗測試、不改變「全部通過」、也不使循環數加一。這反映了 TDD 中重構的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重構改變的是結構而非行為——測試自始至終維持綠燈</text><feedback><text>正確——保留行為的步驟不會動到測試狀態。</text></feedback></answer>
+    <answer fraction="0"><text>重構會完成一個新的紅燈-綠燈循環</text><feedback><text>不對——循環數不變；重構不是一個紅燈-綠燈循環。</text></feedback></answer>
+    <answer fraction="0"><text>重構會引入一個新的失敗測試</text><feedback><text>它不會動到失敗旗標；重構必須維持測試綠燈。</text></feedback></answer>
+    <answer fraction="0"><text>重構會把狀態轉紅，好讓你加程式碼</text><feedback><text>重構維持綠燈；你不會為了重構而轉紅。</text></feedback></answer>
+    <generalfeedback><text>由於重構讓測試旗標與循環數維持不變，此模型捕捉到重構是保留行為的：你在所有測試維持綠燈時改善結構，因此不會出現新的失敗測試，也不會完成任何循環。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何最開始「全部通過」為真</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器在最開始、尚無任何測試時就回報<strong>全部通過＝真</strong>。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是虛真——尚未寫任何測試，因此沒有任何失敗</text><feedback><text>正確——沒有失敗測試代表「全部通過」的條件平凡地成立。</text></feedback></answer>
+    <answer fraction="0"><text>因為啟動時建立了一個隱藏的通過測試</text><feedback><text>並無隱藏測試；旗標為虛真，因為沒有任何失敗。</text></feedback></answer>
+    <answer fraction="0"><text>因為第一個循環已經完成</text><feedback><text>最開始沒有完成任何循環；旗標只是虛真。</text></feedback></answer>
+    <answer fraction="0"><text>因為正式程式碼編譯過了</text><feedback><text>它關乎測試狀態而非編譯；沒有測試就沒有失敗。</text></feedback></answer>
+    <generalfeedback><text>「全部通過」表示每個已寫的測試都通過。當尚未寫任何測試時，此條件虛真地被滿足。這正是為何重構仍需要一個已完成的循環：僅有綠燈並不夠，因為綠燈可能平凡地成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個操作使循環數加一</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個操作會使<strong>已完成循環數</strong>加一？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>撰寫正式程式碼讓失敗測試變為通過（達到綠燈）</text><feedback><text>正確——完成紅燈到綠燈才會推進計數。</text></feedback></answer>
+    <answer fraction="0"><text>寫一個失敗測試</text><feedback><text>寫失敗測試會把狀態轉紅；它不會完成一個循環。</text></feedback></answer>
+    <answer fraction="0"><text>重構</text><feedback><text>重構保留行為，使計數維持不變。</text></feedback></answer>
+    <answer fraction="0"><text>重置探索器</text><feedback><text>重置會回到初始狀態；它不會完成一個循環。</text></feedback></answer>
+    <generalfeedback><text>已完成循環數只有在正式程式碼讓失敗測試通過時才推進，也就是一個紅燈-綠燈循環結束時。寫失敗測試與重構都使計數維持不變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>詮釋探索器的自我檢測</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器內建的自我檢測問：在嚴格 TDD 中哪個操作<em>永遠不合法</em>。答案是什麼，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在沒有任何失敗測試存在時就撰寫正式程式碼——你永遠不可在沒有失敗測試來正當化時撰寫正式程式碼</text><feedback><text>正確——這是第一條也是最重要的規則。</text></feedback></answer>
+    <answer fraction="0"><text>在所有測試通過時寫一個失敗測試——因為測試一旦綠燈就不該再變</text><feedback><text>那是合法的；一個新的失敗測試會從綠燈開始下一個循環。</text></feedback></answer>
+    <answer fraction="0"><text>達到綠燈後重構——因為綠燈的程式碼絕不可再動</text><feedback><text>從綠燈重構是合法且被鼓勵的；它不是那個不合法的操作。</text></feedback></answer>
+    <answer fraction="0"><text>有失敗測試時撰寫正式程式碼——因為測試會擋住程式碼</text><feedback><text>那正是合法的情況：正式程式碼是為了通過失敗測試而寫。</text></feedback></answer>
+    <generalfeedback><text>自我檢測的答案是：在沒有任何失敗測試存在時就撰寫正式程式碼永遠不合法。這反映了那條治理規則：沒有失敗測試來正當化時，絕不撰寫正式程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>綠燈卻無可重構之物</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在最開始，所有測試都是綠燈，重構卻仍被阻止。為何僅有綠燈不足以允許重構？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為尚未完成任何紅燈-綠燈循環，所以沒有產出任何可重構的程式碼</text><feedback><text>正確——重構還需要至少一個已完成的循環。</text></feedback></answer>
+    <answer fraction="0"><text>因為最開始的綠燈其實代表有一個測試在失敗</text><feedback><text>不對——綠燈代表沒有任何失敗；被阻止是因為沒有完成任何循環。</text></feedback></answer>
+    <answer fraction="0"><text>因為重構需要兩個已完成的循環</text><feedback><text>一個已完成的循環就夠；最開始只是一個都沒有。</text></feedback></answer>
+    <answer fraction="0"><text>因為必須先按重置按鈕</text><feedback><text>重置無關；重構需要一個已完成的循環，而最開始沒有。</text></feedback></answer>
+    <generalfeedback><text>重構需要綠燈且至少一個已完成的紅燈-綠燈循環。最開始綠燈虛真成立，但沒有完成任何循環，因此沒有可整理的東西，操作會以「尚無可重構的內容」被阻止。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何規則建立安全網</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這些規則如何隨時間建立一張<strong>回歸安全網</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試寫在程式碼之前，並總是被帶回綠燈，因此不斷成長的套件能防範後續破壞</text><feedback><text>正確——不斷累積的綠燈套件就是安全網。</text></feedback></answer>
+    <answer fraction="0"><text>探索器在每個操作後保留一份程式碼備份</text><feedback><text>安全網是測試套件，而非程式碼備份。</text></feedback></answer>
+    <answer fraction="0"><text>重構會刪除舊測試以保持套件精簡</text><feedback><text>測試會被保留並維持綠燈；刪除它們會移除安全網。</text></feedback></answer>
+    <answer fraction="0"><text>正式程式碼一旦寫下就永不更動</text><feedback><text>程式碼會被更動與重構；能抓到回歸的是綠燈套件。</text></feedback></answer>
+    <generalfeedback><text>每個循環加入一個測試並把它驅動到綠燈，因此套件穩定成長。由於你總是回到綠燈，若後續變更破壞了先前行為，那個累積的套件就會失敗——這是遵守規則所產生的回歸安全網。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊界：連續兩次重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>完成一個循環後你重構，接著立刻再嘗試重構一次。第二次重構合法嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>合法——測試仍是綠燈，且已完成一個循環，因此重構仍然合法</text><feedback><text>正確——重構不會消耗綠燈狀態或已完成的循環。</text></feedback></answer>
+    <answer fraction="0"><text>不合法——每個循環只能重構一次</text><feedback><text>沒有「每循環一次」的限制；條件仍成立，所以合法。</text></feedback></answer>
+    <answer fraction="0"><text>不合法——第一次重構把狀態轉紅了</text><feedback><text>重構維持綠燈；不會轉紅。</text></feedback></answer>
+    <answer fraction="0"><text>只有在中間寫一個失敗測試才行</text><feedback><text>不需要新測試；綠燈加上一個已完成的循環已允許重構。</text></feedback></answer>
+    <generalfeedback><text>重構讓狀態維持綠燈、已完成循環數維持不變，因此之後重構的條件仍成立。連續第二次重構因而合法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把正式程式碼規則對應到 Uncle Bob 的三大法則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>訊息「沒有失敗測試就不能撰寫正式程式碼」背後的規則，對應到 Uncle Bob 的 TDD 三大法則中的哪一條？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>第一法則：除了為讓失敗測試通過，不撰寫任何正式程式碼</text><feedback><text>正確——這是 TDD 的第一法則。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試之後都必須重構的法則</text><feedback><text>綠燈後重構是循環的一部分，而非這條關於正式程式碼的第一法則。</text></feedback></answer>
+    <answer fraction="0"><text>測試必須在一秒內執行完的法則</text><feedback><text>測試速度是準則，而非此訊息所反映的法則。</text></feedback></answer>
+    <answer fraction="0"><text>每個方法都需要一個測試的法則</text><feedback><text>此規則講的是不在沒有失敗測試時寫程式碼，也就是第一法則。</text></feedback></answer>
+    <generalfeedback><text>「沒有失敗測試就不能撰寫正式程式碼」就是 Uncle Bob 的 TDD 第一法則：除了為讓失敗測試通過，不撰寫任何正式程式碼。探索器正是藉由在沒有任何失敗時阻止正式程式碼來執行這一點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完成一個循環後從綠燈的合法操作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在剛好完成一個循環後，所有測試綠燈且無任何失敗（且尚未重構），哪些操作是合法的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>寫一個新的失敗測試或重構；撰寫正式程式碼不合法</text><feedback><text>正確——從綠燈你可以開始新測試或重構，但不能在沒有任何失敗時寫程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>只有撰寫正式程式碼</text><feedback><text>由於沒有測試在失敗，正式程式碼正是此處唯一被阻止的操作。</text></feedback></answer>
+    <answer fraction="0"><text>只有重構</text><feedback><text>從綠燈寫一個新的失敗測試也是合法的。</text></feedback></answer>
+    <answer fraction="0"><text>三個操作都合法</text><feedback><text>由於沒有測試在失敗，撰寫正式程式碼會被阻止。</text></feedback></answer>
+    <generalfeedback><text>完成一個循環後從綠燈出發，沒有失敗測試，因此正式程式碼被阻止。寫一個新的失敗測試（開始下一個循環）與重構（綠燈加上一個已完成的循環）都合法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一次一個失敗測試的好處</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規則只允許一次一個失敗測試。當一個測試轉紅的那一刻，這帶來什麼實際好處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>你總是確切知道哪一個期望未被滿足，因此可以立即診斷</text><feedback><text>正確——單一紅燈測試精準定位未滿足的行為。</text></feedback></answer>
+    <answer fraction="0"><text>你可以忽略這個紅燈測試，直到累積好幾個</text><feedback><text>規則禁止累積失敗測試；你要現在解決這一個紅燈測試。</text></feedback></answer>
+    <answer fraction="0"><text>你永遠不必執行測試套件</text><feedback><text>你仍要執行測試；好處在於單一紅燈測試容易解讀。</text></feedback></answer>
+    <answer fraction="0"><text>探索器會替你修好測試</text><feedback><text>它不會修程式碼；好處是有一個清楚、單一的失敗期望。</text></feedback></answer>
+    <generalfeedback><text>最多只有一個失敗測試時，紅燈結果就精確指出目前哪一個期望未被滿足。不會在多個失敗之間左右為難，因此你可以立即診斷並解決它。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>不合法的操作使狀態維持不變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當一個操作被判為不合法而被阻止時，探索器會使目前狀態<strong>維持不變</strong>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——被阻止的操作不會推進狀態；只會顯示說明。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>不合法的操作會被拒絕，狀態維持原樣。</text></feedback></answer>
+    <generalfeedback><text>合法的操作會推進狀態；不合法的操作會被阻止，因此階段、失敗測試旗標、全部通過旗標與循環數全都維持不變，同時說明被違反的規則。這讓你可以從同一狀態改試另一個合法操作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>規則探索器相對於循環所捕捉的重點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>TDD 規則探索器與紅燈／綠燈／重構<em>循環</em>導覽在焦點上有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它定義在每個狀態下哪些操作被允許、以及不合法者為何被禁止——著重的是紀律，而不僅是階段順序</text><feedback><text>正確——規則探索器關乎合法性與紀律。</text></feedback></answer>
+    <answer fraction="0"><text>它只是把紅、綠、重構的顏色動畫化，沒有任何規則</text><feedback><text>那較接近循環導覽；規則探索器執行的是合法性。</text></feedback></answer>
+    <answer fraction="0"><text>它以涵蓋率百分比取代測試</text><feedback><text>它不處理涵蓋率；它執行的是紀律規則。</text></feedback></answer>
+    <answer fraction="0"><text>它只關乎依序命名三個階段</text><feedback><text>命名階段是循環視角；規則探索器關乎哪些操作合法以及為什麼。</text></feedback></answer>
+    <generalfeedback><text>循環導覽依序展示紅、綠、重構三個階段。規則探索器則執行紀律：從任一狀態判定三個操作中哪些合法，並在某操作不合法時，確切說明它會違反哪條規則。</text></generalfeedback>
+  </question>
+</quiz>

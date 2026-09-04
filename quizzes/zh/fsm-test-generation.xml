@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/FSM Test Generation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>探索器生成什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在狀態機測試生成探索器中，這個工具會從所選的有限狀態機生成什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由模型導出的可執行事件序列（測試案例）</text><feedback><text>正確——探索器從 FSM 生成可執行的事件序列。</text></feedback></answer>
+    <answer fraction="0"><text>只是狀態數與轉移數的計數</text><feedback><text>單純計數是狀態轉移探索器做的事；此工具實際生成序列。</text></feedback></answer>
+    <answer fraction="0"><text>實作該有限狀態機的原始碼</text><feedback><text>它不產生實作程式碼，而是產生用來測試模型的事件序列。</text></feedback></answer>
+    <answer fraction="0"><text>機器正確無誤的形式化證明</text><feedback><text>測試生成不證明正確性；它產生序列來操練模型。</text></feedback></answer>
+    <generalfeedback><text>探索器從有限狀態機生成可執行的事件序列，並以套件大小比較四種模型涵蓋準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例機器數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器的步驟 1，你可以從幾台有限狀態機中選擇？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——登入流程、ATM 交易、自動販賣機</text><feedback><text>正確——選擇器提供三台機器。</text></feedback></answer>
+    <answer fraction="0"><text>2——登入流程與 ATM 交易</text><feedback><text>還有第三台：自動販賣機。</text></feedback></answer>
+    <answer fraction="0"><text>4——每個涵蓋準則各一台</text><feedback><text>準則有四個，但機器只有三台。</text></feedback></answer>
+    <answer fraction="0"><text>1——只有登入流程</text><feedback><text>可選機器有三台，不是一台。</text></feedback></answer>
+    <generalfeedback><text>步驟 1 讓你在三台 FSM 中選擇：登入流程、ATM 交易、自動販賣機。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入初始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在登入流程機器中，哪個狀態被標記為<strong>初始</strong>狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Start</text><feedback><text>正確——Start 在模型中帶有初始標記（▶）。</text></feedback></answer>
+    <answer fraction="0"><text>AwaitingCreds</text><feedback><text>AwaitingCreds 是從 Start 經 open 事件到達的，不是初始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>LoggedIn</text><feedback><text>LoggedIn 是憑證正確後才到達的較後狀態。</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked 是錯誤狀態，不是初始狀態。</text></feedback></answer>
+    <generalfeedback><text>登入流程機器從 Start 開始，該狀態在模型中標記為初始。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入 open 轉移的終點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在登入流程機器中，事件 <code>open</code> 的轉移把 Start 帶到哪個狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>AwaitingCreds</text><feedback><text>正確——Start 在 open 事件下前往 AwaitingCreds。</text></feedback></answer>
+    <answer fraction="0"><text>Authenticating</text><feedback><text>Authenticating 是從 AwaitingCreds 經 submit 到達的，不是直接從 Start。</text></feedback></answer>
+    <answer fraction="0"><text>LoggedIn</text><feedback><text>LoggedIn 是從 Authenticating 經 valid 到達。</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked 是從 Authenticating 經 tooManyTries 到達。</text></feedback></answer>
+    <generalfeedback><text>模型的第一條轉移是 Start --open--&gt; AwaitingCreds。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>涵蓋準則數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在步驟 2，探索器讓你比較幾種模型涵蓋準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——狀態涵蓋、轉移涵蓋、轉移對（switch）、所有來回路徑</text><feedback><text>正確——探索器比較四種準則。</text></feedback></answer>
+    <answer fraction="0"><text>2——只有狀態涵蓋與轉移涵蓋</text><feedback><text>還有兩種：轉移對（switch）與所有來回路徑。</text></feedback></answer>
+    <answer fraction="0"><text>3——每台機器各一種</text><feedback><text>機器有三台，但準則有四種。</text></feedback></answer>
+    <answer fraction="0"><text>5——含中國郵差巡迴</text><feedback><text>巡迴是另外顯示的；比較的準則是四種。</text></feedback></answer>
+    <generalfeedback><text>步驟 2 提供四種生成準則：狀態涵蓋、轉移涵蓋、轉移對（switch）、所有來回路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>回報的三項指標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於所選準則，探索器回報哪三個數字？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>義務數、測試案例數、事件總數</text><feedback><text>正確——這是一個準則所顯示的三項指標。</text></feedback></answer>
+    <answer fraction="0"><text>狀態、事件、輸出</text><feedback><text>那些描述的是模型，而非生成套件的指標。</text></feedback></answer>
+    <answer fraction="0"><text>通過、失敗、略過的測試數</text><feedback><text>探索器生成序列，並不執行通過／失敗結果。</text></feedback></answer>
+    <answer fraction="0"><text>行、分支、路徑</text><feedback><text>那些是程式碼涵蓋的術語；此工具回報模型涵蓋指標。</text></feedback></answer>
+    <generalfeedback><text>每個準則顯示義務數（要涵蓋的目標）、測試案例數（生成的序列）、事件總數（步數加總）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>狀態涵蓋定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依探索器所述，<strong>狀態涵蓋</strong>要求什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個狀態至少到訪一次</text><feedback><text>正確——這就是狀態涵蓋的義務。</text></feedback></answer>
+    <answer fraction="0"><text>每條轉移至少觸發一次</text><feedback><text>那是轉移涵蓋，較強的準則。</text></feedback></answer>
+    <answer fraction="0"><text>每對相鄰轉移都要操練</text><feedback><text>那是轉移對（switch）涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>每個簡單迴圈都走訪一次</text><feedback><text>那是所有來回路徑。</text></feedback></answer>
+    <generalfeedback><text>探索器把狀態涵蓋稱為最弱的準則：每個狀態至少到訪一次，從初始狀態出發的幾條短序列即可。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移涵蓋定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依探索器所述，<strong>轉移涵蓋</strong>要求什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每條轉移至少觸發一次</text><feedback><text>正確——這是 FSM 測試常用的基準。</text></feedback></answer>
+    <answer fraction="0"><text>每個狀態至少到訪一次</text><feedback><text>那只是狀態涵蓋，而轉移涵蓋涵括它。</text></feedback></answer>
+    <answer fraction="0"><text>每對進入／離開轉移都要操練</text><feedback><text>那是轉移對（switch）涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>要走最短的封閉巡迴</text><feedback><text>那是中國郵差巡迴，另外顯示。</text></feedback></answer>
+    <generalfeedback><text>轉移涵蓋觸發每條轉移至少一次；探索器指出它涵括狀態涵蓋，是常用基準。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最弱的準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器把哪個準則描述為<strong>最弱</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>狀態涵蓋</text><feedback><text>正確——探索器把狀態涵蓋稱為最弱的模型準則。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋</text><feedback><text>轉移涵蓋較強；它涵括狀態涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>轉移對（switch）</text><feedback><text>switch 涵蓋更強。</text></feedback></answer>
+    <answer fraction="0"><text>所有來回路徑</text><feedback><text>來回路徑針對迴圈，並非最弱。</text></feedback></answer>
+    <generalfeedback><text>狀態涵蓋——「最弱的模型準則」——由從初始狀態出發的幾條短序列即可滿足。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>販賣機的自迴圈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在自動販賣機模型中，哪條轉移是<strong>自迴圈</strong>（起點與終點為同一狀態）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>HasCoins --insertMore--&gt; HasCoins</text><feedback><text>正確——insertMore 讓 HasCoins 回到 HasCoins。</text></feedback></answer>
+    <answer fraction="0"><text>HasCoins --selectItem--&gt; Selected</text><feedback><text>那是移動到 Selected，不是自迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>Selected --confirmPay--&gt; Dispensing</text><feedback><text>那是移動到 Dispensing，不是自迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>Dispensing --itemDispensed--&gt; Idle</text><feedback><text>那是回到 Idle，不是自迴圈。</text></feedback></answer>
+    <generalfeedback><text>唯一的自迴圈是 HasCoins --insertMore--&gt; HasCoins。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM 的第一個事件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATM 交易機器（初始狀態 Idle）中，哪個事件離開 Idle，前往哪個狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>insertCard，前往 CardInserted</text><feedback><text>正確——Idle --insertCard--&gt; CardInserted。</text></feedback></answer>
+    <answer fraction="0"><text>enterPIN，前往 PINEntered</text><feedback><text>enterPIN 離開的是 CardInserted，不是 Idle。</text></feedback></answer>
+    <answer fraction="0"><text>withdraw，前往 Dispensing</text><feedback><text>withdraw 離開的是 MenuShown，不是 Idle。</text></feedback></answer>
+    <answer fraction="0"><text>cancel，前往 Idle</text><feedback><text>cancel 是從 CardInserted 回到 Idle，並非 Idle 的離開事件。</text></feedback></answer>
+    <generalfeedback><text>Idle 只有一條離開轉移：insertCard 前往 CardInserted。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>中國郵差巡迴定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器所顯示的<strong>中國郵差轉移巡迴</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從初始狀態出發、觸發每一條轉移至少一次的最短封閉走訪</text><feedback><text>正確——這正是探索器中的定義。</text></feedback></answer>
+    <answer fraction="0"><text>走訪每個狀態一次的最短路徑</text><feedback><text>那是關於狀態；巡迴關注的是觸發每一條轉移。</text></feedback></answer>
+    <answer fraction="0"><text>機器能產生的最長序列</text><feedback><text>巡迴是最短封閉走訪，而非最長序列。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋生成的任一測試案例</text><feedback><text>巡迴是單一最短封閉走訪，與準則分開計算。</text></feedback></answer>
+    <generalfeedback><text>巡迴是從初始狀態出發、觸發每一條轉移至少一次的最短封閉走訪（有向中國郵差路線）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>探索器生成 vs 計數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>橋接按鈕指出：狀態轉移探索器只<em>計數</em>同一個 FSM 模型的涵蓋率，而本探索器實際<em>生成</em>測試序列。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——同一個模型；一個計數涵蓋率，另一個生成序列。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>橋接正是這麼說：狀態轉移探索器計數，本探索器生成。</text></feedback></answer>
+    <generalfeedback><text>橋接按鈕連到狀態轉移探索器，它對本探索器生成測試所用的同一台 FSM 計數涵蓋率。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入狀態數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>登入流程機器有幾個<strong>狀態</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——Start、AwaitingCreds、Authenticating、LoggedIn、Locked。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>共有五個：你可能漏了 Locked。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是轉移數，不是狀態數。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>登入機器有五個狀態。</text></feedback></answer>
+    <generalfeedback><text>登入的狀態為 Start、AwaitingCreds、Authenticating、LoggedIn、Locked——共五個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入轉移數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>登入流程機器有幾條<strong>轉移</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——open、submit、valid、invalid、tooManyTries、logout、resetByAdmin。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是狀態數，不是轉移數。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是 ATM 機器的轉移數；登入是 7。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>數一下轉移表的列數：共有 7 條。</text></feedback></answer>
+    <generalfeedback><text>登入的轉移表列出七列，所以轉移涵蓋有 7 個義務。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/FSM Test Generation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>登入狀態涵蓋的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對登入流程機器採用<strong>狀態涵蓋</strong>時，探索器生成幾個測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——狀態涵蓋為登入產生 4 條短序列。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 是登入在轉移涵蓋下的結果，不是狀態涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是狀態數（義務），但只生成 4 個測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是登入在 switch 涵蓋下的測試數。</text></feedback></answer>
+    <generalfeedback><text>登入的狀態涵蓋產生 4 個測試案例（義務＝5 個狀態，事件總數＝9）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入狀態涵蓋的事件總數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>狀態涵蓋</strong>下，登入套件為：<code>open</code>；<code>open · submit</code>；<code>open · submit · valid</code>；<code>open · submit · tooManyTries</code>。<strong>事件總數</strong>指標是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——1 + 2 + 3 + 3 = 9 個事件步數。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是測試案例數，不是步數加總。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是狀態數；步數加總為 9。</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>11 是登入的來回路徑事件總數，不是狀態涵蓋。</text></feedback></answer>
+    <generalfeedback><text>事件總數是把每個測試的長度加總：1 + 2 + 3 + 3 = 9。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入轉移涵蓋的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對登入機器採用<strong>轉移涵蓋</strong>時，探索器生成幾個測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1——單一 10 步走訪即觸發全部 7 條轉移</text><feedback><text>正確——轉移涵蓋把所有轉移編織進一條序列。</text></feedback></answer>
+    <answer fraction="0"><text>7——每條轉移一個測試</text><feedback><text>生成器把轉移串接成單一走訪，而非每條各一個測試。</text></feedback></answer>
+    <answer fraction="0"><text>4——與狀態涵蓋相同</text><feedback><text>狀態涵蓋是 4；此處轉移涵蓋是 1。</text></feedback></answer>
+    <answer fraction="0"><text>9——與 switch 涵蓋相同</text><feedback><text>9 是 switch 涵蓋的測試數。</text></feedback></answer>
+    <generalfeedback><text>登入的轉移涵蓋是一個 10 步測試：open · submit · valid · logout · open · submit · invalid · submit · tooManyTries · resetByAdmin。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入 switch 義務數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對登入機器採用<strong>轉移對（switch）</strong>涵蓋時，探索器回報幾個<strong>義務</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——把五個狀態的（進入 × 離開）加總得到 9。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是轉移數（轉移涵蓋義務），不是轉移對數。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是狀態數；switch 義務是每個狀態 in×out 的加總。</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 是自動販賣機的 switch 義務，不是登入的。</text></feedback></answer>
+    <generalfeedback><text>switch 義務 = Σ（進入度 × 離開度）：Start 2×1、AwaitingCreds 2×1、Authenticating 1×3、LoggedIn 1×1、Locked 1×1 = 2+2+3+1+1 = 9。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個準則給登入一個測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對登入機器而言，哪個準則恰好產生<strong>一個</strong>測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移涵蓋</text><feedback><text>正確——它把全部 7 條轉移串接成單一走訪（1 個測試）。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋</text><feedback><text>狀態涵蓋為登入產生 4 個測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>轉移對（switch）</text><feedback><text>switch 涵蓋為登入產生 9 個測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>所有來回路徑</text><feedback><text>來回路徑為登入產生 3 個測試案例。</text></feedback></answer>
+    <generalfeedback><text>只有轉移涵蓋收斂成單一登入測試（1 走訪／10 步）；狀態＝4、switch＝9、來回＝3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入來回路徑數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>所有來回路徑</strong>下，登入機器產生幾個測試案例（每個簡單迴圈一個）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——登入模型有三個簡單迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>有三個簡單迴圈，因此有三個來回測試。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是狀態數，不是迴圈數。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是轉移數，不是迴圈數。</text></feedback></answer>
+    <generalfeedback><text>來回路徑涵蓋把每個簡單迴圈走一次。登入有三個：Start→AwaitingCreds→Authenticating→LoggedIn→Start、Start→AwaitingCreds→Authenticating→Locked→Start、AwaitingCreds→Authenticating→AwaitingCreds。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對錯誤：落錯狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個準則被描述為能抓到「<strong>轉移落在錯誤狀態</strong>、使得下一條轉移行為異常」的錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移對（switch）</text><feedback><text>正確——switch 涵蓋把一條進入邊與每條離開邊配對，藉此揭露落錯狀態。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋</text><feedback><text>狀態涵蓋只到訪狀態；它完全漏掉損壞的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋</text><feedback><text>轉移涵蓋單獨觸發每條邊，可能漏掉此互動錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>所有來回路徑</text><feedback><text>來回路徑針對迴圈錯誤（狀態未重置），不是落錯狀態的配對。</text></feedback></answer>
+    <generalfeedback><text>探索器指出 switch 涵蓋「能抓到轉移落在錯誤狀態的錯誤：下一條轉移隨即行為異常」。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>轉移涵蓋涵括狀態涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依探索器所述，達成轉移涵蓋即自動達成狀態涵蓋，因為觸發每條轉移必然到訪每個可達狀態。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——轉移涵蓋涵括狀態涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>探索器指出轉移涵蓋涵括狀態涵蓋。</text></feedback></answer>
+    <generalfeedback><text>每條轉移都有起點與終點狀態，因此操練所有轉移就到訪所有可達狀態——轉移涵蓋涵括狀態涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對錯誤：迴圈之後</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個準則被描述為能抓到只在<strong>迴圈之後</strong>才浮現的錯誤——前一圈留下的殘留狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有來回路徑</text><feedback><text>正確——走訪每個簡單迴圈可操練迴圈與再進入行為。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋</text><feedback><text>狀態涵蓋不會強迫迴圈重複。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋</text><feedback><text>轉移涵蓋觸發每條邊一次，但不必重複迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>轉移對（switch）</text><feedback><text>switch 針對相鄰對的錯誤，不是迴圈後的殘留狀態。</text></feedback></answer>
+    <generalfeedback><text>來回路徑涵蓋走訪每個簡單迴圈，因此「能抓到只在迴圈之後才浮現的錯誤：前一圈留下的殘留狀態」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM 到達 Dispensing 的序列</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATM 機器中，哪條從 Idle 出發的事件序列能到達 <code>Dispensing</code> 狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>insertCard · enterPIN · pinCorrect · withdraw</text><feedback><text>正確——Idle→CardInserted→PINEntered→MenuShown→Dispensing。</text></feedback></answer>
+    <answer fraction="0"><text>insertCard · enterPIN · pinCorrect</text><feedback><text>那只到 MenuShown；還需要 withdraw 才能到達 Dispensing。</text></feedback></answer>
+    <answer fraction="0"><text>insertCard · cancel · withdraw</text><feedback><text>cancel 回到 Idle，而 Idle 沒有定義 withdraw。</text></feedback></answer>
+    <answer fraction="0"><text>insertCard · enterPIN · pinWrong · withdraw</text><feedback><text>pinWrong 回到 CardInserted，而該狀態沒有定義 withdraw。</text></feedback></answer>
+    <generalfeedback><text>Dispensing 只能經 MenuShown --withdraw--&gt; 到達，而 MenuShown 需要在 enterPIN 之後的 pinCorrect：insertCard · enterPIN · pinCorrect · withdraw。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入在 open·submit·valid 後的狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在登入機器中，從 Start 執行序列 <code>open · submit · valid</code> 後，哪個狀態為作用中？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LoggedIn</text><feedback><text>正確——Start→AwaitingCreds→Authenticating→LoggedIn。</text></feedback></answer>
+    <answer fraction="0"><text>Authenticating</text><feedback><text>submit 到達 Authenticating，但 valid 隨後推進到 LoggedIn。</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked 是經 tooManyTries 到達，不是 valid。</text></feedback></answer>
+    <answer fraction="0"><text>AwaitingCreds</text><feedback><text>invalid 才回到 AwaitingCreds；valid 不會。</text></feedback></answer>
+    <generalfeedback><text>open（Start→AwaitingCreds）、submit（→Authenticating）、valid（→LoggedIn）：作用中狀態是 LoggedIn。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何單一 open 不足狀態涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼單一序列 <code>open</code> 無法達成登入機器的<strong>狀態涵蓋</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它只到訪 Start 與 AwaitingCreds，留下 Authenticating、LoggedIn、Locked 未到訪</text><feedback><text>正確——五個狀態中有三個從未進入。</text></feedback></answer>
+    <answer fraction="0"><text>它完全沒有觸發任何轉移</text><feedback><text>它觸發了 open；問題在於大多數狀態仍未到訪。</text></feedback></answer>
+    <answer fraction="0"><text>它重複了一條轉移，而這是不允許的</text><feedback><text>重複是允許的；問題在於未到訪的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>open 在 Start 是未定義事件</text><feedback><text>open 是 Start 的已定義轉移；狀態涵蓋失敗是因為大多數狀態未被到達。</text></feedback></answer>
+    <generalfeedback><text>狀態涵蓋要求到訪全部五個狀態。open 只到達 AwaitingCreds（加上 Start），因此 Authenticating、LoggedIn、Locked 仍未到訪。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM：轉移或 switch 測試較多</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 ATM 機器而言，哪個準則生成<strong>較多測試案例</strong>：轉移涵蓋還是轉移對（switch）涵蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>switch 涵蓋——12 個測試案例，對比轉移涵蓋的 1 個</text><feedback><text>正確——switch 涵蓋逐狀態配對，產生的測試多得多。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋——它每條轉移一個測試</text><feedback><text>轉移涵蓋收斂成單一 ATM 走訪，而非每條各一個。</text></feedback></answer>
+    <answer fraction="0"><text>兩者生成數量相同</text><feedback><text>switch 是 12；轉移是 1——差很多。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都不為 ATM 生成任何測試</text><feedback><text>兩者都會：轉移＝1 個測試，switch＝12 個測試。</text></feedback></answer>
+    <generalfeedback><text>較強的準則代價較高：ATM 轉移涵蓋是 1 個測試（13 步），switch 涵蓋是 12 個測試（45 步）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀比較標籤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在比較圖中，登入的 switch 涵蓋列顯示標籤 <code>9 / 33</code>。這兩個數字代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9 個測試案例與 33 個事件總步數</text><feedback><text>正確——標籤是「測試案例數 / 事件總數」。</text></feedback></answer>
+    <answer fraction="0"><text>9 個義務與 33 個測試案例</text><feedback><text>標籤是測試案例數 / 事件總數，不是義務 / 測試。</text></feedback></answer>
+    <answer fraction="0"><text>9 個狀態與 33 條轉移</text><feedback><text>那些描述的是模型，不是套件標籤。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試 9 步、共 33 個測試</text><feedback><text>標籤先讀測試案例數（9）再讀事件總數（33）。</text></feedback></answer>
+    <generalfeedback><text>比較說明指出長條顯示事件總步數、標籤顯示測試案例數 / 步數——所以 9 / 33 是 9 個測試與 33 步。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入巡迴的額外步數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對登入機器而言，中國郵差巡迴的下界為 7（轉移數）、巡迴長度為 10。<strong>額外步數</strong>（overhead）是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>+3</text><feedback><text>正確——10 − 7 = 3 個重複步數。</text></feedback></answer>
+    <answer fraction="0"><text>+0</text><feedback><text>+0 代表尤拉巡迴；登入的巡迴比下界長。</text></feedback></answer>
+    <answer fraction="0"><text>+7</text><feedback><text>7 是下界本身，不是額外步數。</text></feedback></answer>
+    <answer fraction="0"><text>+10</text><feedback><text>10 是巡迴長度；額外步數是長度減下界。</text></feedback></answer>
+    <generalfeedback><text>額外步數 = 巡迴長度 − 轉移數 = 10 − 7 = 3，因此登入巡迴重複 3 步，且非尤拉圖。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/FSM Test Generation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>登入：測試最多</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對登入機器的四種準則——狀態（4 個測試）、轉移（1）、switch（9）、來回（3）——以測試案例數計，哪個準則產生<strong>最大</strong>套件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移對（switch），9 個測試案例</text><feedback><text>正確——switch 涵蓋逐狀態配對，產生最多測試。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋，4 個測試案例</text><feedback><text>4 少於 switch 涵蓋的 9。</text></feedback></answer>
+    <answer fraction="0"><text>所有來回路徑，3 個測試案例</text><feedback><text>3 少於 switch 涵蓋的 9。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋，1 個測試案例</text><feedback><text>轉移涵蓋在此產生最少測試，不是最多。</text></feedback></answer>
+    <generalfeedback><text>switch 涵蓋（9）勝過狀態（4）、來回（3）、轉移（1）：把每條進入邊與每條離開邊配對會使義務與測試數倍增。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入：測試最少</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對登入機器而言，哪個準則產生<strong>最少</strong>測試案例，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移涵蓋——生成器把所有轉移串接成單一走訪</text><feedback><text>正確——7 條轉移變成一個 10 步測試。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋——一個測試就涵蓋所有狀態</text><feedback><text>此處狀態涵蓋需要 4 個測試，因為狀態分佈在不同分支上。</text></feedback></answer>
+    <answer fraction="0"><text>switch 涵蓋——配對收斂成一個測試</text><feedback><text>switch 涵蓋產生最多測試（9），不是最少。</text></feedback></answer>
+    <answer fraction="0"><text>來回——迴圈合併成一個測試</text><feedback><text>來回每個迴圈一個測試（3），不是最少。</text></feedback></answer>
+    <generalfeedback><text>轉移涵蓋把每條轉移編織進一條連通走訪，因此登入只需 1 個測試（10 步）——少於狀態（4）、來回（3）或 switch（9）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM：貢獻最多對的狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATM 機器有 12 個 switch 義務。以每個狀態的（進入 × 離開）計算，哪個狀態貢獻<strong>最多</strong>轉移對義務？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CardInserted——2 進入 × 2 離開 = 4</text><feedback><text>正確——CardInserted 有 2 進入（insertCard、pinWrong）與 2 離開（enterPIN、cancel）。</text></feedback></answer>
+    <answer fraction="0"><text>Idle——3 進入 × 1 離開 = 3</text><feedback><text>Idle 貢獻 3，比 CardInserted 的 4 少一。</text></feedback></answer>
+    <answer fraction="0"><text>PINEntered——1 進入 × 2 離開 = 2</text><feedback><text>PINEntered 只貢獻 2。</text></feedback></answer>
+    <answer fraction="0"><text>Dispensing——1 進入 × 1 離開 = 1</text><feedback><text>Dispensing 只貢獻 1。</text></feedback></answer>
+    <generalfeedback><text>逐狀態：Idle 3×1=3、CardInserted 2×2=4、PINEntered 1×2=2、MenuShown 1×2=2、Dispensing 1×1=1 → 共 12；CardInserted（4）最大。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>販賣機：為何 HasCoins 主導對數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>自動販賣機有 14 個 switch 義務，其中 HasCoins 單獨貢獻 3 × 3 = 9。為什麼 HasCoins 的進入度與離開度這麼高？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的 insertMore 自迴圈同時算作 HasCoins 的一條進入邊與一條離開邊</text><feedback><text>正確——自迴圈使兩邊的度都膨脹，因此 in×out 變大。</text></feedback></answer>
+    <answer fraction="0"><text>HasCoins 是初始狀態，所以每條路徑都從它開始</text><feedback><text>初始狀態是 Idle；驅動對數的是度，不是初始性。</text></feedback></answer>
+    <answer fraction="0"><text>HasCoins 有守衛使它的轉移加倍</text><feedback><text>此模型沒有守衛；使度升高的是自迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>switch 涵蓋在狀態重複時把它算兩次</text><feedback><text>switch 義務是每個狀態的 in×out；HasCoins 偏高是因為自迴圈。</text></feedback></answer>
+    <generalfeedback><text>HasCoins 的進入為 {insertCoin、insertMore、clearSelection}=3，離開為 {insertMore、selectItem、cancel}=3。insertMore 自迴圈同時出現在兩個集合，貢獻 14 個義務中的 3×3=9。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何登入巡迴非尤拉</text></name>
+    <questiontext format="html"><text><![CDATA[<p>登入巡迴回報長度 10、下界 7（非尤拉）。這個差距說明了模型的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某些狀態的進入度與離開度不相等，因此某些轉移必須重複才能把走訪封閉</text><feedback><text>正確——度不平衡強制出 +3 個重複步數。</text></feedback></answer>
+    <answer fraction="0"><text>機器有一條不可達的轉移</text><feedback><text>所有轉移都可達；差距來自度不平衡，不是不可達。</text></feedback></answer>
+    <answer fraction="0"><text>有 3 個狀態從未被到訪</text><feedback><text>巡迴觸發每條轉移並到訪每個狀態；+3 是重複步數。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋無法生成套件</text><feedback><text>它生成了 10 步走訪；重點是巡迴比下界多 3。</text></feedback></answer>
+    <generalfeedback><text>有向巡迴只有在每個頂點平衡（進入度 = 離開度）時才等於轉移數。登入不平衡，因此 3 條轉移必須重複：長度 10 = 7 + 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 7 條轉移要 10 步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>登入的轉移涵蓋套件是單一 10 步走訪，但機器只有 7 條轉移。為什麼是 10 步而非 7 步？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>走訪無法在不重走已涵蓋邊的情況下串接全部 7 條轉移，需重走以到達其餘未涵蓋者</text><feedback><text>正確——重新連到未涵蓋的轉移會付出額外、已觸發的步數。</text></feedback></answer>
+    <answer fraction="0"><text>每條轉移為求可靠而刻意觸發兩次</text><feedback><text>生成器讓每條轉移至少觸發一次，並非刻意兩次。</text></feedback></answer>
+    <answer fraction="0"><text>有三條轉移是自迴圈，計為雙倍</text><feedback><text>登入沒有自迴圈；額外步數來自重新連接走訪。</text></feedback></answer>
+    <answer fraction="0"><text>套件包含 3 個各一步的額外測試</text><feedback><text>它是單一 10 步測試，不是多個測試。</text></feedback></answer>
+    <generalfeedback><text>觸發一個分支後（例如到達 LoggedIn 再 logout），走訪必須經由已涵蓋轉移折返，以到達仍未涵蓋者（invalid、tooManyTries、resetByAdmin），加上 3 個重複步數，總計 10 步。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM 的成本／錯誤取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 ATM 而言，轉移涵蓋為 8 義務 / 1 測試 / 13 步，而 switch 涵蓋為 12 義務 / 12 測試 / 45 步。哪種解讀符合探索器的說明？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>switch 涵蓋針對更多（互動）錯誤類型，但執行代價高得多</text><feedback><text>正確——較強的準則抓到更多錯誤，套件代價也更高。</text></feedback></answer>
+    <answer fraction="0"><text>轉移涵蓋絕對較優，因為它較便宜</text><feedback><text>雖較便宜，但它漏掉 switch 涵蓋針對的互動錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>switch 涵蓋較便宜，因為它步數較少</text><feedback><text>switch 步數較多（45 對 13），並非較少。</text></feedback></answer>
+    <answer fraction="0"><text>兩個套件偵測到完全相同的錯誤</text><feedback><text>switch 額外偵測轉移涵蓋可能漏掉的相鄰對（落錯狀態）錯誤。</text></feedback></answer>
+    <generalfeedback><text>比較說明：較強的準則抓到更多錯誤但代價更高。switch 的 12 測試 / 45 步換到相鄰對錯誤的偵測，勝過轉移涵蓋較便宜的 1 測試 / 13 步。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>比較長條長度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在登入比較圖中，switch 涵蓋共 33 步、來回共 11 步。既然長條編碼事件總步數，哪一列的長條<strong>較長</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>switch 涵蓋——33 步超過來回的 11</text><feedback><text>正確——長條長度與事件總步數成正比。</text></feedback></answer>
+    <answer fraction="0"><text>來回——迴圈總是最長</text><feedback><text>來回此處共 11 步，比 switch 的 33 短。</text></feedback></answer>
+    <answer fraction="0"><text>兩者等長</text><feedback><text>33 與 11 不同，因此長條不同。</text></feedback></answer>
+    <answer fraction="0"><text>都沒有長條，只顯示標籤</text><feedback><text>每列都畫出長條，其寬度是事件總步數相對於最大值。</text></feedback></answer>
+    <generalfeedback><text>長條寬度是（該列事件總步數 / 最大事件總步數）。switch（33）畫出的長條比來回（11）長。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>登入狀態涵蓋從未觸發的轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>登入的狀態涵蓋套件是 <code>open</code>；<code>open · submit</code>；<code>open · submit · valid</code>；<code>open · submit · tooManyTries</code>。這個套件<strong>從未</strong>觸發哪條轉移？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>logout（LoggedIn → Start）</text><feedback><text>正確——套件到達 LoggedIn 卻從未觸發 logout。</text></feedback></answer>
+    <answer fraction="0"><text>valid（Authenticating → LoggedIn）</text><feedback><text>valid 由第三個測試觸發。</text></feedback></answer>
+    <answer fraction="0"><text>submit（AwaitingCreds → Authenticating）</text><feedback><text>submit 由其中三個測試觸發。</text></feedback></answer>
+    <answer fraction="0"><text>tooManyTries（Authenticating → Locked）</text><feedback><text>tooManyTries 由第四個測試觸發。</text></feedback></answer>
+    <generalfeedback><text>套件觸發 open、submit、valid、tooManyTries。它從未觸發 invalid、logout、resetByAdmin——所以 logout 是它漏掉的其中之一，說明狀態涵蓋不蘊涵轉移涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何登入狀態涵蓋需 4 個測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>登入的狀態涵蓋產生 4 個測試案例而非 1 個。哪一項最能說明為何需要不止一條序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模型有分支——LoggedIn 與 Locked 位於分岔路徑上，單一不重走的走訪無法同時進入兩者</text><feedback><text>正確——需要各自的短序列才能到達不同分支上的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>每個狀態都必須由專屬的測試到訪</text><feedback><text>單一走訪可涵蓋多個狀態；分裂來自分支，不是「每狀態一測試」的規則。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋禁止長度超過一個事件的序列</text><feedback><text>序列可以有數個事件（例如 open · submit · valid）。</text></feedback></answer>
+    <answer fraction="0"><text>兩個測試之間必須重新進入初始狀態</text><feedback><text>原因是分岔分支，不是重新進入的規則。</text></feedback></answer>
+    <generalfeedback><text>生成器每一輪從 Start 朝最近的未到訪狀態延伸；由於 LoggedIn（經 valid）與 Locked（經 tooManyTries）位於離開 Authenticating 的不同分支上，需要各自的短序列——4 個測試、9 步。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識登入的簡單迴圈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>來回路徑涵蓋走訪每個簡單迴圈。下列何者是登入機器中的<strong>簡單迴圈</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>AwaitingCreds → Authenticating → AwaitingCreds（submit、invalid）</text><feedback><text>正確——submit 再 invalid 即回到 AwaitingCreds。</text></feedback></answer>
+    <answer fraction="0"><text>Start → AwaitingCreds → Start</text><feedback><text>沒有從 AwaitingCreds 回到 Start 的轉移，因此這不是迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>Authenticating → LoggedIn → Locked</text><feedback><text>沒有 LoggedIn → Locked 的轉移，且它並未回到起點。</text></feedback></answer>
+    <answer fraction="0"><text>Locked → LoggedIn → Locked</text><feedback><text>Locked 與 LoggedIn 之間沒有轉移。</text></feedback></answer>
+    <generalfeedback><text>登入的簡單迴圈為 Start→AwaitingCreds→Authenticating→LoggedIn→Start、Start→AwaitingCreds→Authenticating→Locked→Start、AwaitingCreds→Authenticating→AwaitingCreds（submit、invalid）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>額外步數最大者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>中國郵差巡迴的額外步數為：登入 +3（7→10）、ATM +5（8→13）、販賣機 +2（7→9）。哪台機器的重複步數 overhead <strong>最大</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATM——+5 個重複步數</text><feedback><text>正確——ATM 的度不平衡迫使最多重複。</text></feedback></answer>
+    <answer fraction="0"><text>登入——+3 個重複步數</text><feedback><text>+3 少於 ATM 的 +5。</text></feedback></answer>
+    <answer fraction="0"><text>販賣機——+2 個重複步數</text><feedback><text>+2 是最小的 overhead，不是最大。</text></feedback></answer>
+    <answer fraction="0"><text>三者相等</text><feedback><text>它們不同：+3、+5、+2。</text></feedback></answer>
+    <generalfeedback><text>overhead = 巡迴長度 − 轉移數：登入 10−7=3、ATM 13−8=5、販賣機 9−7=2。ATM 的 +5 最大，且三台巡迴都非尤拉圖。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>尤拉即零 overhead</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器只在 overhead 為 +0 時把轉移巡迴標為<strong>尤拉圖</strong>——巡迴長度等於轉移數下界，因此每條轉移恰好觸發一次。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——尤拉需要零重複步數（巡迴長度 = 下界）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>探索器正是在 overhead 為 +0 且走訪封閉時把巡迴標為尤拉。</text></feedback></answer>
+    <generalfeedback><text>當 extra = 0 且走訪封閉時巡迴為尤拉——巡迴等於下界，每條轉移觸發一次。三台範例 FSM 都不是尤拉圖。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>switch 抓到落錯狀態的錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設 ATM 的 <code>pinCorrect</code> 應到達 MenuShown，但有個錯誤讓它落在 CardInserted。哪個準則專為揭露此錯誤設計，而單純的轉移涵蓋為何有漏掉的風險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>switch 涵蓋——它把進入的 pinCorrect 與每條離開 MenuShown 的邊配對，落錯狀態會使下一條轉移出軌；轉移涵蓋只單獨觸發 pinCorrect 一次，未必檢查其後續</text><feedback><text>正確——這正是 switch 涵蓋針對的相鄰對錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋——到訪 MenuShown 就會揭露此錯誤</text><feedback><text>若 pinCorrect 落到別處，MenuShown 仍可能經其他途徑到訪；到訪狀態不檢查落地邊。</text></feedback></answer>
+    <answer fraction="0"><text>來回路徑涵蓋——只有迴圈能揭露</text><feedback><text>此錯誤是相鄰對（落錯狀態）錯誤，由 switch 涵蓋針對，並非特指迴圈錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>此處沒有任何準則能抓到它</text><feedback><text>switch 涵蓋正是為落錯狀態的錯誤而設計。</text></feedback></answer>
+    <generalfeedback><text>轉移涵蓋單獨觸發 pinCorrect，未必操練 MenuShown 之後應發生的事。switch 涵蓋把 pinCorrect 與 MenuShown 的每條離開邊（withdraw、cancelAtMenu）配對，因此落錯狀態會使下一條轉移行為異常——正是探索器歸給 switch 涵蓋的錯誤類別。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 switch 需更多測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼轉移對（switch）涵蓋通常比單純的轉移涵蓋需要更多測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它必須操練每對相鄰轉移，因此一個有 i 條進入、o 條離開轉移的狀態貢獻 i×o 個義務</text><feedback><text>正確——把進入邊與離開邊配對，使每狀態的義務相乘。</text></feedback></answer>
+    <answer fraction="0"><text>它必須走訪每個狀態，而轉移涵蓋略過此點</text><feedback><text>轉移涵蓋已到訪每個可達狀態；那不是原因。</text></feedback></answer>
+    <answer fraction="0"><text>它需要中國郵差巡迴，而轉移涵蓋不需要</text><feedback><text>巡迴與 switch 涵蓋分開；驅動因素是 i×o 的配對。</text></feedback></answer>
+    <answer fraction="0"><text>它每條轉移生成一個測試，但讓每個測試長度加倍</text><feedback><text>增長在於義務數（每狀態 i×o），不是測試長度。</text></feedback></answer>
+    <generalfeedback><text>switch 涵蓋以每個狀態的進入度乘離開度計數，因此義務——與套件——的增長遠快於「每轉移一個」。對登入而言是 9 義務 / 9 測試，對比轉移涵蓋的 7 義務 / 1 測試。</text></generalfeedback>
+  </question>
+</quiz>

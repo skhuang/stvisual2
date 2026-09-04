@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Slice-Based Regression/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是回歸測試選擇</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>回歸測試選擇（regression test selection）</em>最貼切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在變更之後，只執行該變更可能影響到的那部分測試，而非重新執行整個套件</text><feedback><text>正確——選擇會把重新執行範圍縮小到變更可能影響的測試，略過可證明不受影響者。</text></feedback></answer>
+    <answer fraction="0"><text>刪除最新變更沒有碰到的每一個測試</text><feedback><text>選擇是決定這次要重新執行哪些測試；未被選中的測試仍然保留，並未刪除。</text></feedback></answer>
+    <answer fraction="0"><text>為被變更的程式碼撰寫全新的測試</text><feedback><text>那是撰寫新測試；選擇則是重新執行既有測試的一個子集。</text></feedback></answer>
+    <answer fraction="0"><text>以較快的隨機順序執行這些測試</text><feedback><text>順序與此無關；選擇談的是在給定變更下要執行哪些測試。</text></feedback></answer>
+    <generalfeedback><text>回歸測試選擇利用變更與程式的相依關係，判斷哪些既有測試可能受影響，並只重新執行那些測試。不可能受影響的測試在本輪被略過，既降低成本，又仍能抓出該變更可能引入的回歸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是受影響的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器中，某測試被標記為 <em>必須重新執行（Must Re-run）</em>。這代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該變更可能影響這個測試的結果，因此必須再次執行以檢查是否有回歸</text><feedback><text>正確——受影響的測試是其結果可能被變更改變者，因此會被選中。</text></feedback></answer>
+    <answer fraction="0"><text>該測試已經失敗且無法修復</text><feedback><text>此標記談的是選擇，而非過去通過或失敗的結果。</text></feedback></answer>
+    <answer fraction="0"><text>該測試是重複的，應該刪除</text><feedback><text>必須重新執行標記的是與變更的相關性，而非重複性。</text></feedback></answer>
+    <answer fraction="0"><text>該測試很慢，需要最佳化</text><feedback><text>速度與此無關；此標記代表變更可能影響該測試。</text></feedback></answer>
+    <generalfeedback><text>受影響的測試（必須重新執行）是變更可能影響到的測試——它的執行碰觸到編輯所能到達的東西。因為其結果可能改變，故被選中重新執行。互補的一群是「可安全略過」：變更可證明無法影響的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片為何能辨識受影響的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼可以用切片與相依關係來判斷某變更會影響哪些測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對某陳述句的變更，只能影響那些執行到該變更可及之陳述句的測試——也就是該變更的前向切片（影響集合）</text><feedback><text>正確——若某測試從未碰觸影響集合，編輯就無法改變其行為，因此可證明不受影響。</text></feedback></answer>
+    <answer fraction="0"><text>在原始碼中寫在被變更那一行附近的測試就是受影響者</text><feedback><text>原始碼行距無關緊要；決定影響的是相依可達性，而非位置相近。</text></feedback></answer>
+    <answer fraction="0"><text>最近新增的測試永遠是受影響者</text><feedback><text>新舊並不決定影響；決定的是變更能到達什麼。</text></feedback></answer>
+    <answer fraction="0"><text>最慢的測試就是變更會影響的測試</text><feedback><text>執行時間與變更能否到達測試所執行的內容無關。</text></feedback></answer>
+    <generalfeedback><text>影響只沿著資料相依與控制相依的邊傳播。因此對陳述句 S 的變更，恰好能到達 S 的前向切片（其影響集合）中的那些陳述句。若某測試完全不執行其中任何陳述句，就不可能被變更影響——這正是它可被安全略過的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可安全略過的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試被標記為 <em>可安全略過（Safe to Skip）</em>。探索器對它的主張是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該變更可證明無法影響這個測試的結果，因此重新執行它只是浪費時間</text><feedback><text>正確——可安全略過的測試在該準則下可證明不受影響，略過它不會損失任何找錯能力。</text></feedback></answer>
+    <answer fraction="0"><text>已知該測試在每一版程式碼上都會通過</text><feedback><text>可安全略過是相對於這次變更而言，並非主張該測試永遠不會失敗。</text></feedback></answer>
+    <answer fraction="0"><text>該測試被永久停用</text><feedback><text>它只是針對這次變更被略過，並非永遠停用。</text></feedback></answer>
+    <answer fraction="0"><text>該測試與另一個測試重複</text><feedback><text>可安全略過談的是不受變更影響，而非重複。</text></feedback></answer>
+    <generalfeedback><text>可安全略過代表變更無法到達該測試所執行的任何東西，因此其結果不可能與先前不同。本輪略過它不會犧牲任何抓出該變更可能造成之回歸的能力——這正是選擇的重點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>安全選擇的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一種回歸測試選擇技術在什麼情況下被稱為<em>安全（safe）</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它永不遺漏變更可能影響到的測試——每個可能受影響的測試都會被選中</text><feedback><text>正確——安全代表沒有任何受影響的測試被錯誤略過，因此沒有回歸能從選擇中溜走。</text></feedback></answer>
+    <answer fraction="0"><text>它總是選出數量最少的測試</text><feedback><text>那是精確度，不是安全；最小集合若漏掉某個受影響的測試就會是不安全的。</text></feedback></answer>
+    <answer fraction="0"><text>它以最快的順序執行測試</text><feedback><text>順序與安全無關。</text></feedback></answer>
+    <answer fraction="0"><text>它保證每個被選中的測試都會通過</text><feedback><text>安全談的是不略過受影響的測試，而非通過或失敗的結果。</text></feedback></answer>
+    <generalfeedback><text>安全是選擇最核心的正確性性質：它絕不能排除變更可能影響的測試。安全的技術可能會重新執行一些其實不受影響的測試（不精確），但它絕不會錯誤略過受影響者——因此不會讓回歸溜走。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態模式使用什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器的<em>靜態（Static）</em>模式中，當某測試執行過的陳述句與哪個集合相交時，該測試會被選中？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>已修改陳述句的前向切片（影響集合）——也就是編輯所能到達的每個陳述句</text><feedback><text>正確——靜態模式是保守準則：只要某測試執行到影響集合中的任一陳述句，就會被選中。</text></feedback></answer>
+    <answer fraction="0"><text>已修改陳述句的向後切片</text><feedback><text>靜態模式使用前向切片（變更所到達的範圍），而非向後切片。</text></feedback></answer>
+    <answer fraction="0"><text>位於同一原始碼行上的陳述句集合</text><feedback><text>它使用相依可達性（影響集合），而非行數。</text></feedback></answer>
+    <answer fraction="0"><text>該測試從未執行到的陳述句集合</text><feedback><text>選擇是以執行過的陳述句與影響集合相交來判斷，而非與未執行者相交。</text></feedback></answer>
+    <generalfeedback><text>靜態模式計算已修改陳述句的前向切片——編輯透過相依關係所能到達的一切之影響集合——並選中每個其記錄執行至少包含該集合中一個陳述句的測試。這就是探索器所描述的保守、安全準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>動態模式使用什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器的<em>動態（Dynamic）</em>模式在已修改陳述句落於哪個集合時選中某測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該測試以執行軌跡為基礎、從輸出條件出發的向後切片</text><feedback><text>正確——動態模式只在變更位於該測試從輸出出發的動態向後切片中時才選中它。</text></feedback></answer>
+    <answer fraction="0"><text>輸出陳述句的前向切片</text><feedback><text>動態模式使用從輸出出發、逐軌跡計算的向後切片，而非前向切片。</text></feedback></answer>
+    <answer fraction="0"><text>程式中所有陳述句的集合</text><feedback><text>那會選中每個測試；動態模式會限制在每條軌跡的向後切片之內。</text></feedback></answer>
+    <answer fraction="0"><text>軌跡中執行次數最多的陳述句</text><feedback><text>次數無關緊要；關鍵在於是否屬於以軌跡為基礎的向後切片。</text></feedback></answer>
+    <generalfeedback><text>動態模式是精確準則：對每個測試，計算從輸出條件出發、限制於該測試記錄軌跡及其存活資料相依邊的向後切片，只有當已修改陳述句位於其中時才選中該測試。這會剔除那些其實際執行並不依賴該變更的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 classify 的輸出條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>載入 <code>classify</code> 範例後，探索器顯示一個<em>輸出條件（Output criterion）</em>徽章。它顯示的內容是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s11 → label（回傳陳述句處所回傳的變數）</text><feedback><text>正確——輸出條件就是回傳陳述句 s11 所回傳的變數 label。</text></feedback></answer>
+    <answer fraction="0"><text>s4 → n（分支條件）</text><feedback><text>條件是程式的輸出，而非分支條件。</text></feedback></answer>
+    <answer fraction="0"><text>s3 → sign（一個內部變數）</text><feedback><text>sign 是一個從未被回傳的內部變數；輸出是 s11 處的 label。</text></feedback></answer>
+    <answer fraction="0"><text>s2 → label（初始指派）</text><feedback><text>條件錨定在回傳陳述句 s11，而非初始指派 s2。</text></feedback></answer>
+    <generalfeedback><text>探索器由回傳陳述句（kind:'output'）及其使用的變數建立輸出條件。對 classify 而言即為 s11 回傳 label，顯示為 s11 → label。動態模式的向後切片全都由此條件出發。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取選擇結果：classify，靜態，變更 sign = 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的靜態模式中，你將 <code>s6 (sign = 1)</code> 標記為已修改。三個測試為 <code>pos (n=5)</code>、<code>neg (n=-3)</code>、<code>zero (n=0)</code>。哪個測試被標記為必須重新執行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有 pos</text><feedback><text>正確——s6 的影響集合僅為 {s6}，而只有 pos (n=5) 會執行 s6，因此只有 pos 被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 neg</text><feedback><text>neg (n=-3) 走 else-if 分支，從不執行 s6，因此可安全略過。</text></feedback></answer>
+    <answer fraction="0"><text>三個測試全部</text><feedback><text>只有 pos 執行 s6；neg 與 zero 都不執行，因此可安全略過。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何測試</text><feedback><text>pos 執行 s6，因此在靜態模式下會被選中。</text></feedback></answer>
+    <generalfeedback><text>s6 (sign = 1) 的前向切片僅為 {s6}：sign 之後不再被使用，因此影響集合不會擴大。靜態模式選中任何執行過與 {s6} 相交之陳述句的測試。只有 pos (n&gt;0) 會執行包含 s6 的 if 分支，因此 pos 為必須重新執行，而 neg、zero 為可安全略過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取選擇結果：classify，靜態，變更 sign = -1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的靜態模式中，你將 <code>s9 (sign = -1)</code> 標記為已修改。哪個測試被標記為必須重新執行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有 neg</text><feedback><text>正確——s9 的影響集合為 {s9}，而只有 neg (n=-3) 會執行包含 s9 的 else-if 分支。</text></feedback></answer>
+    <answer fraction="0"><text>只有 pos</text><feedback><text>pos (n=5) 走 if 分支，從不執行 s9。</text></feedback></answer>
+    <answer fraction="0"><text>只有 zero</text><feedback><text>zero (n=0) 兩個指派分支都略過，從不執行 s9。</text></feedback></answer>
+    <answer fraction="0"><text>三個測試全部</text><feedback><text>只有 neg 執行 s9；pos 與 zero 可安全略過。</text></feedback></answer>
+    <generalfeedback><text>s9 (sign = -1) 定義 sign，而 sign 之後不再被使用，因此其前向切片僅為 {s9}。只有 neg 這一次執行（n&lt;0）會走到包含 s9 的 else-if 分支，因此靜態模式只選中 neg。度量顯示為 Re-run 1 of 3 tests — 67% skipped。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取度量列</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器印出如 <em>Re-run 1 of 3 tests — 67% skipped</em> 的度量。它在報告什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在整個套件中有多少測試被選中（必須重新執行），以及被略過的百分比</text><feedback><text>正確——它摘要這次的選擇：在總數中被選中的數量，以及被略過的比例。</text></feedback></answer>
+    <answer fraction="0"><text>執行的測試中有多少通過</text><feedback><text>此度量談的是選擇，而非通過或失敗的結果。</text></feedback></answer>
+    <answer fraction="0"><text>該變更碰觸了多少行程式碼</text><feedback><text>它計算被選中相對於被略過的測試數，而非程式碼行數。</text></feedback></answer>
+    <answer fraction="0"><text>動態模式比靜態模式快多少</text><feedback><text>它報告目前模式的選擇結果，而非速度比較。</text></feedback></answer>
+    <generalfeedback><text>此度量量化選擇帶來的節省：N 個測試中有 A 個為必須重新執行，X% 為可安全略過。略過百分比越高，代表變更能到達套件的部分越少，這一輪選擇省下的工作也越多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取選擇結果：grade-average 毫無節省</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>grade-average</code> 範例中（測試 <code>pass</code> 與 <code>fail</code>），你在靜態模式下將 <code>s5 (total = total + s)</code> 標記為已修改。選擇結果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>pass 與 fail 都是必須重新執行——略過 0%</text><feedback><text>正確——兩個測試都執行從 total 到回傳 grade 的整條鏈，因此都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 pass 是必須重新執行</text><feedback><text>兩個測試都執行 s5 以及它所到達的陳述句，因此都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 fail 是必須重新執行</text><feedback><text>兩次執行都會累加進 total 並到達輸出，因此都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何測試被選中</text><feedback><text>s5 經由 avg 與 grade 流向兩個測試都檢查的輸出，因此都被選中。</text></feedback></answer>
+    <generalfeedback><text>在 grade-average 中，兩個測試都執行每個陳述句，而 total 的值經由 avg 與 grade 流向回傳結果。因此 s5 的影響集合到達兩個測試都執行的陳述句，兩者皆為必須重新執行——略過 0%。這是選擇毫無收益的情況，因為每個測試都涵蓋了整個受影響的切片。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>選擇可略過可證明不受影響的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在變更之後，回歸測試選擇技術可以略過變更可證明無法影響的測試，而不必總是重新執行整個套件。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——略過可證明不受影響的測試，正是選擇用來降低成本的做法。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這是錯的：選擇的全部目的就是略過變更無法影響的測試，同時重新執行它能影響的測試。</text></feedback></answer>
+    <generalfeedback><text>選擇只重新執行變更可能影響的測試，並略過它可證明無法影響者，因此不必全部重跑。只要準則是安全的，就沒有受影響的測試被略過，於是雖然執行較少測試，仍沒有回歸溜走。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>可安全略過是「無影響」的主張</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當探索器將某測試標記為 <em>可安全略過</em> 時，它是在主張目前的變更無法影響該測試的結果。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——可安全略過代表變更可證明無法到達該測試所執行的任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這是錯的：此標記正是「變更無法影響該測試結果」的主張。</text></feedback></answer>
+    <generalfeedback><text>可安全略過是相對於目前變更而言：變更無法到達該測試所執行的任何陳述句，因此其結果不可能與先前不同。它並非主張該測試永遠通過——只是說這次編輯不會影響它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切片式選擇的目標</text></name>
+    <questiontext format="html"><text><![CDATA[<p>切片式回歸測試選擇的目標是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>藉由略過可證明不受影響的測試來降低回歸測試成本，同時不喪失抓出該變更可能造成之回歸的能力</text><feedback><text>正確——它捨棄浪費的重跑，同時保留對該變更的找錯能力。</text></feedback></answer>
+    <answer fraction="0"><text>藉由每次發佈都增加測試來提高程式碼覆蓋率</text><feedback><text>選擇是重新執行既有測試的一個子集；它不會新增測試或提高覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>保證程式完全沒有任何缺陷</text><feedback><text>沒有任何選擇技術能保證無缺陷；它決定的是要重新執行哪些測試。</text></feedback></answer>
+    <answer fraction="0"><text>讓每個測試都在常數時間內執行</text><feedback><text>它減少的是執行測試的數量，而非個別測試的執行時間。</text></feedback></answer>
+    <generalfeedback><text>切片式選擇利用變更的切片／影響集合來判斷哪些測試可能受影響，並只重新執行那些測試。目標是讓回歸週期更便宜，同時仍能偵測該變更可能引入的任何回歸——在不犧牲安全的前提下取得節省。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice-Based Regression/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，靜態，變更 sign = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的靜態模式中，你將 <code>s3 (sign = 0)</code> 標記為已修改。哪些測試是必須重新執行，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>三個都是（pos、neg、zero）——因為每個測試都執行 s3，而 s3 本身就是整個影響集合</text><feedback><text>正確——s3 的影響集合為 {s3}，而三次執行都在函式開頭執行 s3，因此都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——因為 sign 從未被回傳</text><feedback><text>那是動態的結果。靜態模式不理會 sign 是否到達輸出；每個測試都執行 s3，因此都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 pos——因為它走第一個分支</text><feedback><text>s3 在任何分支之前執行，因此三個測試都會執行它，而不只是 pos。</text></feedback></answer>
+    <answer fraction="0"><text>只有 zero——因為它回傳初始 label</text><feedback><text>那個推理是關於 label，而非 s3；每個測試都執行 s3，因此靜態選中三個。</text></feedback></answer>
+    <generalfeedback><text>sign 定義於 s3 且之後不再被使用，因此 s3 的前向切片僅為 {s3}。但 s3 在 classify 開頭無條件執行，因此 pos、neg 與 zero 都會執行它。靜態模式於是選中三個——即使 sign 從未影響回傳的 label。這種過度選取是不精確，而非不安全。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，靜態，變更 label = "positive"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的靜態模式中，你將 <code>s5 (label = "positive")</code> 標記為已修改。哪些測試是必須重新執行，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>三個都是——影響集合為 {s5, s11}，而每個測試都執行回傳陳述句 s11</text><feedback><text>正確——s5 流入 s11 處回傳的 label，三個測試都執行 s11，因此都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 pos——影響集合侷限於 if 分支內</text><feedback><text>影響集合到達 s11（共用的回傳），每個測試都執行它，因此靜態模式下三個都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 neg 與 zero</text><feedback><text>pos 也執行 s5 與 s11，因此它同樣被選中——三個都是。</text></feedback></answer>
+    <answer fraction="0"><text>都不是</text><feedback><text>s5 到達輸出；每個測試都執行回傳，因此都被選中。</text></feedback></answer>
+    <generalfeedback><text>s5 (label = "positive") 的前向切片包含回傳陳述句 s11，因為 s5 的值流入回傳的 label。每個測試都執行 s11，因此它們的執行都與影響集合相交，靜態模式選中三個。neg 與 zero 是偽包含：它們執行 s11，但其回傳值並非來自 s5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，動態，變更 label = "positive"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的動態模式中，你將 <code>s5 (label = "positive")</code> 標記為已修改。哪些測試是必須重新執行，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有 pos——在它的執行中，回傳的 label 是 s5 所定義的值；neg 與 zero 回傳的是不同的定義</text><feedback><text>正確——s5 位於 pos 從輸出出發的動態向後切片中，但不在 neg 或 zero 的切片中。</text></feedback></answer>
+    <answer fraction="0"><text>三個都是——每個測試都執行回傳陳述句</text><feedback><text>那是靜態的結果。動態模式追蹤每次執行的存活定義；只有 pos 回傳的 label 來自 s5。</text></feedback></answer>
+    <answer fraction="0"><text>只有 neg</text><feedback><text>neg 回傳的 label 定義於 s8 而非 s5，因此 s5 不在其動態切片中。</text></feedback></answer>
+    <answer fraction="0"><text>都不是</text><feedback><text>pos 的輸出值定義於 s5，因此 pos 被選中。</text></feedback></answer>
+    <generalfeedback><text>動態模式追蹤每次執行中實際到達輸出的 label 之最後一次定義。對 pos (n=5) 而言那是 s5，因此 s5 在 pos 的向後切片中，pos 被選中。neg 的輸出來自 s8、zero 的來自 s2，因此 s5 不在它們的切片中——它們可安全略過。度量顯示為 Re-run 1 of 3 tests — 67% skipped。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，動態，變更 sign = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的動態模式中，你將 <code>s3 (sign = 0)</code> 標記為已修改。選擇結果是什麼，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>都不是——sign 從不流向回傳的 label，因此 s3 不在任何測試從輸出出發的向後切片中</text><feedback><text>正確——輸出只依賴 label；sign 是死路變數，因此動態不選中任何測試。</text></feedback></answer>
+    <answer fraction="0"><text>三個都是——每個測試都執行 s3</text><feedback><text>那是靜態的結果。動態模式從輸出出發、從不到達 s3，因此都不被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 zero——它回傳初始狀態</text><feedback><text>zero 從輸出出發的向後切片包含 s11 與 s2（label），而非 s3（sign）。</text></feedback></answer>
+    <answer fraction="0"><text>只有 pos</text><feedback><text>在任何執行中 sign 都未被用來計算回傳的 label，因此沒有任何測試的切片包含 s3。</text></feedback></answer>
+    <generalfeedback><text>動態模式從輸出條件 s11 → label 出發計算每個測試的向後切片。sign（定義於 s3）從未被用來計算 label，因此 s3 不出現在任何測試的切片中。動態模式選中零個測試：Re-run 0 of 3 tests — 100% skipped。相對地，靜態因為三個測試都執行 s3 而全部重跑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify：sign = 1 的靜態 vs 動態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 中，你將 <code>s6 (sign = 1)</code> 標記為已修改。兩種模式如何分類這些測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態選中 pos（它執行 s6）；動態不選中任何測試（sign 從不到達回傳的 label）</text><feedback><text>正確——靜態以「是否執行影響集合」為準，動態以「變更是否到達輸出」為準。</text></feedback></answer>
+    <answer fraction="0"><text>兩種模式都選中三個測試</text><feedback><text>靜態只選中 pos，動態都不選，因為 sign 不到達輸出。</text></feedback></answer>
+    <answer fraction="0"><text>靜態都不選；動態選中 pos</text><feedback><text>剛好相反：靜態選中 pos（它執行 s6），動態都不選。</text></feedback></answer>
+    <answer fraction="0"><text>兩種模式都只選中 neg</text><feedback><text>neg 從不執行 s6；靜態選中 pos，動態都不選。</text></feedback></answer>
+    <generalfeedback><text>靜態模式在某測試執行影響集合 {s6} 中任一陳述句時選中它；只有 pos 走 if 分支，因此靜態選中 pos。動態模式問的是變更是否到達輸出值；sign 從未影響 label，因此 s6 不在任何向後切片中，動態都不選。此變更是真實的程式碼，但對輸出而言是死碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，動態，變更 label = "zero"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的動態模式中，你將 <code>s2 (label = "zero")</code> 標記為已修改。哪個測試是必須重新執行，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有 zero——在 n=0 的執行中兩個分支都不觸發，因此回傳的 label 仍是 s2 的值</text><feedback><text>正確——只有 zero 的輸出來自 s2 的初始指派；pos 與 neg 都覆寫了 label。</text></feedback></answer>
+    <answer fraction="0"><text>三個都是——每個測試都執行 s2</text><feedback><text>那是靜態的結果。就動態而言，pos 與 neg 覆寫了 label，因此其輸出並非來自 s2。</text></feedback></answer>
+    <answer fraction="0"><text>只有 pos</text><feedback><text>pos 在 s5 覆寫了 label，因此其回傳值並非來自 s2。</text></feedback></answer>
+    <answer fraction="0"><text>都不是</text><feedback><text>zero 回傳 s2 的值，因此 s2 在 zero 的向後切片中，zero 被選中。</text></feedback></answer>
+    <generalfeedback><text>每次執行都先執行 s2 (label = "zero")，但 pos 在 s5、neg 在 s8 覆寫 label。只有在 zero 的執行（n=0）中兩個分支都不觸發，因此回傳的 label 仍是 s2 的值。於是 s2 只在 zero 的動態向後切片中，動態只選中 zero——而靜態選中三個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，靜態，變更 else if (n &lt; 0)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的靜態模式中，你將 <code>s7 (else if (n < 0))</code> 標記為已修改。哪些測試是必須重新執行，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>三個都是——影響集合到達共用的回傳陳述句 s11，而每個測試都執行 s11</text><feedback><text>正確——s7 控制 s8，其值流向 s11；影響集合包含被所有測試執行的 s11。</text></feedback></answer>
+    <answer fraction="0"><text>只有 neg——它是走 else-if 分支的那次執行</text><feedback><text>靜態模式並非以軌跡為精確依據：影響集合到達 s11，pos 與 zero 也執行它，因此三個都被選中。</text></feedback></answer>
+    <answer fraction="0"><text>只有 neg 與 zero</text><feedback><text>pos 也執行位於影響集合中的 s11，因此 pos 同樣被選中。</text></feedback></answer>
+    <answer fraction="0"><text>都不是</text><feedback><text>s7 控制 s8 以及 s11 處回傳的 label，因此其影響集合非空且到達每個測試。</text></feedback></answer>
+    <generalfeedback><text>被修改的陳述句 s7 控制 s8 (label = "negative")，其值可流向 s11 處回傳的 label。因此 s7 的前向切片包含 s11，而每個測試都執行回傳。靜態模式於是選中三個——pos 與 zero 是偽包含，因為它們回傳的 label 其實並不依賴 s7。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，動態，變更 else if (n &lt; 0)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的動態模式中，你將 <code>s7 (else if (n < 0))</code> 標記為已修改。哪個測試是必須重新執行，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有 neg——在它的執行中，回傳的 label（negative）是在 s8 設定的，而 s8 位於受 s7 控制的分支內</text><feedback><text>正確——s8 控制相依於 s7，因此 s7 在 neg 的向後切片中；pos 與 zero 回傳的 label 不受 s7 控制。</text></feedback></answer>
+    <answer fraction="0"><text>三個都是——每個測試都執行回傳陳述句</text><feedback><text>那是靜態的結果。就動態而言，只有 neg 回傳的 label 是在受 s7 控制的分支內設定的。</text></feedback></answer>
+    <answer fraction="0"><text>只有 zero</text><feedback><text>zero 回傳 s2 的值，而它不控制相依於 s7，因此 zero 可安全略過。</text></feedback></answer>
+    <answer fraction="0"><text>都不是</text><feedback><text>neg 回傳的 label 來自受 s7 控制的 s8，因此 neg 被選中。</text></feedback></answer>
+    <generalfeedback><text>在 neg 的執行（n=-3）中，else-if 分支觸發，label 於 s8 設定，而 s8 控制相依於 s7；因此 s7 在 neg 的動態向後切片中，neg 被選中。pos 回傳來自 s5 的值、zero 來自 s2，兩者都不控制相依於 s7，因此都可安全略過。動態只選中 neg——而靜態選中三個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>將術語配對到其角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器中，下列哪一組「術語與其角色」的配對是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>影響集合 = 已修改陳述句的前向切片 = 編輯所能到達的一切</text><feedback><text>正確——影響集合就是前向切片，靜態模式會選中執行到其中任一者的測試。</text></feedback></answer>
+    <answer fraction="0"><text>影響集合 = 永遠通過的測試集合</text><feedback><text>影響集合是一組陳述句（前向切片），而非測試。</text></feedback></answer>
+    <answer fraction="0"><text>輸出條件 = 已修改的陳述句</text><feedback><text>輸出條件是回傳陳述句處所回傳的變數，而非已修改的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>可安全略過 = 變更可能影響到的測試</text><feedback><text>可安全略過恰好相反：是變更可證明無法影響的測試。</text></feedback></answer>
+    <generalfeedback><text>影響集合恰為已修改陳述句的前向切片——透過相依關係可從它到達的每個陳述句。靜態模式會重新執行任何執行到此集合中一個陳述句的測試。輸出條件（回傳陳述句處回傳的變數）錨定動態模式的向後切片；必須重新執行／可安全略過則是「受影響／不受影響」的判定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify，動態，變更 if (n &gt; 0)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的動態模式中，你將 <code>s4 (if (n > 0))</code> 標記為已修改。哪些測試是必須重新執行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>pos 與 neg 是必須重新執行；zero 可安全略過</text><feedback><text>正確——在 pos 與 neg 的執行中，回傳的 label 是在受 s4 控制的分支內設定的；在 zero 的執行中輸出來自 s2，而 s2 並不控制相依於 s4。</text></feedback></answer>
+    <answer fraction="0"><text>三個都是必須重新執行</text><feedback><text>zero 回傳的 label（來自 s2）在其軌跡中並不控制相依於 s4，因此動態將 zero 標為可安全略過。</text></feedback></answer>
+    <answer fraction="0"><text>只有 zero 是必須重新執行</text><feedback><text>剛好相反：pos 與 neg 被選中；zero 被動態略過。</text></feedback></answer>
+    <answer fraction="0"><text>都不是必須重新執行</text><feedback><text>pos 與 neg 回傳的 label 都是在受 s4 控制的分支內設定的，因此都被選中。</text></feedback></answer>
+    <generalfeedback><text>在 pos 中，label 來自 s5（位於受 s4 控制的 if 分支）；在 neg 中，來自 s8（位於受 s7 控制的分支，而 s7 本身受 s4 控制）。因此 s4 在這兩者的向後切片中。在 zero（n=0）中，回傳的 label 來自 s2，而 s2 並不控制相依於 s4，因此 s4 不在 zero 的切片中——動態將 zero 標為可安全略過。（相對地，靜態選中三個。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify 動態、sign = 0 的度量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的動態模式中，變更 <code>s3 (sign = 0)</code> 不選中任何測試。度量列顯示什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-run 0 of 3 tests — 100% skipped</text><feedback><text>正確——沒有測試受影響，因此三個全部被略過。</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 3 of 3 tests — 0% skipped</text><feedback><text>那是全部被選中的情況；此處動態一個都不選。</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 1 of 3 tests — 67% skipped</text><feedback><text>沒有測試被選中，因此數量是 0 而非 1。</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 0 of 3 tests — 0% skipped</text><feedback><text>若 3 個中選中 0 個，則 3 個全部被略過，即 100% 而非 0%。</text></feedback></answer>
+    <generalfeedback><text>由於沒有測試受影響，A=0 且 N=3，因此度量顯示為 Re-run 0 of 3 tests — 100% skipped。這是最大的節省：變更（對死變數 sign 的變更）不到達任何測試所檢查的輸出。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>classify 靜態、sign = 1 的度量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 的靜態模式中，變更 <code>s6 (sign = 1)</code> 只選中 pos。度量列顯示什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-run 1 of 3 tests — 67% skipped</text><feedback><text>正確——3 個中選中 1 個代表 3 個中略過 2 個，四捨五入為 67%。</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 1 of 3 tests — 33% skipped</text><feedback><text>3 個測試中有 2 個被略過，即 67% 而非 33%。</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 2 of 3 tests — 67% skipped</text><feedback><text>只有 pos 被選中，因此數量是 1 而非 2。</text></feedback></answer>
+    <answer fraction="0"><text>Re-run 3 of 3 tests — 0% skipped</text><feedback><text>此處靜態只選中 pos，而非三個全部。</text></feedback></answer>
+    <generalfeedback><text>N=3 中選中 A=1，被略過的比例為 2/3 = 67%，因此度量顯示為 Re-run 1 of 3 tests — 67% skipped。只有 pos 執行 s6，因此另外兩個可安全略過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>grade-average 的變更毫無節省</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>grade-average</code> 中，於任一模式變更 <code>s8 (avg = total / count)</code> 都會選中兩個測試。為什麼這裡選擇毫無節省？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩個測試都執行從變更經 avg 與 grade 到回傳輸出的整條鏈，因此兩者確實都受影響</text><feedback><text>正確——當每個測試都涵蓋受影響的切片時，全部被選中，沒有可略過者。</text></feedback></answer>
+    <answer fraction="0"><text>該範例沒有任何相依邊，因此無法進行切片</text><feedback><text>該範例相依豐富；正是這種連通性使得兩個測試都受影響。</text></feedback></answer>
+    <answer fraction="0"><text>對於兩個測試的套件，選擇被停用</text><feedback><text>選擇正常運作；只是這裡剛好兩個測試都受影響。</text></feedback></answer>
+    <answer fraction="0"><text>動態模式總是選中每個測試</text><feedback><text>動態模式能剔除時就剔除；此處兩個測試確實都依賴該變更，因此都被選中。</text></feedback></answer>
+    <generalfeedback><text>在 grade-average 中，pass 與 fail 兩次執行都執行每個陳述句，而 s8 的值經由 grade 流向兩個測試都檢查的回傳輸出。因此變更到達了兩個測試都確實依賴的東西，兩者在兩種模式下都是必須重新執行——略過 0%。只有在某些測試不碰觸受影響切片時，選擇才能省下工作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何靜態重跑得比動態多</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>classify</code> 中的同一個變更，靜態模式常常比動態選中更多測試。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態做過度近似：只要某測試執行到變更可及的陳述句就選中它，即使該測試的實際輸出並不依賴該變更</text><feedback><text>正確——保守的影響集合準則會納入偽包含，而以軌跡為基礎的動態準則會將其剔除。</text></feedback></answer>
+    <answer fraction="0"><text>靜態使用與動態不同、更大的測試套件</text><feedback><text>兩種模式都分類同一個套件；只有準則不同。</text></feedback></answer>
+    <answer fraction="0"><text>動態模式完全忽略控制相依</text><feedback><text>動態模式確實使用控制相依，只是限制於記錄的軌跡；差別在於精確度，而非忽略某種邊。</text></feedback></answer>
+    <answer fraction="0"><text>靜態模式把每個測試算兩次</text><feedback><text>並無重複計數；靜態只是透過保守準則納入更多測試。</text></feedback></answer>
+    <generalfeedback><text>靜態模式是安全的過度近似：任何執行到變更前向切片內某物的測試都會被選中，包括那些實際輸出並不依賴該變更的測試（偽包含），常因它們共用回傳陳述句所致。動態模式追蹤每條記錄軌跡的存活相依並將其剔除，因此通常選中較少——代價是安全性。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>動態把 sign 的變更剔到一個不剩</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 中，於動態模式變更任一個 sign 指派（s3、s6 或 s9）都不會選中任何測試，因為 sign 從未被用來計算回傳的 label。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——sign 對輸出而言是死路，因此其任何定義都不出現在任何測試從 label 出發的向後切片中。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這是錯的：sign 從不流向回傳的 label，因此動態模式對任何 sign 變更都不選中任何測試。</text></feedback></answer>
+    <generalfeedback><text>輸出條件是 s11 → label。sign 於 s3、s6 與 s9 被指派，但從未被讀取以計算 label，因此沒有任何 sign 定義位於任何測試從輸出出發的向後切片中。動態模式於是對 sign 變更略過所有測試（略過 100%）。靜態模式以「是否執行」而非「是否可達輸出」為準，仍會選中執行到那些陳述句的測試。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice-Based Regression/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個準則是安全的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮安全性性質（永不略過可能受影響的測試），探索器的兩種模式中哪一個是安全的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態模式——保守的影響集合準則會選中每個執行到變更可及之物的測試，因此永不略過受影響的測試</text><feedback><text>正確——對影響做過度近似可讓選擇保持安全，代價是一些偽包含。</text></feedback></answer>
+    <answer fraction="0"><text>動態模式——因為它較精確</text><feedback><text>精確不等於安全。動態模式僅依單一記錄軌跡推理，可能略過變更其實會影響的測試。</text></feedback></answer>
+    <answer fraction="0"><text>兩種模式一樣安全</text><feedback><text>此處只有靜態是安全的；當變更改變了記錄軌跡未揭露的控制流時，動態可能選取不足。</text></feedback></answer>
+    <answer fraction="0"><text>兩種模式都不安全</text><feedback><text>靜態模式在構造上就是安全的；它絕不會漏掉任何執行到可達陳述句的測試。</text></feedback></answer>
+    <generalfeedback><text>靜態模式選中任何執行與變更前向切片相交的測試，因此不會略過任何可能受影響的測試——它是安全的，雖然不精確。動態模式較精確，但僅就每次記錄執行推理；若某變更會改變該軌跡未走到的分支，就可能被漏掉，因此一般而言並不安全。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>詮釋一個偽包含</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 中，變更 <code>s3 (sign = 0)</code> 時靜態模式選中三個測試，然而 sign 從不影響回傳的 label。這是哪一種現象的實例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>偽包含——安全準則重跑了變更其實無法影響的測試，浪費時間但毫無風險</text><feedback><text>正確——過度選取（不精確）會付出額外重跑的代價，但絕不會藏匿回歸。</text></feedback></answer>
+    <answer fraction="0"><text>偽排除——某個受影響的測試被錯誤略過</text><feedback><text>恰好相反：沒有任何測試被略過；反而是納入了額外測試。那是偽包含。</text></feedback></answer>
+    <answer fraction="0"><text>探索器切片的一個錯誤</text><feedback><text>這是正確的保守行為：靜態以「是否執行影響集合」為準，而非「是否到達輸出」。</text></feedback></answer>
+    <answer fraction="0"><text>證明靜態模式不安全</text><feedback><text>過度納入是安全的代價，並非對安全的違反；不安全指的是略過某個受影響的測試。</text></feedback></answer>
+    <generalfeedback><text>三個測試都執行 s3，因此安全的靜態準則會重跑它們，即使 sign 對輸出而言是死碼。那是偽包含：付出浪費重跑代價的不精確，但絕不讓回歸溜走。偽排除——略過某個受影響的測試——才是安全準則必須避免的危險錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>動態為何可能不安全：if 條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 中，變更 <code>s4 (if (n > 0))</code> 時動態模式將 <code>zero</code> 測試標為 <em>可安全略過</em>。為什麼信任這個判定可能是不安全的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>編輯分支條件可能改變 n=0 這個輸入所走的分支，進而改變 zero 的輸出——但那條從未進入任何分支的記錄軌跡無法揭露這件事</text><feedback><text>正確——動態切片僅就單次執行推理，因此改變控制流的變更可能影響某個被軌跡標為不受影響的測試。</text></feedback></answer>
+    <answer fraction="0"><text>zero 測試是重複的，因此略過它永遠沒問題</text><feedback><text>zero 並非重複；風險在於編輯可能在無人察覺下改變它的行為。</text></feedback></answer>
+    <answer fraction="0"><text>動態模式從不使用控制相依，因此總是漏掉條件</text><feedback><text>動態模式確實使用控制相依，但只限於記錄軌跡所走過者——那正是它的侷限。</text></feedback></answer>
+    <answer fraction="0"><text>它完全安全；zero 的輸出確實不可能改變</text><feedback><text>把條件改成例如 n &gt;= 0 就會翻轉 n=0 的情況，因此 zero 的輸出可能改變——這個動態判定並不安全。</text></feedback></answer>
+    <generalfeedback><text>在記錄的 zero 執行（n=0）中兩個分支都不觸發，因此其輸出來自 s2，其動態切片不含 s4。但把條件改掉（例如改成 n &gt;= 0）可能使 n=0 進入某分支並改變回傳的 label。單一軌跡無法預見此事，因此對會改變控制流的編輯，動態的「可安全略過」判定並不健全——這正是為何在攸關正確性的決定上應由靜態（保守）模式把關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>成本相對於全數重測</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於全數重測（retest-all，重跑整個套件），安全的切片式選擇買到了什麼，而要讓這筆交易划算又必須成立什麼條件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它略過可證明不受影響的測試而不損失找錯能力；當受影響的子集遠小於整個套件、且分析成本低於它省下的執行時，這筆交易才划算</text><feedback><text>正確——只有在許多測試不受影響、且選擇分析相對於省下的測試執行足夠便宜時，才會有節省。</text></feedback></answer>
+    <answer fraction="0"><text>它在每一種情況下都嚴格執行比全數重測更少的測試</text><feedback><text>並非總是如此：當每個測試都受影響時（如 grade-average），選擇會全部重跑，等同於全數重測。</text></feedback></answer>
+    <answer fraction="0"><text>它比全數重測找到更多缺陷</text><feedback><text>安全的選擇對該變更偵測到的回歸與全數重測相同；它不會找到更多。</text></feedback></answer>
+    <answer fraction="0"><text>它讓人從此永遠不必再跑完整套件</text><feedback><text>選擇是逐變更進行的；更廣或完整的執行仍有其用武之地。</text></feedback></answer>
+    <generalfeedback><text>安全的選擇對該變更能偵測到的回歸恰與全數重測相同，同時略過它能證明不受影響的測試。只有在套件中有很大一部分不受影響、且計算選擇的成本低於它所避免的執行成本時，效益才會實現。當幾乎所有測試都受影響時，選擇就退化為全數重測外加額外的分析開銷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>詮釋 grade-average：毫無節省</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>grade-average</code> 中，任何變更在兩種模式下都選中兩個測試。這告訴你關於該範例的什麼事？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩個測試都執行通往輸出的整條相依鏈，因此每個陳述句都在兩個測試都依賴的切片中——沒有任何可安全略過者</text><feedback><text>正確——當兩條全程式軌跡都經每個陳述句到達輸出時，沒有任何測試會是可證明不受影響的。</text></feedback></answer>
+    <answer fraction="0"><text>該範例標示錯誤；選擇應該總是省下一些東西</text><feedback><text>當每個測試都確實依賴被變更的程式碼時，選擇無法省下——那是正確行為，而非標示錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>它的測試不穩定，因此工具無法分類它們</text><feedback><text>不穩定與此無關；這些測試是確定性的，且兩者都確實受影響。</text></feedback></answer>
+    <answer fraction="0"><text>動態模式對這個範例壞掉了</text><feedback><text>動態模式運作正常；它正確地找出兩個測試都經由累加進輸出而依賴該變更。</text></feedback></answer>
+    <generalfeedback><text>grade-average 是一段直線累加：total 與 count 都經由 avg 與 grade 流向回傳結果，而兩個測試都執行每個陳述句。因此無論你變更什麼，兩個測試都確實依賴它，兩者在兩種模式下都是必須重新執行。它是誠實的反例：只有在某些測試避開受影響切片時，選擇才有幫助。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何永不略過可能受影響的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼回歸選擇技術絕不能略過變更可能會影響的測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被略過的受影響測試原本可能揭露該變更引入的回歸；略過它會讓那個回歸在無人察覺下溜走</text><feedback><text>正確——偽排除會悄悄放棄該測試對這次變更所提供的保護。</text></feedback></answer>
+    <answer fraction="0"><text>因為略過任何測試都一定會讓套件變慢</text><feedback><text>略過測試會讓執行更快；危險在於漏掉回歸，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>因為每個測試都必須執行相同的次數</text><feedback><text>並無此規則；重點在於不遺漏受影響的測試。</text></feedback></answer>
+    <answer fraction="0"><text>因為否則工具就無法計算度量</text><feedback><text>度量不受影響；理由在於找錯的安全性。</text></feedback></answer>
+    <generalfeedback><text>選擇的重點是省下工作而不喪失對變更的覆蓋。若某個受影響的測試被略過，它原本能抓到的回歸就可能在無人察覺下出貨——選擇實際上藏匿了一個缺陷。這正是為何安全（沒有偽排除）是不可妥協的性質，而偽包含則是為此可以容忍的代價。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>指出 label = "positive" 的偽包含</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 中，變更 <code>s5 (label = "positive")</code> 時靜態模式選中三個測試。哪些被選中的測試是偽包含，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>neg 與 zero——它們執行共用的回傳陳述句（位於影響集合中），但其回傳的 label 並非 s5 所定義的值</text><feedback><text>正確——它們僅經由 s11 與影響集合相交，因此保守準則納入它們，儘管變更無法改變其輸出。</text></feedback></answer>
+    <answer fraction="0"><text>pos——它的輸出其實來自 s5</text><feedback><text>pos 是真包含：它回傳的 label 定義於 s5，因此變更可以影響它。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——三個都確實依賴 s5</text><feedback><text>只有 pos 的輸出來自 s5；neg 與 zero 之所以被納入，只因它們執行共用的回傳。</text></feedback></answer>
+    <answer fraction="0"><text>三個都是，因為 sign 不受影響</text><feedback><text>pos 確實依賴 s5，因此它不是偽包含；只有 neg 與 zero 是。</text></feedback></answer>
+    <generalfeedback><text>s5 的影響集合為 {s5, s11}。三個測試都執行 s11（回傳），因此靜態選中三個。但只有 pos 回傳的 label 確實定義於 s5；neg 的來自 s8、zero 的來自 s2。因此 neg 與 zero 是偽包含——被安全地選中，但變更其實無法影響它們。動態模式追蹤到達輸出的存活定義，只選中 pos。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>精確度與安全的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一句最能刻畫探索器兩種模式之間的取捨？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態安全但不精確（可能過度選取）；動態精確但一般而言不安全（可能因單一軌跡而選取不足）</text><feedback><text>正確——安全與精確互相拉扯；靜態偏向安全，動態偏向精確。</text></feedback></answer>
+    <answer fraction="0"><text>靜態同時比動態更安全且更精確</text><feedback><text>靜態較安全但較不精確；它會在動態剔除之處過度選取。</text></feedback></answer>
+    <answer fraction="0"><text>動態同時比靜態更安全且更精確</text><feedback><text>動態較精確，但一般而言不安全，因為它僅依單一記錄軌跡推理。</text></feedback></answer>
+    <answer fraction="0"><text>兩種模式總是產生完全相同的選擇</text><feedback><text>只要某測試執行了影響集合、但其記錄輸出並不依賴該變更，兩者就會不同。</text></feedback></answer>
+    <generalfeedback><text>靜態保守的影響集合準則絕不略過受影響的測試（安全），但會重跑一些不受影響者（不精確）。動態以軌跡為基礎的向後切片剔除那些偽包含（精確），但可能漏掉某個會被「改變控制流的變更」影響的測試（不安全）。在兩者之間抉擇，就是在安全與精確的光譜上選定位置。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>安全的選擇仍可能過度選取</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個安全的回歸選擇仍可能重跑一些變更其實無法影響的測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——安全禁止偽排除，但允許偽包含（過度選取），正如靜態模式所示。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這是錯的：安全只要求不略過受影響的測試；重跑一些不受影響的測試是被允許的。</text></feedback></answer>
+    <generalfeedback><text>安全談的是不漏掉受影響的測試，而非最小化。安全的技術可能納入額外、不受影響的測試（偽包含）——這是保守過度近似的代價。探索器中的靜態模式正是如此，例如對死變數 sign 的變更會選中三個 classify 測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>動態選擇不保證安全</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器的動態模式保證安全：它絕不會把可能受影響的測試標為可安全略過。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——動態僅依單一記錄軌跡推理，因此改變控制流的變更可能影響它標為可安全略過的測試。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>這是錯的：動態模式可能選取不足，例如在 if 條件改變時把 zero 標為可安全略過。</text></feedback></answer>
+    <generalfeedback><text>動態模式的向後切片由單次記錄執行計算而得。若某變更會改變該軌跡未走過的控制流，仍可能影響該測試，然而動態切片不會包含該變更——因此該測試會被錯誤標為可安全略過。這正是為何動態精確但不安全，而在正確性上應信任靜態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>詮釋 zero 的最後定義推理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 中，變更 <code>s2 (label = "zero")</code> 時動態模式只選中 <code>zero</code>。是什麼推理得出這個結果？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有在 zero 的執行中，s2 的值才是到達輸出的 label 之最後定義；pos 與 neg 在回傳前覆寫了 label</text><feedback><text>正確——只有在 zero 的執行中，才存在從 s2 到輸出的存活（最後定義）資料相依。</text></feedback></answer>
+    <answer fraction="0"><text>zero 執行 s2，而 pos 與 neg 不執行</text><feedback><text>三個都執行 s2；差別在於哪個 label 的定義存活到輸出。</text></feedback></answer>
+    <answer fraction="0"><text>zero 是最慢的測試，因此總是被選中</text><feedback><text>執行時間毫無作用；起作用的是存活定義分析。</text></feedback></answer>
+    <answer fraction="0"><text>s2 是輸出條件，因此它自己的測試永遠被選中</text><feedback><text>輸出條件是 s11 → label；只有在 s2 的定義到達輸出處，s2 才被選中。</text></feedback></answer>
+    <generalfeedback><text>動態模式只保留存活的資料相依邊——即實際到達每次使用的變數之最後定義。三個測試都在 s2 指派 label，但 pos 在 s5、neg 在 s8 重新指派，因此那些較晚的定義才是到達回傳的存活定義。只有在 zero 的執行（兩個分支都不走）中，s2 的定義才存活到輸出，因此 s2 只在 zero 的向後切片中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>選擇何時值得其分析成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>根據探索器中的兩個範例，切片式選擇在什麼時候顯然值得，什麼時候幾乎不比全數重測好？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>像 classify 那樣值得：對死碼或分支侷部陳述句的變更會讓許多測試可證明不受影響；像 grade-average 那樣幾乎不比全數重測好：每個測試都依賴該變更</text><feedback><text>正確——節省取決於變更未能到達套件的多大比例。</text></feedback></answer>
+    <answer fraction="0"><text>永遠值得，因為分析是免費的</text><feedback><text>分析有成本；當每個測試都受影響時，那個成本純屬額外開銷。</text></feedback></answer>
+    <answer fraction="0"><text>永遠不值得，因為全數重測總是更安全</text><feedback><text>安全的選擇對該變更與全數重測一樣安全，而且可能便宜得多。</text></feedback></answer>
+    <answer fraction="0"><text>只有在恰好三個測試的套件才值得</text><feedback><text>單憑套件大小並不能決定；決定的是受影響的比例。</text></feedback></answer>
+    <generalfeedback><text>在 classify 中，變更 sign（死碼）或某個分支侷部陳述句會讓若干測試可證明不受影響，因此選擇省下實際工作。在 grade-average 中，每個測試都依賴該變更，因此選擇會全部重跑，只增加分析開銷——不比全數重測好。決定的因素是變更無法到達套件的多大比例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>sign = -1 的安全與精確</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>classify</code> 中，變更 <code>s9 (sign = -1)</code>：靜態只選中 neg，動態一個都不選。哪個判定是安全的，又該如何調和兩者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>此處兩者都安全，因為 sign 確實從不到達輸出；靜態只是過度選取了 neg（它執行 s9），而動態正確地將其剔除</text><feedback><text>正確——兩種方式都沒有略過任何受影響的測試；靜態的 neg 是偽包含，動態的空集合則是精確的。</text></feedback></answer>
+    <answer fraction="0"><text>動態不安全，因為它略過了 neg</text><feedback><text>neg 其實並不受影響——sign 從不到達輸出——因此略過它並非偽排除。</text></feedback></answer>
+    <answer fraction="0"><text>靜態不安全，因為它選得太多</text><feedback><text>過度選取並非不安全；安全禁止的是略過受影響的測試，而靜態並未這麼做。</text></feedback></answer>
+    <answer fraction="0"><text>兩者互相矛盾，因此必有一個是錯誤</text><feedback><text>兩者只在精確度上不同；兩者都避免略過真正受影響的測試，因此都安全。</text></feedback></answer>
+    <generalfeedback><text>s9 定義 sign，而 sign 從不流向回傳的 label，因此沒有任何測試真正受影響。動態正確地一個都不選。靜態只因 neg 執行 s9 而選中它——那是偽包含，而非偽排除，因此靜態仍是安全的。兩個判定的差別在於精確度，而非安全；此處由於變更對輸出而言是死碼，動態恰好同時精確且安全。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>輸出條件在動態模式中的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>動態模式從<em>輸出條件</em>（classify 為 s11 → label）出發計算每個測試的向後切片。為什麼要從輸出出發？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變更只有在能影響測試最終所觀察的值時，才能讓該測試以不同方式失敗，因此相關的測試就是其輸出依賴於該變更者</text><feedback><text>正確——錨定在輸出恰好捕捉到測試所檢查的東西，於是向後切片能找出能改變它的變更。</text></feedback></answer>
+    <answer fraction="0"><text>因為輸出陳述句永遠就是已修改的陳述句</text><feedback><text>輸出是條件，不是變更；兩者通常是不同的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>因為向後切片比前向切片更便宜計算</text><feedback><text>這個選擇關乎準則的正確性，而非計算成本。</text></feedback></answer>
+    <answer fraction="0"><text>因為輸出陳述句在每條軌跡中都最先執行</text><feedback><text>輸出（回傳）最後執行，而非最先；選它是因為它是測試所觀察的東西。</text></feedback></answer>
+    <generalfeedback><text>測試的判定取決於它在輸出所觀察的值。若某變更無法影響那個值（它不在從輸出出發的向後切片中），該測試的結果就不可能改變。因此讓動態向後切片從輸出條件出發，恰好選中那些「其觀察結果會被變更改變」的測試——即該軌跡的精確受影響集合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個模式應為發佈把關</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在發佈前選擇測試時，你必須確保沒有任何回歸溜走。應由哪個模式來為決定把關，又為何要接受它的缺點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態（安全）模式——它的偽包含會付出額外的測試執行成本，但它絕不略過可能受影響的測試，因此沒有回歸能繞過此選擇</text><feedback><text>正確——對正確性把關而言，安全勝於精確；浪費的執行是可接受的代價。</text></feedback></answer>
+    <answer fraction="0"><text>動態模式——它較精確，意味著測試較少、因此臭蟲較少</text><feedback><text>測試較少並不代表臭蟲較少；動態可能略過某個受影響的測試，讓回歸溜走。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆可；在真實程式上它們從不相異</text><feedback><text>只要牽涉會改變控制流的變更，兩者就會相異，而那正是危險的情況。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆非；你應該略過回歸測試以在發佈前省時間</text><feedback><text>在發佈前略過回歸測試是最糟的選項——它完全撤除了安全網。</text></feedback></answer>
+    <generalfeedback><text>發佈把關不能讓任何回歸通過，因此需要安全準則。靜態模式對影響做過度近似，可能重跑一些不受影響的測試，但它絕不略過任何可能受影響者——沒有偽排除。動態模式的精確度對快速的本機回饋很有價值，但其以軌跡為基礎的推理可能選取不足，因此不適合作為攸關正確性的把關。接受少量浪費的執行，是換取有保證之安全的明智代價。</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Slice Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Slice coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Slice Coverage Explorer, <strong>slice coverage</strong> of a test suite is best defined as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fraction of statements in the backward slice of the criterion variable that were executed</text><feedback><text>Correct — slice coverage counts how many statements of that backward slice a test suite exercises.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of all executable statements executed by the suite</text><feedback><text>That is plain statement coverage; slice coverage is measured only over the slice.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of branch outcomes taken, ignoring data flow</text><feedback><text>That is branch coverage; slice coverage is data-flow-aware and targets the slice.</text></feedback></answer>
+    <answer fraction="0"><text>The number of distinct input values explored</text><feedback><text>That counts inputs, not executed slice statements.</text></feedback></answer>
+    <generalfeedback><text>Slice coverage = (executed slice statements) / (total slice statements). The slice is the backward slice of the criterion variable at the output statement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What defines the coverage target</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the app, what defines the <strong>coverage target</strong> that slice coverage is measured against?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The backward slice of the output statement</text><feedback><text>Correct — the description states the backward slice of the output statement defines the coverage target.</text></feedback></answer>
+    <answer fraction="0"><text>The full set of source lines including comments</text><feedback><text>The target is the backward slice, not every source line.</text></feedback></answer>
+    <answer fraction="0"><text>The forward slice of the first input</text><feedback><text>The app uses the backward slice of the output statement, not a forward slice of an input.</text></feedback></answer>
+    <answer fraction="0"><text>The set of all branch outcomes</text><feedback><text>Slice coverage targets statements in a slice, not branch outcomes.</text></feedback></answer>
+    <generalfeedback><text>The backward slice of the output statement defines the coverage target; the learner then toggles traces and watches how much of that slice is exercised.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why slice-based adequacy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is <strong>slice-based</strong> coverage described as a data-flow-aware adequacy criterion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It restricts attention to the statements that actually influence the chosen output</text><feedback><text>Correct — the backward slice keeps exactly the statements that can affect the output, so coverage focuses on output-relevant code.</text></feedback></answer>
+    <answer fraction="0"><text>It counts how many times each loop iterates</text><feedback><text>Slice coverage is about which slice statements execute, not iteration counts.</text></feedback></answer>
+    <answer fraction="0"><text>It ignores data dependences and looks only at control flow</text><feedback><text>The slice is built from both control and data dependences, so it is data-flow-aware.</text></feedback></answer>
+    <answer fraction="0"><text>It measures the size of the input domain</text><feedback><text>It measures executed slice statements, not the input domain.</text></feedback></answer>
+    <generalfeedback><text>A backward slice keeps only statements that can affect the output through control and data dependences, so slice coverage targets output-relevant code — a data-flow-aware adequacy criterion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Slice coverage vs statement coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The app shows slice coverage beside plain statement coverage. What is the key difference between the two metrics?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Slice coverage is measured only over the slice statements; statement coverage is measured over all statements</text><feedback><text>Correct — the denominators differ: slice size versus the total number of statements.</text></feedback></answer>
+    <answer fraction="0"><text>Slice coverage counts branches while statement coverage counts statements</text><feedback><text>Both count statements; only the set they are measured over differs.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage requires a slice; slice coverage does not</text><feedback><text>The opposite — slice coverage needs the slice; statement coverage uses all statements.</text></feedback></answer>
+    <answer fraction="0"><text>They always report the same percentage</text><feedback><text>They can differ, e.g. in the Classify example a single trace gives different slice and statement percentages.</text></feedback></answer>
+    <generalfeedback><text>Slice coverage = executed slice statements / slice size; statement coverage = executed statements / total statements. Same style of count, different reference set.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Coverage Gaps lists</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The app's <strong>Coverage Gaps</strong> panel lists:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Slice statements that were not executed by the active traces</text><feedback><text>Correct — gaps are the uncovered statements of the slice.</text></feedback></answer>
+    <answer fraction="0"><text>Statements executed outside the slice</text><feedback><text>Those are shown separately under "Executed but outside slice", not as gaps.</text></feedback></answer>
+    <answer fraction="0"><text>All statements that were executed at least once</text><feedback><text>Gaps are the uncovered slice statements, not the executed ones.</text></feedback></answer>
+    <answer fraction="0"><text>Every branch outcome not taken</text><feedback><text>The app tracks slice statements, not branch outcomes.</text></feedback></answer>
+    <generalfeedback><text>Coverage Gaps are the slice statements that no active trace executed. When none remain, the app reports the output is fully exercised.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Executed but outside slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the app, the line <em>"Executed but outside slice"</em> lists statements that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Were executed by an active trace but are not part of the slice</text><feedback><text>Correct — they ran, yet they do not affect the chosen output, so they lie outside the slice.</text></feedback></answer>
+    <answer fraction="0"><text>Are in the slice but were never executed</text><feedback><text>Those are the coverage gaps, not the outside-slice list.</text></feedback></answer>
+    <answer fraction="0"><text>Were never executed and are outside the slice</text><feedback><text>The list requires the statements to have been executed.</text></feedback></answer>
+    <answer fraction="0"><text>Are comments and blank lines</text><feedback><text>Only executable statements are tracked, and these are executed non-slice statements.</text></feedback></answer>
+    <generalfeedback><text>Statements executed but outside the slice ran during the traces yet cannot affect the output, so they add to statement coverage without adding to slice coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The criterion variable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The app builds the slice as the backward slice of the output statement. Which variable is used as the slicing criterion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The variable used at the output statement (e.g. the returned value)</text><feedback><text>Correct — the app slices on the variable the output statement reads.</text></feedback></answer>
+    <answer fraction="0"><text>Every variable defined anywhere in the program</text><feedback><text>The criterion is a single variable — the one the output uses.</text></feedback></answer>
+    <answer fraction="0"><text>The first input parameter of the function</text><feedback><text>The criterion is the output's used variable, not an input parameter.</text></feedback></answer>
+    <answer fraction="0"><text>A loop counter</text><feedback><text>The criterion is the variable read at the output statement.</text></feedback></answer>
+    <generalfeedback><text>The output statement (kind "output") reads one variable — for example the returned value — and that variable is the slicing criterion for the backward slice.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Empty slice is vacuously covered</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the app's metric, a slice that contains no statements is treated as 100% covered.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — an empty slice is vacuously 100% covered, since there is nothing left uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>With no slice statements to miss, the metric reports 100% by convention.</text></feedback></answer>
+    <generalfeedback><text>Slice coverage divides executed slice statements by slice size; when the slice size is zero the app defines the result as 100% (vacuously covered).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Slice coverage formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the app compute the slice-coverage percentage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>covered slice statements / total slice statements, rounded to a whole percent</text><feedback><text>Correct — it is the ratio of covered to total slice statements, shown as a rounded percentage with the (covered/total) detail.</text></feedback></answer>
+    <answer fraction="0"><text>executed statements / total statements</text><feedback><text>That is the statement-coverage formula shown on the other row.</text></feedback></answer>
+    <answer fraction="0"><text>slice size / total statements</text><feedback><text>That would measure the slice's relative size, not how much of it is covered.</text></feedback></answer>
+    <answer fraction="0"><text>covered slice statements / total statements</text><feedback><text>The denominator is the slice size, not the total number of statements.</text></feedback></answer>
+    <generalfeedback><text>Slice coverage = covered slice statements / slice size, rounded. The app also prints the raw (covered / total) count beside the percentage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read a slice-coverage value (4 of 6)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The slice-coverage row of the metrics shows the detail <code>(4/6)</code>. What percentage does the app display?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67%</text><feedback><text>Correct — 4 / 6 = 0.667, rounded to 67%.</text></feedback></answer>
+    <answer fraction="0"><text>46%</text><feedback><text>4 / 6 = 67%, not 46%; do not concatenate the digits.</text></feedback></answer>
+    <answer fraction="0"><text>60%</text><feedback><text>4 / 6 rounds to 67%, not 60%.</text></feedback></answer>
+    <answer fraction="0"><text>75%</text><feedback><text>75% would be 3 of 4; here it is 4 of 6 = 67%.</text></feedback></answer>
+    <generalfeedback><text>The app rounds covered/total to a whole percent: 4 / 6 = 66.7% -&gt; 67%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The two metrics on display</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which two coverage metrics does the Slice Coverage Explorer display side by side?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Slice coverage and statement coverage</text><feedback><text>Correct — the metrics panel shows a slice-coverage row and a statement-coverage row.</text></feedback></answer>
+    <answer fraction="0"><text>Branch coverage and path coverage</text><feedback><text>The app shows slice and statement coverage, not branch or path.</text></feedback></answer>
+    <answer fraction="0"><text>Condition coverage and MC/DC</text><feedback><text>Those belong to the logic-coverage tools, not this explorer.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation score and slice coverage</text><feedback><text>There is no mutation score here; the second metric is statement coverage.</text></feedback></answer>
+    <generalfeedback><text>The explorer contrasts slice coverage with plain statement coverage so you can see how much of what ran is actually output-relevant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read Grade Average with all traces on</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <strong>Grade Average</strong> example every statement lies in the slice, and each trace already reaches all of them. With both traces active, what slice coverage does the app show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100%</text><feedback><text>Correct — the whole slice is exercised, so the meter reads 100% (8/8).</text></feedback></answer>
+    <answer fraction="0"><text>67%</text><feedback><text>All slice statements are covered here, so it is 100%, not 67%.</text></feedback></answer>
+    <answer fraction="0"><text>0%</text><feedback><text>0% would need no slice statement executed; here every one runs.</text></feedback></answer>
+    <answer fraction="0"><text>50%</text><feedback><text>The slice is fully covered, giving 100%.</text></feedback></answer>
+    <generalfeedback><text>In Grade Average the backward slice of the return value is all 8 statements, and both traces run all of them, so slice coverage is 8/8 = 100%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Slice coverage as an adequacy criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Slice coverage is used in the app as a test <strong>adequacy criterion</strong>. That means it is used to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Judge whether a test suite exercises enough of the output-relevant code</text><feedback><text>Correct — an adequacy criterion decides when a suite is "good enough" against a target, here the slice.</text></feedback></answer>
+    <answer fraction="0"><text>Generate new test inputs automatically</text><feedback><text>It measures adequacy; it does not generate inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Prove the program has no bugs</text><feedback><text>Coverage shows what ran, not that outputs are correct.</text></feedback></answer>
+    <answer fraction="0"><text>Rank inputs by execution time</text><feedback><text>It is about slice statements exercised, not timing.</text></feedback></answer>
+    <generalfeedback><text>An adequacy criterion says when testing is sufficient relative to a goal. Slice coverage judges adequacy against the backward slice of the output.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Slice can ignore output-irrelevant statements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A statement that cannot affect the chosen output is excluded from the slice, so leaving it unexecuted does not lower slice coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — only slice statements count toward slice coverage, so output-irrelevant statements do not affect it.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Statements outside the slice do not affect the output and are not counted in slice coverage.</text></feedback></answer>
+    <generalfeedback><text>Slice coverage is measured only over the backward slice. Statements that cannot reach the output are outside the slice, so their execution status does not change slice coverage (though it can still change statement coverage).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of toggling a trace off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the app, toggling one trace chip off:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Removes that trace's executed statements from the union, possibly lowering both metrics</text><feedback><text>Correct — the executed set is the union over active traces, so dropping one can uncover slice statements.</text></feedback></answer>
+    <answer fraction="0"><text>Deletes those statements from the program</text><feedback><text>The program is unchanged; only the set of active traces changes.</text></feedback></answer>
+    <answer fraction="0"><text>Recomputes the slice from scratch</text><feedback><text>The slice depends on the output criterion, not on which traces are active.</text></feedback></answer>
+    <answer fraction="0"><text>Always raises slice coverage</text><feedback><text>Removing a trace can only keep or lower the covered set, never raise it.</text></feedback></answer>
+    <generalfeedback><text>The executed set is the union of steps across all active traces. Turning a trace off shrinks that union, so covered slice statements can only stay the same or decrease.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: size of the output slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider the <strong>Classify</strong> example:</p><pre>function classify(n) {
+  let label = "zero";     // s2
+  let sign  = 0;          // s3
+  if (n &gt; 0) {           // s4
+    label = "positive";   // s5
+    sign  = 1;            // s6
+  } else if (n &lt; 0) {    // s7
+    label = "negative";   // s8
+    sign  = -1;           // s9
+  }
+  return label;           // s11
+}</pre><p>There are 9 executable statements. How many statements are in the backward slice of the returned <code>label</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — the slice is {s2, s4, s5, s7, s8, s11}; the three <code>sign</code> assignments are excluded.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>The three <code>sign</code> statements (s3, s6, s9) do not affect <code>label</code>, so the slice is 6, not all 9.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the number of statements excluded (the <code>sign</code> assignments); the slice keeps the other 6.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>The slice is {s2, s4, s5, s7, s8, s11} = 6 statements.</text></feedback></answer>
+    <generalfeedback><text><code>label</code> is defined at s2/s5/s8, guarded by the decisions s4/s7, and returned at s11: slice = {s2, s4, s5, s7, s8, s11} = 6 of 9.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: statements outside the slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Classify example, which statements are <strong>not</strong> in the backward slice of <code>label</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s3, s6, s9 — the three <code>sign</code> assignments</text><feedback><text>Correct — <code>sign</code> never flows into <code>label</code>, so those three statements are outside the slice.</text></feedback></answer>
+    <answer fraction="0"><text>s4, s7 — the two decisions</text><feedback><text>The decisions control which <code>label</code> assignment runs, so they are in the slice.</text></feedback></answer>
+    <answer fraction="0"><text>s2, s11 — the initialisation and the return</text><feedback><text>Both write or read <code>label</code>, so they are in the slice.</text></feedback></answer>
+    <answer fraction="0"><text>s5, s8 — the branch labels</text><feedback><text>These assign <code>label</code>, so they are in the slice.</text></feedback></answer>
+    <generalfeedback><text>The slice of <code>label</code> excludes s3, s6, s9 because <code>sign</code> has no data or control path to the returned <code>label</code>.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: slice coverage of the positive trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, activate only the <code>n=5</code> ("positive") trace. It executes s2, s3, s4, s5, s6, s11. The slice is {s2, s4, s5, s7, s8, s11}. What slice coverage does the app show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67% (4/6)</text><feedback><text>Correct — it covers s2, s4, s5, s11 of the slice (4 of 6) = 67%.</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6)</text><feedback><text>The positive trace misses s7 and s8, so only 4 of 6 slice statements are covered.</text></feedback></answer>
+    <answer fraction="0"><text>100% (6/6)</text><feedback><text>s7 and s8 (the negative branch) are never executed, so it cannot be 100%.</text></feedback></answer>
+    <answer fraction="0"><text>67% (6/9)</text><feedback><text>67% is right but the count is over the slice (4/6), not all statements (6/9 is statement coverage).</text></feedback></answer>
+    <generalfeedback><text>The positive trace covers slice statements s2, s4, s5, s11 but misses s7 and s8, so slice coverage = 4/6 = 67%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: slice coverage of the negative trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, activate only the <code>n=-3</code> ("negative") trace. It executes s2, s3, s4, s7, s8, s9, s11. The slice is {s2, s4, s5, s7, s8, s11}. What slice coverage is shown?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>83% (5/6)</text><feedback><text>Correct — it covers s2, s4, s7, s8, s11 (5 of 6); only s5 is missed.</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6)</text><feedback><text>The negative trace reaches s7 and s8, so 5 of 6 slice statements are covered.</text></feedback></answer>
+    <answer fraction="0"><text>100% (6/6)</text><feedback><text>s5 (the positive-branch label) is never executed, so it is 5/6, not 6/6.</text></feedback></answer>
+    <answer fraction="0"><text>78% (7/9)</text><feedback><text>78% is this trace's statement coverage; slice coverage is 5/6 = 83%.</text></feedback></answer>
+    <generalfeedback><text>The negative trace covers s2, s4, s7, s8, s11 and misses only s5, so slice coverage = 5/6 = 83%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: slice coverage of the zero trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, activate only the <code>n=0</code> ("zero") trace. It executes s2, s3, s4, s7, s11. The slice is {s2, s4, s5, s7, s8, s11}. What slice coverage is shown?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67% (4/6)</text><feedback><text>Correct — it covers s2, s4, s7, s11 (4 of 6); s5 and s8 are missed.</text></feedback></answer>
+    <answer fraction="0"><text>56% (5/9)</text><feedback><text>56% is this trace's statement coverage; slice coverage is measured over the 6 slice statements = 4/6 = 67%.</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6)</text><feedback><text>Both s5 and s8 are missed, so only 4 of 6 slice statements are covered.</text></feedback></answer>
+    <answer fraction="0"><text>50% (3/6)</text><feedback><text>Four slice statements run (s2, s4, s7, s11), giving 4/6 = 67%.</text></feedback></answer>
+    <generalfeedback><text>The zero trace never enters either label-changing branch, so it covers s2, s4, s7, s11 and misses s5 and s8: slice coverage = 4/6 = 67%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: statement coverage of the positive trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify (9 executable statements), activate only the <code>n=5</code> trace, which executes s2, s3, s4, s5, s6, s11 (6 statements). What <strong>statement</strong> coverage does the app show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>67% (6/9)</text><feedback><text>Correct — 6 of the 9 statements execute, so 6/9 = 67%.</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6)</text><feedback><text>4/6 is the slice coverage; statement coverage is over all 9 statements = 6/9.</text></feedback></answer>
+    <answer fraction="0"><text>100% (9/9)</text><feedback><text>The negative branch (s7, s8, s9) never runs, so it is 6/9, not 9/9.</text></feedback></answer>
+    <answer fraction="0"><text>78% (7/9)</text><feedback><text>The positive trace runs 6 statements, not 7, so 6/9 = 67%.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage = executed / total = 6/9 = 67%. Note the slice coverage happens to also be 67% here, but it is measured over a different set (4/6).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: statement coverage of the negative trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify (9 statements), activate only the <code>n=-3</code> trace, which executes s2, s3, s4, s7, s8, s9, s11 (7 statements). What <strong>statement</strong> coverage is shown?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>78% (7/9)</text><feedback><text>Correct — 7 of 9 statements execute, so 7/9 = 78%.</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6)</text><feedback><text>83% is this trace's slice coverage; statement coverage is 7/9 = 78%.</text></feedback></answer>
+    <answer fraction="0"><text>67% (6/9)</text><feedback><text>The negative trace executes 7 statements, not 6, so 7/9 = 78%.</text></feedback></answer>
+    <answer fraction="0"><text>100% (9/9)</text><feedback><text>The positive branch (s5, s6) never runs, so it is 7/9, not 9/9.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage = 7/9 = 78%. The slice coverage for the same trace is 5/6 = 83%, higher because the missed non-slice statement s6 does not count against the slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: gaps under the positive trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, with only the <code>n=5</code> ("positive") trace active, which slice statements appear in the <strong>Coverage Gaps</strong> panel?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s7 and s8 — the negative-branch decision and label</text><feedback><text>Correct — the positive trace never enters the negative branch, so s7 and s8 stay uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>s3 and s6 — the <code>sign</code> assignments</text><feedback><text>Those are outside the slice, so they are not gaps (they appear under "Executed but outside slice").</text></feedback></answer>
+    <answer fraction="0"><text>s5 only</text><feedback><text>s5 is executed by the positive trace, so it is covered, not a gap.</text></feedback></answer>
+    <answer fraction="0"><text>None — the slice is fully covered</text><feedback><text>s7 and s8 are never reached, so two gaps remain.</text></feedback></answer>
+    <generalfeedback><text>Gaps are the uncovered slice statements. The positive trace misses the negative branch, so the gaps are s7 and s8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: why sign=1 is outside the slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, why is <code>s6: sign = 1</code> not in the backward slice of the returned <code>label</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because <code>sign</code> never flows into <code>label</code>, so s6 cannot affect the output</text><feedback><text>Correct — no data or control dependence carries s6 to the returned <code>label</code>, so it is excluded.</text></feedback></answer>
+    <answer fraction="0"><text>Because s6 is never executed by any trace</text><feedback><text>s6 does execute in the positive trace; it is excluded because it cannot affect <code>label</code>, not because it never runs.</text></feedback></answer>
+    <answer fraction="0"><text>Because it is inside an <code>if</code> block</text><feedback><text>s5 is also inside an <code>if</code> block yet is in the slice; the reason is data-flow relevance to <code>label</code>.</text></feedback></answer>
+    <answer fraction="0"><text>Because it assigns a constant</text><feedback><text>s2 also assigns a constant and is in the slice; the deciding factor is whether it reaches <code>label</code>.</text></feedback></answer>
+    <generalfeedback><text>The backward slice keeps only statements that can affect the criterion. <code>sign</code> is never read on any path to the returned <code>label</code>, so s6 is outside the slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: executed but outside slice under positive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, with only the <code>n=5</code> trace active, which statements does the app list under <em>"Executed but outside slice"</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s3 and s6</text><feedback><text>Correct — both ran in the positive trace but are outside the slice of <code>label</code>.</text></feedback></answer>
+    <answer fraction="0"><text>s7 and s8</text><feedback><text>Those are in the slice and unexecuted, so they are gaps, not outside-slice.</text></feedback></answer>
+    <answer fraction="0"><text>s3, s6, s9</text><feedback><text>s9 is not executed by the positive trace, so only s3 and s6 appear here.</text></feedback></answer>
+    <answer fraction="0"><text>s2 and s5</text><feedback><text>s2 and s5 are in the slice, so they are not listed as outside it.</text></feedback></answer>
+    <generalfeedback><text>The positive trace runs s2, s3, s4, s5, s6, s11. Of these, s3 and s6 are outside the slice, so they appear under "Executed but outside slice".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match term to role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Slice Coverage Explorer, which term-to-role pairing is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Backward slice = the coverage target; a gap = an uncovered slice statement</text><feedback><text>Correct — the slice is what must be covered, and a gap is a slice statement no active trace reached.</text></feedback></answer>
+    <answer fraction="0"><text>Executed set = the coverage target; a gap = a non-slice statement</text><feedback><text>The target is the slice, not the executed set, and a gap is an uncovered slice statement.</text></feedback></answer>
+    <answer fraction="0"><text>Slice = the executed union; outside-slice = an uncovered slice statement</text><feedback><text>The slice is the target, not the executed union, and outside-slice statements were executed, not uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage = slice size; gap = a taken branch</text><feedback><text>Statement coverage is executed/total, and a gap is an uncovered slice statement, not a branch.</text></feedback></answer>
+    <generalfeedback><text>Slice = coverage target; executed set = union of active traces' steps; gap = uncovered slice statement; outside-slice = executed statement not in the slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: fewest traces for full slice coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, which set of traces is the smallest that reaches <strong>100% slice coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>positive + negative</text><feedback><text>Correct — the positive trace supplies s5 and the negative trace supplies s7, s8; together they cover all 6 slice statements.</text></feedback></answer>
+    <answer fraction="0"><text>positive + zero</text><feedback><text>Neither reaches s8, so this set leaves a gap (5/6 = 83%).</text></feedback></answer>
+    <answer fraction="0"><text>negative alone</text><feedback><text>The negative trace misses s5, reaching only 5/6 = 83%.</text></feedback></answer>
+    <answer fraction="0"><text>zero + positive + negative all three</text><feedback><text>All three do reach 100%, but positive + negative already suffices, so this is not the smallest set.</text></feedback></answer>
+    <generalfeedback><text>s5 is only executed by the positive trace and s8 only by the negative trace, so both are required; positive + negative covers the whole slice with two traces.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: the gap under the negative trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, with only the <code>n=-3</code> ("negative") trace active, which slice statement is the single Coverage Gap?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s5 — <code>label = "positive"</code></text><feedback><text>Correct — the negative trace never enters the positive branch, so s5 stays uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>s8 — <code>label = "negative"</code></text><feedback><text>s8 is executed by the negative trace, so it is covered, not a gap.</text></feedback></answer>
+    <answer fraction="0"><text>s6 — <code>sign = 1</code></text><feedback><text>s6 is outside the slice, so it can never be a slice gap.</text></feedback></answer>
+    <answer fraction="0"><text>s11 — <code>return label</code></text><feedback><text>The return runs on every trace, so it is always covered.</text></feedback></answer>
+    <generalfeedback><text>The negative trace covers s2, s4, s7, s8, s11, leaving only s5 (the positive-branch label) uncovered: one gap, slice coverage 5/6 = 83%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Grade Average: why the slice is every statement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Grade Average example the backward slice of the returned grade is <em>all 8</em> statements. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every statement contributes, directly or transitively, to the returned grade</text><feedback><text>Correct — total, count, the loop, avg and grade all feed the return, so the slice is the whole function.</text></feedback></answer>
+    <answer fraction="0"><text>Because the app always puts every statement in the slice</text><feedback><text>Not so — in Classify the slice is only 6 of 9; it depends on data flow to the output.</text></feedback></answer>
+    <answer fraction="0"><text>Because the function has a loop</text><feedback><text>The loop matters, but the slice is full because every statement reaches the output, not merely because a loop exists.</text></feedback></answer>
+    <answer fraction="0"><text>Because there are no branches</text><feedback><text>There is a conditional for the grade; the slice is full because all statements affect the returned value.</text></feedback></answer>
+    <generalfeedback><text>grade depends on avg, which depends on total and count, which depend on the loop and initialisers. Every statement lies on a dependence path to the return, so the slice is all 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: statement coverage of the zero trace</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify (9 statements), activate only the <code>n=0</code> trace, which executes s2, s3, s4, s7, s11 (5 statements). What <strong>statement</strong> coverage is shown?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>56% (5/9)</text><feedback><text>Correct — 5 of 9 statements execute, so 5/9 = 56%.</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6)</text><feedback><text>4/6 is the slice coverage; statement coverage is 5/9 = 56%.</text></feedback></answer>
+    <answer fraction="0"><text>67% (6/9)</text><feedback><text>The zero trace runs 5 statements, not 6, so 5/9 = 56%.</text></feedback></answer>
+    <answer fraction="0"><text>44% (4/9)</text><feedback><text>Five statements run (s2, s3, s4, s7, s11), giving 5/9 = 56%.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage = 5/9 = 56%. The zero trace enters neither label-changing branch, so it runs the fewest statements of the three.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: why the negative trace's slice % exceeds its statement %</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, the <code>n=-3</code> trace shows slice coverage <strong>83%</strong> (5/6) but statement coverage <strong>78%</strong> (7/9). Why is the slice figure higher?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It misses s5 and s6, but only s5 is in the slice, so statement coverage is penalised for both while slice coverage is penalised for only one</text><feedback><text>Correct — s6 is outside the slice, so its miss lowers statement coverage but not slice coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The slice is larger than the set of all statements</text><feedback><text>The slice (6) is smaller than all statements (9); the difference is which misses count.</text></feedback></answer>
+    <answer fraction="0"><text>Slice coverage rounds up while statement coverage rounds down</text><feedback><text>Both round the same way; the gap comes from s6 being outside the slice.</text></feedback></answer>
+    <answer fraction="0"><text>The trace executes more slice statements than total statements</text><feedback><text>That is impossible; the slice is a subset. The figures differ because a missed statement (s6) lies outside the slice.</text></feedback></answer>
+    <generalfeedback><text>The negative trace misses s5 (in slice) and s6 (outside slice). Statement coverage counts both misses (7/9 = 78%); slice coverage counts only the s5 miss (5/6 = 83%).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: what the zero trace's two gaps reveal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, the <code>n=0</code> trace gives slice coverage 67% (4/6) with gaps s5 and s8. What do these two gaps reveal about the suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Neither the positive-label case nor the negative-label case is exercised, so both label-changing paths are untested</text><feedback><text>Correct — s5 and s8 are the "positive" and "negative" label assignments, and the zero input triggers neither.</text></feedback></answer>
+    <answer fraction="0"><text>The return statement was never reached</text><feedback><text>s11 (the return) runs on every trace; the gaps are the two branch labels, not the return.</text></feedback></answer>
+    <answer fraction="0"><text>The <code>sign</code> variable was computed incorrectly</text><feedback><text>The <code>sign</code> statements are outside the slice; the gaps concern <code>label</code>, not <code>sign</code>.</text></feedback></answer>
+    <answer fraction="0"><text>The decisions s4 and s7 were never evaluated</text><feedback><text>Both decisions are evaluated by the zero trace; the untested code is the two label assignments.</text></feedback></answer>
+    <generalfeedback><text>Gaps s5 and s8 are the positive and negative label assignments. A single zero input exercises neither, so any fault in either label would go undetected.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: single trace with the highest slice coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, if you may activate only <strong>one</strong> trace, which gives the highest slice coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The negative trace (n=-3), at 83%</text><feedback><text>Correct — negative gives 5/6 = 83%, versus 4/6 = 67% for each of positive and zero.</text></feedback></answer>
+    <answer fraction="0"><text>The positive trace (n=5), at 83%</text><feedback><text>The positive trace is 4/6 = 67%; the negative trace reaches 83%.</text></feedback></answer>
+    <answer fraction="0"><text>The zero trace (n=0), at 83%</text><feedback><text>The zero trace is the lowest at 4/6 = 67%.</text></feedback></answer>
+    <answer fraction="0"><text>All three tie at 67%</text><feedback><text>The negative trace is higher (83%) because it covers s7 and s8; positive and zero are 67%.</text></feedback></answer>
+    <generalfeedback><text>positive = 4/6 (67%), zero = 4/6 (67%), negative = 5/6 (83%). The negative trace covers the most slice statements alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subset implication between the metrics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because the backward slice is a subset of all statements, which implication always holds?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100% statement coverage guarantees 100% slice coverage, but not the reverse</text><feedback><text>Correct — if every statement ran, every slice statement ran; but full slice coverage can leave non-slice statements unexecuted.</text></feedback></answer>
+    <answer fraction="0"><text>100% slice coverage guarantees 100% statement coverage</text><feedback><text>Reversed — covering the slice says nothing about statements outside it.</text></feedback></answer>
+    <answer fraction="0"><text>The two percentages are always equal</text><feedback><text>They differ whenever the slice is a proper subset, as in Classify.</text></feedback></answer>
+    <answer fraction="0"><text>Neither can ever reach 100% unless the other does</text><feedback><text>Slice coverage can be 100% while statement coverage is below 100%.</text></feedback></answer>
+    <generalfeedback><text>Slice statements are a subset of all statements. Executing all statements executes all slice statements (statement 100% =&gt; slice 100%); the converse fails because non-slice statements may stay unexecuted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: positive + zero result and remaining gap</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, activate the positive (n=5) and zero (n=0) traces together. What slice coverage results, and which slice statement remains a gap?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>83% (5/6), with s8 still uncovered</text><feedback><text>Correct — together they cover s2, s4, s5, s7, s11; only s8 (the negative label) is missed.</text></feedback></answer>
+    <answer fraction="0"><text>100% (6/6), no gap</text><feedback><text>Neither trace enters the negative branch, so s8 stays uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>67% (4/6), with s7 and s8 uncovered</text><feedback><text>The zero trace covers s7, so only s8 remains — 5/6 = 83%.</text></feedback></answer>
+    <answer fraction="0"><text>83% (5/6), with s5 still uncovered</text><feedback><text>s5 is covered by the positive trace; the remaining gap is s8.</text></feedback></answer>
+    <generalfeedback><text>positive covers s5; zero covers s7. Their union covers s2, s4, s5, s7, s11 = 5 of 6. Only s8 (negative label) is missed, so 83% with gap s8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Grade Average: why the metrics coincide</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Grade Average the slice is all 8 statements. What does this imply about the slice and statement coverage figures for <em>any</em> suite on that example?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are always equal, because the slice equals the full statement set</text><feedback><text>Correct — with slice = all statements, both metrics have the same numerator and denominator for every suite.</text></feedback></answer>
+    <answer fraction="0"><text>Slice coverage is always higher</text><feedback><text>They coincide exactly, because the reference sets are identical here.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage is always higher</text><feedback><text>Neither is higher; the two figures are equal when the slice is the whole program.</text></feedback></answer>
+    <answer fraction="0"><text>They are unrelated</text><feedback><text>They are identical here because the slice contains every statement.</text></feedback></answer>
+    <generalfeedback><text>When the slice equals the full statement set, executed-slice/slice-size = executed/total for every suite, so the two metrics report the same percentage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a slice gap reveals over a green bar</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What diagnostic value does a slice-coverage gap add beyond a high statement-coverage bar?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It pinpoints an unexecuted statement that actually affects the output, focusing attention on output-relevant untested code</text><feedback><text>Correct — a gap is an uncovered statement inside the slice, so it is known to influence the output.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the executed statements produce correct outputs</text><feedback><text>Coverage never proves correctness, only what ran.</text></feedback></answer>
+    <answer fraction="0"><text>It counts how many inputs were tried</text><feedback><text>A gap is a slice statement, not an input count.</text></feedback></answer>
+    <answer fraction="0"><text>It measures execution time of the slice</text><feedback><text>Gaps are about coverage of slice statements, not timing.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage can look high while missing output-relevant code hidden among many irrelevant statements. A slice gap flags exactly an output-affecting statement still untested.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Slice coverage vs branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does slice coverage differ in intent from branch (decision) coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Slice coverage targets the statements that affect a chosen output; branch coverage targets each decision's true/false outcomes regardless of the output</text><feedback><text>Correct — slice coverage is output-directed and data-flow-aware, while branch coverage is about decision outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>They measure the same thing under different names</text><feedback><text>They differ: one is a data-flow slice target, the other counts branch outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>Slice coverage counts branch outcomes; branch coverage counts statements</text><feedback><text>Reversed — slice coverage counts slice statements, not branch outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>Branch coverage requires a slice; slice coverage does not</text><feedback><text>Branch coverage needs no slice; slice coverage is the one built on the backward slice.</text></feedback></answer>
+    <generalfeedback><text>Branch coverage asks whether each decision took both outcomes. Slice coverage asks whether the statements that can affect a chosen output were exercised — a data-flow-aware, output-directed goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: what the negative-trace gap implies</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, the <code>n=-3</code> trace leaves exactly one gap, s5 (<code>label = "positive"</code>). What does this gap imply for fault detection?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A fault in how the positive label is assigned could go undetected, since no active test exercises s5</text><feedback><text>Correct — an uncovered slice statement means a defect there would not be exercised by the suite.</text></feedback></answer>
+    <answer fraction="0"><text>The negative label is untested</text><feedback><text>The negative label s8 is covered by this trace; the gap is the positive label s5.</text></feedback></answer>
+    <answer fraction="0"><text>The return value is never produced</text><feedback><text>s11 runs; the gap is s5, the positive-branch assignment.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — a single gap does not matter</text><feedback><text>An uncovered slice statement is exactly where a fault could hide from the suite.</text></feedback></answer>
+    <generalfeedback><text>s5 assigns the positive label. With only the negative trace active, s5 never runs, so a bug in the positive-label case would not be caught until a positive input is added.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: can one trace reach full slice coverage?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, can any <strong>single</strong> trace reach 100% slice coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — s5 and s8 are on mutually exclusive branches, so at least two traces are needed</text><feedback><text>Correct — a single input takes one branch, so it can reach s5 or s8 but not both; the best single trace is 83%.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the negative trace alone reaches 100%</text><feedback><text>The negative trace misses s5, giving 83%, not 100%.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the zero trace alone reaches 100%</text><feedback><text>The zero trace misses both s5 and s8, giving only 67%.</text></feedback></answer>
+    <answer fraction="0"><text>No — because the slice is empty</text><feedback><text>The slice has 6 statements; the reason is that s5 and s8 lie on exclusive branches.</text></feedback></answer>
+    <generalfeedback><text>s5 (positive) and s8 (negative) are on exclusive branches, so no single input covers both. Two traces (positive + negative) are required for 100%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: value of covering the sign statements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, with all traces active both metrics read 100%. For the <em>slice</em> (label) criterion, what does exercising the <code>sign</code> statements (s3, s6, s9) add?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nothing — they are outside the slice, so they do not contribute to slice adequacy for <code>label</code></text><feedback><text>Correct — <code>sign</code> cannot affect <code>label</code>, so covering those statements does not improve slice coverage of the label criterion.</text></feedback></answer>
+    <answer fraction="0"><text>They are required to reach 100% slice coverage</text><feedback><text>They are outside the slice, so they are irrelevant to slice coverage of <code>label</code>.</text></feedback></answer>
+    <answer fraction="0"><text>They raise the slice size to 9</text><feedback><text>The slice stays at 6; non-slice statements are never added to it.</text></feedback></answer>
+    <answer fraction="0"><text>They flip the slice coverage from 100% to 67%</text><feedback><text>Non-slice statements never change slice coverage.</text></feedback></answer>
+    <generalfeedback><text>Slice coverage of <code>label</code> is measured only over the 6 slice statements. Exercising s3, s6, s9 raises statement coverage but adds nothing to slice adequacy for the label criterion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Grade Average: redundancy for the slice criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Grade Average, each trace on its own already yields 100% slice coverage. For the slice (return-value) criterion, what does that say about the second trace?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is redundant for slice coverage — one trace already fully exercises the slice</text><feedback><text>Correct — if one trace covers the whole slice, adding another adds no slice coverage.</text></feedback></answer>
+    <answer fraction="0"><text>It is required to reach 100% slice coverage</text><feedback><text>A single trace already reaches 100%, so the second is not required for slice coverage.</text></feedback></answer>
+    <answer fraction="0"><text>It lowers slice coverage</text><feedback><text>Adding a trace can only keep or raise the covered set, never lower it.</text></feedback></answer>
+    <answer fraction="0"><text>It changes the slice</text><feedback><text>The slice depends on the output criterion, not on active traces.</text></feedback></answer>
+    <generalfeedback><text>Both Grade Average traces reach all 8 slice statements, so for the slice criterion the second trace is redundant — though it may still add value for other goals (e.g. different data values).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: combining two 67% traces</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, the positive and zero traces each give 67% slice coverage, but with different gaps (positive misses s7, s8; zero misses s5, s8). Activating both together gives what, and why not 100%?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>83% — together they cover s5 and s7, but s8 is missed by both</text><feedback><text>Correct — s8 (the negative label) is in neither trace, so one gap remains: 5/6 = 83%.</text></feedback></answer>
+    <answer fraction="0"><text>100% — their gaps are complementary</text><feedback><text>Both miss s8, so the union is not complete; it is 83%.</text></feedback></answer>
+    <answer fraction="0"><text>67% — combining traces cannot raise coverage</text><feedback><text>Combining traces unions their covered sets, so it can raise coverage; here to 83%.</text></feedback></answer>
+    <answer fraction="0"><text>134% — the percentages add</text><feedback><text>Coverage is a fraction of one slice, capped at 100%; you union the covered sets, not add percentages.</text></feedback></answer>
+    <generalfeedback><text>positive covers s5; zero covers s7; both miss s8. Their union covers 5 of 6 slice statements = 83%, so equal single-trace percentages can still leave a shared gap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why "data-flow-aware" adequacy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Slice coverage is called a <strong>data-flow-aware</strong> adequacy criterion because the target set is built by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Following control and data dependences backward from the output to keep exactly the statements that can affect it</text><feedback><text>Correct — the backward slice traces dependences to the output, so the criterion is defined by data (and control) flow.</text></feedback></answer>
+    <answer fraction="0"><text>Listing every source line in file order</text><feedback><text>The slice follows dependences, not textual order.</text></feedback></answer>
+    <answer fraction="0"><text>Enumerating all branch outcomes</text><feedback><text>That describes branch coverage, which is not built from a data-flow slice.</text></feedback></answer>
+    <answer fraction="0"><text>Sampling random inputs and recording crashes</text><feedback><text>That is fuzzing; slice coverage is defined by the dependence structure.</text></feedback></answer>
+    <generalfeedback><text>The backward slice is computed by walking control- and data-dependence edges from the output statement. Because that walk is driven by data flow, slice coverage is a data-flow-aware criterion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: equal percentages, different meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Classify, the positive trace shows slice coverage 67% (4/6) and statement coverage 67% (6/9) — the same percentage. What is the correct reading?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The equal percentages are a coincidence of the ratios; the two metrics count different sets (4 of 6 slice statements vs 6 of 9 total)</text><feedback><text>Correct — 4/6 and 6/9 both round to 67%, yet they measure coverage over different reference sets.</text></feedback></answer>
+    <answer fraction="0"><text>The slice and the statement set must be identical here</text><feedback><text>They are not — the slice is 6 statements, the full set is 9.</text></feedback></answer>
+    <answer fraction="0"><text>Equal percentages mean the same statements were covered</text><feedback><text>Not necessarily; the counts are over different sets, so equal percentages do not imply the same statements.</text></feedback></answer>
+    <answer fraction="0"><text>One of the figures must be a display error</text><feedback><text>Both are correct; 4/6 = 6/9 = 66.7% -&gt; 67%.</text></feedback></answer>
+    <generalfeedback><text>4/6 and 6/9 both equal 0.667, so both show 67%. The equality is arithmetic coincidence; slice coverage is over the 6 slice statements while statement coverage is over all 9.</text></generalfeedback>
+  </question>
+</quiz>

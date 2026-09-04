@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/W-Method Conformance/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Characterizing set W defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the W-method, what is the <strong>characterizing set W</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A set of input sequences that together tell every pair of states apart — any two states differ on the output of at least one sequence in W</text><feedback><text>Correct — W distinguishes states by their output responses.</text></feedback></answer>
+    <answer fraction="0"><text>One shortest input sequence that reaches each state, including ε</text><feedback><text>That describes the state cover P, not W.</text></feedback></answer>
+    <answer fraction="0"><text>The state cover together with each cover sequence extended by one input</text><feedback><text>That is the transition cover, not W.</text></feedback></answer>
+    <answer fraction="0"><text>The complete list of tests fed to the implementation</text><feedback><text>That is the whole test suite; W is only one ingredient of it.</text></feedback></answer>
+    <generalfeedback><text>The characterizing (distinguishing) set W holds input sequences such that any two distinct states of the machine produce different outputs on at least one sequence in W. In the Explorer's example W = {a, aa}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State cover P defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>state cover P</strong> in the W-method?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A set holding one shortest input sequence that reaches each state, including ε for the initial state</text><feedback><text>Correct — P reaches every state, ε for the start state.</text></feedback></answer>
+    <answer fraction="0"><text>A set of sequences that distinguishes every pair of states</text><feedback><text>That is the characterizing set W.</text></feedback></answer>
+    <answer fraction="0"><text>Every transition followed by a distinguishing sequence</text><feedback><text>That mixes ingredients; P is only about reaching states.</text></feedback></answer>
+    <answer fraction="0"><text>The union of all input sequences up to length m</text><feedback><text>That is the X^≤m middle segment, not P.</text></feedback></answer>
+    <generalfeedback><text>The state cover P contains, for each state, one shortest input sequence reaching it — with ε (empty sequence) covering the initial state. In the example P = {ε, a, aa}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transition cover defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How is the <strong>transition cover</strong> built in the W-method?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The state cover P together with P concatenated with one more input symbol: P ∪ P·X</text><feedback><text>Correct — P ∪ P·X takes every transition at least once.</text></feedback></answer>
+    <answer fraction="0"><text>The state cover P concatenated with the characterizing set W</text><feedback><text>That is closer to the suite; the transition cover does not append W.</text></feedback></answer>
+    <answer fraction="0"><text>Every pair of states joined by a distinguishing sequence</text><feedback><text>That is not how the transition cover is defined.</text></feedback></answer>
+    <answer fraction="0"><text>The union of all input sequences up to length m</text><feedback><text>That is the X^≤m segment, not the transition cover.</text></feedback></answer>
+    <generalfeedback><text>The transition cover is P ∪ P·X: each state-cover sequence, and each such sequence extended by one input symbol. This forces every transition to be exercised.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Goal of conformance testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>conformance testing</strong> with the W-method check?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Whether an implementation behaves the same as the specification FSM</text><feedback><text>Correct — conformance means the implementation matches the spec machine.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the specification FSM is minimal</text><feedback><text>Minimality is a precondition of the method, not what conformance testing checks.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the implementation's source code compiles</text><feedback><text>Compilation is unrelated to behavioural conformance.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the implementation is fast enough</text><feedback><text>That is performance testing, not conformance.</text></feedback></answer>
+    <generalfeedback><text>Conformance testing asks whether the black-box implementation produces the same outputs as the specification FSM on every relevant input sequence. The W-suite is a set of such input sequences.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The full W-suite formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which expression is the full <strong>W-method test suite</strong> (as shown in the Explorer)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(P ∪ P·X) · X^≤m · W</text><feedback><text>Correct — transition cover, then the middle X^≤m segment, then W.</text></feedback></answer>
+    <answer fraction="0"><text>P · W</text><feedback><text>That omits both the P·X extension and the X^≤m middle segment.</text></feedback></answer>
+    <answer fraction="0"><text>P ∪ W</text><feedback><text>The suite concatenates its parts; it is not a union of P and W.</text></feedback></answer>
+    <answer fraction="0"><text>(P ∪ P·X) · X^≤m</text><feedback><text>That drops the characterizing set W, so landing states are never checked.</text></feedback></answer>
+    <generalfeedback><text>The Explorer builds the suite as (P ∪ P·X) · X^≤m · W: the transition cover, concatenated with input sequences up to length m, concatenated with the characterizing set.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read P from the example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Explorer's 3-state example, what is the <strong>state cover P</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ε, a, aa}</text><feedback><text>Correct — ε reaches q1, a reaches q2, aa reaches q3.</text></feedback></answer>
+    <answer fraction="0"><text>{a, aa}</text><feedback><text>This omits ε, which covers the initial state q1.</text></feedback></answer>
+    <answer fraction="0"><text>{ε, a, b}</text><feedback><text>b does not appear in the shortest paths to the three states.</text></feedback></answer>
+    <answer fraction="0"><text>{a, b, aa}</text><feedback><text>The initial state is reached by ε, not by a single input.</text></feedback></answer>
+    <generalfeedback><text>Shortest paths: q1 by ε, q2 by a (q1 —a→ q2), q3 by aa (q1 —a→ q2 —a→ q3). So P = {ε, a, aa}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read W from the example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Explorer's example, what is the <strong>characterizing set W</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{a, aa}</text><feedback><text>Correct — a separates q1/q2 and q2/q3; aa separates q1/q3.</text></feedback></answer>
+    <answer fraction="0"><text>{ε, a}</text><feedback><text>ε produces no output and cannot distinguish any states.</text></feedback></answer>
+    <answer fraction="0"><text>{a, b}</text><feedback><text>b gives output 1 from every state, so it distinguishes nothing on its own.</text></feedback></answer>
+    <answer fraction="0"><text>{aa, ab}</text><feedback><text>The Explorer's W is {a, aa}; ab is not needed.</text></feedback></answer>
+    <generalfeedback><text>The Explorer computes W = {a, aa}: a distinguishes q1 from q2 and q2 from q3, while aa is needed to distinguish q1 from q3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of spec states</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many states does the specification FSM in the Explorer have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 (q1, q2, q3)</text><feedback><text>Correct — the spec is a 3-state Mealy machine.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>The Explorer shows three states: q1, q2, q3.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>There are only three states in the example.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Six is the number of transitions, not states.</text></feedback></answer>
+    <generalfeedback><text>The specification machine has states q1, q2, q3 — three states, with q1 as the initial state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Input alphabet of the example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>input alphabet X</strong> of the Explorer's FSM?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{a, b}</text><feedback><text>Correct — the two inputs are a and b.</text></feedback></answer>
+    <answer fraction="0"><text>{0, 1}</text><feedback><text>0 and 1 are the outputs, not the input alphabet.</text></feedback></answer>
+    <answer fraction="0"><text>{a, b, c}</text><feedback><text>There is no input c in the example.</text></feedback></answer>
+    <answer fraction="0"><text>{q1, q2, q3}</text><feedback><text>Those are states, not inputs.</text></feedback></answer>
+    <generalfeedback><text>The FSM reads inputs from X = {a, b} and emits outputs from {0, 1}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Initial state of the example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which state is the <strong>initial state</strong> of the Explorer's FSM?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>q1</text><feedback><text>Correct — q1 is marked as the initial state.</text></feedback></answer>
+    <answer fraction="0"><text>q2</text><feedback><text>q2 is reached from q1 on input a; it is not the start.</text></feedback></answer>
+    <answer fraction="0"><text>q3</text><feedback><text>q3 is reached only after two a inputs.</text></feedback></answer>
+    <answer fraction="0"><text>There is no initial state</text><feedback><text>Every FSM here has a start state; it is q1.</text></feedback></answer>
+    <generalfeedback><text>q1 is the initial state; that is why ε (empty sequence) covers it in the state cover P.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where a Mealy machine outputs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The spec is a <strong>Mealy</strong> machine. Where does a Mealy machine produce its output?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>On its transitions — the output depends on the current state and the input</text><feedback><text>Correct — Mealy outputs are labelled on the transitions.</text></feedback></answer>
+    <answer fraction="0"><text>In its states — the output depends only on the current state</text><feedback><text>That describes a Moore machine, not Mealy.</text></feedback></answer>
+    <answer fraction="0"><text>Only when it reaches a final state</text><feedback><text>The machine emits an output on every transition, not only at the end.</text></feedback></answer>
+    <answer fraction="0"><text>A Mealy machine produces no output</text><feedback><text>Mealy machines do emit outputs — on each transition.</text></feedback></answer>
+    <generalfeedback><text>In a Mealy machine each transition carries an output that depends on both the source state and the input, e.g. q1 —a/0→ q2. (A Moore machine attaches output to states instead.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which state ε covers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the state cover P, the empty sequence ε is the cover entry for which state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The initial state q1</text><feedback><text>Correct — with no inputs the machine is at its start state.</text></feedback></answer>
+    <answer fraction="0"><text>q2</text><feedback><text>q2 needs input a; its cover entry is a, not ε.</text></feedback></answer>
+    <answer fraction="0"><text>q3</text><feedback><text>q3 needs aa; ε does not reach it.</text></feedback></answer>
+    <answer fraction="0"><text>Every state at once</text><feedback><text>ε only leaves the machine at its initial state.</text></feedback></answer>
+    <generalfeedback><text>Feeding no input (ε) leaves the machine in its initial state q1, so ε is q1's entry in P.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Size of the transition cover</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Explorer's example, how many sequences are in the <strong>transition cover</strong> (P ∪ P·X) after removing duplicates?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — {ε, a, aa, b, ab, aaa, aab}.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the size of P alone, before adding P·X.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the number of transitions, not the deduplicated cover size.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 counts P·X and P before removing the duplicates a and aa.</text></feedback></answer>
+    <generalfeedback><text>P = {ε, a, aa} and P·X adds {a, b, aa, ab, aaa, aab}; the deduplicated union is {ε, a, aa, b, ab, aaa, aab} — 7 sequences.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of the dot operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the suite formula, what does the <strong>·</strong> operator mean between two sets of sequences?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concatenation — each sequence from the left set followed by each sequence from the right set</text><feedback><text>Correct — it is set concatenation of sequences.</text></feedback></answer>
+    <answer fraction="0"><text>Set union of the two sets</text><feedback><text>Union is written ∪; · is concatenation.</text></feedback></answer>
+    <answer fraction="0"><text>Set intersection</text><feedback><text>· is not intersection; it joins sequences end to end.</text></feedback></answer>
+    <answer fraction="0"><text>The Cartesian product of the two state sets</text><feedback><text>The operator works on sequences, producing concatenations, not state pairs.</text></feedback></answer>
+    <generalfeedback><text>A·B is the set of all concatenations x·y where x comes from A and y from B — for example {a}·{a, aa} = {aa, aaa}.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>q1 on input a</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the specification FSM, input <code>a</code> in state <code>q1</code> emits output <code>0</code> and moves to state <code>q2</code>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the transition is q1 —a/0→ q2.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The table shows q1 —a/0→ q2, so the statement is true.</text></feedback></answer>
+    <generalfeedback><text>The specification defines q1 —a/0→ q2: on input a from q1 the machine outputs 0 and transitions to q2.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/W-Method Conformance/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Shortest path to q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the shortest input sequence that reaches state <code>q3</code> from the initial state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aa</text><feedback><text>Correct — q1 —a→ q2 —a→ q3.</text></feedback></answer>
+    <answer fraction="0"><text>a</text><feedback><text>a only reaches q2.</text></feedback></answer>
+    <answer fraction="0"><text>ab</text><feedback><text>q1 —a→ q2 —b→ q1 returns to q1, not q3.</text></feedback></answer>
+    <answer fraction="0"><text>b</text><feedback><text>q1 —b→ q1 is a self-loop; it never leaves q1.</text></feedback></answer>
+    <generalfeedback><text>From q1, input a moves to q2, and a second a moves to q3, so aa is the shortest reaching sequence — this is q3's entry in the state cover P.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distinguish q2 from q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the shortest input sequence that <strong>distinguishes</strong> q2 from q3?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>a — q2 outputs 1, q3 outputs 0</text><feedback><text>Correct — one input a already separates them.</text></feedback></answer>
+    <answer fraction="0"><text>b — both output 1</text><feedback><text>q2 —b/1→ and q3 —b/1→ emit the same output, so b does not distinguish them.</text></feedback></answer>
+    <answer fraction="0"><text>aa</text><feedback><text>a alone already distinguishes q2 and q3; aa is longer than needed.</text></feedback></answer>
+    <answer fraction="0"><text>ab</text><feedback><text>The shortest distinguishing sequence is a, not ab.</text></feedback></answer>
+    <generalfeedback><text>q2 —a/1→ q3 emits 1, but q3 —a/0→ q3 emits 0; the outputs differ on the very first input, so a distinguishes q2 and q3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why W is appended</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a sequence from <strong>W</strong> appended to every prefix in the suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It turns the state reached by the prefix into an observable output trace, so a wrong landing state shows up as wrong output</text><feedback><text>Correct — W makes the internal state observable through output.</text></feedback></answer>
+    <answer fraction="0"><text>It makes each prefix reach a new, previously unvisited state</text><feedback><text>W checks the state reached; it does not reach new states.</text></feedback></answer>
+    <answer fraction="0"><text>It shortens the suite by removing duplicate prefixes</text><feedback><text>Appending W does not deduplicate; it verifies states.</text></feedback></answer>
+    <answer fraction="0"><text>It guards each transition with a boolean condition</text><feedback><text>Guards belong to the FSM, not to the suite construction.</text></feedback></answer>
+    <generalfeedback><text>A black-box tester cannot read internal states directly. By appending a distinguishing sequence from W, the state reached by a prefix is exposed as a specific output trace, so a next-state fault becomes a visible output difference.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Element of the transition cover</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which sequence belongs to the <strong>transition cover</strong> (P ∪ P·X) but not to P itself?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ab</text><feedback><text>Correct — ab is a (in P) extended by b, so it is in P·X but not P.</text></feedback></answer>
+    <answer fraction="0"><text>aa</text><feedback><text>aa is already in P (it reaches q3).</text></feedback></answer>
+    <answer fraction="0"><text>ε</text><feedback><text>ε is in P (it covers q1).</text></feedback></answer>
+    <answer fraction="0"><text>a</text><feedback><text>a is in P (it reaches q2).</text></feedback></answer>
+    <generalfeedback><text>P = {ε, a, aa}. Extending each by one input gives P·X, which contributes new sequences like b, ab, aaa, aab. So ab is in the transition cover but not in P.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Size of P ∪ P·X</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With |P| = 3 and |X| = 2, how many sequences are in <strong>P ∪ P·X</strong> after removing duplicates for this FSM?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — 3 from P plus 6 from P·X, minus the 2 duplicates a and aa.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is 3 + 6 before removing the duplicates a and aa.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the size of P·X alone.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>Only two sequences (a and aa) are duplicated, giving 9 − 2 = 7.</text></feedback></answer>
+    <generalfeedback><text>P·X = {a, b, aa, ab, aaa, aab}. Union with P = {ε, a, aa} removes the duplicates a and aa, leaving {ε, a, aa, b, ab, aaa, aab} — 7 sequences.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of W</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Match the ingredient to its role: in the W-method, the <strong>characterizing set W</strong> serves to…</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>distinguish states by their output responses, so the state reached can be verified</text><feedback><text>Correct — that is exactly W's job.</text></feedback></answer>
+    <answer fraction="0"><text>reach every state at least once</text><feedback><text>That is the role of the state cover P.</text></feedback></answer>
+    <answer fraction="0"><text>take every transition at least once</text><feedback><text>That is the role of the transition cover P ∪ P·X.</text></feedback></answer>
+    <answer fraction="0"><text>enumerate all input sequences up to length m</text><feedback><text>That is the role of the X^≤m middle segment.</text></feedback></answer>
+    <generalfeedback><text>Each ingredient has a distinct role: P reaches states, P ∪ P·X takes transitions, X^≤m allows for extra states, and W distinguishes states so the reached state is verifiable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Divergence position for q1 vs q2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For q1 vs q2 the distinguishing input is <code>a</code>. At which output position do their traces first differ?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Position 1 — q1 outputs 0, q2 outputs 1</text><feedback><text>Correct — they differ on the very first output.</text></feedback></answer>
+    <answer fraction="0"><text>Position 2</text><feedback><text>They already differ at position 1, so no second input is needed.</text></feedback></answer>
+    <answer fraction="0"><text>Position 3</text><feedback><text>The traces diverge immediately at position 1.</text></feedback></answer>
+    <answer fraction="0"><text>They never differ</text><feedback><text>q1 —a/0→ and q2 —a/1→ differ, so their traces do differ.</text></feedback></answer>
+    <generalfeedback><text>q1 —a/0→ q2 emits 0 while q2 —a/1→ q3 emits 1, so a single a already produces different outputs — divergence at position 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Middle segment at m = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When m = 0, what is the middle segment <strong>X^≤m</strong> of the suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ε} — so the suite reduces to (P ∪ P·X) · W</text><feedback><text>Correct — X^≤0 is just the empty sequence.</text></feedback></answer>
+    <answer fraction="0"><text>{a, b}</text><feedback><text>That is X^1, used when m ≥ 1, not at m = 0.</text></feedback></answer>
+    <answer fraction="0"><text>{ε, a, b}</text><feedback><text>That is X^≤1 (m = 1), not m = 0.</text></feedback></answer>
+    <answer fraction="0"><text>The empty set { }</text><feedback><text>X^≤0 contains ε, so it is not empty; an empty middle would erase the suite.</text></feedback></answer>
+    <generalfeedback><text>X^≤0 = {ε}. So at m = 0 the middle contributes nothing extra and the suite is (P ∪ P·X) · W.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Output of aa from q1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Running the input sequence <code>aa</code> from state <code>q1</code>, what output does the Mealy machine emit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>01</text><feedback><text>Correct — q1 —a/0→ q2 —a/1→ q3 emits 0 then 1.</text></feedback></answer>
+    <answer fraction="0"><text>00</text><feedback><text>00 is what q3 emits on aa, not q1.</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>The first a from q1 emits 0, not 1.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>The outputs are 0 then 1, giving 01, not 10.</text></feedback></answer>
+    <generalfeedback><text>From q1: a gives output 0 and moves to q2; the next a gives output 1 and moves to q3. So the trace is 01.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why aa is needed in W</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does W include <code>aa</code> rather than rely on <code>a</code> alone?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Input a gives output 0 from both q1 and q3, so a cannot separate them; aa does (01 vs 00)</text><feedback><text>Correct — aa is needed to tell q1 and q3 apart.</text></feedback></answer>
+    <answer fraction="0"><text>a is not a valid input, so a longer sequence is required</text><feedback><text>a is a valid input; the issue is that it fails to separate q1 and q3.</text></feedback></answer>
+    <answer fraction="0"><text>aa is shorter and therefore preferred</text><feedback><text>aa is longer than a; it is included because it is necessary, not shorter.</text></feedback></answer>
+    <answer fraction="0"><text>W must contain every sequence of length 2</text><feedback><text>W contains only what is needed to distinguish states, not all length-2 sequences.</text></feedback></answer>
+    <generalfeedback><text>q1 —a/0→ and q3 —a/0→ both emit 0, so a alone cannot separate q1 from q3. Extending to aa gives 01 from q1 versus 00 from q3, which distinguishes them — so W must include aa.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Structure of a suite test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How is each test sequence in the W-suite structured?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A transition-cover prefix, then a middle segment from X^≤m, then a distinguishing suffix from W</text><feedback><text>Correct — prefix · middle · W-suffix.</text></feedback></answer>
+    <answer fraction="0"><text>A W-suffix, then a transition-cover prefix</text><feedback><text>The order is prefix first, then W last, not the reverse.</text></feedback></answer>
+    <answer fraction="0"><text>Only a sequence from W</text><feedback><text>Each test also carries a cover prefix and a middle segment.</text></feedback></answer>
+    <answer fraction="0"><text>Only a sequence from the state cover P</text><feedback><text>A W-suite test also appends the middle segment and a W suffix.</text></feedback></answer>
+    <generalfeedback><text>Each suite element is (cover sequence) · (middle sequence from X^≤m) · (distinguishing sequence from W): reach or exercise a transition, optionally wander through extra inputs, then verify the resulting state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which set forces every transition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ingredient of the W-method forces every transition to be taken at least once?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The transition cover, P ∪ P·X</text><feedback><text>Correct — extending P by one input takes each outgoing transition.</text></feedback></answer>
+    <answer fraction="0"><text>The characterizing set W</text><feedback><text>W distinguishes states; it does not by itself take every transition.</text></feedback></answer>
+    <answer fraction="0"><text>The X^≤m middle segment</text><feedback><text>X^≤m allows for extra states; it is not what guarantees transition coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The state cover P alone</text><feedback><text>P only reaches states; the P·X extension is needed to take every transition.</text></feedback></answer>
+    <generalfeedback><text>P reaches each state, and appending one further input (P·X) takes each outgoing transition. Together, P ∪ P·X exercises every transition of the spec.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Size of W in the example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Explorer's example, how many sequences are in the characterizing set <strong>W</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — namely a and aa</text><feedback><text>Correct — W = {a, aa}.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One sequence is not enough: a cannot distinguish q1 from q3, so aa is also needed.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The Explorer's W has exactly two sequences.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the number of transitions, not the size of W.</text></feedback></answer>
+    <generalfeedback><text>W = {a, aa} — two sequences: a separates q1/q2 and q2/q3, and aa separates q1/q3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distinguish q1 from q3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the shortest input sequence that <strong>distinguishes</strong> q1 from q3?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aa — q1 gives 01, q3 gives 00</text><feedback><text>Correct — the outputs differ at the second position.</text></feedback></answer>
+    <answer fraction="0"><text>a — both give 0</text><feedback><text>q1 —a/0→ and q3 —a/0→ both emit 0, so a does not distinguish them.</text></feedback></answer>
+    <answer fraction="0"><text>b — both give 1</text><feedback><text>q1 —b/1→ and q3 —b/1→ both emit 1, so b does not distinguish them.</text></feedback></answer>
+    <answer fraction="0"><text>ab</text><feedback><text>aa already distinguishes q1 and q3, and it is the shortest that does.</text></feedback></answer>
+    <generalfeedback><text>Both a and b give the same first output from q1 and q3. Only aa separates them: q1 emits 01 (via q2) while q3 emits 00 (self-loop), differing at position 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Suite size at m = 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With m = 0, how many <strong>distinct</strong> tests does the Explorer's suite contain for this FSM?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>11</text><feedback><text>Correct — the Explorer reports 11 distinct tests at m = 0.</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 is 7 × 2 before removing duplicate sequences.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>The deduplicated suite has 11 tests, not 9.</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 is the suite size at m = 1, not m = 0.</text></feedback></answer>
+    <generalfeedback><text>At m = 0 the suite is (P ∪ P·X) · W: 7 cover sequences × 2 in W = 14 raw, reduced to 11 distinct tests after deduplication.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/W-Method Conformance/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Fault type of the mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Explorer's mutant rewires <code>q3 —b→</code> from q2 to q1 while keeping the output <code>1</code>. What kind of fault is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A transfer (next-state) fault — correct output, wrong target state</text><feedback><text>Correct — the output is unchanged but the destination is wrong.</text></feedback></answer>
+    <answer fraction="0"><text>An output fault — the transition emits the wrong symbol</text><feedback><text>The output stays 1; only the target state changed, so it is not an output fault.</text></feedback></answer>
+    <answer fraction="0"><text>An extra-state fault — the implementation added a state</text><feedback><text>No state was added; an existing transition was redirected.</text></feedback></answer>
+    <answer fraction="0"><text>A sneak path — an event accepted where none was specified</text><feedback><text>The event b was already specified in q3; only its target moved.</text></feedback></answer>
+    <generalfeedback><text>The mutant keeps q3 —b/1→ but sends it to q1 instead of q2: same output, wrong next state. That is a classic transfer (next-state) fault — the case transition coverage alone can miss.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why transition coverage misses it</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can plain <strong>transition coverage</strong> miss this mutant while the W-suite catches it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Transition coverage only checks that the transition fires with the right output; it does not verify which state you land in. Appending W checks the landing state</text><feedback><text>Correct — W exposes the wrong target that coverage ignores.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage never exercises the q3 —b→ transition at all</text><feedback><text>It does exercise it; it just cannot see the wrong target without W.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant changes the output, which coverage cannot observe</text><feedback><text>The output is unchanged; the target state is what differs.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage requires a longer alphabet</text><feedback><text>Alphabet size is not the issue; verifying the reached state is.</text></feedback></answer>
+    <generalfeedback><text>Taking the transition with matching output satisfies transition coverage even though it ends in the wrong state. The W-suite appends a distinguishing sequence after the transition, so the wrong landing state produces a different output trace and the fault is caught.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The first failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Explorer at m = 0, the first suite test that exposes the mutant is <code>aaba</code>. How do spec and mutant differ on it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The spec outputs 0111 but the mutant outputs 0110 — they diverge at the last symbol</text><feedback><text>Correct — the wrong target state changes the final output.</text></feedback></answer>
+    <answer fraction="0"><text>The spec outputs 0110 and the mutant outputs 0111</text><feedback><text>It is the other way round: spec 0111, mutant 0110.</text></feedback></answer>
+    <answer fraction="0"><text>They produce the same output but the mutant is shorter</text><feedback><text>Both traces have the same length; the outputs differ.</text></feedback></answer>
+    <answer fraction="0"><text>Both output 0111, so the test passes</text><feedback><text>The mutant outputs 0110, so the test fails.</text></feedback></answer>
+    <generalfeedback><text>On aaba the spec runs q1→q2→q3→q2→q3 emitting 0111, while the mutant's q3 —b→ q1 makes it run q1→q2→q3→q1→q2 emitting 0110 — the last output differs, exposing the fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The extra-state assumption</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The W-method's fault-detection guarantee holds under which assumption about the implementation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The implementation has at most m extra states beyond the n states of the spec</text><feedback><text>Correct — the guarantee is relative to a bound of m extra states.</text></feedback></answer>
+    <answer fraction="0"><text>The implementation has exactly the same states with the same names</text><feedback><text>The method allows extra states (up to m); identical naming is not required.</text></feedback></answer>
+    <answer fraction="0"><text>The implementation uses a binary input alphabet</text><feedback><text>Alphabet size is unrelated to the guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>The specification contains no self-loops</text><feedback><text>Self-loops are allowed; the assumption is about extra states.</text></feedback></answer>
+    <generalfeedback><text>The W-method guarantees detection of output and transfer faults only if the implementation has at most m extra states beyond the spec's n states — the middle segment X^≤m is what covers those extra states.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When the assumption is violated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What happens to the guarantee if the implementation has <strong>more</strong> extra states than the assumed bound m?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The guarantee is lost — some faults can escape the suite undetected</text><feedback><text>Correct — beyond m extra states the completeness proof no longer holds.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing changes; the guarantee still holds for any implementation</text><feedback><text>The guarantee is conditional on the extra-state bound.</text></feedback></answer>
+    <answer fraction="0"><text>The suite becomes infinite</text><feedback><text>The suite stays finite; only the guarantee weakens.</text></feedback></answer>
+    <answer fraction="0"><text>W stops being able to distinguish the spec's states</text><feedback><text>W still distinguishes the spec's states; it just may not reach a hidden extra state.</text></feedback></answer>
+    <generalfeedback><text>The X^≤m segment only accounts for up to m extra states. If the implementation hides more, a faulty state can be reached only by sequences longer than the suite exercises, so the fault may go undetected.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What drives suite growth with m</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Explorer the suite grows 11 → 23 → 47 as m goes 0 → 1 → 2. What drives this growth?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each increment of m adds longer middle sequences (X^≤m grows by a power of |X|), multiplying the number of tests</text><feedback><text>Correct — the X^≤m middle is what expands with m.</text></feedback></answer>
+    <answer fraction="0"><text>W grows with m, adding more distinguishing sequences</text><feedback><text>W depends on the spec, not on m; it stays {a, aa}.</text></feedback></answer>
+    <answer fraction="0"><text>The state cover P grows with m</text><feedback><text>P depends on the spec's states, not on m.</text></feedback></answer>
+    <answer fraction="0"><text>The input alphabet grows with m</text><feedback><text>The alphabet is fixed at {a, b}.</text></feedback></answer>
+    <generalfeedback><text>Only the middle segment X^≤m depends on m. As m increases it includes longer input sequences (a |X|-power more each step), so the suite roughly multiplies by the alphabet size — 11, 23, 47 in the example.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why W verifies the exact state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does appending W let the suite verify the exact state reached, not just the outputs seen along the way?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Any two distinct states of a minimal FSM differ on some sequence in W, so a wrong landing state yields a different W-output trace</text><feedback><text>Correct — W is a complete separator of states.</text></feedback></answer>
+    <answer fraction="0"><text>W resets the machine to its initial state before checking</text><feedback><text>W does not reset the machine; it reads the current state's behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>W lists every reachable state by name</text><feedback><text>W is a set of input sequences, not a list of state names.</text></feedback></answer>
+    <answer fraction="0"><text>W is applied only to the initial state</text><feedback><text>W is appended after each prefix, i.e. to whatever state the prefix reaches.</text></feedback></answer>
+    <generalfeedback><text>Because W distinguishes every pair of states, two different landing states must disagree on at least one W sequence. So if a prefix lands in the wrong state, the appended W produces a different, observable output trace.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Faults the method detects</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under its assumption, the W-method is guaranteed to detect which classes of fault?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Output faults and transfer (next-state) faults</text><feedback><text>Correct — both are guaranteed under the extra-state bound.</text></feedback></answer>
+    <answer fraction="0"><text>Only output faults</text><feedback><text>Transfer faults are also caught, as the mutant example shows.</text></feedback></answer>
+    <answer fraction="0"><text>Only missing states</text><feedback><text>The method targets output and transfer faults, not just missing states.</text></feedback></answer>
+    <answer fraction="0"><text>Timing and performance faults</text><feedback><text>The W-method is about functional behaviour, not timing.</text></feedback></answer>
+    <generalfeedback><text>Given at most m extra states, the W-suite detects every output fault (wrong symbol) and every transfer fault (wrong next state) — the transition cover exercises each transition and W verifies both its output and its resulting state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the spec must be minimal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why must the specification FSM be <strong>minimal</strong> (no two equivalent states) for the W-method to work as intended?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only then does W distinguish all n states, and n is the true state count against which the extra-state bound is measured</text><feedback><text>Correct — minimality makes W a complete separator and fixes n.</text></feedback></answer>
+    <answer fraction="0"><text>Minimality makes the suite smaller</text><feedback><text>Suite size is a side effect; the real reason is correctness of W and n.</text></feedback></answer>
+    <answer fraction="0"><text>Minimality is only a diagram-drawing convention</text><feedback><text>It is a correctness requirement, not a drawing choice.</text></feedback></answer>
+    <answer fraction="0"><text>Minimality lets ε be dropped from the state cover</text><feedback><text>ε always covers the initial state; minimality does not remove it.</text></feedback></answer>
+    <generalfeedback><text>If the spec had equivalent states, no W sequence could tell them apart and the count n would overstate the distinct behaviours. Minimality guarantees W separates all n states and that n is the correct baseline for the at-most-m-extra-states assumption.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How suite size scales with n</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a fixed alphabet and m, how does the W-suite size scale with the number of states <strong>n</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Polynomially — roughly n² (state cover × characterizing set) times |X|^(m+1)</text><feedback><text>Correct — |P| and |W| each scale with n, giving a polynomial, not exponential, size.</text></feedback></answer>
+    <answer fraction="0"><text>It does not grow with n — the characterizing set has constant size</text><feedback><text>|W| grows with n, so the suite is not constant in n.</text></feedback></answer>
+    <answer fraction="0"><text>Linearly in n — exactly one test per state</text><feedback><text>Both |P| and |W| scale with n, so the product is more than linear.</text></feedback></answer>
+    <answer fraction="0"><text>Exponentially in n — one dedicated test per pair of states</text><feedback><text>The growth is polynomial (about n²), not exponential in n.</text></feedback></answer>
+    <generalfeedback><text>The transition cover scales with n and W scales with n, so their product is about n²; the X^≤m middle adds a |X|^(m+1) factor. Overall the suite grows polynomially in n for fixed alphabet and m.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the same-output mutant is hard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The mutant keeps the same output (<code>1</code>) on the rewired transition. Why does that make it hard to catch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Any test that only reads the output of that one transition passes; the error surfaces only later, through W-driven behaviour from the wrong state</text><feedback><text>Correct — the fault is only visible downstream, via W.</text></feedback></answer>
+    <answer fraction="0"><text>The transition can never be reached by any test</text><feedback><text>It is reachable; the difficulty is that its immediate output looks correct.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant produces no output at all</text><feedback><text>It still outputs 1; the output is simply unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>The fault changes the input alphabet</text><feedback><text>The alphabet is unchanged; only the target state moved.</text></feedback></answer>
+    <generalfeedback><text>Because the transition's own output is unchanged, checks that stop at that transition see nothing wrong. The wrong target state only shows up when a distinguishing sequence from W is run afterward, revealing the different downstream behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Significance of the catch count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At m = 0 the Explorer reports that <strong>2 of 11</strong> suite tests catch the mutant. What is the practical significance of that count?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only one failing test is needed to expose the fault; the suite guarantees at least one exists under the assumption</text><feedback><text>Correct — completeness needs just one witness, and here there are two.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant is caught only 2/11 of the time, at random</text><feedback><text>The suite is deterministic; those two tests always fail on the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>You must run all 11 tests before the fault can be seen</text><feedback><text>Either of the two failing tests alone already exposes it.</text></feedback></answer>
+    <answer fraction="0"><text>2 out of 11 means the suite is incomplete</text><feedback><text>Completeness only requires at least one failing test; the suite is complete under the assumption.</text></feedback></answer>
+    <generalfeedback><text>A fault is exposed as soon as one test fails. That 2 of 11 tests catch the mutant simply means the guarantee (at least one failing test under the extra-state assumption) is comfortably met.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How transition cover and W combine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do the <strong>transition cover</strong> and <strong>W</strong> work together in the suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The transition cover drives the machine through every transition; W then checks that each transition ended in the correct state and produced the correct output</text><feedback><text>Correct — cover for reachability, W for state verification.</text></feedback></answer>
+    <answer fraction="0"><text>W chooses which transitions to exercise, and the cover verifies the outputs</text><feedback><text>Their roles are reversed: the cover exercises transitions, W verifies states.</text></feedback></answer>
+    <answer fraction="0"><text>Both do the same job, so one is redundant</text><feedback><text>They play complementary roles; neither is redundant.</text></feedback></answer>
+    <answer fraction="0"><text>The cover replaces the need for W when m = 0</text><feedback><text>W is appended even at m = 0; without it landing states are unverified.</text></feedback></answer>
+    <generalfeedback><text>The transition cover (P ∪ P·X) guarantees every transition is taken; appending W to each such prefix turns the reached state into an observable trace, so both the output and the resulting state of every transition are checked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of choosing a larger m</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the effect of choosing a <strong>larger m</strong> in practice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It tolerates more possible extra states (a stronger guarantee) but enlarges the suite by a power of the alphabet, costing more tests</text><feedback><text>Correct — stronger guarantee, larger suite.</text></feedback></answer>
+    <answer fraction="0"><text>It shrinks the suite while keeping the same guarantee</text><feedback><text>Larger m enlarges the suite, not shrinks it.</text></feedback></answer>
+    <answer fraction="0"><text>It has no effect on the fault-detection guarantee</text><feedback><text>Larger m covers more extra states, strengthening the guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the extra-state assumption entirely</text><feedback><text>The assumption remains; m is precisely the bound in it.</text></feedback></answer>
+    <generalfeedback><text>Larger m means the X^≤m segment includes longer sequences, so the suite can uncover faults hidden behind more extra states — but the number of tests grows by a factor of the alphabet size per step (11, 23, 47 in the example). It is a coverage-versus-cost trade-off.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What P·X adds over P</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Beyond the state cover P, why does the suite also include <strong>P·X</strong> (each cover sequence extended by one input)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>P alone only reaches states; P·X takes each outgoing transition once, so combined with W every transition's target is verified</text><feedback><text>Correct — P·X supplies transition coverage.</text></feedback></answer>
+    <answer fraction="0"><text>P·X reaches states that are otherwise unreachable</text><feedback><text>P already reaches all states; P·X exercises the transitions between them.</text></feedback></answer>
+    <answer fraction="0"><text>P·X replaces the need for W</text><feedback><text>W is still needed to verify the state each transition reaches.</text></feedback></answer>
+    <answer fraction="0"><text>P·X is only needed for non-minimal machines</text><feedback><text>P·X is part of the standard construction for any spec, minimal or not.</text></feedback></answer>
+    <generalfeedback><text>P reaches every state but does not necessarily take every transition. Extending each cover sequence by one input (P·X) fires each outgoing transition; appending W then confirms it landed in the right state — that is how transfer faults are caught.</text></generalfeedback>
+  </question>
+</quiz>

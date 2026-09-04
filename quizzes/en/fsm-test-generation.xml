@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/FSM Test Generation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Explorer generates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the FSM Test Generation Explorer, what does the tool produce from a chosen finite-state machine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Executable event sequences (test cases) derived from the model</text><feedback><text>Correct — the Explorer generates runnable event sequences from the FSM.</text></feedback></answer>
+    <answer fraction="0"><text>Only a count of how many states and transitions exist</text><feedback><text>Merely counting is what the State Transition Explorer does; this tool actually generates sequences.</text></feedback></answer>
+    <answer fraction="0"><text>Source code implementing the finite-state machine</text><feedback><text>It does not emit implementation code; it emits event sequences to test the model.</text></feedback></answer>
+    <answer fraction="0"><text>A formal proof that the machine is correct</text><feedback><text>Test generation does not prove correctness; it produces sequences to exercise the model.</text></feedback></answer>
+    <generalfeedback><text>The Explorer generates executable event sequences from a finite-state machine, then compares four model-coverage criteria by suite size.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of example machines</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many finite-state machines can you choose from in step 1 of the Explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — Login Flow, ATM Session, and Vending Machine</text><feedback><text>Correct — the picker offers three machines.</text></feedback></answer>
+    <answer fraction="0"><text>2 — Login Flow and ATM Session</text><feedback><text>There is a third machine, the Vending Machine.</text></feedback></answer>
+    <answer fraction="0"><text>4 — one per coverage criterion</text><feedback><text>There are four criteria but only three machines.</text></feedback></answer>
+    <answer fraction="0"><text>1 — only the Login Flow</text><feedback><text>Three machines are selectable, not one.</text></feedback></answer>
+    <generalfeedback><text>Step 1 lets you choose among three FSMs: Login Flow, ATM Session, and Vending Machine.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login initial state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Login Flow machine, which state is marked as the <strong>initial</strong> state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Start</text><feedback><text>Correct — Start carries the initial marker (▶) in the model.</text></feedback></answer>
+    <answer fraction="0"><text>AwaitingCreds</text><feedback><text>AwaitingCreds is reached from Start via the open event; it is not the initial state.</text></feedback></answer>
+    <answer fraction="0"><text>LoggedIn</text><feedback><text>LoggedIn is reached later, after valid credentials.</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked is an error state, not the initial state.</text></feedback></answer>
+    <generalfeedback><text>The Login Flow machine begins in Start, the state flagged as initial in the model.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login open transition target</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Login Flow machine, the transition on event <code>open</code> leads from Start to which state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>AwaitingCreds</text><feedback><text>Correct — Start on open goes to AwaitingCreds.</text></feedback></answer>
+    <answer fraction="0"><text>Authenticating</text><feedback><text>Authenticating is reached from AwaitingCreds via submit, not directly from Start.</text></feedback></answer>
+    <answer fraction="0"><text>LoggedIn</text><feedback><text>LoggedIn is reached from Authenticating via valid.</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked is reached from Authenticating via tooManyTries.</text></feedback></answer>
+    <generalfeedback><text>The model's first transition is Start --open--&gt; AwaitingCreds.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of coverage criteria</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many model-coverage criteria does the Explorer let you compare in step 2?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — state, transition, transition-pair (switch), and all round-trip paths</text><feedback><text>Correct — the Explorer compares four criteria.</text></feedback></answer>
+    <answer fraction="0"><text>2 — state and transition only</text><feedback><text>There are two more: transition-pair (switch) and all round-trip paths.</text></feedback></answer>
+    <answer fraction="0"><text>3 — one per machine</text><feedback><text>There are three machines but four criteria.</text></feedback></answer>
+    <answer fraction="0"><text>5 — including the Chinese-Postman tour</text><feedback><text>The tour is shown separately; the criteria compared are four.</text></feedback></answer>
+    <generalfeedback><text>Step 2 offers four generation criteria: State coverage, Transition coverage, Transition-pair (switch), and All round-trip paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Three reported metrics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the selected criterion, which three numbers does the Explorer report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Obligations, test cases, and total steps</text><feedback><text>Correct — those are the three metrics shown for a criterion.</text></feedback></answer>
+    <answer fraction="0"><text>States, events, and outputs</text><feedback><text>Those describe the model, not the generated suite's metrics.</text></feedback></answer>
+    <answer fraction="0"><text>Passed, failed, and skipped tests</text><feedback><text>The Explorer generates sequences; it does not run pass/fail results.</text></feedback></answer>
+    <answer fraction="0"><text>Lines, branches, and paths</text><feedback><text>Those are code-coverage terms; this tool reports model-coverage metrics.</text></feedback></answer>
+    <generalfeedback><text>Each criterion shows obligations (things to cover), test cases (generated sequences), and total steps (summed event count).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State coverage defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>state coverage</strong> require, per the Explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every state is visited at least once</text><feedback><text>Correct — that is the state-coverage obligation.</text></feedback></answer>
+    <answer fraction="0"><text>Every transition is fired at least once</text><feedback><text>That is transition coverage, a stronger criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Every pair of adjacent transitions is exercised</text><feedback><text>That is transition-pair (switch) coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every simple cycle is traversed once</text><feedback><text>That is all round-trip paths.</text></feedback></answer>
+    <generalfeedback><text>The Explorer calls state coverage the weakest criterion: every state is visited at least once, needing only a few short sequences from the initial state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transition coverage defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>transition coverage</strong> require, per the Explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every transition is fired at least once</text><feedback><text>Correct — the usual baseline for FSM testing.</text></feedback></answer>
+    <answer fraction="0"><text>Every state is visited at least once</text><feedback><text>That is only state coverage, which transition coverage subsumes.</text></feedback></answer>
+    <answer fraction="0"><text>Every incoming/outgoing transition pair is exercised</text><feedback><text>That is transition-pair (switch) coverage.</text></feedback></answer>
+    <answer fraction="0"><text>The shortest closed tour is walked</text><feedback><text>That is the Chinese-Postman tour, shown separately.</text></feedback></answer>
+    <generalfeedback><text>Transition coverage fires every transition at least once; the Explorer notes it subsumes state coverage and is the usual baseline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Weakest criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which criterion does the Explorer describe as the <strong>weakest</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>State coverage</text><feedback><text>Correct — the Explorer calls state coverage the weakest model criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage</text><feedback><text>Transition coverage is stronger; it subsumes state coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Transition-pair (switch)</text><feedback><text>Switch coverage is stronger still.</text></feedback></answer>
+    <answer fraction="0"><text>All round-trip paths</text><feedback><text>Round-trip coverage targets cycles and is not the weakest.</text></feedback></answer>
+    <generalfeedback><text>State coverage — "the weakest model criterion" — is met by a few short sequences from the initial state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Vending self-loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Vending Machine model, which transition is a <strong>self-loop</strong> (source and target the same state)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>HasCoins --insertMore--&gt; HasCoins</text><feedback><text>Correct — insertMore returns HasCoins to HasCoins.</text></feedback></answer>
+    <answer fraction="0"><text>HasCoins --selectItem--&gt; Selected</text><feedback><text>That moves to Selected; it is not a self-loop.</text></feedback></answer>
+    <answer fraction="0"><text>Selected --confirmPay--&gt; Dispensing</text><feedback><text>That moves to Dispensing; not a self-loop.</text></feedback></answer>
+    <answer fraction="0"><text>Dispensing --itemDispensed--&gt; Idle</text><feedback><text>That returns to Idle; not a self-loop.</text></feedback></answer>
+    <generalfeedback><text>The only self-loop is HasCoins --insertMore--&gt; HasCoins.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM first event</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ATM Session machine (initial state Idle), which event leaves Idle, and to which state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>insertCard, to CardInserted</text><feedback><text>Correct — Idle --insertCard--&gt; CardInserted.</text></feedback></answer>
+    <answer fraction="0"><text>enterPIN, to PINEntered</text><feedback><text>enterPIN leaves CardInserted, not Idle.</text></feedback></answer>
+    <answer fraction="0"><text>withdraw, to Dispensing</text><feedback><text>withdraw leaves MenuShown, not Idle.</text></feedback></answer>
+    <answer fraction="0"><text>cancel, to Idle</text><feedback><text>cancel leaves CardInserted back to Idle; it is not Idle's outgoing event.</text></feedback></answer>
+    <generalfeedback><text>Idle has exactly one outgoing transition: insertCard to CardInserted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Chinese-Postman tour defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>Chinese-Postman transition tour</strong> the Explorer shows?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The shortest closed walk from the initial state that fires every transition at least once</text><feedback><text>Correct — that is exactly its definition in the Explorer.</text></feedback></answer>
+    <answer fraction="0"><text>The shortest path that visits every state once</text><feedback><text>That would be about states; the tour is about firing every transition.</text></feedback></answer>
+    <answer fraction="0"><text>The longest sequence the machine can produce</text><feedback><text>The tour is the shortest closed walk, not the longest sequence.</text></feedback></answer>
+    <answer fraction="0"><text>Any test case generated by transition coverage</text><feedback><text>The tour is a single shortest closed walk, computed separately from the criteria.</text></feedback></answer>
+    <generalfeedback><text>The tour is the shortest closed walk from the initial state firing every transition at least once (a directed Chinese-Postman route).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Explorer generates vs counts</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The bridge notes that the State Transition Explorer only <em>counts</em> coverage of the same FSM model, while this Explorer actually <em>generates</em> the test sequences.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — same model; one counts coverage, the other generates sequences.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The bridge says exactly this: the State Transition Explorer counts, this one generates.</text></feedback></answer>
+    <generalfeedback><text>The bridge button links to the State Transition Explorer, which counts coverage of the same FSM this Explorer generates tests from.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login state count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many <strong>states</strong> does the Login Flow machine have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — Start, AwaitingCreds, Authenticating, LoggedIn, Locked.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>There are five: you may have missed Locked.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the number of transitions, not states.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The Login machine has five states.</text></feedback></answer>
+    <generalfeedback><text>The Login states are Start, AwaitingCreds, Authenticating, LoggedIn, and Locked — five in all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login transition count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many <strong>transitions</strong> does the Login Flow machine have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — open, submit, valid, invalid, tooManyTries, logout, resetByAdmin.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the number of states, not transitions.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the ATM machine's transition count; Login has 7.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Count the rows in the transition table: there are 7.</text></feedback></answer>
+    <generalfeedback><text>The Login transition table lists seven rows, so transition coverage has 7 obligations.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/FSM Test Generation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Login state-coverage test count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the Login Flow machine under <strong>state coverage</strong>, how many test cases does the Explorer generate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — state coverage yields 4 short sequences for Login.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 is what transition coverage yields for Login, not state coverage.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the state count (obligations), but only 4 test cases are generated.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the switch-coverage test count for Login.</text></feedback></answer>
+    <generalfeedback><text>State coverage of Login produces 4 test cases (obligations = 5 states, total steps = 9).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login state-coverage total steps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under <strong>state coverage</strong>, the Login suite is: <code>open</code>; <code>open · submit</code>; <code>open · submit · valid</code>; <code>open · submit · tooManyTries</code>. What is the <strong>total steps</strong> metric?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — 1 + 2 + 3 + 3 = 9 event steps.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of test cases, not the summed steps.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the state count; the summed steps are 9.</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>11 is the round-trip total steps for Login, not state coverage.</text></feedback></answer>
+    <generalfeedback><text>Total steps sums the length of every test: 1 + 2 + 3 + 3 = 9.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login transition-coverage test count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the Login machine under <strong>transition coverage</strong>, how many test cases does the Explorer generate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 — a single 10-step walk fires all 7 transitions</text><feedback><text>Correct — transition coverage weaves all transitions into one sequence.</text></feedback></answer>
+    <answer fraction="0"><text>7 — one test per transition</text><feedback><text>The generator chains transitions into a single walk, not one test each.</text></feedback></answer>
+    <answer fraction="0"><text>4 — same as state coverage</text><feedback><text>State coverage yields 4; transition coverage yields 1 here.</text></feedback></answer>
+    <answer fraction="0"><text>9 — same as switch coverage</text><feedback><text>9 is the switch-coverage test count.</text></feedback></answer>
+    <generalfeedback><text>Transition coverage of Login is one test of 10 steps: open · submit · valid · logout · open · submit · invalid · submit · tooManyTries · resetByAdmin.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login switch obligations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the Login machine under <strong>transition-pair (switch)</strong> coverage, how many <strong>obligations</strong> does the Explorer report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — summing (incoming × outgoing) over the five states gives 9.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the transition count (transition-coverage obligations), not the pair count.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the state count; switch obligations sum in×out per state.</text></feedback></answer>
+    <answer fraction="0"><text>14</text><feedback><text>14 is the Vending machine's switch obligations, not Login's.</text></feedback></answer>
+    <generalfeedback><text>Switch obligations = Σ (in-degree × out-degree): Start 2×1, AwaitingCreds 2×1, Authenticating 1×3, LoggedIn 1×1, Locked 1×1 = 2+2+3+1+1 = 9.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which criterion gives one Login test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the Login machine, which criterion produces exactly <strong>one</strong> test case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Transition coverage</text><feedback><text>Correct — it chains all 7 transitions into a single walk (1 test).</text></feedback></answer>
+    <answer fraction="0"><text>State coverage</text><feedback><text>State coverage yields 4 test cases for Login.</text></feedback></answer>
+    <answer fraction="0"><text>Transition-pair (switch)</text><feedback><text>Switch coverage yields 9 test cases for Login.</text></feedback></answer>
+    <answer fraction="0"><text>All round-trip paths</text><feedback><text>Round-trip yields 3 test cases for Login.</text></feedback></answer>
+    <generalfeedback><text>Only transition coverage collapses to a single Login test (1 walk / 10 steps); state=4, switch=9, round-trip=3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login round-trip count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under <strong>all round-trip paths</strong>, how many test cases (one per simple cycle) does the Login machine yield?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — the Login model has three simple cycles.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>There are three simple cycles, so three round-trip tests.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the state count, not the number of cycles.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the transition count, not the number of cycles.</text></feedback></answer>
+    <generalfeedback><text>Round-trip coverage traverses each simple cycle once. Login has three: Start→AwaitingCreds→Authenticating→LoggedIn→Start, Start→AwaitingCreds→Authenticating→Locked→Start, and AwaitingCreds→Authenticating→AwaitingCreds.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match fault: wrong landing state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which criterion is described as catching faults where <strong>a transition lands in the wrong state</strong>, so the next transition behaves unexpectedly?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Transition-pair (switch)</text><feedback><text>Correct — switch coverage pairs an incoming edge with each outgoing edge to expose wrong landings.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage</text><feedback><text>State coverage only visits states; it misses broken transitions entirely.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage</text><feedback><text>Transition coverage fires each edge alone and can miss the interaction fault.</text></feedback></answer>
+    <answer fraction="0"><text>All round-trip paths</text><feedback><text>Round-trip targets loop faults (stale state), not wrong-landing pairs.</text></feedback></answer>
+    <generalfeedback><text>The Explorer says switch coverage "catches faults where a transition lands in the wrong state: the next transition then behaves unexpectedly."</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Transition subsumes state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the Explorer, achieving transition coverage automatically achieves state coverage, because firing every transition necessarily visits every reachable state.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — transition coverage subsumes state coverage.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The Explorer states transition coverage subsumes state coverage.</text></feedback></answer>
+    <generalfeedback><text>Every transition has a source and target state, so exercising all transitions visits all reachable states — transition coverage subsumes state coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match fault: after a loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which criterion is described as catching faults that only surface <strong>after a loop</strong> — stale state left behind by a previous pass?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All round-trip paths</text><feedback><text>Correct — traversing each simple cycle exercises loop and re-entry behavior.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage</text><feedback><text>State coverage never forces a loop to repeat.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage</text><feedback><text>Transition coverage fires each edge once but need not repeat a cycle.</text></feedback></answer>
+    <answer fraction="0"><text>Transition-pair (switch)</text><feedback><text>Switch targets adjacent-pair faults, not stale state after a loop.</text></feedback></answer>
+    <generalfeedback><text>Round-trip coverage traverses every simple cycle, so it "catches faults that only surface after a loop: stale state left behind by a previous pass."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM sequence to reach Dispensing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ATM machine, which event sequence from Idle reaches the <code>Dispensing</code> state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>insertCard · enterPIN · pinCorrect · withdraw</text><feedback><text>Correct — Idle→CardInserted→PINEntered→MenuShown→Dispensing.</text></feedback></answer>
+    <answer fraction="0"><text>insertCard · enterPIN · pinCorrect</text><feedback><text>That reaches MenuShown; withdraw is still needed to reach Dispensing.</text></feedback></answer>
+    <answer fraction="0"><text>insertCard · cancel · withdraw</text><feedback><text>cancel returns to Idle, where withdraw is undefined.</text></feedback></answer>
+    <answer fraction="0"><text>insertCard · enterPIN · pinWrong · withdraw</text><feedback><text>pinWrong returns to CardInserted, where withdraw is undefined.</text></feedback></answer>
+    <generalfeedback><text>Dispensing is reached only via MenuShown --withdraw--&gt;, and MenuShown needs pinCorrect after enterPIN: insertCard · enterPIN · pinCorrect · withdraw.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login state after open·submit·valid</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Login machine, after the sequence <code>open · submit · valid</code> from Start, which state is active?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LoggedIn</text><feedback><text>Correct — Start→AwaitingCreds→Authenticating→LoggedIn.</text></feedback></answer>
+    <answer fraction="0"><text>Authenticating</text><feedback><text>submit reaches Authenticating, but valid then advances to LoggedIn.</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked is reached via tooManyTries, not valid.</text></feedback></answer>
+    <answer fraction="0"><text>AwaitingCreds</text><feedback><text>invalid returns to AwaitingCreds; valid does not.</text></feedback></answer>
+    <generalfeedback><text>open (Start→AwaitingCreds), submit (→Authenticating), valid (→LoggedIn): the active state is LoggedIn.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why open alone misses state coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the single sequence <code>open</code> fail to achieve <strong>state coverage</strong> of the Login machine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It visits only Start and AwaitingCreds, leaving Authenticating, LoggedIn, and Locked unvisited</text><feedback><text>Correct — three of the five states are never entered.</text></feedback></answer>
+    <answer fraction="0"><text>It fires no transition at all</text><feedback><text>It fires open; the problem is that most states remain unvisited.</text></feedback></answer>
+    <answer fraction="0"><text>It repeats a transition, which is disallowed</text><feedback><text>Repetition is allowed; the issue is unvisited states.</text></feedback></answer>
+    <answer fraction="0"><text>open is an undefined event in Start</text><feedback><text>open is Start's defined transition; state coverage still fails because most states are unreached.</text></feedback></answer>
+    <generalfeedback><text>State coverage requires visiting all five states. open reaches only AwaitingCreds (plus Start), so Authenticating, LoggedIn, and Locked stay unvisited.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM: more tests, transition or switch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the ATM machine, which criterion generates <strong>more test cases</strong>, transition coverage or transition-pair (switch) coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Switch coverage — 12 test cases versus transition coverage's 1</text><feedback><text>Correct — switch coverage's per-state pairing yields far more tests.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage — it has one test per transition</text><feedback><text>Transition coverage collapses to a single ATM walk, not one per transition.</text></feedback></answer>
+    <answer fraction="0"><text>They generate the same number</text><feedback><text>Switch yields 12; transition yields 1 — very different.</text></feedback></answer>
+    <answer fraction="0"><text>Neither generates any test for ATM</text><feedback><text>Both do: transition = 1 test, switch = 12 tests.</text></feedback></answer>
+    <generalfeedback><text>Stronger criteria cost more: ATM transition coverage is 1 test (13 steps), switch coverage is 12 tests (45 steps).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading the compare label</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the comparison chart, the Login switch-coverage row shows the label <code>9 / 33</code>. What do these two numbers mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9 test cases and 33 total event steps</text><feedback><text>Correct — the label is test cases / total steps.</text></feedback></answer>
+    <answer fraction="0"><text>9 obligations and 33 test cases</text><feedback><text>The label is test cases / total steps, not obligations / tests.</text></feedback></answer>
+    <answer fraction="0"><text>9 states and 33 transitions</text><feedback><text>Those describe the model, not the suite label.</text></feedback></answer>
+    <answer fraction="0"><text>9 steps per test over 33 tests</text><feedback><text>The label reads test cases (9) then total steps (33).</text></feedback></answer>
+    <generalfeedback><text>The compare note says the bar shows total event steps and the label shows test cases / steps — so 9 / 33 is 9 tests and 33 steps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login tour overhead</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the Login machine, the Chinese-Postman tour has lower bound 7 (transitions) and tour length 10. What is the <strong>repeated steps</strong> (overhead) value?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>+3</text><feedback><text>Correct — 10 − 7 = 3 repeated steps.</text></feedback></answer>
+    <answer fraction="0"><text>+0</text><feedback><text>+0 would mean an Eulerian tour; Login's tour is longer than the lower bound.</text></feedback></answer>
+    <answer fraction="0"><text>+7</text><feedback><text>7 is the lower bound itself, not the overhead.</text></feedback></answer>
+    <answer fraction="0"><text>+10</text><feedback><text>10 is the tour length; overhead is length minus lower bound.</text></feedback></answer>
+    <generalfeedback><text>Overhead = tour length − transitions = 10 − 7 = 3, so the Login tour repeats 3 steps and is not Eulerian.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/FSM Test Generation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Login: most test cases</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Across the four criteria for the Login machine — state (4 tests), transition (1), switch (9), round-trip (3) — which criterion produces the <strong>largest</strong> suite by test-case count?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Transition-pair (switch), with 9 test cases</text><feedback><text>Correct — switch coverage's per-state pairing yields the most tests.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage, with 4 test cases</text><feedback><text>4 is fewer than switch coverage's 9.</text></feedback></answer>
+    <answer fraction="0"><text>All round-trip paths, with 3 test cases</text><feedback><text>3 is fewer than switch coverage's 9.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage, with 1 test case</text><feedback><text>Transition coverage yields the fewest tests here, not the most.</text></feedback></answer>
+    <generalfeedback><text>Switch coverage (9) beats state (4), round-trip (3), and transition (1): pairing every incoming with every outgoing edge multiplies obligations and tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Login: fewest test cases</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the Login machine, which criterion produces the <strong>fewest</strong> test cases, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Transition coverage — the generator chains all transitions into a single walk</text><feedback><text>Correct — 7 transitions become one 10-step test.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage — one test suffices for all states</text><feedback><text>State coverage needs 4 tests here because states lie on divergent branches.</text></feedback></answer>
+    <answer fraction="0"><text>Switch coverage — pairs collapse into one test</text><feedback><text>Switch coverage yields the most tests (9), not the fewest.</text></feedback></answer>
+    <answer fraction="0"><text>Round-trip — cycles merge into one test</text><feedback><text>Round-trip yields one test per cycle (3), not the fewest.</text></feedback></answer>
+    <generalfeedback><text>Transition coverage weaves every transition into one connected walk, so Login needs just 1 test (10 steps) — fewer than state (4), round-trip (3), or switch (9).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATM: state contributing most pairs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The ATM machine has 12 switch obligations. Using (incoming × outgoing) per state, which state contributes the <strong>most</strong> transition-pair obligations?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CardInserted — 2 incoming × 2 outgoing = 4</text><feedback><text>Correct — CardInserted has 2 in (insertCard, pinWrong) and 2 out (enterPIN, cancel).</text></feedback></answer>
+    <answer fraction="0"><text>Idle — 3 incoming × 1 outgoing = 3</text><feedback><text>Idle contributes 3, one fewer than CardInserted's 4.</text></feedback></answer>
+    <answer fraction="0"><text>PINEntered — 1 incoming × 2 outgoing = 2</text><feedback><text>PINEntered contributes only 2.</text></feedback></answer>
+    <answer fraction="0"><text>Dispensing — 1 incoming × 1 outgoing = 1</text><feedback><text>Dispensing contributes just 1.</text></feedback></answer>
+    <generalfeedback><text>Per state: Idle 3×1=3, CardInserted 2×2=4, PINEntered 1×2=2, MenuShown 1×2=2, Dispensing 1×1=1 → total 12; CardInserted (4) is the largest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Vending: why HasCoins dominates pairs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Vending machine has 14 switch obligations, of which HasCoins alone contributes 3 × 3 = 9. Why is HasCoins's in- and out-degree so high?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its insertMore self-loop counts once as an incoming edge and once as an outgoing edge of HasCoins</text><feedback><text>Correct — the self-loop inflates both degrees, so in×out grows.</text></feedback></answer>
+    <answer fraction="0"><text>HasCoins is the initial state, so every path starts there</text><feedback><text>Idle is the initial state; degree, not initiality, drives the pair count.</text></feedback></answer>
+    <answer fraction="0"><text>HasCoins has a guard that doubles its transitions</text><feedback><text>This model has no guards; the self-loop is what raises the degree.</text></feedback></answer>
+    <answer fraction="0"><text>Switch coverage counts states twice when they repeat</text><feedback><text>Switch obligations are in×out per state; the self-loop is the reason HasCoins is high.</text></feedback></answer>
+    <generalfeedback><text>HasCoins has incoming {insertCoin, insertMore, clearSelection}=3 and outgoing {insertMore, selectItem, cancel}=3. The insertMore self-loop appears in both sets, giving 3×3=9 of the 14 obligations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Login tour is not Eulerian</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Login tour reports length 10 against a lower bound of 7 (not Eulerian). What does that gap indicate about the model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Some states have unequal in- and out-degree, so certain transitions must be repeated to close the walk</text><feedback><text>Correct — degree imbalance forces the +3 repeated steps.</text></feedback></answer>
+    <answer fraction="0"><text>The machine has an unreachable transition</text><feedback><text>All transitions are reachable; the gap is from degree imbalance, not unreachability.</text></feedback></answer>
+    <answer fraction="0"><text>There are 3 states that were never visited</text><feedback><text>The tour fires every transition and visits every state; the +3 is repeated steps.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage failed to generate a suite</text><feedback><text>It generated a 10-step walk; the point is the tour exceeds the lower bound by 3.</text></feedback></answer>
+    <generalfeedback><text>A directed tour equals the transition count only when every vertex is balanced (in-degree = out-degree). Login is unbalanced, so 3 transitions must repeat: length 10 = 7 + 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why 10 steps for 7 transitions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Login's transition-coverage suite is a single walk of 10 steps, yet the machine has only 7 transitions. Why are there 10 steps, not 7?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The walk cannot chain all 7 transitions without revisiting already-covered edges to reach the remaining uncovered ones</text><feedback><text>Correct — reconnecting to uncovered transitions costs extra, already-fired steps.</text></feedback></answer>
+    <answer fraction="0"><text>Each transition is deliberately fired twice for reliability</text><feedback><text>The generator fires each transition at least once, not twice by design.</text></feedback></answer>
+    <answer fraction="0"><text>Three transitions are self-loops that count double</text><feedback><text>Login has no self-loops; the extra steps come from reconnecting walks.</text></feedback></answer>
+    <answer fraction="0"><text>The suite includes 3 extra tests of one step each</text><feedback><text>It is a single test of 10 steps, not multiple tests.</text></feedback></answer>
+    <generalfeedback><text>After firing a branch (e.g. reaching LoggedIn then logout), the walk must return through covered transitions to reach still-uncovered ones (invalid, tooManyTries, resetByAdmin), adding 3 repeated steps for a 10-step total.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost/fault trade-off for ATM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For ATM, transition coverage is 8 obligations / 1 test / 13 steps while switch coverage is 12 obligations / 12 tests / 45 steps. Which reading of this trade-off matches the Explorer's note?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Switch coverage targets more (interaction) fault types but costs much more to run</text><feedback><text>Correct — stronger criteria find more faults at higher suite cost.</text></feedback></answer>
+    <answer fraction="0"><text>Transition coverage is strictly better because it is cheaper</text><feedback><text>Cheaper, but it misses the interaction faults switch coverage targets.</text></feedback></answer>
+    <answer fraction="0"><text>Switch coverage is cheaper because it has fewer steps</text><feedback><text>Switch has more steps (45 vs 13), not fewer.</text></feedback></answer>
+    <answer fraction="0"><text>The two suites detect exactly the same faults</text><feedback><text>Switch adds adjacent-pair (wrong-landing) faults that transition coverage can miss.</text></feedback></answer>
+    <generalfeedback><text>The compare note: stronger criteria find more faults but cost more to run. Switch's 12 tests / 45 steps buy adjacent-pair fault detection over transition coverage's cheaper 1 test / 13 steps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Comparing bar lengths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Login comparison chart, switch coverage totals 33 steps and round-trip totals 11 steps. Since the bar encodes total steps, which row has the <strong>longer</strong> bar?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Switch coverage — 33 steps exceeds round-trip's 11</text><feedback><text>Correct — the bar length is proportional to total steps.</text></feedback></answer>
+    <answer fraction="0"><text>Round-trip — cycles are always longest</text><feedback><text>Round-trip totals 11 steps here, shorter than switch's 33.</text></feedback></answer>
+    <answer fraction="0"><text>They are equal length</text><feedback><text>33 and 11 differ, so the bars differ.</text></feedback></answer>
+    <answer fraction="0"><text>Neither has a bar; only the label is shown</text><feedback><text>Each row draws a bar whose width is total steps relative to the max.</text></feedback></answer>
+    <generalfeedback><text>The bar width is (row total steps / max total steps). Switch (33) draws a longer bar than round-trip (11).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transition Login state-coverage never fires</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Login's state-coverage suite is <code>open</code>; <code>open · submit</code>; <code>open · submit · valid</code>; <code>open · submit · tooManyTries</code>. Which transition does this suite <strong>never</strong> fire?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>logout (LoggedIn → Start)</text><feedback><text>Correct — the suite reaches LoggedIn but never fires logout.</text></feedback></answer>
+    <answer fraction="0"><text>valid (Authenticating → LoggedIn)</text><feedback><text>valid is fired by the third test.</text></feedback></answer>
+    <answer fraction="0"><text>submit (AwaitingCreds → Authenticating)</text><feedback><text>submit is fired by three of the tests.</text></feedback></answer>
+    <answer fraction="0"><text>tooManyTries (Authenticating → Locked)</text><feedback><text>tooManyTries is fired by the fourth test.</text></feedback></answer>
+    <generalfeedback><text>The suite fires open, submit, valid, and tooManyTries. It never fires invalid, logout, or resetByAdmin — so logout is one it misses, illustrating that state coverage does not imply transition coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Login state coverage needs 4 tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>State coverage of Login yields 4 test cases, not 1. What best explains needing more than one sequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The model branches — LoggedIn and Locked lie on divergent paths, so one non-repeating walk cannot enter both</text><feedback><text>Correct — separate short sequences are needed to reach states on different branches.</text></feedback></answer>
+    <answer fraction="0"><text>Each state must be visited by its own dedicated test</text><feedback><text>One walk can cover several states; the split comes from branching, not a one-test-per-state rule.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage forbids sequences longer than one event</text><feedback><text>Sequences can be several events long (e.g. open · submit · valid).</text></feedback></answer>
+    <answer fraction="0"><text>The initial state must be re-entered between tests</text><feedback><text>The reason is divergent branches, not a re-entry rule.</text></feedback></answer>
+    <generalfeedback><text>From Start the generator extends toward the nearest unvisited state each round; because LoggedIn (via valid) and Locked (via tooManyTries) are on different branches out of Authenticating, distinct short sequences are needed — 4 tests, 9 steps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a Login simple cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Round-trip coverage traverses each simple cycle. Which of the following is a <strong>simple cycle</strong> in the Login machine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>AwaitingCreds → Authenticating → AwaitingCreds (submit, invalid)</text><feedback><text>Correct — submit then invalid returns to AwaitingCreds.</text></feedback></answer>
+    <answer fraction="0"><text>Start → AwaitingCreds → Start</text><feedback><text>There is no transition from AwaitingCreds back to Start, so this is not a cycle.</text></feedback></answer>
+    <answer fraction="0"><text>Authenticating → LoggedIn → Locked</text><feedback><text>There is no LoggedIn → Locked transition, and it does not return to its start.</text></feedback></answer>
+    <answer fraction="0"><text>Locked → LoggedIn → Locked</text><feedback><text>There is no transition between Locked and LoggedIn.</text></feedback></answer>
+    <generalfeedback><text>Login's simple cycles are Start→AwaitingCreds→Authenticating→LoggedIn→Start, Start→AwaitingCreds→Authenticating→Locked→Start, and AwaitingCreds→Authenticating→AwaitingCreds (submit, invalid).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Largest tour overhead</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Chinese-Postman tour overheads are: Login +3 (7→10), ATM +5 (8→13), Vending +2 (7→9). Which machine has the <strong>largest</strong> repeated-steps overhead?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATM — +5 repeated steps</text><feedback><text>Correct — ATM's degree imbalance forces the most repeats.</text></feedback></answer>
+    <answer fraction="0"><text>Login — +3 repeated steps</text><feedback><text>+3 is less than ATM's +5.</text></feedback></answer>
+    <answer fraction="0"><text>Vending — +2 repeated steps</text><feedback><text>+2 is the smallest overhead, not the largest.</text></feedback></answer>
+    <answer fraction="0"><text>All three are equal</text><feedback><text>They differ: +3, +5, +2.</text></feedback></answer>
+    <generalfeedback><text>Overhead = tour length − transitions: Login 10−7=3, ATM 13−8=5, Vending 9−7=2. ATM's +5 is largest, and none of the three tours is Eulerian.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Eulerian means zero overhead</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Explorer flags a transition tour as <strong>Eulerian</strong> only when the overhead is +0 — the tour length equals the transition-count lower bound, so every transition is fired exactly once.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — Eulerian requires zero repeated steps (tour length = lower bound).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The Explorer labels a tour Eulerian exactly when overhead is +0 and the walk closes.</text></feedback></answer>
+    <generalfeedback><text>A tour is Eulerian when extra = 0 and the walk closes — the tour equals the lower bound and each transition fires once. None of the three sample FSMs is Eulerian.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Switch catches a wrong-landing bug</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose ATM's <code>pinCorrect</code> should reach MenuShown but a bug lands it in CardInserted. Which criterion is designed to expose this, and why does plain transition coverage risk missing it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Switch coverage — it pairs the incoming pinCorrect with each edge leaving MenuShown, so the wrong landing derails the next transition; transition coverage fires pinCorrect once in isolation and may not check what follows</text><feedback><text>Correct — that is exactly the adjacent-pair fault switch coverage targets.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage — visiting MenuShown reveals the bug</text><feedback><text>If pinCorrect lands elsewhere, MenuShown may still be visited another way; visiting a state does not check the landing edge.</text></feedback></answer>
+    <answer fraction="0"><text>Round-trip coverage — only loops expose it</text><feedback><text>The fault is an adjacent-pair (wrong-landing) fault, which switch coverage targets, not specifically a loop fault.</text></feedback></answer>
+    <answer fraction="0"><text>No criterion here can catch it</text><feedback><text>Switch coverage is specifically designed for wrong-landing faults.</text></feedback></answer>
+    <generalfeedback><text>Transition coverage fires pinCorrect alone and may not exercise what should follow in MenuShown. Switch coverage pairs pinCorrect with each MenuShown outgoing edge (withdraw, cancelAtMenu), so a wrong landing makes the next transition behave unexpectedly — the fault class the Explorer attributes to switch coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why switch needs more tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does transition-pair (switch) coverage generally require more test cases than plain transition coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It must exercise every pair of adjacent transitions, so a state with i incoming and o outgoing transitions contributes i×o obligations</text><feedback><text>Correct — pairing incoming with outgoing edges multiplies obligations per state.</text></feedback></answer>
+    <answer fraction="0"><text>It must visit every state at least once, which transition coverage skips</text><feedback><text>Transition coverage already visits every reachable state; that is not the reason.</text></feedback></answer>
+    <answer fraction="0"><text>It needs a Chinese-Postman tour, which transition coverage does not</text><feedback><text>The tour is separate from switch coverage; the driver is the i×o pairing.</text></feedback></answer>
+    <answer fraction="0"><text>It generates one test per transition, but makes each test twice as long</text><feedback><text>The growth is in obligation count (i×o per state), not test length.</text></feedback></answer>
+    <generalfeedback><text>Switch coverage multiplies in-degree by out-degree at every state, so obligations — and the suite — grow far faster than one-per-transition. For Login this is 9 obligations / 9 tests versus transition coverage's 7 obligations / 1 test.</text></generalfeedback>
+  </question>
+</quiz>

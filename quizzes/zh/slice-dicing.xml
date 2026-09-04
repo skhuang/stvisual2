@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Slice Dicing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是程式切丁</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在切丁探索器中，一個錯誤的<strong>切丁（dice）</strong>最適當的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>錯誤變數的後向切片中、不出現在任何正確變數切片裡的那些陳述句</text><feedback><text>正確——切丁即把失敗（錯誤）切片減去每個正確變數的切片後剩下的部分。</text></feedback></answer>
+    <answer fraction="0"><text>程式在失敗輸入上執行到的所有陳述句</text><feedback><text>那是整條執行軌跡，不是切丁；切丁還要減去正確變數的切片。</text></feedback></answer>
+    <answer fraction="0"><text>所有輸出變數切片的聯集</text><feedback><text>切丁是做集合差（減法），不是取聯集。</text></feedback></answer>
+    <answer fraction="0"><text>每個輸出的切片都共有的陳述句</text><feedback><text>那些共有陳述句正是切丁要移除的，而非保留的。</text></feedback></answer>
+    <generalfeedback><text>切丁 = 切片（錯誤變數）減去被觀察為正確的變數的切片。剩下的即為僅與錯誤結果有關的陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切丁與單純切片的差別</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>切丁（dicing）</strong>與計算單一<strong>切片（slice）</strong>有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>切片計算一個集合；切丁對多個切片做集合差——把正確變數的切片從錯誤變數的切片中減去</text><feedback><text>正確——切丁是對數個切片做集合運算以縮小可疑範圍。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相同；切丁只是後向切片的別名</text><feedback><text>不對——切丁以減法結合多個切片；切片是單一集合。</text></feedback></answer>
+    <answer fraction="0"><text>切片需要失敗測試，切丁不需要</text><feedback><text>切丁需要一個被觀察為錯誤的變數（一次失敗）；單一切片只需一個條件即可。</text></feedback></answer>
+    <answer fraction="0"><text>切丁忽略相依關係，只計算執行過的行</text><feedback><text>切丁從真正的後向切片（以相依關係為基礎）出發，再做減法。</text></feedback></answer>
+    <generalfeedback><text>切片回答「此處什麼會影響 v？」切丁則取錯誤變數的切片，減去被觀察為正確的變數之切片，留下最可能造成錯誤的陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個變數是錯誤的（Summary Stats）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在靜態的 <strong>Summary Stats</strong> 情境中，哪個輸出變數是被觀察為<strong>錯誤</strong>的那一個（錯誤輸出）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>highest</text><feedback><text>正確——app 將 highest 設為錯誤輸出；其切片是切丁的起點。</text></feedback></answer>
+    <answer fraction="0"><text>total</text><feedback><text>此情境中 total 被觀察為正確，其切片會被減去。</text></feedback></answer>
+    <answer fraction="0"><text>mean</text><feedback><text>此處 mean 被觀察為正確，其切片會被減去。</text></feedback></answer>
+    <answer fraction="0"><text>nums</text><feedback><text>nums 是輸入陣列，不是三個回傳的輸出變數之一。</text></feedback></answer>
+    <generalfeedback><text>Summary Stats 回傳 total、mean、highest。錯誤輸出是 highest；total 與 mean 正確，故切丁 = 切片(highest) 減去 切片(total) 減去 切片(mean)。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些輸出是正確的（Summary Stats）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在靜態的 <strong>Summary Stats</strong> 情境中，哪些輸出變數被觀察為<strong>正確</strong>（其切片會被減去）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>total 與 mean</text><feedback><text>正確——只有 highest 錯誤；total 與 mean 正確，故其切片被減去。</text></feedback></answer>
+    <answer fraction="0"><text>highest 與 mean</text><feedback><text>highest 是錯誤變數，不是正確的那一個。</text></feedback></answer>
+    <answer fraction="0"><text>highest 與 total</text><feedback><text>highest 是錯誤變數；正確的一組是 total 與 mean。</text></feedback></answer>
+    <answer fraction="0"><text>只有 total</text><feedback><text>mean 也是正確的，其切片同樣被減去。</text></feedback></answer>
+    <generalfeedback><text>切丁減去每個被觀察為正確的變數之切片。此處是 total 與 mean，留下 highest 獨有的部分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何要減去正確切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>切丁為何要<strong>減去</strong>被觀察為正確的變數之切片？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>同時參與計算某正確輸出的陳述句較不可能是錯誤所在，移除它可縮小可疑範圍</text><feedback><text>正確——與正確結果共用的陳述句大致可排除嫌疑，縮小搜尋範圍。</text></feedback></answer>
+    <answer fraction="0"><text>為了把切丁變大以檢查更多陳述句</text><feedback><text>減法會縮小集合；目標是更小、更聚焦的可疑範圍。</text></feedback></answer>
+    <answer fraction="0"><text>因為正確變數絕不會與錯誤變數共用陳述句</text><feedback><text>它們常會共用陳述句——這種共用正是減法要移除的。</text></feedback></answer>
+    <answer fraction="0"><text>為了把後向切片轉成前向切片</text><feedback><text>切丁不改變切片方向；它對後向切片做集合差。</text></feedback></answer>
+    <generalfeedback><text>若一個陳述句協助產出某個正確的值，它作為錯誤來源的嫌疑就較低。減去正確切片後，只留下僅與錯誤輸出有關的陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切丁是哪種集合運算</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由失敗切片與正確切片計算切丁，是哪一種集合運算？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>集合差——失敗切片減去正確切片</text><feedback><text>正確——切丁 = 失敗切片刪去任一正確切片中的每個陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>所有切片的交集</text><feedback><text>交集會保留共有陳述句；切丁是移除它們。</text></feedback></answer>
+    <answer fraction="0"><text>所有切片的聯集</text><feedback><text>聯集會使集合變大；切丁以減法縮小它。</text></feedback></answer>
+    <answer fraction="0"><text>只對前兩個切片取對稱差</text><feedback><text>切丁把每個正確切片都從那一個失敗切片減去，而非兩者的對稱差。</text></feedback></answer>
+    <generalfeedback><text>programDice(failing, passing[]) 複製失敗切片，並刪去出現在任一正確切片中的每個陳述句——即集合差。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>切丁是失敗切片的子集</text></name>
+    <questiontext format="html"><text><![CDATA[<p>切丁一定是錯誤變數之後向切片的子集。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——切丁只會從失敗切片中刪除陳述句，故不可能包含切片以外之物。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>減法只會移除、絕不會新增，故切丁仍落在失敗切片之內。</text></feedback></answer>
+    <generalfeedback><text>切丁一開始是失敗（錯誤變數）切片的複本，之後只被移除陳述句，故切丁是該切片的子集。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀出切丁大小（Summary Stats）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在靜態的 <strong>Summary Stats</strong> 情境中，錯誤輸出設為 <code>highest</code> 時，切丁包含幾個陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——切丁為 s3、s6、s7 以及 highest 的回傳：共四個陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是減去正確切片之前，highest 完整後向切片的大小。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是 Fare 情境的動態切丁，不是這一個。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 是程式的陳述句總數，不是切丁。</text></feedback></answer>
+    <generalfeedback><text>切片(highest) 有 7 個陳述句；減去 切片(total) 與 切片(mean) 移除了 s2、s4、s5，剩下 4 個：s3、s6、s7、return highest。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>植入的錯誤（Summary Stats）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，植入的錯誤位於 s7 <code>highest = total</code>（它指派了 total 而非 n）。s7 在切丁裡嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是——s7 在切丁裡，故 app 顯示「捕獲錯誤」</text><feedback><text>正確——s7 在 切片(highest) 中，但不在 切片(total) 或 切片(mean) 中，故保留於切丁。</text></feedback></answer>
+    <answer fraction="0"><text>否——s7 被正確切片減去了</text><feedback><text>s7 不出現在 total 或 mean 的切片中，故不會被減去；它留在切丁裡。</text></feedback></answer>
+    <answer fraction="0"><text>只有在你把 total 也標記為錯誤時</text><feedback><text>僅將 highest 標記為錯誤時，s7 就已在切丁中，無需額外標記。</text></feedback></answer>
+    <answer fraction="0"><text>s7 根本不在任何切片中</text><feedback><text>s7 定義 highest，故在 highest 的後向切片中。</text></feedback></answer>
+    <generalfeedback><text>錯誤 s7（highest = total）影響 highest，卻不影響 total 或 mean，故留在切丁中；詳情面板顯示「捕獲錯誤」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>失敗的執行（Fare Calculator）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態的 <strong>Fare Calculator</strong> 情境中，哪一次執行是<strong>失敗</strong>的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>age=30, peak=true——預期 12，實際 14</text><feedback><text>正確——adult-peak 這次是唯一標記為失敗的執行。</text></feedback></answer>
+    <answer fraction="0"><text>age=30, peak=false——預期 10，實際 10</text><feedback><text>該次通過（10 = 10），其切片會被減去。</text></feedback></answer>
+    <answer fraction="0"><text>age=12, peak=false——預期 5，實際 5</text><feedback><text>該次通過，其切片會被減去。</text></feedback></answer>
+    <answer fraction="0"><text>age=70, peak=false——預期 3，實際 3</text><feedback><text>該次通過，其切片會被減去。</text></feedback></answer>
+    <generalfeedback><text>只有 age=30, peak=true 失敗（預期 12、實際 14）。其動態切片是失敗切片；三次通過執行的切片會被減去。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀出切丁大小（Fare Calculator）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態的 <strong>Fare Calculator</strong> 情境中，切丁包含幾個陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——切丁為 s8 與 s9：兩個陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是減法之前，失敗執行的動態切片大小。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>0 是此處的<em>靜態</em>切丁；動態切丁是 2。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是通過切片聯集的大小，不是切丁。</text></feedback></answer>
+    <generalfeedback><text>失敗動態切片為 {s2, s8, s9, s11}；減去通過執行的切片後移除了 s2 與 s11，留下切丁 {s8, s9}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些陳述句構成切丁（Fare）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態的 <strong>Fare Calculator</strong> 情境中，哪些陳述句構成切丁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s8 <code>if (peak)</code> 與 s9 <code>price = price + 2 + 2</code></text><feedback><text>正確——這兩者在減去通過切片後仍存留。</text></feedback></answer>
+    <answer fraction="0"><text>s2 <code>price = 10</code> 與 s11 <code>return price</code></text><feedback><text>兩者都出現在通過執行的切片中，故都被減去。</text></feedback></answer>
+    <answer fraction="0"><text>s4 <code>price = 5</code> 與 s6 <code>price = 3</code></text><feedback><text>這些只在通過輸入上執行；它們根本不在失敗切片中。</text></feedback></answer>
+    <answer fraction="0"><text>s3 <code>if (age &lt; 18)</code> 與 s5 <code>else if (age &gt;= 65)</code></text><feedback><text>這些在通過切片中且不在失敗切片中，故不在切丁裡。</text></feedback></answer>
+    <generalfeedback><text>切丁為 {s8, s9}：即只有失敗執行才走到的 peak 分支與那個有錯的票價調整。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>錯誤變數的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在切丁中，<strong>錯誤變數</strong>扮演什麼角色？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的後向切片是起始（失敗）集合，正確切片再從中被減去</text><feedback><text>正確——錯誤變數種下失敗切片，減法後即成為切丁。</text></feedback></answer>
+    <answer fraction="0"><text>它的切片會被從其他切片中減去</text><feedback><text>方向相反——是正確變數的切片被從錯誤變數的切片中減去。</text></feedback></answer>
+    <answer fraction="0"><text>它被忽略；只有正確變數重要</text><feedback><text>錯誤變數不可或缺——它定義了失敗切片。</text></feedback></answer>
+    <answer fraction="0"><text>它決定用作切丁的前向切片</text><feedback><text>切丁用錯誤變數的後向切片，而非前向切片。</text></feedback></answer>
+    <generalfeedback><text>錯誤變數的後向切片是失敗切片；切丁把正確變數的切片從中減去以得到切丁。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>錯誤在切丁中代表已縮小範圍</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若有錯的陳述句落在計算出的切丁之內，代表切丁已把可疑範圍縮小到一個仍包含該錯誤的集合。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——這就是「捕獲錯誤」的情形：切丁比失敗切片小，卻仍含有該錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>當錯誤落在切丁中，搜尋範圍已縮小卻仍保留該錯誤——正是切丁理想的結果。</text></feedback></answer>
+    <generalfeedback><text>好的切丁又小又仍含有錯誤。兩個範例情境都達成此點（Summary Stats 的 s7、Fare 的 s9），app 標示為「捕獲錯誤」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切丁較小的好處</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>較小</strong>的切丁能給偵錯者什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>定位錯誤時需要檢查的陳述句更少</text><feedback><text>正確——更小的可疑集合代表要檢視的程式碼更少。</text></feedback></answer>
+    <answer fraction="0"><text>保證程式沒有其他錯誤</text><feedback><text>切丁定位一個被觀察到的失敗；它對其他錯誤無所斷言。</text></feedback></answer>
+    <answer fraction="0"><text>更高的敘述涵蓋率</text><feedback><text>切丁是關於錯誤定位，而非涵蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>證明那些正確輸出確實正確</text><feedback><text>那些輸出的正確性是切丁的假設，而非其結果。</text></feedback></answer>
+    <generalfeedback><text>切丁的價值在於更窄的範圍：切丁越小，開發者要檢查的候選陳述句越少，越快找到錯誤。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Dicing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>計算切丁（Summary Stats）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中：</p>
+<ul>
+<li>切片(highest) = { s2, s3, s4, s5, s6, s7, return&#8209;highest }</li>
+<li>切片(total) = { s2, s4, s5, return&#8209;total }</li>
+<li>切片(mean) = { s2, s4, s5, s10, return&#8209;mean }</li>
+</ul>
+<p>切丁 = 切片(highest) &minus; 切片(total) &minus; 切片(mean) 是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ s3, s6, s7, return-highest }</text><feedback><text>正確——減去與正確切片共有的 s2、s4、s5，留下 s3、s6、s7 與 highest 的回傳。</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s4, s5 }</text><feedback><text>那正是被<em>移除</em>的陳述句；它們屬於正確切片。</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s3, s4, s5, s6, s7, return-highest }</text><feedback><text>那是尚未做任何減法前的 切片(highest)。</text></feedback></answer>
+    <answer fraction="0"><text>{ s7 }</text><feedback><text>此處只剩錯誤，但切丁還保留 s3、s6、return-highest，它們不在正確切片中。</text></feedback></answer>
+    <generalfeedback><text>s2、s4、s5 出現在 切片(total) 與 切片(mean) 中，故被減去。切丁為 { s3, s6, s7, return-highest }——四個陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 s5 不在切丁中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，s5 <code>total = total + n</code> 雖然在 切片(highest) 裡，為何不在切丁中？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為 s5 也出現在正確輸出 total 與 mean 的切片中，故被減去</text><feedback><text>正確——s5 同時協助計算正確輸出，故切丁把它移除。</text></feedback></answer>
+    <answer fraction="0"><text>因為 s5 在失敗輸入上從未被執行</text><feedback><text>s5 在 切片(highest) 中，屬於失敗計算的一部分；它是被減法移除，而非因未執行。</text></feedback></answer>
+    <answer fraction="0"><text>因為 s5 與 highest 沒有資料相依</text><feedback><text>s5 透過 s7 餵給 highest，故在失敗切片中；它被移除是因為也在正確切片中。</text></feedback></answer>
+    <answer fraction="0"><text>因為 s5 是控制陳述句</text><feedback><text>s5 是指派，不是控制節點；它被減去是因為與正確切片共用。</text></feedback></answer>
+    <generalfeedback><text>total = total + n 同時貢獻於 total 與 mean（皆正確）以及 highest，故落在被減去的切片中而退出切丁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 s7 在切丁中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，s7 <code>highest = total</code> 為何在切丁中？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它在 切片(highest) 中，卻不在 切片(total) 或 切片(mean) 中，故無切片將其減去</text><feedback><text>正確——s7 只影響 highest，故在減法後存留。</text></feedback></answer>
+    <answer fraction="0"><text>它在三個切片中都出現</text><feedback><text>若它在正確切片中就會被減去；s7 只影響 highest。</text></feedback></answer>
+    <answer fraction="0"><text>它是切片條件陳述句，永不被移除</text><feedback><text>切片條件是 return highest；s7 是另一個指派，因僅屬於 highest 而被保留。</text></feedback></answer>
+    <answer fraction="0"><text>因為它執行次數最多</text><feedback><text>切丁看的是跨切片的集合成員關係，而非執行頻率。</text></feedback></answer>
+    <generalfeedback><text>total 與 mean 不相依於 highest，故 s7（highest = total）不在它們的切片中，因而留在切丁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 s3 留在切丁中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，s3 <code>highest = nums[0]</code> 在切丁裡。是什麼讓它成為此處的嫌疑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它定義 highest 且不在正確輸出的切片中，故不被減去</text><feedback><text>正確——s3 只影響 highest，故存留於切丁。</text></feedback></answer>
+    <answer fraction="0"><text>它是植入的錯誤</text><feedback><text>植入的錯誤是 s7；s3 是因僅屬於 highest 而被保留的嫌疑。</text></feedback></answer>
+    <answer fraction="0"><text>它出現在 切片(mean) 中</text><feedback><text>若它在 切片(mean) 中就會被減去；事實上並不在。</text></feedback></answer>
+    <answer fraction="0"><text>它讀取 total</text><feedback><text>s3 讀取 nums，不是 total；它被保留是因為定義 highest 且不在正確切片中。</text></feedback></answer>
+    <generalfeedback><text>切丁保留失敗切片中不在正確切片裡的每個陳述句——包含 highest 的初始化 s3。切丁是一組嫌疑，而非單一行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 s2 被移除</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，s2 <code>total = 0</code> 為何被移出切丁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它在 切片(total) 與 切片(mean) 中，故兩個正確切片都會減去它</text><feedback><text>正確——s2 初始化 total，而 total 餵給正確輸出，故被移除。</text></feedback></answer>
+    <answer fraction="0"><text>它不在 切片(highest) 中</text><feedback><text>s2 <em>在</em> 切片(highest) 中（total 流向 s7）；它是被減法移除，而非因不存在。</text></feedback></answer>
+    <answer fraction="0"><text>它從未執行</text><feedback><text>s2 每次執行都會跑；它被減去是因為與正確切片共用。</text></feedback></answer>
+    <answer fraction="0"><text>它沒有定義任何變數</text><feedback><text>s2 定義 total；正因如此它才會出現在正確切片中而被減去。</text></feedback></answer>
+    <generalfeedback><text>total = 0 貢獻於 total 與 mean（皆正確），故落在被減去的切片中而退出切丁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算切丁（Fare Calculator）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態的 <strong>Fare Calculator</strong> 中：</p>
+<ul>
+<li>失敗切片 = { s2, s8, s9, s11 }</li>
+<li>通過切片的聯集 = { s2, s3, s4, s5, s6, s11 }</li>
+</ul>
+<p>切丁 = 失敗 &minus; 聯集(通過) 是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ s8, s9 }</text><feedback><text>正確——減去與通過執行共有的 s2 與 s11，留下 s8 與 s9。</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s11 }</text><feedback><text>那正是被移除的陳述句，不是被保留的。</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s8, s9, s11 }</text><feedback><text>那是減法之前的失敗切片。</text></feedback></answer>
+    <answer fraction="0"><text>{ }（空集合）</text><feedback><text>空集合是此處的<em>靜態</em>切丁；動態切丁是 { s8, s9 }。</text></feedback></answer>
+    <generalfeedback><text>s2 與 s11 出現在通過執行的切片中而被減去，留下切丁 { s8, s9 }——即 peak 分支與其有錯的票價調整。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 s2 不在 Fare 切丁中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Fare Calculator</strong> 中，s2 <code>price = 10</code> 在失敗切片裡卻不在切丁中。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它也出現在某次通過執行的切片中（例如 adult-off 那次），故被減去</text><feedback><text>正確——s2 與通過執行共用，故切丁將其移除。</text></feedback></answer>
+    <answer fraction="0"><text>它在失敗輸入上未被執行</text><feedback><text>s2 每個輸入都會跑；它被移除是因為也在通過切片中。</text></feedback></answer>
+    <answer fraction="0"><text>它是控制陳述句</text><feedback><text>s2 是指派；它被減去是因為出現在通過切片中。</text></feedback></answer>
+    <answer fraction="0"><text>它定義 peak</text><feedback><text>s2 定義 price，不是 peak；它被移除是因為通過執行的切片含有它。</text></feedback></answer>
+    <generalfeedback><text>price = 10 在通過執行上同樣餵給回傳的 price，故它在某通過切片中而被減出切丁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何切片條件 s11 不在切丁中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Fare Calculator</strong> 中，切片條件陳述句 s11 <code>return price</code> 出現在每個切片裡，為何不在切丁中？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為它在每次執行的切片中——包含通過的那些——故被減去</text><feedback><text>正確——同時出現在通過與失敗切片的陳述句會被切丁移除。</text></feedback></answer>
+    <answer fraction="0"><text>因為切片條件陳述句依定義被排除</text><feedback><text>切片條件本身包含於切片中；此處它被移除只是因為也出現在通過切片裡。</text></feedback></answer>
+    <answer fraction="0"><text>因為 s11 沒有相依關係</text><feedback><text>s11 使用 price 並領頭每個切片；它是被減法移除，而非因缺乏相依。</text></feedback></answer>
+    <answer fraction="0"><text>因為 s11 是錯誤</text><feedback><text>錯誤是 s9；s11 被移除是因為與通過執行共用。</text></feedback></answer>
+    <generalfeedback><text>return price 在失敗切片與每個通過切片中，故被減去——切丁只保留失敗執行獨有的陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 s8 留在 Fare 切丁中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Fare Calculator</strong> 中，s8 <code>if (peak)</code> 在切丁裡，但它本身並非錯誤。為何它存留？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它在失敗切片中是 s9 的控制父節點，而沒有任何通過執行的切片含有它</text><feedback><text>正確——只有失敗執行進入 peak 分支，故 s8 是失敗切片獨有。</text></feedback></answer>
+    <answer fraction="0"><text>它出現在每個通過切片中</text><feedback><text>若如此就會被減去；通過執行 peak=false，其 price 切片從不含 s8。</text></feedback></answer>
+    <answer fraction="0"><text>它定義 price</text><feedback><text>s8 是對 peak 的控制判定；它控制定義 price 的 s9。</text></feedback></answer>
+    <answer fraction="0"><text>因為切片條件是 s8</text><feedback><text>切片條件是 s11（return price）；s8 存留是因為它是失敗切片獨有。</text></feedback></answer>
+    <generalfeedback><text>失敗執行走 peak 分支，故 s8 控制有錯的 s9 並進入失敗切片；通過執行（peak=false）將其排除，故不被減去。切丁保留的是嫌疑，而非僅有錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>術語配對角色：通過切片</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在切丁中，被觀察為<strong>正確</strong>的變數／執行之切片扮演什麼角色？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它會被從失敗切片中減去</text><feedback><text>正確——正確切片是集合差中被減去的項。</text></feedback></answer>
+    <answer fraction="0"><text>它是切丁的起始集合</text><feedback><text>起始集合是失敗（錯誤）切片；正確切片則從中被減去。</text></feedback></answer>
+    <answer fraction="0"><text>它會與失敗切片取交集</text><feedback><text>切丁是減去正確切片，而非取交集。</text></feedback></answer>
+    <answer fraction="0"><text>它被忽略</text><feedback><text>正確切片很關鍵——它們正是縮小切丁的來源。</text></feedback></answer>
+    <generalfeedback><text>失敗切片＝起始集合；正確（通過）切片＝被減去的項；切丁＝剩餘部分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>術語配對角色：切丁</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在切丁中，<strong>切丁（dice）</strong>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>減去正確切片後剩下的殘餘嫌疑集合</text><feedback><text>正確——切丁即失敗切片減法後所剩者。</text></feedback></answer>
+    <answer fraction="0"><text>所有輸出切片的聯集</text><feedback><text>那不是切丁；切丁做減法，且切丁是殘餘部分。</text></feedback></answer>
+    <answer fraction="0"><text>某個正確變數的後向切片</text><feedback><text>正確變數的切片是被減去的項，而非切丁。</text></feedback></answer>
+    <answer fraction="0"><text>失敗執行的完整軌跡</text><feedback><text>軌跡不是切丁；切丁是失敗切片的子集。</text></feedback></answer>
+    <generalfeedback><text>切丁是殘餘：失敗切片減去正確切片，也就是最可能含有錯誤的那些陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>減去 切片(total) 移除了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，從 切片(highest) = { s2, s3, s4, s5, s6, s7, return-highest } 出發，減去 切片(total) = { s2, s4, s5, return-total } 會移除哪些陳述句？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s2、s4、s5</text><feedback><text>正確——那三者正是 切片(highest) 與 切片(total) 的共有成員。</text></feedback></answer>
+    <answer fraction="0"><text>s2、s4、s5、return-total</text><feedback><text>return-total 不在 切片(highest) 中，故無法從中被移除。</text></feedback></answer>
+    <answer fraction="0"><text>s3、s6、s7</text><feedback><text>那些<em>不</em>在 切片(total) 中，故不會被此次減法移除。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都沒有</text><feedback><text>切片(highest) 與 切片(total) 共有 s2、s4、s5，會被移除。</text></feedback></answer>
+    <generalfeedback><text>集合差只移除共有成員：切片(highest) ∩ 切片(total) = { s2, s4, s5 }。（之後 切片(mean) 不再新移除任何項。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>根本不在失敗切片中的陳述句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，對錯誤輸出 <code>highest</code> 而言，s10 <code>mean = total / nums.length</code> 在切丁裡嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>否——s10 根本不在 切片(highest) 中，故從一開始就不是切丁的候選</text><feedback><text>正確——highest 不相依於 mean，故 s10 不在失敗切片中，也就不在切丁中。</text></feedback></answer>
+    <answer fraction="0"><text>是——s10 在切丁中</text><feedback><text>s10 計算 mean，而 highest 不相依於 mean，故它不在 切片(highest) 或切丁中。</text></feedback></answer>
+    <answer fraction="0"><text>否——但只是因為 切片(mean) 減去了它</text><feedback><text>s10 一開始就不在 切片(highest) 中，故沒有東西可減；無論如何它都不在。</text></feedback></answer>
+    <answer fraction="0"><text>只有在 mean 也錯誤時</text><feedback><text>即使如此，s10 仍不在 切片(highest) 中；切丁是 切片(highest) 的子集。</text></feedback></answer>
+    <generalfeedback><text>切丁是失敗切片的子集。因為 highest 不相依於 mean，s10 落在 切片(highest) 之外，故永遠不會在 highest 的切丁中——與「被減去」是不同的原因。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>多次通過執行皆被減去</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態的 <strong>Fare Calculator</strong> 中，切丁把三次通過執行的切片之聯集，從失敗執行的切片中減去。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每個通過執行的切片都被移除，也就是把它們的聯集從失敗切片中減去。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>programDice 逐一刪去每個通過切片，這與減去所有通過切片的聯集相同。</text></feedback></answer>
+    <generalfeedback><text>逐一刪去每個通過切片的成員，等同於把所有通過切片的聯集從失敗切片中減去。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>同時在失敗切片與某通過切片中的陳述句</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某陳述句同時在失敗切片中，且至少在一個通過／正確切片中。它在切丁裡嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>否——出現在任一正確／通過切片中就會被移出切丁</text><feedback><text>正確——集合差會把它刪除，因為它與某正確切片共用。</text></feedback></answer>
+    <answer fraction="0"><text>是——在失敗切片中就足夠了</text><feedback><text>同時在正確切片中會使它被減去。</text></feedback></answer>
+    <answer fraction="0"><text>只有它是控制陳述句時</text><feedback><text>種類無關緊要；任何與正確切片共用的陳述句都會被移除。</text></feedback></answer>
+    <answer fraction="0"><text>只有它是切片條件時</text><feedback><text>連切片條件若在通過切片中也會被移除，如 Fare 情境中的 s11。</text></feedback></answer>
+    <generalfeedback><text>切丁只保留在失敗切片中且<em>不</em>在任何正確切片中的陳述句。與任一正確切片共用即被排除。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Dicing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>錯誤為何被隔離（Summary Stats）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，哪一串推理能解釋為何錯誤 s7 <code>highest = total</code> 落在切丁中？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s7 在 切片(highest) 中，因為 highest 傳遞相依於它；而 s7 不在 切片(total) 與 切片(mean) 中，因為 total 與 mean 都不相依於 highest，故無切片減去它</text><feedback><text>正確——在失敗切片中、不在正確切片中，因此落在切丁。</text></feedback></answer>
+    <answer fraction="0"><text>s7 只在失敗輸入上執行，故被加入切丁</text><feedback><text>這是靜態情境；s7 在所有輸入上都執行。它靠集合成員關係被保留，而非靠執行。</text></feedback></answer>
+    <answer fraction="0"><text>s7 在三個切片中都出現，但因它是錯誤而被保留</text><feedback><text>切丁不知道哪個陳述句是錯誤；s7 存留是因為它不在正確切片中。</text></feedback></answer>
+    <answer fraction="0"><text>s7 是切片條件，永不被減去</text><feedback><text>切片條件是 return highest；s7 是另一個陳述句，靠集合差邏輯被保留。</text></feedback></answer>
+    <generalfeedback><text>切丁純粹是集合成員判斷：s7 影響 highest（在失敗切片中）卻不影響 total 或 mean（不在正確切片中），故存留於切丁。app 隨即顯示「捕獲錯誤」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時保證錯誤在切丁中</text></name>
+    <questiontext format="html"><text><![CDATA[<p>唯有哪個假設成立時，切丁才保證把錯誤放進切丁裡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被標記為正確的變數／執行確實正確（其切片無錯），且該錯誤確實影響錯誤變數</text><feedback><text>正確——若某「正確」切片其實含有錯誤，減法會把錯誤移出切丁。</text></feedback></answer>
+    <answer fraction="0"><text>程式達到 100% 敘述涵蓋率</text><feedback><text>涵蓋率無關；切丁取決於哪些變數正確／錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>失敗切片為空</text><feedback><text>空的失敗切片會給出空切丁，根本不含錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>每個輸出都錯誤</text><feedback><text>那樣就沒有正確切片可減，切丁也就無從縮小任何範圍。</text></feedback></answer>
+    <generalfeedback><text>若某被標為正確的變數，其實在執行了有錯的陳述句後仍恰巧正確，該陳述句就落在被減去的切片中而被錯誤移除。切丁的保證建立在正確性標記準確之上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時切丁會是空的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>app 可能顯示「切丁為空——所有輸出共享此程式碼區域」。這在什麼情況下發生？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當失敗切片中的每個陳述句也都出現在某個正確變數的切片中</text><feedback><text>正確——此時減法把一切移除，切丁即為空。</text></feedback></answer>
+    <answer fraction="0"><text>當失敗切片比每個正確切片都大</text><feedback><text>是否為空取決於重疊，而非大小。大的失敗切片仍可留下非空的切丁。</text></feedback></answer>
+    <answer fraction="0"><text>當恰好只有一個輸出變數</text><feedback><text>只有一個輸出時沒有正確者可減，故切丁等於失敗切片（非空）。</text></feedback></answer>
+    <answer fraction="0"><text>只要找到錯誤時</text><feedback><text>找到錯誤代表它<em>在</em>切丁中，即切丁非空。</text></feedback></answer>
+    <generalfeedback><text>空切丁代表正確切片涵蓋了整個失敗切片——各輸出共享該區域，故切丁在此無法縮小錯誤範圍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何動態切丁成功而靜態失敗（Fare）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Fare Calculator</strong> 中，app 指出靜態切丁會是空的，但動態切丁是 { s8, s9 }。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態切片與輸入無關，故失敗與通過的靜態切片重合、其差為空；動態切片限縮於執行到的陳述句與有效（live）相依，能區別失敗執行</text><feedback><text>正確——動態切片把失敗執行的實際相依與通過執行分離開來。</text></feedback></answer>
+    <answer fraction="0"><text>靜態切片忽略控制相依</text><feedback><text>靜態切片包含控制相依；問題在於與輸入無關，而非漏掉控制邊。</text></feedback></answer>
+    <answer fraction="0"><text>動態切丁加入了不在任何切片中的陳述句</text><feedback><text>動態切丁仍是失敗動態切片的子集；它不會加入任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>動態切丁減去較少的切片</text><feedback><text>它減去同樣的三次通過執行；差別在於動態切片是特定於執行的。</text></feedback></answer>
+    <generalfeedback><text>靜態上，每條路徑對 price 的切片看起來都一樣，故失敗減通過為空。動態上，只有失敗執行的切片含 s8 與 s9（peak 分支與其有錯的更新），故動態切丁把它們隔離出來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪次通過執行移除了 s2（Fare）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態的 <strong>Fare Calculator</strong> 中，失敗切片是 { s2, s8, s9, s11 }。各通過動態切片為：adult-off = { s2, s11 }、child-off = { s3, s4, s11 }、senior-off = { s3, s5, s6, s11 }。是哪一次通過執行的切片把 s2 移出切丁？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>adult-off 那次（age=30, peak=false），其切片含 s2</text><feedback><text>正確——只有 adult-off 的切片含 s2，故是它把 s2 減去。</text></feedback></answer>
+    <answer fraction="0"><text>child-off 那次</text><feedback><text>child-off 的切片是 { s3, s4, s11 }——不含 s2。</text></feedback></answer>
+    <answer fraction="0"><text>senior-off 那次</text><feedback><text>senior-off 的切片是 { s3, s5, s6, s11 }——不含 s2。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何通過執行移除 s2；它留在切丁裡</text><feedback><text>adult-off 的切片含 s2，故 s2 被減去，不在切丁中。</text></feedback></answer>
+    <generalfeedback><text>只有 adult-off 的動態切片含 s2（其回傳的 price 追溯回 price = 10）。此成員關係減去 s2，留下切丁 { s8, s9 }。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切丁為何縮小錯誤定位</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於只檢查失敗切片，切丁為何在 <strong>Summary Stats</strong> 中縮小了錯誤定位範圍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>失敗切片有 7 個陳述句；切丁有 4 個，因為被正確輸出排除嫌疑的陳述句被移除了</text><feedback><text>正確——減去正確切片把 7 個嫌疑縮成 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>切丁加入了失敗切片漏掉的陳述句</text><feedback><text>切丁是失敗切片的子集；它從不加入陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>切丁只是依可疑程度重排，仍保留全部 7 個</text><feedback><text>切丁會移除陳述句，而非僅重新排序。</text></feedback></answer>
+    <answer fraction="0"><text>切丁保證恰好剩一個陳述句</text><feedback><text>此處剩 4 個；切丁縮小範圍，但很少縮到單一行。</text></feedback></answer>
+    <generalfeedback><text>切丁移除 s2、s4、s5（與正確的 total 和 mean 共用），把嫌疑集合從 7 個削減到 4 個，同時仍含錯誤 s7。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>錯誤落在切丁之外的情形</text></name>
+    <questiontext format="html"><text><![CDATA[<p>有錯的陳述句可能落在切丁<strong>之外</strong>。這如何發生？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>若該有錯陳述句也屬於某正確變數的切片，就會被減去，切丁便漏掉它</text><feedback><text>正確——共用的錯誤會被減法排除嫌疑，這是切丁已知的限制。</text></feedback></answer>
+    <answer fraction="0"><text>若該有錯陳述句在失敗切片中</text><feedback><text>在失敗切片中正是使它維持候選的原因，而非排除它。</text></feedback></answer>
+    <answer fraction="0"><text>切丁絕不會漏掉錯誤</text><feedback><text>它會漏：若錯誤與某正確切片共用就會被減出。</text></feedback></answer>
+    <answer fraction="0"><text>只有程式沒有迴圈時</text><feedback><text>迴圈無關；關鍵是錯誤與正確切片共用。</text></feedback></answer>
+    <generalfeedback><text>若某陳述句既造成失敗、又貢獻於某個恰巧正確的值，切丁會減去它而漏掉錯誤。這正是為何「正確」標記的正確性很重要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀詳情面板</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Summary Stats</strong> 中，詳情面板顯示「捕獲錯誤（s7: assigns total, not n）」。這確認了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>植入的錯誤陳述句 s7 是計算出的切丁的成員</text><feedback><text>正確——「捕獲錯誤」代表錯誤 id 在切丁集合中。</text></feedback></answer>
+    <answer fraction="0"><text>程式現已被修好</text><feedback><text>切丁只做定位，不修復程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>切丁恰好含一個陳述句</text><feedback><text>此處切丁有四個陳述句；s7 只是其中之一。</text></feedback></answer>
+    <answer fraction="0"><text>total 與 mean 也錯了</text><feedback><text>total 與 mean 是正確輸出；只有 highest 錯誤。</text></feedback></answer>
+    <generalfeedback><text>當情境的錯誤陳述句落在切丁內時就會顯示「捕獲錯誤」——證明切丁在縮小嫌疑的同時保留了錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不是錯誤的嫌疑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Fare Calculator</strong> 中，s8 <code>if (peak)</code> 在切丁裡但不是錯誤。它的出現說明了切丁的什麼特性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>切丁是一組嫌疑，而非單一行——失敗執行獨有的控制／資料前驅會留下，故切丁縮小範圍卻不指名單一行</text><feedback><text>正確——切丁產生一個縮小的區域，仍可能含有非錯誤的陳述句。</text></feedback></answer>
+    <answer fraction="0"><text>切丁算錯了；s8 不該在那裡</text><feedback><text>s8 正確地在切丁中——它是失敗切片獨有；切丁不宣稱每個成員都有錯。</text></feedback></answer>
+    <answer fraction="0"><text>s8 一定也有錯</text><feedback><text>只有 s9 是植入的錯誤；s8 是被集合邏輯保留的非錯誤嫌疑。</text></feedback></answer>
+    <answer fraction="0"><text>切丁應該是空的</text><feedback><text>動態切丁是 { s8, s9 }，正確地非空且含有錯誤。</text></feedback></answer>
+    <generalfeedback><text>s8 控制有錯的 s9 且為失敗執行獨有，故存留。切丁縮小搜尋範圍，但可能含有錯誤周邊的非錯誤陳述句。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>減去較少正確切片的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設在 <strong>Summary Stats</strong> 中只把 <code>total</code> 視為正確（不減 mean）。切丁變成 切片(highest) &minus; 切片(total)。相較於同時減去 total 與 mean，切丁會如何變化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>切丁只會維持不變或變大——減去較少切片絕不會移除更多</text><feedback><text>正確——集合差是單調的；較少減法不會縮小切丁。（此處仍為 { s3, s6, s7, return-highest }，因為 切片(mean) 本就未新移除任何項。）</text></feedback></answer>
+    <answer fraction="0"><text>切丁只會變小</text><feedback><text>相反——拿掉一個被減去的切片只會維持或放大切丁。</text></feedback></answer>
+    <answer fraction="0"><text>切丁會變空</text><feedback><text>減去較少切片無法把原本非空的切丁清空。</text></feedback></answer>
+    <answer fraction="0"><text>錯誤 s7 會被剔除</text><feedback><text>s7 不在 切片(total) 中，故無論是否減去 mean 都會留下。</text></feedback></answer>
+    <generalfeedback><text>每個被減去的切片只會移除陳述句。拿掉 切片(mean) 只會維持或放大切丁。此例中切丁不變，因為 切片(mean) 未在 切片(total) 之外新增任何移除。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>減去更多切片的單調性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>多加一個正確變數的切片去減，只會使切丁維持不變或變小——絕不會變大。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——每多減一個切片只會刪除陳述句，故切丁單調不增。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>集合差只會移除；再減一個切片無法把陳述句加回。</text></feedback></answer>
+    <generalfeedback><text>切丁 = 失敗 減去（正確切片的聯集）。放大被減去的聯集只會移除更多，故更多正確切片給出更小或相等的切丁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>是定位而非偵測</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何切丁被描述為錯誤<strong>定位</strong>，而非錯誤<strong>偵測</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它假設失敗已被觀察到（已知某變數錯誤），並縮小錯誤在<em>何處</em>；它不判斷某輸出是否錯誤</text><feedback><text>正確——在切丁能定位之前，你必須已知哪個變數是錯的。</text></feedback></answer>
+    <answer fraction="0"><text>它產生新的失敗測試輸入</text><feedback><text>切丁不產生測試；它從既有的失敗出發運作。</text></feedback></answer>
+    <answer fraction="0"><text>它證明沒有錯誤</text><feedback><text>切丁定位一個被觀察到的錯誤；它不證明錯誤不存在。</text></feedback></answer>
+    <answer fraction="0"><text>它衡量失敗執行的涵蓋率</text><feedback><text>切丁不是涵蓋率指標；它計算一個嫌疑集合。</text></feedback></answer>
+    <generalfeedback><text>切丁需要正確／錯誤標記作為輸入——失敗必須已被偵測到。在此前提下，它把錯誤定位到切丁中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 s2 在失敗切片中卻被剔除（Fare）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在動態的 <strong>Fare Calculator</strong> 中，說明 s2 <code>price = 10</code> 的狀態：它在失敗切片中卻不在切丁中。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在失敗執行上，s2 的 price 正是 s9 讀到的值（有效定義），故 s2 在失敗切片中；但 s2 也在某通過執行的切片中，故切丁減去它</text><feedback><text>正確——因有效資料相依而在失敗切片中，之後因與通過切片共用而被移除。</text></feedback></answer>
+    <answer fraction="0"><text>s2 在失敗執行上未被執行</text><feedback><text>s2 每個輸入都會跑，包含失敗那次。</text></feedback></answer>
+    <answer fraction="0"><text>s2 是沒有資料流的控制陳述句</text><feedback><text>s2 是定義 price 的指派；它有資料流入 s9。</text></feedback></answer>
+    <answer fraction="0"><text>s2 是切片條件</text><feedback><text>切片條件是 s11（return price）；s2 是一般指派。</text></feedback></answer>
+    <generalfeedback><text>在失敗執行上，price = 10 是抵達 s9 的 price 最後定義，故 s2 在失敗動態切片中。因為 adult-off 的切片也含 s2，減法把它移出切丁。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>正確／錯誤標記錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>切丁的結果取決於你把哪些變數宣告為正確 vs 錯誤。若把一個確實正確的輸出誤標為<strong>錯誤</strong>（或反之），會有什麼後果？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>切丁會改變，可能排除真正的錯誤或納入無關的陳述句——切丁是否有用取決於正確／錯誤標記的準確</text><feedback><text>正確——標記決定要減去哪些切片，故誤標會扭曲切丁。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不變；切丁與標記無關</text><feedback><text>標記決定失敗切片與被減去的切片，故切丁取決於它們。</text></feedback></answer>
+    <answer fraction="0"><text>切丁一定會變空</text><feedback><text>不一定；誤標會改變減去哪些陳述句，未必到空。</text></feedback></answer>
+    <answer fraction="0"><text>程式會自動被重新測試</text><feedback><text>切丁不執行測試；它依給定標記重新計算一個集合。</text></feedback></answer>
+    <generalfeedback><text>哪個變數錯誤決定失敗切片；哪些正確決定被減去的切片。錯誤標記可能把錯誤減掉，或在切丁中留下雜訊，故準確標記至關重要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>切丁程序的步驟排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個排序正確描述 app 執行的切丁程序？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1) 取錯誤變數並計算其後向切片；2) 計算各正確變數的切片；3) 把正確切片從錯誤切片中減去；4) 檢查剩下的切丁找錯誤</text><feedback><text>正確——先取失敗切片，再減去正確切片，然後讀出切丁。</text></feedback></answer>
+    <answer fraction="0"><text>1) 聯集所有輸出切片；2) 與軌跡取交集；3) 回報交集</text><feedback><text>切丁是把正確切片從失敗切片減去，而非先聯集再取交集。</text></feedback></answer>
+    <answer fraction="0"><text>1) 算錯誤的前向切片；2) 減去失敗切片；3) 回報</text><feedback><text>切丁使用後向切片，並從錯誤變數而非已知錯誤出發。</text></feedback></answer>
+    <answer fraction="0"><text>1) 執行所有測試；2) 保留每個測試都涵蓋的陳述句；3) 回報它們</text><feedback><text>那描述的是常見的涵蓋率，而非切丁對切片的集合差。</text></feedback></answer>
+    <generalfeedback><text>切丁：對錯誤變數做後向切片、對正確變數做後向切片、把正確切片從錯誤切片中減去，並檢查所得切丁找錯誤。</text></generalfeedback>
+  </question>
+</quiz>

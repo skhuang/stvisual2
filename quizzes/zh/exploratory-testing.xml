@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Exploratory Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是探索式測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>探索式測試（exploratory testing）</em>最適切的定義是一種：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>學習、測試設計與測試執行同時進行，每個結果都引導下一個測試的做法</text><feedback><text>正確——探索把學習、設計與執行交織在一起，而不是拆成前後分離的階段。</text></feedback></answer>
+    <answer fraction="0"><text>在執行任何測試前，先把每個測試案例完整寫好並審查</text><feedback><text>那是完全腳本化的測試；探索式測試是邊設計邊執行。</text></feedback></answer>
+    <answer fraction="0"><text>由原始碼自動產生測試，無需人參與</text><feedback><text>那是自動產生的測試；探索式測試是由人思考驅動的活動。</text></feedback></answer>
+    <answer fraction="0"><text>不加思考、不做記錄地對程式亂丟輸入</text><feedback><text>那是臨時性（ad-hoc）或隨機測試；探索式測試是有結構、有意圖的。</text></feedback></answer>
+    <generalfeedback><text>探索式測試是對產品「同時進行的學習、測試設計與測試執行」。測試者在測試中認識產品，用觀察到的結果設計下一個測試並立即執行——是一個緊湊、思考驅動的迴圈，而非先寫後跑的分離階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是測試任務書</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索式測試的 explorer 中，<em>測試任務書（charter）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>簡短陳述你要測什麼、希望發現什麼，賦予本次測試一個聚焦的任務</text><feedback><text>正確——任務書界定本次測試的任務與範圍。</text></feedback></answer>
+    <answer fraction="0"><text>逐步列出每個要執行動作的詳細腳本</text><feedback><text>任務書設定的是任務而非確切步驟；逐步腳本屬於腳本化測試。</text></feedback></answer>
+    <answer fraction="0"><text>發佈後提交的最終缺陷報告</text><feedback><text>那是產出文件；任務書是在測試開始前/開始時撰寫以引導測試。</text></feedback></answer>
+    <answer fraction="0"><text>指派到專案的測試人員名單</text><feedback><text>那是人力配置；任務書陳述的是本次測試的任務。</text></feedback></answer>
+    <generalfeedback><text>任務書是一次探索測試的簡短任務——它說明要測什麼、要找哪類問題（explorer 的範例：「測試登入流程搭配無效憑證，以發現安全問題」）。它界定並聚焦本次測試，卻不規定確切步驟。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是以測試單元為基礎的測試管理</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>以測試單元為基礎的測試管理（session-based test management, SBTM）</em>把探索式測試組織成：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>限定時間、有任務書的測試單元，測試者在其中記錄做了什麼、發現什麼</text><feedback><text>正確——SBTM 結合任務書、固定時間盒與記錄下來的測試筆記。</text></feedback></answer>
+    <answer fraction="0"><text>一次不中斷的執行，直到嘗試完每一種可能輸入為止</text><feedback><text>測試單元是刻意限時的，並非無止境；窮盡輸入也不是目標。</text></feedback></answer>
+    <answer fraction="0"><text>只按順序執行事先寫好腳本的一個階段</text><feedback><text>那是腳本化執行；SBTM 管理的是邊做邊設計測試的探索單元。</text></feedback></answer>
+    <answer fraction="0"><text>夜間迴歸工作的自動排程</text><feedback><text>那是 CI／迴歸排程；SBTM 談的是管理由人進行的探索測試單元。</text></feedback></answer>
+    <generalfeedback><text>以測試單元為基礎的測試管理為探索式測試帶來結構與可問責性：工作被切成限時的測試單元，每個單元由任務書引導、以測試筆記記錄下來。這讓原本自由形式的活動變得可追蹤、可回報。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是啟發式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個<em>測試啟發式（heuristic）</em>（例如 SFDIPOT）是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一條引導性的經驗法則或助記法，用來激發「該測什麼」的點子</text><feedback><text>正確——啟發式是可能出錯但很有用的輔助，能激發測試點子。</text></feedback></answer>
+    <answer fraction="0"><text>一個保證每次都能找出所有缺陷的演算法</text><feedback><text>啟發式是可能失準的輔助，不保證能完整偵測缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>一份規定驗收標準的法律合約</text><feedback><text>那是需求／合約；啟發式只是激發測試點子。</text></feedback></answer>
+    <answer fraction="0"><text>由工具量測的固定通過／失敗門檻</text><feedback><text>那是度量門檻；啟發式是思考輔助，不是數值閘門。</text></feedback></answer>
+    <generalfeedback><text>啟發式是一條經驗法則——可能出錯但很順手的心智提示。在探索式測試中，SFDIPOT、HICCUPPS 等啟發式幫助測試者快速產生「該涵蓋什麼」與「如何判斷結果」的點子，並不假裝窮盡或保證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探索式與腳本式測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索式測試與腳本式測試最關鍵的差異在於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>探索式測試中設計與執行一起進行；腳本式測試則先設計好、之後再執行</text><feedback><text>正確——差異在於測試設計相對於執行發生的時機。</text></feedback></answer>
+    <answer fraction="0"><text>探索式測試不需思考，腳本式測試才需要大量思考</text><feedback><text>探索式測試極度依賴思考；差異在於設計的時機，而非思考的多寡。</text></feedback></answer>
+    <answer fraction="0"><text>探索式測試只能由機器來做</text><feedback><text>探索式測試是人的活動；它對比的是事先設計的腳本，而非自動化。</text></feedback></answer>
+    <answer fraction="0"><text>腳本式測試從不使用任何書面文件</text><feedback><text>恰好相反：腳本式測試仰賴事先寫好的測試腳本。</text></feedback></answer>
+    <generalfeedback><text>腳本式測試把設計（寫案例）與執行（稍後、常由他人跑）分開。探索式測試則把兩者融合：測試者根據上一個測試揭露的結果設計下一個測試並立即執行。兩者都正當，且常一起使用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SFDIPOT 代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 explorer 中，<strong>SFDIPOT</strong> 清單（Structure、Function、Data、Interfaces、Platform、Operations、Time）是用來：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>提示本次測試該涵蓋產品的哪些面向</text><feedback><text>正確——SFDIPOT 是提示探索面向的產品涵蓋啟發式。</text></feedback></answer>
+    <answer fraction="0"><text>判斷觀察到的行為是不是缺陷</text><feedback><text>那是測試神諭啟發式（HICCUPPS）的用途；SFDIPOT 談的是涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>量測被執行程式碼行數的確切百分比</text><feedback><text>SFDIPOT 是思考提示，不是數值化的程式碼涵蓋率量表。</text></feedback></answer>
+    <answer fraction="0"><text>設定時間盒的長度（分鐘）</text><feedback><text>時間盒是另外設定的；SFDIPOT 列的是要涵蓋的產品面向。</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT（Structure、Function、Data、Interfaces、Platform、Operations、Time）是一個「產品元素」涵蓋啟發式。explorer 把它呈現為一份你計畫涵蓋面向的清單，幫你避免只盯著產品某一部分而遺漏其他。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>HICCUPPS 代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 explorer 中，<strong>HICCUPPS</strong>（History、Image、Comparable products、Claims、User expectations、Product、Purpose、Standards）是一份關於下列何者的清單：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試神諭（oracle）——用來判斷行為是否為問題的一致性啟發式</text><feedback><text>正確——HICCUPPS 提供多種判斷結果用的神諭。</text></feedback></answer>
+    <answer fraction="0"><text>要排程涵蓋的產品面向</text><feedback><text>那是 SFDIPOT 的角色；HICCUPPS 談的是判斷結果，而非挑選涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>固定迴歸腳本的步驟</text><feedback><text>HICCUPPS 是一組神諭，不是腳本化程序。</text></feedback></answer>
+    <answer fraction="0"><text>自動化測試工具的名稱</text><feedback><text>它們是一致性神諭（啟發式），不是工具。</text></feedback></answer>
+    <generalfeedback><text>HICCUPPS 是一份「神諭」的啟發式清單——藉由與 History、Image、Comparable products、Claims、User expectations、Product 本身、其 Purpose 與 Standards 的不一致來辨認問題。它回答的是「我怎麼知道這是個 bug？」</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是測試神諭</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在測試中，<em>神諭（oracle）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用來判斷觀察到的行為是正確或是問題的來源或原則</text><feedback><text>正確——神諭就是你分辨對錯的依據。</text></feedback></answer>
+    <answer fraction="0"><text>餵給程式的輸入資料</text><feedback><text>那是測試輸入；神諭判斷輸出，而非提供輸入。</text></feedback></answer>
+    <answer fraction="0"><text>一次測試中執行的測試案例數目</text><feedback><text>那是一個計數；神諭是通過／失敗判斷的依據。</text></feedback></answer>
+    <answer fraction="0"><text>在測試時錄下螢幕的工具</text><feedback><text>那是錄製輔助；神諭是判斷正確性所用的原則。</text></feedback></answer>
+    <generalfeedback><text>神諭是你用來判斷結果是對或是問題的任何期望來源——規格、同類產品、使用者期待等等。HICCUPPS 蒐集了多種這類神諭，讓測試者不必只依賴單一份規格。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>時間盒的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p>explorer 的<em>時間盒計時器</em>（以分鐘為單位的測試時長）是用來：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把探索測試控制在一段固定、不受打斷的時間內，維持聚焦</text><feedback><text>正確——時間盒界定測試單元，使其保持聚焦。</text></feedback></answer>
+    <answer fraction="0"><text>保證產品中的每個缺陷都被找到</text><feedback><text>計時器無法保證完整偵測缺陷；它只界定測試單元的長度。</text></feedback></answer>
+    <answer fraction="0"><text>自動幫你寫出測試案例</text><feedback><text>計時器只計時；測試由測試者設計並執行。</text></feedback></answer>
+    <answer fraction="0"><text>量測程式碼涵蓋率百分比</text><feedback><text>計時器量的是時間，不是涵蓋率。</text></feedback></answer>
+    <generalfeedback><text>時間盒賦予一個測試單元固定、不受打斷的長度（通常 60 到 120 分鐘）。這讓測試者保持聚焦、讓各單元可比較，並避免無止境地鑽牛角尖——是以測試單元為基礎之測試管理的核心紀律。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>觀察日誌的記錄類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>explorer 的觀察日誌讓你把每則記錄標記為下列哪一種：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷（Bug）、觀察（Observation）、問題（Question）或想法（Idea）</text><feedback><text>正確——這是日誌提供的四種記錄類型。</text></feedback></answer>
+    <answer fraction="0"><text>通過、失敗、受阻或略過</text><feedback><text>那是腳本測試案例的結果；探索日誌用的是缺陷／觀察／問題／想法。</text></feedback></answer>
+    <answer fraction="0"><text>低、中、高或緊急</text><feedback><text>那是嚴重度等級，不是日誌的記錄類型。</text></feedback></answer>
+    <answer fraction="0"><text>Sprint、Epic、Story 或 Task</text><feedback><text>那是敏捷待辦項目，不是探索的記錄類型。</text></feedback></answer>
+    <generalfeedback><text>觀察日誌在發現當下就把它們捕捉下來，標記為缺陷、觀察、問題或想法。在測試進行中記錄筆記，正是把自由探索轉為可稽核、以測試單元為基礎之記錄的關鍵。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>探索式測試有結構而非臨時性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索式測試是一種有結構、有紀律的活動——與無結構的臨時性（ad-hoc）或隨機測試並不相同。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——任務書、啟發式、時間盒與筆記賦予它結構與可問責性。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>探索式測試是刻意有結構的；自由、不做記錄的做法才是臨時性測試，兩者不同。</text></feedback></answer>
+    <generalfeedback><text>探索式測試是有紀律的：由任務書引導、由 SFDIPOT 與 HICCUPPS 等啟發式塑形、由時間盒界定，並以測試筆記記錄。臨時性或隨機測試缺乏這些；把兩者混為一談是常見的迷思。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨認一段任務書陳述</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一段是為探索測試單元而寫的<em>任務書</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「測試登入流程搭配無效憑證，以發現安全問題」</text><feedback><text>正確——它陳述了任務（測什麼、找什麼），卻不規定確切步驟。</text></feedback></answer>
+    <answer fraction="0"><text>「步驟1：開啟 app。步驟2：輸入位址。步驟3：斷言錯誤 401。」</text><feedback><text>那是有確切步驟的腳本化測試案例，不是任務書。</text></feedback></answer>
+    <answer fraction="0"><text>「缺陷 482：登入按鈕在 Safari 17 上無反應」</text><feedback><text>那是測試中／後產生的缺陷報告，不是任務書。</text></feedback></answer>
+    <answer fraction="0"><text>「版本 3.2 預定 3 月 15 日發佈」</text><feedback><text>那是排程備註，與測試任務無關。</text></feedback></answer>
+    <generalfeedback><text>任務書指明一個任務與焦點——要探索哪個面向、要獵捕哪類問題——同時讓測試者自由選擇步驟。「測試登入流程搭配無效憑證，以發現安全問題」正是這種形式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SFDIPOT 中 S 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 explorer 的 SFDIPOT 清單中，<strong>S</strong> 代表 <em>Structure（結構）</em>，其描述為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>程式路徑、分支、模組</text><feedback><text>正確——結構涵蓋內部構成：程式路徑、分支、模組。</text></feedback></answer>
+    <answer fraction="0"><text>OS、瀏覽器與硬體環境</text><feedback><text>那是 Platform（P），不是 Structure。</text></feedback></answer>
+    <answer fraction="0"><text>時序、延遲、逾期與並發</text><feedback><text>那是 Time（T），不是 Structure。</text></feedback></answer>
+    <answer fraction="0"><text>API、UI 與系統邊界</text><feedback><text>那是 Interfaces（I），不是 Structure。</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT = Structure、Function、Data、Interfaces、Platform、Operations、Time。Structure 是產品的內部構成——程式路徑、分支、模組——是此啟發式提醒你涵蓋的眾多產品元素之一。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>匯出測試筆記的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p>explorer 可把本次測試的筆記匯出為 Markdown（.md）檔。這麼做的主要價值是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>產生一份可分享的記錄，說明本次測試探索了什麼、發現了什麼</text><feedback><text>正確——匯出把測試單元變成可留存、可回報的成果。</text></feedback></answer>
+    <answer fraction="0"><text>自動修好被記錄下來的缺陷</text><feedback><text>匯出只記錄發現；它不會修任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>阻止測試者再記任何筆記</text><feedback><text>匯出不會鎖住日誌；它只是存下目前的筆記。</text></feedback></answer>
+    <answer fraction="0"><text>把探索測試單元轉成完全腳本化的測試套件</text><feedback><text>匯出是測試單元的記錄，不是產生的腳本套件。</text></feedback></answer>
+    <generalfeedback><text>把筆記匯出成 Markdown，會產生一份可分享的測試單元記錄——任務書加上分組的缺陷、觀察、問題與想法。這正是讓以測試單元為基礎的探索式測試具備可問責性的關鍵：工作留下了可稽核的軌跡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>HICCUPPS 中 H 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 HICCUPPS 中，第一個 <strong>H</strong> 是 <em>History（歷史）</em>神諭，意指行為應與下列何者一致：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>產品自身的舊版本</text><feedback><text>正確——History 檢查與早先版本行為的一致性。</text></feedback></answer>
+    <answer fraction="0"><text>法律、技術或產業標準</text><feedback><text>那是 Standards 神諭，不是 History。</text></feedback></answer>
+    <answer fraction="0"><text>類似的競品</text><feedback><text>那是 Comparable products 神諭，不是 History。</text></feedback></answer>
+    <answer fraction="0"><text>書面規格與文件</text><feedback><text>那是 Claims 神諭，不是 History。</text></feedback></answer>
+    <generalfeedback><text>History 神諭主張產品行為通常應與其自身過往版本一致；行為突然、無法解釋地偏離舊有作法，就是值得調查的訊號。它是 HICCUPPS 八個一致性神諭之一。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Exploratory Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>探索式測試最適合的情境</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪種情境下，探索式測試通常是<strong>最</strong>有價值的選擇？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格稀少、又新又不熟的功能，你必須邊測邊認識產品</text><feedback><text>正確——當學習與測試必須一起發生時，探索式測試最出色。</text></feedback></answer>
+    <answer fraction="0"><text>每次建置都必須以完全相同方式重新檢查的穩定功能</text><feedback><text>需要完全相同地重複檢查，偏向腳本／自動化迴歸，而非探索。</text></feedback></answer>
+    <answer fraction="0"><text>依法要求每次執行都留下可重複、有文件佐證的安全功能</text><feedback><text>受法規約束、重佐證的檢查偏向事先腳本化；探索式測試在確切可重複性上較弱。</text></feedback></answer>
+    <answer fraction="0"><text>必須無人看管、無人在場自動執行的夜間工作</text><feedback><text>無人看管的執行需要自動化；探索式測試是由人即時進行的活動。</text></feedback></answer>
+    <generalfeedback><text>當「要學的很多、能依據的很少」時，探索式測試最強——新功能、規格單薄、調查含糊的缺陷報告。它同時學習—設計—執行的迴圈，能把每個觀察變成下一個測試，正是這些情境所需。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時偏好腳本式測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於探索式測試，何時通常較宜採用<em>腳本式（事先設計）</em>測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當相同檢查必須以完全相同方式重複並留下文件時，例如受法規約束或迴歸情境</text><feedback><text>正確——確切的可重複性與步驟稽核軌跡偏向腳本。</text></feedback></answer>
+    <answer fraction="0"><text>當功能全新且幾乎不被理解時</text><feedback><text>不被理解的功能偏向探索，而非固定腳本。</text></feedback></answer>
+    <answer fraction="0"><text>當你想發現未曾預料到的非預期行為時</text><feedback><text>找出未預料之事是探索式測試的強項，不是腳本的。</text></feedback></answer>
+    <answer fraction="0"><text>只要測試者技術好，因為技術好就不需要腳本</text><feedback><text>技術對兩種風格都有幫助；採用腳本的理由是可重複與有文件，而非測試者的技術。</text></feedback></answer>
+    <generalfeedback><text>當精確、可重複、有文件的步驟很重要時——法規佐證、合約驗收、必須每次都以相同方式執行的穩定迴歸檢查——腳本式測試較佳。探索式與腳本式測試相輔相成，選擇取決於目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>任務書應界定什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一份寫得好的探索<em>任務書</em>主要應界定：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>本次測試的任務與焦點——要探索哪個面向、要找什麼</text><feedback><text>正確——任務書界定任務，把步驟留給測試者。</text></feedback></answer>
+    <answer fraction="0"><text>每一步的確切按鍵與預期結果</text><feedback><text>規定確切步驟會使它變成腳本；任務書把步驟保持開放。</text></feedback></answer>
+    <answer fraction="0"><text>將被找到的所有缺陷的名稱</text><feedback><text>缺陷是在測試單元中被發現的，不會事先列在任務書裡。</text></feedback></answer>
+    <answer fraction="0"><text>該次建置的 CI 流水線設定</text><feedback><text>那是無關的基礎設施；任務書陳述的是測試任務。</text></feedback></answer>
+    <generalfeedback><text>任務書界定一個測試單元：它指明受測面向與所尋求的資訊或問題類型，給予方向卻不規定步驟。這種「任務聚焦、方法自由」的平衡，正是使有任務書的探索既有目的又能隨機應變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何同時設計與執行有幫助</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索式測試中，為何<em>同時</em>設計與執行測試是一項優勢？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個結果立刻告知下一個測試，讓測試者趁記憶脈絡還新鮮時追查意外</text><feedback><text>正確——這個回饋迴圈讓新發現能引導緊接著的下一個測試。</text></feedback></answer>
+    <answer fraction="0"><text>它讓測試者不必理解產品</text><feedback><text>恰好相反——這個迴圈正是測試者建立產品理解的方式。</text></feedback></answer>
+    <answer fraction="0"><text>它自動保證 100% 程式碼涵蓋率</text><feedback><text>同時進行不保證任何涵蓋率數字；它讓能隨機應變地追查成為可能。</text></feedback></answer>
+    <answer fraction="0"><text>它讓測試單元逐步完全可重複</text><feedback><text>即時、隨機應變的測試其實更難精確重複，而非更容易。</text></feedback></answer>
+    <generalfeedback><text>由於設計與執行融為一體，一個非預期結果可以立刻用一個更精準的新測試去追查，而此時測試者的心智脈絡仍然新鮮。事先腳本化的做法則得等到下一輪才能對同樣的意外做出反應。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：SFDIPOT 的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索測試單元中，<strong>SFDIPOT</strong> 扮演什麼角色？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋啟發式——它提示該測哪些產品元素</text><feedback><text>正確——SFDIPOT 驅動「該涵蓋哪些面向」。</text></feedback></answer>
+    <answer fraction="0"><text>神諭啟發式——它判斷結果是不是 bug</text><feedback><text>判斷結果是 HICCUPPS 的工作；SFDIPOT 談的是涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>計時工具——它設定測試時長</text><feedback><text>時間盒設定時長；SFDIPOT 列的是產品元素。</text></feedback></answer>
+    <answer fraction="0"><text>回報格式——它組織匯出的筆記</text><feedback><text>回報是日誌／匯出的事；SFDIPOT 是涵蓋提示。</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT 與 HICCUPPS 扮演互補角色：SFDIPOT 是涵蓋啟發式（測什麼——Structure、Function、Data、Interfaces、Platform、Operations、Time），HICCUPPS 是神諭啟發式（如何判斷你所見）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：HICCUPPS 的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索測試單元中，<strong>HICCUPPS</strong> 扮演什麼角色？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>神諭啟發式——它幫助判斷觀察到的行為是否為問題</text><feedback><text>正確——HICCUPPS 提供判斷結果用的神諭。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋啟發式——它列出該測哪些產品面向</text><feedback><text>列出要涵蓋的面向是 SFDIPOT 的工作；HICCUPPS 判斷結果。</text></feedback></answer>
+    <answer fraction="0"><text>任務書範本——它撰寫測試單元的任務</text><feedback><text>任務來自任務書；HICCUPPS 談的是神諭。</text></feedback></answer>
+    <answer fraction="0"><text>計時器預設——它選擇時間盒</text><feedback><text>時間盒是另外的事；HICCUPPS 是神諭啟發式。</text></feedback></answer>
+    <generalfeedback><text>HICCUPPS（History、Image、Comparable products、Claims、User expectations、Product、Purpose、Standards）是一份神諭清單——用來辨認問題的一致性檢查。它回答「我怎麼知道這是個 bug？」，與 SFDIPOT 的「我該測什麼？」互補。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：規格不符該用哪個神諭</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試者發現 app 的貨幣捨入方式與書面規格所述不同。此時套用的是哪個 HICCUPPS 神諭？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Claims——與規格及文件的一致性</text><feedback><text>正確——把行為對照規格，用的是 Claims 神諭。</text></feedback></answer>
+    <answer fraction="0"><text>History——與舊版本的一致性</text><feedback><text>沒有提到舊版本；不符的對象是書面規格（Claims）。</text></feedback></answer>
+    <answer fraction="0"><text>Comparable products——與同類 app 的一致性</text><feedback><text>沒有提到同類產品；這裡的基準是規格（Claims）。</text></feedback></answer>
+    <answer fraction="0"><text>Standards——與法律或產業標準的一致性</text><feedback><text>參照對象是產品自身的規格，即 Claims 神諭，而非外部 Standards。</text></feedback></answer>
+    <generalfeedback><text>當產品與其規格或文件所承諾的不符時，你用的是 Claims 神諭。每個 HICCUPPS 神諭指名一個不同的期望來源；此處的來源是關於行為的書面主張。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>時間盒在 SBTM 中的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以測試單元為基礎的測試管理中，為每個測試單元固定一個<em>時間盒</em>，主要用意是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使各單元聚焦且可比較，並讓投入的工作能以一致單位被追蹤</text><feedback><text>正確——一致的時間盒帶來聚焦，並提供回報工作量的單位。</text></feedback></answer>
+    <answer fraction="0"><text>強迫測試者找到固定數量的 bug</text><feedback><text>時間盒界定時間，而非 bug 配額。</text></feedback></answer>
+    <answer fraction="0"><text>取代對任務書的需要</text><feedback><text>任務書與時間盒是同一測試單元結構中的兩個不同部分。</text></feedback></answer>
+    <answer fraction="0"><text>保證完整涵蓋產品</text><feedback><text>界定時間並不保證完整涵蓋。</text></feedback></answer>
+    <generalfeedback><text>時間盒給每個測試單元固定、聚焦的長度。這種聚焦避免無止境鑽牛角尖；又因各單元共用同一時間單位，管理者得以跨任務書追蹤並比較測試投入——這是 SBTM 的一項定義性特徵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何在測試單元中記筆記</text></name>
+    <questiontext format="html"><text><![CDATA[<p>以測試單元為基礎的探索式測試，為何堅持在測試進行中記錄筆記（如觀察日誌）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>筆記建立一份可稽核的記錄，說明涵蓋了什麼、發現了什麼，使自由形式的工作具備可問責性</text><feedback><text>正確——筆記正是讓探索可追蹤、可回報的關鍵。</text></feedback></answer>
+    <answer fraction="0"><text>筆記把測試單元變成完全自動化的迴歸套件</text><feedback><text>筆記記錄測試單元；它們不會變成自動化測試。</text></feedback></answer>
+    <answer fraction="0"><text>測試者要先記筆記才被允許思考</text><feedback><text>筆記捕捉思考；它不會成為思考的前置閘門。</text></feedback></answer>
+    <answer fraction="0"><text>筆記取代任務書與神諭</text><feedback><text>筆記與任務書、神諭互補；它不取代它們。</text></feedback></answer>
+    <generalfeedback><text>在發現當下記錄筆記，正是以測試單元為基礎的探索有別於臨時性測試之處。這些標記為缺陷、觀察、問題、想法的筆記，記載了涵蓋與發現，讓測試單元能被審視、回報，並為涵蓋可問責性辯護。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是導覽</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索式測試中，<em>導覽（tour）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>透過一個一致的主題或視角探索產品（例如所有金流功能，或所有錯誤訊息）</text><feedback><text>正確——導覽循一個主題來讓探索有結構。</text></feedback></answer>
+    <answer fraction="0"><text>每次建置都重播的單一自動化腳本</text><feedback><text>導覽是由人進行的探索主題，不是重播的腳本。</text></feedback></answer>
+    <answer fraction="0"><text>測試結束後的最終簽核會議</text><feedback><text>那是審查／儀式，不是探索主題。</text></feedback></answer>
+    <answer fraction="0"><text>保證每個功能都已被涵蓋</text><feedback><text>導覽是探索的視角；它不保證完整涵蓋。</text></feedback></answer>
+    <generalfeedback><text>導覽是一種啟發式：挑一個單一主題或觀點——「金流導覽」「錯誤處理導覽」「設定導覽」——並透過它探索產品。導覽和 SFDIPOT 一樣，藉由提示一條貫穿產品的連貫路徑，讓探索有結構。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>探索式與腳本式相輔相成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索式測試的用意是在每個專案上完全取代腳本式測試。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>兩者相輔相成、並非互斥；各自適合不同目標，且常被合併使用。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——探索式與腳本式測試相輔相成，一般而言兩者不會徹底取代彼此。</text></feedback></answer>
+    <generalfeedback><text>探索式與腳本式測試服務不同目標——發現與學習，相對於可重複、有文件的檢查——多數團隊兩者並用。探索找出令人意外的問題；腳本與自動化則鎖住可重複的迴歸涵蓋。把其中一者當成另一者的徹底替代品是錯誤的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>用 SFDIPOT 拓寬涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試者只操作過一個功能的正常 UI 點擊。接下來，SFDIPOT 啟發式最直接的幫助是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它提示還可嘗試的其他元素——例如 Data 範圍、Platform、Time／並發——揭露未測到的面向</text><feedback><text>正確——SFDIPOT 浮現出測試者尚未觸及的產品元素。</text></feedback></answer>
+    <answer fraction="0"><text>它告訴測試者程式碼中確切存在的缺陷</text><feedback><text>SFDIPOT 提示探索面向；它不指名缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>它判斷已做的點擊是否揭露了 bug</text><feedback><text>判斷結果是 HICCUPPS 的角色；SFDIPOT 用於拓寬涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>它在時限到時自動結束測試單元</text><feedback><text>結束測試單元是時間盒的工作，不是 SFDIPOT 的。</text></feedback></answer>
+    <generalfeedback><text>SFDIPOT 對抗視野狹隘。既已用 UI 點擊涵蓋了 Function，測試者被提醒去想 Data（邊界／型別輸入）、Platform（其他瀏覽器／OS）、Interfaces（UI 背後的 API）、Time（逾期、並發）等等——把狹窄的一次通過，變成廣泛而有意圖的涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可用性意外該用哪個神諭</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格並未被違反，但測試者覺得某確認對話框的行為方式會讓一般使用者感到意外且不對。哪個 HICCUPPS 神諭最貼切？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>User expectations——與常識及使用者合理期待的一致性</text><feedback><text>正確——違反使用者合理期待的意外，用的是這個神諭。</text></feedback></answer>
+    <answer fraction="0"><text>Claims——與書面規格的一致性</text><feedback><text>情境已說規格未被違反，因此 Claims 不適用。</text></feedback></answer>
+    <answer fraction="0"><text>Standards——與法律／產業標準的一致性</text><feedback><text>沒有引用任何標準；問題在於使用者會合理期待什麼。</text></feedback></answer>
+    <answer fraction="0"><text>History——與舊版本的一致性</text><feedback><text>沒有提到早先版本；不符的對象是使用者期待。</text></feedback></answer>
+    <generalfeedback><text>即使沒有任何文件被牴觸，問題仍可能是真的。User expectations 神諭讓測試者能標記那些牴觸常識或合理期待的行為——這正是 HICCUPPS 列出多個神諭、而不僅依賴規格的原因之一。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：發現對應到記錄類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試進行中，測試者納悶「被鎖定的帳號是否仍應收到密碼重設信？」但當下無法解決。在觀察日誌中，哪個記錄類型最適合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>問題（Question）——一個待後續追查的未解之點，尚未是已確認的缺陷</text><feedback><text>正確——一個待日後提出的未解之點是「問題」。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷（Bug）——產品中已確認的缺陷</text><feedback><text>目前尚未確認任何東西壞掉；這是一個未解的問題，不是缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>想法（Idea）——對未來測試或功能的建議</text><feedback><text>它是待解決的疑問，而非提案；因此是「問題」而非「想法」。</text></feedback></answer>
+    <answer fraction="0"><text>觀察（Observation）——對所見之事的中性記錄</text><feedback><text>觀察記錄所見之事；這是尚未解答的疑問，較適合標為「問題」。</text></feedback></answer>
+    <generalfeedback><text>日誌的四種記錄類型捕捉不同種類的發現：缺陷（已確認的問題）、觀察（所見的中性事實）、問題（待解決的未解之點）、想法（供日後參考的建議）。對預期行為的未解疑問是一則「問題」——當下標記以免遺失，稍後再解答。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何探索式測試適合含糊的缺陷報告</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某使用者回報「app 有時會弄丟我的草稿，但我不知道怎麼發生的」。為何探索式測試很適合調查這個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試者能隨機應變地追隨線索，隨著每個結果縮小範圍，形成並檢驗關於成因的假設</text><feedback><text>正確——能隨機應變的學習—設計—執行迴圈，最適合追查定義不清的問題。</text></feedback></answer>
+    <answer fraction="0"><text>因為事先寫好的固定腳本保證能重現一個未知成因</text><feedback><text>事先寫的腳本無法瞄準沒人理解的成因；隨機應變的調查才可以。</text></feedback></answer>
+    <answer fraction="0"><text>因為探索式測試不需思考，所以較快</text><feedback><text>調查含糊的報告極度依賴思考，並非無需思考。</text></feedback></answer>
+    <answer fraction="0"><text>因為它保證在時間盒內找到 bug</text><feedback><text>沒有任何做法能保證找到 bug；探索式測試只是適合隨機應變的調查。</text></feedback></answer>
+    <generalfeedback><text>含糊、間歇的報告沒有已知步驟可供腳本化。探索式測試讓測試者形成一個假設、加以檢驗，並用結果精煉下一個假設——穩步逼近成因。這種隨機應變的調查，正是事先固定的腳本式測試幫不上忙之處。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Exploratory Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>可重現性的限制</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索式測試一項已知的限制是：臨場發現的 bug 可能難以重現。什麼最直接地緩解這一點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在發現當下記錄詳細的測試筆記（步驟、輸入、環境），以便重建出重現路徑</text><feedback><text>正確——良好的測試筆記是對抗難以重現的首要防線。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不寫，以保持測試單元快速</text><feedback><text>那會讓重現更難，而非更容易——與正解相反。</text></feedback></answer>
+    <answer fraction="0"><text>把時間盒延長到好幾個小時</text><feedback><text>更長的測試單元本身並不能捕捉一個 bug 是怎麼被觸及的。</text></feedback></answer>
+    <answer fraction="0"><text>假定開發者會記得那些步驟</text><feedback><text>重現必須被記錄下來，不能仰賴記憶。</text></feedback></answer>
+    <generalfeedback><text>由於測試是臨場設計的，通往缺陷的確切路徑可能會遺失。測試筆記——在觀察日誌中捕捉、並匯出成記錄——保存了輸入、步驟與環境，讓發現得以重現與回報。這正是 SBTM 把記筆記視為不可省略的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探索式測試的涵蓋可問責性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>管理者擔心探索式測試對「涵蓋了什麼」毫無可見度。以測試單元為基礎的測試管理主要如何回應這一點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用任務書加上測試筆記，讓每個單元的涵蓋與發現都明確且可審視</text><feedback><text>正確——任務書界定範圍、筆記記錄之，使涵蓋具備可問責性。</text></feedback></answer>
+    <answer fraction="0"><text>產生一個程式碼涵蓋率百分比，證明一切都測過了</text><feedback><text>探索式測試不會給出保證的涵蓋率百分比；可問責性來自任務書與筆記。</text></feedback></answer>
+    <answer fraction="0"><text>禁止測試者偏離固定腳本</text><feedback><text>固定腳本等於放棄探索；SBTM 保留探索但把它記錄下來。</text></feedback></answer>
+    <answer fraction="0"><text>省略文件以節省時間</text><feedback><text>省略文件會摧毀可問責性，與目標相反。</text></feedback></answer>
+    <generalfeedback><text>SBTM 讓探索在不腳本化的前提下具備可問責性：每個單元都有任務書（宣告其預定涵蓋）並產出筆記（記錄實際做了什麼、發現什麼）。審視任務書與筆記，就能讓管理者對涵蓋有可見度——這正是「你到底測了什麼？」這個疑慮的答案。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把探索式測試與自動化結合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把探索式測試與自動化／腳本化迴歸測試結合，最穩健的做法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用探索去發現新的、非預期的問題，再把重要且穩定的檢查編寫為自動化迴歸測試</text><feedback><text>正確——探索負責發現；自動化把可重複的檢查鎖住。</text></feedback></answer>
+    <answer fraction="0"><text>把探索測試單元自動化，讓過程不需要人</text><feedback><text>探索是由人、思考驅動的；把它自動化掉會移除它可貴之處。</text></feedback></answer>
+    <answer fraction="0"><text>放棄所有自動化，因為探索涵蓋了一切</text><feedback><text>探索並不提供可重複的迴歸涵蓋；自動化仍有其價值。</text></feedback></answer>
+    <answer fraction="0"><text>讓兩者運作時從不共享任何資訊</text><feedback><text>價值恰恰在於探索得到的發現能餵入自動化套件。</text></feedback></answer>
+    <generalfeedback><text>兩種技術彼此增強：探索式測試擅長發現非預期之事，自動化擅長低成本地重複已知檢查。常見模式是先探索，當一個發現重要且穩定時，就把它化為自動化迴歸測試——此後便會被永遠檢查，而不需重新探索。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>用 SFDIPOT 歸類一個測試點子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試者決定檢查：一組折扣碼在午夜到期、而一筆購買正在進行中時會發生什麼。這個點子最直接演練了哪個 SFDIPOT 元素？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Time——時序、延遲、逾期與並發</text><feedback><text>正確——到期與進行中的時序屬於 Time 元素。</text></feedback></answer>
+    <answer fraction="0"><text>Platform——OS、瀏覽器、硬體環境</text><feedback><text>並未涉及環境變更；這個點子談的是時序／到期（Time）。</text></feedback></answer>
+    <answer fraction="0"><text>Structure——程式路徑、分支、模組</text><feedback><text>這個點子由時序行為界定，而非內部程式構成。</text></feedback></answer>
+    <answer fraction="0"><text>Image——與品牌或形象的一致性</text><feedback><text>Image 是 HICCUPPS 神諭，不是 SFDIPOT 涵蓋元素，且與到期時序無關。</text></feedback></answer>
+    <generalfeedback><text>到期、延遲與並發時序，正落在 SFDIPOT（Structure、Function、Data、Interfaces、Platform、Operations、Time）的 Time 元素。把一個測試點子對應回它所演練的元素，能幫測試者看出產品哪些部分正被涵蓋、哪些沒有。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個神諭：跨產品比較</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試者主張某日期選擇器有 bug，理由是「其他每個行事曆 app 都讓你直接輸入日期，這個卻不行」。這援引的是哪個 HICCUPPS 神諭？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Comparable products——同類 app 行為相似</text><feedback><text>正確——這個論點立足於同類 app 的行為。</text></feedback></answer>
+    <answer fraction="0"><text>Claims——與規格的一致性</text><feedback><text>沒有引用規格；參照對象是其他產品（Comparable products）。</text></feedback></answer>
+    <answer fraction="0"><text>Purpose——達成既定目標</text><feedback><text>論點是與其他 app 的一致性，而非產品的既定目的。</text></feedback></answer>
+    <answer fraction="0"><text>Product——內部自身一致性</text><feedback><text>這個比較是對外、對其他 app，而非對同一產品的另一部分。</text></feedback></answer>
+    <generalfeedback><text>訴諸「同類應用如何行事」用的是 Comparable products 神諭。它是啟發式而非證明——被比較的行為本身也可能是錯的——但它是浮現候選問題的正當方式，這正是 HICCUPPS 納入它的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探索式涵蓋無法化為單一數字</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何探索式測試的涵蓋，無法像某些腳本度量那樣，被總結為單一、有保證的百分比？又如何處理？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>涵蓋是判斷性且多維度的，因此改用 SFDIPOT 等啟發式與測試筆記來給它結構與佐證</text><feedback><text>正確——探索式測試以有結構的啟發式與有文件的筆記，取代單一數字。</text></feedback></answer>
+    <answer fraction="0"><text>因為探索式測試者從不涵蓋任何可量測之物</text><feedback><text>他們涵蓋很多；重點在於涵蓋是被判斷與記錄的，而非不存在。</text></feedback></answer>
+    <answer fraction="0"><text>因為單一百分比其實會被自動產生</text><feedback><text>探索式測試並不存在這種有保證的百分比；那正是本題的前提。</text></feedback></answer>
+    <answer fraction="0"><text>因為在探索式測試中涵蓋並不重要</text><feedback><text>涵蓋非常重要；只是它透過啟發式與筆記表達，而非單一度量。</text></feedback></answer>
+    <generalfeedback><text>探索中的「涵蓋」橫跨多個維度（SFDIPOT 的元素、風險、神諭），又取決於測試者判斷，因此難以化為單一有保證的數字。取而代之：SFDIPOT 等啟發式讓預定涵蓋明確，測試筆記為實際涵蓋提供佐證——是有結構的可問責性，而非一個數字。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探索式測試並非臨時性——區別何在</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某開發者把探索式測試貶為「只是隨便亂點」。最準確的糾正是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>探索式測試由任務書、啟發式、時間盒與記錄下來的筆記賦予結構；臨時性亂點則一樣都沒有</text><feedback><text>正確——結構與文件把探索式測試與臨時性測試區分開來。</text></feedback></answer>
+    <answer fraction="0"><text>兩者沒有真正差別；這兩個詞意思相同</text><feedback><text>它們差別很大：探索式測試有紀律且有文件，臨時性測試則否。</text></feedback></answer>
+    <answer fraction="0"><text>探索式測試其實比臨時性測試更慢、更不用心</text><feedback><text>探索式測試更用心、更有紀律，而非更少；此說法正好相反。</text></feedback></answer>
+    <answer fraction="0"><text>開發者說得對；探索完全沒有方法</text><feedback><text>探索有相當的方法——任務書、啟發式、筆記——所以這種貶抑是錯的。</text></feedback></answer>
+    <generalfeedback><text>對「隨便亂點」這項指控的關鍵回答是「結構」：任務書設定任務，SFDIPOT、HICCUPPS 等啟發式驅動涵蓋與判斷，時間盒界定測試單元，筆記記錄過程。這份紀律正是探索式測試有別於臨時性測試之處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探索式測試的獨特價值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於一套成熟的自動化迴歸套件，探索式測試獨特地增添了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有能力察覺非預期、未規定的問題——那是任何事先寫好的測試都不是為捕捉它而設計的</text><feedback><text>正確——探索式測試找出腳本按其本質無法預料到的意外。</text></feedback></answer>
+    <answer fraction="0"><text>每次建置都低成本、完全相同地重跑同一組檢查</text><feedback><text>那是自動化的強項，不是探索式測試的獨特貢獻。</text></feedback></answer>
+    <answer fraction="0"><text>保證產品毫無缺陷</text><feedback><text>沒有任何技術能保證產品毫無缺陷；探索式測試也不能。</text></feedback></answer>
+    <answer fraction="0"><text>移除對任何人為判斷的需要</text><feedback><text>探索式測試高度依賴人為判斷；它不會移除判斷。</text></feedback></answer>
+    <generalfeedback><text>自動化迴歸擅長低成本重複已知檢查，但它只檢查有人已想到要腳本化之事。探索式測試的獨特價值在於發現——一位會思考的測試者追隨意外，能找出任何事先寫好的測試都未預料到的問題。兩者並用，涵蓋範圍勝過單獨任一者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試單元回顧的價值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次測試單元後，匯出的筆記（任務書加上分組的缺陷、觀察、問題、想法）被拿來審視。這份回顧記錄主要的管理價值是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它傳達了涵蓋了什麼、發現了什麼、還有什麼未解，藉此餵入後續測試單元的規劃</text><feedback><text>正確——這份記錄把一次測試單元轉為可共享、可行動的資訊。</text></feedback></answer>
+    <answer fraction="0"><text>它證明測試者剛好花了排定的分鐘數</text><feedback><text>時間只是一個細節；回顧的價值在於它傳達的涵蓋與發現。</text></feedback></answer>
+    <answer fraction="0"><text>它自動關閉所有被記錄的 bug</text><feedback><text>記錄不會關閉 bug；它告知將去處理的人。</text></feedback></answer>
+    <answer fraction="0"><text>它取代了任何進一步測試的需要</text><feedback><text>筆記中未解的問題與想法，通常指向更多測試，而非更少。</text></feedback></answer>
+    <generalfeedback><text>匯出的測試單元記錄——任務，加上依類型分組的發現——正是探索用以溝通的方式。它告訴利害關係人涵蓋了什麼、浮現未解的問題與想法，並形塑後續單元的任務書。這閉合了 SBTM 中「任務書、測試單元、回顧」的迴圈。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>過短時間盒的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊為每個探索測試單元設定非常短（15 分鐘）的時間盒。主要的取捨是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>高度聚焦且容易追蹤，但在單元結束前沒有足夠時間深入追查一條線索</text><feedback><text>正確——極短的盒子強化聚焦，卻可能切斷深入的調查。</text></feedback></answer>
+    <answer fraction="0"><text>保證每個盒子都完整涵蓋產品</text><feedback><text>短盒子不保證完整涵蓋；如果有影響，反而是限制深度。</text></feedback></answer>
+    <answer fraction="0"><text>對測試單元的進行完全沒有影響</text><feedback><text>單元長度對線索能被追查得多深，有實質影響。</text></feedback></answer>
+    <answer fraction="0"><text>免除記任何筆記的需要</text><feedback><text>無論盒子多長，筆記仍是需要的。</text></feedback></answer>
+    <generalfeedback><text>時間盒是一種平衡。短盒子讓單元高度聚焦、讓工作量易於追蹤與比較，但一條有希望的調查線索可能在有回報前就被切斷。典型 SBTM 單元約 60 到 120 分鐘，以在聚焦與深度間取捨；15 分鐘則大幅偏向聚焦而犧牲深度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為受法規約束的迴歸選擇技術</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某醫療器材畫面必須在每次發佈前以完全相同方式重新驗證，並對每個步驟留下文件佐證。哪種做法最合適，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>腳本式／自動化測試，因為它提供確切的可重複性與有文件、可稽核的步驟軌跡</text><feedback><text>正確——受法規約束、可重複、重佐證的檢查，是腳本式測試的主場。</text></feedback></answer>
+    <answer fraction="0"><text>純探索式測試，因為它較快且不需要文件</text><feedback><text>確切可重複的佐證正是自由探索最弱之處；此情境偏向腳本。</text></feedback></answer>
+    <answer fraction="0"><text>探索式測試，因為可重現性是它的核心強項之一</text><feedback><text>可重現性是探索式測試的已知限制，而非強項；此處腳本勝出。</text></feedback></answer>
+    <answer fraction="0"><text>若畫面先前通過過一次，就不需要測試</text><feedback><text>受法規約束的重新驗證要求每次發佈都測，而非一次通過就算。</text></feedback></answer>
+    <generalfeedback><text>當一項檢查必須每次發佈都以相同方式執行、並對每個步驟產出文件佐證時，腳本式（常為自動化）測試是對的工具——那正是探索式測試本身不提供的可重複性與可稽核性。這是一個依強項來分工兩種技術的清楚案例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把任務書對應到 SFDIPOT 元素</text></name>
+    <questiontext format="html"><text><![CDATA[<p>任務書：「跨不同瀏覽器與檔案類型探索檔案上傳功能，以找出失敗。」這份任務書最直接強調了哪些 SFDIPOT 元素？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Platform（不同瀏覽器）與 Data（不同檔案類型）</text><feedback><text>正確——瀏覽器對應 Platform，檔案類型對應 Data。</text></feedback></answer>
+    <answer fraction="0"><text>History 與 Standards</text><feedback><text>那些是 HICCUPPS 神諭，不是這份任務書所強調的 SFDIPOT 元素。</text></feedback></answer>
+    <answer fraction="0"><text>Time 與 Purpose</text><feedback><text>Purpose 是 HICCUPPS 神諭；任務書談的是瀏覽器（Platform）與檔案類型（Data），與時序無關。</text></feedback></answer>
+    <answer fraction="0"><text>Image 與 Claims</text><feedback><text>那些是 HICCUPPS 神諭，不是涵蓋元素；任務書強調的是 Platform 與 Data。</text></feedback></answer>
+    <generalfeedback><text>「不同瀏覽器」是 Platform 元素（OS、瀏覽器、硬體）；「不同檔案類型」是 Data 元素（輸入值、型別、範圍）。透過 SFDIPOT 來讀一份任務書，能看出它會把涵蓋驅動往哪些產品元素——此處是 Platform 與 Data。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何要有多個神諭</text></name>
+    <questiontext format="html"><text><![CDATA[<p>HICCUPPS 為何提供多個神諭，而不只依賴規格？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格常常不完整、缺失或本身有錯，因此多個一致性神諭能抓到單一規格會漏掉的問題</text><feedback><text>正確——多個神諭補上單一規格留下的缺口。</text></feedback></answer>
+    <answer fraction="0"><text>因為規格總是完美完整且正確</text><feedback><text>若規格總是完美，就不需要多個神諭了；現實中並非如此。</text></feedback></answer>
+    <answer fraction="0"><text>因為神諭只是裝飾、從不被使用</text><feedback><text>神諭會被積極用來判斷行為；它們遠非裝飾。</text></feedback></answer>
+    <answer fraction="0"><text>因為在一個測試單元中禁止使用超過一個神諭</text><feedback><text>使用多個神諭是被鼓勵的，而非被禁止。</text></feedback></answer>
+    <generalfeedback><text>真實規格常常不完整、含糊、過時或有錯，而有些問題（可用性差、品牌不一致）根本不在任何規格裡。HICCUPPS 給測試者多把獨立量尺——歷史、同類產品、使用者期待、標準等等——讓問題即使在規格沉默或出錯時仍能被辨認。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從任務書到筆記的可追溯性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以測試單元為基礎的測試管理中，任務書、時間盒與觀察日誌如何共同提供可追溯性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>任務書陳述預定範圍、時間盒界定投入、筆記記錄實際做了什麼與發現什麼——把意圖連到證據</text><feedback><text>正確——三者共同串起宣告的意圖、界定的投入與記錄的成果。</text></feedback></answer>
+    <answer fraction="0"><text>它們免除了測試超過一次的需要</text><feedback><text>它們為一個測試單元提供可追溯性；並不會使進一步測試變得不必要。</text></feedback></answer>
+    <answer fraction="0"><text>它們自動把探索轉成固定腳本</text><feedback><text>它們記錄探索；並不把它變成腳本。</text></feedback></answer>
+    <answer fraction="0"><text>它們保證不留下任何殘餘風險</text><feedback><text>沒有流程能保證零殘餘風險；它們提供的是可追溯性，而非確定性。</text></feedback></answer>
+    <generalfeedback><text>這三項成果構成一條鏈：任務書宣告本單元意圖涵蓋什麼，時間盒固定它得到多少投入，觀察日誌記錄實際發生與發現什麼。把它們合起來審視，就能從意圖經投入追溯到證據——這正是使探索式測試可被管理的可問責性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對測試者技術的依賴</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪項陳述最能刻畫探索式測試的一項真實限制？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的成效高度取決於個別測試者的技術、產品知識，以及記筆記的用心程度</text><feedback><text>正確——成果隨測試者技術與紀律而變，這是一項真實限制。</text></feedback></answer>
+    <answer fraction="0"><text>它找不到任何未被寫進腳本的缺陷</text><feedback><text>找出未腳本化的缺陷是探索式測試的強項，而非限制。</text></feedback></answer>
+    <answer fraction="0"><text>它總是產出一個確切的數值涵蓋率保證</text><feedback><text>探索式測試不會產出有保證的涵蓋率數字；這正是它需要啟發式與筆記的原因之一。</text></feedback></answer>
+    <answer fraction="0"><text>它只能由完全自動化的工具來執行</text><feedback><text>探索式測試是由人、思考驅動的活動，而非只能自動化。</text></feedback></answer>
+    <generalfeedback><text>由於探索是由一位會思考的人即時驅動，其結果取決於此人的技術、領域知識，以及記筆記的紀律。啟發式（SFDIPOT、HICCUPPS）與測試單元結構能降低這種變異，卻無法消除它——這是選擇此技術時要權衡的一項真實限制。</text></generalfeedback>
+  </question>
+</quiz>

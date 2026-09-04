@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Slice Dicing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a program dice is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Slice Dicing Explorer, the <strong>dice</strong> of a fault is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The statements in the backward slice of the incorrect variable that are in no slice of a correct variable</text><feedback><text>Correct — the dice is the failing (incorrect) slice with every correct variable's slice subtracted out.</text></feedback></answer>
+    <answer fraction="0"><text>Every statement the program executes on the failing input</text><feedback><text>That is the whole trace, not the dice; dicing subtracts the correct variables' slices.</text></feedback></answer>
+    <answer fraction="0"><text>The union of the slices of all output variables</text><feedback><text>Dicing subtracts (set-differences) the correct slices; it does not union them.</text></feedback></answer>
+    <answer fraction="0"><text>The set of statements common to every output's slice</text><feedback><text>Those common statements are exactly what dicing removes, not what it keeps.</text></feedback></answer>
+    <generalfeedback><text>The dice = slice(incorrect variable) minus the slices of the observed-correct variables. What remains are statements uniquely implicated in the wrong result.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dicing vs plain slicing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does <strong>dicing</strong> differ from computing a single <strong>slice</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Slicing computes one slice; dicing set-differences slices — it subtracts correct variables' slices from the incorrect variable's slice</text><feedback><text>Correct — dicing is a set operation over several slices to narrow the suspect region.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical; dicing is just another name for a backward slice</text><feedback><text>No — dicing combines several slices by subtraction; a slice is a single set.</text></feedback></answer>
+    <answer fraction="0"><text>Slicing needs a failing test but dicing does not</text><feedback><text>Dicing needs an observed-incorrect variable (a failure); a slice alone needs only a criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Dicing ignores dependences and just counts executed lines</text><feedback><text>Dicing starts from real backward slices (dependence-based) and then subtracts.</text></feedback></answer>
+    <generalfeedback><text>A slice answers &quot;what can affect v here?&quot; Dicing takes the incorrect variable's slice and removes the slices of variables observed correct, leaving the statements most likely responsible for the bug.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which variable is incorrect (Summary Stats)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the static <strong>Summary Stats</strong> scenario, which output variable is the one observed to be <strong>incorrect</strong> (the wrong output)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>highest</text><feedback><text>Correct — the app seeds highest as the wrong output; its slice starts the dice.</text></feedback></answer>
+    <answer fraction="0"><text>total</text><feedback><text>total is observed correct in this scenario, so its slice is subtracted.</text></feedback></answer>
+    <answer fraction="0"><text>mean</text><feedback><text>mean is observed correct here, so its slice is subtracted.</text></feedback></answer>
+    <answer fraction="0"><text>nums</text><feedback><text>nums is the input array, not one of the three returned output variables.</text></feedback></answer>
+    <generalfeedback><text>Summary Stats returns total, mean, and highest. The wrong output is highest; total and mean are correct, so the dice = slice(highest) minus slice(total) minus slice(mean).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which outputs are correct (Summary Stats)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the static <strong>Summary Stats</strong> scenario, which output variables are observed <strong>correct</strong> (their slices get subtracted)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>total and mean</text><feedback><text>Correct — only highest is wrong; total and mean are correct, so their slices are subtracted.</text></feedback></answer>
+    <answer fraction="0"><text>highest and mean</text><feedback><text>highest is the incorrect variable, not a correct one.</text></feedback></answer>
+    <answer fraction="0"><text>highest and total</text><feedback><text>highest is the incorrect variable; the correct pair is total and mean.</text></feedback></answer>
+    <answer fraction="0"><text>only total</text><feedback><text>mean is also correct and its slice is subtracted too.</text></feedback></answer>
+    <generalfeedback><text>The dice subtracts the slices of every variable observed correct. Here that is total and mean, leaving what is unique to highest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why subtract the correct slices</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does dicing <strong>subtract</strong> the slices of the variables observed correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A statement that also computes a correct output is unlikely to be the fault, so removing it narrows the suspects</text><feedback><text>Correct — statements shared with a correct result are largely exonerated, shrinking the search.</text></feedback></answer>
+    <answer fraction="0"><text>To make the dice larger so more statements are inspected</text><feedback><text>Subtraction shrinks the set; the goal is a smaller, more focused suspect region.</text></feedback></answer>
+    <answer fraction="0"><text>Because correct variables never share statements with the wrong one</text><feedback><text>They often do share statements — that sharing is exactly what subtraction removes.</text></feedback></answer>
+    <answer fraction="0"><text>To convert the backward slice into a forward slice</text><feedback><text>Dicing does not change slice direction; it set-differences backward slices.</text></feedback></answer>
+    <generalfeedback><text>If a statement helped produce a value that came out correct, it is a weaker suspect for the bug. Subtracting the correct slices leaves statements implicated only in the wrong output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which set operation is dicing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Computing the dice from the failing slice and the correct slices is which set operation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Set difference — the failing slice minus the correct slices</text><feedback><text>Correct — dice = failingSlice with every statement of any correct slice deleted.</text></feedback></answer>
+    <answer fraction="0"><text>Set intersection of all the slices</text><feedback><text>Intersection would keep shared statements; dicing removes them.</text></feedback></answer>
+    <answer fraction="0"><text>Set union of all the slices</text><feedback><text>Union grows the set; dicing subtracts to shrink it.</text></feedback></answer>
+    <answer fraction="0"><text>Symmetric difference of the first two slices only</text><feedback><text>Dicing subtracts every correct slice from the one failing slice, not a symmetric difference of two.</text></feedback></answer>
+    <generalfeedback><text>programDice(failing, passing[]) copies the failing slice and deletes every statement found in any passing/correct slice — a set difference.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Dice is a subset of the failing slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The dice is always a subset of the backward slice of the incorrect variable.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — dicing only ever deletes statements from the failing slice, so the dice cannot contain anything outside it.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Subtraction can only remove statements, never add new ones, so the dice stays within the failing slice.</text></feedback></answer>
+    <generalfeedback><text>The dice starts as a copy of the failing (incorrect variable's) slice and only has statements removed, so dice is a subset of that slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the dice size (Summary Stats)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the static <strong>Summary Stats</strong> scenario with the wrong output set to <code>highest</code>, how many statements does the dice contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the dice is s3, s6, s7 and the return of highest: four statements.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the size of the full backward slice of highest before the correct slices are subtracted.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is the dynamic dice of the Fare scenario, not this one.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 is the total number of statements in the program, not the dice.</text></feedback></answer>
+    <generalfeedback><text>slice(highest) has 7 statements; subtracting slice(total) and slice(mean) removes s2, s4, s5, leaving 4: s3, s6, s7, return highest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The seeded bug (Summary Stats)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, the seeded bug is at s7 <code>highest = total</code> (it assigns total instead of n). Is s7 in the dice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — s7 is in the dice, so the app reports &quot;Bug caught&quot;</text><feedback><text>Correct — s7 is in slice(highest) but not in slice(total) or slice(mean), so it survives into the dice.</text></feedback></answer>
+    <answer fraction="0"><text>No — s7 is subtracted away by the correct slices</text><feedback><text>s7 does not appear in the total or mean slices, so it is not subtracted; it stays in the dice.</text></feedback></answer>
+    <answer fraction="0"><text>Only if you also mark total as incorrect</text><feedback><text>s7 is already in the dice with just highest wrong; no extra marking is needed.</text></feedback></answer>
+    <answer fraction="0"><text>s7 is not in any slice at all</text><feedback><text>s7 defines highest, so it is in the backward slice of highest.</text></feedback></answer>
+    <generalfeedback><text>The bug s7 (highest = total) influences highest but neither total nor mean, so it stays in the dice; the detail panel confirms &quot;Bug caught&quot;.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The failing run (Fare Calculator)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic <strong>Fare Calculator</strong> scenario, which run is the <strong>failing</strong> one?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>age=30, peak=true — expected 12, actual 14</text><feedback><text>Correct — the adult-peak run is the only one marked fail.</text></feedback></answer>
+    <answer fraction="0"><text>age=30, peak=false — expected 10, actual 10</text><feedback><text>That run passes (10 = 10), so its slice is subtracted.</text></feedback></answer>
+    <answer fraction="0"><text>age=12, peak=false — expected 5, actual 5</text><feedback><text>That run passes, so its slice is subtracted.</text></feedback></answer>
+    <answer fraction="0"><text>age=70, peak=false — expected 3, actual 3</text><feedback><text>That run passes, so its slice is subtracted.</text></feedback></answer>
+    <generalfeedback><text>Only age=30, peak=true fails (expected 12, actual 14). Its dynamic slice is the failing slice; the three passing runs' slices are subtracted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the dice size (Fare Calculator)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic <strong>Fare Calculator</strong> scenario, how many statements does the dice contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — the dice is s8 and s9: two statements.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the size of the failing run's dynamic slice before subtraction.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>0 would be the STATIC dice here; the dynamic dice is 2.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the size of the union of the passing slices, not the dice.</text></feedback></answer>
+    <generalfeedback><text>The failing dynamic slice is {s2, s8, s9, s11}; subtracting the passing runs' slices removes s2 and s11, leaving the dice {s8, s9}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which statements form the dice (Fare)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic <strong>Fare Calculator</strong> scenario, which statements make up the dice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s8 <code>if (peak)</code> and s9 <code>price = price + 2 + 2</code></text><feedback><text>Correct — these two survive subtraction of the passing slices.</text></feedback></answer>
+    <answer fraction="0"><text>s2 <code>price = 10</code> and s11 <code>return price</code></text><feedback><text>Both appear in passing runs' slices, so both are subtracted out.</text></feedback></answer>
+    <answer fraction="0"><text>s4 <code>price = 5</code> and s6 <code>price = 3</code></text><feedback><text>These run only on passing inputs; they are not even in the failing slice.</text></feedback></answer>
+    <answer fraction="0"><text>s3 <code>if (age &lt; 18)</code> and s5 <code>else if (age &gt;= 65)</code></text><feedback><text>These are in passing slices and not in the failing slice, so not in the dice.</text></feedback></answer>
+    <generalfeedback><text>The dice is {s8, s9}: the peak branch and the buggy fare adjustment that only the failing run exercises.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of the incorrect variable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In dicing, what role does the <strong>incorrect variable</strong> play?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its backward slice is the starting (failing) set from which the correct slices are subtracted</text><feedback><text>Correct — the incorrect variable seeds the failing slice that becomes the dice after subtraction.</text></feedback></answer>
+    <answer fraction="0"><text>Its slice is subtracted from the others</text><feedback><text>Reversed — the correct variables' slices are subtracted from the incorrect variable's slice.</text></feedback></answer>
+    <answer fraction="0"><text>It is ignored; only correct variables matter</text><feedback><text>The incorrect variable is essential — it defines the failing slice.</text></feedback></answer>
+    <answer fraction="0"><text>It determines the forward slice used as the dice</text><feedback><text>Dicing uses the backward slice of the incorrect variable, not a forward slice.</text></feedback></answer>
+    <generalfeedback><text>The incorrect variable's backward slice is the failing slice; dicing subtracts the correct variables' slices from it to obtain the dice.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Bug in dice means fault narrowed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If the faulty statement lies within the computed dice, dicing has narrowed the suspects down to a set that still contains the fault.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — that is the &quot;Bug caught&quot; case: the dice is smaller than the failing slice yet still holds the fault.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>When the fault is in the dice, the search has been narrowed while retaining the fault — the ideal dicing outcome.</text></feedback></answer>
+    <generalfeedback><text>A useful dice is small and still contains the fault. Both example scenarios achieve this (s7 in Summary Stats, s9 in Fare), which the app labels &quot;Bug caught&quot;.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Benefit of a smaller dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a <strong>smaller</strong> dice give the debugger?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fewer statements to inspect while localizing the fault</text><feedback><text>Correct — a smaller suspect set means less code to examine.</text></feedback></answer>
+    <answer fraction="0"><text>A guarantee that the program has no other bugs</text><feedback><text>Dicing localizes one observed failure; it says nothing about other bugs.</text></feedback></answer>
+    <answer fraction="0"><text>Higher statement coverage</text><feedback><text>Dicing is about fault localization, not coverage.</text></feedback></answer>
+    <answer fraction="0"><text>A proof that the correct outputs are truly correct</text><feedback><text>Correctness of those outputs is an assumption of dicing, not a result of it.</text></feedback></answer>
+    <generalfeedback><text>The value of dicing is a narrower region: a smaller dice means the developer inspects fewer candidate statements to find the fault.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Dicing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the dice (Summary Stats)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>:</p>
+<ul>
+<li>slice(highest) = { s2, s3, s4, s5, s6, s7, return&#8209;highest }</li>
+<li>slice(total) = { s2, s4, s5, return&#8209;total }</li>
+<li>slice(mean) = { s2, s4, s5, s10, return&#8209;mean }</li>
+</ul>
+<p>What is the dice = slice(highest) &minus; slice(total) &minus; slice(mean)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ s3, s6, s7, return-highest }</text><feedback><text>Correct — subtracting s2, s4, s5 (shared with the correct slices) leaves s3, s6, s7 and the return of highest.</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s4, s5 }</text><feedback><text>Those are exactly the statements REMOVED; they belong to the correct slices.</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s3, s4, s5, s6, s7, return-highest }</text><feedback><text>That is slice(highest) before any subtraction.</text></feedback></answer>
+    <answer fraction="0"><text>{ s7 }</text><feedback><text>Only the bug remains here, but dicing also keeps s3, s6, and return-highest, which are absent from the correct slices.</text></feedback></answer>
+    <generalfeedback><text>s2, s4, s5 appear in slice(total) and slice(mean), so they are subtracted. The dice is { s3, s6, s7, return-highest } — four statements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why s5 is not in the dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, why is s5 <code>total = total + n</code> NOT in the dice, even though it is in slice(highest)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because s5 also appears in the slices of the correct outputs total and mean, so it is subtracted</text><feedback><text>Correct — s5 helps compute correct outputs too, so dicing removes it.</text></feedback></answer>
+    <answer fraction="0"><text>Because s5 is never executed on the failing input</text><feedback><text>s5 is in slice(highest), so it is part of the failing computation; it is removed by subtraction, not by non-execution.</text></feedback></answer>
+    <answer fraction="0"><text>Because s5 has no data dependence on highest</text><feedback><text>s5 feeds highest via s7; it is in the failing slice. It is removed because it is also in the correct slices.</text></feedback></answer>
+    <answer fraction="0"><text>Because s5 is a control statement</text><feedback><text>s5 is an assignment, not a control node; it is subtracted because it is shared with the correct slices.</text></feedback></answer>
+    <generalfeedback><text>total = total + n contributes to total and mean (both correct) as well as highest, so it is in the subtracted slices and drops out of the dice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why s7 is in the dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, why IS s7 <code>highest = total</code> in the dice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is in slice(highest) but in neither slice(total) nor slice(mean), so nothing subtracts it</text><feedback><text>Correct — s7 influences only highest, so it survives the subtraction.</text></feedback></answer>
+    <answer fraction="0"><text>It is in all three slices</text><feedback><text>If it were in the correct slices it would be subtracted; s7 affects only highest.</text></feedback></answer>
+    <answer fraction="0"><text>It is the criterion statement, which is never removed</text><feedback><text>The criterion is return highest; s7 is a separate assignment kept because it is unique to highest.</text></feedback></answer>
+    <answer fraction="0"><text>Because it is executed most often</text><feedback><text>Dicing is about set membership across slices, not execution frequency.</text></feedback></answer>
+    <generalfeedback><text>total and mean do not depend on highest, so s7 (highest = total) is absent from their slices and remains in the dice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why s3 stays in the dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, s3 <code>highest = nums[0]</code> is in the dice. What makes it a suspect there?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It defines highest and is not in the correct outputs' slices, so it is not subtracted</text><feedback><text>Correct — s3 influences highest only, so it survives into the dice.</text></feedback></answer>
+    <answer fraction="0"><text>It is the seeded bug</text><feedback><text>The seeded bug is s7; s3 is a suspect kept because it is unique to highest.</text></feedback></answer>
+    <answer fraction="0"><text>It appears in slice(mean)</text><feedback><text>If it were in slice(mean) it would be subtracted; it is not.</text></feedback></answer>
+    <answer fraction="0"><text>It reads total</text><feedback><text>s3 reads nums, not total; it is kept because it defines highest and is absent from the correct slices.</text></feedback></answer>
+    <generalfeedback><text>Dicing keeps every failing-slice statement absent from the correct slices — including s3, an initializer of highest. The dice is a set of suspects, not a single line.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why s2 is removed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, why is s2 <code>total = 0</code> removed from the dice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is in slice(total) and slice(mean), so both correct slices subtract it</text><feedback><text>Correct — s2 initializes total, which feeds the correct outputs, so it is removed.</text></feedback></answer>
+    <answer fraction="0"><text>It is not in slice(highest)</text><feedback><text>s2 IS in slice(highest) via total to s7; it is removed by subtraction, not by absence.</text></feedback></answer>
+    <answer fraction="0"><text>It never executes</text><feedback><text>s2 executes on every run; it is subtracted because it is shared with correct slices.</text></feedback></answer>
+    <answer fraction="0"><text>It has no defs</text><feedback><text>s2 defines total; that is exactly why it appears in the correct slices and gets subtracted.</text></feedback></answer>
+    <generalfeedback><text>total = 0 contributes to total and mean (both correct), so it is in the subtracted slices and drops out of the dice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the dice (Fare Calculator)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic <strong>Fare Calculator</strong>:</p>
+<ul>
+<li>failing slice = { s2, s8, s9, s11 }</li>
+<li>union of passing slices = { s2, s3, s4, s5, s6, s11 }</li>
+</ul>
+<p>What is the dice = failing &minus; union(passing)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{ s8, s9 }</text><feedback><text>Correct — subtracting s2 and s11 (shared with passing runs) leaves s8 and s9.</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s11 }</text><feedback><text>Those are exactly the statements removed, not the ones kept.</text></feedback></answer>
+    <answer fraction="0"><text>{ s2, s8, s9, s11 }</text><feedback><text>That is the failing slice before subtraction.</text></feedback></answer>
+    <answer fraction="0"><text>{ } (empty)</text><feedback><text>Empty is the STATIC dice here; the dynamic dice is { s8, s9 }.</text></feedback></answer>
+    <generalfeedback><text>s2 and s11 appear in the passing runs' slices and are subtracted, leaving the dice { s8, s9 } — the peak branch and its buggy fare adjustment.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why s2 is not in the Fare dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <strong>Fare Calculator</strong>, s2 <code>price = 10</code> is in the failing slice but not in the dice. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It also appears in a passing run's slice (e.g. the adult-off run), so it is subtracted</text><feedback><text>Correct — s2 is shared with passing runs, so dicing removes it.</text></feedback></answer>
+    <answer fraction="0"><text>It is not executed on the failing input</text><feedback><text>s2 runs on every input; it is removed because it is also in passing slices.</text></feedback></answer>
+    <answer fraction="0"><text>It is a control statement</text><feedback><text>s2 is an assignment; it is subtracted because it appears in passing slices.</text></feedback></answer>
+    <answer fraction="0"><text>It defines peak</text><feedback><text>s2 defines price, not peak; it is removed because passing runs' slices contain it.</text></feedback></answer>
+    <generalfeedback><text>price = 10 feeds the returned price on passing runs too, so it is in a passing slice and subtracted from the dice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the criterion s11 is not in the dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <strong>Fare Calculator</strong>, why is the criterion statement s11 <code>return price</code> not in the dice, even though it is in every slice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because it is in every run's slice — including the passing ones — so it is subtracted</text><feedback><text>Correct — a statement common to passing and failing slices is removed by dicing.</text></feedback></answer>
+    <answer fraction="0"><text>Because the criterion statement is excluded by definition</text><feedback><text>The criterion is included in a slice; here it is removed only because it also appears in passing slices.</text></feedback></answer>
+    <answer fraction="0"><text>Because s11 has no dependences</text><feedback><text>s11 uses price and heads every slice; it is removed by subtraction, not by lacking dependences.</text></feedback></answer>
+    <answer fraction="0"><text>Because s11 is the bug</text><feedback><text>The bug is s9; s11 is removed because it is shared with the passing runs.</text></feedback></answer>
+    <generalfeedback><text>return price is in the failing slice and in every passing slice, so it is subtracted — dicing keeps only statements unique to the failing execution.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why s8 stays in the Fare dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <strong>Fare Calculator</strong>, s8 <code>if (peak)</code> is in the dice although it is not itself the bug. Why does it survive?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is the control parent of s9 in the failing slice, and no passing run's slice contains it</text><feedback><text>Correct — only the failing run enters the peak branch, so s8 is unique to the failing slice.</text></feedback></answer>
+    <answer fraction="0"><text>It appears in every passing slice</text><feedback><text>If it did, it would be subtracted; the passing runs have peak=false and never make s8 part of their price slice.</text></feedback></answer>
+    <answer fraction="0"><text>It defines price</text><feedback><text>s8 is a control predicate on peak; it controls s9, which defines price.</text></feedback></answer>
+    <answer fraction="0"><text>Because the criterion is s8</text><feedback><text>The criterion is s11 (return price); s8 survives because it is unique to the failing slice.</text></feedback></answer>
+    <generalfeedback><text>The failing run takes the peak branch, so s8 controls the buggy s9 and enters the failing slice; the passing runs (peak=false) exclude it, so it is not subtracted. The dice holds suspects, not only the fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match term to role: passing slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In dicing, the slice of a variable/run observed <strong>correct</strong> serves what role?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is subtracted from the failing slice</text><feedback><text>Correct — correct slices are the terms removed by set difference.</text></feedback></answer>
+    <answer fraction="0"><text>It is the starting set for the dice</text><feedback><text>The starting set is the failing (incorrect) slice; correct slices are subtracted from it.</text></feedback></answer>
+    <answer fraction="0"><text>It is intersected with the failing slice</text><feedback><text>Dicing subtracts, not intersects, the correct slices.</text></feedback></answer>
+    <answer fraction="0"><text>It is ignored</text><feedback><text>Correct slices are central — they are exactly what narrows the dice.</text></feedback></answer>
+    <generalfeedback><text>Failing slice = starting set; correct (passing) slices = subtracted terms; dice = the residual.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match term to role: the dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In dicing, the <strong>dice</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The residual suspect set left after subtracting the correct slices</text><feedback><text>Correct — the dice is what remains of the failing slice after subtraction.</text></feedback></answer>
+    <answer fraction="0"><text>The union of all output slices</text><feedback><text>That is not the dice; dicing subtracts, and the dice is the residual.</text></feedback></answer>
+    <answer fraction="0"><text>The backward slice of a correct variable</text><feedback><text>A correct variable's slice is a subtracted term, not the dice.</text></feedback></answer>
+    <answer fraction="0"><text>The full trace of the failing run</text><feedback><text>The trace is not the dice; the dice is a subset of the failing slice.</text></feedback></answer>
+    <generalfeedback><text>The dice is the residual: failing slice minus the correct slices, i.e. the statements most likely to hold the fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What subtracting slice(total) removes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, starting from slice(highest) = { s2, s3, s4, s5, s6, s7, return-highest }, which statements does subtracting slice(total) = { s2, s4, s5, return-total } remove?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s2, s4, s5</text><feedback><text>Correct — those three are the members shared between slice(highest) and slice(total).</text></feedback></answer>
+    <answer fraction="0"><text>s2, s4, s5, return-total</text><feedback><text>return-total is not in slice(highest), so it cannot be removed from it.</text></feedback></answer>
+    <answer fraction="0"><text>s3, s6, s7</text><feedback><text>Those are NOT in slice(total), so they are not removed by this subtraction.</text></feedback></answer>
+    <answer fraction="0"><text>nothing</text><feedback><text>slice(highest) and slice(total) share s2, s4, s5, which are removed.</text></feedback></answer>
+    <generalfeedback><text>Set difference removes only the shared members: slice(highest) ∩ slice(total) = { s2, s4, s5 }. (slice(mean) later removes nothing new.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement not even in the failing slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, is s10 <code>mean = total / nums.length</code> in the dice for the wrong output <code>highest</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — s10 is not even in slice(highest), so it is never a candidate for the dice</text><feedback><text>Correct — highest does not depend on mean, so s10 is absent from the failing slice and thus from the dice.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — s10 is in the dice</text><feedback><text>s10 computes mean, on which highest does not depend, so it is not in slice(highest) or the dice.</text></feedback></answer>
+    <answer fraction="0"><text>No — but only because slice(mean) subtracts it</text><feedback><text>s10 is not in slice(highest) to begin with, so there is nothing to subtract; it is absent regardless.</text></feedback></answer>
+    <answer fraction="0"><text>Only if mean is also wrong</text><feedback><text>Even then s10 is not in slice(highest); the dice is a subset of slice(highest).</text></feedback></answer>
+    <generalfeedback><text>The dice is a subset of the failing slice. Because highest does not depend on mean, s10 is outside slice(highest) and can never be in the highest-dice — a different reason from being subtracted.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Multiple passing runs are all subtracted</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic <strong>Fare Calculator</strong>, dicing subtracts the union of the slices of all three passing runs from the failing run's slice.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — every passing run's slice is removed, i.e. their union is subtracted from the failing slice.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>programDice deletes each passing slice in turn, which is the same as subtracting their union.</text></feedback></answer>
+    <generalfeedback><text>Deleting the members of each passing slice one after another is equivalent to subtracting the union of all passing slices from the failing slice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Statement in both failing and a passing slice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A statement is in the failing slice AND in at least one passing/correct slice. Is it in the dice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — appearing in any correct/passing slice removes it from the dice</text><feedback><text>Correct — set difference deletes it because it is shared with a correct slice.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — being in the failing slice is enough</text><feedback><text>Being in a correct slice as well causes it to be subtracted out.</text></feedback></answer>
+    <answer fraction="0"><text>Only if it is a control statement</text><feedback><text>Kind does not matter; any statement shared with a correct slice is removed.</text></feedback></answer>
+    <answer fraction="0"><text>Only if it is the criterion</text><feedback><text>Even the criterion is removed if it is in a passing slice, as s11 shows in the Fare scenario.</text></feedback></answer>
+    <generalfeedback><text>The dice keeps only statements in the failing slice AND in NO correct slice. Sharing with any correct slice excludes a statement.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Slice Dicing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the bug is isolated (Summary Stats)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, which chain of reasoning explains why the bug s7 <code>highest = total</code> lands in the dice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>s7 is in slice(highest) because highest transitively depends on it; and s7 is absent from slice(total) and slice(mean) because neither total nor mean depends on highest, so nothing subtracts it</text><feedback><text>Correct — present in the failing slice, absent from the correct slices, therefore in the dice.</text></feedback></answer>
+    <answer fraction="0"><text>s7 executes only on the failing input, so it is added to the dice</text><feedback><text>This is the static scenario; s7 executes on all inputs. It is kept by set membership, not by execution.</text></feedback></answer>
+    <answer fraction="0"><text>s7 is in all three slices but is kept because it is the bug</text><feedback><text>Dicing does not know which statement is the bug; s7 survives because it is not in the correct slices.</text></feedback></answer>
+    <answer fraction="0"><text>s7 is the criterion, which is never subtracted</text><feedback><text>The criterion is return highest; s7 is a distinct statement kept by the set-difference logic.</text></feedback></answer>
+    <generalfeedback><text>Dicing is purely set membership: s7 influences highest (in the failing slice) but not total or mean (not in the correct slices), so it survives into the dice. The app then reports &quot;Bug caught&quot;.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When the fault is guaranteed to be in the dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Dicing puts the fault in the dice only if which assumption holds?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The variables/runs marked correct really are correct (their slices are fault-free) and the fault does affect the incorrect variable</text><feedback><text>Correct — if a &quot;correct&quot; slice actually contains the fault, subtraction removes the fault from the dice.</text></feedback></answer>
+    <answer fraction="0"><text>The program has 100% statement coverage</text><feedback><text>Coverage is unrelated; dicing depends on which variables are correct/incorrect.</text></feedback></answer>
+    <answer fraction="0"><text>The failing slice is empty</text><feedback><text>An empty failing slice would give an empty dice with no fault at all.</text></feedback></answer>
+    <answer fraction="0"><text>Every output is incorrect</text><feedback><text>Then there would be no correct slice to subtract, and dicing would not narrow anything.</text></feedback></answer>
+    <generalfeedback><text>If a variable labeled correct is coincidentally correct despite executing the faulty statement, that statement is in the subtracted slice and is wrongly removed. Dicing's guarantee rests on the correctness labels being accurate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When the dice comes out empty</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The app can report &quot;The dice is empty — all outputs share this region of code.&quot; When does that happen?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When every statement in the failing slice also appears in some correct variable's slice</text><feedback><text>Correct — then subtraction removes everything and the dice is empty.</text></feedback></answer>
+    <answer fraction="0"><text>When the failing slice is larger than every correct slice</text><feedback><text>Size does not determine emptiness; overlap does. A large failing slice can still leave a non-empty dice.</text></feedback></answer>
+    <answer fraction="0"><text>When there is exactly one output variable</text><feedback><text>With one output there is nothing correct to subtract, so the dice equals the failing slice (not empty).</text></feedback></answer>
+    <answer fraction="0"><text>Whenever the bug is found</text><feedback><text>Finding the bug means it is IN the dice, i.e. the dice is non-empty.</text></feedback></answer>
+    <generalfeedback><text>An empty dice means the correct slices cover the whole failing slice — the outputs share that region, so dicing cannot narrow the fault there.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why dynamic dicing succeeds where static fails (Fare)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <strong>Fare Calculator</strong>, the app notes the static dice would be empty but the dynamic dice is { s8, s9 }. Why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static slices are input-independent, so the failing and passing static slices coincide and the difference is empty; dynamic slices restrict to executed statements and live dependences, distinguishing the failing run</text><feedback><text>Correct — dynamic slicing separates the failing execution's actual dependences from the passing ones.</text></feedback></answer>
+    <answer fraction="0"><text>Static slicing ignores control dependences</text><feedback><text>Static slicing includes control dependences; the issue is input-independence, not missing control edges.</text></feedback></answer>
+    <answer fraction="0"><text>The dynamic dice adds statements not in any slice</text><feedback><text>The dynamic dice is still a subset of the failing dynamic slice; it adds nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic dicing subtracts fewer slices</text><feedback><text>It subtracts the same three passing runs; what differs is that dynamic slices are execution-specific.</text></feedback></answer>
+    <generalfeedback><text>Statically, every path's slice of price looks the same, so failing minus passing is empty. Dynamically, only the failing run's slice contains s8 and s9 (the peak branch and its buggy update), so the dynamic dice isolates them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which passing run removes s2 (Fare)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic <strong>Fare Calculator</strong>, the failing slice is { s2, s8, s9, s11 }. The passing dynamic slices are: adult-off = { s2, s11 }, child-off = { s3, s4, s11 }, senior-off = { s3, s5, s6, s11 }. Which passing run's slice is what removes s2 from the dice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The adult-off run (age=30, peak=false), whose slice contains s2</text><feedback><text>Correct — only adult-off's slice includes s2, so it is what subtracts it.</text></feedback></answer>
+    <answer fraction="0"><text>The child-off run</text><feedback><text>child-off's slice is { s3, s4, s11 } — it does not contain s2.</text></feedback></answer>
+    <answer fraction="0"><text>The senior-off run</text><feedback><text>senior-off's slice is { s3, s5, s6, s11 } — it does not contain s2.</text></feedback></answer>
+    <answer fraction="0"><text>No passing run removes s2; it stays in the dice</text><feedback><text>adult-off's slice contains s2, so s2 is subtracted and is not in the dice.</text></feedback></answer>
+    <generalfeedback><text>Only adult-off's dynamic slice includes s2 (its returned price traces back to price = 10). That membership subtracts s2, leaving the dice { s8, s9 }.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the dice narrows fault localization</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with inspecting the failing slice alone, why does the dice narrow fault localization in <strong>Summary Stats</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The failing slice has 7 statements; the dice has 4, because statements exonerated by the correct outputs are removed</text><feedback><text>Correct — subtracting the correct slices shrinks 7 suspects to 4.</text></feedback></answer>
+    <answer fraction="0"><text>The dice adds statements the failing slice missed</text><feedback><text>The dice is a subset of the failing slice; it never adds statements.</text></feedback></answer>
+    <answer fraction="0"><text>The dice re-orders the statements by suspicion but keeps all 7</text><feedback><text>Dicing removes statements; it does not merely re-order them.</text></feedback></answer>
+    <answer fraction="0"><text>The dice guarantees exactly one statement remains</text><feedback><text>Here 4 remain; dicing narrows but rarely to a single line.</text></feedback></answer>
+    <generalfeedback><text>Dicing removes s2, s4, s5 (shared with the correct total and mean), cutting the suspect set from 7 to 4 while still containing the bug s7.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a fault lies outside the dice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A faulty statement can end up OUTSIDE the dice. How?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>If the faulty statement also belongs to a correct variable's slice, it is subtracted and the dice misses it</text><feedback><text>Correct — shared faults are exonerated by the subtraction, a known limitation of dicing.</text></feedback></answer>
+    <answer fraction="0"><text>If the faulty statement is in the failing slice</text><feedback><text>Being in the failing slice is what keeps it a candidate, not what excludes it.</text></feedback></answer>
+    <answer fraction="0"><text>Dicing can never miss the fault</text><feedback><text>It can: if the fault is shared with a correct slice it is subtracted out.</text></feedback></answer>
+    <answer fraction="0"><text>Only if the program has no loops</text><feedback><text>Loops are irrelevant; the issue is the fault being shared with a correct slice.</text></feedback></answer>
+    <generalfeedback><text>If a statement both causes the failure and contributes to a value that happened to be correct, dicing subtracts it and the dice misses the fault. This is why the correctness of the &quot;correct&quot; labels matters.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret the detail panel</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <strong>Summary Stats</strong>, the detail panel shows &quot;Bug caught (s7: assigns total, not n)&quot;. What does this confirm?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The seeded bug statement s7 is a member of the computed dice</text><feedback><text>Correct — &quot;Bug caught&quot; means the bug id is in the dice set.</text></feedback></answer>
+    <answer fraction="0"><text>The program is now fixed</text><feedback><text>Dicing localizes; it does not repair code.</text></feedback></answer>
+    <answer fraction="0"><text>The dice contains exactly one statement</text><feedback><text>The dice here has four statements; s7 is just one of them.</text></feedback></answer>
+    <answer fraction="0"><text>total and mean are also wrong</text><feedback><text>total and mean are the correct outputs; only highest is wrong.</text></feedback></answer>
+    <generalfeedback><text>&quot;Bug caught&quot; is displayed when the scenario's bug statement is inside the dice — evidence that dicing retained the fault while narrowing the suspects.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A suspect that is not the fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <strong>Fare Calculator</strong>, s8 <code>if (peak)</code> is in the dice but is not the bug. What does its presence illustrate about dicing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The dice is a set of suspects, not a single line — control/data ancestors unique to the failing run remain, so dicing narrows without pinpointing</text><feedback><text>Correct — dicing produces a reduced region, still possibly holding non-faulty statements.</text></feedback></answer>
+    <answer fraction="0"><text>Dicing made an error; s8 should not be there</text><feedback><text>s8 is correctly in the dice — it is unique to the failing slice; dicing does not claim every dice member is faulty.</text></feedback></answer>
+    <answer fraction="0"><text>s8 must also be buggy</text><feedback><text>Only s9 is the seeded bug; s8 is a non-faulty suspect kept by the set logic.</text></feedback></answer>
+    <answer fraction="0"><text>The dice should be empty</text><feedback><text>The dynamic dice is { s8, s9 }, correctly non-empty and containing the fault.</text></feedback></answer>
+    <generalfeedback><text>s8 controls the buggy s9 and is unique to the failing execution, so it stays. Dicing narrows the search but the dice can include non-faulty statements around the fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of subtracting fewer correct slices</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose in <strong>Summary Stats</strong> only <code>total</code> is treated as correct (mean is not subtracted). The dice becomes slice(highest) &minus; slice(total). What happens to the dice compared with subtracting both total and mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The dice can only stay the same or grow — subtracting fewer slices never removes more</text><feedback><text>Correct — set difference is monotonic; fewer subtractions cannot shrink the dice. (Here it stays { s3, s6, s7, return-highest } because slice(mean) removed nothing new.)</text></feedback></answer>
+    <answer fraction="0"><text>The dice can only shrink</text><feedback><text>Reversed — removing a subtracted slice can only keep or enlarge the dice.</text></feedback></answer>
+    <answer fraction="0"><text>The dice becomes empty</text><feedback><text>Subtracting fewer slices cannot empty a previously non-empty dice.</text></feedback></answer>
+    <answer fraction="0"><text>The bug s7 drops out</text><feedback><text>s7 is not in slice(total), so it stays regardless of whether mean is subtracted.</text></feedback></answer>
+    <generalfeedback><text>Each subtracted slice can only remove statements. Dropping slice(mean) can only keep or enlarge the dice. In this example the dice is unchanged, since slice(mean) added no new removals beyond slice(total).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Monotonicity of subtracting more slices</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding one more correct-variable slice to subtract can only keep the dice the same or make it smaller — never larger.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — each additional subtracted slice can only delete statements, so the dice is monotonically non-increasing.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Set difference only removes; another subtracted slice cannot add statements back.</text></feedback></answer>
+    <generalfeedback><text>dice = failing minus (union of correct slices). Enlarging the subtracted union can only remove more, so more correct slices give a smaller-or-equal dice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Localization, not detection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is dicing described as fault <strong>localization</strong> rather than fault <strong>detection</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It assumes a failure is already observed (a variable known incorrect) and narrows WHERE the fault is; it does not decide whether an output is wrong</text><feedback><text>Correct — you must already know which variable is incorrect before dicing can localize it.</text></feedback></answer>
+    <answer fraction="0"><text>It generates new failing test inputs</text><feedback><text>Dicing does not create tests; it works from an observed failure.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the absence of bugs</text><feedback><text>Dicing localizes an observed fault; it proves nothing about absence of bugs.</text></feedback></answer>
+    <answer fraction="0"><text>It measures coverage of the failing run</text><feedback><text>Dicing is not a coverage metric; it computes a suspect set.</text></feedback></answer>
+    <generalfeedback><text>Dicing needs the correct/incorrect labels as input — a failure must already be detected. Given that, it localizes the fault to the dice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why s2 is in the failing slice yet dropped (Fare)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the dynamic <strong>Fare Calculator</strong>, explain the status of s2 <code>price = 10</code>: it is in the failing slice but not in the dice.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>On the failing run, s2's price is the value read at s9 (a live definition), so s2 is in the failing slice; but s2 is also in a passing run's slice, so dicing subtracts it</text><feedback><text>Correct — in the failing slice by a live data dependence, then removed because it is shared with a passing slice.</text></feedback></answer>
+    <answer fraction="0"><text>s2 is not executed on the failing run</text><feedback><text>s2 runs on every input, including the failing one.</text></feedback></answer>
+    <answer fraction="0"><text>s2 is a control statement with no data flow</text><feedback><text>s2 is an assignment defining price; it has data flow into s9.</text></feedback></answer>
+    <answer fraction="0"><text>s2 is the criterion</text><feedback><text>The criterion is s11 (return price); s2 is an ordinary assignment.</text></feedback></answer>
+    <generalfeedback><text>On the failing run price = 10 is the last definition of price reaching s9, so s2 is in the failing dynamic slice. Because adult-off's slice also contains s2, the subtraction removes it from the dice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mislabeling correct/incorrect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Dicing's result depends on which variables you declare correct vs incorrect. If a genuinely-correct output is mistakenly marked <strong>incorrect</strong> (or vice versa), what is the consequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The dice changes and may exclude the true fault or include irrelevant statements — dicing's usefulness hinges on accurate correct/incorrect labels</text><feedback><text>Correct — the labels choose which slices are subtracted, so mislabeling distorts the dice.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing changes; the dice is independent of the labels</text><feedback><text>The labels determine the failing slice and the subtracted slices, so the dice depends on them.</text></feedback></answer>
+    <answer fraction="0"><text>The dice always becomes empty</text><feedback><text>Not always; mislabeling shifts which statements are subtracted, not necessarily to empty.</text></feedback></answer>
+    <answer fraction="0"><text>The program is automatically re-tested</text><feedback><text>Dicing does not run tests; it recomputes a set from the given labels.</text></feedback></answer>
+    <generalfeedback><text>Which variable is incorrect sets the failing slice; which are correct sets the subtracted slices. Wrong labels can subtract the fault away or leave noise in the dice, so accurate labeling is essential.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order the dicing procedure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ordering correctly describes the dicing procedure the app performs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1) take the incorrect variable and compute its backward slice; 2) compute the slices of the correct variables; 3) subtract the correct slices from the incorrect slice; 4) inspect the remaining dice for the fault</text><feedback><text>Correct — failing slice first, then subtract the correct slices, then read the dice.</text></feedback></answer>
+    <answer fraction="0"><text>1) union all output slices; 2) intersect with the trace; 3) report the intersection</text><feedback><text>Dicing subtracts correct slices from the failing slice; it does not union then intersect.</text></feedback></answer>
+    <answer fraction="0"><text>1) compute forward slice of the bug; 2) subtract the failing slice; 3) report</text><feedback><text>Dicing uses backward slices and starts from the incorrect variable, not a known bug.</text></feedback></answer>
+    <answer fraction="0"><text>1) run all tests; 2) keep statements covered by every test; 3) report them</text><feedback><text>That describes common coverage, not dicing's set difference of slices.</text></feedback></answer>
+    <generalfeedback><text>Dicing: backward-slice the incorrect variable, backward-slice the correct variables, subtract the correct slices from the incorrect slice, and inspect the resulting dice for the fault.</text></generalfeedback>
+  </question>
+</quiz>

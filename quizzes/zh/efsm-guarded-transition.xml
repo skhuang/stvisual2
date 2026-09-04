@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/EFSM Guarded Transitions/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>EFSM 與純 FSM 的差異</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>擴展有限狀態機（EFSM）</strong>相較於純 FSM，主要多了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>資料（上下文）變數，且轉移帶有對這些變數的守衛條件</text><feedback><text>正確——EFSM 以資料變數與守衛（可能還有更新）擴展純 FSM。</text></feedback></answer>
+    <answer fraction="0"><text>更多狀態，但任何轉移仍然沒有條件</text><feedback><text>只增加狀態不會使機器「擴展」；擴展指的是資料變數加上守衛。</text></feedback></answer>
+    <answer fraction="0"><text>要求每一條轉移都是自迴圈</text><feedback><text>自迴圈與此無關；EFSM 的擴展是資料變數與帶守衛的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>移除初始狀態</text><feedback><text>EFSM 仍有初始狀態；它所新增的是資料變數與守衛。</text></feedback></answer>
+    <generalfeedback><text>純 FSM 只有狀態與事件。EFSM 以資料（上下文）變數擴展它；轉移帶有對這些變數的守衛條件，並可能更新它們。本 app 的模型使用一個變數 amount，並帶有如 amount &lt;= 100 的守衛。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此 EFSM 中，轉移上的<strong>守衛（guard）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個對資料變數的布林條件，必須成立轉移才會觸發</text><feedback><text>正確——例如 amount &lt;= 100 必須為真，approve 轉移才會觸發。</text></feedback></answer>
+    <answer fraction="0"><text>觸發轉移的事件名稱</text><feedback><text>那是事件（例如 approve）；守衛是加在其上的額外條件。</text></feedback></answer>
+    <answer fraction="0"><text>轉移的目的狀態</text><feedback><text>目的狀態是轉移抵達的地方；守衛決定它是否可以觸發。</text></feedback></answer>
+    <answer fraction="0"><text>求解器選出的具體輸入值</text><feedback><text>求解器挑一個滿足守衛的值；守衛本身是那個條件。</text></feedback></answer>
+    <generalfeedback><text>守衛是對上下文變數（此處為 amount）的布林條件。當其事件發生時，只有守衛評估為真轉移才會觸發——例如 approve 只有在 amount &lt;= 100 時才觸發。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是上下文變數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>EFSM 中的<strong>上下文（資料）變數</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>機器所攜帶、其值由守衛測試以決定哪些轉移可觸發的變數</text><feedback><text>正確——此處 amount 就是每個守衛所寫的上下文變數。</text></feedback></answer>
+    <answer fraction="0"><text>當前狀態的同義詞</text><feedback><text>狀態是機器所處的模式；上下文變數是守衛讀取的另一種資料。</text></feedback></answer>
+    <answer fraction="0"><text>機器接受的事件清單</text><feedback><text>那些是事件；上下文變數是守衛評估其值的資料。</text></feedback></answer>
+    <answer fraction="0"><text>某個轉移的名稱</text><feedback><text>轉移以其事件與端點識別；上下文變數持有資料。</text></feedback></answer>
+    <generalfeedback><text>上下文（資料）變數是與控制狀態一同攜帶的狀態；守衛是對它的述詞。此模型剛好只有一個這樣的變數：amount（整數輸入）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是啟用的轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 EFSM 中，一條轉移在何時<strong>被啟用（enabled）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當其事件在當前狀態發生，且其守衛評估為真時</text><feedback><text>正確——事件與滿足的守衛兩者都需要，轉移才會觸發。</text></feedback></answer>
+    <answer fraction="0"><text>只要其事件發生，不論守衛如何</text><feedback><text>即使事件發生，守衛為假仍會擋下轉移；它並未被啟用。</text></feedback></answer>
+    <answer fraction="0"><text>只要其守衛為真，不論哪個事件發生</text><feedback><text>光有守衛為真不夠；對應的事件也必須發生。</text></feedback></answer>
+    <answer fraction="0"><text>當機器處於初始狀態時</text><feedback><text>處於初始狀態本身並不會啟用任何特定轉移。</text></feedback></answer>
+    <generalfeedback><text>一條轉移在兩個條件同時成立時才被啟用（可觸發）：其觸發事件在當前狀態發生，且其守衛對當前變數值評估為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>EFSM 中的更新／動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一般 EFSM 模型中，轉移上的<strong>更新（update，或動作 action）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移觸發時改變某資料變數值的賦值</text><feedback><text>正確——更新會修改上下文變數（本 app 的模型剛好只用守衛、沒有更新）。</text></feedback></answer>
+    <answer fraction="0"><text>觸發前檢查的布林條件</text><feedback><text>那是守衛，不是更新；更新會改變變數的值。</text></feedback></answer>
+    <answer fraction="0"><text>觸發轉移的事件</text><feedback><text>事件是觸發因子；更新是對資料產生的效果。</text></feedback></answer>
+    <answer fraction="0"><text>目的狀態</text><feedback><text>目的狀態是控制流；更新是觸發時執行的資料賦值。</text></feedback></answer>
+    <generalfeedback><text>在完整的 EFSM 中，轉移可以同時測試變數（守衛）並改變它們（更新／動作），例如 attempts := attempts + 1。本 app 的提款模型只對輸入 amount 使用守衛、不做更新，因此 amount 沿路徑保持其輸入值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型的資料變數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 app 的提款請求 EFSM 中，所有守衛所寫的那個唯一資料變數是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount，一個整數輸入</text><feedback><text>正確——模型只有一個變數 amount，每個守衛都測試它。</text></feedback></answer>
+    <answer fraction="0"><text>balance</text><feedback><text>此模型中沒有 balance 變數；唯一的變數是 amount。</text></feedback></answer>
+    <answer fraction="0"><text>attempts</text><feedback><text>attempts 屬於另一個範例；此模型的變數是 amount。</text></feedback></answer>
+    <answer fraction="0"><text>state</text><feedback><text>state 是控制模式，不是資料變數；資料變數是 amount。</text></feedback></answer>
+    <generalfeedback><text>模型宣告一個變數：amount（整數輸入）。每日上限（100）與盜刷門檻（200）不是變數——它們以常數出現在守衛之中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>每日上限的守衛常數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模型中，每日提款上限以哪個<strong>常數</strong>出現在守衛裡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100——出現在守衛 amount &lt;= 100（approve）與 amount &gt;= 101（decline）</text><feedback><text>正確——每日上限 100 把 Checking 分裂為 approve（&lt;= 100）與 decline（&gt;= 101）。</text></feedback></answer>
+    <answer fraction="0"><text>200</text><feedback><text>200 是盜刷門檻（fraudHold 上的守衛 amount &gt;= 200），不是每日上限。</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 是 recheck 的守衛常數（amount &lt;= 50），不是每日上限。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 是 enterAmount 的守衛常數（amount &gt;= 1），不是每日上限。</text></feedback></answer>
+    <generalfeedback><text>每日上限編碼為 100：approve 需要 amount &lt;= 100，decline 需要 amount &gt;= 101。盜刷門檻（200）是 fraudHold 上的另一個常數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>盜刷門檻的守衛常數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一條轉移帶有守衛 <code>amount &gt;= 200</code>，用來編碼盜刷門檻？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>fraudHold，從 Approved 到 Denied</text><feedback><text>正確——fraudHold 只有在 amount &gt;= 200 時才從 Approved 觸發到 Denied。</text></feedback></answer>
+    <answer fraction="0"><text>approve，從 Checking 到 Approved</text><feedback><text>approve 的守衛是 amount &lt;= 100，不是 amount &gt;= 200。</text></feedback></answer>
+    <answer fraction="0"><text>decline，從 Checking 到 Denied</text><feedback><text>decline 的守衛是 amount &gt;= 101，不是 amount &gt;= 200。</text></feedback></answer>
+    <answer fraction="0"><text>enterAmount，從 Idle 到 Checking</text><feedback><text>enterAmount 的守衛是 amount &gt;= 1，不是 amount &gt;= 200。</text></feedback></answer>
+    <generalfeedback><text>盜刷門檻 200 出現在 fraudHold 上：Approved --fraudHold [amount &gt;= 200]--&gt; Denied。當金額很大時，它把已核准的請求標記為疑似盜刷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>enterAmount 上的守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>enterAmount</code> 轉移（Idle 到 Checking）帶有什麼守衛？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount &gt;= 1</text><feedback><text>正確——只有金額為正時才能進入 Checking。</text></feedback></answer>
+    <answer fraction="0"><text>amount &lt;= 100</text><feedback><text>那是 approve 的守衛，不是 enterAmount。</text></feedback></answer>
+    <answer fraction="0"><text>amount &gt;= 200</text><feedback><text>那是 fraudHold 的守衛，不是 enterAmount。</text></feedback></answer>
+    <answer fraction="0"><text>沒有守衛（永遠為真）</text><feedback><text>enterAmount 確實有守衛 amount &gt;= 1；dispense 與 eject 才是無守衛的轉移。</text></feedback></answer>
+    <generalfeedback><text>enterAmount 在守衛 amount &gt;= 1 下從 Idle 觸發到 Checking，因此非正數金額無法開始一次檢核。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>approve 上的守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>approve</code> 轉移（Checking 到 Approved）帶有什麼守衛？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount &lt;= 100</text><feedback><text>正確——只有金額在每日上限內時 approve 才觸發。</text></feedback></answer>
+    <answer fraction="0"><text>amount &gt;= 101</text><feedback><text>那是 decline 的守衛，是離開 Checking 的互補分支。</text></feedback></answer>
+    <answer fraction="0"><text>amount &lt;= 50</text><feedback><text>那是 recheck 的守衛（Approved 到 Checking），不是 approve。</text></feedback></answer>
+    <answer fraction="0"><text>amount &gt;= 1</text><feedback><text>那是 enterAmount 的守衛，不是 approve。</text></feedback></answer>
+    <generalfeedback><text>approve 在 amount &lt;= 100 下從 Checking 觸發到 Approved。其互補分支 decline（amount &gt;= 101）則離開 Checking 前往 Denied。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>沒有守衛的轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模型中哪些轉移<strong>沒有守衛</strong>（顯示為破折號，guard = true）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>dispense（Approved 到 Idle）與 eject（Denied 到 Idle）</text><feedback><text>正確——兩者皆無條件；只要其事件發生就一定觸發。</text></feedback></answer>
+    <answer fraction="0"><text>approve 與 decline</text><feedback><text>approve（amount &lt;= 100）與 decline（amount &gt;= 101）都有守衛。</text></feedback></answer>
+    <answer fraction="0"><text>enterAmount 與 recheck</text><feedback><text>enterAmount（amount &gt;= 1）與 recheck（amount &lt;= 50）都有守衛。</text></feedback></answer>
+    <answer fraction="0"><text>fraudHold 與 approve</text><feedback><text>fraudHold（amount &gt;= 200）與 approve（amount &lt;= 100）都有守衛。</text></feedback></answer>
+    <generalfeedback><text>只有 dispense 與 eject 帶有 guard = true（畫成破折號）。兩者都在其事件發生時無條件把機器帶回 Idle。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型的初始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>提款請求 EFSM 的<strong>初始狀態</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Idle</text><feedback><text>正確——機器從 Idle 開始，並經由 dispense 或 eject 回到那裡。</text></feedback></answer>
+    <answer fraction="0"><text>Checking</text><feedback><text>Checking 是在 enterAmount 之後才到達的；機器從 Idle 開始。</text></feedback></answer>
+    <answer fraction="0"><text>Approved</text><feedback><text>Approved 經由 approve 到達；它不是起始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>Denied</text><feedback><text>Denied 經由 decline 或 fraudHold 到達；它不是起始狀態。</text></feedback></answer>
+    <generalfeedback><text>模型宣告 Idle 為初始狀態。每一條抽象測試路徑都從 Idle 出發並回到 Idle。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>守衛為何分裂 Checking 的邊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依 app 所述，守衛 <code>amount &lt;= 100</code> 與 <code>amount &gt;= 101</code> 對「離開 Checking」的邊做了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把一條邊分裂成兩條互斥分支（approve 與 decline）</text><feedback><text>正確——對任何 amount，兩個守衛恰有一個成立，故分支互斥。</text></feedback></answer>
+    <answer fraction="0"><text>使 Checking 變得無法到達</text><feedback><text>Checking 可經 enterAmount 到達；守衛只是分裂它的離開邊。</text></feedback></answer>
+    <answer fraction="0"><text>讓 approve 與 decline 同時觸發</text><feedback><text>兩個守衛互補，至多一個成立；它們互斥。</text></feedback></answer>
+    <answer fraction="0"><text>把 Checking 狀態整個刪除</text><feedback><text>Checking 仍在；守衛只是切分機器離開它的方式。</text></feedback></answer>
+    <generalfeedback><text>每日上限守衛 amount &lt;= 100 與 amount &gt;= 101 把每個 amount 分入恰好一條分支：approve（在上限內）或 decline（超過上限）。一條圖的邊變成兩條互斥的帶守衛分支。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行是什麼意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此探索器中，一條抽象路徑<strong>不可行（infeasible）</strong>是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有任何輸入值能同時滿足路徑上所有守衛——它們的合取式不可滿足</text><feedback><text>正確——可行性就是路徑守衛合取式的可滿足性。</text></feedback></answer>
+    <answer fraction="0"><text>路徑經過一個不存在的狀態</text><feedback><text>每條路徑都是圖上合法的；不可行是關於守衛，而非缺失的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>路徑比狀態數還長</text><feedback><text>長度與可行性無關；重點是守衛合取式。</text></feedback></answer>
+    <answer fraction="0"><text>路徑上任何轉移都沒有守衛</text><feedback><text>沒有守衛的路徑必然可行；不可行意味著守衛互相矛盾。</text></feedback></answer>
+    <generalfeedback><text>抽象路徑是圖上合法的事件序列。當其各轉移守衛的合取式無解——沒有單一 amount 能讓它們全部為真——它就不可行，因此沒有測試能走它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可行路徑時求解器回報什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當一條路徑<strong>可行</strong>時，探索器交回什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個滿足該路徑所有守衛的 amount 具體輸入值</text><feedback><text>正確——可行路徑交給約束求解器，得出一個 amount 的見證值。</text></feedback></answer>
+    <answer fraction="0"><text>一份證明該路徑永遠無法執行</text><feedback><text>那描述的是不可行路徑；可行路徑會得出一個具體輸入。</text></feedback></answer>
+    <answer fraction="0"><text>一個加進機器的新狀態</text><feedback><text>求解器不會新增狀態；它產出一個具體的 amount 值。</text></feedback></answer>
+    <answer fraction="0"><text>路徑中的事件數量</text><feedback><text>求解器回傳一個滿足的 amount，而非事件計數。</text></feedback></answer>
+    <generalfeedback><text>可行路徑交給約束求解器，回傳一個滿足整條守衛合取式的 amount 見證值——一個現成的測試輸入。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/EFSM Guarded Transitions/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=80 時的 approve</text></name>
+    <questiontext format="html"><text><![CDATA[<p>機器在 <code>Checking</code>、<code>amount = 80</code>，事件 <code>approve</code> 發生（守衛 <code>amount &lt;= 100</code>）。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移觸發；機器移動到 Approved</text><feedback><text>正確——80 &lt;= 100 為真，所以 approve 觸發進入 Approved。</text></feedback></answer>
+    <answer fraction="0"><text>守衛失敗，機器停在 Checking</text><feedback><text>80 &lt;= 100 為真，守衛成立，轉移觸發。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Denied</text><feedback><text>Denied 由 decline（amount &gt;= 101）到達，對 80 為假；此處觸發的是 approve。</text></feedback></answer>
+    <answer fraction="0"><text>機器回到 Idle</text><feedback><text>approve 前往 Approved，不是 Idle；Idle 由 dispense 或 eject 到達。</text></feedback></answer>
+    <generalfeedback><text>approve 的守衛是 amount &lt;= 100。當 amount = 80 守衛成立，轉移觸發，機器進入 Approved。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=150 時的 approve</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Checking</code>、<code>amount = 150</code>，事件 <code>approve</code> 發生（守衛 <code>amount &lt;= 100</code>）。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>approve 被擋下——守衛 amount &lt;= 100 為假，所以 approve 不觸發</text><feedback><text>正確——150 &lt;= 100 為假，approve 無法觸發；機器停在 Checking。</text></feedback></answer>
+    <answer fraction="0"><text>approve 觸發，機器移動到 Approved</text><feedback><text>150 &lt;= 100 為假，守衛擋下 approve；它不會觸發。</text></feedback></answer>
+    <answer fraction="0"><text>機器改為自動走 decline 到 Denied</text><feedback><text>decline 只在自己的事件發生時才觸發；帶假守衛的 approve 事件只是什麼都不做。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Idle</text><feedback><text>被擋下的 approve 不造成任何轉移；機器仍留在 Checking。</text></feedback></answer>
+    <generalfeedback><text>當 amount = 150 守衛 amount &lt;= 100 為假，故 approve 轉移未被啟用、不會觸發。此處要離開 Checking 需要 decline 事件（守衛 amount &gt;= 101，150 滿足之）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=150 時的 decline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Checking</code>、<code>amount = 150</code>，事件 <code>decline</code> 發生（守衛 <code>amount &gt;= 101</code>）。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移觸發；機器移動到 Denied</text><feedback><text>正確——150 &gt;= 101 為真，所以 decline 觸發進入 Denied。</text></feedback></answer>
+    <answer fraction="0"><text>守衛失敗，什麼都沒發生</text><feedback><text>150 &gt;= 101 為真，守衛成立，decline 觸發。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Approved</text><feedback><text>Approved 由 approve（amount &lt;= 100）到達，對 150 為假；此處觸發的是 decline。</text></feedback></answer>
+    <answer fraction="0"><text>機器回到 Idle</text><feedback><text>decline 前往 Denied；Idle 稍後才經由 eject 到達。</text></feedback></answer>
+    <generalfeedback><text>decline 的守衛是 amount &gt;= 101。當 amount = 150 守衛成立，decline 觸發，機器進入 Denied。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=250 時的 fraudHold</text></name>
+    <questiontext format="html"><text><![CDATA[<p>機器在 <code>Approved</code>、<code>amount = 250</code>，事件 <code>fraudHold</code> 發生（守衛 <code>amount &gt;= 200</code>）。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移觸發；機器移動到 Denied</text><feedback><text>正確——250 &gt;= 200 為真，所以 fraudHold 從 Approved 觸發到 Denied。</text></feedback></answer>
+    <answer fraction="0"><text>守衛失敗，機器停在 Approved</text><feedback><text>250 &gt;= 200 為真，守衛成立，fraudHold 觸發。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Checking</text><feedback><text>Approved 到 Checking 是 recheck（amount &lt;= 50），對 250 為假；fraudHold 前往 Denied。</text></feedback></answer>
+    <answer fraction="0"><text>機器回到 Idle</text><feedback><text>fraudHold 前往 Denied，不是 Idle；dispense 才會到 Idle。</text></feedback></answer>
+    <generalfeedback><text>fraudHold 的守衛是 amount &gt;= 200。當 amount = 250 守衛成立，一個已核准的請求被標記並移動到 Denied。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=30 時的 recheck</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Approved</code>、<code>amount = 30</code>，事件 <code>recheck</code> 發生（守衛 <code>amount &lt;= 50</code>）。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移觸發；機器回到 Checking</text><feedback><text>正確——30 &lt;= 50 為真，所以 recheck 從 Approved 觸發到 Checking。</text></feedback></answer>
+    <answer fraction="0"><text>守衛失敗，機器停在 Approved</text><feedback><text>30 &lt;= 50 為真，守衛成立，recheck 觸發。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Denied</text><feedback><text>recheck 前往 Checking，不是 Denied。</text></feedback></answer>
+    <answer fraction="0"><text>機器回到 Idle</text><feedback><text>recheck 前往 Checking；dispense 才會回到 Idle。</text></feedback></answer>
+    <generalfeedback><text>recheck 的守衛是 amount &lt;= 50。當 amount = 30 守衛成立，機器從 Approved 迴圈回到 Checking。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=80 時的 recheck</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Approved</code>、<code>amount = 80</code>，事件 <code>recheck</code> 發生（守衛 <code>amount &lt;= 50</code>）。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>recheck 被擋下——守衛 amount &lt;= 50 為假，所以它不觸發</text><feedback><text>正確——80 &lt;= 50 為假，recheck 未被啟用；機器停在 Approved。</text></feedback></answer>
+    <answer fraction="0"><text>recheck 觸發，機器回到 Checking</text><feedback><text>80 &lt;= 50 為假，守衛擋下 recheck；它不會觸發。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Denied</text><feedback><text>被擋下的 recheck 不造成轉移；此處只有 fraudHold 或 dispense 能在各自的事件上動作。</text></feedback></answer>
+    <answer fraction="0"><text>機器回到 Idle</text><feedback><text>守衛為假不造成任何轉移；機器仍留在 Approved。</text></feedback></answer>
+    <generalfeedback><text>recheck 需要 amount &lt;= 50。當 amount = 80 守衛為假，故 recheck 未被啟用，機器停在 Approved。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=0 時的 enterAmount</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Idle</code>、<code>amount = 0</code>，事件 <code>enterAmount</code> 發生（守衛 <code>amount &gt;= 1</code>）。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>enterAmount 被擋下——守衛 amount &gt;= 1 為假，機器停在 Idle</text><feedback><text>正確——0 &gt;= 1 為假，轉移未被啟用。</text></feedback></answer>
+    <answer fraction="0"><text>機器仍然移動到 Checking</text><feedback><text>0 &gt;= 1 為假，守衛擋下前往 Checking 的移動。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Denied</text><feedback><text>Idle 只有一條離開的轉移（enterAmount）；守衛為假使機器留在 Idle。</text></feedback></answer>
+    <answer fraction="0"><text>機器移動到 Approved</text><feedback><text>沒有 Idle 到 Approved 的轉移；而且此處 enterAmount 的守衛本就為假。</text></feedback></answer>
+    <generalfeedback><text>enterAmount 需要 amount &gt;= 1。當 amount = 0 守衛失敗，故非正數金額無法開始檢核，機器仍留在 Idle。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>approve 為何被擋下</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>amount = 150</code> 時，<code>approve</code> 事件並未讓機器離開 Checking。哪個說法最能解釋原因？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的守衛 amount &lt;= 100 評估為假，而轉移只有在守衛成立時才觸發</text><feedback><text>正確——事件雖發生但守衛為假，故轉移未被啟用。</text></feedback></answer>
+    <answer fraction="0"><text>Approved 是最終狀態，沒有進入的轉移</text><feedback><text>Approved 確有進入的轉移（approve）；此處被擋是因為守衛為假。</text></feedback></answer>
+    <answer fraction="0"><text>Checking 中不存在 approve 事件</text><feedback><text>approve 在 Checking 有定義；只是在 amount = 150 時被守衛擋下。</text></feedback></answer>
+    <answer fraction="0"><text>amount 不是有效的變數</text><feedback><text>amount 就是模型的變數；approve 被擋是因為它的守衛為假。</text></feedback></answer>
+    <generalfeedback><text>事件發生是必要但不充分的：轉移只有守衛為真才會觸發。在 amount = 150 時，approve 的守衛 amount &lt;= 100 為假，故轉移被停用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>dispense 不需要守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>機器在 <code>Approved</code>，事件 <code>dispense</code> 發生。dispense 的 guard = true。會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它一定觸發，不論 amount 為何都把機器帶回 Idle</text><feedback><text>正確——無守衛（true）的轉移只要其事件發生就觸發。</text></feedback></answer>
+    <answer fraction="0"><text>只有 amount &lt;= 100 時才觸發</text><feedback><text>dispense 沒有守衛；它是無條件的，amount 無關緊要。</text></feedback></answer>
+    <answer fraction="0"><text>因為沒有守衛所以永遠不觸發</text><feedback><text>guard = true 表示永遠滿足，故其事件發生時一定觸發。</text></feedback></answer>
+    <answer fraction="0"><text>它把機器移動到 Denied</text><feedback><text>dispense 前往 Idle；fraudHold 才是 Approved 到 Denied 的轉移。</text></feedback></answer>
+    <generalfeedback><text>dispense 帶有 guard = true（顯示為破折號），故其事件發生時一定觸發，不論 amount 為何都把機器從 Approved 帶回 Idle。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>術語與角色配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模型中，哪一組術語對角色的對應是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount = 上下文變數；amount &lt;= 100 = 守衛；approve = 事件；Approved = 狀態</text><feedback><text>正確——變數是資料，守衛是條件，事件是觸發因子，狀態是模式。</text></feedback></answer>
+    <answer fraction="0"><text>amount = 事件；approve = 守衛；Approved = 變數；Checking = 事件</text><feedback><text>這把每個角色都對調了；amount 是變數、approve 是事件。</text></feedback></answer>
+    <answer fraction="0"><text>amount &lt;= 100 = 狀態；Approved = 守衛；approve = 變數</text><feedback><text>守衛是條件而非狀態；Approved 是狀態而非守衛。</text></feedback></answer>
+    <answer fraction="0"><text>approve = 狀態；Checking = 守衛；amount = 事件</text><feedback><text>approve 是事件、Checking 是狀態、amount 是變數。</text></feedback></answer>
+    <generalfeedback><text>角色：amount 是上下文變數；amount &lt;= 100 是守衛（對該變數的述詞）；approve 是事件（觸發因子）；Approved 是狀態（控制模式）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊界 amount=100 時的 approve</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Checking</code>、<code>amount = 100</code>，事件 <code>approve</code> 發生（守衛 <code>amount &lt;= 100</code>）。它會觸發嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>會——100 &lt;= 100 為真，所以 approve 觸發到 Approved</text><feedback><text>正確——邊界值 100 滿足 amount &lt;= 100（比較是含端點的）。</text></feedback></answer>
+    <answer fraction="0"><text>不會——100 已超過上限</text><feedback><text>amount &lt;= 100 含 100，故邊界值通過，approve 觸發。</text></feedback></answer>
+    <answer fraction="0"><text>不會——改由 decline 觸發到 Denied</text><feedback><text>decline 需要 amount &gt;= 101，100 不滿足；此處觸發 approve。</text></feedback></answer>
+    <answer fraction="0"><text>只有在 recheck 守衛也成立時才會</text><feedback><text>recheck 與 approve 無關；approve 觸發是因為 100 滿足 amount &lt;= 100。</text></feedback></answer>
+    <generalfeedback><text>守衛 amount &lt;= 100 含端點，故 amount = 100 滿足之，approve 觸發進入 Approved。互補的 decline 守衛 amount &gt;= 101 在 100 時為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊界 amount=101 時的 decline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Checking</code>、<code>amount = 101</code>，離開 Checking 的哪一條分支被啟用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>decline（amount &gt;= 101）到 Denied——approve 的守衛 amount &lt;= 100 在 101 時為假</text><feedback><text>正確——101 滿足 amount &gt;= 101 但不滿足 amount &lt;= 100，故只有 decline 被啟用。</text></feedback></answer>
+    <answer fraction="0"><text>approve（amount &lt;= 100）到 Approved</text><feedback><text>101 &lt;= 100 為假，approve 被停用；decline 才是被啟用的分支。</text></feedback></answer>
+    <answer fraction="0"><text>approve 與 decline 都會</text><feedback><text>兩個守衛互補；在 101 時只有 decline 成立。</text></feedback></answer>
+    <answer fraction="0"><text>兩條都不會</text><feedback><text>101 滿足 amount &gt;= 101，故 decline 被啟用。</text></feedback></answer>
+    <generalfeedback><text>在 amount = 101 時每日上限分裂解析為 decline：amount &gt;= 101 為真而 amount &lt;= 100 為假。兩個守衛切分每個 amount，而 101 是 decline 一側的第一個值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>amount=100 時走哪條分支</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從 <code>Checking</code>，approve 的守衛是 <code>amount &lt;= 100</code>、decline 的守衛是 <code>amount &gt;= 101</code>。在 <code>amount = 100</code> 時，哪條分支可以觸發？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有 approve——100 滿足 amount &lt;= 100 但不滿足 amount &gt;= 101</text><feedback><text>正確——兩個守衛互斥，100 落在 approve 一側。</text></feedback></answer>
+    <answer fraction="0"><text>只有 decline</text><feedback><text>decline 需要 amount &gt;= 101，100 不滿足；approve 才是被啟用的分支。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆可，非確定性地</text><feedback><text>兩個守衛不可能對同一 amount 同時成立；在 100 時只有 approve 成立。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆不可</text><feedback><text>100 滿足 amount &lt;= 100，故 approve 被啟用。</text></feedback></answer>
+    <generalfeedback><text>因為 amount &lt;= 100 與 amount &gt;= 101 切分整數，任何 amount 恰有一條分支被啟用。在 100 時是 approve；機器無法走 decline。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>enterAmount 守衛的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>enterAmount</code> 上的守衛 <code>amount &gt;= 1</code> 達成了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>防止以非正數金額開始檢核（amount &lt;= 0 會留在 Idle）</text><feedback><text>正確——只有正數金額能把機器從 Idle 移到 Checking。</text></feedback></answer>
+    <answer fraction="0"><text>把金額上限限制在每日上限 100</text><feedback><text>每日上限的封頂是 approve／decline 的分裂；amount &gt;= 1 只排除非正數金額。</text></feedback></answer>
+    <answer fraction="0"><text>進入時把 amount 重設為 1</text><feedback><text>模型沒有更新；守衛只測試 amount，不對它賦值。</text></feedback></answer>
+    <answer fraction="0"><text>對大額標記盜刷</text><feedback><text>盜刷是 fraudHold 的守衛 amount &gt;= 200；amount &gt;= 1 是關於正數性。</text></feedback></answer>
+    <generalfeedback><text>enterAmount 的守衛 amount &gt;= 1 拒絕 0 或以下的金額：此類輸入下轉移被停用，機器留在 Idle。它不會改變 amount，因為此模型不做更新。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Approved 中 amount=250 時滿足的守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>Approved</code>、<code>amount = 250</code>，哪些離開的轉移<strong>守衛被滿足</strong>？（離開的有：fraudHold [amount &gt;= 200]、dispense [true]、recheck [amount &lt;= 50]。）</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>fraudHold 與 dispense</text><feedback><text>正確——250 &gt;= 200（fraudHold）成立、dispense 無守衛；recheck 需要 amount &lt;= 50，失敗。</text></feedback></answer>
+    <answer fraction="0"><text>三者皆是</text><feedback><text>recheck 的守衛 amount &lt;= 50 在 250 時為假，故只有 fraudHold 與 dispense 符合。</text></feedback></answer>
+    <answer fraction="0"><text>只有 dispense</text><feedback><text>fraudHold 的守衛 amount &gt;= 200 在 250 時也成立。</text></feedback></answer>
+    <answer fraction="0"><text>fraudHold 與 recheck</text><feedback><text>recheck（amount &lt;= 50）在 250 時失敗；與 fraudHold 一起符合的是 dispense（無守衛）。</text></feedback></answer>
+    <generalfeedback><text>在 amount = 250 時：fraudHold 的守衛 amount &gt;= 200 為真，dispense 無守衛（永遠為真），recheck 的守衛 amount &lt;= 50 為假。故 fraudHold 與 dispense 守衛被滿足。實際觸發哪一條取決於哪個事件發生。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/EFSM Guarded Transitions/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>PA 的求解器見證值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>路徑 <strong>PA</strong> 是 <code>enterAmount &middot; approve &middot; dispense</code>，蒐集守衛 <code>amount &gt;= 1</code> 與 <code>amount &lt;= 100</code>。求解器挑出同時滿足兩者、絕對值最小的整數。它回報的 amount 值是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——可行區間是 1 到 100；其中絕對值最小的整數是 1。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>0 不滿足 amount &gt;= 1，故不在可行集合中。</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 滿足兩個守衛，但不是絕對值最小的解；1 才是。</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 是有效見證值但非最小；求解器回報 1。</text></feedback></answer>
+    <generalfeedback><text>PA 的守衛合取式是 amount &gt;= 1 且 amount &lt;= 100，即區間 [1, 100]。求解器回傳該區間內絕對值最小的整數，即 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PB 的求解器見證值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>路徑 <strong>PB</strong> 是 <code>enterAmount &middot; decline &middot; eject</code>，蒐集守衛 <code>amount &gt;= 1</code> 與 <code>amount &gt;= 101</code>。求解器回報的 amount 值是多少（同時滿足兩者、絕對值最小的整數）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>101</text><feedback><text>正確——兩個守衛交集為 amount &gt;= 101，其最小整數是 101。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 滿足 amount &gt;= 1 但不滿足 amount &gt;= 101，故對 PB 不可行。</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 不滿足 amount &gt;= 101；最小可行整數是 101。</text></feedback></answer>
+    <answer fraction="0"><text>102</text><feedback><text>102 可行但非最小；滿足 amount &gt;= 101 的最小整數是 101。</text></feedback></answer>
+    <generalfeedback><text>amount &gt;= 1 與 amount &gt;= 101 交集為 amount &gt;= 101。滿足它的絕對值最小整數是 101，故求解器回報 amount = 101。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PC 為何不可行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>路徑 <strong>PC</strong> 是 <code>enterAmount &middot; approve &middot; fraudHold &middot; eject</code>，蒐集守衛 <code>amount &gt;= 1</code>、<code>amount &lt;= 100</code> 與 <code>amount &gt;= 200</code>。為什麼它不可行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有任何 amount 能同時滿足 amount &lt;= 100 與 amount &gt;= 200——合取式不可滿足</text><feedback><text>正確——approve 需要至多 100 而 fraudHold 需要至少 200，兩者無法同時成立。</text></feedback></answer>
+    <answer fraction="0"><text>因為它經過 Denied 狀態</text><feedback><text>經過 Denied 沒有問題；此路徑不可行是因為兩個守衛矛盾。</text></feedback></answer>
+    <answer fraction="0"><text>因為 eject 沒有守衛</text><feedback><text>無守衛的轉移不加任何約束；不可行來自 amount &lt;= 100 與 amount &gt;= 200。</text></feedback></answer>
+    <answer fraction="0"><text>因為路徑有四條轉移</text><feedback><text>長度無關緊要；amount &lt;= 100 與 amount &gt;= 200 的矛盾才使它不可行。</text></feedback></answer>
+    <generalfeedback><text>要在同一輸入上先走 approve 再走 fraudHold，amount 必須同時 &lt;= 100 且 &gt;= 200。沒有整數同時滿足兩者，故守衛合取式不可滿足，PC 不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PD 為何不可行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>路徑 <strong>PD</strong> 是 <code>enterAmount &middot; approve &middot; recheck &middot; decline &middot; eject</code>，蒐集守衛 <code>amount &gt;= 1</code>、<code>amount &lt;= 100</code>、<code>amount &lt;= 50</code> 與 <code>amount &gt;= 101</code>。為什麼它不可行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>recheck 需要 amount &lt;= 50 而 decline 需要 amount &gt;= 101，沒有 amount 同時滿足</text><feedback><text>正確——amount &lt;= 50 與 amount &gt;= 101 矛盾，故合取式不可滿足。</text></feedback></answer>
+    <answer fraction="0"><text>因為它重訪 Checking 狀態</text><feedback><text>重訪狀態是允許的；矛盾在於 amount &lt;= 50 與 amount &gt;= 101。</text></feedback></answer>
+    <answer fraction="0"><text>因為它是模型中最長的路徑</text><feedback><text>長度不決定可行性；守衛合取式不可滿足才決定。</text></feedback></answer>
+    <answer fraction="0"><text>因為 approve 與 decline 是同一事件</text><feedback><text>approve 與 decline 是不同事件；不可行是因為 amount &lt;= 50 對上 amount &gt;= 101。</text></feedback></answer>
+    <generalfeedback><text>走過 recheck（amount &lt;= 50）後，路徑還需在同一輸入 amount 上走 decline（amount &gt;= 101）。由於 amount 不可能既至多 50 又至少 101，合取式無解，PD 不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PE 的可行性與見證值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>路徑 <strong>PE</strong> 是 <code>enterAmount &middot; approve &middot; recheck &middot; approve &middot; dispense</code>，蒐集守衛 <code>amount &gt;= 1</code>、<code>amount &lt;= 100</code>、<code>amount &lt;= 50</code> 與 <code>amount &lt;= 100</code>。它可行嗎？求解器回報什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可行；守衛化簡為 1 &lt;= amount &lt;= 50，求解器回報 amount = 1</text><feedback><text>正確——兩個 amount &lt;= 100 子句被 amount &lt;= 50 涵蓋，剩下 [1, 50]；最小整數是 1。</text></feedback></answer>
+    <answer fraction="0"><text>不可行，因為 recheck 與 approve 衝突</text><feedback><text>它們不衝突：amount &lt;= 50 也滿足 amount &lt;= 100，故交集 [1, 50] 非空。</text></feedback></answer>
+    <answer fraction="0"><text>可行；求解器回報 amount = 50</text><feedback><text>50 是有效見證值但非最小；求解器回報 1。</text></feedback></answer>
+    <answer fraction="0"><text>不可行，因為它走了 approve 兩次</text><feedback><text>走 approve 兩次沒問題；兩次都需 amount &lt;= 100，而 [1, 50] 滿足之。</text></feedback></answer>
+    <generalfeedback><text>PE 的守衛是 amount &gt;= 1、amount &lt;= 100、amount &lt;= 50、amount &lt;= 100。最緊的界限給出 1 &lt;= amount &lt;= 50，可滿足，故 PE 可行，求解器回傳絕對值最小的整數 amount = 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可行與被剪除的路徑數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器列出 5 條抽象圖路徑（PA-PE）。有幾條可行、守衛把幾條剪除為不可行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 條可行（PA、PB、PE），2 條被剪除（PC、PD）</text><feedback><text>正確——PC 與 PD 的守衛矛盾；其餘三條可滿足。</text></feedback></answer>
+    <answer fraction="0"><text>5 條可行、0 條被剪除</text><feedback><text>PC 與 PD 不可行，故五條並非全數存活。</text></feedback></answer>
+    <answer fraction="0"><text>2 條可行、3 條被剪除</text><feedback><text>三條路徑（PA、PB、PE）可行；只有兩條被剪除。</text></feedback></answer>
+    <answer fraction="0"><text>4 條可行、1 條被剪除</text><feedback><text>被剪除的是兩條（PC 與 PD），不是一條。</text></feedback></answer>
+    <generalfeedback><text>PA、PB、PE 的守衛合取式可滿足；PC（amount &lt;= 100 且 amount &gt;= 200）與 PD（amount &lt;= 50 且 amount &gt;= 101）不可。故守衛把 5 條圖路徑中的 2 條剪除，留下 3 條可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何單一 amount 必須滿足所有守衛</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼一條路徑要可行，必須有<strong>單一</strong> amount 值滿足路徑上的每一個守衛？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount 是一次設定、從不更新的輸入，故整條路徑都在該值上執行，其守衛合取</text><feedback><text>正確——沒有更新，每一步都測試同一 amount，故所有守衛必須一起成立。</text></feedback></answer>
+    <answer fraction="0"><text>因為每條轉移都把 amount 重新賦為新值</text><feedback><text>此模型沒有更新；amount 不會被重新賦值，這正是為何單一值必須滿足所有守衛。</text></feedback></answer>
+    <answer fraction="0"><text>因為守衛只在初始狀態評估</text><feedback><text>每條轉移的守衛在其觸發時檢查，但都在同一固定的 amount 上。</text></feedback></answer>
+    <answer fraction="0"><text>因為求解器總共只能試一個數字</text><feedback><text>求解器會搜尋許多值；重點是單一 amount 必須滿足整條合取式。</text></feedback></answer>
+    <generalfeedback><text>此模型中 amount 是純輸入、沒有更新動作，故其值在整個執行過程固定不變。因此可行性要求單一 amount 同時滿足路徑上所有守衛的合取式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 EFSM 需要守衛感知的測試生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 EFSM 需要<strong>守衛感知（guard-aware）</strong>的測試生成，而非純 FSM 的圖路徑涵蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某些圖上合法的路徑不可行；天真的路徑涵蓋會白費力氣去找根本不存在的輸入</text><feedback><text>正確——守衛使某些抽象路徑無法執行，故測試必須考量守衛來推導。</text></feedback></answer>
+    <answer fraction="0"><text>EFSM 沒有狀態，故一般涵蓋不適用</text><feedback><text>EFSM 仍有狀態；問題在於守衛使某些路徑不可行。</text></feedback></answer>
+    <answer fraction="0"><text>守衛感知的生成只是為了讓測試跑得更快</text><feedback><text>重點是測試目標的正確性而非速度：它避開不可能的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>因為每條 EFSM 路徑都一定可行</text><feedback><text>恰好相反——某些路徑不可行，這正是必須考量守衛的原因。</text></feedback></answer>
+    <generalfeedback><text>純圖的觀點把全部 5 條路徑當成測試目標，但其中 2 條不可行。為它們生成測試會白費力氣去搜尋不存在的輸入。守衛感知的生成只鎖定守衛合取式可滿足的路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 FSM 對 EFSM 的長條</text></name>
+    <questiontext format="html"><text><![CDATA[<p>比較圖顯示 FSM（圖路徑）= 5、EFSM（可行）= 3。這個差距 2 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>守衛剪除為不可行的那 2 條抽象路徑（PC 與 PD）</text><feedback><text>正確——差距正是守衛合取式不可滿足的那些路徑。</text></feedback></answer>
+    <answer fraction="0"><text>EFSM 從 FSM 移除的那 2 個狀態</text><feedback><text>沒有移除任何狀態；差距計的是被剪除的路徑，不是狀態。</text></feedback></answer>
+    <answer fraction="0"><text>EFSM 新增的那 2 個事件</text><feedback><text>沒有新增任何事件；差距是被丟棄的不可行路徑。</text></feedback></answer>
+    <answer fraction="0"><text>永遠評估為真的那 2 個守衛</text><feedback><text>差距是被剪除路徑的計數，不是無守衛轉移的計數。</text></feedback></answer>
+    <generalfeedback><text>FSM 長條計全部 5 條圖路徑；EFSM 長條計 3 條可行者。差距 2 就是守衛剪除為不可行的路徑數（PC 與 PD）——那是純路徑涵蓋會徒勞追逐的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>重排能否救回 PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>重排 <strong>PC</strong>（需同時 <code>amount &lt;= 100</code> 與 <code>amount &gt;= 200</code>）各轉移的順序，能讓它變可行嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不能——可行性取決於守衛的合取式，它與順序無關且仍不可滿足</text><feedback><text>正確——邏輯 AND 可交換，故任何順序都救不了不可滿足的合取式。</text></feedback></answer>
+    <answer fraction="0"><text>能——先檢查 amount &gt;= 200 再檢查 amount &lt;= 100 就會通過</text><feedback><text>對合取式而言順序無關；兩者必須同時成立，而這不可能。</text></feedback></answer>
+    <answer fraction="0"><text>能——只要無守衛的轉移放最後</text><feedback><text>無守衛的轉移不加約束，無法修復矛盾。</text></feedback></answer>
+    <answer fraction="0"><text>只有在兩個守衛之間更新 amount 才行</text><feedback><text>此模型沒有更新；且 PC 的不可行本就源於同時需要 amount &lt;= 100 與 amount &gt;= 200。</text></feedback></answer>
+    <generalfeedback><text>因為 amount 固定、可行性是所有守衛 AND 的可滿足性，順序無關緊要。amount &lt;= 100 與 amount &gt;= 200 在任何順序下交集皆空，故 PC 仍不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把 amount=40 追蹤到一條路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Idle、<code>amount = 40</code> 開始，依序觸發 <code>enterAmount</code>、<code>approve</code>、<code>recheck</code>、<code>approve</code>、<code>dispense</code>。實現的是哪一條抽象路徑？40 是有效的見證值嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>路徑 PE，且 40 有效（amount &gt;= 1、amount &lt;= 100、amount &lt;= 50 全部成立）</text><feedback><text>正確——40 滿足 PE 上每個守衛，故追蹤能跑完並回到 Idle。</text></feedback></answer>
+    <answer fraction="0"><text>路徑 PA，且 40 有效</text><feedback><text>PA 是 enterAmount、approve、dispense；此追蹤含 recheck 與第二次 approve，屬於 PE。</text></feedback></answer>
+    <answer fraction="0"><text>路徑 PE，但 40 無效，因為 recheck 需要 amount &lt;= 50</text><feedback><text>40 &lt;= 50 為真，故 recheck 的守衛成立；40 是有效見證值。</text></feedback></answer>
+    <answer fraction="0"><text>路徑 PD，且 40 有效</text><feedback><text>PD 以 decline 到 Denied 結束；此追蹤以第二次 approve 與 dispense 結束，屬於 PE。</text></feedback></answer>
+    <generalfeedback><text>enterAmount（40 &gt;= 1）、approve（40 &lt;= 100）、recheck（40 &lt;= 50）、approve（40 &lt;= 100）、dispense：這正是路徑 PE，且 40 滿足每個守衛，故為有效見證值（雖然求解器的最小值是 1）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把 amount=120 追蹤到一條路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Idle、<code>amount = 120</code> 開始。enterAmount 觸發（120 &gt;= 1）到 Checking。在同一輸入上，機器能走完哪一條可行路徑回到 Idle？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>路徑 PB（enterAmount、decline、eject）——120 不滿足 approve（amount &lt;= 100）但滿足 decline（amount &gt;= 101）</text><feedback><text>正確——在 120 時 Checking 的分裂解析為 decline，前往 Denied 再由 eject 回到 Idle。</text></feedback></answer>
+    <answer fraction="0"><text>路徑 PA（enterAmount、approve、dispense）</text><feedback><text>PA 需要 approve，其守衛 amount &lt;= 100 在 120 時為假；PA 無法執行。</text></feedback></answer>
+    <answer fraction="0"><text>路徑 PE（enterAmount、approve、recheck、approve、dispense）</text><feedback><text>PE 也以 approve（amount &lt;= 100）開頭，在 120 時失敗。</text></feedback></answer>
+    <answer fraction="0"><text>沒有可行路徑——120 擋住每一條路線</text><feedback><text>120 滿足 decline（amount &gt;= 101），故 PB 可執行；120 是 PB 的有效見證值。</text></feedback></answer>
+    <generalfeedback><text>在 amount = 120 時，approve（amount &lt;= 100）被停用但 decline（amount &gt;= 101）被啟用，故從 Checking 機器走 decline 到 Denied，再 eject 到 Idle——路徑 PB。120 是有效的 PB 見證值（求解器的最小值是 101）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可行性即可滿足性（symbex 橋接）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>app 指出判斷路徑可行「正是一次路徑條件的可滿足性檢查」。這對應到哪種分析？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>符號執行——蒐集路徑條件（守衛合取式）並問求解器它是否可滿足</text><feedback><text>正確——路徑可行性就是所累積路徑條件的可滿足性，即符號執行的核心。</text></feedback></answer>
+    <answer fraction="0"><text>隨機測試——不斷丟輸入直到剛好有一個符合</text><feedback><text>app 對守衛合取式使用約束求解器，而非盲目的隨機搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋——每個狀態至少造訪一次</text><feedback><text>狀態涵蓋計造訪的狀態；可行性是關於滿足路徑的守衛。</text></feedback></answer>
+    <answer fraction="0"><text>突變測試——植入錯誤以評分測試套件</text><feedback><text>突變測試與此無關；可行性是對路徑條件的可滿足性檢查。</text></feedback></answer>
+    <generalfeedback><text>路徑上每個守衛都對路徑條件貢獻一個子句。判斷可行性就是判斷該合取式是否可滿足，若可滿足則產出見證值——這正是符號執行所做的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>守衛即述詞（logic 橋接）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>app 把守衛連結到邏輯涵蓋：「守衛就是一個述詞，子句綁定以同樣方式求解它。」這是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>守衛是對 amount 的布林述詞，找一個使它為真的 amount，就等同把邏輯子句綁定到一個具體值</text><feedback><text>正確——為守衛求出一個滿足的輸入，與綁定一個邏輯涵蓋子句是同一個求解任務。</text></feedback></answer>
+    <answer fraction="0"><text>守衛必須永遠為假，涵蓋才會成功</text><feedback><text>守衛必須可滿足才能產出測試；為假正是使分支不可行的原因。</text></feedback></answer>
+    <answer fraction="0"><text>子句綁定用狀態取代守衛</text><feedback><text>子句綁定把述詞映射到具體輸入；它不會把守衛變成狀態。</text></feedback></answer>
+    <answer fraction="0"><text>述詞只能手動求解、絕不能用工具</text><feedback><text>app 的約束求解器會自動把述詞綁定到一個見證值。</text></feedback></answer>
+    <generalfeedback><text>像 amount &lt;= 100 這樣的守衛是對資料的述詞。產生一個滿足路徑各述詞的 amount，正是邏輯涵蓋中的子句綁定問題——同一個約束求解器可處理兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不可行是因矛盾而非經過的狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某條抽象路徑蒐集到守衛 <code>amount &gt;= 1</code>、<code>amount &lt;= 100</code> 與 <code>amount &gt;= 200</code>。一位學生說它不可行「是因為它經過 Denied 狀態」。這個推理為何錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>經過 Denied 完全合法；此路徑不可行只因 amount &lt;= 100 與 amount &gt;= 200 無法同時成立</text><feedback><text>正確——可行性是關於守衛合取式，而非路徑經過哪些狀態。</text></feedback></answer>
+    <answer fraction="0"><text>這個推理是對的——只要到達 Denied 就一定使路徑不可行</text><feedback><text>可行路徑也會到達 Denied（例如 PB）；真正原因是矛盾的守衛。</text></feedback></answer>
+    <answer fraction="0"><text>Denied 沒有進入的轉移，所以無法被造訪</text><feedback><text>Denied 確有進入的轉移（decline、fraudHold）；不可行是守衛矛盾。</text></feedback></answer>
+    <answer fraction="0"><text>此路徑不可行是因為它太長</text><feedback><text>長度無關緊要；amount 不可能既 &lt;= 100 又 &gt;= 200，這才是真正原因。</text></feedback></answer>
+    <generalfeedback><text>Denied 也被可行路徑造訪，故經過它並不說明可行性。此路徑不可行純粹因為其守衛合取式 amount &lt;= 100 與 amount &gt;= 200 不可滿足——沒有單一 amount 同時滿足兩者。</text></generalfeedback>
+  </question>
+</quiz>

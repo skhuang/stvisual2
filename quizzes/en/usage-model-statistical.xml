@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Usage-Model Statistical Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a usage model is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In usage-model statistical testing, a <em>usage model</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Markov chain whose states are usage situations and whose transitions carry operational probabilities</text><feedback><text>Correct — the model is a Markov chain of states linked by probability-weighted transitions.</text></feedback></answer>
+    <answer fraction="0"><text>A ranked list of test cases ordered by priority</text><feedback><text>No — a usage model is a state-transition chain, not a prioritised test list.</text></feedback></answer>
+    <answer fraction="0"><text>A checklist of every screen the application contains</text><feedback><text>No — it captures how users move between situations with probabilities, not a screen inventory.</text></feedback></answer>
+    <answer fraction="0"><text>A graph of response time versus concurrent load</text><feedback><text>That is a performance profile, unrelated to a usage model.</text></feedback></answer>
+    <generalfeedback><text>A usage model is a Markov chain: states are usage situations (Home, Browse, Cart, Checkout, Exit) and each transition carries an operational probability. Tests are random walks weighted by that profile.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The Markov property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because the usage model is a <em>Markov chain</em>, the probability of the next transition depends on:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only the current state, not the earlier history of the walk</text><feedback><text>Correct — that memoryless property is exactly what makes it a Markov chain.</text></feedback></answer>
+    <answer fraction="0"><text>The entire sequence of states already visited</text><feedback><text>No — a Markov chain is memoryless; only the current state matters.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of tests generated so far</text><feedback><text>No — each walk is independent and depends only on the current state.</text></feedback></answer>
+    <answer fraction="0"><text>The wall-clock time already spent in the session</text><feedback><text>No — the chain has no notion of elapsed time; only the current state governs the next step.</text></feedback></answer>
+    <generalfeedback><text>In a Markov chain the next transition is chosen using only the outgoing probabilities of the current state — the path taken to get there is irrelevant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the operational profile is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>operational profile</em> captured by the model is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The probabilities with which real users take each action — the distribution of actual usage</text><feedback><text>Correct — the operational profile is the real-usage distribution encoded on the transitions.</text></feedback></answer>
+    <answer fraction="0"><text>The CPU and memory usage of the server</text><feedback><text>No — that is a resource profile, not the operational (usage) profile.</text></feedback></answer>
+    <answer fraction="0"><text>A ranked list of the most severe defects</text><feedback><text>No — the operational profile describes user behaviour, not defect severity.</text></feedback></answer>
+    <answer fraction="0"><text>The percentage of source code the suite covers</text><feedback><text>No — that is code coverage, not the operational profile.</text></feedback></answer>
+    <generalfeedback><text>The operational profile is the probability distribution of how real users behave. Here it lives in the Prob. column: the likelihood a user in each state takes each outgoing action.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a transition probability means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A transition's probability (the <em>Prob.</em> column) represents:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How likely a user in that state is to take that particular action next</text><feedback><text>Correct — it is the conditional probability of that action given the current state.</text></feedback></answer>
+    <answer fraction="0"><text>How long that transition takes to execute</text><feedback><text>No — the probability is a likelihood, not a duration.</text></feedback></answer>
+    <answer fraction="0"><text>How many defects that transition contains</text><feedback><text>No — the number is a usage likelihood, not a bug count.</text></feedback></answer>
+    <answer fraction="0"><text>The cost of testing that transition</text><feedback><text>No — it measures how often users take the action, not testing cost.</text></feedback></answer>
+    <generalfeedback><text>Each transition probability is the chance that a user currently in the "from" state takes that action next. The outgoing probabilities of a state form a distribution and sum to 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What one generated test is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this explorer, a single generated test case corresponds to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One probability-weighted random walk from Home to Exit</text><feedback><text>Correct — each test is one random walk through the chain from the initial to the terminal state.</text></feedback></answer>
+    <answer fraction="0"><text>One full enumeration of every path in the model</text><feedback><text>No — statistical testing samples walks; it does not enumerate all paths.</text></feedback></answer>
+    <answer fraction="0"><text>A single transition chosen from the table</text><feedback><text>No — a test is a whole walk from Home to Exit, not one edge.</text></feedback></answer>
+    <answer fraction="0"><text>One row of the coverage tally</text><feedback><text>No — the coverage tally counts walks; it is not itself a test.</text></feedback></answer>
+    <generalfeedback><text>A generated test is one random walk that starts at Home and follows probability-weighted transitions until it reaches the absorbing Exit state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How statistical testing generates tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Statistical (usage-based) testing generates its tests by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Sampling walks at random, weighted by the operational profile, so common paths are tested more often</text><feedback><text>Correct — sampling by the usage distribution is the defining idea of statistical testing.</text></feedback></answer>
+    <answer fraction="0"><text>Exhaustively covering every transition exactly once</text><feedback><text>No — that is a coverage criterion, not usage-weighted sampling.</text></feedback></answer>
+    <answer fraction="0"><text>Always choosing the shortest path to Exit</text><feedback><text>No — walks are random and weighted by usage, not minimised.</text></feedback></answer>
+    <answer fraction="0"><text>Always exercising the rarest transitions first</text><feedback><text>No — rare transitions are under-sampled precisely because sampling follows usage.</text></feedback></answer>
+    <generalfeedback><text>Statistical testing draws random walks weighted by the operational profile. Effort therefore tracks real usage: frequently taken paths are exercised often, rare ones seldom.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read probability: Home to Browse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the model, what is the probability that a user at <em>Home</em> goes to <em>Browse</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.80</text><feedback><text>Correct — the Home to Browse (browse) transition is 0.80.</text></feedback></answer>
+    <answer fraction="0"><text>0.20</text><feedback><text>No — 0.20 is the Home to Exit (leave) probability.</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>No — 0.50 appears on Browse and Cart transitions, not Home to Browse.</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>No — Home splits between Browse (0.80) and Exit (0.20).</text></feedback></answer>
+    <generalfeedback><text>The table lists Home to Browse (browse) at p = 0.80; the only other outgoing edge, Home to Exit (leave), is 0.20.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read probability: Home to Exit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability that a user leaves directly from <em>Home</em> to <em>Exit</em> (the leave event)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.20</text><feedback><text>Correct — Home to Exit (leave) is 0.20.</text></feedback></answer>
+    <answer fraction="0"><text>0.80</text><feedback><text>No — 0.80 is the Home to Browse probability.</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>No — 0.10 is Cart to Exit (abandon), not Home to Exit.</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>No — Home's edges are 0.80 and 0.20.</text></feedback></answer>
+    <generalfeedback><text>Home has two outgoing edges: browse (0.80) and leave to Exit (0.20). They sum to 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read probability: Cart to Checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability that a user in <em>Cart</em> proceeds to <em>Checkout</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.50</text><feedback><text>Correct — Cart to Checkout (checkout) is 0.50.</text></feedback></answer>
+    <answer fraction="0"><text>0.40</text><feedback><text>No — 0.40 is Cart to Browse (keepShopping).</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>No — 0.10 is Cart to Exit (abandon).</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>No — 1.00 is Checkout to Exit (pay), not Cart to Checkout.</text></feedback></answer>
+    <generalfeedback><text>Cart splits three ways: keepShopping to Browse (0.40), checkout to Checkout (0.50), abandon to Exit (0.10). The checkout edge is 0.50.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read probability: Checkout to Exit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability of the <em>pay</em> transition, Checkout to Exit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.00</text><feedback><text>Correct — Checkout has one outgoing edge, pay to Exit, at 1.00.</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>No — 0.50 is Cart to Checkout, not Checkout to Exit.</text></feedback></answer>
+    <answer fraction="0"><text>0.90</text><feedback><text>No — Checkout always proceeds to Exit; its edge is 1.00.</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>No — 0.10 is Cart to Exit (abandon).</text></feedback></answer>
+    <generalfeedback><text>Checkout has a single outgoing transition, pay to Exit, with probability 1.00, so its outgoing probabilities trivially sum to 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The initial state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every generated walk begins in which state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Home</text><feedback><text>Correct — Home is the initial state of the model.</text></feedback></answer>
+    <answer fraction="0"><text>Exit</text><feedback><text>No — Exit is the terminal state where walks end, not begin.</text></feedback></answer>
+    <answer fraction="0"><text>Browse</text><feedback><text>No — Browse is reached from Home, it is not the start.</text></feedback></answer>
+    <answer fraction="0"><text>Cart</text><feedback><text>No — Cart is an interior state, not the initial one.</text></feedback></answer>
+    <generalfeedback><text>The model's initial state is Home; walks start there and end at the absorbing Exit state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The absorbing state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which state is the terminal (absorbing) state where every walk ends?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exit</text><feedback><text>Correct — Exit is absorbing: it has no outgoing transitions.</text></feedback></answer>
+    <answer fraction="0"><text>Home</text><feedback><text>No — Home is the initial state, not the terminal one.</text></feedback></answer>
+    <answer fraction="0"><text>Checkout</text><feedback><text>No — Checkout still has an outgoing pay transition to Exit.</text></feedback></answer>
+    <answer fraction="0"><text>Cart</text><feedback><text>No — Cart has three outgoing transitions, so it is not absorbing.</text></feedback></answer>
+    <generalfeedback><text>Exit is the absorbing terminal state: once a walk reaches it there are no outgoing edges, so the walk stops.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The rare-flagged transition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The model shades one transition as <em>rare</em> (p &lt; 0.15). Which transition is it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cart to Exit (abandon), p = 0.10</text><feedback><text>Correct — abandon at 0.10 is the only transition below the 0.15 threshold.</text></feedback></answer>
+    <answer fraction="0"><text>Home to Exit (leave), p = 0.20</text><feedback><text>No — 0.20 is above the 0.15 rare threshold.</text></feedback></answer>
+    <answer fraction="0"><text>Browse to Exit (leave), p = 0.20</text><feedback><text>No — 0.20 is above the 0.15 rare threshold.</text></feedback></answer>
+    <answer fraction="0"><text>Cart to Browse (keepShopping), p = 0.40</text><feedback><text>No — 0.40 is well above the rare threshold.</text></feedback></answer>
+    <generalfeedback><text>The rare threshold is p &lt; 0.15. Only Cart to Exit (abandon, 0.10) falls below it, so it is the single row flagged with the warning marker.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read probability: Browse to Browse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability that a user in <em>Browse</em> views more (the self-loop Browse to Browse)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.50</text><feedback><text>Correct — the viewMore self-loop on Browse is 0.50.</text></feedback></answer>
+    <answer fraction="0"><text>0.30</text><feedback><text>No — 0.30 is Browse to Cart (addToCart).</text></feedback></answer>
+    <answer fraction="0"><text>0.20</text><feedback><text>No — 0.20 is Browse to Exit (leave).</text></feedback></answer>
+    <answer fraction="0"><text>0.80</text><feedback><text>No — 0.80 is the Home to Browse probability, not the Browse self-loop.</text></feedback></answer>
+    <generalfeedback><text>Browse has three outgoing edges: viewMore back to Browse (0.50), addToCart to Cart (0.30), leave to Exit (0.20). The self-loop is 0.50.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Displayed expected test length</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer reports the expected test-case length for this model as about:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4.05 transitions</text><feedback><text>Correct — the app displays an expected length of 4.05 transitions for this chain.</text></feedback></answer>
+    <answer fraction="0"><text>5 transitions (one per state)</text><feedback><text>No — expected length is not simply the number of states; loops and probabilities change it.</text></feedback></answer>
+    <answer fraction="0"><text>9 transitions (one per edge)</text><feedback><text>No — it is not the number of edges in the table.</text></feedback></answer>
+    <answer fraction="0"><text>1.00 transition</text><feedback><text>No — most walks take several transitions before reaching Exit.</text></feedback></answer>
+    <generalfeedback><text>The absorbing-chain expected number of steps from Home is about 4.05 transitions, which the explorer shows beneath the model table.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Usage-Model Statistical Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why outgoing probabilities sum to 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why must the outgoing probabilities of every state sum to exactly 1?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They form a probability distribution over the user's next action — the user takes exactly one outgoing transition</text><feedback><text>Correct — the edges out of a state are mutually exclusive and exhaustive, so they sum to 1.</text></feedback></answer>
+    <answer fraction="0"><text>Because every state has the same number of outgoing transitions</text><feedback><text>No — states have different numbers of edges (Checkout has one, Cart three); the sum is 1 regardless.</text></feedback></answer>
+    <answer fraction="0"><text>So the expected test length comes out to a whole number</text><feedback><text>No — the expected length is 4.05, not a whole number; that is unrelated to the sum being 1.</text></feedback></answer>
+    <answer fraction="0"><text>To guarantee every transition is exercised at least once</text><feedback><text>No — summing to 1 does not guarantee coverage; rare edges are often missed.</text></feedback></answer>
+    <generalfeedback><text>From any state a user must take exactly one of the available actions next. The outgoing edges are therefore a probability distribution and must sum to 1 (Home: 0.8+0.2; Browse: 0.5+0.3+0.2; Cart: 0.4+0.5+0.1).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Verify the Browse distribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Browse has viewMore = 0.50, addToCart = 0.30 and leave = 0.20. Their sum is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.00 — a valid probability distribution</text><feedback><text>Correct — 0.50 + 0.30 + 0.20 = 1.00.</text></feedback></answer>
+    <answer fraction="0"><text>0.80</text><feedback><text>No — that omits one edge; the three sum to 1.00.</text></feedback></answer>
+    <answer fraction="0"><text>1.10</text><feedback><text>No — 0.50 + 0.30 + 0.20 = 1.00, not 1.10.</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>No — 0.50 is only the self-loop; all three edges together sum to 1.00.</text></feedback></answer>
+    <generalfeedback><text>0.50 + 0.30 + 0.20 = 1.00. Every state's outgoing probabilities must sum to 1, which the model note states explicitly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where effort is concentrated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because walks are weighted by the operational profile, testing effort is concentrated on:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The paths real users take most often</text><feedback><text>Correct — usage weighting steers effort onto the common paths.</text></feedback></answer>
+    <answer fraction="0"><text>The paths that are hardest to reach</text><feedback><text>No — hard-to-reach (rare) paths are under-sampled, not favoured.</text></feedback></answer>
+    <answer fraction="0"><text>Every path equally, regardless of usage</text><feedback><text>No — that would be uniform sampling, not usage weighting.</text></feedback></answer>
+    <answer fraction="0"><text>Only the single shortest path to Exit</text><feedback><text>No — walks are random; many different-length paths are generated.</text></feedback></answer>
+    <generalfeedback><text>Sampling by the operational profile means high-probability paths are walked most often, so testing effort tracks real usage and reliability reflects the field experience.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path probability: Home to Browse to Exit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability of the exact walk Home &#8594; Browse &#8594; Exit (browse then leave)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.16</text><feedback><text>Correct — 0.80 &#215; 0.20 = 0.16.</text></feedback></answer>
+    <answer fraction="0"><text>0.20</text><feedback><text>No — that is only the Browse to Exit edge; multiply by 0.80 for the whole walk.</text></feedback></answer>
+    <answer fraction="0"><text>0.40</text><feedback><text>No — path probability is the product of the edges, not their sum halved.</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>No — this is one specific walk among many; its probability is 0.16.</text></feedback></answer>
+    <generalfeedback><text>Multiply the edge probabilities along the walk: Home to Browse (0.80) &#215; Browse to Exit (0.20) = 0.16.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path probability: the purchase walk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability of the successful-purchase walk Home &#8594; Browse &#8594; Cart &#8594; Checkout &#8594; Exit?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.12</text><feedback><text>Correct — 0.80 &#215; 0.30 &#215; 0.50 &#215; 1.00 = 0.12.</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>No — that is only 0.80 &#215; 0.30; continue multiplying by 0.50 and 1.00.</text></feedback></answer>
+    <answer fraction="0"><text>0.06</text><feedback><text>No — 0.06 is a longer walk with one extra viewMore loop, not this direct one.</text></feedback></answer>
+    <answer fraction="0"><text>0.016</text><feedback><text>No — that mis-multiplies the edges; the product is 0.12.</text></feedback></answer>
+    <generalfeedback><text>0.80 (browse) &#215; 0.30 (addToCart) &#215; 0.50 (checkout) &#215; 1.00 (pay) = 0.12. This is the shortest successful-purchase path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most likely action from Cart</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A user in <em>Cart</em> is most likely to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Proceed to Checkout (p = 0.50)</text><feedback><text>Correct — checkout at 0.50 is the largest of Cart's outgoing probabilities.</text></feedback></answer>
+    <answer fraction="0"><text>Keep shopping, returning to Browse (p = 0.40)</text><feedback><text>No — 0.40 is second; checkout at 0.50 is more likely.</text></feedback></answer>
+    <answer fraction="0"><text>Abandon to Exit (p = 0.10)</text><feedback><text>No — abandon at 0.10 is the least likely action.</text></feedback></answer>
+    <answer fraction="0"><text>Return directly to Home</text><feedback><text>No — there is no Cart to Home transition in the model.</text></feedback></answer>
+    <generalfeedback><text>Cart's edges are keepShopping (0.40), checkout (0.50) and abandon (0.10). The largest is checkout at 0.50, so proceeding to Checkout is the most likely next action.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of the operational profile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Within this model, the <em>operational profile</em> is played by which element?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The set of transition probabilities on the edges</text><feedback><text>Correct — the probabilities on the transitions are the operational profile.</text></feedback></answer>
+    <answer fraction="0"><text>The list of states (Home, Browse, Cart, Checkout, Exit)</text><feedback><text>No — the states are the situations; the profile is the probabilities weighting the moves between them.</text></feedback></answer>
+    <answer fraction="0"><text>The buggy-transition marker on Cart to Checkout</text><feedback><text>No — the bug marker flags a fault; it is not the usage distribution.</text></feedback></answer>
+    <answer fraction="0"><text>The expected-length number shown below the table</text><feedback><text>No — the expected length is derived from the profile, it is not the profile itself.</text></feedback></answer>
+    <generalfeedback><text>The operational profile is the probability distribution over user actions, i.e. the numbers in the Prob. column on the transitions. States and derived numbers are not the profile.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Expected steps from Checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Once a walk reaches <em>Checkout</em>, how many further transitions until Exit (expected)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Exactly 1 — Checkout to Exit (pay) has probability 1.0</text><feedback><text>Correct — Checkout has a single edge to Exit, so exactly one more step is taken.</text></feedback></answer>
+    <answer fraction="0"><text>0 — Checkout is already the terminal state</text><feedback><text>No — the terminal state is Exit; Checkout still takes one pay step to reach it.</text></feedback></answer>
+    <answer fraction="0"><text>2 — pay then a confirmation</text><feedback><text>No — the model has only the single pay transition out of Checkout.</text></feedback></answer>
+    <answer fraction="0"><text>It varies randomly between 0 and 3</text><feedback><text>No — with a single probability-1.0 edge, it is deterministically one step.</text></feedback></answer>
+    <generalfeedback><text>Checkout's only outgoing edge is pay to Exit with probability 1.0, so E[Checkout] = 1: exactly one more transition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why Exit is absorbing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Exit is called an <em>absorbing</em> state because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It has no outgoing transitions, so once a walk enters Exit it stops</text><feedback><text>Correct — no edges leave Exit, so the walk terminates there.</text></feedback></answer>
+    <answer fraction="0"><text>It has the highest outgoing probability</text><feedback><text>No — Exit has no outgoing edges at all.</text></feedback></answer>
+    <answer fraction="0"><text>It loops back to Home to restart the session</text><feedback><text>No — there is no Exit to Home edge; the walk ends.</text></feedback></answer>
+    <answer fraction="0"><text>It is where the injected bug lives</text><feedback><text>No — the bug is on Cart to Checkout, not on Exit.</text></feedback></answer>
+    <generalfeedback><text>An absorbing state has no outgoing transitions. Every walk that reaches Exit ends there, which is why the expected length is finite and well defined.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which transition makes a test fail</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this explorer a generated test "fails" when its walk fires which transition?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cart to Checkout — the checkout event, marked with a bug icon</text><feedback><text>Correct — the injected fault sits on Cart to Checkout, so any walk that fires it fails.</text></feedback></answer>
+    <answer fraction="0"><text>Checkout to Exit (pay)</text><feedback><text>No — pay is not the buggy edge; the bug is on Cart to Checkout.</text></feedback></answer>
+    <answer fraction="0"><text>Cart to Exit (abandon)</text><feedback><text>No — abandon is the rare edge, not the buggy one.</text></feedback></answer>
+    <answer fraction="0"><text>Home to Browse (browse)</text><feedback><text>No — this common edge is not where the fault lives.</text></feedback></answer>
+    <generalfeedback><text>The model plants the bug on the Cart to Checkout transition. A test fails if and only if its random walk fires that transition; otherwise it passes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path probability: the abandon walk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability of the walk Home &#8594; Browse &#8594; Cart &#8594; Exit (abandon)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.024</text><feedback><text>Correct — 0.80 &#215; 0.30 &#215; 0.10 = 0.024.</text></feedback></answer>
+    <answer fraction="0"><text>0.10</text><feedback><text>No — that is only the Cart to Exit edge; multiply by the earlier edges too.</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>No — that is 0.80 &#215; 0.30 (reaching Cart); still multiply by 0.10 for abandon.</text></feedback></answer>
+    <answer fraction="0"><text>0.048</text><feedback><text>No — the product is 0.024, not 0.048.</text></feedback></answer>
+    <generalfeedback><text>0.80 (browse) &#215; 0.30 (addToCart) &#215; 0.10 (abandon) = 0.024. The rare abandon edge makes this walk unlikely.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why weight by usage rather than uniformly</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with testing every path equally, weighting tests by the operational profile yields a reliability estimate that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reflects the failures users are actually likely to experience in the field</text><feedback><text>Correct — usage weighting makes the estimate a field-relevant reliability.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees 100% path coverage of the model</text><feedback><text>No — sampling by usage does not guarantee coverage; rare paths are often missed.</text></feedback></answer>
+    <answer fraction="0"><text>Is always higher than the true reliability</text><feedback><text>No — the estimate is unbiased for usage-weighted reliability, not systematically higher.</text></feedback></answer>
+    <answer fraction="0"><text>Ignores the most common paths entirely</text><feedback><text>No — it emphasises common paths, the opposite of ignoring them.</text></feedback></answer>
+    <generalfeedback><text>Usage-weighted reliability answers "how often will a real user hit a failure?" Because tests are sampled from the operational profile, the pass rate estimates the reliability users actually experience.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why abandon is under-sampled</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The rare-path warning flags abandon (Cart to Exit, p = 0.10) because statistical testing will:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Rarely generate walks that traverse it, so it is under-sampled</text><feedback><text>Correct — low usage probability means few walks ever fire that edge.</text></feedback></answer>
+    <answer fraction="0"><text>Test it more than any other transition</text><feedback><text>No — low probability means it is exercised least, not most.</text></feedback></answer>
+    <answer fraction="0"><text>Never be able to reach Cart at all</text><feedback><text>No — Cart is reachable (p = 0.48); it is the abandon edge specifically that is rare.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically treat it as the highest-risk path</text><feedback><text>No — usage weighting does not know risk; that is why risk-based testing is suggested as a supplement.</text></feedback></answer>
+    <generalfeedback><text>Because sampling follows usage, a low-probability edge like abandon (0.10) is walked seldom and thus under-tested. If such a rare path were also high-risk, usage weighting alone would leave it dangerously under-exercised.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Probability of reaching Cart in two steps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability that a session's first two transitions are Home &#8594; Browse &#8594; Cart (reaching Cart in exactly two steps)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.24</text><feedback><text>Correct — 0.80 &#215; 0.30 = 0.24.</text></feedback></answer>
+    <answer fraction="0"><text>0.30</text><feedback><text>No — that is only the Browse to Cart edge; multiply by the Home to Browse edge too.</text></feedback></answer>
+    <answer fraction="0"><text>0.11</text><feedback><text>No — the product of 0.80 and 0.30 is 0.24, not 0.11.</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>No — 0.80 &#215; 0.30 = 0.24.</text></feedback></answer>
+    <generalfeedback><text>Home to Browse (0.80) &#215; Browse to Cart (0.30) = 0.24. Note this is only the two-step path; Cart can also be reached via the Browse self-loop, so total reachability is higher.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What each coverage bar counts</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the transition-coverage tally shown after a run, each bar counts:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How many of the generated random walks traversed that transition</text><feedback><text>Correct — the tally counts how often each edge was fired across all tests.</text></feedback></answer>
+    <answer fraction="0"><text>The probability written on that transition</text><feedback><text>No — the probability is fixed in the model; the tally counts actual traversals.</text></feedback></answer>
+    <answer fraction="0"><text>The number of states between that edge and Exit</text><feedback><text>No — it is a traversal count, not a distance.</text></feedback></answer>
+    <answer fraction="0"><text>The expected test length contributed by that edge</text><feedback><text>No — the bars are observed counts from the run, not expected-length contributions.</text></feedback></answer>
+    <generalfeedback><text>Each coverage bar is the observed number of generated walks that fired that transition. High-usage edges get tall bars; the rare abandon edge gets the shortest.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Usage-Model Statistical Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the expected test length</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using E[s] = 1 + &#931; p(s&#8594;s&#8242;)&#183;E[s&#8242;] over the transient states, the expected length of a generated test (starting at Home) is closest to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4.05 transitions</text><feedback><text>Correct — solving the recurrence gives E[Home] &#8776; 4.05.</text></feedback></answer>
+    <answer fraction="0"><text>3.05 transitions</text><feedback><text>No — that undercounts; E[Home] = 1 + 0.8&#183;E[Browse] &#8776; 4.05.</text></feedback></answer>
+    <answer fraction="0"><text>5.00 transitions</text><feedback><text>No — the number of states is not the expected length.</text></feedback></answer>
+    <answer fraction="0"><text>9.00 transitions</text><feedback><text>No — the number of edges is not the expected length.</text></feedback></answer>
+    <generalfeedback><text>E[Checkout] = 1; E[Cart] = 1 + 0.4&#183;E[Browse] + 0.5&#183;1; E[Browse] = 1 + 0.5&#183;E[Browse] + 0.3&#183;E[Cart] giving E[Browse] &#8776; 3.82 and E[Cart] &#8776; 3.03; then E[Home] = 1 + 0.8&#183;3.82 &#8776; 4.05.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute expected steps from Cart</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The expected number of remaining transitions to Exit starting from <em>Cart</em> is closest to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3.03</text><feedback><text>Correct — E[Cart] = 1 + 0.4&#183;E[Browse] + 0.5&#183;1 = 1.5 + 0.4&#183;3.82 &#8776; 3.03.</text></feedback></answer>
+    <answer fraction="0"><text>1.00</text><feedback><text>No — 1.00 is E[Checkout]; Cart can loop back through Browse, making it larger.</text></feedback></answer>
+    <answer fraction="0"><text>3.82</text><feedback><text>No — 3.82 is E[Browse]; E[Cart] is a little smaller at 3.03.</text></feedback></answer>
+    <answer fraction="0"><text>4.05</text><feedback><text>No — 4.05 is E[Home], the full-walk expectation.</text></feedback></answer>
+    <generalfeedback><text>E[Cart] = 1 + 0.4&#183;E[Browse] + 0.5&#183;E[Checkout] + 0.1&#183;0 = 1.5 + 0.4&#183;3.82 &#8776; 3.03 (the 0.5&#183;1 comes from the direct checkout-then-pay path).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute expected steps from Browse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The expected number of remaining transitions to Exit starting from <em>Browse</em> is closest to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3.82</text><feedback><text>Correct — solving 0.5&#183;E[Browse] = 1 + 0.3&#183;E[Cart] gives E[Browse] &#8776; 3.82.</text></feedback></answer>
+    <answer fraction="0"><text>2.00</text><feedback><text>No — 2.00 ignores the Cart contribution; the self-loop and addToCart raise it to 3.82.</text></feedback></answer>
+    <answer fraction="0"><text>3.03</text><feedback><text>No — 3.03 is E[Cart]; E[Browse] is slightly larger.</text></feedback></answer>
+    <answer fraction="0"><text>4.05</text><feedback><text>No — 4.05 is E[Home].</text></feedback></answer>
+    <generalfeedback><text>E[Browse] = 1 + 0.5&#183;E[Browse] + 0.3&#183;E[Cart], so 0.5&#183;E[Browse] = 1 + 0.3&#183;3.03, giving E[Browse] &#8776; 3.82. The viewMore self-loop inflates it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Probability of ever reaching Cart</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over a whole walk (including the Browse self-loop), what is the probability that a session reaches <em>Cart</em> at all?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.48</text><feedback><text>Correct — 0.8 &#215; 0.6 = 0.48, where 0.6 is the chance of eventually leaving Browse via addToCart.</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>No — 0.24 is only the two-step path; the Browse self-loop gives extra chances to reach Cart.</text></feedback></answer>
+    <answer fraction="0"><text>0.30</text><feedback><text>No — 0.30 is just the addToCart edge probability, ignoring reaching and looping in Browse.</text></feedback></answer>
+    <answer fraction="0"><text>0.60</text><feedback><text>No — 0.60 is the chance of reaching Cart given you are in Browse; multiply by 0.8 to reach Browse first.</text></feedback></answer>
+    <generalfeedback><text>From Browse, P(reach Cart) = g where g = 0.5g + 0.3, so g = 0.6 (the self-loop keeps offering the 0.3 vs 0.2 choice). Reaching Browse first is 0.8, so P(reach Cart) = 0.8 &#215; 0.6 = 0.48.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Probability of reaching Checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability that a generated walk reaches <em>Checkout</em> (i.e. the session's conversion probability)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>About 0.316 (31.6%)</text><feedback><text>Correct — the only way into Checkout is Cart to Checkout, whose overall probability is about 0.316.</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>No — 0.50 is the Cart to Checkout edge; you must also reach Cart, lowering the total to 0.316.</text></feedback></answer>
+    <answer fraction="0"><text>0.48</text><feedback><text>No — 0.48 is the probability of reaching Cart; only half of those go on to Checkout.</text></feedback></answer>
+    <answer fraction="0"><text>0.12</text><feedback><text>No — 0.12 is one specific purchase path; other paths (with loops) also reach Checkout, giving 0.316.</text></feedback></answer>
+    <generalfeedback><text>P(reach Checkout) = P(reach Cart) &#215; P(checkout | in Cart, eventually) . Solving f(Cart) = 0.5 + 0.4&#183;f(Browse), f(Browse) = 0.6&#183;f(Cart) gives f(Home) &#8776; 0.316. This equals the fraction of sessions that fire the buggy edge.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the usage-weighted reliability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test fails exactly when its walk fires Cart to Checkout. What is the model's true usage-weighted reliability (the probability a walk does <em>not</em> fire it)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>About 0.684 (68.4%)</text><feedback><text>Correct — 1 &#8722; P(fire Cart to Checkout) = 1 &#8722; 0.316 &#8776; 0.684.</text></feedback></answer>
+    <answer fraction="0"><text>0.50</text><feedback><text>No — 0.50 is the checkout edge probability alone, not the overall pass rate.</text></feedback></answer>
+    <answer fraction="0"><text>0.90</text><feedback><text>No — that overstates reliability; about 31.6% of walks fire the buggy edge.</text></feedback></answer>
+    <answer fraction="0"><text>0.316</text><feedback><text>No — 0.316 is the failure probability; reliability is its complement, 0.684.</text></feedback></answer>
+    <generalfeedback><text>The probability of firing the buggy Cart to Checkout edge is about 0.316, so the usage-weighted reliability is 1 &#8722; 0.316 &#8776; 0.684. A run's displayed estimate fluctuates around this value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Path probability with one browse loop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the probability of the walk Home &#8594; Browse &#8594; Browse &#8594; Cart &#8594; Checkout &#8594; Exit (one viewMore loop before adding to cart)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.06</text><feedback><text>Correct — 0.80 &#215; 0.50 &#215; 0.30 &#215; 0.50 &#215; 1.00 = 0.06.</text></feedback></answer>
+    <answer fraction="0"><text>0.12</text><feedback><text>No — 0.12 is the walk without the extra viewMore loop; the loop multiplies by 0.50.</text></feedback></answer>
+    <answer fraction="0"><text>0.03</text><feedback><text>No — the product is 0.06, not 0.03.</text></feedback></answer>
+    <answer fraction="0"><text>0.024</text><feedback><text>No — 0.024 is the abandon walk, a different path.</text></feedback></answer>
+    <generalfeedback><text>0.80 (browse) &#215; 0.50 (viewMore) &#215; 0.30 (addToCart) &#215; 0.50 (checkout) &#215; 1.00 (pay) = 0.06 — exactly half the loop-free purchase path (0.12), since the extra viewMore step costs a factor of 0.50.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why expected length is not a plain count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the expected test length (4.05) not simply the number of states or edges in the model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Browse self-loop lets walks revisit states, so length is a probability-weighted average that can exceed any single path's step count</text><feedback><text>Correct — loops and branching make length a weighted expectation, not a fixed count.</text></feedback></answer>
+    <answer fraction="0"><text>Because the probabilities do not sum to 1, the count is scaled down</text><feedback><text>No — the probabilities do sum to 1; the reason is looping and branching, not scaling.</text></feedback></answer>
+    <answer fraction="0"><text>Because every walk visits all five states exactly once</text><feedback><text>No — most walks skip states and some revisit Browse; visits are not uniform.</text></feedback></answer>
+    <answer fraction="0"><text>Because the expected length ignores the terminal state</text><feedback><text>No — the recurrence accounts for reaching Exit; the driver is the looping structure.</text></feedback></answer>
+    <generalfeedback><text>Different walks have different lengths, and the viewMore self-loop can extend a walk arbitrarily. The expected length is the probability-weighted average over all these walks (E[Home] &#8776; 4.05), which is why it is not a simple state or edge count.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the confidence interval half-width</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer reports a 95% interval of &#177;1.96&#183;&#8730;(r(1&#8722;r)/n). If a run of n = 100 tests gives reliability r = 0.50, the half-width is closest to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>&#177;9.8%</text><feedback><text>Correct — 1.96 &#215; &#8730;(0.25/100) = 1.96 &#215; 0.05 = 0.098.</text></feedback></answer>
+    <answer fraction="0"><text>&#177;1.96%</text><feedback><text>No — that omits the &#8730;(r(1&#8722;r)/n) factor; the half-width is 0.098.</text></feedback></answer>
+    <answer fraction="0"><text>&#177;0.5%</text><feedback><text>No — 0.5% would need a far larger n; here it is 9.8%.</text></feedback></answer>
+    <answer fraction="0"><text>&#177;25%</text><feedback><text>No — 0.25 is r(1&#8722;r), not the interval; you must divide by n and take the root.</text></feedback></answer>
+    <generalfeedback><text>Half-width = 1.96 &#215; &#8730;(r(1&#8722;r)/n) = 1.96 &#215; &#8730;(0.5&#183;0.5/100) = 1.96 &#215; 0.05 = 0.098, i.e. &#177;9.8%. The estimate is widest when r = 0.5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How many tests to halve the interval</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The confidence interval scales as 1/&#8730;n. Going from the 50-test button to which count roughly halves the interval half-width?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>200 tests (four times as many)</text><feedback><text>Correct — halving 1/&#8730;n needs 4&#215; the sample, so 50 to 200.</text></feedback></answer>
+    <answer fraction="0"><text>100 tests (twice as many)</text><feedback><text>No — doubling n only shrinks the interval by 1/&#8730;2 &#8776; 0.71, not to a half.</text></feedback></answer>
+    <answer fraction="0"><text>75 tests</text><feedback><text>No — that barely changes the interval; you need 4&#215; the sample.</text></feedback></answer>
+    <answer fraction="0"><text>1000 tests</text><feedback><text>No — 1000 shrinks it by about 1/&#8730;20; to merely halve it, 200 suffices.</text></feedback></answer>
+    <generalfeedback><text>Because the half-width is proportional to 1/&#8730;n, halving it requires quadrupling n. The explorer's 50 and 200 buttons differ by exactly 4&#215;, so 200 tests give roughly half the interval of 50.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why prioritize common paths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does usage-weighted testing deliberately prioritise common paths over rare ones?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Failures on common paths affect the most users, so testing them most heavily maximises delivered reliability</text><feedback><text>Correct — effort follows usage so the reliability estimate matches what users experience.</text></feedback></answer>
+    <answer fraction="0"><text>Common paths are always the hardest to implement correctly</text><feedback><text>No — difficulty is unrelated; the rationale is user impact and field reliability.</text></feedback></answer>
+    <answer fraction="0"><text>Rare paths can never contain defects</text><feedback><text>No — rare paths can be buggy; that is exactly the rare-but-risky gap the app warns about.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees full path coverage of the model</text><feedback><text>No — it does not guarantee coverage; it targets usage-weighted reliability.</text></feedback></answer>
+    <generalfeedback><text>A defect on a heavily used path fails many sessions, while one on a rarely used path fails few. Weighting tests by usage concentrates effort where failures hurt most, so the measured reliability reflects real user experience.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rare-but-risky gap</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The abandon edge (p = 0.10) is under-sampled. If that rare path were also safety-critical, the right response would be to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Supplement usage-based testing with risk-based testing to force coverage of the rare-but-risky path</text><feedback><text>Correct — usage weighting ignores risk, so add risk-based testing for high-risk rare paths.</text></feedback></answer>
+    <answer fraction="0"><text>Rely on the statistical run alone, since it already covers everything</text><feedback><text>No — it under-samples rare edges, so a critical rare path may go untested.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the abandon transition from the model</text><feedback><text>No — the transition is a real behaviour; removing it would make the model wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Raise the abandon probability so it is sampled more</text><feedback><text>No — falsifying the operational profile would distort the reliability estimate.</text></feedback></answer>
+    <generalfeedback><text>Usage weighting distributes effort by frequency, not by risk. A rare but high-risk path needs explicit risk-based testing on top of the statistical run — which is exactly why the explorer bridges to the risk-based testing view.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which transition the tally exercises most</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a large run, which transition will the coverage tally have exercised most heavily?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Browse to Browse (viewMore) — the self-loop repeats and Browse is on the main path</text><feedback><text>Correct — the self-loop is fired about 1.05 times per walk on average, the highest of any edge.</text></feedback></answer>
+    <answer fraction="0"><text>Cart to Exit (abandon)</text><feedback><text>No — abandon is the rarest edge (about 0.06 firings per walk), the least exercised.</text></feedback></answer>
+    <answer fraction="0"><text>Checkout to Exit (pay)</text><feedback><text>No — pay is only reached in about 31.6% of walks, far less than the Browse self-loop.</text></feedback></answer>
+    <answer fraction="0"><text>Cart to Checkout (checkout)</text><feedback><text>No — the buggy edge fires in about 31.6% of walks, well below the self-loop's average.</text></feedback></answer>
+    <generalfeedback><text>Browse is visited about 2.1 times per walk and takes its self-loop with probability 0.5, so viewMore fires about 1.05 times per walk on average &#8212; more than any other edge. The abandon edge, at about 0.06 per walk, is exercised least.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of a misestimated profile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose real users abandon far more than the model assumes (true Cart to Exit is much higher, Cart to Checkout lower). Compared with reality, the explorer's reliability estimate would be:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Biased: because the model over-weights the buggy checkout edge, it under-estimates the reliability real users experience</text><feedback><text>Correct — a wrong profile biases the usage-weighted reliability; here the model fires the bug too often relative to reality.</text></feedback></answer>
+    <answer fraction="0"><text>Unaffected, because reliability does not depend on the profile</text><feedback><text>No — usage-weighted reliability depends entirely on the transition probabilities.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly correct, because the chain is a Markov chain</text><feedback><text>No — being Markov does not make a wrong profile accurate; the numbers must match real usage.</text></feedback></answer>
+    <answer fraction="0"><text>Always higher than reality regardless of which edges are wrong</text><feedback><text>No — the direction of bias depends on which way the probabilities are wrong.</text></feedback></answer>
+    <generalfeedback><text>The reliability estimate is only as good as the operational profile. If the model over-weights the buggy Cart to Checkout edge relative to true abandonment, it fires the bug more often than real users would, biasing the estimate. A wrong profile can under- or over-state reliability and can leave the truly common bugs under-tested.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why reliability equals one minus conversion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this model the usage-weighted reliability (&#8776;0.684) is exactly 1 minus the conversion probability (&#8776;0.316). Why do these two numbers coincide?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The bug sits on Cart to Checkout, the only edge into Checkout, so a walk fails if and only if it converts</text><feedback><text>Correct — firing the buggy edge and reaching Checkout are the same event, so failure probability equals conversion.</text></feedback></answer>
+    <answer fraction="0"><text>By coincidence; there is no structural reason</text><feedback><text>No — it is structural: the buggy edge is precisely the single entry into Checkout.</text></feedback></answer>
+    <answer fraction="0"><text>Because the pay edge (Checkout to Exit) is also buggy</text><feedback><text>No — only Cart to Checkout is buggy; pay is not.</text></feedback></answer>
+    <answer fraction="0"><text>Because every walk reaches Checkout eventually</text><feedback><text>No — only about 31.6% of walks reach Checkout; the rest exit earlier and pass.</text></feedback></answer>
+    <generalfeedback><text>Cart to Checkout is both the only way into Checkout and the buggy edge, so "fires the bug", "reaches Checkout" and "converts" are the same event. Hence failure probability = conversion &#8776; 0.316 and reliability = 1 &#8722; 0.316 &#8776; 0.684.</text></generalfeedback>
+  </question>
+</quiz>

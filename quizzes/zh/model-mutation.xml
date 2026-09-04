@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Model Mutation Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>模型突變所突變的對象</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在「模型突變探索器」中，突變運算子被套用於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個行為模型（此處是一台 Mealy FSM：其轉移、下一狀態與輸出），而非程式原始碼</text><feedback><text>正確——模型突變更動的是 FSM，程式碼與測試都不動。</text></feedback></answer>
+    <answer fraction="0"><text>程式的原始碼</text><feedback><text>更動原始碼屬於程式碼層級（program）突變，是另一種技術。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件的輸入序列</text><feedback><text>套件是我們拿來對突變體執行的東西；運算子更動的是模型。</text></feedback></answer>
+    <answer fraction="0"><text>套件產生的輸出軌跡</text><feedback><text>軌跡是計算出的結果，不是被突變的對象。</text></feedback></answer>
+    <generalfeedback><text>模型突變在模型（FSM）上種下一個小改動——一條轉移、它的目標狀態或它的輸出——而非改動程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model-mutant 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器中的一個 <em>model-mutant</em> 是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>基準 FSM 的一份副本，且只套用了一個突變運算子（例如刪除或改指向一條轉移）</text><feedback><text>正確——一個運算子對基準模型做一處小改動。</text></feedback></answer>
+    <answer fraction="0"><text>基準 FSM 的一份副本，且所有轉移一次全部被改</text><feedback><text>一個突變體只帶一處刻意改動，而非多處。</text></feedback></answer>
+    <answer fraction="0"><text>一個在基準模型上失敗的測試案例</text><feedback><text>那是測試，不是被突變的模型。</text></feedback></answer>
+    <answer fraction="0"><text>一台從頭獨立設計的第二台 FSM</text><feedback><text>突變體是由基準以一個運算子衍生，而非重新撰寫。</text></feedback></answer>
+    <generalfeedback><text>每個突變體（M1–M5）都是套用了一個運算子的基準 FSM：刪除一條轉移、改指向它，或改它的輸出。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>殺死一個 model-mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當滿足下列何者時，一個 model-mutant 被<em>殺死</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某條測試在突變體上的輸出軌跡，與它在基準模型上的輸出軌跡不同</text><feedback><text>正確——能區分出的輸出軌跡即可殺死突變體。</text></feedback></answer>
+    <answer fraction="0"><text>突變體 FSM 的狀態數比基準少</text><feedback><text>殺死與否不看狀態數，而看軌跡是否不同。</text></feedback></answer>
+    <answer fraction="0"><text>突變體無法載入</text><feedback><text>殺死講的是區分行為，不是能否載入。</text></feedback></answer>
+    <answer fraction="0"><text>突變體在每條測試上都產生與基準相同的輸出軌跡</text><feedback><text>那是「存活」的定義，不是被殺死。</text></feedback></answer>
+    <generalfeedback><text>殺死用的測試，是其在突變體上的輸出軌跡與基準不同的那條——這個可觀察到的差異就殺死了突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型突變 vs 程式碼突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模型突變與 I 系列的程式碼（program）突變有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模型突變更動 FSM／模型；程式碼突變更動程式原始碼</text><feedback><text>正確——兩者差在被突變的對象。</text></feedback></answer>
+    <answer fraction="0"><text>模型突變用隨機輸入，程式碼突變才是系統性的</text><feedback><text>兩者都套用系統性運算子；差別在被突變的對象。</text></feedback></answer>
+    <answer fraction="0"><text>模型突變不需要突變運算子</text><feedback><text>兩者都用運算子；模型突變是把它們套用到模型上。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一種技術的兩個名字</text><feedback><text>它們不同：一個突變模型，一個突變原始碼。</text></feedback></answer>
+    <generalfeedback><text>模型突變在較高的抽象層次運作——突變體是 FSM 的修改，而非原始碼的修改。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識一個模型突變運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是探索器所使用的模型突變運算子之一？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>改指向（retarget）一條轉移（更動它的下一狀態）</text><feedback><text>正確——retarget 是三個運算子之一。</text></feedback></answer>
+    <answer fraction="0"><text>把某個 C++ 變數改名</text><feedback><text>那是程式碼層級的改動，不是模型運算子。</text></feedback></answer>
+    <answer fraction="0"><text>刪除一行原始碼敘述</text><feedback><text>刪原始碼是程式碼突變，不是模型突變。</text></feedback></answer>
+    <answer fraction="0"><text>在程式運算式中插入一個一元負號</text><feedback><text>那是程式碼突變運算子（UOI），不是模型運算子。</text></feedback></answer>
+    <generalfeedback><text>探索器的三個運算子是：刪除一條轉移、改指向一條轉移，以及更動一條轉移的輸出。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>delete 運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>delete</em>（刪除）模型突變運算子會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>移除一條轉移，因此在該輸入上突變體會卡住，其軌跡出現 ⊥</text><feedback><text>正確——被刪轉移的突變體在該輸入上無路可走。</text></feedback></answer>
+    <answer fraction="0"><text>刪除一整個狀態及其所有轉移</text><feedback><text>此運算子只移除單一條轉移，而非整個狀態。</text></feedback></answer>
+    <answer fraction="0"><text>更動一條轉移的輸出符號</text><feedback><text>那是 output 運算子，不是 delete。</text></feedback></answer>
+    <answer fraction="0"><text>把一條轉移改指向另一個狀態</text><feedback><text>那是 retarget 運算子，不是 delete。</text></feedback></answer>
+    <generalfeedback><text>delete 移除一條轉移；當某次執行需要它時，因為沒有可對應的轉移，軌跡會記下 ⊥。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>retarget 運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>retarget</em>（改指向）運算子更動的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一條轉移所前往的下一狀態（目的地）</text><feedback><text>正確——retarget 更動轉移的去向。</text></feedback></answer>
+    <answer fraction="0"><text>一條轉移所發出的輸出符號</text><feedback><text>那是 output 運算子。</text></feedback></answer>
+    <answer fraction="0"><text>觸發一條轉移的輸入符號</text><feedback><text>探索器的 retarget 更動的是目的地，不是觸發輸入。</text></feedback></answer>
+    <answer fraction="0"><text>FSM 的初始狀態</text><feedback><text>retarget 更動的是轉移的目標，不是初始狀態。</text></feedback></answer>
+    <generalfeedback><text>retarget（例如「把 q2a 改指向狀態 q1」）把一條轉移指向新的目的地狀態，而輸入與輸出不變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>output 運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>output</em>（輸出）運算子更動的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一條轉移所發出的輸出符號（例如 q1 在 'a' 上發出 1 而非 0）</text><feedback><text>正確——output 運算子更動轉移發出的內容。</text></feedback></answer>
+    <answer fraction="0"><text>該轉移的目的地狀態</text><feedback><text>那是 retarget，不是 output 運算子。</text></feedback></answer>
+    <answer fraction="0"><text>觸發該轉移的輸入</text><feedback><text>output 運算子更動的是發出的符號，不是觸發輸入。</text></feedback></answer>
+    <answer fraction="0"><text>機器中的狀態數</text><feedback><text>output 運算子不會新增或移除狀態。</text></feedback></answer>
+    <generalfeedback><text>output 運算子（例如「把 q1a 的輸出改成 1」）替換一條轉移發出的符號，而其起點、輸入與目標不變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mealy 機器的輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基準模型是一台 Mealy 機器。在 Mealy 機器中，每個輸出關聯於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一條轉移（在某狀態下的一個輸入），因此一次執行會產生一條輸出軌跡</text><feedback><text>正確——Mealy 的輸出在轉移上。</text></feedback></answer>
+    <answer fraction="0"><text>僅關聯於狀態</text><feedback><text>那描述的是 Moore 機器，而非此處的 Mealy 模型。</text></feedback></answer>
+    <answer fraction="0"><text>整台機器，只發出一次</text><feedback><text>每條轉移都發出一個輸出；並非全機一次性的值。</text></feedback></answer>
+    <answer fraction="0"><text>僅關聯於最終狀態</text><feedback><text>輸出出現在整條執行路徑的每條轉移上，不只是結尾。</text></feedback></answer>
+    <generalfeedback><text>在此的 Mealy FSM 中，每條轉移帶一個輸出符號；執行一段輸入序列會產生探索器所比較的輸出軌跡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型突變分數的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器報告的<em>模型突變分數</em>衡量的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>套件殺死的 model-mutant 比例——即模型抽象層級上的測試充分性</text><feedback><text>正確——它是「殺死／總數」，一個模型層級的充分性度量。</text></feedback></answer>
+    <answer fraction="0"><text>FSM 中的狀態數</text><feedback><text>分數看的是殺死的突變體數，不是狀態數。</text></feedback></answer>
+    <answer fraction="0"><text>套件的執行時間</text><feedback><text>執行時間與突變分數無關。</text></feedback></answer>
+    <answer fraction="0"><text>被突變的轉移數量</text><feedback><text>分數是被殺死的比例，不是被突變了多少條。</text></feedback></answer>
+    <generalfeedback><text>模型突變分數是套件所區分（殺死）的 model-mutant 比例，衡量模型層級的測試充分性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>存活的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個 model-mutant「<em>存活</em>」的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>套件中的每一條測試在突變體上產生的輸出軌跡，都與在基準模型上的相同</text><feedback><text>正確——沒有任何測試能區分它。</text></feedback></answer>
+    <answer fraction="0"><text>至少有一條測試把它與基準區分開來</text><feedback><text>那會使它被殺死，而不是存活。</text></feedback></answer>
+    <answer fraction="0"><text>突變體無法被解析</text><feedback><text>存活講的是軌跡相符，不是能否解析。</text></feedback></answer>
+    <answer fraction="0"><text>基準模型有缺陷</text><feedback><text>存活與基準是否有錯無關。</text></feedback></answer>
+    <generalfeedback><text>存活者在每條測試上都產生與基準相同的軌跡——要嘛是套件缺口，要嘛是等價突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>⊥ 符號的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在輸出軌跡中，符號 <code>⊥</code> 表示：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺少轉移——在目前狀態下模型對該輸入沒有可走的轉移，因此執行卡住</text><feedback><text>正確——⊥ 標記在缺少轉移處卡住的執行。</text></feedback></answer>
+    <answer fraction="0"><text>輸出符號 0</text><feedback><text>0 是正常輸出；⊥ 專門標記缺少轉移。</text></feedback></answer>
+    <answer fraction="0"><text>輸入序列的結束</text><feedback><text>⊥ 表示卡住的執行，不是輸入正常結束。</text></feedback></answer>
+    <answer fraction="0"><text>表示這個突變體是等價的</text><feedback><text>⊥ 與等價無關；它標記缺少轉移。</text></feedback></answer>
+    <generalfeedback><text>當目前狀態與輸入沒有可對應的轉移時，runTrace 會在已產生的輸出後接上 ⊥——被刪除轉移的突變體會卡住。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價 model-mutant 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個<em>等價</em>的 model-mutant 是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在語法上與基準模型不同，但行為完全相同，因此沒有任何測試能殺死它</text><feedback><text>正確——行為相同使它無法被殺死。</text></feedback></answer>
+    <answer fraction="0"><text>與基準模型文字上完全相同</text><feedback><text>突變體一定有改動；文字相同的不是突變體。</text></feedback></answer>
+    <answer fraction="0"><text>總是被第一條測試殺死</text><feedback><text>依定義，等價突變體永遠不會被殺死。</text></feedback></answer>
+    <answer fraction="0"><text>無法由任何運算子產生</text><feedback><text>它由運算子產生，只是恰好保留了行為。</text></feedback></answer>
+    <generalfeedback><text>等價突變體是一個真正的語法改動卻不改變行為（此處 q2a→q4，因為 q3 與 q4 行為完全相同），因此沒有任何測試能區分它。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>模型突變是否突變程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模型突變測試的運作方式，是突變程式的原始碼並對其執行測試。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>突變原始碼屬於程式碼層級突變。模型突變改動的是模型（FSM）。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——模型突變更動 FSM 的轉移、目標與輸出，而非原始碼。</text></feedback></answer>
+    <generalfeedback><text>模型突變在行為模型上種下改動；突變原始碼是另一種獨立技術——程式（碼）突變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>此處的測試是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器中，套件裡的每一條測試是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一段輸入序列（輸入符號組成的字串），餵給模型後產生一條輸出軌跡</text><feedback><text>正確——例如 "aa"、"aba"；執行後產生輸出軌跡。</text></feedback></answer>
+    <answer fraction="0"><text>單一個輸出符號</text><feedback><text>一條測試是輸入序列，不是一個輸出。</text></feedback></answer>
+    <answer fraction="0"><text>一整台突變體 FSM</text><feedback><text>突變體是模型；測試是對它執行的輸入序列。</text></feedback></answer>
+    <answer fraction="0"><text>FSM 的一個狀態</text><feedback><text>測試驅動 FSM 經過各狀態；它本身不是狀態。</text></feedback></answer>
+    <generalfeedback><text>套件是一組輸入字串（aa、ab、ba、aaa、aba）；每條都被執行以產生輸出軌跡，於基準與突變體之間比較。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Model Mutation Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>測試 aa 對 delete 突變體揭示了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>刪除</em>轉移 q2-a 的突變體被輸入 <code>aa</code> 殺死。<code>aa</code> 顯示了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>基準軌跡 "01" vs 突變體軌跡 "0⊥"：突變體在需要 q2-a 時卡住</text><feedback><text>正確——q1-a 發出 0 進入 q2 後，被刪的 q2-a 使執行卡住（⊥）。</text></feedback></answer>
+    <answer fraction="0"><text>基準 "01" vs 突變體 "01"：相同，因此沒被殺死</text><feedback><text>突變體無法走 q2-a，其軌跡是 "0⊥"，不是 "01"。</text></feedback></answer>
+    <answer fraction="0"><text>兩者在第一個輸入上就立刻產生 ⊥</text><feedback><text>第一個輸入 q1-a 仍可走；⊥ 只在第二步出現。</text></feedback></answer>
+    <answer fraction="0"><text>突變體只是多了一個狀態</text><feedback><text>delete 是移除轉移而非新增狀態；殺死它的是軌跡差異。</text></feedback></answer>
+    <generalfeedback><text>在 "aa" 上基準得到 "01"，但 delete-q2a 突變體得到 "0⊥"；不同的軌跡殺死了它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：更動輸出符號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把 q1-a 的輸出從 0 改成 1，屬於哪個運算子的實例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>output 運算子（更動一條轉移的輸出符號）</text><feedback><text>正確——只有發出的符號被改動。</text></feedback></answer>
+    <answer fraction="0"><text>retarget 運算子</text><feedback><text>retarget 更動目的地狀態，不是輸出。</text></feedback></answer>
+    <answer fraction="0"><text>delete 運算子</text><feedback><text>沒有東西被移除；被改的是輸出。</text></feedback></answer>
+    <answer fraction="0"><text>新增一個狀態</text><feedback><text>沒有新增狀態；這是輸出改動。</text></feedback></answer>
+    <generalfeedback><text>更動一條轉移所發出的符號（q1-a：0→1）是 output 運算子——正是突變體 M3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：更動目的地</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把轉移 q2-a 改成指向 q1 而非 q3、且其輸出不變，這是哪個運算子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>retarget（更動轉移的下一狀態）</text><feedback><text>正確——目的地被改，而輸出維持不變。</text></feedback></answer>
+    <answer fraction="0"><text>output 改動</text><feedback><text>輸出沒有被改；被改的是目的地。</text></feedback></answer>
+    <answer fraction="0"><text>delete</text><feedback><text>該轉移仍存在；只是目標被改。</text></feedback></answer>
+    <answer fraction="0"><text>輸入符號改動</text><feedback><text>觸發輸入不變；改的是目標狀態。</text></feedback></answer>
+    <generalfeedback><text>把 q2-a 重新指向新狀態是 retarget 運算子（突變體 M2 把它指向 q1）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 q3-b 輸出突變體會存活</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把 q3-b 的輸出改成 0 的突變體在整份套件下都存活。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>套件中沒有任何測試走過 q3-b 這條轉移，所以被改的輸出從未被觀察到——這是套件缺口，而非等價</text><feedback><text>正確——aa、ab、ba、aaa、aba 都不從 q3 走 b。</text></feedback></answer>
+    <answer fraction="0"><text>因為 q3-b 的輸出原則上永遠不可觀察（等價突變體）</text><feedback><text>它不是等價的：只要有測試走到 q3 再走 b 就能殺死它。</text></feedback></answer>
+    <answer fraction="0"><text>因為改動輸出永遠不會改變任何軌跡</text><feedback><text>輸出改動會改變軌跡——只要該轉移被操練到。</text></feedback></answer>
+    <answer fraction="0"><text>因為基準模型是錯的</text><feedback><text>基準沒問題；只是套件漏掉了 q3-b。</text></feedback></answer>
+    <generalfeedback><text>套件未涵蓋 q3-b，因此該突變從未被觸發——這是可修復的套件缺口，而非等價突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何刪除轉移容易被殺死</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼一個刪除轉移的突變體，只要它的那條轉移被操練到，通常就很容易被殺死？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>執行無法繼續，軌跡以 ⊥ 收尾，這與基準在該處的輸出不同</text><feedback><text>正確——卡住的執行產生 ⊥，是立即可觀察的差異。</text></feedback></answer>
+    <answer fraction="0"><text>因為刪除會新增一個基準沒有的狀態</text><feedback><text>刪除是移除一條轉移，不會新增狀態。</text></feedback></answer>
+    <answer fraction="0"><text>因為刪除會改變初始狀態</text><feedback><text>刪除一條轉移不會改變初始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>它永遠無法被殺死</text><feedback><text>只要有測試走到被刪的轉移就能殺死它。</text></feedback></answer>
+    <generalfeedback><text>任何走到被刪轉移的測試，都會產生 ⊥ 而非基準的輸出——這是立即可區分的差異。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>q1-a 輸出突變體在 aa 上的軌跡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於把 q1-a 輸出改成 1（而非 0）的突變體，執行 <code>aa</code> 得到哪種比較？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>基準 "01" vs 突變體 "11"——兩者在第一個輸出就不同，所以 aa 殺死它</text><feedback><text>正確——q1-a 現在發出 1，改變了第一個符號。</text></feedback></answer>
+    <answer fraction="0"><text>基準 "11" vs 突變體 "01"</text><feedback><text>基準先發出 0（其 q1-a 輸出為 0）；突變體發出 1。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是 "01"——存活</text><feedback><text>突變體在第一步發出 1，故其軌跡是 "11"。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是 "11"</text><feedback><text>基準的 q1-a 輸出為 0，故基準軌跡是 "01"。</text></feedback></answer>
+    <generalfeedback><text>在 "aa" 上基準得到 "01"，q1-a 輸出突變體得到 "11"；第一位置的差異殺死它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>能殺死 retarget 的測試需要具備什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個 retarget 突變體把 q2-a 指向不同狀態，但保留它的輸出。要殺死它，測試必須：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>越過該轉移後繼續走，直到不同的目的地造成不同的輸出符號；僅僅到達不同的狀態並不可觀察</text><feedback><text>正確——只有輸出出現分歧，差異才看得見。</text></feedback></answer>
+    <answer fraction="0"><text>只要到達被改指向的那條轉移一次即可</text><feedback><text>若之後發出的輸出仍相同，光是到達並不足夠。</text></feedback></answer>
+    <answer fraction="0"><text>長度必須等於 FSM 的狀態數</text><feedback><text>長度重要只在於能否曝露輸出差異，而非某固定數字。</text></feedback></answer>
+    <answer fraction="0"><text>在被改指向的轉移之後立即結束</text><feedback><text>在該處停下會隱藏差異，因為 retarget 保留相同輸出。</text></feedback></answer>
+    <generalfeedback><text>殺死由輸出軌跡定義，因此保留輸出的 retarget，只有在後續輸入從新目的地產生不同輸出時才會被曝露。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>存活者的兩種解釋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個 model-mutant 在套件下存活。有哪兩種可能的解釋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>套件太弱、無法走到或區分這個突變，或者這個突變體是等價的（沒有任何測試能殺死它）</text><feedback><text>正確——存活者要嘛是套件缺口，要嘛是等價突變體。</text></feedback></answer>
+    <answer fraction="0"><text>基準模型有缺陷，或者套件跑太快了</text><feedback><text>執行速度與基準缺陷都無法解釋存活。</text></feedback></answer>
+    <answer fraction="0"><text>它一定是等價突變體</text><feedback><text>許多存活者是可修復的套件缺口，並非等價。</text></feedback></answer>
+    <answer fraction="0"><text>它一定是套件缺口</text><feedback><text>有些存活者確實是等價且無法殺死的。</text></feedback></answer>
+    <generalfeedback><text>要分辨兩者（套件缺口 vs 等價）需要人為分析；只有缺口能靠加測試修復。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：移除一條轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「完全移除 q2-a 這條轉移」是哪個運算子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>delete</text><feedback><text>正確——該轉移被移除。</text></feedback></answer>
+    <answer fraction="0"><text>retarget</text><feedback><text>retarget 保留轉移但更動其目標。</text></feedback></answer>
+    <answer fraction="0"><text>output 改動</text><feedback><text>output 改動保留轉移並更動其發出的符號。</text></feedback></answer>
+    <answer fraction="0"><text>守衛否定（guard negation）</text><feedback><text>探索器沒有守衛運算子；移除轉移是 delete。</text></feedback></answer>
+    <generalfeedback><text>直接移除一條轉移是 delete 運算子（突變體 M1 刪除 q2-a）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套件缺口 vs 等價存活者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>如何分辨<em>套件缺口</em>存活者與<em>等價</em>存活者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺口存活者可被某條涵蓋或區分該突變的測試殺死；等價存活者則無法被任何測試殺死</text><feedback><text>正確——能否被殺死是兩者的分野。</text></feedback></answer>
+    <answer fraction="0"><text>缺口存活者無法被殺死；等價存活者可以被殺死</text><feedback><text>這說反了：缺口可被殺死，等價不行。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都可被同一條測試殺死</text><feedback><text>等價突變體沒有任何測試能殺死。</text></feedback></answer>
+    <answer fraction="0"><text>比較兩者的狀態數</text><feedback><text>狀態數無法區分缺口與等價。</text></feedback></answer>
+    <generalfeedback><text>加入一條涵蓋的測試即可殺死缺口存活者；等價突變體因行為與基準相同，沒有任何測試能殺死它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 q2-a→q1 突變體在套件下存活</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把 q2-a 改指向 q1（而非 q3）的突變體在套件下存活，但它<em>並非</em>等價。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>套件的序列太短，無法走到一個「落在 q1 vs q3 會產生不同輸出」的輸入——這是套件缺口，較長的測試就能殺死它</text><feedback><text>正確——差異只有在較長輸入上才顯現。</text></feedback></answer>
+    <answer fraction="0"><text>q1 與 q3 行為完全相同，所以永遠殺不死</text><feedback><text>q1 與 q3 是可區分的（例如用 "aa"），故它並非等價。</text></feedback></answer>
+    <answer fraction="0"><text>retarget 運算子永遠不改變行為</text><feedback><text>retarget 可以改變行為；此處確實改變了，只是套件沒觸及。</text></feedback></answer>
+    <answer fraction="0"><text>突變體建置失敗</text><feedback><text>它可正常建置；只是這些測試沒有把它區分出來。</text></feedback></answer>
+    <generalfeedback><text>q1 與 q3 不同，所以此突變體可被殺死，但只有夠長、能曝露差異的輸入才行——套件缺少這樣的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>此處「殺死」的確切意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在這個 Mealy-FSM 情境中，「<em>殺死</em>」一個突變體嚴格來說是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>找到一條測試，其在突變體上的輸出軌跡與基準的輸出軌跡不同</text><feedback><text>正確——殺死由分歧的輸出軌跡定義。</text></feedback></answer>
+    <answer fraction="0"><text>到達與基準不同的狀態，無論輸出如何</text><feedback><text>不同的內部狀態不可觀察；只看輸出。</text></feedback></answer>
+    <answer fraction="0"><text>產生比基準更長的軌跡</text><feedback><text>軌跡長度不是判準；分歧的符號才是。</text></feedback></answer>
+    <answer fraction="0"><text>比基準造訪更多狀態</text><feedback><text>造訪狀態是內部的；殺死需要輸出差異。</text></feedback></answer>
+    <generalfeedback><text>evalMutant 比較的是輸出軌跡；只有當某條測試的輸出軌跡與基準不同時，突變體才被殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>調整後分數排除了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器的<em>調整後</em>突變分數與原始分數的差別在於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把等價突變體從分母中排除，因為它們永遠無法被殺死</text><feedback><text>正確——調整後＝殺死／（總數 − 等價數）。</text></feedback></answer>
+    <answer fraction="0"><text>把被殺死的突變體從分子中排除</text><feedback><text>被殺死者留在分子；被排除出分母的是等價者。</text></feedback></answer>
+    <answer fraction="0"><text>只計算 delete 突變體</text><feedback><text>所有運算子都計入；只有等價者被排除。</text></feedback></answer>
+    <answer fraction="0"><text>把原始分數加倍</text><feedback><text>調整是移除等價者，不是加倍。</text></feedback></answer>
+    <generalfeedback><text>調整後分數把等價突變體從總數中移除，以免它們不公平地壓低了度量值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ab 的基準軌跡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在基準模型上，輸入 <code>ab</code> 的輸出軌跡是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"01"</text><feedback><text>正確——q1-a 發出 0 進入 q2，接著 q2-b 發出 1。</text></feedback></answer>
+    <answer fraction="0"><text>"10"</text><feedback><text>那是 "ba" 的軌跡，不是 "ab"。</text></feedback></answer>
+    <answer fraction="0"><text>"010"</text><feedback><text>那是長度為 3 的軌跡（例如 "aaa"）；"ab" 只有兩個輸入。</text></feedback></answer>
+    <answer fraction="0"><text>"0⊥"</text><feedback><text>基準中這兩條轉移都存在，因此沒有 ⊥。</text></feedback></answer>
+    <generalfeedback><text>q1 在 a 上發出 0 並移到 q2；q2 在 b 上發出 1 並移到 q4——軌跡 "01"。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>術語與角色配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列術語與其角色的配對，何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「殺死」＝套件把突變體的輸出軌跡與基準的區分開來</text><feedback><text>正確——這正是殺死的意思。</text></feedback></answer>
+    <answer fraction="0"><text>「存活」＝套件把突變體與基準區分開來</text><feedback><text>能區分代表被殺死；存活代表未被區分。</text></feedback></answer>
+    <answer fraction="0"><text>「等價」＝突變體比基準的狀態少</text><feedback><text>等價指行為相同，不是狀態較少。</text></feedback></answer>
+    <answer fraction="0"><text>「⊥」＝模型回到了它的初始狀態</text><feedback><text>⊥ 標記缺少轉移（卡住的執行），不是初始狀態。</text></feedback></answer>
+    <generalfeedback><text>殺死＝已區分；存活＝未區分；等價＝行為完全相同（無法殺死）；⊥＝在缺少轉移處卡住。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Model Mutation Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>哪兩個突變體被殺死</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器報告的原始模型突變分數為 40%（5 個中殺死 2 個）。被殺死的是哪兩個突變體？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>刪除 q2-a 的突變體與更動 q1-a 輸出的突變體；其餘三個存活</text><feedback><text>正確——M1 與 M3 被殺死（都被 "aa" 殺死）。</text></feedback></answer>
+    <answer fraction="0"><text>兩個 retarget 突變體（q2-a→q1 與 q2-a→q4）</text><feedback><text>兩個 retarget 都在套件下存活；並未被殺死。</text></feedback></answer>
+    <answer fraction="0"><text>所有三個觸及 q2-a 的突變體</text><feedback><text>只有刪除 q2-a 被殺死；兩個 q2-a 的 retarget 都存活。</text></feedback></answer>
+    <answer fraction="0"><text>等價突變體與一個 output 突變體</text><feedback><text>等價突變體存活；被殺死的只有 M1（delete）與 M3（q1-a 輸出）。</text></feedback></answer>
+    <generalfeedback><text>在 "aa" 上，delete-q2a 得到 "0⊥"，q1-a 輸出改動得到 "11"——都與基準 "01" 不同而被殺死；兩個 retarget 與 q3-b 輸出改動則存活。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何調整後是 50% 而非 40%</text></name>
+    <questiontext format="html"><text><![CDATA[<p>原始分數是 40%（2/5），但調整後分數是 50%。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有一個突變體是等價的，被排除出分母：2/(5−1) = 50%</text><feedback><text>正確——去掉等價突變體後剩 4 個中的 2 個。</text></feedback></answer>
+    <answer fraction="0"><text>因為一個被殺死的突變體被計算了兩次</text><feedback><text>沒有重複計算；等價突變體是從總數中移除。</text></feedback></answer>
+    <answer fraction="0"><text>因為等價突變體被算成被殺死</text><feedback><text>等價者是被排除，而不是算成被殺死。</text></feedback></answer>
+    <answer fraction="0"><text>因為 5 個突變體不知怎地變成殺死 4 個</text><feedback><text>仍是殺死 2 個；分母縮成 4。</text></feedback></answer>
+    <generalfeedback><text>調整後＝殺死／（總數 − 等價數）＝ 2 / (5 − 1) = 50%，因為等價突變體永遠無法被殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 q2-a→q4 是等價的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把 q2-a 從 q3 改指向 q4 的突變體被標記為<em>等價</em>，是因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>狀態 q3 與 q4 行為完全相同，所以把 q2-a 指向 q4 而非 q3 永遠不改變任何輸出</text><feedback><text>正確——q3 與 q4 對每個輸入都產生相同輸出。</text></feedback></answer>
+    <answer fraction="0"><text>狀態 q4 在基準模型中不可達</text><feedback><text>q4 可達（經由 q2-b）；等價來自 q3 ≡ q4。</text></feedback></answer>
+    <answer fraction="0"><text>retarget 運算子總是等價的</text><feedback><text>改指向 q1 就不是等價的；只有因為 q3 ≡ q4 才使這個等價。</text></feedback></answer>
+    <answer fraction="0"><text>q2-a 的輸出也一併被刪除了</text><feedback><text>retarget 保留輸出；沒有東西被刪除。</text></feedback></answer>
+    <generalfeedback><text>q3（a→0→q3、b→1→q1）與 q4（a→0→q4、b→1→q1）行為完全相同，故在兩者間改指向不改變任何輸出——一個等價突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何沒有測試能殺死等價突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼沒有任何測試能殺死 q2-a→q4（等價）突變體？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從 q3 與從 q4 出發，任何輸入序列都產生相同的輸出軌跡，因此沒有序列能曝露差異</text><feedback><text>正確——兩個狀態不可區分，故該 retarget 不可見。</text></feedback></answer>
+    <answer fraction="0"><text>因為套件剛好太短</text><feedback><text>任何長度的套件都無效；差異是不可觀察，而非只是未涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>因為 q2-a 沒有輸出符號</text><feedback><text>q2-a 確實發出輸出；此突變體等價是因為 q3 ≡ q4。</text></feedback></answer>
+    <answer fraction="0"><text>因為 q4 是初始狀態</text><feedback><text>q1 才是初始狀態；等價來自 q3 與 q4 行為相同。</text></feedback></answer>
+    <generalfeedback><text>由於 q3 與 q4 對所有輸入都發出相同輸出，抵達 q4 而非 q3 從不改變任何軌跡——沒有測試能區分此突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>能殺死 q2-a→q1 的追加測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>q2-a→q1 突變體在原套件下存活，但它是可殺死的。哪一段追加的輸入序列能把它與基準區分開？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA["aaaa"——基準軌跡 "0100" vs 突變體 "0101"（在第 4 個輸出處分歧）]]></text><feedback><text>正確——第四個輸入曝露出突變體繞回經過 q1/q2。</text></feedback></answer>
+    <answer fraction="0"><text>"ab"——但兩者都得到 "01"</text><feedback><text>"ab" 未操練到差異；兩條軌跡都是 "01"。</text></feedback></answer>
+    <answer fraction="0"><text>"ba"——但兩者都得到 "10"</text><feedback><text>"ba" 在兩者上都得 "10"；殺不死它。</text></feedback></answer>
+    <answer fraction="0"><text>沒有序列能殺死它；它是等價的</text><feedback><text>它並非等價；"aaaa" 能殺死它。</text></feedback></answer>
+    <generalfeedback><text>在 "aaaa" 上基準得 "0100"，但 q2-a→q1 突變體得 "0101"；第四個輸出的差異殺死它，確認它是套件缺口而非等價。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>能殺死 q3-b 輸出突變體的追加測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一條追加的測試能殺死把 q3-b 輸出改成 0 的突變體？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA["aab"——它走到 q3 並走 b，得到基準 "011" vs 突變體 "010"]]></text><feedback><text>正確——"aa" 落在 q3，接著 b 操練到被改的輸出。</text></feedback></answer>
+    <answer fraction="0"><text>"aa"——因為它造訪 q3</text><feedback><text>"aa" 停在 q3 但沒走 b，因此從未操練 q3-b。</text></feedback></answer>
+    <answer fraction="0"><text>"ba"——因為它很短</text><feedback><text>"ba" 從未到達 q3，因此無法走 q3-b。</text></feedback></answer>
+    <answer fraction="0"><text>沒有測試能殺死它；它是等價的</text><feedback><text>它是套件缺口，並非等價——"aab" 能殺死它。</text></feedback></answer>
+    <generalfeedback><text>"aab" 驅動 q1→q2→q3 後走 q3-b：基準發出 1（"011"），突變體發出 0（"010"），軌跡不同，突變體被殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>100% 模型分數能否保證程式碼充分性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設套件殺死了每一個非等價的 model-mutant。這能保證程式碼層級的突變分數也高嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不能——模型抽象掉了程式碼層級的細節，所以一個在模型上充分的套件，仍可能漏掉實作程式碼中的缺陷</text><feedback><text>正確——模型層級充分並不蘊含程式碼分支層級充分。</text></feedback></answer>
+    <answer fraction="0"><text>能——模型充分永遠蘊含程式碼充分</text><feedback><text>模型省略了程式碼細節，故此蘊含不成立。</text></feedback></answer>
+    <answer fraction="0"><text>能——因為兩種技術都使用突變運算子</text><feedback><text>共用突變概念，並不會使抽象層級等同。</text></feedback></answer>
+    <answer fraction="0"><text>不能——因為模型突變無法生成測試</text><feedback><text>它可以驅動測試設計；真正的原因是抽象落差。</text></feedback></answer>
+    <generalfeedback><text>被殺死的 model-mutant 證明套件能區分模型行為，而非它涵蓋了程式碼分支——模型突變在比程式碼突變更高的抽象層次運作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>被殺死的 model-mutant 證明了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依探索器的框架，一個被殺死的 model-mutant 證明了套件：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>能區分模型行為——而非它涵蓋了實作的程式碼分支</text><feedback><text>正確——殺死講的是模型層級的行為區分。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋了原始碼中的每個分支</text><feedback><text>模型突變並不直接說明程式碼分支涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>達成 100% 敘述涵蓋</text><feedback><text>敘述涵蓋是程式碼度量，與殺死 model-mutant 無關。</text></feedback></answer>
+    <answer fraction="0"><text>不含任何等價突變體</text><feedback><text>殺死一個突變體，對其他是否等價毫無說明。</text></feedback></answer>
+    <generalfeedback><text>模型層級突變證明套件能分辨模型行為；它不衡量程式碼分支涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 delete 突變體的軌跡以 ⊥ 收尾</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 delete-q2-a 突變體，測試 <code>aa</code> 得到基準 "01" 與突變體 "0⊥"。⊥ 出現是因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>q1-a 輸出 0 並移到 q2 之後，突變體沒有 q2-a 這條轉移，所以執行卡住、軌跡記下 ⊥</text><feedback><text>正確——缺少的轉移使執行停止。</text></feedback></answer>
+    <answer fraction="0"><text>delete 運算子把第一個輸出符號改成 ⊥</text><feedback><text>第一個輸出是正常的 0；⊥ 只在轉移缺少時出現。</text></feedback></answer>
+    <answer fraction="0"><text>⊥ 是 q2 所指定的輸出符號</text><feedback><text>此處狀態沒有輸出符號；⊥ 標記卡住的執行。</text></feedback></answer>
+    <answer fraction="0"><text>基準模型在 aa 上也產生 ⊥</text><feedback><text>基準有 q2-a，因此順利完成為 "01"，沒有 ⊥。</text></feedback></answer>
+    <generalfeedback><text>當沒有可對應的轉移時，runTrace 會回傳目前為止的輸出加上 ⊥；被刪的 q2-a 使第二步無路可走。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何把等價突變體排除於分數之外</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器為何報告一個排除等價突變體的調整後分數？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價突變體依定義無法被殺死，因此把它計入會不公平地壓低充分性度量</text><feedback><text>正確——把無法殺死的突變體計入，會低估套件的真實充分性。</text></feedback></answer>
+    <answer fraction="0"><text>等價突變體總是被殺死，所以會膨脹分數</text><feedback><text>它們永遠不會被殺死，這正是要排除它們的原因。</text></feedback></answer>
+    <answer fraction="0"><text>因為等價突變體的狀態最多</text><feedback><text>狀態數無關；無法殺死才是理由。</text></feedback></answer>
+    <answer fraction="0"><text>為了讓報告的分數更低</text><feedback><text>排除無法殺死的突變體會提高（而非降低）公平的分數。</text></feedback></answer>
+    <generalfeedback><text>既然沒有測試能殺死等價突變體，把它留在分母就等於為一件不可能的事懲罰套件；調整後分數將其移除。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>五個突變體的正確分類</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在給定的套件下，下列對五個突變體的分類何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩個被殺死（delete q2-a、output q1-a）；兩個以套件缺口存活（retarget q2-a→q1、output q3-b）；一個以等價存活（retarget q2-a→q4）</text><feedback><text>正確——2 個被殺死、2 個缺口、1 個等價。</text></feedback></answer>
+    <answer fraction="0"><text>五個全部被殺死</text><feedback><text>有三個存活：兩個缺口與一個等價。</text></feedback></answer>
+    <answer fraction="0"><text>三個被殺死、兩個等價</text><feedback><text>只有一個是等價的，且只有兩個被殺死。</text></feedback></answer>
+    <answer fraction="0"><text>一個被殺死、四個等價</text><feedback><text>有兩個被殺死，且只有一個是等價的。</text></feedback></answer>
+    <generalfeedback><text>M1 與 M3 被 "aa" 殺死；M2（q2-a→q1）與 M4（q3-b 輸出）是套件缺口；M5（q2-a→q4）因 q3 ≡ q4 而等價。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何兩個 retarget 只有一個是等價的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>有兩個突變體都改指向 q2-a：一個指向 q1，一個指向 q4。為什麼只有其中一個是等價的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>q2-a→q4 是等價的，因為 q4 ≡ q3；但 q2-a→q1 不是，因為 q1 與 q3 可區分（例如用 "aa"）</text><feedback><text>正確——是否等價取決於新目的地是否與舊目的地行為相同。</text></feedback></answer>
+    <answer fraction="0"><text>兩個都是等價的，因為它們改指向同一條轉移</text><feedback><text>改指向同一條轉移不代表等價；由目的地的行為決定。</text></feedback></answer>
+    <answer fraction="0"><text>兩個都可被殺死，所以兩者皆非等價</text><feedback><text>q2-a→q4 突變體無法被殺死，因為 q3 與 q4 行為完全相同。</text></feedback></answer>
+    <answer fraction="0"><text>q2-a→q1 是等價的，因為 q1 是初始狀態</text><feedback><text>身為初始狀態並不使 q1 行為等同 q3；該突變體是可殺死的。</text></feedback></answer>
+    <generalfeedback><text>是否等價取決於目的地：q3 與 q4 行為完全相同（故 →q4 等價），而 q1 與 q3 不同（故 →q1 是可殺死的套件缺口）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>被漏掉的 q2-a→q1 突變體說明了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>retarget-to-q1 突變體只能被長度 4 的輸入（"aaaa"）殺死，但套件最長的測試是長度 3。這說明了：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>存活者可以是純粹的套件缺口：即使突變體非等價，運算子也能揭示出套件所缺的一條必要測試</text><feedback><text>正確——模型突變曝露出一條缺少的（較長）測試。</text></feedback></answer>
+    <answer fraction="0"><text>既然此套件殺不死它，那它一定是等價的</text><feedback><text>沒被此套件殺死並不代表等價——"aaaa" 能殺死它。</text></feedback></answer>
+    <answer fraction="0"><text>在模型突變中，較長的測試從來沒有用</text><feedback><text>此處正是需要一條較長的測試才能殺死突變體。</text></feedback></answer>
+    <answer fraction="0"><text>模型突變無法偵測 retarget 類的錯誤</text><feedback><text>它可以：存活的 retarget 標示出套件中一個真正的缺口。</text></feedback></answer>
+    <generalfeedback><text>這個存活但可殺死的突變體指出套件缺少的一條具體測試——突變分析的價值就在於曝露這類缺口。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>加入測試 aab 的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若把測試 <code>aab</code> 加入套件，分數會如何改變？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>q3-b 輸出突變體現在被殺死：5 個中殺死 3 個（原始 60%、調整後 75%）；retarget-to-q1 與等價突變體仍然存活</text><feedback><text>正確——"aab" 操練 q3-b，殺死 M4；M2（需要 "aaaa"）與 M5（等價）仍存活。</text></feedback></answer>
+    <answer fraction="0"><text>五個突變體現在全部被殺死</text><feedback><text>M2 需要長度 4 的輸入，M5 是等價的，故兩者仍存活。</text></feedback></answer>
+    <answer fraction="0"><text>沒有變化，因為 "aab" 殺不了任何新的</text><feedback><text>"aab" 走了 q3-b，這是舊套件從未走過的，會殺死 M4。</text></feedback></answer>
+    <answer fraction="0"><text>只有等價突變體現在被殺死</text><feedback><text>等價突變體永遠殺不死；"aab" 殺死的是 M4。</text></feedback></answer>
+    <generalfeedback><text>"aab" 得到基準 "011" vs q3-b 突變體 "010"，殺死它。現在 5 個中殺死 3 個（原始 60%）；排除那 1 個等價突變體後，調整後為 3/4 = 75%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型層級 vs 程式碼層級突變的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模型層級對比程式碼層級突變的一個關鍵取捨在於，模型突變：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在較高抽象層次運作——能及早曝露設計／規格層級的測試缺口，但高模型分數不保證程式碼分支涵蓋，且等價突變體仍會出現</text><feedback><text>正確——較高抽象既帶來優勢也帶來限制。</text></feedback></answer>
+    <answer fraction="0"><text>在各方面都嚴格優於程式碼突變</text><feedback><text>它並非全面優越；它抽象掉了程式碼細節。</text></feedback></answer>
+    <answer fraction="0"><text>徹底消除了等價突變體問題</text><feedback><text>等價突變體仍會出現（例如 q2-a→q4）。</text></feedback></answer>
+    <answer fraction="0"><text>需要程式的原始碼才能執行</text><feedback><text>它在模型上執行，不需要原始碼。</text></feedback></answer>
+    <generalfeedback><text>模型突變能在模型層級捕捉行為性的測試缺口且不需原始碼，但其分數不蘊含程式碼分支充分性，而等價突變體仍是一項挑戰。</text></generalfeedback>
+  </question>
+</quiz>

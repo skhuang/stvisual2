@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/MBT Workflow/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Model stage produces</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the MBT Workflow, what does the <strong>Model</strong> stage do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Turns the informal spec into a precise behavioral model, typically a finite-state machine</text><feedback><text>Correct — the Model stage captures the states the system can be in and the events that move it between them.</text></feedback></answer>
+    <answer fraction="0"><text>Runs the concrete tests against the real system</text><feedback><text>That is the Execution stage, not Model.</text></feedback></answer>
+    <answer fraction="0"><text>Maps abstract events onto real API calls and data values</text><feedback><text>That is Concretization, not Model.</text></feedback></answer>
+    <answer fraction="0"><text>Compares observed behavior against predicted behavior</text><feedback><text>That is the Conformance verdict, not Model.</text></feedback></answer>
+    <generalfeedback><text>The Model stage turns an informal spec into a precise behavioral model (typically an FSM). Everything downstream is derived from it, so a wrong model means wrong tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Generation criterion stage does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the job of the <strong>Generation criterion</strong> stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Choose how thoroughly to exercise the model, turning it into a set of test obligations</text><feedback><text>Correct — the criterion decides whether to cover every state, transition, transition-pair, or round-trip path.</text></feedback></answer>
+    <answer fraction="0"><text>Pick real input values for each event</text><feedback><text>That happens during Concretization, not when choosing the criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Record the outputs observed at each step</text><feedback><text>That is Execution, not the Generation criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Rewrite the informal spec into an FSM</text><feedback><text>That is the Model stage; the criterion comes after the model exists.</text></feedback></answer>
+    <generalfeedback><text>The Generation criterion chooses how thoroughly the model is exercised (every state, every transition, every adjacent pair, or every round-trip path) and turns the model into a concrete set of test obligations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "abstract" means in the abstract test suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are the tests in the <strong>Abstract test suite</strong> called "abstract"?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are model-level event sequences that name events, not real API calls or data values yet</text><feedback><text>Correct — an abstract test is a sequence like "validCard · push · timeout" with no concrete values.</text></feedback></answer>
+    <answer fraction="0"><text>They describe the architecture rather than the behavior</text><feedback><text>Abstract here means model-level events, not architecture.</text></feedback></answer>
+    <answer fraction="0"><text>They have already been run against the real system</text><feedback><text>Running happens later, in Execution; abstract tests have no real values yet.</text></feedback></answer>
+    <answer fraction="0"><text>They contain concrete API calls but no expected outputs</text><feedback><text>Abstract tests contain no concrete API calls at all; those are added during Concretization.</text></feedback></answer>
+    <generalfeedback><text>Abstract tests are event sequences at the model level (e.g. "validCard · push · timeout"). They name events, not real API calls or data values — those are supplied during Concretization.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Concretization does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Concretization</strong> stage do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Maps each abstract event onto a concrete action against the real system and picks real input values</text><feedback><text>Correct — this is where the model meets the actual system under test (SUT).</text></feedback></answer>
+    <answer fraction="0"><text>Chooses which coverage criterion to satisfy</text><feedback><text>That is the Generation criterion, not Concretization.</text></feedback></answer>
+    <answer fraction="0"><text>Judges whether the system conformed to the model</text><feedback><text>That is the Conformance verdict, not Concretization.</text></feedback></answer>
+    <answer fraction="0"><text>Builds the finite-state machine from the spec</text><feedback><text>That is the Model stage.</text></feedback></answer>
+    <generalfeedback><text>Concretization maps each abstract event onto a concrete action (an API call, a UI gesture, a clock advance) and picks real input values. It is where the model meets the actual SUT.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Execution does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Execution</strong> stage do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Runs the concrete test against the SUT and records the observed outputs and state transitions</text><feedback><text>Correct — Execution records what actually happens at each step.</text></feedback></answer>
+    <answer fraction="0"><text>Derives abstract event sequences from the model</text><feedback><text>That is the Abstract test suite stage, not Execution.</text></feedback></answer>
+    <answer fraction="0"><text>Selects real input values for each abstract event</text><feedback><text>That is Concretization, which precedes Execution.</text></feedback></answer>
+    <answer fraction="0"><text>Decides whether the model omits an important state</text><feedback><text>That concern belongs to the Model stage.</text></feedback></answer>
+    <generalfeedback><text>Execution runs the concrete test against the SUT and records what actually happens at each step: the observed outputs and state transitions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Conformance verdict does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Conformance verdict</strong> stage do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Compares the observed SUT behavior against what the model predicted</text><feedback><text>Correct — match means pass; divergence means fail, and the failing step localizes the problem.</text></feedback></answer>
+    <answer fraction="0"><text>Chooses how thoroughly to exercise the model</text><feedback><text>That is the Generation criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Turns the informal spec into a behavioral model</text><feedback><text>That is the Model stage.</text></feedback></answer>
+    <answer fraction="0"><text>Maps abstract events onto real API calls</text><feedback><text>That is Concretization.</text></feedback></answer>
+    <generalfeedback><text>The Conformance verdict compares observed SUT behavior against what the model predicted. A match yields pass; a divergence yields fail, and the failing step pinpoints either a system bug or a model that no longer matches reality.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>States in the door FSM example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the worked door-lock example, how many <strong>states</strong> does the FSM have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — Locked, Unlocked, Open</text><feedback><text>Correct — the model has exactly three states.</text></feedback></answer>
+    <answer fraction="0"><text>2 — Locked and Unlocked</text><feedback><text>The example also has an Open state, so there are three.</text></feedback></answer>
+    <answer fraction="0"><text>4 — Locked, Unlocked, Open, Timeout</text><feedback><text>Timeout is an event, not a state; there are three states.</text></feedback></answer>
+    <answer fraction="0"><text>5 — one per transition</text><feedback><text>States are not counted per transition; the model has three states.</text></feedback></answer>
+    <generalfeedback><text>The door FSM has three states: Locked, Unlocked, and Open.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transitions in the door FSM example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the worked door-lock example, how many <strong>transitions</strong> does the FSM have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — validCard, invalidCard, push, and timeout.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>There are four transitions in the example, one per named event.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>The model lists four transitions.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>The model lists four transitions.</text></feedback></answer>
+    <generalfeedback><text>The door FSM has four transitions: Locked --validCard--&gt; Unlocked, Locked --invalidCard--&gt; Locked, Unlocked --push--&gt; Open, and Open --timeout--&gt; Locked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Event that unlocks the door</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the door FSM, which event moves the system from <strong>Locked</strong> to <strong>Unlocked</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>validCard</text><feedback><text>Correct — a valid card unlocks the locked door.</text></feedback></answer>
+    <answer fraction="0"><text>push</text><feedback><text>push moves Unlocked to Open, not Locked to Unlocked.</text></feedback></answer>
+    <answer fraction="0"><text>timeout</text><feedback><text>timeout moves Open back to Locked.</text></feedback></answer>
+    <answer fraction="0"><text>invalidCard</text><feedback><text>invalidCard leaves the door Locked.</text></feedback></answer>
+    <generalfeedback><text>Locked --validCard--&gt; Unlocked: a valid card unlocks the door.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>invalidCard leaves the door locked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the door FSM, an <strong>invalidCard</strong> event in the Locked state leaves the system in the Locked state.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — Locked --invalidCard--&gt; Locked, so the door stays locked.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The spec says the door stays locked on an invalid card; it is a self-loop on Locked.</text></feedback></answer>
+    <generalfeedback><text>The spec states the door "stays locked on an invalid card", modeled as the self-loop Locked --invalidCard--&gt; Locked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What SUT stands for</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this workflow, what does <strong>SUT</strong> stand for?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>System under test</text><feedback><text>Correct — the SUT is the actual system the concrete tests run against.</text></feedback></answer>
+    <answer fraction="0"><text>Suite under test</text><feedback><text>SUT refers to the system, not the suite.</text></feedback></answer>
+    <answer fraction="0"><text>State under test</text><feedback><text>SUT is the system under test, not a single state.</text></feedback></answer>
+    <answer fraction="0"><text>Specification unit test</text><feedback><text>SUT is the system under test.</text></feedback></answer>
+    <generalfeedback><text>SUT is the system under test — the actual system the concrete tests are executed against during Execution.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Offline MBT defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the explorer, what characterizes <strong>Offline MBT</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests are generated fully before execution begins, producing a reusable, inspectable suite</text><feedback><text>Correct — offline MBT builds the whole suite up front.</text></feedback></answer>
+    <answer fraction="0"><text>Generation and execution interleave, choosing the next step from the observed state</text><feedback><text>That describes Online MBT, not Offline.</text></feedback></answer>
+    <answer fraction="0"><text>No stored suite is produced; the walk adapts on the fly</text><feedback><text>That is Online MBT; offline produces a stored, reusable suite.</text></feedback></answer>
+    <answer fraction="0"><text>It only works on non-deterministic systems</text><feedback><text>Offline is best for deterministic systems and regression runs.</text></feedback></answer>
+    <generalfeedback><text>Offline MBT generates the tests fully before execution begins, producing a reusable, inspectable suite — best for deterministic systems and regression runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Online MBT defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the explorer, what characterizes <strong>Online MBT</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generation and execution interleave — the next step is chosen from the observed state</text><feedback><text>Correct — online MBT walks the model on the fly, with no stored suite.</text></feedback></answer>
+    <answer fraction="0"><text>The entire test suite is generated before any test runs</text><feedback><text>That is Offline MBT, not Online.</text></feedback></answer>
+    <answer fraction="0"><text>It always produces a reusable, inspectable suite</text><feedback><text>Online MBT stores no suite; the walk adapts on the fly.</text></feedback></answer>
+    <answer fraction="0"><text>It is best for small deterministic systems only</text><feedback><text>Online MBT is best for large or non-deterministic systems and soak tests.</text></feedback></answer>
+    <generalfeedback><text>Online MBT interleaves generation and execution: the next step is chosen from the observed state, no suite is stored, and the walk adapts on the fly — best for large or non-deterministic systems and long-running soak tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>First stage of the pipeline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which stage comes <strong>first</strong> in the MBT Workflow pipeline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Model</text><feedback><text>Correct — the pipeline begins by building the model; everything downstream derives from it.</text></feedback></answer>
+    <answer fraction="0"><text>Concretization</text><feedback><text>Concretization is the fourth stage, not the first.</text></feedback></answer>
+    <answer fraction="0"><text>Execution</text><feedback><text>Execution is the fifth stage.</text></feedback></answer>
+    <answer fraction="0"><text>Conformance verdict</text><feedback><text>The verdict is the last stage.</text></feedback></answer>
+    <generalfeedback><text>The pipeline order is Model, Generation criterion, Abstract test suite, Concretization, Execution, Conformance verdict. Model comes first.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A pass means observed matched predicted</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A conformance verdict of <strong>pass</strong> means the observed SUT behavior matched what the model predicted.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a match between observed and predicted behavior yields a pass.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The verdict is pass exactly when observed behavior matches the model's prediction.</text></feedback></answer>
+    <generalfeedback><text>In the example, the model predicts Locked → Unlocked → Open → Locked and the SUT is observed to do the same, so the verdict is pass (conformance holds).</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/MBT Workflow/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Obligations for all-transitions on the door FSM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Choosing the <strong>all-transitions</strong> criterion on the door FSM (3 states, 4 transitions) yields how many test obligations?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — one per transition (validCard, invalidCard, push, timeout)</text><feedback><text>Correct — all-transitions produces one obligation per transition, so four.</text></feedback></answer>
+    <answer fraction="0"><text>3 — one per state</text><feedback><text>That would be state coverage; all-transitions counts transitions, giving four.</text></feedback></answer>
+    <answer fraction="0"><text>7 — states plus transitions</text><feedback><text>Obligations are one per transition under all-transitions, i.e. four.</text></feedback></answer>
+    <answer fraction="0"><text>12 — every event in every state</text><feedback><text>All-transitions covers only the valid transitions, four of them.</text></feedback></answer>
+    <generalfeedback><text>The worked example shows criterion = all-transitions with obligations { t1 validCard, t2 invalidCard, t3 push, t4 timeout } — four obligations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which stage owns reader.swipe(...)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Writing <code>reader.swipe(card="EMP-4417")</code> as the real action for the abstract event <em>validCard</em> happens in which stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concretization</text><feedback><text>Correct — mapping an abstract event to a concrete API call with a real value is Concretization.</text></feedback></answer>
+    <answer fraction="0"><text>Abstract test suite</text><feedback><text>The abstract suite only names the event validCard; the real call is added during Concretization.</text></feedback></answer>
+    <answer fraction="0"><text>Execution</text><feedback><text>Execution runs the concrete call; Concretization is where it is written.</text></feedback></answer>
+    <answer fraction="0"><text>Model</text><feedback><text>The Model stage builds the FSM, not concrete API calls.</text></feedback></answer>
+    <generalfeedback><text>Concretization maps the abstract event validCard onto the concrete action reader.swipe(card="EMP-4417") with a real card value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why abstract precedes concretize</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the pipeline derive the <strong>abstract test suite before</strong> concretizing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The model walk first produces event sequences; concretization then maps those events to real actions and values</text><feedback><text>Correct — you need the abstract event sequences before you can map each event to a concrete action.</text></feedback></answer>
+    <answer fraction="0"><text>Concretization must run before the criterion is chosen</text><feedback><text>The criterion is chosen even earlier; concretization comes after the abstract suite.</text></feedback></answer>
+    <answer fraction="0"><text>Because the SUT must be executed before the model is walked</text><feedback><text>Execution comes after concretization, not before the model walk.</text></feedback></answer>
+    <answer fraction="0"><text>Because abstract tests already contain real API calls</text><feedback><text>Abstract tests contain no real calls; that is exactly why concretization follows.</text></feedback></answer>
+    <generalfeedback><text>The abstract suite is produced by walking the model to satisfy the criterion, yielding event sequences. Concretization then maps each event onto a real action and value — so it must follow the abstract stage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: walk the model to satisfy the criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Walk the model to satisfy the criterion, producing event sequences" describes which stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Abstract test suite</text><feedback><text>Correct — walking the model to satisfy the criterion is exactly the Abstract test suite stage.</text></feedback></answer>
+    <answer fraction="0"><text>Generation criterion</text><feedback><text>The criterion stage chooses the coverage goal; walking the model to meet it is the Abstract test suite stage.</text></feedback></answer>
+    <answer fraction="0"><text>Concretization</text><feedback><text>Concretization maps events to real actions; the walk itself is the Abstract test suite stage.</text></feedback></answer>
+    <answer fraction="0"><text>Conformance verdict</text><feedback><text>The verdict compares behaviors; it does not walk the model.</text></feedback></answer>
+    <generalfeedback><text>The Abstract test suite stage walks the model to satisfy the chosen criterion, producing model-level event sequences such as "validCard · push · timeout".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concrete counterpart of timeout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the worked example, which concrete action is the counterpart of the abstract event <em>timeout</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>clock.advance(5_000)</text><feedback><text>Correct — advancing the clock by 5 s realizes the timeout event.</text></feedback></answer>
+    <answer fraction="0"><text>reader.swipe(card="EMP-4417")</text><feedback><text>That is the concrete counterpart of validCard.</text></feedback></answer>
+    <answer fraction="0"><text>door.push()</text><feedback><text>That is the concrete counterpart of push.</text></feedback></answer>
+    <answer fraction="0"><text>door.lock()</text><feedback><text>The example uses clock.advance(5_000) for timeout, not a lock call.</text></feedback></answer>
+    <generalfeedback><text>The concretization maps timeout onto clock.advance(5_000), matching the spec's "re-locks 5 s after opening".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SUT state after push()</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Execution trace, after the step <code>push()</code> the SUT state is recorded as which state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Open</text><feedback><text>Correct — push moves the Unlocked door to Open.</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked</text><feedback><text>Unlocked is the state before push; push moves it to Open.</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked is reached later, after the timeout step.</text></feedback></answer>
+    <answer fraction="0"><text>Timeout</text><feedback><text>Timeout is an event, not a state.</text></feedback></answer>
+    <generalfeedback><text>The Execution trace records: swipe → Unlocked, push() → Open, advance(5000) → Locked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which stage owns "model drift"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The failure "the spec changes but the model is not updated, so tests verify yesterday's behavior" belongs to which stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Model</text><feedback><text>Correct — model drift is a failure mode of the Model stage.</text></feedback></answer>
+    <answer fraction="0"><text>Execution</text><feedback><text>Model drift concerns the model going stale, which is a Model-stage failure.</text></feedback></answer>
+    <answer fraction="0"><text>Concretization</text><feedback><text>Concretization failures are mapping gaps and bad input data, not model drift.</text></feedback></answer>
+    <answer fraction="0"><text>Conformance verdict</text><feedback><text>Verdict failures are false pass and false fail; drift is a Model-stage failure.</text></feedback></answer>
+    <generalfeedback><text>Model drift — the spec changes but the model is not updated — is a failure mode of the Model stage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why prefer all-transitions over state coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why might you choose the all-transitions criterion instead of only state coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>State coverage alone can let broken transitions between reachable states slip through</text><feedback><text>Correct — a too-weak (state-only) criterion misses defective transitions.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage takes combinatorially longer to satisfy</text><feedback><text>State coverage is the weaker, cheaper criterion; it is the all-paths criterion that explodes.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage requires concretizing every event first</text><feedback><text>Coverage criteria are chosen before concretization; that is not the reason.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage cannot be measured on an FSM</text><feedback><text>State coverage is perfectly measurable; it is simply weaker.</text></feedback></answer>
+    <generalfeedback><text>A criterion that is too weak (state coverage only) lets broken transitions between reachable states slip through — so all-transitions is often preferred.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Best mode for regression runs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which MBT mode is described as best for deterministic systems and <strong>regression runs</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Offline MBT</text><feedback><text>Correct — offline produces a reusable, inspectable suite, ideal for regression.</text></feedback></answer>
+    <answer fraction="0"><text>Online MBT</text><feedback><text>Online is best for large or non-deterministic systems and soak tests, not regression.</text></feedback></answer>
+    <answer fraction="0"><text>Both are equally suited</text><feedback><text>The explorer specifically ties regression runs to offline MBT.</text></feedback></answer>
+    <answer fraction="0"><text>Neither supports regression</text><feedback><text>Offline MBT's reusable suite is well suited to regression.</text></feedback></answer>
+    <generalfeedback><text>Offline MBT is best for deterministic systems and regression runs because it produces a reusable, inspectable test suite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mode that picks next step from observed state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which mode chooses the <strong>next step from the observed state</strong> while testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Online MBT</text><feedback><text>Correct — online interleaves generation and execution, choosing the next step from the observed state.</text></feedback></answer>
+    <answer fraction="0"><text>Offline MBT</text><feedback><text>Offline generates the whole suite before execution, so it cannot react to observed state.</text></feedback></answer>
+    <answer fraction="0"><text>Both, identically</text><feedback><text>Only online adapts to the observed state; offline is fixed up front.</text></feedback></answer>
+    <answer fraction="0"><text>Neither; the step order is always fixed</text><feedback><text>Online explicitly adapts the walk on the fly.</text></feedback></answer>
+    <generalfeedback><text>Online MBT interleaves generation and execution: the next step is chosen from the observed state, and the walk adapts on the fly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model path of abstract test 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Abstract test 1 is <em>validCard · push · timeout</em>. Which sequence of states does it exercise in the door FSM?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Locked → Unlocked → Open → Locked</text><feedback><text>Correct — validCard, then push, then timeout walk the door through those states.</text></feedback></answer>
+    <answer fraction="0"><text>Locked → Open → Unlocked → Locked</text><feedback><text>push cannot fire from Locked; the order is Locked → Unlocked → Open → Locked.</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked → Open → Locked → Unlocked</text><feedback><text>The test starts from Locked with validCard.</text></feedback></answer>
+    <answer fraction="0"><text>Locked → Unlocked → Locked → Open</text><feedback><text>push moves Unlocked to Open, not back to Locked.</text></feedback></answer>
+    <generalfeedback><text>validCard: Locked → Unlocked; push: Unlocked → Open; timeout: Open → Locked. The path is Locked → Unlocked → Open → Locked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where the V-Model bridge leads</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer's bridge links MBT to the V-Model Explorer. What relationship does it state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>MBT operationalizes the right-hand verification side of the V</text><feedback><text>Correct — that is exactly how the bridge frames the link.</text></feedback></answer>
+    <answer fraction="0"><text>MBT replaces the left-hand specification side of the V</text><feedback><text>The bridge ties MBT to the right-hand verification side, not the left.</text></feedback></answer>
+    <answer fraction="0"><text>MBT is unrelated to the V-Model</text><feedback><text>The bridge explicitly connects them.</text></feedback></answer>
+    <answer fraction="0"><text>MBT only applies to the unit-test level of the V</text><feedback><text>The bridge speaks of the whole right-hand verification side, not a single level.</text></feedback></answer>
+    <generalfeedback><text>The bridge notes that model-based testing operationalizes the right-hand verification side of the V-Model.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Consequence of a wrong model</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer stresses that "everything downstream is derived from the model." What follows if the model is wrong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The generated tests are wrong too, because they all derive from that model</text><feedback><text>Correct — a wrong model means wrong tests.</text></feedback></answer>
+    <answer fraction="0"><text>Only the concretization step is affected</text><feedback><text>Because all later stages derive from the model, the whole suite is affected, not just concretization.</text></feedback></answer>
+    <answer fraction="0"><text>The verdict is always pass regardless of the model</text><feedback><text>A wrong model can produce false verdicts; it does not force a pass.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing, because execution ignores the model</text><feedback><text>Execution and the verdict both depend on the model's predictions.</text></feedback></answer>
+    <generalfeedback><text>Everything downstream is derived from the model, so a wrong model means wrong tests across the whole pipeline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Stage that records outputs and transitions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which stage records the observed outputs and state transitions at each step?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Execution</text><feedback><text>Correct — Execution records what actually happens at each step.</text></feedback></answer>
+    <answer fraction="0"><text>Conformance verdict</text><feedback><text>The verdict compares those records against predictions; Execution produces them.</text></feedback></answer>
+    <answer fraction="0"><text>Abstract test suite</text><feedback><text>The abstract suite has no real outputs yet.</text></feedback></answer>
+    <answer fraction="0"><text>Generation criterion</text><feedback><text>The criterion selects coverage; it records no outputs.</text></feedback></answer>
+    <generalfeedback><text>Execution runs the concrete test against the SUT and records the observed outputs and state transitions, which the verdict then compares.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the criterion turns the model into</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the explorer, the generation criterion turns the model into what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete set of test obligations</text><feedback><text>Correct — the criterion converts the model into test obligations.</text></feedback></answer>
+    <answer fraction="0"><text>A set of concrete API calls</text><feedback><text>Concrete API calls come from concretization, not the criterion.</text></feedback></answer>
+    <answer fraction="0"><text>A pass/fail verdict</text><feedback><text>The verdict is produced at the end, not by the criterion.</text></feedback></answer>
+    <answer fraction="0"><text>A finite-state machine</text><feedback><text>The FSM is the model itself, built earlier.</text></feedback></answer>
+    <generalfeedback><text>The criterion "turns the model into a concrete set of test obligations."</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/MBT Workflow/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting a conformance failure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A conformance test fails: the model predicts the system should reach <em>Locked</em> but the SUT stays <em>Open</em>. What does this verdict tell you?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Either the system has a bug, or the model no longer matches the system — the failing step tells you where to look</text><feedback><text>Correct — a conformance failure is a divergence; the fault is in the model or the system, and the failing step localizes it.</text></feedback></answer>
+    <answer fraction="0"><text>The generation criterion was too weak</text><feedback><text>A divergence at execution is a conformance issue, not a criterion-strength issue.</text></feedback></answer>
+    <answer fraction="0"><text>The abstract test suite had a redundant sequence</text><feedback><text>Redundancy inflates the suite; it does not cause a predicted/observed divergence.</text></feedback></answer>
+    <answer fraction="0"><text>Concretization always causes this; it can be ignored</text><feedback><text>A conformance failure must never be ignored; it signals a real divergence.</text></feedback></answer>
+    <generalfeedback><text>A conformance failure is a divergence between model and system: the fault is in one of the two, and the failing step localizes where to look.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The false-fail risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A conformance test fails, but investigation shows the <strong>model</strong> was wrong, not the system. What is the danger this failure mode names?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Someone "fixes" a correct system to satisfy a wrong model</text><feedback><text>Correct — a false fail can lead to changing a correct system to match a broken model.</text></feedback></answer>
+    <answer fraction="0"><text>A real bug is hidden behind a too-coarse comparison</text><feedback><text>That is the false-pass danger, not false fail.</text></feedback></answer>
+    <answer fraction="0"><text>The obligation set explodes combinatorially</text><feedback><text>That is the all-paths criterion danger, not a verdict failure.</text></feedback></answer>
+    <answer fraction="0"><text>An abstract event has no concrete counterpart</text><feedback><text>That is a concretization mapping gap, not a false fail.</text></feedback></answer>
+    <generalfeedback><text>False fail: the test fails because the model is wrong, not the system — and someone "fixes" a correct system to match the broken model.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The false-pass risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The comparison in the verdict stage is too coarse and treats a divergent output as a match. What does this failure mode cause?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A false pass that hides a real bug</text><feedback><text>Correct — a too-coarse comparison lets a genuine divergence slip through as a pass.</text></feedback></answer>
+    <answer fraction="0"><text>A false fail that discredits a correct system</text><feedback><text>False fail comes from a wrong model, not a too-coarse comparison.</text></feedback></answer>
+    <answer fraction="0"><text>An infeasible abstract sequence</text><feedback><text>That is an abstract-suite failure, unrelated to comparison granularity.</text></feedback></answer>
+    <answer fraction="0"><text>A mapping gap during concretization</text><feedback><text>That is a concretization failure, not a verdict-comparison failure.</text></feedback></answer>
+    <generalfeedback><text>False pass: a too-coarse comparison treats a divergent output as a match, hiding a real bug.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why all-paths can never finish</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is choosing the "all round-trip paths" criterion described as a risk?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The obligation set explodes combinatorially and the suite never finishes</text><feedback><text>Correct — a criterion that is too strong can produce an unbounded obligation set.</text></feedback></answer>
+    <answer fraction="0"><text>It leaves reachable transitions untested</text><feedback><text>That is the weakness of too-weak criteria, not all-paths.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot be expressed on a finite-state machine</text><feedback><text>It can be expressed; the problem is the size of the obligation set.</text></feedback></answer>
+    <answer fraction="0"><text>It skips the concretization step entirely</text><feedback><text>Every criterion still feeds concretization; the issue is combinatorial blow-up.</text></feedback></answer>
+    <generalfeedback><text>A criterion that is too strong (all paths) makes the obligation set explode combinatorially, so the suite never finishes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Non-determinism at execution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An execution-stage failure mode is <em>non-determinism</em>. What symptom does it produce?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Timing or async behavior makes the same test pass and fail across runs</text><feedback><text>Correct — non-determinism yields flaky, run-to-run inconsistency.</text></feedback></answer>
+    <answer fraction="0"><text>An abstract event cannot be mapped to a concrete action</text><feedback><text>That is a concretization mapping gap, not non-determinism.</text></feedback></answer>
+    <answer fraction="0"><text>The model omits a state that actually matters</text><feedback><text>That is over-abstraction in the Model stage.</text></feedback></answer>
+    <answer fraction="0"><text>The obligation set grows too large to run</text><feedback><text>That is the all-paths criterion problem.</text></feedback></answer>
+    <generalfeedback><text>Non-determinism: timing or async behavior makes the same test pass and fail across runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Observability gap consequence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If the SUT's internal state cannot be observed during execution, what is the stated consequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Divergence is detected late or not at all</text><feedback><text>Correct — without observability, a mismatch may go unseen.</text></feedback></answer>
+    <answer fraction="0"><text>The obligation set explodes combinatorially</text><feedback><text>That is the all-paths criterion issue, not an observability gap.</text></feedback></answer>
+    <answer fraction="0"><text>The abstract suite contains redundant sequences</text><feedback><text>Redundancy is an abstract-suite failure, unrelated to observability.</text></feedback></answer>
+    <answer fraction="0"><text>Every valid card is rejected</text><feedback><text>That is not what an observability gap describes.</text></feedback></answer>
+    <generalfeedback><text>Observability gap: the SUT's internal state cannot be observed, so divergence is detected late or not at all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bad input data during concretization</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During concretization, the chosen concrete values trigger a guard the abstract test never intended to exercise. Which failure mode is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Bad input data — real values steer the run into an unintended guarded transition</text><feedback><text>Correct — poor value choices can activate a guard outside the test's intent.</text></feedback></answer>
+    <answer fraction="0"><text>Mapping gap — an abstract event has no concrete counterpart</text><feedback><text>That is a different concretization failure; here the mapping exists but the values are wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Model drift — the spec changed but the model did not</text><feedback><text>That is a Model-stage failure.</text></feedback></answer>
+    <answer fraction="0"><text>False pass — a too-coarse comparison hides a bug</text><feedback><text>That is a verdict-stage failure.</text></feedback></answer>
+    <generalfeedback><text>Bad input data: the chosen concrete values trigger a guard the abstract test never intended to exercise.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mapping gap consequence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During concretization, an abstract event has no concrete counterpart. What is the direct consequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test cannot be run</text><feedback><text>Correct — without a concrete action for every event, the test is not executable.</text></feedback></answer>
+    <answer fraction="0"><text>The verdict is automatically a pass</text><feedback><text>A missing mapping blocks execution; it does not force a pass.</text></feedback></answer>
+    <answer fraction="0"><text>The obligation set doubles</text><feedback><text>A mapping gap does not change the number of obligations.</text></feedback></answer>
+    <answer fraction="0"><text>The model gains an extra state</text><feedback><text>Concretization does not modify the model.</text></feedback></answer>
+    <generalfeedback><text>Mapping gap: an abstract event has no concrete counterpart, so the test cannot be run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible sequence origin</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which stage produces an <em>infeasible sequence</em> — an event order the real system can never reach?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Abstract test suite (the model walk)</text><feedback><text>Correct — the walk can emit an order the real system can never actually reach.</text></feedback></answer>
+    <answer fraction="0"><text>Execution</text><feedback><text>Execution reveals the problem but the infeasible order is produced when the model is walked.</text></feedback></answer>
+    <answer fraction="0"><text>Conformance verdict</text><feedback><text>The verdict compares behaviors; it does not generate sequences.</text></feedback></answer>
+    <answer fraction="0"><text>Generation criterion</text><feedback><text>The criterion sets the coverage goal; the infeasible order comes from the walk in the abstract-suite stage.</text></feedback></answer>
+    <generalfeedback><text>Infeasible sequence is an Abstract-test-suite failure: the walk produces an event order the real system can never reach.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Redundant tests consequence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Many abstract tests cover the same transition. What does the explorer say this does?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inflates the suite without adding coverage</text><feedback><text>Correct — redundant tests grow the suite but exercise nothing new.</text></feedback></answer>
+    <answer fraction="0"><text>Increases coverage of every transition-pair</text><feedback><text>Repeating the same transition adds no new coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees a false pass at the verdict</text><feedback><text>Redundancy affects suite size, not verdict correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Removes the need for concretization</text><feedback><text>Every abstract test still needs concretization.</text></feedback></answer>
+    <generalfeedback><text>Redundant tests: many abstract tests cover the same transition, inflating the suite without adding coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choosing a mode for a large non-deterministic system</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You must test a large, non-deterministic system with long soak runs. Which mode fits, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Online MBT, because it interleaves generation and execution and adapts the walk to the observed state</text><feedback><text>Correct — online MBT is described as best for large or non-deterministic systems and soak tests.</text></feedback></answer>
+    <answer fraction="0"><text>Offline MBT, because a fixed suite handles non-determinism better</text><feedback><text>A fixed suite cannot adapt to non-deterministic behavior; online is preferred here.</text></feedback></answer>
+    <answer fraction="0"><text>Offline MBT, because it produces no stored suite</text><feedback><text>It is online that stores no suite; offline produces a reusable one.</text></feedback></answer>
+    <answer fraction="0"><text>Neither; MBT cannot test non-deterministic systems</text><feedback><text>Online MBT is specifically recommended for non-deterministic systems.</text></feedback></answer>
+    <generalfeedback><text>Online MBT interleaves generation and execution, adapts on the fly, and is best for large or non-deterministic systems and long-running soak tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How many abstract tests cover all four obligations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the worked example, how many abstract tests does the suite use to cover all four transition obligations?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — validCard·push·timeout covers three, and invalidCard covers the fourth</text><feedback><text>Correct — abstract test 1 covers t1, t3, t4 and abstract test 2 covers t2.</text></feedback></answer>
+    <answer fraction="0"><text>4 — one test per transition</text><feedback><text>One test can cover several transitions in sequence; the example uses only two.</text></feedback></answer>
+    <answer fraction="0"><text>1 — a single path covers everything</text><feedback><text>invalidCard is a separate self-loop, so a second test is needed.</text></feedback></answer>
+    <answer fraction="0"><text>3 — one per state</text><feedback><text>The count is by tests, and the example lists two.</text></feedback></answer>
+    <generalfeedback><text>The abstract suite lists two tests: "validCard · push · timeout" (covering t1, t3, t4) and "invalidCard" (covering t2) — two tests for four obligations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transition exercised by abstract test 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Abstract test 2 is just <em>invalidCard</em>. Which transition does it exercise, and what is special about it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Locked → Locked — a self-loop, since an invalid card leaves the door locked</text><feedback><text>Correct — invalidCard is the self-loop that keeps the door Locked.</text></feedback></answer>
+    <answer fraction="0"><text>Locked → Unlocked — it unlocks the door</text><feedback><text>Only a valid card unlocks; invalidCard leaves the door locked.</text></feedback></answer>
+    <answer fraction="0"><text>Open → Locked — it re-locks the door</text><feedback><text>That is the timeout transition, not invalidCard.</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked → Open — it opens the door</text><feedback><text>That is the push transition.</text></feedback></answer>
+    <generalfeedback><text>invalidCard exercises the self-loop Locked --invalidCard--&gt; Locked: the door stays locked on an invalid card.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spec change without model update</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The spec is changed so the door re-locks after 10 s instead of 5 s, but the FSM's timeout is left at 5 s. Which failure mode is this, and what do the tests then verify?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Model drift — the tests verify yesterday's 5 s behavior, not the current 10 s spec</text><feedback><text>Correct — an un-updated model makes tests check stale behavior.</text></feedback></answer>
+    <answer fraction="0"><text>Bad input data — the wrong concrete value was chosen</text><feedback><text>Here the model itself is stale; it is not a concretization value problem.</text></feedback></answer>
+    <answer fraction="0"><text>Observability gap — the timeout cannot be observed</text><feedback><text>The timeout is observable; the issue is that the model was not updated.</text></feedback></answer>
+    <answer fraction="0"><text>Infeasible sequence — the timeout order is unreachable</text><feedback><text>The sequence is still feasible; the model is simply out of date.</text></feedback></answer>
+    <generalfeedback><text>Model drift: the spec changes but the model is not updated, so the tests verify yesterday's behavior (the old 5 s timeout) rather than the current spec.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why abstract tests must be concretized before execution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Execution runs against the real SUT, yet the abstract test <em>validCard · push · timeout</em> cannot be run directly. Why must concretization happen first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Abstract tests only name events with no real API calls or values; concretization supplies the concrete actions and values needed to run</text><feedback><text>Correct — the SUT needs real calls and values, which concretization provides.</text></feedback></answer>
+    <answer fraction="0"><text>The verdict must be computed before execution can start</text><feedback><text>The verdict is the last stage; it cannot precede execution.</text></feedback></answer>
+    <answer fraction="0"><text>The generation criterion is re-chosen at execution time</text><feedback><text>The criterion is fixed much earlier; it is not re-chosen at execution.</text></feedback></answer>
+    <answer fraction="0"><text>The model is rebuilt from the observed outputs first</text><feedback><text>Execution does not rebuild the model; it runs the concretized test.</text></feedback></answer>
+    <generalfeedback><text>Abstract tests are model-level event sequences with no real API calls or data values. Concretization maps each event onto a concrete action (e.g. reader.swipe(card="EMP-4417")) and real values, which is what Execution needs to run against the SUT.</text></generalfeedback>
+  </question>
+</quiz>

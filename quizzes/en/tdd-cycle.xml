@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/TDD Cycle/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Red phase is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the TDD cycle, what happens in the <strong>Red</strong> phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You write a new test for behaviour that does not exist yet, and it fails</text><feedback><text>Correct — Red means writing a failing test before the production code exists.</text></feedback></answer>
+    <answer fraction="0"><text>You clean up the code while all tests keep passing</text><feedback><text>That is Refactor; Red is writing a test that fails.</text></feedback></answer>
+    <answer fraction="0"><text>You write just enough production code to make a test pass</text><feedback><text>That is Green; Red is the failing test that comes first.</text></feedback></answer>
+    <answer fraction="0"><text>You delete tests that run too slowly</text><feedback><text>Red is not about deleting tests; it is writing a new failing one.</text></feedback></answer>
+    <generalfeedback><text>Red is the first phase of the cycle: you write a small test describing behaviour that has not been implemented, run it, and see it fail (a red bar). The failing test proves the behaviour is missing and gives the next phase a concrete target.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Green phase is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the TDD cycle, what happens in the <strong>Green</strong> phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You write just enough production code to make the failing test pass</text><feedback><text>Correct — Green is writing the minimal code needed to turn the test green.</text></feedback></answer>
+    <answer fraction="0"><text>You write a failing test for the next piece of behaviour</text><feedback><text>That is Red; Green is making the current failing test pass.</text></feedback></answer>
+    <answer fraction="0"><text>You improve the structure of already-passing code</text><feedback><text>That is Refactor; Green is getting the failing test to pass first.</text></feedback></answer>
+    <answer fraction="0"><text>You measure how fast the test suite runs</text><feedback><text>Green is about making the test pass, not measuring speed.</text></feedback></answer>
+    <generalfeedback><text>Green is the second phase: you add the minimum production code required to make the currently failing test pass, without worrying yet about elegance. The goal is simply to get back to a passing (green) suite as quickly as possible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Refactor phase is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the TDD cycle, what happens in the <strong>Refactor</strong> phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>You improve the internal structure of the code while keeping all tests green</text><feedback><text>Correct — Refactor cleans up the code without changing its behaviour, tests staying green.</text></feedback></answer>
+    <answer fraction="0"><text>You add a new failing test for the next feature</text><feedback><text>That is Red; Refactor cleans up existing code while tests pass.</text></feedback></answer>
+    <answer fraction="0"><text>You write the first code that makes a failing test pass</text><feedback><text>That is Green; Refactor comes after the test is already passing.</text></feedback></answer>
+    <answer fraction="0"><text>You change behaviour so the tests start failing again</text><feedback><text>Refactor must keep tests green; changing behaviour is not refactoring.</text></feedback></answer>
+    <generalfeedback><text>Refactor is the third phase: with the suite green, you tidy the code — remove duplication, rename, extract methods — improving its structure while preserving behaviour. Because the tests still pass, you know the clean-up did not break anything.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The order of the TDD cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the correct order of the three phases in the TDD cycle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Red, then Green, then Refactor</text><feedback><text>Correct — write a failing test, make it pass, then clean up.</text></feedback></answer>
+    <answer fraction="0"><text>Green, then Red, then Refactor</text><feedback><text>You cannot make a test pass before you have written a failing one; Red comes first.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor, then Red, then Green</text><feedback><text>There is nothing to refactor until a red-green cycle has produced passing code.</text></feedback></answer>
+    <answer fraction="0"><text>Red, then Refactor, then Green</text><feedback><text>You refactor only once the test is green, so Green must come before Refactor.</text></feedback></answer>
+    <generalfeedback><text>The TDD micro-cycle runs Red (write a failing test), Green (write just enough code to pass it), then Refactor (clean up while the tests stay green). The cycle then repeats for the next small piece of behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How much code in Green</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the <strong>Green</strong> phase, how much production code should you write?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Just enough to make the failing test pass — no more</text><feedback><text>Correct — Green writes the minimal code needed to pass the current test.</text></feedback></answer>
+    <answer fraction="0"><text>As much general, feature-complete code as you can anticipate needing</text><feedback><text>That is speculative; Green writes only the minimum to pass the current test.</text></feedback></answer>
+    <answer fraction="0"><text>None — Green is only about running the tests</text><feedback><text>Green does add code: the minimum needed to make the failing test pass.</text></feedback></answer>
+    <answer fraction="0"><text>Enough to pass the test plus a few extra untested features</text><feedback><text>Untested extras violate the discipline; write only what the test requires.</text></feedback></answer>
+    <generalfeedback><text>"Minimal code to pass" is a core TDD discipline. In Green you write only the code the current failing test demands. Additional generality is driven out later by more tests, keeping every line justified by a test and avoiding speculative, untested code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a red bar means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does "<strong>red</strong>" refer to concretely in the TDD cycle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A failing test</text><feedback><text>Correct — red is the state where a test is failing.</text></feedback></answer>
+    <answer fraction="0"><text>A passing test</text><feedback><text>A passing test is green; red means failing.</text></feedback></answer>
+    <answer fraction="0"><text>Code that will not compile at all</text><feedback><text>Red specifically means a failing test, not merely a compile error.</text></feedback></answer>
+    <answer fraction="0"><text>A test that has been deleted</text><feedback><text>Red is a failing test, not a deleted one.</text></feedback></answer>
+    <generalfeedback><text>The names come from test-runner colours: a failing test shows a red bar, a passing test a green bar. "Red" therefore denotes the failing-test state you deliberately create first in each cycle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Precondition for refactoring</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What must be true before you enter the <strong>Refactor</strong> phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All tests are passing (the suite is green)</text><feedback><text>Correct — you refactor only from a green bar so you can tell nothing breaks.</text></feedback></answer>
+    <answer fraction="0"><text>At least one test is currently failing</text><feedback><text>You must not refactor while a test is failing; get to green first.</text></feedback></answer>
+    <answer fraction="0"><text>You have written no tests at all yet</text><feedback><text>Without passing tests there is no safety net; you refactor from green.</text></feedback></answer>
+    <answer fraction="0"><text>The next feature's failing test is already written</text><feedback><text>Refactor follows Green in the same cycle; it does not require the next Red.</text></feedback></answer>
+    <generalfeedback><text>Refactoring means improving structure without changing behaviour. You enter it only when the suite is green, because the passing tests are what let you confirm the clean-up did not alter behaviour. Refactoring on a red bar removes that safety net.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the phase: writing a failing test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You write a test for a function that does not exist yet, run it, and it fails. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Red</text><feedback><text>Correct — a newly written failing test is the Red phase.</text></feedback></answer>
+    <answer fraction="0"><text>Green</text><feedback><text>Green is making the test pass; a failing test is Red.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor</text><feedback><text>Refactor happens while tests pass; a failing test is Red.</text></feedback></answer>
+    <answer fraction="0"><text>Release</text><feedback><text>Release is not a TDD-cycle phase; a failing test is Red.</text></feedback></answer>
+    <generalfeedback><text>Writing a test for behaviour that is not yet implemented and watching it fail is exactly the Red phase — the failing test that opens each cycle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the phase: making the test pass</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You add just enough code to turn a currently failing test into a passing one. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Green</text><feedback><text>Correct — writing the minimal code to pass the test is the Green phase.</text></feedback></answer>
+    <answer fraction="0"><text>Red</text><feedback><text>Red is the failing test; making it pass is Green.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor</text><feedback><text>Refactor cleans up already-passing code; first getting to pass is Green.</text></feedback></answer>
+    <answer fraction="0"><text>Discuss</text><feedback><text>Discuss belongs to ATDD, not the Red-Green-Refactor cycle; this is Green.</text></feedback></answer>
+    <generalfeedback><text>Adding the minimum production code needed to make a failing test pass is the Green phase — the step that returns the suite to a passing (green) state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the phase: cleaning up with tests green</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All tests pass, and you rename a variable and extract a helper method without changing behaviour. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Refactor</text><feedback><text>Correct — improving structure while tests stay green is the Refactor phase.</text></feedback></answer>
+    <answer fraction="0"><text>Red</text><feedback><text>Red writes a failing test; tidying passing code is Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Green</text><feedback><text>Green makes a failing test pass; here the tests already pass, so it is Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Demo</text><feedback><text>Demo belongs to ATDD; cleaning up green code is Refactor.</text></feedback></answer>
+    <generalfeedback><text>Renaming and extracting a method while all tests remain green — improving internal structure without changing observable behaviour — is precisely the Refactor phase.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Test comes before production code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In TDD, you write the test <strong>before</strong> the production code that makes it pass.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — TDD is test-first: the failing test (Red) precedes the code (Green).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>TDD is test-first: the Red failing test comes before the Green production code.</text></feedback></answer>
+    <generalfeedback><text>The "Driven" in Test-Driven Development means the test comes first. Each cycle starts with a failing test (Red) that then drives the minimal production code written to satisfy it (Green).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What TDD stands for</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the acronym <strong>TDD</strong> stand for?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test-Driven Development</text><feedback><text>Correct — TDD is Test-Driven Development.</text></feedback></answer>
+    <answer fraction="0"><text>Type-Driven Design</text><feedback><text>TDD stands for Test-Driven Development.</text></feedback></answer>
+    <answer fraction="0"><text>Total Defect Detection</text><feedback><text>TDD stands for Test-Driven Development.</text></feedback></answer>
+    <answer fraction="0"><text>Test Data Definition</text><feedback><text>TDD stands for Test-Driven Development.</text></feedback></answer>
+    <generalfeedback><text>TDD = Test-Driven Development: a discipline in which small failing tests are written first and drive the production code, worked one Red-Green-Refactor cycle at a time.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Tests stay green during Refactor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During the Refactor phase, the tests should <strong>remain passing</strong> the whole time.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — refactoring preserves behaviour, so the tests stay green throughout.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Refactoring must not change behaviour, so the suite stays green; if a test goes red you have changed behaviour, not refactored.</text></feedback></answer>
+    <generalfeedback><text>Refactoring improves structure without changing behaviour. The passing tests are the safety net: if a change turns the bar red, it altered behaviour and is not a pure refactor. Keeping green throughout is what makes refactoring safe.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What follows a completed cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You have just finished Refactor with all tests green. What do you do next in TDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Start a new cycle by writing the next small failing test (Red)</text><feedback><text>Correct — the cycle repeats, beginning again with a new failing test.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the tests you just made pass to keep the suite small</text><feedback><text>Passing tests are kept as a regression net; you begin the next Red instead.</text></feedback></answer>
+    <answer fraction="0"><text>Write a large batch of production code with no further tests</text><feedback><text>TDD stays test-first; the next step is a new failing test, not untested code.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor again repeatedly without adding behaviour</text><feedback><text>Once clean and green, you drive the next behaviour with a new Red test.</text></feedback></answer>
+    <generalfeedback><text>TDD is iterative. After Red-Green-Refactor leaves you clean and green, you begin the next cycle with another small failing test for the next slice of behaviour, growing the system one tested step at a time.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Green is not the most general solution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Green phase you should write the most complete, general solution you can think of, well beyond what the current test needs.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — Green writes only the minimal code needed to pass the current test.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Green writes just enough to pass the current test; generality is driven out later by more tests.</text></feedback></answer>
+    <generalfeedback><text>The discipline of Green is minimalism: write only what the current failing test requires. Extra generality would be speculative and untested. Additional tests in later cycles are what push the code toward a fuller, general solution.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Cycle/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Next step after Red</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You have just written a failing test (Red). What is the next TDD step, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Write just enough production code to make the test pass (Green), so you return to a passing suite as quickly as possible</text><feedback><text>Correct — after Red comes Green: the minimal code to pass the test.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor the production code first, then make the test pass</text><feedback><text>You cannot refactor from a red bar; get the test to green first.</text></feedback></answer>
+    <answer fraction="0"><text>Write another failing test to triangulate before writing any code</text><feedback><text>Strict TDD makes the current failing test pass before adding another; do Green next.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the failing test because it is inconvenient</text><feedback><text>The failing test is the target; you satisfy it with minimal code (Green).</text></feedback></answer>
+    <generalfeedback><text>After Red you move to Green: add the minimum production code that makes the failing test pass. Getting back to a green bar quickly is the goal; cleaning up (Refactor) comes after, and the next failing test starts the following cycle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Next step when green but messy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your test just passed, all tests are green, but the code you added has obvious duplication. What is the next TDD step?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Refactor now to remove the duplication while the tests stay green</text><feedback><text>Correct — with a green bar you refactor to clean up before moving on.</text></feedback></answer>
+    <answer fraction="0"><text>Leave the duplication and immediately write the next failing test</text><feedback><text>The cycle's Refactor step exists precisely to clean up now, while you have a green safety net.</text></feedback></answer>
+    <answer fraction="0"><text>Make one of the tests fail so you can refactor safely</text><feedback><text>You refactor from green, not by deliberately going red; the bar is already green.</text></feedback></answer>
+    <answer fraction="0"><text>Rewrite the tests to match the duplicated code</text><feedback><text>Refactoring changes code structure, not the tests; clean up the duplication instead.</text></feedback></answer>
+    <generalfeedback><text>Once green, the Refactor phase is where you remove duplication and improve structure. Doing it now, while the tests pass, keeps the safety net in place and stops small messes from accumulating into technical debt.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why not refactor on red</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why should you <strong>not</strong> refactor while a test is failing (red)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Refactoring must preserve behaviour, and without a green bar you cannot tell whether your change broke something or was already broken</text><feedback><text>Correct — a green baseline is what lets you confirm a refactor changed nothing observable.</text></feedback></answer>
+    <answer fraction="0"><text>Because refactoring is only allowed once per project</text><feedback><text>Refactoring happens every cycle; the real issue is the missing green safety net.</text></feedback></answer>
+    <answer fraction="0"><text>Because a failing test means the code is already perfect</text><feedback><text>A failing test means behaviour is missing or wrong, not perfect; you need green first.</text></feedback></answer>
+    <answer fraction="0"><text>Because refactoring deletes the failing test automatically</text><feedback><text>Refactoring does not delete tests; the problem is you have no passing baseline to trust.</text></feedback></answer>
+    <generalfeedback><text>Refactoring is defined as changing structure without changing behaviour. The passing suite is how you verify behaviour is unchanged. On a red bar you have no trustworthy baseline, so you cannot distinguish a refactoring mistake from the pre-existing failure. Get to green first, then refactor.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why write the test first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why must you write a failing test <strong>before</strong> writing production code in strict TDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So that every piece of production code is justified by a test that required it, keeping the code test-driven</text><feedback><text>Correct — test-first means no production code exists without a failing test to demand it.</text></feedback></answer>
+    <answer fraction="0"><text>So that the compiler can generate the test from the code</text><feedback><text>Tests are written by the developer first; they are not generated from the code.</text></feedback></answer>
+    <answer fraction="0"><text>So that you can skip running the tests afterwards</text><feedback><text>Tests are run every cycle; writing them first does not remove that.</text></feedback></answer>
+    <answer fraction="0"><text>So that refactoring can be done before any code exists</text><feedback><text>There is nothing to refactor before code exists; the reason is to justify each line of code.</text></feedback></answer>
+    <generalfeedback><text>The first TDD rule forbids writing production code without a failing test. Writing the test first ensures every line of production code exists to satisfy a concrete requirement, keeps everything covered, and lets the tests drive the design rather than being an afterthought.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Adding a second failing test while red</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You already have one failing test. Is it acceptable in strict TDD to write a second failing test before dealing with the first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — you should make the current failing test pass first, then write the next one</text><feedback><text>Correct — strict TDD keeps you working on one failing test at a time.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — pile up as many failing tests as you like before writing code</text><feedback><text>Strict TDD works one red test at a time; make the current one pass first.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — a second failing test automatically fixes the first</text><feedback><text>A new test does not fix an existing one; get the current test to green first.</text></feedback></answer>
+    <answer fraction="0"><text>Only if you delete the first failing test</text><feedback><text>You keep the test and make it pass; you do not delete it to add another.</text></feedback></answer>
+    <generalfeedback><text>Strict TDD keeps exactly one failing test in flight: you drive it to green before writing the next. Stacking up multiple red tests loses the tight feedback loop and the clear, minimal target that each Green step depends on.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match activity: faking a return value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To pass a test that a new stack "is empty", you write <code>isEmpty()</code> so it simply returns <code>true</code> unconditionally. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Green — it is minimal (fake) code that makes the current test pass</text><feedback><text>Correct — returning a constant to pass the test is a Green "fake it" step.</text></feedback></answer>
+    <answer fraction="0"><text>Red — because the implementation is obviously wrong</text><feedback><text>The test passes, so the bar is green; being naive does not make it Red.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor — because you changed the production code</text><feedback><text>Refactor improves already-correct code; here you are first making the test pass (Green).</text></feedback></answer>
+    <answer fraction="0"><text>It is not part of TDD at all</text><feedback><text>"Fake it" to pass the current test is a legitimate Green move in TDD.</text></feedback></answer>
+    <generalfeedback><text>Returning a hardcoded value to make the current test pass is the classic "fake it" Green step. It is deliberately minimal; later failing tests will force real behaviour, driving out the fake through triangulation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match activity: expressing one method via another</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With all tests passing, you add a <code>size()</code> method and rewrite <code>isEmpty()</code> to return <code>size() === 0</code>, changing no behaviour. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Refactor — structure improved with behaviour unchanged and tests green</text><feedback><text>Correct — deduplicating via a helper while green is a Refactor step.</text></feedback></answer>
+    <answer fraction="0"><text>Red — you wrote new code so a test must be failing</text><feedback><text>No test fails; behaviour is unchanged and the bar stays green, so it is Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Green — you are making a failing test pass</text><feedback><text>Nothing was failing; you are cleaning up passing code, which is Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Distill — turning examples into acceptance tests</text><feedback><text>Distill is an ATDD stage; expressing one method through another is Refactor.</text></feedback></answer>
+    <generalfeedback><text>Introducing <code>size()</code> and defining <code>isEmpty()</code> in terms of it improves the internal design without altering observable behaviour, and the tests stay green throughout — a textbook Refactor.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match activity: adding a test the code cannot pass</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your <code>fizzbuzz</code> handles 3 and 5, and now you add a test that <code>fizzbuzz(15)</code> should return "FizzBuzz", which the current code fails. Which phase is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Red — a newly added failing test</text><feedback><text>Correct — adding a test the current code cannot pass is the Red phase.</text></feedback></answer>
+    <answer fraction="0"><text>Green — because most other tests still pass</text><feedback><text>The new test fails, so this step is Red regardless of the others passing.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor — because you are editing the test suite</text><feedback><text>Adding a failing test is Red; Refactor cleans up code while all tests pass.</text></feedback></answer>
+    <answer fraction="0"><text>Demo — showing behaviour to stakeholders</text><feedback><text>Demo is an ATDD stage; adding a failing test is the Red phase.</text></feedback></answer>
+    <generalfeedback><text>Adding <code>fizzbuzz(15) === "FizzBuzz"</code> when the code only handles 3 and 5 produces a failing test — the Red phase — which then drives the next Green step (adding the %15 branch first).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why naive green code is acceptable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is it acceptable for the Green phase to leave obviously incomplete code, such as <code>fizzbuzz</code> returning "1" unconditionally?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Green only has to make the current test pass; later failing tests will force the code to generalise (triangulation)</text><feedback><text>Correct — minimal green code is refined by subsequent red tests.</text></feedback></answer>
+    <answer fraction="0"><text>Because the naive code is actually the final, correct solution</text><feedback><text>It is deliberately incomplete; more tests will drive it toward correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Because tests will be deleted before the next cycle</text><feedback><text>Tests are kept; they are what force the naive code to improve.</text></feedback></answer>
+    <answer fraction="0"><text>Because Green forbids writing correct code</text><feedback><text>Green does not forbid correctness; it just requires only the minimum to pass now.</text></feedback></answer>
+    <generalfeedback><text>Green is intentionally minimal. Returning a constant is fine because the only obligation is to pass the current test. Each new failing test in later cycles removes another shortcut, so the implementation is generalised step by step — the "triangulation" that drives out the fakes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>First TDD action for new behaviour</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You are about to build a <code>Stack</code> class from scratch and want its <code>isEmpty()</code> to work. What is the very first TDD action?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Write a failing test asserting a new stack is empty, before any implementation exists (Red)</text><feedback><text>Correct — TDD starts with a failing test, even before the class has behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Write the full Stack implementation first, then test it</text><feedback><text>That is not test-first; strict TDD writes the failing test before the code.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor the empty class before writing any test</text><feedback><text>There is nothing to refactor yet; the first step is a failing test.</text></feedback></answer>
+    <answer fraction="0"><text>Skip straight to writing multiple failing tests at once</text><feedback><text>Start with one failing test and drive it to green before adding more.</text></feedback></answer>
+    <generalfeedback><text>Every TDD cycle opens with Red. Even for brand-new code, you first write one small failing test (a new stack should be empty), watch it fail because no implementation exists, and only then write the minimal code to pass it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cannot refactor before any cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At the very start of a project, before any red-green cycle has been completed, why can't you "refactor"?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>There is nothing to refactor yet — you need at least one red-green cycle to produce passing code first</text><feedback><text>Correct — refactoring improves existing passing code, which does not exist yet.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring is banned in the first hour of any project</text><feedback><text>There is no time rule; the issue is that no passing code exists to improve.</text></feedback></answer>
+    <answer fraction="0"><text>Because the first test must always fail forever</text><feedback><text>The first test is made to pass in Green; the point is there is no code to refactor yet.</text></feedback></answer>
+    <answer fraction="0"><text>Because refactoring must precede writing any test</text><feedback><text>Refactoring comes last in a cycle, after code exists and is green.</text></feedback></answer>
+    <generalfeedback><text>Refactoring operates on existing, passing code. Before you have completed at least one Red-Green cycle there is no behaviour and no green bar, so there is simply nothing to clean up. First write a failing test and make it pass; then refactoring becomes meaningful.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What confirms a refactor is safe</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After restructuring some code in the Refactor phase, what gives you confidence you did not change behaviour?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The full test suite still passes (stays green) after the change</text><feedback><text>Correct — a suite that remains green is the evidence behaviour was preserved.</text></feedback></answer>
+    <answer fraction="0"><text>The code is now shorter, so it must be correct</text><feedback><text>Shorter is not proof; the passing tests are what confirm behaviour is unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>You did not run the tests, to save time</text><feedback><text>You must run the tests; their staying green is the whole point of the safety net.</text></feedback></answer>
+    <answer fraction="0"><text>A colleague read the diff and liked it</text><feedback><text>Review helps, but the objective safety check is the still-green test suite.</text></feedback></answer>
+    <generalfeedback><text>The reason you refactor from green is precisely so that re-running the tests verifies your clean-up. If every test still passes, the observable behaviour is unchanged; a red result would signal that you altered behaviour and must fix or revert the change.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Production code without a failing test is illegal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In strict TDD, it is acceptable to write production code when there is no failing test that requires it.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — the first TDD rule forbids writing production code without a failing test.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Strict TDD forbids production code that no failing test demands; write the test first.</text></feedback></answer>
+    <generalfeedback><text>The most fundamental TDD discipline is that you never write production code without a failing test to justify it. Code that no red test demands is untested and speculative; write the failing test first, then the code to satisfy it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Next step from a clean green suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You have a clean, fully green test suite and want to add a new piece of behaviour. What is the next TDD step?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Write a new failing test that describes the new behaviour (Red)</text><feedback><text>Correct — a new cycle begins by writing a failing test for the new behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Write the production code for the new behaviour without a test first</text><feedback><text>That violates test-first; start the new behaviour with a failing test (Red).</text></feedback></answer>
+    <answer fraction="0"><text>Refactor again even though there is nothing new to clean up</text><feedback><text>The suite is already clean; new behaviour is driven by a new failing test.</text></feedback></answer>
+    <answer fraction="0"><text>Demonstrate the current build to stakeholders</text><feedback><text>Demo is an ATDD stage; the next TDD step is a new failing test (Red).</text></feedback></answer>
+    <generalfeedback><text>From a clean green state, adding behaviour always begins the next cycle with Red: write a small failing test that specifies the new behaviour. Only then do you write minimal code (Green) and clean up (Refactor).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Green requires the whole suite to pass</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your new code makes the target test pass, but a previously passing test has now started to fail. Have you reached Green?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — Green requires the whole suite to pass; the new failure is a regression you must fix before refactoring</text><feedback><text>Correct — Green means all tests pass, not just the one you targeted.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the target test passes, so you are green and may refactor</text><feedback><text>A broken existing test means you are not green; the whole suite must pass.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — old tests do not count once you add a new one</text><feedback><text>All tests count; the suite must be entirely green to proceed.</text></feedback></answer>
+    <answer fraction="0"><text>It does not matter; refactor anyway to tidy up</text><feedback><text>Refactoring needs a fully green bar; fix the regression first.</text></feedback></answer>
+    <generalfeedback><text>Green means the entire suite passes, not merely the test you were working on. If your change makes a previously passing test fail, you have introduced a regression and are still red overall. Fix it to get the whole suite green before moving on to Refactor.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/TDD Cycle/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Strongest reason to test first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the strongest justification for writing the test <strong>before</strong> the production code, rather than after?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It forces you to state the expected behaviour up front and lets the tests drive design, so every line of code is demanded by a test and the code is inherently testable</text><feedback><text>Correct — test-first defines intent, drives design, and keeps all code justified and covered.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the resulting code has zero defects</text><feedback><text>No practice guarantees zero defects; test-first drives design and coverage, not perfection.</text></feedback></answer>
+    <answer fraction="0"><text>It lets you avoid ever running the test suite</text><feedback><text>Tests are run every cycle; the value is design pressure and justified code, not skipping runs.</text></feedback></answer>
+    <answer fraction="0"><text>It makes refactoring unnecessary</text><feedback><text>Refactoring is still a phase of every cycle; test-first does not remove it.</text></feedback></answer>
+    <generalfeedback><text>Writing the test first pins down the intended behaviour before you commit to an implementation, exerts design pressure toward code that is easy to test, and ensures no production code exists that some test did not demand. Writing tests afterwards tends to fit the tests to the code and misses this design feedback.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Invariant preserved by green-then-refactor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When you refactor only after reaching green, what invariant does the "green then refactor" ordering keep true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Observable behaviour stays constant while internal structure changes — the tests remain green across the refactor</text><feedback><text>Correct — behaviour is held fixed (green) while structure is improved.</text></feedback></answer>
+    <answer fraction="0"><text>The code always gets shorter with every refactor</text><feedback><text>Refactoring improves structure, which is not always shorter; the invariant is unchanged behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>The test suite is rewritten to match the new structure each time</text><feedback><text>Tests stay fixed as the behaviour spec; that is what proves behaviour is preserved.</text></feedback></answer>
+    <answer fraction="0"><text>New behaviour is added during the refactor</text><feedback><text>Adding behaviour belongs in Red-Green; refactor keeps behaviour constant.</text></feedback></answer>
+    <generalfeedback><text>Refactoring from a green bar keeps observable behaviour invariant: the tests encode the behaviour, and their staying green as you change the structure is the proof that only the internals moved. New behaviour is introduced separately, through the Red-Green steps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Anti-pattern: code first, tests later</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer writes a large amount of production code and only afterwards adds tests for it. Why is this not TDD, and what is lost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>TDD is test-first; writing code first forfeits the design pressure of the failing test and risks code paths that no test ever demanded</text><feedback><text>Correct — code-first loses the driving role of the test and can leave untested, test-shaped-to-code paths.</text></feedback></answer>
+    <answer fraction="0"><text>It is still TDD as long as tests eventually exist</text><feedback><text>The "Driven" in TDD requires the test first; after-the-fact tests do not drive the design.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is lost; order never matters in TDD</text><feedback><text>Order is central: the failing test must come first to drive the code.</text></feedback></answer>
+    <answer fraction="0"><text>It is better than TDD because it is faster to type</text><feedback><text>Speed of typing is not the goal; test-first design and coverage are what TDD provides.</text></feedback></answer>
+    <generalfeedback><text>In TDD the failing test drives the code into existence, shaping a testable design and guaranteeing each line is demanded by a test. Writing code first inverts this: tests get fitted to whatever was built, the design feedback is gone, and some code paths may never be pinned down by a test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Anti-pattern: refactoring while red</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer, with a test currently failing, starts renaming and restructuring the production code "to tidy it while I'm here." Why is this risky?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>With no green baseline, a new failure cannot be distinguished from the existing one, so you cannot tell whether the restructuring broke anything</text><feedback><text>Correct — refactoring needs a green bar to confirm behaviour is unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Renaming variables always changes program behaviour</text><feedback><text>A pure rename need not change behaviour; the risk is the absence of a green baseline to verify that.</text></feedback></answer>
+    <answer fraction="0"><text>It is not risky at all; refactoring is safe in any state</text><feedback><text>Refactoring is safe only from green, where the tests can confirm behaviour is preserved.</text></feedback></answer>
+    <answer fraction="0"><text>Because tidying code is never allowed in TDD</text><feedback><text>Tidying is encouraged — but in the Refactor phase, from a green bar, not while red.</text></feedback></answer>
+    <generalfeedback><text>Refactoring's safety comes from a passing suite: change structure, re-run, confirm still green. While a test is already failing there is no trustworthy baseline, so any new problem is masked by the existing red. Get to green first, then refactor.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret FizzBuzz: hardcoded "1"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the FizzBuzz kata, the first passing implementation is <code>function fizzbuzz(n) { return "1"; }</code>, which is clearly wrong in general. Why is writing this a legitimate TDD move?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is the minimal Green code that passes the only existing test (fizzbuzz(1) === "1"); the next failing test will force it to generalise</text><feedback><text>Correct — it satisfies the current test, and later red tests drive out the fake.</text></feedback></answer>
+    <answer fraction="0"><text>Because "1" is the correct answer for all inputs</text><feedback><text>It is only correct for the one current test; more tests will expose it as a fake.</text></feedback></answer>
+    <answer fraction="0"><text>Because FizzBuzz never needs any other cases</text><feedback><text>It does — 3, 5, and 15 follow; the constant is just the first minimal Green step.</text></feedback></answer>
+    <answer fraction="0"><text>Because the test for fizzbuzz(3) has already been deleted</text><feedback><text>No test is deleted; the fizzbuzz(3) test is added next and forces the code to grow.</text></feedback></answer>
+    <generalfeedback><text>At that point the only test is fizzbuzz(1) === "1", so returning the constant "1" is the minimal Green step that passes it. This deliberate fake is honest TDD: the very next cycle adds fizzbuzz(3) === "Fizz", a red test the constant cannot satisfy, forcing a real branch. Triangulation removes the fakes one test at a time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret FizzBuzz: the %15 guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In FizzBuzz, adding <code>fizzbuzz(15) === "FizzBuzz"</code> fails because the modulo-3 branch fires first and returns "Fizz". What is the correct Green fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Add a modulo-15 branch that is checked before the modulo-3 and modulo-5 branches, so all four tests pass</text><feedback><text>Correct — the %15 guard must precede %3 and %5 to produce "FizzBuzz".</text></feedback></answer>
+    <answer fraction="0"><text>Delete the fizzbuzz(3) test so the conflict disappears</text><feedback><text>You keep all tests; the fix is to add the %15 branch first, not remove tests.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor the code before making the new test pass</text><feedback><text>You are on a red bar; get to green (add the %15 branch) before refactoring.</text></feedback></answer>
+    <answer fraction="0"><text>Change the %3 branch to also cover 15 as "Fizz"</text><feedback><text>15 must return "FizzBuzz", so a %15 branch must run before %3.</text></feedback></answer>
+    <generalfeedback><text>Because 15 is divisible by 3, a greedy %3 check returns "Fizz" first. The minimal Green fix is to test %15 before %3 and %5 and return "FizzBuzz" there. Only after all four tests are green would you refactor (for example, to the fizz+buzz concatenation form).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret FizzBuzz: the final rewrite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The FizzBuzz kata ends by rewriting the branches into <code>const fizz = n % 3 === 0 ? "Fizz" : ""; const buzz = n % 5 === 0 ? "Buzz" : ""; return (fizz + buzz) || String(n);</code>, with all tests still passing. What is this step, and why is it safe?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Refactor — it improves the structure without changing behaviour, and the still-green suite proves behaviour is preserved</text><feedback><text>Correct — a behaviour-preserving rewrite verified by the green tests is a Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>A Red step, because the code was rewritten</text><feedback><text>No test fails; a behaviour-preserving rewrite with green tests is Refactor, not Red.</text></feedback></answer>
+    <answer fraction="0"><text>A Green step, because it makes a failing test pass</text><feedback><text>Nothing was failing beforehand; this cleans up already-passing code, so it is Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>It is unsafe, because rewriting logic always breaks tests</text><feedback><text>It is safe precisely because the tests stay green, confirming behaviour is unchanged.</text></feedback></answer>
+    <generalfeedback><text>The final change replaces the chain of branches with a clearer concatenation of the fizz and buzz parts. It adds no behaviour, and every test stays green — the safety net confirming the observable result is unchanged. That makes it a Refactor, the third phase of the cycle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret Stack: fake fails the second test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Stack kata, <code>isEmpty()</code> was faked to return <code>true</code>. A new test pushes an item then asserts <code>isEmpty()</code> is false, and it fails. What does the Green phase now require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Introduce real state (for example an items array) so both isEmpty tests pass</text><feedback><text>Correct — the fake must be replaced with genuine state to satisfy both tests.</text></feedback></answer>
+    <answer fraction="0"><text>Change the new test to expect true, so the fake still passes</text><feedback><text>You do not weaken the test to fit the fake; you add real state to pass it.</text></feedback></answer>
+    <answer fraction="0"><text>Refactor the fake before the new test passes</text><feedback><text>The bar is red; first make it green with real state, then refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the first isEmpty test to remove the conflict</text><feedback><text>Both tests are kept; real state is what makes them both pass.</text></feedback></answer>
+    <generalfeedback><text>The second test triangulates: a constant true cannot report both an empty and a non-empty stack. The Green step is to introduce genuine state (an items array) and compute emptiness from it, so both the "new stack is empty" and "after push, not empty" tests pass. The fake has served its purpose and is driven out.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why fake-it-then-triangulate works</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the "fake it (return a constant) then triangulate" technique reliably lead to a correct, general implementation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each added test rules out another shortcut, so a sequence of minimal Green steps is progressively forced into a general solution</text><feedback><text>Correct — every new red test removes a fake, driving the code toward generality.</text></feedback></answer>
+    <answer fraction="0"><text>Because a single constant already handles every case correctly</text><feedback><text>A constant handles only one case; more tests are what force generalisation.</text></feedback></answer>
+    <answer fraction="0"><text>Because the tests are relaxed until the fake passes them all</text><feedback><text>Tests are not relaxed; they are added to force the code to become general.</text></feedback></answer>
+    <answer fraction="0"><text>Because refactoring alone turns a constant into a general algorithm</text><feedback><text>Generalisation is driven by new failing tests (Red-Green), not by refactoring behaviour.</text></feedback></answer>
+    <generalfeedback><text>Triangulation works because each new example (test) is chosen so the current fake cannot satisfy it, forcing a slightly more general implementation. Repeating minimal Green steps against a growing set of tests squeezes out the shortcuts until only a genuinely general solution remains.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order a scrambled set of TDD actions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Put these three actions into the correct TDD order: (1) extract a helper method with the tests staying green; (2) write a failing test for new behaviour; (3) write the minimal code that makes that test pass.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2, then 3, then 1</text><feedback><text>Correct — Red (2), Green (3), Refactor (1).</text></feedback></answer>
+    <answer fraction="0"><text>3, then 2, then 1</text><feedback><text>You cannot write passing code before the failing test exists; Red (2) comes first.</text></feedback></answer>
+    <answer fraction="0"><text>1, then 2, then 3</text><feedback><text>You cannot refactor before any code is written and green; refactor is last.</text></feedback></answer>
+    <answer fraction="0"><text>2, then 1, then 3</text><feedback><text>You must reach green (3) before refactoring (1); refactoring on red is unsafe.</text></feedback></answer>
+    <generalfeedback><text>Mapping to phases: (2) is Red, (3) is Green, (1) is Refactor. The cycle therefore runs 2, 3, 1 — write the failing test, make it pass with minimal code, then clean up while the tests stay green.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is always illegal in strict TDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is <strong>always</strong> illegal in strict TDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Writing production code before any failing test exists</text><feedback><text>Correct — the first rule forbids production code without a failing test to justify it.</text></feedback></answer>
+    <answer fraction="0"><text>Writing a failing test when all tests currently pass</text><feedback><text>That is exactly how you start a new cycle (Red); it is legal.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring after achieving green</text><feedback><text>Refactoring from green is the third phase of the cycle; it is legal and encouraged.</text></feedback></answer>
+    <answer fraction="0"><text>Making a failing test pass with minimal code</text><feedback><text>That is the Green phase; it is exactly what you should do.</text></feedback></answer>
+    <generalfeedback><text>The fundamental TDD discipline forbids writing production code that no failing test requires. Starting a new cycle with a failing test, making it pass minimally, and refactoring from green are all legal — only unjustified production code is off-limits.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal code as discipline, not laziness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is "write only the minimal code to pass the test" treated as a discipline rather than laziness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It keeps every line covered by a test, avoids speculative untested generality, and lets the tests drive the design incrementally</text><feedback><text>Correct — minimalism keeps code justified and tested and lets design emerge from the tests.</text></feedback></answer>
+    <answer fraction="0"><text>It means you never have to write much code overall</text><feedback><text>Total code is whatever the tests demand; minimalism is per-step, not an excuse to do less overall.</text></feedback></answer>
+    <answer fraction="0"><text>It lets you skip the Refactor phase entirely</text><feedback><text>Refactor still happens; minimal Green code is often what you then clean up.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the first implementation is the final one</text><feedback><text>The minimal implementation usually evolves as more tests are added.</text></feedback></answer>
+    <generalfeedback><text>Writing only what the current test demands ensures no untested, speculative code sneaks in (a YAGNI discipline), keeps coverage tight, and lets each test pull the design forward one concrete step at a time. It is a deliberate constraint that produces well-tested, need-driven code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Refactoring versus changing behaviour</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the essential difference between <strong>refactoring</strong> and <strong>adding behaviour</strong> in TDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Refactoring changes internal structure while keeping observable behaviour (and the tests) unchanged; adding behaviour is driven by a new failing test in Red-Green</text><feedback><text>Correct — refactor preserves behaviour; new behaviour comes through Red-Green.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same thing done at different times of day</text><feedback><text>They are fundamentally different: one preserves behaviour, the other adds it.</text></feedback></answer>
+    <answer fraction="0"><text>Refactoring adds features while leaving structure identical</text><feedback><text>The reverse — refactoring changes structure and preserves behaviour/features.</text></feedback></answer>
+    <answer fraction="0"><text>Adding behaviour must be done during Refactor to save a cycle</text><feedback><text>New behaviour needs its own failing test (Red) first; it does not belong in Refactor.</text></feedback></answer>
+    <generalfeedback><text>Refactoring is a behaviour-preserving structural change: the tests stay green because nothing observable moved. Adding behaviour is different work — it must be introduced through a new failing test and the minimal code to pass it. Keeping the two separate is what makes each safe and clear.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret Stack: introducing size()</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Stack kata's final step, <code>size()</code> is added and <code>isEmpty()</code> is redefined as <code>this.size() === 0</code>, with all tests staying green. Classify this step and justify it.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Refactor — it removes duplication by expressing one method through another, and the green suite confirms behaviour is unchanged</text><feedback><text>Correct — a behaviour-preserving deduplication verified by green tests is a Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>Red — because a new method was introduced</text><feedback><text>No test fails; introducing a helper with behaviour unchanged is Refactor, not Red.</text></feedback></answer>
+    <answer fraction="0"><text>Green — because it makes a previously failing test pass</text><feedback><text>Nothing was failing; the tests were already green, so this is Refactor.</text></feedback></answer>
+    <answer fraction="0"><text>It is not a valid TDD step, since no test changed</text><feedback><text>Refactoring intentionally leaves tests unchanged and green; it is a valid third-phase step.</text></feedback></answer>
+    <generalfeedback><text>Defining <code>isEmpty()</code> in terms of a new <code>size()</code> concentrates the "how many items" logic in one place and improves the design. Behaviour is unchanged and the tests stay green throughout, which is exactly what identifies it as a Refactor — the clean-up phase that closes the cycle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the whole suite must be green before refactoring</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does TDD insist the <strong>entire</strong> test suite be green — not merely the test you just wrote — before you refactor?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The whole suite is the behaviour spec that guarantees a refactor changed nothing; a single passing test cannot catch regressions elsewhere in the code</text><feedback><text>Correct — only an all-green suite can confirm a structural change broke nothing anywhere.</text></feedback></answer>
+    <answer fraction="0"><text>Because only the most recent test matters once it passes</text><feedback><text>All tests form the safety net; older tests catch regressions the new one cannot.</text></feedback></answer>
+    <answer fraction="0"><text>Because refactoring deletes every test except the newest</text><feedback><text>Refactoring keeps all tests; they are collectively what makes it safe.</text></feedback></answer>
+    <answer fraction="0"><text>Because a partially green suite runs faster</text><feedback><text>Speed is irrelevant; the whole suite must pass to prove behaviour is preserved everywhere.</text></feedback></answer>
+    <generalfeedback><text>Refactoring is only as safe as the tests that verify it. The full suite encodes all the behaviour the code must preserve, so re-running it after a structural change is what proves nothing broke — anywhere, not just in the area of the latest test. One green test leaves the rest of the system unchecked, so TDD requires the entire suite green before you refactor.</text></generalfeedback>
+  </question>
+</quiz>

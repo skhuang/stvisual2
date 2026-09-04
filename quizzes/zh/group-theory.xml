@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Group Theory/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>自同構群 Aut(f) 是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在群論軟體測試瀏覽器中，Boolean 公式 <code>f</code> 的<strong>自同構群 Aut(f)</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有使公式真值表保持不變的變數排列所成的集合</text><feedback><text>正確——Aut(f) 蒐集了每一個在所有輸入列上都保持 f 的變數重新標記。</text></feedback></answer>
+    <answer fraction="0"><text>所有使公式為真的輸入列所成的集合</text><feedback><text>那是公式的 on-set，而非排列所成的群。</text></feedback></answer>
+    <answer fraction="0"><text>f 中出現的所有子公式清單</text><feedback><text>Aut(f) 談的是變數的對稱性，而非子公式的語法樹。</text></feedback></answer>
+    <answer fraction="0"><text>f 中 AND、OR、NOT 運算子的數量</text><feedback><text>那是語法規模度量；Aut(f) 是變數排列所成的群。</text></feedback></answer>
+    <generalfeedback><text>瀏覽器將 Aut(f) 計算為每一個把真值表映射回自身的變數排列。它是 n 個變數上對稱群 Sₙ 的子群，其大小以 |Aut(f)| 顯示。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四個群公理</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個帶有運算的集合，滿足哪四個公理時才是<strong>群</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>封閉性、結合律、單位元素、反元素</text><feedback><text>正確——這正是四個群公理。</text></feedback></answer>
+    <answer fraction="0"><text>封閉性、交換律、單位元素、分配律</text><feedback><text>交換律與分配律不是群所必需；必需的是結合律與反元素。</text></feedback></answer>
+    <answer fraction="0"><text>反身性、對稱性、遞移性、封閉性</text><feedback><text>那是等價關係的性質，不是群公理。</text></feedback></answer>
+    <answer fraction="0"><text>單位元素、反元素、分配律、序關係</text><feedback><text>分配律與序關係不是群公理；且缺少封閉性與結合律。</text></feedback></answer>
+    <generalfeedback><text>群必須在其運算下封閉、運算需滿足結合律、需有單位元素，且每個元素都要有反元素。Aut(f) 在排列的合成下滿足全部四項。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Aut(f) 的單位元素</text></name>
+    <questiontext format="html"><text><![CDATA[<p>瀏覽器總會列出一個元素為 <code>id</code>。這個 Aut(f) 的<strong>單位元素</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使每個變數都留在原位（什麼都不重新標記）的排列</text><feedback><text>正確——id 是「什麼都不做」的排列，是群的單位元素。</text></feedback></answer>
+    <answer fraction="0"><text>交換前兩個變數的排列</text><feedback><text>那是一個對換，而非單位元素。</text></feedback></answer>
+    <answer fraction="0"><text>每個變數皆為假的那一列輸入</text><feedback><text>輸入列不是群元素；單位元素是「什麼都不做」的排列。</text></feedback></answer>
+    <answer fraction="0"><text>恆為真的公式</text><feedback><text>單位元素是一個排列，而非公式。</text></feedback></answer>
+    <generalfeedback><text>每個群都有單位元素 e，對所有 g 滿足 e·g = g·e = g。在 Aut(f) 中該元素是 id，即讓每個變數維持原位的排列。即使群其餘部分為平凡，瀏覽器仍總是顯示它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>群的階數是什麼意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>面板顯示 <code>Order |Aut(f)| = n</code>。群的<strong>階數</strong>是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>群中元素的個數</text><feedback><text>正確——有限群的階數就是其元素個數。</text></feedback></answer>
+    <answer fraction="0"><text>公式中變數的個數</text><feedback><text>那是 n，即 Sₙ 的次數；群的階數計算的是保持 f 的排列數，可能更小。</text></feedback></answer>
+    <answer fraction="0"><text>任一元素中最長循環的長度</text><feedback><text>那描述的是元素的循環結構，而非群的階數。</text></feedback></answer>
+    <answer fraction="0"><text>真值表中的軌道數量</text><feedback><text>軌道數是另一個量；階數是群元素的個數。</text></feedback></answer>
+    <generalfeedback><text>有限群的階數就是它含有多少個元素。對 Aut(f) 而言記為 |Aut(f)|，等於使真值表保持不變的變數排列數（id 也算一個）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>反元素是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>反元素</strong>公理說每個群元素 g 都有反元素 g⁻¹。g⁻¹ 必須滿足什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>將 g 與 g⁻¹ 合成會得到單位元素</text><feedback><text>正確——g · g⁻¹ = g⁻¹ · g = id。</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹ 是群中最大的元素</text><feedback><text>群不必有序；反元素由合成為單位元素來定義。</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹ 把每個變數都映射為假</text><feedback><text>反元素是由 g · g⁻¹ = id 定義的排列，而非固定的真值指派。</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹ 是任何與 g 不同的其他元素</text><feedback><text>只有那個與 g 合成得到 id 的特定元素才是它的反元素。</text></feedback></answer>
+    <generalfeedback><text>對每個元素 g，反元素 g⁻¹ 是能把它抵消的元素：g · g⁻¹ = g⁻¹ · g = id。在 Aut(f) 中，某變數排列的反元素就是把變數重新標記回原位的排列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Aut(f) 的群運算</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把 Aut(f) 的兩個元素結合起來的<strong>運算</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩個變數排列的合成（先做一個，再做另一個）</text><feedback><text>正確——群運算是排列的函數合成。</text></feedback></answer>
+    <answer fraction="0"><text>兩個排列的邏輯 AND</text><feedback><text>AND 是作用在值上的 Boolean 連接詞，不是排列的運算。</text></feedback></answer>
+    <answer fraction="0"><text>把每個排列所移動的變數個數相加</text><feedback><text>運算是合成排列，而非相加個數。</text></feedback></answer>
+    <answer fraction="0"><text>取兩者真值表的聯集</text><feedback><text>排列以函數方式合成；真值表不會取聯集。</text></feedback></answer>
+    <generalfeedback><text>Aut(f) 在合成下構成群：結合兩個對稱性意即先套用一個排列，再套用另一個，得到的仍是一個同樣保持真值表的排列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>軌道是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在軌道瀏覽中，<strong>軌道</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組被群的排列互相映射的真值表列</text><feedback><text>正確——軌道把彼此可由 Aut(f) 互相到達的列聚在一起。</text></feedback></answer>
+    <answer fraction="0"><text>隨機選出的單一真值表列</text><feedback><text>軌道是一整組彼此可互相到達的列，而非某一隨機列。</text></feedback></answer>
+    <answer fraction="0"><text>公式中出現的變數清單</text><feedback><text>那是變數；軌道是群作用下一組真值表列。</text></feedback></answer>
+    <answer fraction="0"><text>用來構造公式的運算子集合</text><feedback><text>運算子是語法；軌道是輸入列的一個對稱等價類。</text></feedback></answer>
+    <generalfeedback><text>以 Aut(f) 作用於真值表，會把列分割成軌道：當某個 f 的對稱性把一列映射到另一列時，兩列同屬一個軌道。同一軌道中的列 f 值恆相同，表中顏色也相同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Aut(A AND B) 的階數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於預設公式 <code>A AND B</code>，瀏覽器回報 Aut(f) 有幾個元素？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——Aut(A AND B) = {id, (AB)}，階數為 2，因為 AND 對 A、B 對稱。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>階數 1 代表沒有對稱性，但交換 A 與 B 會使 A AND B 不變，所以有兩個元素。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是真值表列數（2²），不是群的階數。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是三變數 majority 公式的 |Aut|，不是 A AND B 的。</text></feedback></answer>
+    <generalfeedback><text>因為 A AND B 對稱，交換 A 與 B 會保持真值表。故 Aut(f) 含 id 與對換 (AB)，階數為 2——這正是兩變數上的完整對稱群 S₂。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對稱性平凡的公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於預設 <code>A AND NOT B</code>，面板顯示「無變數對稱性」。此時 |Aut(f)| 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1——群中只有單位元素 id</text><feedback><text>正確——沒有任何非平凡排列能保持 A AND NOT B，故 Aut(f) = {id}，階數 1。</text></feedback></answer>
+    <answer fraction="0"><text>2——id 與對換 (AB)</text><feedback><text>此處交換 A 與 B 會改變真值表，所以 (AB) 不是自同構。</text></feedback></answer>
+    <answer fraction="0"><text>0——群為空</text><feedback><text>群永不為空；它至少含單位元素。</text></feedback></answer>
+    <answer fraction="0"><text>4——每一列各自成一軌道</text><feedback><text>4 是軌道數（皆為單點），不是群的階數。</text></feedback></answer>
+    <generalfeedback><text>A AND NOT B 對 A 與 B 的處理不同，所以交換兩者會改變真值表，並非對稱性。只剩 id，故 |Aut(f)| = 1——平凡群——且每一列輸入自成一軌道。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從軌道表讀取數值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>A AND B</code> 的軌道表中，A=T 且 B=T 的那一列 <code>f(x)</code> 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>T</text><feedback><text>正確——A AND B 只有兩者皆真時才為真，故 T,T 列 f = T。</text></feedback></answer>
+    <answer fraction="0"><text>F</text><feedback><text>兩個變數皆為真，故 A AND B 為真，而非假。</text></feedback></answer>
+    <answer fraction="0"><text>視軌道顏色而定</text><feedback><text>顏色顯示軌道，但 f(x) 是從表中讀取的固定值；此處為 T。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>每一列都有已定義的 f 值；T,T 列為 T。</text></feedback></answer>
+    <generalfeedback><text>f(x) 欄顯示每一列輸入的公式值。對 A AND B 而言，只有 A=T、B=T 列求值為 T，其餘三列為 F。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>星號代表元的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在軌道表中，某列上的 <strong>★ 代表</strong>標記代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該列是其軌道所選的代表元（列索引最小者）</text><feedback><text>正確——★ 標記代表元，瀏覽器在每個軌道中挑選索引最小的列。</text></feedback></answer>
+    <answer fraction="0"><text>該列使公式為真</text><feedback><text>★ 標記軌道代表元，與該列 f 是否為真無關。</text></feedback></answer>
+    <answer fraction="0"><text>該列可從真值表中刪除</text><feedback><text>代表元正是你保留來測試的那列；其軌道中未標星的列才是它所代表的對象。</text></feedback></answer>
+    <answer fraction="0"><text>該列不屬於任何軌道</text><feedback><text>每一列都屬於某軌道；★ 標記其中一個的代表元。</text></feedback></answer>
+    <generalfeedback><text>每個軌道被折疊為單一代表元測試。瀏覽器以 ★ 標記該代表元，並選取軌道中索引最小的列，因此只測試標星的列即可涵蓋每個對稱等價類。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對換的循環表示法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>瀏覽器把某個非單位元素列為 <code>(AB)</code>。在循環表示法中，<code>(AB)</code> 是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個交換變數 A 與 B、其餘不動的排列</text><feedback><text>正確——2-循環 (AB) 交換 A 與 B，其他變數維持原位。</text></feedback></answer>
+    <answer fraction="0"><text>A 與 B 的邏輯 AND</text><feedback><text>(AB) 是循環表示法中的排列，不是 Boolean AND。</text></feedback></answer>
+    <answer fraction="0"><text>包含列 A 與 B 的軌道</text><feedback><text>循環表示法描述的是排列，而非列的軌道。</text></feedback></answer>
+    <answer fraction="0"><text>一個等於 A 接著 B 的公式</text><feedback><text>它是交換兩個變數的排列，不是公式。</text></feedback></answer>
+    <generalfeedback><text>循環表示法 (AB) 表示把 A 送到 B、B 送到 A、其餘變數皆不動的排列。瀏覽器以此方式列印每個非單位對稱性；若只有一個 id 則表示沒有非平凡對稱性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Aut(f) 作為子群</text></name>
+    <questiontext format="html"><text><![CDATA[<p>n 變數公式的自同構群 Aut(f) 是哪個群的子群？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n 個變數所有排列所成的對稱群 Sₙ</text><feedback><text>正確——Aut(f) 由 Sₙ 中那些保持真值表的排列組成。</text></feedback></answer>
+    <answer fraction="0"><text>整數的加法群</text><feedback><text>Aut(f) 是變數排列所成的群，為 Sₙ 的子群，而非整數的子群。</text></feedback></answer>
+    <answer fraction="0"><text>真值表列在 XOR 下所成的群</text><feedback><text>Aut(f) 作用於列，但其元素是變數排列，落在 Sₙ 之中。</text></feedback></answer>
+    <answer fraction="0"><text>GF(p) 的乘法群</text><feedback><text>GF(p) 出現在覆蓋陣列頁；Aut(f) 是 Sₙ 的子群。</text></feedback></answer>
+    <generalfeedback><text>Aut(f) 的每個元素都在排列 n 個變數，故 Aut(f) 是 Sₙ（全部 n! 個排列所成的群）的子集。因其封閉、含 id 且有反元素，故為 Sₙ 的子群。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>覆蓋陣列的字母集必須為質數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在覆蓋陣列頁，GF(p) 建構所用的字母集大小 <code>p</code> 必須是質數。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——此建構使用有限體 GF(p)，需要 p 為質數（該頁提供 2、3、5）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>GF(p) 建構依賴階數為 p 的有限體，因此 p 必須是質數。</text></feedback></answer>
+    <generalfeedback><text>瀏覽器中的正交陣列建構在有限體 GF(p) 上運作，而 GF(p) 只在 p 為質數（或質數冪）時存在。該頁把 p 限制在質數 2、3、5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三變數的真值表大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>majority 公式 <code>(A∧B)∨(B∧C)∨(A∧C)</code> 有三個變數。它的真值表有幾列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——n = 3 個變數時共有 2³ = 8 列輸入。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是變數個數，不是列數。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是此公式的 |Aut(f)|，不是列數。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是 GF(3) 的覆蓋陣列列數；真值表有 2³ = 8 列。</text></feedback></answer>
+    <generalfeedback><text>n 變數的 Boolean 公式其真值表有 2ⁿ 列。三變數的 majority 公式即 2³ = 8 列，瀏覽器接著把它分割成軌道。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Group Theory/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 Aut(f) 封閉</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何 Aut(f) 滿足<strong>封閉性</strong>公理：合成 f 的兩個對稱性會得到 Aut(f) 的元素？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>若每個排列都使真值表不變，依序套用兩者也使真值表不變，故合成同樣保持 f</text><feedback><text>正確——保持性在合成下得以保持，故結果仍是 f 的對稱性。</text></feedback></answer>
+    <answer fraction="0"><text>因為同一組變數的任兩個排列恆相等</text><feedback><text>不同排列一般不相等；封閉性來自兩者都保持真值表。</text></feedback></answer>
+    <answer fraction="0"><text>因為合成恆得到單位排列</text><feedback><text>合成通常得到非單位排列；它之所以留在 Aut(f) 內，是因為 f 被保持。</text></feedback></answer>
+    <answer fraction="0"><text>因為真值表有偶數列</text><feedback><text>列數無關；封閉性來自兩個排列都保持 f。</text></feedback></answer>
+    <generalfeedback><text>若 g 與 h 各自把真值表映射回自身，則先套用 g 再套用 h 仍把它映射回自身。故 g·h 也保持 f 而仍在 Aut(f) 中。這正是封閉性公理，也是 Aut(f) 在合成下成群的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>majority 群的階數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 majority 公式 <code>(A∧B)∨(B∧C)∨(A∧C)</code>，|Aut(f)| 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6——A、B、C 的每個排列都保持公式，故 Aut(f) = S₃</text><feedback><text>正確——majority 完全對稱，故全部 3! = 6 個排列皆為自同構。</text></feedback></answer>
+    <answer fraction="0"><text>3——只有三個循環旋轉</text><feedback><text>對換也保持 majority，故群為完整的 S₃、階數 6，不只三個旋轉。</text></feedback></answer>
+    <answer fraction="0"><text>2——只有 id 與一個對換</text><feedback><text>全部六個排列都保持 majority，故階數為 6，而非 2。</text></feedback></answer>
+    <answer fraction="0"><text>8——每一真值表列各一</text><feedback><text>8 是列數；|Aut(f)| 計算對稱性，等於 6。</text></feedback></answer>
+    <generalfeedback><text>三者取多數對三個變數皆對稱：任意重新標記 A、B、C 都使真值表不變。故 Aut(f) 是整個對稱群 S₃，階數 3! = 6。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 A AND NOT B 無對稱性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何 Aut(<code>A AND NOT B</code>) 為平凡（階數 1）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>交換 A 與 B 會改變真值表，故該對換不是自同構，只剩 id</text><feedback><text>正確——A 與 B 角色不同，交換兩者會改變 f，不可能是對稱性。</text></feedback></answer>
+    <answer fraction="0"><text>公式恆為假，所以無對稱性</text><feedback><text>A AND NOT B 在 A=T、B=F 時為真，並非常值。無對稱性是因 A 與 B 角色不同。</text></feedback></answer>
+    <answer fraction="0"><text>自同構中不允許 NOT</text><feedback><text>公式中 NOT 沒問題；重點是交換變數會改變真值表。</text></feedback></answer>
+    <answer fraction="0"><text>因為它只有兩個變數</text><feedback><text>A AND B 也有兩個變數卻有非平凡對稱性；差別在於角色的對稱性，而非變數個數。</text></feedback></answer>
+    <generalfeedback><text>在 A AND NOT B 中兩個變數不可互換：要滿足 f 必須 A 為真、B 為假。交換兩者得到 B AND NOT A，是不同的真值表，故 (AB) 不是對稱性。只有 id 存活，得到平凡群。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A AND B 的軌道數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>A AND B</code>，Aut(f) 把 4 列真值表分割成幾個軌道？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——軌道為 {F,F}、{F,T ; T,F}、{T,T}：三類。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>交換對稱性把 F,T 與 T,F 兩列合併，故為 3 個軌道，而非 4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只有兩列混合列合併；F,F 與 T,T 列仍分開，得 3 個軌道。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>f 值不同的列不可能同軌道，故不只一個。</text></feedback></answer>
+    <generalfeedback><text>對稱性 (AB) 固定 F,F 與 T,T，但把兩列混合列 F,T 與 T,F 交換到同一軌道。這得到三個軌道——比四列少一個——故省下一個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>軌道代表元的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在瀏覽器中，軌道的<strong>代表元</strong>在測試上的角色為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是整個軌道保留的單一測試，因為軌道中所有列都對稱等價</text><feedback><text>正確——每個軌道一個代表元即可，因為其軌道夥伴帶有相同的測試義務。</text></feedback></answer>
+    <answer fraction="0"><text>它是最可能揭露缺陷的那一列</text><feedback><text>代表元是依最小索引選出，而非依揭錯機率；它只是代表其軌道。</text></feedback></answer>
+    <answer fraction="0"><text>它是絕不該測試的那一列</text><feedback><text>恰相反——代表元正是你為該軌道所測試的那一列。</text></feedback></answer>
+    <answer fraction="0"><text>它是群的單位元素</text><feedback><text>單位元素是排列；代表元是真值表列。</text></feedback></answer>
+    <generalfeedback><text>同一軌道中的列由 f 的對稱性相連，故共享相同的測試義務。每個軌道保留一個代表元，就把等價列折疊為單一測試，這正是群縮減所需測試數的方式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從軌道推導的蛻變關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>A AND B</code>，軌道 {A=F,B=T ; A=T,B=F} 產生瀏覽器所示的哪個蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>f(A=F, B=T) = f(A=T, B=F)</text><feedback><text>正確——同一軌道的列必給出相等輸出，這正是蛻變關係。</text></feedback></answer>
+    <answer fraction="0"><text>f(A=F, B=T) = NOT f(A=T, B=F)</text><feedback><text>軌道夥伴給出相等輸出，而非取反。</text></feedback></answer>
+    <answer fraction="0"><text>f(A=T, B=T) = f(A=F, B=F)</text><feedback><text>那兩列分屬不同軌道（T,T 與 F,F），並非如此相關。</text></feedback></answer>
+    <answer fraction="0"><text>f(A=F, B=T) = A OR B</text><feedback><text>蛻變關係比較同一函數的兩次執行，而非把函數與另一公式相等。</text></feedback></answer>
+    <generalfeedback><text>因為 f 的對稱性把一個軌道夥伴映射到另一個，公式在兩者上必給出相同值。瀏覽器把每個軌道化為形如 f(列₁) = f(列₂) 的蛻變關係，此處為 f(A=F,B=T) = f(A=T,B=F)。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對換的反元素</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Aut(f) 中，對換 <code>(AB)</code> 的反元素是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(AB) 本身——對換是自身的反元素</text><feedback><text>正確——套用 (AB) 兩次會回到原狀，故 (AB)⁻¹ = (AB)。</text></feedback></answer>
+    <answer fraction="0"><text>id——單位元素是自身與所有元素的反元素</text><feedback><text>id 只是自身的反元素；(AB) 抵消的是自己，不是 id。</text></feedback></answer>
+    <answer fraction="0"><text>3-循環 (ABC)</text><feedback><text>3-循環不是 2-循環的反元素；對換是自身的反元素。</text></feedback></answer>
+    <answer fraction="0"><text>(AB) 沒有反元素</text><feedback><text>每個群元素都有反元素；對換的反元素就是它自己。</text></feedback></answer>
+    <generalfeedback><text>交換 A 與 B 後再交換一次，會讓每個變數回到原位：(AB)·(AB) = id。故對換是自身的反元素，階數為 2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GF(3) 的覆蓋陣列列數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在覆蓋陣列頁，字母集 <code>p = 3</code>、強度 <code>t = 2</code> 時，GF(p) 建構產生幾列測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——GF(3) 上強度 2 的陣列有 p² = 9 列。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 列是強度 1（t=1）的情形；強度 2 需要 p² = 9。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 不是 p²；GF(3) 上的強度 2 建構得到 9 列。</text></feedback></answer>
+    <answer fraction="0"><text>27</text><feedback><text>27 = 3³ 是三個參數的窮舉數；OA 只需 p² = 9 列。</text></feedback></answer>
+    <generalfeedback><text>強度 t = 2 時，GF(p) 正交陣列建構使用 p² 列。p = 3 即 9 列測試，仍保證每對參數的所有值組合都被涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>majority 公式的軌道數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>(A∧B)∨(B∧C)∨(A∧C)</code>，S₃ 在 8 列真值表上造出幾個軌道？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——軌道依「有幾個變數為真」把列分組：0、1、2、3。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>完全對稱把列合併，故軌道少於 8。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是 |Aut(f)|；軌道數為 4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>共有四個軌道（權重 0、1、2、3），而非兩個。</text></feedback></answer>
+    <generalfeedback><text>因為每個變數排列都是對稱性，兩列同軌道當且僅當它們為真的變數個數相同。可能的個數 0、1、2、3 給出四個軌道（大小 1、3、3、1）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何對稱性能縮減測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何同一軌道顏色的列可折疊為一個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們由 f 的對稱性相連，故共享相同測試義務——測試其一即涵蓋其餘</text><feedback><text>正確——對稱等價的輸入帶有相同義務，故一個代表元即足。</text></feedback></answer>
+    <answer fraction="0"><text>它們恆求值為假，所以不必測試</text><feedback><text>軌道夥伴可真可假；它們被折疊是因對稱等價，而非因為為假。</text></feedback></answer>
+    <answer fraction="0"><text>它們是表中字面重複的重複列</text><feedback><text>這些列是相異的輸入；它們只在群的對稱性下等價。</text></feedback></answer>
+    <answer fraction="0"><text>它們在公式的定義域之外</text><feedback><text>所有列都是合法輸入；它們被合併是因某對稱性把一列映到另一列。</text></feedback></answer>
+    <generalfeedback><text>f 的對稱性把一個軌道夥伴映到另一個並保持輸出，故這些列帶有完全相同的測試義務。因此執行單一代表元即可清償整個軌道的義務，這正是瀏覽器所回報的節省。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推導 CACC pair 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 CACC 橋接頁，標為 <strong>✓ 推導而來（免費）</strong> 的 pair 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是某個種子 pair 的軌道映射，故所需測試已涵蓋，無需額外測試</text><feedback><text>正確——推導 pair 是種子 pair 的對稱映射，不需額外測試成本。</text></feedback></answer>
+    <answer fraction="0"><text>它是可忽略的 pair，因為它從不改變結果</text><feedback><text>determination pair 確實會改變結果；推導 pair 仍被執行，只是透過對稱性免費得到。</text></feedback></answer>
+    <answer fraction="0"><text>它是與其他任何 pair 無關的 pair</text><feedback><text>推導 pair 恰恰相關——它是某個種子 pair 的軌道映射。</text></feedback></answer>
+    <answer fraction="0"><text>它是語法無效的 pair</text><feedback><text>推導 pair 是有效的 determination pair；只是被某種子 pair 的對稱性涵蓋。</text></feedback></answer>
+    <generalfeedback><text>種子 pair 必須獨立測試。推導 pair 是某種子 pair 的對稱（軌道）映射，故證明種子的同一重新標記也清償了推導的那個——所需測試已涵蓋，因此「免費」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何某集合不是群</text></name>
+    <questiontext format="html"><text><![CDATA[<p>排列集合 <code>{(AB)}</code>（單一對換，不含 id）不是群。最先違反哪個公理？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單位元素——集合不含單位元素 id</text><feedback><text>正確——群必含單位元素，而 {(AB)} 沒有。</text></feedback></answer>
+    <answer fraction="0"><text>結合律——排列合成不滿足結合律</text><feedback><text>排列合成恆滿足結合律；缺的是單位元素。</text></feedback></answer>
+    <answer fraction="0"><text>交換律——該對換不與自身交換</text><feedback><text>交換律不是群公理，且任何元素都與自身交換。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都沒違反；它已經是群</text><feedback><text>它不可能是群：缺單位元素（也不封閉，因為 (AB)·(AB) = id 不在其中）。</text></feedback></answer>
+    <generalfeedback><text>每個群都必含單位元素。集合 {(AB)} 沒有 id，故違反單位元素公理；它也不封閉，因為 (AB)·(AB) = id 不在其中。加入 id 得 {id, (AB)}，即階數 2 的合法群。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>強度 2 陣列的參數上限</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 GF(p) 上強度 <code>t = 2</code> 的覆蓋陣列，瀏覽器對參數個數 k 設上限。上限為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>k ≤ p + 1</text><feedback><text>正確——標準 GF(p) 建構在強度 2 時最多支援 p + 1 個參數。</text></feedback></answer>
+    <answer fraction="0"><text>k ≤ p − 1</text><feedback><text>建構允許再多一個：最多 p + 1 個參數。</text></feedback></answer>
+    <answer fraction="0"><text>k ≤ p²</text><feedback><text>p² 是列數，不是參數上限；上限是 p + 1。</text></feedback></answer>
+    <answer fraction="0"><text>沒有上限</text><feedback><text>GF(p) 建構在強度 2 時把 k 限制在 p + 1，超過時瀏覽器會顯示警告。</text></feedback></answer>
+    <generalfeedback><text>以 GF(p) 為基礎的正交陣列建構在強度 2 時最多可涵蓋 p + 1 個相互正交的參數。再多，體中就沒有足夠的獨立斜率，故瀏覽器把 k 上限設為 p + 1 並顯示警告。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>majority 中哪些列與 TFF 同軌道</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 majority 公式中，A=T、B=F、C=F 這一列與哪些列同軌道？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>另外兩列恰有一個變數為真者：F,F,T 與 F,T,F</text><feedback><text>正確——S₃ 可把唯一為真的變數移到任一位置，故所有權重 1 的列同軌道。</text></feedback></answer>
+    <answer fraction="0"><text>只有 T,T,T 列</text><feedback><text>T,T,T 有三個為真（權重 3），與權重 1 的列不同軌道。</text></feedback></answer>
+    <answer fraction="0"><text>有兩個變數為真的列</text><feedback><text>權重 2 的列自成一軌道；T,F,F 為權重 1。</text></feedback></answer>
+    <answer fraction="0"><text>沒有其他列——它在軌道中孤立</text><feedback><text>在完全對稱下三列權重 1 的列都合併，故它不孤立。</text></feedback></answer>
+    <generalfeedback><text>在 S₃ 下，列等價當且僅當為真的變數個數相同。列 T,F,F 有一個變數為真，故其軌道是所有權重 1 的列：T,F,F、F,T,F、F,F,T。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>軌道相等是一種蛻變關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>瀏覽器把「f 在同一軌道各列上相等」，即對某對稱性 σ 而言 f(x) = f(σx)，視為一種蛻變關係，並且還提供通往變形測試瀏覽器的橋接。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——軌道夥伴必給出相等輸出，這正是工具匯出的蛻變關係。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>工具確實從軌道推導蛻變關係，並連結到變形測試瀏覽器以驗證它們。</text></feedback></answer>
+    <generalfeedback><text>因為 f 的對稱性 σ 把列 x 映到 σx 而不改變輸出，故必有 f(x) = f(σx)。這是一種蛻變關係，瀏覽器從軌道列出這些關係，並提供橋接按鈕通往變形測試瀏覽器。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Group Theory/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>合成兩個對換</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 S₃ = Aut(majority) 中，合成兩個對換 <code>(AB)</code> 與 <code>(AC)</code> 會得到哪種元素？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個 3-循環（三個變數的旋轉）</text><feedback><text>正確——S₃ 中兩個相異對換的乘積是 3-循環。</text></feedback></answer>
+    <answer fraction="0"><text>單位元素 id</text><feedback><text>對換與自身合成才得 id，但 (AB) 與 (AC) 相異，故乘積是 3-循環。</text></feedback></answer>
+    <answer fraction="0"><text>另一個對換</text><feedback><text>兩個相異對換合成得 3-循環，而非對換。</text></feedback></answer>
+    <answer fraction="0"><text>群外的一個元素</text><feedback><text>依封閉性乘積仍在 S₃ 內；它是那個 3-循環。</text></feedback></answer>
+    <generalfeedback><text>在 S₃ 中兩個相異對換的乘積恆為 3-循環。這正是 {id, (AB), (AC)} 不封閉的原因——合成其兩個對換會產生集合所不含的旋轉。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>3-循環的階數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Aut(majority) 中，<strong>元素</strong> <code>(ABC)</code> 的階數是多少——即最小的 k 使 (ABC)ᵏ = id？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——3-循環須套用三次才回到單位元素。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>3-循環套用兩次得到另一個 3-循環（其反元素），而非 id；階數為 3。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是群的階數；元素 (ABC) 的階數為 3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>只有 id 階數為 1；(ABC) 為非平凡，階數 3。</text></feedback></answer>
+    <generalfeedback><text>元素的階數是使 gᵏ = id 的最小正整數 k。把三個變數旋轉一次得 (ABC)、兩次得 (ACB)、三次則全部回到原位，故 3-循環的階數為 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識 S₃ 的子群</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Aut(majority) = S₃ 的哪個子集本身是<strong>子群</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{id, (ABC), (ACB)}——兩個旋轉連同 id</text><feedback><text>正確——這是階數 3 的循環群（交錯群 A₃），在合成下封閉。</text></feedback></answer>
+    <answer fraction="0"><text>{id, (AB), (AC)}</text><feedback><text>不封閉——合成 (AB) 與 (AC) 得到集合所不含的 3-循環。</text></feedback></answer>
+    <answer fraction="0"><text>{(AB), (AC), (BC)}</text><feedback><text>此集缺 id 且不封閉（兩個對換的乘積是 3-循環），故不是子群。</text></feedback></answer>
+    <answer fraction="0"><text>{id, (AB), (AC), (BC)}</text><feedback><text>不封閉——(AB)·(AC) 是集合外的 3-循環——且其大小 4 不整除 6。</text></feedback></answer>
+    <generalfeedback><text>{id, (ABC), (ACB)} 封閉（旋轉的乘積仍是旋轉或 id）、含 id 且有反元素（(ABC)⁻¹ = (ACB)）。它是階數 3 的循環子群 A₃。其他集合不封閉或缺 id。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Lagrange 定理對可能階數的限制</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Aut(f) 是 Sₙ 的子群，故依 Lagrange 定理 |Aut(f)| 整除 n!。對三變數公式，哪個值<strong>不能</strong>是 |Aut(f)|？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——4 不整除 3! = 6，故不可能是 S₃ 子群的階數。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 整除 6（平凡群），故為可能的階數。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 整除 6，故階數 2 的子群可能存在。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 整除 6——這是完整群 S₃，例如 majority。</text></feedback></answer>
+    <generalfeedback><text>依 Lagrange 定理，子群的階數整除群的階數。對 S₃，|S₃| = 6，故子群階數必整除 6：可能為 1、2、3、6。由於 4 不整除 6，三變數公式的 |Aut(f)| 絕不會是 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完全對稱函數的軌道</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若一個 n 變數公式完全對稱（Aut(f) = Sₙ），它在真值表上有幾個軌道，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>n + 1 個軌道——每個「為真變數的個數」各一（Hamming 權重 0 到 n）</text><feedback><text>正確——Sₙ 把所有相同權重的列合併，故每個權重 0..n 各一軌道。</text></feedback></answer>
+    <answer fraction="0"><text>2ⁿ 個軌道——每列各自獨立</text><feedback><text>完全對稱把相同權重的列合併，故軌道遠少於 2ⁿ。</text></feedback></answer>
+    <answer fraction="0"><text>n 個軌道——每個變數各一</text><feedback><text>軌道以權重 0..n 為指標，共 n + 1 類，而非 n。</text></feedback></answer>
+    <answer fraction="0"><text>2 個軌道——為真的列與為假的列</text><feedback><text>列依權重分割，而非僅依輸出；共 n + 1 個軌道。</text></feedback></answer>
+    <generalfeedback><text>在完整對稱群下，兩列等價當且僅當為真變數個數相同。權重從 0 到 n，得 n + 1 個軌道。n = 3（majority）時即 4 個軌道，與瀏覽器相符。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>majority 群省下的測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對三者取多數（8 列、4 軌道），瀏覽器回報對稱性省下幾個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——保留 4 個代表元而非全部 8 列</text><feedback><text>正確——8 列折疊為 4 個軌道代表元，省下 8 − 4 = 4 個測試。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>節省為「列數減軌道數」= 8 − 4 = 4，而非 2。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是 |Aut(f)|；省下的測試等於 8 − 4 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>此處對稱性確實縮減：由 8 列到 4 軌道，省下 4。</text></feedback></answer>
+    <generalfeedback><text>瀏覽器回報「省下 N 個測試」，其中 N = 總列數 − 軌道代表元數。對 majority 即 8 − 4 = 4：只有四個權重類各需一個代表元測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A AND B 的 CACC 種子與推導 pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>A AND B</code>，CACC 橋接共找到 2 個 determination pair。有幾個透過對稱性免費推導、幾個是種子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 個種子、1 個推導——A 的 pair 作為種子，B 的 pair 是它經 A↔B 交換的軌道映射</text><feedback><text>正確——交換對稱性把 A 的 determination pair 映射到 B 的，故只需一個種子。</text></feedback></answer>
+    <answer fraction="0"><text>2 個種子、0 個推導</text><feedback><text>A↔B 對稱性免費推導出第二個 pair，故為 1 種子、1 推導。</text></feedback></answer>
+    <answer fraction="0"><text>0 個種子、2 個推導</text><feedback><text>至少要有一個獨立種子；此處為 1 種子、1 推導。</text></feedback></answer>
+    <answer fraction="0"><text>1 個種子、0 個推導</text><feedback><text>總共 2 個 pair；第二個是推導而來，故為 1 種子、1 推導。</text></feedback></answer>
+    <generalfeedback><text>A AND B 對 A 有一個 determination pair、對 B 有一個。先處理 A 使其 pair 成為種子；交換 (AB) 把該 pair 映射到 B 的 pair，標為推導。故 1 種子加 1 推導——對稱性把獨立的 CACC 義務減半。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>元素階數整除群的階數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Aut(f) 中，任一元素的階數必整除群的階數 |Aut(f)|。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——這是 Lagrange 定理的推論：元素生成一個循環子群，其階數整除 |Aut(f)|。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>元素的階數等於它所生成循環子群的大小，依 Lagrange 定理整除群的階數。</text></feedback></answer>
+    <generalfeedback><text>元素 g 生成循環子群 {id, g, g², …}，其大小即 g 的階數。依 Lagrange 定理此大小整除 |Aut(f)|。在 S₃（階數 6）中，元素階數為 1、2、3——皆為 6 的因數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>正交陣列的名稱與保證</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在覆蓋陣列頁，p = 3、k = 4、t = 2 時，瀏覽器把陣列命名為 <code>OA(9; 2, 4, 3)</code>。它保證什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的 9 列涵蓋 4 個參數在 3 個值上的每一種 2-way 組合</text><feedback><text>正確——這些參數下的強度 2 OA 以 9 列涵蓋所有成對值組合。</text></feedback></answer>
+    <answer fraction="0"><text>它的 9 列涵蓋這些參數的每一種 3-way 組合</text><feedback><text>強度 t = 2 保證 2-way（成對）覆蓋，而非 3-way。</text></feedback></answer>
+    <answer fraction="0"><text>它窮舉列出全部 3⁴ = 81 種組合</text><feedback><text>OA 的重點正是避免窮舉：9 列即足以達成成對覆蓋，而非 81。</text></feedback></answer>
+    <answer fraction="0"><text>它只涵蓋最重要的單一參數</text><feedback><text>它涵蓋全部四個參數之間的所有配對，而非僅一個。</text></feedback></answer>
+    <generalfeedback><text>在 OA(N; t, k, p) 中，N 是列數、t 是強度、k 是參數個數、p 是字母集大小。OA(9; 2, 4, 3) 用 9 列保證 4 個參數（各 3 個值）之間的每一對值都在某列同時出現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算需涵蓋的 2-way 組合數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 p = 3、k = 4、t = 2，覆蓋陣列總共必須涵蓋幾種相異的 2-way（成對）值組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>54</text><feedback><text>正確——共有 C(4,2) = 6 個欄位配對，每對有 p² = 9 種值組合：6 × 9 = 54。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是單一欄位配對的值組合數（p²），而非全部 6 對之總和。</text></feedback></answer>
+    <answer fraction="0"><text>36</text><feedback><text>那會是 4 個欄位配對；共有 C(4,2) = 6 對，得 6 × 9 = 54。</text></feedback></answer>
+    <answer fraction="0"><text>81</text><feedback><text>81 = 3⁴ 是完整列的窮舉數，而非 2-way 組合數。</text></feedback></answer>
+    <generalfeedback><text>成對組合數為（欄位配對數）× pᵗ = C(k,2) × p²。k = 4、p = 3 時即 6 × 9 = 54 種相異的 2-way 值組合，全部由 9 列的 OA 涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 {id,(AB),(AC)} 不是子群</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何 <code>{id, (AB), (AC)}</code> 不是 S₃ 的子群？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它不封閉：合成 (AB) 與 (AC) 得到集合所不含的 3-循環</text><feedback><text>正確——封閉性失敗，故該子集不是子群。</text></feedback></answer>
+    <answer fraction="0"><text>它缺少單位元素</text><feedback><text>它確實含 id；失敗的是封閉性，而非單位元素。</text></feedback></answer>
+    <answer fraction="0"><text>它的元素沒有反元素</text><feedback><text>每個對換是自身的反元素；問題在於封閉性失敗。</text></feedback></answer>
+    <answer fraction="0"><text>排列合成不滿足結合律</text><feedback><text>合成恆滿足結合律；此子集只是不封閉。</text></feedback></answer>
+    <generalfeedback><text>子群必須封閉。但 (AB)·(AC) 是 3-循環，不在 {id, (AB), (AC)} 之中。既然套用運算會離開此集合，封閉性失敗，故不可能是子群——其大小 3 雖為 Lagrange 所允許，封閉性仍失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>公式對稱性與群大小</text></name>
+    <questiontext format="html"><text><![CDATA[<p>比較 <code>(A∧B)∨(B∧C)∨(A∧C)</code> 與 <code>A AND NOT B</code>，為何前者 |Aut(f)| = 6 而後者 |Aut(f)| = 1？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>majority 把所有變數視為可互換（每個排列都保持它），而 A AND NOT B 賦予不同角色，故無非平凡排列能保持它</text><feedback><text>正確——變數越可互換，Aut(f) 越大；角色不對稱則使其塌縮為 id。</text></feedback></answer>
+    <answer fraction="0"><text>majority 有較多運算子，而運算子數決定群的大小</text><feedback><text>群的大小反映變數對稱性，而非運算子數。</text></feedback></answer>
+    <answer fraction="0"><text>A AND NOT B 變數較少，而變數越少必為階數 1</text><feedback><text>A AND B 同為兩變數卻為階數 2；差別在於角色的對稱性，而非變數個數。</text></feedback></answer>
+    <answer fraction="0"><text>majority 恆為真，故所有排列都平凡地保持它</text><feedback><text>majority 並非常值；排列之所以保持它，是因變數可互換。</text></feedback></answer>
+    <generalfeedback><text>|Aut(f)| 度量變數有多可互換。majority 中每個變數角色相同，故全部 3! = 6 個排列都保持真值表。A AND NOT B 中變數角色相反，故只剩 id，|Aut(f)| = 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從 majority 軌道推導的蛻變關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 majority，軌道 {F,F,T ; F,T,F ; T,F,F} 給出蛻變關係 maj(F,F,T) = maj(F,T,F) = maj(T,F,F)。這些輸出共享什麼值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>F——每個輸入只有一個變數為真，故多數為假</text><feedback><text>正確——只有一個變數為真時，未達半數為真，故三者的多數皆為 F。</text></feedback></answer>
+    <answer fraction="0"><text>T——多數軌道恆為真</text><feedback><text>權重 1 的列只有一個變數為真，故多數為 F，而非 T。</text></feedback></answer>
+    <answer fraction="0"><text>三個輸出彼此不同</text><feedback><text>軌道夥伴必共享同一值；此處皆為 F，這正是它們構成蛻變關係的原因。</text></feedback></answer>
+    <answer fraction="0"><text>未定義，因為輸入不同</text><feedback><text>輸出皆已定義且等於 F；相異的輸入由對稱性相連。</text></feedback></answer>
+    <generalfeedback><text>三者取多數只在至少兩個變數為真時才為真。此軌道每一列恰有一個變數為真，故三者皆求值為 F。既屬同一軌道，它們必共享同一值——蛻變關係記為 maj(F,F,T) = maj(F,T,F) = maj(T,F,F) = F。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>合成的反元素</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 Aut(f) 的兩個元素 g、h，它們合成的反元素 (g·h)⁻¹ 是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>h⁻¹·g⁻¹——反元素以相反順序排列</text><feedback><text>正確——要抵消「先 g 後 h」，須先抵消 h、再抵消 g：(g·h)⁻¹ = h⁻¹·g⁻¹。</text></feedback></answer>
+    <answer fraction="0"><text>g⁻¹·h⁻¹——反元素以相同順序排列</text><feedback><text>順序必須顛倒；(g·h)⁻¹ = h⁻¹·g⁻¹，而非 g⁻¹·h⁻¹（除非兩者可交換）。</text></feedback></answer>
+    <answer fraction="0"><text>再一次 g·h</text><feedback><text>那只有當 g·h 階數為 2 時才等於反元素；一般而言反元素是 h⁻¹·g⁻¹。</text></feedback></answer>
+    <answer fraction="0"><text>id，因為合成恆為自身的反元素</text><feedback><text>合成一般並非自身的反元素；反元素是 h⁻¹·g⁻¹。</text></feedback></answer>
+    <generalfeedback><text>「先穿襪後穿鞋」法則：要抵消「先 g 後 h」，須先抵消 h、再抵消 g。故 (g·h)⁻¹ = h⁻¹·g⁻¹。對自身為反元素的對換而言，這化為 (g·h)⁻¹ = h·g。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對稱群如何削減測試義務</text></name>
+    <questiontext format="html"><text><![CDATA[<p>綜觀瀏覽器各頁，對稱群 Aut(f) 整體上如何縮減測試工作量？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把對稱等價的真值表列折疊為單一軌道代表元、把 CACC pair 作為軌道映射推導出來，而這些軌道相等又成為可驗證的蛻變關係</text><feedback><text>正確——軌道減少列數、對稱性免費推導 CACC pair、軌道相等匯出為蛻變關係。</text></feedback></answer>
+    <answer fraction="0"><text>它無需任何測試即可證明程式正確</text><feedback><text>群對稱性縮減並關聯測試；它從不單獨證明正確性。</text></feedback></answer>
+    <answer fraction="0"><text>它完全消除對測試預言的需求</text><feedback><text>軌道相等作為蛻變關係——部分預言——但不會完全消除預言。</text></feedback></answer>
+    <answer fraction="0"><text>它為求保險而增加所需測試數</text><feedback><text>重點正是縮減：較少代表元、推導的 CACC pair，以及可重用的蛻變關係。</text></feedback></answer>
+    <generalfeedback><text>Aut(f) 把三個頁面串起來：在軌道瀏覽中把等價列合併為代表元（較少測試）；在 CACC 橋接中把 determination pair 作為種子的軌道映射推導出來（免費覆蓋）；由此得到的軌道相等 f(x) = f(σx) 又成為變形測試瀏覽器可驗證的蛻變關係。</text></generalfeedback>
+  </question>
+</quiz>

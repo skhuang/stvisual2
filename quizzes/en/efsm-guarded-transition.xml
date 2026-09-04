@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/EFSM Guarded Transitions/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>EFSM vs plain FSM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <strong>Extended Finite-State Machine (EFSM)</strong> differs from a plain FSM chiefly by adding what?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Data (context) variables, with transitions carrying guard conditions over those variables</text><feedback><text>Correct — an EFSM extends a plain FSM with data variables and guards (and possibly updates) over them.</text></feedback></answer>
+    <answer fraction="0"><text>More states, but still no conditions on any transition</text><feedback><text>Adding states does not make a machine "extended"; the extension is data variables plus guards.</text></feedback></answer>
+    <answer fraction="0"><text>A requirement that every transition be a self-loop</text><feedback><text>Self-loops are unrelated; the EFSM extension is data variables and guarded transitions.</text></feedback></answer>
+    <answer fraction="0"><text>The removal of the initial state</text><feedback><text>An EFSM still has an initial state; what it adds is data variables and guards.</text></feedback></answer>
+    <generalfeedback><text>A plain FSM has only states and events. An EFSM extends it with data (context) variables; transitions carry guard conditions over those variables and may update them. The app's model uses one variable, amount, with guards such as amount &lt;= 100.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a guard is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this EFSM, what is a <strong>guard</strong> on a transition?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A boolean condition over the data variable that must hold for the transition to fire</text><feedback><text>Correct — e.g. amount &lt;= 100 must be true for the approve transition to fire.</text></feedback></answer>
+    <answer fraction="0"><text>The event name that triggers the transition</text><feedback><text>That is the event (e.g. approve); the guard is the extra condition on it.</text></feedback></answer>
+    <answer fraction="0"><text>The destination state of the transition</text><feedback><text>The destination is where the transition leads; the guard decides whether it may fire.</text></feedback></answer>
+    <answer fraction="0"><text>The concrete input value chosen by the solver</text><feedback><text>The solver picks a value that satisfies the guards; the guard itself is the condition.</text></feedback></answer>
+    <generalfeedback><text>A guard is a boolean condition over the context variable (here amount). When its event occurs, the transition fires only if the guard evaluates to true — for example approve fires only when amount &lt;= 100.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Context variable defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>context (data) variable</strong> in an EFSM?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A variable the machine carries whose value the guards test to decide which transitions may fire</text><feedback><text>Correct — here amount is the context variable that every guard is written over.</text></feedback></answer>
+    <answer fraction="0"><text>A synonym for the current state</text><feedback><text>The state is the mode the machine is in; a context variable is separate data the guards read.</text></feedback></answer>
+    <answer fraction="0"><text>The list of events the machine accepts</text><feedback><text>Those are events; a context variable is data whose value guards evaluate.</text></feedback></answer>
+    <answer fraction="0"><text>The name of a transition</text><feedback><text>Transitions are identified by their event and endpoints; a context variable holds data.</text></feedback></answer>
+    <generalfeedback><text>A context (data) variable is state carried alongside the control state; guards are predicates over it. This model has exactly one such variable, amount (an integer input).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Enabled transition defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an EFSM, a transition is <strong>enabled</strong> when...</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>its event occurs in the current state and its guard evaluates to true</text><feedback><text>Correct — both the event and a satisfied guard are needed for the transition to fire.</text></feedback></answer>
+    <answer fraction="0"><text>its event occurs, regardless of the guard</text><feedback><text>Even if the event occurs, a false guard blocks the transition; it is not enabled.</text></feedback></answer>
+    <answer fraction="0"><text>its guard is true, regardless of which event occurs</text><feedback><text>A true guard alone is not enough; the matching event must also occur.</text></feedback></answer>
+    <answer fraction="0"><text>the machine is in its initial state</text><feedback><text>Being in the initial state does not by itself enable any particular transition.</text></feedback></answer>
+    <generalfeedback><text>A transition is enabled (may fire) only when both conditions hold: its triggering event occurs in the current state, and its guard evaluates to true for the current variable value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Update/action in an EFSM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the general EFSM model, what is an <strong>update</strong> (or action) on a transition?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An assignment that changes a data variable's value when the transition fires</text><feedback><text>Correct — updates modify context variables (this app's model happens to use guards only, with no updates).</text></feedback></answer>
+    <answer fraction="0"><text>The boolean condition checked before firing</text><feedback><text>That is the guard, not the update; an update changes a variable's value.</text></feedback></answer>
+    <answer fraction="0"><text>The event that triggers the transition</text><feedback><text>The event is the trigger; the update is the effect on the data.</text></feedback></answer>
+    <answer fraction="0"><text>The destination state</text><feedback><text>The destination is control flow; an update is the data assignment performed while firing.</text></feedback></answer>
+    <generalfeedback><text>In a full EFSM a transition can both test variables (guard) and change them (update/action), e.g. attempts := attempts + 1. This app's withdrawal model uses guards over the input amount only and performs no updates, so amount keeps its input value along a path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The model's data variable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the app's withdrawal-request EFSM, what is the single data variable that all guards are written over?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount, an integer input</text><feedback><text>Correct — the model has one variable, amount, and every guard tests it.</text></feedback></answer>
+    <answer fraction="0"><text>balance</text><feedback><text>There is no balance variable in this model; the only variable is amount.</text></feedback></answer>
+    <answer fraction="0"><text>attempts</text><feedback><text>attempts belongs to a different example; this model's variable is amount.</text></feedback></answer>
+    <answer fraction="0"><text>state</text><feedback><text>state is the control mode, not the data variable; the data variable is amount.</text></feedback></answer>
+    <generalfeedback><text>The model declares one variable: amount (an integer input). The daily limit (100) and fraud threshold (200) are not variables — they appear as constants inside the guards.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Daily-limit guard constant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the model, the daily withdrawal limit appears as which <strong>constant</strong> inside the guards?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100 — in the guards amount &lt;= 100 (approve) and amount &gt;= 101 (decline)</text><feedback><text>Correct — the daily limit 100 splits Checking into approve (&lt;= 100) and decline (&gt;= 101).</text></feedback></answer>
+    <answer fraction="0"><text>200</text><feedback><text>200 is the fraud threshold (guard amount &gt;= 200 on fraudHold), not the daily limit.</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 is the recheck guard constant (amount &lt;= 50), not the daily limit.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 is the enterAmount guard constant (amount &gt;= 1), not the daily limit.</text></feedback></answer>
+    <generalfeedback><text>The daily limit is encoded as 100: approve requires amount &lt;= 100 and decline requires amount &gt;= 101. The fraud threshold (200) is a separate constant on fraudHold.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fraud-threshold guard constant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which transition carries the guard <code>amount &gt;= 200</code>, encoding the fraud threshold?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>fraudHold, from Approved to Denied</text><feedback><text>Correct — fraudHold fires from Approved to Denied only when amount &gt;= 200.</text></feedback></answer>
+    <answer fraction="0"><text>approve, from Checking to Approved</text><feedback><text>approve's guard is amount &lt;= 100, not amount &gt;= 200.</text></feedback></answer>
+    <answer fraction="0"><text>decline, from Checking to Denied</text><feedback><text>decline's guard is amount &gt;= 101, not amount &gt;= 200.</text></feedback></answer>
+    <answer fraction="0"><text>enterAmount, from Idle to Checking</text><feedback><text>enterAmount's guard is amount &gt;= 1, not amount &gt;= 200.</text></feedback></answer>
+    <generalfeedback><text>The fraud threshold 200 appears on fraudHold: Approved --fraudHold [amount &gt;= 200]--&gt; Denied. It flags an already-approved request as fraudulent when the amount is large.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Guard on enterAmount</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What guard does the <code>enterAmount</code> transition (Idle to Checking) carry?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount &gt;= 1</text><feedback><text>Correct — you can only enter Checking with a positive amount.</text></feedback></answer>
+    <answer fraction="0"><text>amount &lt;= 100</text><feedback><text>That is the approve guard, not enterAmount.</text></feedback></answer>
+    <answer fraction="0"><text>amount &gt;= 200</text><feedback><text>That is the fraudHold guard, not enterAmount.</text></feedback></answer>
+    <answer fraction="0"><text>no guard (always true)</text><feedback><text>enterAmount does have a guard, amount &gt;= 1; dispense and eject are the unguarded transitions.</text></feedback></answer>
+    <generalfeedback><text>enterAmount fires from Idle to Checking under the guard amount &gt;= 1, so a non-positive amount cannot start a check.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Guard on approve</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What guard does the <code>approve</code> transition (Checking to Approved) carry?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount &lt;= 100</text><feedback><text>Correct — approve fires only when the amount is within the daily limit.</text></feedback></answer>
+    <answer fraction="0"><text>amount &gt;= 101</text><feedback><text>That is the decline guard, the complementary branch out of Checking.</text></feedback></answer>
+    <answer fraction="0"><text>amount &lt;= 50</text><feedback><text>That is the recheck guard (Approved to Checking), not approve.</text></feedback></answer>
+    <answer fraction="0"><text>amount &gt;= 1</text><feedback><text>That is the enterAmount guard, not approve.</text></feedback></answer>
+    <generalfeedback><text>approve fires from Checking to Approved under amount &lt;= 100. Its complement, decline (amount &gt;= 101), leaves Checking for Denied.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transitions with no guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which transitions in the model have <strong>no guard</strong> (shown as a dash, guard = true)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>dispense (Approved to Idle) and eject (Denied to Idle)</text><feedback><text>Correct — both are unconditional; they always fire when their event occurs.</text></feedback></answer>
+    <answer fraction="0"><text>approve and decline</text><feedback><text>approve (amount &lt;= 100) and decline (amount &gt;= 101) are both guarded.</text></feedback></answer>
+    <answer fraction="0"><text>enterAmount and recheck</text><feedback><text>enterAmount (amount &gt;= 1) and recheck (amount &lt;= 50) are both guarded.</text></feedback></answer>
+    <answer fraction="0"><text>fraudHold and approve</text><feedback><text>fraudHold (amount &gt;= 200) and approve (amount &lt;= 100) are both guarded.</text></feedback></answer>
+    <generalfeedback><text>Only dispense and eject carry guard = true (drawn as a dash). Both return the machine to Idle unconditionally once their event occurs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Initial state of the model</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>initial state</strong> of the withdrawal-request EFSM?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Idle</text><feedback><text>Correct — the machine starts in Idle and returns there via dispense or eject.</text></feedback></answer>
+    <answer fraction="0"><text>Checking</text><feedback><text>Checking is reached after enterAmount; the machine starts in Idle.</text></feedback></answer>
+    <answer fraction="0"><text>Approved</text><feedback><text>Approved is reached via approve; it is not the start state.</text></feedback></answer>
+    <answer fraction="0"><text>Denied</text><feedback><text>Denied is reached via decline or fraudHold; it is not the start state.</text></feedback></answer>
+    <generalfeedback><text>The model declares Idle as the initial state. Every abstract test path starts and ends at Idle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why guards split the Checking edge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the app, what do the guards <code>amount &lt;= 100</code> and <code>amount &gt;= 101</code> do to the "leave Checking" edge?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They split one edge into two mutually exclusive branches (approve and decline)</text><feedback><text>Correct — exactly one of the two guards can hold for any amount, so the branches are mutually exclusive.</text></feedback></answer>
+    <answer fraction="0"><text>They make Checking unreachable</text><feedback><text>Checking is reachable via enterAmount; the guards only split its outgoing edge.</text></feedback></answer>
+    <answer fraction="0"><text>They allow both approve and decline to fire at once</text><feedback><text>The guards are complementary, so at most one can hold; they are mutually exclusive.</text></feedback></answer>
+    <answer fraction="0"><text>They delete the Checking state entirely</text><feedback><text>Checking stays; the guards partition how the machine leaves it.</text></feedback></answer>
+    <generalfeedback><text>The daily-limit guards amount &lt;= 100 and amount &gt;= 101 partition every amount into exactly one branch: approve (within limit) or decline (over limit). One graph edge becomes two mutually exclusive guarded branches.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What infeasible means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this explorer, what does it mean for an abstract path to be <strong>infeasible</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No input value can satisfy all the path's guards at once — their conjunction is unsatisfiable</text><feedback><text>Correct — feasibility is satisfiability of the conjunction of the path's guards.</text></feedback></answer>
+    <answer fraction="0"><text>The path visits a state that does not exist</text><feedback><text>Every path is graph-valid; infeasibility is about the guards, not missing states.</text></feedback></answer>
+    <answer fraction="0"><text>The path is longer than the number of states</text><feedback><text>Length has nothing to do with feasibility; the guard conjunction is what matters.</text></feedback></answer>
+    <answer fraction="0"><text>The path has no guards on any transition</text><feedback><text>A path with no guards is trivially feasible; infeasibility means the guards contradict.</text></feedback></answer>
+    <generalfeedback><text>An abstract path is a graph-valid event sequence. It is infeasible when the conjunction of its transitions' guards has no solution — no single amount can make them all true — so no test can exercise it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the solver reports for a feasible path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a path is <strong>feasible</strong>, what does the explorer hand back?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete input value for amount that satisfies all the path's guards</text><feedback><text>Correct — feasible paths go to the constraint solver, which yields a witness value of amount.</text></feedback></answer>
+    <answer fraction="0"><text>A proof that the path can never be executed</text><feedback><text>That would describe an infeasible path; a feasible path yields a concrete input.</text></feedback></answer>
+    <answer fraction="0"><text>A new state added to the machine</text><feedback><text>The solver does not add states; it produces a concrete amount value.</text></feedback></answer>
+    <answer fraction="0"><text>The number of events in the path</text><feedback><text>The solver returns a satisfying amount, not a count of events.</text></feedback></answer>
+    <generalfeedback><text>Feasible paths are handed to the constraint solver, which returns a concrete witness value of amount that satisfies the whole guard conjunction — a ready-made test input.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/EFSM Guarded Transitions/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>approve at amount=80</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The machine is in <code>Checking</code> with <code>amount = 80</code>, and the event <code>approve</code> occurs (guard <code>amount &lt;= 100</code>). What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The transition fires; the machine moves to Approved</text><feedback><text>Correct — 80 &lt;= 100 is true, so approve fires into Approved.</text></feedback></answer>
+    <answer fraction="0"><text>The guard fails and the machine stays in Checking</text><feedback><text>80 &lt;= 100 is true, so the guard holds and the transition fires.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Denied</text><feedback><text>Denied is reached by decline (amount &gt;= 101), which is false for 80; approve fires instead.</text></feedback></answer>
+    <answer fraction="0"><text>The machine returns to Idle</text><feedback><text>approve leads to Approved, not Idle; Idle is reached by dispense or eject.</text></feedback></answer>
+    <generalfeedback><text>approve's guard is amount &lt;= 100. With amount = 80 the guard holds, so the transition fires and the machine enters Approved.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>approve at amount=150</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Checking</code> with <code>amount = 150</code>, the event <code>approve</code> occurs (guard <code>amount &lt;= 100</code>). What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>approve is blocked — its guard amount &lt;= 100 is false, so no transition fires on approve</text><feedback><text>Correct — 150 &lt;= 100 is false, so approve cannot fire; the machine stays in Checking.</text></feedback></answer>
+    <answer fraction="0"><text>approve fires and the machine moves to Approved</text><feedback><text>150 &lt;= 100 is false, so the guard blocks approve; it does not fire.</text></feedback></answer>
+    <answer fraction="0"><text>The machine automatically takes decline to Denied instead</text><feedback><text>decline fires only on its own event; the approve event with a false guard simply does nothing.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Idle</text><feedback><text>A blocked approve causes no transition; the machine remains in Checking.</text></feedback></answer>
+    <generalfeedback><text>With amount = 150 the guard amount &lt;= 100 is false, so the approve transition is not enabled and does not fire. To leave Checking here the decline event (guard amount &gt;= 101, which 150 satisfies) would be needed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>decline at amount=150</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Checking</code> with <code>amount = 150</code>, the event <code>decline</code> occurs (guard <code>amount &gt;= 101</code>). What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The transition fires; the machine moves to Denied</text><feedback><text>Correct — 150 &gt;= 101 is true, so decline fires into Denied.</text></feedback></answer>
+    <answer fraction="0"><text>The guard fails and nothing happens</text><feedback><text>150 &gt;= 101 is true, so the guard holds and decline fires.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Approved</text><feedback><text>Approved is reached by approve (amount &lt;= 100), which is false for 150; decline fires instead.</text></feedback></answer>
+    <answer fraction="0"><text>The machine returns to Idle</text><feedback><text>decline leads to Denied; Idle is reached later via eject.</text></feedback></answer>
+    <generalfeedback><text>decline's guard is amount &gt;= 101. With amount = 150 it holds, so decline fires and the machine enters Denied.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>fraudHold at amount=250</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The machine is in <code>Approved</code> with <code>amount = 250</code>, and the event <code>fraudHold</code> occurs (guard <code>amount &gt;= 200</code>). What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The transition fires; the machine moves to Denied</text><feedback><text>Correct — 250 &gt;= 200 is true, so fraudHold fires from Approved to Denied.</text></feedback></answer>
+    <answer fraction="0"><text>The guard fails and the machine stays in Approved</text><feedback><text>250 &gt;= 200 is true, so the guard holds and fraudHold fires.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Checking</text><feedback><text>Approved to Checking is recheck (amount &lt;= 50), which is false for 250; fraudHold goes to Denied.</text></feedback></answer>
+    <answer fraction="0"><text>The machine returns to Idle</text><feedback><text>fraudHold leads to Denied, not Idle; dispense would go to Idle.</text></feedback></answer>
+    <generalfeedback><text>fraudHold's guard is amount &gt;= 200. With amount = 250 the guard holds, so an already-approved request is flagged and moved to Denied.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>recheck at amount=30</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Approved</code> with <code>amount = 30</code>, the event <code>recheck</code> occurs (guard <code>amount &lt;= 50</code>). What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The transition fires; the machine moves back to Checking</text><feedback><text>Correct — 30 &lt;= 50 is true, so recheck fires from Approved to Checking.</text></feedback></answer>
+    <answer fraction="0"><text>The guard fails and the machine stays in Approved</text><feedback><text>30 &lt;= 50 is true, so the guard holds and recheck fires.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Denied</text><feedback><text>recheck leads to Checking, not Denied.</text></feedback></answer>
+    <answer fraction="0"><text>The machine returns to Idle</text><feedback><text>recheck leads to Checking; dispense would return to Idle.</text></feedback></answer>
+    <generalfeedback><text>recheck's guard is amount &lt;= 50. With amount = 30 the guard holds, so the machine loops back from Approved to Checking.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>recheck at amount=80</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Approved</code> with <code>amount = 80</code>, the event <code>recheck</code> occurs (guard <code>amount &lt;= 50</code>). What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>recheck is blocked — its guard amount &lt;= 50 is false, so it does not fire</text><feedback><text>Correct — 80 &lt;= 50 is false, so recheck is not enabled; the machine stays in Approved.</text></feedback></answer>
+    <answer fraction="0"><text>recheck fires and the machine returns to Checking</text><feedback><text>80 &lt;= 50 is false, so the guard blocks recheck; it does not fire.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Denied</text><feedback><text>A blocked recheck causes no transition; only fraudHold or dispense could act here on their own events.</text></feedback></answer>
+    <answer fraction="0"><text>The machine returns to Idle</text><feedback><text>A false guard causes no transition; the machine remains in Approved.</text></feedback></answer>
+    <generalfeedback><text>recheck requires amount &lt;= 50. With amount = 80 the guard is false, so recheck is not enabled and the machine stays in Approved.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>enterAmount at amount=0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Idle</code> with <code>amount = 0</code>, the event <code>enterAmount</code> occurs (guard <code>amount &gt;= 1</code>). What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>enterAmount is blocked — the guard amount &gt;= 1 is false, so the machine stays in Idle</text><feedback><text>Correct — 0 &gt;= 1 is false, so the transition is not enabled.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Checking anyway</text><feedback><text>0 &gt;= 1 is false, so the guard blocks the move to Checking.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Denied</text><feedback><text>Idle has only one outgoing transition (enterAmount); a false guard leaves the machine in Idle.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Approved</text><feedback><text>There is no Idle-to-Approved transition; and the enterAmount guard is false here anyway.</text></feedback></answer>
+    <generalfeedback><text>enterAmount requires amount &gt;= 1. With amount = 0 the guard fails, so a non-positive amount cannot start a check and the machine remains in Idle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why approve is blocked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At <code>amount = 150</code> the <code>approve</code> event does not move the machine out of Checking. Which statement best explains why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its guard amount &lt;= 100 evaluates to false, and a transition fires only when its guard holds</text><feedback><text>Correct — the event occurred but the guard is false, so the transition is not enabled.</text></feedback></answer>
+    <answer fraction="0"><text>Approved is a final state with no incoming transitions</text><feedback><text>Approved does have an incoming transition (approve); the block here is the false guard.</text></feedback></answer>
+    <answer fraction="0"><text>The event approve does not exist in Checking</text><feedback><text>approve is defined in Checking; it is simply guard-blocked at amount = 150.</text></feedback></answer>
+    <answer fraction="0"><text>amount is not a valid variable</text><feedback><text>amount is the model's variable; the reason approve is blocked is that its guard is false.</text></feedback></answer>
+    <generalfeedback><text>An event occurring is necessary but not sufficient: the transition fires only if its guard is true. At amount = 150, approve's guard amount &lt;= 100 is false, so the transition is disabled.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>dispense needs no guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The machine is in <code>Approved</code> and the event <code>dispense</code> occurs. dispense has guard = true. What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It always fires, returning the machine to Idle regardless of amount</text><feedback><text>Correct — an unguarded (true) transition fires whenever its event occurs.</text></feedback></answer>
+    <answer fraction="0"><text>It fires only if amount &lt;= 100</text><feedback><text>dispense has no guard; it is unconditional, so amount is irrelevant.</text></feedback></answer>
+    <answer fraction="0"><text>It never fires because it has no guard</text><feedback><text>guard = true means always satisfied, so the transition always fires on its event.</text></feedback></answer>
+    <answer fraction="0"><text>It moves the machine to Denied</text><feedback><text>dispense leads to Idle; fraudHold is the Approved-to-Denied transition.</text></feedback></answer>
+    <generalfeedback><text>dispense carries guard = true (shown as a dash), so it always fires on its event and returns the machine from Approved to Idle, whatever the value of amount.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match term to role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the model, which mapping of term to role is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount = context variable; amount &lt;= 100 = guard; approve = event; Approved = state</text><feedback><text>Correct — the variable is the data, the guard is the condition, the event is the trigger, and the state is the mode.</text></feedback></answer>
+    <answer fraction="0"><text>amount = event; approve = guard; Approved = variable; Checking = event</text><feedback><text>This swaps every role; amount is the variable and approve is the event.</text></feedback></answer>
+    <answer fraction="0"><text>amount &lt;= 100 = state; Approved = guard; approve = variable</text><feedback><text>A guard is a condition, not a state; Approved is a state, not a guard.</text></feedback></answer>
+    <answer fraction="0"><text>approve = state; Checking = guard; amount = event</text><feedback><text>approve is an event, Checking is a state, and amount is the variable.</text></feedback></answer>
+    <generalfeedback><text>Roles: amount is the context variable; amount &lt;= 100 is a guard (a predicate over that variable); approve is an event (the trigger); Approved is a state (a control mode).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>approve at boundary amount=100</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Checking</code> with <code>amount = 100</code>, the event <code>approve</code> occurs (guard <code>amount &lt;= 100</code>). Does it fire?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — 100 &lt;= 100 is true, so approve fires to Approved</text><feedback><text>Correct — the boundary value 100 satisfies amount &lt;= 100 (the comparison is inclusive).</text></feedback></answer>
+    <answer fraction="0"><text>No — 100 is over the limit</text><feedback><text>amount &lt;= 100 includes 100, so the boundary value passes and approve fires.</text></feedback></answer>
+    <answer fraction="0"><text>No — decline fires instead to Denied</text><feedback><text>decline needs amount &gt;= 101, which 100 does not satisfy; approve fires.</text></feedback></answer>
+    <answer fraction="0"><text>Only if the recheck guard also holds</text><feedback><text>recheck is unrelated to approve; approve fires because amount &lt;= 100 holds at 100.</text></feedback></answer>
+    <generalfeedback><text>The guard amount &lt;= 100 is inclusive, so amount = 100 satisfies it and approve fires into Approved. The complementary decline guard amount &gt;= 101 is false at 100.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>decline at boundary amount=101</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Checking</code> with <code>amount = 101</code>, which single branch out of Checking is enabled?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>decline (amount &gt;= 101) to Denied — approve's guard amount &lt;= 100 is false at 101</text><feedback><text>Correct — 101 satisfies amount &gt;= 101 but not amount &lt;= 100, so only decline is enabled.</text></feedback></answer>
+    <answer fraction="0"><text>approve (amount &lt;= 100) to Approved</text><feedback><text>101 &lt;= 100 is false, so approve is disabled; decline is the enabled branch.</text></feedback></answer>
+    <answer fraction="0"><text>Both approve and decline</text><feedback><text>The guards are complementary; at 101 only decline holds.</text></feedback></answer>
+    <answer fraction="0"><text>Neither branch</text><feedback><text>101 satisfies amount &gt;= 101, so decline is enabled.</text></feedback></answer>
+    <generalfeedback><text>At amount = 101 the daily-limit split resolves to decline: amount &gt;= 101 is true while amount &lt;= 100 is false. The two guards partition every amount, and 101 is the first value on the decline side.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which branch at amount=100</text></name>
+    <questiontext format="html"><text><![CDATA[<p>From <code>Checking</code>, approve is guarded <code>amount &lt;= 100</code> and decline is guarded <code>amount &gt;= 101</code>. At <code>amount = 100</code>, which branch(es) may fire?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only approve — 100 satisfies amount &lt;= 100 but not amount &gt;= 101</text><feedback><text>Correct — the two guards are mutually exclusive, and 100 lies on the approve side.</text></feedback></answer>
+    <answer fraction="0"><text>Only decline</text><feedback><text>decline needs amount &gt;= 101, which 100 fails; approve is the enabled branch.</text></feedback></answer>
+    <answer fraction="0"><text>Both, non-deterministically</text><feedback><text>The guards cannot both hold for one amount; at 100 only approve holds.</text></feedback></answer>
+    <answer fraction="0"><text>Neither</text><feedback><text>100 satisfies amount &lt;= 100, so approve is enabled.</text></feedback></answer>
+    <generalfeedback><text>Because amount &lt;= 100 and amount &gt;= 101 partition the integers, exactly one branch is enabled for any amount. At 100 it is approve; the machine cannot take decline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of the enterAmount guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the guard <code>amount &gt;= 1</code> on <code>enterAmount</code> accomplish?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It prevents starting a check with a non-positive amount (amount &lt;= 0 stays in Idle)</text><feedback><text>Correct — only a positive amount can move the machine from Idle to Checking.</text></feedback></answer>
+    <answer fraction="0"><text>It caps the amount at the daily limit of 100</text><feedback><text>The daily-limit cap is the approve/decline split; amount &gt;= 1 only rules out non-positive amounts.</text></feedback></answer>
+    <answer fraction="0"><text>It resets amount to 1 on entry</text><feedback><text>The model has no updates; the guard tests amount, it does not assign to it.</text></feedback></answer>
+    <answer fraction="0"><text>It flags fraud for large amounts</text><feedback><text>Fraud is the fraudHold guard amount &gt;= 200; amount &gt;= 1 is about positivity.</text></feedback></answer>
+    <generalfeedback><text>enterAmount's guard amount &gt;= 1 rejects amounts of 0 or below: with such an input the transition is disabled and the machine stays in Idle. It does not change amount, since this model performs no updates.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Satisfied guards in Approved at amount=250</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>Approved</code> with <code>amount = 250</code>, which outgoing transitions have a <strong>satisfied guard</strong>? (Outgoing: fraudHold [amount &gt;= 200], dispense [true], recheck [amount &lt;= 50].)</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>fraudHold and dispense</text><feedback><text>Correct — 250 &gt;= 200 (fraudHold) holds and dispense is unguarded; recheck needs amount &lt;= 50, which fails.</text></feedback></answer>
+    <answer fraction="0"><text>All three</text><feedback><text>recheck's guard amount &lt;= 50 is false at 250, so only fraudHold and dispense qualify.</text></feedback></answer>
+    <answer fraction="0"><text>Only dispense</text><feedback><text>fraudHold's guard amount &gt;= 200 also holds at 250.</text></feedback></answer>
+    <answer fraction="0"><text>fraudHold and recheck</text><feedback><text>recheck (amount &lt;= 50) fails at 250; dispense (unguarded) qualifies alongside fraudHold.</text></feedback></answer>
+    <generalfeedback><text>At amount = 250: fraudHold's guard amount &gt;= 200 is true, dispense is unguarded (always true), and recheck's guard amount &lt;= 50 is false. So fraudHold and dispense have satisfied guards. Which one actually fires depends on which event occurs.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/EFSM Guarded Transitions/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Solver witness for PA</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Path <strong>PA</strong> is <code>enterAmount &middot; approve &middot; dispense</code>, collecting guards <code>amount &gt;= 1</code> and <code>amount &lt;= 100</code>. The solver picks the smallest-magnitude integer that satisfies both. What value of amount does it report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — the feasible set is 1 to 100; the smallest-magnitude integer in it is 1.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>0 fails amount &gt;= 1, so it is not in the feasible set.</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 satisfies both guards but is not the smallest-magnitude solution; 1 is.</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 is a valid witness but not the smallest; the solver reports 1.</text></feedback></answer>
+    <generalfeedback><text>PA's guard conjunction is amount &gt;= 1 and amount &lt;= 100, i.e. the interval [1, 100]. The solver returns the integer of smallest absolute value in that interval, which is 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Solver witness for PB</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Path <strong>PB</strong> is <code>enterAmount &middot; decline &middot; eject</code>, collecting guards <code>amount &gt;= 1</code> and <code>amount &gt;= 101</code>. What value of amount does the solver report (smallest-magnitude integer satisfying both)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>101</text><feedback><text>Correct — the two guards intersect to amount &gt;= 101, whose smallest integer is 101.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 satisfies amount &gt;= 1 but not amount &gt;= 101, so it is not feasible for PB.</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 fails amount &gt;= 101; the smallest feasible integer is 101.</text></feedback></answer>
+    <answer fraction="0"><text>102</text><feedback><text>102 is feasible but not the smallest; 101 is the smallest integer with amount &gt;= 101.</text></feedback></answer>
+    <generalfeedback><text>amount &gt;= 1 and amount &gt;= 101 intersect to amount &gt;= 101. The smallest-magnitude integer satisfying that is 101, so the solver reports amount = 101.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why PC is infeasible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Path <strong>PC</strong> is <code>enterAmount &middot; approve &middot; fraudHold &middot; eject</code>, collecting guards <code>amount &gt;= 1</code>, <code>amount &lt;= 100</code>, and <code>amount &gt;= 200</code>. Why is it infeasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No amount can satisfy amount &lt;= 100 and amount &gt;= 200 at once — the conjunction is unsatisfiable</text><feedback><text>Correct — approve requires at most 100 while fraudHold requires at least 200, which cannot both hold.</text></feedback></answer>
+    <answer fraction="0"><text>Because it passes through the Denied state</text><feedback><text>Visiting Denied is fine; the path is infeasible because two guards contradict.</text></feedback></answer>
+    <answer fraction="0"><text>Because eject has no guard</text><feedback><text>An unguarded transition adds no constraint; infeasibility comes from amount &lt;= 100 and amount &gt;= 200.</text></feedback></answer>
+    <answer fraction="0"><text>Because the path has four transitions</text><feedback><text>Length is irrelevant; the contradiction between amount &lt;= 100 and amount &gt;= 200 makes it infeasible.</text></feedback></answer>
+    <generalfeedback><text>To take approve then fraudHold on the same input, amount must be both &lt;= 100 and &gt;= 200. No integer satisfies both, so the guard conjunction is unsatisfiable and PC is infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why PD is infeasible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Path <strong>PD</strong> is <code>enterAmount &middot; approve &middot; recheck &middot; decline &middot; eject</code>, collecting guards <code>amount &gt;= 1</code>, <code>amount &lt;= 100</code>, <code>amount &lt;= 50</code>, and <code>amount &gt;= 101</code>. Why is it infeasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>recheck requires amount &lt;= 50 while decline requires amount &gt;= 101, and no amount satisfies both</text><feedback><text>Correct — amount &lt;= 50 and amount &gt;= 101 contradict, so the conjunction is unsatisfiable.</text></feedback></answer>
+    <answer fraction="0"><text>Because it revisits the Checking state</text><feedback><text>Revisiting a state is allowed; the contradiction is between amount &lt;= 50 and amount &gt;= 101.</text></feedback></answer>
+    <answer fraction="0"><text>Because it is the longest path in the model</text><feedback><text>Length does not decide feasibility; the guard conjunction being unsatisfiable does.</text></feedback></answer>
+    <answer fraction="0"><text>Because approve and decline are the same event</text><feedback><text>approve and decline are distinct events; infeasibility is due to amount &lt;= 50 versus amount &gt;= 101.</text></feedback></answer>
+    <generalfeedback><text>After recheck (amount &lt;= 50) the path then needs decline (amount &gt;= 101) on the same input amount. Since amount cannot be both at most 50 and at least 101, the conjunction has no solution and PD is infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasibility and witness of PE</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Path <strong>PE</strong> is <code>enterAmount &middot; approve &middot; recheck &middot; approve &middot; dispense</code>, collecting guards <code>amount &gt;= 1</code>, <code>amount &lt;= 100</code>, <code>amount &lt;= 50</code>, and <code>amount &lt;= 100</code>. Is it feasible, and what does the solver report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Feasible; the guards reduce to 1 &lt;= amount &lt;= 50, and the solver reports amount = 1</text><feedback><text>Correct — the two amount &lt;= 100 clauses are subsumed by amount &lt;= 50, leaving [1, 50]; the smallest integer is 1.</text></feedback></answer>
+    <answer fraction="0"><text>Infeasible, because recheck and approve conflict</text><feedback><text>They do not conflict: amount &lt;= 50 also satisfies amount &lt;= 100, so the intersection [1, 50] is non-empty.</text></feedback></answer>
+    <answer fraction="0"><text>Feasible; the solver reports amount = 50</text><feedback><text>50 is a valid witness but not the smallest; the solver reports 1.</text></feedback></answer>
+    <answer fraction="0"><text>Infeasible, because it takes approve twice</text><feedback><text>Taking approve twice is fine; both times amount &lt;= 100 must hold, which [1, 50] satisfies.</text></feedback></answer>
+    <generalfeedback><text>PE's guards are amount &gt;= 1, amount &lt;= 100, amount &lt;= 50, amount &lt;= 100. The tightest bounds give 1 &lt;= amount &lt;= 50, which is satisfiable, so PE is feasible and the solver returns the smallest-magnitude integer, amount = 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasible vs pruned path count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The explorer lists 5 abstract graph paths (PA-PE). How many are feasible, and how many do the guards prune as infeasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 feasible (PA, PB, PE) and 2 pruned (PC, PD)</text><feedback><text>Correct — PC and PD have contradictory guards; the other three are satisfiable.</text></feedback></answer>
+    <answer fraction="0"><text>5 feasible and 0 pruned</text><feedback><text>PC and PD are infeasible, so not all five survive.</text></feedback></answer>
+    <answer fraction="0"><text>2 feasible and 3 pruned</text><feedback><text>Three paths (PA, PB, PE) are feasible; only two are pruned.</text></feedback></answer>
+    <answer fraction="0"><text>4 feasible and 1 pruned</text><feedback><text>Two paths are pruned (PC and PD), not one.</text></feedback></answer>
+    <generalfeedback><text>PA, PB, and PE have satisfiable guard conjunctions; PC (amount &lt;= 100 and amount &gt;= 200) and PD (amount &lt;= 50 and amount &gt;= 101) do not. So the guards prune 2 of the 5 graph paths, leaving 3 feasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why one amount must satisfy all guards</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why must a <strong>single</strong> value of amount satisfy every guard along a path for that path to be feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>amount is an input set once and never updated, so the whole path runs on that one value and its guards conjunct</text><feedback><text>Correct — with no updates, the same amount is tested at every step, so all guards must hold together.</text></feedback></answer>
+    <answer fraction="0"><text>Because each transition reassigns amount to a new value</text><feedback><text>This model has no updates; amount is not reassigned, which is exactly why one value must satisfy all guards.</text></feedback></answer>
+    <answer fraction="0"><text>Because guards are evaluated only at the initial state</text><feedback><text>Each transition's guard is checked when that transition fires, but all on the same fixed amount.</text></feedback></answer>
+    <answer fraction="0"><text>Because the solver can only try one number in total</text><feedback><text>The solver searches many values; the point is that one amount must satisfy the whole conjunction.</text></feedback></answer>
+    <generalfeedback><text>In this model amount is a pure input with no update actions, so its value is fixed for the entire run. Feasibility therefore requires one amount to satisfy the conjunction of all the path's guards simultaneously.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why EFSM needs guard-aware test generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is <strong>guard-aware</strong> test generation needed for an EFSM, rather than plain FSM graph-path coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Some graph-valid paths are infeasible; naive path coverage wastes effort chasing inputs that cannot exist</text><feedback><text>Correct — guards make certain abstract paths unexecutable, so tests must be derived with the guards in mind.</text></feedback></answer>
+    <answer fraction="0"><text>EFSMs have no states, so ordinary coverage does not apply</text><feedback><text>EFSMs still have states; the issue is that guards render some paths infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Guard-aware generation is only about making tests run faster</text><feedback><text>The point is correctness of the test targets, not speed: it avoids impossible paths.</text></feedback></answer>
+    <answer fraction="0"><text>Because every EFSM path is always feasible</text><feedback><text>The opposite is true — some paths are infeasible, which is why guards must be considered.</text></feedback></answer>
+    <generalfeedback><text>A graph-only view treats all 5 paths as test targets, but 2 are infeasible. Generating tests for them wastes effort searching for inputs that cannot exist. Guard-aware generation only targets paths whose guard conjunction is satisfiable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading the FSM-vs-EFSM bars</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The comparison shows FSM (graph paths) = 5 and EFSM (feasible) = 3. What does the gap of 2 represent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The 2 abstract paths (PC and PD) that guards prune as infeasible</text><feedback><text>Correct — the gap is exactly the paths whose guard conjunction is unsatisfiable.</text></feedback></answer>
+    <answer fraction="0"><text>The 2 states that the EFSM removed from the FSM</text><feedback><text>No states are removed; the gap counts pruned paths, not states.</text></feedback></answer>
+    <answer fraction="0"><text>The 2 extra events the EFSM adds</text><feedback><text>No events are added; the gap is the infeasible paths dropped.</text></feedback></answer>
+    <answer fraction="0"><text>The 2 guards that always evaluate to true</text><feedback><text>The gap is a count of pruned paths, not of unguarded transitions.</text></feedback></answer>
+    <generalfeedback><text>The FSM bar counts all 5 graph paths; the EFSM bar counts the 3 feasible ones. The difference, 2, is the number of paths guards prune as infeasible (PC and PD) — tests that plain path coverage would have chased in vain.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Can reordering rescue PC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Could reordering the transitions of <strong>PC</strong> (which needs both <code>amount &lt;= 100</code> and <code>amount &gt;= 200</code>) make it feasible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — feasibility depends on the conjunction of guards, which is order-independent and still unsatisfiable</text><feedback><text>Correct — logical AND is commutative, so no ordering rescues an unsatisfiable conjunction.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — checking amount &gt;= 200 before amount &lt;= 100 would pass</text><feedback><text>Order does not matter for a conjunction; both must hold at once, which is impossible.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — as long as an unguarded transition comes last</text><feedback><text>An unguarded transition adds no constraint and cannot fix the contradiction.</text></feedback></answer>
+    <answer fraction="0"><text>Only if amount is updated between the two guards</text><feedback><text>This model has no updates; and PC's infeasibility is inherent to requiring amount &lt;= 100 and amount &gt;= 200 together.</text></feedback></answer>
+    <generalfeedback><text>Because amount is fixed and feasibility is the satisfiability of the AND of all guards, order is irrelevant. amount &lt;= 100 and amount &gt;= 200 have empty intersection under any ordering, so PC stays infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace amount=40 to a path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Start in Idle with <code>amount = 40</code> and fire, in order, <code>enterAmount</code>, <code>approve</code>, <code>recheck</code>, <code>approve</code>, <code>dispense</code>. Which abstract path is realized, and is 40 a valid witness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Path PE, and 40 is valid (all of amount &gt;= 1, amount &lt;= 100, amount &lt;= 50 hold)</text><feedback><text>Correct — 40 satisfies every guard on PE, so the trace runs to completion and returns to Idle.</text></feedback></answer>
+    <answer fraction="0"><text>Path PA, and 40 is valid</text><feedback><text>PA is enterAmount, approve, dispense; the given trace includes recheck and a second approve, which is PE.</text></feedback></answer>
+    <answer fraction="0"><text>Path PE, but 40 is invalid because recheck needs amount &lt;= 50</text><feedback><text>40 &lt;= 50 is true, so recheck's guard holds; 40 is a valid witness.</text></feedback></answer>
+    <answer fraction="0"><text>Path PD, and 40 is valid</text><feedback><text>PD ends with decline to Denied; the given trace ends with a second approve and dispense, which is PE.</text></feedback></answer>
+    <generalfeedback><text>enterAmount (40 &gt;= 1), approve (40 &lt;= 100), recheck (40 &lt;= 50), approve (40 &lt;= 100), dispense: this is exactly path PE, and 40 satisfies every guard, so it is a valid witness (though the solver's smallest is 1).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace amount=120 to a path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Start in Idle with <code>amount = 120</code>. enterAmount fires (120 &gt;= 1) to Checking. On the same input, which feasible path can the machine complete back to Idle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Path PB (enterAmount, decline, eject) — 120 fails approve (amount &lt;= 100) but satisfies decline (amount &gt;= 101)</text><feedback><text>Correct — at 120 the Checking split resolves to decline, leading to Denied then eject back to Idle.</text></feedback></answer>
+    <answer fraction="0"><text>Path PA (enterAmount, approve, dispense)</text><feedback><text>PA needs approve, whose guard amount &lt;= 100 is false at 120; PA cannot run.</text></feedback></answer>
+    <answer fraction="0"><text>Path PE (enterAmount, approve, recheck, approve, dispense)</text><feedback><text>PE also starts with approve (amount &lt;= 100), which fails at 120.</text></feedback></answer>
+    <answer fraction="0"><text>No feasible path — 120 blocks every route</text><feedback><text>120 satisfies decline (amount &gt;= 101), so PB runs; 120 is a valid witness for PB.</text></feedback></answer>
+    <generalfeedback><text>At amount = 120, approve (amount &lt;= 100) is disabled but decline (amount &gt;= 101) is enabled, so from Checking the machine takes decline to Denied, then eject to Idle — path PB. 120 is a valid PB witness (the solver's smallest is 101).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Feasibility as satisfiability (symbex bridge)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The app notes that judging a path feasible is "exactly a path-condition satisfiability check." Which analysis does this correspond to?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Symbolic execution — collect the path condition (conjunction of guards) and ask a solver whether it is satisfiable</text><feedback><text>Correct — path feasibility is the satisfiability of the accumulated path condition, the core of symbolic execution.</text></feedback></answer>
+    <answer fraction="0"><text>Random testing — throw inputs until one happens to fit</text><feedback><text>The app uses a constraint solver on the guard conjunction, not blind random search.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage — visiting every state at least once</text><feedback><text>State coverage counts visited states; feasibility is about satisfying the path's guards.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation testing — seeding faults to score a suite</text><feedback><text>Mutation testing is unrelated; feasibility is a satisfiability check on the path condition.</text></feedback></answer>
+    <generalfeedback><text>Each guard along a path contributes a clause to the path condition. Deciding feasibility is deciding whether that conjunction is satisfiable and, if so, producing a witness — precisely what symbolic execution does.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Guard as predicate (logic bridge)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The app links a guard to logic coverage: "a guard is a predicate, and clause binding solves it the same way." What is meant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A guard is a boolean predicate over amount, and finding an amount that makes it true is the same as binding a logic clause to a concrete value</text><feedback><text>Correct — solving a guard for a satisfying input is the same solver task as binding a logic-coverage clause.</text></feedback></answer>
+    <answer fraction="0"><text>A guard must always be false for coverage to succeed</text><feedback><text>Guards must be satisfiable to yield a test; being false is what makes a branch infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Clause binding replaces guards with states</text><feedback><text>Clause binding maps a predicate to a concrete input; it does not turn guards into states.</text></feedback></answer>
+    <answer fraction="0"><text>A predicate can only be solved by hand, never by a tool</text><feedback><text>The app's constraint solver binds the predicate automatically to a witness value.</text></feedback></answer>
+    <generalfeedback><text>A guard such as amount &lt;= 100 is a predicate over the data. Producing an amount that satisfies the path's predicates is exactly the clause-binding problem in logic coverage — the same constraint solver handles both.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Infeasible: contradiction, not the states visited</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An abstract path collects the guards <code>amount &gt;= 1</code>, <code>amount &lt;= 100</code>, and <code>amount &gt;= 200</code>. A student says it is infeasible "because it visits the Denied state." Why is that reasoning wrong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Visiting Denied is perfectly legal; the path is infeasible only because amount &lt;= 100 and amount &gt;= 200 cannot both hold</text><feedback><text>Correct — feasibility is about the guard conjunction, not which states the path passes through.</text></feedback></answer>
+    <answer fraction="0"><text>The reasoning is right — reaching Denied always makes a path infeasible</text><feedback><text>Denied is reachable by feasible paths too (e.g. PB); the real cause is the contradictory guards.</text></feedback></answer>
+    <answer fraction="0"><text>Denied has no incoming transitions, so it cannot be visited</text><feedback><text>Denied does have incoming transitions (decline, fraudHold); the infeasibility is the guard contradiction.</text></feedback></answer>
+    <answer fraction="0"><text>The path is infeasible because it is too long</text><feedback><text>Length is irrelevant; amount cannot be both &lt;= 100 and &gt;= 200, which is the true reason.</text></feedback></answer>
+    <generalfeedback><text>Denied is visited by feasible paths as well, so passing through it says nothing about feasibility. This path is infeasible strictly because its guard conjunction amount &lt;= 100 and amount &gt;= 200 is unsatisfiable — no single amount satisfies both.</text></generalfeedback>
+  </question>
+</quiz>

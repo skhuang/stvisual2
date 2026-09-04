@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SBST Search Comparison/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>比較探索器的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p>元啟發式比較探索器在同一個範例上執行三種搜尋策略。它比較的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每種策略把最佳成本推向零（覆蓋）的速度——對隨機搜尋、爬山法與遺傳演算法進行收斂與覆蓋的比較</text><feedback><text>正確——探索器並排執行三者，並繪出最佳成本對評估次數的圖。</text></feedback></answer>
+    <answer fraction="0"><text>哪種策略的原始碼最短</text><feedback><text>探索器比較的是搜尋行為（收斂與覆蓋），而非程式碼長度。</text></feedback></answer>
+    <answer fraction="0"><text>哪種程式語言執行目標函數最快</text><feedback><text>所有策略都在同一個受測範例上執行；語言速度不是比較的對象。</text></feedback></answer>
+    <answer fraction="0"><text>每種策略重寫了目標函數的多少行</text><feedback><text>策略是產生測試輸入，從不重寫目標函數。</text></feedback></answer>
+    <generalfeedback><text>比較分頁在一個選定的範例（巢狀守衛、三角形或多峰）上執行 randomSearch、hillClimb 與 geneticAlgorithm，並顯示每種策略的覆蓋狀態、最佳成本，以及最佳成本對評估次數的收斂圖。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隨機搜尋的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此探索器中，什麼是<strong>隨機搜尋</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它均勻地隨機取樣輸入向量，並單純保留目前看過最好（成本最低）的那一個</text><feedback><text>正確——隨機搜尋均勻抽取輸入並記住最好者，選取下一個時不受成本引導。</text></feedback></answer>
+    <answer fraction="0"><text>它從起點逐步移動到最能改善的鄰居</text><feedback><text>那是爬山法，不是隨機搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>它以交叉與突變演化一個族群</text><feedback><text>那是遺傳演算法，不是隨機搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>它依序列舉每一個可能的輸入</text><feedback><text>隨機搜尋是隨機取樣，並非窮舉列舉所有輸入。</text></feedback></answer>
+    <generalfeedback><text>隨機搜尋是無引導的基準：它反覆抽取一個隨機輸入向量、評估其成本，並保留找到的成本最低個體。它僅用成本來決定該記住哪個樣本，從不用來引導下一個樣本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>爬山法的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此探索器中，什麼是<strong>爬山法</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從單一隨機起點出發，反覆移動到最能改善的鄰居，直到沒有任何鄰居能再降低成本為止</text><feedback><text>正確——爬山法是單一軌跡的局部搜尋，會在局部最優處停下。</text></feedback></answer>
+    <answer fraction="0"><text>它維持一整個族群的個體並加以重組</text><feedback><text>那描述的是遺傳演算法；爬山法沿單一軌跡前進。</text></feedback></answer>
+    <answer fraction="0"><text>它均勻地隨機抽取每個候選</text><feedback><text>那是隨機搜尋；爬山法會刻意移向能改善的鄰居。</text></feedback></answer>
+    <answer fraction="0"><text>只要步數夠多，它總能找到全域最優</text><feedback><text>爬山法可能停在局部最優，永遠到不了全域最優。</text></feedback></answer>
+    <generalfeedback><text>爬山法從單一隨機個體出發，每一步檢視正負一的鄰居，移動到能降低成本的最佳鄰居。當沒有鄰居能改善時便停下——它到達了局部最優。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>遺傳演算法的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此探索器中，什麼是<strong>遺傳演算法（GA）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種以族群為基礎的搜尋，透過選擇、交叉、突變與菁英保留來演化許多候選輸入</text><feedback><text>正確——GA 維持一個族群，並以這些遺傳運算子加以演化。</text></feedback></answer>
+    <answer fraction="0"><text>一種單一軌跡的搜尋，每步移向最佳鄰居</text><feedback><text>那是爬山法；GA 作用於一整個族群。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何運算子的均勻隨機取樣</text><feedback><text>那是隨機搜尋；GA 會施加選擇、交叉與突變。</text></feedback></answer>
+    <answer fraction="0"><text>對輸入空間的窮舉列舉</text><feedback><text>GA 是取樣並演化候選，並不列舉整個空間。</text></feedback></answer>
+    <generalfeedback><text>遺傳演算法維持一個族群（此處為 20 個個體），以錦標賽選擇父代、以單點交叉產生後代、以突變加以擾動，並將最佳個體原封不動地帶到下一代（菁英保留），一代又一代地演化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>局部最優的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此搜尋情境中，什麼是<strong>局部最優</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個其所有鄰居成本都不低於它的點，因此局部移動無法再改善，即使它可能仍未覆蓋目標</text><feedback><text>正確——沒有鄰近步驟能降低成本，但全域目標（成本 0）可能尚未達成。</text></feedback></answer>
+    <answer fraction="0"><text>成本全域最低的輸入，永遠是成本 0</text><feedback><text>那是全域最優；局部最優不一定能達到成本 0。</text></feedback></answer>
+    <answer fraction="0"><text>搜尋過程中任何一個隨機抽取的輸入</text><feedback><text>隨機抽取的一個輸入不一定是局部最優。</text></feedback></answer>
+    <answer fraction="0"><text>一次爬山執行的起點</text><feedback><text>起點只是初始猜測；局部最優是局部移動不再改善之處。</text></feedback></answer>
+    <generalfeedback><text>局部最優是任何小的（鄰居）移動都無法改善的解。爬山法會在此停下。它可能仍有正成本——代表目標分支未被覆蓋——這正是探索器在多峰範例上示範的陷阱。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>族群的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在遺傳演算法中，什麼是<strong>族群</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>GA 所維持並在每一代一起演化的一組候選輸入向量</text><feedback><text>正確——族群是被平行演化的個體集合。</text></feedback></answer>
+    <answer fraction="0"><text>一次爬山執行的單一當前點</text><feedback><text>爬山法只追蹤一個點；族群是同時存在的許多個體。</text></feedback></answer>
+    <answer fraction="0"><text>預算所允許的評估總次數</text><feedback><text>那是評估預算，不是族群。</text></feedback></answer>
+    <answer fraction="0"><text>目標函數中的分支清單</text><feedback><text>分支屬於程式；族群是 GA 的候選輸入集合。</text></feedback></answer>
+    <generalfeedback><text>族群是 GA 同時持有的一組候選解（輸入向量）——此處為 20 個。演化一整個族群、而非單一點，正是 GA 得以同時探索搜尋空間中多個區域的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識單一軌跡策略</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種策略從<strong>單一</strong>起點出發，每步移動到能改善的鄰居？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>爬山法</text><feedback><text>正確——爬山法從單一隨機起點沿一條軌跡前進。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法</text><feedback><text>GA 演化一整個族群，而非單一點。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋</text><feedback><text>隨機搜尋抽取獨立樣本；它不沿鄰居軌跡前進。</text></feedback></answer>
+    <answer fraction="0"><text>三者相同</text><feedback><text>只有爬山法沿一條能改善的單一軌跡前進。</text></feedback></answer>
+    <generalfeedback><text>爬山法是唯一以單一軌跡定義的策略：一個隨機起點，然後逐步移向最能改善的鄰居。隨機搜尋抽取獨立樣本，而 GA 演化一個族群。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識以族群為基礎的策略</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種策略維持一個<strong>族群</strong>並以交叉與突變加以演化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>遺傳演算法</text><feedback><text>正確——只有 GA 維持族群並施加交叉與突變。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法</text><feedback><text>爬山法只有一個當前點，沒有交叉或突變。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋</text><feedback><text>隨機搜尋抽取獨立的均勻樣本；它沒有族群或運算子。</text></feedback></answer>
+    <answer fraction="0"><text>三者皆非</text><feedback><text>遺傳演算法正是此處以族群為基礎的策略。</text></feedback></answer>
+    <generalfeedback><text>交叉與突變是施加於族群的遺傳運算子。只有遺傳演算法使用它們；爬山法與隨機搜尋皆無族群運作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識無引導策略</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種策略在選取下一個輸入時<strong>均勻地隨機</strong>取樣，不受成本引導？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機搜尋</text><feedback><text>正確——隨機搜尋均勻抽取每個新輸入，選取時忽略成本。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法</text><feedback><text>爬山法用成本挑選最能改善的鄰居；它是有引導的。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法</text><feedback><text>GA 用成本進行選擇；它的搜尋是有引導的。</text></feedback></answer>
+    <answer fraction="0"><text>三者皆是</text><feedback><text>只有隨機搜尋在選取下一個輸入時無引導。</text></feedback></answer>
+    <generalfeedback><text>隨機搜尋是無引導的基準：每個新輸入都均勻隨機抽取，成本僅用於決定該保留哪個樣本。爬山法與 GA 都用成本來引導搜尋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「陷入局部最優」標記的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器在爬山法面板上顯示<strong>陷入局部最優</strong>的標記。它代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>爬山法停在一個成本仍為正的局部最優——沒有鄰居能改善，且目標未被覆蓋</text><feedback><text>正確——此標記標示一次停在局部最優、未達到成本 0 的執行。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法覆蓋了目標並提早停下</text><feedback><text>覆蓋目標代表成本 0；此標記標示的正好相反——一次無法再改善的執行。</text></feedback></answer>
+    <answer fraction="0"><text>圖表未能繪出</text><feedback><text>此標記關乎搜尋結果，不是繪圖錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法用盡了預算</text><feedback><text>此標記只顯示於爬山法，不會顯示於 GA。</text></feedback></answer>
+    <generalfeedback><text>當爬山法結果在終止時仍有正的最佳成本，便顯示此標記——它移動到一個沒有鄰近步驟能降低成本的局部最優，因此目標分支從未被覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>收斂圖繪的是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>探索器的<strong>收斂圖</strong>為每種策略繪的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>目前為止的最佳成本對評估次數</text><feedback><text>正確——每條折線描繪最佳成本隨評估次數累積的變化。</text></feedback></answer>
+    <answer fraction="0"><text>原始碼長度對執行時間</text><feedback><text>該圖追蹤搜尋進度（最佳成本對評估次數），而非程式碼指標。</text></feedback></answer>
+    <answer fraction="0"><text>族群大小對世代編號</text><feedback><text>族群大小是固定的；該圖繪的是最佳成本隨評估次數的變化。</text></feedback></answer>
+    <answer fraction="0"><text>分支數對輸入值</text><feedback><text>該圖關乎成本收斂，而非分支計數。</text></feedback></answer>
+    <generalfeedback><text>收斂圖為每種策略畫一條折線——縱軸為最佳成本，橫軸為評估索引——讓你看出每種策略把成本降下來的速度，以及它是否達到零。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>較低的最佳成本代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器中，<strong>較低的最佳成本</strong>代表什麼？最佳成本恰為 0 又代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>較低的成本代表更接近覆蓋目標分支；成本為 0 代表目標已被覆蓋</text><feedback><text>正確——成本衡量與覆蓋的距離，成本 0 正是覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>較低的成本代表程式跑得更快；0 代表瞬間完成</text><feedback><text>成本衡量的是與覆蓋的距離，不是執行時間。</text></feedback></answer>
+    <answer fraction="0"><text>較低的成本代表用了更少評估；0 代表沒用</text><feedback><text>成本關乎覆蓋距離，而非評估次數。</text></feedback></answer>
+    <answer fraction="0"><text>成本越高越好；0 最差</text><feedback><text>正好相反——成本 0 是目標，越低越好。</text></feedback></answer>
+    <generalfeedback><text>成本是進入層級加上正規化後的分支距離；當輸入覆蓋目標分支時它恰為零。因此把最佳成本推向 0 正是整個目標，曲線到達 0 的策略即已達成覆蓋。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>爬山法沒有族群</text></name>
+    <questiontext format="html"><text><![CDATA[<p>此探索器所用的爬山法，在每一步都維持一整個族群的候選解。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>否——爬山法只追蹤單一當前點；只有遺傳演算法維持族群。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——爬山法從單一點沿一條軌跡前進；族群屬於 GA。</text></feedback></answer>
+    <generalfeedback><text>爬山法是單一軌跡的局部搜尋：它持有一個當前個體並移向能改善的鄰居。維持一起演化的候選族群是遺傳演算法的定義特徵，而非爬山法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>交叉的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在遺傳演算法中，什麼是<strong>交叉</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種將兩個父代個體的部分組合起來、形成一個後代的運算子</text><feedback><text>正確——交叉把兩個父代重組成一個子代。</text></feedback></answer>
+    <answer fraction="0"><text>對單一個體的各分量施加的隨機擾動</text><feedback><text>那是突變，不是交叉。</text></feedback></answer>
+    <answer fraction="0"><text>把最佳個體原封不動地帶到下一代</text><feedback><text>那是菁英保留，不是交叉。</text></feedback></answer>
+    <answer fraction="0"><text>均勻地隨機抽取一個全新的個體</text><feedback><text>那是隨機初始化，不是交叉。</text></feedback></answer>
+    <generalfeedback><text>交叉取兩個被選出的父代，把它們的分量組合起來（此處以單點切割）以建構後代，讓來自不同父代的好片段得以結合。它有別於突變（隨機擾動）與菁英保留（把最佳者帶往下一代）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>突變的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在遺傳演算法中，什麼是<strong>突變</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對個體的分量施加的小幅隨機改變，引入新的變異</text><feedback><text>正確——突變隨機擾動一個個體以增加多樣性。</text></feedback></answer>
+    <answer fraction="0"><text>把兩個父代組合成一個子代</text><feedback><text>那是交叉，不是突變。</text></feedback></answer>
+    <answer fraction="0"><text>從兩個隨機個體中選出較適應者</text><feedback><text>那是錦標賽選擇，不是突變。</text></feedback></answer>
+    <answer fraction="0"><text>移動到最能改善的鄰居</text><feedback><text>那是爬山法的一步，不是 GA 的突變。</text></feedback></answer>
+    <generalfeedback><text>突變以小幅隨機量（以某個每分量的機率）擾動個體的分量，為族群注入新鮮變異。這種多樣性是 GA 抵達選擇與交叉單獨可能到不了的區域的關鍵方式之一。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Search Comparison/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何爬山法在多峰上輸給 GA</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在多峰範例上，為何爬山法<strong>表現不如</strong>遺傳演算法？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單一爬山軌跡陷入一個無法覆蓋目標的局部最優，而 GA 族群透過多樣性與其運算子逃脫此類陷阱</text><feedback><text>正確——這正是探索器所示範的局部最優陷阱。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法被給予比 GA 更少的評估預算</text><feedback><text>兩者在相同預算下執行；差異在於局部最優陷阱，而非預算。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法均勻地隨機取樣輸入，不像結構化的 GA</text><feedback><text>爬山法是有引導的，不是隨機的；隨機取樣描述的是基準策略。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法過於積極地追隨梯度，越過了最優解</text><feedback><text>問題在於陷入局部最優，而非越過某個全域最優。</text></feedback></answer>
+    <generalfeedback><text>多峰地形有許多盆地。單一爬山執行落入某個盆地，並停在一個成本仍為正的局部最優，錯過目標。GA 的族群與突變維持足夠的多樣性，得以逃離那些盆地並達成覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何取模讓多峰變難</text></name>
+    <questiontext format="html"><text><![CDATA[<p>多峰範例計算 <code>r = x % 20</code>，目標是 <code>r == 7</code> 接著 <code>x &gt; 50</code>。為何這會擊敗爬山法？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>取模使分支距離地形變得非單調，造成許多盆地；小幅正負一的步伐會走進局部最優，而非走向能覆蓋的輸入</text><feedback><text>正確——非單調的取模地形困住了局部、逐步的搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>取模使每個輸入成本都相同，因此沒有任何移動能改善</text><feedback><text>成本確實有變化；問題在於地形非單調，而非平坦。</text></feedback></answer>
+    <answer fraction="0"><text>目標分支對每個輸入都無法到達</text><feedback><text>它是可到達的——如 67 與 87 就能覆蓋；問題在於局部搜尋到不了那裡。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法無法計算取模運算子</text><feedback><text>搜尋只從軌跡讀取成本；它不需要自己計算取模。</text></feedback></answer>
+    <generalfeedback><text>因為 <code>x % 20</code> 對 x 是非單調的，<code>r == 7</code> 的分支距離反覆上升又下降，切出許多盆地。正負一的搜尋落入某個盆地，其底部無法同時滿足 <code>r == 7</code> 與 <code>x &gt; 50</code>，因而卡住。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>族群相對於單一軌跡多了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相對於單一爬山軌跡，維持一個<strong>族群</strong>多了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它同時探索搜尋空間中的多個區域，因此當某個區域是死路般的局部最優時，整個搜尋不會就此注定失敗</text><feedback><text>正確——許多個體涵蓋許多盆地，讓搜尋有辦法脫離任一陷阱。</text></feedback></answer>
+    <answer fraction="0"><text>它保證在一個世代內就找到全域最優</text><feedback><text>族群提高了脫離陷阱的機率，但無法在單一世代內保證任何事。</text></feedback></answer>
+    <answer fraction="0"><text>它完全免除評估成本的需要</text><feedback><text>GA 仍會評估每個個體的成本；族群關乎的是對空間的涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>它讓每次評估更便宜</text><feedback><text>每次評估的成本不變；好處在於同時探索多個區域。</text></feedback></answer>
+    <generalfeedback><text>單一軌跡任何時刻只能在一處，因此一個壞盆地就注定失敗。族群把個體散布在許多盆地；選擇把心力集中在有希望者，其他個體則持續探索——這正是 GA 避開困住爬山法之陷阱的方式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>突變帶來什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>突變</strong>為遺傳演算法的搜尋帶來什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它注入新鮮的隨機變異，讓族群抵達單靠選擇與交叉無法產生的輸入——有助於逃離局部最優</text><feedback><text>正確——突變是使搜尋不致停滯的多樣性來源。</text></feedback></answer>
+    <answer fraction="0"><text>它把最佳個體原封不動地帶到下一代</text><feedback><text>那是菁英保留，不是突變。</text></feedback></answer>
+    <answer fraction="0"><text>它保證每個後代的成本都低於其父代</text><feedback><text>突變是隨機的；它可能升高或降低成本，並不提供這種保證。</text></feedback></answer>
+    <answer fraction="0"><text>它依成本把族群排序</text><feedback><text>排序／排名關乎選擇，而非突變。</text></feedback></answer>
+    <generalfeedback><text>突變隨機擾動個體的分量，加入當前族群所缺的變異。若無突變，選擇與交叉可能過早收斂；有了突變，族群得以持續抵達新區域，這對逃離局部最優至關重要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>交叉帶來什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在像三角形分類器（輸入 a、b、c）這樣的多變數範例中，<strong>交叉</strong>帶來什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把兩個父代的分量重組，使子代可在某些變數上繼承一個父代的好值、在其他變數上繼承另一個父代的好值</text><feedback><text>正確——交叉跨變數地混合來自不同父代的部分解。</text></feedback></answer>
+    <answer fraction="0"><text>它對單一個體施加隨機擾動</text><feedback><text>那是突變，不是交叉。</text></feedback></answer>
+    <answer fraction="0"><text>它丟棄整個族群並隨機重啟</text><feedback><text>交叉是從父代建構後代；它不重啟搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>它衡量覆蓋了多少分支</text><feedback><text>交叉是繁殖運算子，不是覆蓋量測。</text></feedback></answer>
+    <generalfeedback><text>當有多個輸入變數時，某個父代可能已對 a 有好值，另一個父代對 c 有好值。單點交叉可把這些組合進單一子代，比單靠突變更快拼出部分解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多峰上的爬山法面板</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在多峰範例上，探索器的<strong>爬山法</strong>面板通常顯示什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>陷入局部最優的標記、未覆蓋／預算耗盡的狀態，以及高於零的最佳成本</text><feedback><text>正確——所選的種子使爬山法停在局部最優而未覆蓋目標。</text></feedback></answer>
+    <answer fraction="0"><text>已覆蓋，且最佳成本恰為零</text><feedback><text>爬山法在多峰目標上不會覆蓋；這正是此範例的重點。</text></feedback></answer>
+    <answer fraction="0"><text>空白面板、沒有結果</text><feedback><text>面板顯示的是一次已完成（卡住）的執行，而非空結果。</text></feedback></answer>
+    <answer fraction="0"><text>陷入局部最優的標記，但最佳成本為零</text><feedback><text>若最佳成本為零則目標已覆蓋，這與卡住相矛盾。</text></feedback></answer>
+    <generalfeedback><text>對多峰範例，探索器刻意挑一個使爬山法落入局部最優、未覆蓋目標的種子，因此面板帶有「陷入局部最優」標記、回報預算耗盡／未覆蓋，並顯示嚴格大於零的最佳成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多峰上的 GA 面板</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依據探索器的結論訊息，在多峰範例上<strong>遺傳演算法</strong>顯示什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它覆蓋了目標——在多峰地形上，GA 能持續找到爬山法所遺漏的覆蓋目標</text><feedback><text>正確——這正是探索器明載的結論。</text></feedback></answer>
+    <answer fraction="0"><text>它也和爬山法卡在同一個局部最優</text><feedback><text>結論是 GA 能找到爬山法遺漏的目標，因此它不落入同一陷阱。</text></feedback></answer>
+    <answer fraction="0"><text>它在預算內永遠跑不完</text><feedback><text>GA 在此範例上達成覆蓋，並非只是耗盡預算。</text></feedback></answer>
+    <answer fraction="0"><text>沒有交叉它就拒絕執行</text><feedback><text>GA 在此單變數範例上照樣執行；結論是它覆蓋了目標。</text></feedback></answer>
+    <generalfeedback><text>探索器的結論指出，在多峰地形上遺傳演算法能持續找到爬山法所遺漏的覆蓋目標——因此在爬山法面板卡住之處，GA 面板回報覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>配對：哪個是有引導的局部搜尋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一種策略最適合描述為<strong>有引導的局部搜尋</strong>——用成本來移動，但侷限於單一區域？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>爬山法</text><feedback><text>正確——它用成本挑選最佳鄰居，但停留在單一盆地內，屬於局部搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋</text><feedback><text>隨機搜尋是無引導的全域取樣，不是有引導的局部搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>遺傳演算法</text><feedback><text>GA 是有引導但以族群為基礎的全域搜尋，並不侷限於單一區域。</text></feedback></answer>
+    <answer fraction="0"><text>三者都不使用成本</text><feedback><text>爬山法與 GA 都使用成本；爬山法是其中局部的那個。</text></feedback></answer>
+    <generalfeedback><text>爬山法是有引導的（它沿成本走向最佳鄰居）卻又是局部的（它停留在起點所在的區域）。隨機搜尋是無引導的全域取樣；GA 是對族群進行的有引導全域搜尋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何納入隨機搜尋作為基準</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何比較中要納入<strong>隨機搜尋</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>作為無引導的基準：它顯示搜尋引導究竟帶來什麼，因為一個連隨機搜尋都贏不了的有引導策略並無真正優勢</text><feedback><text>正確——隨機搜尋是引導必須超越的參考點。</text></feedback></answer>
+    <answer fraction="0"><text>因為它保證在每個範例上都最快</text><feedback><text>隨機搜尋無引導，往往並非最快；它是基準，不是冠軍。</text></feedback></answer>
+    <answer fraction="0"><text>因為它總是失敗，好襯托其他策略</text><feedback><text>隨機搜尋也可能成功（例如當可覆蓋輸入很多時）；它是誠實的基準，不是稻草人。</text></feedback></answer>
+    <answer fraction="0"><text>因為它是唯一使用成本函數的策略</text><feedback><text>它正是唯一不用成本來引導的策略；爬山法與 GA 才用。</text></feedback></answer>
+    <generalfeedback><text>基準設定標準。隨機搜尋不用成本來引導，因此顯示單憑運氣要達成覆蓋有多難。有引導的策略唯有勝過此基準才配得上其複雜度；在簡單範例上，隨機搜尋可能已足夠。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀到達零的曲線</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在收斂圖中，某策略的曲線<strong>到達底部（成本 0）</strong>，而另一條在其上方轉平。這說明了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>到達 0 的曲線達成了覆蓋；在 0 之上轉平的曲線則停滯、未能覆蓋目標</text><feedback><text>正確——成本 0 即覆蓋，而在正值處平坦則是停滯（例如卡住）的搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>兩種策略都覆蓋了目標；高度是任意的</text><feedback><text>只有位於 0 的曲線覆蓋了目標；正值的平台代表未覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>較高的曲線較好，因為它用了較少評估</text><feedback><text>成本越低越好；較高的平台代表未達到目標。</text></feedback></answer>
+    <answer fraction="0"><text>轉平的曲線再多幾次評估總會降到 0</text><feedback><text>位於局部最優的平台可能無論多少額外評估都持續存在。</text></feedback></answer>
+    <generalfeedback><text>縱軸是最佳成本，因此到達 0 的曲線已覆蓋目標，而在正值處轉平的曲線已停滯——通常是爬山法卡在局部最優，而 GA 的曲線一路降到 0。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何為爬山法挑選特殊種子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對多峰範例，探索器會為爬山執行掃描數個種子。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>為了可靠地挑到一個落入局部最優、未覆蓋目標的起點，好讓面板清楚示範這個陷阱</text><feedback><text>正確——掃描找出一個使爬山法卡住且未覆蓋的種子，讓道理清楚可見。</text></feedback></answer>
+    <answer fraction="0"><text>為了找出讓爬山法最快覆蓋目標的種子</text><feedback><text>正好相反——掃描是要找一個使爬山法卡住而未覆蓋的種子。</text></feedback></answer>
+    <answer fraction="0"><text>為了給爬山法比其他策略更大的評估預算</text><feedback><text>預算不變；被挑選的只是起始種子。</text></feedback></answer>
+    <answer fraction="0"><text>為了隨機化 GA 的族群</text><feedback><text>種子掃描關乎爬山起點，而非 GA 族群。</text></feedback></answer>
+    <generalfeedback><text>在多峰範例上，探索器掃描種子並挑一個使爬山執行以卡住且未覆蓋收場者。這讓局部最優陷阱可重現且清楚可見，與確實達成覆蓋的 GA 並列對照。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>爬山一步由什麼引導</text></name>
+    <questiontext format="html"><text><![CDATA[<p>爬山法選擇下一步移動時，由什麼資訊引導？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個鄰居的成本——它移動到成本最低的鄰居，前提是該成本是一項改善</text><feedback><text>正確——爬山法對鄰近輸入的適應度／成本採貪婪策略。</text></feedback></answer>
+    <answer fraction="0"><text>擲硬幣——它均勻地隨機挑一個鄰居</text><feedback><text>那會是隨機漫步；爬山法依成本挑選最能改善的鄰居。</text></feedback></answer>
+    <answer fraction="0"><text>GA 的世代編號</text><feedback><text>爬山法與 GA 的世代無關。</text></feedback></answer>
+    <answer fraction="0"><text>分支在原始碼中出現的順序</text><feedback><text>它由鄰居成本引導，而非原始碼順序。</text></feedback></answer>
+    <generalfeedback><text>每一步，爬山法評估正負一的鄰居，並移動到成本最低者，只要那能降低當前成本。成本——進入層級加上正規化後的分支距離——正是它所追隨的梯度訊號。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>菁英保留保證什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>遺傳演算法使用<strong>菁英保留</strong>。它對各世代間的最佳成本保證了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>最佳個體被原封不動地帶往下一代，因此最佳成本從一代到下一代永不變差</text><feedback><text>正確——菁英保留使最佳成本單調不增。</text></feedback></answer>
+    <answer fraction="0"><text>下一代的每個個體都至少和當前代的每個個體一樣好</text><feedback><text>菁英保留只保護單一最佳個體，並非族群的每個成員。</text></feedback></answer>
+    <answer fraction="0"><text>族群大小每代縮小</text><feedback><text>族群大小固定；菁英保留關乎保留哪個個體，而非大小。</text></feedback></answer>
+    <answer fraction="0"><text>菁英的後代停用突變</text><feedback><text>菁英保留保存的是菁英本身；它不會在別處停用突變。</text></feedback></answer>
+    <generalfeedback><text>菁英保留把目前為止最佳的個體不加更動地帶到下一代。由於該個體（及其成本）得以存續，最佳成本只會持平或改善——永不倒退，這正是 GA 收斂曲線單調不增的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何爬山法在巢狀守衛上成功</text></name>
+    <questiontext format="html"><text><![CDATA[<p>爬山法能覆蓋巢狀守衛範例（<code>x == 17</code> 接著 <code>y &gt; 100</code>），卻覆蓋不了多峰。差異何在？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>巢狀守衛的分支距離平滑且單調地朝目標變化，因此局部的正負一步伐能降到覆蓋；而取模使多峰變得非單調</text><feedback><text>正確——平滑的地形獎勵局部搜尋；非單調的地形則困住它。</text></feedback></answer>
+    <answer fraction="0"><text>巢狀守衛範例沒有分支可覆蓋</text><feedback><text>它有一個巢狀目標分支；重點在於其地形平滑。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法在巢狀守衛上被給予更多評估</text><feedback><text>預算相同；差異在於地形的形狀。</text></feedback></answer>
+    <answer fraction="0"><text>GA 無法在巢狀守衛範例上執行</text><feedback><text>三種策略在每個範例上都能執行；問題是爬山法為何在此成功。</text></feedback></answer>
+    <generalfeedback><text>對 <code>x == 17</code> 與 <code>y &gt; 100</code>，分支距離隨 x 接近 17、y 接近 100 而穩定下降，因此正負一的步伐可直接爬到覆蓋。多峰的取模則使地形起伏，局部步伐因而停滯在盆地中。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>族群加突變能脫離陷阱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>遺傳演算法能脫離困住單一爬山執行的局部最優，因為它的族群與突變在搜尋空間中維持多樣性。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——族群多樣性與突變讓 GA 抵達單一軌跡到不了的盆地。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>GA 的族群與突變正是讓它脫離困住單一爬山軌跡之陷阱的原因。</text></feedback></answer>
+    <generalfeedback><text>單一爬山軌跡侷限於一個盆地，並停在其局部最優。GA 把許多個體散布於空間中並加入隨機突變，因此即使某些個體位於壞盆地，其他個體（或其突變後代）仍能抵達能覆蓋的區域。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Search Comparison/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>多峰上的具體局部最優陷阱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在多峰上，爬山法抵達一個 <code>x % 20 == 7</code> 但 <code>x &lt;= 50</code> 的輸入（例如 x = 47，第一個守衛已滿足，但 <code>x &gt; 50</code> 未滿足）。為何它無法從此處改善？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把 x 加一會破壞 <code>x % 20 == 7</code>，使外層守衛失敗並升高進入層級，於是成本上升；能覆蓋的輸入（67、87）在許多步之外，靠單一改善步伐到不了</text><feedback><text>正確——任一鄰居都升高成本，因此這是個永遠覆蓋不了目標的局部最優。</text></feedback></answer>
+    <answer fraction="0"><text>兩個鄰居都降低成本，因此它持續移動並最終覆蓋</text><feedback><text>若有鄰居能降低成本它就不會卡住；此處兩個鄰居都升高成本。</text></feedback></answer>
+    <answer fraction="0"><text>成本已是零，無可改善</text><feedback><text>目標 <code>x &gt; 50</code> 未達成，因此成本為正，而非零。</text></feedback></answer>
+    <answer fraction="0"><text>評估預算恰好在此點耗盡</text><feedback><text>此陷阱是結構性的：它因沒有鄰居能改善而停下，與預算無關。</text></feedback></answer>
+    <generalfeedback><text>在 x = 47 時外層守衛 <code>x % 20 == 7</code> 成立，但 <code>x &gt; 50</code> 不成立，因此成本是該比較的正規化距離。移到 x = 46 或 x = 48 會使 <code>x % 20</code> 離開 7，令第一個守衛失敗並加上一整個進入層級——成本更高。兩個鄰居都更差，因此爬山法停下，而最近的可覆蓋輸入（67、87）靠單一改善步伐到不了。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探索與利用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>就<strong>探索對利用</strong>而言，爬山法與 GA 有何不同？爬山法的取向讓它付出什麼代價？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>爬山法幾乎是純粹利用局部梯度，因此收斂快但可能被困住；GA 在利用（選擇）與探索（族群多樣性與突變）之間取得平衡，以部分速度換取脫離陷阱的能力</text><feedback><text>正確——這正是 GA 能達成局部搜尋所遺漏之覆蓋的原因。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是純粹探索，因此都無法收斂</text><feedback><text>爬山法貪婪地利用梯度；它並非純粹探索。</text></feedback></answer>
+    <answer fraction="0"><text>爬山法全域探索，而 GA 只做利用</text><feedback><text>正好相反：爬山法是局部利用；GA 加入了全域探索。</text></feedback></answer>
+    <answer fraction="0"><text>探索與利用和搜尋式測試無關</text><feedback><text>它們正是區別這些策略的核心取捨。</text></feedback></answer>
+    <generalfeedback><text>爬山法偏利用：它貪婪地追隨局部梯度、收斂迅速，但純粹利用會卡在第一個局部最優。GA 混合利用（以適應度為基礎的選擇與菁英保留）與探索（族群多樣性與突變），單位進展較慢，但能脫離困住純局部搜尋的盆地。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>GA 優勢何時消失</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在哪種地形上，GA 相對於爬山法的優勢會<strong>消失</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在平滑、基本上單峰的地形上（如巢狀守衛），局部搜尋本來就能直接降到覆蓋，因此 GA 的額外機制毫無收益，甚至可能更慢</text><feedback><text>正確——當沒有局部最優陷阱時，較簡單的局部搜尋就足夠了。</text></feedback></answer>
+    <answer fraction="0"><text>在有許多欺騙性局部最優的地形上</text><feedback><text>那是 GA 優勢最大之處，而非消失之處。</text></feedback></answer>
+    <answer fraction="0"><text>在任何地形上，因為 GA 永遠嚴格較佳</text><feedback><text>GA 並非普遍較佳；在平滑地形上爬山法能以更低成本與之匹敵。</text></feedback></answer>
+    <answer fraction="0"><text>每當評估預算很大時</text><feedback><text>移除 GA 優勢的不是預算大小，而是地形形狀。</text></feedback></answer>
+    <generalfeedback><text>GA 唯有在有陷阱可脫離時才划算。在像巢狀守衛這樣平滑、單峰的地形上，爬山法能直接走到成本 0，而 GA 的族群、交叉與突變只增加負擔而不增加價值。天下沒有白吃的午餐：最佳策略取決於地形。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>交叉並非多峰上優勢的來源</text></name>
+    <questiontext format="html"><text><![CDATA[<p>多峰範例只有<strong>單一</strong>輸入變數 x。既然如此，為何<em>交叉</em>不是 GA 在此優勢的來源？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有一個變數時，單點交叉沒有東西可重組，實際上會回傳一份父代複本，因此 GA 在多峰上的優勢來自族群多樣性與突變，而非交叉</text><feedback><text>正確——單變數的交叉是空操作，因此由多樣性與突變承擔工作。</text></feedback></answer>
+    <answer fraction="0"><text>交叉混合兩個父代的 x 值以產生一個居中的 x，這才覆蓋了目標</text><feedback><text>單一分量的單點交叉無法產生居中值；它只複製一個父代。</text></feedback></answer>
+    <answer fraction="0"><text>探索器對所有範例都停用交叉</text><feedback><text>交叉照樣執行；只是在只有一個變數可切割時它是空操作。</text></feedback></answer>
+    <answer fraction="0"><text>即使只有一個變數，交叉仍是唯一重要的運算子</text><feedback><text>只有一個變數時沒有切點，因此交叉在此毫無貢獻。</text></feedback></answer>
+    <generalfeedback><text>單點交叉至少需要兩個分量才有有意義的切點。多峰範例只有單一變數，因此交叉回傳一份父代複本、毫無貢獻。GA 在此仍勝過爬山法，純粹靠其族群多樣性與突變——這提醒我們要精確歸屬每種策略的性質。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀「快但被困」對「慢但全域」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在多峰上，爬山曲線一開始就降到隨機曲線之下，隨後在零之上轉平；而 GA 曲線下降較緩但抵達零。這種模式說明了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>爬山法沿局部梯度快速收斂卻被困住，而 GA 以較慢、較廣的進展最終達成覆蓋——「快但局部」對「較慢但全域」</text><feedback><text>正確——曲線形狀直接刻畫了利用對探索的取捨。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋最好，因為它的曲線起點最高</text><feedback><text>起點高不是優勢；抵達覆蓋的是 GA。</text></feedback></answer>
+    <answer fraction="0"><text>GA 較差，因為它要更多評估才開始改善</text><feedback><text>抵達成本 0 才是目標；GA 較廣的搜尋正是抵達目標的原因。</text></feedback></answer>
+    <answer fraction="0"><text>只要看圖看得夠久，爬山法會抵達零</text><feedback><text>它的曲線在局部最優處轉平；無論看多久都不會抵達零。</text></feedback></answer>
+    <generalfeedback><text>爬山曲線初期陡降是快速的局部利用；其正值的平坦尾巴是局部最優陷阱。GA 較緩地降到零，反映的是較廣、由族群驅動的搜尋——以一點初期速度換取全域觸及與覆蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隨機重啟與族群的類比</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單一爬山執行沒有重啟。加入<strong>隨機重啟</strong>會與 GA 的族群有何關聯？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機重啟從不同起點執行數次獨立爬山，給予多次找到好盆地的機會——在精神上類似 GA 族群一次散布於許多盆地</text><feedback><text>正確——重啟近似平行的局部搜尋，呼應族群對空間的涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>隨機重啟保證單次執行就找到全域最優</text><feedback><text>重啟提高機率，但不保證任何事。</text></feedback></answer>
+    <answer fraction="0"><text>隨機重啟會讓爬山法變得與隨機搜尋相同</text><feedback><text>重啟之間它仍局部地爬梯度；它不是純粹的隨機取樣。</text></feedback></answer>
+    <answer fraction="0"><text>隨機重啟免除評估成本的需要</text><feedback><text>每次重啟的爬山仍會評估成本以挑選鄰居。</text></feedback></answer>
+    <generalfeedback><text>從數個隨機起點重啟爬山法會探索數個盆地，正如 GA 族群同時佔據數個盆地。族群還能額外透過選擇與交叉分享資訊，但核心直覺——當地形有陷阱時，多個起點勝過單一起點——是共通的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無限預算救不了爬山法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設你在多峰範例上給爬山法<strong>無限</strong>的評估預算。它就會覆蓋目標嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不會——只要沒有鄰居能改善成本它就終止，因此一旦抵達局部最優，額外預算毫無作用</text><feedback><text>正確——停止是結構性的（局部最優），並非因為預算用盡。</text></feedback></answer>
+    <answer fraction="0"><text>會——評估夠多，任何局部搜尋都會抵達全域最優</text><feedback><text>基本的爬山法無論剩多少預算都停在局部最優。</text></feedback></answer>
+    <answer fraction="0"><text>會——額外預算讓它自動嘗試新的隨機起點</text><feedback><text>此爬山法沒有重啟；沒有鄰居能改善時它就停下。</text></feedback></answer>
+    <answer fraction="0"><text>只有在增大族群大小時才會</text><feedback><text>爬山法沒有族群；問題在於它停在局部最優。</text></feedback></answer>
+    <generalfeedback><text>基本爬山法在沒有鄰近步驟能降低成本的當下就停止。在局部最優處該條件永遠成立，因此再多預算也無濟於事。脫離需要不同機制——隨機重啟，或如 GA 的族群。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何進入層級主導分支距離</text></name>
+    <questiontext format="html"><text><![CDATA[<p>成本是<em>進入層級</em>加上範圍在 [0, 1) 的<em>正規化分支距離</em>。為何進入層級主導了總成本？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>進入層級是未滿足巢狀層數的整數，而正規化分支距離永遠小於 1，因此距目標多一個巢狀層級，其成本永遠高於同一層級內的任何分支距離</text><feedback><text>正確——整數的進入層級蓋過小於 1 的分支距離項。</text></feedback></answer>
+    <answer fraction="0"><text>分支距離永遠大於進入層級</text><feedback><text>正規化分支距離小於 1，因此不可能超過一整個進入層級。</text></feedback></answer>
+    <answer fraction="0"><text>進入層級被正規化到 [0, 1)，而分支距離是整數</text><feedback><text>正好相反：進入層級是整數，分支距離被正規化到小於 1。</text></feedback></answer>
+    <answer fraction="0"><text>兩項只有在目標已覆蓋時才相加</text><feedback><text>它們正是在目標尚未覆蓋時才結合；一旦覆蓋成本即為 0。</text></feedback></answer>
+    <generalfeedback><text>進入層級計數還有多少外層守衛未滿足——一個整數——而分支距離被壓縮進 [0, 1)。因此降低進入層級（通過一個外層守衛）帶來的成本下降，永遠大於當前層級中分支距離的任何改善，這正是搜尋會先設法進入更深巢狀、再微調最後比較的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 GA 曲線永不上升</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探索器中，為何遺傳演算法的<strong>最佳成本</strong>曲線各世代間永不上升？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>最佳成本追蹤的是目前為止看過的最低成本，而菁英保留保存最佳個體，因此記錄的最佳值只會持平或下降</text><feedback><text>正確——受菁英保留保護的連續最小值是單調不增的。</text></feedback></answer>
+    <answer fraction="0"><text>因為突變只會降低個體的成本</text><feedback><text>突變是隨機的，可能升高成本；單調性來自追蹤目前為止最佳，而非突變。</text></feedback></answer>
+    <answer fraction="0"><text>因為 GA 每次評估都對整個族群重新排序</text><feedback><text>排序無法解釋單調的最佳成本曲線；追蹤連續最小值才能。</text></feedback></answer>
+    <answer fraction="0"><text>因為族群大小每代增長</text><feedback><text>族群大小固定；曲線單調是因為它記錄目前為止最佳。</text></feedback></answer>
+    <generalfeedback><text>所繪的值是到該次評估為止找到的最佳成本——一個連續最小值。個別後代可能比其父代差，但記錄的最佳只有在出現更好者時才更新，且菁英保留讓當前最佳存活，因此曲線單調不增。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何隨機搜尋仍能覆蓋多峰</text></name>
+    <questiontext format="html"><text><![CDATA[<p>隨機搜尋無引導，卻仍能覆蓋多峰目標；其輸入範圍為 x 於 [0, 100]，而只有 x = 67 與 x = 87 能覆蓋。為何在此可行，以及為何這不是對隨機搜尋的一般背書？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>此空間很小（約 101 個值）且預算充裕，因此均勻取樣幾乎必然命中一個可覆蓋值；在更大或更稀疏的空間中機率驟降，無引導取樣的擴充性很差</text><feedback><text>正確——當可覆蓋輸入相對常見且預算遠大於空間時運氣有效，但並非普遍適用。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋被引導朝可覆蓋值前進，因此可靠地找到它們</text><feedback><text>隨機搜尋無引導；它在此成功純靠取樣密度，而非引導。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋只要時間夠總能覆蓋任何目標，因此一般而言是最佳策略</text><feedback><text>在龐大或稀疏的空間中所需樣本會爆炸；靠運氣的覆蓋無法擴充。</text></feedback></answer>
+    <answer fraction="0"><text>多峰目標其實無法到達，因此沒有策略能覆蓋它</text><feedback><text>它在 x = 67 與 x = 87 可到達；隨機搜尋碰巧命中其一。</text></feedback></answer>
+    <generalfeedback><text>x 約有 101 個可能值，而預算遠大於此，均勻隨機取樣幾乎必然抽到一個可覆蓋值（67 或 87）。但這是微小、密集目標空間的性質；在實際程式中，可覆蓋區域是龐大空間中微不足道的一小部分，無引導取樣因而變得無望，引導才是划算之處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>固定預算下的族群大小取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>固定</strong>評估預算下，選擇 GA 族群大小的張力何在？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>較大的族群每代探索更多，但由於每個個體耗費一次評估，預算允許的世代較少；太小則探索不足，太大則留給演化的空間太少</text><feedback><text>正確——在固定預算下，族群大小與世代數彼此權衡。</text></feedback></answer>
+    <answer fraction="0"><text>沒有張力；在任何預算下較大的族群都嚴格較佳</text><feedback><text>較大的族群更快耗盡預算，留下更少世代可演化。</text></feedback></answer>
+    <answer fraction="0"><text>族群大小不影響預算的花用方式</text><feedback><text>每個個體都是一次評估，因此族群大小直接決定預算如何花用。</text></feedback></answer>
+    <answer fraction="0"><text>較小的族群總是更快收斂到全域最優</text><feedback><text>太小的族群探索不足，且更易過早收斂。</text></feedback></answer>
+    <generalfeedback><text>每評估一個個體就花掉部分預算。大族群每代取樣許多區域，卻在少數世代內燒完預算，限制了精修；小族群演化許多世代，卻探索太少並可能過早收斂。恰當的大小在廣度與可負擔的世代數之間取得平衡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何跨多個範例比較</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何探索器讓你在<strong>多個</strong>範例上比較這些策略，而非只用一個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為策略的排名取決於地形——GA 只在多峰（充滿陷阱）的範例上明顯勝出，因此單一範例可能對哪個策略最佳造成誤導</text><feedback><text>正確——跨地形比較顯示最佳策略取決於問題本身。</text></feedback></answer>
+    <answer fraction="0"><text>因為更多範例讓收斂圖更好看</text><feedback><text>理由是比較的有效性，而非美觀。</text></feedback></answer>
+    <answer fraction="0"><text>因為每個範例使用彼此無關的不同成本函數</text><feedback><text>所有範例都用相同的「進入層級加分支距離」成本；不同的是地形形狀。</text></feedback></answer>
+    <answer fraction="0"><text>因為 GA 只能在三角形範例上執行</text><feedback><text>GA 在所有範例上都能執行；多個範例揭示排名如何隨地形改變。</text></feedback></answer>
+    <generalfeedback><text>在平滑地形（巢狀守衛）上，爬山法一樣好又更便宜；GA 的優勢顯現於充滿陷阱的多峰範例。跨範例比較可避免僅憑單一、不具代表性的地形就為某策略加冕的錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何只有爬山法顯示卡住</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>陷入局部最優</strong>的標記只出現在爬山法面板，從不出現在隨機搜尋或 GA。為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只有爬山法有局部最優的終止條件（沒有能改善的鄰居），使它以正成本卡住；隨機搜尋與 GA 會執行到覆蓋或預算結束，因此沒有等價的卡住狀態可回報</text><feedback><text>正確——卡住狀態專屬於一個在沒有鄰居能改善時停下的局部搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋與 GA 總是覆蓋目標，因此永遠不會卡住</text><feedback><text>它們也可能未覆蓋，但那只是耗盡預算，而非停在局部最優。</text></feedback></answer>
+    <answer fraction="0"><text>此標記每次執行隨機指派給某一面板</text><feedback><text>此標記反映爬山結果的卡住旗標，而非隨機選擇。</text></feedback></answer>
+    <answer fraction="0"><text>GA 隱藏它的卡住狀態以顯得更好</text><feedback><text>GA 沒有局部最優停止可隱藏；它執行到覆蓋或預算結束。</text></feedback></answer>
+    <generalfeedback><text>卡住意指以成本仍為正停在局部最優——這種情況只有爬山法的停止規則會產生。隨機搜尋與 GA 不會在局部最優提早停止；它們要不達成覆蓋、要不用盡預算，因此沒有卡住狀態可標記。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>刻畫各策略對成本的運用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪項正確刻畫了每種策略在決定下一步嘗試什麼時，如何運用<strong>成本</strong>（適應度）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>隨機搜尋在選取下一個輸入時忽略成本（僅用它保留最佳者）；爬山法貪婪地追隨局部成本梯度；GA 用成本形成選擇壓力，同時保持多樣性</text><feedback><text>正確——分別是不用、貪婪局部、以及選擇引導的全域。</text></feedback></answer>
+    <answer fraction="0"><text>三者都完全忽略成本、全憑運氣</text><feedback><text>爬山法與 GA 都用成本來引導；只有隨機搜尋在選取時忽略它。</text></feedback></answer>
+    <answer fraction="0"><text>三者都像爬山法那樣貪婪地追隨局部梯度</text><feedback><text>隨機搜尋不追隨梯度，而 GA 在選擇與探索間取得平衡。</text></feedback></answer>
+    <answer fraction="0"><text>隨機搜尋追隨梯度，而 GA 與爬山法均勻取樣</text><feedback><text>這與事實相反：均勻的是隨機搜尋；另外兩者用成本來引導。</text></feedback></answer>
+    <generalfeedback><text>三者處於「運用適應度訊號來選取下一個輸入」程度的光譜上：隨機搜尋完全不用（只保留看過最佳者），爬山法貪婪且局部，而 GA 透過集中於較適應個體的選擇壓力，同時以突變與族群多樣性維持探索。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>GA 並非普遍最佳選擇</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於 GA 在爬山法卡住之處覆蓋了多峰目標，因此遺傳演算法是每一個覆蓋目標的最佳選擇。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>否——在平滑地形上爬山法一樣能達成覆蓋且更便宜；GA 的優勢取決於地形。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——沒有普遍最佳的策略；GA 只在局部最優會困住較簡單搜尋之處勝出。</text></feedback></answer>
+    <generalfeedback><text>GA 在多峰上的勝出來自它脫離局部最優的能力，而這唯有在存在此類陷阱時才重要。在像巢狀守衛這樣的平滑地形上，爬山法以少得多的機制就能覆蓋目標。正確的策略取決於問題的地形——沒有單一策略處處主宰。</text></generalfeedback>
+  </question>
+</quiz>

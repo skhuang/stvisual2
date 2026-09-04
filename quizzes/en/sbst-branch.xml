@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/SBST Branch Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What SBST stands for</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>SBST</strong> stand for, and what is its core idea?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Search-Based Software Testing — it casts test-input generation as a search (optimisation) problem, guided by a fitness function and solved with a metaheuristic</text><feedback><text>Correct — SBST searches the input space for inputs that meet a testing goal, guided by fitness.</text></feedback></answer>
+    <answer fraction="0"><text>Static Binary Symbolic Tracing — it symbolically executes a compiled binary</text><feedback><text>That describes symbolic execution of binaries, not SBST.</text></feedback></answer>
+    <answer fraction="0"><text>Structured Behaviour Specification Testing — it derives tests from formal specs</text><feedback><text>SBST is about searching the input space, not deriving from specifications.</text></feedback></answer>
+    <answer fraction="0"><text>Statement-Based Suite Tuning — it reorders statements to raise coverage</text><feedback><text>SBST generates inputs by search; it does not reorder program statements.</text></feedback></answer>
+    <generalfeedback><text>Search-Based Software Testing reframes test generation as optimisation: a fitness function scores how close a candidate input is to a goal (such as covering a branch), and a metaheuristic — here a genetic algorithm — searches the input space for inputs that reach it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a fitness function is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In SBST, what is a <strong>fitness function</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A numeric measure of how close a candidate input is to achieving the testing goal, which the search minimises (0 means the goal is met)</text><feedback><text>Correct — fitness turns "did we hit the goal?" into a smooth number the search can descend.</text></feedback></answer>
+    <answer fraction="0"><text>The exact expected output of the program for each input</text><feedback><text>Fitness scores closeness to a coverage goal; it is not an oracle of expected outputs.</text></feedback></answer>
+    <answer fraction="0"><text>A count of how many test cases are in the current suite</text><feedback><text>That is a suite-size metric, not a fitness function on inputs.</text></feedback></answer>
+    <answer fraction="0"><text>The random seed used to make the search reproducible</text><feedback><text>The seed drives the RNG; the fitness function scores candidates.</text></feedback></answer>
+    <generalfeedback><text>The fitness function is the heart of SBST. In this app it is the cost = approach level + normalised branch distance, and a lower cost means a candidate input is closer to covering the target branch. cost 0 means the branch is covered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What cost 0 means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this explorer the fitness of an input is shown as its <strong>cost</strong>. What does a cost of <code>0</code> mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The input covers the target branch — the search goal is reached</text><feedback><text>Correct — cost 0 is exactly the covered condition, and the "Branch covered" banner appears.</text></feedback></answer>
+    <answer fraction="0"><text>The input was never executed by the program</text><feedback><text>An unexecuted decision yields a large (worst) cost, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>The input is the furthest possible from the target</text><feedback><text>That is the opposite: 0 is the best possible cost, not the worst.</text></feedback></answer>
+    <answer fraction="0"><text>The generation number reached zero</text><feedback><text>Cost measures closeness to the branch, not a generation counter.</text></feedback></answer>
+    <generalfeedback><text>Cost is defined so that cost === 0 if and only if the input covers the target branch. The search minimises cost, driving it toward 0; every non-zero value tells you how far the input still is from the branch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What branch distance is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>branch distance</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A measure of how far a decision's operands are from making the predicate true (0 when it is already true)</text><feedback><text>Correct — branch distance quantifies how close a condition is to flipping to the desired outcome.</text></feedback></answer>
+    <answer fraction="0"><text>The number of branches between the program's entry and the target</text><feedback><text>That is closer to a path length; branch distance is about the operands of one decision.</text></feedback></answer>
+    <answer fraction="0"><text>The physical distance in source lines between two branches</text><feedback><text>Branch distance concerns predicate values, not source-line positions.</text></feedback></answer>
+    <answer fraction="0"><text>How many generations the GA has run</text><feedback><text>That is a generation count, not branch distance.</text></feedback></answer>
+    <generalfeedback><text>For a decision like a == b or y &gt; 100, branch distance uses standard Korel/Tracey formulas: for equality it is |a - b|, and for y &gt; 100 it is (100 - y) + 1 when the test is false. It is 0 exactly when the predicate is already true.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Smaller branch distance is closer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>smaller</strong> branch distance means the input is <strong>closer</strong> to satisfying the predicate.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — branch distance shrinks to 0 as the predicate approaches becoming true.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Smaller branch distance does mean closer; 0 means the predicate is already true.</text></feedback></answer>
+    <generalfeedback><text>Branch distance is a "how far from true" measure: the smaller it is, the nearer the operands are to satisfying the predicate, and 0 means it is satisfied. This monotone meaning is what lets the search follow it like a gradient.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What approach level is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>approach level</strong> of a candidate input, relative to a nested target branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of the target's enclosing guard predicates that are still unsatisfied at the point where control diverged from the path to the target</text><feedback><text>Correct — approach level counts how many nesting levels of control dependency remain unmet.</text></feedback></answer>
+    <answer fraction="0"><text>The number of inputs in the current GA population</text><feedback><text>That is the population size, not the approach level.</text></feedback></answer>
+    <answer fraction="0"><text>The percentage of branches covered so far</text><feedback><text>That is a coverage figure; approach level counts unmet enclosing guards.</text></feedback></answer>
+    <answer fraction="0"><text>The absolute difference between two operands</text><feedback><text>That is branch distance for equality, not approach level.</text></feedback></answer>
+    <generalfeedback><text>Approach level counts how many nested guards between the divergence point and the target were not taken the right way. In the Nested guard example, an input with the wrong x (failing x === 17) has approach level 1, because it never even reaches the inner y &gt; 100 guard.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why guided search beats random</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can a <strong>fitness-guided</strong> search reach a hard branch faster than <strong>random</strong> search?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fitness function gives feedback that tells the search which inputs are getting warmer, so it can steer new candidates toward the goal; random search gets no such feedback</text><feedback><text>Correct — guidance turns a blind lottery into a directed descent.</text></feedback></answer>
+    <answer fraction="0"><text>Guided search evaluates each input far faster than random search does</text><feedback><text>Per-evaluation speed is similar; the advantage is direction, not raw speed.</text></feedback></answer>
+    <answer fraction="0"><text>Guided search is allowed a much larger evaluation budget</text><feedback><text>Both use the same budget here; the difference is the use of feedback.</text></feedback></answer>
+    <answer fraction="0"><text>Random search cannot cover any branch at all</text><feedback><text>Random search can cover easy branches; it just struggles with rare, deeply nested ones.</text></feedback></answer>
+    <generalfeedback><text>Random search samples independently with no memory of what was closer. A fitness-guided search reads the branch distance and approach level, keeps the best candidates, and biases new ones toward them, so it converges on rare targets that random sampling would almost never hit by luck.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which metaheuristic the branch tab uses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which metaheuristic does this branch-search tab run to reach the target branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A genetic algorithm — a population of input vectors evolved with selection, crossover, mutation, and elitism</text><feedback><text>Correct — the tab runs a population-based genetic algorithm.</text></feedback></answer>
+    <answer fraction="0"><text>Breadth-first search over the control-flow graph</text><feedback><text>SBST searches the input space with a metaheuristic, not the CFG with BFS.</text></feedback></answer>
+    <answer fraction="0"><text>Exhaustive enumeration of every possible input</text><feedback><text>The point of SBST is to avoid exhaustive enumeration by using guided search.</text></feedback></answer>
+    <answer fraction="0"><text>Gradient descent using the program's analytic derivative</text><feedback><text>The program is not differentiable; the GA follows the fitness landscape without a derivative.</text></feedback></answer>
+    <generalfeedback><text>The branch tab evolves a population of candidate inputs with a genetic algorithm (tournament selection, one-point crossover, per-component mutation, and elitism), scoring each by fitness (cost) and comparing it against a random-search baseline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The default example program</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When the explorer first loads, which example program is selected?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Nested guard" — classify(x, y) with an outer guard and a nested target branch</text><feedback><text>Correct — Nested guard is the first (default) example chip.</text></feedback></answer>
+    <answer fraction="0"><text>"Triangle classifier" — classify(a, b, c)</text><feedback><text>Triangle is a selectable example, but not the default.</text></feedback></answer>
+    <answer fraction="0"><text>"Multimodal (mod 20)" — check(x)</text><feedback><text>Multimodal is a selectable example, but not the one shown first.</text></feedback></answer>
+    <answer fraction="0"><text>"Binary search" — search(arr, key)</text><feedback><text>There is no binary-search example in this explorer.</text></feedback></answer>
+    <generalfeedback><text>The explorer opens on the Nested guard example, classify(x, y): an outer guard x === 17 encloses the target branch y &gt; 100. You can switch to Triangle classifier or Multimodal via the example chips.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The target branch in Nested guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Nested guard example, the target line is marked with an arrow. Which predicate is the target branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The inner nested condition y &gt; 100</text><feedback><text>Correct — the target is the inner branch y &gt; 100, taken as true.</text></feedback></answer>
+    <answer fraction="0"><text>The outer condition x === 17</text><feedback><text>x === 17 is the enclosing guard, not the marked target itself.</text></feedback></answer>
+    <answer fraction="0"><text>The final return "none"</text><feedback><text>That is the fall-through, not the target branch.</text></feedback></answer>
+    <answer fraction="0"><text>The function header classify(x, y)</text><feedback><text>The header is not a branch; the target is the inner if.</text></feedback></answer>
+    <generalfeedback><text>The code panel highlights the line marked with an arrow: the inner if (y &gt; 100). To cover it as true, an input must first pass the outer guard x === 17 and then satisfy y &gt; 100.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The outer guard to reach the target</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Nested guard example, which condition must hold before control can even reach the target branch's guard?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>x === 17</text><feedback><text>Correct — the inner if is nested inside if (x === 17), so x must equal 17 first.</text></feedback></answer>
+    <answer fraction="0"><text>y &gt; 100</text><feedback><text>That is the target itself; the enclosing guard is x === 17.</text></feedback></answer>
+    <answer fraction="0"><text>x &gt; 17</text><feedback><text>The guard is exact equality x === 17, not an inequality.</text></feedback></answer>
+    <answer fraction="0"><text>y === 100</text><feedback><text>The enclosing guard is on x, not y.</text></feedback></answer>
+    <generalfeedback><text>The target y &gt; 100 sits inside if (x === 17). An input with x not equal to 17 never reaches the inner decision, which is why such inputs carry an approach level of 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Branch distance for equality</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a decision <code>a == b</code>, how is the branch distance to make it <strong>true</strong> computed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>|a - b| — the absolute difference of the two operands</text><feedback><text>Correct — equality distance is the absolute gap, which is 0 exactly when a equals b.</text></feedback></answer>
+    <answer fraction="0"><text>a + b</text><feedback><text>The sum does not shrink to 0 as the operands become equal.</text></feedback></answer>
+    <answer fraction="0"><text>1 if a is not b, else 0</text><feedback><text>That is a flat 0/1 distance; equality instead uses the graded |a - b|.</text></feedback></answer>
+    <answer fraction="0"><text>a * b</text><feedback><text>The product is unrelated to how close a and b are.</text></feedback></answer>
+    <generalfeedback><text>Equality uses branch distance |a - b|. Because it grades smoothly with the gap, the search sees a slope: as a candidate's a nears b, the distance falls toward 0, guiding the GA toward satisfying the equality.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>The covered banner and cost 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The "Branch covered" banner appears exactly when the search has found an input whose cost is <code>0</code>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — covered is defined as best cost === 0, and that triggers the banner.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The banner is tied to cost 0; a covering input is precisely one with cost 0.</text></feedback></answer>
+    <generalfeedback><text>The population panel shows a "Branch covered" banner when the best cost in view has reached 0, i.e. an input that takes the target branch has been found. Until then, the best cost stays positive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the random baseline panel reports</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Random baseline</strong> panel report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The best cost random search reached, and whether random search covered the branch</text><feedback><text>Correct — it summarises the random-search baseline for side-by-side comparison.</text></feedback></answer>
+    <answer fraction="0"><text>The source code of the target function</text><feedback><text>That is the code panel; the random panel shows random search's result.</text></feedback></answer>
+    <answer fraction="0"><text>The population of the current GA generation</text><feedback><text>That is the population panel; the random panel is the baseline summary.</text></feedback></answer>
+    <answer fraction="0"><text>The number of source lines in the example</text><feedback><text>The random panel reports best cost and covered status, not line counts.</text></feedback></answer>
+    <generalfeedback><text>Alongside the GA, the explorer runs a random-search baseline on the same example and budget, and the Random baseline panel shows its best cost and whether it covered the branch — usually it did not, which is the point of the comparison.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How many example programs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many example programs can you choose between using the chips at the top of the explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Three — Nested guard, Triangle classifier, and Multimodal (mod 20)</text><feedback><text>Correct — three example chips are offered.</text></feedback></answer>
+    <answer fraction="0"><text>One — only Nested guard</text><feedback><text>There are three examples, not one.</text></feedback></answer>
+    <answer fraction="0"><text>Two — Nested guard and Triangle classifier</text><feedback><text>There is also a third, the Multimodal example.</text></feedback></answer>
+    <answer fraction="0"><text>Five</text><feedback><text>The explorer offers three example programs.</text></feedback></answer>
+    <generalfeedback><text>The chips let you switch among three targets: Nested guard (classify(x, y)), Triangle classifier (equilateral), and Multimodal (x % 20 == 7 then x &gt; 50). Each has a different fitness landscape.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Branch Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the GA covers the nested branch faster</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the genetic algorithm cover the nested target branch much <strong>faster</strong> than random search?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The GA follows the fitness gradient — branch distance and approach level steer each generation's offspring closer to the target</text><feedback><text>Correct — the fitness landscape gives the GA a direction to descend; random search has none.</text></feedback></answer>
+    <answer fraction="0"><text>The GA got lucky; on average both strategies take the same number of evaluations</text><feedback><text>It is not luck — the guidance systematically reduces expected effort.</text></feedback></answer>
+    <answer fraction="0"><text>The GA explores a larger search space, so it is statistically more likely to stumble on the target</text><feedback><text>Both search the same space; the GA wins by direction, not by covering more ground blindly.</text></feedback></answer>
+    <answer fraction="0"><text>The GA resets to a random individual every generation, giving it more fresh attempts</text><feedback><text>The GA carries the best forward (elitism); it does not throw progress away each generation.</text></feedback></answer>
+    <generalfeedback><text>The fitness function makes "closer to the branch" measurable, so selection and mutation move the population down the gradient — first toward the outer guard, then toward the inner predicate. Random search has no gradient to follow and must hit the rare target by chance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How branch distance guides toward x === 17</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Nested guard, how does branch distance help the GA satisfy the outer guard <code>x === 17</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The distance |x - 17| shrinks as x nears 17, giving a slope that selection and mutation can follow toward the exact value</text><feedback><text>Correct — the graded equality distance turns "hit 17 exactly" into a hill to climb down.</text></feedback></answer>
+    <answer fraction="0"><text>Equality has no gradient, so branch distance gives no help at all here</text><feedback><text>Equality distance is |x - 17|, which is graded, not flat — it does provide a slope.</text></feedback></answer>
+    <answer fraction="0"><text>It rewards inputs with the largest |x - 17|, pushing x away from 17</text><feedback><text>The search minimises distance, so it favours smaller |x - 17|, moving x toward 17.</text></feedback></answer>
+    <answer fraction="0"><text>It ignores x entirely and only looks at y</text><feedback><text>Until x === 17 holds, the fitness is driven by the x distance, not y.</text></feedback></answer>
+    <generalfeedback><text>Because equality uses |x - 17|, an individual with x = 15 has a smaller distance than one with x = 3, so the GA prefers it and mutates around it. Step by step the population is pulled toward x = 17, after which the inner predicate takes over.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why random search rarely covers Nested guard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does random search rarely cover the Nested guard target within its budget?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each blind sample must hit x === 17 exactly and y &gt; 100 at the same time, a low and constant probability with no learning between samples</text><feedback><text>Correct — the exact equality makes each independent draw very unlikely to land the target.</text></feedback></answer>
+    <answer fraction="0"><text>Random search evaluates inputs incorrectly, so its cost is meaningless</text><feedback><text>It uses the same fitness; the issue is lack of guidance, not wrong evaluation.</text></feedback></answer>
+    <answer fraction="0"><text>Random search is given far fewer evaluations than the GA</text><feedback><text>Both run on the same budget; random search simply wastes it sampling blindly.</text></feedback></answer>
+    <answer fraction="0"><text>Random search always picks the same input repeatedly</text><feedback><text>It samples fresh inputs each time; the trouble is that none are guided toward the target.</text></feedback></answer>
+    <generalfeedback><text>To cover the branch, an input needs x = 17 exactly (about 1 in 51 over x in [0, 50]) and y &gt; 100 (about half of y in [0, 200]) simultaneously — roughly a 1-in-100 chance per draw, with each draw independent. The GA instead accumulates progress across generations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a smaller cost means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>One candidate has a smaller <strong>cost</strong> than another. What does that tell you?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is closer to covering the target — fewer unsatisfied enclosing guards and/or a predicate nearer to becoming true</text><feedback><text>Correct — lower cost means nearer the goal, which is what the search minimises.</text></feedback></answer>
+    <answer fraction="0"><text>It runs the program faster</text><feedback><text>Cost is about closeness to the branch, not execution time.</text></feedback></answer>
+    <answer fraction="0"><text>It was generated in an earlier generation</text><feedback><text>Cost has nothing to do with which generation produced the input.</text></feedback></answer>
+    <answer fraction="0"><text>It uses fewer input variables</text><feedback><text>Cost measures fitness toward the target, not the number of variables.</text></feedback></answer>
+    <generalfeedback><text>Cost = approach level + normalised branch distance, so a smaller cost means the candidate is closer to the target branch. The GA keeps the lowest-cost individuals and works to push the best cost down toward 0.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading a cost between 1 and 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Nested guard, a candidate's cost is between <code>1</code> and <code>2</code>. What does that tell you about it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It still fails the outer guard x === 17 (approach level 1), so it has not even reached the inner predicate</text><feedback><text>Correct — the whole integer part 1 is the approach level; the fractional part is the normalised distance on x.</text></feedback></answer>
+    <answer fraction="0"><text>It covers the branch but with a small margin</text><feedback><text>A covering input has cost 0, not between 1 and 2.</text></feedback></answer>
+    <answer fraction="0"><text>It satisfies x === 17 and is close on y</text><feedback><text>Once x === 17 holds the approach level is 0, so the cost would be below 1.</text></feedback></answer>
+    <answer fraction="0"><text>It failed to run at all</text><feedback><text>An unreached decision pushes the cost toward the worst value; here approach level 1 means x simply is not 17 yet.</text></feedback></answer>
+    <generalfeedback><text>The cost's integer part is the approach level. Between 1 and 2 means approach level 1 (x is not 17) plus a normalised branch distance in [0, 1) measuring |x - 17|. The candidate has not reached the inner y &gt; 100 guard.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading a cost below 1</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Nested guard, a candidate's cost is below <code>1</code> but not <code>0</code>. What does that tell you?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The outer guard x === 17 already holds (approach level 0); only the inner predicate y &gt; 100 remains unsatisfied</text><feedback><text>Correct — an approach level of 0 caps the cost below 1, so the fractional value is the inner branch distance.</text></feedback></answer>
+    <answer fraction="0"><text>The input still fails x === 17</text><feedback><text>Failing the outer guard would give approach level 1 and a cost of at least 1.</text></feedback></answer>
+    <answer fraction="0"><text>The branch is already covered</text><feedback><text>Covered means cost exactly 0; below 1 but non-zero means close but not there.</text></feedback></answer>
+    <answer fraction="0"><text>The GA has run out of budget</text><feedback><text>Cost describes the candidate, not the remaining budget.</text></feedback></answer>
+    <generalfeedback><text>When x === 17 holds, the approach level drops to 0, so the cost equals just the normalised branch distance of y &gt; 100, which lies in [0, 1). A value like 0.5 means the input reached the inner guard and only needs y pushed above 100.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match: approach level to its role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing of term to role is <strong>correct</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Approach level = number of unsatisfied enclosing guards; branch distance = how close the diverging predicate is to flipping</text><feedback><text>Correct — approach level is the coarse nesting count; branch distance is the fine within-level measure.</text></feedback></answer>
+    <answer fraction="0"><text>Approach level = how close the predicate is to flipping; branch distance = number of unsatisfied guards</text><feedback><text>These roles are swapped.</text></feedback></answer>
+    <answer fraction="0"><text>Approach level = the input's fitness rank in the population; branch distance = the generation index</text><feedback><text>Neither role is correct; both describe the target relationship, not ranks or indices.</text></feedback></answer>
+    <answer fraction="0"><text>Approach level = normalised value in [0, 1); branch distance = an integer count of guards</text><feedback><text>It is the reverse: branch distance is normalised into [0, 1); approach level is the integer count.</text></feedback></answer>
+    <generalfeedback><text>Approach level counts how many enclosing guards on the way to the target were not taken correctly; branch distance measures how near the predicate at the divergence point is to flipping. Cost combines them as approach level + normalised branch distance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why branch distance is normalised into [0, 1)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the branch distance <strong>normalised</strong> into <code>[0, 1)</code> before being added to the approach level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So it can never outweigh a whole approach-level unit — approach level dominates the ordering, and branch distance only breaks ties within a level</text><feedback><text>Correct — normalising keeps the level count as the primary key and the distance as the tie-breaker.</text></feedback></answer>
+    <answer fraction="0"><text>So that costs can be shown as percentages</text><feedback><text>Normalising is about ordering, not display units.</text></feedback></answer>
+    <answer fraction="0"><text>So that random search and the GA share the same seed</text><feedback><text>Seeding is unrelated to normalising the distance.</text></feedback></answer>
+    <answer fraction="0"><text>So the branch distance becomes an integer</text><feedback><text>Normalising maps it into a fraction in [0, 1), not an integer.</text></feedback></answer>
+    <generalfeedback><text>Normalising the distance with d / (d + 1) keeps it strictly below 1. Then reducing the approach level by one always lowers the cost more than any change in branch distance, so "one nesting level closer" is always ranked better than merely nudging a predicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What elitism and selection do</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What do <strong>elitism</strong> and <strong>tournament selection</strong> contribute in this GA?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They preserve and propagate the lowest-cost individuals, so progress toward the branch is kept and the search concentrates near promising inputs</text><feedback><text>Correct — they retain good candidates and bias reproduction toward them.</text></feedback></answer>
+    <answer fraction="0"><text>They discard the best individual each generation to maintain diversity</text><feedback><text>Elitism does the opposite: it carries the best individual forward.</text></feedback></answer>
+    <answer fraction="0"><text>They evaluate the fitness function more cheaply</text><feedback><text>They shape which individuals survive and breed, not the cost of evaluation.</text></feedback></answer>
+    <answer fraction="0"><text>They convert the branch distance into an approach level</text><feedback><text>That is the fitness definition, not a job of selection or elitism.</text></feedback></answer>
+    <generalfeedback><text>Elitism carries the current best individual into the next generation so a good solution is never lost, and tournament selection makes lower-cost individuals more likely to reproduce. Together they focus the population's search around the most promising region of the input space.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation's role in reaching the branch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the role of <strong>mutation</strong> in moving the GA toward covering the branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It makes small random changes to an input's components, letting the search explore neighbours of good individuals and descend the fitness gradient (for example nudging x toward 17)</text><feedback><text>Correct — mutation supplies the local moves that follow the gradient.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the whole population with fresh random inputs every generation</text><feedback><text>That would discard progress; mutation perturbs individuals, it does not reset everyone.</text></feedback></answer>
+    <answer fraction="0"><text>It computes the fitness function for each candidate</text><feedback><text>Fitness evaluation is separate; mutation only produces new candidates.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the branch is covered in one step</text><feedback><text>Mutation makes incremental moves; coverage emerges over generations, not in a single guaranteed step.</text></feedback></answer>
+    <generalfeedback><text>Mutation perturbs input components by small amounts, generating neighbours of the current good individuals. Combined with selection that keeps the lower-cost results, this lets the population walk down the fitness landscape toward the values that cover the branch.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Random search does not use the gradient</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Random search uses the fitness gradient to steer its next sample toward the target branch.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — random search samples independently and ignores the fitness of previous samples when drawing the next one.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — random search draws each input blindly; only the guided search follows the gradient.</text></feedback></answer>
+    <generalfeedback><text>Random search records the best cost seen but does not use it to choose the next input — each draw is independent. The genetic algorithm is what follows the fitness gradient, biasing new candidates toward the lower-cost region.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the GA is faster on Triangle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Triangle classifier, the equilateral target needs <code>a == b</code> and then <code>b == c</code>. Why does the GA reach it faster than random search?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The GA follows |a - b| then |b - c| downhill, satisfying one equality at a time, while random search must hit both equalities at once by chance (about 1 in 900)</text><feedback><text>Correct — the graded equality distances let the GA solve the two constraints sequentially.</text></feedback></answer>
+    <answer fraction="0"><text>The GA only needs a == b; b == c is irrelevant to the target</text><feedback><text>Both equalities are required for the equilateral target.</text></feedback></answer>
+    <answer fraction="0"><text>Random search is forbidden from generating equal values</text><feedback><text>Random search can produce equal values; it is just unlikely to satisfy both equalities together.</text></feedback></answer>
+    <answer fraction="0"><text>The GA uses a completely different fitness function for triangles</text><feedback><text>It uses the same approach level + branch distance fitness, just applied to this example.</text></feedback></answer>
+    <generalfeedback><text>With a, b, c in [1, 30], hitting a == b and b == c simultaneously by luck is about (1/30)(1/30), roughly 1 in 900. The GA instead descends |a - b| to line up a and b, then |b - c|, reaching the equilateral branch in far fewer evaluations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the fitness history sparkline shows</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>fitness history</strong> sparkline plot across generations?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The best cost achieved in each generation, trending downward toward 0 as the GA converges</text><feedback><text>Correct — it charts the best-cost-per-generation curve of the GA.</text></feedback></answer>
+    <answer fraction="0"><text>The number of individuals in each generation</text><feedback><text>Population size is fixed; the sparkline tracks best cost, not count.</text></feedback></answer>
+    <answer fraction="0"><text>The random seed used per generation</text><feedback><text>The seed is fixed for the run; the sparkline shows fitness progress.</text></feedback></answer>
+    <answer fraction="0"><text>The source code length over time</text><feedback><text>The code does not change; the sparkline plots best cost per generation.</text></feedback></answer>
+    <generalfeedback><text>The sparkline shows one best-cost value per generation, so you can watch the GA's fitness improve. A downward staircase ending at 0 is the visual signature of the search converging onto the target branch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the GA needs fewer evaluations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does random search often exhaust its budget on these nested targets while the GA covers them well within budget?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Random search's chance of a blind exact hit is low and constant, whereas the GA accumulates progress across generations via feedback, so its expected evaluations to cover are far fewer</text><feedback><text>Correct — memoryless sampling versus cumulative, guided improvement.</text></feedback></answer>
+    <answer fraction="0"><text>The GA is given a larger budget than random search</text><feedback><text>Both use the same budget; the GA simply uses it more effectively.</text></feedback></answer>
+    <answer fraction="0"><text>Random search stops after the first generation</text><feedback><text>Random search keeps sampling until covered or budget-exhausted; it just makes no cumulative progress.</text></feedback></answer>
+    <answer fraction="0"><text>The GA evaluates fitness without running the program</text><feedback><text>Both run the instrumented program to score inputs; the GA just directs where it samples.</text></feedback></answer>
+    <generalfeedback><text>Random search is memoryless: every draw has the same low probability of hitting the target, so it tends to burn the whole budget. The GA reuses information — keeping the best and mutating around it — so each generation is more likely than the last to reach the branch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What crossover contributes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>one-point crossover</strong> contribute when the GA works on a multi-variable example like Triangle classifier?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It combines components from two good parents into a child — for instance taking a well-tuned a from one and a well-tuned c from another — assembling partial solutions</text><feedback><text>Correct — crossover recombines useful building blocks found by different individuals.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the child's inputs with entirely new random values</text><feedback><text>That is closer to random re-initialisation; crossover recombines existing parents' components.</text></feedback></answer>
+    <answer fraction="0"><text>It computes the approach level for each parent</text><feedback><text>Approach level comes from the fitness evaluation, not from crossover.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the child has a lower cost than both parents</text><feedback><text>Crossover can produce worse children too; selection is what keeps the good ones.</text></feedback></answer>
+    <generalfeedback><text>One-point crossover cuts two parent vectors and splices them, so a child can inherit a good value on one variable from one parent and a good value on another variable from the other. On multi-variable targets this lets the GA assemble partial progress that a single mutation chain might reach only slowly.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/SBST Branch Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why combine approach level and branch distance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the fitness <strong>combine</strong> approach level and branch distance instead of using either one alone?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Approach level alone is a coarse integer with no within-level gradient, and branch distance alone cannot tell which nesting level you diverged at; together the level gives coarse progress and the distance gives a fine gradient inside a level</text><feedback><text>Correct — the two components cover complementary scales of "closeness".</text></feedback></answer>
+    <answer fraction="0"><text>Combining them makes the cost an integer, which is easier to sort</text><feedback><text>The combined cost is generally fractional; that is not the reason.</text></feedback></answer>
+    <answer fraction="0"><text>It is only combined to slow the search down for teaching purposes</text><feedback><text>The combination is what makes the guidance effective, not a deliberate slowdown.</text></feedback></answer>
+    <answer fraction="0"><text>Approach level is used for random search and branch distance for the GA</text><feedback><text>Both strategies use the same combined fitness.</text></feedback></answer>
+    <generalfeedback><text>Approach level tells the search how many enclosing guards remain, giving coarse, level-by-level progress; branch distance gives a smooth slope within the current level so the search knows which way to nudge the diverging predicate. Neither alone is enough to guide toward a deeply nested branch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why normalisation preserves the ordering</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The branch distance is normalised with <code>d / (d + 1)</code> before being added to the approach level. What ordering property does this guarantee?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every level's distance contribution stays below 1, so decreasing the approach level always lowers cost more than any branch-distance change — a candidate one level closer is always ranked better</text><feedback><text>Correct — normalisation makes approach level the dominant sort key.</text></feedback></answer>
+    <answer fraction="0"><text>It makes branch distance able to override the approach level when the predicate is nearly true</text><feedback><text>That is what normalisation prevents: the distance is capped below 1 so it cannot override a whole level.</text></feedback></answer>
+    <answer fraction="0"><text>It makes all costs equal so the search treats candidates uniformly</text><feedback><text>Costs remain distinct; normalisation only bounds the fractional part.</text></feedback></answer>
+    <answer fraction="0"><text>It converts approach level into a probability</text><feedback><text>Approach level stays an integer count; only the distance is normalised.</text></feedback></answer>
+    <generalfeedback><text>Because d / (d + 1) is always in [0, 1), the fractional part can never bridge a full unit of approach level. So the cost sorts primarily by approach level (nesting progress) and only secondarily by how near the diverging predicate is — exactly the priority the search needs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Predicate form that yields a plateau</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which predicate form produces a <strong>flat</strong> branch distance (a plateau with no directional gradient)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An inequality such as a != b, whose branch distance is just 0 or a constant K — it gives no sense of "how close"</text><feedback><text>Correct — a != b is either satisfied (0) or not (constant), a flat landscape.</text></feedback></answer>
+    <answer fraction="0"><text>An equality a == b, whose distance is |a - b|</text><feedback><text>Equality gives a graded slope |a - b|, not a plateau.</text></feedback></answer>
+    <answer fraction="0"><text>An ordering a &lt; b, whose distance grows with (a - b)</text><feedback><text>An ordering comparison gives a graded distance, so it has a usable gradient.</text></feedback></answer>
+    <answer fraction="0"><text>A comparison a &gt; b, whose distance grows with (b - a)</text><feedback><text>This too grades with the gap, providing a slope rather than a plateau.</text></feedback></answer>
+    <generalfeedback><text>For a != b the branch distance is 0 when they already differ and a constant K otherwise: there is no gradient telling the search which direction reduces it. Equalities and orderings instead grade smoothly with the operand gap, which is why they guide the search well.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the Multimodal example is hard</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Multimodal example the guard is <code>x % 20 == 7</code>. Why does this create a hard fitness landscape?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The modulo makes the distance to r == 7 non-monotone in x, so it repeats in basins at x = 7, 27, 47, 67, 87 — many local minima rather than one slope</text><feedback><text>Correct — the periodic remainder produces a multimodal, sawtooth landscape.</text></feedback></answer>
+    <answer fraction="0"><text>The modulo makes the branch distance strictly decreasing in x, a single smooth hill</text><feedback><text>It is the opposite: the remainder resets every 20, so the landscape is not monotone.</text></feedback></answer>
+    <answer fraction="0"><text>The example has no target branch, so fitness is undefined</text><feedback><text>It does have a target (x &gt; 50 inside r == 7); the difficulty is the multimodal shape.</text></feedback></answer>
+    <answer fraction="0"><text>x % 20 == 7 can never be satisfied for any x</text><feedback><text>It is satisfied at x = 7, 27, 47, 67, 87; the landscape is just bumpy.</text></feedback></answer>
+    <generalfeedback><text>Because x % 20 cycles, the distance to r == 7 forms repeating valleys every 20 units, so a local search can settle into the wrong basin. Only the basins at x = 67 and x = 87 also satisfy the inner x &gt; 50, which is what makes the full target elusive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting x = 47 in Multimodal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the Multimodal example, consider the input <code>x = 47</code>. Which description is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>r = 7 so the outer guard passes (approach level 0), but x &gt; 50 is false — the cost is below 1, yet moving x by one to fix x &gt; 50 breaks r == 7</text><feedback><text>Correct — x = 47 is close in cost but sits on a deceptive basin edge.</text></feedback></answer>
+    <answer fraction="0"><text>r = 7 and x &gt; 50, so x = 47 covers the target</text><feedback><text>47 is not greater than 50, so the inner predicate is false.</text></feedback></answer>
+    <answer fraction="0"><text>r is not 7, so the outer guard fails and approach level is 1</text><feedback><text>47 % 20 = 7, so the outer guard passes; approach level is 0.</text></feedback></answer>
+    <answer fraction="0"><text>x = 47 makes the cost exactly 0</text><feedback><text>Cost 0 needs both r == 7 and x &gt; 50; at x = 47 the second fails.</text></feedback></answer>
+    <generalfeedback><text>At x = 47, 47 % 20 = 7 so the outer guard holds and the approach level is 0; the remaining cost is the normalised distance of 47 &gt; 50 (false). Nudging x up to 48 to satisfy x &gt; 50 changes the remainder to 8, breaking r == 7 and raising the approach level — a locally deceptive move.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Population versus a single trajectory on plateaus</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can a <strong>population</strong>-based GA keep making progress where a single hill-climbing trajectory would stall on a local basin or plateau?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A single trajectory has no improving neighbour to move to, but a diverse population plus crossover samples several basins at once and can jump out of a trap</text><feedback><text>Correct — diversity and recombination let the population escape traps that stall one path.</text></feedback></answer>
+    <answer fraction="0"><text>A population evaluates fitness more accurately than a single point</text><feedback><text>Accuracy is the same; the advantage is exploring multiple regions in parallel.</text></feedback></answer>
+    <answer fraction="0"><text>Hill climbing cannot compute branch distance</text><feedback><text>Hill climbing uses the same fitness; it just follows one path that can get stuck.</text></feedback></answer>
+    <answer fraction="0"><text>A population removes all local minima from the landscape</text><feedback><text>The landscape is unchanged; the population is simply more able to escape its traps.</text></feedback></answer>
+    <generalfeedback><text>A lone trajectory gets stuck when no small step improves fitness. A population maintains candidates in several basins, and crossover can combine parts of different individuals, giving the search ways to leave a local optimum or cross a plateau that would trap a single hill climber.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When search-based testing struggles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which situations make search-based testing <strong>struggle</strong> to cover a branch?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Flag or != predicates that flatten the landscape, deeply nested guards with high approach levels, and multimodal or deceptive fitness where the gradient is absent or misleading</text><feedback><text>Correct — these are exactly the cases that starve or mislead the guidance.</text></feedback></answer>
+    <answer fraction="0"><text>Any predicate that uses an ordering comparison such as &gt; or &lt;</text><feedback><text>Ordering comparisons give a good graded gradient; they are the easy case.</text></feedback></answer>
+    <answer fraction="0"><text>Programs with only a single unnested branch</text><feedback><text>A single shallow branch is easy; struggle comes from flatness, nesting, and deception.</text></feedback></answer>
+    <answer fraction="0"><text>Any program with more than one input variable</text><feedback><text>Multiple variables alone are fine; the difficulty is landscape shape, not variable count.</text></feedback></answer>
+    <generalfeedback><text>SBST relies on a fitness gradient. It struggles when there is none (boolean flags, != giving flat distances), when the target is buried under many guards (high approach level with little distance signal at the top), or when the landscape is multimodal or deceptive so that local moves point the wrong way.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Comparing two candidate costs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Nested guard, which candidate has the <strong>lower</strong> cost: <code>(x=17, y=90)</code> or <code>(x=15, y=200)</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(x=17, y=90) — its approach level is 0 (x is 17) so its cost is below 1, while (x=15, y=200) fails the outer guard, giving approach level 1 and a cost above 1</text><feedback><text>Correct — reaching the inner guard beats being near on y but wrong on x.</text></feedback></answer>
+    <answer fraction="0"><text>(x=15, y=200) — because y = 200 already satisfies y &gt; 100</text><feedback><text>y &gt; 100 only matters once x === 17; with x = 15 the inner guard is never reached.</text></feedback></answer>
+    <answer fraction="0"><text>They have equal cost, since each satisfies one of the two conditions</text><feedback><text>The conditions are not symmetric: failing the outer guard adds a full approach level.</text></feedback></answer>
+    <answer fraction="0"><text>(x=15, y=200) — because 15 is only 2 away from 17</text><feedback><text>Being close on x still leaves approach level 1, which outranks the sub-1 cost of the covered-guard candidate.</text></feedback></answer>
+    <generalfeedback><text>(x=17, y=90) passes x === 17, so approach level is 0 and cost is the normalised distance of y &gt; 100 — a value below 1. (x=15, y=200) fails x === 17, so approach level is 1 and cost exceeds 1 regardless of y. Approach level dominates, so (17, 90) is closer.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Small branch distance is not always nearly covered</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A candidate with a very small branch distance is always nearly covering the target, regardless of its approach level.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — a small branch distance at a high approach level is still far, because the whole approach level must be cleared first.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — approach level dominates; a tiny distance at approach level 1 is further than a larger distance at approach level 0.</text></feedback></answer>
+    <generalfeedback><text>Because branch distance is normalised below 1, it only refines the ordering within a single approach level. A candidate diverging at an outer guard (approach level 1) with a small distance still has cost above 1, further than one already inside the guard (approach level 0) with a larger distance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why equality gives a gradient but a flag does not</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the outer guard <code>x === 17</code> give the GA a usable gradient, whereas a plain boolean flag would not?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>|x - 17| varies continuously with x, so nearby inputs have measurably different fitness — a slope to follow; a boolean flag is only 0 or 1, with no in-between to guide toward</text><feedback><text>Correct — the graded numeric gap is what makes equality searchable.</text></feedback></answer>
+    <answer fraction="0"><text>Equality predicates are evaluated more often than flags</text><feedback><text>Evaluation frequency is not the point; the graded distance is.</text></feedback></answer>
+    <answer fraction="0"><text>A boolean flag has a larger branch distance, so it is easier</text><feedback><text>A flag has a flat 0/1 distance with no gradient, which is harder, not easier.</text></feedback></answer>
+    <answer fraction="0"><text>The GA ignores equality predicates entirely</text><feedback><text>The GA relies on the equality distance |x - 17| to steer x toward 17.</text></feedback></answer>
+    <generalfeedback><text>The equality distance |x - 17| changes smoothly as x moves, so the search can tell that x = 16 is better than x = 3 and keep improving. A boolean flag collapses everything to true/false with no measure of closeness, leaving the search nothing to descend.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting the sparkline shape</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The fitness-history sparkline shows a long <strong>flat</strong> segment followed by a sudden drop to <code>0</code>. What does that indicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The GA sat in one basin or at one approach level with no fitness improvement, until a mutation or crossover crossed into inputs that cover the target</text><feedback><text>Correct — a plateau then a breakthrough is a classic search-landscape signature.</text></feedback></answer>
+    <answer fraction="0"><text>The GA stopped running during the flat segment and resumed at the drop</text><feedback><text>The GA runs continuously; the flat part means no best-cost improvement, not a pause.</text></feedback></answer>
+    <answer fraction="0"><text>The population size increased at the drop</text><feedback><text>Population size is constant; the drop reflects a fitness breakthrough.</text></feedback></answer>
+    <answer fraction="0"><text>The random baseline covered the branch at that generation</text><feedback><text>The sparkline plots the GA's best cost, not the random baseline.</text></feedback></answer>
+    <generalfeedback><text>A flat best-cost curve means generations passed without improving the best individual — the search was stuck in a basin or holding one approach level. The abrupt drop to 0 is the generation where recombination or mutation finally produced a covering input.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why smaller distance is not always almost covered</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a smaller branch distance <strong>not</strong> always a sign that the target is almost covered?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because approach level matters more: a tiny distance at an outer guard (approach level 1) is still further from the target than a larger distance already inside the guard (approach level 0)</text><feedback><text>Correct — the cost's integer approach level outranks its fractional distance.</text></feedback></answer>
+    <answer fraction="0"><text>Because branch distance is measured in different units each generation</text><feedback><text>The units are consistent; the ordering issue is approach level dominance.</text></feedback></answer>
+    <answer fraction="0"><text>Because a small distance always means the input failed to run</text><feedback><text>A small distance means the predicate is nearly satisfied, not that the input failed.</text></feedback></answer>
+    <answer fraction="0"><text>Because the GA inverts the distance when comparing candidates</text><feedback><text>The GA minimises cost directly; it does not invert the distance.</text></feedback></answer>
+    <generalfeedback><text>Cost is approach level plus a normalised distance under 1. So a candidate at approach level 1 with a minuscule distance still has cost just above 1, whereas one at approach level 0 with a moderate distance has cost below 1 — the latter is genuinely closer, even though its branch distance is larger.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The tie-break within one approach level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When two candidates share the <strong>same</strong> approach level, what role does the normalised branch distance play?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It breaks the tie: the candidate with the smaller distance is preferred, driving the population toward flipping that diverging predicate</text><feedback><text>Correct — within a level, branch distance is the fine gradient the search follows.</text></feedback></answer>
+    <answer fraction="0"><text>It is ignored, so the two candidates are treated as identical forever</text><feedback><text>It is precisely the tie-breaker within a level, not ignored.</text></feedback></answer>
+    <answer fraction="0"><text>It raises the approach level of the worse candidate</text><feedback><text>Branch distance does not change the approach level; it only orders within one.</text></feedback></answer>
+    <answer fraction="0"><text>It swaps the two candidates' fitness values at random</text><feedback><text>The comparison is deterministic: smaller distance wins.</text></feedback></answer>
+    <generalfeedback><text>At equal approach level the costs differ only in their fractional part, so the candidate whose diverging predicate is nearer to flipping has the lower cost. Selection then favours it, steadily pushing that predicate toward satisfaction and, eventually, the next level in.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Widening x's range and its effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose the Nested guard input range for <code>x</code> were widened from <code>[0, 50]</code> to <code>[0, 5000]</code>. What would you predict?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Random search gets much worse — its chance of hitting x === 17 falls from about 1/51 to about 1/5001 — while the GA still follows the |x - 17| gradient, so the GA's advantage grows</text><feedback><text>Correct — enlarging the space hurts blind sampling but barely affects gradient-guided search.</text></feedback></answer>
+    <answer fraction="0"><text>Both strategies get proportionally worse, so their relative performance is unchanged</text><feedback><text>Only random search degrades with the exact-hit probability; the GA's gradient descent is largely unaffected.</text></feedback></answer>
+    <answer fraction="0"><text>The GA gets worse because a wider range makes the branch distance meaningless</text><feedback><text>The branch distance |x - 17| is still a valid slope; the GA just takes a few more generations.</text></feedback></answer>
+    <answer fraction="0"><text>Random search improves because there are more inputs to try</text><feedback><text>More inputs make the exact target rarer per draw, so random search does worse.</text></feedback></answer>
+    <generalfeedback><text>Random search must land x = 17 exactly, whose probability shrinks as the range grows, so a wider range roughly proportionally worsens it. The GA reads |x - 17| and descends toward 17 regardless of range, needing only a few more generations. This is precisely why guided search scales to large input spaces where random search collapses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Decomposing a cost of 1.5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Nested guard, a candidate's cost reads exactly <code>1.5</code>. Given cost = approach level + d/(d+1), what can you infer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Approach level is 1 (so x is not 17) and the normalised distance is 0.5, meaning the raw distance |x - 17| is 1 — so x is 16 or 18</text><feedback><text>Correct — the integer part gives the level; solving d/(d+1) = 0.5 gives d = 1.</text></feedback></answer>
+    <answer fraction="0"><text>Approach level is 0 and the candidate covers the branch</text><feedback><text>A covered candidate has cost 0; a cost of 1.5 has approach level 1.</text></feedback></answer>
+    <answer fraction="0"><text>The raw branch distance is 1.5</text><feedback><text>1.5 is the whole cost; the branch distance is normalised, so the fractional 0.5 corresponds to a raw distance of 1.</text></feedback></answer>
+    <answer fraction="0"><text>x equals 17 but y is 1.5 away from 100</text><feedback><text>If x were 17 the approach level would be 0 and the cost below 1, not 1.5.</text></feedback></answer>
+    <generalfeedback><text>The integer part 1 is the approach level, so the outer guard x === 17 fails. The fractional part 0.5 is the normalised distance; inverting d/(d+1) = 0.5 gives d = 1, i.e. |x - 17| = 1, so x is 16 or 18. This shows how the two fitness components can be read straight off a single cost value.</text></generalfeedback>
+  </question>
+</quiz>
