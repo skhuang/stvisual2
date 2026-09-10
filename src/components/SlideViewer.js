@@ -168,12 +168,27 @@ function paint(focusTestId) {
   if (focusTestId) focusInViewer(focusTestId);
 }
 
-export function openSlideViewer(sectionId) {
+// Is there a public deck with this id? Used to gate the per-unit Slides button.
+export function hasSlideDeck(deckId) {
+  return SLIDE_DECKS.some((d) => d.id === deckId);
+}
+
+// Open the viewer focused on one specific deck: open that deck's section picker
+// (so sibling decks stay browsable) but land on the requested deck.
+export function openSlideViewerForDeck(deckId) {
+  const deck = SLIDE_DECKS.find((d) => d.id === deckId);
+  if (!deck) return;
+  openSlideViewer(deck.section, { deckId });
+}
+
+export function openSlideViewer(sectionId, { deckId } = {}) {
   const publicDecks = publicDecksForSection(sectionId);
   const { folderId, token } = getPrivateContext();
   const privateConfigured = Boolean(folderId);
 
   if (!publicDecks.length) return;
+
+  const startIndex = deckId ? Math.max(0, publicDecks.findIndex((d) => d.id === deckId)) : 0;
 
   if (!overlay) {
     overlay = document.createElement('div');
@@ -188,7 +203,7 @@ export function openSlideViewer(sectionId) {
   view.decks = publicDecks;
   view.notesOn = false;
   view.privateSignInNeeded = privateConfigured && !token;
-  loadDeck(0);
+  loadDeck(startIndex);
   paint();
   focusInViewer('slideviewer-close');
 
