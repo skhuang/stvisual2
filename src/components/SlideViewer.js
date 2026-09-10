@@ -46,6 +46,13 @@ function onKey(e) {
   if (e.key === 'Escape') closeSlideViewer();
   else if (e.key === 'ArrowRight') { e.preventDefault(); go(1, 'slideviewer-next'); }
   else if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1, 'slideviewer-prev'); }
+  // Space advances like a presenter remote (Shift+Space goes back); preventDefault
+  // stops page scroll and the default activation of any focused button.
+  else if (e.key === ' ' || e.key === 'Spacebar') {
+    e.preventDefault();
+    if (e.shiftKey) go(-1, 'slideviewer-prev');
+    else go(1, 'slideviewer-next');
+  }
   else if (e.key === 'Home') { e.preventDefault(); goTo(0, 'slideviewer-prev'); }
   else if (e.key === 'End') { e.preventDefault(); goTo(view.slides.length - 1, 'slideviewer-next'); }
   else if (e.key === 'Tab') trapFocus(e);

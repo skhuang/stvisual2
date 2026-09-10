@@ -57,6 +57,16 @@ describe('SlideViewer', () => {
     expect(document.querySelector('[data-testid="slideviewer-prev"]')).toBeDisabled();
   });
 
+  it('advances with Space and goes back with Shift+Space', () => {
+    openSlideViewer('graph');
+    const counter = () => document.querySelector('[data-testid="slideviewer-counter"]').textContent;
+    expect(counter()).toMatch(/1\s*\//);
+    window.document.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+    expect(counter()).toMatch(/2\s*\//);
+    window.document.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', shiftKey: true, bubbles: true }));
+    expect(counter()).toMatch(/1\s*\//);
+  });
+
   it('keeps tab focus inside the viewer', () => {
     openSlideViewer('graph');
     const firstDeck = document.querySelector('[data-testid="slideviewer-deck-0"]');
