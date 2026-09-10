@@ -42631,6 +42631,10 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     } else if (e.key === "ArrowLeft") {
       e.preventDefault();
       go(-1, "slideviewer-prev");
+    } else if (e.key === " " || e.key === "Spacebar") {
+      e.preventDefault();
+      if (e.shiftKey) go(-1, "slideviewer-prev");
+      else go(1, "slideviewer-next");
     } else if (e.key === "Home") {
       e.preventDefault();
       goTo(0, "slideviewer-prev");
