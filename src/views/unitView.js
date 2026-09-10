@@ -5,6 +5,8 @@ import { unitTitle } from '../utils/unitTitles.js';
 import { initVizFocus } from '../utils/vizFocus.js';
 import { QuizViewer } from '../components/QuizViewer.js';
 import { LabViewer } from '../components/LabViewer.js';
+import { openSlideViewerForDeck, hasSlideDeck } from '../components/SlideViewer.js';
+import { slideDeckIdForUnit } from '../data/unitSlideDecks.js';
 import { INPUT_DIFFICULTIES, getInputDifficulty, setInputDifficulty } from '../utils/inputDifficulty.js';
 
 // Single-Explorer classroom view: minimal header, one mounted explorer,
@@ -12,6 +14,8 @@ import { INPUT_DIFFICULTIES, getInputDifficulty, setInputDifficulty } from '../u
 export function renderUnitView(container, urlState) {
   const unit = UNIT_BY_COMPONENT.get(urlState.explorer);
   if (!unit) return; // dispatcher guarantees resolution; belt-and-braces
+
+  const slideDeckId = slideDeckIdForUnit(unit.id);
 
   function paint() {
     const title = unitTitle(unit);
@@ -36,6 +40,10 @@ export function renderUnitView(container, urlState) {
                     data-testid="viz-focus-toggle" aria-pressed="false">
               ⛶ ${t('unit.fullscreen')}
             </button>
+            ${hasSlideDeck(slideDeckId) ? `
+              <button type="button" class="btn secondary" data-testid="unit-slides-btn">
+                ${t('btn.slides')}
+              </button>` : ''}
             ${QuizViewer.has(unit.quizId ?? unit.id) ? `
               <button type="button" class="btn secondary" data-testid="unit-quiz-btn">
                 ${t('btn.quiz')}
@@ -54,6 +62,8 @@ export function renderUnitView(container, urlState) {
       btn.addEventListener('click', () => setLocale(btn.dataset.unitLang)));
     container.querySelector('[data-testid="input-difficulty"]')
       ?.addEventListener('change', (e) => setInputDifficulty(e.target.value));
+    container.querySelector('[data-testid="unit-slides-btn"]')
+      ?.addEventListener('click', () => openSlideViewerForDeck(slideDeckId));
     container.querySelector('[data-testid="unit-quiz-btn"]')
       ?.addEventListener('click', () => QuizViewer.open(unit.quizId ?? unit.id));
     container.querySelector('[data-testid="unit-lab-btn"]')

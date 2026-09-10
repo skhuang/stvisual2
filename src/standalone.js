@@ -2734,6 +2734,7 @@
       "unit.back": "All units",
       "unit.fullscreen": "Fullscreen",
       "unit.exitFullscreen": "Exit fullscreen",
+      "btn.slides": "Slides",
       "btn.quiz": "Quiz",
       "quiz.practice": "Practice",
       "quiz.test": "Test",
@@ -5583,6 +5584,7 @@
       "unit.back": "\u8FD4\u56DE\u7E3D\u89BD",
       "unit.fullscreen": "\u5168\u87A2\u5E55",
       "unit.exitFullscreen": "\u96E2\u958B\u5168\u87A2\u5E55",
+      "btn.slides": "\u6295\u5F71\u7247",
       "btn.quiz": "\u81EA\u6211\u6E2C\u9A57",
       "quiz.practice": "\u7DF4\u7FD2\u6A21\u5F0F",
       "quiz.test": "\u6E2C\u9A57\u6A21\u5F0F",
@@ -42746,11 +42748,20 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     }
     if (focusTestId) focusInViewer(focusTestId);
   }
-  function openSlideViewer(sectionId) {
+  function hasSlideDeck(deckId) {
+    return SLIDE_DECKS.some((d) => d.id === deckId);
+  }
+  function openSlideViewerForDeck(deckId) {
+    const deck = SLIDE_DECKS.find((d) => d.id === deckId);
+    if (!deck) return;
+    openSlideViewer(deck.section, { deckId });
+  }
+  function openSlideViewer(sectionId, { deckId } = {}) {
     const publicDecks = publicDecksForSection(sectionId);
     const { folderId, token } = getPrivateContext();
     const privateConfigured = Boolean(folderId);
     if (!publicDecks.length) return;
+    const startIndex = deckId ? Math.max(0, publicDecks.findIndex((d) => d.id === deckId)) : 0;
     if (!overlay) {
       overlay = document.createElement("div");
       overlay.className = "slideviewer-overlay";
@@ -42766,7 +42777,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     view.decks = publicDecks;
     view.notesOn = false;
     view.privateSignInNeeded = privateConfigured && !token;
-    loadDeck(0);
+    loadDeck(startIndex);
     paint();
     focusInViewer("slideviewer-close");
     if (privateConfigured && token) {
@@ -232647,12 +232658,57 @@ make grade      # your suite + branch coverage, with the missing lines named
   }
   var LabViewer = { open: open2, close: close2, has: has2 };
 
+  // src/data/unitSlideDecks.js
+  var SLIDE_DECK_BY_UNIT = {
+    "testing-method-tree": "course-intro",
+    "testing-flow": "testing-flow-pyramid",
+    "testing-types-table": "testing-types",
+    "pyramid-adjuster": "test-pyramid",
+    "graph-structural": "graph-coverage",
+    "graph-path": "graph-coverage",
+    "graph-dataflow": "data-flow-coverage",
+    "logic-basic": "logic-coverage",
+    "logic-active-clause": "logic-coverage",
+    "logic-inactive-clause": "logic-coverage",
+    "logic-dnf": "logic-coverage",
+    "syntax-coverage": "grammar-mutation",
+    "grammar-coverage": "grammar-mutation",
+    "property-based-testing": "property-based",
+    "risk-based-testing": "risk-based",
+    "equivalence-class": "equivalence-partitioning",
+    "metamorphic-testing": "metamorphic",
+    "exploratory-testing": "exploratory",
+    "equivalent-mutant": "equivalent-mutants",
+    "llm-pipeline": "llm-test-pipeline",
+    "test-quality": "test-quality-gates",
+    "sailor-pipeline": "sailor-vulnerability",
+    "performance-load-profile": "performance-load",
+    "w-method-conformance": "w-method",
+    "continuous-testing-pipeline": "continuous-testing",
+    "slice-dicing": "fault-localization-dicing",
+    "slice-coverage": "slice-based-coverage",
+    "slice-regression": "regression-test-selection",
+    "tdd-cycle": "test-driven-development",
+    "tdd-rules": "test-driven-development",
+    "exploit-overflow": "exploit-generation",
+    "exploit-sqli": "exploit-generation",
+    "exploit-cmdi": "exploit-generation",
+    "exploit-path": "exploit-generation",
+    "sbst-branch": "search-based-testing",
+    "sbst-compare": "search-based-testing",
+    "sbst-suite": "search-based-testing"
+  };
+  function slideDeckIdForUnit(unitId) {
+    return SLIDE_DECK_BY_UNIT[unitId] || unitId;
+  }
+
   // src/views/unitView.js
   function renderUnitView(container, urlState) {
     const unit = UNIT_BY_COMPONENT.get(urlState.explorer);
     if (!unit) return;
+    const slideDeckId = slideDeckIdForUnit(unit.id);
     function paint2() {
-      var _a2, _b2, _c, _d;
+      var _a2, _b2, _c, _d, _e;
       const title = unitTitle(unit);
       document.title = `${title} \xB7 ${t("app.title")}`;
       container.innerHTML = `
@@ -232675,6 +232731,10 @@ make grade      # your suite + branch coverage, with the missing lines named
                     data-testid="viz-focus-toggle" aria-pressed="false">
               \u26F6 ${t("unit.fullscreen")}
             </button>
+            ${hasSlideDeck(slideDeckId) ? `
+              <button type="button" class="btn secondary" data-testid="unit-slides-btn">
+                ${t("btn.slides")}
+              </button>` : ""}
             ${QuizViewer.has((_a2 = unit.quizId) != null ? _a2 : unit.id) ? `
               <button type="button" class="btn secondary" data-testid="unit-quiz-btn">
                 ${t("btn.quiz")}
@@ -232691,11 +232751,12 @@ make grade      # your suite + branch coverage, with the missing lines named
       container.querySelector(".unit-main").appendChild(factory());
       container.querySelectorAll("[data-unit-lang]").forEach((btn) => btn.addEventListener("click", () => setLocale(btn.dataset.unitLang)));
       (_b2 = container.querySelector('[data-testid="input-difficulty"]')) == null ? void 0 : _b2.addEventListener("change", (e) => setInputDifficulty(e.target.value));
-      (_c = container.querySelector('[data-testid="unit-quiz-btn"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      (_c = container.querySelector('[data-testid="unit-slides-btn"]')) == null ? void 0 : _c.addEventListener("click", () => openSlideViewerForDeck(slideDeckId));
+      (_d = container.querySelector('[data-testid="unit-quiz-btn"]')) == null ? void 0 : _d.addEventListener("click", () => {
         var _a3;
         return QuizViewer.open((_a3 = unit.quizId) != null ? _a3 : unit.id);
       });
-      (_d = container.querySelector('[data-testid="unit-lab-btn"]')) == null ? void 0 : _d.addEventListener("click", () => LabViewer.open(unit.id));
+      (_e = container.querySelector('[data-testid="unit-lab-btn"]')) == null ? void 0 : _e.addEventListener("click", () => LabViewer.open(unit.id));
     }
     paint2();
     onLocaleChange(() => paint2());
