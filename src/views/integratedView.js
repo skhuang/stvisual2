@@ -67,6 +67,7 @@ import { createSbstSuiteExplorer }   from '../components/SbstSuiteExplorer.js';
 import { createControllabilityObservabilityExplorer } from '../components/ControllabilityObservabilityExplorer.js';
 import { createTestabilitySeamsExplorer } from '../components/TestabilitySeamsExplorer.js';
 import { createTestabilityMetricsExplorer } from '../components/TestabilityMetricsExplorer.js';
+import { createTestabilityScorecardExplorer } from '../components/TestabilityScorecardExplorer.js';
 import { createDefinitionGatesExplorer } from '../components/DefinitionGatesExplorer.js';
 import { createExampleMappingExplorer } from '../components/ExampleMappingExplorer.js';
 import { createContinuousTestingPipelineExplorer } from '../components/ContinuousTestingPipelineExplorer.js';
@@ -358,6 +359,7 @@ export function renderIntegratedApp(container) {
       testabilityco: createControllabilityObservabilityExplorer(),
       testabilityseams: createTestabilitySeamsExplorer(),
       testabilitymetrics: createTestabilityMetricsExplorer(),
+      testabilityscore: createTestabilityScorecardExplorer(),
       definitiongates: createDefinitionGatesExplorer(),
       examplemapping: createExampleMappingExplorer(),
       ctpipeline: createContinuousTestingPipelineExplorer(),
@@ -1063,7 +1065,7 @@ export function renderIntegratedApp(container) {
     testabilityPanels.className = 'syntax-tab-panels';
     testabilitySlot.appendChild(testabilityPanels);
 
-    const testabilityTabDefs = ['co', 'seams', 'metrics'];
+    const testabilityTabDefs = ['co', 'seams', 'metrics', 'score'];
     for (const tabId of testabilityTabDefs) {
       const panel = document.createElement('div');
       panel.className = 'syntax-tab-panel';
@@ -1074,6 +1076,8 @@ export function renderIntegratedApp(container) {
         panel.appendChild(components.testabilityseams);
       } else if (tabId === 'metrics') {
         panel.appendChild(components.testabilitymetrics);
+      } else if (tabId === 'score') {
+        panel.appendChild(components.testabilityscore);
       }
       testabilityPanels.appendChild(panel);
     }
@@ -1092,6 +1096,7 @@ export function renderIntegratedApp(container) {
       { id: 'co', key: 'testability.tab.co' },
       { id: 'seams', key: 'testability.tab.seams' },
       { id: 'metrics', key: 'testability.tab.metrics' },
+      { id: 'score', key: 'testability.tab.score' },
     ];
 
     function renderTestabilityTabs() {

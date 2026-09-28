@@ -32,7 +32,7 @@ export const COURSE_PACKS = [
     order: ['TestingMethodTree', 'TestingFlow', 'DefectCostExplorer',
             'VModelExplorer', 'TestingTypesTable', 'PyramidAdjusterExplorer',
             'ControllabilityObservabilityExplorer', 'TestabilitySeamsExplorer',
-            'TestabilityMetricsExplorer'],
+            'TestabilityMetricsExplorer', 'TestabilityScorecardExplorer'],
   },
   {
     id: 'coverage',
