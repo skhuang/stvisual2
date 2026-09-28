@@ -98,7 +98,7 @@
     <answer fraction="100"><text>beep</text><feedback><text>正確——PASSED→'beep'。</text></feedback></answer>
     <answer fraction="0"><text>red</text><feedback><text>red 是 LOCKED 與 MAINT 的輸出，不是 PASSED。</text></feedback></answer>
     <answer fraction="0"><text>grind</text><feedback><text>'grind' 只有在對 JAMMED 加上探針時才出現；PASSED 的輸出是 'beep'。</text></feedback></answer>
-    <generalfeedback><text>outputs[PASSED] = 'beep'。它是基礎模型中唯一唯一的輸出，因此在加入任何探針前，PASSED 是唯一可觀察的狀態。</text></generalfeedback>
+    <generalfeedback><text>outputs[PASSED] = 'beep'。它在基礎模型中是唯一具有獨特輸出的狀態，因此在加入任何探針前，PASSED 是唯一可觀察的狀態。</text></generalfeedback>
   </question>
   <question type="multichoice">
     <name><text>LOCKED 的輸出</text></name>

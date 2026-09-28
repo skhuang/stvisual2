@@ -26914,7 +26914,7 @@ export const QUIZ_RENDERED = {
               "feedback": "'grind' 只有在對 JAMMED 加上探針時才出現；PASSED 的輸出是 'beep'。"
             }
           ],
-          "generalFeedback": "outputs[PASSED] = 'beep'。它是基礎模型中唯一唯一的輸出，因此在加入任何探針前，PASSED 是唯一可觀察的狀態。",
+          "generalFeedback": "outputs[PASSED] = 'beep'。它在基礎模型中是唯一具有獨特輸出的狀態，因此在加入任何探針前，PASSED 是唯一可觀察的狀態。",
           "single": true
         },
         {
