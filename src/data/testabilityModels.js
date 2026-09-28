@@ -50,3 +50,46 @@ export const SEAM_SNIPPET = {
     { id: 'random', seam: 'object', double: 'stub' },
   ],
 };
+
+// Testability-metrics module — a small e-commerce checkout, modelled as data so
+// the structural-metric lessons (cyclomatic complexity, coupling fan-in/out,
+// cohesion) are exact and unit-testable.
+//
+// The numbers are hand-picked so the ranking teaches one clear point: `checkout`
+// is a hard-to-test ORCHESTRATOR — high complexity (6 decisions → cyclomatic 7),
+// high fan-out (calls 4 collaborators), and many responsibilities (4) — while
+// `formatMoney` is a trivially testable pure helper (no decisions, no fan-out,
+// one responsibility). The middle units sit in between and include a deliberate
+// score tie (applyDiscount vs validateCart, both 6) so the id-ascending
+// tie-break in the ranking is exercised.
+//
+// score = cyclomatic + 2*fanOut + cohesionPenalty
+//   checkout       cyclo 7, fanOut 4, coh 4 → 7 + 8 + 4 = 19  (hardest)
+//   chargePayment  cyclo 5, fanOut 1, coh 2 → 5 + 2 + 2 =  9
+//   sendReceipt    cyclo 4, fanOut 1, coh 1 → 4 + 2 + 1 =  7
+//   applyDiscount  cyclo 3, fanOut 1, coh 1 → 3 + 2 + 1 =  6  (tie, id first)
+//   validateCart   cyclo 4, fanOut 0, coh 2 → 4 + 0 + 2 =  6  (tie)
+//   formatMoney    cyclo 1, fanOut 0, coh 1 → 1 + 0 + 1 =  2  (easiest)
+//
+// Kept as plain data with no dependencies so the explorer and its tests import
+// one source of truth.
+export const METRICS_MODULE = {
+  units: [
+    { id: 'checkout',      decisions: 6, responsibilities: ['orchestrate-flow', 'coordinate-steps', 'handle-errors', 'audit-log'] },
+    { id: 'validateCart',  decisions: 3, responsibilities: ['check-stock', 'check-address'] },
+    { id: 'applyDiscount', decisions: 2, responsibilities: ['coupon-rules'] },
+    { id: 'chargePayment', decisions: 4, responsibilities: ['call-gateway', 'retry-logic'] },
+    { id: 'sendReceipt',   decisions: 3, responsibilities: ['render-email'] },
+    { id: 'formatMoney',   decisions: 0, responsibilities: ['format'] },
+  ],
+  // directed call edges (from calls to)
+  calls: [
+    { from: 'checkout',      to: 'validateCart' },
+    { from: 'checkout',      to: 'applyDiscount' },
+    { from: 'checkout',      to: 'chargePayment' },
+    { from: 'checkout',      to: 'sendReceipt' },
+    { from: 'applyDiscount', to: 'formatMoney' },
+    { from: 'chargePayment', to: 'formatMoney' },
+    { from: 'sendReceipt',   to: 'formatMoney' },
+  ],
+};

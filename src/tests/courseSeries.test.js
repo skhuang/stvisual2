@@ -109,6 +109,7 @@ describe('K — course pack custom ordering', () => {
       'TestingMethodTree', 'TestingFlow', 'DefectCostExplorer',
       'VModelExplorer', 'TestingTypesTable', 'PyramidAdjusterExplorer',
       'ControllabilityObservabilityExplorer', 'TestabilitySeamsExplorer',
+      'TestabilityMetricsExplorer',
     ]);
   });
 });

@@ -70,6 +70,7 @@ import { createSbstCompareExplorer } from '../components/SbstCompareExplorer.js'
 import { createSbstSuiteExplorer } from '../components/SbstSuiteExplorer.js';
 import { createControllabilityObservabilityExplorer } from '../components/ControllabilityObservabilityExplorer.js';
 import { createTestabilitySeamsExplorer } from '../components/TestabilitySeamsExplorer.js';
+import { createTestabilityMetricsExplorer } from '../components/TestabilityMetricsExplorer.js';
 
 export const FACTORY_BY_COMPONENT = {
   TestingMethodTree: createTestingMethodTree,
@@ -150,4 +151,5 @@ export const FACTORY_BY_COMPONENT = {
   SbstSuiteExplorer: createSbstSuiteExplorer,
   ControllabilityObservabilityExplorer: createControllabilityObservabilityExplorer,
   TestabilitySeamsExplorer: createTestabilitySeamsExplorer,
+  TestabilityMetricsExplorer: createTestabilityMetricsExplorer,
 };

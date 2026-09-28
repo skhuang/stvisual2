@@ -31,6 +31,7 @@ describe('unit → slide-deck mapping', () => {
   const PENDING_DECK_UNITS = new Set([
     'controllability-observability',
     'testability-seams',
+    'testability-metrics',
   ]);
 
   it('every explorer unit resolves to a real deck (no unit left without slides)', () => {
