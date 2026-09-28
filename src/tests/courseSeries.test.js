@@ -108,7 +108,8 @@ describe('K — course pack custom ordering', () => {
     expect(getCoursePackExplorers('foundations')).toEqual([
       'TestingMethodTree', 'TestingFlow', 'DefectCostExplorer',
       'VModelExplorer', 'TestingTypesTable', 'PyramidAdjusterExplorer',
-      'ControllabilityObservabilityExplorer',
+      'ControllabilityObservabilityExplorer', 'TestabilitySeamsExplorer',
+      'TestabilityMetricsExplorer',
     ]);
   });
 });

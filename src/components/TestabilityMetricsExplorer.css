@@ -1,0 +1,137 @@
+/* Testability Metrics Heatmap Explorer (Testability section, tab `metrics`) */
+
+.metrics-wrap { display: flex; flex-direction: column; gap: 0.75rem; }
+.metrics-title { margin: 0; font-size: 1.25rem; color: var(--app-text, #1f2a44); }
+.metrics-desc { margin: 0; color: var(--app-text-muted, #6b7280); font-size: 0.92rem; }
+
+.metrics-col-title {
+  margin: 0 0 0.4rem; font-size: 0.95rem; color: var(--app-text, #1f2a44);
+}
+
+/* Hardest-unit readout */
+.metrics-hardest {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+  padding: 0.55rem 0.75rem; border-radius: var(--app-radius-md, 8px);
+  background: var(--app-surface-muted, #f8fafc);
+  border: 1px solid var(--app-border, #e5e7eb);
+}
+.metrics-hardest-tag {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.03em;
+  color: #fff; background: var(--app-primary-strong, #4f46e5);
+  padding: 0.1rem 0.45rem; border-radius: 999px;
+}
+.metrics-hardest-unit { font-size: 1rem; color: var(--app-text, #1f2a44); }
+.metrics-hardest-score { font-size: 0.82rem; color: var(--app-text-muted, #6b7280); }
+.metrics-hardest-fix {
+  flex: 1 1 100%; margin: 0.15rem 0 0; font-size: 0.85rem;
+  color: var(--app-text, #1f2a44);
+}
+
+/* Edit controls */
+.metrics-controls {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem;
+}
+.metrics-adddep { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+.metrics-ctl-label { font-size: 0.82rem; color: var(--app-text-muted, #6b7280); }
+.metrics-arrow-txt { color: var(--app-text-muted, #6b7280); }
+.metrics-select {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.78rem;
+  padding: 0.2rem 0.4rem; border-radius: var(--app-radius-sm, 6px);
+  border: 1px solid var(--app-border, #e5e7eb);
+  background: var(--app-surface, #fff); color: var(--app-text, #1f2a44);
+}
+.metrics-btn {
+  font-family: system-ui, sans-serif; font-size: 0.78rem; cursor: pointer;
+  padding: 0.25rem 0.6rem; border-radius: var(--app-radius-sm, 6px);
+  border: 1px solid var(--app-primary-strong, #4f46e5);
+  background: var(--app-surface, #fff); color: var(--app-primary-strong, #4f46e5);
+}
+.metrics-btn:hover { background: var(--app-surface-hover, #f1f5f9); }
+.metrics-btn--split { border-color: var(--app-accent, #7c3aed); color: var(--app-accent, #7c3aed); }
+.metrics-btn--reset { border-color: var(--app-border, #e5e7eb); color: var(--app-text-muted, #6b7280); }
+
+/* Body layout */
+.metrics-body {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 1rem; align-items: start;
+}
+@media (max-width: 760px) { .metrics-body { grid-template-columns: 1fr; } }
+.metrics-left { display: flex; flex-direction: column; gap: 0.9rem; }
+
+/* Heatmap grid */
+.metrics-heatmap {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 0.4rem;
+}
+.metrics-cell {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.2rem;
+  padding: 0.5rem 0.55rem; cursor: pointer; text-align: left;
+  border: 1px solid var(--app-border, #e5e7eb);
+  border-radius: var(--app-radius-md, 8px);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.metrics-cell-name { font-size: 0.76rem; font-weight: 600; word-break: break-word; }
+.metrics-cell-score { font-size: 1.05rem; font-weight: 700; }
+.metrics-cell--selected {
+  outline: 3px solid var(--app-accent, #7c3aed); outline-offset: 1px;
+}
+/* Sequential single-hue (indigo) ramp: easy → hard. Text contrast per level. */
+.metrics-cell--lvl0 { background: #eef2ff; color: #1e1b4b; }
+.metrics-cell--lvl1 { background: #c7d2fe; color: #1e1b4b; }
+.metrics-cell--lvl2 { background: #818cf8; color: #0b1020; }
+.metrics-cell--lvl3 { background: #4f46e5; color: #fff; }
+.metrics-cell--lvl4 { background: #3730a3; color: #fff; }
+.metrics-heatmap-legend {
+  margin: 0.35rem 0 0; font-size: 0.78rem; color: var(--app-text-muted, #6b7280);
+}
+
+/* Dependency graph */
+.metrics-graph-wrap {
+  border: 1px solid var(--app-border, #e5e7eb);
+  border-radius: var(--app-radius-md, 8px);
+  background: var(--app-surface-muted, #f8fafc);
+  padding: 0.5rem;
+}
+.metrics-graph { display: block; width: 100%; height: auto; }
+.metrics-gnode circle {
+  fill: var(--app-surface, #fff); stroke: var(--app-primary-strong, #4f46e5);
+  stroke-width: 1.5; cursor: pointer;
+}
+.metrics-gnode-label { fill: var(--app-text, #1f2a44); }
+.metrics-gnode--selected circle {
+  fill: var(--app-accent, #7c3aed); stroke: var(--app-accent, #7c3aed);
+}
+.metrics-gnode--selected .metrics-gnode-label { fill: #fff; }
+
+/* Breakdown card */
+.metrics-breakdown {
+  border: 1px solid var(--app-border, #e5e7eb);
+  border-radius: var(--app-radius-md, 8px);
+  background: var(--app-surface, #fff);
+  padding: 0.75rem;
+}
+.metrics-breakdown--empty { background: var(--app-surface-muted, #f8fafc); }
+.metrics-empty { margin: 0; font-size: 0.85rem; color: var(--app-text-muted, #6b7280); font-style: italic; }
+.metrics-card-title {
+  margin: 0 0 0.5rem; font-size: 1rem; color: var(--app-text, #1f2a44);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.metrics-metric-list { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.metrics-metric {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 0.85rem; padding: 0.15rem 0;
+  border-bottom: 1px solid var(--app-border-muted, #eef2f7);
+}
+.metrics-metric-label { color: var(--app-text-muted, #6b7280); }
+.metrics-metric-val { font-weight: 700; color: var(--app-text, #1f2a44); font-variant-numeric: tabular-nums; }
+.metrics-card-score {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-top: 0.35rem;
+}
+.metrics-card-score-label { font-size: 0.85rem; color: var(--app-text, #1f2a44); font-weight: 600; }
+.metrics-card-score-val { font-size: 1.35rem; font-weight: 800; color: var(--app-primary-strong, #4f46e5); }
+.metrics-card-reason {
+  margin: 0.5rem 0 0; font-size: 0.83rem; color: var(--app-text, #1f2a44);
+  padding: 0.4rem 0.55rem; border-radius: var(--app-radius-sm, 6px);
+  background: var(--app-surface-muted, #f8fafc);
+}
