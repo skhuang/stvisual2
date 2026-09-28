@@ -84,6 +84,10 @@ const DECKS = [
   { base: '63-exploit-generation', id: 'exploit-generation', num: 63, section: 'exploit' },
   { base: '64-input-space-partitioning', id: 'input-space-partitioning', num: 64, section: 'blackbox' },
   { base: '65-search-based-testing', id: 'search-based-testing', num: 65, section: 'sbst' },
+  { base: '66-controllability-observability', id: 'controllability-observability', num: 66, section: 'testability' },
+  { base: '67-testability-seams', id: 'testability-seams', num: 67, section: 'testability' },
+  { base: '68-testability-metrics', id: 'testability-metrics', num: 68, section: 'testability' },
+  { base: '69-testability-scorecard', id: 'testability-scorecard', num: 69, section: 'testability' },
 ];
 
 function frontMatterTitle(md) {

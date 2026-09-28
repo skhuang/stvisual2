@@ -25359,6 +25359,2560 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "controllability-observability": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What controllability is",
+          "text": "<p>In the testability sense, what does <strong>controllability</strong> measure?</p>",
+          "answers": [
+            {
+              "text": "How well a test can DRIVE the system into the states/inputs it needs to exercise",
+              "fraction": 100,
+              "feedback": "Correct — controllability is the \"drive it there\" half of testability."
+            },
+            {
+              "text": "How well a test can SEE the effects it needs to check",
+              "fraction": 0,
+              "feedback": "That is observability, the other half of testability."
+            },
+            {
+              "text": "How many states the model has",
+              "fraction": 0,
+              "feedback": "A raw state count is not controllability; controllability is about reachability by inputs."
+            },
+            {
+              "text": "How many transitions are covered by a test suite",
+              "fraction": 0,
+              "feedback": "That is transition coverage, a different idea from controllability."
+            }
+          ],
+          "generalFeedback": "Controllability asks whether a test can drive the software into the states and inputs it must exercise. Hidden state, unreachable branches, and hard-coded dependencies all reduce it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What observability is",
+          "text": "<p>In the testability sense, what does <strong>observability</strong> measure?</p>",
+          "answers": [
+            {
+              "text": "How well a test can DRIVE the system into a chosen state",
+              "fraction": 0,
+              "feedback": "That is controllability, not observability."
+            },
+            {
+              "text": "How well a test can SEE the effects/outputs it needs to check",
+              "fraction": 100,
+              "feedback": "Correct — observability is the \"can I see it\" half of testability."
+            },
+            {
+              "text": "How many inputs the system accepts",
+              "fraction": 0,
+              "feedback": "The number of inputs is not observability; observability is about distinguishable outputs."
+            },
+            {
+              "text": "How fast the test suite runs",
+              "fraction": 0,
+              "feedback": "Speed is unrelated to observability."
+            }
+          ],
+          "generalFeedback": "Observability asks whether a test can see the effects it needs to check. Side effects, swallowed errors, and missing/return outputs that collide with other states all reduce it.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Testability equals controllability plus observability",
+          "text": "<p>Testability is classically defined as <strong>controllability + observability</strong> — a system is testable to the degree a test can both drive it into the needed states and observe the resulting effects.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — both halves are required; either one alone is not enough."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Testability is exactly controllability together with observability."
+            }
+          ],
+          "generalFeedback": "The classical definition (control-theory roots; Freedman; Binder) is testability = controllability + observability. You must be able to drive the SUT to the situation you want AND see the effect to check it."
+        },
+        {
+          "type": "multichoice",
+          "name": "What a reachable state is",
+          "text": "<p>In the turnstile model, what is a <strong>reachable</strong> state?</p>",
+          "answers": [
+            {
+              "text": "A state that some sequence of test inputs, starting from the start state, can drive the SUT into",
+              "fraction": 100,
+              "feedback": "Correct — reachability here means \"an input sequence from the start gets you there\"."
+            },
+            {
+              "text": "A state whose output value is unique",
+              "fraction": 0,
+              "feedback": "That describes an observable state, not a reachable one."
+            },
+            {
+              "text": "Only the start state",
+              "fraction": 0,
+              "feedback": "The start state is reachable, but so is any state an input sequence can enter."
+            },
+            {
+              "text": "Any state that has a self-loop",
+              "fraction": 0,
+              "feedback": "Self-loops are unrelated to whether a state can be reached from the start."
+            }
+          ],
+          "generalFeedback": "reachableStates(sut) does a BFS from the start over the input-driven transitions. A state is reachable when some input sequence from the start arrives there.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an unreachable state is",
+          "text": "<p>What does it mean that a state is <strong>unreachable</strong> by the test in this model?</p>",
+          "answers": [
+            {
+              "text": "The state has no observable output",
+              "fraction": 0,
+              "feedback": "Reachability is about input-driven transitions, not about outputs."
+            },
+            {
+              "text": "The state is the start state",
+              "fraction": 0,
+              "feedback": "The start state is always reachable; unreachable is the opposite."
+            },
+            {
+              "text": "No sequence of test inputs from the start can drive the SUT into it",
+              "fraction": 100,
+              "feedback": "Correct — no input path leads there, so a test cannot set it up."
+            },
+            {
+              "text": "The state has more than one outgoing transition",
+              "fraction": 0,
+              "feedback": "Having outgoing transitions does not make a state unreachable."
+            }
+          ],
+          "generalFeedback": "An unreachable state has no input-driven path into it from the start, so a test cannot drive the SUT there. In the turnstile, JAMMED and MAINT are unreachable by the test's inputs — the controllability gap.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an observable output is",
+          "text": "<p>In this model, what is an <strong>observable output</strong>?</p>",
+          "answers": [
+            {
+              "text": "An internal state variable the test cannot read",
+              "fraction": 0,
+              "feedback": "The point of an output is that it CAN be seen from outside; a hidden variable is the opposite."
+            },
+            {
+              "text": "A value a test can see from outside the SUT (such as 'red', 'green', or 'beep')",
+              "fraction": 100,
+              "feedback": "Correct — outputs are the externally visible projection a test checks."
+            },
+            {
+              "text": "The input event that triggers a transition",
+              "fraction": 0,
+              "feedback": "That is an input (coin/push/reset), not an output."
+            },
+            {
+              "text": "A transition edge in the state graph",
+              "fraction": 0,
+              "feedback": "An edge is a transition; an output is the visible value of a state."
+            }
+          ],
+          "generalFeedback": "Each state maps to an observable output in sut.outputs — the value a test can see from outside (e.g. LOCKED→'red', PASSED→'beep'). Observability is measured over these outputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Turnstile start state",
+          "text": "<p>In <code>TURNSTILE_SUT</code>, which state is the <strong>start</strong> state?</p>",
+          "answers": [
+            {
+              "text": "LOCKED",
+              "fraction": 100,
+              "feedback": "Correct — start is LOCKED."
+            },
+            {
+              "text": "UNLOCKED",
+              "fraction": 0,
+              "feedback": "UNLOCKED is reached from LOCKED by coin; it is not the start."
+            },
+            {
+              "text": "PASSED",
+              "fraction": 0,
+              "feedback": "PASSED is reached via coin then push; it is not the start."
+            },
+            {
+              "text": "MAINT",
+              "fraction": 0,
+              "feedback": "MAINT is not even reachable by inputs, let alone the start."
+            }
+          ],
+          "generalFeedback": "TURNSTILE_SUT.start is 'LOCKED'. All reachability and driveTo computations begin there.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Turnstile state count",
+          "text": "<p>How many <strong>states</strong> does <code>TURNSTILE_SUT</code> have?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the number of input-reachable states, not the total."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "There are 5 states, not 4."
+            },
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — LOCKED, UNLOCKED, PASSED, JAMMED, MAINT."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "There are only 5 states in the model."
+            }
+          ],
+          "generalFeedback": "states = [LOCKED, UNLOCKED, PASSED, JAMMED, MAINT] — 5 in total. This 5 is the denominator of both the controllability and observability ratios.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Turnstile inputs",
+          "text": "<p>What are the test's <strong>inputs</strong> (levers) in <code>TURNSTILE_SUT</code>?</p>",
+          "answers": [
+            {
+              "text": "coin, push, reset",
+              "fraction": 100,
+              "feedback": "Correct — those are the three inputs the test can send."
+            },
+            {
+              "text": "coin, push",
+              "fraction": 0,
+              "feedback": "reset is also an input; there are three."
+            },
+            {
+              "text": "red, green, beep",
+              "fraction": 0,
+              "feedback": "Those are outputs, not inputs."
+            },
+            {
+              "text": "coin, push, reset, key",
+              "fraction": 0,
+              "feedback": "There is no 'key' input; a maintenance key is exactly what the model does NOT expose to the test."
+            }
+          ],
+          "generalFeedback": "inputs = [coin, push, reset]. There is deliberately no maintenance-key input, which is why MAINT cannot be driven to by the test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Output of PASSED",
+          "text": "<p>What is the observable <strong>output</strong> of the <code>PASSED</code> state?</p>",
+          "answers": [
+            {
+              "text": "green",
+              "fraction": 0,
+              "feedback": "green is the output of UNLOCKED and JAMMED, not PASSED."
+            },
+            {
+              "text": "beep",
+              "fraction": 100,
+              "feedback": "Correct — PASSED→'beep'."
+            },
+            {
+              "text": "red",
+              "fraction": 0,
+              "feedback": "red is the output of LOCKED and MAINT, not PASSED."
+            },
+            {
+              "text": "grind",
+              "fraction": 0,
+              "feedback": "'grind' is only added by a probe onto JAMMED; PASSED's output is 'beep'."
+            }
+          ],
+          "generalFeedback": "outputs[PASSED] = 'beep'. It is the only unique output in the base model, so PASSED is the one observable state before any probe is added.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Output of LOCKED",
+          "text": "<p>What is the observable <strong>output</strong> of the <code>LOCKED</code> state?</p>",
+          "answers": [
+            {
+              "text": "red",
+              "fraction": 100,
+              "feedback": "Correct — LOCKED→'red' (shared with MAINT)."
+            },
+            {
+              "text": "green",
+              "fraction": 0,
+              "feedback": "green belongs to UNLOCKED and JAMMED, not LOCKED."
+            },
+            {
+              "text": "beep",
+              "fraction": 0,
+              "feedback": "beep belongs to PASSED, not LOCKED."
+            },
+            {
+              "text": "grind",
+              "fraction": 0,
+              "feedback": "'grind' is a probe output on JAMMED; LOCKED's output is 'red'."
+            }
+          ],
+          "generalFeedback": "outputs[LOCKED] = 'red'. Because MAINT is also 'red', LOCKED's output is not unique, so LOCKED is not observable in the base model.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unique output in the base model",
+          "text": "<p>In the base turnstile (before any probe), which output value is <strong>unique</strong> to a single state?</p>",
+          "answers": [
+            {
+              "text": "red",
+              "fraction": 0,
+              "feedback": "red is shared by LOCKED and MAINT, so it is not unique."
+            },
+            {
+              "text": "green",
+              "fraction": 0,
+              "feedback": "green is shared by UNLOCKED and JAMMED, so it is not unique."
+            },
+            {
+              "text": "grind",
+              "fraction": 0,
+              "feedback": "'grind' does not exist in the base model; it only appears once a probe is added."
+            },
+            {
+              "text": "beep",
+              "fraction": 100,
+              "feedback": "Correct — only PASSED emits 'beep', so it is the single unique output."
+            }
+          ],
+          "generalFeedback": "Counting outputs: red→{LOCKED, MAINT}, green→{UNLOCKED, JAMMED}, beep→{PASSED}. Only 'beep' appears once, so PASSED is the only observable state (observability 1/5).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When a fault is observable",
+          "text": "<p>In this engine, when is a state's fault considered <strong>observable</strong>?</p>",
+          "answers": [
+            {
+              "text": "When the state's output value is unique — no other state shares it",
+              "fraction": 100,
+              "feedback": "Correct — a unique output lets an observer distinguish that state, so a fault landing there is visible."
+            },
+            {
+              "text": "When the state is reachable from the start",
+              "fraction": 0,
+              "feedback": "Reachability is controllability; observability is about distinguishable outputs."
+            },
+            {
+              "text": "When the state is the start state",
+              "fraction": 0,
+              "feedback": "Being the start has nothing to do with whether a fault there is observable."
+            },
+            {
+              "text": "When the state has a self-loop",
+              "fraction": 0,
+              "feedback": "Self-loops do not determine observability."
+            }
+          ],
+          "generalFeedback": "observableStates(sut) keeps a state only when its output value is unique across all states. A shared output means an observer cannot tell those states apart, so a fault there is invisible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read the controllability ratio",
+          "text": "<p>What is <code>controllability(TURNSTILE_SUT).ratio</code> for the base turnstile?</p>",
+          "answers": [
+            {
+              "text": "5/5 (100%)",
+              "fraction": 0,
+              "feedback": "Two states (JAMMED, MAINT) are unreachable, so it is not 5/5."
+            },
+            {
+              "text": "3/5 (60%)",
+              "fraction": 100,
+              "feedback": "Correct — LOCKED, UNLOCKED, PASSED are reachable; JAMMED and MAINT are not."
+            },
+            {
+              "text": "1/5 (20%)",
+              "fraction": 0,
+              "feedback": "1/5 is the base observability, not controllability."
+            },
+            {
+              "text": "2/5 (40%)",
+              "fraction": 0,
+              "feedback": "Three states are reachable, giving 3/5, not 2/5."
+            }
+          ],
+          "generalFeedback": "reachableStates = {LOCKED, UNLOCKED, PASSED} = 3 of 5, so controllability ratio = 3/5 = 60%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read the observability ratio",
+          "text": "<p>What is <code>observability(TURNSTILE_SUT).ratio</code> for the base turnstile (before any probe)?</p>",
+          "answers": [
+            {
+              "text": "3/5 (60%)",
+              "fraction": 0,
+              "feedback": "3/5 is what observability becomes AFTER a probe, not the base value."
+            },
+            {
+              "text": "5/5 (100%)",
+              "fraction": 0,
+              "feedback": "Only one state has a unique output in the base model, so it is not 5/5."
+            },
+            {
+              "text": "1/5 (20%)",
+              "fraction": 100,
+              "feedback": "Correct — only PASSED has a unique output ('beep')."
+            },
+            {
+              "text": "2/5 (40%)",
+              "fraction": 0,
+              "feedback": "Only one output (beep) is unique in the base model, so it is 1/5."
+            }
+          ],
+          "generalFeedback": "Only PASSED→'beep' is unique; red and green are each shared by two states. So observableStates = {PASSED} = 1 of 5, observability = 1/5 = 20%.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Which states are reachable",
+          "text": "<p>Starting from LOCKED and using only the inputs coin/push/reset, which set of states can the test reach?</p>",
+          "answers": [
+            {
+              "text": "{LOCKED, UNLOCKED, PASSED}",
+              "fraction": 100,
+              "feedback": "Correct — coin reaches UNLOCKED, push reaches PASSED, reset returns to LOCKED; JAMMED and MAINT are never entered."
+            },
+            {
+              "text": "{LOCKED, UNLOCKED, PASSED, JAMMED, MAINT}",
+              "fraction": 0,
+              "feedback": "JAMMED and MAINT have no input-driven edge into them, so they are not reachable."
+            },
+            {
+              "text": "{LOCKED, UNLOCKED}",
+              "fraction": 0,
+              "feedback": "PASSED is also reachable via coin then push."
+            },
+            {
+              "text": "{LOCKED, UNLOCKED, PASSED, JAMMED}",
+              "fraction": 0,
+              "feedback": "JAMMED is entered only by a fault, not by any input, so it is not reachable."
+            }
+          ],
+          "generalFeedback": "BFS from LOCKED over the input edges reaches UNLOCKED (coin) and PASSED (coin, push), and reset only returns to LOCKED. No edge leads into JAMMED or MAINT, so the reachable set is exactly {LOCKED, UNLOCKED, PASSED}.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why JAMMED is unreachable",
+          "text": "<p>Why can the test not drive the turnstile into <code>JAMMED</code>?</p>",
+          "answers": [
+            {
+              "text": "No input-driven transition leads INTO JAMMED — it is entered only by a fault, not by any test input",
+              "fraction": 100,
+              "feedback": "Correct — with no incoming input edge, no input sequence can arrive at JAMMED."
+            },
+            {
+              "text": "Because JAMMED has no outgoing transitions",
+              "fraction": 0,
+              "feedback": "JAMMED does have an outgoing edge (reset→LOCKED); the problem is that nothing leads in."
+            },
+            {
+              "text": "Because JAMMED shares its output with UNLOCKED",
+              "fraction": 0,
+              "feedback": "That shared output is the observability gap, not the reason JAMMED is unreachable."
+            },
+            {
+              "text": "Because JAMMED is the start state",
+              "fraction": 0,
+              "feedback": "LOCKED is the start; JAMMED is not."
+            }
+          ],
+          "generalFeedback": "Reachability depends on edges INTO a state. The only edge touching JAMMED is JAMMED--reset-->LOCKED (outgoing). Since no input drives anything into JAMMED, a fault is the only way in — the controllability gap.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why MAINT is unreachable",
+          "text": "<p>Why can the test not drive the turnstile into <code>MAINT</code>?</p>",
+          "answers": [
+            {
+              "text": "Because MAINT shares the output 'red' with LOCKED",
+              "fraction": 0,
+              "feedback": "The shared output is an observability issue; it does not explain unreachability."
+            },
+            {
+              "text": "No transition leads into MAINT — it is entered only by a maintenance key, which is not one of the test's inputs",
+              "fraction": 100,
+              "feedback": "Correct — MAINT has no incoming input edge, so no input sequence reaches it."
+            },
+            {
+              "text": "Because MAINT has a self-loop that traps the machine",
+              "fraction": 0,
+              "feedback": "MAINT has no edges at all in the model; there is no self-loop involved."
+            },
+            {
+              "text": "Because reset always leads away from MAINT",
+              "fraction": 0,
+              "feedback": "There is no reset edge from MAINT; the point is nothing leads INTO it."
+            }
+          ],
+          "generalFeedback": "MAINT is entered only by a maintenance key, which is deliberately NOT among inputs = [coin, push, reset]. With no input edge into MAINT, it is unreachable by the test — part of the controllability gap.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo PASSED",
+          "text": "<p>What input sequence does <code>driveTo(TURNSTILE_SUT, 'PASSED')</code> return (the shortest path from the start)?</p>",
+          "answers": [
+            {
+              "text": "coin, push",
+              "fraction": 100,
+              "feedback": "Correct — LOCKED--coin-->UNLOCKED--push-->PASSED."
+            },
+            {
+              "text": "push, coin",
+              "fraction": 0,
+              "feedback": "push in LOCKED just stays in LOCKED; the order must be coin then push."
+            },
+            {
+              "text": "coin, push, reset",
+              "fraction": 0,
+              "feedback": "reset would leave PASSED and return to LOCKED; the shortest path stops at PASSED after coin, push."
+            },
+            {
+              "text": "push",
+              "fraction": 0,
+              "feedback": "push alone from LOCKED loops back to LOCKED and never reaches PASSED."
+            }
+          ],
+          "generalFeedback": "BFS from LOCKED: coin reaches UNLOCKED, then push reaches PASSED. The shortest driving sequence is [coin, push] — 2 steps.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo UNLOCKED",
+          "text": "<p>What input sequence does <code>driveTo(TURNSTILE_SUT, 'UNLOCKED')</code> return?</p>",
+          "answers": [
+            {
+              "text": "push",
+              "fraction": 0,
+              "feedback": "push in LOCKED stays in LOCKED; it does not reach UNLOCKED."
+            },
+            {
+              "text": "coin",
+              "fraction": 100,
+              "feedback": "Correct — LOCKED--coin-->UNLOCKED in a single step."
+            },
+            {
+              "text": "coin, push",
+              "fraction": 0,
+              "feedback": "That reaches PASSED; UNLOCKED is reached by coin alone."
+            },
+            {
+              "text": "reset",
+              "fraction": 0,
+              "feedback": "reset is not defined from LOCKED and does not reach UNLOCKED."
+            }
+          ],
+          "generalFeedback": "From the start LOCKED, a single coin drives the SUT to UNLOCKED, so driveTo returns [coin].",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo MAINT result",
+          "text": "<p>What does <code>driveTo(TURNSTILE_SUT, 'MAINT')</code> return?</p>",
+          "answers": [
+            {
+              "text": "null — no input sequence can reach MAINT",
+              "fraction": 100,
+              "feedback": "Correct — MAINT is unreachable by inputs, so driveTo returns null."
+            },
+            {
+              "text": "An empty array []",
+              "fraction": 0,
+              "feedback": "[] is returned only when the target is the start state; MAINT is unreachable, so the result is null."
+            },
+            {
+              "text": "[reset]",
+              "fraction": 0,
+              "feedback": "reset does not lead into MAINT; no input sequence does."
+            },
+            {
+              "text": "[key]",
+              "fraction": 0,
+              "feedback": "There is no 'key' input in the model; driveTo returns null."
+            }
+          ],
+          "generalFeedback": "driveTo does a BFS over input edges and returns null when the target cannot be reached. MAINT has no incoming input edge, so the result is null — the controllability gap made concrete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo the start state",
+          "text": "<p>What does <code>driveTo(TURNSTILE_SUT, 'LOCKED')</code> return, given LOCKED is the start state?</p>",
+          "answers": [
+            {
+              "text": "null",
+              "fraction": 0,
+              "feedback": "null means unreachable; LOCKED is the start, so it is trivially reachable."
+            },
+            {
+              "text": "[reset]",
+              "fraction": 0,
+              "feedback": "You are already at LOCKED, so no input is needed."
+            },
+            {
+              "text": "An empty array [] — you are already there, no inputs needed",
+              "fraction": 100,
+              "feedback": "Correct — driveTo returns [] when the target is the start state."
+            },
+            {
+              "text": "[coin]",
+              "fraction": 0,
+              "feedback": "coin would leave LOCKED; to be AT the start no input is required, so []."
+            }
+          ],
+          "generalFeedback": "The first line of driveTo is: if target === start return []. Since LOCKED is the start, the shortest driving sequence is the empty sequence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a fault in JAMMED is invisible",
+          "text": "<p>In the base model, why would a fault that lands in <code>JAMMED</code> be invisible to a test watching the output?</p>",
+          "answers": [
+            {
+              "text": "Because JAMMED emits 'beep', the same as PASSED",
+              "fraction": 0,
+              "feedback": "JAMMED emits 'green', not 'beep'; beep is unique to PASSED."
+            },
+            {
+              "text": "Because JAMMED's output 'green' is shared with UNLOCKED, so the observer cannot tell them apart",
+              "fraction": 100,
+              "feedback": "Correct — colliding outputs make the two states indistinguishable, hiding the fault."
+            },
+            {
+              "text": "Because JAMMED is the start state",
+              "fraction": 0,
+              "feedback": "LOCKED is the start; JAMMED is not, and that is unrelated to visibility."
+            },
+            {
+              "text": "Because JAMMED has no output at all",
+              "fraction": 0,
+              "feedback": "JAMMED does have an output ('green'); the issue is that it collides with UNLOCKED."
+            }
+          ],
+          "generalFeedback": "JAMMED→'green' and UNLOCKED→'green'. When a fault drops the SUT into JAMMED, the output still reads 'green', identical to a normal UNLOCKED, so the observer cannot detect the jam — the observability gap.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which states share 'red'",
+          "text": "<p>Which two states share the output value <code>'red'</code>?</p>",
+          "answers": [
+            {
+              "text": "LOCKED and MAINT",
+              "fraction": 100,
+              "feedback": "Correct — both map to 'red', so neither is observable in the base model."
+            },
+            {
+              "text": "UNLOCKED and JAMMED",
+              "fraction": 0,
+              "feedback": "Those two share 'green', not 'red'."
+            },
+            {
+              "text": "LOCKED and UNLOCKED",
+              "fraction": 0,
+              "feedback": "LOCKED is 'red' but UNLOCKED is 'green'; they do not share."
+            },
+            {
+              "text": "PASSED and MAINT",
+              "fraction": 0,
+              "feedback": "PASSED is 'beep' and MAINT is 'red'; they do not share."
+            }
+          ],
+          "generalFeedback": "outputs: LOCKED→'red', MAINT→'red'. Because 'red' is shared, neither LOCKED nor MAINT is observable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which states share 'green'",
+          "text": "<p>Which two states share the output value <code>'green'</code>?</p>",
+          "answers": [
+            {
+              "text": "LOCKED and MAINT",
+              "fraction": 0,
+              "feedback": "Those two share 'red', not 'green'."
+            },
+            {
+              "text": "PASSED and JAMMED",
+              "fraction": 0,
+              "feedback": "PASSED is 'beep'; only JAMMED (with UNLOCKED) is 'green'."
+            },
+            {
+              "text": "UNLOCKED and JAMMED",
+              "fraction": 100,
+              "feedback": "Correct — both map to 'green', which is exactly why a jam looks like a normal unlock."
+            },
+            {
+              "text": "LOCKED and UNLOCKED",
+              "fraction": 0,
+              "feedback": "LOCKED is 'red', UNLOCKED is 'green'; they do not share."
+            }
+          ],
+          "generalFeedback": "outputs: UNLOCKED→'green', JAMMED→'green'. The collision on 'green' is the observability gap that hides a jam.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a probe does",
+          "text": "<p>What does adding a <strong>probe</strong> (<code>withProbe</code>) do in this explorer?</p>",
+          "answers": [
+            {
+              "text": "It gives a state a distinct output so a previously-shared output becomes unique, raising observability — returning a new SUT without mutating the original",
+              "fraction": 100,
+              "feedback": "Correct — withProbe returns a new outputs map; it is the \"observability is a design choice\" lever."
+            },
+            {
+              "text": "It adds a new input transition so an unreachable state becomes reachable",
+              "fraction": 0,
+              "feedback": "That would change controllability; a probe only changes outputs."
+            },
+            {
+              "text": "It deletes an unreachable state from the model",
+              "fraction": 0,
+              "feedback": "A probe adds a distinguishing output; it removes nothing."
+            },
+            {
+              "text": "It changes which state is the start state",
+              "fraction": 0,
+              "feedback": "The start state is unchanged; a probe only affects outputs."
+            }
+          ],
+          "generalFeedback": "withProbe(sut, state, distinctOutput) returns { ...sut, outputs: { ...sut.outputs, [state]: distinctOutput } } — a NEW SUT whose target state now emits a distinct value, so its output stops colliding and it becomes observable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of probing JAMMED",
+          "text": "<p>After a probe gives <code>JAMMED</code> its own distinct output, which states become observable that were not before?</p>",
+          "answers": [
+            {
+              "text": "Only JAMMED",
+              "fraction": 0,
+              "feedback": "UNLOCKED also becomes unique, because 'green' no longer collides once JAMMED has a distinct output."
+            },
+            {
+              "text": "UNLOCKED and JAMMED both become unique",
+              "fraction": 100,
+              "feedback": "Correct — the probe un-collides 'green', so UNLOCKED and JAMMED are each now the sole owner of their output."
+            },
+            {
+              "text": "LOCKED and MAINT",
+              "fraction": 0,
+              "feedback": "Those still share 'red'; the JAMMED probe does not touch them."
+            },
+            {
+              "text": "All five states",
+              "fraction": 0,
+              "feedback": "LOCKED and MAINT still collide on 'red', so not all five are observable."
+            }
+          ],
+          "generalFeedback": "Before: UNLOCKED and JAMMED both 'green' (neither observable). Probing JAMMED to a distinct value leaves UNLOCKED as the only 'green' and JAMMED as the only holder of the new value, so BOTH become observable — observability rises from 1/5 to 3/5 (PASSED, UNLOCKED, JAMMED).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Activity that exercises controllability",
+          "text": "<p>Which activity exercises <strong>controllability</strong> rather than observability?</p>",
+          "answers": [
+            {
+              "text": "Checking that PASSED emits 'beep'",
+              "fraction": 0,
+              "feedback": "Checking an output is observability."
+            },
+            {
+              "text": "Reading the output value of LOCKED",
+              "fraction": 0,
+              "feedback": "Reading an output is observability."
+            },
+            {
+              "text": "Distinguishing JAMMED from UNLOCKED by their outputs",
+              "fraction": 0,
+              "feedback": "Telling states apart by output is observability."
+            },
+            {
+              "text": "Driving the turnstile to PASSED by sending coin then push",
+              "fraction": 100,
+              "feedback": "Correct — building an input sequence to reach a target state is controllability."
+            }
+          ],
+          "generalFeedback": "Controllability is the drive-it-there half: sending inputs to reach a chosen state. Inspecting or distinguishing outputs is observability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Activity that exercises observability",
+          "text": "<p>Which activity exercises <strong>observability</strong> rather than controllability?</p>",
+          "answers": [
+            {
+              "text": "Checking that PASSED's output 'beep' is distinct from every other state's output",
+              "fraction": 100,
+              "feedback": "Correct — verifying that an output distinguishes a state is observability."
+            },
+            {
+              "text": "Sending coin to move LOCKED to UNLOCKED",
+              "fraction": 0,
+              "feedback": "Sending an input to change state is controllability."
+            },
+            {
+              "text": "Finding an input path that reaches PASSED",
+              "fraction": 0,
+              "feedback": "Finding a driving path is controllability."
+            },
+            {
+              "text": "Driving the SUT to a chosen target state",
+              "fraction": 0,
+              "feedback": "Driving to a target is controllability."
+            }
+          ],
+          "generalFeedback": "Observability is the see-it half: checking that outputs let you tell states apart. Sending inputs or finding paths is controllability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Controllability if MAINT became reachable",
+          "text": "<p>Suppose a maintenance-key input were added that drives the SUT into <code>MAINT</code> (which has no outgoing edges). What would the controllability ratio become?</p>",
+          "answers": [
+            {
+              "text": "5/5 (100%)",
+              "fraction": 0,
+              "feedback": "JAMMED would still be unreachable, so it cannot be 5/5."
+            },
+            {
+              "text": "3/5 (60%)",
+              "fraction": 0,
+              "feedback": "That is the current value; adding a reachable MAINT raises it."
+            },
+            {
+              "text": "4/5 (80%)",
+              "fraction": 100,
+              "feedback": "Correct — MAINT joins the reachable set {LOCKED, UNLOCKED, PASSED}, giving 4 of 5; JAMMED is still unreachable."
+            },
+            {
+              "text": "2/5 (40%)",
+              "fraction": 0,
+              "feedback": "Adding a reachable state increases, not decreases, controllability."
+            }
+          ],
+          "generalFeedback": "Reachable would become {LOCKED, UNLOCKED, PASSED, MAINT} = 4. MAINT has no outgoing edges so it opens no further states, and JAMMED is still unreachable. So controllability = 4/5 = 80%.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Trace a multi-step input sequence",
+          "text": "<p>Starting at LOCKED, the test sends the sequence <code>coin, push, reset, coin</code>. What is the final state?</p>",
+          "answers": [
+            {
+              "text": "PASSED",
+              "fraction": 0,
+              "feedback": "PASSED is reached after coin, push, but reset then coin move on to UNLOCKED."
+            },
+            {
+              "text": "UNLOCKED",
+              "fraction": 100,
+              "feedback": "Correct — LOCKED→UNLOCKED→PASSED→LOCKED→UNLOCKED."
+            },
+            {
+              "text": "LOCKED",
+              "fraction": 0,
+              "feedback": "reset returns to LOCKED, but the final coin then moves to UNLOCKED."
+            },
+            {
+              "text": "JAMMED",
+              "fraction": 0,
+              "feedback": "No input reaches JAMMED; the sequence cannot end there."
+            }
+          ],
+          "generalFeedback": "Trace: LOCKED--coin-->UNLOCKED--push-->PASSED--reset-->LOCKED--coin-->UNLOCKED. The final state is UNLOCKED.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why JAMMED's outgoing edge does not help",
+          "text": "<p>JAMMED has the edge <code>JAMMED--reset--&gt;LOCKED</code>. Why does that edge still not let the test reach JAMMED?</p>",
+          "answers": [
+            {
+              "text": "Reachability needs an edge INTO JAMMED; an outgoing edge lets you leave JAMMED but never arrive there",
+              "fraction": 100,
+              "feedback": "Correct — you can only take JAMMED--reset-->LOCKED if you are already in JAMMED, which the test cannot achieve."
+            },
+            {
+              "text": "Because reset is not one of the inputs",
+              "fraction": 0,
+              "feedback": "reset IS an input; the issue is direction — no edge leads into JAMMED."
+            },
+            {
+              "text": "Because JAMMED shares 'green' with UNLOCKED",
+              "fraction": 0,
+              "feedback": "That is the observability gap; it is unrelated to whether JAMMED can be reached."
+            },
+            {
+              "text": "Because the edge comes after PASSED in the graph",
+              "fraction": 0,
+              "feedback": "Ordering in the graph does not affect reachability; incoming edges do."
+            }
+          ],
+          "generalFeedback": "BFS follows edges in their direction. JAMMED--reset-->LOCKED is outgoing, usable only once you are in JAMMED. Since no edge points INTO JAMMED, the test can never get there — the outgoing edge is irrelevant to reachability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why driveTo PASSED needs two steps",
+          "text": "<p>Why is the shortest driving sequence to PASSED exactly two steps (<code>coin, push</code>) and not one?</p>",
+          "answers": [
+            {
+              "text": "PASSED is entered only by push from UNLOCKED, and UNLOCKED is entered only by coin from LOCKED — so you must do coin then push",
+              "fraction": 100,
+              "feedback": "Correct — the only path into PASSED forces this two-step chain."
+            },
+            {
+              "text": "Because reset must be sent before push",
+              "fraction": 0,
+              "feedback": "reset is not on the path to PASSED; coin then push is the route."
+            },
+            {
+              "text": "Because PASSED has a self-loop that must be entered twice",
+              "fraction": 0,
+              "feedback": "PASSED has no self-loop; the two steps come from the chain LOCKED→UNLOCKED→PASSED."
+            },
+            {
+              "text": "Because JAMMED blocks the direct path",
+              "fraction": 0,
+              "feedback": "JAMMED is not on any input path; it does not block anything."
+            }
+          ],
+          "generalFeedback": "The only edge into PASSED is UNLOCKED--push-->PASSED, and the only edge into UNLOCKED is LOCKED--coin-->UNLOCKED. From the start LOCKED that forces the chain coin, push — two steps, the minimum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret controllability 3/5",
+          "text": "<p>What does a controllability of <strong>3/5</strong> tell you about the turnstile?</p>",
+          "answers": [
+            {
+              "text": "A test can drive the SUT into 3 of the 5 modeled states; the other 2 (JAMMED, MAINT) are out of its reach",
+              "fraction": 100,
+              "feedback": "Correct — 3/5 counts input-reachable states over total states."
+            },
+            {
+              "text": "3 of the 5 outputs are unique",
+              "fraction": 0,
+              "feedback": "That describes observability, not controllability."
+            },
+            {
+              "text": "3 of the 5 transitions are exercised by the test suite",
+              "fraction": 0,
+              "feedback": "Controllability counts reachable states, not exercised transitions."
+            },
+            {
+              "text": "3 of the 5 inputs are valid",
+              "fraction": 0,
+              "feedback": "All inputs are valid; the ratio is over states, not inputs."
+            }
+          ],
+          "generalFeedback": "controllability.ratio = |reachable| / |states| = 3/5. It means the test can set up 3 of the 5 states; JAMMED and MAINT cannot be reached by any input sequence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret observability 1/5",
+          "text": "<p>What does an observability of <strong>1/5</strong> tell you about the base turnstile?</p>",
+          "answers": [
+            {
+              "text": "3 of the 5 states are reachable",
+              "fraction": 0,
+              "feedback": "That is controllability, and the number would be 3/5, not 1/5."
+            },
+            {
+              "text": "Only 1 of the 5 states (PASSED) has a distinguishable output; a fault in any of the other 4 can be confused with another state",
+              "fraction": 100,
+              "feedback": "Correct — 1/5 counts states with a unique output."
+            },
+            {
+              "text": "Exactly 1 of the 5 transitions is covered",
+              "fraction": 0,
+              "feedback": "Observability counts distinguishable-output states, not covered transitions."
+            },
+            {
+              "text": "1 of the 5 inputs is never used",
+              "fraction": 0,
+              "feedback": "The ratio is over states with unique outputs, not over inputs."
+            }
+          ],
+          "generalFeedback": "observability.ratio = |observable| / |states| = 1/5. Only PASSED→'beep' is unique; LOCKED/MAINT collide on 'red' and UNLOCKED/JAMMED on 'green', so a fault in any of those four is indistinguishable at the output.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret the 1/5 to 3/5 jump",
+          "text": "<p>Adding a single probe raises observability from <strong>1/5 to 3/5</strong>. What accounts for the jump of two, not one?</p>",
+          "answers": [
+            {
+              "text": "The probe makes JAMMED reachable by the test's inputs",
+              "fraction": 0,
+              "feedback": "That would be controllability; a probe changes outputs, not reachability."
+            },
+            {
+              "text": "The probe adds two new states to the model",
+              "fraction": 0,
+              "feedback": "A probe changes one state's output; it adds no states."
+            },
+            {
+              "text": "Giving JAMMED a distinct output un-collides 'green', so UNLOCKED and JAMMED each become unique, joining PASSED — 3 of 5",
+              "fraction": 100,
+              "feedback": "Correct — resolving one collision makes BOTH members of the pair unique at once."
+            },
+            {
+              "text": "The probe removes MAINT from the model",
+              "fraction": 0,
+              "feedback": "Nothing is removed; the gain comes from un-colliding the 'green' pair."
+            }
+          ],
+          "generalFeedback": "'green' was shared by UNLOCKED and JAMMED, so neither was observable. Probing JAMMED to a distinct value leaves UNLOCKED as the sole 'green' AND makes JAMMED unique — two states flip to observable at once, so 1/5 becomes 3/5 (PASSED, UNLOCKED, JAMMED).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Observability is a design choice",
+          "text": "<p>Which lever raises <strong>observability</strong> without changing the state graph — making observability a design choice?</p>",
+          "answers": [
+            {
+              "text": "Adding a probe / return value that gives a state its own distinct output",
+              "fraction": 100,
+              "feedback": "Correct — exposing more distinguishing output is a design decision that raises observability."
+            },
+            {
+              "text": "Adding an input transition into an unreachable state",
+              "fraction": 0,
+              "feedback": "That changes the state graph and raises controllability, not observability."
+            },
+            {
+              "text": "Removing a state from the model",
+              "fraction": 0,
+              "feedback": "Deleting states does not add distinguishing outputs; it is not the observability lever."
+            },
+            {
+              "text": "Changing which state is the start state",
+              "fraction": 0,
+              "feedback": "The start state affects reachability, not how distinguishable the outputs are."
+            }
+          ],
+          "generalFeedback": "Observability is a design choice: by adding probes or return values that give states distinct outputs, a developer makes previously indistinguishable states visible — without altering the transition structure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: which property is lacking (1)",
+          "text": "<p>A test needs the turnstile to be in <code>JAMMED</code> to check jam handling, but no sequence of inputs can drive it there. Which testability property is lacking?</p>",
+          "answers": [
+            {
+              "text": "Controllability",
+              "fraction": 100,
+              "feedback": "Correct — being unable to drive the SUT into the needed state is a controllability problem."
+            },
+            {
+              "text": "Observability",
+              "fraction": 0,
+              "feedback": "Observability is about seeing outputs; here the problem is getting INTO the state."
+            },
+            {
+              "text": "Both equally",
+              "fraction": 0,
+              "feedback": "The described obstacle is purely about reaching the state, i.e. controllability."
+            },
+            {
+              "text": "Neither",
+              "fraction": 0,
+              "feedback": "There is a real gap: the state cannot be set up, which is a controllability failure."
+            }
+          ],
+          "generalFeedback": "Not being able to set the SUT into the state you must exercise is the definition of a controllability gap. JAMMED is unreachable by inputs, so the test cannot even begin.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: which property is lacking (2)",
+          "text": "<p>A test can reach UNLOCKED, but a real jam (JAMMED) would emit the same <code>'green'</code>, so the test cannot tell a jam apart from a normal unlock. Which testability property is lacking?</p>",
+          "answers": [
+            {
+              "text": "Controllability",
+              "fraction": 0,
+              "feedback": "The state can be reached; the problem is that the output does not distinguish it."
+            },
+            {
+              "text": "Observability",
+              "fraction": 100,
+              "feedback": "Correct — indistinguishable outputs are an observability gap."
+            },
+            {
+              "text": "Both equally",
+              "fraction": 0,
+              "feedback": "The obstacle described is purely about seeing/distinguishing the effect, i.e. observability."
+            },
+            {
+              "text": "Neither",
+              "fraction": 0,
+              "feedback": "There is a real gap: the fault cannot be seen at the output, which is an observability failure."
+            }
+          ],
+          "generalFeedback": "When two states share an output, a test cannot tell which one it is in. Being unable to see the effect you must check is an observability gap — here 'green' hides a jam behind a normal unlock.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Does the JAMMED probe make it reachable",
+          "text": "<p>After a probe gives JAMMED a distinct output (observability up), can the test now drive the SUT into JAMMED to exercise a real jam?</p>",
+          "answers": [
+            {
+              "text": "No — JAMMED is still unreachable by inputs; the probe raised observability, not controllability",
+              "fraction": 100,
+              "feedback": "Correct — the two properties are orthogonal; a probe only changes outputs."
+            },
+            {
+              "text": "Yes — the probe adds a transition that reaches JAMMED",
+              "fraction": 0,
+              "feedback": "A probe changes an output, not the transition graph, so no new path is created."
+            },
+            {
+              "text": "Yes — probes always make states reachable",
+              "fraction": 0,
+              "feedback": "Probes affect observability only; they never change reachability."
+            },
+            {
+              "text": "No — because the probe also removed JAMMED from the model",
+              "fraction": 0,
+              "feedback": "The probe removes nothing; JAMMED remains, just now with a distinct output."
+            }
+          ],
+          "generalFeedback": "A probe edits outputs (observability). It does not add any input edge into JAMMED, so JAMMED stays unreachable — the test can now SEE a jam if one occurred, but still cannot DRIVE the SUT into one. Controllability and observability are independent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which states still collide after the JAMMED probe",
+          "text": "<p>After the probe gives JAMMED a distinct output (observability now 3/5), which states still share an output and remain unobservable?</p>",
+          "answers": [
+            {
+              "text": "UNLOCKED and JAMMED",
+              "fraction": 0,
+              "feedback": "The probe just un-collided those two; they are now observable."
+            },
+            {
+              "text": "None — all five are now observable",
+              "fraction": 0,
+              "feedback": "LOCKED and MAINT still share 'red', so two remain unobservable."
+            },
+            {
+              "text": "LOCKED and MAINT (both still 'red')",
+              "fraction": 100,
+              "feedback": "Correct — the JAMMED probe did not touch the 'red' collision."
+            },
+            {
+              "text": "PASSED and LOCKED",
+              "fraction": 0,
+              "feedback": "PASSED is unique ('beep'); it does not collide with LOCKED."
+            }
+          ],
+          "generalFeedback": "After probing JAMMED: outputs are red→{LOCKED, MAINT}, green→{UNLOCKED}, beep→{PASSED}, plus JAMMED's new value. Observable = {UNLOCKED, PASSED, JAMMED} = 3/5; LOCKED and MAINT still collide on 'red'.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Observability after a second probe",
+          "text": "<p>Starting from the 3/5 state (after the JAMMED probe), you add one more probe giving <code>MAINT</code> a distinct output. What does observability become?</p>",
+          "answers": [
+            {
+              "text": "4/5 (80%)",
+              "fraction": 0,
+              "feedback": "Resolving the 'red' collision makes BOTH LOCKED and MAINT unique at once, so it jumps past 4/5."
+            },
+            {
+              "text": "3/5 (60%)",
+              "fraction": 0,
+              "feedback": "That is the value before this second probe; adding it raises observability further."
+            },
+            {
+              "text": "2/5 (40%)",
+              "fraction": 0,
+              "feedback": "Adding a distinguishing output raises, not lowers, observability."
+            },
+            {
+              "text": "5/5 (100%)",
+              "fraction": 100,
+              "feedback": "Correct — un-colliding 'red' makes LOCKED the sole 'red' and MAINT unique, so all five states are now observable."
+            }
+          ],
+          "generalFeedback": "Just as with 'green', 'red' was shared by exactly two states. Giving MAINT a distinct output leaves LOCKED as the only 'red' and makes MAINT unique — both flip to observable, so 3/5 becomes 5/5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which change raises controllability",
+          "text": "<p>Which single change would raise the <strong>controllability</strong> of the turnstile?</p>",
+          "answers": [
+            {
+              "text": "Give JAMMED a distinct output",
+              "fraction": 0,
+              "feedback": "That raises observability, not controllability."
+            },
+            {
+              "text": "Add an input-driven transition leading INTO JAMMED or MAINT",
+              "fraction": 100,
+              "feedback": "Correct — a new incoming input edge makes an unreachable state reachable, raising controllability."
+            },
+            {
+              "text": "Add a return value that exposes PASSED",
+              "fraction": 0,
+              "feedback": "PASSED is already reachable AND observable; adding an output does not change controllability."
+            },
+            {
+              "text": "Rename an output value",
+              "fraction": 0,
+              "feedback": "Renaming an output cannot change which states are reachable."
+            }
+          ],
+          "generalFeedback": "Controllability depends on the transition structure. Only adding an input-driven edge INTO an unreachable state (JAMMED or MAINT) can raise it; changing outputs affects observability instead.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Controllability and observability are independent",
+          "text": "<p>Controllability and observability are independent: raising one (for example by adding a probe) does not necessarily raise the other.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a probe raises observability but leaves reachability (controllability) unchanged, and vice versa."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "They are orthogonal: a probe on JAMMED raises observability yet JAMMED stays unreachable."
+            }
+          ],
+          "generalFeedback": "The two halves of testability are separate levers. Probes change outputs (observability); new input edges change reachability (controllability). Improving one does not automatically improve the other — the JAMMED probe raises observability while controllability of JAMMED stays zero."
+        },
+        {
+          "type": "shortanswer",
+          "name": "Shortest steps to drive to PASSED",
+          "text": "<p>How many input steps does the shortest sequence that drives <code>TURNSTILE_SUT</code> from the start to <code>PASSED</code> take? Answer with a single integer.</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — driveTo returns [coin, push], a length-2 sequence."
+            }
+          ],
+          "generalFeedback": "The only route into PASSED is LOCKED--coin-->UNLOCKED--push-->PASSED, so the shortest driving sequence has exactly 2 steps.",
+          "usecase": false
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是可控制性",
+          "text": "<p>在可測試性的意義下，<strong>可控制性（controllability）</strong>衡量什麼？</p>",
+          "answers": [
+            {
+              "text": "測試能多大程度地把系統「驅動」到它需要執行的狀態／輸入",
+              "fraction": 100,
+              "feedback": "正確——可控制性是可測試性中「把它開到那裡」的那一半。"
+            },
+            {
+              "text": "測試能多大程度地「看見」它需要檢查的效果",
+              "fraction": 0,
+              "feedback": "那是可觀察性（observability），可測試性的另一半。"
+            },
+            {
+              "text": "模型有多少個狀態",
+              "fraction": 0,
+              "feedback": "單純的狀態數量不是可控制性；可控制性關乎由輸入可達的程度。"
+            },
+            {
+              "text": "測試套件涵蓋了多少個轉移",
+              "fraction": 0,
+              "feedback": "那是轉移涵蓋，與可控制性是不同的概念。"
+            }
+          ],
+          "generalFeedback": "可控制性問的是：測試能否把軟體驅動到它必須執行的狀態與輸入。隱藏狀態、不可達的分支、寫死的相依都會降低它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是可觀察性",
+          "text": "<p>在可測試性的意義下，<strong>可觀察性（observability）</strong>衡量什麼？</p>",
+          "answers": [
+            {
+              "text": "測試能多大程度地把系統「驅動」到選定的狀態",
+              "fraction": 0,
+              "feedback": "那是可控制性，不是可觀察性。"
+            },
+            {
+              "text": "測試能多大程度地「看見」它需要檢查的效果／輸出",
+              "fraction": 100,
+              "feedback": "正確——可觀察性是可測試性中「我能否看見它」的那一半。"
+            },
+            {
+              "text": "系統接受多少種輸入",
+              "fraction": 0,
+              "feedback": "輸入的數量不是可觀察性；可觀察性關乎可區分的輸出。"
+            },
+            {
+              "text": "測試套件跑得多快",
+              "fraction": 0,
+              "feedback": "速度與可觀察性無關。"
+            }
+          ],
+          "generalFeedback": "可觀察性問的是：測試能否看見它必須檢查的效果。副作用、被吞掉的錯誤、以及與其他狀態相撞的缺失／回傳輸出都會降低它。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "可測試性等於可控制性加可觀察性",
+          "text": "<p>可測試性的經典定義是 <strong>controllability + observability（可控制性 + 可觀察性）</strong>——一個系統的可測試程度，取決於測試能否既把它驅動到所需狀態，又能觀察到產生的效果。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——兩半都必須具備，單有其中一半並不足夠。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "可測試性正是可控制性與可觀察性合在一起。"
+            }
+          ],
+          "generalFeedback": "經典定義（源自控制理論；Freedman；Binder）為 testability = controllability + observability。你必須能把 SUT 驅動到想要的情況，並且能看見效果以進行檢查。"
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是可達狀態",
+          "text": "<p>在旋轉柵門模型中，<strong>可達（reachable）</strong>狀態是什麼？</p>",
+          "answers": [
+            {
+              "text": "從起始狀態開始，存在某個測試輸入序列能把 SUT 驅動到的狀態",
+              "fraction": 100,
+              "feedback": "正確——這裡的可達指「從起始出發的某個輸入序列能到達那裡」。"
+            },
+            {
+              "text": "輸出值唯一的狀態",
+              "fraction": 0,
+              "feedback": "那描述的是可觀察狀態，不是可達狀態。"
+            },
+            {
+              "text": "只有起始狀態",
+              "fraction": 0,
+              "feedback": "起始狀態可達，但任何輸入序列能進入的狀態也都可達。"
+            },
+            {
+              "text": "任何具有自迴圈的狀態",
+              "fraction": 0,
+              "feedback": "自迴圈與能否從起始抵達某狀態無關。"
+            }
+          ],
+          "generalFeedback": "reachableStates(sut) 從起始狀態對「由輸入驅動的轉移」做 BFS。當某個輸入序列能從起始抵達某狀態時，該狀態即為可達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是不可達狀態",
+          "text": "<p>在此模型中，某狀態對測試而言<strong>不可達（unreachable）</strong>是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "該狀態沒有可觀察輸出",
+              "fraction": 0,
+              "feedback": "可達性關乎由輸入驅動的轉移，而非輸出。"
+            },
+            {
+              "text": "該狀態是起始狀態",
+              "fraction": 0,
+              "feedback": "起始狀態一定可達；不可達恰好相反。"
+            },
+            {
+              "text": "沒有任何從起始出發的測試輸入序列能把 SUT 驅動到它",
+              "fraction": 100,
+              "feedback": "正確——沒有輸入路徑通往那裡，因此測試無法將其設定起來。"
+            },
+            {
+              "text": "該狀態有超過一條的外向轉移",
+              "fraction": 0,
+              "feedback": "有外向轉移並不會使一個狀態變得不可達。"
+            }
+          ],
+          "generalFeedback": "不可達狀態沒有由輸入驅動、從起始通往它的路徑，因此測試無法把 SUT 驅動到那裡。在旋轉柵門中，JAMMED 與 MAINT 對測試的輸入而言不可達——即可控制性缺口。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是可觀察輸出",
+          "text": "<p>在此模型中，什麼是<strong>可觀察輸出（observable output）</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試無法讀取的內部狀態變數",
+              "fraction": 0,
+              "feedback": "輸出的重點正是它「能」從外部被看見；隱藏變數恰好相反。"
+            },
+            {
+              "text": "測試能從 SUT 外部看見的值（例如 'red'、'green'、'beep'）",
+              "fraction": 100,
+              "feedback": "正確——輸出是測試檢查的、可從外部觀察的投影。"
+            },
+            {
+              "text": "觸發轉移的輸入事件",
+              "fraction": 0,
+              "feedback": "那是輸入（coin/push/reset），不是輸出。"
+            },
+            {
+              "text": "狀態圖中的一條轉移邊",
+              "fraction": 0,
+              "feedback": "邊是轉移；輸出是狀態的可見值。"
+            }
+          ],
+          "generalFeedback": "每個狀態在 sut.outputs 中對應一個可觀察輸出——測試能從外部看見的值（例如 LOCKED→'red'、PASSED→'beep'）。可觀察性就是在這些輸出上衡量的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "旋轉柵門的起始狀態",
+          "text": "<p>在 <code>TURNSTILE_SUT</code> 中，哪一個是<strong>起始（start）</strong>狀態？</p>",
+          "answers": [
+            {
+              "text": "LOCKED",
+              "fraction": 100,
+              "feedback": "正確——起始為 LOCKED。"
+            },
+            {
+              "text": "UNLOCKED",
+              "fraction": 0,
+              "feedback": "UNLOCKED 由 LOCKED 收到 coin 抵達；它不是起始。"
+            },
+            {
+              "text": "PASSED",
+              "fraction": 0,
+              "feedback": "PASSED 經 coin 再 push 抵達；它不是起始。"
+            },
+            {
+              "text": "MAINT",
+              "fraction": 0,
+              "feedback": "MAINT 連由輸入都不可達，更不會是起始。"
+            }
+          ],
+          "generalFeedback": "TURNSTILE_SUT.start 是 'LOCKED'。所有可達性與 driveTo 的計算都從這裡開始。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "旋轉柵門的狀態數",
+          "text": "<p><code>TURNSTILE_SUT</code> 有幾個<strong>狀態</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是由輸入可達的狀態數，不是總數。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "共有 5 個狀態，不是 4 個。"
+            },
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——LOCKED、UNLOCKED、PASSED、JAMMED、MAINT。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "模型中只有 5 個狀態。"
+            }
+          ],
+          "generalFeedback": "states = [LOCKED, UNLOCKED, PASSED, JAMMED, MAINT]——共 5 個。這個 5 是可控制性與可觀察性兩個比率的分母。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "旋轉柵門的輸入",
+          "text": "<p>在 <code>TURNSTILE_SUT</code> 中，測試的<strong>輸入</strong>（可操作的槓桿）有哪些？</p>",
+          "answers": [
+            {
+              "text": "coin、push、reset",
+              "fraction": 100,
+              "feedback": "正確——這是測試能發送的三種輸入。"
+            },
+            {
+              "text": "coin、push",
+              "fraction": 0,
+              "feedback": "reset 也是輸入；共有三種。"
+            },
+            {
+              "text": "red、green、beep",
+              "fraction": 0,
+              "feedback": "那些是輸出，不是輸入。"
+            },
+            {
+              "text": "coin、push、reset、key",
+              "fraction": 0,
+              "feedback": "沒有 'key' 輸入；維護鑰匙正是模型「不」提供給測試的東西。"
+            }
+          ],
+          "generalFeedback": "inputs = [coin, push, reset]。刻意沒有維護鑰匙輸入，這正是 MAINT 無法被測試驅動抵達的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PASSED 的輸出",
+          "text": "<p><code>PASSED</code> 狀態的可觀察<strong>輸出</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "green",
+              "fraction": 0,
+              "feedback": "green 是 UNLOCKED 與 JAMMED 的輸出，不是 PASSED。"
+            },
+            {
+              "text": "beep",
+              "fraction": 100,
+              "feedback": "正確——PASSED→'beep'。"
+            },
+            {
+              "text": "red",
+              "fraction": 0,
+              "feedback": "red 是 LOCKED 與 MAINT 的輸出，不是 PASSED。"
+            },
+            {
+              "text": "grind",
+              "fraction": 0,
+              "feedback": "'grind' 只有在對 JAMMED 加上探針時才出現；PASSED 的輸出是 'beep'。"
+            }
+          ],
+          "generalFeedback": "outputs[PASSED] = 'beep'。它是基礎模型中唯一唯一的輸出，因此在加入任何探針前，PASSED 是唯一可觀察的狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "LOCKED 的輸出",
+          "text": "<p><code>LOCKED</code> 狀態的可觀察<strong>輸出</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "red",
+              "fraction": 100,
+              "feedback": "正確——LOCKED→'red'（與 MAINT 共用）。"
+            },
+            {
+              "text": "green",
+              "fraction": 0,
+              "feedback": "green 屬於 UNLOCKED 與 JAMMED，不是 LOCKED。"
+            },
+            {
+              "text": "beep",
+              "fraction": 0,
+              "feedback": "beep 屬於 PASSED，不是 LOCKED。"
+            },
+            {
+              "text": "grind",
+              "fraction": 0,
+              "feedback": "'grind' 是加在 JAMMED 上的探針輸出；LOCKED 的輸出是 'red'。"
+            }
+          ],
+          "generalFeedback": "outputs[LOCKED] = 'red'。由於 MAINT 也是 'red'，LOCKED 的輸出並不唯一，因此 LOCKED 在基礎模型中不可觀察。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基礎模型中唯一的輸出",
+          "text": "<p>在基礎旋轉柵門（尚未加任何探針）中，哪一個輸出值是某單一狀態<strong>獨有</strong>的？</p>",
+          "answers": [
+            {
+              "text": "red",
+              "fraction": 0,
+              "feedback": "red 由 LOCKED 與 MAINT 共用，並不唯一。"
+            },
+            {
+              "text": "green",
+              "fraction": 0,
+              "feedback": "green 由 UNLOCKED 與 JAMMED 共用，並不唯一。"
+            },
+            {
+              "text": "grind",
+              "fraction": 0,
+              "feedback": "'grind' 在基礎模型中不存在；它只在加入探針後才出現。"
+            },
+            {
+              "text": "beep",
+              "fraction": 100,
+              "feedback": "正確——只有 PASSED 發出 'beep'，所以它是唯一獨有的輸出。"
+            }
+          ],
+          "generalFeedback": "計算輸出：red→{LOCKED, MAINT}、green→{UNLOCKED, JAMMED}、beep→{PASSED}。只有 'beep' 出現一次，因此 PASSED 是唯一可觀察的狀態（可觀察性 1/5）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時缺陷可觀察",
+          "text": "<p>在此引擎中，一個狀態的缺陷何時被視為<strong>可觀察</strong>？</p>",
+          "answers": [
+            {
+              "text": "當該狀態的輸出值唯一——沒有其他狀態與之相同時",
+              "fraction": 100,
+              "feedback": "正確——唯一輸出能讓觀察者區分該狀態，因此落在該狀態的缺陷可見。"
+            },
+            {
+              "text": "當該狀態從起始可達時",
+              "fraction": 0,
+              "feedback": "可達性是可控制性；可觀察性關乎可區分的輸出。"
+            },
+            {
+              "text": "當該狀態是起始狀態時",
+              "fraction": 0,
+              "feedback": "是否為起始與該處缺陷是否可觀察無關。"
+            },
+            {
+              "text": "當該狀態具有自迴圈時",
+              "fraction": 0,
+              "feedback": "自迴圈並不決定可觀察性。"
+            }
+          ],
+          "generalFeedback": "observableStates(sut) 只保留輸出值在所有狀態中唯一的狀態。共用的輸出代表觀察者無法區分那些狀態，因此該處的缺陷不可見。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀出可控制性比率",
+          "text": "<p>對基礎旋轉柵門，<code>controllability(TURNSTILE_SUT).ratio</code> 是多少？</p>",
+          "answers": [
+            {
+              "text": "5/5（100%）",
+              "fraction": 0,
+              "feedback": "有兩個狀態（JAMMED、MAINT）不可達，所以不是 5/5。"
+            },
+            {
+              "text": "3/5（60%）",
+              "fraction": 100,
+              "feedback": "正確——LOCKED、UNLOCKED、PASSED 可達；JAMMED 與 MAINT 不可達。"
+            },
+            {
+              "text": "1/5（20%）",
+              "fraction": 0,
+              "feedback": "1/5 是基礎的可觀察性，不是可控制性。"
+            },
+            {
+              "text": "2/5（40%）",
+              "fraction": 0,
+              "feedback": "有三個狀態可達，得 3/5，不是 2/5。"
+            }
+          ],
+          "generalFeedback": "reachableStates = {LOCKED, UNLOCKED, PASSED} = 5 個中的 3 個，因此可控制性比率 = 3/5 = 60%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀出可觀察性比率",
+          "text": "<p>對基礎旋轉柵門（尚未加任何探針），<code>observability(TURNSTILE_SUT).ratio</code> 是多少？</p>",
+          "answers": [
+            {
+              "text": "3/5（60%）",
+              "fraction": 0,
+              "feedback": "3/5 是加入探針「之後」的可觀察性，不是基礎值。"
+            },
+            {
+              "text": "5/5（100%）",
+              "fraction": 0,
+              "feedback": "基礎模型中只有一個狀態的輸出唯一，所以不是 5/5。"
+            },
+            {
+              "text": "1/5（20%）",
+              "fraction": 100,
+              "feedback": "正確——只有 PASSED 具有唯一輸出（'beep'）。"
+            },
+            {
+              "text": "2/5（40%）",
+              "fraction": 0,
+              "feedback": "基礎模型中只有一個輸出（beep）唯一，所以是 1/5。"
+            }
+          ],
+          "generalFeedback": "只有 PASSED→'beep' 唯一；red 與 green 各自被兩個狀態共用。因此 observableStates = {PASSED} = 5 個中的 1 個，可觀察性 = 1/5 = 20%。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "哪些狀態可達",
+          "text": "<p>從 LOCKED 開始，只使用輸入 coin/push/reset，測試能到達哪一組狀態？</p>",
+          "answers": [
+            {
+              "text": "{LOCKED, UNLOCKED, PASSED}",
+              "fraction": 100,
+              "feedback": "正確——coin 到 UNLOCKED，push 到 PASSED，reset 回到 LOCKED；JAMMED 與 MAINT 從未被進入。"
+            },
+            {
+              "text": "{LOCKED, UNLOCKED, PASSED, JAMMED, MAINT}",
+              "fraction": 0,
+              "feedback": "JAMMED 與 MAINT 沒有由輸入驅動、通往它們的邊，因此不可達。"
+            },
+            {
+              "text": "{LOCKED, UNLOCKED}",
+              "fraction": 0,
+              "feedback": "PASSED 也可經由 coin 再 push 抵達。"
+            },
+            {
+              "text": "{LOCKED, UNLOCKED, PASSED, JAMMED}",
+              "fraction": 0,
+              "feedback": "JAMMED 只由故障進入，沒有任何輸入能到達，因此不可達。"
+            }
+          ],
+          "generalFeedback": "從 LOCKED 對輸入邊做 BFS，可到達 UNLOCKED（coin）與 PASSED（coin, push），而 reset 只會回到 LOCKED。沒有邊通往 JAMMED 或 MAINT，因此可達集合正好是 {LOCKED, UNLOCKED, PASSED}。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 JAMMED 不可達",
+          "text": "<p>為什麼測試無法把旋轉柵門驅動到 <code>JAMMED</code>？</p>",
+          "answers": [
+            {
+              "text": "沒有由輸入驅動、通往 JAMMED 的轉移——它只由故障進入，而非任何測試輸入",
+              "fraction": 100,
+              "feedback": "正確——沒有任何入向的輸入邊，就沒有輸入序列能抵達 JAMMED。"
+            },
+            {
+              "text": "因為 JAMMED 沒有外向轉移",
+              "fraction": 0,
+              "feedback": "JAMMED 確實有一條外向邊（reset→LOCKED）；問題在於沒有邊通往它。"
+            },
+            {
+              "text": "因為 JAMMED 與 UNLOCKED 共用輸出",
+              "fraction": 0,
+              "feedback": "那個共用輸出是可觀察性缺口，不是 JAMMED 不可達的原因。"
+            },
+            {
+              "text": "因為 JAMMED 是起始狀態",
+              "fraction": 0,
+              "feedback": "起始是 LOCKED；JAMMED 不是。"
+            }
+          ],
+          "generalFeedback": "可達性取決於通往某狀態的入向邊。唯一觸及 JAMMED 的邊是 JAMMED--reset-->LOCKED（外向）。既然沒有輸入能驅動任何東西進入 JAMMED，故障便是唯一的入口——即可控制性缺口。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 MAINT 不可達",
+          "text": "<p>為什麼測試無法把旋轉柵門驅動到 <code>MAINT</code>？</p>",
+          "answers": [
+            {
+              "text": "因為 MAINT 與 LOCKED 共用輸出 'red'",
+              "fraction": 0,
+              "feedback": "共用輸出是可觀察性問題；它無法解釋不可達。"
+            },
+            {
+              "text": "沒有轉移通往 MAINT——它只由維護鑰匙進入，而那不是測試的輸入之一",
+              "fraction": 100,
+              "feedback": "正確——MAINT 沒有入向的輸入邊，因此沒有輸入序列能到達它。"
+            },
+            {
+              "text": "因為 MAINT 有一個困住狀態機的自迴圈",
+              "fraction": 0,
+              "feedback": "MAINT 在模型中根本沒有任何邊；不涉及自迴圈。"
+            },
+            {
+              "text": "因為 reset 總是導向離開 MAINT",
+              "fraction": 0,
+              "feedback": "MAINT 沒有 reset 邊；重點是沒有東西通往它。"
+            }
+          ],
+          "generalFeedback": "MAINT 只由維護鑰匙進入，而它刻意不在 inputs = [coin, push, reset] 之中。既然沒有輸入邊通往 MAINT，它對測試而言不可達——屬於可控制性缺口的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo PASSED",
+          "text": "<p><code>driveTo(TURNSTILE_SUT, 'PASSED')</code> 會回傳哪一個輸入序列（從起始出發的最短路徑）？</p>",
+          "answers": [
+            {
+              "text": "coin、push",
+              "fraction": 100,
+              "feedback": "正確——LOCKED--coin-->UNLOCKED--push-->PASSED。"
+            },
+            {
+              "text": "push、coin",
+              "fraction": 0,
+              "feedback": "在 LOCKED 發送 push 只會停留在 LOCKED；順序必須是先 coin 再 push。"
+            },
+            {
+              "text": "coin、push、reset",
+              "fraction": 0,
+              "feedback": "reset 會離開 PASSED 回到 LOCKED；最短路徑在 coin、push 後即停在 PASSED。"
+            },
+            {
+              "text": "push",
+              "fraction": 0,
+              "feedback": "在 LOCKED 只發送 push 會迴圈回 LOCKED，永遠到不了 PASSED。"
+            }
+          ],
+          "generalFeedback": "從 LOCKED 做 BFS：coin 到 UNLOCKED，接著 push 到 PASSED。最短的驅動序列是 [coin, push]——2 步。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo UNLOCKED",
+          "text": "<p><code>driveTo(TURNSTILE_SUT, 'UNLOCKED')</code> 會回傳哪一個輸入序列？</p>",
+          "answers": [
+            {
+              "text": "push",
+              "fraction": 0,
+              "feedback": "在 LOCKED 發送 push 會停留在 LOCKED；到不了 UNLOCKED。"
+            },
+            {
+              "text": "coin",
+              "fraction": 100,
+              "feedback": "正確——LOCKED--coin-->UNLOCKED，一步到位。"
+            },
+            {
+              "text": "coin、push",
+              "fraction": 0,
+              "feedback": "那會到達 PASSED；UNLOCKED 只需 coin 一步。"
+            },
+            {
+              "text": "reset",
+              "fraction": 0,
+              "feedback": "reset 在 LOCKED 未定義，且到不了 UNLOCKED。"
+            }
+          ],
+          "generalFeedback": "從起始 LOCKED，單一 coin 就能把 SUT 驅動到 UNLOCKED，因此 driveTo 回傳 [coin]。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo MAINT 的結果",
+          "text": "<p><code>driveTo(TURNSTILE_SUT, 'MAINT')</code> 會回傳什麼？</p>",
+          "answers": [
+            {
+              "text": "null——沒有任何輸入序列能到達 MAINT",
+              "fraction": 100,
+              "feedback": "正確——MAINT 由輸入不可達，因此 driveTo 回傳 null。"
+            },
+            {
+              "text": "空陣列 []",
+              "fraction": 0,
+              "feedback": "只有當目標是起始狀態時才回傳 []；MAINT 不可達，所以結果是 null。"
+            },
+            {
+              "text": "[reset]",
+              "fraction": 0,
+              "feedback": "reset 不會通往 MAINT；沒有任何輸入序列可以。"
+            },
+            {
+              "text": "[key]",
+              "fraction": 0,
+              "feedback": "模型中沒有 'key' 輸入；driveTo 回傳 null。"
+            }
+          ],
+          "generalFeedback": "driveTo 對輸入邊做 BFS，當目標無法到達時回傳 null。MAINT 沒有入向的輸入邊，因此結果是 null——這把可控制性缺口具體化了。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "driveTo 到起始狀態",
+          "text": "<p>已知 LOCKED 是起始狀態，<code>driveTo(TURNSTILE_SUT, 'LOCKED')</code> 會回傳什麼？</p>",
+          "answers": [
+            {
+              "text": "null",
+              "fraction": 0,
+              "feedback": "null 代表不可達；LOCKED 是起始，因此顯然可達。"
+            },
+            {
+              "text": "[reset]",
+              "fraction": 0,
+              "feedback": "你已經在 LOCKED，因此不需要任何輸入。"
+            },
+            {
+              "text": "空陣列 []——你已經在那裡，不需任何輸入",
+              "fraction": 100,
+              "feedback": "正確——當目標是起始狀態時，driveTo 回傳 []。"
+            },
+            {
+              "text": "[coin]",
+              "fraction": 0,
+              "feedback": "coin 會離開 LOCKED；要「處於」起始並不需要任何輸入，所以是 []。"
+            }
+          ],
+          "generalFeedback": "driveTo 的第一行是：if target === start return []。既然 LOCKED 是起始，最短的驅動序列就是空序列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 JAMMED 的缺陷不可見",
+          "text": "<p>在基礎模型中，為什麼一個落在 <code>JAMMED</code> 的缺陷，對監看輸出的測試而言是不可見的？</p>",
+          "answers": [
+            {
+              "text": "因為 JAMMED 發出 'beep'，與 PASSED 相同",
+              "fraction": 0,
+              "feedback": "JAMMED 發出 'green'，不是 'beep'；beep 是 PASSED 獨有的。"
+            },
+            {
+              "text": "因為 JAMMED 的輸出 'green' 與 UNLOCKED 共用，觀察者無法區分兩者",
+              "fraction": 100,
+              "feedback": "正確——相撞的輸出使這兩個狀態無法區分，因而隱藏了缺陷。"
+            },
+            {
+              "text": "因為 JAMMED 是起始狀態",
+              "fraction": 0,
+              "feedback": "起始是 LOCKED；JAMMED 不是，而且這與可見性無關。"
+            },
+            {
+              "text": "因為 JAMMED 根本沒有輸出",
+              "fraction": 0,
+              "feedback": "JAMMED 確實有輸出（'green'）；問題在於它與 UNLOCKED 相撞。"
+            }
+          ],
+          "generalFeedback": "JAMMED→'green' 且 UNLOCKED→'green'。當缺陷把 SUT 落入 JAMMED 時，輸出仍讀作 'green'，與正常的 UNLOCKED 完全相同，觀察者因此無法偵測到卡住——即可觀察性缺口。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些狀態共用 'red'",
+          "text": "<p>哪兩個狀態共用輸出值 <code>'red'</code>？</p>",
+          "answers": [
+            {
+              "text": "LOCKED 與 MAINT",
+              "fraction": 100,
+              "feedback": "正確——兩者都對應 'red'，因此在基礎模型中都不可觀察。"
+            },
+            {
+              "text": "UNLOCKED 與 JAMMED",
+              "fraction": 0,
+              "feedback": "那兩個共用 'green'，不是 'red'。"
+            },
+            {
+              "text": "LOCKED 與 UNLOCKED",
+              "fraction": 0,
+              "feedback": "LOCKED 是 'red' 但 UNLOCKED 是 'green'；並不共用。"
+            },
+            {
+              "text": "PASSED 與 MAINT",
+              "fraction": 0,
+              "feedback": "PASSED 是 'beep'，MAINT 是 'red'；並不共用。"
+            }
+          ],
+          "generalFeedback": "outputs：LOCKED→'red'、MAINT→'red'。由於 'red' 被共用，LOCKED 與 MAINT 都不可觀察。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些狀態共用 'green'",
+          "text": "<p>哪兩個狀態共用輸出值 <code>'green'</code>？</p>",
+          "answers": [
+            {
+              "text": "LOCKED 與 MAINT",
+              "fraction": 0,
+              "feedback": "那兩個共用 'red'，不是 'green'。"
+            },
+            {
+              "text": "PASSED 與 JAMMED",
+              "fraction": 0,
+              "feedback": "PASSED 是 'beep'；只有 JAMMED（與 UNLOCKED）是 'green'。"
+            },
+            {
+              "text": "UNLOCKED 與 JAMMED",
+              "fraction": 100,
+              "feedback": "正確——兩者都對應 'green'，這正是卡住看起來像正常解鎖的原因。"
+            },
+            {
+              "text": "LOCKED 與 UNLOCKED",
+              "fraction": 0,
+              "feedback": "LOCKED 是 'red'，UNLOCKED 是 'green'；並不共用。"
+            }
+          ],
+          "generalFeedback": "outputs：UNLOCKED→'green'、JAMMED→'green'。'green' 上的相撞就是隱藏卡住的可觀察性缺口。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "探針的作用",
+          "text": "<p>在此探索器中，加入<strong>探針（<code>withProbe</code>）</strong>會做什麼？</p>",
+          "answers": [
+            {
+              "text": "賦予某狀態一個獨特輸出，使原本共用的輸出變得唯一，從而提高可觀察性——回傳一個新的 SUT 而不改動原始的",
+              "fraction": 100,
+              "feedback": "正確——withProbe 回傳一份新的 outputs 對照表；它是「可觀察性是設計選擇」的槓桿。"
+            },
+            {
+              "text": "加入一條新的輸入轉移，使不可達狀態變得可達",
+              "fraction": 0,
+              "feedback": "那會改變可控制性；探針只改變輸出。"
+            },
+            {
+              "text": "從模型中刪除一個不可達狀態",
+              "fraction": 0,
+              "feedback": "探針加入一個可區分的輸出；它不刪除任何東西。"
+            },
+            {
+              "text": "改變哪一個狀態是起始狀態",
+              "fraction": 0,
+              "feedback": "起始狀態不變；探針只影響輸出。"
+            }
+          ],
+          "generalFeedback": "withProbe(sut, state, distinctOutput) 回傳 { ...sut, outputs: { ...sut.outputs, [state]: distinctOutput } }——一個「新」的 SUT，其目標狀態現在發出一個獨特值，因此其輸出不再相撞，該狀態變得可觀察。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對 JAMMED 加探針的效果",
+          "text": "<p>當探針賦予 <code>JAMMED</code> 一個獨特輸出後，哪些原本不可觀察的狀態變得可觀察？</p>",
+          "answers": [
+            {
+              "text": "只有 JAMMED",
+              "fraction": 0,
+              "feedback": "UNLOCKED 也會變得唯一，因為一旦 JAMMED 有了獨特輸出，'green' 就不再相撞。"
+            },
+            {
+              "text": "UNLOCKED 與 JAMMED 兩者都變得唯一",
+              "fraction": 100,
+              "feedback": "正確——探針消除了 'green' 的相撞，因此 UNLOCKED 與 JAMMED 各自成為其輸出的唯一擁有者。"
+            },
+            {
+              "text": "LOCKED 與 MAINT",
+              "fraction": 0,
+              "feedback": "那兩個仍共用 'red'；JAMMED 探針並未觸及它們。"
+            },
+            {
+              "text": "全部五個狀態",
+              "fraction": 0,
+              "feedback": "LOCKED 與 MAINT 仍在 'red' 上相撞，因此並非全部五個都可觀察。"
+            }
+          ],
+          "generalFeedback": "之前：UNLOCKED 與 JAMMED 都是 'green'（都不可觀察）。把 JAMMED 探針成獨特值後，UNLOCKED 成為唯一的 'green'，JAMMED 成為新值的唯一擁有者，因此「兩者」都變得可觀察——可觀察性由 1/5 升為 3/5（PASSED、UNLOCKED、JAMMED）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "屬於可控制性的活動",
+          "text": "<p>下列哪一項活動屬於<strong>可控制性</strong>而非可觀察性？</p>",
+          "answers": [
+            {
+              "text": "檢查 PASSED 是否發出 'beep'",
+              "fraction": 0,
+              "feedback": "檢查輸出屬於可觀察性。"
+            },
+            {
+              "text": "讀取 LOCKED 的輸出值",
+              "fraction": 0,
+              "feedback": "讀取輸出屬於可觀察性。"
+            },
+            {
+              "text": "依輸出區分 JAMMED 與 UNLOCKED",
+              "fraction": 0,
+              "feedback": "依輸出把狀態分辨開來屬於可觀察性。"
+            },
+            {
+              "text": "發送 coin 再 push 把旋轉柵門驅動到 PASSED",
+              "fraction": 100,
+              "feedback": "正確——建構輸入序列以到達目標狀態屬於可控制性。"
+            }
+          ],
+          "generalFeedback": "可控制性是「把它開到那裡」的那一半：發送輸入以到達選定狀態。檢視或區分輸出則屬於可觀察性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "屬於可觀察性的活動",
+          "text": "<p>下列哪一項活動屬於<strong>可觀察性</strong>而非可控制性？</p>",
+          "answers": [
+            {
+              "text": "檢查 PASSED 的輸出 'beep' 是否與其他每個狀態的輸出都不同",
+              "fraction": 100,
+              "feedback": "正確——驗證某輸出能否區分某狀態屬於可觀察性。"
+            },
+            {
+              "text": "發送 coin 把 LOCKED 移到 UNLOCKED",
+              "fraction": 0,
+              "feedback": "發送輸入以改變狀態屬於可控制性。"
+            },
+            {
+              "text": "找到一條到達 PASSED 的輸入路徑",
+              "fraction": 0,
+              "feedback": "找到驅動路徑屬於可控制性。"
+            },
+            {
+              "text": "把 SUT 驅動到選定的目標狀態",
+              "fraction": 0,
+              "feedback": "驅動到目標屬於可控制性。"
+            }
+          ],
+          "generalFeedback": "可觀察性是「看見它」的那一半：檢查輸出能否讓你分辨狀態。發送輸入或尋找路徑則屬於可控制性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "若 MAINT 變得可達時的可控制性",
+          "text": "<p>假設加入一個維護鑰匙輸入，能把 SUT 驅動到 <code>MAINT</code>（它沒有外向邊）。可控制性比率會變成多少？</p>",
+          "answers": [
+            {
+              "text": "5/5（100%）",
+              "fraction": 0,
+              "feedback": "JAMMED 仍不可達，因此不可能是 5/5。"
+            },
+            {
+              "text": "3/5（60%）",
+              "fraction": 0,
+              "feedback": "那是目前的值；加入可達的 MAINT 會提高它。"
+            },
+            {
+              "text": "4/5（80%）",
+              "fraction": 100,
+              "feedback": "正確——MAINT 加入可達集合 {LOCKED, UNLOCKED, PASSED}，得 5 中 4；JAMMED 仍不可達。"
+            },
+            {
+              "text": "2/5（40%）",
+              "fraction": 0,
+              "feedback": "加入一個可達狀態會提高而非降低可控制性。"
+            }
+          ],
+          "generalFeedback": "可達集合會變成 {LOCKED, UNLOCKED, PASSED, MAINT} = 4。MAINT 沒有外向邊，因此不會開啟更多狀態，而 JAMMED 仍不可達。所以可控制性 = 4/5 = 80%。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "追蹤多步輸入序列",
+          "text": "<p>從 LOCKED 開始，測試發送序列 <code>coin, push, reset, coin</code>。最終狀態為何？</p>",
+          "answers": [
+            {
+              "text": "PASSED",
+              "fraction": 0,
+              "feedback": "coin、push 之後會到 PASSED，但接著的 reset 再 coin 會前進到 UNLOCKED。"
+            },
+            {
+              "text": "UNLOCKED",
+              "fraction": 100,
+              "feedback": "正確——LOCKED→UNLOCKED→PASSED→LOCKED→UNLOCKED。"
+            },
+            {
+              "text": "LOCKED",
+              "fraction": 0,
+              "feedback": "reset 回到 LOCKED，但最後的 coin 又移到 UNLOCKED。"
+            },
+            {
+              "text": "JAMMED",
+              "fraction": 0,
+              "feedback": "沒有輸入能到達 JAMMED；序列不可能停在那裡。"
+            }
+          ],
+          "generalFeedback": "追蹤：LOCKED--coin-->UNLOCKED--push-->PASSED--reset-->LOCKED--coin-->UNLOCKED。最終狀態是 UNLOCKED。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 JAMMED 的外向邊沒有幫助",
+          "text": "<p>JAMMED 有一條邊 <code>JAMMED--reset--&gt;LOCKED</code>。為什麼這條邊仍無法讓測試到達 JAMMED？</p>",
+          "answers": [
+            {
+              "text": "可達性需要通往 JAMMED 的入向邊；外向邊只能讓你離開 JAMMED，永遠無法抵達那裡",
+              "fraction": 100,
+              "feedback": "正確——只有當你已在 JAMMED 時，才能走 JAMMED--reset-->LOCKED，而這正是測試辦不到的。"
+            },
+            {
+              "text": "因為 reset 不是輸入之一",
+              "fraction": 0,
+              "feedback": "reset「是」輸入；問題在於方向——沒有邊通往 JAMMED。"
+            },
+            {
+              "text": "因為 JAMMED 與 UNLOCKED 共用 'green'",
+              "fraction": 0,
+              "feedback": "那是可觀察性缺口；與 JAMMED 能否被到達無關。"
+            },
+            {
+              "text": "因為這條邊在圖中排在 PASSED 之後",
+              "fraction": 0,
+              "feedback": "圖中的排序不影響可達性；入向邊才會。"
+            }
+          ],
+          "generalFeedback": "BFS 依邊的方向前進。JAMMED--reset-->LOCKED 是外向邊，只有在你已處於 JAMMED 時才可用。既然沒有邊「指向」JAMMED，測試就永遠到不了——這條外向邊與可達性無關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 driveTo PASSED 需要兩步",
+          "text": "<p>為什麼到達 PASSED 的最短驅動序列恰好是兩步（<code>coin, push</code>）而非一步？</p>",
+          "answers": [
+            {
+              "text": "PASSED 只由 UNLOCKED 發送 push 進入，而 UNLOCKED 只由 LOCKED 發送 coin 進入——所以必須先 coin 再 push",
+              "fraction": 100,
+              "feedback": "正確——通往 PASSED 的唯一路徑迫使這條兩步鏈。"
+            },
+            {
+              "text": "因為 push 之前必須先發送 reset",
+              "fraction": 0,
+              "feedback": "reset 不在往 PASSED 的路徑上；路線是 coin 再 push。"
+            },
+            {
+              "text": "因為 PASSED 有一個必須進入兩次的自迴圈",
+              "fraction": 0,
+              "feedback": "PASSED 沒有自迴圈；兩步來自 LOCKED→UNLOCKED→PASSED 這條鏈。"
+            },
+            {
+              "text": "因為 JAMMED 擋住了直接路徑",
+              "fraction": 0,
+              "feedback": "JAMMED 不在任何輸入路徑上；它不會擋住任何東西。"
+            }
+          ],
+          "generalFeedback": "通往 PASSED 的唯一邊是 UNLOCKED--push-->PASSED，而通往 UNLOCKED 的唯一邊是 LOCKED--coin-->UNLOCKED。從起始 LOCKED 出發，這迫使 coin、push 這條鏈——兩步，即最小值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀可控制性 3/5",
+          "text": "<p>可控制性為 <strong>3/5</strong> 告訴你關於旋轉柵門的什麼？</p>",
+          "answers": [
+            {
+              "text": "測試能把 SUT 驅動到 5 個模型狀態中的 3 個；另外 2 個（JAMMED、MAINT）在其能力範圍之外",
+              "fraction": 100,
+              "feedback": "正確——3/5 是「由輸入可達的狀態」除以「總狀態數」。"
+            },
+            {
+              "text": "5 個輸出中有 3 個是唯一的",
+              "fraction": 0,
+              "feedback": "那描述的是可觀察性，不是可控制性。"
+            },
+            {
+              "text": "測試套件執行了 5 個轉移中的 3 個",
+              "fraction": 0,
+              "feedback": "可控制性計算可達狀態，而非執行過的轉移。"
+            },
+            {
+              "text": "5 個輸入中有 3 個是有效的",
+              "fraction": 0,
+              "feedback": "所有輸入都有效；比率是對狀態計算，而非輸入。"
+            }
+          ],
+          "generalFeedback": "controllability.ratio = |reachable| / |states| = 3/5。它代表測試能設定 5 個狀態中的 3 個；JAMMED 與 MAINT 無法由任何輸入序列到達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀可觀察性 1/5",
+          "text": "<p>可觀察性為 <strong>1/5</strong> 告訴你關於基礎旋轉柵門的什麼？</p>",
+          "answers": [
+            {
+              "text": "5 個狀態中有 3 個可達",
+              "fraction": 0,
+              "feedback": "那是可控制性，而且數字會是 3/5，不是 1/5。"
+            },
+            {
+              "text": "5 個狀態中只有 1 個（PASSED）具有可區分的輸出；落在其他 4 個中任一個的缺陷都可能與另一狀態混淆",
+              "fraction": 100,
+              "feedback": "正確——1/5 計算的是具有唯一輸出的狀態數。"
+            },
+            {
+              "text": "5 個轉移中恰有 1 個被涵蓋",
+              "fraction": 0,
+              "feedback": "可觀察性計算的是具可區分輸出的狀態，而非被涵蓋的轉移。"
+            },
+            {
+              "text": "5 個輸入中有 1 個從未被使用",
+              "fraction": 0,
+              "feedback": "比率是對「具唯一輸出的狀態」計算，而非對輸入。"
+            }
+          ],
+          "generalFeedback": "observability.ratio = |observable| / |states| = 1/5。只有 PASSED→'beep' 唯一；LOCKED/MAINT 在 'red' 上相撞，UNLOCKED/JAMMED 在 'green' 上相撞，因此這四個中任一個的缺陷在輸出上都無法區分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀 1/5 躍升到 3/5",
+          "text": "<p>加入單一探針使可觀察性從 <strong>1/5 升到 3/5</strong>。為何是躍升 2 而非 1？</p>",
+          "answers": [
+            {
+              "text": "探針使 JAMMED 能被測試的輸入到達",
+              "fraction": 0,
+              "feedback": "那會是可控制性；探針改變的是輸出，不是可達性。"
+            },
+            {
+              "text": "探針為模型加入了兩個新狀態",
+              "fraction": 0,
+              "feedback": "探針改變一個狀態的輸出；它不加入任何狀態。"
+            },
+            {
+              "text": "賦予 JAMMED 獨特輸出消除了 'green' 的相撞，因此 UNLOCKED 與 JAMMED 各自變得唯一，加入 PASSED——共 5 中 3",
+              "fraction": 100,
+              "feedback": "正確——解決一次相撞會一次讓該對的「兩個」成員都變唯一。"
+            },
+            {
+              "text": "探針從模型中移除了 MAINT",
+              "fraction": 0,
+              "feedback": "沒有移除任何東西；增益來自消除 'green' 這一對的相撞。"
+            }
+          ],
+          "generalFeedback": "'green' 原本由 UNLOCKED 與 JAMMED 共用，因此兩者都不可觀察。把 JAMMED 探針成獨特值後，UNLOCKED 成為唯一的 'green'，「並且」JAMMED 變得唯一——兩個狀態同時翻轉為可觀察，所以 1/5 變成 3/5（PASSED、UNLOCKED、JAMMED）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可觀察性是一種設計選擇",
+          "text": "<p>哪一個槓桿能在<strong>不改變狀態圖</strong>的情況下提高<strong>可觀察性</strong>——使可觀察性成為一種設計選擇？</p>",
+          "answers": [
+            {
+              "text": "加入探針／回傳值，賦予某狀態它自己的獨特輸出",
+              "fraction": 100,
+              "feedback": "正確——揭露更多可區分的輸出是一項提高可觀察性的設計決策。"
+            },
+            {
+              "text": "加入一條通往不可達狀態的輸入轉移",
+              "fraction": 0,
+              "feedback": "那會改變狀態圖並提高可控制性，而非可觀察性。"
+            },
+            {
+              "text": "從模型中移除一個狀態",
+              "fraction": 0,
+              "feedback": "刪除狀態不會增加可區分的輸出；那不是可觀察性的槓桿。"
+            },
+            {
+              "text": "改變哪一個狀態是起始狀態",
+              "fraction": 0,
+              "feedback": "起始狀態影響可達性，而非輸出的可區分程度。"
+            }
+          ],
+          "generalFeedback": "可觀察性是一種設計選擇：藉由加入賦予狀態獨特輸出的探針或回傳值，開發者能讓原本無法區分的狀態變得可見——而不改動轉移結構。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：缺少哪一種性質（1）",
+          "text": "<p>某測試需要旋轉柵門處於 <code>JAMMED</code> 以檢查卡住的處理，但沒有任何輸入序列能把它驅動到那裡。缺少哪一種可測試性性質？</p>",
+          "answers": [
+            {
+              "text": "可控制性",
+              "fraction": 100,
+              "feedback": "正確——無法把 SUT 驅動到所需狀態，是可控制性問題。"
+            },
+            {
+              "text": "可觀察性",
+              "fraction": 0,
+              "feedback": "可觀察性關乎看見輸出；此處的問題是「進入」那個狀態。"
+            },
+            {
+              "text": "兩者程度相同",
+              "fraction": 0,
+              "feedback": "所述的阻礙純粹是關於到達該狀態，即可控制性。"
+            },
+            {
+              "text": "兩者皆非",
+              "fraction": 0,
+              "feedback": "確有實質缺口：該狀態無法被設定起來，這是可控制性失敗。"
+            }
+          ],
+          "generalFeedback": "無法把 SUT 設定到你必須執行的狀態，正是可控制性缺口的定義。JAMMED 由輸入不可達，因此測試連開始都辦不到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：缺少哪一種性質（2）",
+          "text": "<p>某測試能到達 UNLOCKED，但真正的卡住（JAMMED）會發出相同的 <code>'green'</code>，因此測試無法把卡住與正常解鎖分辨開來。缺少哪一種可測試性性質？</p>",
+          "answers": [
+            {
+              "text": "可控制性",
+              "fraction": 0,
+              "feedback": "該狀態可以到達；問題在於輸出無法區分它。"
+            },
+            {
+              "text": "可觀察性",
+              "fraction": 100,
+              "feedback": "正確——無法區分的輸出是可觀察性缺口。"
+            },
+            {
+              "text": "兩者程度相同",
+              "fraction": 0,
+              "feedback": "所述的阻礙純粹是關於看見／區分效果，即可觀察性。"
+            },
+            {
+              "text": "兩者皆非",
+              "fraction": 0,
+              "feedback": "確有實質缺口：缺陷無法在輸出上被看見，這是可觀察性失敗。"
+            }
+          ],
+          "generalFeedback": "當兩個狀態共用一個輸出時，測試無法得知自己處於哪一個。無法看見你必須檢查的效果，就是可觀察性缺口——此處 'green' 把卡住藏在正常解鎖的背後。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "JAMMED 探針是否使其可達",
+          "text": "<p>在探針賦予 JAMMED 獨特輸出（可觀察性提高）之後，測試現在能否把 SUT 驅動到 JAMMED 以執行真正的卡住？</p>",
+          "answers": [
+            {
+              "text": "不能——JAMMED 由輸入仍不可達；探針提高的是可觀察性，不是可控制性",
+              "fraction": 100,
+              "feedback": "正確——這兩種性質彼此正交；探針只改變輸出。"
+            },
+            {
+              "text": "能——探針加入了一條到達 JAMMED 的轉移",
+              "fraction": 0,
+              "feedback": "探針改變輸出，而非轉移圖，因此不會產生新路徑。"
+            },
+            {
+              "text": "能——探針總是能使狀態變得可達",
+              "fraction": 0,
+              "feedback": "探針只影響可觀察性；它們絕不改變可達性。"
+            },
+            {
+              "text": "不能——因為探針也把 JAMMED 從模型中移除了",
+              "fraction": 0,
+              "feedback": "探針不移除任何東西；JAMMED 仍在，只是現在有了獨特輸出。"
+            }
+          ],
+          "generalFeedback": "探針編輯的是輸出（可觀察性）。它不加入任何通往 JAMMED 的輸入邊，因此 JAMMED 仍不可達——測試現在若真發生卡住便能「看見」，但仍無法「驅動」SUT 進入卡住。可控制性與可觀察性彼此獨立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "JAMMED 探針後仍相撞的狀態",
+          "text": "<p>在探針賦予 JAMMED 獨特輸出後（可觀察性現為 3/5），哪些狀態仍共用輸出而維持不可觀察？</p>",
+          "answers": [
+            {
+              "text": "UNLOCKED 與 JAMMED",
+              "fraction": 0,
+              "feedback": "探針剛消除了這兩個的相撞；它們現在可觀察。"
+            },
+            {
+              "text": "沒有——全部五個現在都可觀察",
+              "fraction": 0,
+              "feedback": "LOCKED 與 MAINT 仍共用 'red'，所以有兩個維持不可觀察。"
+            },
+            {
+              "text": "LOCKED 與 MAINT（兩者仍為 'red'）",
+              "fraction": 100,
+              "feedback": "正確——JAMMED 探針並未觸及 'red' 的相撞。"
+            },
+            {
+              "text": "PASSED 與 LOCKED",
+              "fraction": 0,
+              "feedback": "PASSED 是唯一的（'beep'）；它不與 LOCKED 相撞。"
+            }
+          ],
+          "generalFeedback": "對 JAMMED 加探針後：輸出為 red→{LOCKED, MAINT}、green→{UNLOCKED}、beep→{PASSED}，再加上 JAMMED 的新值。可觀察 = {UNLOCKED, PASSED, JAMMED} = 3/5；LOCKED 與 MAINT 仍在 'red' 上相撞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "再加一個探針後的可觀察性",
+          "text": "<p>從 3/5 的狀態（JAMMED 探針之後）出發，你再加一個探針賦予 <code>MAINT</code> 一個獨特輸出。可觀察性會變成多少？</p>",
+          "answers": [
+            {
+              "text": "4/5（80%）",
+              "fraction": 0,
+              "feedback": "解決 'red' 的相撞會一次讓 LOCKED 與 MAINT 都變唯一，所以會躍過 4/5。"
+            },
+            {
+              "text": "3/5（60%）",
+              "fraction": 0,
+              "feedback": "那是加第二個探針之前的值；加上它會進一步提高可觀察性。"
+            },
+            {
+              "text": "2/5（40%）",
+              "fraction": 0,
+              "feedback": "加入一個可區分的輸出會提高而非降低可觀察性。"
+            },
+            {
+              "text": "5/5（100%）",
+              "fraction": 100,
+              "feedback": "正確——消除 'red' 的相撞使 LOCKED 成為唯一的 'red' 且 MAINT 變唯一，因此全部五個狀態現在都可觀察。"
+            }
+          ],
+          "generalFeedback": "就像 'green' 一樣，'red' 原本恰好被兩個狀態共用。賦予 MAINT 獨特輸出後，LOCKED 成為唯一的 'red'，MAINT 也變唯一——兩者都翻轉為可觀察，所以 3/5 變成 5/5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一項改變能提高可控制性",
+          "text": "<p>哪一項單一改變能提高旋轉柵門的<strong>可控制性</strong>？</p>",
+          "answers": [
+            {
+              "text": "賦予 JAMMED 一個獨特輸出",
+              "fraction": 0,
+              "feedback": "那提高的是可觀察性，不是可控制性。"
+            },
+            {
+              "text": "加入一條由輸入驅動、通往 JAMMED 或 MAINT 的轉移",
+              "fraction": 100,
+              "feedback": "正確——一條新的入向輸入邊能使不可達狀態變得可達，從而提高可控制性。"
+            },
+            {
+              "text": "加入一個揭露 PASSED 的回傳值",
+              "fraction": 0,
+              "feedback": "PASSED 已經既可達「又」可觀察；加入輸出不會改變可控制性。"
+            },
+            {
+              "text": "重新命名一個輸出值",
+              "fraction": 0,
+              "feedback": "重新命名輸出無法改變哪些狀態可達。"
+            }
+          ],
+          "generalFeedback": "可控制性取決於轉移結構。只有加入一條由輸入驅動、通往不可達狀態（JAMMED 或 MAINT）的邊才能提高它；改變輸出影響的是可觀察性。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "可控制性與可觀察性彼此獨立",
+          "text": "<p>可控制性與可觀察性彼此獨立：提高其中一者（例如加入探針）並不必然提高另一者。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——探針提高可觀察性，卻讓可達性（可控制性）維持不變，反之亦然。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "它們彼此正交：對 JAMMED 加探針提高可觀察性，但 JAMMED 仍不可達。"
+            }
+          ],
+          "generalFeedback": "可測試性的兩半是分開的槓桿。探針改變輸出（可觀察性）；新的輸入邊改變可達性（可控制性）。提高其一不會自動提高另一——JAMMED 探針提高可觀察性，而 JAMMED 的可控制性仍為零。"
+        },
+        {
+          "type": "shortanswer",
+          "name": "驅動到 PASSED 的最短步數",
+          "text": "<p>把 <code>TURNSTILE_SUT</code> 從起始驅動到 <code>PASSED</code> 的最短序列需要幾個輸入步驟？請以單一整數回答。</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——driveTo 回傳 [coin, push]，一個長度為 2 的序列。"
+            }
+          ],
+          "generalFeedback": "通往 PASSED 的唯一路線是 LOCKED--coin-->UNLOCKED--push-->PASSED，因此最短的驅動序列恰有 2 步。",
+          "usecase": false
+        }
+      ]
+    }
+  },
   "decision-table": {
     "en": {
       "easy": [
@@ -167900,6 +170454,7736 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "當測試失敗於多個維度時，主要的是最根本的阻礙——那個使其他維度無法評估或修正的失敗。無法編譯的測試不能執行或被審查，因此可編譯是主要；風格問題只有在測試能建置後才變得相關。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "testability-metrics": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Cyclomatic complexity definition",
+          "text": "<p>In this module the <strong>cyclomatic complexity</strong> of a unit is computed from its decision count as:</p>",
+          "answers": [
+            {
+              "text": "decisions + 1",
+              "fraction": 100,
+              "feedback": "Correct — cyclomatic(unit) = decisions + 1, so a unit with 0 decisions has complexity 1."
+            },
+            {
+              "text": "decisions - 1",
+              "fraction": 0,
+              "feedback": "No — the formula adds one to the decision count, giving decisions + 1."
+            },
+            {
+              "text": "2 * decisions",
+              "fraction": 0,
+              "feedback": "No — complexity is decisions + 1, not twice the decisions."
+            },
+            {
+              "text": "the number of responsibilities",
+              "fraction": 0,
+              "feedback": "That is the cohesion penalty; cyclomatic complexity is decisions + 1."
+            }
+          ],
+          "generalFeedback": "Cyclomatic complexity here is M = decisions + 1: a straight-line unit (0 decisions) scores 1, and each decision adds one independent path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fan-out definition",
+          "text": "<p>The <strong>fan-out</strong> of a unit in the call graph is:</p>",
+          "answers": [
+            {
+              "text": "the number of other units it calls (its callees)",
+              "fraction": 100,
+              "feedback": "Correct — fan-out counts the outgoing call edges from the unit."
+            },
+            {
+              "text": "the number of units that call it (its callers)",
+              "fraction": 0,
+              "feedback": "That is fan-in, not fan-out."
+            },
+            {
+              "text": "the number of decisions it contains",
+              "fraction": 0,
+              "feedback": "That feeds cyclomatic complexity, not fan-out."
+            },
+            {
+              "text": "the number of responsibilities it declares",
+              "fraction": 0,
+              "feedback": "That is the cohesion penalty, not fan-out."
+            }
+          ],
+          "generalFeedback": "Fan-out = outgoing call edges (callees). It counts how many collaborators the unit depends on.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fan-in definition",
+          "text": "<p>The <strong>fan-in</strong> of a unit in the call graph is:</p>",
+          "answers": [
+            {
+              "text": "the number of units that call it (its callers)",
+              "fraction": 100,
+              "feedback": "Correct — fan-in counts the incoming call edges to the unit."
+            },
+            {
+              "text": "the number of other units it calls (its callees)",
+              "fraction": 0,
+              "feedback": "That is fan-out, not fan-in."
+            },
+            {
+              "text": "the number of decisions it contains",
+              "fraction": 0,
+              "feedback": "Decisions feed cyclomatic complexity, not fan-in."
+            },
+            {
+              "text": "the total number of call edges in the module",
+              "fraction": 0,
+              "feedback": "Fan-in is per unit — only the edges pointing at it — not the module total."
+            }
+          ],
+          "generalFeedback": "Fan-in = incoming call edges (callers). It counts how many units depend on this one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cohesion penalty definition",
+          "text": "<p>In this module the <strong>cohesion penalty</strong> of a unit equals:</p>",
+          "answers": [
+            {
+              "text": "the number of responsibilities it declares",
+              "fraction": 100,
+              "feedback": "Correct — cohesionPenalty(unit) = responsibilities.length; more responsibilities means lower cohesion and a higher penalty."
+            },
+            {
+              "text": "the number of decisions it contains",
+              "fraction": 0,
+              "feedback": "Decisions drive cyclomatic complexity, not the cohesion penalty."
+            },
+            {
+              "text": "the number of units it calls",
+              "fraction": 0,
+              "feedback": "That is fan-out, not the cohesion penalty."
+            },
+            {
+              "text": "one divided by the responsibility count",
+              "fraction": 0,
+              "feedback": "No — the penalty is simply the responsibility count itself (higher = worse)."
+            }
+          ],
+          "generalFeedback": "The cohesion proxy here is LCOM-style and simplified: the penalty is just the count of declared responsibilities. A unit doing many unrelated things is less cohesive and scores a higher penalty.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why high fan-out is harder to test",
+          "text": "<p>Why does a <strong>high fan-out</strong> make a unit harder to test in isolation?</p>",
+          "answers": [
+            {
+              "text": "Each collaborator it calls must be stubbed, faked, or mocked in a test",
+              "fraction": 100,
+              "feedback": "Correct — more callees means more test doubles to stand in for the dependencies."
+            },
+            {
+              "text": "It automatically has more decisions to cover",
+              "fraction": 0,
+              "feedback": "Fan-out and decisions are independent; fan-out is about collaborators, not branches."
+            },
+            {
+              "text": "It is called by more units, so more callers must be set up",
+              "fraction": 0,
+              "feedback": "That describes fan-in; fan-out is about the units it calls."
+            },
+            {
+              "text": "Its return value cannot be observed",
+              "fraction": 0,
+              "feedback": "Fan-out is about dependencies to substitute, not observability of the return value."
+            }
+          ],
+          "generalFeedback": "High fan-out means many collaborators. To test the unit in isolation you must supply a double for each one, so setup cost grows with fan-out.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why high complexity is harder to test",
+          "text": "<p>Why does a <strong>high cyclomatic complexity</strong> make a unit harder to test thoroughly?</p>",
+          "answers": [
+            {
+              "text": "There are more independent paths, so more test cases are needed to cover them",
+              "fraction": 100,
+              "feedback": "Correct — cyclomatic complexity approximates the number of independent paths to exercise."
+            },
+            {
+              "text": "There are more collaborators to stub",
+              "fraction": 0,
+              "feedback": "That is the effect of fan-out, not cyclomatic complexity."
+            },
+            {
+              "text": "The unit declares more responsibilities",
+              "fraction": 0,
+              "feedback": "That is cohesion; complexity is about decisions and paths."
+            },
+            {
+              "text": "More units call it",
+              "fraction": 0,
+              "feedback": "That is fan-in; complexity is about the branching inside the unit."
+            }
+          ],
+          "generalFeedback": "Cyclomatic complexity = decisions + 1 estimates the independent paths through the code. More paths means more test cases to reach adequate coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why low cohesion is harder to test",
+          "text": "<p>Why does a unit with <strong>many unrelated responsibilities</strong> (low cohesion) tend to be harder to test?</p>",
+          "answers": [
+            {
+              "text": "It does several unrelated things, so tests need broad, mixed setup and lose focus",
+              "fraction": 100,
+              "feedback": "Correct — low cohesion pulls the unit in many directions, so each test must arrange several unrelated concerns."
+            },
+            {
+              "text": "It always has zero fan-out",
+              "fraction": 0,
+              "feedback": "Cohesion and fan-out are independent; low cohesion does not force fan-out to zero."
+            },
+            {
+              "text": "Its cyclomatic complexity is always 1",
+              "fraction": 0,
+              "feedback": "Cohesion says nothing about the decision count; complexity is measured separately."
+            },
+            {
+              "text": "It can never be called by another unit",
+              "fraction": 0,
+              "feedback": "Cohesion does not restrict fan-in; it is about how many concerns the unit mixes."
+            }
+          ],
+          "generalFeedback": "A unit with many responsibilities mixes unrelated concerns, so tests must set up and check several things at once — harder to write and less focused. Splitting responsibilities raises cohesion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read cyclomatic complexity of formatMoney",
+          "text": "<p>In the checkout module, <code>formatMoney</code> has <strong>0</strong> decisions. What is its cyclomatic complexity?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — cyclomatic = decisions + 1 = 0 + 1 = 1."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "The formula adds one, so 0 decisions gives complexity 1, not 0."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "0 + 1 = 1; a value of 2 would need 1 decision."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "0 + 1 = 1, not 3."
+            }
+          ],
+          "generalFeedback": "formatMoney is a straight-line helper: 0 decisions, so cyclomatic complexity = 0 + 1 = 1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read cyclomatic complexity of checkout",
+          "text": "<p>In the checkout module, <code>checkout</code> has <strong>6</strong> decisions. What is its cyclomatic complexity?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — cyclomatic = decisions + 1 = 6 + 1 = 7."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "The formula adds one, so 6 decisions gives 7, not 6."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "6 + 1 = 7, not 5."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "The rule is decisions + 1 = 7, not 2 * decisions."
+            }
+          ],
+          "generalFeedback": "checkout has 6 decisions, so cyclomatic complexity = 6 + 1 = 7 — the highest in the module.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read fan-out of checkout",
+          "text": "<p>In the module, <code>checkout</code> calls <code>validateCart</code>, <code>applyDiscount</code>, <code>chargePayment</code>, and <code>sendReceipt</code>. What is checkout's <strong>fan-out</strong>?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — checkout has four outgoing call edges, so fan-out = 4."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "checkout calls four collaborators, so fan-out is 4, not 0."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "There are four callees listed, so fan-out is 4."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Only four units are called; fan-out = 4."
+            }
+          ],
+          "generalFeedback": "Fan-out counts outgoing call edges. checkout calls four units, so its fan-out is 4 — the highest in the module.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read fan-in of formatMoney",
+          "text": "<p>In the module, <code>applyDiscount</code>, <code>chargePayment</code>, and <code>sendReceipt</code> each call <code>formatMoney</code>. What is formatMoney's <strong>fan-in</strong>?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — three units call formatMoney, so fan-in = 3."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Three units call it, so fan-in is 3, not 0."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Three callers are listed, so fan-in is 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only three units call formatMoney; fan-in = 3."
+            }
+          ],
+          "generalFeedback": "Fan-in counts incoming call edges. formatMoney is called by three units, so its fan-in is 3 — the highest in the module.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read cohesion penalty of checkout",
+          "text": "<p><code>checkout</code> declares <strong>4</strong> responsibilities (orchestrate-flow, coordinate-steps, handle-errors, audit-log). What is its cohesion penalty?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the cohesion penalty is the responsibility count, which is 4."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "The penalty equals the responsibility count (4), not 1."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "checkout declares four responsibilities, so the penalty is 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Four responsibilities give a penalty of 4, not 2."
+            }
+          ],
+          "generalFeedback": "Cohesion penalty = responsibility count. checkout mixes four responsibilities, so its penalty is 4.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Fan-out counts callees",
+          "text": "<p>A unit's fan-out counts the collaborators it calls (its callees).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — fan-out is the number of outgoing call edges, i.e. the callees."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Fan-out does count callees; it is the callers that fan-in counts."
+            }
+          ],
+          "generalFeedback": "Fan-out = outgoing edges (callees); fan-in = incoming edges (callers). More callees means more collaborators to stub in a test."
+        },
+        {
+          "type": "truefalse",
+          "name": "More responsibilities means lower cohesion",
+          "text": "<p>A unit that declares more unrelated responsibilities is treated as having lower cohesion and a higher cohesion penalty.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the penalty equals the responsibility count, so more responsibilities means a higher penalty and lower cohesion."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "More responsibilities does lower cohesion here: the penalty is the responsibility count, so it rises with each added responsibility."
+            }
+          ],
+          "generalFeedback": "The cohesion proxy penalizes units that mix many responsibilities: penalty = responsibility count, so more responsibilities = lower cohesion = higher penalty."
+        },
+        {
+          "type": "multichoice",
+          "name": "Hardness score formula",
+          "text": "<p>How is a unit's <strong>testability hardness score</strong> combined from its metrics?</p>",
+          "answers": [
+            {
+              "text": "score = cyclomatic + 2 * fanOut + cohesionPenalty",
+              "fraction": 100,
+              "feedback": "Correct — fan-out is weighted 2, while cyclomatic and cohesion penalty each contribute with weight 1."
+            },
+            {
+              "text": "score = cyclomatic + fanIn + cohesionPenalty",
+              "fraction": 0,
+              "feedback": "No — the score uses fan-out (weighted 2), not fan-in."
+            },
+            {
+              "text": "score = cyclomatic * fanOut * cohesionPenalty",
+              "fraction": 0,
+              "feedback": "No — the signals are added (with fan-out weighted 2), not multiplied."
+            },
+            {
+              "text": "score = 2 * cyclomatic + fanOut + cohesionPenalty",
+              "fraction": 0,
+              "feedback": "No — it is fan-out that carries the weight 2, not cyclomatic complexity."
+            }
+          ],
+          "generalFeedback": "score = cyclomatic + 2 * fanOut + cohesionPenalty. Fan-out is doubled because each collaborator both adds a path and a test double. Fan-in is reported but not part of the score.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Compute cyclomatic complexity of chargePayment",
+          "text": "<p><code>chargePayment</code> has <strong>4</strong> decisions. Compute its cyclomatic complexity.</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 4 + 1 = 5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The formula adds one: 4 + 1 = 5."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "4 + 1 = 5, not 3."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "It is decisions + 1 = 5, not 2 * decisions."
+            }
+          ],
+          "generalFeedback": "cyclomatic(chargePayment) = decisions + 1 = 4 + 1 = 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute cyclomatic complexity of validateCart",
+          "text": "<p><code>validateCart</code> has <strong>3</strong> decisions. Compute its cyclomatic complexity.</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 3 + 1 = 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The formula adds one: 3 + 1 = 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "3 + 1 = 4, not 2."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "It is decisions + 1 = 4, not 2 * decisions."
+            }
+          ],
+          "generalFeedback": "cyclomatic(validateCart) = decisions + 1 = 3 + 1 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute fan-out of chargePayment",
+          "text": "<p>In the module, <code>chargePayment</code> calls only <code>formatMoney</code>. What is chargePayment's <strong>fan-out</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — one outgoing call edge, so fan-out = 1."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "It calls formatMoney, so fan-out is 1, not 0."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only one callee is listed, so fan-out is 1."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "chargePayment calls a single unit; fan-out = 1."
+            }
+          ],
+          "generalFeedback": "chargePayment has one outgoing edge (to formatMoney), so its fan-out is 1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute fan-in of validateCart",
+          "text": "<p>In the module, the only unit that calls <code>validateCart</code> is <code>checkout</code>. What is validateCart's <strong>fan-in</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — one incoming call edge (from checkout), so fan-in = 1."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "checkout calls it, so fan-in is 1, not 0."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only checkout calls it, so fan-in is 1."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "There is a single caller; fan-in = 1."
+            }
+          ],
+          "generalFeedback": "validateCart is called only by checkout, so its fan-in is 1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute cohesion penalty of validateCart",
+          "text": "<p><code>validateCart</code> declares <strong>2</strong> responsibilities (check-stock, check-address). What is its cohesion penalty?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — the penalty is the responsibility count, which is 2."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Two responsibilities give a penalty of 2, not 1."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "validateCart declares two responsibilities, so the penalty is 2."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The count is 2, so the penalty is 2."
+            }
+          ],
+          "generalFeedback": "Cohesion penalty = responsibility count = 2 for validateCart.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which unit is hardest to test",
+          "text": "<p>Across the module, which unit is the <strong>hardest to test</strong>, and why?</p>",
+          "answers": [
+            {
+              "text": "checkout — it is high on every signal (cyclomatic 7, fan-out 4, cohesion 4)",
+              "fraction": 100,
+              "feedback": "Correct — checkout is an orchestrator: most decisions, most collaborators, and the most responsibilities."
+            },
+            {
+              "text": "formatMoney — because it is called by three units",
+              "fraction": 0,
+              "feedback": "High fan-in does not make formatMoney hard; it is a trivial pure helper (the easiest unit)."
+            },
+            {
+              "text": "validateCart — because it calls the most collaborators",
+              "fraction": 0,
+              "feedback": "validateCart has fan-out 0; checkout is the one that calls four collaborators."
+            },
+            {
+              "text": "chargePayment — because it has the highest cyclomatic complexity",
+              "fraction": 0,
+              "feedback": "checkout has the highest complexity (7); chargePayment is 5, and checkout leads on every signal."
+            }
+          ],
+          "generalFeedback": "checkout is the hard-to-test orchestrator: cyclomatic 7, fan-out 4, cohesion 4, giving the top hardness score in the module.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fan-out and the number of test doubles",
+          "text": "<p>To test a unit with <strong>fan-out 4</strong> in isolation, roughly how many collaborators must you replace with test doubles?</p>",
+          "answers": [
+            {
+              "text": "About 4 — one double per collaborator it calls",
+              "fraction": 100,
+              "feedback": "Correct — each callee is a dependency you must stub, fake, or mock."
+            },
+            {
+              "text": "0 — fan-out has no effect on doubles",
+              "fraction": 0,
+              "feedback": "Fan-out is exactly the count of collaborators to substitute."
+            },
+            {
+              "text": "1 — one double covers all collaborators",
+              "fraction": 0,
+              "feedback": "Each distinct collaborator generally needs its own double; fan-out 4 means about 4."
+            },
+            {
+              "text": "8 — twice the fan-out",
+              "fraction": 0,
+              "feedback": "The score weights fan-out by 2, but the number of collaborators to double is the fan-out itself, 4."
+            }
+          ],
+          "generalFeedback": "Fan-out counts collaborators, and isolation testing needs a double for each, so fan-out 4 means about four doubles. (The score doubles fan-out's weight to reflect that each collaborator adds both a path and a double.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complexity and the number of test cases",
+          "text": "<p>A unit's cyclomatic complexity is 5. What does that most directly tell you about testing it?</p>",
+          "answers": [
+            {
+              "text": "Roughly 5 independent paths need exercising, so about that many test cases",
+              "fraction": 100,
+              "feedback": "Correct — cyclomatic complexity approximates the number of independent paths to cover."
+            },
+            {
+              "text": "It must be called by 5 other units",
+              "fraction": 0,
+              "feedback": "That would be fan-in; complexity is about internal paths."
+            },
+            {
+              "text": "It declares 5 responsibilities",
+              "fraction": 0,
+              "feedback": "That would be the cohesion penalty; complexity counts decisions + 1."
+            },
+            {
+              "text": "It calls 5 collaborators",
+              "fraction": 0,
+              "feedback": "That would be fan-out; complexity is about branching, not calls."
+            }
+          ],
+          "generalFeedback": "Cyclomatic complexity approximates the number of independent paths, which is a lower bound on the tests needed to cover the branching logic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match metric to test-difficulty effect",
+          "text": "<p>Which pairing of metric to its main test-difficulty effect is correct?</p>",
+          "answers": [
+            {
+              "text": "fan-out → number of collaborators to stub; cyclomatic → number of paths to cover",
+              "fraction": 100,
+              "feedback": "Correct — fan-out drives the doubles, cyclomatic drives the paths/test cases."
+            },
+            {
+              "text": "fan-out → number of paths to cover; cyclomatic → number of collaborators to stub",
+              "fraction": 0,
+              "feedback": "Reversed — fan-out is about collaborators, cyclomatic about paths."
+            },
+            {
+              "text": "fan-in → number of collaborators to stub; cohesion → number of paths",
+              "fraction": 0,
+              "feedback": "Fan-in is callers (not doubles), and cohesion is about mixed responsibilities, not paths."
+            },
+            {
+              "text": "cohesion → number of collaborators to stub; fan-out → responsibilities mixed",
+              "fraction": 0,
+              "feedback": "Reversed — fan-out drives collaborators; cohesion counts responsibilities."
+            }
+          ],
+          "generalFeedback": "Each metric maps to a distinct cost: fan-out to test doubles, cyclomatic to paths/test cases, cohesion penalty to unrelated setup. Fan-in (callers) affects ripple risk but is not part of the hardness score.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which unit is easiest to test",
+          "text": "<p>Which unit is the <strong>easiest to test</strong>, and why?</p>",
+          "answers": [
+            {
+              "text": "formatMoney — a pure helper with 0 decisions, fan-out 0, and one responsibility",
+              "fraction": 100,
+              "feedback": "Correct — nothing to stub, one path, one job: the lowest hardness in the module."
+            },
+            {
+              "text": "checkout — because it is the entry point",
+              "fraction": 0,
+              "feedback": "checkout is the hardest, not the easiest — it leads on every signal."
+            },
+            {
+              "text": "chargePayment — because it has few responsibilities",
+              "fraction": 0,
+              "feedback": "chargePayment still has 4 decisions and a collaborator; formatMoney is trivially testable."
+            },
+            {
+              "text": "formatMoney — because it has the highest fan-in",
+              "fraction": 0,
+              "feedback": "formatMoney is easiest despite its fan-in; fan-in does not make a unit hard to test, and its own metrics are minimal."
+            }
+          ],
+          "generalFeedback": "formatMoney has 0 decisions (complexity 1), fan-out 0, and one responsibility — a pure helper that is trivially testable. Its high fan-in does not affect how hard it is to test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compare two units by their metrics",
+          "text": "<p>Compare <code>chargePayment</code> (cyclomatic 5, fan-out 1, cohesion 2) and <code>sendReceipt</code> (cyclomatic 4, fan-out 1, cohesion 1). Which is harder to test?</p>",
+          "answers": [
+            {
+              "text": "chargePayment — it has higher complexity and a higher cohesion penalty at the same fan-out",
+              "fraction": 100,
+              "feedback": "Correct — with equal fan-out, chargePayment leads on both complexity and cohesion, so it is harder."
+            },
+            {
+              "text": "sendReceipt — because a receipt is user-facing",
+              "fraction": 0,
+              "feedback": "Hardness here is structural; on the metrics chargePayment is harder."
+            },
+            {
+              "text": "They are exactly equal",
+              "fraction": 0,
+              "feedback": "They share fan-out but chargePayment has more complexity and cohesion penalty, so it is harder."
+            },
+            {
+              "text": "sendReceipt — because it has lower cohesion",
+              "fraction": 0,
+              "feedback": "sendReceipt has the lower cohesion penalty (1 vs 2), which makes it easier, not harder."
+            }
+          ],
+          "generalFeedback": "Both have fan-out 1, but chargePayment has cyclomatic 5 vs 4 and cohesion 2 vs 1, so it is the harder unit (score 9 vs 7).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fan-in versus fan-out for stubbing",
+          "text": "<p>Which metric tells you how many collaborators you must <strong>stub or fake</strong> to test a unit in isolation?</p>",
+          "answers": [
+            {
+              "text": "Fan-out — the callees the unit depends on",
+              "fraction": 100,
+              "feedback": "Correct — you must substitute the units it calls, which is its fan-out."
+            },
+            {
+              "text": "Fan-in — the callers that depend on it",
+              "fraction": 0,
+              "feedback": "Fan-in is who calls the unit; it does not tell you what to stub inside the test."
+            },
+            {
+              "text": "Cyclomatic complexity",
+              "fraction": 0,
+              "feedback": "That tells you the paths to cover, not the collaborators to substitute."
+            },
+            {
+              "text": "Cohesion penalty",
+              "fraction": 0,
+              "feedback": "That counts responsibilities, not collaborators to stub."
+            }
+          ],
+          "generalFeedback": "To test a unit in isolation you replace what it calls — its callees — so fan-out is the number of doubles. Fan-in (callers) matters for ripple/impact, not for stubbing this unit.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret checkout's fan-in of 0",
+          "text": "<p><code>checkout</code> has a <strong>fan-in of 0</strong>. What does that indicate?</p>",
+          "answers": [
+            {
+              "text": "No other unit in the module calls it — it is the top-level entry point",
+              "fraction": 100,
+              "feedback": "Correct — fan-in 0 means nothing calls checkout; it is the module's orchestrating entry point."
+            },
+            {
+              "text": "It calls no other units",
+              "fraction": 0,
+              "feedback": "That would be fan-out 0; checkout actually has fan-out 4. Fan-in 0 means nothing calls it."
+            },
+            {
+              "text": "It has no decisions",
+              "fraction": 0,
+              "feedback": "Fan-in is about callers, not decisions; checkout has 6 decisions."
+            },
+            {
+              "text": "It is dead code",
+              "fraction": 0,
+              "feedback": "An entry point legitimately has no in-module callers; it is invoked from outside, not dead."
+            }
+          ],
+          "generalFeedback": "Fan-in 0 means no unit in the module calls checkout — it is the top-level entry point (invoked from outside). It still has fan-out 4 because it orchestrates the others.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute cyclomatic complexity of sendReceipt",
+          "text": "<p><code>sendReceipt</code> has <strong>3</strong> decisions. Compute its cyclomatic complexity.</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — 3 + 1 = 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "The formula adds one: 3 + 1 = 4."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "3 + 1 = 4, not 5; 5 would need 4 decisions."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "3 + 1 = 4, not 2."
+            }
+          ],
+          "generalFeedback": "cyclomatic(sendReceipt) = decisions + 1 = 3 + 1 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which unit needs more test doubles",
+          "text": "<p><code>checkout</code> has fan-out 4 and <code>applyDiscount</code> has fan-out 1. To test each in isolation, which needs more collaborators replaced by test doubles?</p>",
+          "answers": [
+            {
+              "text": "checkout — about 4 doubles versus about 1 for applyDiscount",
+              "fraction": 100,
+              "feedback": "Correct — fan-out is the count of collaborators to substitute, so higher fan-out means more doubles."
+            },
+            {
+              "text": "applyDiscount — because it is simpler overall",
+              "fraction": 0,
+              "feedback": "Simpler overall, yes, but it has the lower fan-out (1), so it needs fewer doubles, not more."
+            },
+            {
+              "text": "They need the same number, since both are units",
+              "fraction": 0,
+              "feedback": "The number of doubles tracks fan-out: 4 for checkout versus 1 for applyDiscount."
+            },
+            {
+              "text": "applyDiscount — because it has a higher fan-in",
+              "fraction": 0,
+              "feedback": "Fan-in does not determine doubles; fan-out does, and checkout's is higher."
+            }
+          ],
+          "generalFeedback": "Isolation testing replaces each collaborator a unit calls, so the number of doubles equals fan-out: checkout (4) needs far more than applyDiscount (1).",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Compute the hardness score of checkout",
+          "text": "<p><code>checkout</code> has cyclomatic 7, fan-out 4, and cohesion penalty 4. Using score = cyclomatic + 2 * fanOut + cohesionPenalty, what is its hardness score?</p>",
+          "answers": [
+            {
+              "text": "19",
+              "fraction": 100,
+              "feedback": "Correct — 7 + 2*4 + 4 = 7 + 8 + 4 = 19."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "That forgets to double the fan-out: 7 + 4 + 4 = 15. With the weight, 7 + 8 + 4 = 19."
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 would double something else; the correct sum is 7 + 8 + 4 = 19."
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "11 ignores cohesion; the sum is 7 + 8 + 4 = 19."
+            }
+          ],
+          "generalFeedback": "score(checkout) = 7 + 2*4 + 4 = 19, the highest in the module.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute the hardness score of chargePayment",
+          "text": "<p><code>chargePayment</code> has cyclomatic 5, fan-out 1, and cohesion penalty 2. What is its hardness score?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — 5 + 2*1 + 2 = 5 + 2 + 2 = 9."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That forgets to double the fan-out: 5 + 1 + 2 = 8. With the weight it is 5 + 2 + 2 = 9."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is sendReceipt's score; chargePayment is 5 + 2 + 2 = 9."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "The sum is 5 + 2 + 2 = 9, not 10."
+            }
+          ],
+          "generalFeedback": "score(chargePayment) = 5 + 2*1 + 2 = 9, second-hardest behind checkout (19).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Break the score tie between applyDiscount and validateCart",
+          "text": "<p>Both <code>applyDiscount</code> and <code>validateCart</code> have a hardness score of <strong>6</strong>. In the ranking, which appears first and why?</p>",
+          "answers": [
+            {
+              "text": "applyDiscount — ties are broken by id in ascending order, and \"applyDiscount\" sorts before \"validateCart\"",
+              "fraction": 100,
+              "feedback": "Correct — equal scores are ordered by id ascending, so applyDiscount comes first."
+            },
+            {
+              "text": "validateCart — because it has more responsibilities",
+              "fraction": 0,
+              "feedback": "The tie is broken by id, not by any metric; applyDiscount sorts first."
+            },
+            {
+              "text": "applyDiscount — because it has higher cyclomatic complexity",
+              "fraction": 0,
+              "feedback": "validateCart actually has higher complexity (4 vs 3); the tie-break is purely id-ascending."
+            },
+            {
+              "text": "Their order is random",
+              "fraction": 0,
+              "feedback": "The ranking is deterministic: equal scores sort by id ascending."
+            }
+          ],
+          "generalFeedback": "The ranking sorts by score descending, then by id ascending. With equal scores of 6, \"applyDiscount\" < \"validateCart\" alphabetically, so applyDiscount is listed first.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Full hardness ranking of the module",
+          "text": "<p>What is the correct hardness ranking (hardest first) for the checkout module?</p>",
+          "answers": [
+            {
+              "text": "checkout, chargePayment, sendReceipt, applyDiscount, validateCart, formatMoney",
+              "fraction": 100,
+              "feedback": "Correct — scores 19, 9, 7, 6, 6, 2, with applyDiscount before validateCart on the id tie-break."
+            },
+            {
+              "text": "checkout, chargePayment, sendReceipt, validateCart, applyDiscount, formatMoney",
+              "fraction": 0,
+              "feedback": "Close, but the 6-6 tie breaks by id ascending, so applyDiscount precedes validateCart."
+            },
+            {
+              "text": "checkout, sendReceipt, chargePayment, validateCart, applyDiscount, formatMoney",
+              "fraction": 0,
+              "feedback": "chargePayment (9) outranks sendReceipt (7), so chargePayment must come second."
+            },
+            {
+              "text": "formatMoney, applyDiscount, validateCart, sendReceipt, chargePayment, checkout",
+              "fraction": 0,
+              "feedback": "That is ascending order; the ranking is hardest first, so checkout leads."
+            }
+          ],
+          "generalFeedback": "Scores: checkout 19, chargePayment 9, sendReceipt 7, applyDiscount 6, validateCart 6, formatMoney 2. Descending by score, then ascending by id for the 6-6 tie, gives checkout, chargePayment, sendReceipt, applyDiscount, validateCart, formatMoney.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret the reason for the hardest unit",
+          "text": "<p>For <code>checkout</code> the metrics are cyclomatic 7, fan-out 4, cohesion 4. The reason picks the largest <em>weighted</em> contribution. Which contributor dominates?</p>",
+          "answers": [
+            {
+              "text": "Fan-out — its weighted contribution is 2*4 = 8, larger than complexity 7 or cohesion 4",
+              "fraction": 100,
+              "feedback": "Correct — after weighting, fan-out (8) beats complexity (7) and cohesion (4), so the reason is \"dominated by fan-out — an orchestrator.\""
+            },
+            {
+              "text": "Complexity — because 7 is the biggest raw number",
+              "fraction": 0,
+              "feedback": "The reason uses weighted contributions: fan-out's 2*4 = 8 exceeds the raw complexity of 7."
+            },
+            {
+              "text": "Cohesion — because it has 4 responsibilities",
+              "fraction": 0,
+              "feedback": "Cohesion contributes 4, less than fan-out's weighted 8; fan-out dominates."
+            },
+            {
+              "text": "Fan-in — because it is the entry point",
+              "fraction": 0,
+              "feedback": "Fan-in is not part of the score or the reason; the dominant weighted contributor is fan-out."
+            }
+          ],
+          "generalFeedback": "Weighted contributions for checkout: complexity 7, fan-out 2*4 = 8, cohesion 4. The largest is fan-out, so the reason names it — checkout is a fan-out-dominated orchestrator, even though its raw complexity (7) is also high.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Highest-leverage fix for checkout",
+          "text": "<p>Given that checkout is dominated by fan-out, what is the single highest-leverage fix the module recommends?</p>",
+          "answers": [
+            {
+              "text": "Split it — extract a collaborator so no single unit orchestrates everything",
+              "fraction": 100,
+              "feedback": "Correct — the fix targets the dominant contributor (fan-out), so it recommends splitting/extracting to reduce orchestration."
+            },
+            {
+              "text": "Add more callers so its fan-in rises",
+              "fraction": 0,
+              "feedback": "Fan-in is not part of hardness; adding callers does nothing to reduce checkout's score."
+            },
+            {
+              "text": "Merge all its collaborators back into checkout",
+              "fraction": 0,
+              "feedback": "That would raise fan-out and complexity, making it harder, not easier."
+            },
+            {
+              "text": "Rename its responsibilities",
+              "fraction": 0,
+              "feedback": "Renaming does not change any metric; the leverage is in reducing fan-out by splitting."
+            }
+          ],
+          "generalFeedback": "The highest-leverage fix addresses the dominant contributor. Since fan-out dominates checkout, the recommendation is to split it and extract a collaborator so orchestration is spread out.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of adding checkout to formatMoney dependency",
+          "text": "<p>Starting from the base module, you <strong>add a dependency</strong> <code>checkout to formatMoney</code>. checkout's fan-out goes from 4 to 5. What is checkout's new hardness score?</p>",
+          "answers": [
+            {
+              "text": "21",
+              "fraction": 100,
+              "feedback": "Correct — 7 + 2*5 + 4 = 7 + 10 + 4 = 21 (up from 19)."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "Each unit of fan-out adds 2 to the score, so 19 + 2 = 21, not 20."
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "Fan-out rose, so the score rises: 7 + 10 + 4 = 21."
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "7 + 2*5 + 4 = 21, not 23."
+            }
+          ],
+          "generalFeedback": "Adding an outgoing edge raises the caller's fan-out by 1, and each fan-out unit is weighted 2, so checkout's score climbs from 19 to 7 + 2*5 + 4 = 21. checkout stays the hardest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Adding a dependency raises the caller's score",
+          "text": "<p>You add a dependency <code>validateCart to formatMoney</code>. validateCart's fan-out goes from 0 to 1. Its cyclomatic (4) and cohesion (2) are unchanged. What is validateCart's new hardness score?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 4 + 2*1 + 2 = 8 (up from 6)."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 was the old score; adding a callee raises fan-out, so it becomes 4 + 2 + 2 = 8."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Fan-out is weighted 2, so the score rises by 2 (from 6 to 8), not 1."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "4 + 2*1 + 2 = 8, not 10."
+            }
+          ],
+          "generalFeedback": "Adding an outgoing edge gives validateCart fan-out 1, weighted 2, so its score rises from 6 to 4 + 2*1 + 2 = 8 — enough to overtake sendReceipt (7).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "New hardest unit after splitting checkout",
+          "text": "<p>You <strong>split</strong> the hardest unit <code>checkout</code> into <code>checkout-a</code> and <code>checkout-b</code>. After the split, checkout-a scores 12 and checkout-b scores 10. Which unit is now the hardest, and how does its score compare with checkout's original 19?</p>",
+          "answers": [
+            {
+              "text": "checkout-a, at 12 — the top hardness dropped from 19 to 12",
+              "fraction": 100,
+              "feedback": "Correct — splitting lowered the worst-case per-unit hardness from 19 to 12."
+            },
+            {
+              "text": "chargePayment, at 9 — it is now the hardest",
+              "fraction": 0,
+              "feedback": "checkout-a (12) and checkout-b (10) both exceed chargePayment (9), so chargePayment is not the hardest."
+            },
+            {
+              "text": "checkout-a, still at 19 — splitting changes nothing",
+              "fraction": 0,
+              "feedback": "The split halves complexity and distributes edges, so checkout-a scores 12, not 19."
+            },
+            {
+              "text": "checkout-b, at 10 — it is the hardest",
+              "fraction": 0,
+              "feedback": "checkout-a (12) is higher than checkout-b (10), so checkout-a is the hardest."
+            }
+          ],
+          "generalFeedback": "After splitting, checkout-a (12) is hardest and checkout-b is 10. The worst per-unit hardness fell from 19 to 12: splitting trades one very hard unit for two smaller ones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cyclomatic complexity of checkout-a after the split",
+          "text": "<p>The split rule sends ceil(d/2) decisions to the primary unit. checkout had <strong>6</strong> decisions. What is <code>checkout-a</code>'s cyclomatic complexity after the split?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — ceil(6/2) = 3 decisions, so cyclomatic = 3 + 1 = 4."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 was checkout's complexity before the split; after splitting the decisions halve to 3, giving 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is checkout-a's decision count; cyclomatic adds one, giving 4."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "The decisions are halved (6 to 3), so cyclomatic = 3 + 1 = 4."
+            }
+          ],
+          "generalFeedback": "checkout-a gets ceil(6/2) = 3 decisions, so cyclomatic = 3 + 1 = 4 (checkout-b also gets floor(6/2) = 3 decisions). Halving the decisions is what lowers complexity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The coupling-versus-complexity trade-off",
+          "text": "<p>Splitting a big unit into two smaller ones lowers each unit's complexity, but what does it cost structurally?</p>",
+          "answers": [
+            {
+              "text": "It adds a new collaborator and a new call edge, raising overall coupling",
+              "fraction": 100,
+              "feedback": "Correct — the extracted helper is a new unit the primary must call, so total coupling (edges) goes up even as per-unit complexity falls."
+            },
+            {
+              "text": "It increases the number of decisions in the module",
+              "fraction": 0,
+              "feedback": "Splitting distributes the existing decisions; it does not create new ones."
+            },
+            {
+              "text": "It removes all fan-in from the module",
+              "fraction": 0,
+              "feedback": "Incoming edges are redirected, not removed; the module still has fan-in."
+            },
+            {
+              "text": "Nothing — smaller units are strictly better on every metric",
+              "fraction": 0,
+              "feedback": "There is a real trade-off: lower per-unit complexity but more units and more coupling to manage."
+            }
+          ],
+          "generalFeedback": "Extraction is a trade: complexity per unit drops, but you gain a unit and at least one new call edge (a to b), so overall coupling rises. Testability is about balancing complexity against coupling, not maximizing one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why fan-out is weighted more than complexity",
+          "text": "<p>In the score, fan-out is multiplied by 2 while cyclomatic and cohesion carry weight 1. What does this weighting emphasize?</p>",
+          "answers": [
+            {
+              "text": "That each collaborator is doubly costly — it adds both a path to cover and a double to build",
+              "fraction": 100,
+              "feedback": "Correct — the doubled weight reflects that coupling to a collaborator hurts isolation testing on two fronts."
+            },
+            {
+              "text": "That fan-out is the only metric that matters",
+              "fraction": 0,
+              "feedback": "All three signals contribute; fan-out is merely weighted more heavily."
+            },
+            {
+              "text": "That complexity should be ignored",
+              "fraction": 0,
+              "feedback": "Complexity still counts with weight 1; it is not ignored."
+            },
+            {
+              "text": "That fan-in is twice as important as fan-out",
+              "fraction": 0,
+              "feedback": "Fan-in is not in the score at all; it is fan-out that is doubled."
+            }
+          ],
+          "generalFeedback": "Fan-out is weighted 2 because each outgoing dependency adds both an extra path through the caller and a collaborator that must be substituted with a double — so coupling is penalized more than complexity or cohesion alone.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Receiving a dependency does not change the callee's score",
+          "text": "<p>Adding a dependency <code>validateCart to formatMoney</code> raises formatMoney's fan-in from 3 to 4, but leaves formatMoney's hardness score unchanged at 2.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — fan-in is not part of score = cyclomatic + 2*fanOut + cohesionPenalty, so formatMoney's score stays 2."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The score uses fan-out, not fan-in, so a new incoming edge leaves formatMoney's score at 2."
+            }
+          ],
+          "generalFeedback": "The hardness score depends on fan-out (weight 2), cyclomatic, and cohesion — not fan-in. Receiving another caller raises formatMoney's fan-in to 4 but its score stays 2; only the caller (which gains fan-out) gets harder."
+        },
+        {
+          "type": "multichoice",
+          "name": "Ranking change after adding validateCart to formatMoney",
+          "text": "<p>After adding <code>validateCart to formatMoney</code>, validateCart's score becomes 8 while sendReceipt stays at 7. How does the ranking near the top change?</p>",
+          "answers": [
+            {
+              "text": "validateCart rises above sendReceipt into third place, behind checkout (19) and chargePayment (9)",
+              "fraction": 100,
+              "feedback": "Correct — at 8, validateCart now outranks sendReceipt (7) and sits third."
+            },
+            {
+              "text": "Nothing changes; validateCart stays below sendReceipt",
+              "fraction": 0,
+              "feedback": "validateCart went from 6 to 8, so it now overtakes sendReceipt's 7."
+            },
+            {
+              "text": "validateCart becomes the hardest unit",
+              "fraction": 0,
+              "feedback": "checkout (19) is still far ahead; validateCart at 8 only reaches third."
+            },
+            {
+              "text": "formatMoney rises because its fan-in increased",
+              "fraction": 0,
+              "feedback": "formatMoney's score is unchanged at 2 — fan-in is not part of the score."
+            }
+          ],
+          "generalFeedback": "The new edge gives validateCart fan-out 1 and score 8, overtaking sendReceipt (7). The top order becomes checkout (19), chargePayment (9), validateCart (8), sendReceipt (7). formatMoney is unaffected.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which change lowers the module's maximum hardness",
+          "text": "<p>You want to reduce the <strong>worst-case</strong> per-unit hardness in the module. Which action does that?</p>",
+          "answers": [
+            {
+              "text": "Split the hardest unit checkout, dropping its top score from 19 to 12",
+              "fraction": 100,
+              "feedback": "Correct — splitting halves complexity and distributes edges, lowering the maximum hardness to 12."
+            },
+            {
+              "text": "Add a dependency from checkout to formatMoney",
+              "fraction": 0,
+              "feedback": "That raises checkout's fan-out and score to 21 — the opposite of what you want."
+            },
+            {
+              "text": "Add a dependency into checkout to raise its fan-in",
+              "fraction": 0,
+              "feedback": "Fan-in is not part of the score, so this does not lower the maximum hardness."
+            },
+            {
+              "text": "Rename checkout's responsibilities",
+              "fraction": 0,
+              "feedback": "Renaming changes no metric; the count of responsibilities and every other signal is unchanged."
+            }
+          ],
+          "generalFeedback": "Adding dependencies only raises fan-out and scores. Splitting the hardest unit is what lowers the peak: checkout's 19 becomes checkout-a 12 and checkout-b 10, so the module's maximum hardness falls to 12.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "循環複雜度定義",
+          "text": "<p>在本模組中，單元的<strong>循環複雜度（cyclomatic complexity）</strong>是由其判定數（decisions）計算為：</p>",
+          "answers": [
+            {
+              "text": "判定數 + 1",
+              "fraction": 100,
+              "feedback": "正確——cyclomatic(unit) = decisions + 1，故判定數為 0 的單元複雜度為 1。"
+            },
+            {
+              "text": "判定數 - 1",
+              "fraction": 0,
+              "feedback": "不對——公式是加一，即 decisions + 1。"
+            },
+            {
+              "text": "2 × 判定數",
+              "fraction": 0,
+              "feedback": "不對——複雜度是 decisions + 1，而非判定數的兩倍。"
+            },
+            {
+              "text": "職責的數量",
+              "fraction": 0,
+              "feedback": "那是內聚懲罰；循環複雜度是 decisions + 1。"
+            }
+          ],
+          "generalFeedback": "此處循環複雜度為 M = decisions + 1：直線式單元（0 判定）得 1，每個判定增加一條獨立路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "扇出定義",
+          "text": "<p>單元在呼叫圖中的<strong>扇出（fan-out）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "它所呼叫的其他單元數量（它的被呼叫者 callee）",
+              "fraction": 100,
+              "feedback": "正確——扇出計算由該單元出去的呼叫邊。"
+            },
+            {
+              "text": "呼叫它的單元數量（它的呼叫者 caller）",
+              "fraction": 0,
+              "feedback": "那是扇入（fan-in），不是扇出。"
+            },
+            {
+              "text": "它所含的判定數量",
+              "fraction": 0,
+              "feedback": "那餵給循環複雜度，不是扇出。"
+            },
+            {
+              "text": "它所宣告的職責數量",
+              "fraction": 0,
+              "feedback": "那是內聚懲罰，不是扇出。"
+            }
+          ],
+          "generalFeedback": "扇出＝出去的呼叫邊（被呼叫者）。它計算該單元依賴多少個協作者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "扇入定義",
+          "text": "<p>單元在呼叫圖中的<strong>扇入（fan-in）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "呼叫它的單元數量（它的呼叫者 caller）",
+              "fraction": 100,
+              "feedback": "正確——扇入計算進入該單元的呼叫邊。"
+            },
+            {
+              "text": "它所呼叫的其他單元數量（它的被呼叫者 callee）",
+              "fraction": 0,
+              "feedback": "那是扇出（fan-out），不是扇入。"
+            },
+            {
+              "text": "它所含的判定數量",
+              "fraction": 0,
+              "feedback": "判定餵給循環複雜度，不是扇入。"
+            },
+            {
+              "text": "模組中呼叫邊的總數",
+              "fraction": 0,
+              "feedback": "扇入是以單元為單位——只算指向它的邊——而非模組總數。"
+            }
+          ],
+          "generalFeedback": "扇入＝進入的呼叫邊（呼叫者）。它計算有多少單元依賴這一個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "內聚懲罰定義",
+          "text": "<p>在本模組中，單元的<strong>內聚懲罰（cohesion penalty）</strong>等於：</p>",
+          "answers": [
+            {
+              "text": "它所宣告的職責數量",
+              "fraction": 100,
+              "feedback": "正確——cohesionPenalty(unit) = responsibilities.length；職責越多代表內聚越低、懲罰越高。"
+            },
+            {
+              "text": "它所含的判定數量",
+              "fraction": 0,
+              "feedback": "判定驅動循環複雜度，不是內聚懲罰。"
+            },
+            {
+              "text": "它所呼叫的單元數量",
+              "fraction": 0,
+              "feedback": "那是扇出，不是內聚懲罰。"
+            },
+            {
+              "text": "一除以職責數量",
+              "fraction": 0,
+              "feedback": "不對——懲罰就是職責數量本身（越高越差）。"
+            }
+          ],
+          "generalFeedback": "此處的內聚代理採 LCOM 風格且簡化：懲罰就是宣告職責的數量。做許多不相關之事的單元較不內聚，懲罰較高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何高扇出較難測試",
+          "text": "<p>為何<strong>高扇出</strong>會使單元較難被隔離測試？</p>",
+          "answers": [
+            {
+              "text": "它呼叫的每個協作者都必須在測試中以 stub、fake 或 mock 替換",
+              "fraction": 100,
+              "feedback": "正確——被呼叫者越多，需要用來替代依賴的測試替身就越多。"
+            },
+            {
+              "text": "它自動會有更多判定要涵蓋",
+              "fraction": 0,
+              "feedback": "扇出與判定彼此獨立；扇出談的是協作者，不是分支。"
+            },
+            {
+              "text": "它被更多單元呼叫，所以要設定更多呼叫者",
+              "fraction": 0,
+              "feedback": "那描述的是扇入；扇出談的是它所呼叫的單元。"
+            },
+            {
+              "text": "它的回傳值無法被觀察",
+              "fraction": 0,
+              "feedback": "扇出談的是要替換的依賴，而非回傳值的可觀察性。"
+            }
+          ],
+          "generalFeedback": "高扇出代表協作者眾多。要隔離測試該單元，你必須為每個協作者提供替身，故設定成本隨扇出增長。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何高複雜度較難測試",
+          "text": "<p>為何<strong>高循環複雜度</strong>會使單元較難被徹底測試？</p>",
+          "answers": [
+            {
+              "text": "獨立路徑更多，因此需要更多測試案例來涵蓋",
+              "fraction": 100,
+              "feedback": "正確——循環複雜度近似要執行的獨立路徑數。"
+            },
+            {
+              "text": "有更多協作者要 stub",
+              "fraction": 0,
+              "feedback": "那是扇出的效果，不是循環複雜度。"
+            },
+            {
+              "text": "該單元宣告更多職責",
+              "fraction": 0,
+              "feedback": "那是內聚；複雜度談的是判定與路徑。"
+            },
+            {
+              "text": "更多單元呼叫它",
+              "fraction": 0,
+              "feedback": "那是扇入；複雜度談的是單元內部的分支。"
+            }
+          ],
+          "generalFeedback": "循環複雜度＝decisions + 1，估計穿過程式碼的獨立路徑數。路徑越多，達到足夠涵蓋所需的測試案例就越多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何低內聚較難測試",
+          "text": "<p>為何<strong>職責眾多且不相關</strong>（低內聚）的單元往往較難測試？</p>",
+          "answers": [
+            {
+              "text": "它做了數件不相關的事，故測試需要廣泛混雜的設定並失去焦點",
+              "fraction": 100,
+              "feedback": "正確——低內聚把單元拉往多個方向，每個測試都得安排數項不相關的關切點。"
+            },
+            {
+              "text": "它的扇出一定為零",
+              "fraction": 0,
+              "feedback": "內聚與扇出彼此獨立；低內聚不會強迫扇出為零。"
+            },
+            {
+              "text": "它的循環複雜度一定是 1",
+              "fraction": 0,
+              "feedback": "內聚對判定數毫無指涉；複雜度是分開衡量的。"
+            },
+            {
+              "text": "它永遠不會被其他單元呼叫",
+              "fraction": 0,
+              "feedback": "內聚不限制扇入；它談的是單元混雜多少關切點。"
+            }
+          ],
+          "generalFeedback": "職責眾多的單元混雜不相關的關切點，故測試必須一次設定並檢查多件事——較難撰寫且較不聚焦。把職責分離可提高內聚。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 formatMoney 的循環複雜度",
+          "text": "<p>在 checkout 模組中，<code>formatMoney</code> 有 <strong>0</strong> 個判定。它的循環複雜度為何？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——cyclomatic = decisions + 1 = 0 + 1 = 1。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "公式要加一，故 0 判定得複雜度 1，而非 0。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "0 + 1 = 1；要得 2 需 1 個判定。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "0 + 1 = 1，不是 3。"
+            }
+          ],
+          "generalFeedback": "formatMoney 是直線式輔助函式：0 判定，故循環複雜度 = 0 + 1 = 1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 checkout 的循環複雜度",
+          "text": "<p>在 checkout 模組中，<code>checkout</code> 有 <strong>6</strong> 個判定。它的循環複雜度為何？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——cyclomatic = decisions + 1 = 6 + 1 = 7。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "公式要加一，故 6 判定得 7，而非 6。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "6 + 1 = 7，不是 5。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "規則是 decisions + 1 = 7，而非 2 × 判定數。"
+            }
+          ],
+          "generalFeedback": "checkout 有 6 個判定，故循環複雜度 = 6 + 1 = 7——為模組中最高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 checkout 的扇出",
+          "text": "<p>在模組中，<code>checkout</code> 呼叫 <code>validateCart</code>、<code>applyDiscount</code>、<code>chargePayment</code> 與 <code>sendReceipt</code>。checkout 的<strong>扇出</strong>為何？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——checkout 有四條出去的呼叫邊，故扇出 = 4。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "checkout 呼叫四個協作者，故扇出是 4，不是 0。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "列出四個被呼叫者，故扇出是 4。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "只呼叫四個單元；扇出 = 4。"
+            }
+          ],
+          "generalFeedback": "扇出計算出去的呼叫邊。checkout 呼叫四個單元，故扇出為 4——為模組中最高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 formatMoney 的扇入",
+          "text": "<p>在模組中，<code>applyDiscount</code>、<code>chargePayment</code> 與 <code>sendReceipt</code> 各自都呼叫 <code>formatMoney</code>。formatMoney 的<strong>扇入</strong>為何？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——三個單元呼叫 formatMoney，故扇入 = 3。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "三個單元呼叫它，故扇入是 3，不是 0。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "列出三個呼叫者，故扇入是 3。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只有三個單元呼叫 formatMoney；扇入 = 3。"
+            }
+          ],
+          "generalFeedback": "扇入計算進入的呼叫邊。formatMoney 被三個單元呼叫，故扇入為 3——為模組中最高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 checkout 的內聚懲罰",
+          "text": "<p><code>checkout</code> 宣告了 <strong>4</strong> 項職責（orchestrate-flow、coordinate-steps、handle-errors、audit-log）。它的內聚懲罰為何？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——內聚懲罰就是職責數量，即 4。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "懲罰等於職責數量（4），不是 1。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "checkout 宣告四項職責，故懲罰為 4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "四項職責得懲罰 4，不是 2。"
+            }
+          ],
+          "generalFeedback": "內聚懲罰＝職責數量。checkout 混雜四項職責，故懲罰為 4。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "扇出計算被呼叫者",
+          "text": "<p>單元的扇出計算它所呼叫的協作者（它的被呼叫者 callee）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——扇出是出去的呼叫邊數量，即被呼叫者。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "扇出確實計算被呼叫者；計算呼叫者的是扇入。"
+            }
+          ],
+          "generalFeedback": "扇出＝出去的邊（被呼叫者）；扇入＝進入的邊（呼叫者）。被呼叫者越多，測試中要 stub 的協作者就越多。"
+        },
+        {
+          "type": "truefalse",
+          "name": "職責越多內聚越低",
+          "text": "<p>宣告越多不相關職責的單元，被視為內聚越低、內聚懲罰越高。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——懲罰等於職責數量，故職責越多代表懲罰越高、內聚越低。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此處職責越多確實使內聚越低：懲罰就是職責數量，每增一項職責便上升。"
+            }
+          ],
+          "generalFeedback": "內聚代理會懲罰混雜眾多職責的單元：懲罰＝職責數量，故職責越多＝內聚越低＝懲罰越高。"
+        },
+        {
+          "type": "multichoice",
+          "name": "難測度分數公式",
+          "text": "<p>單元的<strong>難測度分數（testability hardness score）</strong>如何由各度量組合而成？</p>",
+          "answers": [
+            {
+              "text": "score = cyclomatic + 2 * fanOut + cohesionPenalty",
+              "fraction": 100,
+              "feedback": "正確——扇出加權為 2，而循環複雜度與內聚懲罰各以權重 1 貢獻。"
+            },
+            {
+              "text": "score = cyclomatic + fanIn + cohesionPenalty",
+              "fraction": 0,
+              "feedback": "不對——分數用扇出（加權 2），而非扇入。"
+            },
+            {
+              "text": "score = cyclomatic * fanOut * cohesionPenalty",
+              "fraction": 0,
+              "feedback": "不對——各訊號是相加（扇出加權 2），不是相乘。"
+            },
+            {
+              "text": "score = 2 * cyclomatic + fanOut + cohesionPenalty",
+              "fraction": 0,
+              "feedback": "不對——帶權重 2 的是扇出，不是循環複雜度。"
+            }
+          ],
+          "generalFeedback": "score = cyclomatic + 2 * fanOut + cohesionPenalty。扇出被加倍，因為每個協作者既增加一條路徑又增加一個測試替身。扇入有被回報，但不計入分數。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算 chargePayment 的循環複雜度",
+          "text": "<p><code>chargePayment</code> 有 <strong>4</strong> 個判定。計算它的循環複雜度。</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——4 + 1 = 5。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "公式要加一：4 + 1 = 5。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "4 + 1 = 5，不是 3。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "是 decisions + 1 = 5，而非 2 × 判定數。"
+            }
+          ],
+          "generalFeedback": "cyclomatic(chargePayment) = decisions + 1 = 4 + 1 = 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 validateCart 的循環複雜度",
+          "text": "<p><code>validateCart</code> 有 <strong>3</strong> 個判定。計算它的循環複雜度。</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——3 + 1 = 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "公式要加一：3 + 1 = 4。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "3 + 1 = 4，不是 2。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "是 decisions + 1 = 4，而非 2 × 判定數。"
+            }
+          ],
+          "generalFeedback": "cyclomatic(validateCart) = decisions + 1 = 3 + 1 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 chargePayment 的扇出",
+          "text": "<p>在模組中，<code>chargePayment</code> 只呼叫 <code>formatMoney</code>。chargePayment 的<strong>扇出</strong>為何？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——一條出去的呼叫邊，故扇出 = 1。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "它呼叫 formatMoney，故扇出是 1，不是 0。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只列出一個被呼叫者，故扇出是 1。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "chargePayment 呼叫單一單元；扇出 = 1。"
+            }
+          ],
+          "generalFeedback": "chargePayment 有一條出去的邊（到 formatMoney），故扇出為 1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 validateCart 的扇入",
+          "text": "<p>在模組中，唯一呼叫 <code>validateCart</code> 的單元是 <code>checkout</code>。validateCart 的<strong>扇入</strong>為何？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——一條進入的呼叫邊（來自 checkout），故扇入 = 1。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "checkout 呼叫它，故扇入是 1，不是 0。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有 checkout 呼叫它，故扇入是 1。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有單一呼叫者；扇入 = 1。"
+            }
+          ],
+          "generalFeedback": "validateCart 只被 checkout 呼叫，故扇入為 1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 validateCart 的內聚懲罰",
+          "text": "<p><code>validateCart</code> 宣告 <strong>2</strong> 項職責（check-stock、check-address）。它的內聚懲罰為何？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——懲罰就是職責數量，即 2。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "兩項職責得懲罰 2，不是 1。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "validateCart 宣告兩項職責，故懲罰為 2。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "數量為 2，故懲罰為 2。"
+            }
+          ],
+          "generalFeedback": "內聚懲罰＝職責數量＝validateCart 為 2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個單元最難測試",
+          "text": "<p>在整個模組中，哪個單元<strong>最難測試</strong>，為什麼？</p>",
+          "answers": [
+            {
+              "text": "checkout——它在每個訊號上都偏高（循環複雜度 7、扇出 4、內聚 4）",
+              "fraction": 100,
+              "feedback": "正確——checkout 是協調者：判定最多、協作者最多、職責也最多。"
+            },
+            {
+              "text": "formatMoney——因為它被三個單元呼叫",
+              "fraction": 0,
+              "feedback": "高扇入不會讓 formatMoney 變難；它是簡單的純輔助函式（最容易的單元）。"
+            },
+            {
+              "text": "validateCart——因為它呼叫最多協作者",
+              "fraction": 0,
+              "feedback": "validateCart 扇出為 0；呼叫四個協作者的是 checkout。"
+            },
+            {
+              "text": "chargePayment——因為它循環複雜度最高",
+              "fraction": 0,
+              "feedback": "checkout 的複雜度最高（7）；chargePayment 是 5，而 checkout 在每個訊號上都領先。"
+            }
+          ],
+          "generalFeedback": "checkout 是難測試的協調者：循環複雜度 7、扇出 4、內聚 4，得到模組中最高的難測度分數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "扇出與測試替身數量",
+          "text": "<p>要隔離測試一個<strong>扇出 4</strong> 的單元，大致需要用測試替身替換幾個協作者？</p>",
+          "answers": [
+            {
+              "text": "約 4 個——它所呼叫的每個協作者各一個替身",
+              "fraction": 100,
+              "feedback": "正確——每個被呼叫者都是你必須 stub、fake 或 mock 的依賴。"
+            },
+            {
+              "text": "0 個——扇出對替身無影響",
+              "fraction": 0,
+              "feedback": "扇出正是要替換的協作者數量。"
+            },
+            {
+              "text": "1 個——一個替身即可涵蓋所有協作者",
+              "fraction": 0,
+              "feedback": "每個相異協作者通常需各自的替身；扇出 4 代表約 4 個。"
+            },
+            {
+              "text": "8 個——扇出的兩倍",
+              "fraction": 0,
+              "feedback": "分數把扇出加權 2，但要替身的協作者數量是扇出本身，即 4。"
+            }
+          ],
+          "generalFeedback": "扇出計算協作者，而隔離測試需為每個提供替身，故扇出 4 代表約四個替身。（分數把扇出的權重加倍，反映每個協作者同時增加一條路徑與一個替身。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "複雜度與測試案例數量",
+          "text": "<p>某單元的循環複雜度為 5。這最直接告訴你關於測試它的什麼資訊？</p>",
+          "answers": [
+            {
+              "text": "大約有 5 條獨立路徑要執行，故需約略這麼多測試案例",
+              "fraction": 100,
+              "feedback": "正確——循環複雜度近似要涵蓋的獨立路徑數。"
+            },
+            {
+              "text": "它必須被 5 個其他單元呼叫",
+              "fraction": 0,
+              "feedback": "那會是扇入；複雜度談的是內部路徑。"
+            },
+            {
+              "text": "它宣告了 5 項職責",
+              "fraction": 0,
+              "feedback": "那會是內聚懲罰；複雜度是計算 decisions + 1。"
+            },
+            {
+              "text": "它呼叫 5 個協作者",
+              "fraction": 0,
+              "feedback": "那會是扇出；複雜度談的是分支，不是呼叫。"
+            }
+          ],
+          "generalFeedback": "循環複雜度近似獨立路徑數，是涵蓋分支邏輯所需測試的下界。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "將度量對應到測試困難效果",
+          "text": "<p>下列度量與其主要測試困難效果的配對，何者正確？</p>",
+          "answers": [
+            {
+              "text": "扇出 → 要 stub 的協作者數量；循環複雜度 → 要涵蓋的路徑數量",
+              "fraction": 100,
+              "feedback": "正確——扇出驅動替身數，循環複雜度驅動路徑／測試案例數。"
+            },
+            {
+              "text": "扇出 → 要涵蓋的路徑數量；循環複雜度 → 要 stub 的協作者數量",
+              "fraction": 0,
+              "feedback": "相反了——扇出談協作者，循環複雜度談路徑。"
+            },
+            {
+              "text": "扇入 → 要 stub 的協作者數量；內聚 → 路徑數量",
+              "fraction": 0,
+              "feedback": "扇入是呼叫者（不是替身），而內聚談的是混雜職責，不是路徑。"
+            },
+            {
+              "text": "內聚 → 要 stub 的協作者數量；扇出 → 混雜的職責",
+              "fraction": 0,
+              "feedback": "相反了——扇出驅動協作者；內聚計算職責。"
+            }
+          ],
+          "generalFeedback": "每個度量對應一種不同成本：扇出對測試替身、循環複雜度對路徑／測試案例、內聚懲罰對不相關的設定。扇入（呼叫者）影響波及風險，但不計入難測度分數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個單元最容易測試",
+          "text": "<p>哪個單元<strong>最容易測試</strong>，為什麼？</p>",
+          "answers": [
+            {
+              "text": "formatMoney——純輔助函式，0 判定、扇出 0、僅一項職責",
+              "fraction": 100,
+              "feedback": "正確——沒有東西要 stub、只有一條路徑、只做一件事：模組中難測度最低。"
+            },
+            {
+              "text": "checkout——因為它是進入點",
+              "fraction": 0,
+              "feedback": "checkout 是最難的，不是最容易的——它在每個訊號上都領先。"
+            },
+            {
+              "text": "chargePayment——因為它職責少",
+              "fraction": 0,
+              "feedback": "chargePayment 仍有 4 個判定與一個協作者；formatMoney 才是簡單可測的。"
+            },
+            {
+              "text": "formatMoney——因為它的扇入最高",
+              "fraction": 0,
+              "feedback": "formatMoney 儘管扇入高仍最容易；扇入不會讓單元難測，而它自身的度量都很小。"
+            }
+          ],
+          "generalFeedback": "formatMoney 有 0 判定（複雜度 1）、扇出 0、僅一項職責——是簡單可測的純輔助函式。它的高扇入不影響它有多難測。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依度量比較兩個單元",
+          "text": "<p>比較 <code>chargePayment</code>（循環複雜度 5、扇出 1、內聚 2）與 <code>sendReceipt</code>（循環複雜度 4、扇出 1、內聚 1）。哪個較難測試？</p>",
+          "answers": [
+            {
+              "text": "chargePayment——在相同扇出下，它的複雜度較高、內聚懲罰也較高",
+              "fraction": 100,
+              "feedback": "正確——扇出相同，chargePayment 在複雜度與內聚上都領先，故較難。"
+            },
+            {
+              "text": "sendReceipt——因為收據是面向使用者的",
+              "fraction": 0,
+              "feedback": "此處的難度是結構性的；就度量而言 chargePayment 較難。"
+            },
+            {
+              "text": "兩者完全相等",
+              "fraction": 0,
+              "feedback": "兩者扇出相同，但 chargePayment 複雜度與內聚懲罰都較高，故較難。"
+            },
+            {
+              "text": "sendReceipt——因為它內聚較低",
+              "fraction": 0,
+              "feedback": "sendReceipt 的內聚懲罰較低（1 對 2），這讓它較容易，而非較難。"
+            }
+          ],
+          "generalFeedback": "兩者扇出都是 1，但 chargePayment 循環複雜度 5 對 4、內聚 2 對 1，故為較難的單元（分數 9 對 7）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "就 stub 而言的扇入對扇出",
+          "text": "<p>哪個度量告訴你，隔離測試一個單元時必須<strong>stub 或 fake</strong> 多少個協作者？</p>",
+          "answers": [
+            {
+              "text": "扇出——該單元所依賴的被呼叫者",
+              "fraction": 100,
+              "feedback": "正確——你必須替換它所呼叫的單元，也就是它的扇出。"
+            },
+            {
+              "text": "扇入——依賴它的呼叫者",
+              "fraction": 0,
+              "feedback": "扇入是誰呼叫該單元；它不會告訴你測試中該 stub 什麼。"
+            },
+            {
+              "text": "循環複雜度",
+              "fraction": 0,
+              "feedback": "那告訴你要涵蓋的路徑，不是要替換的協作者。"
+            },
+            {
+              "text": "內聚懲罰",
+              "fraction": 0,
+              "feedback": "那計算職責，不是要 stub 的協作者。"
+            }
+          ],
+          "generalFeedback": "要隔離測試一個單元，你替換它所呼叫的——它的被呼叫者——故扇出就是替身數量。扇入（呼叫者）與波及／衝擊有關，而非與 stub 這個單元有關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀 checkout 扇入為 0",
+          "text": "<p><code>checkout</code> 的<strong>扇入為 0</strong>。這代表什麼？</p>",
+          "answers": [
+            {
+              "text": "模組中沒有其他單元呼叫它——它是頂層進入點",
+              "fraction": 100,
+              "feedback": "正確——扇入 0 代表沒有東西呼叫 checkout；它是模組的協調進入點。"
+            },
+            {
+              "text": "它不呼叫任何其他單元",
+              "fraction": 0,
+              "feedback": "那會是扇出 0；checkout 實際上扇出為 4。扇入 0 代表沒有東西呼叫它。"
+            },
+            {
+              "text": "它沒有判定",
+              "fraction": 0,
+              "feedback": "扇入談的是呼叫者，不是判定；checkout 有 6 個判定。"
+            },
+            {
+              "text": "它是死碼",
+              "fraction": 0,
+              "feedback": "進入點合理地沒有模組內呼叫者；它由外部呼叫，並非死碼。"
+            }
+          ],
+          "generalFeedback": "扇入 0 代表模組內沒有單元呼叫 checkout——它是頂層進入點（由外部呼叫）。它扇出仍為 4，因為它協調其他單元。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 sendReceipt 的循環複雜度",
+          "text": "<p><code>sendReceipt</code> 有 <strong>3</strong> 個判定。計算它的循環複雜度。</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——3 + 1 = 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "公式要加一：3 + 1 = 4。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "3 + 1 = 4，不是 5；要得 5 需 4 個判定。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "3 + 1 = 4，不是 2。"
+            }
+          ],
+          "generalFeedback": "cyclomatic(sendReceipt) = decisions + 1 = 3 + 1 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個單元需要更多測試替身",
+          "text": "<p><code>checkout</code> 扇出為 4，<code>applyDiscount</code> 扇出為 1。要隔離測試各單元，哪個需要以測試替身替換較多協作者？</p>",
+          "answers": [
+            {
+              "text": "checkout——約 4 個替身，而 applyDiscount 約 1 個",
+              "fraction": 100,
+              "feedback": "正確——扇出是要替換的協作者數量，故扇出越高代表替身越多。"
+            },
+            {
+              "text": "applyDiscount——因為它整體較簡單",
+              "fraction": 0,
+              "feedback": "整體較簡單沒錯，但它扇出較低（1），故需要較少替身，而非較多。"
+            },
+            {
+              "text": "兩者需要一樣多，因為都是單元",
+              "fraction": 0,
+              "feedback": "替身數量隨扇出：checkout 為 4，applyDiscount 為 1。"
+            },
+            {
+              "text": "applyDiscount——因為它扇入較高",
+              "fraction": 0,
+              "feedback": "扇入不決定替身數；決定的是扇出，而 checkout 的較高。"
+            }
+          ],
+          "generalFeedback": "隔離測試會替換單元所呼叫的每個協作者，故替身數量等於扇出：checkout（4）遠多於 applyDiscount（1）。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "計算 checkout 的難測度分數",
+          "text": "<p><code>checkout</code> 的循環複雜度 7、扇出 4、內聚懲罰 4。用 score = cyclomatic + 2 * fanOut + cohesionPenalty，它的難測度分數為何？</p>",
+          "answers": [
+            {
+              "text": "19",
+              "fraction": 100,
+              "feedback": "正確——7 + 2*4 + 4 = 7 + 8 + 4 = 19。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "那忘了把扇出加倍：7 + 4 + 4 = 15。加上權重後為 7 + 8 + 4 = 19。"
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "23 是把別的東西加倍了；正確的總和是 7 + 8 + 4 = 19。"
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "11 忽略了內聚；總和是 7 + 8 + 4 = 19。"
+            }
+          ],
+          "generalFeedback": "score(checkout) = 7 + 2*4 + 4 = 19，為模組中最高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 chargePayment 的難測度分數",
+          "text": "<p><code>chargePayment</code> 的循環複雜度 5、扇出 1、內聚懲罰 2。它的難測度分數為何？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——5 + 2*1 + 2 = 5 + 2 + 2 = 9。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那忘了把扇出加倍：5 + 1 + 2 = 8。加上權重後為 5 + 2 + 2 = 9。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是 sendReceipt 的分數；chargePayment 是 5 + 2 + 2 = 9。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "總和是 5 + 2 + 2 = 9，不是 10。"
+            }
+          ],
+          "generalFeedback": "score(chargePayment) = 5 + 2*1 + 2 = 9，僅次於 checkout（19），排第二難。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "打破 applyDiscount 與 validateCart 的分數平手",
+          "text": "<p><code>applyDiscount</code> 與 <code>validateCart</code> 的難測度分數都是 <strong>6</strong>。在排名中，哪個排在前面，為什麼？</p>",
+          "answers": [
+            {
+              "text": "applyDiscount——平手時以 id 升冪打破，而「applyDiscount」排在「validateCart」之前",
+              "fraction": 100,
+              "feedback": "正確——分數相同時以 id 升冪排序，故 applyDiscount 在前。"
+            },
+            {
+              "text": "validateCart——因為它職責較多",
+              "fraction": 0,
+              "feedback": "平手是以 id 打破，不是以任何度量；applyDiscount 排在前面。"
+            },
+            {
+              "text": "applyDiscount——因為它循環複雜度較高",
+              "fraction": 0,
+              "feedback": "validateCart 的複雜度其實較高（4 對 3）；打破平手純粹是 id 升冪。"
+            },
+            {
+              "text": "它們的順序是隨機的",
+              "fraction": 0,
+              "feedback": "排名是決定性的：分數相同時以 id 升冪排序。"
+            }
+          ],
+          "generalFeedback": "排名以分數降冪、再以 id 升冪排序。分數同為 6 時，「applyDiscount」按字母序小於「validateCart」，故 applyDiscount 列在前面。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模組的完整難測度排名",
+          "text": "<p>checkout 模組正確的難測度排名（最難在前）為何？</p>",
+          "answers": [
+            {
+              "text": "checkout、chargePayment、sendReceipt、applyDiscount、validateCart、formatMoney",
+              "fraction": 100,
+              "feedback": "正確——分數 19、9、7、6、6、2，且 id 平手打破使 applyDiscount 在 validateCart 之前。"
+            },
+            {
+              "text": "checkout、chargePayment、sendReceipt、validateCart、applyDiscount、formatMoney",
+              "fraction": 0,
+              "feedback": "接近，但 6-6 平手以 id 升冪打破，故 applyDiscount 在 validateCart 之前。"
+            },
+            {
+              "text": "checkout、sendReceipt、chargePayment、validateCart、applyDiscount、formatMoney",
+              "fraction": 0,
+              "feedback": "chargePayment（9）高於 sendReceipt（7），故 chargePayment 必須排第二。"
+            },
+            {
+              "text": "formatMoney、applyDiscount、validateCart、sendReceipt、chargePayment、checkout",
+              "fraction": 0,
+              "feedback": "那是升冪順序；排名是最難在前，故 checkout 領先。"
+            }
+          ],
+          "generalFeedback": "分數：checkout 19、chargePayment 9、sendReceipt 7、applyDiscount 6、validateCart 6、formatMoney 2。以分數降冪、6-6 平手再以 id 升冪，得 checkout、chargePayment、sendReceipt、applyDiscount、validateCart、formatMoney。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀最難單元的原因",
+          "text": "<p>對 <code>checkout</code>，度量為循環複雜度 7、扇出 4、內聚 4。原因會挑出最大的<em>加權</em>貢獻。哪個貢獻者主導？</p>",
+          "answers": [
+            {
+              "text": "扇出——它的加權貢獻是 2*4 = 8，大於複雜度 7 或內聚 4",
+              "fraction": 100,
+              "feedback": "正確——加權後，扇出（8）勝過複雜度（7）與內聚（4），故原因是「由扇出主導——一個協調者」。"
+            },
+            {
+              "text": "複雜度——因為 7 是最大的原始數字",
+              "fraction": 0,
+              "feedback": "原因使用加權貢獻：扇出的 2*4 = 8 超過原始複雜度 7。"
+            },
+            {
+              "text": "內聚——因為它有 4 項職責",
+              "fraction": 0,
+              "feedback": "內聚貢獻 4，小於扇出的加權 8；主導的是扇出。"
+            },
+            {
+              "text": "扇入——因為它是進入點",
+              "fraction": 0,
+              "feedback": "扇入不在分數或原因之內；主導的加權貢獻者是扇出。"
+            }
+          ],
+          "generalFeedback": "checkout 的加權貢獻：複雜度 7、扇出 2*4 = 8、內聚 4。最大的是扇出，故原因指名它——checkout 是由扇出主導的協調者，即使其原始複雜度（7）也偏高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "checkout 槓桿最高的修正",
+          "text": "<p>既然 checkout 由扇出主導，模組建議的單一槓桿最高修正是什麼？</p>",
+          "answers": [
+            {
+              "text": "拆分它——抽出協作者，讓單一單元不再協調一切",
+              "fraction": 100,
+              "feedback": "正確——修正針對主導貢獻者（扇出），故建議拆分／抽出以減少協調。"
+            },
+            {
+              "text": "增加更多呼叫者，讓它的扇入上升",
+              "fraction": 0,
+              "feedback": "扇入不屬於難測度；增加呼叫者無法降低 checkout 的分數。"
+            },
+            {
+              "text": "把它所有協作者合併回 checkout",
+              "fraction": 0,
+              "feedback": "那會提高扇出與複雜度，讓它更難，而非更容易。"
+            },
+            {
+              "text": "重新命名它的職責",
+              "fraction": 0,
+              "feedback": "重新命名不改變任何度量；槓桿在於藉拆分降低扇出。"
+            }
+          ],
+          "generalFeedback": "槓桿最高的修正針對主導貢獻者。既然扇出主導 checkout，建議是拆分它並抽出協作者，讓協調分散開來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "新增 checkout 到 formatMoney 依賴的影響",
+          "text": "<p>從基礎模組出發，你<strong>新增一條依賴</strong> <code>checkout 到 formatMoney</code>。checkout 的扇出由 4 變 5。checkout 的新難測度分數為何？</p>",
+          "answers": [
+            {
+              "text": "21",
+              "fraction": 100,
+              "feedback": "正確——7 + 2*5 + 4 = 7 + 10 + 4 = 21（由 19 上升）。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "每單位扇出使分數增加 2，故 19 + 2 = 21，不是 20。"
+            },
+            {
+              "text": "19",
+              "fraction": 0,
+              "feedback": "扇出上升，故分數上升：7 + 10 + 4 = 21。"
+            },
+            {
+              "text": "23",
+              "fraction": 0,
+              "feedback": "7 + 2*5 + 4 = 21，不是 23。"
+            }
+          ],
+          "generalFeedback": "新增一條出去的邊使呼叫者扇出加 1，而每單位扇出加權 2，故 checkout 的分數由 19 升至 7 + 2*5 + 4 = 21。checkout 仍是最難的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "新增依賴使呼叫者分數上升",
+          "text": "<p>你新增一條依賴 <code>validateCart 到 formatMoney</code>。validateCart 的扇出由 0 變 1。它的循環複雜度（4）與內聚（2）不變。validateCart 的新難測度分數為何？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——4 + 2*1 + 2 = 8（由 6 上升）。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是舊分數；新增一個被呼叫者使扇出上升，故變 4 + 2 + 2 = 8。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "扇出加權 2，故分數上升 2（由 6 到 8），而非 1。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "4 + 2*1 + 2 = 8，不是 10。"
+            }
+          ],
+          "generalFeedback": "新增一條出去的邊使 validateCart 扇出為 1、加權 2，故其分數由 6 升至 4 + 2*1 + 2 = 8——足以超越 sendReceipt（7）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "拆分 checkout 後的新最難單元",
+          "text": "<p>你<strong>拆分</strong>最難單元 <code>checkout</code> 為 <code>checkout-a</code> 與 <code>checkout-b</code>。拆分後 checkout-a 得 12、checkout-b 得 10。現在哪個單元最難，其分數與 checkout 原本的 19 相比如何？</p>",
+          "answers": [
+            {
+              "text": "checkout-a，為 12——最高難測度由 19 降到 12",
+              "fraction": 100,
+              "feedback": "正確——拆分把最壞情況的單元難測度由 19 降到 12。"
+            },
+            {
+              "text": "chargePayment，為 9——它現在最難",
+              "fraction": 0,
+              "feedback": "checkout-a（12）與 checkout-b（10）都超過 chargePayment（9），故 chargePayment 不是最難。"
+            },
+            {
+              "text": "checkout-a，仍為 19——拆分毫無改變",
+              "fraction": 0,
+              "feedback": "拆分把複雜度減半並分配邊，故 checkout-a 得 12，不是 19。"
+            },
+            {
+              "text": "checkout-b，為 10——它最難",
+              "fraction": 0,
+              "feedback": "checkout-a（12）高於 checkout-b（10），故 checkout-a 最難。"
+            }
+          ],
+          "generalFeedback": "拆分後 checkout-a（12）最難，checkout-b 為 10。最壞的單元難測度由 19 降到 12：拆分以兩個較小單元換掉一個極難的單元。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "拆分後 checkout-a 的循環複雜度",
+          "text": "<p>拆分規則把 ceil(d/2) 個判定分給主要單元。checkout 原有 <strong>6</strong> 個判定。拆分後 <code>checkout-a</code> 的循環複雜度為何？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——ceil(6/2) = 3 個判定，故循環複雜度 = 3 + 1 = 4。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是拆分前 checkout 的複雜度；拆分後判定減半為 3，得 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是 checkout-a 的判定數；循環複雜度要加一，得 4。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "判定減半（6 到 3），故循環複雜度 = 3 + 1 = 4。"
+            }
+          ],
+          "generalFeedback": "checkout-a 得 ceil(6/2) = 3 個判定，故循環複雜度 = 3 + 1 = 4（checkout-b 也得 floor(6/2) = 3 個判定）。判定減半正是降低複雜度之處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "耦合與複雜度的權衡",
+          "text": "<p>把一個大單元拆成兩個較小的，會降低各單元的複雜度，但在結構上付出什麼代價？</p>",
+          "answers": [
+            {
+              "text": "它增加一個新協作者與一條新呼叫邊，提高整體耦合",
+              "fraction": 100,
+              "feedback": "正確——抽出的輔助單元是主要單元必須呼叫的新單元，故即使各單元複雜度下降，總耦合（邊）仍上升。"
+            },
+            {
+              "text": "它增加模組中的判定數量",
+              "fraction": 0,
+              "feedback": "拆分是分配既有判定；並不創造新判定。"
+            },
+            {
+              "text": "它移除模組中所有扇入",
+              "fraction": 0,
+              "feedback": "進入的邊是被重新導向，而非移除；模組仍有扇入。"
+            },
+            {
+              "text": "沒有代價——較小的單元在每個度量上都嚴格較優",
+              "fraction": 0,
+              "feedback": "存在真實權衡：各單元複雜度較低，但單元更多、要管理的耦合也更多。"
+            }
+          ],
+          "generalFeedback": "抽出是一種取捨：各單元複雜度下降，但你多了一個單元與至少一條新呼叫邊（a 到 b），故整體耦合上升。難測度是在複雜度與耦合間取得平衡，而非把單一項最大化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何扇出的加權高於複雜度",
+          "text": "<p>在分數中，扇出乘以 2，而循環複雜度與內聚各帶權重 1。這個加權強調了什麼？</p>",
+          "answers": [
+            {
+              "text": "每個協作者是雙重成本——它既增加一條要涵蓋的路徑，又增加一個要建的替身",
+              "fraction": 100,
+              "feedback": "正確——加倍的權重反映耦合到協作者在兩方面都損害隔離測試。"
+            },
+            {
+              "text": "扇出是唯一重要的度量",
+              "fraction": 0,
+              "feedback": "三個訊號都有貢獻；扇出只是加權較重。"
+            },
+            {
+              "text": "複雜度應被忽略",
+              "fraction": 0,
+              "feedback": "複雜度仍以權重 1 計入；並未被忽略。"
+            },
+            {
+              "text": "扇入的重要性是扇出的兩倍",
+              "fraction": 0,
+              "feedback": "扇入根本不在分數中；被加倍的是扇出。"
+            }
+          ],
+          "generalFeedback": "扇出加權 2，因為每條出去的依賴既為呼叫者增加一條額外路徑，又增加一個必須以替身替換的協作者——故耦合被懲罰得比複雜度或內聚單獨更重。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "接收依賴不改變被呼叫者的分數",
+          "text": "<p>新增依賴 <code>validateCart 到 formatMoney</code> 會使 formatMoney 的扇入由 3 升到 4，但 formatMoney 的難測度分數仍為 2 不變。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——扇入不屬於 score = cyclomatic + 2*fanOut + cohesionPenalty，故 formatMoney 的分數維持 2。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "分數用扇出，不是扇入，故一條新的進入邊使 formatMoney 的分數維持在 2。"
+            }
+          ],
+          "generalFeedback": "難測度分數取決於扇出（權重 2）、循環複雜度與內聚——而非扇入。多一個呼叫者使 formatMoney 的扇入升到 4，但分數維持 2；只有呼叫者（扇出增加）才會變難。"
+        },
+        {
+          "type": "multichoice",
+          "name": "新增 validateCart 到 formatMoney 後的排名變化",
+          "text": "<p>新增 <code>validateCart 到 formatMoney</code> 後，validateCart 的分數變成 8，而 sendReceipt 維持 7。頂端附近的排名如何改變？</p>",
+          "answers": [
+            {
+              "text": "validateCart 升到 sendReceipt 之上，進入第三名，位於 checkout（19）與 chargePayment（9）之後",
+              "fraction": 100,
+              "feedback": "正確——分數為 8 的 validateCart 現在超越 sendReceipt（7），排第三。"
+            },
+            {
+              "text": "毫無改變；validateCart 仍在 sendReceipt 之下",
+              "fraction": 0,
+              "feedback": "validateCart 由 6 升到 8，故現在超越 sendReceipt 的 7。"
+            },
+            {
+              "text": "validateCart 變成最難單元",
+              "fraction": 0,
+              "feedback": "checkout（19）仍遙遙領先；分數 8 的 validateCart 只到第三。"
+            },
+            {
+              "text": "formatMoney 因扇入增加而上升",
+              "fraction": 0,
+              "feedback": "formatMoney 的分數維持 2 不變——扇入不屬於分數。"
+            }
+          ],
+          "generalFeedback": "新邊使 validateCart 扇出為 1、分數 8，超越 sendReceipt（7）。頂端順序變為 checkout（19）、chargePayment（9）、validateCart（8）、sendReceipt（7）。formatMoney 不受影響。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個變動降低模組的最高難測度",
+          "text": "<p>你想降低模組中<strong>最壞情況</strong>的單元難測度。哪個動作能做到？</p>",
+          "answers": [
+            {
+              "text": "拆分最難單元 checkout，使其最高分由 19 降到 12",
+              "fraction": 100,
+              "feedback": "正確——拆分把複雜度減半並分配邊，把最高難測度降到 12。"
+            },
+            {
+              "text": "新增一條由 checkout 到 formatMoney 的依賴",
+              "fraction": 0,
+              "feedback": "那會提高 checkout 的扇出與分數到 21——與你的目標相反。"
+            },
+            {
+              "text": "新增一條進入 checkout 的依賴以提高它的扇入",
+              "fraction": 0,
+              "feedback": "扇入不屬於分數，故這不會降低最高難測度。"
+            },
+            {
+              "text": "重新命名 checkout 的職責",
+              "fraction": 0,
+              "feedback": "重新命名不改變任何度量；職責數量與其他每個訊號都不變。"
+            }
+          ],
+          "generalFeedback": "新增依賴只會提高扇出與分數。拆分最難單元才會降低峰值：checkout 的 19 變成 checkout-a 12 與 checkout-b 10，故模組的最高難測度降到 12。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "testability-scorecard": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What the scorecard aggregates",
+          "text": "<p>The testability scorecard aggregates:</p>",
+          "answers": [
+            {
+              "text": "Five normalized testability signals into one overall grade",
+              "fraction": 100,
+              "feedback": "Correct — it rolls five signals into a single grade."
+            },
+            {
+              "text": "A single code-coverage percentage",
+              "fraction": 0,
+              "feedback": "Coverage is not what the scorecard aggregates; it combines five distinct signals."
+            },
+            {
+              "text": "The list of all currently failing test cases",
+              "fraction": 0,
+              "feedback": "The scorecard reports signals and a grade, not a list of failing tests."
+            },
+            {
+              "text": "The number of mutants killed by the suite",
+              "fraction": 0,
+              "feedback": "Mutation score belongs to a different topic; the scorecard aggregates five testability signals."
+            }
+          ],
+          "generalFeedback": "The capstone testability scorecard combines five normalized signals — controllability, observability, seam coverage, structural, and determinism — into one overall grade (A to F).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The five signals",
+          "text": "<p>Which five signals does the scorecard report?</p>",
+          "answers": [
+            {
+              "text": "controllability, observability, seam coverage, structural, determinism",
+              "fraction": 100,
+              "feedback": "Correct — these are the five normalized testability signals."
+            },
+            {
+              "text": "severity, priority, likelihood, impact, exposure",
+              "fraction": 0,
+              "feedback": "Those are risk-based-testing terms, not the scorecard's testability signals."
+            },
+            {
+              "text": "unit, integration, system, acceptance, regression",
+              "fraction": 0,
+              "feedback": "Those are test levels/types, not the scorecard's signals."
+            },
+            {
+              "text": "precision, recall, accuracy, F1, coverage",
+              "fraction": 0,
+              "feedback": "Those are classifier/coverage metrics, not the testability signals."
+            }
+          ],
+          "generalFeedback": "The scorecard's five signals are controllability, observability, seam coverage, structural, and determinism — each normalized so higher means more testable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Grade letters range",
+          "text": "<p>The overall grade is expressed as a letter in which range?</p>",
+          "answers": [
+            {
+              "text": "A to F (A, B, C, D, F)",
+              "fraction": 100,
+              "feedback": "Correct — the grade thresholds define A, B, C, D and F."
+            },
+            {
+              "text": "1 to 10",
+              "fraction": 0,
+              "feedback": "The grade is a letter, not a 1 to 10 number."
+            },
+            {
+              "text": "Pass or Fail only",
+              "fraction": 0,
+              "feedback": "The scorecard gives a graded letter, not a binary pass/fail."
+            },
+            {
+              "text": "0% to 100% with no letter",
+              "fraction": 0,
+              "feedback": "The overall percentage maps to a letter grade; the reported grade is a letter."
+            }
+          ],
+          "generalFeedback": "The overall mean is mapped to a letter through fixed thresholds: A at 0.85, B at 0.70, C at 0.55, D at 0.40, and F below that.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Composes the other explorers",
+          "text": "<p>How does the scorecard produce its numbers?</p>",
+          "answers": [
+            {
+              "text": "It composes the other three testability explorers' engines plus a nondeterminism signal, without re-deriving them",
+              "fraction": 100,
+              "feedback": "Correct — it reuses the sibling engines rather than re-computing anything."
+            },
+            {
+              "text": "It re-implements every metric independently from scratch",
+              "fraction": 0,
+              "feedback": "The scorecard deliberately composes the existing engines; it does not re-derive them."
+            },
+            {
+              "text": "It asks the user to type each signal by hand",
+              "fraction": 0,
+              "feedback": "The signals are computed from the fixture, not typed in."
+            },
+            {
+              "text": "It reads the numbers from a static image",
+              "fraction": 0,
+              "feedback": "The numbers come from live composition of the sibling engines."
+            }
+          ],
+          "generalFeedback": "The scorecard is a capstone: it composes the controllability/observability, seams, and metrics engines and adds a nondeterminism signal, aggregating all five from one shared fixture.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Higher means more testable",
+          "text": "<p>For every signal on the scorecard, a higher normalized value means:</p>",
+          "answers": [
+            {
+              "text": "More testable",
+              "fraction": 100,
+              "feedback": "Correct — all five signals are normalized so higher = more testable."
+            },
+            {
+              "text": "Less testable",
+              "fraction": 0,
+              "feedback": "The signals are oriented so higher is better, not worse."
+            },
+            {
+              "text": "More lines of code",
+              "fraction": 0,
+              "feedback": "The signals measure testability, not code size."
+            },
+            {
+              "text": "Nothing — the direction is undefined",
+              "fraction": 0,
+              "feedback": "The direction is well defined: higher is more testable."
+            }
+          ],
+          "generalFeedback": "Every signal is normalized to a 0..1 scale with a consistent orientation: higher = more testable. This lets them be averaged into one overall score.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read controllability value",
+          "text": "<p>For the bundled fixture, the controllability signal is:</p>",
+          "answers": [
+            {
+              "text": "0.6",
+              "fraction": 100,
+              "feedback": "Correct — 3 of the 5 turnstile states are reachable, so 3/5 = 0.6."
+            },
+            {
+              "text": "0.2",
+              "fraction": 0,
+              "feedback": "0.2 is the observability signal, not controllability."
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 is the structural signal, not controllability."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 is the determinism signal, not controllability."
+            }
+          ],
+          "generalFeedback": "Controllability = reachable states / total states = 3/5 = 0.6 for the turnstile SUT.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read observability value",
+          "text": "<p>For the bundled fixture, the observability signal is:</p>",
+          "answers": [
+            {
+              "text": "0.2",
+              "fraction": 100,
+              "feedback": "Correct — only 1 of the 5 states has a unique observable output, so 1/5 = 0.2."
+            },
+            {
+              "text": "0.6",
+              "fraction": 0,
+              "feedback": "0.6 is the controllability signal, not observability."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 is the determinism signal, not observability."
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 is the structural signal, not observability."
+            }
+          ],
+          "generalFeedback": "Observability = states with a unique output / total states = 1/5 = 0.2; the shared outputs (two 'green', two 'red') hide states from an observer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read seam-coverage value",
+          "text": "<p>With nothing injected yet, the seam-coverage signal is:</p>",
+          "answers": [
+            {
+              "text": "0",
+              "fraction": 100,
+              "feedback": "Correct — no seams applied means 0 of 4, so the signal is 0."
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 would be one of four seams injected; initially none are."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 would be two of four seams injected; initially none are."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 would be all four seams injected; initially none are."
+            }
+          ],
+          "generalFeedback": "Seam coverage = seams injected / total anti-patterns = 0/4 = 0 in the base fixture, because appliedSeams starts empty.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read determinism value",
+          "text": "<p>For the base fixture, the determinism signal is:</p>",
+          "answers": [
+            {
+              "text": "0.5",
+              "fraction": 100,
+              "feedback": "Correct — 2 of 4 nondeterminism sources are present, so 1 - 2/4 = 0.5."
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 is the structural signal, not determinism."
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 is the determinism value after one source is removed, not the base value."
+            },
+            {
+              "text": "0.2",
+              "fraction": 0,
+              "feedback": "0.2 is the observability signal, not determinism."
+            }
+          ],
+          "generalFeedback": "Determinism = 1 - present/DET_TOTAL = 1 - 2/4 = 0.5; the fixture declares two sources (clock and random) out of the catalogue of four.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read structural value",
+          "text": "<p>For the base fixture, the structural signal is:</p>",
+          "answers": [
+            {
+              "text": "0.24",
+              "fraction": 100,
+              "feedback": "Correct — the hardest unit scores 19, so 1 - 19/25 = 0.24."
+            },
+            {
+              "text": "0.6",
+              "fraction": 0,
+              "feedback": "0.6 is the controllability signal, not structural."
+            },
+            {
+              "text": "0.19",
+              "fraction": 0,
+              "feedback": "19 is the hardest unit's raw score, not the normalized structural signal 0.24."
+            },
+            {
+              "text": "0.76",
+              "fraction": 0,
+              "feedback": "0.76 is 19/25 (the hardness fraction); the signal is 1 - 0.76 = 0.24."
+            }
+          ],
+          "generalFeedback": "Structural = 1 - hardest/STRUCT_CAP = 1 - 19/25 = 0.24, where the checkout unit is the hardest at 19 and STRUCT_CAP = 25.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read the overall grade",
+          "text": "<p>The base fixture's overall grade is:</p>",
+          "answers": [
+            {
+              "text": "F",
+              "fraction": 100,
+              "feedback": "Correct — the overall 0.308 falls below the D threshold of 0.40, so the grade is F."
+            },
+            {
+              "text": "A",
+              "fraction": 0,
+              "feedback": "A needs overall at least 0.85; the fixture is far below that."
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "C needs overall at least 0.55; the fixture's 0.308 is well below."
+            },
+            {
+              "text": "D",
+              "fraction": 0,
+              "feedback": "D needs overall at least 0.40; the fixture's 0.308 is below, so it is F."
+            }
+          ],
+          "generalFeedback": "The base overall is 0.308, below the lowest passing threshold (D at 0.40), so the grade is F.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How overall is computed",
+          "text": "<p>The overall score is computed as:</p>",
+          "answers": [
+            {
+              "text": "The arithmetic mean of the five signals",
+              "fraction": 100,
+              "feedback": "Correct — the overall is the plain average of the five signal values."
+            },
+            {
+              "text": "The product of the five signals",
+              "fraction": 0,
+              "feedback": "The overall is the mean, not the product."
+            },
+            {
+              "text": "The maximum of the five signals",
+              "fraction": 0,
+              "feedback": "The overall is the mean, not the maximum."
+            },
+            {
+              "text": "The minimum of the five signals",
+              "fraction": 0,
+              "feedback": "The overall is the mean, not the minimum."
+            }
+          ],
+          "generalFeedback": "overall = (controllability + observability + seam + structural + determinism) / 5 — the arithmetic mean of the five equally weighted signals.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Scorecard re-derives from scratch",
+          "text": "<p>The scorecard re-derives every metric from scratch rather than reusing the other explorers' engines.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — it composes the sibling engines and adds a nondeterminism signal; it does not re-derive anything."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "It does not re-derive; the whole point of the capstone is to compose the existing engines."
+            }
+          ],
+          "generalFeedback": "The scorecard reuses the controllability/observability, seams, and metrics engines as its source of truth, adding only the nondeterminism signal. It composes rather than re-derives."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which signal is zero",
+          "text": "<p>In the base fixture, which signal is 0?</p>",
+          "answers": [
+            {
+              "text": "seam coverage",
+              "fraction": 100,
+              "feedback": "Correct — no seams are injected initially, so seam coverage is 0."
+            },
+            {
+              "text": "controllability",
+              "fraction": 0,
+              "feedback": "Controllability is 0.6, not 0."
+            },
+            {
+              "text": "determinism",
+              "fraction": 0,
+              "feedback": "Determinism is 0.5, not 0."
+            },
+            {
+              "text": "structural",
+              "fraction": 0,
+              "feedback": "Structural is 0.24, not 0."
+            }
+          ],
+          "generalFeedback": "Because appliedSeams starts empty, seam coverage = 0/4 = 0 — the only signal at zero in the base fixture.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Threshold for grade A",
+          "text": "<p>To earn grade A, the overall score must be at least:</p>",
+          "answers": [
+            {
+              "text": "0.85",
+              "fraction": 100,
+              "feedback": "Correct — the A threshold is 0.85."
+            },
+            {
+              "text": "0.70",
+              "fraction": 0,
+              "feedback": "0.70 is the B threshold, not A."
+            },
+            {
+              "text": "0.55",
+              "fraction": 0,
+              "feedback": "0.55 is the C threshold, not A."
+            },
+            {
+              "text": "0.40",
+              "fraction": 0,
+              "feedback": "0.40 is the D threshold, not A."
+            }
+          ],
+          "generalFeedback": "The thresholds, checked high to low, are A at 0.85, B at 0.70, C at 0.55, D at 0.40, else F.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why the base fixture is F",
+          "text": "<p>Why does the base fixture receive grade F?</p>",
+          "answers": [
+            {
+              "text": "Its overall (mean) 0.308 is below the D threshold of 0.40",
+              "fraction": 100,
+              "feedback": "Correct — 0.308 is under 0.40, so the grade lands at F."
+            },
+            {
+              "text": "Because one signal is exactly 1.0",
+              "fraction": 0,
+              "feedback": "No signal is 1.0 in the base fixture; the grade comes from the low mean."
+            },
+            {
+              "text": "Because it has more than five signals",
+              "fraction": 0,
+              "feedback": "There are exactly five signals; the grade is driven by their mean."
+            },
+            {
+              "text": "Because the clock seam is already injected",
+              "fraction": 0,
+              "feedback": "No seams are injected initially; the low mean of 0.308 is the reason."
+            }
+          ],
+          "generalFeedback": "The five signals (0.6, 0.2, 0, 0.24, 0.5) average to 0.308, which is below the lowest passing threshold (D at 0.40), so the grade is F.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seam signal maps to which fix",
+          "text": "<p>The lowest signal — seam coverage — maps to which fix and teaching explorer?</p>",
+          "answers": [
+            {
+              "text": "Injecting a seam — the testability-seams explorer",
+              "fraction": 100,
+              "feedback": "Correct — the seam-coverage fix deep-links to the testability-seams explorer."
+            },
+            {
+              "text": "Adding a probe — the controllability-observability explorer",
+              "fraction": 0,
+              "feedback": "That fix targets observability, not seam coverage."
+            },
+            {
+              "text": "Splitting a unit — the testability-metrics explorer",
+              "fraction": 0,
+              "feedback": "That targets the structural signal, not seam coverage."
+            },
+            {
+              "text": "Nothing — seam coverage has no fix",
+              "fraction": 0,
+              "feedback": "Seam coverage does have a fix: injecting a seam."
+            }
+          ],
+          "generalFeedback": "Each signal deep-links to the explorer that teaches it; seam coverage links to testability-seams, where injecting seams is taught.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the clock lifts two signals",
+          "text": "<p>Why does injecting the clock raise two signals at once?</p>",
+          "answers": [
+            {
+              "text": "It adds a seam (raising seam coverage) and removes a nondeterminism source (raising determinism)",
+              "fraction": 100,
+              "feedback": "Correct — the clock fix injects the clock seam and eliminates the clock source of nondeterminism."
+            },
+            {
+              "text": "It doubles the controllability count",
+              "fraction": 0,
+              "feedback": "Controllability is unaffected by injecting the clock."
+            },
+            {
+              "text": "It changes the structural hardness and the observability",
+              "fraction": 0,
+              "feedback": "Neither structural nor observability changes when the clock is injected."
+            },
+            {
+              "text": "It only raises determinism; the second rise is a display glitch",
+              "fraction": 0,
+              "feedback": "Both rises are real: seam coverage and determinism each increase."
+            }
+          ],
+          "generalFeedback": "Injecting the clock adds the clock seam (seam coverage 0 to 0.25) and removes 'clock' from the nondeterminism list (determinism 0.5 to 0.75) — one fix, two signals.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute the overall from five signals",
+          "text": "<p>Given signals 0.6, 0.2, 0, 0.24, 0.5, the overall score is:</p>",
+          "answers": [
+            {
+              "text": "0.308",
+              "fraction": 100,
+              "feedback": "Correct — (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308."
+            },
+            {
+              "text": "1.54",
+              "fraction": 0,
+              "feedback": "1.54 is the sum; the overall is the mean, 1.54 / 5 = 0.308."
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 is one signal (structural), not the mean of all five."
+            },
+            {
+              "text": "0.4",
+              "fraction": 0,
+              "feedback": "0.4 is the D threshold, not the computed mean 0.308."
+            }
+          ],
+          "generalFeedback": "overall = mean = (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determinism links to which explorer",
+          "text": "<p>The determinism signal deep-links to which explorer?</p>",
+          "answers": [
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 100,
+              "feedback": "Correct — nondeterminism is a flakiness tax, so determinism links to flaky-diagnosis."
+            },
+            {
+              "text": "testability-seams",
+              "fraction": 0,
+              "feedback": "That is where seam coverage links, not determinism."
+            },
+            {
+              "text": "testability-metrics",
+              "fraction": 0,
+              "feedback": "That is where the structural signal links, not determinism."
+            },
+            {
+              "text": "controllability-observability",
+              "fraction": 0,
+              "feedback": "That is where controllability and observability link, not determinism."
+            }
+          ],
+          "generalFeedback": "The determinism signal is about nondeterminism sources (clock/random), which cause flaky tests, so its deep-link points to the flaky-diagnosis explorer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Structural taught by which explorer",
+          "text": "<p>The structural signal is taught by which explorer?</p>",
+          "answers": [
+            {
+              "text": "testability-metrics",
+              "fraction": 100,
+              "feedback": "Correct — structural hardness comes from the metrics engine."
+            },
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 0,
+              "feedback": "That teaches the determinism signal, not structural."
+            },
+            {
+              "text": "testability-seams",
+              "fraction": 0,
+              "feedback": "That teaches seam coverage, not structural."
+            },
+            {
+              "text": "controllability-observability",
+              "fraction": 0,
+              "feedback": "That teaches controllability and observability, not structural."
+            }
+          ],
+          "generalFeedback": "The structural signal is derived from testabilityHardness on the metrics module, so it deep-links to the testability-metrics explorer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seam coverage taught by which explorer",
+          "text": "<p>The seam-coverage signal is taught by which explorer?</p>",
+          "answers": [
+            {
+              "text": "testability-seams",
+              "fraction": 100,
+              "feedback": "Correct — seam coverage comes from the seams engine."
+            },
+            {
+              "text": "testability-metrics",
+              "fraction": 0,
+              "feedback": "That teaches the structural signal, not seam coverage."
+            },
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 0,
+              "feedback": "That teaches the determinism signal, not seam coverage."
+            },
+            {
+              "text": "controllability-observability",
+              "fraction": 0,
+              "feedback": "That teaches controllability and observability, not seam coverage."
+            }
+          ],
+          "generalFeedback": "Seam coverage is computed by testabilityOf from the seams engine, so it deep-links to the testability-seams explorer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the top-fixes list contains",
+          "text": "<p>The scorecard's \"top fixes\" list contains:</p>",
+          "answers": [
+            {
+              "text": "The three lowest signals, in ascending order",
+              "fraction": 100,
+              "feedback": "Correct — the three weakest signals are listed lowest-first as the priority fixes."
+            },
+            {
+              "text": "The three highest signals, in descending order",
+              "fraction": 0,
+              "feedback": "Fixes target the weakest signals, not the strongest."
+            },
+            {
+              "text": "All five signals",
+              "fraction": 0,
+              "feedback": "Only the three lowest are listed as top fixes."
+            },
+            {
+              "text": "A random selection of two signals",
+              "fraction": 0,
+              "feedback": "The list is deterministic: the three lowest signals, ascending."
+            }
+          ],
+          "generalFeedback": "topFixes takes the three lowest signals sorted ascending by score (ties broken by fixed signal order), each linking to the explorer that teaches it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Highest-priority fix for the base fixture",
+          "text": "<p>For the base fixture, which fix is listed first (highest priority)?</p>",
+          "answers": [
+            {
+              "text": "The seam-coverage fix — its signal (0) is the lowest",
+              "fraction": 100,
+              "feedback": "Correct — seam coverage is 0, the lowest, so its fix ranks first."
+            },
+            {
+              "text": "The controllability fix — its signal (0.6) is the highest",
+              "fraction": 0,
+              "feedback": "The highest signal is the least urgent; fixes go to the lowest first."
+            },
+            {
+              "text": "The determinism fix — its signal (0.5) is in the middle",
+              "fraction": 0,
+              "feedback": "0.5 is not the lowest; seam coverage at 0 ranks ahead of it."
+            },
+            {
+              "text": "The structural fix — its signal (0.24) is the second lowest",
+              "fraction": 0,
+              "feedback": "Structural (0.24) is the third lowest; observability (0.2) is second and seam (0) is first."
+            }
+          ],
+          "generalFeedback": "Sorted ascending, the signals are seam 0, observability 0.2, structural 0.24, determinism 0.5, controllability 0.6 — so the seam-coverage fix is first.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seam signal after injecting the clock",
+          "text": "<p>After injecting the clock, the seam-coverage signal becomes:</p>",
+          "answers": [
+            {
+              "text": "0.25",
+              "fraction": 100,
+              "feedback": "Correct — 1 of 4 seams injected gives 1/4 = 0.25."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "0 is the value before any seam is injected; injecting the clock raises it."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 would require two of four seams; only the clock is injected here."
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 is the determinism value after the clock fix, not the seam value."
+            }
+          ],
+          "generalFeedback": "Injecting the clock adds one seam of four: seam coverage = 1/4 = 0.25.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determinism after injecting the clock",
+          "text": "<p>After injecting the clock, the determinism signal becomes:</p>",
+          "answers": [
+            {
+              "text": "0.75",
+              "fraction": 100,
+              "feedback": "Correct — one of the two sources is removed, so 1 - 1/4 = 0.75."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 is the value before the clock source is removed."
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 is the seam-coverage value after the clock fix, not determinism."
+            },
+            {
+              "text": "1.0",
+              "fraction": 0,
+              "feedback": "1.0 would require removing both sources; only 'clock' is removed here."
+            }
+          ],
+          "generalFeedback": "Removing 'clock' leaves one source of four: determinism = 1 - 1/4 = 0.75.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where determinism 0.5 comes from",
+          "text": "<p>The base determinism signal is 0.5 because:</p>",
+          "answers": [
+            {
+              "text": "2 of 4 nondeterminism sources are present: 1 - 2/4 = 0.5",
+              "fraction": 100,
+              "feedback": "Correct — two of the four-source catalogue are present."
+            },
+            {
+              "text": "5 of 10 tests are flaky",
+              "fraction": 0,
+              "feedback": "The signal is not a flaky-test ratio; it is 1 - present/DET_TOTAL."
+            },
+            {
+              "text": "half the seams are injected",
+              "fraction": 0,
+              "feedback": "Determinism is unrelated to seam count; it counts nondeterminism sources."
+            },
+            {
+              "text": "the clock seam is already fixed",
+              "fraction": 0,
+              "feedback": "No seam is fixed initially; the value comes from 2 of 4 sources present."
+            }
+          ],
+          "generalFeedback": "determinism = 1 - present/DET_TOTAL = 1 - 2/4 = 0.5, with DET_TOTAL = 4 the full catalogue and two sources (clock, random) present.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The fixture's nondeterminism sources",
+          "text": "<p>The base fixture declares which nondeterminism sources?</p>",
+          "answers": [
+            {
+              "text": "clock and random",
+              "fraction": 100,
+              "feedback": "Correct — the fixture's nondeterminism list is ['clock', 'random']."
+            },
+            {
+              "text": "network and timing",
+              "fraction": 0,
+              "feedback": "Those are not the fixture's declared sources; it lists clock and random."
+            },
+            {
+              "text": "threads and disk",
+              "fraction": 0,
+              "feedback": "Those are not the fixture's declared sources; it lists clock and random."
+            },
+            {
+              "text": "animation and order",
+              "fraction": 0,
+              "feedback": "Those are not the fixture's declared sources; it lists clock and random."
+            }
+          ],
+          "generalFeedback": "The fixture's nondeterminism list is ['clock', 'random'] — the two sources removed by inject-clock and inject-rng respectively.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What adding a probe raises",
+          "text": "<p>Adding a probe raises which signal, and why?</p>",
+          "answers": [
+            {
+              "text": "Observability — it gives a shared-output state a unique output so a test can tell it apart",
+              "fraction": 100,
+              "feedback": "Correct — a probe makes a previously hidden state distinguishable, raising observability."
+            },
+            {
+              "text": "Controllability — it adds a new input edge",
+              "fraction": 0,
+              "feedback": "A probe changes outputs, not the input-driven transitions that control reachability."
+            },
+            {
+              "text": "Structural — it lowers cyclomatic complexity",
+              "fraction": 0,
+              "feedback": "A probe does not touch the metrics module's structural hardness."
+            },
+            {
+              "text": "Seam coverage — it injects a dependency",
+              "fraction": 0,
+              "feedback": "Injecting a dependency is a seam fix; a probe instead affects observability."
+            }
+          ],
+          "generalFeedback": "A probe gives a shared-output state a unique output (via withProbe), so more states become distinguishable and observability rises.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which explorer both C and O link to",
+          "text": "<p>The controllability and observability signals both deep-link to which explorer?</p>",
+          "answers": [
+            {
+              "text": "controllability-observability",
+              "fraction": 100,
+              "feedback": "Correct — both signals come from that one explorer's engine."
+            },
+            {
+              "text": "testability-seams",
+              "fraction": 0,
+              "feedback": "That teaches seam coverage, not controllability/observability."
+            },
+            {
+              "text": "testability-metrics",
+              "fraction": 0,
+              "feedback": "That teaches the structural signal, not controllability/observability."
+            },
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 0,
+              "feedback": "That teaches determinism, not controllability/observability."
+            }
+          ],
+          "generalFeedback": "Controllability and observability are both computed by the controllability-observability engine, so both deep-link to that explorer.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Overall after injecting the clock",
+          "text": "<p>After injecting the clock (seam becomes 0.25 and determinism becomes 0.75, the other three unchanged), the new overall is:</p>",
+          "answers": [
+            {
+              "text": "0.408",
+              "fraction": 100,
+              "feedback": "Correct — (0.6 + 0.2 + 0.25 + 0.24 + 0.75) / 5 = 2.04 / 5 = 0.408."
+            },
+            {
+              "text": "0.308",
+              "fraction": 0,
+              "feedback": "0.308 is the overall before the fix; injecting the clock raises it to 0.408."
+            },
+            {
+              "text": "0.508",
+              "fraction": 0,
+              "feedback": "0.508 would require also injecting the RNG; the clock alone gives 0.408."
+            },
+            {
+              "text": "0.45",
+              "fraction": 0,
+              "feedback": "The exact mean is 2.04 / 5 = 0.408, not 0.45."
+            }
+          ],
+          "generalFeedback": "After the clock fix the signals are 0.6, 0.2, 0.25, 0.24, 0.75, summing to 2.04; the mean is 2.04 / 5 = 0.408.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Grade after injecting the clock",
+          "text": "<p>With the post-clock overall of 0.408, the grade becomes:</p>",
+          "answers": [
+            {
+              "text": "D",
+              "fraction": 100,
+              "feedback": "Correct — 0.408 is at or above the D threshold (0.40) but below C (0.55), so it is D."
+            },
+            {
+              "text": "F",
+              "fraction": 0,
+              "feedback": "0.408 has crossed the 0.40 D threshold, so it is no longer F."
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "C needs at least 0.55; 0.408 is below that."
+            },
+            {
+              "text": "B",
+              "fraction": 0,
+              "feedback": "B needs at least 0.70; 0.408 is well below that."
+            }
+          ],
+          "generalFeedback": "gradeFor(0.408): it clears the D threshold of 0.40 but not the C threshold of 0.55, so the grade is D.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting the F to D jump",
+          "text": "<p>Injecting the clock moves the grade from F to D. The best explanation is:</p>",
+          "answers": [
+            {
+              "text": "One fix raised two signals, lifting the mean from 0.308 to 0.408, which crosses the 0.40 D threshold",
+              "fraction": 100,
+              "feedback": "Correct — the clock fix bumps both seam coverage and determinism, pushing the mean past 0.40."
+            },
+            {
+              "text": "It raised controllability above 0.85",
+              "fraction": 0,
+              "feedback": "Controllability is unchanged at 0.6; the grade moved because of seam and determinism."
+            },
+            {
+              "text": "It removed a signal, so the mean of the rest is higher",
+              "fraction": 0,
+              "feedback": "No signal is removed; all five are still averaged."
+            },
+            {
+              "text": "The grade change is unrelated to the signal values",
+              "fraction": 0,
+              "feedback": "The grade is a direct function of the mean of the signal values."
+            }
+          ],
+          "generalFeedback": "The clock fix raises seam coverage (0 to 0.25) and determinism (0.5 to 0.75); the mean rises from 0.308 to 0.408, crossing the D threshold of 0.40 and lifting the grade from F to D.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The structural formula",
+          "text": "<p>The structural signal is computed as 1 - hardest/STRUCT_CAP. With the hardest unit (checkout) scoring 19 and STRUCT_CAP = 25, structural equals:</p>",
+          "answers": [
+            {
+              "text": "0.24 (1 - 19/25)",
+              "fraction": 100,
+              "feedback": "Correct — 19/25 = 0.76, and 1 - 0.76 = 0.24."
+            },
+            {
+              "text": "0.76",
+              "fraction": 0,
+              "feedback": "0.76 is 19/25, the hardness fraction; the signal is 1 minus that = 0.24."
+            },
+            {
+              "text": "0.19",
+              "fraction": 0,
+              "feedback": "0.19 confuses the raw score 19 with the normalized signal 0.24."
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 is 1 - 19/25 rounded loosely; the exact value is 0.24."
+            }
+          ],
+          "generalFeedback": "structural = 1 - hardest/STRUCT_CAP = 1 - 19/25 = 1 - 0.76 = 0.24, with checkout the hardest unit at 19.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why fix the lowest signal first",
+          "text": "<p>Why does the scorecard prioritize the lowest signal first?</p>",
+          "answers": [
+            {
+              "text": "It has the most room to improve and drags the mean down the most, so fixing it yields the biggest grade gain",
+              "fraction": 100,
+              "feedback": "Correct — the weakest signal is both the biggest drag and the biggest opportunity."
+            },
+            {
+              "text": "It is always the cheapest to fix",
+              "fraction": 0,
+              "feedback": "Cost is not what the scorecard ranks on; it ranks by which signal is lowest."
+            },
+            {
+              "text": "The lowest signal is always determinism",
+              "fraction": 0,
+              "feedback": "The lowest signal varies; in the base fixture it is seam coverage, not determinism."
+            },
+            {
+              "text": "Lower signals are more testable, so they are safer to touch",
+              "fraction": 0,
+              "feedback": "Lower means less testable, not more; that is exactly why it needs the fix."
+            }
+          ],
+          "generalFeedback": "Because the overall is a mean, the lowest signal has the most headroom (0 to 1) and pulls the average down the most, so improving it produces the largest rise in the overall and grade.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nondeterminism and flaky testing",
+          "text": "<p>How does the nondeterminism signal relate to flaky testing?</p>",
+          "answers": [
+            {
+              "text": "Nondeterminism sources such as the clock and RNG make tests flaky, so the determinism signal links to the flaky-diagnosis explorer",
+              "fraction": 100,
+              "feedback": "Correct — unpinned clock/RNG are classic flakiness causes, tying determinism to flaky-diagnosis."
+            },
+            {
+              "text": "Nondeterminism only affects compile time, not tests",
+              "fraction": 0,
+              "feedback": "Nondeterminism affects test runs, making results non-repeatable (flaky)."
+            },
+            {
+              "text": "Flaky tests raise the structural signal",
+              "fraction": 0,
+              "feedback": "Flakiness relates to determinism, not the structural signal."
+            },
+            {
+              "text": "The determinism signal counts lines of code",
+              "fraction": 0,
+              "feedback": "Determinism counts nondeterminism sources, not lines of code."
+            }
+          ],
+          "generalFeedback": "Each nondeterminism source (a real clock, a real RNG) makes a test's outcome vary between runs — the definition of flakiness. So the determinism signal deep-links to the flaky-diagnosis explorer, and injecting the clock/RNG both raises determinism and removes a flakiness cause.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Determinism after clock and RNG",
+          "text": "<p>After injecting BOTH the clock and the RNG seams (removing both nondeterminism sources), the determinism signal is:</p>",
+          "answers": [
+            {
+              "text": "1.0 (1 - 0/4)",
+              "fraction": 100,
+              "feedback": "Correct — with zero sources present, determinism = 1 - 0/4 = 1.0."
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 is the value after removing only one source; removing both gives 1.0."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 is the base value with both sources present."
+            },
+            {
+              "text": "0.0",
+              "fraction": 0,
+              "feedback": "Removing sources raises determinism; with none present it is 1.0, not 0."
+            }
+          ],
+          "generalFeedback": "inject-clock removes 'clock' and inject-rng removes 'random', leaving zero of four sources: determinism = 1 - 0/4 = 1.0.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seam coverage after all four seams",
+          "text": "<p>After injecting all four seams (config, gateway, clock, rng), the seam-coverage signal is:</p>",
+          "answers": [
+            {
+              "text": "1.0",
+              "fraction": 100,
+              "feedback": "Correct — 4 of 4 anti-patterns removed gives 4/4 = 1.0."
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 would be three of four seams; all four gives 1.0."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 would be two of four seams; all four gives 1.0."
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 would be one of four seams; all four gives 1.0."
+            }
+          ],
+          "generalFeedback": "Seam coverage = seams injected / 4. With all four (config, gateway, clock, rng) injected, it is 4/4 = 1.0.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Overall and grade after all four seams",
+          "text": "<p>With all four seams injected, the signals are controllability 0.6, observability 0.2, seam 1.0, structural 0.24, determinism 1.0 (clock and rng removed). The overall and grade are:</p>",
+          "answers": [
+            {
+              "text": "0.608 → C",
+              "fraction": 100,
+              "feedback": "Correct — (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 3.04 / 5 = 0.608, which clears the C threshold of 0.55."
+            },
+            {
+              "text": "0.408 → D",
+              "fraction": 0,
+              "feedback": "0.408 is the overall after only the clock fix, not after all four seams."
+            },
+            {
+              "text": "0.708 → B",
+              "fraction": 0,
+              "feedback": "The exact mean is 3.04 / 5 = 0.608, not 0.708."
+            },
+            {
+              "text": "0.508 → D",
+              "fraction": 0,
+              "feedback": "0.508 is the mean when only clock and rng seams are applied (seam 0.5); all four seams give 0.608."
+            }
+          ],
+          "generalFeedback": "All four seams give seam 1.0 and (via clock and rng) determinism 1.0; the mean is (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 0.608, which is at or above the C threshold 0.55, so grade C.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why structural stays 0.24",
+          "text": "<p>You inject the config seam. Why does the structural signal stay at 0.24?</p>",
+          "answers": [
+            {
+              "text": "Structural hardness comes from a different engine (the metrics module); injecting a seam changes only seam coverage",
+              "fraction": 100,
+              "feedback": "Correct — seams and structural are computed by independent engines."
+            },
+            {
+              "text": "Because structural is always frozen at 0.24 forever",
+              "fraction": 0,
+              "feedback": "Structural is not frozen in principle; it just does not respond to seam injection."
+            },
+            {
+              "text": "Because the config seam lowers cyclomatic complexity by exactly zero rounding",
+              "fraction": 0,
+              "feedback": "The config seam does not touch the metrics module at all, so no rounding is involved."
+            },
+            {
+              "text": "Because injecting a seam also injects structural debt",
+              "fraction": 0,
+              "feedback": "Injecting a seam has no effect on the structural signal in either direction."
+            }
+          ],
+          "generalFeedback": "Structural comes from testabilityHardness on the metrics module, while seam coverage comes from the seams engine. Injecting the config seam only changes appliedSeams, so structural stays 0.24.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of STRUCT_CAP",
+          "text": "<p>What does STRUCT_CAP = 25 represent in the structural signal?</p>",
+          "answers": [
+            {
+              "text": "The hardness score treated as worst-case; a unit scoring 25 would give structural 1 - 25/25 = 0",
+              "fraction": 100,
+              "feedback": "Correct — STRUCT_CAP is the \"as bad as it gets\" denominator for normalizing hardness."
+            },
+            {
+              "text": "The maximum number of units allowed in a module",
+              "fraction": 0,
+              "feedback": "STRUCT_CAP normalizes the hardness score, not a unit count."
+            },
+            {
+              "text": "The passing grade threshold in percent",
+              "fraction": 0,
+              "feedback": "Grade thresholds are separate (0.85/0.70/0.55/0.40); STRUCT_CAP is the hardness denominator."
+            },
+            {
+              "text": "The number of nondeterminism sources",
+              "fraction": 0,
+              "feedback": "That is DET_TOTAL = 4; STRUCT_CAP = 25 normalizes structural hardness."
+            }
+          ],
+          "generalFeedback": "STRUCT_CAP = 25 is the hardness score treated as worst-case; structural = 1 - hardest/STRUCT_CAP, so a unit at 25 would give 0 and the fixture's 19 gives 0.24.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of DET_TOTAL",
+          "text": "<p>What does DET_TOTAL = 4 represent?</p>",
+          "answers": [
+            {
+              "text": "The full catalogue of nondeterminism sources the determinism signal is normalized against; 2 present gives 1 - 2/4 = 0.5",
+              "fraction": 100,
+              "feedback": "Correct — DET_TOTAL is the denominator for the determinism signal."
+            },
+            {
+              "text": "The number of grade letters",
+              "fraction": 0,
+              "feedback": "There are five grade letters (A, B, C, D, F); DET_TOTAL = 4 is the nondeterminism catalogue size."
+            },
+            {
+              "text": "The number of seams times two",
+              "fraction": 0,
+              "feedback": "There are four seams; DET_TOTAL just happens to be 4 and denotes the nondeterminism catalogue, not a product."
+            },
+            {
+              "text": "The count of explorers composed",
+              "fraction": 0,
+              "feedback": "The scorecard composes three sibling engines; DET_TOTAL = 4 is the nondeterminism catalogue."
+            }
+          ],
+          "generalFeedback": "DET_TOTAL = 4 is the total catalogue of nondeterminism sources; determinism = 1 - present/DET_TOTAL, so the two present sources give 1 - 2/4 = 0.5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clock versus config as a single fix",
+          "text": "<p>Why is injecting the clock a higher-leverage single fix than injecting the config seam?</p>",
+          "answers": [
+            {
+              "text": "inject-clock raises two signals (seam coverage and determinism); inject-config raises only seam coverage",
+              "fraction": 100,
+              "feedback": "Correct — the clock fix also removes a nondeterminism source, so it moves two signals."
+            },
+            {
+              "text": "inject-config raises three signals",
+              "fraction": 0,
+              "feedback": "inject-config raises only seam coverage; it does not touch the other signals."
+            },
+            {
+              "text": "inject-clock lowers structural hardness as well",
+              "fraction": 0,
+              "feedback": "Neither fix touches structural; the clock's extra effect is on determinism."
+            },
+            {
+              "text": "They have identical effect on the grade",
+              "fraction": 0,
+              "feedback": "They differ: the clock moves two signals, the config only one, so their grade effect differs."
+            }
+          ],
+          "generalFeedback": "inject-config adds only the config seam (seam coverage +0.25). inject-clock adds the clock seam (seam coverage +0.25) and removes the clock nondeterminism source (determinism +0.25), so it lifts the mean twice as much.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of one signal on the mean",
+          "text": "<p>Because the overall is a plain mean of five signals, raising any one signal from 0 to 1 changes the overall by:</p>",
+          "answers": [
+            {
+              "text": "0.2 (one fifth)",
+              "fraction": 100,
+              "feedback": "Correct — each signal contributes 1/5 of the mean, so a full 0-to-1 swing moves the overall by 0.2."
+            },
+            {
+              "text": "1.0",
+              "fraction": 0,
+              "feedback": "A single signal is only 1/5 of the mean; its full swing is 0.2, not 1.0."
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 would be a two-signal weighting; each single signal is worth 0.2 of the mean."
+            },
+            {
+              "text": "0 — individual signals do not affect the mean",
+              "fraction": 0,
+              "feedback": "Each signal does affect the mean, by 1/5 of its change."
+            }
+          ],
+          "generalFeedback": "The overall is the mean of five equally weighted signals, so each contributes 1/5 = 0.2. A signal moving from 0 to 1 raises the overall by 0.2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order the top-3 fixes",
+          "text": "<p>Given signals controllability 0.6, observability 0.2, seam 0, structural 0.24, determinism 0.5, the top-3 fixes, in priority order, are:</p>",
+          "answers": [
+            {
+              "text": "seam coverage, observability, structural",
+              "fraction": 100,
+              "feedback": "Correct — ascending by score: seam 0, observability 0.2, structural 0.24."
+            },
+            {
+              "text": "controllability, determinism, structural",
+              "fraction": 0,
+              "feedback": "Those are not the three lowest; controllability (0.6) and determinism (0.5) are the two highest."
+            },
+            {
+              "text": "structural, observability, seam coverage",
+              "fraction": 0,
+              "feedback": "That is descending; the list goes lowest-first: seam, observability, structural."
+            },
+            {
+              "text": "determinism, controllability, observability",
+              "fraction": 0,
+              "feedback": "determinism (0.5) and controllability (0.6) are the strongest signals, not top fixes."
+            }
+          ],
+          "generalFeedback": "topFixes sorts ascending: seam 0 (testability-seams), observability 0.2 (controllability-observability), structural 0.24 (testability-metrics) — the three weakest signals, each linking to the explorer that teaches it.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "計分卡彙總了什麼",
+          "text": "<p>可測試性計分卡（testability scorecard）彙總的是：</p>",
+          "answers": [
+            {
+              "text": "把五個正規化的可測試性訊號彙總成一個總體等第",
+              "fraction": 100,
+              "feedback": "正確——它把五個訊號整合成單一等第。"
+            },
+            {
+              "text": "單一的程式碼覆蓋率百分比",
+              "fraction": 0,
+              "feedback": "計分卡彙總的不是覆蓋率；它結合五個不同的訊號。"
+            },
+            {
+              "text": "目前所有失敗測試案例的清單",
+              "fraction": 0,
+              "feedback": "計分卡回報的是訊號與等第，不是失敗測試的清單。"
+            },
+            {
+              "text": "測試套件殺死的突變體數目",
+              "fraction": 0,
+              "feedback": "突變分數屬於另一個主題；計分卡彙總的是五個可測試性訊號。"
+            }
+          ],
+          "generalFeedback": "此壓軸的可測試性計分卡把五個正規化訊號——可控制性、可觀察性、接縫覆蓋、結構、確定性——彙總成一個總體等第（A 到 F）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "五個訊號",
+          "text": "<p>計分卡回報哪五個訊號？</p>",
+          "answers": [
+            {
+              "text": "可控制性、可觀察性、接縫覆蓋、結構、確定性",
+              "fraction": 100,
+              "feedback": "正確——這是五個正規化的可測試性訊號。"
+            },
+            {
+              "text": "嚴重度、優先度、可能性、衝擊、暴露度",
+              "fraction": 0,
+              "feedback": "那些是風險式測試的名詞，不是計分卡的可測試性訊號。"
+            },
+            {
+              "text": "單元、整合、系統、驗收、回歸",
+              "fraction": 0,
+              "feedback": "那些是測試層級／類型，不是計分卡的訊號。"
+            },
+            {
+              "text": "精確率、召回率、準確率、F1、覆蓋率",
+              "fraction": 0,
+              "feedback": "那些是分類／覆蓋度量，不是可測試性訊號。"
+            }
+          ],
+          "generalFeedback": "計分卡的五個訊號是可控制性、可觀察性、接縫覆蓋、結構、確定性——每個都正規化為「越高越可測試」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等第字母的範圍",
+          "text": "<p>總體等第以哪個範圍的字母表示？</p>",
+          "answers": [
+            {
+              "text": "A 到 F（A、B、C、D、F）",
+              "fraction": 100,
+              "feedback": "正確——等第門檻定義了 A、B、C、D 與 F。"
+            },
+            {
+              "text": "1 到 10",
+              "fraction": 0,
+              "feedback": "等第是字母，不是 1 到 10 的數字。"
+            },
+            {
+              "text": "只有通過或失敗",
+              "fraction": 0,
+              "feedback": "計分卡給的是分級字母，不是二元的通過／失敗。"
+            },
+            {
+              "text": "0% 到 100%，沒有字母",
+              "fraction": 0,
+              "feedback": "總體百分比會對應到字母等第；回報的等第是字母。"
+            }
+          ],
+          "generalFeedback": "總體平均透過固定門檻對應到字母：A 為 0.85、B 為 0.70、C 為 0.55、D 為 0.40，其餘為 F。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合其他探索器",
+          "text": "<p>計分卡如何產生它的數字？</p>",
+          "answers": [
+            {
+              "text": "它組合其他三個可測試性探索器的引擎，再加上一個非確定性訊號，而不重新推導",
+              "fraction": 100,
+              "feedback": "正確——它重用兄弟引擎，而非重新計算任何東西。"
+            },
+            {
+              "text": "它獨立地從頭重新實作每一個度量",
+              "fraction": 0,
+              "feedback": "計分卡刻意組合既有引擎；並不重新推導。"
+            },
+            {
+              "text": "它要求使用者手動鍵入每個訊號",
+              "fraction": 0,
+              "feedback": "訊號是由 fixture 計算得出，而非鍵入。"
+            },
+            {
+              "text": "它從一張靜態圖片讀取數字",
+              "fraction": 0,
+              "feedback": "數字來自對兄弟引擎的即時組合。"
+            }
+          ],
+          "generalFeedback": "計分卡是壓軸：它組合可控制性／可觀察性、接縫、度量三個引擎，再加上一個非確定性訊號，從同一份 fixture 彙總全部五個訊號。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "越高代表越可測試",
+          "text": "<p>對計分卡上的每個訊號，正規化值越高代表：</p>",
+          "answers": [
+            {
+              "text": "越可測試",
+              "fraction": 100,
+              "feedback": "正確——五個訊號都正規化為「越高＝越可測試」。"
+            },
+            {
+              "text": "越不可測試",
+              "fraction": 0,
+              "feedback": "訊號的方向是越高越好，而非越差。"
+            },
+            {
+              "text": "程式碼行數越多",
+              "fraction": 0,
+              "feedback": "訊號衡量可測試性，不是程式碼大小。"
+            },
+            {
+              "text": "沒有意義——方向未定義",
+              "fraction": 0,
+              "feedback": "方向有明確定義：越高越可測試。"
+            }
+          ],
+          "generalFeedback": "每個訊號都正規化到 0..1 的量表，方向一致：越高＝越可測試。如此才能平均成一個總體分數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取可控制性值",
+          "text": "<p>對於內建的 fixture，可控制性訊號為：</p>",
+          "answers": [
+            {
+              "text": "0.6",
+              "fraction": 100,
+              "feedback": "正確——轉閘 5 個狀態中有 3 個可達，故 3/5 = 0.6。"
+            },
+            {
+              "text": "0.2",
+              "fraction": 0,
+              "feedback": "0.2 是可觀察性訊號，不是可控制性。"
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 是結構訊號，不是可控制性。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 是確定性訊號，不是可控制性。"
+            }
+          ],
+          "generalFeedback": "可控制性 ＝ 可達狀態 / 總狀態 ＝ 3/5 = 0.6（轉閘 SUT）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取可觀察性值",
+          "text": "<p>對於內建的 fixture，可觀察性訊號為：</p>",
+          "answers": [
+            {
+              "text": "0.2",
+              "fraction": 100,
+              "feedback": "正確——5 個狀態中只有 1 個有唯一的可觀察輸出，故 1/5 = 0.2。"
+            },
+            {
+              "text": "0.6",
+              "fraction": 0,
+              "feedback": "0.6 是可控制性訊號，不是可觀察性。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 是確定性訊號，不是可觀察性。"
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 是結構訊號，不是可觀察性。"
+            }
+          ],
+          "generalFeedback": "可觀察性 ＝ 具唯一輸出的狀態 / 總狀態 ＝ 1/5 = 0.2；共用的輸出（兩個 'green'、兩個 'red'）使觀察者看不出那些狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取接縫覆蓋值",
+          "text": "<p>在尚未注入任何接縫時，接縫覆蓋訊號為：</p>",
+          "answers": [
+            {
+              "text": "0",
+              "fraction": 100,
+              "feedback": "正確——沒有套用任何接縫，即 4 個中 0 個，故訊號為 0。"
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 是注入四個接縫其中一個的值；初始一個都沒有。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 是注入四個中兩個的值；初始一個都沒有。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "1 是注入全部四個接縫的值；初始一個都沒有。"
+            }
+          ],
+          "generalFeedback": "接縫覆蓋 ＝ 已注入接縫 / 反樣式總數 ＝ 0/4 = 0，因為 appliedSeams 一開始為空。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取確定性值",
+          "text": "<p>對於基礎 fixture，確定性訊號為：</p>",
+          "answers": [
+            {
+              "text": "0.5",
+              "fraction": 100,
+              "feedback": "正確——4 個非確定性來源中有 2 個存在，故 1 - 2/4 = 0.5。"
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 是結構訊號，不是確定性。"
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 是移除一個來源之後的確定性值，不是基礎值。"
+            },
+            {
+              "text": "0.2",
+              "fraction": 0,
+              "feedback": "0.2 是可觀察性訊號，不是確定性。"
+            }
+          ],
+          "generalFeedback": "確定性 ＝ 1 - present/DET_TOTAL ＝ 1 - 2/4 = 0.5；fixture 在四個來源的目錄中宣告了兩個（clock 與 random）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取結構值",
+          "text": "<p>對於基礎 fixture，結構訊號為：</p>",
+          "answers": [
+            {
+              "text": "0.24",
+              "fraction": 100,
+              "feedback": "正確——最難的單元得分 19，故 1 - 19/25 = 0.24。"
+            },
+            {
+              "text": "0.6",
+              "fraction": 0,
+              "feedback": "0.6 是可控制性訊號，不是結構。"
+            },
+            {
+              "text": "0.19",
+              "fraction": 0,
+              "feedback": "19 是最難單元的原始分數，不是正規化後的結構訊號 0.24。"
+            },
+            {
+              "text": "0.76",
+              "fraction": 0,
+              "feedback": "0.76 是 19/25（難度比例）；訊號是 1 - 0.76 = 0.24。"
+            }
+          ],
+          "generalFeedback": "結構 ＝ 1 - hardest/STRUCT_CAP ＝ 1 - 19/25 = 0.24，其中 checkout 單元最難為 19，STRUCT_CAP ＝ 25。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取總體等第",
+          "text": "<p>基礎 fixture 的總體等第為：</p>",
+          "answers": [
+            {
+              "text": "F",
+              "fraction": 100,
+              "feedback": "正確——總體 0.308 低於 D 門檻 0.40，故等第為 F。"
+            },
+            {
+              "text": "A",
+              "fraction": 0,
+              "feedback": "A 需要總體至少 0.85；此 fixture 遠低於此。"
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "C 需要總體至少 0.55；此 fixture 的 0.308 遠低於此。"
+            },
+            {
+              "text": "D",
+              "fraction": 0,
+              "feedback": "D 需要總體至少 0.40；此 fixture 的 0.308 低於此，故為 F。"
+            }
+          ],
+          "generalFeedback": "基礎總體為 0.308，低於最低及格門檻（D 為 0.40），故等第為 F。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "總體如何計算",
+          "text": "<p>總體分數的計算方式為：</p>",
+          "answers": [
+            {
+              "text": "五個訊號的算術平均",
+              "fraction": 100,
+              "feedback": "正確——總體是五個訊號值的單純平均。"
+            },
+            {
+              "text": "五個訊號的乘積",
+              "fraction": 0,
+              "feedback": "總體是平均，不是乘積。"
+            },
+            {
+              "text": "五個訊號的最大值",
+              "fraction": 0,
+              "feedback": "總體是平均，不是最大值。"
+            },
+            {
+              "text": "五個訊號的最小值",
+              "fraction": 0,
+              "feedback": "總體是平均，不是最小值。"
+            }
+          ],
+          "generalFeedback": "總體 ＝ (可控制性 + 可觀察性 + 接縫 + 結構 + 確定性) / 5——五個等權訊號的算術平均。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "計分卡從頭重新推導",
+          "text": "<p>計分卡會從頭重新推導每一個度量，而非重用其他探索器的引擎。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——它組合兄弟引擎並加上一個非確定性訊號；不重新推導任何東西。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "它不重新推導；壓軸的重點正是組合既有引擎。"
+            }
+          ],
+          "generalFeedback": "計分卡以可控制性／可觀察性、接縫、度量引擎作為真理來源，只額外加上非確定性訊號。它是組合而非重新推導。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個訊號為零",
+          "text": "<p>在基礎 fixture 中，哪個訊號為 0？</p>",
+          "answers": [
+            {
+              "text": "接縫覆蓋",
+              "fraction": 100,
+              "feedback": "正確——初始未注入任何接縫，故接縫覆蓋為 0。"
+            },
+            {
+              "text": "可控制性",
+              "fraction": 0,
+              "feedback": "可控制性是 0.6，不是 0。"
+            },
+            {
+              "text": "確定性",
+              "fraction": 0,
+              "feedback": "確定性是 0.5，不是 0。"
+            },
+            {
+              "text": "結構",
+              "fraction": 0,
+              "feedback": "結構是 0.24，不是 0。"
+            }
+          ],
+          "generalFeedback": "因為 appliedSeams 一開始為空，接縫覆蓋 ＝ 0/4 = 0——是基礎 fixture 中唯一為零的訊號。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等第 A 的門檻",
+          "text": "<p>要取得等第 A，總體分數至少須為：</p>",
+          "answers": [
+            {
+              "text": "0.85",
+              "fraction": 100,
+              "feedback": "正確——A 的門檻是 0.85。"
+            },
+            {
+              "text": "0.70",
+              "fraction": 0,
+              "feedback": "0.70 是 B 的門檻，不是 A。"
+            },
+            {
+              "text": "0.55",
+              "fraction": 0,
+              "feedback": "0.55 是 C 的門檻，不是 A。"
+            },
+            {
+              "text": "0.40",
+              "fraction": 0,
+              "feedback": "0.40 是 D 的門檻，不是 A。"
+            }
+          ],
+          "generalFeedback": "由高到低檢查的門檻為：A 為 0.85、B 為 0.70、C 為 0.55、D 為 0.40，其餘為 F。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何基礎 fixture 是 F",
+          "text": "<p>為什麼基礎 fixture 得到等第 F？</p>",
+          "answers": [
+            {
+              "text": "它的總體（平均）0.308 低於 D 門檻 0.40",
+              "fraction": 100,
+              "feedback": "正確——0.308 低於 0.40，故等第落在 F。"
+            },
+            {
+              "text": "因為有一個訊號恰好是 1.0",
+              "fraction": 0,
+              "feedback": "基礎 fixture 中沒有訊號為 1.0；等第來自偏低的平均。"
+            },
+            {
+              "text": "因為它有超過五個訊號",
+              "fraction": 0,
+              "feedback": "訊號恰好是五個；等第由其平均驅動。"
+            },
+            {
+              "text": "因為時鐘接縫已被注入",
+              "fraction": 0,
+              "feedback": "初始未注入任何接縫；原因是 0.308 的低平均。"
+            }
+          ],
+          "generalFeedback": "五個訊號（0.6、0.2、0、0.24、0.5）平均為 0.308，低於最低及格門檻（D 為 0.40），故等第為 F。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "接縫訊號對應到哪個修正",
+          "text": "<p>最低的訊號——接縫覆蓋——對應到哪個修正與教學探索器？</p>",
+          "answers": [
+            {
+              "text": "注入接縫——testability-seams 探索器",
+              "fraction": 100,
+              "feedback": "正確——接縫覆蓋的修正深連到 testability-seams 探索器。"
+            },
+            {
+              "text": "加入探針——controllability-observability 探索器",
+              "fraction": 0,
+              "feedback": "那個修正針對可觀察性，不是接縫覆蓋。"
+            },
+            {
+              "text": "拆分單元——testability-metrics 探索器",
+              "fraction": 0,
+              "feedback": "那針對結構訊號，不是接縫覆蓋。"
+            },
+            {
+              "text": "沒有——接縫覆蓋沒有修正",
+              "fraction": 0,
+              "feedback": "接縫覆蓋確有修正：注入接縫。"
+            }
+          ],
+          "generalFeedback": "每個訊號深連到教它的探索器；接縫覆蓋連到 testability-seams，那裡教如何注入接縫。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何時鐘提升兩個訊號",
+          "text": "<p>為什麼注入時鐘會同時提升兩個訊號？</p>",
+          "answers": [
+            {
+              "text": "它加入一個接縫（提升接縫覆蓋）並移除一個非確定性來源（提升確定性）",
+              "fraction": 100,
+              "feedback": "正確——時鐘修正注入時鐘接縫並消除 clock 這個非確定性來源。"
+            },
+            {
+              "text": "它使可控制性計數加倍",
+              "fraction": 0,
+              "feedback": "注入時鐘不影響可控制性。"
+            },
+            {
+              "text": "它改變結構難度與可觀察性",
+              "fraction": 0,
+              "feedback": "注入時鐘時結構與可觀察性都不變。"
+            },
+            {
+              "text": "它只提升確定性；第二個提升是顯示錯誤",
+              "fraction": 0,
+              "feedback": "兩個提升都是真的：接縫覆蓋與確定性各自增加。"
+            }
+          ],
+          "generalFeedback": "注入時鐘會加入時鐘接縫（接縫覆蓋 0 到 0.25）並從非確定性清單移除 'clock'（確定性 0.5 到 0.75）——一個修正，兩個訊號。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由五個訊號計算總體",
+          "text": "<p>給定訊號 0.6、0.2、0、0.24、0.5，總體分數為：</p>",
+          "answers": [
+            {
+              "text": "0.308",
+              "fraction": 100,
+              "feedback": "正確——(0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308。"
+            },
+            {
+              "text": "1.54",
+              "fraction": 0,
+              "feedback": "1.54 是總和；總體是平均，1.54 / 5 = 0.308。"
+            },
+            {
+              "text": "0.24",
+              "fraction": 0,
+              "feedback": "0.24 是單一訊號（結構），不是五者的平均。"
+            },
+            {
+              "text": "0.4",
+              "fraction": 0,
+              "feedback": "0.4 是 D 門檻，不是算出的平均 0.308。"
+            }
+          ],
+          "generalFeedback": "總體 ＝ 平均 ＝ (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確定性連到哪個探索器",
+          "text": "<p>確定性訊號深連到哪個探索器？</p>",
+          "answers": [
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 100,
+              "feedback": "正確——非確定性是脆弱性的稅，故確定性連到 flaky-diagnosis。"
+            },
+            {
+              "text": "testability-seams",
+              "fraction": 0,
+              "feedback": "那是接縫覆蓋連去的地方，不是確定性。"
+            },
+            {
+              "text": "testability-metrics",
+              "fraction": 0,
+              "feedback": "那是結構訊號連去的地方，不是確定性。"
+            },
+            {
+              "text": "controllability-observability",
+              "fraction": 0,
+              "feedback": "那是可控制性與可觀察性連去的地方，不是確定性。"
+            }
+          ],
+          "generalFeedback": "確定性訊號關乎非確定性來源（clock/random），它們會造成脆弱測試，故其深連指向 flaky-diagnosis 探索器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結構由哪個探索器教",
+          "text": "<p>結構訊號由哪個探索器教授？</p>",
+          "answers": [
+            {
+              "text": "testability-metrics",
+              "fraction": 100,
+              "feedback": "正確——結構難度來自度量引擎。"
+            },
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 0,
+              "feedback": "那教確定性訊號，不是結構。"
+            },
+            {
+              "text": "testability-seams",
+              "fraction": 0,
+              "feedback": "那教接縫覆蓋，不是結構。"
+            },
+            {
+              "text": "controllability-observability",
+              "fraction": 0,
+              "feedback": "那教可控制性與可觀察性，不是結構。"
+            }
+          ],
+          "generalFeedback": "結構訊號由度量模組上的 testabilityHardness 導出，故深連到 testability-metrics 探索器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "接縫覆蓋由哪個探索器教",
+          "text": "<p>接縫覆蓋訊號由哪個探索器教授？</p>",
+          "answers": [
+            {
+              "text": "testability-seams",
+              "fraction": 100,
+              "feedback": "正確——接縫覆蓋來自接縫引擎。"
+            },
+            {
+              "text": "testability-metrics",
+              "fraction": 0,
+              "feedback": "那教結構訊號，不是接縫覆蓋。"
+            },
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 0,
+              "feedback": "那教確定性訊號，不是接縫覆蓋。"
+            },
+            {
+              "text": "controllability-observability",
+              "fraction": 0,
+              "feedback": "那教可控制性與可觀察性，不是接縫覆蓋。"
+            }
+          ],
+          "generalFeedback": "接縫覆蓋由接縫引擎的 testabilityOf 計算，故深連到 testability-seams 探索器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "頂尖修正清單包含什麼",
+          "text": "<p>計分卡的「頂尖修正（top fixes）」清單包含：</p>",
+          "answers": [
+            {
+              "text": "最低的三個訊號，由小到大排列",
+              "fraction": 100,
+              "feedback": "正確——最弱的三個訊號以最低者優先列為優先修正。"
+            },
+            {
+              "text": "最高的三個訊號，由大到小排列",
+              "fraction": 0,
+              "feedback": "修正針對最弱的訊號，而非最強的。"
+            },
+            {
+              "text": "全部五個訊號",
+              "fraction": 0,
+              "feedback": "只有最低的三個被列為頂尖修正。"
+            },
+            {
+              "text": "隨機挑選的兩個訊號",
+              "fraction": 0,
+              "feedback": "清單是確定性的：最低的三個訊號，由小到大。"
+            }
+          ],
+          "generalFeedback": "topFixes 取最低的三個訊號，依分數由小到大排序（平手時以固定訊號順序打破），每個都連到教它的探索器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基礎 fixture 的最高優先修正",
+          "text": "<p>對基礎 fixture 而言，哪個修正被列為第一（最高優先）？</p>",
+          "answers": [
+            {
+              "text": "接縫覆蓋的修正——其訊號（0）最低",
+              "fraction": 100,
+              "feedback": "正確——接縫覆蓋為 0 是最低，故其修正排第一。"
+            },
+            {
+              "text": "可控制性的修正——其訊號（0.6）最高",
+              "fraction": 0,
+              "feedback": "最高的訊號最不急迫；修正先給最低者。"
+            },
+            {
+              "text": "確定性的修正——其訊號（0.5）居中",
+              "fraction": 0,
+              "feedback": "0.5 不是最低；接縫覆蓋 0 排在它前面。"
+            },
+            {
+              "text": "結構的修正——其訊號（0.24）第二低",
+              "fraction": 0,
+              "feedback": "結構（0.24）是第三低；可觀察性（0.2）第二、接縫（0）第一。"
+            }
+          ],
+          "generalFeedback": "由小到大排序，訊號為接縫 0、可觀察性 0.2、結構 0.24、確定性 0.5、可控制性 0.6——故接縫覆蓋的修正排第一。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入時鐘後的接縫訊號",
+          "text": "<p>注入時鐘後，接縫覆蓋訊號變為：</p>",
+          "answers": [
+            {
+              "text": "0.25",
+              "fraction": 100,
+              "feedback": "正確——4 個接縫注入 1 個，即 1/4 = 0.25。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "0 是注入任何接縫之前的值；注入時鐘會提升它。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 需要四個接縫中的兩個；此處只注入時鐘。"
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 是時鐘修正後的確定性值，不是接縫值。"
+            }
+          ],
+          "generalFeedback": "注入時鐘於四個接縫中加入一個：接縫覆蓋 ＝ 1/4 = 0.25。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入時鐘後的確定性",
+          "text": "<p>注入時鐘後，確定性訊號變為：</p>",
+          "answers": [
+            {
+              "text": "0.75",
+              "fraction": 100,
+              "feedback": "正確——移除兩個來源中的一個，故 1 - 1/4 = 0.75。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 是移除 clock 來源之前的值。"
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 是時鐘修正後的接縫覆蓋值，不是確定性。"
+            },
+            {
+              "text": "1.0",
+              "fraction": 0,
+              "feedback": "1.0 需要移除兩個來源；此處只移除 'clock'。"
+            }
+          ],
+          "generalFeedback": "移除 'clock' 後四個來源中剩一個：確定性 ＝ 1 - 1/4 = 0.75。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確定性 0.5 從何而來",
+          "text": "<p>基礎確定性訊號為 0.5，是因為：</p>",
+          "answers": [
+            {
+              "text": "4 個非確定性來源中有 2 個存在：1 - 2/4 = 0.5",
+              "fraction": 100,
+              "feedback": "正確——四來源目錄中有兩個存在。"
+            },
+            {
+              "text": "10 個測試中有 5 個脆弱",
+              "fraction": 0,
+              "feedback": "此訊號不是脆弱測試比例；它是 1 - present/DET_TOTAL。"
+            },
+            {
+              "text": "一半的接縫已被注入",
+              "fraction": 0,
+              "feedback": "確定性與接縫數目無關；它計算非確定性來源。"
+            },
+            {
+              "text": "時鐘接縫已被修正",
+              "fraction": 0,
+              "feedback": "初始未修正任何接縫；此值來自 4 個來源中有 2 個存在。"
+            }
+          ],
+          "generalFeedback": "確定性 ＝ 1 - present/DET_TOTAL ＝ 1 - 2/4 = 0.5，其中 DET_TOTAL ＝ 4 是完整目錄，且有兩個來源（clock、random）存在。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "fixture 的非確定性來源",
+          "text": "<p>基礎 fixture 宣告了哪些非確定性來源？</p>",
+          "answers": [
+            {
+              "text": "clock 與 random",
+              "fraction": 100,
+              "feedback": "正確——fixture 的非確定性清單是 ['clock', 'random']。"
+            },
+            {
+              "text": "network 與 timing",
+              "fraction": 0,
+              "feedback": "那不是 fixture 宣告的來源；它列的是 clock 與 random。"
+            },
+            {
+              "text": "threads 與 disk",
+              "fraction": 0,
+              "feedback": "那不是 fixture 宣告的來源；它列的是 clock 與 random。"
+            },
+            {
+              "text": "animation 與 order",
+              "fraction": 0,
+              "feedback": "那不是 fixture 宣告的來源；它列的是 clock 與 random。"
+            }
+          ],
+          "generalFeedback": "fixture 的非確定性清單是 ['clock', 'random']——分別由 inject-clock 與 inject-rng 移除的兩個來源。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "加入探針提升什麼",
+          "text": "<p>加入一個探針會提升哪個訊號，為什麼？</p>",
+          "answers": [
+            {
+              "text": "可觀察性——它給共用輸出的狀態一個唯一輸出，使測試能分辨它",
+              "fraction": 100,
+              "feedback": "正確——探針使原本隱藏的狀態變得可區分，提升可觀察性。"
+            },
+            {
+              "text": "可控制性——它加入一條新的輸入邊",
+              "fraction": 0,
+              "feedback": "探針改變的是輸出，不是決定可達性的輸入驅動轉移。"
+            },
+            {
+              "text": "結構——它降低循環複雜度",
+              "fraction": 0,
+              "feedback": "探針不會觸及度量模組的結構難度。"
+            },
+            {
+              "text": "接縫覆蓋——它注入一個相依",
+              "fraction": 0,
+              "feedback": "注入相依是接縫修正；探針影響的是可觀察性。"
+            }
+          ],
+          "generalFeedback": "探針（透過 withProbe）給共用輸出的狀態一個唯一輸出，於是更多狀態變得可區分，可觀察性上升。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可控制性與可觀察性都連到哪",
+          "text": "<p>可控制性與可觀察性兩個訊號都深連到哪個探索器？</p>",
+          "answers": [
+            {
+              "text": "controllability-observability",
+              "fraction": 100,
+              "feedback": "正確——兩個訊號都來自該探索器的引擎。"
+            },
+            {
+              "text": "testability-seams",
+              "fraction": 0,
+              "feedback": "那教接縫覆蓋，不是可控制性／可觀察性。"
+            },
+            {
+              "text": "testability-metrics",
+              "fraction": 0,
+              "feedback": "那教結構訊號，不是可控制性／可觀察性。"
+            },
+            {
+              "text": "flaky-diagnosis",
+              "fraction": 0,
+              "feedback": "那教確定性，不是可控制性／可觀察性。"
+            }
+          ],
+          "generalFeedback": "可控制性與可觀察性都由 controllability-observability 引擎計算，故兩者都深連到該探索器。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "注入時鐘後的總體",
+          "text": "<p>注入時鐘後（接縫變為 0.25、確定性變為 0.75，其餘三個不變），新的總體為：</p>",
+          "answers": [
+            {
+              "text": "0.408",
+              "fraction": 100,
+              "feedback": "正確——(0.6 + 0.2 + 0.25 + 0.24 + 0.75) / 5 = 2.04 / 5 = 0.408。"
+            },
+            {
+              "text": "0.308",
+              "fraction": 0,
+              "feedback": "0.308 是修正之前的總體；注入時鐘後升為 0.408。"
+            },
+            {
+              "text": "0.508",
+              "fraction": 0,
+              "feedback": "0.508 需要同時注入 RNG；單注入時鐘得到 0.408。"
+            },
+            {
+              "text": "0.45",
+              "fraction": 0,
+              "feedback": "精確平均是 2.04 / 5 = 0.408，不是 0.45。"
+            }
+          ],
+          "generalFeedback": "時鐘修正後訊號為 0.6、0.2、0.25、0.24、0.75，總和 2.04；平均為 2.04 / 5 = 0.408。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入時鐘後的等第",
+          "text": "<p>在注入時鐘後總體為 0.408 時，等第變為：</p>",
+          "answers": [
+            {
+              "text": "D",
+              "fraction": 100,
+              "feedback": "正確——0.408 達到或超過 D 門檻（0.40）但低於 C（0.55），故為 D。"
+            },
+            {
+              "text": "F",
+              "fraction": 0,
+              "feedback": "0.408 已越過 0.40 的 D 門檻，故不再是 F。"
+            },
+            {
+              "text": "C",
+              "fraction": 0,
+              "feedback": "C 需要至少 0.55；0.408 低於此。"
+            },
+            {
+              "text": "B",
+              "fraction": 0,
+              "feedback": "B 需要至少 0.70；0.408 遠低於此。"
+            }
+          ],
+          "generalFeedback": "gradeFor(0.408)：越過 D 門檻 0.40 但未達 C 門檻 0.55，故等第為 D。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "詮釋 F 到 D 的跳升",
+          "text": "<p>注入時鐘使等第由 F 變為 D。最佳的解釋是：</p>",
+          "answers": [
+            {
+              "text": "一個修正提升了兩個訊號，把平均由 0.308 拉到 0.408，越過 0.40 的 D 門檻",
+              "fraction": 100,
+              "feedback": "正確——時鐘修正同時提升接縫覆蓋與確定性，把平均推過 0.40。"
+            },
+            {
+              "text": "它使可控制性升到 0.85 以上",
+              "fraction": 0,
+              "feedback": "可控制性維持在 0.6 不變；等第改變是因為接縫與確定性。"
+            },
+            {
+              "text": "它移除了一個訊號，使其餘的平均較高",
+              "fraction": 0,
+              "feedback": "沒有移除任何訊號；五個仍全部平均。"
+            },
+            {
+              "text": "等第變化與訊號值無關",
+              "fraction": 0,
+              "feedback": "等第是訊號值平均的直接函數。"
+            }
+          ],
+          "generalFeedback": "時鐘修正提升接縫覆蓋（0 到 0.25）與確定性（0.5 到 0.75）；平均由 0.308 升到 0.408，越過 D 門檻 0.40，使等第由 F 升為 D。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結構公式",
+          "text": "<p>結構訊號的計算為 1 - hardest/STRUCT_CAP。當最難單元（checkout）得分 19 且 STRUCT_CAP ＝ 25 時，結構等於：</p>",
+          "answers": [
+            {
+              "text": "0.24（1 - 19/25）",
+              "fraction": 100,
+              "feedback": "正確——19/25 = 0.76，而 1 - 0.76 = 0.24。"
+            },
+            {
+              "text": "0.76",
+              "fraction": 0,
+              "feedback": "0.76 是 19/25 的難度比例；訊號是 1 減去它 = 0.24。"
+            },
+            {
+              "text": "0.19",
+              "fraction": 0,
+              "feedback": "0.19 把原始分數 19 與正規化訊號 0.24 混淆了。"
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 是把 1 - 19/25 粗略取整；精確值為 0.24。"
+            }
+          ],
+          "generalFeedback": "結構 ＝ 1 - hardest/STRUCT_CAP ＝ 1 - 19/25 = 1 - 0.76 = 0.24，其中 checkout 是最難單元 19。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何先修最低訊號",
+          "text": "<p>為什麼計分卡優先修正最低的訊號？</p>",
+          "answers": [
+            {
+              "text": "它有最大的改善空間，且最拖低平均，因此修它能帶來最大的等第提升",
+              "fraction": 100,
+              "feedback": "正確——最弱的訊號既是最大拖累，也是最大機會。"
+            },
+            {
+              "text": "它一定最便宜修",
+              "fraction": 0,
+              "feedback": "計分卡不以成本排序；它依哪個訊號最低排序。"
+            },
+            {
+              "text": "最低的訊號一定是確定性",
+              "fraction": 0,
+              "feedback": "最低訊號會變動；基礎 fixture 中是接縫覆蓋，不是確定性。"
+            },
+            {
+              "text": "較低的訊號較可測試，所以較安全去動",
+              "fraction": 0,
+              "feedback": "較低代表較不可測試，而非較可測試；正因如此才需要修。"
+            }
+          ],
+          "generalFeedback": "因為總體是平均，最低的訊號有最大空間（0 到 1）且最拖低平均，故改善它能讓總體與等第上升最多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非確定性與脆弱測試",
+          "text": "<p>非確定性訊號與脆弱（flaky）測試有何關聯？</p>",
+          "answers": [
+            {
+              "text": "時鐘與 RNG 等非確定性來源會使測試脆弱，故確定性訊號連到 flaky-diagnosis 探索器",
+              "fraction": 100,
+              "feedback": "正確——未釘住的 clock/RNG 是典型的脆弱成因，把確定性繫到 flaky-diagnosis。"
+            },
+            {
+              "text": "非確定性只影響編譯時間，不影響測試",
+              "fraction": 0,
+              "feedback": "非確定性影響測試執行，使結果不可重現（脆弱）。"
+            },
+            {
+              "text": "脆弱測試會提升結構訊號",
+              "fraction": 0,
+              "feedback": "脆弱性關乎確定性，不是結構訊號。"
+            },
+            {
+              "text": "確定性訊號計算程式碼行數",
+              "fraction": 0,
+              "feedback": "確定性計算非確定性來源，不是程式碼行數。"
+            }
+          ],
+          "generalFeedback": "每個非確定性來源（真實時鐘、真實 RNG）都會使測試結果在不同次執行間變動——正是脆弱性的定義。故確定性訊號深連到 flaky-diagnosis 探索器，而注入 clock/RNG 既提升確定性又移除一個脆弱成因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入時鐘與 RNG 後的確定性",
+          "text": "<p>在同時注入時鐘與 RNG 接縫（移除兩個非確定性來源）之後，確定性訊號為：</p>",
+          "answers": [
+            {
+              "text": "1.0（1 - 0/4）",
+              "fraction": 100,
+              "feedback": "正確——沒有來源存在時，確定性 ＝ 1 - 0/4 = 1.0。"
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 是只移除一個來源後的值；移除兩個得到 1.0。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 是兩個來源都存在的基礎值。"
+            },
+            {
+              "text": "0.0",
+              "fraction": 0,
+              "feedback": "移除來源會提升確定性；沒有來源存在時為 1.0，不是 0。"
+            }
+          ],
+          "generalFeedback": "inject-clock 移除 'clock'、inject-rng 移除 'random'，四個來源中剩零個：確定性 ＝ 1 - 0/4 = 1.0。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入全部四個接縫後的接縫覆蓋",
+          "text": "<p>在注入全部四個接縫（config、gateway、clock、rng）之後，接縫覆蓋訊號為：</p>",
+          "answers": [
+            {
+              "text": "1.0",
+              "fraction": 100,
+              "feedback": "正確——4 個反樣式中移除 4 個，即 4/4 = 1.0。"
+            },
+            {
+              "text": "0.75",
+              "fraction": 0,
+              "feedback": "0.75 是四個接縫中的三個；全部四個得到 1.0。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 是四個接縫中的兩個；全部四個得到 1.0。"
+            },
+            {
+              "text": "0.25",
+              "fraction": 0,
+              "feedback": "0.25 是四個接縫中的一個；全部四個得到 1.0。"
+            }
+          ],
+          "generalFeedback": "接縫覆蓋 ＝ 已注入接縫 / 4。注入全部四個（config、gateway、clock、rng）時為 4/4 = 1.0。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入全部四個接縫後的總體與等第",
+          "text": "<p>在注入全部四個接縫後，訊號為可控制性 0.6、可觀察性 0.2、接縫 1.0、結構 0.24、確定性 1.0（clock 與 rng 皆移除）。總體與等第為：</p>",
+          "answers": [
+            {
+              "text": "0.608 → C",
+              "fraction": 100,
+              "feedback": "正確——(0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 3.04 / 5 = 0.608，越過 C 門檻 0.55。"
+            },
+            {
+              "text": "0.408 → D",
+              "fraction": 0,
+              "feedback": "0.408 是只做時鐘修正後的總體，不是注入全部四個接縫後的值。"
+            },
+            {
+              "text": "0.708 → B",
+              "fraction": 0,
+              "feedback": "精確平均是 3.04 / 5 = 0.608，不是 0.708。"
+            },
+            {
+              "text": "0.508 → D",
+              "fraction": 0,
+              "feedback": "0.508 是只套用 clock 與 rng 接縫（接縫 0.5）時的平均；全部四個接縫得到 0.608。"
+            }
+          ],
+          "generalFeedback": "全部四個接縫使接縫為 1.0，並（透過 clock 與 rng）使確定性為 1.0；平均為 (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 0.608，達到或超過 C 門檻 0.55，故等第為 C。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何結構維持 0.24",
+          "text": "<p>你注入了 config 接縫。為什麼結構訊號維持在 0.24？</p>",
+          "answers": [
+            {
+              "text": "結構難度來自不同的引擎（度量模組）；注入接縫只改變接縫覆蓋",
+              "fraction": 100,
+              "feedback": "正確——接縫與結構由各自獨立的引擎計算。"
+            },
+            {
+              "text": "因為結構永遠固定在 0.24",
+              "fraction": 0,
+              "feedback": "結構原則上並非固定；只是它不對接縫注入起反應。"
+            },
+            {
+              "text": "因為 config 接縫使循環複雜度降低恰為零的取整",
+              "fraction": 0,
+              "feedback": "config 接縫完全不觸及度量模組，故沒有取整問題。"
+            },
+            {
+              "text": "因為注入接縫也注入了結構債",
+              "fraction": 0,
+              "feedback": "注入接縫對結構訊號沒有任何方向的影響。"
+            }
+          ],
+          "generalFeedback": "結構來自度量模組上的 testabilityHardness，而接縫覆蓋來自接縫引擎。注入 config 接縫只改變 appliedSeams，故結構維持 0.24。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "STRUCT_CAP 的意義",
+          "text": "<p>在結構訊號中，STRUCT_CAP ＝ 25 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "被視為最壞情況的難度分數；得分 25 的單元會得到結構 1 - 25/25 = 0",
+              "fraction": 100,
+              "feedback": "正確——STRUCT_CAP 是正規化難度時「最糟」的分母。"
+            },
+            {
+              "text": "一個模組允許的最大單元數",
+              "fraction": 0,
+              "feedback": "STRUCT_CAP 正規化的是難度分數，不是單元數。"
+            },
+            {
+              "text": "及格等第的百分比門檻",
+              "fraction": 0,
+              "feedback": "等第門檻另有其值（0.85/0.70/0.55/0.40）；STRUCT_CAP 是難度分母。"
+            },
+            {
+              "text": "非確定性來源的數目",
+              "fraction": 0,
+              "feedback": "那是 DET_TOTAL ＝ 4；STRUCT_CAP ＝ 25 正規化結構難度。"
+            }
+          ],
+          "generalFeedback": "STRUCT_CAP ＝ 25 是被視為最壞情況的難度分數；結構 ＝ 1 - hardest/STRUCT_CAP，故 25 的單元會得到 0，而 fixture 的 19 得到 0.24。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DET_TOTAL 的意義",
+          "text": "<p>DET_TOTAL ＝ 4 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "確定性訊號正規化所依據的非確定性來源完整目錄；存在 2 個時 1 - 2/4 = 0.5",
+              "fraction": 100,
+              "feedback": "正確——DET_TOTAL 是確定性訊號的分母。"
+            },
+            {
+              "text": "等第字母的數目",
+              "fraction": 0,
+              "feedback": "等第字母有五個（A、B、C、D、F）；DET_TOTAL ＝ 4 是非確定性目錄大小。"
+            },
+            {
+              "text": "接縫數目乘以二",
+              "fraction": 0,
+              "feedback": "接縫有四個；DET_TOTAL 恰為 4 且代表非確定性目錄，不是乘積。"
+            },
+            {
+              "text": "被組合的探索器數目",
+              "fraction": 0,
+              "feedback": "計分卡組合三個兄弟引擎；DET_TOTAL ＝ 4 是非確定性目錄。"
+            }
+          ],
+          "generalFeedback": "DET_TOTAL ＝ 4 是非確定性來源的完整目錄；確定性 ＝ 1 - present/DET_TOTAL，故存在的兩個來源得到 1 - 2/4 = 0.5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時鐘相對於 config 作為單一修正",
+          "text": "<p>為什麼注入時鐘是比注入 config 接縫更高槓桿的單一修正？</p>",
+          "answers": [
+            {
+              "text": "inject-clock 提升兩個訊號（接縫覆蓋與確定性）；inject-config 只提升接縫覆蓋",
+              "fraction": 100,
+              "feedback": "正確——時鐘修正也移除一個非確定性來源，故它推動兩個訊號。"
+            },
+            {
+              "text": "inject-config 提升三個訊號",
+              "fraction": 0,
+              "feedback": "inject-config 只提升接縫覆蓋；它不觸及其他訊號。"
+            },
+            {
+              "text": "inject-clock 也降低結構難度",
+              "fraction": 0,
+              "feedback": "兩個修正都不觸及結構；時鐘的額外效果在確定性。"
+            },
+            {
+              "text": "它們對等第的效果相同",
+              "fraction": 0,
+              "feedback": "它們不同：時鐘推動兩個訊號、config 只一個，故對等第的效果不同。"
+            }
+          ],
+          "generalFeedback": "inject-config 只加入 config 接縫（接縫覆蓋 +0.25）。inject-clock 加入時鐘接縫（接縫覆蓋 +0.25）並移除 clock 非確定性來源（確定性 +0.25），故它把平均提升兩倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單一訊號對平均的效果",
+          "text": "<p>因為總體是五個訊號的單純平均，把任一訊號由 0 提升到 1 會使總體改變：</p>",
+          "answers": [
+            {
+              "text": "0.2（五分之一）",
+              "fraction": 100,
+              "feedback": "正確——每個訊號占平均的 1/5，故完整由 0 到 1 的擺動使總體移動 0.2。"
+            },
+            {
+              "text": "1.0",
+              "fraction": 0,
+              "feedback": "單一訊號只占平均的 1/5；其完整擺動是 0.2，不是 1.0。"
+            },
+            {
+              "text": "0.5",
+              "fraction": 0,
+              "feedback": "0.5 相當於兩訊號的權重；每個單一訊號在平均中值 0.2。"
+            },
+            {
+              "text": "0——個別訊號不影響平均",
+              "fraction": 0,
+              "feedback": "每個訊號都影響平均，幅度為其變化的 1/5。"
+            }
+          ],
+          "generalFeedback": "總體是五個等權訊號的平均，故每個貢獻 1/5 = 0.2。一個訊號由 0 到 1 使總體上升 0.2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序頂尖三修正",
+          "text": "<p>給定訊號可控制性 0.6、可觀察性 0.2、接縫 0、結構 0.24、確定性 0.5，頂尖三個修正依優先序為：</p>",
+          "answers": [
+            {
+              "text": "接縫覆蓋、可觀察性、結構",
+              "fraction": 100,
+              "feedback": "正確——依分數由小到大：接縫 0、可觀察性 0.2、結構 0.24。"
+            },
+            {
+              "text": "可控制性、確定性、結構",
+              "fraction": 0,
+              "feedback": "那不是最低的三個；可控制性（0.6）與確定性（0.5）是最高的兩個。"
+            },
+            {
+              "text": "結構、可觀察性、接縫覆蓋",
+              "fraction": 0,
+              "feedback": "那是由大到小；清單是最低者優先：接縫、可觀察性、結構。"
+            },
+            {
+              "text": "確定性、可控制性、可觀察性",
+              "fraction": 0,
+              "feedback": "確定性（0.5）與可控制性（0.6）是最強的訊號，不是頂尖修正。"
+            }
+          ],
+          "generalFeedback": "topFixes 由小到大排序：接縫 0（testability-seams）、可觀察性 0.2（controllability-observability）、結構 0.24（testability-metrics）——最弱的三個訊號，每個連到教它的探索器。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "testability-seams": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a seam is",
+          "text": "<p>In Michael Feathers' sense, a <em>seam</em> is:</p>",
+          "answers": [
+            {
+              "text": "A place where you can change a program's behaviour without editing the code in that place",
+              "fraction": 100,
+              "feedback": "Correct — a seam lets you substitute behaviour (e.g. swap a dependency) without modifying the code at that point."
+            },
+            {
+              "text": "A defect deliberately injected into the code to test the test suite",
+              "fraction": 0,
+              "feedback": "That is a seeded fault/mutant, not a seam."
+            },
+            {
+              "text": "A line of code that always contains a bug",
+              "fraction": 0,
+              "feedback": "A seam is a point of substitutable behaviour, not a guaranteed bug."
+            },
+            {
+              "text": "A boundary between two microservices on the network",
+              "fraction": 0,
+              "feedback": "A seam is a code-level place to alter behaviour, not a network boundary."
+            }
+          ],
+          "generalFeedback": "Feathers defines a seam as a place where you can alter a program's behaviour without editing in that place. Injecting a dependency creates such a seam: a test can substitute a double there without touching the function's body.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What dependency injection is",
+          "text": "<p><em>Dependency injection (DI)</em> means:</p>",
+          "answers": [
+            {
+              "text": "Passing a dependency in from outside (e.g. as a parameter) instead of creating or reading it inside the function",
+              "fraction": 100,
+              "feedback": "Correct — the collaborator is supplied to the code rather than constructed or fetched inside it."
+            },
+            {
+              "text": "Injecting a fault into a running program to see how it copes",
+              "fraction": 0,
+              "feedback": "That is fault injection, not dependency injection."
+            },
+            {
+              "text": "Copying a global variable into every function that needs it",
+              "fraction": 0,
+              "feedback": "Reaching for a global is exactly what DI replaces; DI passes the dependency in explicitly."
+            },
+            {
+              "text": "Automatically generating test cases from the code",
+              "fraction": 0,
+              "feedback": "That is test generation, unrelated to how a dependency is supplied."
+            }
+          ],
+          "generalFeedback": "Dependency injection supplies a function's collaborators from outside — typically as parameters — instead of having the function build them withor read them from a global. This creates a seam where a test can substitute a double.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test double is",
+          "text": "<p>A <em>test double</em> is:</p>",
+          "answers": [
+            {
+              "text": "A stand-in object substituted for a real dependency during a test",
+              "fraction": 100,
+              "feedback": "Correct — stubs, mocks and fakes are all test doubles that replace a real collaborator under test."
+            },
+            {
+              "text": "A second copy of the test that runs in parallel",
+              "fraction": 0,
+              "feedback": "That is not a double; a double replaces a dependency, not the test itself."
+            },
+            {
+              "text": "The production implementation of a dependency",
+              "fraction": 0,
+              "feedback": "A double stands inthe real implementation; it is not the real thing."
+            },
+            {
+              "text": "A tool that measures code coverage",
+              "fraction": 0,
+              "feedback": "That is a coverage tool, not a test double."
+            }
+          ],
+          "generalFeedback": "A test double is any object put in place of a real dependency so the code under test can be exercised in isolation — stub, mock, fake, dummy and spy are the common kinds. Each testability seam is a place where a double can be dropped in.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a global singleton read hurts testability",
+          "text": "<p>In <code>charge()</code>, the line <code>const cfg = Config.instance();</code> reads a global singleton. Why does this hurt testability?</p>",
+          "answers": [
+            {
+              "text": "It is a hidden input the test cannot set or substitute, because it is fetched inside the function",
+              "fraction": 100,
+              "feedback": "Correct — a test has no seam to supply a different config; the dependency is pinned inside the code."
+            },
+            {
+              "text": "Singletons run slower than injected objects",
+              "fraction": 0,
+              "feedback": "The problem is control, not speed."
+            },
+            {
+              "text": "Global reads always throw an exception under test",
+              "fraction": 0,
+              "feedback": "They do not throw; the issue is that the test cannot substitute the value."
+            },
+            {
+              "text": "It makes the function return the wrong type",
+              "fraction": 0,
+              "feedback": "It does not change the return type; it removes the test's control over config."
+            }
+          ],
+          "generalFeedback": "Reading a global singleton pulls a hidden input straight into the function. Because the test never passes it in, there is no seam to substitute a test config — reducing controllability. The fix is to inject a config parameter.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a hard-coded new hurts testability",
+          "text": "<p>In <code>charge()</code>, the line <code>const gw = new PaymentGateway();</code> constructs its collaborator directly. Why does this hurt testability?</p>",
+          "answers": [
+            {
+              "text": "The dependency is created inside the function, so a test cannot swap it for a double",
+              "fraction": 100,
+              "feedback": "Correct — hard-codingpins the real gateway; there is no seam to substitute one."
+            },
+            {
+              "text": "Usingis a syntax error in test code",
+              "fraction": 0,
+              "feedback": "is valid; the problem is that the collaborator cannot be substituted."
+            },
+            {
+              "text": "Constructors cannot be called more than once",
+              "fraction": 0,
+              "feedback": "They can; the issue is the test cannot replace the constructed object."
+            },
+            {
+              "text": "It doubles the memory the function uses",
+              "fraction": 0,
+              "feedback": "The concern is substitutability, not memory."
+            }
+          ],
+          "generalFeedback": "Constructing the gateway withinsidebinds the code to the real implementation. A test cannot reach in to replace it, so the real gateway (network, side effects) runs. Injecting the collaborator opens a seam for a double.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the real clock hurts testability",
+          "text": "<p>In <code>charge()</code>, the line <code>const at = Date.now();</code> reads the real wall clock. Why does this hurt testability?</p>",
+          "answers": [
+            {
+              "text": "The time changes on every run, so a test cannot pin it to assert on a fixed timestamp",
+              "fraction": 100,
+              "feedback": "Correct — the real clock is a nondeterministic input the test cannot control."
+            },
+            {
+              "text": "returns a string that is hard to parse",
+              "fraction": 0,
+              "feedback": "It returns a number; the real issue is that the value is uncontrollable."
+            },
+            {
+              "text": "Reading the clock deletes the previous timestamp",
+              "fraction": 0,
+              "feedback": "It does not; the problem is nondeterminism, not data loss."
+            },
+            {
+              "text": "The clock is only available in production builds",
+              "fraction": 0,
+              "feedback": "It is available under test too; but its value cannot be pinned without a seam."
+            }
+          ],
+          "generalFeedback": "The wall clock is a nondeterministic source:differs on every run, so a test can never assert on an exact timestamp. Injecting a clock lets a test substitute a fake that returns a fixed time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why real randomness hurts testability",
+          "text": "<p>In <code>charge()</code>, the line <code>const id = Math.random().toString(36);</code> uses the real RNG. Why does this hurt testability?</p>",
+          "answers": [
+            {
+              "text": "The value differs on every run, so a test cannot make the generated id deterministic",
+              "fraction": 100,
+              "feedback": "Correct — real randomness is a nondeterministic input the test cannot control."
+            },
+            {
+              "text": "is too slow to call inside a test",
+              "fraction": 0,
+              "feedback": "Speed is not the issue; determinism is."
+            },
+            {
+              "text": "Random numbers are always negative",
+              "fraction": 0,
+              "feedback": "returns a value in [0,1); the problem is it is not controllable."
+            },
+            {
+              "text": "Calling it changes the config singleton",
+              "fraction": 0,
+              "feedback": "It does not touch config; it just produces an uncontrollable value."
+            }
+          ],
+          "generalFeedback": "The RNG is a nondeterministic source:yields a different id each run, so a test cannot assert on the id. Injecting a seeded rng lets a test substitute a deterministic generator.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for the global singleton Config",
+          "text": "<p>What is the seam that removes the <em>global singleton Config</em> anti-pattern in <code>charge()</code>?</p>",
+          "answers": [
+            {
+              "text": "Inject a config parameter (pass the config in, e.g.)",
+              "fraction": 100,
+              "feedback": "Correct — supplying the config from outside opens a seam a test can control."
+            },
+            {
+              "text": "Cache the singleton in a module-level variable",
+              "fraction": 0,
+              "feedback": "That still reads a global; it does not let a test substitute the config."
+            },
+            {
+              "text": "Renameto",
+              "fraction": 0,
+              "feedback": "Renaming changes nothing about substitutability."
+            },
+            {
+              "text": "Wrap the read in a try/catch",
+              "fraction": 0,
+              "feedback": "Error handling does not create a seam for the config."
+            }
+          ],
+          "generalFeedback": "The fix is dependency injection: pass the config in as a parameter () instead of reading the global singleton. That turns the pinned dependency into a substitutable one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for the hard-coded gateway",
+          "text": "<p>What is the seam that removes the <em>hard-coded <code>new PaymentGateway()</code></em> anti-pattern?</p>",
+          "answers": [
+            {
+              "text": "Inject the gateway collaborator (pass it in, e.g.)",
+              "fraction": 100,
+              "feedback": "Correct — supplying the collaborator from outside lets a test substitute a double."
+            },
+            {
+              "text": "Move thecall to the top of the function",
+              "fraction": 0,
+              "feedback": "Its position does not matter; it is still constructed inside and cannot be swapped."
+            },
+            {
+              "text": "Makea subclass of",
+              "fraction": 0,
+              "feedback": "Changing the inheritance does not open a seam for substitution."
+            },
+            {
+              "text": "Call the gateway twice for reliability",
+              "fraction": 0,
+              "feedback": "That neither removes the hard-coded construction nor helps substitution."
+            }
+          ],
+          "generalFeedback": "The fix is to inject the gateway collaborator () instead of constructing it with. The injection point is the object seam where a test drops in a double.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for the real clock",
+          "text": "<p>What is the seam that removes the <em>real clock <code>Date.now()</code></em> anti-pattern?</p>",
+          "answers": [
+            {
+              "text": "Inject a clock (pass a clock in, e.g.)",
+              "fraction": 100,
+              "feedback": "Correct — supplying the clock from outside lets a test pin the time."
+            },
+            {
+              "text": "Roundto the nearest second",
+              "fraction": 0,
+              "feedback": "Rounding still reads the real, uncontrollable clock."
+            },
+            {
+              "text": "Store the timestamp in a global variable",
+              "fraction": 0,
+              "feedback": "A global is still not something the test supplies; it does not create a seam."
+            },
+            {
+              "text": "Callonly once per program",
+              "fraction": 0,
+              "feedback": "Calling it once still leaves the value uncontrollable by a test."
+            }
+          ],
+          "generalFeedback": "The fix is to inject a clock () rather than callingdirectly, opening a seam where a test substitutes a fake clock with a fixed time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for real randomness",
+          "text": "<p>What is the seam that removes the <em>real <code>Math.random()</code></em> anti-pattern?</p>",
+          "answers": [
+            {
+              "text": "Inject a seeded rng (pass a generator in, e.g.)",
+              "fraction": 100,
+              "feedback": "Correct — supplying a seeded rng lets a test make the id deterministic."
+            },
+            {
+              "text": "Multiplyby a constant",
+              "fraction": 0,
+              "feedback": "Scaling a random value is still random and uncontrollable."
+            },
+            {
+              "text": "Callin a loop and average the results",
+              "fraction": 0,
+              "feedback": "Averaging real randomness is still nondeterministic."
+            },
+            {
+              "text": "Convert the number to a string with a fixed prefix",
+              "fraction": 0,
+              "feedback": "The random part remains uncontrollable; no seam is created."
+            }
+          ],
+          "generalFeedback": "The fix is to inject a seeded rng () instead of calling, opening a seam where a test substitutes a deterministic generator.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What design-for-testability means",
+          "text": "<p><em>Design for testability</em> in this snippet means:</p>",
+          "answers": [
+            {
+              "text": "Removing the pinned dependencies so each one becomes substitutable by a test",
+              "fraction": 100,
+              "feedback": "Correct — the seams turn hard-coded dependencies into places a test can supply a double."
+            },
+            {
+              "text": "Writing more assertions in each test",
+              "fraction": 0,
+              "feedback": "Assertions are useful, but testability here is about making dependencies substitutable."
+            },
+            {
+              "text": "Deleting the dependencies from the function entirely",
+              "fraction": 0,
+              "feedback": "The dependencies are still used; they are injected, not deleted."
+            },
+            {
+              "text": "Running the tests more often",
+              "fraction": 0,
+              "feedback": "Frequency of runs is unrelated to designing the code for substitutability."
+            }
+          ],
+          "generalFeedback": "Designing for testability means applying seams that turn each pinned dependency (global config, hard-coded gateway, real clock, real RNG) into something a test can substitute. Substitutable dependencies are the essence of a testable unit.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Each fix is a seam enabling a double",
+          "text": "<p>Each of the four fixes in <code>charge()</code> is a Feathers seam that lets a test substitute a test double.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — injecting the config, gateway, clock or rng each opens a seam where a test drops in a double."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Each injectiona seam: it creates a place where a test can substitute a double for the real dependency."
+            }
+          ],
+          "generalFeedback": "Every fix here is dependency injection, which is a seam. The seam is the place; the test double is the substitute placed there. This is why the seams explorer cross-links the test-doubles topic."
+        },
+        {
+          "type": "multichoice",
+          "name": "How many pinned dependencies",
+          "text": "<p>How many pinned (untestable) dependencies does the <code>charge()</code> snippet contain?</p>",
+          "answers": [
+            {
+              "text": "4 — the global config, the hard-coded gateway, the real clock, and the real RNG",
+              "fraction": 100,
+              "feedback": "Correct — those are the four anti-patterns, each removed by one seam."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are four anti-patterns, not two."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Do not forget the global config read; there are four in total."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "The snippet pins exactly four dependencies, not five."
+            }
+          ],
+          "generalFeedback": "pins four dependencies:,,, and. The testability meter reads applied/4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seam type of all four fixes",
+          "text": "<p>All four fixes in <code>charge()</code> are which kind of Feathers seam?</p>",
+          "answers": [
+            {
+              "text": "Object seams",
+              "fraction": 100,
+              "feedback": "Correct — each fix substitutes a different object (via an injected parameter), so all four are object seams."
+            },
+            {
+              "text": "Preprocessing seams",
+              "fraction": 0,
+              "feedback": "No macro/preprocessor substitution is used here; the seams are object seams."
+            },
+            {
+              "text": "Link seams",
+              "fraction": 0,
+              "feedback": "Nothing is substituted at link time; substitution happens by passing an object in."
+            },
+            {
+              "text": "Compile seams",
+              "fraction": 0,
+              "feedback": "The substitution is at runtime via an injected object, so these are object seams."
+            }
+          ],
+          "generalFeedback": "In Feathers' taxonomy (preprocessing / link / object seams), all four fixes here work by passing a different object in through a parameter — object seams.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Double enabled by injecting config",
+          "text": "<p>After injecting the config parameter (the <em>global</em> fix), which test double does the seam typically enable in this model?</p>",
+          "answers": [
+            {
+              "text": "A stub",
+              "fraction": 100,
+              "feedback": "Correct — the config seam enables a stub that returns canned settings."
+            },
+            {
+              "text": "A mock",
+              "fraction": 0,
+              "feedback": "The gateway fix enables a mock; the config fix enables a stub here."
+            },
+            {
+              "text": "A fake",
+              "fraction": 0,
+              "feedback": "The clock fix enables a fake; the config fix enables a stub here."
+            },
+            {
+              "text": "No double is possible",
+              "fraction": 0,
+              "feedback": "Once injected, the config can be substituted by a stub."
+            }
+          ],
+          "generalFeedback": "In this fixture the global-config seam maps to a: a test supplies canned config values through the injected parameter.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Double enabled by injecting the gateway",
+          "text": "<p>After injecting the gateway collaborator (the <em>newdep</em> fix), which test double does the seam enable in this model?</p>",
+          "answers": [
+            {
+              "text": "A mock",
+              "fraction": 100,
+              "feedback": "Correct — the gateway seam maps to a mock, which can verify the call and force a failure."
+            },
+            {
+              "text": "A stub",
+              "fraction": 0,
+              "feedback": "The config and RNG fixes map to stubs; the gateway fix maps to a mock here."
+            },
+            {
+              "text": "A fake",
+              "fraction": 0,
+              "feedback": "The clock fix maps to a fake; the gateway fix maps to a mock here."
+            },
+            {
+              "text": "A dummy",
+              "fraction": 0,
+              "feedback": "The gateway is actively used, so it is not a dummy; this seam enables a mock."
+            }
+          ],
+          "generalFeedback": "In this fixture the gateway seam maps to a: injecting the collaborator lets a test verify how the gateway is called and force it to fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Double enabled by injecting the clock",
+          "text": "<p>After injecting a clock (the <em>clock</em> fix), which test double does the seam enable in this model?</p>",
+          "answers": [
+            {
+              "text": "A fake",
+              "fraction": 100,
+              "feedback": "Correct — the clock seam maps to a fake clock returning a fixed time."
+            },
+            {
+              "text": "A stub",
+              "fraction": 0,
+              "feedback": "In this fixture the clock maps to a fake, not a stub."
+            },
+            {
+              "text": "A mock",
+              "fraction": 0,
+              "feedback": "The gateway fix maps to a mock; the clock fix maps to a fake here."
+            },
+            {
+              "text": "A spy",
+              "fraction": 0,
+              "feedback": "The clock seam maps to a fake clock, not a spy."
+            }
+          ],
+          "generalFeedback": "In this fixture the clock seam maps to a: a working clock implementation that returns a fixed, controllable time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Double enabled by injecting the rng",
+          "text": "<p>After injecting a seeded rng (the <em>random</em> fix), which test double does the seam enable in this model?</p>",
+          "answers": [
+            {
+              "text": "A stub",
+              "fraction": 100,
+              "feedback": "Correct — the rng seam maps to a stub that returns a fixed, deterministic id."
+            },
+            {
+              "text": "A mock",
+              "fraction": 0,
+              "feedback": "The gateway fix maps to a mock; the rng fix maps to a stub here."
+            },
+            {
+              "text": "A fake",
+              "fraction": 0,
+              "feedback": "The clock fix maps to a fake; the rng fix maps to a stub here."
+            },
+            {
+              "text": "A dummy",
+              "fraction": 0,
+              "feedback": "The rng is actually called and must return a value, so it is a stub, not a dummy."
+            }
+          ],
+          "generalFeedback": "In this fixture the rng seam maps to a: a test supplies canned, deterministic values so the generated id is fixed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Capability unlocked by injecting the clock",
+          "text": "<p>Which capability does injecting a clock unlock for a test?</p>",
+          "answers": [
+            {
+              "text": "Assert on a fixed timestamp",
+              "fraction": 100,
+              "feedback": "Correct — a fake clock lets the test pin the time and assert on it."
+            },
+            {
+              "text": "Force the gateway to fail",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the gateway, not the clock."
+            },
+            {
+              "text": "Make the generated id deterministic",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the seeded rng, not the clock."
+            },
+            {
+              "text": "Supply a test config without touching globals",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the config, not the clock."
+            }
+          ],
+          "generalFeedback": "Injecting a clock lets a test substitute a fake that returns a fixed time, so the test can.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Capability unlocked by injecting the gateway",
+          "text": "<p>Which capability does injecting the gateway collaborator unlock for a test?</p>",
+          "answers": [
+            {
+              "text": "Force the gateway to fail",
+              "fraction": 100,
+              "feedback": "Correct — with the gateway injected, a test can substitute a double that returns or throws a failure."
+            },
+            {
+              "text": "Assert on a fixed timestamp",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the clock, not the gateway."
+            },
+            {
+              "text": "Make the generated id deterministic",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the seeded rng, not the gateway."
+            },
+            {
+              "text": "Supply a test config without touching globals",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the config, not the gateway."
+            }
+          ],
+          "generalFeedback": "Injecting the gateway lets a test drop in a double, so it canand check howhandles the error.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Capability unlocked by injecting config",
+          "text": "<p>Which capability does injecting the config parameter unlock for a test?</p>",
+          "answers": [
+            {
+              "text": "Supply a test config without touching globals",
+              "fraction": 100,
+              "feedback": "Correct — the config arrives as a parameter, so a test sets it directly."
+            },
+            {
+              "text": "Assert on a fixed timestamp",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the clock, not the config."
+            },
+            {
+              "text": "Force the gateway to fail",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the gateway, not the config."
+            },
+            {
+              "text": "Make the generated id deterministic",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the seeded rng, not the config."
+            }
+          ],
+          "generalFeedback": "Injecting the config parameter lets a test— no shared singleton to reset between tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Capability unlocked by injecting the rng",
+          "text": "<p>Which capability does injecting a seeded rng unlock for a test?</p>",
+          "answers": [
+            {
+              "text": "Make the generated id deterministic",
+              "fraction": 100,
+              "feedback": "Correct — a seeded rng lets a test fix the value, so the id is repeatable."
+            },
+            {
+              "text": "Assert on a fixed timestamp",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the clock, not the rng."
+            },
+            {
+              "text": "Force the gateway to fail",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the gateway, not the rng."
+            },
+            {
+              "text": "Supply a test config without touching globals",
+              "fraction": 0,
+              "feedback": "That is unlocked by injecting the config, not the rng."
+            }
+          ],
+          "generalFeedback": "Injecting a seeded rng lets a test substitute a deterministic generator, so it canand assert on it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why injection is an object seam",
+          "text": "<p>Why is injecting a dependency as a parameter an <em>object seam</em>?</p>",
+          "answers": [
+            {
+              "text": "The dependency arrives as an object reference, so a test can pass a different object there without editing",
+              "fraction": 100,
+              "feedback": "Correct — substitution happens by swapping the object at the injection point, not by changing the code."
+            },
+            {
+              "text": "Because it changes the return type of",
+              "fraction": 0,
+              "feedback": "The return type is unchanged; an object seam is about swapping the collaborator object."
+            },
+            {
+              "text": "Because it adds a new decision branch to the function",
+              "fraction": 0,
+              "feedback": "No branch is added; the seam is the substitutable object parameter."
+            },
+            {
+              "text": "Because it replaces the object at link time",
+              "fraction": 0,
+              "feedback": "Link-time substitution would be a link seam; here the object is passed in at runtime."
+            }
+          ],
+          "generalFeedback": "An object seam is a place where you can change behaviour by substituting a different object. Passing the collaborator in as a parameter makes that point substitutable — a test supplies a double object without touching the function body.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match the clock anti-pattern to fix and double",
+          "text": "<p>For the <em>real clock <code>Date.now()</code></em> anti-pattern, the matching fix and enabled double are:</p>",
+          "answers": [
+            {
+              "text": "Inject a clock (object seam) &#8594; enables a fake",
+              "fraction": 100,
+              "feedback": "Correct — a fake clock returning a fixed time is what the clock seam enables."
+            },
+            {
+              "text": "Inject a clock (object seam) &#8594; enables a mock",
+              "fraction": 0,
+              "feedback": "The clock maps to a fake, not a mock, in this fixture."
+            },
+            {
+              "text": "Inject the gateway (object seam) &#8594; enables a fake",
+              "fraction": 0,
+              "feedback": "The gateway is a different anti-pattern (newdep) and enables a mock."
+            },
+            {
+              "text": "Inject a seeded rng (object seam) &#8594; enables a fake",
+              "fraction": 0,
+              "feedback": "The rng is a different anti-pattern (random) and enables a stub."
+            }
+          ],
+          "generalFeedback": "The clock anti-pattern maps to: inject a clock (an object seam) enabling aclock with a fixed time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which fix enables a mock",
+          "text": "<p>A test wants to verify that <code>charge()</code> actually calls the payment gateway. Which anti-pattern's fix enables the <em>mock</em> that makes this possible?</p>",
+          "answers": [
+            {
+              "text": "The hard-coded— inject the gateway collaborator",
+              "fraction": 100,
+              "feedback": "Correct — the gateway seam enables a mock that verifies the interaction."
+            },
+            {
+              "text": "The global singleton Config — inject a config parameter",
+              "fraction": 0,
+              "feedback": "The config seam enables a stub, not a mock."
+            },
+            {
+              "text": "The real clock — inject a clock",
+              "fraction": 0,
+              "feedback": "The clock seam enables a fake, not a mock."
+            },
+            {
+              "text": "The real RNG — inject a seeded rng",
+              "fraction": 0,
+              "feedback": "The rng seam enables a stub, not a mock."
+            }
+          ],
+          "generalFeedback": "Only the gateway seam maps to a mock in this fixture. A mock verifies expected interactions, so injecting the gateway is what lets a test assert the call was made.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Score after one fix",
+          "text": "<p><code>testabilityOf</code> reports score as applied/4. If a learner applies only the clock fix, what is the score?</p>",
+          "answers": [
+            {
+              "text": "25% (1/4)",
+              "fraction": 100,
+              "feedback": "Correct — one of the four dependencies is now substitutable."
+            },
+            {
+              "text": "50% (2/4)",
+              "fraction": 0,
+              "feedback": "Only one fix is applied, so the score is 1/4, not 2/4."
+            },
+            {
+              "text": "100% (4/4)",
+              "fraction": 0,
+              "feedback": "Three dependencies are still pinned; the score is 1/4."
+            },
+            {
+              "text": "0% (0/4)",
+              "fraction": 0,
+              "feedback": "One fix is applied, so the score is above zero: 1/4."
+            }
+          ],
+          "generalFeedback": "The meter reads applied/4. One applied fix gives 1/4 = 25%.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Injecting the clock enables a mock",
+          "text": "<p>In this model, injecting a clock enables a <em>mock</em> double.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Not in this fixture — the clock seam maps to a fake (a working clock with a fixed time), not a mock."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — the clock seam enables a fake; the mock is what the gateway seam enables."
+            }
+          ],
+          "generalFeedback": "The double mapping is global &#8594; stub, newdep &#8594; mock, clock &#8594; fake, random &#8594; stub. Injecting the clock enables a fake clock with a fixed time; a mock is enabled only by injecting the gateway."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which fix pins to a deterministic id",
+          "text": "<p>A test needs the id produced by <code>charge()</code> to be the same on every run. Which fix is required?</p>",
+          "answers": [
+            {
+              "text": "Inject a seeded rng (the random fix)",
+              "fraction": 100,
+              "feedback": "Correct — a seeded rng makes the generated id deterministic."
+            },
+            {
+              "text": "Inject a clock (the clock fix)",
+              "fraction": 0,
+              "feedback": "A fixed clock pins the timestamp, not the random id."
+            },
+            {
+              "text": "Inject the gateway (the newdep fix)",
+              "fraction": 0,
+              "feedback": "The gateway seam is about the payment call, not the id."
+            },
+            {
+              "text": "Inject the config (the global fix)",
+              "fraction": 0,
+              "feedback": "The config seam supplies settings, not the id value."
+            }
+          ],
+          "generalFeedback": "The id comes from. Injecting a seeded rng lets a test substitute a deterministic generator so the id repeats.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which two fixes both enable a stub",
+          "text": "<p>In this fixture, which <strong>two</strong> anti-patterns have fixes that both enable a <em>stub</em>?</p>",
+          "answers": [
+            {
+              "text": "The global singleton Config and the real",
+              "fraction": 100,
+              "feedback": "Correct — both the config seam and the rng seam map to a stub."
+            },
+            {
+              "text": "The hard-coded gateway and the real clock",
+              "fraction": 0,
+              "feedback": "The gateway maps to a mock and the clock maps to a fake, not stubs."
+            },
+            {
+              "text": "The real clock and the real",
+              "fraction": 0,
+              "feedback": "The clock maps to a fake; only the rng of this pair maps to a stub."
+            },
+            {
+              "text": "The global singleton Config and the hard-coded gateway",
+              "fraction": 0,
+              "feedback": "The config maps to a stub, but the gateway maps to a mock."
+            }
+          ],
+          "generalFeedback": "The double mapping is global &#8594; stub, newdep &#8594; mock, clock &#8594; fake, random &#8594; stub. The two stub-enabling fixes are the config and the rng.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Score after two fixes",
+          "text": "<p>A learner applies the <em>global</em> fix and the <em>clock</em> fix, and nothing else. What score does <code>testabilityOf</code> report?</p>",
+          "answers": [
+            {
+              "text": "50% (2/4)",
+              "fraction": 100,
+              "feedback": "Correct — two of the four dependencies are now substitutable."
+            },
+            {
+              "text": "25% (1/4)",
+              "fraction": 0,
+              "feedback": "Two distinct fixes are applied, so the score is 2/4, not 1/4."
+            },
+            {
+              "text": "75% (3/4)",
+              "fraction": 0,
+              "feedback": "Only two fixes are applied; the gateway and rng are still pinned."
+            },
+            {
+              "text": "100% (4/4)",
+              "fraction": 0,
+              "feedback": "Two dependencies remain pinned, so the score is 2/4."
+            }
+          ],
+          "generalFeedback": "Score = applied/4. Applying the global and clock fixes makes 2 of 4 dependencies substitutable: 2/4 = 50%.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Score after three fixes",
+          "text": "<p>A learner applies the <em>global</em>, <em>newdep</em>, and <em>clock</em> fixes but leaves <code>Math.random()</code> as is. What score does <code>testabilityOf</code> report?</p>",
+          "answers": [
+            {
+              "text": "75% (3/4)",
+              "fraction": 100,
+              "feedback": "Correct — three of four dependencies are substitutable; only the rng remains pinned."
+            },
+            {
+              "text": "50% (2/4)",
+              "fraction": 0,
+              "feedback": "Three fixes are applied, so the score is 3/4, not 2/4."
+            },
+            {
+              "text": "100% (4/4)",
+              "fraction": 0,
+              "feedback": "The rng is still pinned, so the score is 3/4, not full."
+            },
+            {
+              "text": "25% (1/4)",
+              "fraction": 0,
+              "feedback": "Three distinct fixes are applied; the score is 3/4."
+            }
+          ],
+          "generalFeedback": "Score = applied/4. With the config, gateway and clock injected, 3 of 4 dependencies are substitutable: 3/4 = 75%. The RNG still pins the id.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "State after all four fixes",
+          "text": "<p>When all four seams are applied, the score is 100% and <code>charge()</code> becomes:</p>",
+          "answers": [
+            {
+              "text": "A pure-ish unit whose config, gateway, clock and RNG a test fully controls",
+              "fraction": 100,
+              "feedback": "Correct — every dependency is now substitutable, so the test controls all inputs."
+            },
+            {
+              "text": "A function that no longer uses a config, gateway, clock or RNG",
+              "fraction": 0,
+              "feedback": "It still uses all four; they are injected rather than pinned."
+            },
+            {
+              "text": "Guaranteed to be free of all bugs",
+              "fraction": 0,
+              "feedback": "Testability makes it easy to test, not automatically bug-free."
+            },
+            {
+              "text": "Impossible to run in production",
+              "fraction": 0,
+              "feedback": "It runs fine in production with real dependencies supplied; tests supply doubles."
+            }
+          ],
+          "generalFeedback": "Applying all four object seams makes every dependency substitutable.is now a pure-ish unit: the test injects config, gateway, clock and rng, so it controls every input and can observe every effect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which fixes remove nondeterminism",
+          "text": "<p>Which subset of fixes removes the <em>nondeterminism</em> from <code>charge()</code>?</p>",
+          "answers": [
+            {
+              "text": "Injecting the clock and the rng",
+              "fraction": 100,
+              "feedback": "Correct — the wall clock and the RNG are the two nondeterministic sources."
+            },
+            {
+              "text": "Injecting the config and the gateway",
+              "fraction": 0,
+              "feedback": "Those improve substitutability but neither is a nondeterministic source."
+            },
+            {
+              "text": "Injecting only the gateway",
+              "fraction": 0,
+              "feedback": "The gateway is not a nondeterministic source; the clock and rng are."
+            },
+            {
+              "text": "Injecting only the config",
+              "fraction": 0,
+              "feedback": "The config is a hidden input, not a nondeterministic source."
+            }
+          ],
+          "generalFeedback": "The nondeterminism sources in this code are exactly the clock () and the RNG (). Injecting both replaces them with test-controlled values, makingdeterministic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why injecting clock and rng removes nondeterminism",
+          "text": "<p>Why does injecting the clock and the rng also make <code>charge()</code> deterministic?</p>",
+          "answers": [
+            {
+              "text": "Both were varying inputs; once the test supplies them, the same inputs always produce the same output",
+              "fraction": 100,
+              "feedback": "Correct — replacing the two nondeterministic sources with fixed values removes the run-to-run variation."
+            },
+            {
+              "text": "Injection deletes the timestamp and id from the output entirely",
+              "fraction": 0,
+              "feedback": "They are still produced; they are just now supplied by the test."
+            },
+            {
+              "text": "A seeded rng runs faster than",
+              "fraction": 0,
+              "feedback": "Speed is irrelevant; determinism comes from controllable, fixed values."
+            },
+            {
+              "text": "The clock and rng stop being called",
+              "fraction": 0,
+              "feedback": "They are still called — on the injected doubles, which return fixed values."
+            }
+          ],
+          "generalFeedback": "The clock and RNG were the only run-to-run varying inputs. Injecting them lets the test pin both, sobecomes a deterministic function of its inputs — testable and repeatable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Does injecting config remove nondeterminism",
+          "text": "<p>Does injecting the config parameter (the <em>global</em> fix) remove nondeterminism from <code>charge()</code>?</p>",
+          "answers": [
+            {
+              "text": "No — the config is a hidden input, not a nondeterministic one; injecting it improves controllability but the nondeterminism comes from the clock and RNG",
+              "fraction": 100,
+              "feedback": "Correct — removing the global helps substitutability, but only the clock and rng fixes remove nondeterminism."
+            },
+            {
+              "text": "Yes — the global singleton is the main source of nondeterminism",
+              "fraction": 0,
+              "feedback": "A singleton is a hidden but stable input; the nondeterministic sources are the clock and rng."
+            },
+            {
+              "text": "Yes — every injection removes some nondeterminism",
+              "fraction": 0,
+              "feedback": "Injection improves substitutability generally, but only the clock and rng sources are nondeterministic."
+            },
+            {
+              "text": "No — injecting config actually adds nondeterminism",
+              "fraction": 0,
+              "feedback": "It does not add nondeterminism; it removes a hidden global input."
+            }
+          ],
+          "generalFeedback": "Not every testability problem is nondeterminism. The global config is a hidden input that hurts controllability; injecting it makes the config substitutable. But the code's nondeterminism comes specifically from the clock and the RNG.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seam versus double",
+          "text": "<p>What is the difference between the <em>seam</em> and the <em>test double</em> in this model?</p>",
+          "answers": [
+            {
+              "text": "The seam is the place where substitution is possible (the injection point); the double is the substitute object placed there",
+              "fraction": 100,
+              "feedback": "Correct — the seam is the where; the double is the what."
+            },
+            {
+              "text": "The seam is the substitute object; the double is the place it goes",
+              "fraction": 0,
+              "feedback": "This reverses them: the seam is the place, the double is the substitute."
+            },
+            {
+              "text": "They are two names for the same thing",
+              "fraction": 0,
+              "feedback": "They are distinct: one is a location in the code, the other is an object."
+            },
+            {
+              "text": "The seam is a kind of assertion; the double is a kind of loop",
+              "fraction": 0,
+              "feedback": "Neither is an assertion or a loop; the seam is a substitution point and the double is a stand-in object."
+            }
+          ],
+          "generalFeedback": "The seam is a place in the code where behaviour can be substituted (here, an injected parameter — an object seam). The test double is the concrete stand-in (stub/mock/fake) a test drops into that seam.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Two stubs, different problems",
+          "text": "<p>The config fix and the rng fix both enable a <em>stub</em> via an object seam, yet they address different testability problems. What do they share and how do they differ?</p>",
+          "answers": [
+            {
+              "text": "Same double (stub) and same seam type (object), but the config removes a hidden global input while the rng removes a nondeterministic source",
+              "fraction": 100,
+              "feedback": "Correct — identical seam type and double, different underlying problem."
+            },
+            {
+              "text": "Different doubles and different seam types, addressing the same problem",
+              "fraction": 0,
+              "feedback": "Both enable a stub via an object seam; the problems differ, not the double or seam."
+            },
+            {
+              "text": "Same double, but the config fix is a link seam and the rng fix is an object seam",
+              "fraction": 0,
+              "feedback": "Both are object seams; neither is a link seam."
+            },
+            {
+              "text": "They are identical in every respect",
+              "fraction": 0,
+              "feedback": "They share seam type and double but tackle different problems (hidden input vs nondeterminism)."
+            }
+          ],
+          "generalFeedback": "Both map to a stub through an object seam, showing the seam type and double can coincide. Yet the config addresses a hidden global input (controllability) while the rng addresses nondeterminism — the same tool solving different testability problems.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Score and capabilities for newdep plus random",
+          "text": "<p>A learner applies only the <em>newdep</em> and <em>random</em> fixes. What score and which unlocked capabilities result?</p>",
+          "answers": [
+            {
+              "text": "50% (2/4); force the gateway to fail, and make the generated id deterministic",
+              "fraction": 100,
+              "feedback": "Correct — two fixes give 2/4, unlocking the gateway and rng capabilities."
+            },
+            {
+              "text": "50% (2/4); assert on a fixed timestamp, and supply a test config",
+              "fraction": 0,
+              "feedback": "Those are the clock and config capabilities, which were not applied here."
+            },
+            {
+              "text": "75% (3/4); force the gateway to fail, and make the generated id deterministic",
+              "fraction": 0,
+              "feedback": "Only two fixes are applied, so the score is 2/4, not 3/4."
+            },
+            {
+              "text": "25% (1/4); force the gateway to fail",
+              "fraction": 0,
+              "feedback": "Two distinct fixes are applied, so the score is 2/4 and two capabilities are unlocked."
+            }
+          ],
+          "generalFeedback": "Two applied fixes give 2/4 = 50%. The newdep fix unlocks \"force the gateway to fail\" and the random fix unlocks \"make the generated id deterministic\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why substitutability equals testability",
+          "text": "<p>Why does making every dependency substitutable make <code>charge()</code> testable?</p>",
+          "answers": [
+            {
+              "text": "Once each dependency can be substituted, a test can control all inputs and observe all effects, which is what testability requires",
+              "fraction": 100,
+              "feedback": "Correct — substitutable dependencies give the test both controllability and observability."
+            },
+            {
+              "text": "Because substitutable code always runs faster",
+              "fraction": 0,
+              "feedback": "Speed is not the point; control and observation are."
+            },
+            {
+              "text": "Because injected dependencies never contain bugs",
+              "fraction": 0,
+              "feedback": "They can still have bugs; injection just makes the unit controllable in a test."
+            },
+            {
+              "text": "Because the function then needs no dependencies at all",
+              "fraction": 0,
+              "feedback": "It still has dependencies; they are simply supplied by the test."
+            }
+          ],
+          "generalFeedback": "Testability is controllability plus observability. When every dependency is substitutable, a test can drive all inputs (config, gateway behaviour, time, id) and observe the effects — so substitutability is precisely what makes the unit testable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix that only removes a hidden input",
+          "text": "<p>Which single fix removes a hidden input but does <strong>not</strong> remove nondeterminism and does <strong>not</strong> enable forcing a failure?</p>",
+          "answers": [
+            {
+              "text": "Inject the config parameter (the global fix)",
+              "fraction": 100,
+              "feedback": "Correct — it removes the hidden global input; it is not a nondeterministic source, and forcing a failure is the gateway's capability."
+            },
+            {
+              "text": "Inject a clock (the clock fix)",
+              "fraction": 0,
+              "feedback": "The clock fix removes nondeterminism, so it does not fit."
+            },
+            {
+              "text": "Inject a seeded rng (the random fix)",
+              "fraction": 0,
+              "feedback": "The rng fix removes nondeterminism, so it does not fit."
+            },
+            {
+              "text": "Inject the gateway (the newdep fix)",
+              "fraction": 0,
+              "feedback": "The gateway fix is exactly the one that enables forcing a failure, so it does not fit."
+            }
+          ],
+          "generalFeedback": "The global-config fix removes a hidden input (improving controllability). It is not one of the nondeterminism sources (clock, rng), and forcing a failure is unlocked by the gateway fix — so the config fix uniquely matches.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fixes for a fixed time and deterministic id",
+          "text": "<p>A test must assert on both a fixed timestamp and a deterministic id. Which fixes are needed, and what score results?</p>",
+          "answers": [
+            {
+              "text": "Inject the clock and inject the seeded rng; score 50% (2/4)",
+              "fraction": 100,
+              "feedback": "Correct — the clock pins the time, the rng pins the id; two of four dependencies are substitutable."
+            },
+            {
+              "text": "Inject the config and inject the gateway; score 50% (2/4)",
+              "fraction": 0,
+              "feedback": "Those unlock config and failure-forcing, not a fixed time or deterministic id."
+            },
+            {
+              "text": "Inject the clock only; score 25% (1/4)",
+              "fraction": 0,
+              "feedback": "The clock pins the time but not the id; the rng is also needed."
+            },
+            {
+              "text": "Inject all four; score 100% (4/4)",
+              "fraction": 0,
+              "feedback": "Only the clock and rng are required for these two assertions; that is 2/4."
+            }
+          ],
+          "generalFeedback": "A fixed timestamp needs the clock fix; a deterministic id needs the rng fix. Applying exactly those two gives 2/4 = 50%.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Score is order-independent",
+          "text": "<p>Applying the clock fix then the global fix yields the same score as applying the global fix then the clock fix.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct —counts the set of applied fixes, so order does not matter: either way it is 2/4."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The score depends only on which fixes are applied, not the order; both orders give 2/4."
+            }
+          ],
+          "generalFeedback": "Score = applied/4, computed from the set of applied fixes (deduped, in fixture order). The order in which the learner toggles them does not change the result: two distinct fixes give 2/4 = 50% either way."
+        },
+        {
+          "type": "multichoice",
+          "name": "Mock versus stub for the gateway",
+          "text": "<p>A test wants to <em>verify</em> that <code>charge()</code> calls the gateway with the right arguments, not merely receive a canned return value. Which double, enabled by which fix, does this need?</p>",
+          "answers": [
+            {
+              "text": "A mock, enabled by injecting the gateway collaborator",
+              "fraction": 100,
+              "feedback": "Correct — a mock verifies interactions; a stub would only return canned values."
+            },
+            {
+              "text": "A stub, enabled by injecting the gateway collaborator",
+              "fraction": 0,
+              "feedback": "A stub returns canned values but does not verify the call; the gateway seam here maps to a mock."
+            },
+            {
+              "text": "A fake, enabled by injecting a clock",
+              "fraction": 0,
+              "feedback": "A fake clock pins time; it does not verify a gateway call."
+            },
+            {
+              "text": "A stub, enabled by injecting a seeded rng",
+              "fraction": 0,
+              "feedback": "The rng stub fixes the id; it says nothing about the gateway call."
+            }
+          ],
+          "generalFeedback": "Verifying the interaction (right method, right arguments) is behaviour verification, the job of a mock. In this fixture the gateway seam maps to a mock, so injecting the gateway is the enabling fix.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "One seam type, three doubles",
+          "text": "<p>All four fixes are object seams, yet they enable three different doubles (stub, mock, fake). What does this show?</p>",
+          "answers": [
+            {
+              "text": "The seam type (where you substitute) is independent of the double (what you substitute); one seam kind can host different doubles depending on the test's goal",
+              "fraction": 100,
+              "feedback": "Correct — object seams provide the substitution point; the choice of stub, mock or fake depends on what the test needs."
+            },
+            {
+              "text": "Each seam type can enable only one kind of double",
+              "fraction": 0,
+              "feedback": "The opposite: one seam type (object) here hosts stubs, a mock, and a fake."
+            },
+            {
+              "text": "Object seams can only ever enable stubs",
+              "fraction": 0,
+              "feedback": "Here object seams also enable a mock and a fake."
+            },
+            {
+              "text": "The double determines the seam type",
+              "fraction": 0,
+              "feedback": "They are independent; the same object seam hosts different doubles."
+            }
+          ],
+          "generalFeedback": "Seam type and double type are orthogonal. All four fixes use the same object seam, but the test picks the double — stub for canned config/id, mock to verify the gateway call, fake for a working fixed clock — according to its goal.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是接縫",
+          "text": "<p>依 Michael Feathers 的定義，<em>接縫（seam）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "一個能在「不修改該處程式碼」的情況下改變程式行為的位置",
+              "fraction": 100,
+              "feedback": "正確——接縫讓你能替換行為（例如置換某個相依），而不必修改該處的程式碼。"
+            },
+            {
+              "text": "刻意注入程式碼、用來測試測試套件的缺陷",
+              "fraction": 0,
+              "feedback": "那是植入的錯誤／突變體，不是接縫。"
+            },
+            {
+              "text": "一行永遠含有錯誤的程式碼",
+              "fraction": 0,
+              "feedback": "接縫是可替換行為的位置，而非必定有錯的程式。"
+            },
+            {
+              "text": "網路上兩個微服務之間的邊界",
+              "fraction": 0,
+              "feedback": "接縫是程式碼層級可改變行為的位置，不是網路邊界。"
+            }
+          ],
+          "generalFeedback": "Feathers 將接縫定義為「一個能在不修改該處的情況下改變程式行為的位置」。注入相依就會產生這樣的接縫：測試可以在該處放入替身（double），而不必動到函式本體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是相依注入",
+          "text": "<p><em>相依注入（dependency injection，DI）</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "從外部把相依傳進來（例如作為參數），而不是在函式內部建立或讀取它",
+              "fraction": 100,
+              "feedback": "正確——協作者是被提供給程式碼，而非在其內部以 new 建立或抓取。"
+            },
+            {
+              "text": "把錯誤注入正在執行的程式，觀察它如何應對",
+              "fraction": 0,
+              "feedback": "那是錯誤注入（fault injection），不是相依注入。"
+            },
+            {
+              "text": "把某個全域變數複製到每個需要它的函式裡",
+              "fraction": 0,
+              "feedback": "取用全域正是 DI 所要取代的；DI 會明確地把相依傳進來。"
+            },
+            {
+              "text": "從程式碼自動產生測試案例",
+              "fraction": 0,
+              "feedback": "那是測試生成，與相依如何被提供無關。"
+            }
+          ],
+          "generalFeedback": "相依注入從外部（通常作為參數）提供函式的協作者，而非讓函式以建立或從全域讀取。這會產生一個接縫，讓測試能在該處替換替身。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是測試替身",
+          "text": "<p><em>測試替身（test double）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "在測試期間代替真實相依而放入的替身物件",
+              "fraction": 100,
+              "feedback": "正確——stub、mock、fake 都是測試替身，用來取代受測時的真實協作者。"
+            },
+            {
+              "text": "並行執行的第二份測試副本",
+              "fraction": 0,
+              "feedback": "那不是替身；替身取代的是相依，而非測試本身。"
+            },
+            {
+              "text": "某個相依的正式（生產）實作",
+              "fraction": 0,
+              "feedback": "替身是真實實作的東西，它不是真貨。"
+            },
+            {
+              "text": "量測程式碼覆蓋率的工具",
+              "fraction": 0,
+              "feedback": "那是覆蓋率工具，不是測試替身。"
+            }
+          ],
+          "generalFeedback": "測試替身是任何被放到真實相依位置上的物件，好讓受測程式能被孤立地執行——stub、mock、fake、dummy、spy 都是常見種類。每個可測試性接縫都是可放入替身的位置。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何讀取全域單例會傷害可測試性",
+          "text": "<p>在 <code>charge()</code> 中，<code>const cfg = Config.instance();</code> 讀取了全域單例。為何這會傷害可測試性？</p>",
+          "answers": [
+            {
+              "text": "它是測試無法設定或替換的隱藏輸入，因為它在函式內部被抓取",
+              "fraction": 100,
+              "feedback": "正確——測試沒有接縫可提供不同的 config；相依被釘死在程式碼裡。"
+            },
+            {
+              "text": "單例比注入的物件執行得更慢",
+              "fraction": 0,
+              "feedback": "問題在於控制力，而非速度。"
+            },
+            {
+              "text": "全域讀取在測試中一定會拋出例外",
+              "fraction": 0,
+              "feedback": "它不會拋例外；問題是測試無法替換該值。"
+            },
+            {
+              "text": "它會讓函式回傳錯誤的型別",
+              "fraction": 0,
+              "feedback": "它不會改變回傳型別；它移除了測試對 config 的控制。"
+            }
+          ],
+          "generalFeedback": "讀取全域單例把一個隱藏輸入直接拉進函式。因為測試從不把它傳進來，就沒有接縫可替換測試用的 config——降低了可控制性（controllability）。修法是注入一個 config 參數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何寫死的 new 會傷害可測試性",
+          "text": "<p>在 <code>charge()</code> 中，<code>const gw = new PaymentGateway();</code> 直接建立了它的協作者。為何這會傷害可測試性？</p>",
+          "answers": [
+            {
+              "text": "相依在函式內部被建立，因此測試無法把它換成替身",
+              "fraction": 100,
+              "feedback": "正確——寫死把真實 gateway 釘死；沒有接縫可替換。"
+            },
+            {
+              "text": "在測試程式中使用是語法錯誤",
+              "fraction": 0,
+              "feedback": "是合法的；問題在於協作者無法被替換。"
+            },
+            {
+              "text": "建構子不能被呼叫超過一次",
+              "fraction": 0,
+              "feedback": "可以；問題在於測試無法取代被建立的物件。"
+            },
+            {
+              "text": "它讓函式使用的記憶體加倍",
+              "fraction": 0,
+              "feedback": "關注點是可替換性，而非記憶體。"
+            }
+          ],
+          "generalFeedback": "在內以建立 gateway，會把程式綁死到真實實作。測試無法伸手取代它，於是真實 gateway（網路、副作用）就會執行。注入該協作者才會開出可放替身的接縫。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何真實時鐘會傷害可測試性",
+          "text": "<p>在 <code>charge()</code> 中，<code>const at = Date.now();</code> 讀取了真實的牆上時鐘（wall clock）。為何這會傷害可測試性？</p>",
+          "answers": [
+            {
+              "text": "時間每次執行都不同，因此測試無法把它固定住以對固定時間戳進行斷言",
+              "fraction": 100,
+              "feedback": "正確——真實時鐘是測試無法控制的非決定性（nondeterministic）輸入。"
+            },
+            {
+              "text": "回傳難以解析的字串",
+              "fraction": 0,
+              "feedback": "它回傳的是數字；真正的問題是該值不可控。"
+            },
+            {
+              "text": "讀取時鐘會刪除先前的時間戳",
+              "fraction": 0,
+              "feedback": "並不會；問題是非決定性，而非資料遺失。"
+            },
+            {
+              "text": "時鐘只在生產建置中可用",
+              "fraction": 0,
+              "feedback": "在測試中也可用；只是沒有接縫就無法把它的值固定。"
+            }
+          ],
+          "generalFeedback": "牆上時鐘是非決定性來源：每次執行都不同，測試永遠無法對精確時間戳斷言。注入一個時鐘（clock）能讓測試替換成回傳固定時間的 fake。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何真實亂數會傷害可測試性",
+          "text": "<p>在 <code>charge()</code> 中，<code>const id = Math.random().toString(36);</code> 使用了真實的亂數產生器（RNG）。為何這會傷害可測試性？</p>",
+          "answers": [
+            {
+              "text": "值每次執行都不同，因此測試無法讓產生的 id 具決定性",
+              "fraction": 100,
+              "feedback": "正確——真實亂數是測試無法控制的非決定性輸入。"
+            },
+            {
+              "text": "在測試中呼叫太慢",
+              "fraction": 0,
+              "feedback": "問題不在速度，而在決定性。"
+            },
+            {
+              "text": "亂數永遠是負數",
+              "fraction": 0,
+              "feedback": "回傳 [0,1) 的值；問題是它不可控。"
+            },
+            {
+              "text": "呼叫它會改變 config 單例",
+              "fraction": 0,
+              "feedback": "它不會動到 config；它只是產生一個不可控的值。"
+            }
+          ],
+          "generalFeedback": "RNG 是非決定性來源：每次執行產生不同的 id，因此測試無法對 id 斷言。注入一個帶種子的 rng（seeded rng）能讓測試替換成決定性的產生器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "全域單例 Config 的修法",
+          "text": "<p>移除 <code>charge()</code> 中<em>全域單例 Config</em> 反模式的接縫是什麼？</p>",
+          "answers": [
+            {
+              "text": "注入一個 config 參數（把 config 傳進來，例如）",
+              "fraction": 100,
+              "feedback": "正確——從外部提供 config 會開出測試可控制的接縫。"
+            },
+            {
+              "text": "把單例快取到一個模組層級變數",
+              "fraction": 0,
+              "feedback": "那仍是讀取全域；並不會讓測試替換 config。"
+            },
+            {
+              "text": "把改名為",
+              "fraction": 0,
+              "feedback": "改名對可替換性毫無改變。"
+            },
+            {
+              "text": "把讀取包在 try/catch 裡",
+              "fraction": 0,
+              "feedback": "錯誤處理不會為 config 開出接縫。"
+            }
+          ],
+          "generalFeedback": "修法是相依注入：把 config 作為參數傳入（），而不是讀取全域單例。這會把被釘死的相依變成可替換的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "寫死 gateway 的修法",
+          "text": "<p>移除<em>寫死的 <code>new PaymentGateway()</code></em> 反模式的接縫是什麼？</p>",
+          "answers": [
+            {
+              "text": "注入 gateway 協作者（把它傳進來，例如）",
+              "fraction": 100,
+              "feedback": "正確——從外部提供協作者能讓測試替換替身。"
+            },
+            {
+              "text": "把呼叫移到函式最上面",
+              "fraction": 0,
+              "feedback": "位置無關緊要；它仍在內部被建立，無法被替換。"
+            },
+            {
+              "text": "讓成為的子類別",
+              "fraction": 0,
+              "feedback": "改變繼承關係不會開出可替換的接縫。"
+            },
+            {
+              "text": "為了可靠而把 gateway 呼叫兩次",
+              "fraction": 0,
+              "feedback": "那既未移除寫死的建立，也無助於替換。"
+            }
+          ],
+          "generalFeedback": "修法是注入 gateway 協作者（），而不是以建立它。這個注入點就是物件接縫（object seam），測試可在此放入替身。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "真實時鐘的修法",
+          "text": "<p>移除<em>真實時鐘 <code>Date.now()</code></em> 反模式的接縫是什麼？</p>",
+          "answers": [
+            {
+              "text": "注入一個時鐘（把 clock 傳進來，例如）",
+              "fraction": 100,
+              "feedback": "正確——從外部提供時鐘能讓測試把時間固定住。"
+            },
+            {
+              "text": "把四捨五入到最接近的秒",
+              "fraction": 0,
+              "feedback": "四捨五入仍是讀取真實、不可控的時鐘。"
+            },
+            {
+              "text": "把時間戳存到一個全域變數",
+              "fraction": 0,
+              "feedback": "全域仍不是測試所提供的東西；它不會產生接縫。"
+            },
+            {
+              "text": "每個程式只呼叫一次",
+              "fraction": 0,
+              "feedback": "只呼叫一次，該值仍不可被測試控制。"
+            }
+          ],
+          "generalFeedback": "修法是注入一個時鐘（），而不是直接呼叫，開出一個接縫讓測試替換成回傳固定時間的 fake 時鐘。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "真實亂數的修法",
+          "text": "<p>移除<em>真實 <code>Math.random()</code></em> 反模式的接縫是什麼？</p>",
+          "answers": [
+            {
+              "text": "注入一個帶種子的 rng（把產生器傳進來，例如）",
+              "fraction": 100,
+              "feedback": "正確——提供帶種子的 rng 能讓測試使 id 具決定性。"
+            },
+            {
+              "text": "把乘上一個常數",
+              "fraction": 0,
+              "feedback": "把亂數縮放後仍是亂數且不可控。"
+            },
+            {
+              "text": "在迴圈中呼叫並取平均",
+              "fraction": 0,
+              "feedback": "對真實亂數取平均仍是非決定性的。"
+            },
+            {
+              "text": "把數字轉成帶固定前綴的字串",
+              "fraction": 0,
+              "feedback": "亂數部分仍不可控；沒有產生接縫。"
+            }
+          ],
+          "generalFeedback": "修法是注入一個帶種子的 rng（），而不是呼叫，開出一個接縫讓測試替換成決定性的產生器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為可測試性而設計的意義",
+          "text": "<p>在這段程式中，<em>為可測試性而設計（design for testability）</em>指的是：</p>",
+          "answers": [
+            {
+              "text": "移除被釘死的相依，讓每一個都能被測試替換",
+              "fraction": 100,
+              "feedback": "正確——接縫把寫死的相依變成測試可放入替身的位置。"
+            },
+            {
+              "text": "在每個測試中寫更多斷言",
+              "fraction": 0,
+              "feedback": "斷言有用，但這裡的可測試性在於讓相依可被替換。"
+            },
+            {
+              "text": "把相依從函式中完全刪除",
+              "fraction": 0,
+              "feedback": "相依仍會被使用；它們是被注入，而非被刪除。"
+            },
+            {
+              "text": "更頻繁地執行測試",
+              "fraction": 0,
+              "feedback": "執行頻率與把程式設計成可替換無關。"
+            }
+          ],
+          "generalFeedback": "為可測試性而設計，意即套用接縫，把每個被釘死的相依（全域 config、寫死的 gateway、真實時鐘、真實 RNG）變成測試可替換的東西。可替換的相依正是可測試單元的本質。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "每個修法都是可放入替身的接縫",
+          "text": "<p><code>charge()</code> 中的四個修法，每一個都是一個 Feathers 接縫，能讓測試替換測試替身（double）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——注入 config、gateway、clock 或 rng，每一個都開出一個接縫讓測試放入替身。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個注入接縫：它產生一個位置，讓測試能以替身代替真實相依。"
+            }
+          ],
+          "generalFeedback": "此處每個修法都是相依注入，也就是一個接縫。接縫是位置；測試替身是放到該位置上的替代物。這正是接縫探索器與測試替身主題交叉連結的原因。"
+        },
+        {
+          "type": "multichoice",
+          "name": "被釘死的相依有幾個",
+          "text": "<p><code>charge()</code> 這段程式含有幾個被釘死（不可測試）的相依？</p>",
+          "answers": [
+            {
+              "text": "4——全域 config、寫死的 gateway、真實時鐘，以及真實 RNG",
+              "fraction": 100,
+              "feedback": "正確——這是四個反模式，各由一個接縫移除。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "反模式有四個，不是兩個。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "別忘了讀取全域 config；總共有四個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "這段程式恰好釘死四個相依，不是五個。"
+            }
+          ],
+          "generalFeedback": "釘死四個相依：、、與。可測試性儀表讀數為 applied/4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個修法的接縫類型",
+          "text": "<p><code>charge()</code> 中的四個修法屬於哪一種 Feathers 接縫？</p>",
+          "answers": [
+            {
+              "text": "物件接縫（object seam）",
+              "fraction": 100,
+              "feedback": "正確——每個修法都是（透過注入的參數）替換不同的物件，因此四個都是物件接縫。"
+            },
+            {
+              "text": "前置處理接縫（preprocessing seam）",
+              "fraction": 0,
+              "feedback": "此處沒有使用巨集／前置處理替換；這些是物件接縫。"
+            },
+            {
+              "text": "連結接縫（link seam）",
+              "fraction": 0,
+              "feedback": "沒有在連結時進行替換；替換是靠把物件傳進來達成的。"
+            },
+            {
+              "text": "編譯接縫（compile seam）",
+              "fraction": 0,
+              "feedback": "替換是在執行時透過注入的物件完成，因此這些是物件接縫。"
+            }
+          ],
+          "generalFeedback": "在 Feathers 的分類（前置處理／連結／物件接縫）中，此處四個修法都是靠參數把不同的物件傳進來——皆為物件接縫。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "注入 config 所啟用的替身",
+          "text": "<p>注入 config 參數（<em>global</em> 修法）之後，在此模型中這個接縫通常啟用哪一種測試替身？</p>",
+          "answers": [
+            {
+              "text": "stub（樁）",
+              "fraction": 100,
+              "feedback": "正確——config 接縫啟用一個回傳固定設定的 stub。"
+            },
+            {
+              "text": "mock（模擬）",
+              "fraction": 0,
+              "feedback": "gateway 修法啟用 mock；此處 config 修法啟用的是 stub。"
+            },
+            {
+              "text": "fake（假物件）",
+              "fraction": 0,
+              "feedback": "clock 修法啟用 fake；此處 config 修法啟用的是 stub。"
+            },
+            {
+              "text": "不可能有替身",
+              "fraction": 0,
+              "feedback": "一旦被注入，config 就能被 stub 替換。"
+            }
+          ],
+          "generalFeedback": "在此 fixture 中，全域 config 接縫對應到：測試透過注入的參數提供固定的 config 值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 gateway 所啟用的替身",
+          "text": "<p>注入 gateway 協作者（<em>newdep</em> 修法）之後，在此模型中這個接縫啟用哪一種測試替身？</p>",
+          "answers": [
+            {
+              "text": "mock（模擬）",
+              "fraction": 100,
+              "feedback": "正確——gateway 接縫對應到 mock，可驗證呼叫並強制失敗。"
+            },
+            {
+              "text": "stub（樁）",
+              "fraction": 0,
+              "feedback": "config 與 rng 修法對應到 stub；此處 gateway 修法對應到 mock。"
+            },
+            {
+              "text": "fake（假物件）",
+              "fraction": 0,
+              "feedback": "clock 修法對應到 fake；此處 gateway 修法對應到 mock。"
+            },
+            {
+              "text": "dummy（虛擬物件）",
+              "fraction": 0,
+              "feedback": "gateway 會被實際使用，所以不是 dummy；此接縫啟用的是 mock。"
+            }
+          ],
+          "generalFeedback": "在此 fixture 中，gateway 接縫對應到：注入該協作者讓測試能驗證 gateway 如何被呼叫，並強制它失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 clock 所啟用的替身",
+          "text": "<p>注入一個時鐘（<em>clock</em> 修法）之後，在此模型中這個接縫啟用哪一種測試替身？</p>",
+          "answers": [
+            {
+              "text": "fake（假物件）",
+              "fraction": 100,
+              "feedback": "正確——clock 接縫對應到一個回傳固定時間的 fake 時鐘。"
+            },
+            {
+              "text": "stub（樁）",
+              "fraction": 0,
+              "feedback": "在此 fixture 中，clock 對應到 fake，而非 stub。"
+            },
+            {
+              "text": "mock（模擬）",
+              "fraction": 0,
+              "feedback": "gateway 修法對應到 mock；此處 clock 修法對應到 fake。"
+            },
+            {
+              "text": "spy（間諜物件）",
+              "fraction": 0,
+              "feedback": "clock 接縫對應到 fake 時鐘，而非 spy。"
+            }
+          ],
+          "generalFeedback": "在此 fixture 中，clock 接縫對應到：一個可運作、回傳固定且可控時間的時鐘實作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 rng 所啟用的替身",
+          "text": "<p>注入一個帶種子的 rng（<em>random</em> 修法）之後，在此模型中這個接縫啟用哪一種測試替身？</p>",
+          "answers": [
+            {
+              "text": "stub（樁）",
+              "fraction": 100,
+              "feedback": "正確——rng 接縫對應到一個回傳固定、決定性 id 的 stub。"
+            },
+            {
+              "text": "mock（模擬）",
+              "fraction": 0,
+              "feedback": "gateway 修法對應到 mock；此處 rng 修法對應到 stub。"
+            },
+            {
+              "text": "fake（假物件）",
+              "fraction": 0,
+              "feedback": "clock 修法對應到 fake；此處 rng 修法對應到 stub。"
+            },
+            {
+              "text": "dummy（虛擬物件）",
+              "fraction": 0,
+              "feedback": "rng 會被實際呼叫且必須回傳值，因此是 stub 而非 dummy。"
+            }
+          ],
+          "generalFeedback": "在此 fixture 中，rng 接縫對應到：測試提供固定、決定性的值，使產生的 id 被固定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 clock 所解鎖的能力",
+          "text": "<p>注入一個時鐘為測試解鎖了哪一項能力？</p>",
+          "answers": [
+            {
+              "text": "對固定的時間戳進行斷言",
+              "fraction": 100,
+              "feedback": "正確——fake 時鐘讓測試能把時間固定住並對其斷言。"
+            },
+            {
+              "text": "強制 gateway 失敗",
+              "fraction": 0,
+              "feedback": "那是靠注入 gateway 解鎖，不是 clock。"
+            },
+            {
+              "text": "讓產生的 id 具決定性",
+              "fraction": 0,
+              "feedback": "那是靠注入帶種子的 rng 解鎖，不是 clock。"
+            },
+            {
+              "text": "不動全域即可提供測試用的設定",
+              "fraction": 0,
+              "feedback": "那是靠注入 config 解鎖，不是 clock。"
+            }
+          ],
+          "generalFeedback": "注入一個時鐘讓測試能替換成回傳固定時間的 fake，因此測試可以。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 gateway 所解鎖的能力",
+          "text": "<p>注入 gateway 協作者為測試解鎖了哪一項能力？</p>",
+          "answers": [
+            {
+              "text": "強制 gateway 失敗",
+              "fraction": 100,
+              "feedback": "正確——注入 gateway 後，測試可替換成回傳或拋出失敗的替身。"
+            },
+            {
+              "text": "對固定的時間戳進行斷言",
+              "fraction": 0,
+              "feedback": "那是靠注入 clock 解鎖，不是 gateway。"
+            },
+            {
+              "text": "讓產生的 id 具決定性",
+              "fraction": 0,
+              "feedback": "那是靠注入帶種子的 rng 解鎖，不是 gateway。"
+            },
+            {
+              "text": "不動全域即可提供測試用的設定",
+              "fraction": 0,
+              "feedback": "那是靠注入 config 解鎖，不是 gateway。"
+            }
+          ],
+          "generalFeedback": "注入 gateway 讓測試能放入替身，因此可以，並檢查如何處理該錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 config 所解鎖的能力",
+          "text": "<p>注入 config 參數為測試解鎖了哪一項能力？</p>",
+          "answers": [
+            {
+              "text": "不動全域即可提供測試用的設定",
+              "fraction": 100,
+              "feedback": "正確——config 以參數傳入，測試可直接設定它。"
+            },
+            {
+              "text": "對固定的時間戳進行斷言",
+              "fraction": 0,
+              "feedback": "那是靠注入 clock 解鎖，不是 config。"
+            },
+            {
+              "text": "強制 gateway 失敗",
+              "fraction": 0,
+              "feedback": "那是靠注入 gateway 解鎖，不是 config。"
+            },
+            {
+              "text": "讓產生的 id 具決定性",
+              "fraction": 0,
+              "feedback": "那是靠注入帶種子的 rng 解鎖，不是 config。"
+            }
+          ],
+          "generalFeedback": "注入 config 參數讓測試能——沒有共享單例需要在測試之間重置。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 rng 所解鎖的能力",
+          "text": "<p>注入一個帶種子的 rng 為測試解鎖了哪一項能力？</p>",
+          "answers": [
+            {
+              "text": "讓產生的 id 具決定性",
+              "fraction": 100,
+              "feedback": "正確——帶種子的 rng 讓測試能固定值，使 id 可重現。"
+            },
+            {
+              "text": "對固定的時間戳進行斷言",
+              "fraction": 0,
+              "feedback": "那是靠注入 clock 解鎖，不是 rng。"
+            },
+            {
+              "text": "強制 gateway 失敗",
+              "fraction": 0,
+              "feedback": "那是靠注入 gateway 解鎖，不是 rng。"
+            },
+            {
+              "text": "不動全域即可提供測試用的設定",
+              "fraction": 0,
+              "feedback": "那是靠注入 config 解鎖，不是 rng。"
+            }
+          ],
+          "generalFeedback": "注入帶種子的 rng 讓測試能替換成決定性的產生器，因此可以並對其斷言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何注入屬於物件接縫",
+          "text": "<p>為何把相依作為參數注入屬於<em>物件接縫（object seam）</em>？</p>",
+          "answers": [
+            {
+              "text": "相依以物件參照的形式傳入，因此測試能在該處傳入不同的物件，而不必修改",
+              "fraction": 100,
+              "feedback": "正確——替換發生在注入點置換物件，而非變更程式碼。"
+            },
+            {
+              "text": "因為它改變了的回傳型別",
+              "fraction": 0,
+              "feedback": "回傳型別未變；物件接縫在於替換協作者物件。"
+            },
+            {
+              "text": "因為它為函式新增了一個決策分支",
+              "fraction": 0,
+              "feedback": "沒有新增分支；接縫是那個可替換的物件參數。"
+            },
+            {
+              "text": "因為它在連結時替換該物件",
+              "fraction": 0,
+              "feedback": "連結時替換會是連結接縫；此處物件是在執行時傳入的。"
+            }
+          ],
+          "generalFeedback": "物件接縫是一個能藉由替換不同物件來改變行為的位置。把協作者作為參數傳入，使該處可被替換——測試提供一個替身物件，而不必動到函式本體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "將 clock 反模式對應到修法與替身",
+          "text": "<p>對於<em>真實時鐘 <code>Date.now()</code></em> 反模式，對應的修法與所啟用的替身是：</p>",
+          "answers": [
+            {
+              "text": "注入一個時鐘（物件接縫）&#8594; 啟用 fake",
+              "fraction": 100,
+              "feedback": "正確——clock 接縫啟用的正是回傳固定時間的 fake 時鐘。"
+            },
+            {
+              "text": "注入一個時鐘（物件接縫）&#8594; 啟用 mock",
+              "fraction": 0,
+              "feedback": "在此 fixture 中 clock 對應到 fake，而非 mock。"
+            },
+            {
+              "text": "注入 gateway（物件接縫）&#8594; 啟用 fake",
+              "fraction": 0,
+              "feedback": "gateway 是另一個反模式（newdep），啟用的是 mock。"
+            },
+            {
+              "text": "注入帶種子的 rng（物件接縫）&#8594; 啟用 fake",
+              "fraction": 0,
+              "feedback": "rng 是另一個反模式（random），啟用的是 stub。"
+            }
+          ],
+          "generalFeedback": "clock 反模式對應到：注入一個時鐘（物件接縫），啟用回傳固定時間的時鐘。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個修法啟用 mock",
+          "text": "<p>某測試想驗證 <code>charge()</code> 確實呼叫了 payment gateway。哪個反模式的修法能啟用使此事成為可能的 <em>mock</em>？</p>",
+          "answers": [
+            {
+              "text": "寫死的——注入 gateway 協作者",
+              "fraction": 100,
+              "feedback": "正確——gateway 接縫啟用可驗證互動的 mock。"
+            },
+            {
+              "text": "全域單例 Config——注入 config 參數",
+              "fraction": 0,
+              "feedback": "config 接縫啟用的是 stub，而非 mock。"
+            },
+            {
+              "text": "真實時鐘——注入一個時鐘",
+              "fraction": 0,
+              "feedback": "clock 接縫啟用的是 fake，而非 mock。"
+            },
+            {
+              "text": "真實 RNG——注入帶種子的 rng",
+              "fraction": 0,
+              "feedback": "rng 接縫啟用的是 stub，而非 mock。"
+            }
+          ],
+          "generalFeedback": "在此 fixture 中只有 gateway 接縫對應到 mock。mock 驗證預期的互動，因此注入 gateway 才是讓測試能斷言「呼叫確實發生」的修法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "套用一個修法後的分數",
+          "text": "<p><code>testabilityOf</code> 以 applied/4 回報分數。若學習者只套用 clock 修法，分數是多少？</p>",
+          "answers": [
+            {
+              "text": "25%（1/4）",
+              "fraction": 100,
+              "feedback": "正確——四個相依中有一個現在可被替換。"
+            },
+            {
+              "text": "50%（2/4）",
+              "fraction": 0,
+              "feedback": "只套用了一個修法，因此分數是 1/4，而非 2/4。"
+            },
+            {
+              "text": "100%（4/4）",
+              "fraction": 0,
+              "feedback": "仍有三個相依被釘死；分數是 1/4。"
+            },
+            {
+              "text": "0%（0/4）",
+              "fraction": 0,
+              "feedback": "已套用一個修法，因此分數大於零：1/4。"
+            }
+          ],
+          "generalFeedback": "儀表讀數為 applied/4。套用一個修法得到 1/4 = 25%。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "注入 clock 會啟用 mock",
+          "text": "<p>在此模型中，注入一個時鐘會啟用 <em>mock</em> 替身。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "在此 fixture 中並非如此——clock 接縫對應到 fake（回傳固定時間的可運作時鐘），而非 mock。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——clock 接縫啟用的是 fake；mock 是 gateway 接縫所啟用的。"
+            }
+          ],
+          "generalFeedback": "替身對應為 global &#8594; stub、newdep &#8594; mock、clock &#8594; fake、random &#8594; stub。注入時鐘啟用回傳固定時間的 fake 時鐘；mock 只由注入 gateway 啟用。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個修法固定成決定性的 id",
+          "text": "<p>某測試需要 <code>charge()</code> 產生的 id 在每次執行都相同。需要哪個修法？</p>",
+          "answers": [
+            {
+              "text": "注入帶種子的 rng（random 修法）",
+              "fraction": 100,
+              "feedback": "正確——帶種子的 rng 讓產生的 id 具決定性。"
+            },
+            {
+              "text": "注入一個時鐘（clock 修法）",
+              "fraction": 0,
+              "feedback": "固定的時鐘固定的是時間戳，而非亂數 id。"
+            },
+            {
+              "text": "注入 gateway（newdep 修法）",
+              "fraction": 0,
+              "feedback": "gateway 接縫關乎扣款呼叫，而非 id。"
+            },
+            {
+              "text": "注入 config（global 修法）",
+              "fraction": 0,
+              "feedback": "config 接縫提供設定，而非 id 的值。"
+            }
+          ],
+          "generalFeedback": "id 來自。注入帶種子的 rng 讓測試能替換成決定性的產生器，使 id 可重現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪兩個修法都啟用 stub",
+          "text": "<p>在此 fixture 中，哪<strong>兩個</strong>反模式的修法都啟用 <em>stub</em>？</p>",
+          "answers": [
+            {
+              "text": "全域單例 Config 與真實的",
+              "fraction": 100,
+              "feedback": "正確——config 接縫與 rng 接縫都對應到 stub。"
+            },
+            {
+              "text": "寫死的 gateway 與真實時鐘",
+              "fraction": 0,
+              "feedback": "gateway 對應到 mock、clock 對應到 fake，都不是 stub。"
+            },
+            {
+              "text": "真實時鐘與真實的",
+              "fraction": 0,
+              "feedback": "clock 對應到 fake；這一組只有 rng 對應到 stub。"
+            },
+            {
+              "text": "全域單例 Config 與寫死的 gateway",
+              "fraction": 0,
+              "feedback": "config 對應到 stub，但 gateway 對應到 mock。"
+            }
+          ],
+          "generalFeedback": "替身對應為 global &#8594; stub、newdep &#8594; mock、clock &#8594; fake、random &#8594; stub。兩個啟用 stub 的修法是 config 與 rng。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "套用兩個修法後的分數",
+          "text": "<p>學習者套用了 <em>global</em> 修法與 <em>clock</em> 修法，其他不動。<code>testabilityOf</code> 回報的分數是多少？</p>",
+          "answers": [
+            {
+              "text": "50%（2/4）",
+              "fraction": 100,
+              "feedback": "正確——四個相依中有兩個現在可被替換。"
+            },
+            {
+              "text": "25%（1/4）",
+              "fraction": 0,
+              "feedback": "套用了兩個相異修法，因此分數是 2/4，而非 1/4。"
+            },
+            {
+              "text": "75%（3/4）",
+              "fraction": 0,
+              "feedback": "只套用了兩個修法；gateway 與 rng 仍被釘死。"
+            },
+            {
+              "text": "100%（4/4）",
+              "fraction": 0,
+              "feedback": "仍有兩個相依被釘死，因此分數是 2/4。"
+            }
+          ],
+          "generalFeedback": "分數 = applied/4。套用 global 與 clock 修法使四個相依中的兩個可被替換：2/4 = 50%。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "套用三個修法後的分數",
+          "text": "<p>學習者套用了 <em>global</em>、<em>newdep</em> 與 <em>clock</em> 修法，但保留 <code>Math.random()</code> 不動。<code>testabilityOf</code> 回報的分數是多少？</p>",
+          "answers": [
+            {
+              "text": "75%（3/4）",
+              "fraction": 100,
+              "feedback": "正確——四個相依中有三個可被替換；只剩 rng 被釘死。"
+            },
+            {
+              "text": "50%（2/4）",
+              "fraction": 0,
+              "feedback": "套用了三個修法，因此分數是 3/4，而非 2/4。"
+            },
+            {
+              "text": "100%（4/4）",
+              "fraction": 0,
+              "feedback": "rng 仍被釘死，因此分數是 3/4，尚未滿分。"
+            },
+            {
+              "text": "25%（1/4）",
+              "fraction": 0,
+              "feedback": "套用了三個相異修法；分數是 3/4。"
+            }
+          ],
+          "generalFeedback": "分數 = applied/4。注入 config、gateway 與 clock 後，四個相依中的三個可被替換：3/4 = 75%。RNG 仍釘死著 id。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "套用全部四個修法後的狀態",
+          "text": "<p>當四個接縫全部套用時，分數為 100%，而 <code>charge()</code> 成為：</p>",
+          "answers": [
+            {
+              "text": "一個近乎純粹的單元，其 config、gateway、時鐘與 RNG 皆由測試完全掌控",
+              "fraction": 100,
+              "feedback": "正確——每個相依現在都可被替換，因此測試掌控所有輸入。"
+            },
+            {
+              "text": "一個不再使用 config、gateway、時鐘或 RNG 的函式",
+              "fraction": 0,
+              "feedback": "它仍使用這四者；只是被注入而非釘死。"
+            },
+            {
+              "text": "保證不含任何錯誤",
+              "fraction": 0,
+              "feedback": "可測試性使它易於測試，而非自動無錯。"
+            },
+            {
+              "text": "無法在生產環境執行",
+              "fraction": 0,
+              "feedback": "提供真實相依時它在生產環境運作良好；測試則提供替身。"
+            }
+          ],
+          "generalFeedback": "套用四個物件接縫後，每個相依都可被替換。現在是近乎純粹的單元：測試注入 config、gateway、clock 與 rng，因此掌控每個輸入並能觀察每個效果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些修法移除非決定性",
+          "text": "<p>哪一組修法能移除 <code>charge()</code> 的<em>非決定性（nondeterminism）</em>？</p>",
+          "answers": [
+            {
+              "text": "注入時鐘與 rng",
+              "fraction": 100,
+              "feedback": "正確——牆上時鐘與 RNG 是兩個非決定性來源。"
+            },
+            {
+              "text": "注入 config 與 gateway",
+              "fraction": 0,
+              "feedback": "那些改善可替換性，但兩者都不是非決定性來源。"
+            },
+            {
+              "text": "只注入 gateway",
+              "fraction": 0,
+              "feedback": "gateway 不是非決定性來源；非決定性來源是時鐘與 rng。"
+            },
+            {
+              "text": "只注入 config",
+              "fraction": 0,
+              "feedback": "config 是隱藏輸入，而非非決定性來源。"
+            }
+          ],
+          "generalFeedback": "此程式中的非決定性來源正是時鐘（）與 RNG（）。兩者都注入後即以測試可控的值取代，使具決定性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何注入 clock 與 rng 會移除非決定性",
+          "text": "<p>為何注入時鐘與 rng 也讓 <code>charge()</code> 變得具決定性？</p>",
+          "answers": [
+            {
+              "text": "兩者原本都是會變動的輸入；一旦由測試提供，相同輸入就永遠產生相同輸出",
+              "fraction": 100,
+              "feedback": "正確——以固定值取代兩個非決定性來源，就消除了每次執行間的變動。"
+            },
+            {
+              "text": "注入會把時間戳與 id 從輸出中完全刪除",
+              "fraction": 0,
+              "feedback": "它們仍會被產生；只是現在由測試提供。"
+            },
+            {
+              "text": "帶種子的 rng 比執行更快",
+              "fraction": 0,
+              "feedback": "速度無關；決定性來自可控、固定的值。"
+            },
+            {
+              "text": "時鐘與 rng 不再被呼叫",
+              "fraction": 0,
+              "feedback": "它們仍會被呼叫——呼叫在注入的替身上，回傳固定值。"
+            }
+          ],
+          "generalFeedback": "時鐘與 RNG 是唯一會每次執行變動的輸入。注入它們讓測試能把兩者都固定，因此成為其輸入的決定性函式——可測試且可重現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "注入 config 是否移除非決定性",
+          "text": "<p>注入 config 參數（<em>global</em> 修法）是否移除了 <code>charge()</code> 的非決定性？</p>",
+          "answers": [
+            {
+              "text": "不——config 是隱藏輸入，而非非決定性輸入；注入它改善可控制性，但非決定性來自時鐘與 RNG",
+              "fraction": 100,
+              "feedback": "正確——移除全域有助於可替換性，但只有 clock 與 rng 修法才移除非決定性。"
+            },
+            {
+              "text": "是——全域單例是非決定性的主要來源",
+              "fraction": 0,
+              "feedback": "單例是隱藏但穩定的輸入；非決定性來源是時鐘與 rng。"
+            },
+            {
+              "text": "是——每次注入都會移除一些非決定性",
+              "fraction": 0,
+              "feedback": "注入普遍改善可替換性，但只有時鐘與 rng 來源是非決定性的。"
+            },
+            {
+              "text": "不——注入 config 其實會增加非決定性",
+              "fraction": 0,
+              "feedback": "它不會增加非決定性；它移除了一個隱藏的全域輸入。"
+            }
+          ],
+          "generalFeedback": "並非每個可測試性問題都是非決定性。全域 config 是傷害可控制性的隱藏輸入；注入它使 config 可被替換。但此程式的非決定性明確來自時鐘與 RNG。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "接縫與替身之別",
+          "text": "<p>在此模型中，<em>接縫（seam）</em>與<em>測試替身（double）</em>的差別是什麼？</p>",
+          "answers": [
+            {
+              "text": "接縫是「可進行替換的位置」（注入點）；替身是「放到該處的替代物件」",
+              "fraction": 100,
+              "feedback": "正確——接縫是「在哪裡」；替身是「放什麼」。"
+            },
+            {
+              "text": "接縫是替代物件；替身是它所放入的位置",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了：接縫是位置，替身是替代物。"
+            },
+            {
+              "text": "兩者是同一件事的兩個名稱",
+              "fraction": 0,
+              "feedback": "兩者不同：一個是程式碼中的位置，另一個是物件。"
+            },
+            {
+              "text": "接縫是一種斷言；替身是一種迴圈",
+              "fraction": 0,
+              "feedback": "兩者都不是斷言或迴圈；接縫是替換點，替身是替代物件。"
+            }
+          ],
+          "generalFeedback": "接縫是程式碼中可替換行為的位置（此處是注入的參數——物件接縫）。測試替身是測試放到該接縫裡的具體替代物（stub／mock／fake）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個 stub、不同問題",
+          "text": "<p>config 修法與 rng 修法都透過物件接縫啟用 <em>stub</em>，卻處理不同的可測試性問題。它們的共同點與差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "相同的替身（stub）與相同的接縫類型（物件），但 config 移除隱藏的全域輸入，rng 移除非決定性來源",
+              "fraction": 100,
+              "feedback": "正確——接縫類型與替身相同，底層問題不同。"
+            },
+            {
+              "text": "不同的替身與不同的接縫類型，處理相同的問題",
+              "fraction": 0,
+              "feedback": "兩者都透過物件接縫啟用 stub；不同的是問題，而非替身或接縫。"
+            },
+            {
+              "text": "相同的替身，但 config 修法是連結接縫、rng 修法是物件接縫",
+              "fraction": 0,
+              "feedback": "兩者都是物件接縫；都不是連結接縫。"
+            },
+            {
+              "text": "它們在各方面都完全相同",
+              "fraction": 0,
+              "feedback": "它們共用接縫類型與替身，但處理不同的問題（隱藏輸入 vs 非決定性）。"
+            }
+          ],
+          "generalFeedback": "兩者都透過物件接縫對應到 stub，顯示接縫類型與替身可以相同。然而 config 處理的是隱藏的全域輸入（可控制性），rng 處理的是非決定性——同一種工具解決不同的可測試性問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "newdep 加 random 的分數與能力",
+          "text": "<p>學習者只套用 <em>newdep</em> 與 <em>random</em> 修法。得到的分數與解鎖的能力為何？</p>",
+          "answers": [
+            {
+              "text": "50%（2/4）；強制 gateway 失敗，以及讓產生的 id 具決定性",
+              "fraction": 100,
+              "feedback": "正確——兩個修法得到 2/4，解鎖 gateway 與 rng 的能力。"
+            },
+            {
+              "text": "50%（2/4）；對固定的時間戳進行斷言，以及提供測試用的設定",
+              "fraction": 0,
+              "feedback": "那些是 clock 與 config 的能力，此處並未套用。"
+            },
+            {
+              "text": "75%（3/4）；強制 gateway 失敗，以及讓產生的 id 具決定性",
+              "fraction": 0,
+              "feedback": "只套用了兩個修法，因此分數是 2/4，而非 3/4。"
+            },
+            {
+              "text": "25%（1/4）；強制 gateway 失敗",
+              "fraction": 0,
+              "feedback": "套用了兩個相異修法，因此分數是 2/4，且解鎖兩項能力。"
+            }
+          ],
+          "generalFeedback": "兩個已套用的修法得到 2/4 = 50%。newdep 修法解鎖「強制 gateway 失敗」，random 修法解鎖「讓產生的 id 具決定性」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何可替換性等於可測試性",
+          "text": "<p>為何讓每個相依都可被替換，就使 <code>charge()</code> 可被測試？</p>",
+          "answers": [
+            {
+              "text": "一旦每個相依都能被替換，測試就能控制所有輸入並觀察所有效果，而這正是可測試性所要求的",
+              "fraction": 100,
+              "feedback": "正確——可替換的相依同時賦予測試可控制性與可觀察性。"
+            },
+            {
+              "text": "因為可替換的程式總是執行得更快",
+              "fraction": 0,
+              "feedback": "重點不在速度，而在控制與觀察。"
+            },
+            {
+              "text": "因為被注入的相依永遠不含錯誤",
+              "fraction": 0,
+              "feedback": "它們仍可能有錯；注入只是讓單元在測試中可被控制。"
+            },
+            {
+              "text": "因為函式從此完全不需要相依",
+              "fraction": 0,
+              "feedback": "它仍有相依；只是改由測試提供。"
+            }
+          ],
+          "generalFeedback": "可測試性即可控制性加可觀察性。當每個相依都可被替換時，測試就能驅動所有輸入（config、gateway 行為、時間、id）並觀察其效果——因此可替換性正是使單元可被測試的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "只移除隱藏輸入的修法",
+          "text": "<p>哪一個單一修法移除了隱藏輸入，卻<strong>不</strong>移除非決定性，也<strong>不</strong>解鎖「強制失敗」？</p>",
+          "answers": [
+            {
+              "text": "注入 config 參數（global 修法）",
+              "fraction": 100,
+              "feedback": "正確——它移除隱藏的全域輸入；它不是非決定性來源，而強制失敗是 gateway 的能力。"
+            },
+            {
+              "text": "注入一個時鐘（clock 修法）",
+              "fraction": 0,
+              "feedback": "clock 修法會移除非決定性，因此不符合。"
+            },
+            {
+              "text": "注入帶種子的 rng（random 修法）",
+              "fraction": 0,
+              "feedback": "rng 修法會移除非決定性，因此不符合。"
+            },
+            {
+              "text": "注入 gateway（newdep 修法）",
+              "fraction": 0,
+              "feedback": "gateway 修法正是解鎖「強制失敗」的那一個，因此不符合。"
+            }
+          ],
+          "generalFeedback": "global-config 修法移除隱藏輸入（改善可控制性）。它不是非決定性來源之一（時鐘、rng），而強制失敗由 gateway 修法解鎖——因此 config 修法是唯一符合的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "固定時間與決定性 id 所需的修法",
+          "text": "<p>某測試必須同時對固定時間戳與決定性 id 進行斷言。需要哪些修法，得到的分數為何？</p>",
+          "answers": [
+            {
+              "text": "注入時鐘與注入帶種子的 rng；分數 50%（2/4）",
+              "fraction": 100,
+              "feedback": "正確——時鐘固定時間、rng 固定 id；四個相依中兩個可被替換。"
+            },
+            {
+              "text": "注入 config 與注入 gateway；分數 50%（2/4）",
+              "fraction": 0,
+              "feedback": "那些解鎖 config 與強制失敗，而非固定時間或決定性 id。"
+            },
+            {
+              "text": "只注入時鐘；分數 25%（1/4）",
+              "fraction": 0,
+              "feedback": "時鐘固定時間但不固定 id；還需要 rng。"
+            },
+            {
+              "text": "四個全注入；分數 100%（4/4）",
+              "fraction": 0,
+              "feedback": "這兩項斷言只需時鐘與 rng；那是 2/4。"
+            }
+          ],
+          "generalFeedback": "固定時間戳需要 clock 修法；決定性 id 需要 rng 修法。恰好套用這兩個得到 2/4 = 50%。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "分數與順序無關",
+          "text": "<p>先套用 clock 修法再套用 global 修法，與先套用 global 修法再套用 clock 修法，得到的分數相同。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——計算的是已套用修法的集合，因此順序無關：兩種順序都是 2/4。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "分數只取決於套用了哪些修法，而非順序；兩種順序都得到 2/4。"
+            }
+          ],
+          "generalFeedback": "分數 = applied/4，由已套用修法的集合計算（去重，並按 fixture 順序）。學習者切換它們的順序不改變結果：兩個相異修法無論如何都是 2/4 = 50%。"
+        },
+        {
+          "type": "multichoice",
+          "name": "gateway 的 mock 與 stub",
+          "text": "<p>某測試想<em>驗證</em> <code>charge()</code> 以正確引數呼叫了 gateway，而不只是收到一個固定回傳值。這需要哪種替身，由哪個修法啟用？</p>",
+          "answers": [
+            {
+              "text": "一個 mock，由注入 gateway 協作者啟用",
+              "fraction": 100,
+              "feedback": "正確——mock 驗證互動；stub 只會回傳固定值。"
+            },
+            {
+              "text": "一個 stub，由注入 gateway 協作者啟用",
+              "fraction": 0,
+              "feedback": "stub 回傳固定值但不驗證呼叫；此處 gateway 接縫對應到 mock。"
+            },
+            {
+              "text": "一個 fake，由注入時鐘啟用",
+              "fraction": 0,
+              "feedback": "fake 時鐘固定時間；它不驗證 gateway 呼叫。"
+            },
+            {
+              "text": "一個 stub，由注入帶種子的 rng 啟用",
+              "fraction": 0,
+              "feedback": "rng stub 固定 id；與 gateway 呼叫無關。"
+            }
+          ],
+          "generalFeedback": "驗證互動（正確的方法、正確的引數）是行為驗證，正是 mock 的職責。在此 fixture 中 gateway 接縫對應到 mock，因此注入 gateway 是啟用它的修法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一種接縫類型、三種替身",
+          "text": "<p>四個修法都是物件接縫，卻啟用三種不同的替身（stub、mock、fake）。這說明了什麼？</p>",
+          "answers": [
+            {
+              "text": "接縫類型（在哪裡替換）與替身（替換成什麼）彼此獨立；同一種接縫可依測試目標容納不同的替身",
+              "fraction": 100,
+              "feedback": "正確——物件接縫提供替換點；選 stub、mock 或 fake 取決於測試需要。"
+            },
+            {
+              "text": "每種接縫類型只能啟用一種替身",
+              "fraction": 0,
+              "feedback": "正好相反：此處同一種接縫（物件）容納了 stub、mock 與 fake。"
+            },
+            {
+              "text": "物件接縫只能啟用 stub",
+              "fraction": 0,
+              "feedback": "此處物件接縫也啟用了 mock 與 fake。"
+            },
+            {
+              "text": "替身決定接縫類型",
+              "fraction": 0,
+              "feedback": "兩者獨立；同一個物件接縫容納不同的替身。"
+            }
+          ],
+          "generalFeedback": "接縫類型與替身類型彼此正交。四個修法都用同一種物件接縫，但測試依目標挑選替身——config／id 用 stub（固定值）、驗證 gateway 呼叫用 mock、可運作的固定時鐘用 fake。",
           "single": true
         }
       ]

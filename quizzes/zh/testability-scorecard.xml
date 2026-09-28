@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testability Scorecard/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>計分卡彙總了什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>可測試性計分卡（testability scorecard）彙總的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把五個正規化的可測試性訊號彙總成一個總體等第</text><feedback><text>正確——它把五個訊號整合成單一等第。</text></feedback></answer>
+    <answer fraction="0"><text>單一的程式碼覆蓋率百分比</text><feedback><text>計分卡彙總的不是覆蓋率；它結合五個不同的訊號。</text></feedback></answer>
+    <answer fraction="0"><text>目前所有失敗測試案例的清單</text><feedback><text>計分卡回報的是訊號與等第，不是失敗測試的清單。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件殺死的突變體數目</text><feedback><text>突變分數屬於另一個主題；計分卡彙總的是五個可測試性訊號。</text></feedback></answer>
+    <generalfeedback><text>此壓軸的可測試性計分卡把五個正規化訊號——可控制性、可觀察性、接縫覆蓋、結構、確定性——彙總成一個總體等第（A 到 F）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>五個訊號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>計分卡回報哪五個訊號？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可控制性、可觀察性、接縫覆蓋、結構、確定性</text><feedback><text>正確——這是五個正規化的可測試性訊號。</text></feedback></answer>
+    <answer fraction="0"><text>嚴重度、優先度、可能性、衝擊、暴露度</text><feedback><text>那些是風險式測試的名詞，不是計分卡的可測試性訊號。</text></feedback></answer>
+    <answer fraction="0"><text>單元、整合、系統、驗收、回歸</text><feedback><text>那些是測試層級／類型，不是計分卡的訊號。</text></feedback></answer>
+    <answer fraction="0"><text>精確率、召回率、準確率、F1、覆蓋率</text><feedback><text>那些是分類／覆蓋度量，不是可測試性訊號。</text></feedback></answer>
+    <generalfeedback><text>計分卡的五個訊號是可控制性、可觀察性、接縫覆蓋、結構、確定性——每個都正規化為「越高越可測試」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等第字母的範圍</text></name>
+    <questiontext format="html"><text><![CDATA[<p>總體等第以哪個範圍的字母表示？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A 到 F（A、B、C、D、F）</text><feedback><text>正確——等第門檻定義了 A、B、C、D 與 F。</text></feedback></answer>
+    <answer fraction="0"><text>1 到 10</text><feedback><text>等第是字母，不是 1 到 10 的數字。</text></feedback></answer>
+    <answer fraction="0"><text>只有通過或失敗</text><feedback><text>計分卡給的是分級字母，不是二元的通過／失敗。</text></feedback></answer>
+    <answer fraction="0"><text>0% 到 100%，沒有字母</text><feedback><text>總體百分比會對應到字母等第；回報的等第是字母。</text></feedback></answer>
+    <generalfeedback><text>總體平均透過固定門檻對應到字母：A 為 0.85、B 為 0.70、C 為 0.55、D 為 0.40，其餘為 F。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合其他探索器</text></name>
+    <questiontext format="html"><text><![CDATA[<p>計分卡如何產生它的數字？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它組合其他三個可測試性探索器的引擎，再加上一個非確定性訊號，而不重新推導</text><feedback><text>正確——它重用兄弟引擎，而非重新計算任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>它獨立地從頭重新實作每一個度量</text><feedback><text>計分卡刻意組合既有引擎；並不重新推導。</text></feedback></answer>
+    <answer fraction="0"><text>它要求使用者手動鍵入每個訊號</text><feedback><text>訊號是由 fixture 計算得出，而非鍵入。</text></feedback></answer>
+    <answer fraction="0"><text>它從一張靜態圖片讀取數字</text><feedback><text>數字來自對兄弟引擎的即時組合。</text></feedback></answer>
+    <generalfeedback><text>計分卡是壓軸：它組合可控制性／可觀察性、接縫、度量三個引擎，再加上一個非確定性訊號，從同一份 fixture 彙總全部五個訊號。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>越高代表越可測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對計分卡上的每個訊號，正規化值越高代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>越可測試</text><feedback><text>正確——五個訊號都正規化為「越高＝越可測試」。</text></feedback></answer>
+    <answer fraction="0"><text>越不可測試</text><feedback><text>訊號的方向是越高越好，而非越差。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼行數越多</text><feedback><text>訊號衡量可測試性，不是程式碼大小。</text></feedback></answer>
+    <answer fraction="0"><text>沒有意義——方向未定義</text><feedback><text>方向有明確定義：越高越可測試。</text></feedback></answer>
+    <generalfeedback><text>每個訊號都正規化到 0..1 的量表，方向一致：越高＝越可測試。如此才能平均成一個總體分數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取可控制性值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於內建的 fixture，可控制性訊號為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.6</text><feedback><text>正確——轉閘 5 個狀態中有 3 個可達，故 3/5 = 0.6。</text></feedback></answer>
+    <answer fraction="0"><text>0.2</text><feedback><text>0.2 是可觀察性訊號，不是可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 是結構訊號，不是可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 是確定性訊號，不是可控制性。</text></feedback></answer>
+    <generalfeedback><text>可控制性 ＝ 可達狀態 / 總狀態 ＝ 3/5 = 0.6（轉閘 SUT）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取可觀察性值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於內建的 fixture，可觀察性訊號為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.2</text><feedback><text>正確——5 個狀態中只有 1 個有唯一的可觀察輸出，故 1/5 = 0.2。</text></feedback></answer>
+    <answer fraction="0"><text>0.6</text><feedback><text>0.6 是可控制性訊號，不是可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 是確定性訊號，不是可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 是結構訊號，不是可觀察性。</text></feedback></answer>
+    <generalfeedback><text>可觀察性 ＝ 具唯一輸出的狀態 / 總狀態 ＝ 1/5 = 0.2；共用的輸出（兩個 'green'、兩個 'red'）使觀察者看不出那些狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取接縫覆蓋值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在尚未注入任何接縫時，接縫覆蓋訊號為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0</text><feedback><text>正確——沒有套用任何接縫，即 4 個中 0 個，故訊號為 0。</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 是注入四個接縫其中一個的值；初始一個都沒有。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 是注入四個中兩個的值；初始一個都沒有。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 是注入全部四個接縫的值；初始一個都沒有。</text></feedback></answer>
+    <generalfeedback><text>接縫覆蓋 ＝ 已注入接縫 / 反樣式總數 ＝ 0/4 = 0，因為 appliedSeams 一開始為空。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取確定性值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於基礎 fixture，確定性訊號為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.5</text><feedback><text>正確——4 個非確定性來源中有 2 個存在，故 1 - 2/4 = 0.5。</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 是結構訊號，不是確定性。</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 是移除一個來源之後的確定性值，不是基礎值。</text></feedback></answer>
+    <answer fraction="0"><text>0.2</text><feedback><text>0.2 是可觀察性訊號，不是確定性。</text></feedback></answer>
+    <generalfeedback><text>確定性 ＝ 1 - present/DET_TOTAL ＝ 1 - 2/4 = 0.5；fixture 在四個來源的目錄中宣告了兩個（clock 與 random）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取結構值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於基礎 fixture，結構訊號為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.24</text><feedback><text>正確——最難的單元得分 19，故 1 - 19/25 = 0.24。</text></feedback></answer>
+    <answer fraction="0"><text>0.6</text><feedback><text>0.6 是可控制性訊號，不是結構。</text></feedback></answer>
+    <answer fraction="0"><text>0.19</text><feedback><text>19 是最難單元的原始分數，不是正規化後的結構訊號 0.24。</text></feedback></answer>
+    <answer fraction="0"><text>0.76</text><feedback><text>0.76 是 19/25（難度比例）；訊號是 1 - 0.76 = 0.24。</text></feedback></answer>
+    <generalfeedback><text>結構 ＝ 1 - hardest/STRUCT_CAP ＝ 1 - 19/25 = 0.24，其中 checkout 單元最難為 19，STRUCT_CAP ＝ 25。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取總體等第</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基礎 fixture 的總體等第為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>F</text><feedback><text>正確——總體 0.308 低於 D 門檻 0.40，故等第為 F。</text></feedback></answer>
+    <answer fraction="0"><text>A</text><feedback><text>A 需要總體至少 0.85；此 fixture 遠低於此。</text></feedback></answer>
+    <answer fraction="0"><text>C</text><feedback><text>C 需要總體至少 0.55；此 fixture 的 0.308 遠低於此。</text></feedback></answer>
+    <answer fraction="0"><text>D</text><feedback><text>D 需要總體至少 0.40；此 fixture 的 0.308 低於此，故為 F。</text></feedback></answer>
+    <generalfeedback><text>基礎總體為 0.308，低於最低及格門檻（D 為 0.40），故等第為 F。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>總體如何計算</text></name>
+    <questiontext format="html"><text><![CDATA[<p>總體分數的計算方式為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>五個訊號的算術平均</text><feedback><text>正確——總體是五個訊號值的單純平均。</text></feedback></answer>
+    <answer fraction="0"><text>五個訊號的乘積</text><feedback><text>總體是平均，不是乘積。</text></feedback></answer>
+    <answer fraction="0"><text>五個訊號的最大值</text><feedback><text>總體是平均，不是最大值。</text></feedback></answer>
+    <answer fraction="0"><text>五個訊號的最小值</text><feedback><text>總體是平均，不是最小值。</text></feedback></answer>
+    <generalfeedback><text>總體 ＝ (可控制性 + 可觀察性 + 接縫 + 結構 + 確定性) / 5——五個等權訊號的算術平均。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>計分卡從頭重新推導</text></name>
+    <questiontext format="html"><text><![CDATA[<p>計分卡會從頭重新推導每一個度量，而非重用其他探索器的引擎。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——它組合兄弟引擎並加上一個非確定性訊號；不重新推導任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>它不重新推導；壓軸的重點正是組合既有引擎。</text></feedback></answer>
+    <generalfeedback><text>計分卡以可控制性／可觀察性、接縫、度量引擎作為真理來源，只額外加上非確定性訊號。它是組合而非重新推導。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個訊號為零</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在基礎 fixture 中，哪個訊號為 0？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>接縫覆蓋</text><feedback><text>正確——初始未注入任何接縫，故接縫覆蓋為 0。</text></feedback></answer>
+    <answer fraction="0"><text>可控制性</text><feedback><text>可控制性是 0.6，不是 0。</text></feedback></answer>
+    <answer fraction="0"><text>確定性</text><feedback><text>確定性是 0.5，不是 0。</text></feedback></answer>
+    <answer fraction="0"><text>結構</text><feedback><text>結構是 0.24，不是 0。</text></feedback></answer>
+    <generalfeedback><text>因為 appliedSeams 一開始為空，接縫覆蓋 ＝ 0/4 = 0——是基礎 fixture 中唯一為零的訊號。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等第 A 的門檻</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要取得等第 A，總體分數至少須為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.85</text><feedback><text>正確——A 的門檻是 0.85。</text></feedback></answer>
+    <answer fraction="0"><text>0.70</text><feedback><text>0.70 是 B 的門檻，不是 A。</text></feedback></answer>
+    <answer fraction="0"><text>0.55</text><feedback><text>0.55 是 C 的門檻，不是 A。</text></feedback></answer>
+    <answer fraction="0"><text>0.40</text><feedback><text>0.40 是 D 的門檻，不是 A。</text></feedback></answer>
+    <generalfeedback><text>由高到低檢查的門檻為：A 為 0.85、B 為 0.70、C 為 0.55、D 為 0.40，其餘為 F。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Scorecard/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何基礎 fixture 是 F</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼基礎 fixture 得到等第 F？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的總體（平均）0.308 低於 D 門檻 0.40</text><feedback><text>正確——0.308 低於 0.40，故等第落在 F。</text></feedback></answer>
+    <answer fraction="0"><text>因為有一個訊號恰好是 1.0</text><feedback><text>基礎 fixture 中沒有訊號為 1.0；等第來自偏低的平均。</text></feedback></answer>
+    <answer fraction="0"><text>因為它有超過五個訊號</text><feedback><text>訊號恰好是五個；等第由其平均驅動。</text></feedback></answer>
+    <answer fraction="0"><text>因為時鐘接縫已被注入</text><feedback><text>初始未注入任何接縫；原因是 0.308 的低平均。</text></feedback></answer>
+    <generalfeedback><text>五個訊號（0.6、0.2、0、0.24、0.5）平均為 0.308，低於最低及格門檻（D 為 0.40），故等第為 F。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>接縫訊號對應到哪個修正</text></name>
+    <questiontext format="html"><text><![CDATA[<p>最低的訊號——接縫覆蓋——對應到哪個修正與教學探索器？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入接縫——testability-seams 探索器</text><feedback><text>正確——接縫覆蓋的修正深連到 testability-seams 探索器。</text></feedback></answer>
+    <answer fraction="0"><text>加入探針——controllability-observability 探索器</text><feedback><text>那個修正針對可觀察性，不是接縫覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>拆分單元——testability-metrics 探索器</text><feedback><text>那針對結構訊號，不是接縫覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——接縫覆蓋沒有修正</text><feedback><text>接縫覆蓋確有修正：注入接縫。</text></feedback></answer>
+    <generalfeedback><text>每個訊號深連到教它的探索器；接縫覆蓋連到 testability-seams，那裡教如何注入接縫。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何時鐘提升兩個訊號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼注入時鐘會同時提升兩個訊號？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它加入一個接縫（提升接縫覆蓋）並移除一個非確定性來源（提升確定性）</text><feedback><text>正確——時鐘修正注入時鐘接縫並消除 clock 這個非確定性來源。</text></feedback></answer>
+    <answer fraction="0"><text>它使可控制性計數加倍</text><feedback><text>注入時鐘不影響可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>它改變結構難度與可觀察性</text><feedback><text>注入時鐘時結構與可觀察性都不變。</text></feedback></answer>
+    <answer fraction="0"><text>它只提升確定性；第二個提升是顯示錯誤</text><feedback><text>兩個提升都是真的：接縫覆蓋與確定性各自增加。</text></feedback></answer>
+    <generalfeedback><text>注入時鐘會加入時鐘接縫（接縫覆蓋 0 到 0.25）並從非確定性清單移除 'clock'（確定性 0.5 到 0.75）——一個修正，兩個訊號。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由五個訊號計算總體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定訊號 0.6、0.2、0、0.24、0.5，總體分數為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.308</text><feedback><text>正確——(0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308。</text></feedback></answer>
+    <answer fraction="0"><text>1.54</text><feedback><text>1.54 是總和；總體是平均，1.54 / 5 = 0.308。</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 是單一訊號（結構），不是五者的平均。</text></feedback></answer>
+    <answer fraction="0"><text>0.4</text><feedback><text>0.4 是 D 門檻，不是算出的平均 0.308。</text></feedback></answer>
+    <generalfeedback><text>總體 ＝ 平均 ＝ (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確定性連到哪個探索器</text></name>
+    <questiontext format="html"><text><![CDATA[<p>確定性訊號深連到哪個探索器？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>flaky-diagnosis</text><feedback><text>正確——非確定性是脆弱性的稅，故確定性連到 flaky-diagnosis。</text></feedback></answer>
+    <answer fraction="0"><text>testability-seams</text><feedback><text>那是接縫覆蓋連去的地方，不是確定性。</text></feedback></answer>
+    <answer fraction="0"><text>testability-metrics</text><feedback><text>那是結構訊號連去的地方，不是確定性。</text></feedback></answer>
+    <answer fraction="0"><text>controllability-observability</text><feedback><text>那是可控制性與可觀察性連去的地方，不是確定性。</text></feedback></answer>
+    <generalfeedback><text>確定性訊號關乎非確定性來源（clock/random），它們會造成脆弱測試，故其深連指向 flaky-diagnosis 探索器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結構由哪個探索器教</text></name>
+    <questiontext format="html"><text><![CDATA[<p>結構訊號由哪個探索器教授？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>testability-metrics</text><feedback><text>正確——結構難度來自度量引擎。</text></feedback></answer>
+    <answer fraction="0"><text>flaky-diagnosis</text><feedback><text>那教確定性訊號，不是結構。</text></feedback></answer>
+    <answer fraction="0"><text>testability-seams</text><feedback><text>那教接縫覆蓋，不是結構。</text></feedback></answer>
+    <answer fraction="0"><text>controllability-observability</text><feedback><text>那教可控制性與可觀察性，不是結構。</text></feedback></answer>
+    <generalfeedback><text>結構訊號由度量模組上的 testabilityHardness 導出，故深連到 testability-metrics 探索器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>接縫覆蓋由哪個探索器教</text></name>
+    <questiontext format="html"><text><![CDATA[<p>接縫覆蓋訊號由哪個探索器教授？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>testability-seams</text><feedback><text>正確——接縫覆蓋來自接縫引擎。</text></feedback></answer>
+    <answer fraction="0"><text>testability-metrics</text><feedback><text>那教結構訊號，不是接縫覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>flaky-diagnosis</text><feedback><text>那教確定性訊號，不是接縫覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>controllability-observability</text><feedback><text>那教可控制性與可觀察性，不是接縫覆蓋。</text></feedback></answer>
+    <generalfeedback><text>接縫覆蓋由接縫引擎的 testabilityOf 計算，故深連到 testability-seams 探索器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>頂尖修正清單包含什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>計分卡的「頂尖修正（top fixes）」清單包含：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>最低的三個訊號，由小到大排列</text><feedback><text>正確——最弱的三個訊號以最低者優先列為優先修正。</text></feedback></answer>
+    <answer fraction="0"><text>最高的三個訊號，由大到小排列</text><feedback><text>修正針對最弱的訊號，而非最強的。</text></feedback></answer>
+    <answer fraction="0"><text>全部五個訊號</text><feedback><text>只有最低的三個被列為頂尖修正。</text></feedback></answer>
+    <answer fraction="0"><text>隨機挑選的兩個訊號</text><feedback><text>清單是確定性的：最低的三個訊號，由小到大。</text></feedback></answer>
+    <generalfeedback><text>topFixes 取最低的三個訊號，依分數由小到大排序（平手時以固定訊號順序打破），每個都連到教它的探索器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>基礎 fixture 的最高優先修正</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對基礎 fixture 而言，哪個修正被列為第一（最高優先）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>接縫覆蓋的修正——其訊號（0）最低</text><feedback><text>正確——接縫覆蓋為 0 是最低，故其修正排第一。</text></feedback></answer>
+    <answer fraction="0"><text>可控制性的修正——其訊號（0.6）最高</text><feedback><text>最高的訊號最不急迫；修正先給最低者。</text></feedback></answer>
+    <answer fraction="0"><text>確定性的修正——其訊號（0.5）居中</text><feedback><text>0.5 不是最低；接縫覆蓋 0 排在它前面。</text></feedback></answer>
+    <answer fraction="0"><text>結構的修正——其訊號（0.24）第二低</text><feedback><text>結構（0.24）是第三低；可觀察性（0.2）第二、接縫（0）第一。</text></feedback></answer>
+    <generalfeedback><text>由小到大排序，訊號為接縫 0、可觀察性 0.2、結構 0.24、確定性 0.5、可控制性 0.6——故接縫覆蓋的修正排第一。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入時鐘後的接縫訊號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入時鐘後，接縫覆蓋訊號變為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.25</text><feedback><text>正確——4 個接縫注入 1 個，即 1/4 = 0.25。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>0 是注入任何接縫之前的值；注入時鐘會提升它。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 需要四個接縫中的兩個；此處只注入時鐘。</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 是時鐘修正後的確定性值，不是接縫值。</text></feedback></answer>
+    <generalfeedback><text>注入時鐘於四個接縫中加入一個：接縫覆蓋 ＝ 1/4 = 0.25。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入時鐘後的確定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入時鐘後，確定性訊號變為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.75</text><feedback><text>正確——移除兩個來源中的一個，故 1 - 1/4 = 0.75。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 是移除 clock 來源之前的值。</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 是時鐘修正後的接縫覆蓋值，不是確定性。</text></feedback></answer>
+    <answer fraction="0"><text>1.0</text><feedback><text>1.0 需要移除兩個來源；此處只移除 'clock'。</text></feedback></answer>
+    <generalfeedback><text>移除 'clock' 後四個來源中剩一個：確定性 ＝ 1 - 1/4 = 0.75。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確定性 0.5 從何而來</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基礎確定性訊號為 0.5，是因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 個非確定性來源中有 2 個存在：1 - 2/4 = 0.5</text><feedback><text>正確——四來源目錄中有兩個存在。</text></feedback></answer>
+    <answer fraction="0"><text>10 個測試中有 5 個脆弱</text><feedback><text>此訊號不是脆弱測試比例；它是 1 - present/DET_TOTAL。</text></feedback></answer>
+    <answer fraction="0"><text>一半的接縫已被注入</text><feedback><text>確定性與接縫數目無關；它計算非確定性來源。</text></feedback></answer>
+    <answer fraction="0"><text>時鐘接縫已被修正</text><feedback><text>初始未修正任何接縫；此值來自 4 個來源中有 2 個存在。</text></feedback></answer>
+    <generalfeedback><text>確定性 ＝ 1 - present/DET_TOTAL ＝ 1 - 2/4 = 0.5，其中 DET_TOTAL ＝ 4 是完整目錄，且有兩個來源（clock、random）存在。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>fixture 的非確定性來源</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基礎 fixture 宣告了哪些非確定性來源？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>clock 與 random</text><feedback><text>正確——fixture 的非確定性清單是 ['clock', 'random']。</text></feedback></answer>
+    <answer fraction="0"><text>network 與 timing</text><feedback><text>那不是 fixture 宣告的來源；它列的是 clock 與 random。</text></feedback></answer>
+    <answer fraction="0"><text>threads 與 disk</text><feedback><text>那不是 fixture 宣告的來源；它列的是 clock 與 random。</text></feedback></answer>
+    <answer fraction="0"><text>animation 與 order</text><feedback><text>那不是 fixture 宣告的來源；它列的是 clock 與 random。</text></feedback></answer>
+    <generalfeedback><text>fixture 的非確定性清單是 ['clock', 'random']——分別由 inject-clock 與 inject-rng 移除的兩個來源。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>加入探針提升什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>加入一個探針會提升哪個訊號，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可觀察性——它給共用輸出的狀態一個唯一輸出，使測試能分辨它</text><feedback><text>正確——探針使原本隱藏的狀態變得可區分，提升可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>可控制性——它加入一條新的輸入邊</text><feedback><text>探針改變的是輸出，不是決定可達性的輸入驅動轉移。</text></feedback></answer>
+    <answer fraction="0"><text>結構——它降低循環複雜度</text><feedback><text>探針不會觸及度量模組的結構難度。</text></feedback></answer>
+    <answer fraction="0"><text>接縫覆蓋——它注入一個相依</text><feedback><text>注入相依是接縫修正；探針影響的是可觀察性。</text></feedback></answer>
+    <generalfeedback><text>探針（透過 withProbe）給共用輸出的狀態一個唯一輸出，於是更多狀態變得可區分，可觀察性上升。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可控制性與可觀察性都連到哪</text></name>
+    <questiontext format="html"><text><![CDATA[<p>可控制性與可觀察性兩個訊號都深連到哪個探索器？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>controllability-observability</text><feedback><text>正確——兩個訊號都來自該探索器的引擎。</text></feedback></answer>
+    <answer fraction="0"><text>testability-seams</text><feedback><text>那教接縫覆蓋，不是可控制性／可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>testability-metrics</text><feedback><text>那教結構訊號，不是可控制性／可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>flaky-diagnosis</text><feedback><text>那教確定性，不是可控制性／可觀察性。</text></feedback></answer>
+    <generalfeedback><text>可控制性與可觀察性都由 controllability-observability 引擎計算，故兩者都深連到該探索器。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Scorecard/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>注入時鐘後的總體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入時鐘後（接縫變為 0.25、確定性變為 0.75，其餘三個不變），新的總體為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.408</text><feedback><text>正確——(0.6 + 0.2 + 0.25 + 0.24 + 0.75) / 5 = 2.04 / 5 = 0.408。</text></feedback></answer>
+    <answer fraction="0"><text>0.308</text><feedback><text>0.308 是修正之前的總體；注入時鐘後升為 0.408。</text></feedback></answer>
+    <answer fraction="0"><text>0.508</text><feedback><text>0.508 需要同時注入 RNG；單注入時鐘得到 0.408。</text></feedback></answer>
+    <answer fraction="0"><text>0.45</text><feedback><text>精確平均是 2.04 / 5 = 0.408，不是 0.45。</text></feedback></answer>
+    <generalfeedback><text>時鐘修正後訊號為 0.6、0.2、0.25、0.24、0.75，總和 2.04；平均為 2.04 / 5 = 0.408。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入時鐘後的等第</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在注入時鐘後總體為 0.408 時，等第變為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>D</text><feedback><text>正確——0.408 達到或超過 D 門檻（0.40）但低於 C（0.55），故為 D。</text></feedback></answer>
+    <answer fraction="0"><text>F</text><feedback><text>0.408 已越過 0.40 的 D 門檻，故不再是 F。</text></feedback></answer>
+    <answer fraction="0"><text>C</text><feedback><text>C 需要至少 0.55；0.408 低於此。</text></feedback></answer>
+    <answer fraction="0"><text>B</text><feedback><text>B 需要至少 0.70；0.408 遠低於此。</text></feedback></answer>
+    <generalfeedback><text>gradeFor(0.408)：越過 D 門檻 0.40 但未達 C 門檻 0.55，故等第為 D。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>詮釋 F 到 D 的跳升</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入時鐘使等第由 F 變為 D。最佳的解釋是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個修正提升了兩個訊號，把平均由 0.308 拉到 0.408，越過 0.40 的 D 門檻</text><feedback><text>正確——時鐘修正同時提升接縫覆蓋與確定性，把平均推過 0.40。</text></feedback></answer>
+    <answer fraction="0"><text>它使可控制性升到 0.85 以上</text><feedback><text>可控制性維持在 0.6 不變；等第改變是因為接縫與確定性。</text></feedback></answer>
+    <answer fraction="0"><text>它移除了一個訊號，使其餘的平均較高</text><feedback><text>沒有移除任何訊號；五個仍全部平均。</text></feedback></answer>
+    <answer fraction="0"><text>等第變化與訊號值無關</text><feedback><text>等第是訊號值平均的直接函數。</text></feedback></answer>
+    <generalfeedback><text>時鐘修正提升接縫覆蓋（0 到 0.25）與確定性（0.5 到 0.75）；平均由 0.308 升到 0.408，越過 D 門檻 0.40，使等第由 F 升為 D。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結構公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>結構訊號的計算為 1 - hardest/STRUCT_CAP。當最難單元（checkout）得分 19 且 STRUCT_CAP ＝ 25 時，結構等於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.24（1 - 19/25）</text><feedback><text>正確——19/25 = 0.76，而 1 - 0.76 = 0.24。</text></feedback></answer>
+    <answer fraction="0"><text>0.76</text><feedback><text>0.76 是 19/25 的難度比例；訊號是 1 減去它 = 0.24。</text></feedback></answer>
+    <answer fraction="0"><text>0.19</text><feedback><text>0.19 把原始分數 19 與正規化訊號 0.24 混淆了。</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 是把 1 - 19/25 粗略取整；精確值為 0.24。</text></feedback></answer>
+    <generalfeedback><text>結構 ＝ 1 - hardest/STRUCT_CAP ＝ 1 - 19/25 = 1 - 0.76 = 0.24，其中 checkout 是最難單元 19。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何先修最低訊號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼計分卡優先修正最低的訊號？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它有最大的改善空間，且最拖低平均，因此修它能帶來最大的等第提升</text><feedback><text>正確——最弱的訊號既是最大拖累，也是最大機會。</text></feedback></answer>
+    <answer fraction="0"><text>它一定最便宜修</text><feedback><text>計分卡不以成本排序；它依哪個訊號最低排序。</text></feedback></answer>
+    <answer fraction="0"><text>最低的訊號一定是確定性</text><feedback><text>最低訊號會變動；基礎 fixture 中是接縫覆蓋，不是確定性。</text></feedback></answer>
+    <answer fraction="0"><text>較低的訊號較可測試，所以較安全去動</text><feedback><text>較低代表較不可測試，而非較可測試；正因如此才需要修。</text></feedback></answer>
+    <generalfeedback><text>因為總體是平均，最低的訊號有最大空間（0 到 1）且最拖低平均，故改善它能讓總體與等第上升最多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非確定性與脆弱測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>非確定性訊號與脆弱（flaky）測試有何關聯？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>時鐘與 RNG 等非確定性來源會使測試脆弱，故確定性訊號連到 flaky-diagnosis 探索器</text><feedback><text>正確——未釘住的 clock/RNG 是典型的脆弱成因，把確定性繫到 flaky-diagnosis。</text></feedback></answer>
+    <answer fraction="0"><text>非確定性只影響編譯時間，不影響測試</text><feedback><text>非確定性影響測試執行，使結果不可重現（脆弱）。</text></feedback></answer>
+    <answer fraction="0"><text>脆弱測試會提升結構訊號</text><feedback><text>脆弱性關乎確定性，不是結構訊號。</text></feedback></answer>
+    <answer fraction="0"><text>確定性訊號計算程式碼行數</text><feedback><text>確定性計算非確定性來源，不是程式碼行數。</text></feedback></answer>
+    <generalfeedback><text>每個非確定性來源（真實時鐘、真實 RNG）都會使測試結果在不同次執行間變動——正是脆弱性的定義。故確定性訊號深連到 flaky-diagnosis 探索器，而注入 clock/RNG 既提升確定性又移除一個脆弱成因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入時鐘與 RNG 後的確定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在同時注入時鐘與 RNG 接縫（移除兩個非確定性來源）之後，確定性訊號為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.0（1 - 0/4）</text><feedback><text>正確——沒有來源存在時，確定性 ＝ 1 - 0/4 = 1.0。</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 是只移除一個來源後的值；移除兩個得到 1.0。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 是兩個來源都存在的基礎值。</text></feedback></answer>
+    <answer fraction="0"><text>0.0</text><feedback><text>移除來源會提升確定性；沒有來源存在時為 1.0，不是 0。</text></feedback></answer>
+    <generalfeedback><text>inject-clock 移除 'clock'、inject-rng 移除 'random'，四個來源中剩零個：確定性 ＝ 1 - 0/4 = 1.0。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入全部四個接縫後的接縫覆蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在注入全部四個接縫（config、gateway、clock、rng）之後，接縫覆蓋訊號為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.0</text><feedback><text>正確——4 個反樣式中移除 4 個，即 4/4 = 1.0。</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 是四個接縫中的三個；全部四個得到 1.0。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 是四個接縫中的兩個；全部四個得到 1.0。</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 是四個接縫中的一個；全部四個得到 1.0。</text></feedback></answer>
+    <generalfeedback><text>接縫覆蓋 ＝ 已注入接縫 / 4。注入全部四個（config、gateway、clock、rng）時為 4/4 = 1.0。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入全部四個接縫後的總體與等第</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在注入全部四個接縫後，訊號為可控制性 0.6、可觀察性 0.2、接縫 1.0、結構 0.24、確定性 1.0（clock 與 rng 皆移除）。總體與等第為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.608 → C</text><feedback><text>正確——(0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 3.04 / 5 = 0.608，越過 C 門檻 0.55。</text></feedback></answer>
+    <answer fraction="0"><text>0.408 → D</text><feedback><text>0.408 是只做時鐘修正後的總體，不是注入全部四個接縫後的值。</text></feedback></answer>
+    <answer fraction="0"><text>0.708 → B</text><feedback><text>精確平均是 3.04 / 5 = 0.608，不是 0.708。</text></feedback></answer>
+    <answer fraction="0"><text>0.508 → D</text><feedback><text>0.508 是只套用 clock 與 rng 接縫（接縫 0.5）時的平均；全部四個接縫得到 0.608。</text></feedback></answer>
+    <generalfeedback><text>全部四個接縫使接縫為 1.0，並（透過 clock 與 rng）使確定性為 1.0；平均為 (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 0.608，達到或超過 C 門檻 0.55，故等第為 C。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何結構維持 0.24</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你注入了 config 接縫。為什麼結構訊號維持在 0.24？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>結構難度來自不同的引擎（度量模組）；注入接縫只改變接縫覆蓋</text><feedback><text>正確——接縫與結構由各自獨立的引擎計算。</text></feedback></answer>
+    <answer fraction="0"><text>因為結構永遠固定在 0.24</text><feedback><text>結構原則上並非固定；只是它不對接縫注入起反應。</text></feedback></answer>
+    <answer fraction="0"><text>因為 config 接縫使循環複雜度降低恰為零的取整</text><feedback><text>config 接縫完全不觸及度量模組，故沒有取整問題。</text></feedback></answer>
+    <answer fraction="0"><text>因為注入接縫也注入了結構債</text><feedback><text>注入接縫對結構訊號沒有任何方向的影響。</text></feedback></answer>
+    <generalfeedback><text>結構來自度量模組上的 testabilityHardness，而接縫覆蓋來自接縫引擎。注入 config 接縫只改變 appliedSeams，故結構維持 0.24。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>STRUCT_CAP 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在結構訊號中，STRUCT_CAP ＝ 25 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被視為最壞情況的難度分數；得分 25 的單元會得到結構 1 - 25/25 = 0</text><feedback><text>正確——STRUCT_CAP 是正規化難度時「最糟」的分母。</text></feedback></answer>
+    <answer fraction="0"><text>一個模組允許的最大單元數</text><feedback><text>STRUCT_CAP 正規化的是難度分數，不是單元數。</text></feedback></answer>
+    <answer fraction="0"><text>及格等第的百分比門檻</text><feedback><text>等第門檻另有其值（0.85/0.70/0.55/0.40）；STRUCT_CAP 是難度分母。</text></feedback></answer>
+    <answer fraction="0"><text>非確定性來源的數目</text><feedback><text>那是 DET_TOTAL ＝ 4；STRUCT_CAP ＝ 25 正規化結構難度。</text></feedback></answer>
+    <generalfeedback><text>STRUCT_CAP ＝ 25 是被視為最壞情況的難度分數；結構 ＝ 1 - hardest/STRUCT_CAP，故 25 的單元會得到 0，而 fixture 的 19 得到 0.24。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DET_TOTAL 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>DET_TOTAL ＝ 4 代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>確定性訊號正規化所依據的非確定性來源完整目錄；存在 2 個時 1 - 2/4 = 0.5</text><feedback><text>正確——DET_TOTAL 是確定性訊號的分母。</text></feedback></answer>
+    <answer fraction="0"><text>等第字母的數目</text><feedback><text>等第字母有五個（A、B、C、D、F）；DET_TOTAL ＝ 4 是非確定性目錄大小。</text></feedback></answer>
+    <answer fraction="0"><text>接縫數目乘以二</text><feedback><text>接縫有四個；DET_TOTAL 恰為 4 且代表非確定性目錄，不是乘積。</text></feedback></answer>
+    <answer fraction="0"><text>被組合的探索器數目</text><feedback><text>計分卡組合三個兄弟引擎；DET_TOTAL ＝ 4 是非確定性目錄。</text></feedback></answer>
+    <generalfeedback><text>DET_TOTAL ＝ 4 是非確定性來源的完整目錄；確定性 ＝ 1 - present/DET_TOTAL，故存在的兩個來源得到 1 - 2/4 = 0.5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>時鐘相對於 config 作為單一修正</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼注入時鐘是比注入 config 接縫更高槓桿的單一修正？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>inject-clock 提升兩個訊號（接縫覆蓋與確定性）；inject-config 只提升接縫覆蓋</text><feedback><text>正確——時鐘修正也移除一個非確定性來源，故它推動兩個訊號。</text></feedback></answer>
+    <answer fraction="0"><text>inject-config 提升三個訊號</text><feedback><text>inject-config 只提升接縫覆蓋；它不觸及其他訊號。</text></feedback></answer>
+    <answer fraction="0"><text>inject-clock 也降低結構難度</text><feedback><text>兩個修正都不觸及結構；時鐘的額外效果在確定性。</text></feedback></answer>
+    <answer fraction="0"><text>它們對等第的效果相同</text><feedback><text>它們不同：時鐘推動兩個訊號、config 只一個，故對等第的效果不同。</text></feedback></answer>
+    <generalfeedback><text>inject-config 只加入 config 接縫（接縫覆蓋 +0.25）。inject-clock 加入時鐘接縫（接縫覆蓋 +0.25）並移除 clock 非確定性來源（確定性 +0.25），故它把平均提升兩倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單一訊號對平均的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>因為總體是五個訊號的單純平均，把任一訊號由 0 提升到 1 會使總體改變：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.2（五分之一）</text><feedback><text>正確——每個訊號占平均的 1/5，故完整由 0 到 1 的擺動使總體移動 0.2。</text></feedback></answer>
+    <answer fraction="0"><text>1.0</text><feedback><text>單一訊號只占平均的 1/5；其完整擺動是 0.2，不是 1.0。</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 相當於兩訊號的權重；每個單一訊號在平均中值 0.2。</text></feedback></answer>
+    <answer fraction="0"><text>0——個別訊號不影響平均</text><feedback><text>每個訊號都影響平均，幅度為其變化的 1/5。</text></feedback></answer>
+    <generalfeedback><text>總體是五個等權訊號的平均，故每個貢獻 1/5 = 0.2。一個訊號由 0 到 1 使總體上升 0.2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>排序頂尖三修正</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定訊號可控制性 0.6、可觀察性 0.2、接縫 0、結構 0.24、確定性 0.5，頂尖三個修正依優先序為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>接縫覆蓋、可觀察性、結構</text><feedback><text>正確——依分數由小到大：接縫 0、可觀察性 0.2、結構 0.24。</text></feedback></answer>
+    <answer fraction="0"><text>可控制性、確定性、結構</text><feedback><text>那不是最低的三個；可控制性（0.6）與確定性（0.5）是最高的兩個。</text></feedback></answer>
+    <answer fraction="0"><text>結構、可觀察性、接縫覆蓋</text><feedback><text>那是由大到小；清單是最低者優先：接縫、可觀察性、結構。</text></feedback></answer>
+    <answer fraction="0"><text>確定性、可控制性、可觀察性</text><feedback><text>確定性（0.5）與可控制性（0.6）是最強的訊號，不是頂尖修正。</text></feedback></answer>
+    <generalfeedback><text>topFixes 由小到大排序：接縫 0（testability-seams）、可觀察性 0.2（controllability-observability）、結構 0.24（testability-metrics）——最弱的三個訊號，每個連到教它的探索器。</text></generalfeedback>
+  </question>
+</quiz>

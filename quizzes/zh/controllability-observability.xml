@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Controllability &amp; Observability/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是可控制性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在可測試性的意義下，<strong>可控制性（controllability）</strong>衡量什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試能多大程度地把系統「驅動」到它需要執行的狀態／輸入</text><feedback><text>正確——可控制性是可測試性中「把它開到那裡」的那一半。</text></feedback></answer>
+    <answer fraction="0"><text>測試能多大程度地「看見」它需要檢查的效果</text><feedback><text>那是可觀察性（observability），可測試性的另一半。</text></feedback></answer>
+    <answer fraction="0"><text>模型有多少個狀態</text><feedback><text>單純的狀態數量不是可控制性；可控制性關乎由輸入可達的程度。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件涵蓋了多少個轉移</text><feedback><text>那是轉移涵蓋，與可控制性是不同的概念。</text></feedback></answer>
+    <generalfeedback><text>可控制性問的是：測試能否把軟體驅動到它必須執行的狀態與輸入。隱藏狀態、不可達的分支、寫死的相依都會降低它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是可觀察性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在可測試性的意義下，<strong>可觀察性（observability）</strong>衡量什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>測試能多大程度地把系統「驅動」到選定的狀態</text><feedback><text>那是可控制性，不是可觀察性。</text></feedback></answer>
+    <answer fraction="100"><text>測試能多大程度地「看見」它需要檢查的效果／輸出</text><feedback><text>正確——可觀察性是可測試性中「我能否看見它」的那一半。</text></feedback></answer>
+    <answer fraction="0"><text>系統接受多少種輸入</text><feedback><text>輸入的數量不是可觀察性；可觀察性關乎可區分的輸出。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件跑得多快</text><feedback><text>速度與可觀察性無關。</text></feedback></answer>
+    <generalfeedback><text>可觀察性問的是：測試能否看見它必須檢查的效果。副作用、被吞掉的錯誤、以及與其他狀態相撞的缺失／回傳輸出都會降低它。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>可測試性等於可控制性加可觀察性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>可測試性的經典定義是 <strong>controllability + observability（可控制性 + 可觀察性）</strong>——一個系統的可測試程度，取決於測試能否既把它驅動到所需狀態，又能觀察到產生的效果。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——兩半都必須具備，單有其中一半並不足夠。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>可測試性正是可控制性與可觀察性合在一起。</text></feedback></answer>
+    <generalfeedback><text>經典定義（源自控制理論；Freedman；Binder）為 testability = controllability + observability。你必須能把 SUT 驅動到想要的情況，並且能看見效果以進行檢查。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是可達狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在旋轉柵門模型中，<strong>可達（reachable）</strong>狀態是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從起始狀態開始，存在某個測試輸入序列能把 SUT 驅動到的狀態</text><feedback><text>正確——這裡的可達指「從起始出發的某個輸入序列能到達那裡」。</text></feedback></answer>
+    <answer fraction="0"><text>輸出值唯一的狀態</text><feedback><text>那描述的是可觀察狀態，不是可達狀態。</text></feedback></answer>
+    <answer fraction="0"><text>只有起始狀態</text><feedback><text>起始狀態可達，但任何輸入序列能進入的狀態也都可達。</text></feedback></answer>
+    <answer fraction="0"><text>任何具有自迴圈的狀態</text><feedback><text>自迴圈與能否從起始抵達某狀態無關。</text></feedback></answer>
+    <generalfeedback><text>reachableStates(sut) 從起始狀態對「由輸入驅動的轉移」做 BFS。當某個輸入序列能從起始抵達某狀態時，該狀態即為可達。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是不可達狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此模型中，某狀態對測試而言<strong>不可達（unreachable）</strong>是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>該狀態沒有可觀察輸出</text><feedback><text>可達性關乎由輸入驅動的轉移，而非輸出。</text></feedback></answer>
+    <answer fraction="0"><text>該狀態是起始狀態</text><feedback><text>起始狀態一定可達；不可達恰好相反。</text></feedback></answer>
+    <answer fraction="100"><text>沒有任何從起始出發的測試輸入序列能把 SUT 驅動到它</text><feedback><text>正確——沒有輸入路徑通往那裡，因此測試無法將其設定起來。</text></feedback></answer>
+    <answer fraction="0"><text>該狀態有超過一條的外向轉移</text><feedback><text>有外向轉移並不會使一個狀態變得不可達。</text></feedback></answer>
+    <generalfeedback><text>不可達狀態沒有由輸入驅動、從起始通往它的路徑，因此測試無法把 SUT 驅動到那裡。在旋轉柵門中，JAMMED 與 MAINT 對測試的輸入而言不可達——即可控制性缺口。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是可觀察輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此模型中，什麼是<strong>可觀察輸出（observable output）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>測試無法讀取的內部狀態變數</text><feedback><text>輸出的重點正是它「能」從外部被看見；隱藏變數恰好相反。</text></feedback></answer>
+    <answer fraction="100"><text>測試能從 SUT 外部看見的值（例如 'red'、'green'、'beep'）</text><feedback><text>正確——輸出是測試檢查的、可從外部觀察的投影。</text></feedback></answer>
+    <answer fraction="0"><text>觸發轉移的輸入事件</text><feedback><text>那是輸入（coin/push/reset），不是輸出。</text></feedback></answer>
+    <answer fraction="0"><text>狀態圖中的一條轉移邊</text><feedback><text>邊是轉移；輸出是狀態的可見值。</text></feedback></answer>
+    <generalfeedback><text>每個狀態在 sut.outputs 中對應一個可觀察輸出——測試能從外部看見的值（例如 LOCKED→'red'、PASSED→'beep'）。可觀察性就是在這些輸出上衡量的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>旋轉柵門的起始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>TURNSTILE_SUT</code> 中，哪一個是<strong>起始（start）</strong>狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LOCKED</text><feedback><text>正確——起始為 LOCKED。</text></feedback></answer>
+    <answer fraction="0"><text>UNLOCKED</text><feedback><text>UNLOCKED 由 LOCKED 收到 coin 抵達；它不是起始。</text></feedback></answer>
+    <answer fraction="0"><text>PASSED</text><feedback><text>PASSED 經 coin 再 push 抵達；它不是起始。</text></feedback></answer>
+    <answer fraction="0"><text>MAINT</text><feedback><text>MAINT 連由輸入都不可達，更不會是起始。</text></feedback></answer>
+    <generalfeedback><text>TURNSTILE_SUT.start 是 'LOCKED'。所有可達性與 driveTo 的計算都從這裡開始。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>旋轉柵門的狀態數</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>TURNSTILE_SUT</code> 有幾個<strong>狀態</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>3</text><feedback><text>3 是由輸入可達的狀態數，不是總數。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>共有 5 個狀態，不是 4 個。</text></feedback></answer>
+    <answer fraction="100"><text>5</text><feedback><text>正確——LOCKED、UNLOCKED、PASSED、JAMMED、MAINT。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>模型中只有 5 個狀態。</text></feedback></answer>
+    <generalfeedback><text>states = [LOCKED, UNLOCKED, PASSED, JAMMED, MAINT]——共 5 個。這個 5 是可控制性與可觀察性兩個比率的分母。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>旋轉柵門的輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>TURNSTILE_SUT</code> 中，測試的<strong>輸入</strong>（可操作的槓桿）有哪些？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>coin、push、reset</text><feedback><text>正確——這是測試能發送的三種輸入。</text></feedback></answer>
+    <answer fraction="0"><text>coin、push</text><feedback><text>reset 也是輸入；共有三種。</text></feedback></answer>
+    <answer fraction="0"><text>red、green、beep</text><feedback><text>那些是輸出，不是輸入。</text></feedback></answer>
+    <answer fraction="0"><text>coin、push、reset、key</text><feedback><text>沒有 'key' 輸入；維護鑰匙正是模型「不」提供給測試的東西。</text></feedback></answer>
+    <generalfeedback><text>inputs = [coin, push, reset]。刻意沒有維護鑰匙輸入，這正是 MAINT 無法被測試驅動抵達的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PASSED 的輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>PASSED</code> 狀態的可觀察<strong>輸出</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>green</text><feedback><text>green 是 UNLOCKED 與 JAMMED 的輸出，不是 PASSED。</text></feedback></answer>
+    <answer fraction="100"><text>beep</text><feedback><text>正確——PASSED→'beep'。</text></feedback></answer>
+    <answer fraction="0"><text>red</text><feedback><text>red 是 LOCKED 與 MAINT 的輸出，不是 PASSED。</text></feedback></answer>
+    <answer fraction="0"><text>grind</text><feedback><text>'grind' 只有在對 JAMMED 加上探針時才出現；PASSED 的輸出是 'beep'。</text></feedback></answer>
+    <generalfeedback><text>outputs[PASSED] = 'beep'。它是基礎模型中唯一唯一的輸出，因此在加入任何探針前，PASSED 是唯一可觀察的狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>LOCKED 的輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>LOCKED</code> 狀態的可觀察<strong>輸出</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>red</text><feedback><text>正確——LOCKED→'red'（與 MAINT 共用）。</text></feedback></answer>
+    <answer fraction="0"><text>green</text><feedback><text>green 屬於 UNLOCKED 與 JAMMED，不是 LOCKED。</text></feedback></answer>
+    <answer fraction="0"><text>beep</text><feedback><text>beep 屬於 PASSED，不是 LOCKED。</text></feedback></answer>
+    <answer fraction="0"><text>grind</text><feedback><text>'grind' 是加在 JAMMED 上的探針輸出；LOCKED 的輸出是 'red'。</text></feedback></answer>
+    <generalfeedback><text>outputs[LOCKED] = 'red'。由於 MAINT 也是 'red'，LOCKED 的輸出並不唯一，因此 LOCKED 在基礎模型中不可觀察。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>基礎模型中唯一的輸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在基礎旋轉柵門（尚未加任何探針）中，哪一個輸出值是某單一狀態<strong>獨有</strong>的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>red</text><feedback><text>red 由 LOCKED 與 MAINT 共用，並不唯一。</text></feedback></answer>
+    <answer fraction="0"><text>green</text><feedback><text>green 由 UNLOCKED 與 JAMMED 共用，並不唯一。</text></feedback></answer>
+    <answer fraction="0"><text>grind</text><feedback><text>'grind' 在基礎模型中不存在；它只在加入探針後才出現。</text></feedback></answer>
+    <answer fraction="100"><text>beep</text><feedback><text>正確——只有 PASSED 發出 'beep'，所以它是唯一獨有的輸出。</text></feedback></answer>
+    <generalfeedback><text>計算輸出：red→{LOCKED, MAINT}、green→{UNLOCKED, JAMMED}、beep→{PASSED}。只有 'beep' 出現一次，因此 PASSED 是唯一可觀察的狀態（可觀察性 1/5）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時缺陷可觀察</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此引擎中，一個狀態的缺陷何時被視為<strong>可觀察</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當該狀態的輸出值唯一——沒有其他狀態與之相同時</text><feedback><text>正確——唯一輸出能讓觀察者區分該狀態，因此落在該狀態的缺陷可見。</text></feedback></answer>
+    <answer fraction="0"><text>當該狀態從起始可達時</text><feedback><text>可達性是可控制性；可觀察性關乎可區分的輸出。</text></feedback></answer>
+    <answer fraction="0"><text>當該狀態是起始狀態時</text><feedback><text>是否為起始與該處缺陷是否可觀察無關。</text></feedback></answer>
+    <answer fraction="0"><text>當該狀態具有自迴圈時</text><feedback><text>自迴圈並不決定可觀察性。</text></feedback></answer>
+    <generalfeedback><text>observableStates(sut) 只保留輸出值在所有狀態中唯一的狀態。共用的輸出代表觀察者無法區分那些狀態，因此該處的缺陷不可見。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀出可控制性比率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對基礎旋轉柵門，<code>controllability(TURNSTILE_SUT).ratio</code> 是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>5/5（100%）</text><feedback><text>有兩個狀態（JAMMED、MAINT）不可達，所以不是 5/5。</text></feedback></answer>
+    <answer fraction="100"><text>3/5（60%）</text><feedback><text>正確——LOCKED、UNLOCKED、PASSED 可達；JAMMED 與 MAINT 不可達。</text></feedback></answer>
+    <answer fraction="0"><text>1/5（20%）</text><feedback><text>1/5 是基礎的可觀察性，不是可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>2/5（40%）</text><feedback><text>有三個狀態可達，得 3/5，不是 2/5。</text></feedback></answer>
+    <generalfeedback><text>reachableStates = {LOCKED, UNLOCKED, PASSED} = 5 個中的 3 個，因此可控制性比率 = 3/5 = 60%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀出可觀察性比率</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對基礎旋轉柵門（尚未加任何探針），<code>observability(TURNSTILE_SUT).ratio</code> 是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>3/5（60%）</text><feedback><text>3/5 是加入探針「之後」的可觀察性，不是基礎值。</text></feedback></answer>
+    <answer fraction="0"><text>5/5（100%）</text><feedback><text>基礎模型中只有一個狀態的輸出唯一，所以不是 5/5。</text></feedback></answer>
+    <answer fraction="100"><text>1/5（20%）</text><feedback><text>正確——只有 PASSED 具有唯一輸出（'beep'）。</text></feedback></answer>
+    <answer fraction="0"><text>2/5（40%）</text><feedback><text>基礎模型中只有一個輸出（beep）唯一，所以是 1/5。</text></feedback></answer>
+    <generalfeedback><text>只有 PASSED→'beep' 唯一；red 與 green 各自被兩個狀態共用。因此 observableStates = {PASSED} = 5 個中的 1 個，可觀察性 = 1/5 = 20%。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Controllability &amp; Observability/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些狀態可達</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從 LOCKED 開始，只使用輸入 coin/push/reset，測試能到達哪一組狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{LOCKED, UNLOCKED, PASSED}</text><feedback><text>正確——coin 到 UNLOCKED，push 到 PASSED，reset 回到 LOCKED；JAMMED 與 MAINT 從未被進入。</text></feedback></answer>
+    <answer fraction="0"><text>{LOCKED, UNLOCKED, PASSED, JAMMED, MAINT}</text><feedback><text>JAMMED 與 MAINT 沒有由輸入驅動、通往它們的邊，因此不可達。</text></feedback></answer>
+    <answer fraction="0"><text>{LOCKED, UNLOCKED}</text><feedback><text>PASSED 也可經由 coin 再 push 抵達。</text></feedback></answer>
+    <answer fraction="0"><text>{LOCKED, UNLOCKED, PASSED, JAMMED}</text><feedback><text>JAMMED 只由故障進入，沒有任何輸入能到達，因此不可達。</text></feedback></answer>
+    <generalfeedback><text>從 LOCKED 對輸入邊做 BFS，可到達 UNLOCKED（coin）與 PASSED（coin, push），而 reset 只會回到 LOCKED。沒有邊通往 JAMMED 或 MAINT，因此可達集合正好是 {LOCKED, UNLOCKED, PASSED}。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 JAMMED 不可達</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼測試無法把旋轉柵門驅動到 <code>JAMMED</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有由輸入驅動、通往 JAMMED 的轉移——它只由故障進入，而非任何測試輸入</text><feedback><text>正確——沒有任何入向的輸入邊，就沒有輸入序列能抵達 JAMMED。</text></feedback></answer>
+    <answer fraction="0"><text>因為 JAMMED 沒有外向轉移</text><feedback><text>JAMMED 確實有一條外向邊（reset→LOCKED）；問題在於沒有邊通往它。</text></feedback></answer>
+    <answer fraction="0"><text>因為 JAMMED 與 UNLOCKED 共用輸出</text><feedback><text>那個共用輸出是可觀察性缺口，不是 JAMMED 不可達的原因。</text></feedback></answer>
+    <answer fraction="0"><text>因為 JAMMED 是起始狀態</text><feedback><text>起始是 LOCKED；JAMMED 不是。</text></feedback></answer>
+    <generalfeedback><text>可達性取決於通往某狀態的入向邊。唯一觸及 JAMMED 的邊是 JAMMED--reset-->LOCKED（外向）。既然沒有輸入能驅動任何東西進入 JAMMED，故障便是唯一的入口——即可控制性缺口。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 MAINT 不可達</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼測試無法把旋轉柵門驅動到 <code>MAINT</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>因為 MAINT 與 LOCKED 共用輸出 'red'</text><feedback><text>共用輸出是可觀察性問題；它無法解釋不可達。</text></feedback></answer>
+    <answer fraction="100"><text>沒有轉移通往 MAINT——它只由維護鑰匙進入，而那不是測試的輸入之一</text><feedback><text>正確——MAINT 沒有入向的輸入邊，因此沒有輸入序列能到達它。</text></feedback></answer>
+    <answer fraction="0"><text>因為 MAINT 有一個困住狀態機的自迴圈</text><feedback><text>MAINT 在模型中根本沒有任何邊；不涉及自迴圈。</text></feedback></answer>
+    <answer fraction="0"><text>因為 reset 總是導向離開 MAINT</text><feedback><text>MAINT 沒有 reset 邊；重點是沒有東西通往它。</text></feedback></answer>
+    <generalfeedback><text>MAINT 只由維護鑰匙進入，而它刻意不在 inputs = [coin, push, reset] 之中。既然沒有輸入邊通往 MAINT，它對測試而言不可達——屬於可控制性缺口的一部分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo PASSED</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>driveTo(TURNSTILE_SUT, 'PASSED')</code> 會回傳哪一個輸入序列（從起始出發的最短路徑）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>coin、push</text><feedback><text>正確——LOCKED--coin-->UNLOCKED--push-->PASSED。</text></feedback></answer>
+    <answer fraction="0"><text>push、coin</text><feedback><text>在 LOCKED 發送 push 只會停留在 LOCKED；順序必須是先 coin 再 push。</text></feedback></answer>
+    <answer fraction="0"><text>coin、push、reset</text><feedback><text>reset 會離開 PASSED 回到 LOCKED；最短路徑在 coin、push 後即停在 PASSED。</text></feedback></answer>
+    <answer fraction="0"><text>push</text><feedback><text>在 LOCKED 只發送 push 會迴圈回 LOCKED，永遠到不了 PASSED。</text></feedback></answer>
+    <generalfeedback><text>從 LOCKED 做 BFS：coin 到 UNLOCKED，接著 push 到 PASSED。最短的驅動序列是 [coin, push]——2 步。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo UNLOCKED</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>driveTo(TURNSTILE_SUT, 'UNLOCKED')</code> 會回傳哪一個輸入序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>push</text><feedback><text>在 LOCKED 發送 push 會停留在 LOCKED；到不了 UNLOCKED。</text></feedback></answer>
+    <answer fraction="100"><text>coin</text><feedback><text>正確——LOCKED--coin-->UNLOCKED，一步到位。</text></feedback></answer>
+    <answer fraction="0"><text>coin、push</text><feedback><text>那會到達 PASSED；UNLOCKED 只需 coin 一步。</text></feedback></answer>
+    <answer fraction="0"><text>reset</text><feedback><text>reset 在 LOCKED 未定義，且到不了 UNLOCKED。</text></feedback></answer>
+    <generalfeedback><text>從起始 LOCKED，單一 coin 就能把 SUT 驅動到 UNLOCKED，因此 driveTo 回傳 [coin]。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo MAINT 的結果</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>driveTo(TURNSTILE_SUT, 'MAINT')</code> 會回傳什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>null——沒有任何輸入序列能到達 MAINT</text><feedback><text>正確——MAINT 由輸入不可達，因此 driveTo 回傳 null。</text></feedback></answer>
+    <answer fraction="0"><text>空陣列 []</text><feedback><text>只有當目標是起始狀態時才回傳 []；MAINT 不可達，所以結果是 null。</text></feedback></answer>
+    <answer fraction="0"><text>[reset]</text><feedback><text>reset 不會通往 MAINT；沒有任何輸入序列可以。</text></feedback></answer>
+    <answer fraction="0"><text>[key]</text><feedback><text>模型中沒有 'key' 輸入；driveTo 回傳 null。</text></feedback></answer>
+    <generalfeedback><text>driveTo 對輸入邊做 BFS，當目標無法到達時回傳 null。MAINT 沒有入向的輸入邊，因此結果是 null——這把可控制性缺口具體化了。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo 到起始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>已知 LOCKED 是起始狀態，<code>driveTo(TURNSTILE_SUT, 'LOCKED')</code> 會回傳什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>null</text><feedback><text>null 代表不可達；LOCKED 是起始，因此顯然可達。</text></feedback></answer>
+    <answer fraction="0"><text>[reset]</text><feedback><text>你已經在 LOCKED，因此不需要任何輸入。</text></feedback></answer>
+    <answer fraction="100"><text>空陣列 []——你已經在那裡，不需任何輸入</text><feedback><text>正確——當目標是起始狀態時，driveTo 回傳 []。</text></feedback></answer>
+    <answer fraction="0"><text>[coin]</text><feedback><text>coin 會離開 LOCKED；要「處於」起始並不需要任何輸入，所以是 []。</text></feedback></answer>
+    <generalfeedback><text>driveTo 的第一行是：if target === start return []。既然 LOCKED 是起始，最短的驅動序列就是空序列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 JAMMED 的缺陷不可見</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在基礎模型中，為什麼一個落在 <code>JAMMED</code> 的缺陷，對監看輸出的測試而言是不可見的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>因為 JAMMED 發出 'beep'，與 PASSED 相同</text><feedback><text>JAMMED 發出 'green'，不是 'beep'；beep 是 PASSED 獨有的。</text></feedback></answer>
+    <answer fraction="100"><text>因為 JAMMED 的輸出 'green' 與 UNLOCKED 共用，觀察者無法區分兩者</text><feedback><text>正確——相撞的輸出使這兩個狀態無法區分，因而隱藏了缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>因為 JAMMED 是起始狀態</text><feedback><text>起始是 LOCKED；JAMMED 不是，而且這與可見性無關。</text></feedback></answer>
+    <answer fraction="0"><text>因為 JAMMED 根本沒有輸出</text><feedback><text>JAMMED 確實有輸出（'green'）；問題在於它與 UNLOCKED 相撞。</text></feedback></answer>
+    <generalfeedback><text>JAMMED→'green' 且 UNLOCKED→'green'。當缺陷把 SUT 落入 JAMMED 時，輸出仍讀作 'green'，與正常的 UNLOCKED 完全相同，觀察者因此無法偵測到卡住——即可觀察性缺口。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些狀態共用 'red'</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪兩個狀態共用輸出值 <code>'red'</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LOCKED 與 MAINT</text><feedback><text>正確——兩者都對應 'red'，因此在基礎模型中都不可觀察。</text></feedback></answer>
+    <answer fraction="0"><text>UNLOCKED 與 JAMMED</text><feedback><text>那兩個共用 'green'，不是 'red'。</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED 與 UNLOCKED</text><feedback><text>LOCKED 是 'red' 但 UNLOCKED 是 'green'；並不共用。</text></feedback></answer>
+    <answer fraction="0"><text>PASSED 與 MAINT</text><feedback><text>PASSED 是 'beep'，MAINT 是 'red'；並不共用。</text></feedback></answer>
+    <generalfeedback><text>outputs：LOCKED→'red'、MAINT→'red'。由於 'red' 被共用，LOCKED 與 MAINT 都不可觀察。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些狀態共用 'green'</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪兩個狀態共用輸出值 <code>'green'</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>LOCKED 與 MAINT</text><feedback><text>那兩個共用 'red'，不是 'green'。</text></feedback></answer>
+    <answer fraction="0"><text>PASSED 與 JAMMED</text><feedback><text>PASSED 是 'beep'；只有 JAMMED（與 UNLOCKED）是 'green'。</text></feedback></answer>
+    <answer fraction="100"><text>UNLOCKED 與 JAMMED</text><feedback><text>正確——兩者都對應 'green'，這正是卡住看起來像正常解鎖的原因。</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED 與 UNLOCKED</text><feedback><text>LOCKED 是 'red'，UNLOCKED 是 'green'；並不共用。</text></feedback></answer>
+    <generalfeedback><text>outputs：UNLOCKED→'green'、JAMMED→'green'。'green' 上的相撞就是隱藏卡住的可觀察性缺口。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>探針的作用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此探索器中，加入<strong>探針（<code>withProbe</code>）</strong>會做什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>賦予某狀態一個獨特輸出，使原本共用的輸出變得唯一，從而提高可觀察性——回傳一個新的 SUT 而不改動原始的</text><feedback><text>正確——withProbe 回傳一份新的 outputs 對照表；它是「可觀察性是設計選擇」的槓桿。</text></feedback></answer>
+    <answer fraction="0"><text>加入一條新的輸入轉移，使不可達狀態變得可達</text><feedback><text>那會改變可控制性；探針只改變輸出。</text></feedback></answer>
+    <answer fraction="0"><text>從模型中刪除一個不可達狀態</text><feedback><text>探針加入一個可區分的輸出；它不刪除任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>改變哪一個狀態是起始狀態</text><feedback><text>起始狀態不變；探針只影響輸出。</text></feedback></answer>
+    <generalfeedback><text>withProbe(sut, state, distinctOutput) 回傳 { ...sut, outputs: { ...sut.outputs, [state]: distinctOutput } }——一個「新」的 SUT，其目標狀態現在發出一個獨特值，因此其輸出不再相撞，該狀態變得可觀察。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對 JAMMED 加探針的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當探針賦予 <code>JAMMED</code> 一個獨特輸出後，哪些原本不可觀察的狀態變得可觀察？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>只有 JAMMED</text><feedback><text>UNLOCKED 也會變得唯一，因為一旦 JAMMED 有了獨特輸出，'green' 就不再相撞。</text></feedback></answer>
+    <answer fraction="100"><text>UNLOCKED 與 JAMMED 兩者都變得唯一</text><feedback><text>正確——探針消除了 'green' 的相撞，因此 UNLOCKED 與 JAMMED 各自成為其輸出的唯一擁有者。</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED 與 MAINT</text><feedback><text>那兩個仍共用 'red'；JAMMED 探針並未觸及它們。</text></feedback></answer>
+    <answer fraction="0"><text>全部五個狀態</text><feedback><text>LOCKED 與 MAINT 仍在 'red' 上相撞，因此並非全部五個都可觀察。</text></feedback></answer>
+    <generalfeedback><text>之前：UNLOCKED 與 JAMMED 都是 'green'（都不可觀察）。把 JAMMED 探針成獨特值後，UNLOCKED 成為唯一的 'green'，JAMMED 成為新值的唯一擁有者，因此「兩者」都變得可觀察——可觀察性由 1/5 升為 3/5（PASSED、UNLOCKED、JAMMED）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>屬於可控制性的活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項活動屬於<strong>可控制性</strong>而非可觀察性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>檢查 PASSED 是否發出 'beep'</text><feedback><text>檢查輸出屬於可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>讀取 LOCKED 的輸出值</text><feedback><text>讀取輸出屬於可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>依輸出區分 JAMMED 與 UNLOCKED</text><feedback><text>依輸出把狀態分辨開來屬於可觀察性。</text></feedback></answer>
+    <answer fraction="100"><text>發送 coin 再 push 把旋轉柵門驅動到 PASSED</text><feedback><text>正確——建構輸入序列以到達目標狀態屬於可控制性。</text></feedback></answer>
+    <generalfeedback><text>可控制性是「把它開到那裡」的那一半：發送輸入以到達選定狀態。檢視或區分輸出則屬於可觀察性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>屬於可觀察性的活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項活動屬於<strong>可觀察性</strong>而非可控制性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>檢查 PASSED 的輸出 'beep' 是否與其他每個狀態的輸出都不同</text><feedback><text>正確——驗證某輸出能否區分某狀態屬於可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>發送 coin 把 LOCKED 移到 UNLOCKED</text><feedback><text>發送輸入以改變狀態屬於可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>找到一條到達 PASSED 的輸入路徑</text><feedback><text>找到驅動路徑屬於可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>把 SUT 驅動到選定的目標狀態</text><feedback><text>驅動到目標屬於可控制性。</text></feedback></answer>
+    <generalfeedback><text>可觀察性是「看見它」的那一半：檢查輸出能否讓你分辨狀態。發送輸入或尋找路徑則屬於可控制性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>若 MAINT 變得可達時的可控制性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設加入一個維護鑰匙輸入，能把 SUT 驅動到 <code>MAINT</code>（它沒有外向邊）。可控制性比率會變成多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>5/5（100%）</text><feedback><text>JAMMED 仍不可達，因此不可能是 5/5。</text></feedback></answer>
+    <answer fraction="0"><text>3/5（60%）</text><feedback><text>那是目前的值；加入可達的 MAINT 會提高它。</text></feedback></answer>
+    <answer fraction="100"><text>4/5（80%）</text><feedback><text>正確——MAINT 加入可達集合 {LOCKED, UNLOCKED, PASSED}，得 5 中 4；JAMMED 仍不可達。</text></feedback></answer>
+    <answer fraction="0"><text>2/5（40%）</text><feedback><text>加入一個可達狀態會提高而非降低可控制性。</text></feedback></answer>
+    <generalfeedback><text>可達集合會變成 {LOCKED, UNLOCKED, PASSED, MAINT} = 4。MAINT 沒有外向邊，因此不會開啟更多狀態，而 JAMMED 仍不可達。所以可控制性 = 4/5 = 80%。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Controllability &amp; Observability/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>追蹤多步輸入序列</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從 LOCKED 開始，測試發送序列 <code>coin, push, reset, coin</code>。最終狀態為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>PASSED</text><feedback><text>coin、push 之後會到 PASSED，但接著的 reset 再 coin 會前進到 UNLOCKED。</text></feedback></answer>
+    <answer fraction="100"><text>UNLOCKED</text><feedback><text>正確——LOCKED→UNLOCKED→PASSED→LOCKED→UNLOCKED。</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED</text><feedback><text>reset 回到 LOCKED，但最後的 coin 又移到 UNLOCKED。</text></feedback></answer>
+    <answer fraction="0"><text>JAMMED</text><feedback><text>沒有輸入能到達 JAMMED；序列不可能停在那裡。</text></feedback></answer>
+    <generalfeedback><text>追蹤：LOCKED--coin-->UNLOCKED--push-->PASSED--reset-->LOCKED--coin-->UNLOCKED。最終狀態是 UNLOCKED。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 JAMMED 的外向邊沒有幫助</text></name>
+    <questiontext format="html"><text><![CDATA[<p>JAMMED 有一條邊 <code>JAMMED--reset--&gt;LOCKED</code>。為什麼這條邊仍無法讓測試到達 JAMMED？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可達性需要通往 JAMMED 的入向邊；外向邊只能讓你離開 JAMMED，永遠無法抵達那裡</text><feedback><text>正確——只有當你已在 JAMMED 時，才能走 JAMMED--reset-->LOCKED，而這正是測試辦不到的。</text></feedback></answer>
+    <answer fraction="0"><text>因為 reset 不是輸入之一</text><feedback><text>reset「是」輸入；問題在於方向——沒有邊通往 JAMMED。</text></feedback></answer>
+    <answer fraction="0"><text>因為 JAMMED 與 UNLOCKED 共用 'green'</text><feedback><text>那是可觀察性缺口；與 JAMMED 能否被到達無關。</text></feedback></answer>
+    <answer fraction="0"><text>因為這條邊在圖中排在 PASSED 之後</text><feedback><text>圖中的排序不影響可達性；入向邊才會。</text></feedback></answer>
+    <generalfeedback><text>BFS 依邊的方向前進。JAMMED--reset-->LOCKED 是外向邊，只有在你已處於 JAMMED 時才可用。既然沒有邊「指向」JAMMED，測試就永遠到不了——這條外向邊與可達性無關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 driveTo PASSED 需要兩步</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼到達 PASSED 的最短驅動序列恰好是兩步（<code>coin, push</code>）而非一步？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>PASSED 只由 UNLOCKED 發送 push 進入，而 UNLOCKED 只由 LOCKED 發送 coin 進入——所以必須先 coin 再 push</text><feedback><text>正確——通往 PASSED 的唯一路徑迫使這條兩步鏈。</text></feedback></answer>
+    <answer fraction="0"><text>因為 push 之前必須先發送 reset</text><feedback><text>reset 不在往 PASSED 的路徑上；路線是 coin 再 push。</text></feedback></answer>
+    <answer fraction="0"><text>因為 PASSED 有一個必須進入兩次的自迴圈</text><feedback><text>PASSED 沒有自迴圈；兩步來自 LOCKED→UNLOCKED→PASSED 這條鏈。</text></feedback></answer>
+    <answer fraction="0"><text>因為 JAMMED 擋住了直接路徑</text><feedback><text>JAMMED 不在任何輸入路徑上；它不會擋住任何東西。</text></feedback></answer>
+    <generalfeedback><text>通往 PASSED 的唯一邊是 UNLOCKED--push-->PASSED，而通往 UNLOCKED 的唯一邊是 LOCKED--coin-->UNLOCKED。從起始 LOCKED 出發，這迫使 coin、push 這條鏈——兩步，即最小值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀可控制性 3/5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>可控制性為 <strong>3/5</strong> 告訴你關於旋轉柵門的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試能把 SUT 驅動到 5 個模型狀態中的 3 個；另外 2 個（JAMMED、MAINT）在其能力範圍之外</text><feedback><text>正確——3/5 是「由輸入可達的狀態」除以「總狀態數」。</text></feedback></answer>
+    <answer fraction="0"><text>5 個輸出中有 3 個是唯一的</text><feedback><text>那描述的是可觀察性，不是可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>測試套件執行了 5 個轉移中的 3 個</text><feedback><text>可控制性計算可達狀態，而非執行過的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>5 個輸入中有 3 個是有效的</text><feedback><text>所有輸入都有效；比率是對狀態計算，而非輸入。</text></feedback></answer>
+    <generalfeedback><text>controllability.ratio = |reachable| / |states| = 3/5。它代表測試能設定 5 個狀態中的 3 個；JAMMED 與 MAINT 無法由任何輸入序列到達。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀可觀察性 1/5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>可觀察性為 <strong>1/5</strong> 告訴你關於基礎旋轉柵門的什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>5 個狀態中有 3 個可達</text><feedback><text>那是可控制性，而且數字會是 3/5，不是 1/5。</text></feedback></answer>
+    <answer fraction="100"><text>5 個狀態中只有 1 個（PASSED）具有可區分的輸出；落在其他 4 個中任一個的缺陷都可能與另一狀態混淆</text><feedback><text>正確——1/5 計算的是具有唯一輸出的狀態數。</text></feedback></answer>
+    <answer fraction="0"><text>5 個轉移中恰有 1 個被涵蓋</text><feedback><text>可觀察性計算的是具可區分輸出的狀態，而非被涵蓋的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>5 個輸入中有 1 個從未被使用</text><feedback><text>比率是對「具唯一輸出的狀態」計算，而非對輸入。</text></feedback></answer>
+    <generalfeedback><text>observability.ratio = |observable| / |states| = 1/5。只有 PASSED→'beep' 唯一；LOCKED/MAINT 在 'red' 上相撞，UNLOCKED/JAMMED 在 'green' 上相撞，因此這四個中任一個的缺陷在輸出上都無法區分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 1/5 躍升到 3/5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>加入單一探針使可觀察性從 <strong>1/5 升到 3/5</strong>。為何是躍升 2 而非 1？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>探針使 JAMMED 能被測試的輸入到達</text><feedback><text>那會是可控制性；探針改變的是輸出，不是可達性。</text></feedback></answer>
+    <answer fraction="0"><text>探針為模型加入了兩個新狀態</text><feedback><text>探針改變一個狀態的輸出；它不加入任何狀態。</text></feedback></answer>
+    <answer fraction="100"><text>賦予 JAMMED 獨特輸出消除了 'green' 的相撞，因此 UNLOCKED 與 JAMMED 各自變得唯一，加入 PASSED——共 5 中 3</text><feedback><text>正確——解決一次相撞會一次讓該對的「兩個」成員都變唯一。</text></feedback></answer>
+    <answer fraction="0"><text>探針從模型中移除了 MAINT</text><feedback><text>沒有移除任何東西；增益來自消除 'green' 這一對的相撞。</text></feedback></answer>
+    <generalfeedback><text>'green' 原本由 UNLOCKED 與 JAMMED 共用，因此兩者都不可觀察。把 JAMMED 探針成獨特值後，UNLOCKED 成為唯一的 'green'，「並且」JAMMED 變得唯一——兩個狀態同時翻轉為可觀察，所以 1/5 變成 3/5（PASSED、UNLOCKED、JAMMED）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可觀察性是一種設計選擇</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個槓桿能在<strong>不改變狀態圖</strong>的情況下提高<strong>可觀察性</strong>——使可觀察性成為一種設計選擇？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>加入探針／回傳值，賦予某狀態它自己的獨特輸出</text><feedback><text>正確——揭露更多可區分的輸出是一項提高可觀察性的設計決策。</text></feedback></answer>
+    <answer fraction="0"><text>加入一條通往不可達狀態的輸入轉移</text><feedback><text>那會改變狀態圖並提高可控制性，而非可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>從模型中移除一個狀態</text><feedback><text>刪除狀態不會增加可區分的輸出；那不是可觀察性的槓桿。</text></feedback></answer>
+    <answer fraction="0"><text>改變哪一個狀態是起始狀態</text><feedback><text>起始狀態影響可達性，而非輸出的可區分程度。</text></feedback></answer>
+    <generalfeedback><text>可觀察性是一種設計選擇：藉由加入賦予狀態獨特輸出的探針或回傳值，開發者能讓原本無法區分的狀態變得可見——而不改動轉移結構。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：缺少哪一種性質（1）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試需要旋轉柵門處於 <code>JAMMED</code> 以檢查卡住的處理，但沒有任何輸入序列能把它驅動到那裡。缺少哪一種可測試性性質？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可控制性</text><feedback><text>正確——無法把 SUT 驅動到所需狀態，是可控制性問題。</text></feedback></answer>
+    <answer fraction="0"><text>可觀察性</text><feedback><text>可觀察性關乎看見輸出；此處的問題是「進入」那個狀態。</text></feedback></answer>
+    <answer fraction="0"><text>兩者程度相同</text><feedback><text>所述的阻礙純粹是關於到達該狀態，即可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆非</text><feedback><text>確有實質缺口：該狀態無法被設定起來，這是可控制性失敗。</text></feedback></answer>
+    <generalfeedback><text>無法把 SUT 設定到你必須執行的狀態，正是可控制性缺口的定義。JAMMED 由輸入不可達，因此測試連開始都辦不到。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：缺少哪一種性質（2）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試能到達 UNLOCKED，但真正的卡住（JAMMED）會發出相同的 <code>'green'</code>，因此測試無法把卡住與正常解鎖分辨開來。缺少哪一種可測試性性質？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>可控制性</text><feedback><text>該狀態可以到達；問題在於輸出無法區分它。</text></feedback></answer>
+    <answer fraction="100"><text>可觀察性</text><feedback><text>正確——無法區分的輸出是可觀察性缺口。</text></feedback></answer>
+    <answer fraction="0"><text>兩者程度相同</text><feedback><text>所述的阻礙純粹是關於看見／區分效果，即可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆非</text><feedback><text>確有實質缺口：缺陷無法在輸出上被看見，這是可觀察性失敗。</text></feedback></answer>
+    <generalfeedback><text>當兩個狀態共用一個輸出時，測試無法得知自己處於哪一個。無法看見你必須檢查的效果，就是可觀察性缺口——此處 'green' 把卡住藏在正常解鎖的背後。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>JAMMED 探針是否使其可達</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探針賦予 JAMMED 獨特輸出（可觀察性提高）之後，測試現在能否把 SUT 驅動到 JAMMED 以執行真正的卡住？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不能——JAMMED 由輸入仍不可達；探針提高的是可觀察性，不是可控制性</text><feedback><text>正確——這兩種性質彼此正交；探針只改變輸出。</text></feedback></answer>
+    <answer fraction="0"><text>能——探針加入了一條到達 JAMMED 的轉移</text><feedback><text>探針改變輸出，而非轉移圖，因此不會產生新路徑。</text></feedback></answer>
+    <answer fraction="0"><text>能——探針總是能使狀態變得可達</text><feedback><text>探針只影響可觀察性；它們絕不改變可達性。</text></feedback></answer>
+    <answer fraction="0"><text>不能——因為探針也把 JAMMED 從模型中移除了</text><feedback><text>探針不移除任何東西；JAMMED 仍在，只是現在有了獨特輸出。</text></feedback></answer>
+    <generalfeedback><text>探針編輯的是輸出（可觀察性）。它不加入任何通往 JAMMED 的輸入邊，因此 JAMMED 仍不可達——測試現在若真發生卡住便能「看見」，但仍無法「驅動」SUT 進入卡住。可控制性與可觀察性彼此獨立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>JAMMED 探針後仍相撞的狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在探針賦予 JAMMED 獨特輸出後（可觀察性現為 3/5），哪些狀態仍共用輸出而維持不可觀察？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>UNLOCKED 與 JAMMED</text><feedback><text>探針剛消除了這兩個的相撞；它們現在可觀察。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——全部五個現在都可觀察</text><feedback><text>LOCKED 與 MAINT 仍共用 'red'，所以有兩個維持不可觀察。</text></feedback></answer>
+    <answer fraction="100"><text>LOCKED 與 MAINT（兩者仍為 'red'）</text><feedback><text>正確——JAMMED 探針並未觸及 'red' 的相撞。</text></feedback></answer>
+    <answer fraction="0"><text>PASSED 與 LOCKED</text><feedback><text>PASSED 是唯一的（'beep'）；它不與 LOCKED 相撞。</text></feedback></answer>
+    <generalfeedback><text>對 JAMMED 加探針後：輸出為 red→{LOCKED, MAINT}、green→{UNLOCKED}、beep→{PASSED}，再加上 JAMMED 的新值。可觀察 = {UNLOCKED, PASSED, JAMMED} = 3/5；LOCKED 與 MAINT 仍在 'red' 上相撞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>再加一個探針後的可觀察性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從 3/5 的狀態（JAMMED 探針之後）出發，你再加一個探針賦予 <code>MAINT</code> 一個獨特輸出。可觀察性會變成多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>4/5（80%）</text><feedback><text>解決 'red' 的相撞會一次讓 LOCKED 與 MAINT 都變唯一，所以會躍過 4/5。</text></feedback></answer>
+    <answer fraction="0"><text>3/5（60%）</text><feedback><text>那是加第二個探針之前的值；加上它會進一步提高可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>2/5（40%）</text><feedback><text>加入一個可區分的輸出會提高而非降低可觀察性。</text></feedback></answer>
+    <answer fraction="100"><text>5/5（100%）</text><feedback><text>正確——消除 'red' 的相撞使 LOCKED 成為唯一的 'red' 且 MAINT 變唯一，因此全部五個狀態現在都可觀察。</text></feedback></answer>
+    <generalfeedback><text>就像 'green' 一樣，'red' 原本恰好被兩個狀態共用。賦予 MAINT 獨特輸出後，LOCKED 成為唯一的 'red'，MAINT 也變唯一——兩者都翻轉為可觀察，所以 3/5 變成 5/5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪一項改變能提高可控制性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一項單一改變能提高旋轉柵門的<strong>可控制性</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>賦予 JAMMED 一個獨特輸出</text><feedback><text>那提高的是可觀察性，不是可控制性。</text></feedback></answer>
+    <answer fraction="100"><text>加入一條由輸入驅動、通往 JAMMED 或 MAINT 的轉移</text><feedback><text>正確——一條新的入向輸入邊能使不可達狀態變得可達，從而提高可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>加入一個揭露 PASSED 的回傳值</text><feedback><text>PASSED 已經既可達「又」可觀察；加入輸出不會改變可控制性。</text></feedback></answer>
+    <answer fraction="0"><text>重新命名一個輸出值</text><feedback><text>重新命名輸出無法改變哪些狀態可達。</text></feedback></answer>
+    <generalfeedback><text>可控制性取決於轉移結構。只有加入一條由輸入驅動、通往不可達狀態（JAMMED 或 MAINT）的邊才能提高它；改變輸出影響的是可觀察性。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>可控制性與可觀察性彼此獨立</text></name>
+    <questiontext format="html"><text><![CDATA[<p>可控制性與可觀察性彼此獨立：提高其中一者（例如加入探針）並不必然提高另一者。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——探針提高可觀察性，卻讓可達性（可控制性）維持不變，反之亦然。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>它們彼此正交：對 JAMMED 加探針提高可觀察性，但 JAMMED 仍不可達。</text></feedback></answer>
+    <generalfeedback><text>可測試性的兩半是分開的槓桿。探針改變輸出（可觀察性）；新的輸入邊改變可達性（可控制性）。提高其一不會自動提高另一——JAMMED 探針提高可觀察性，而 JAMMED 的可控制性仍為零。</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>驅動到 PASSED 的最短步數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把 <code>TURNSTILE_SUT</code> 從起始驅動到 <code>PASSED</code> 的最短序列需要幾個輸入步驟？請以單一整數回答。</p>]]></text></questiontext>
+    <answer fraction="100"><text>2</text><feedback><text>正確——driveTo 回傳 [coin, push]，一個長度為 2 的序列。</text></feedback></answer>
+    <generalfeedback><text>通往 PASSED 的唯一路線是 LOCKED--coin-->UNLOCKED--push-->PASSED，因此最短的驅動序列恰有 2 步。</text></generalfeedback>
+  </question>
+</quiz>
