@@ -83,6 +83,7 @@ export const EXPLORER_UNITS = [
   { id: 'controllability-observability', componentName: 'ControllabilityObservabilityExplorer' },
   { id: 'testability-seams',      componentName: 'TestabilitySeamsExplorer' },
   { id: 'testability-metrics',    componentName: 'TestabilityMetricsExplorer' },
+  { id: 'testability-scorecard',  componentName: 'TestabilityScorecardExplorer' },
 ];
 
 export const UNIT_BY_ID = new Map(EXPLORER_UNITS.map((u) => [u.id, u]));

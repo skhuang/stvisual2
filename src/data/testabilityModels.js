@@ -93,3 +93,23 @@ export const METRICS_MODULE = {
     { from: 'sendReceipt',   to: 'formatMoney' },
   ],
 };
+
+// Composite fixture for the capstone Scorecard explorer. It bundles the three
+// sibling explorers' example models so the scorecard can aggregate all five
+// testability signals from ONE source of truth, without re-deriving anything.
+//
+//   • sut            — explorer 1's turnstile (controllability & observability)
+//   • module         — explorer 3's checkout module (structural hardness)
+//   • appliedSeams   — explorer 2 seam ids injected so far (none initially)
+//   • probes         — observability probe target states added so far (none)
+//   • nondeterminism — nondeterminism sources present in the code; each one a
+//                      testability tax that an inject-clock / inject-rng fix
+//                      removes. DET_TOTAL (4) is the full catalogue the scorecard
+//                      normalizes against.
+export const SCORECARD_FIXTURE = {
+  sut: TURNSTILE_SUT,
+  module: METRICS_MODULE,
+  appliedSeams: [],
+  probes: [],
+  nondeterminism: ['clock', 'random'],
+};

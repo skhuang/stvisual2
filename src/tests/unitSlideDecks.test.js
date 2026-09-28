@@ -32,6 +32,7 @@ describe('unit → slide-deck mapping', () => {
     'controllability-observability',
     'testability-seams',
     'testability-metrics',
+    'testability-scorecard',
   ]);
 
   it('every explorer unit resolves to a real deck (no unit left without slides)', () => {

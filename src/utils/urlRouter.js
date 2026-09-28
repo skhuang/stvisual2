@@ -57,9 +57,9 @@ export const TAB_SECTIONS = {
   sbst: { tabs: ['branch', 'compare', 'suite'], default: 'branch' },
   graph: { tabs: ['structural', 'path', 'dataflow', 'full'], default: 'full' },
   logic: { tabs: ['basic', 'active', 'inactive', 'dnf', 'full'], default: 'full' },
-  // Section — Testability. Phase 1 shipped 'co'; Phase 2 adds 'seams' + 'metrics';
-  // score follows in a later phase.
-  testability: { tabs: ['co', 'seams', 'metrics'], default: 'co' },
+  // Section — Testability. Phase 1 shipped 'co'; Phase 2 added 'seams' + 'metrics';
+  // Phase 3 adds the capstone 'score'.
+  testability: { tabs: ['co', 'seams', 'metrics', 'score'], default: 'co' },
 };
 
 // ── ComponentName → { section, tab? } ────────────────────────────────
@@ -145,6 +145,7 @@ export const EXPLORER_TO_LOCATION = {
   ControllabilityObservabilityExplorer: { section: 'testability', tab: 'co' },
   TestabilitySeamsExplorer:    { section: 'testability', tab: 'seams' },
   TestabilityMetricsExplorer:  { section: 'testability', tab: 'metrics' },
+  TestabilityScorecardExplorer:{ section: 'testability', tab: 'score' },
 };
 
 const FILTER_DIMS = ['level', 'technique', 'series', 'difficulty'];

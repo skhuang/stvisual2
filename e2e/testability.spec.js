@@ -60,3 +60,23 @@ test('testability-metrics unit mounts, selects a cell, and splitting updates the
   await expect(hardest).not.toContainText('19');
   await expect(hardest).toContainText('checkout-a');
 });
+
+test('testability-scorecard unit mounts, shows a grade, and applying a fix raises it', async ({ page }) => {
+  await page.goto('/?explorer=testability-scorecard');
+  await expect(page.getByTestId('unit-main')).toBeVisible();
+  await expect(page.locator('[data-testid="unit-main"] > *')).toHaveCount(1);
+  await expect(page.getByTestId('score-explorer')).toBeVisible();
+
+  // The composite fixture grades F initially (overall ~0.31).
+  const grade = page.getByTestId('score-grade');
+  await expect(grade).toBeVisible();
+  await expect(grade).toHaveAttribute('data-grade', 'F');
+
+  // Signal bars and the prioritized fix list render.
+  await expect(page.getByTestId('score-signal-seam')).toBeVisible();
+  await expect(page.getByTestId('score-fixes')).toBeVisible();
+
+  // Applying inject-clock (seam + determinism) re-grades F -> D live.
+  await page.getByTestId('score-apply-inject-clock').click();
+  await expect(grade).toHaveAttribute('data-grade', 'D');
+});

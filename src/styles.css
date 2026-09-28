@@ -76,6 +76,7 @@
 @import url('./components/ControllabilityObservabilityExplorer.css');
 @import url('./components/TestabilitySeamsExplorer.css');
 @import url('./components/TestabilityMetricsExplorer.css');
+@import url('./components/TestabilityScorecardExplorer.css');
 @import url('./components/InputSpacePartitioningExplorer.css');
 @import url('./components/SlideViewer.css');
 @import url('./components/quiz.css');
