@@ -65,6 +65,7 @@ import { createSbstBranchExplorer }  from '../components/SbstBranchExplorer.js';
 import { createSbstCompareExplorer } from '../components/SbstCompareExplorer.js';
 import { createSbstSuiteExplorer }   from '../components/SbstSuiteExplorer.js';
 import { createControllabilityObservabilityExplorer } from '../components/ControllabilityObservabilityExplorer.js';
+import { createTestabilitySeamsExplorer } from '../components/TestabilitySeamsExplorer.js';
 import { createDefinitionGatesExplorer } from '../components/DefinitionGatesExplorer.js';
 import { createExampleMappingExplorer } from '../components/ExampleMappingExplorer.js';
 import { createContinuousTestingPipelineExplorer } from '../components/ContinuousTestingPipelineExplorer.js';
@@ -354,6 +355,7 @@ export function renderIntegratedApp(container) {
       sbstcompare: createSbstCompareExplorer(),
       sbstsuite:   createSbstSuiteExplorer(),
       testabilityco: createControllabilityObservabilityExplorer(),
+      testabilityseams: createTestabilitySeamsExplorer(),
       definitiongates: createDefinitionGatesExplorer(),
       examplemapping: createExampleMappingExplorer(),
       ctpipeline: createContinuousTestingPipelineExplorer(),
@@ -1048,7 +1050,7 @@ export function renderIntegratedApp(container) {
     renderSbstTabs();
     updateSbstPanels();
 
-    // --- Testability: tabbed (Phase 1 ships 'co'; seams/metrics/score later) ---
+    // --- Testability: tabbed (Phase 1 shipped 'co'; Phase 2 adds 'seams') ---
     const testabilitySlot = container.querySelector('[data-slot="testability"]');
     const testabilityTabBar = document.createElement('nav');
     testabilityTabBar.className = 'syntax-tab-row';
@@ -1059,13 +1061,15 @@ export function renderIntegratedApp(container) {
     testabilityPanels.className = 'syntax-tab-panels';
     testabilitySlot.appendChild(testabilityPanels);
 
-    const testabilityTabDefs = ['co'];
+    const testabilityTabDefs = ['co', 'seams'];
     for (const tabId of testabilityTabDefs) {
       const panel = document.createElement('div');
       panel.className = 'syntax-tab-panel';
       panel.dataset.testabilityPanel = tabId;
       if (tabId === 'co') {
         panel.appendChild(components.testabilityco);
+      } else if (tabId === 'seams') {
+        panel.appendChild(components.testabilityseams);
       }
       testabilityPanels.appendChild(panel);
     }
@@ -1082,6 +1086,7 @@ export function renderIntegratedApp(container) {
 
     const testabilityTabItems = [
       { id: 'co', key: 'testability.tab.co' },
+      { id: 'seams', key: 'testability.tab.seams' },
     ];
 
     function renderTestabilityTabs() {

@@ -74,6 +74,7 @@
 @import url('./components/SbstCompareExplorer.css');
 @import url('./components/SbstSuiteExplorer.css');
 @import url('./components/ControllabilityObservabilityExplorer.css');
+@import url('./components/TestabilitySeamsExplorer.css');
 @import url('./components/InputSpacePartitioningExplorer.css');
 @import url('./components/SlideViewer.css');
 @import url('./components/quiz.css');

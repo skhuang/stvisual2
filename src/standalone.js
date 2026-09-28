@@ -78,7 +78,8 @@
     { id: "sbst-branch", componentName: "SbstBranchExplorer" },
     { id: "sbst-compare", componentName: "SbstCompareExplorer" },
     { id: "sbst-suite", componentName: "SbstSuiteExplorer" },
-    { id: "controllability-observability", componentName: "ControllabilityObservabilityExplorer" }
+    { id: "controllability-observability", componentName: "ControllabilityObservabilityExplorer" },
+    { id: "testability-seams", componentName: "TestabilitySeamsExplorer" }
   ];
   var UNIT_BY_ID = new Map(EXPLORER_UNITS.map((u) => [u.id, u]));
   var UNIT_BY_COMPONENT = new Map(EXPLORER_UNITS.map((u) => [u.componentName, u]));
@@ -112,8 +113,9 @@
     sbst: { tabs: ["branch", "compare", "suite"], default: "branch" },
     graph: { tabs: ["structural", "path", "dataflow", "full"], default: "full" },
     logic: { tabs: ["basic", "active", "inactive", "dnf", "full"], default: "full" },
-    // Section — Testability. Phase 1 ships 'co'; Phase 2/3 append seams/metrics/score.
-    testability: { tabs: ["co"], default: "co" }
+    // Section — Testability. Phase 1 shipped 'co'; Phase 2 adds 'seams';
+    // metrics/score follow in later phases.
+    testability: { tabs: ["co", "seams"], default: "co" }
   };
   var EXPLORER_TO_LOCATION = {
     TestingMethodTree: { section: "methods" },
@@ -192,7 +194,8 @@
     SbstBranchExplorer: { section: "sbst", tab: "branch" },
     SbstCompareExplorer: { section: "sbst", tab: "compare" },
     SbstSuiteExplorer: { section: "sbst", tab: "suite" },
-    ControllabilityObservabilityExplorer: { section: "testability", tab: "co" }
+    ControllabilityObservabilityExplorer: { section: "testability", tab: "co" },
+    TestabilitySeamsExplorer: { section: "testability", tab: "seams" }
   };
   var FILTER_DIMS = ["level", "technique", "series", "difficulty"];
   function parseAppLocation(search, hash) {
@@ -237,22 +240,22 @@
     }
     return out;
   }
-  function serializeLocation(state42) {
-    if (!state42) return "";
+  function serializeLocation(state43) {
+    if (!state43) return "";
     const params = new URLSearchParams();
-    if (state42.lang === "en" || state42.lang === "zh") params.set("lang", state42.lang);
-    if (state42.section && state42.section !== "all") {
-      params.set("section", state42.section);
-      const sectionInfo = TAB_SECTIONS[state42.section];
-      if (sectionInfo && state42.tab && sectionInfo.tabs.includes(state42.tab)) {
-        params.set("tab", state42.tab);
+    if (state43.lang === "en" || state43.lang === "zh") params.set("lang", state43.lang);
+    if (state43.section && state43.section !== "all") {
+      params.set("section", state43.section);
+      const sectionInfo = TAB_SECTIONS[state43.section];
+      if (sectionInfo && state43.tab && sectionInfo.tabs.includes(state43.tab)) {
+        params.set("tab", state43.tab);
       }
     }
-    if (state42.pack) {
-      params.set("pack", state42.pack);
-    } else if (state42.filter) {
+    if (state43.pack) {
+      params.set("pack", state43.pack);
+    } else if (state43.filter) {
       for (const dim of FILTER_DIMS) {
-        const arr = state42.filter[dim];
+        const arr = state43.filter[dim];
         if (Array.isArray(arr) && arr.length > 0) params.set(dim, arr.join(","));
       }
     }
@@ -1162,6 +1165,7 @@
       "section.testability": "Testability",
       "section.testability.title": "Testability",
       "testability.tab.co": "Controllability & Observability",
+      "testability.tab.seams": "Design-for-testability Seams",
       // Controllability & Observability Explorer
       "tco.title": "Controllability & Observability",
       "tco.desc": "Testability = controllability (can a test drive the system into the state it needs?) + observability (can a test see the effect it needs to check?). Explore both on an explicit coin-turnstile state machine.",
@@ -1182,6 +1186,49 @@
       "tco.probe.label": "Add a probe to JAMMED (distinct output)",
       "tco.observability.readout": "Observable states {n}/{total}",
       "tco.observability.gap": "Shared outputs hide faults in: {states}. A jam looks identical to unlocked (both output \u201Cgreen\u201D) until you add a probe.",
+      // Design-for-testability Seams Explorer
+      "tsm.title": "Design-for-testability Seams",
+      "tsm.desc": "Testability is a design choice. This charge() function pins four dependencies straight into the code, so a test cannot substitute them. Apply each Feathers seam to turn a pinned dependency into a place a test can drop a double.",
+      "tsm.code.title": "charge() \u2014 apply a seam to each dependency",
+      "tsm.meter.label": "Testability",
+      "tsm.meter.caption": "{n}/{total} dependencies now substitutable.",
+      "tsm.capabilities.title": "What a test can now do",
+      "tsm.capabilities.empty": "Apply a fix to unlock a test capability.",
+      "tsm.crosswalk.title": "Seam type & test double",
+      "tsm.crosswalk.antipattern": "Anti-pattern",
+      "tsm.crosswalk.seam": "Seam type",
+      "tsm.crosswalk.double": "Enables (double)",
+      "tsm.crosswalk.status": "Status",
+      "tsm.toggle.fix": "Apply seam",
+      "tsm.toggle.revert": "Revert",
+      "tsm.status.applied": "seam applied",
+      "tsm.status.before": "pinned dependency",
+      "tsm.doubles.link": "See the matching test double \u2192",
+      "tsm.capstone": "All four dependencies are now substitutable \u2014 charge() is a pure-ish unit whose config, gateway, clock and RNG a test fully controls.",
+      // Anti-pattern names / chips / fixes
+      "tsm.ap.global.name": "Global singleton Config",
+      "tsm.ap.global.chip": "global read",
+      "tsm.ap.global.fix": "Inject a config parameter",
+      "tsm.ap.newdep.name": "Hard-coded new PaymentGateway()",
+      "tsm.ap.newdep.chip": "hard-coded new",
+      "tsm.ap.newdep.fix": "Inject the gateway collaborator",
+      "tsm.ap.clock.name": "Real clock Date.now()",
+      "tsm.ap.clock.chip": "real clock",
+      "tsm.ap.clock.fix": "Inject a clock",
+      "tsm.ap.random.name": "Real Math.random()",
+      "tsm.ap.random.chip": "real RNG",
+      "tsm.ap.random.fix": "Inject a seeded rng",
+      // Capabilities unlocked by each applied seam
+      "tsm.cap.global": "Supply a test config without touching globals",
+      "tsm.cap.newdep": "Force the gateway to fail",
+      "tsm.cap.clock": "Assert on a fixed timestamp",
+      "tsm.cap.random": "Make the generated id deterministic",
+      // Seam types
+      "tsm.seam.object": "Object seam",
+      // Test doubles
+      "tsm.double.stub": "stub",
+      "tsm.double.mock": "mock",
+      "tsm.double.fake": "fake",
       // ── Test-Driven Development (O-series) ──
       "section.tdd": "TDD",
       "section.tdd.title": "Test-Driven Development",
@@ -4324,6 +4371,7 @@
       "section.testability": "\u53EF\u6E2C\u8A66\u6027",
       "section.testability.title": "\u53EF\u6E2C\u8A66\u6027",
       "testability.tab.co": "\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027",
+      "testability.tab.seams": "\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u63A5\u7E2B",
       // 可控制性與可觀察性探索器
       "tco.title": "\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027",
       "tco.desc": "\u53EF\u6E2C\u8A66\u6027 = \u53EF\u63A7\u5236\u6027\uFF08\u6E2C\u8A66\u80FD\u5426\u628A\u7CFB\u7D71\u9A45\u52D5\u5230\u6240\u9700\u7684\u72C0\u614B\uFF1F\uFF09\uFF0B \u53EF\u89C0\u5BDF\u6027\uFF08\u6E2C\u8A66\u80FD\u5426\u770B\u898B\u9700\u8981\u6AA2\u67E5\u7684\u6548\u679C\uFF1F\uFF09\u3002\u4EE5\u4E00\u500B\u660E\u78BA\u7684\u6295\u5E63\u65CB\u8F49\u9598\u9580\u72C0\u614B\u6A5F\u540C\u6642\u63A2\u7D22\u5169\u8005\u3002",
@@ -4344,6 +4392,49 @@
       "tco.probe.label": "\u70BA JAMMED \u52A0\u4E0A\u63A2\u91DD\uFF08\u7D66\u4E88\u4E0D\u540C\u8F38\u51FA\uFF09",
       "tco.observability.readout": "\u53EF\u89C0\u5BDF\u72C0\u614B {n}/{total}",
       "tco.observability.gap": "\u5171\u7528\u8F38\u51FA\u96B1\u85CF\u4E86\u4E0B\u5217\u72C0\u614B\u7684\u6545\u969C\uFF1A{states}\u3002\u5728\u52A0\u4E0A\u63A2\u91DD\u4E4B\u524D\uFF0C\u5361\u4F4F\uFF08jam\uFF09\u770B\u8D77\u4F86\u8207\u5DF2\u89E3\u9396\u5B8C\u5168\u76F8\u540C\uFF08\u5169\u8005\u90FD\u8F38\u51FA\u300Cgreen\u300D\uFF09\u3002",
+      // 為可測試性而設計的接縫（Seams）探索器
+      "tsm.title": "\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u63A5\u7E2B",
+      "tsm.desc": "\u53EF\u6E2C\u8A66\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7\u3002\u9019\u500B charge() \u51FD\u5F0F\u628A\u56DB\u500B\u76F8\u4F9D\u76F4\u63A5\u91D8\u6B7B\u5728\u7A0B\u5F0F\u78BC\u88E1\uFF0C\u6E2C\u8A66\u56E0\u6B64\u7121\u6CD5\u66FF\u63DB\u5B83\u5011\u3002\u9010\u4E00\u5957\u7528 Feathers \u7684\u63A5\u7E2B\uFF08seam\uFF09\uFF0C\u628A\u88AB\u91D8\u6B7B\u7684\u76F8\u4F9D\u8B8A\u6210\u6E2C\u8A66\u53EF\u4EE5\u653E\u5165\u66FF\u8EAB\uFF08double\uFF09\u7684\u4F4D\u7F6E\u3002",
+      "tsm.code.title": "charge()\u2014\u2014\u70BA\u6BCF\u500B\u76F8\u4F9D\u5957\u7528\u4E00\u9053\u63A5\u7E2B",
+      "tsm.meter.label": "\u53EF\u6E2C\u8A66\u6027",
+      "tsm.meter.caption": "\u76EE\u524D\u6709 {n}/{total} \u500B\u76F8\u4F9D\u53EF\u88AB\u66FF\u63DB\u3002",
+      "tsm.capabilities.title": "\u6E2C\u8A66\u73FE\u5728\u80FD\u505A\u5230\u4EC0\u9EBC",
+      "tsm.capabilities.empty": "\u5957\u7528\u4E00\u500B\u4FEE\u6B63\u5373\u53EF\u89E3\u9396\u4E00\u9805\u6E2C\u8A66\u80FD\u529B\u3002",
+      "tsm.crosswalk.title": "\u63A5\u7E2B\u578B\u5225\u8207\u6E2C\u8A66\u66FF\u8EAB",
+      "tsm.crosswalk.antipattern": "\u53CD\u6A23\u5F0F",
+      "tsm.crosswalk.seam": "\u63A5\u7E2B\u578B\u5225",
+      "tsm.crosswalk.double": "\u53EF\u555F\u7528\uFF08\u66FF\u8EAB\uFF09",
+      "tsm.crosswalk.status": "\u72C0\u614B",
+      "tsm.toggle.fix": "\u5957\u7528\u63A5\u7E2B",
+      "tsm.toggle.revert": "\u9084\u539F",
+      "tsm.status.applied": "\u5DF2\u5957\u7528\u63A5\u7E2B",
+      "tsm.status.before": "\u88AB\u91D8\u6B7B\u7684\u76F8\u4F9D",
+      "tsm.doubles.link": "\u67E5\u770B\u5C0D\u61C9\u7684\u6E2C\u8A66\u66FF\u8EAB \u2192",
+      "tsm.capstone": "\u56DB\u500B\u76F8\u4F9D\u73FE\u5728\u90FD\u53EF\u88AB\u66FF\u63DB\u2014\u2014charge() \u6210\u70BA\u8FD1\u4E4E\u7D14\u7CB9\u7684\u55AE\u5143\uFF0C\u5176 config\u3001gateway\u3001\u6642\u9418\u8207\u4E82\u6578\u7686\u7531\u6E2C\u8A66\u5B8C\u5168\u638C\u63A7\u3002",
+      // 反樣式名稱／標籤／修正
+      "tsm.ap.global.name": "\u5168\u57DF\u55AE\u4F8B Config",
+      "tsm.ap.global.chip": "\u8B80\u53D6\u5168\u57DF",
+      "tsm.ap.global.fix": "\u4EE5\u53C3\u6578\u6CE8\u5165 config",
+      "tsm.ap.newdep.name": "\u5BEB\u6B7B\u7684 new PaymentGateway()",
+      "tsm.ap.newdep.chip": "\u5BEB\u6B7B new",
+      "tsm.ap.newdep.fix": "\u6CE8\u5165 gateway \u5354\u4F5C\u8005",
+      "tsm.ap.clock.name": "\u771F\u5BE6\u6642\u9418 Date.now()",
+      "tsm.ap.clock.chip": "\u771F\u5BE6\u6642\u9418",
+      "tsm.ap.clock.fix": "\u6CE8\u5165\u4E00\u500B\u6642\u9418",
+      "tsm.ap.random.name": "\u771F\u5BE6 Math.random()",
+      "tsm.ap.random.chip": "\u771F\u5BE6\u4E82\u6578",
+      "tsm.ap.random.fix": "\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng",
+      // 各接縫解鎖的能力
+      "tsm.cap.global": "\u4E0D\u52D5\u5168\u57DF\u5373\u53EF\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A",
+      "tsm.cap.newdep": "\u5F37\u5236 gateway \u5931\u6557",
+      "tsm.cap.clock": "\u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00",
+      "tsm.cap.random": "\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+      // 接縫型別
+      "tsm.seam.object": "\u7269\u4EF6\u63A5\u7E2B",
+      // 測試替身
+      "tsm.double.stub": "stub\uFF08\u6A01\uFF09",
+      "tsm.double.mock": "mock\uFF08\u6A21\u64EC\uFF09",
+      "tsm.double.fake": "fake\uFF08\u5047\u7269\u4EF6\uFF09",
       // ── 測試驅動開發（O 系列）──
       "section.tdd": "TDD",
       "section.tdd.title": "\u6E2C\u8A66\u9A45\u52D5\u958B\u767C",
@@ -7025,13 +7116,13 @@
 
   // src/components/TestingMethodTree.js
   function createTestingMethodTree() {
-    const root42 = document.createElement("div");
+    const root43 = document.createElement("div");
     let expandedIds = /* @__PURE__ */ new Set();
-    function render42() {
+    function render43() {
       const allExpanded = expandedIds.size === testingMethods.length;
-      root42.className = "testing-method-tree";
-      root42.dataset.testid = "testing-method-tree";
-      root42.innerHTML = `
+      root43.className = "testing-method-tree";
+      root43.dataset.testid = "testing-method-tree";
+      root43.innerHTML = `
       <div class="tree-controls">
         <button class="btn-toggle-all" type="button" data-testid="toggle-all-btn">
           ${allExpanded ? t("methods.collapseAll") : t("methods.expandAll")}
@@ -7093,12 +7184,12 @@
       }).join("")}
       </div>
     `;
-      root42.querySelector('[data-testid="toggle-all-btn"]').addEventListener("click", () => {
+      root43.querySelector('[data-testid="toggle-all-btn"]').addEventListener("click", () => {
         expandedIds = allExpanded ? /* @__PURE__ */ new Set() : new Set(testingMethods.map((method) => method.id));
-        render42();
+        render43();
       });
       testingMethods.forEach((method) => {
-        root42.querySelector(`[data-testid="method-card-btn-${method.id}"]`).addEventListener("click", () => {
+        root43.querySelector(`[data-testid="method-card-btn-${method.id}"]`).addEventListener("click", () => {
           const next = new Set(expandedIds);
           if (next.has(method.id)) {
             next.delete(method.id);
@@ -7106,12 +7197,12 @@
             next.add(method.id);
           }
           expandedIds = next;
-          render42();
+          render43();
         });
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/dataFlow.js
@@ -7861,12 +7952,12 @@
   function createParserState(lines) {
     return { lines, index: 0 };
   }
-  function currentLine(state42) {
-    return state42.lines[state42.index] || null;
+  function currentLine(state43) {
+    return state43.lines[state43.index] || null;
   }
-  function consumeLine(state42) {
-    const line = currentLine(state42);
-    state42.index += 1;
+  function consumeLine(state43) {
+    const line = currentLine(state43);
+    state43.index += 1;
     return line;
   }
   function createAstNode(type, line, extra = {}) {
@@ -7889,50 +7980,50 @@
       return line.text.startsWith(token);
     });
   }
-  function parseJavascriptSingleStatement(state42) {
-    const line = currentLine(state42);
+  function parseJavascriptSingleStatement(state43) {
+    const line = currentLine(state43);
     if (!line) {
       return [];
     }
     if (line.text.startsWith("if")) {
-      return [parseJavascriptIf(state42)];
+      return [parseJavascriptIf(state43)];
     }
     if (line.text.startsWith("while")) {
-      return [parseJavascriptLoop(state42, "while")];
+      return [parseJavascriptLoop(state43, "while")];
     }
     if (line.text.startsWith("for")) {
-      return [parseJavascriptLoop(state42, "for")];
+      return [parseJavascriptLoop(state43, "for")];
     }
     if (line.text.startsWith("switch")) {
-      return [parseJavascriptSwitch(state42)];
+      return [parseJavascriptSwitch(state43)];
     }
     if (line.text.startsWith("return")) {
-      consumeLine(state42);
+      consumeLine(state43);
       return [createAstNode("return", line, { text: line.text.replace(/;$/, "") })];
     }
     if (line.text.startsWith("break")) {
-      consumeLine(state42);
+      consumeLine(state43);
       return [createAstNode("break", line, { text: line.text.replace(/;$/, "") })];
     }
     if (line.text.startsWith("continue")) {
-      consumeLine(state42);
+      consumeLine(state43);
       return [createAstNode("continue", line, { text: line.text.replace(/;$/, "") })];
     }
-    consumeLine(state42);
+    consumeLine(state43);
     return [createAstNode("statement", line, { text: line.text.replace(/;$/, "") })];
   }
-  function parseJavascriptIf(state42) {
-    const line = consumeLine(state42);
+  function parseJavascriptIf(state43) {
+    const line = consumeLine(state43);
     const condition = extractParenthesizedContent(line.text) || line.text.replace(/^if\s*/, "").replace(/\{$/, "").trim();
-    const consequent = line.text.endsWith("{") ? parseJavascriptStatements(state42) : parseJavascriptSingleStatement(state42);
+    const consequent = line.text.endsWith("{") ? parseJavascriptStatements(state43) : parseJavascriptSingleStatement(state43);
     let alternate = [];
-    const nextLine = currentLine(state42);
+    const nextLine = currentLine(state43);
     if (nextLine == null ? void 0 : nextLine.text.startsWith("else if")) {
-      state42.lines[state42.index] = { ...nextLine, text: nextLine.text.replace(/^else\s+/, "") };
-      alternate = [parseJavascriptIf(state42)];
+      state43.lines[state43.index] = { ...nextLine, text: nextLine.text.replace(/^else\s+/, "") };
+      alternate = [parseJavascriptIf(state43)];
     } else if (nextLine == null ? void 0 : nextLine.text.startsWith("else")) {
-      const elseLine = consumeLine(state42);
-      alternate = elseLine.text.endsWith("{") ? parseJavascriptStatements(state42) : parseJavascriptSingleStatement(state42);
+      const elseLine = consumeLine(state43);
+      alternate = elseLine.text.endsWith("{") ? parseJavascriptStatements(state43) : parseJavascriptSingleStatement(state43);
     }
     return createAstNode("if", line, {
       condition,
@@ -7940,33 +8031,33 @@
       alternate
     });
   }
-  function parseJavascriptLoop(state42, type) {
-    const line = consumeLine(state42);
+  function parseJavascriptLoop(state43, type) {
+    const line = consumeLine(state43);
     const condition = extractParenthesizedContent(line.text) || line.text.replace(new RegExp(`^${type}\\s*`), "").replace(/\{$/, "").trim();
-    const body3 = line.text.endsWith("{") ? parseJavascriptStatements(state42) : parseJavascriptSingleStatement(state42);
+    const body3 = line.text.endsWith("{") ? parseJavascriptStatements(state43) : parseJavascriptSingleStatement(state43);
     return createAstNode(type, line, {
       condition,
       body: body3
     });
   }
-  function parseJavascriptSwitch(state42) {
-    const line = consumeLine(state42);
+  function parseJavascriptSwitch(state43) {
+    const line = consumeLine(state43);
     const expression = extractParenthesizedContent(line.text) || line.text.replace(/^switch\s*/, "").replace(/\{$/, "").trim();
     const cases = [];
-    while (state42.index < state42.lines.length) {
-      const nextLine = currentLine(state42);
+    while (state43.index < state43.lines.length) {
+      const nextLine = currentLine(state43);
       if (!nextLine) {
         break;
       }
       if (nextLine.text === "}") {
-        consumeLine(state42);
+        consumeLine(state43);
         break;
       }
       if (/^(case\s+.+:|default:)$/i.test(nextLine.text)) {
-        const caseLine = consumeLine(state42);
+        const caseLine = consumeLine(state43);
         const isDefault = caseLine.text.startsWith("default:");
         const label = isDefault ? "default" : caseLine.text.replace(/^case\s+/i, "").replace(/:$/, "").trim();
-        const statements = parseJavascriptStatements(state42, ["case ", "default:", "}"]);
+        const statements = parseJavascriptStatements(state43, ["case ", "default:", "}"]);
         cases.push(createAstNode("case", caseLine, {
           label,
           isDefault,
@@ -7974,40 +8065,40 @@
         }));
         continue;
       }
-      consumeLine(state42);
+      consumeLine(state43);
     }
     return createAstNode("switch", line, {
       expression,
       cases
     });
   }
-  function parseJavascriptStatements(state42, stopWhen = ["}"]) {
+  function parseJavascriptStatements(state43, stopWhen = ["}"]) {
     const statements = [];
-    while (state42.index < state42.lines.length) {
-      const line = currentLine(state42);
+    while (state43.index < state43.lines.length) {
+      const line = currentLine(state43);
       if (!line) {
         break;
       }
       if (isJavascriptStop(line, stopWhen)) {
         if (line.text === "}") {
-          consumeLine(state42);
+          consumeLine(state43);
         }
         break;
       }
       if ((line.text.startsWith("function ") || line.text.startsWith("export function ")) && line.text.endsWith("{")) {
-        consumeLine(state42);
+        consumeLine(state43);
         statements.push(createAstNode("statement", line, {
           text: line.text.replace(/\{$/, "").trim()
         }));
-        statements.push(...parseJavascriptStatements(state42));
+        statements.push(...parseJavascriptStatements(state43));
         continue;
       }
       if (line.text === "{") {
-        consumeLine(state42);
-        statements.push(...parseJavascriptStatements(state42));
+        consumeLine(state43);
+        statements.push(...parseJavascriptStatements(state43));
         continue;
       }
-      statements.push(...parseJavascriptSingleStatement(state42));
+      statements.push(...parseJavascriptSingleStatement(state43));
     }
     return statements;
   }
@@ -8018,22 +8109,22 @@
     const upper = line.text.toUpperCase();
     return stopWhen.some((token) => upper.startsWith(token));
   }
-  function parsePseudocodeIf(state42) {
+  function parsePseudocodeIf(state43) {
     var _a2;
-    const line = consumeLine(state42);
+    const line = consumeLine(state43);
     const condition = line.text.replace(/^IF\s*/i, "").replace(/\s*THEN$/i, "").trim();
-    const consequent = parsePseudocodeStatements(state42, ["ELSE", "ELSE IF", "END IF", "ENDIF", "END"]);
+    const consequent = parsePseudocodeStatements(state43, ["ELSE", "ELSE IF", "END IF", "ENDIF", "END"]);
     let alternate = [];
-    const nextLine = currentLine(state42);
+    const nextLine = currentLine(state43);
     if (/^ELSE IF\b/i.test((nextLine == null ? void 0 : nextLine.text) || "")) {
-      state42.lines[state42.index] = { ...nextLine, text: nextLine.text.replace(/^ELSE\s+/i, "") };
-      alternate = [parsePseudocodeIf(state42)];
+      state43.lines[state43.index] = { ...nextLine, text: nextLine.text.replace(/^ELSE\s+/i, "") };
+      alternate = [parsePseudocodeIf(state43)];
     } else if (/^ELSE\b/i.test((nextLine == null ? void 0 : nextLine.text) || "")) {
-      consumeLine(state42);
-      alternate = parsePseudocodeStatements(state42, ["END IF", "ENDIF", "END"]);
+      consumeLine(state43);
+      alternate = parsePseudocodeStatements(state43, ["END IF", "ENDIF", "END"]);
     }
-    if (/^(END IF|ENDIF|END)$/i.test(((_a2 = currentLine(state42)) == null ? void 0 : _a2.text) || "")) {
-      consumeLine(state42);
+    if (/^(END IF|ENDIF|END)$/i.test(((_a2 = currentLine(state43)) == null ? void 0 : _a2.text) || "")) {
+      consumeLine(state43);
     }
     return createAstNode("if", line, {
       condition,
@@ -8041,51 +8132,51 @@
       alternate
     });
   }
-  function parsePseudocodeLoop(state42) {
+  function parsePseudocodeLoop(state43) {
     var _a2;
-    const line = consumeLine(state42);
+    const line = consumeLine(state43);
     const condition = line.text.replace(/^(WHILE|FOR)\s*/i, "").replace(/\s*DO$/i, "").trim();
-    const body3 = parsePseudocodeStatements(state42, ["END WHILE", "END FOR", "END"]);
-    if (/^(END WHILE|END FOR|END)$/i.test(((_a2 = currentLine(state42)) == null ? void 0 : _a2.text) || "")) {
-      consumeLine(state42);
+    const body3 = parsePseudocodeStatements(state43, ["END WHILE", "END FOR", "END"]);
+    if (/^(END WHILE|END FOR|END)$/i.test(((_a2 = currentLine(state43)) == null ? void 0 : _a2.text) || "")) {
+      consumeLine(state43);
     }
     return createAstNode(/^WHILE\b/i.test(line.text) ? "while" : "for", line, {
       condition,
       body: body3
     });
   }
-  function parsePseudocodeStatements(state42, stopWhen = []) {
+  function parsePseudocodeStatements(state43, stopWhen = []) {
     const statements = [];
-    while (state42.index < state42.lines.length) {
-      const line = currentLine(state42);
+    while (state43.index < state43.lines.length) {
+      const line = currentLine(state43);
       if (!line || isPseudocodeStop(line, stopWhen)) {
         break;
       }
       if (/^FUNCTION\b/i.test(line.text)) {
-        consumeLine(state42);
+        consumeLine(state43);
         continue;
       }
       if (/^IF\b/i.test(line.text)) {
-        statements.push(parsePseudocodeIf(state42));
+        statements.push(parsePseudocodeIf(state43));
         continue;
       }
       if (/^(WHILE|FOR)\b/i.test(line.text)) {
-        statements.push(parsePseudocodeLoop(state42));
+        statements.push(parsePseudocodeLoop(state43));
         continue;
       }
       if (/^RETURN\b/i.test(line.text)) {
-        statements.push(createAstNode("return", consumeLine(state42), { text: line.text }));
+        statements.push(createAstNode("return", consumeLine(state43), { text: line.text }));
         continue;
       }
       if (/^BREAK\b/i.test(line.text)) {
-        statements.push(createAstNode("break", consumeLine(state42), { text: line.text }));
+        statements.push(createAstNode("break", consumeLine(state43), { text: line.text }));
         continue;
       }
       if (/^CONTINUE\b/i.test(line.text)) {
-        statements.push(createAstNode("continue", consumeLine(state42), { text: line.text }));
+        statements.push(createAstNode("continue", consumeLine(state43), { text: line.text }));
         continue;
       }
-      statements.push(createAstNode("statement", consumeLine(state42), { text: line.text }));
+      statements.push(createAstNode("statement", consumeLine(state43), { text: line.text }));
     }
     return statements;
   }
@@ -9165,7 +9256,7 @@
   `;
   }
   function createGraphCoverageExplorer(opts = {}) {
-    const root42 = document.createElement("div");
+    const root43 = document.createElement("div");
     const defaultGraph = cloneGraph(graphCoverageGraph);
     const defaultProgram = {
       id: "default-sample",
@@ -9201,7 +9292,7 @@
         loadGraphSource(focusProgramFor(nextGraph), nextGraph, t("graph.status.exampleLoaded", { name: focusProgramFor(nextGraph).name }));
       } catch (error) {
         parseError = error.message;
-        render42();
+        render43();
       }
     }
     function applyGraphObject(graphObject) {
@@ -9210,7 +9301,7 @@
         loadGraphSource(focusProgramFor(nextGraph), nextGraph, t("graph.status.exampleLoaded", { name: focusProgramFor(nextGraph).name }));
       } catch (error) {
         parseError = error.message;
-        render42();
+        render43();
       }
     }
     const exampleControls = focus ? createExampleControls({
@@ -9273,7 +9364,7 @@
         userCount: userPaths.length
       };
       graphQuiz.phase = "graded";
-      render42();
+      render43();
     }
     function renderGraphLabReflectPanel() {
       if (!graphLabReflect.active) return "";
@@ -9347,7 +9438,7 @@
       parseError = "";
       sourceStatus = statusMessage;
       selectedRequirementId = null;
-      render42();
+      render43();
     }
     function scheduleAutoApply() {
       if (autoApplyTimer) {
@@ -9362,10 +9453,10 @@
           parseError = "";
           sourceStatus = t("graph.status.recomputed", { name: activeProgram.name });
           selectedRequirementId = null;
-          render42();
+          render43();
         } catch (error) {
           parseError = error.message;
-          render42();
+          render43();
         }
       }, 300);
     }
@@ -9375,7 +9466,7 @@
       parseError = "";
       sourceStatus = t("graph.status.reset", { name: activeProgram.name });
       selectedRequirementId = null;
-      render42();
+      render43();
     }
     function getState() {
       var _a2;
@@ -9393,7 +9484,7 @@
         pathPlan
       };
     }
-    function render42() {
+    function render43() {
       var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p;
       const { requirements, selectedRequirement, selectedCriterion, pathPlan } = getState();
       const selectedSourceNodes = getSelectedSourceNodes(graph, selectedRequirement);
@@ -9410,9 +9501,9 @@
         total: 1,
         items: [{ q: t("lab.metric.graph.label", { criterion: (selectedCriterion == null ? void 0 : selectedCriterion.label) || criterionId, paths: pathPlan.selectedPaths.length }), a: "", ok: true }]
       });
-      root42.className = "graph-coverage";
-      root42.dataset.testid = "graph-coverage-explorer";
-      root42.innerHTML = `
+      root43.className = "graph-coverage";
+      root43.dataset.testid = "graph-coverage-explorer";
+      root43.innerHTML = `
       ${focus ? "" : `
       <div class="graph-source-card" data-testid="graph-source-card">
         <div class="graph-source-toolbar">
@@ -9620,12 +9711,12 @@
       ${focus ? "" : `${quizPanel}${labReflectPanel}`}
     `;
       if (focus && exampleControls) {
-        (_a2 = root42.querySelector(".graph-criterion-row")) == null ? void 0 : _a2.prepend(exampleControls.element);
+        (_a2 = root43.querySelector(".graph-criterion-row")) == null ? void 0 : _a2.prepend(exampleControls.element);
       }
-      (_b2 = root42.querySelector('[data-testid="graph-reset-btn"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      (_b2 = root43.querySelector('[data-testid="graph-reset-btn"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         resetGraph();
       });
-      (_c = root42.querySelector('[data-testid="program-example-select"]')) == null ? void 0 : _c.addEventListener("change", (event) => {
+      (_c = root43.querySelector('[data-testid="program-example-select"]')) == null ? void 0 : _c.addEventListener("change", (event) => {
         const nextProgramId = event.target.value;
         if (nextProgramId === defaultProgram.id) {
           loadGraphSource(defaultProgram, defaultGraph, t("graph.status.defaultLoaded"));
@@ -9634,13 +9725,13 @@
         if (nextProgramId === "uploaded-spec") {
           selectedProgramId = nextProgramId;
           sourceStatus = t("graph.status.pickJson");
-          render42();
+          render43();
           return;
         }
         if (nextProgramId === "uploaded-code") {
           selectedProgramId = nextProgramId;
           sourceStatus = t("graph.status.pickCode");
-          render42();
+          render43();
           return;
         }
         const example5 = graphCoverageProgramExamples.find((item) => item.id === nextProgramId);
@@ -9650,16 +9741,16 @@
           loadGraphSource(example5, nextGraph, t("graph.status.exampleLoaded", { name: example5.name }));
         }
       });
-      (_d = root42.querySelector('[data-testid="program-language-select"]')) == null ? void 0 : _d.addEventListener("change", (event) => {
+      (_d = root43.querySelector('[data-testid="program-language-select"]')) == null ? void 0 : _d.addEventListener("change", (event) => {
         selectedCodeLanguage = event.target.value;
       });
-      (_e = root42.querySelector('[data-testid="graph-upload-btn"]')) == null ? void 0 : _e.addEventListener("click", () => {
-        root42.querySelector('[data-testid="graph-upload-input"]').click();
+      (_e = root43.querySelector('[data-testid="graph-upload-btn"]')) == null ? void 0 : _e.addEventListener("click", () => {
+        root43.querySelector('[data-testid="graph-upload-input"]').click();
       });
-      (_f = root42.querySelector('[data-testid="code-upload-btn"]')) == null ? void 0 : _f.addEventListener("click", () => {
-        root42.querySelector('[data-testid="code-upload-input"]').click();
+      (_f = root43.querySelector('[data-testid="code-upload-btn"]')) == null ? void 0 : _f.addEventListener("click", () => {
+        root43.querySelector('[data-testid="code-upload-input"]').click();
       });
-      (_g = root42.querySelector('[data-testid="graph-upload-input"]')) == null ? void 0 : _g.addEventListener("change", async (event) => {
+      (_g = root43.querySelector('[data-testid="graph-upload-input"]')) == null ? void 0 : _g.addEventListener("change", async (event) => {
         const [file] = event.target.files || [];
         if (!file) {
           return;
@@ -9674,10 +9765,10 @@
         } catch (error) {
           selectedProgramId = "uploaded-spec";
           parseError = error.message;
-          render42();
+          render43();
         }
       });
-      (_h = root42.querySelector('[data-testid="code-upload-input"]')) == null ? void 0 : _h.addEventListener("change", async (event) => {
+      (_h = root43.querySelector('[data-testid="code-upload-input"]')) == null ? void 0 : _h.addEventListener("change", async (event) => {
         const [file] = event.target.files || [];
         if (!file) {
           return;
@@ -9697,10 +9788,10 @@
         } catch (error) {
           parseError = error.message;
           sourceStatus = t("graph.status.codeFailed");
-          render42();
+          render43();
         }
       });
-      root42.querySelectorAll("[data-draft-field]").forEach((input) => {
+      root43.querySelectorAll("[data-draft-field]").forEach((input) => {
         input.addEventListener("input", () => {
           draft = {
             ...draft,
@@ -9709,70 +9800,70 @@
           scheduleAutoApply();
         });
       });
-      root42.querySelectorAll("[data-criterion]").forEach((button) => {
+      root43.querySelectorAll("[data-criterion]").forEach((button) => {
         button.addEventListener("click", () => {
           criterionId = button.dataset.criterion;
           selectedRequirementId = null;
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-requirement-id]").forEach((button) => {
+      root43.querySelectorAll("[data-requirement-id]").forEach((button) => {
         button.addEventListener("click", () => {
           selectedRequirementId = button.dataset.requirementId;
-          render42();
+          render43();
         });
       });
-      (_i = root42.querySelector('[data-testid="graph-quiz-start"]')) == null ? void 0 : _i.addEventListener("click", () => {
+      (_i = root43.querySelector('[data-testid="graph-quiz-start"]')) == null ? void 0 : _i.addEventListener("click", () => {
         graphQuiz.active = true;
         graphQuiz.selectedPaths = /* @__PURE__ */ new Set();
         graphQuiz.phase = "question";
         graphQuiz.result = null;
-        render42();
+        render43();
       });
-      (_j = root42.querySelector('[data-testid="graph-quiz-close"]')) == null ? void 0 : _j.addEventListener("click", () => {
+      (_j = root43.querySelector('[data-testid="graph-quiz-close"]')) == null ? void 0 : _j.addEventListener("click", () => {
         graphQuiz.active = false;
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-quiz-path]").forEach((cb) => {
+      root43.querySelectorAll("[data-quiz-path]").forEach((cb) => {
         cb.addEventListener("change", () => {
           const key3 = cb.dataset.quizPath;
           if (cb.checked) graphQuiz.selectedPaths.add(key3);
           else graphQuiz.selectedPaths.delete(key3);
         });
       });
-      (_k = root42.querySelector('[data-testid="graph-quiz-check"]')) == null ? void 0 : _k.addEventListener("click", () => {
+      (_k = root43.querySelector('[data-testid="graph-quiz-check"]')) == null ? void 0 : _k.addEventListener("click", () => {
         const { pathPlan: pathPlan2 } = getState();
         gradeGraphQuiz(pathPlan2);
       });
-      (_l = root42.querySelector('[data-testid="graph-quiz-reset"]')) == null ? void 0 : _l.addEventListener("click", () => {
+      (_l = root43.querySelector('[data-testid="graph-quiz-reset"]')) == null ? void 0 : _l.addEventListener("click", () => {
         graphQuiz.selectedPaths = /* @__PURE__ */ new Set();
         graphQuiz.phase = "question";
         graphQuiz.result = null;
-        render42();
+        render43();
       });
-      (_m = root42.querySelector('[data-testid="graph-lab-reflect-start"]')) == null ? void 0 : _m.addEventListener("click", () => {
+      (_m = root43.querySelector('[data-testid="graph-lab-reflect-start"]')) == null ? void 0 : _m.addEventListener("click", () => {
         graphLabReflect.active = true;
-        render42();
+        render43();
       });
-      (_n = root42.querySelector('[data-testid="graph-lab-reflect-close"]')) == null ? void 0 : _n.addEventListener("click", () => {
+      (_n = root43.querySelector('[data-testid="graph-lab-reflect-close"]')) == null ? void 0 : _n.addEventListener("click", () => {
         var _a3, _b3;
-        graphLabReflect.a1 = ((_a3 = root42.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || graphLabReflect.a1;
-        graphLabReflect.a2 = ((_b3 = root42.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || graphLabReflect.a2;
+        graphLabReflect.a1 = ((_a3 = root43.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || graphLabReflect.a1;
+        graphLabReflect.a2 = ((_b3 = root43.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || graphLabReflect.a2;
         graphLabReflect.active = false;
-        render42();
+        render43();
       });
-      (_o = root42.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _o.addEventListener("input", (e) => {
+      (_o = root43.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _o.addEventListener("input", (e) => {
         graphLabReflect.a1 = e.target.value;
       });
-      (_p = root42.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _p.addEventListener("input", (e) => {
+      (_p = root43.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _p.addEventListener("input", (e) => {
         graphLabReflect.a2 = e.target.value;
       });
-      const lrShare = root42.querySelector('[data-testid="graph-lab-reflect-share"]');
+      const lrShare = root43.querySelector('[data-testid="graph-lab-reflect-share"]');
       if (lrShare) {
         lrShare.addEventListener("click", async () => {
           var _a3, _b3;
-          const a1 = ((_a3 = root42.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
-          const a2 = ((_b3 = root42.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
+          const a1 = ((_a3 = root43.querySelector('[data-testid="graph-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root43.querySelector('[data-testid="graph-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "graph",
@@ -9807,11 +9898,11 @@
         });
       }
     }
-    render42();
+    render43();
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
         var _a2;
-        if (!root42.isConnected) return;
+        if (!root43.isConnected) return;
         const detail = event.detail || {};
         if (detail.target !== "graph") return;
         const content = String((_a2 = detail.content) != null ? _a2 : "");
@@ -9829,11 +9920,11 @@
         } catch (error) {
           parseError = error.message;
           sourceStatus = t("graph.status.codeFailed");
-          render42();
+          render43();
         }
       });
     }
-    return root42;
+    return root43;
   }
 
   // src/utils/logicCoverage.js
@@ -12160,15 +12251,15 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     });
   }
   function createLogicCoverageExplorer(opts = {}) {
-    const root42 = document.createElement("div");
-    root42.className = "logic-coverage";
-    root42.dataset.testid = "logic-coverage";
+    const root43 = document.createElement("div");
+    root43.className = "logic-coverage";
+    root43.dataset.testid = "logic-coverage";
     const presetCfg = opts.preset && LOGIC_PRESETS[opts.preset] ? LOGIC_PRESETS[opts.preset] : null;
     if (opts.preset && !presetCfg) console.warn("LogicCoverageExplorer: unknown preset", opts.preset);
     const focus = Boolean(presetCfg);
     let userEdited = false;
     const initialPreset = focus ? presetForDifficulty2(getInputDifficulty()) : null;
-    const state42 = {
+    const state43 = {
       expression: focus ? initialPreset.expression : logicCoveragePredicates[0].expression,
       selectedCriterion: presetCfg ? presetCfg.criteria[0] : "pc",
       error: null,
@@ -12216,8 +12307,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     function renderLogicQuizPanel() {
       if (!logicQuiz.active) return "";
-      const criterion = logicCoverageCriteria.find((c) => c.id === state42.selectedCriterion);
-      const criterionLabel = pickField(criterion, "label") || (criterion == null ? void 0 : criterion.id) || state42.selectedCriterion;
+      const criterion = logicCoverageCriteria.find((c) => c.id === state43.selectedCriterion);
+      const criterionLabel = pickField(criterion, "label") || (criterion == null ? void 0 : criterion.id) || state43.selectedCriterion;
       const uniqueCount = getQuizUniqueCount();
       if (uniqueCount === null) return "";
       const isGraded = logicQuiz.phase === "graded";
@@ -12228,7 +12319,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <h4>${t("quiz.logic.title")}</h4>
           <button type="button" class="quiz-close-btn" data-testid="logic-quiz-close">${t("quiz.close")}</button>
         </div>
-        <p class="quiz-prompt">${t("quiz.logic.prompt").replace("{expr}", escapeHtml2(state42.expression)).replace("{criterion}", escapeHtml2(criterionLabel))}</p>
+        <p class="quiz-prompt">${t("quiz.logic.prompt").replace("{expr}", escapeHtml2(state43.expression)).replace("{criterion}", escapeHtml2(criterionLabel))}</p>
         <div class="quiz-bva-inputs">
           <label class="quiz-bva-field">
             <span>${t("quiz.logic.label")}</span>
@@ -12243,7 +12334,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <p class="quiz-score" data-testid="logic-quiz-score">
             ${correct ? `<strong>${t("quiz.bva.perfect")}</strong>` : `${t("quiz.ec.wrong")} ${t("quiz.ec.answer").replace("{count}", uniqueCount)}`}
           </p>
-          <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "logic", explorerLabel: t("quiz.logic.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: correct ? 1 : 0, total: 1, items: [{ q: t("quiz.logic.prompt").replace("{expr}", state42.expression).replace("{criterion}", criterionLabel), a: String(logicQuiz.answer), expected: String(uniqueCount), ok: correct }] })}" data-testid="logic-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
+          <button type="button" class="quiz-share-btn" data-share-payload="${encodeResult({ v: 1, explorer: "logic", explorerLabel: t("quiz.logic.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: correct ? 1 : 0, total: 1, items: [{ q: t("quiz.logic.prompt").replace("{expr}", state43.expression).replace("{criterion}", criterionLabel), a: String(logicQuiz.answer), expected: String(uniqueCount), ok: correct }] })}" data-testid="logic-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
           <button type="button" class="quiz-start-btn" data-testid="logic-quiz-reset">${t("quiz.reset")}</button>
         ` : `
           <button type="button" class="quiz-start-btn" data-testid="logic-quiz-check">${t("quiz.check")}</button>
@@ -12258,54 +12349,54 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       cloudClient2 = null;
     }
     function pushRecentToCloud(list) {
-      if (!cloudClient2 || !state42.cloudUser || typeof cloudClient2.saveLogicRecent !== "function") return;
-      cloudClient2.saveLogicRecent(state42.cloudUser.uid, list).catch(() => {
+      if (!cloudClient2 || !state43.cloudUser || typeof cloudClient2.saveLogicRecent !== "function") return;
+      cloudClient2.saveLogicRecent(state43.cloudUser.uid, list).catch(() => {
       });
     }
     function persistRecent() {
-      saveRecent(state42.recent);
-      pushRecentToCloud(state42.recent);
+      saveRecent(state43.recent);
+      pushRecentToCloud(state43.recent);
     }
     function rememberCurrentExpression() {
-      const expr = state42.expression.trim();
-      if (!expr || state42.error) return false;
+      const expr = state43.expression.trim();
+      if (!expr || state43.error) return false;
       if (isBuiltinExpression(expr)) return false;
-      const next = [expr, ...state42.recent.filter((item) => item !== expr)].slice(0, RECENT_LIMIT);
-      if (next.length === state42.recent.length && next[0] === state42.recent[0]) {
+      const next = [expr, ...state43.recent.filter((item) => item !== expr)].slice(0, RECENT_LIMIT);
+      if (next.length === state43.recent.length && next[0] === state43.recent[0]) {
         return false;
       }
-      state42.recent = next;
+      state43.recent = next;
       persistRecent();
       return true;
     }
     function removeRecent(expr) {
-      const next = state42.recent.filter((item) => item !== expr);
-      if (next.length === state42.recent.length) return;
-      state42.recent = next;
+      const next = state43.recent.filter((item) => item !== expr);
+      if (next.length === state43.recent.length) return;
+      state43.recent = next;
       persistRecent();
-      render42();
+      render43();
     }
     function recompute() {
       try {
-        state42.parsed = parsePredicate(state42.expression);
-        if (state42.parsed.clauses.length > 6) {
+        state43.parsed = parsePredicate(state43.expression);
+        if (state43.parsed.clauses.length > 6) {
           throw new Error(t("logic.err.tooManyClauses"));
         }
-        state42.analysis = buildAllCoverageSets(state42.parsed);
-        state42.error = null;
-        const clauseSet = new Set(state42.parsed.clauses);
-        for (const k of Object.keys(state42.bindings)) {
-          if (!clauseSet.has(k)) delete state42.bindings[k];
+        state43.analysis = buildAllCoverageSets(state43.parsed);
+        state43.error = null;
+        const clauseSet = new Set(state43.parsed.clauses);
+        for (const k of Object.keys(state43.bindings)) {
+          if (!clauseSet.has(k)) delete state43.bindings[k];
         }
       } catch (err) {
-        state42.parsed = null;
-        state42.analysis = null;
-        state42.error = err.message || String(err);
+        state43.parsed = null;
+        state43.analysis = null;
+        state43.error = err.message || String(err);
       }
     }
     function getActiveSet() {
-      if (!state42.analysis) return null;
-      return state42.analysis.sets[state42.selectedCriterion] || null;
+      if (!state43.analysis) return null;
+      return state43.analysis.sets[state43.selectedCriterion] || null;
     }
     function activeRowIds() {
       const set = getActiveSet();
@@ -12313,9 +12404,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       return new Set(set.tests.map((t4) => `r${t4.row.index}`));
     }
     function applyExpression(text) {
-      state42.expression = text;
+      state43.expression = text;
       recompute();
-      render42();
+      render43();
     }
     const exampleControls = focus ? createExampleControls({
       methodId: "logic",
@@ -12340,12 +12431,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         }
       });
     }
-    function render42() {
+    function render43() {
       var _a2;
       const examplesMarkup = logicCoveragePredicates.map((p) => `
         <button
           type="button"
-          class="logic-example-btn${state42.expression === p.expression ? " active" : ""}"
+          class="logic-example-btn${state43.expression === p.expression ? " active" : ""}"
           data-expression="${escapeHtml2(p.expression)}"
           data-testid="logic-example-${p.id}"
           title="${escapeHtml2(pickField(p, "description") || "")}"
@@ -12353,11 +12444,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           ${escapeHtml2(p.name)}
         </button>
       `).join("");
-      const recentMarkup = state42.recent.length ? `
+      const recentMarkup = state43.recent.length ? `
         <div class="logic-recent" data-testid="logic-recent">
           <span class="logic-recent-label">${t("logic.recent")}</span>
-          ${state42.recent.map((expr) => `
-              <span class="logic-recent-chip${state42.expression === expr ? " active" : ""}" data-testid="logic-recent-chip">
+          ${state43.recent.map((expr) => `
+              <span class="logic-recent-chip${state43.expression === expr ? " active" : ""}" data-testid="logic-recent-chip">
                 <button
                   type="button"
                   class="logic-recent-select"
@@ -12378,7 +12469,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const criteriaMarkup = (presetCfg ? logicCoverageCriteria.filter((c) => presetCfg.criteria.includes(c.id)) : logicCoverageCriteria).map((c) => `
         <button
           type="button"
-          class="logic-criterion-btn${state42.selectedCriterion === c.id ? " active" : ""}"
+          class="logic-criterion-btn${state43.selectedCriterion === c.id ? " active" : ""}"
           data-criterion="${c.id}"
           data-testid="logic-criterion-${c.id}"
         >
@@ -12388,7 +12479,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       `).join("");
       const truthTableMarkup = renderTruthTable();
       const summaryMarkup = renderSummary3();
-      root42.innerHTML = `
+      root43.innerHTML = `
       ${focus ? `<div class="logic-toolbar" data-testid="logic-toolbar"></div>` : `
       <div class="logic-toolbar">
         <label class="logic-input-label" for="logic-expression-input">Predicate</label>
@@ -12396,7 +12487,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           id="logic-expression-input"
           class="logic-expression-input"
           type="text"
-          value="${escapeHtml2(state42.expression)}"
+          value="${escapeHtml2(state43.expression)}"
           spellcheck="false"
           autocomplete="off"
           data-testid="logic-expression-input"
@@ -12407,12 +12498,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </div>
       `}
 
-      ${state42.error ? `<div class="logic-error" data-testid="logic-error">${escapeHtml2(state42.error)}</div>` : ""}
+      ${state43.error ? `<div class="logic-error" data-testid="logic-error">${escapeHtml2(state43.error)}</div>` : ""}
 
       <div class="logic-criteria" role="tablist" aria-label="${t("logic.aria.criteria")}">
         <div class="graph-criterion-row">
           ${criteriaMarkup}
-          ${!focus && !state42.error && state42.analysis ? `
+          ${!focus && !state43.error && state43.analysis ? `
             <button type="button" class="quiz-start-btn" data-testid="logic-quiz-start">
               ${t("quiz.start")}
             </button>
@@ -12433,15 +12524,15 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       <div class="logic-truth-table-wrap">${truthTableMarkup}</div>
     `;
       if (focus && exampleControls) {
-        (_a2 = root42.querySelector(".logic-toolbar")) == null ? void 0 : _a2.prepend(exampleControls.element);
+        (_a2 = root43.querySelector(".logic-toolbar")) == null ? void 0 : _a2.prepend(exampleControls.element);
       }
-      bindEvents41();
+      bindEvents42();
     }
     function renderTruthTable() {
-      if (!state42.analysis) {
+      if (!state43.analysis) {
         return "";
       }
-      const { rows, clauses } = state42.analysis;
+      const { rows, clauses } = state43.analysis;
       const highlighted = activeRowIds();
       const activeSet = getActiveSet();
       const majorByRow = /* @__PURE__ */ new Map();
@@ -12491,7 +12582,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     function renderSummary3() {
       var _a2;
-      if (state42.error || !state42.analysis) {
+      if (state43.error || !state43.analysis) {
         return "";
       }
       const set = getActiveSet();
@@ -12509,48 +12600,48 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       const testList = annotated.map(({ test, isDuplicate }) => `
         <li class="logic-test-item${isDuplicate ? " duplicate" : ""}" data-testid="logic-test-${escapeHtml2(test.id)}">
           <span class="logic-test-row">#${test.row.index}</span>
-          <span class="logic-test-values">${state42.analysis.clauses.map((c) => `${c}=${test.row.values[c] ? "T" : "F"}`).join(", ")}</span>
+          <span class="logic-test-values">${state43.analysis.clauses.map((c) => `${c}=${test.row.values[c] ? "T" : "F"}`).join(", ")}</span>
           <span class="logic-test-pred ${test.row.predicate ? "is-true" : "is-false"}">P=${test.row.predicate ? "T" : "F"}</span>
           <span class="logic-test-label">${escapeHtml2(test.label)}</span>
           ${isDuplicate ? `<span class="logic-test-dup-tag" aria-label="${t("logic.duplicate")}">${t("logic.duplicate")}</span>` : ""}
         </li>
       `).join("");
       const unsatisfied = ((_a2 = set.unsatisfied) == null ? void 0 : _a2.length) ? `<p class="logic-unsatisfied" data-testid="logic-unsatisfied">${t("logic.unsatisfied", { items: set.unsatisfied.join(", ") })}</p>` : "";
-      const dnfMarkup = ["ic", "utpc", "mutpc", "nfpc", "mnfpc", "cutpnfp"].includes(set.id) && state42.analysis.dnf ? `<p class="logic-dnf" data-testid="logic-dnf">${t("logic.dnfPrefix")}${dnfToHtml(state42.analysis.dnf)}
-          <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state42.analysis.dnf)}${t("logic.textbookClose")}</span>
-        </p>${set.id === "ic" && state42.analysis.negDnf ? `<p class="logic-dnf" data-testid="logic-dnf-neg">${t("logic.dnfNegPrefix")}${dnfToHtml(state42.analysis.negDnf)}
-                <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state42.analysis.negDnf)}${t("logic.textbookClose")}</span>
+      const dnfMarkup = ["ic", "utpc", "mutpc", "nfpc", "mnfpc", "cutpnfp"].includes(set.id) && state43.analysis.dnf ? `<p class="logic-dnf" data-testid="logic-dnf">${t("logic.dnfPrefix")}${dnfToHtml(state43.analysis.dnf)}
+          <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state43.analysis.dnf)}${t("logic.textbookClose")}</span>
+        </p>${set.id === "ic" && state43.analysis.negDnf ? `<p class="logic-dnf" data-testid="logic-dnf-neg">${t("logic.dnfNegPrefix")}${dnfToHtml(state43.analysis.negDnf)}
+                <span class="logic-dnf-alt">${t("logic.textbookOpen")}${dnfToCompactHtml(state43.analysis.negDnf)}${t("logic.textbookClose")}</span>
               </p>` : ""}` : "";
-      const kmapMarkup = state42.parsed && (!focus || presetCfg.view === "kmap") && (set.id === "ic" || set.id === "utpc" || set.id === "mutpc" || set.id === "nfpc" || set.id === "mnfpc" || set.id === "cutpnfp") ? set.id === "ic" ? (() => {
+      const kmapMarkup = state43.parsed && (!focus || presetCfg.view === "kmap") && (set.id === "ic" || set.id === "utpc" || set.id === "mutpc" || set.id === "nfpc" || set.id === "mnfpc" || set.id === "cutpnfp") ? set.id === "ic" ? (() => {
         const posTests = set.tests.filter((t4) => t4.polarity === "pos");
         const negTests = set.tests.filter((t4) => t4.polarity === "neg");
         const posGroups = buildImplicantGroups(
-          state42.analysis.rows,
-          state42.analysis.dnf || [],
+          state43.analysis.rows,
+          state43.analysis.dnf || [],
           true,
           0,
           posTests
         );
         const negGroups = buildImplicantGroups(
-          state42.analysis.rows,
-          state42.analysis.negDnf || [],
+          state43.analysis.rows,
+          state43.analysis.negDnf || [],
           false,
-          (state42.analysis.dnf || []).length,
+          (state43.analysis.dnf || []).length,
           negTests
         );
         const posTestSet = new Set(posTests.map((t4) => t4.row.index));
         const negTestSet = new Set(negTests.map((t4) => t4.row.index));
         return `<div class="logic-kmap-row">
                 ${renderKMap(
-          state42.analysis.rows,
-          state42.parsed.clauses,
+          state43.analysis.rows,
+          state43.parsed.clauses,
           true,
           t("logic.kmap.title.fStar"),
           { highlightedMinterms: posTestSet, implicantGroups: posGroups, highlightLabel: "test" }
         )}
                 ${renderKMap(
-          state42.analysis.rows,
-          state42.parsed.clauses,
+          state43.analysis.rows,
+          state43.parsed.clauses,
           false,
           t("logic.kmap.title.fNegStar"),
           { highlightedMinterms: negTestSet, implicantGroups: negGroups, highlightLabel: "test" }
@@ -12558,19 +12649,19 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               </div>`;
       })() : set.id === "utpc" ? `<div class="logic-kmap-row">
                 ${renderKMap(
-        state42.analysis.rows,
-        state42.parsed.clauses,
+        state43.analysis.rows,
+        state43.parsed.clauses,
         true,
         t("logic.kmap.title.utp"),
         { highlightedMinterms: new Set(set.tests.map((t4) => t4.row.index)) }
       )}
               </div>` : set.id === "mutpc" ? (() => {
-        const dnf = state42.analysis.dnf || [];
-        const groups = buildImplicantGroups(state42.analysis.rows, dnf, true, 0, set.tests);
+        const dnf = state43.analysis.dnf || [];
+        const groups = buildImplicantGroups(state43.analysis.rows, dnf, true, 0, set.tests);
         return `<div class="logic-kmap-row">
                   ${renderKMap(
-          state42.analysis.rows,
-          state42.parsed.clauses,
+          state43.analysis.rows,
+          state43.parsed.clauses,
           true,
           t("logic.kmap.title.mutp"),
           {
@@ -12581,8 +12672,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         )}
                 </div>`;
       })() : set.id === "nfpc" || set.id === "mnfpc" ? (() => {
-        const dnf = state42.analysis.dnf || [];
-        const groups = buildImplicantGroups(state42.analysis.rows, dnf, true, 0, []);
+        const dnf = state43.analysis.dnf || [];
+        const groups = buildImplicantGroups(state43.analysis.rows, dnf, true, 0, []);
         const nfpMarks = /* @__PURE__ */ new Map();
         const ntpMarks = /* @__PURE__ */ new Map();
         set.tests.forEach((test) => {
@@ -12598,16 +12689,16 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         const titleText = set.id === "mnfpc" ? t("logic.kmap.title.mnfp") : t("logic.kmap.title.nfp");
         return `<div class="logic-kmap-row">
                   ${renderKMap(
-          state42.analysis.rows,
-          state42.parsed.clauses,
+          state43.analysis.rows,
+          state43.parsed.clauses,
           true,
           titleText,
           { implicantGroups: groups, nfpMarks, ntpMarks, highlightLabel: "test" }
         )}
                 </div>`;
       })() : (() => {
-        const dnf = state42.analysis.dnf || [];
-        const groups = buildImplicantGroups(state42.analysis.rows, dnf, true, 0, []);
+        const dnf = state43.analysis.dnf || [];
+        const groups = buildImplicantGroups(state43.analysis.rows, dnf, true, 0, []);
         const nfpMarks = /* @__PURE__ */ new Map();
         const ntpMarks = /* @__PURE__ */ new Map();
         const testRowSet = /* @__PURE__ */ new Set();
@@ -12625,8 +12716,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
         return `<div class="logic-kmap-row">
                   ${renderKMap(
-          state42.analysis.rows,
-          state42.parsed.clauses,
+          state43.analysis.rows,
+          state43.parsed.clauses,
           true,
           t("logic.kmap.title.cutpnfp"),
           {
@@ -12658,16 +12749,16 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     `;
     }
     function buildBindingResultsHTML() {
-      if (!state42.analysis) return "";
-      const { clauses } = state42.analysis;
+      if (!state43.analysis) return "";
+      const { clauses } = state43.analysis;
       const hasAnyBinding = clauses.some((c) => {
         var _a2;
-        return (_a2 = state42.bindings[c]) == null ? void 0 : _a2.trim();
+        return (_a2 = state43.bindings[c]) == null ? void 0 : _a2.trim();
       });
       if (!hasAnyBinding) {
         return `<p class="logic-binding-hint-noentry" data-testid="logic-binding-no-entry">${t("logic.binding.noBinding")}</p>`;
       }
-      const vars = extractVarsFromBindings(state42.bindings);
+      const vars = extractVarsFromBindings(state43.bindings);
       const activeSet = getActiveSet();
       if (!activeSet) return "";
       const seenRows = /* @__PURE__ */ new Set();
@@ -12682,13 +12773,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         const valStr = clauses.map((c) => `${c}=${test.row.values[c] ? "T" : "F"}`).join(", ");
         const boundClauseValues = {};
         for (const c of clauses) {
-          if ((_a2 = state42.bindings[c]) == null ? void 0 : _a2.trim()) boundClauseValues[c] = test.row.values[c];
+          if ((_a2 = state43.bindings[c]) == null ? void 0 : _a2.trim()) boundClauseValues[c] = test.row.values[c];
         }
-        const constraintStr = buildConstraintStr(boundClauseValues, state42.bindings);
+        const constraintStr = buildConstraintStr(boundClauseValues, state43.bindings);
         const result = solveBinding({
           clauseValues: boundClauseValues,
-          bindings: state42.bindings,
-          searchRange: state42.bindingRange
+          bindings: state43.bindings,
+          searchRange: state43.bindingRange
         });
         const witnessCell = result.witness ? `<code class="logic-binding-witness" data-testid="logic-binding-witness-${test.row.index}">${escapeHtml2(formatWitnessStr(result.witness))}</code>` : `<span class="logic-binding-infeasible" data-testid="logic-binding-infeasible-${test.row.index}">${t("logic.binding.infeasible")}</span>`;
         return `
@@ -12719,8 +12810,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     function renderSymmetryBridge() {
       const activeSet = getActiveSet();
       if (!activeSet || !["cacc", "racc"].includes(activeSet.id)) return "";
-      if (!state42.analysis || state42.error) return "";
-      const { clauses, rows } = state42.analysis;
+      if (!state43.analysis || state43.error) return "";
+      const { clauses, rows } = state43.analysis;
       if (!clauses || clauses.length < 2 || clauses.length > 6) return "";
       const table = /* @__PURE__ */ new Map();
       for (const row of rows) {
@@ -12744,11 +12835,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </div>`;
     }
     function activePredicateExample() {
-      return logicCoveragePredicates.find((p) => p.expression === state42.expression) || null;
+      return logicCoveragePredicates.find((p) => p.expression === state43.expression) || null;
     }
     function renderBindingPanel() {
-      if (!state42.analysis || state42.error) return "";
-      const { clauses } = state42.analysis;
+      if (!state43.analysis || state43.error) return "";
+      const { clauses } = state43.analysis;
       const example5 = activePredicateExample();
       const hasDefaults = (example5 == null ? void 0 : example5.defaultBindings) && clauses.some((c) => example5.defaultBindings[c]);
       const inputRows = clauses.map((c) => `
@@ -12760,7 +12851,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           class="logic-binding-expr-input"
           data-testid="logic-binding-input-${escapeHtml2(c)}"
           data-binding-clause="${escapeHtml2(c)}"
-          value="${escapeHtml2(state42.bindings[c] || "")}"
+          value="${escapeHtml2(state43.bindings[c] || "")}"
           placeholder="${t("logic.binding.placeholder")}"
           spellcheck="false"
           autocomplete="off"
@@ -12786,10 +12877,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <div class="logic-binding-range-row">
           <span class="logic-binding-range-label">${t("logic.binding.range")}</span>
           <input type="number" class="logic-binding-range-input" data-testid="logic-binding-range-min"
-            data-binding-range="min" value="${state42.bindingRange[0]}" min="-1000" max="0" step="1" />
+            data-binding-range="min" value="${state43.bindingRange[0]}" min="-1000" max="0" step="1" />
           <span class="logic-binding-range-sep">${t("logic.binding.rangeTo")}</span>
           <input type="number" class="logic-binding-range-input" data-testid="logic-binding-range-max"
-            data-binding-range="max" value="${state42.bindingRange[1]}" min="0" max="1000" step="1" />
+            data-binding-range="max" value="${state43.bindingRange[1]}" min="0" max="1000" step="1" />
         </div>
         <div class="logic-binding-results" data-testid="logic-binding-results">
           ${buildBindingResultsHTML()}
@@ -12798,116 +12889,116 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     `;
     }
     function refreshBindingResults() {
-      const el = root42.querySelector('[data-testid="logic-binding-results"]');
+      const el = root43.querySelector('[data-testid="logic-binding-results"]');
       if (el) el.innerHTML = buildBindingResultsHTML();
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a2, _b2, _c, _d, _e, _f, _g, _h, _i;
-      const input = root42.querySelector('[data-testid="logic-expression-input"]');
+      const input = root43.querySelector('[data-testid="logic-expression-input"]');
       if (input) {
         input.addEventListener("input", (event) => {
-          state42.expression = event.target.value;
+          state43.expression = event.target.value;
           recompute();
           renderPreservingFocus("logic-expression-input");
         });
         input.addEventListener("blur", () => {
-          if (rememberCurrentExpression()) render42();
+          if (rememberCurrentExpression()) render43();
         });
         input.addEventListener("keydown", (event) => {
           if (event.key === "Enter") {
             event.preventDefault();
-            if (rememberCurrentExpression()) render42();
+            if (rememberCurrentExpression()) render43();
           }
         });
       }
-      root42.querySelectorAll("[data-expression]").forEach((btn) => {
+      root43.querySelectorAll("[data-expression]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.expression = btn.dataset.expression;
+          state43.expression = btn.dataset.expression;
           recompute();
           const example5 = activePredicateExample();
           if (example5 == null ? void 0 : example5.defaultBindings) {
-            state42.bindings = { ...example5.defaultBindings };
+            state43.bindings = { ...example5.defaultBindings };
           }
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-recent-select]").forEach((btn) => {
+      root43.querySelectorAll("[data-recent-select]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.expression = btn.dataset.recentSelect;
+          state43.expression = btn.dataset.recentSelect;
           recompute();
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-recent-remove]").forEach((btn) => {
+      root43.querySelectorAll("[data-recent-remove]").forEach((btn) => {
         btn.addEventListener("click", (event) => {
           event.stopPropagation();
           removeRecent(btn.dataset.recentRemove);
         });
       });
-      root42.querySelectorAll("[data-criterion]").forEach((btn) => {
+      root43.querySelectorAll("[data-criterion]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.selectedCriterion = btn.dataset.criterion;
+          state43.selectedCriterion = btn.dataset.criterion;
           logicQuiz.active = false;
           logicQuiz.phase = "question";
           logicQuiz.answer = "";
           logicQuiz.result = null;
-          render42();
+          render43();
         });
       });
-      (_a2 = root42.querySelector('[data-testid="logic-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a2 = root43.querySelector('[data-testid="logic-quiz-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         logicQuiz.active = true;
         logicQuiz.phase = "question";
         logicQuiz.answer = "";
         logicQuiz.result = null;
-        const quizEl = root42.querySelector('[data-testid="logic-quiz"]');
+        const quizEl = root43.querySelector('[data-testid="logic-quiz"]');
         if (!quizEl) {
-          render42();
+          render43();
           return;
         }
         quizEl.outerHTML = renderLogicQuizPanel();
-        render42();
+        render43();
       });
-      (_b2 = root42.querySelector('[data-testid="logic-quiz-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      (_b2 = root43.querySelector('[data-testid="logic-quiz-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         logicQuiz.active = false;
-        render42();
+        render43();
       });
-      (_c = root42.querySelector('[data-testid="logic-quiz-check"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      (_c = root43.querySelector('[data-testid="logic-quiz-check"]')) == null ? void 0 : _c.addEventListener("click", () => {
         var _a3;
-        const inp = root42.querySelector('[data-testid="logic-quiz-answer"]');
+        const inp = root43.querySelector('[data-testid="logic-quiz-answer"]');
         logicQuiz.answer = (_a3 = inp == null ? void 0 : inp.value) != null ? _a3 : "";
         logicQuiz.phase = "graded";
-        const panel = root42.querySelector('[data-testid="logic-quiz"]');
+        const panel = root43.querySelector('[data-testid="logic-quiz"]');
         if (panel) panel.outerHTML = renderLogicQuizPanel();
-        render42();
+        render43();
       });
-      (_d = root42.querySelector('[data-testid="logic-quiz-reset"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      (_d = root43.querySelector('[data-testid="logic-quiz-reset"]')) == null ? void 0 : _d.addEventListener("click", () => {
         logicQuiz.phase = "question";
         logicQuiz.answer = "";
-        render42();
+        render43();
       });
-      (_e = root42.querySelector('[data-testid="logic-lab-reflect-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      (_e = root43.querySelector('[data-testid="logic-lab-reflect-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
         logicLabReflect.active = true;
-        render42();
+        render43();
       });
-      (_f = root42.querySelector('[data-testid="logic-lab-reflect-close"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      (_f = root43.querySelector('[data-testid="logic-lab-reflect-close"]')) == null ? void 0 : _f.addEventListener("click", () => {
         var _a3, _b3;
-        logicLabReflect.a1 = ((_a3 = root42.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || logicLabReflect.a1;
-        logicLabReflect.a2 = ((_b3 = root42.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || logicLabReflect.a2;
+        logicLabReflect.a1 = ((_a3 = root43.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || logicLabReflect.a1;
+        logicLabReflect.a2 = ((_b3 = root43.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || logicLabReflect.a2;
         logicLabReflect.active = false;
-        render42();
+        render43();
       });
-      (_g = root42.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
+      (_g = root43.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
         logicLabReflect.a1 = e.target.value;
       });
-      (_h = root42.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _h.addEventListener("input", (e) => {
+      (_h = root43.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _h.addEventListener("input", (e) => {
         logicLabReflect.a2 = e.target.value;
       });
-      const logicLrShare = root42.querySelector('[data-testid="logic-lab-reflect-share"]');
+      const logicLrShare = root43.querySelector('[data-testid="logic-lab-reflect-share"]');
       if (logicLrShare) {
         logicLrShare.addEventListener("click", async () => {
           var _a3, _b3;
-          const a1 = ((_a3 = root42.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
-          const a2 = ((_b3 = root42.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
+          const a1 = ((_a3 = root43.querySelector('[data-testid="logic-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root43.querySelector('[data-testid="logic-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "logic",
@@ -12942,47 +13033,47 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
       }
       let bindingTimer = null;
-      root42.querySelectorAll("[data-binding-clause]").forEach((input2) => {
+      root43.querySelectorAll("[data-binding-clause]").forEach((input2) => {
         input2.addEventListener("input", () => {
           const clause = input2.dataset.bindingClause;
-          state42.bindings[clause] = input2.value;
+          state43.bindings[clause] = input2.value;
           if (bindingTimer) clearTimeout(bindingTimer);
           bindingTimer = setTimeout(() => refreshBindingResults(), 200);
         });
       });
-      const restoreBtn = root42.querySelector('[data-testid="logic-binding-restore"]');
+      const restoreBtn = root43.querySelector('[data-testid="logic-binding-restore"]');
       if (restoreBtn) {
         restoreBtn.addEventListener("click", () => {
           const example5 = activePredicateExample();
           if (example5 == null ? void 0 : example5.defaultBindings) {
-            state42.bindings = { ...example5.defaultBindings };
-            render42();
+            state43.bindings = { ...example5.defaultBindings };
+            render43();
           }
         });
       }
-      (_i = root42.querySelector('[data-testid="logic-bridge-groupth"]')) == null ? void 0 : _i.addEventListener("click", () => {
+      (_i = root43.querySelector('[data-testid="logic-bridge-groupth"]')) == null ? void 0 : _i.addEventListener("click", () => {
         var _a3;
         (_a3 = document.querySelector('[data-section="groupth"]')) == null ? void 0 : _a3.click();
       });
-      root42.querySelectorAll("[data-binding-range]").forEach((input2) => {
+      root43.querySelectorAll("[data-binding-range]").forEach((input2) => {
         input2.addEventListener("change", () => {
           const v = parseInt(input2.value, 10);
           if (Number.isNaN(v)) return;
           if (input2.dataset.bindingRange === "min") {
-            state42.bindingRange = [Math.min(v, state42.bindingRange[1] - 1), state42.bindingRange[1]];
+            state43.bindingRange = [Math.min(v, state43.bindingRange[1] - 1), state43.bindingRange[1]];
           } else {
-            state42.bindingRange = [state42.bindingRange[0], Math.max(v, state42.bindingRange[0] + 1)];
+            state43.bindingRange = [state43.bindingRange[0], Math.max(v, state43.bindingRange[0] + 1)];
           }
           refreshBindingResults();
         });
       });
     }
     function renderPreservingFocus(testid) {
-      const previouslyFocused = root42.querySelector(`[data-testid="${testid}"]`);
+      const previouslyFocused = root43.querySelector(`[data-testid="${testid}"]`);
       const selectionStart = previouslyFocused == null ? void 0 : previouslyFocused.selectionStart;
       const selectionEnd = previouslyFocused == null ? void 0 : previouslyFocused.selectionEnd;
-      render42();
-      const next = root42.querySelector(`[data-testid="${testid}"]`);
+      render43();
+      const next = root43.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
         if (typeof selectionStart === "number" && typeof selectionEnd === "number" && next.setSelectionRange) {
@@ -12991,10 +13082,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }
     }
     recompute();
-    render42();
+    render43();
     if (cloudClient2 && typeof cloudClient2.subscribeAuthState === "function") {
       cloudClient2.subscribeAuthState(async (user) => {
-        state42.cloudUser = user || null;
+        state43.cloudUser = user || null;
         if (!user || typeof cloudClient2.loadLogicRecent !== "function") {
           return;
         }
@@ -13002,30 +13093,30 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           const remote = await cloudClient2.loadLogicRecent(user.uid);
           const merged = [];
           const seen = /* @__PURE__ */ new Set();
-          [...remote, ...state42.recent].forEach((expr) => {
+          [...remote, ...state43.recent].forEach((expr) => {
             if (typeof expr !== "string") return;
             if (seen.has(expr)) return;
             seen.add(expr);
             merged.push(expr);
           });
           const next = merged.slice(0, RECENT_LIMIT);
-          const changed = next.length !== state42.recent.length || next.some((v, i) => v !== state42.recent[i]);
-          state42.recent = next;
-          saveRecent(state42.recent);
+          const changed = next.length !== state43.recent.length || next.some((v, i) => v !== state43.recent[i]);
+          state43.recent = next;
+          saveRecent(state43.recent);
           if (next.length !== remote.length || next.some((v, i) => v !== remote[i])) {
-            pushRecentToCloud(state42.recent);
+            pushRecentToCloud(state43.recent);
           }
-          if (changed) render42();
+          if (changed) render43();
         } catch {
         }
       });
     }
-    return root42;
+    return root43;
   }
 
   // src/components/TestingFlow.js
   function createTestingFlow() {
-    const root42 = document.createElement("div");
+    const root43 = document.createElement("div");
     let activeStep = 0;
     let isPlaying = true;
     let hoveredStep = null;
@@ -13043,13 +13134,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }
     }
     function updateState() {
-      const playBtn = root42.querySelector('[data-testid="flow-play-btn"]');
+      const playBtn = root43.querySelector('[data-testid="flow-play-btn"]');
       if (playBtn) {
         playBtn.className = `flow-play-btn${isPlaying ? " playing" : ""}`;
         playBtn.setAttribute("aria-label", isPlaying ? t("flow.pause") : t("flow.play"));
         playBtn.innerHTML = isPlaying ? `\u23F8 ${t("flow.pause")}` : `\u25B6 ${t("flow.play")}`;
       }
-      root42.querySelectorAll("[data-step-index]").forEach((el) => {
+      root43.querySelectorAll("[data-step-index]").forEach((el) => {
         const idx = Number(el.dataset.stepIndex);
         const step2 = testingFlow[idx];
         const isActive = idx === activeStep;
@@ -13079,7 +13170,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           tooltip.textContent = pickField(step2, "description");
         }
       });
-      root42.querySelectorAll('[data-testid^="flow-arrow-"]').forEach((arrow) => {
+      root43.querySelectorAll('[data-testid^="flow-arrow-"]').forEach((arrow) => {
         const idx = Number(arrow.dataset.testid.replace("flow-arrow-", ""));
         arrow.className = [
           "flow-arrow",
@@ -13087,9 +13178,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           activeStep === idx ? "flow-arrow--active" : ""
         ].filter(Boolean).join(" ");
       });
-      const fill = root42.querySelector('[data-testid="flow-progress-fill"]');
+      const fill = root43.querySelector('[data-testid="flow-progress-fill"]');
       if (fill) fill.style.width = `${(activeStep + 1) / testingFlow.length * 100}%`;
-      const progressLabel = root42.querySelector(".flow-progress-label");
+      const progressLabel = root43.querySelector(".flow-progress-label");
       if (progressLabel) {
         progressLabel.textContent = t("flow.progress", {
           current: activeStep + 1,
@@ -13098,10 +13189,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         });
       }
     }
-    function render42() {
-      root42.className = "testing-flow";
-      root42.dataset.testid = "testing-flow";
-      root42.innerHTML = `
+    function render43() {
+      root43.className = "testing-flow";
+      root43.dataset.testid = "testing-flow";
+      root43.innerHTML = `
       <div class="flow-controls">
         <button
           class="flow-play-btn${isPlaying ? " playing" : ""}"
@@ -13153,12 +13244,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </div>
       <div class="flow-progress-label">${t("flow.progress", { current: activeStep + 1, total: testingFlow.length, label: pickField(testingFlow[activeStep], "label") })}</div>
     `;
-      root42.querySelector('[data-testid="flow-play-btn"]').addEventListener("click", () => {
+      root43.querySelector('[data-testid="flow-play-btn"]').addEventListener("click", () => {
         isPlaying = !isPlaying;
         restartTimer();
         updateState();
       });
-      root42.querySelectorAll("[data-step-index]").forEach((element) => {
+      root43.querySelectorAll("[data-step-index]").forEach((element) => {
         const stepIndex = Number(element.dataset.stepIndex);
         element.addEventListener("mouseenter", () => {
           hoveredStep = stepIndex;
@@ -13179,21 +13270,21 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
     }
     restartTimer();
-    render42();
-    root42.cleanup = () => {
+    render43();
+    root43.cleanup = () => {
       if (timerId) {
         clearInterval(timerId);
       }
     };
-    return root42;
+    return root43;
   }
 
   // src/components/TestingTypesTable.js
   function createTestingTypesTable() {
-    const root42 = document.createElement("div");
-    root42.className = "testing-types";
-    root42.dataset.testid = "testing-types";
-    root42.innerHTML = `
+    const root43 = document.createElement("div");
+    root43.className = "testing-types";
+    root43.dataset.testid = "testing-types";
+    root43.innerHTML = `
     <div class="pyramid-section">
       <h3 class="pyramid-title">${t("types.pyramid.title")}</h3>
       <div class="pyramid" data-testid="pyramid">
@@ -13238,7 +13329,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       `).join("")}
     </div>
   `;
-    return root42;
+    return root43;
   }
 
   // src/components/CloudStoragePanel.js
@@ -13258,7 +13349,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   }
   function createCloudStoragePanel() {
     var _a2;
-    const root42 = document.createElement("div");
+    const root43 = document.createElement("div");
     const client2 = createCloudIntegrationClient();
     const canUseCloudAuth = client2.isConfigured && client2.isSupportedOrigin;
     const canUseCloudData = !client2.isMaccount;
@@ -13277,11 +13368,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     let uploadCount = 0;
     const uploadedResultIds = /* @__PURE__ */ new Set();
-    function render42() {
+    function render43() {
       var _a3, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k;
-      root42.className = "cloud-storage";
-      root42.dataset.testid = "cloud-storage-panel";
-      root42.innerHTML = `
+      root43.className = "cloud-storage";
+      root43.dataset.testid = "cloud-storage-panel";
+      root43.innerHTML = `
       <div class="cloud-card">
         <div class="cloud-header">
           <div>
@@ -13402,36 +13493,36 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </div>` : ""}
       </div>
     `;
-      (_a3 = root42.querySelector('[data-testid="cloud-signin-btn"]')) == null ? void 0 : _a3.addEventListener("click", () => {
+      (_a3 = root43.querySelector('[data-testid="cloud-signin-btn"]')) == null ? void 0 : _a3.addEventListener("click", () => {
         client2.signIn();
       });
-      root42.querySelector('[data-testid="cloud-signout-btn"]').addEventListener("click", async () => {
+      root43.querySelector('[data-testid="cloud-signout-btn"]').addEventListener("click", async () => {
         try {
           await client2.signOutGoogle();
           user = null;
           selectedFile = null;
           status = t("cloud.signedOut");
           ;
-          render42();
+          render43();
         } catch (error) {
           status = error.message;
-          render42();
+          render43();
         }
       });
-      (_b2 = root42.querySelector('[data-testid="cloud-criterion-select"]')) == null ? void 0 : _b2.addEventListener("change", (event) => {
+      (_b2 = root43.querySelector('[data-testid="cloud-criterion-select"]')) == null ? void 0 : _b2.addEventListener("change", (event) => {
         settings.preferredCriterion = event.target.value;
       });
-      (_c = root42.querySelector('[data-testid="cloud-notes-input"]')) == null ? void 0 : _c.addEventListener("input", (event) => {
+      (_c = root43.querySelector('[data-testid="cloud-notes-input"]')) == null ? void 0 : _c.addEventListener("input", (event) => {
         settings.notes = event.target.value;
       });
-      (_d = root42.querySelector('[data-testid="cloud-file-btn"]')) == null ? void 0 : _d.addEventListener("click", () => {
-        root42.querySelector('[data-testid="cloud-file-input"]').click();
+      (_d = root43.querySelector('[data-testid="cloud-file-btn"]')) == null ? void 0 : _d.addEventListener("click", () => {
+        root43.querySelector('[data-testid="cloud-file-input"]').click();
       });
-      (_e = root42.querySelector('[data-testid="cloud-file-input"]')) == null ? void 0 : _e.addEventListener("change", (event) => {
+      (_e = root43.querySelector('[data-testid="cloud-file-input"]')) == null ? void 0 : _e.addEventListener("change", (event) => {
         [selectedFile] = event.target.files || [];
-        render42();
+        render43();
       });
-      (_f = root42.querySelector('[data-testid="cloud-load-settings-btn"]')) == null ? void 0 : _f.addEventListener("click", async () => {
+      (_f = root43.querySelector('[data-testid="cloud-load-settings-btn"]')) == null ? void 0 : _f.addEventListener("click", async () => {
         try {
           const loaded = await client2.loadSettings(user.uid);
           if (loaded) {
@@ -13444,25 +13535,25 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           } else {
             status = t("cloud.noSavedSettings");
           }
-          render42();
+          render43();
         } catch (error) {
           status = error.message;
-          render42();
+          render43();
         }
       });
-      (_g = root42.querySelector('[data-testid="cloud-save-settings-btn"]')) == null ? void 0 : _g.addEventListener("click", async () => {
+      (_g = root43.querySelector('[data-testid="cloud-save-settings-btn"]')) == null ? void 0 : _g.addEventListener("click", async () => {
         try {
-          const extras = parseJson(root42.querySelector('[data-testid="cloud-extras-input"]').value);
+          const extras = parseJson(root43.querySelector('[data-testid="cloud-extras-input"]').value);
           settings.extras = extras;
           await client2.saveSettings(user.uid, settings);
           status = t("cloud.savedOk");
-          render42();
+          render43();
         } catch (error) {
           status = error.message.includes("JSON") ? t("cloud.extrasJsonError") : error.message;
-          render42();
+          render43();
         }
       });
-      (_h = root42.querySelector('[data-testid="cloud-upload-btn"]')) == null ? void 0 : _h.addEventListener("click", async () => {
+      (_h = root43.querySelector('[data-testid="cloud-upload-btn"]')) == null ? void 0 : _h.addEventListener("click", async () => {
         try {
           const fileToUpload = selectedFile;
           let content = null;
@@ -13484,13 +13575,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           uploadedFiles = [{ ...uploaded, content, fileName: fileToUpload.name, file: fileToUpload }, ...uploadedFiles].slice(0, 8);
           status = t("cloud.uploadedOk", { name: uploaded.name });
           selectedFile = null;
-          render42();
+          render43();
         } catch (error) {
           status = error.message;
-          render42();
+          render43();
         }
       });
-      root42.querySelectorAll("[data-use-target]").forEach((btn) => {
+      root43.querySelectorAll("[data-use-target]").forEach((btn) => {
         btn.addEventListener("click", async () => {
           var _a4, _b3;
           const idx = Number(btn.dataset.useIdx);
@@ -13509,13 +13600,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               item.content = content;
             } catch (err) {
               status = t("cloud.readError", { msg: (err == null ? void 0 : err.message) || err });
-              render42();
+              render43();
               return;
             }
           }
           if (content == null) {
             status = t("cloud.noContent");
-            render42();
+            render43();
             return;
           }
           const sectionId = target === "graph" ? "section-graph" : "section-syntax";
@@ -13525,30 +13616,30 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             detail: { target, name: item.fileName || item.name, content }
           }));
           status = target === "mutation" ? t("cloud.sentToMutation", { name: item.name }) : target === "grammar" ? t("cloud.sentToGrammar", { name: item.name }) : t("cloud.sentToGraph", { name: item.name });
-          render42();
+          render43();
         });
       });
-      (_i = root42.querySelector('[data-testid="cloud-class-save"]')) == null ? void 0 : _i.addEventListener("click", () => {
+      (_i = root43.querySelector('[data-testid="cloud-class-save"]')) == null ? void 0 : _i.addEventListener("click", () => {
         var _a4;
-        const inp = root42.querySelector('[data-testid="cloud-class-code-input"]');
+        const inp = root43.querySelector('[data-testid="cloud-class-code-input"]');
         classCode = ((inp == null ? void 0 : inp.value) || "").trim().toUpperCase();
         try {
           (_a4 = globalThis.localStorage) == null ? void 0 : _a4.setItem(CLASS_CODE_KEY, classCode);
         } catch {
         }
-        render42();
+        render43();
       });
-      (_j = root42.querySelector('[data-testid="cloud-view-results"]')) == null ? void 0 : _j.addEventListener("click", () => {
+      (_j = root43.querySelector('[data-testid="cloud-view-results"]')) == null ? void 0 : _j.addEventListener("click", () => {
         var _a4;
         (_a4 = globalThis.dispatchEvent) == null ? void 0 : _a4.call(globalThis, new CustomEvent("stvisual:open-teacher-dashboard", {
           detail: { classCode }
         }));
       });
-      (_k = root42.querySelector('[data-testid="cloud-refresh-drive-btn"]')) == null ? void 0 : _k.addEventListener("click", async () => {
+      (_k = root43.querySelector('[data-testid="cloud-refresh-drive-btn"]')) == null ? void 0 : _k.addEventListener("click", async () => {
         if (!user || typeof client2.listDriveFiles !== "function") return;
         driveFilesLoading = true;
         status = t("cloud.refreshing");
-        render42();
+        render43();
         try {
           driveFiles = await client2.listDriveFiles();
           status = t("cloud.driveListed", { count: driveFiles.length });
@@ -13556,10 +13647,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           status = t("cloud.driveListError", { msg: (err == null ? void 0 : err.message) || err });
         } finally {
           driveFilesLoading = false;
-          render42();
+          render43();
         }
       });
-      root42.querySelectorAll("[data-drive-target]").forEach((btn) => {
+      root43.querySelectorAll("[data-drive-target]").forEach((btn) => {
         btn.addEventListener("click", async () => {
           var _a4, _b3;
           const idx = Number(btn.dataset.driveIdx);
@@ -13568,7 +13659,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           if (!f) return;
           try {
             status = t("cloud.downloading", { name: f.name });
-            render42();
+            render43();
             const content = await client2.downloadDriveFile(f.id);
             const sectionId = target === "graph" ? "section-graph" : "section-syntax";
             const targetSection = (_a4 = globalThis.document) == null ? void 0 : _a4.querySelector(`[data-testid="${sectionId}"]`);
@@ -13580,7 +13671,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           } catch (err) {
             status = t("cloud.readError", { msg: (err == null ? void 0 : err.message) || err });
           }
-          render42();
+          render43();
         });
       });
     }
@@ -13595,7 +13686,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         uploadedResultIds.add(payloadStr);
         await client2.saveResult(user.uid, user.displayName || "", user.email || "", classCode, payload);
         uploadCount++;
-        const badge = root42.querySelector('[data-testid="cloud-upload-count"]');
+        const badge = root43.querySelector('[data-testid="cloud-upload-count"]');
         if (badge) badge.textContent = uploadCount;
       } catch {
       }
@@ -13611,10 +13702,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         } catch {
         }
       }
-      render42();
+      render43();
     });
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/data/mutationData.js
@@ -14455,13 +14546,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   }
   function createSyntaxCoverageExplorer() {
     var _a2;
-    const root42 = document.createElement("div");
-    root42.className = "syntax-coverage";
-    root42.dataset.testid = "syntax-coverage";
+    const root43 = document.createElement("div");
+    root43.className = "syntax-coverage";
+    root43.dataset.testid = "syntax-coverage";
     const initial = programExamples[0];
     const localPrograms = loadLocalPrograms();
     const initialSnapshot = localPrograms[initial.id] || defaultProgramSnapshot(initial);
-    const state42 = {
+    const state43 = {
       exampleId: initial.id,
       params: initialSnapshot.params,
       body: initialSnapshot.body,
@@ -14489,9 +14580,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     function snapshotCurrent() {
       return {
-        params: state42.params,
-        body: state42.body,
-        tests: state42.tests.map((t4) => ({
+        params: state43.params,
+        body: state43.body,
+        tests: state43.tests.map((t4) => ({
           id: t4.id,
           argsText: t4.argsText,
           expectedText: t4.expectedText
@@ -14499,28 +14590,28 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       };
     }
     function persistCurrent() {
-      state42.programs[state42.exampleId] = snapshotCurrent();
-      saveLocalPrograms(state42.programs);
+      state43.programs[state43.exampleId] = snapshotCurrent();
+      saveLocalPrograms(state43.programs);
       pushToCloud();
     }
     const syntaxQuiz = { active: false, phase: "question", answer: "", result: null };
     function renderSyntaxQuizPanel() {
       if (!syntaxQuiz.active) return "";
       if (syntaxQuiz.phase === "graded") {
-        const correct = state42.score.killed;
+        const correct = state43.score.killed;
         const userAns = parseInt(syntaxQuiz.answer, 10);
         const ok = userAns === correct;
-        const shareEncoded = encodeResult({ v: 1, explorer: "syntax", explorerLabel: t("quiz.syntax.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.syntax.prompt", { program: state42.exampleId }), a: String(syntaxQuiz.answer), expected: String(correct), ok }] });
+        const shareEncoded = encodeResult({ v: 1, explorer: "syntax", explorerLabel: t("quiz.syntax.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.syntax.prompt", { program: state43.exampleId }), a: String(syntaxQuiz.answer), expected: String(correct), ok }] });
         return `
         <div class="quiz-panel" data-testid="syntax-quiz-panel">
           <div class="quiz-header">
             <span>${t("quiz.syntax.title")}</span>
             <button type="button" class="quiz-close-btn" data-testid="syntax-quiz-close">\u2715</button>
           </div>
-          <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state42.exampleId) })}</p>
+          <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state43.exampleId) })}</p>
           <p class="quiz-score ${ok ? "quiz-score--perfect" : "quiz-score--wrong"}">
             ${ok ? t("quiz.graph.perfect") : ""}
-            ${t("quiz.syntax.answer", { killed: correct, total: state42.score.total })}
+            ${t("quiz.syntax.answer", { killed: correct, total: state43.score.total })}
           </p>
           <button type="button" class="quiz-share-btn" data-share-payload="${shareEncoded}" data-testid="syntax-quiz-share">\u{1F4CB} ${t("quiz.share.btn")}</button>
           <button type="button" class="quiz-start-btn" data-testid="syntax-quiz-reset">${t("quiz.retry")}</button>
@@ -14533,7 +14624,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <span>${t("quiz.syntax.title")}</span>
           <button type="button" class="quiz-close-btn" data-testid="syntax-quiz-close">\u2715</button>
         </div>
-        <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state42.exampleId) })}</p>
+        <p class="quiz-prompt">${t("quiz.syntax.prompt", { program: escapeHtml3(state43.exampleId) })}</p>
         <div class="quiz-bva-inputs">
           <label class="quiz-bva-field">
             ${t("quiz.syntax.label")}
@@ -14547,21 +14638,21 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     let saveTimer = null;
     let pendingSave = null;
     function pushToCloud() {
-      if (!cloudClient2 || !state42.cloudUser || typeof cloudClient2.saveSyntaxTests !== "function") return;
+      if (!cloudClient2 || !state43.cloudUser || typeof cloudClient2.saveSyntaxTests !== "function") return;
       if (saveTimer) clearTimeout(saveTimer);
-      state42.cloudStatus = "syncing";
-      state42.cloudMessage = "";
+      state43.cloudStatus = "syncing";
+      state43.cloudMessage = "";
       updateCloudIndicator();
       pendingSave = new Promise((resolve) => {
         saveTimer = setTimeout(async () => {
           saveTimer = null;
           try {
-            await cloudClient2.saveSyntaxTests(state42.cloudUser.uid, state42.programs);
-            state42.cloudStatus = "synced";
-            state42.cloudMessage = t("syntax.cloud.synced");
+            await cloudClient2.saveSyntaxTests(state43.cloudUser.uid, state43.programs);
+            state43.cloudStatus = "synced";
+            state43.cloudMessage = t("syntax.cloud.synced");
           } catch (err) {
-            state42.cloudStatus = "error";
-            state42.cloudMessage = t("syntax.cloud.saveError", { msg: (err == null ? void 0 : err.message) || err });
+            state43.cloudStatus = "error";
+            state43.cloudMessage = t("syntax.cloud.saveError", { msg: (err == null ? void 0 : err.message) || err });
           }
           updateCloudIndicator();
           resolve();
@@ -14575,7 +14666,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         clearTimeout(saveTimer);
         saveTimer = null;
         try {
-          await cloudClient2.saveSyntaxTests(state42.cloudUser.uid, state42.programs);
+          await cloudClient2.saveSyntaxTests(state43.cloudUser.uid, state43.programs);
         } catch {
         }
       } else {
@@ -14584,152 +14675,152 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       pendingSave = null;
     }
     function updateCloudIndicator() {
-      const node2 = root42.querySelector('[data-testid="syntax-cloud-indicator"]');
+      const node2 = root43.querySelector('[data-testid="syntax-cloud-indicator"]');
       if (!node2) return;
-      node2.dataset.status = state42.cloudStatus;
+      node2.dataset.status = state43.cloudStatus;
       node2.textContent = cloudIndicatorText();
     }
     function cloudIndicatorText() {
-      if (!state42.cloudUser) return t("syntax.cloud.notSignedIn");
-      switch (state42.cloudStatus) {
+      if (!state43.cloudUser) return t("syntax.cloud.notSignedIn");
+      switch (state43.cloudStatus) {
         case "syncing":
           return t("syntax.cloud.syncing");
         case "synced":
-          return `\u2601 ${state42.cloudMessage || t("syntax.cloud.synced")}`;
+          return `\u2601 ${state43.cloudMessage || t("syntax.cloud.synced")}`;
         case "error":
-          return `\u2601 ${state42.cloudMessage || t("syntax.cloud.failed")}`;
+          return `\u2601 ${state43.cloudMessage || t("syntax.cloud.failed")}`;
         default:
-          return `\u2601 ${t("syntax.cloud.linked", { name: state42.cloudUser.email || state42.cloudUser.uid })}`;
+          return `\u2601 ${t("syntax.cloud.linked", { name: state43.cloudUser.email || state43.cloudUser.uid })}`;
       }
     }
     async function reloadFromCloud({ force = false } = {}) {
       var _a3, _b2;
-      if (!cloudClient2 || !state42.cloudUser) return;
+      if (!cloudClient2 || !state43.cloudUser) return;
       if (typeof cloudClient2.loadSyntaxTests !== "function") return;
       await flushPendingSave();
-      state42.cloudStatus = "syncing";
-      state42.cloudMessage = force ? t("syntax.cloud.reloading") : "";
+      state43.cloudStatus = "syncing";
+      state43.cloudMessage = force ? t("syntax.cloud.reloading") : "";
       updateCloudIndicator();
       try {
-        const remote = await cloudClient2.loadSyntaxTests(state42.cloudUser.uid);
+        const remote = await cloudClient2.loadSyntaxTests(state43.cloudUser.uid);
         const remoteObj = remote && typeof remote === "object" ? remote : {};
-        const localOnly = Object.keys(state42.programs).filter((k) => !(k in remoteObj));
+        const localOnly = Object.keys(state43.programs).filter((k) => !(k in remoteObj));
         const merged = { ...remoteObj };
         localOnly.forEach((k) => {
-          merged[k] = state42.programs[k];
+          merged[k] = state43.programs[k];
         });
-        state42.programs = merged;
-        saveLocalPrograms(state42.programs);
-        const current3 = state42.programs[state42.exampleId];
+        state43.programs = merged;
+        saveLocalPrograms(state43.programs);
+        const current3 = state43.programs[state43.exampleId];
         if (current3) {
-          state42.params = (_a3 = current3.params) != null ? _a3 : state42.params;
-          state42.body = (_b2 = current3.body) != null ? _b2 : state42.body;
-          state42.tests = Array.isArray(current3.tests) ? current3.tests.map((t4) => ({ ...t4 })) : state42.tests;
-          state42.selectedMutantId = null;
+          state43.params = (_a3 = current3.params) != null ? _a3 : state43.params;
+          state43.body = (_b2 = current3.body) != null ? _b2 : state43.body;
+          state43.tests = Array.isArray(current3.tests) ? current3.tests.map((t4) => ({ ...t4 })) : state43.tests;
+          state43.selectedMutantId = null;
         }
-        state42.cloudStatus = "synced";
-        state42.cloudMessage = t("syntax.cloud.loaded");
-        render42();
+        state43.cloudStatus = "synced";
+        state43.cloudMessage = t("syntax.cloud.loaded");
+        render43();
         if (localOnly.length > 0) pushToCloud();
       } catch (err) {
-        state42.cloudStatus = "error";
-        state42.cloudMessage = t("syntax.cloud.loadError", { msg: (err == null ? void 0 : err.message) || err });
+        state43.cloudStatus = "error";
+        state43.cloudMessage = t("syntax.cloud.loadError", { msg: (err == null ? void 0 : err.message) || err });
         updateCloudIndicator();
       }
     }
     function recompute() {
       var _a3;
-      state42.error = null;
+      state43.error = null;
       let params;
       try {
-        params = state42.params.split(",").map((s) => s.trim()).filter(Boolean);
+        params = state43.params.split(",").map((s) => s.trim()).filter(Boolean);
       } catch (err) {
-        state42.error = t("syntax.err.argsParse", { msg: err.message });
+        state43.error = t("syntax.err.argsParse", { msg: err.message });
         return;
       }
       let parsedTests;
       try {
-        parsedTests = state42.tests.map((t4) => ({
+        parsedTests = state43.tests.map((t4) => ({
           id: t4.id,
           args: parseTestArgs(t4.argsText),
           expected: parseExpected(t4.expectedText)
         }));
       } catch (err) {
-        state42.error = err.message;
+        state43.error = err.message;
         return;
       }
       let suiteResults;
       try {
-        suiteResults = runTestSuite(params, state42.body, parsedTests);
+        suiteResults = runTestSuite(params, state43.body, parsedTests);
       } catch (err) {
-        state42.error = t("syntax.err.compile", { msg: err.message });
+        state43.error = t("syntax.err.compile", { msg: err.message });
         return;
       }
-      const operators = [...state42.operators];
-      const generated = generateMutants(state42.body, operators);
-      const evaluated = evaluateMutants(params, state42.body, parsedTests, generated);
+      const operators = [...state43.operators];
+      const generated = generateMutants(state43.body, operators);
+      const evaluated = evaluateMutants(params, state43.body, parsedTests, generated);
       const prevEquivalent = new Set(
-        state42.mutants.filter((m) => m.status === "equivalent").map((m) => m.id)
+        state43.mutants.filter((m) => m.status === "equivalent").map((m) => m.id)
       );
       const finalMutants = evaluated.map(
         (m) => prevEquivalent.has(m.id) ? { ...m, status: "equivalent", killedBy: [] } : m
       );
-      state42.suiteResults = suiteResults;
-      state42.parsedTests = parsedTests;
-      state42.parsedParams = params;
-      state42.mutants = finalMutants;
-      state42.score = computeMutationScore(finalMutants);
-      if (!state42.mutants.find((m) => m.id === state42.selectedMutantId)) {
-        state42.selectedMutantId = ((_a3 = finalMutants[0]) == null ? void 0 : _a3.id) || null;
+      state43.suiteResults = suiteResults;
+      state43.parsedTests = parsedTests;
+      state43.parsedParams = params;
+      state43.mutants = finalMutants;
+      state43.score = computeMutationScore(finalMutants);
+      if (!state43.mutants.find((m) => m.id === state43.selectedMutantId)) {
+        state43.selectedMutantId = ((_a3 = finalMutants[0]) == null ? void 0 : _a3.id) || null;
       }
     }
     function loadExample(id) {
-      const ex = programExamples.find((e) => e.id === id) || state42.customExamples.find((e) => e.id === id);
+      const ex = programExamples.find((e) => e.id === id) || state43.customExamples.find((e) => e.id === id);
       if (!ex) return;
-      state42.exampleId = id;
-      const snap = state42.programs[id] || defaultProgramSnapshot(ex);
-      state42.params = snap.params;
-      state42.body = snap.body;
-      state42.tests = snap.tests.map((t4) => ({ ...t4 }));
-      state42.selectedMutantId = null;
+      state43.exampleId = id;
+      const snap = state43.programs[id] || defaultProgramSnapshot(ex);
+      state43.params = snap.params;
+      state43.body = snap.body;
+      state43.tests = snap.tests.map((t4) => ({ ...t4 }));
+      state43.selectedMutantId = null;
     }
-    function render42() {
+    function render43() {
       recompute();
-      const allExamples = [...programExamples, ...state42.customExamples];
+      const allExamples = [...programExamples, ...state43.customExamples];
       const exampleButtons = allExamples.map((ex) => `
       <button
         type="button"
-        class="syntax-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+        class="syntax-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-example="${ex.id}"
         title="${escapeHtml3(getLocale() === "en" ? ex.descriptionEn || ex.description : ex.description)}"
         data-testid="syntax-example-${ex.id}"
       >${escapeHtml3(ex.name)}</button>
     `).join("");
       const operatorButtons = mutationOperators.map((op) => `
-      <label class="syntax-op-btn${state42.operators.has(op.id) ? " active" : ""}" title="${escapeHtml3(getLocale() === "en" ? op.descEn || op.desc : op.desc)}">
-        <input type="checkbox" data-operator="${op.id}" ${state42.operators.has(op.id) ? "checked" : ""} />
+      <label class="syntax-op-btn${state43.operators.has(op.id) ? " active" : ""}" title="${escapeHtml3(getLocale() === "en" ? op.descEn || op.desc : op.desc)}">
+        <input type="checkbox" data-operator="${op.id}" ${state43.operators.has(op.id) ? "checked" : ""} />
         <span>${escapeHtml3(op.id)}</span>
       </label>
     `).join("");
-      const selectedMutant = state42.mutants.find((m) => m.id === state42.selectedMutantId) || null;
+      const selectedMutant = state43.mutants.find((m) => m.id === state43.selectedMutantId) || null;
       let mutantSuiteResults = null;
       if (selectedMutant) {
         try {
           mutantSuiteResults = runTestSuite(
-            state42.parsedParams,
+            state43.parsedParams,
             selectedMutant.source,
-            state42.parsedTests
+            state43.parsedTests
           );
         } catch {
-          mutantSuiteResults = state42.parsedTests.map(() => ({
+          mutantSuiteResults = state43.parsedTests.map(() => ({
             outcome: { ok: false, error: "compile error" }
           }));
         }
       }
       const showMutantCol = !!selectedMutant;
       const killedByIds = selectedMutant ? new Set(selectedMutant.killedBy) : /* @__PURE__ */ new Set();
-      const testRows = state42.tests.map((tc, i) => {
-        const result = state42.suiteResults[i];
+      const testRows = state43.tests.map((tc, i) => {
+        const result = state43.suiteResults[i];
         const passClass = (result == null ? void 0 : result.passed) ? "pass" : result ? "fail" : "";
         const actual = (result == null ? void 0 : result.outcome.ok) ? formatValue(result.outcome.value) : `\u26A0 ${(result == null ? void 0 : result.outcome.error) || ""}`;
         let mutantCell = "";
@@ -14756,13 +14847,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }).join("");
       const mutantHeaderCol = showMutantCol ? `<th class="syntax-test-mutant-head">mutant actual${selectedMutant ? `<br><small>(${escapeHtml3(selectedMutant.id)})</small>` : ""}</th>` : "";
       const grouped = /* @__PURE__ */ new Map();
-      state42.mutants.forEach((m) => {
+      state43.mutants.forEach((m) => {
         if (!grouped.has(m.operator)) grouped.set(m.operator, []);
         grouped.get(m.operator).push(m);
       });
       const mutantList = [...grouped.entries()].map(([op, list]) => {
         const items = list.map((m) => `
-        <li class="syntax-mutant-item ${m.status}${state42.selectedMutantId === m.id ? " selected" : ""}" data-mutant-id="${m.id}" data-testid="syntax-mutant-${m.id}">
+        <li class="syntax-mutant-item ${m.status}${state43.selectedMutantId === m.id ? " selected" : ""}" data-mutant-id="${m.id}" data-testid="syntax-mutant-${m.id}">
           <span class="syntax-mutant-id">${escapeHtml3(m.id)}</span>
           <span class="syntax-mutant-loc">L${m.line}:${m.col}</span>
           <span class="syntax-mutant-diff"><code>${escapeHtml3(m.original)}</code> \u2192 <code>${escapeHtml3(m.mutated)}</code></span>
@@ -14792,7 +14883,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </div>
       </div>
     ` : `<p class="syntax-mutant-empty">${t("syntax.mutant.empty")}</p>`;
-      const scorePct = Math.round(state42.score.score * 100);
+      const scorePct = Math.round(state43.score.score * 100);
       const SYNTAX_THRESHOLD = 75;
       const syntaxMetricEncoded = encodeResult({
         v: 1,
@@ -14805,7 +14896,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         total: 1,
         items: [{ q: t("lab.metric.syntax.label", { pct: scorePct }), a: `${scorePct}%`, ok: scorePct >= SYNTAX_THRESHOLD }]
       });
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="syntax-toolbar">
         <div class="syntax-examples" role="tablist">${exampleButtons}</div>
         <div class="syntax-operators" data-testid="syntax-operators">${operatorButtons}</div>
@@ -14814,10 +14905,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <span
           class="syntax-cloud-indicator"
           data-testid="syntax-cloud-indicator"
-          data-status="${state42.cloudStatus}"
+          data-status="${state43.cloudStatus}"
         >${escapeHtml3(cloudIndicatorText())}</span>
         <span class="syntax-cloud-actions">
-          ${state42.cloudUser ? `<button type="button" class="syntax-reload-btn" data-testid="syntax-cloud-reload">\u21BB ${t("syntax.cloud.reload")}</button>` : ""}
+          ${state43.cloudUser ? `<button type="button" class="syntax-reload-btn" data-testid="syntax-cloud-reload">\u21BB ${t("syntax.cloud.reload")}</button>` : ""}
           <button type="button" class="syntax-reset-btn" data-testid="syntax-reset-program">\u21BA ${t("syntax.reset")}</button>
         </span>
       </div>
@@ -14825,9 +14916,9 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       <div class="syntax-grid">
         <section class="syntax-program">
           <label class="syntax-label">${t("syntax.params")}</label>
-          <input type="text" class="syntax-params" data-testid="syntax-params" value="${escapeHtml3(state42.params)}" />
+          <input type="text" class="syntax-params" data-testid="syntax-params" value="${escapeHtml3(state43.params)}" />
           <label class="syntax-label">${t("syntax.body")}</label>
-          <textarea class="syntax-body" rows="8" data-testid="syntax-body">${escapeHtml3(state42.body)}</textarea>
+          <textarea class="syntax-body" rows="8" data-testid="syntax-body">${escapeHtml3(state43.body)}</textarea>
         </section>
 
         <section class="syntax-tests">
@@ -14851,7 +14942,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </section>
       </div>
 
-      ${state42.error ? `<p class="syntax-error" data-testid="syntax-error">${escapeHtml3(state42.error)}</p>` : ""}
+      ${state43.error ? `<p class="syntax-error" data-testid="syntax-error">${escapeHtml3(state43.error)}</p>` : ""}
 
       <section class="syntax-score-section">
         <div class="syntax-score-bar">
@@ -14860,13 +14951,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <p class="syntax-score-stats" data-testid="syntax-score-stats">
           ${t("syntax.score")}: <strong>${scorePct}%</strong>
           <span class="syntax-divider">\xB7</span>
-          ${t("syntax.totalLabel")} ${state42.score.total}
+          ${t("syntax.totalLabel")} ${state43.score.total}
           <span class="syntax-divider">\xB7</span>
-          killed <strong>${state42.score.killed}</strong>
+          killed <strong>${state43.score.killed}</strong>
           <span class="syntax-divider">\xB7</span>
-          live <strong>${state42.score.live}</strong>
+          live <strong>${state43.score.live}</strong>
           <span class="syntax-divider">\xB7</span>
-          equivalent <strong>${state42.score.equivalent}</strong>
+          equivalent <strong>${state43.score.equivalent}</strong>
           <span class="syntax-divider">\xB7</span>
           ${!syntaxQuiz.active ? `<button type="button" class="quiz-start-btn" data-testid="syntax-quiz-start">${t("quiz.start")}</button>` : ""}
           <button type="button" class="quiz-share-btn" data-share-payload="${syntaxMetricEncoded}" data-testid="syntax-lab-metric">\u{1F4CA} ${t("lab.metric.record")}</button>
@@ -14879,179 +14970,179 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         ${selectedDetail}
       </section>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-example]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           loadExample(btn.dataset.example);
-          render42();
+          render43();
         });
       });
-      const resetBtn = root42.querySelector('[data-testid="syntax-reset-program"]');
+      const resetBtn = root43.querySelector('[data-testid="syntax-reset-program"]');
       if (resetBtn) {
         resetBtn.addEventListener("click", () => {
-          const ex = programExamples.find((e) => e.id === state42.exampleId);
+          const ex = programExamples.find((e) => e.id === state43.exampleId);
           if (!ex) return;
           const snap = defaultProgramSnapshot(ex);
-          state42.params = snap.params;
-          state42.body = snap.body;
-          state42.tests = snap.tests.map((t4) => ({ ...t4 }));
-          state42.selectedMutantId = null;
+          state43.params = snap.params;
+          state43.body = snap.body;
+          state43.tests = snap.tests.map((t4) => ({ ...t4 }));
+          state43.selectedMutantId = null;
           persistCurrent();
-          render42();
+          render43();
         });
       }
-      const reloadBtn = root42.querySelector('[data-testid="syntax-cloud-reload"]');
+      const reloadBtn = root43.querySelector('[data-testid="syntax-cloud-reload"]');
       if (reloadBtn) {
         reloadBtn.addEventListener("click", () => {
           reloadFromCloud({ force: true });
         });
       }
-      root42.querySelectorAll("[data-operator]").forEach((cb) => {
+      root43.querySelectorAll("[data-operator]").forEach((cb) => {
         cb.addEventListener("change", () => {
           const op = cb.dataset.operator;
-          if (cb.checked) state42.operators.add(op);
-          else state42.operators.delete(op);
-          render42();
+          if (cb.checked) state43.operators.add(op);
+          else state43.operators.delete(op);
+          render43();
         });
       });
-      const params = root42.querySelector('[data-testid="syntax-params"]');
+      const params = root43.querySelector('[data-testid="syntax-params"]');
       if (params) {
         params.addEventListener("input", (e) => {
-          state42.params = e.target.value;
+          state43.params = e.target.value;
           persistCurrent();
         });
         params.addEventListener("change", (e) => {
-          state42.params = e.target.value;
+          state43.params = e.target.value;
           persistCurrent();
-          render42();
+          render43();
         });
       }
-      const body3 = root42.querySelector('[data-testid="syntax-body"]');
+      const body3 = root43.querySelector('[data-testid="syntax-body"]');
       if (body3) {
         body3.addEventListener("input", (e) => {
-          state42.body = e.target.value;
+          state43.body = e.target.value;
           persistCurrent();
         });
         body3.addEventListener("change", (e) => {
-          state42.body = e.target.value;
+          state43.body = e.target.value;
           persistCurrent();
-          render42();
+          render43();
         });
       }
-      root42.querySelectorAll("[data-test-args]").forEach((input) => {
+      root43.querySelectorAll("[data-test-args]").forEach((input) => {
         input.addEventListener("input", (e) => {
           const id = input.dataset.testArgs;
-          const t4 = state42.tests.find((x) => x.id === id);
+          const t4 = state43.tests.find((x) => x.id === id);
           if (t4) t4.argsText = e.target.value;
           persistCurrent();
         });
         input.addEventListener("change", (e) => {
           const id = input.dataset.testArgs;
-          const t4 = state42.tests.find((x) => x.id === id);
+          const t4 = state43.tests.find((x) => x.id === id);
           if (t4) t4.argsText = e.target.value;
           persistCurrent();
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-test-expected]").forEach((input) => {
+      root43.querySelectorAll("[data-test-expected]").forEach((input) => {
         input.addEventListener("input", (e) => {
           const id = input.dataset.testExpected;
-          const t4 = state42.tests.find((x) => x.id === id);
+          const t4 = state43.tests.find((x) => x.id === id);
           if (t4) t4.expectedText = e.target.value;
           persistCurrent();
         });
         input.addEventListener("change", (e) => {
           const id = input.dataset.testExpected;
-          const t4 = state42.tests.find((x) => x.id === id);
+          const t4 = state43.tests.find((x) => x.id === id);
           if (t4) t4.expectedText = e.target.value;
           persistCurrent();
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-remove-test]").forEach((btn) => {
+      root43.querySelectorAll("[data-remove-test]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.tests = state42.tests.filter((t4) => t4.id !== btn.dataset.removeTest);
+          state43.tests = state43.tests.filter((t4) => t4.id !== btn.dataset.removeTest);
           persistCurrent();
-          render42();
+          render43();
         });
       });
-      const addBtn = root42.querySelector('[data-testid="syntax-test-add"]');
+      const addBtn = root43.querySelector('[data-testid="syntax-test-add"]');
       if (addBtn) {
         addBtn.addEventListener("click", () => {
-          const next = `t${state42.tests.length + 1}`;
-          state42.tests.push({ id: next, argsText: "", expectedText: "" });
+          const next = `t${state43.tests.length + 1}`;
+          state43.tests.push({ id: next, argsText: "", expectedText: "" });
           persistCurrent();
-          render42();
+          render43();
         });
       }
-      root42.querySelectorAll("[data-mutant-id]").forEach((li) => {
+      root43.querySelectorAll("[data-mutant-id]").forEach((li) => {
         li.addEventListener("click", () => {
-          state42.selectedMutantId = li.dataset.mutantId;
-          render42();
+          state43.selectedMutantId = li.dataset.mutantId;
+          render43();
         });
       });
-      root42.querySelectorAll("[data-toggle-equivalent]").forEach((btn) => {
+      root43.querySelectorAll("[data-toggle-equivalent]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const m = state42.mutants.find((x) => x.id === btn.dataset.toggleEquivalent);
+          const m = state43.mutants.find((x) => x.id === btn.dataset.toggleEquivalent);
           if (!m) return;
           m.status = m.status === "equivalent" ? m.killedBy.length ? "killed" : "live" : "equivalent";
-          state42.score = computeMutationScore(state42.mutants);
-          render42();
+          state43.score = computeMutationScore(state43.mutants);
+          render43();
         });
       });
-      const sqStart = root42.querySelector('[data-testid="syntax-quiz-start"]');
+      const sqStart = root43.querySelector('[data-testid="syntax-quiz-start"]');
       if (sqStart) {
         sqStart.addEventListener("click", () => {
           syntaxQuiz.active = true;
           syntaxQuiz.phase = "question";
           syntaxQuiz.answer = "";
           syntaxQuiz.result = null;
-          render42();
+          render43();
         });
       }
-      const sqClose = root42.querySelector('[data-testid="syntax-quiz-close"]');
+      const sqClose = root43.querySelector('[data-testid="syntax-quiz-close"]');
       if (sqClose) {
         sqClose.addEventListener("click", () => {
           syntaxQuiz.active = false;
-          render42();
+          render43();
         });
       }
-      const sqCheck = root42.querySelector('[data-testid="syntax-quiz-check"]');
+      const sqCheck = root43.querySelector('[data-testid="syntax-quiz-check"]');
       if (sqCheck) {
         sqCheck.addEventListener("click", () => {
-          const inp = root42.querySelector('[data-testid="syntax-quiz-input"]');
+          const inp = root43.querySelector('[data-testid="syntax-quiz-input"]');
           syntaxQuiz.answer = inp ? inp.value : "";
           syntaxQuiz.phase = "graded";
-          render42();
+          render43();
         });
       }
-      const sqReset = root42.querySelector('[data-testid="syntax-quiz-reset"]');
+      const sqReset = root43.querySelector('[data-testid="syntax-quiz-reset"]');
       if (sqReset) {
         sqReset.addEventListener("click", () => {
           syntaxQuiz.phase = "question";
           syntaxQuiz.answer = "";
           syntaxQuiz.result = null;
-          render42();
+          render43();
         });
       }
     }
-    render42();
+    render43();
     if (cloudClient2 && typeof cloudClient2.subscribeAuthState === "function") {
       cloudClient2.subscribeAuthState(async (user) => {
-        state42.cloudUser = user || null;
+        state43.cloudUser = user || null;
         if (!user) {
-          state42.cloudStatus = "idle";
-          state42.cloudMessage = "";
-          render42();
+          state43.cloudStatus = "idle";
+          state43.cloudMessage = "";
+          render43();
           return;
         }
         await reloadFromCloud();
       });
       if (typeof ((_a2 = globalThis.document) == null ? void 0 : _a2.addEventListener) === "function") {
         globalThis.document.addEventListener("visibilitychange", () => {
-          if (globalThis.document.visibilityState === "visible" && state42.cloudUser) {
+          if (globalThis.document.visibilityState === "visible" && state43.cloudUser) {
             reloadFromCloud();
           }
         });
@@ -15068,7 +15159,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
         var _a3;
-        if (!root42.isConnected) return;
+        if (!root43.isConnected) return;
         const detail = event.detail || {};
         if (detail.target !== "mutation") return;
         const content = String((_a3 = detail.content) != null ? _a3 : "");
@@ -15087,18 +15178,18 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           body: body3,
           tests: []
         };
-        state42.customExamples = [...state42.customExamples, newExample];
-        state42.programs[id] = { params, body: body3, tests: [] };
-        state42.exampleId = id;
-        state42.params = params;
-        state42.body = body3;
-        state42.tests = [];
-        state42.selectedMutantId = null;
+        state43.customExamples = [...state43.customExamples, newExample];
+        state43.programs[id] = { params, body: body3, tests: [] };
+        state43.exampleId = id;
+        state43.params = params;
+        state43.body = body3;
+        state43.tests = [];
+        state43.selectedMutantId = null;
         persistCurrent();
-        render42();
+        render43();
       });
     }
-    return root42;
+    return root43;
   }
 
   // src/data/grammarData.js
@@ -15650,13 +15741,13 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   </div>`;
   }
   function createGrammarCoverageExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "grammar-coverage";
-    root42.dataset.testid = "grammar-coverage";
+    const root43 = document.createElement("div");
+    root43.className = "grammar-coverage";
+    root43.dataset.testid = "grammar-coverage";
     const initial = grammarExamples[0];
     const localPrograms = loadLocalGrammars();
     const initialText = localPrograms[initial.id] || initial.text;
-    const state42 = {
+    const state43 = {
       exampleId: initial.id,
       text: initialText,
       programs: localPrograms,
@@ -15681,98 +15772,98 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       activeTab: loadActiveTab()
     };
     function persistCurrent() {
-      state42.programs[state42.exampleId] = state42.text;
-      saveLocalGrammars(state42.programs);
+      state43.programs[state43.exampleId] = state43.text;
+      saveLocalGrammars(state43.programs);
     }
     function recompute() {
       var _a2, _b2;
-      state42.parseError = null;
-      state42.grammar = null;
-      state42.derivations = [];
-      state42.coverage = null;
-      state42.mutants = [];
+      state43.parseError = null;
+      state43.grammar = null;
+      state43.derivations = [];
+      state43.coverage = null;
+      state43.mutants = [];
       try {
-        const g = parseGrammar(state42.text);
-        state42.grammar = g;
-        state42.derivations = generateDerivations(g, {
-          maxStrings: state42.maxStrings,
-          maxDepth: state42.maxDepth
+        const g = parseGrammar(state43.text);
+        state43.grammar = g;
+        state43.derivations = generateDerivations(g, {
+          maxStrings: state43.maxStrings,
+          maxDepth: state43.maxDepth
         });
-        state42.coverage = computeCoverage(state42.derivations, g);
-        const ops = [...state42.operators];
+        state43.coverage = computeCoverage(state43.derivations, g);
+        const ops = [...state43.operators];
         if (ops.length > 0) {
           const generated = generateGrammarMutants(g, ops);
           const allTestStrings = [
-            ...state42.derivations.map((d) => d.string),
-            ...state42.extraTests.split("\n").map((s) => s).filter((_, idx, arr) => arr.indexOf(arr[idx]) === idx)
+            ...state43.derivations.map((d) => d.string),
+            ...state43.extraTests.split("\n").map((s) => s).filter((_, idx, arr) => arr.indexOf(arr[idx]) === idx)
           ];
-          state42.mutants = evaluateMutantsAgainstStrings(g, generated, allTestStrings);
+          state43.mutants = evaluateMutantsAgainstStrings(g, generated, allTestStrings);
         }
-        if (!state42.mutants.find((m) => m.id === state42.selectedMutantId)) {
-          state42.selectedMutantId = ((_a2 = state42.mutants[0]) == null ? void 0 : _a2.id) || null;
+        if (!state43.mutants.find((m) => m.id === state43.selectedMutantId)) {
+          state43.selectedMutantId = ((_a2 = state43.mutants[0]) == null ? void 0 : _a2.id) || null;
         }
-        state42.stringMutants = [];
-        if (state42.derivations.length > 0 && state42.stringOperators.size > 0) {
-          const idx = Math.min(state42.seedIndex, state42.derivations.length - 1);
-          const seed = state42.derivations[idx].string;
-          const alphabet = deriveAlphabet(g, state42.derivations.map((d) => d.string));
-          const raw = generateStringMutants(seed, [...state42.stringOperators], {
+        state43.stringMutants = [];
+        if (state43.derivations.length > 0 && state43.stringOperators.size > 0) {
+          const idx = Math.min(state43.seedIndex, state43.derivations.length - 1);
+          const seed = state43.derivations[idx].string;
+          const alphabet = deriveAlphabet(g, state43.derivations.map((d) => d.string));
+          const raw = generateStringMutants(seed, [...state43.stringOperators], {
             alphabet,
-            maxPerOp: state42.maxPerStringOp
+            maxPerOp: state43.maxPerStringOp
           });
-          state42.stringMutants = classifyStringMutants(g, raw);
+          state43.stringMutants = classifyStringMutants(g, raw);
         }
-        if (!state42.stringMutants.find((m) => m.id === state42.selectedStringMutantId)) {
-          state42.selectedStringMutantId = ((_b2 = state42.stringMutants[0]) == null ? void 0 : _b2.id) || null;
+        if (!state43.stringMutants.find((m) => m.id === state43.selectedStringMutantId)) {
+          state43.selectedStringMutantId = ((_b2 = state43.stringMutants[0]) == null ? void 0 : _b2.id) || null;
         }
       } catch (err) {
-        state42.parseError = err.message || String(err);
+        state43.parseError = err.message || String(err);
       }
     }
     function loadExample(id) {
-      const ex = grammarExamples.find((e) => e.id === id) || state42.customExamples.find((e) => e.id === id);
+      const ex = grammarExamples.find((e) => e.id === id) || state43.customExamples.find((e) => e.id === id);
       if (!ex) return;
-      state42.exampleId = id;
-      state42.text = state42.programs[id] || ex.text;
-      state42.selectedMutantId = null;
+      state43.exampleId = id;
+      state43.text = state43.programs[id] || ex.text;
+      state43.selectedMutantId = null;
     }
-    function render42() {
+    function render43() {
       var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j;
       recompute();
-      const allExamples = [...grammarExamples, ...state42.customExamples];
+      const allExamples = [...grammarExamples, ...state43.customExamples];
       const exampleButtons = allExamples.map((ex) => `
       <button
         type="button"
-        class="grammar-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+        class="grammar-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-grammar-example="${ex.id}"
         title="${escapeHtml4(getLocale() === "en" ? ex.descriptionEn || ex.description : ex.description)}"
       >${escapeHtml4(pickField(ex, "name"))}</button>
     `).join("");
       const operatorButtons = GRAMMAR_OPERATORS.map((op) => `
-      <label class="grammar-op-btn${state42.operators.has(op) ? " active" : ""}">
-        <input type="checkbox" data-grammar-op="${op}" ${state42.operators.has(op) ? "checked" : ""} />
+      <label class="grammar-op-btn${state43.operators.has(op) ? " active" : ""}">
+        <input type="checkbox" data-grammar-op="${op}" ${state43.operators.has(op) ? "checked" : ""} />
         <span>${op}</span>
       </label>
     `).join("");
-      const productionsHtml = state42.grammar ? state42.grammar.productions.map((p) => {
+      const productionsHtml = state43.grammar ? state43.grammar.productions.map((p) => {
         var _a3;
-        return formatProductionHtml(p, (_a3 = state42.coverage) == null ? void 0 : _a3.pdc.covered.has(p.id));
+        return formatProductionHtml(p, (_a3 = state43.coverage) == null ? void 0 : _a3.pdc.covered.has(p.id));
       }).join("") : "";
-      const derivationsHtml = state42.derivations.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noDerivations"))}</p>` : `<ol class="grammar-derivations">
-          ${state42.derivations.map((d) => `<li><code>${escapeHtml4(d.string === "" ? "\u2205" : d.string)}</code>
+      const derivationsHtml = state43.derivations.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noDerivations"))}</p>` : `<ol class="grammar-derivations">
+          ${state43.derivations.map((d) => `<li><code>${escapeHtml4(d.string === "" ? "\u2205" : d.string)}</code>
             <span class="grammar-derivation-meta">depth ${d.depth} \xB7 p[${d.productionsUsed.join(", ")}]</span></li>`).join("")}
          </ol>`;
-      const pdcRatio = state42.coverage ? Math.round(state42.coverage.pdc.ratio * 100) : 0;
-      const tscRatio = state42.coverage ? Math.round(state42.coverage.tsc.ratio * 100) : 0;
-      const terminalsHtml = state42.grammar ? [...state42.grammar.terminals].map((tm) => {
+      const pdcRatio = state43.coverage ? Math.round(state43.coverage.pdc.ratio * 100) : 0;
+      const tscRatio = state43.coverage ? Math.round(state43.coverage.tsc.ratio * 100) : 0;
+      const terminalsHtml = state43.grammar ? [...state43.grammar.terminals].map((tm) => {
         var _a3;
-        const covered = (_a3 = state42.coverage) == null ? void 0 : _a3.tsc.covered.has(tm);
+        const covered = (_a3 = state43.coverage) == null ? void 0 : _a3.tsc.covered.has(tm);
         return `<span class="grammar-terminal-chip${covered ? " covered" : ""}">"${escapeHtml4(tm)}"</span>`;
       }).join("") : "";
-      const mutantsHtml = state42.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noMutants"))}</p>` : `<ul class="grammar-mutant-list">
-          ${state42.mutants.map((m) => `<li>
+      const mutantsHtml = state43.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.noMutants"))}</p>` : `<ul class="grammar-mutant-list">
+          ${state43.mutants.map((m) => `<li>
             <button type="button"
-              class="grammar-mutant-btn${state42.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
+              class="grammar-mutant-btn${state43.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
               data-grammar-mutant="${escapeHtml4(m.id)}">
               <span class="grammar-mutant-op">${m.operator}</span>
               <span class="grammar-mutant-status">${m.killed ? t("grammar.killed") : t("grammar.live")}</span>
@@ -15780,33 +15871,33 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             </button>
           </li>`).join("")}
          </ul>`;
-      const selectedMutant = state42.mutants.find((m) => m.id === state42.selectedMutantId) || null;
+      const selectedMutant = state43.mutants.find((m) => m.id === state43.selectedMutantId) || null;
       const selectedMutantDetailHtml = selectedMutant ? `<div class="grammar-mutant-detail">
           <h5>${escapeHtml4(selectedMutant.id)}</h5>
           <p>${escapeHtml4(selectedMutant.description)}</p>
           ${selectedMutant.killed ? `<p class="grammar-mutant-killers"><strong>${escapeHtml4(t("grammar.killedBy"))}</strong></p>
                <ul class="grammar-killer-list">${selectedMutant.killers.slice(0, 8).map((k) => `<li><code>${escapeHtml4(k.string === "" ? "\u2205" : k.string)}</code> \xB7 ${k.origAccepts ? t("grammar.origAccepts") : t("grammar.origRejects")} \xB7 ${k.mutAccepts ? t("grammar.mutAccepts") : t("grammar.mutRejects")}</li>`).join("")}</ul>` : `<p class="grammar-mutant-live">${escapeHtml4(t("grammar.liveHint"))}</p>`}
         </div>` : `<p class="grammar-empty">${escapeHtml4(t("grammar.selectMutantHint"))}</p>`;
-      const score = state42.mutants.length === 0 ? null : { killed: state42.mutants.filter((m) => m.killed).length, total: state42.mutants.length };
-      const seedOptionsHtml = state42.derivations.map((d, idx) => `
-      <option value="${idx}" ${idx === Math.min(state42.seedIndex, state42.derivations.length - 1) ? "selected" : ""}>
+      const score = state43.mutants.length === 0 ? null : { killed: state43.mutants.filter((m) => m.killed).length, total: state43.mutants.length };
+      const seedOptionsHtml = state43.derivations.map((d, idx) => `
+      <option value="${idx}" ${idx === Math.min(state43.seedIndex, state43.derivations.length - 1) ? "selected" : ""}>
         #${idx + 1}: ${escapeHtml4(d.string === "" ? "\u2205" : d.string)}
       </option>`).join("");
       const stringOpButtons = STRING_MUTATION_OPERATORS.map((op) => `
-      <label class="grammar-op-btn${state42.stringOperators.has(op) ? " active" : ""}">
-        <input type="checkbox" data-grammar-string-op="${op}" ${state42.stringOperators.has(op) ? "checked" : ""} />
+      <label class="grammar-op-btn${state43.stringOperators.has(op) ? " active" : ""}">
+        <input type="checkbox" data-grammar-string-op="${op}" ${state43.stringOperators.has(op) ? "checked" : ""} />
         <span>${op}</span>
       </label>
     `).join("");
-      const stringMutantsHtml = state42.stringMutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.string.empty"))}</p>` : `<table class="grammar-string-mutant-table" data-testid="grammar-string-mutant-table">
+      const stringMutantsHtml = state43.stringMutants.length === 0 ? `<p class="grammar-empty">${escapeHtml4(t("grammar.string.empty"))}</p>` : `<table class="grammar-string-mutant-table" data-testid="grammar-string-mutant-table">
           <thead><tr>
             <th>Op</th>
             <th>${escapeHtml4(t("grammar.string.colMutated"))}</th>
             <th>${escapeHtml4(t("grammar.string.colKind"))}</th>
           </tr></thead>
           <tbody>
-            ${state42.stringMutants.map((m) => `<tr
-                class="grammar-string-row ${m.kind === "positive" ? "positive" : "negative"}${state42.selectedStringMutantId === m.id ? " active" : ""}"
+            ${state43.stringMutants.map((m) => `<tr
+                class="grammar-string-row ${m.kind === "positive" ? "positive" : "negative"}${state43.selectedStringMutantId === m.id ? " active" : ""}"
                 data-grammar-string-mutant="${escapeHtml4(m.id)}">
                 <td><span class="grammar-op-tag">${m.operator}</span></td>
                 <td><code>${escapeHtml4(m.mutated === "" ? "\u2205" : m.mutated)}</code></td>
@@ -15814,19 +15905,19 @@ Content-Type: ${file.type || "application/octet-stream"}\r
               </tr>`).join("")}
           </tbody>
          </table>`;
-      const positives = state42.stringMutants.filter((m) => m.kind === "positive").length;
-      const negatives = state42.stringMutants.length - positives;
-      const stringStats = state42.stringMutants.length === 0 ? null : `<span class="grammar-string-stats" data-testid="grammar-string-stats">
+      const positives = state43.stringMutants.filter((m) => m.kind === "positive").length;
+      const negatives = state43.stringMutants.length - positives;
+      const stringStats = state43.stringMutants.length === 0 ? null : `<span class="grammar-string-stats" data-testid="grammar-string-stats">
           ${escapeHtml4(t("grammar.string.statsPositive"))}: ${positives} \xB7 ${escapeHtml4(t("grammar.string.statsNegative"))}: ${negatives}
         </span>`;
-      const selectedStringMutant = state42.stringMutants.find((m) => m.id === state42.selectedStringMutantId) || null;
+      const selectedStringMutant = state43.stringMutants.find((m) => m.id === state43.selectedStringMutantId) || null;
       const selectedStringDetailHtml = selectedStringMutant ? `<div class="grammar-string-detail">
           <p><strong>${escapeHtml4(selectedStringMutant.operator)}</strong> \xB7 ${escapeHtml4(selectedStringMutant.description)}</p>
           <p>${escapeHtml4(t("grammar.string.original"))}: <code>${escapeHtml4(selectedStringMutant.original === "" ? "\u2205" : selectedStringMutant.original)}</code></p>
           <p>${escapeHtml4(t("grammar.string.mutated"))}: <code>${escapeHtml4(selectedStringMutant.mutated === "" ? "\u2205" : selectedStringMutant.mutated)}</code></p>
           <p>${selectedStringMutant.flipped ? `<span class="grammar-string-flip">\u26A1 ${escapeHtml4(t("grammar.string.flipped"))}</span>` : `<span class="grammar-string-same">${escapeHtml4(t("grammar.string.sameLang"))}</span>`}</p>
         </div>` : `<p class="grammar-empty">${escapeHtml4(t("grammar.string.selectHint"))}</p>`;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="grammar-card">
         <header class="grammar-header">
           <p class="grammar-kicker">${escapeHtml4(t("grammar.kicker"))}</p>
@@ -15842,20 +15933,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <div class="grammar-editor-col">
             <label class="grammar-editor-label">
               ${escapeHtml4(t("grammar.bnfEditor"))}
-              <textarea data-testid="grammar-text" rows="8" spellcheck="false">${escapeHtml4(state42.text)}</textarea>
+              <textarea data-testid="grammar-text" rows="8" spellcheck="false">${escapeHtml4(state43.text)}</textarea>
             </label>
-            ${state42.parseError ? `<p class="grammar-error" data-testid="grammar-parse-error">${escapeHtml4(state42.parseError)}</p>` : ""}
+            ${state43.parseError ? `<p class="grammar-error" data-testid="grammar-parse-error">${escapeHtml4(state43.parseError)}</p>` : ""}
             <div class="grammar-controls-row">
               <label>${escapeHtml4(t("grammar.maxStrings"))}
-                <input type="number" min="1" max="40" value="${state42.maxStrings}" data-grammar-max-strings />
+                <input type="number" min="1" max="40" value="${state43.maxStrings}" data-grammar-max-strings />
               </label>
               <label>${escapeHtml4(t("grammar.maxDepth"))}
-                <input type="number" min="1" max="40" value="${state42.maxDepth}" data-grammar-max-depth />
+                <input type="number" min="1" max="40" value="${state43.maxDepth}" data-grammar-max-depth />
               </label>
             </div>
             <label class="grammar-editor-label">
               ${escapeHtml4(t("grammar.extraTests"))}
-              <textarea data-testid="grammar-extra-tests" rows="3" spellcheck="false" placeholder="${escapeHtml4(t("grammar.extraTestsHint"))}">${escapeHtml4(state42.extraTests)}</textarea>
+              <textarea data-testid="grammar-extra-tests" rows="3" spellcheck="false" placeholder="${escapeHtml4(t("grammar.extraTestsHint"))}">${escapeHtml4(state43.extraTests)}</textarea>
             </label>
           </div>
 
@@ -15865,11 +15956,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             <div class="grammar-coverage-summary">
               <div class="grammar-metric">
                 <span class="grammar-metric-label">PDC</span>
-                <span class="grammar-metric-value" data-testid="grammar-pdc">${((_a2 = state42.coverage) == null ? void 0 : _a2.pdc.covered.size) || 0} / ${((_b2 = state42.coverage) == null ? void 0 : _b2.pdc.all.size) || 0} (${pdcRatio}%)</span>
+                <span class="grammar-metric-value" data-testid="grammar-pdc">${((_a2 = state43.coverage) == null ? void 0 : _a2.pdc.covered.size) || 0} / ${((_b2 = state43.coverage) == null ? void 0 : _b2.pdc.all.size) || 0} (${pdcRatio}%)</span>
               </div>
               <div class="grammar-metric">
                 <span class="grammar-metric-label">TSC</span>
-                <span class="grammar-metric-value" data-testid="grammar-tsc">${((_c = state42.coverage) == null ? void 0 : _c.tsc.covered.size) || 0} / ${((_d = state42.coverage) == null ? void 0 : _d.tsc.all.size) || 0} (${tscRatio}%)</span>
+                <span class="grammar-metric-value" data-testid="grammar-tsc">${((_c = state43.coverage) == null ? void 0 : _c.tsc.covered.size) || 0} / ${((_d = state43.coverage) == null ? void 0 : _d.tsc.all.size) || 0} (${tscRatio}%)</span>
               </div>
             </div>
             <div class="grammar-terminals">${terminalsHtml}</div>
@@ -15879,20 +15970,20 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         <nav class="grammar-subtab-row" data-testid="grammar-subtab-row" role="tablist">
           ${GRAMMAR_TABS.map((tab) => `
             <button type="button"
-              class="grammar-subtab-btn${state42.activeTab === tab.id ? " active" : ""}"
+              class="grammar-subtab-btn${state43.activeTab === tab.id ? " active" : ""}"
               data-grammar-subtab="${tab.id}"
               role="tab"
-              aria-selected="${state42.activeTab === tab.id ? "true" : "false"}"
+              aria-selected="${state43.activeTab === tab.id ? "true" : "false"}"
             >${escapeHtml4(t(tab.labelKey))}</button>
           `).join("")}
         </nav>
 
-        <div class="grammar-derivation-block" data-grammar-panel="derivations" style="display:${state42.activeTab === "derivations" ? "" : "none"}">
+        <div class="grammar-derivation-block" data-grammar-panel="derivations" style="display:${state43.activeTab === "derivations" ? "" : "none"}">
           <h4>${escapeHtml4(t("grammar.derivations"))}</h4>
           ${derivationsHtml}
         </div>
 
-        <div class="grammar-mutation-block" data-grammar-panel="mutation" style="display:${state42.activeTab === "mutation" ? "" : "none"}">
+        <div class="grammar-mutation-block" data-grammar-panel="mutation" style="display:${state43.activeTab === "mutation" ? "" : "none"}">
           <div class="grammar-mutation-header">
             <h4>${escapeHtml4(t("grammar.mutations"))}</h4>
             ${score ? `<span class="grammar-score" data-testid="grammar-mutation-score">${t("grammar.scoreLabel")}: ${score.killed} / ${score.total} (${Math.round(score.killed / score.total * 100)}%)</span>` : ""}
@@ -15904,7 +15995,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           </div>
         </div>
 
-        <div class="grammar-string-block" data-testid="grammar-string-block" data-grammar-panel="string" style="display:${state42.activeTab === "string" ? "" : "none"}">
+        <div class="grammar-string-block" data-testid="grammar-string-block" data-grammar-panel="string" style="display:${state43.activeTab === "string" ? "" : "none"}">
           <div class="grammar-mutation-header">
             <h4>${escapeHtml4(t("grammar.string.title"))}</h4>
             ${stringStats || ""}
@@ -15912,10 +16003,10 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           <p class="grammar-string-subtitle">${escapeHtml4(t("grammar.string.subtitle"))}</p>
           <div class="grammar-string-controls">
             <label>${escapeHtml4(t("grammar.string.seed"))}
-              <select data-grammar-seed-select ${state42.derivations.length === 0 ? "disabled" : ""}>${seedOptionsHtml}</select>
+              <select data-grammar-seed-select ${state43.derivations.length === 0 ? "disabled" : ""}>${seedOptionsHtml}</select>
             </label>
             <label>${escapeHtml4(t("grammar.string.maxPerOp"))}
-              <input type="number" min="1" max="50" value="${state42.maxPerStringOp}" data-grammar-max-per-string-op />
+              <input type="number" min="1" max="50" value="${state43.maxPerStringOp}" data-grammar-max-per-string-op />
             </label>
           </div>
           <div class="grammar-op-row">${stringOpButtons}</div>
@@ -15926,82 +16017,82 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         </div>
       </div>
     `;
-      root42.querySelectorAll("[data-grammar-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-grammar-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           loadExample(btn.dataset.grammarExample);
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-grammar-subtab]").forEach((btn) => {
+      root43.querySelectorAll("[data-grammar-subtab]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.activeTab = btn.dataset.grammarSubtab;
-          saveActiveTab(state42.activeTab);
-          render42();
+          state43.activeTab = btn.dataset.grammarSubtab;
+          saveActiveTab(state43.activeTab);
+          render43();
         });
       });
-      const ta = root42.querySelector('[data-testid="grammar-text"]');
+      const ta = root43.querySelector('[data-testid="grammar-text"]');
       ta == null ? void 0 : ta.addEventListener("input", (e) => {
-        state42.text = e.target.value;
+        state43.text = e.target.value;
         persistCurrent();
       });
       ta == null ? void 0 : ta.addEventListener("change", () => {
-        render42();
+        render43();
       });
-      (_e = root42.querySelector('[data-testid="grammar-extra-tests"]')) == null ? void 0 : _e.addEventListener("input", (e) => {
-        state42.extraTests = e.target.value;
+      (_e = root43.querySelector('[data-testid="grammar-extra-tests"]')) == null ? void 0 : _e.addEventListener("input", (e) => {
+        state43.extraTests = e.target.value;
       });
-      (_f = root42.querySelector('[data-testid="grammar-extra-tests"]')) == null ? void 0 : _f.addEventListener("change", () => render42());
-      (_g = root42.querySelector("[data-grammar-max-strings]")) == null ? void 0 : _g.addEventListener("change", (e) => {
-        state42.maxStrings = Math.max(1, Math.min(40, Number(e.target.value) || 1));
-        render42();
+      (_f = root43.querySelector('[data-testid="grammar-extra-tests"]')) == null ? void 0 : _f.addEventListener("change", () => render43());
+      (_g = root43.querySelector("[data-grammar-max-strings]")) == null ? void 0 : _g.addEventListener("change", (e) => {
+        state43.maxStrings = Math.max(1, Math.min(40, Number(e.target.value) || 1));
+        render43();
       });
-      (_h = root42.querySelector("[data-grammar-max-depth]")) == null ? void 0 : _h.addEventListener("change", (e) => {
-        state42.maxDepth = Math.max(1, Math.min(40, Number(e.target.value) || 1));
-        render42();
+      (_h = root43.querySelector("[data-grammar-max-depth]")) == null ? void 0 : _h.addEventListener("change", (e) => {
+        state43.maxDepth = Math.max(1, Math.min(40, Number(e.target.value) || 1));
+        render43();
       });
-      root42.querySelectorAll("[data-grammar-op]").forEach((cb) => {
+      root43.querySelectorAll("[data-grammar-op]").forEach((cb) => {
         cb.addEventListener("change", (e) => {
           const op = e.target.dataset.grammarOp;
-          if (e.target.checked) state42.operators.add(op);
-          else state42.operators.delete(op);
-          render42();
+          if (e.target.checked) state43.operators.add(op);
+          else state43.operators.delete(op);
+          render43();
         });
       });
-      root42.querySelectorAll("[data-grammar-mutant]").forEach((btn) => {
+      root43.querySelectorAll("[data-grammar-mutant]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.selectedMutantId = btn.dataset.grammarMutant;
-          render42();
+          state43.selectedMutantId = btn.dataset.grammarMutant;
+          render43();
         });
       });
-      (_i = root42.querySelector("[data-grammar-seed-select]")) == null ? void 0 : _i.addEventListener("change", (e) => {
-        state42.seedIndex = Math.max(0, Number(e.target.value) || 0);
-        state42.selectedStringMutantId = null;
-        render42();
+      (_i = root43.querySelector("[data-grammar-seed-select]")) == null ? void 0 : _i.addEventListener("change", (e) => {
+        state43.seedIndex = Math.max(0, Number(e.target.value) || 0);
+        state43.selectedStringMutantId = null;
+        render43();
       });
-      (_j = root42.querySelector("[data-grammar-max-per-string-op]")) == null ? void 0 : _j.addEventListener("change", (e) => {
-        state42.maxPerStringOp = Math.max(1, Math.min(50, Number(e.target.value) || 1));
-        render42();
+      (_j = root43.querySelector("[data-grammar-max-per-string-op]")) == null ? void 0 : _j.addEventListener("change", (e) => {
+        state43.maxPerStringOp = Math.max(1, Math.min(50, Number(e.target.value) || 1));
+        render43();
       });
-      root42.querySelectorAll("[data-grammar-string-op]").forEach((cb) => {
+      root43.querySelectorAll("[data-grammar-string-op]").forEach((cb) => {
         cb.addEventListener("change", (e) => {
           const op = e.target.dataset.grammarStringOp;
-          if (e.target.checked) state42.stringOperators.add(op);
-          else state42.stringOperators.delete(op);
-          render42();
+          if (e.target.checked) state43.stringOperators.add(op);
+          else state43.stringOperators.delete(op);
+          render43();
         });
       });
-      root42.querySelectorAll("[data-grammar-string-mutant]").forEach((row) => {
+      root43.querySelectorAll("[data-grammar-string-mutant]").forEach((row) => {
         row.addEventListener("click", () => {
-          state42.selectedStringMutantId = row.dataset.grammarStringMutant;
-          render42();
+          state43.selectedStringMutantId = row.dataset.grammarStringMutant;
+          render43();
         });
       });
     }
-    render42();
+    render43();
     if (typeof globalThis.addEventListener === "function") {
       globalThis.addEventListener("stvisual:load-program-source", (event) => {
         var _a2;
-        if (!root42.isConnected) return;
+        if (!root43.isConnected) return;
         const detail = event.detail || {};
         if (detail.target !== "grammar") return;
         const content = String((_a2 = detail.content) != null ? _a2 : "");
@@ -16015,16 +16106,16 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           descriptionEn: `Uploaded from cloud: ${detail.name || baseName}`,
           text: content
         };
-        state42.customExamples = [...state42.customExamples, newExample];
-        state42.programs[id] = content;
-        state42.exampleId = id;
-        state42.text = content;
-        state42.selectedMutantId = null;
+        state43.customExamples = [...state43.customExamples, newExample];
+        state43.programs[id] = content;
+        state43.exampleId = id;
+        state43.text = content;
+        state43.selectedMutantId = null;
         persistCurrent();
-        render42();
+        render43();
       });
     }
-    return root42;
+    return root43;
   }
 
   // src/utils/specMutation.js
@@ -16090,7 +16181,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         throw new Error(`Unknown AST node: ${node2.type}`);
     }
   }
-  function* walkWithReplacers(root42) {
+  function* walkWithReplacers(root43) {
     function* walk(node2, replaceInParent) {
       yield [node2, replaceInParent];
       if (node2.type === "not") {
@@ -16112,7 +16203,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     function topReplace(newRoot) {
       return cloneAst(newRoot);
     }
-    yield* walk(root42, topReplace);
+    yield* walk(root43, topReplace);
   }
   function generateSpecMutants(parsed, opIds = SPEC_MUTATION_OPERATORS) {
     if (!(parsed == null ? void 0 : parsed.ast)) throw new Error("parsed.ast is required");
@@ -16601,14 +16692,14 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist(state42) {
+  function persist(state43) {
     var _a2;
     try {
       (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY5, JSON.stringify({
-        text: state42.text,
-        operators: [...state42.operators],
-        activeCategory: state42.activeCategory,
-        tests: state42.tests
+        text: state43.text,
+        operators: [...state43.operators],
+        activeCategory: state43.activeCategory,
+        tests: state43.tests
       }));
     } catch {
     }
@@ -16617,11 +16708,11 @@ INVARSPEC !(x & y)`
     return Object.entries(values).map(([k, v]) => `${k}=${v ? "T" : "F"}`).join(", ");
   }
   function createSpecMutationExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "spec-mutation";
-    root42.dataset.testid = "spec-mutation";
+    const root43 = document.createElement("div");
+    root43.className = "spec-mutation";
+    root43.dataset.testid = "spec-mutation";
     const saved = loadSaved();
-    const state42 = {
+    const state43 = {
       text: (saved == null ? void 0 : saved.text) || DEFAULT_PREDICATE,
       operators: new Set((saved == null ? void 0 : saved.operators) || DEFAULT_OPS2),
       activeCategory: (saved == null ? void 0 : saved.activeCategory) || DEFAULT_CATEGORY,
@@ -16636,59 +16727,59 @@ INVARSPEC !(x & y)`
     };
     function recompute() {
       var _a2;
-      state42.parseError = null;
-      state42.parsed = null;
-      state42.mutants = [];
+      state43.parseError = null;
+      state43.parsed = null;
+      state43.mutants = [];
       try {
-        const parsed = parsePredicate(state42.text);
-        state42.parsed = parsed;
-        const ops = [...state42.operators];
+        const parsed = parsePredicate(state43.text);
+        state43.parsed = parsed;
+        const ops = [...state43.operators];
         const generated = ops.length > 0 ? generateSpecMutants(parsed, ops) : [];
         let tests;
-        if (state42.useFullTable) {
+        if (state43.useFullTable) {
           tests = buildAssignmentSpace(parsed.clauses);
         } else {
-          tests = (state42.tests || []).map((t4) => {
+          tests = (state43.tests || []).map((t4) => {
             var _a3;
             const v = {};
             for (const c of parsed.clauses) v[c] = !!((_a3 = t4.values) == null ? void 0 : _a3[c]);
             return v;
           });
         }
-        state42.mutants = evaluateSpecMutants(parsed, generated, tests);
-        if (!state42.mutants.find((m) => m.id === state42.selectedMutantId)) {
-          state42.selectedMutantId = ((_a2 = state42.mutants[0]) == null ? void 0 : _a2.id) || null;
+        state43.mutants = evaluateSpecMutants(parsed, generated, tests);
+        if (!state43.mutants.find((m) => m.id === state43.selectedMutantId)) {
+          state43.selectedMutantId = ((_a2 = state43.mutants[0]) == null ? void 0 : _a2.id) || null;
         }
       } catch (err) {
-        state42.parseError = err.message || String(err);
+        state43.parseError = err.message || String(err);
       }
-      persist(state42);
+      persist(state43);
     }
-    function render42() {
+    function render43() {
       var _a2, _b2, _c;
       recompute();
-      const currentExample7 = SPEC_EXAMPLES.find((ex) => state42.text.trim() === ex.text) || null;
+      const currentExample7 = SPEC_EXAMPLES.find((ex) => state43.text.trim() === ex.text) || null;
       const categoryButtons = SPEC_CATEGORIES.map((cat) => `
       <button type="button"
-        class="spec-category-btn${state42.activeCategory === cat.id ? " active" : ""}"
+        class="spec-category-btn${state43.activeCategory === cat.id ? " active" : ""}"
         data-spec-category="${cat.id}">${escapeHtml5(t(cat.labelKey))}</button>
     `).join("");
-      const visibleExamples = SPEC_EXAMPLES.filter((ex) => ex.category === state42.activeCategory);
+      const visibleExamples = SPEC_EXAMPLES.filter((ex) => ex.category === state43.activeCategory);
       const exampleButtons = visibleExamples.map((ex) => `
-      <button type="button" class="spec-example-btn${state42.text.trim() === ex.text ? " active" : ""}"
+      <button type="button" class="spec-example-btn${state43.text.trim() === ex.text ? " active" : ""}"
         data-spec-example="${ex.id}" title="${escapeHtml5(ex.description || "")}">${escapeHtml5(ex.name)}</button>
     `).join("");
       const operatorButtons = SPEC_MUTATION_OPERATORS.map((op) => `
-      <label class="grammar-op-btn${state42.operators.has(op) ? " active" : ""}" title="${escapeHtml5(t(`spec.op.${op}`))}">
-        <input type="checkbox" data-spec-op="${op}" ${state42.operators.has(op) ? "checked" : ""} />
+      <label class="grammar-op-btn${state43.operators.has(op) ? " active" : ""}" title="${escapeHtml5(t(`spec.op.${op}`))}">
+        <input type="checkbox" data-spec-op="${op}" ${state43.operators.has(op) ? "checked" : ""} />
         <span>${op}</span>
       </label>
     `).join("");
-      const score = state42.mutants.length === 0 ? null : { killed: state42.mutants.filter((m) => m.killed).length, total: state42.mutants.length };
-      const mutantsHtml = state42.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml5(t("spec.noMutants"))}</p>` : `<ul class="grammar-mutant-list" data-testid="spec-mutant-list">
-          ${state42.mutants.map((m) => `<li>
+      const score = state43.mutants.length === 0 ? null : { killed: state43.mutants.filter((m) => m.killed).length, total: state43.mutants.length };
+      const mutantsHtml = state43.mutants.length === 0 ? `<p class="grammar-empty">${escapeHtml5(t("spec.noMutants"))}</p>` : `<ul class="grammar-mutant-list" data-testid="spec-mutant-list">
+          ${state43.mutants.map((m) => `<li>
             <button type="button"
-              class="grammar-mutant-btn${state42.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
+              class="grammar-mutant-btn${state43.selectedMutantId === m.id ? " active" : ""} ${m.killed ? "killed" : "live"}"
               data-spec-mutant="${escapeHtml5(m.id)}">
               <span class="grammar-mutant-op">${m.operator}</span>
               <span class="grammar-mutant-status">${m.killed ? t("grammar.killed") : t("grammar.live")}</span>
@@ -16699,19 +16790,19 @@ INVARSPEC !(x & y)`
             </button>
           </li>`).join("")}
          </ul>`;
-      const selected = state42.mutants.find((m) => m.id === state42.selectedMutantId) || null;
-      const flippedSet = selected ? flippedKeysFromKillers(selected.killers, ((_a2 = state42.parsed) == null ? void 0 : _a2.clauses) || []) : null;
-      const fsmHtml = state42.parsed ? `<div class="spec-fsm-grid" data-testid="spec-fsm-grid">
+      const selected = state43.mutants.find((m) => m.id === state43.selectedMutantId) || null;
+      const flippedSet = selected ? flippedKeysFromKillers(selected.killers, ((_a2 = state43.parsed) == null ? void 0 : _a2.clauses) || []) : null;
+      const fsmHtml = state43.parsed ? `<div class="spec-fsm-grid" data-testid="spec-fsm-grid">
           ${renderMonitorSvg({
-        ast: state42.parsed.ast,
-        clauses: state42.parsed.clauses,
+        ast: state43.parsed.ast,
+        clauses: state43.parsed.clauses,
         title: t("spec.fsm.original"),
         flippedSet: null,
         testId: "spec-fsm-original"
       })}
           ${renderMonitorSvg({
-        ast: selected ? selected.ast : state42.parsed.ast,
-        clauses: state42.parsed.clauses,
+        ast: selected ? selected.ast : state43.parsed.ast,
+        clauses: state43.parsed.clauses,
         title: selected ? `${t("spec.fsm.mutant")}: ${selected.id}` : t("spec.fsm.pickMutant"),
         flippedSet,
         testId: "spec-fsm-mutant"
@@ -16728,7 +16819,7 @@ INVARSPEC !(x & y)`
                  \xB7 orig=${k.orig ? "T" : "F"} \xB7 mut=${k.mut ? "T" : "F"}
                </li>`).join("")}</ul>` : `<p class="grammar-mutant-live">${escapeHtml5(t("spec.equivalentHint"))}</p>`}
         </div>` : `<p class="grammar-empty">${escapeHtml5(t("grammar.selectMutantHint"))}</p>`;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="grammar-card spec-card">
         <header class="grammar-header">
           <p class="grammar-kicker">${escapeHtml5(t("spec.kicker"))}</p>
@@ -16747,12 +16838,12 @@ INVARSPEC !(x & y)`
         <div class="spec-editor-row">
           <label class="grammar-editor-label">
             ${escapeHtml5(t("spec.predicateLabel"))}
-            <input type="text" data-testid="spec-text" value="${escapeHtml5(state42.text)}" spellcheck="false" />
+            <input type="text" data-testid="spec-text" value="${escapeHtml5(state43.text)}" spellcheck="false" />
           </label>
-          ${state42.parseError ? `<p class="grammar-error" data-testid="spec-parse-error">${escapeHtml5(state42.parseError)}</p>` : ""}
-          ${state42.parsed ? `<p class="spec-clauses">
-            <strong>${escapeHtml5(t("spec.clauses"))}:</strong> ${state42.parsed.clauses.map((c) => `<code>${escapeHtml5(c)}</code>`).join(", ") || "\u2014"}
-            \xB7 <strong>${escapeHtml5(t("spec.canonical"))}:</strong> <code>${escapeHtml5(astToString(state42.parsed.ast))}</code>
+          ${state43.parseError ? `<p class="grammar-error" data-testid="spec-parse-error">${escapeHtml5(state43.parseError)}</p>` : ""}
+          ${state43.parsed ? `<p class="spec-clauses">
+            <strong>${escapeHtml5(t("spec.clauses"))}:</strong> ${state43.parsed.clauses.map((c) => `<code>${escapeHtml5(c)}</code>`).join(", ") || "\u2014"}
+            \xB7 <strong>${escapeHtml5(t("spec.canonical"))}:</strong> <code>${escapeHtml5(astToString(state43.parsed.ast))}</code>
           </p>` : ""}
         </div>
 
@@ -16771,46 +16862,46 @@ INVARSPEC !(x & y)`
         </div>
       </div>
     `;
-      root42.querySelectorAll("[data-spec-category]").forEach((btn) => {
+      root43.querySelectorAll("[data-spec-category]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.activeCategory = btn.dataset.specCategory;
-          render42();
+          state43.activeCategory = btn.dataset.specCategory;
+          render43();
         });
       });
-      root42.querySelectorAll("[data-spec-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-spec-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = SPEC_EXAMPLES.find((e) => e.id === btn.dataset.specExample);
           if (!ex) return;
-          state42.text = ex.text;
-          state42.activeCategory = ex.category || state42.activeCategory;
-          state42.selectedMutantId = null;
-          render42();
+          state43.text = ex.text;
+          state43.activeCategory = ex.category || state43.activeCategory;
+          state43.selectedMutantId = null;
+          render43();
         });
       });
-      (_b2 = root42.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _b2.addEventListener("input", (e) => {
-        state42.text = e.target.value;
+      (_b2 = root43.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _b2.addEventListener("input", (e) => {
+        state43.text = e.target.value;
       });
-      (_c = root42.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _c.addEventListener("change", () => {
-        state42.selectedMutantId = null;
-        render42();
+      (_c = root43.querySelector('[data-testid="spec-text"]')) == null ? void 0 : _c.addEventListener("change", () => {
+        state43.selectedMutantId = null;
+        render43();
       });
-      root42.querySelectorAll("[data-spec-op]").forEach((cb) => {
+      root43.querySelectorAll("[data-spec-op]").forEach((cb) => {
         cb.addEventListener("change", (e) => {
           const op = e.target.dataset.specOp;
-          if (e.target.checked) state42.operators.add(op);
-          else state42.operators.delete(op);
-          render42();
+          if (e.target.checked) state43.operators.add(op);
+          else state43.operators.delete(op);
+          render43();
         });
       });
-      root42.querySelectorAll("[data-spec-mutant]").forEach((btn) => {
+      root43.querySelectorAll("[data-spec-mutant]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.selectedMutantId = btn.dataset.specMutant;
-          render42();
+          state43.selectedMutantId = btn.dataset.specMutant;
+          render43();
         });
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/symbolicExecution.js
@@ -17603,25 +17694,25 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist2(state42) {
+  function persist2(state43) {
     var _a2;
     try {
       (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY6, JSON.stringify({
-        sourceCode: state42.sourceCode,
-        exampleId: state42.exampleId,
-        maxLoopUnroll: state42.maxLoopUnroll,
-        cfgZoom: state42.cfgZoom
+        sourceCode: state43.sourceCode,
+        exampleId: state43.exampleId,
+        maxLoopUnroll: state43.maxLoopUnroll,
+        cfgZoom: state43.cfgZoom
       }));
     } catch {
     }
   }
   function createSymbolicExecutionExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "symbex-explorer";
-    root42.dataset.testid = "symbex-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "symbex-explorer";
+    root43.dataset.testid = "symbex-explorer";
     const saved = loadSaved2();
     const defaultExample = symbolicExecutionExamples[0];
-    const state42 = {
+    const state43 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       maxLoopUnroll: typeof (saved == null ? void 0 : saved.maxLoopUnroll) === "number" ? saved.maxLoopUnroll : 3,
@@ -17659,7 +17750,7 @@ INVARSPEC !(x & y)`
     function renderSymbexQuizPanel() {
       if (!symbexQuiz.active) return "";
       if (symbexQuiz.phase === "graded") {
-        const correct = state42.result ? state42.result.paths.filter((p) => p.feasible).length : 0;
+        const correct = state43.result ? state43.result.paths.filter((p) => p.feasible).length : 0;
         const userAns = parseInt(symbexQuiz.answer, 10);
         const ok = userAns === correct;
         const shareEncoded = encodeResult({ v: 1, explorer: "symbex", explorerLabel: t("quiz.symbex.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.symbex.prompt"), a: String(symbexQuiz.answer), expected: String(correct), ok }] });
@@ -17698,52 +17789,52 @@ INVARSPEC !(x & y)`
     }
     function recompute() {
       var _a2, _b2;
-      state42.result = null;
-      state42.error = null;
-      state42.cfg = null;
-      state42.cfgError = null;
+      state43.result = null;
+      state43.error = null;
+      state43.cfg = null;
+      state43.cfgError = null;
       try {
-        state42.result = symbolicExecute(state42.sourceCode, { maxLoopUnroll: state42.maxLoopUnroll });
+        state43.result = symbolicExecute(state43.sourceCode, { maxLoopUnroll: state43.maxLoopUnroll });
       } catch (err) {
-        state42.error = err.message || String(err);
+        state43.error = err.message || String(err);
       }
       try {
-        state42.cfg = generateControlFlowGraphFromProgram({
-          sourceCode: state42.sourceCode,
+        state43.cfg = generateControlFlowGraphFromProgram({
+          sourceCode: state43.sourceCode,
           language: "javascript",
           title: "Symbolic Execution CFG"
         });
       } catch (err) {
-        state42.cfgError = err.message || String(err);
+        state43.cfgError = err.message || String(err);
       }
-      if ((_b2 = (_a2 = state42.result) == null ? void 0 : _a2.paths) == null ? void 0 : _b2.length) {
-        const stillExists = state42.result.paths.some((p) => p.id === state42.selectedPathId);
+      if ((_b2 = (_a2 = state43.result) == null ? void 0 : _a2.paths) == null ? void 0 : _b2.length) {
+        const stillExists = state43.result.paths.some((p) => p.id === state43.selectedPathId);
         if (!stillExists) {
-          const firstFeasible = state42.result.paths.find((p) => p.feasible) || state42.result.paths[0];
-          state42.selectedPathId = firstFeasible.id;
+          const firstFeasible = state43.result.paths.find((p) => p.feasible) || state43.result.paths[0];
+          state43.selectedPathId = firstFeasible.id;
         }
       } else {
-        state42.selectedPathId = null;
+        state43.selectedPathId = null;
       }
-      persist2(state42);
+      persist2(state43);
     }
-    function render42() {
+    function render43() {
       recompute();
       const exampleButtons = symbolicExecutionExamples.map((ex) => `
       <button type="button"
-        class="symbex-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+        class="symbex-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-symbex-example="${ex.id}"
         data-testid="symbex-example-${ex.id}"
         title="${escapeHtml6(pickField(ex, "description") || "")}">
         ${escapeHtml6(pickField(ex, "name") || ex.name)}
       </button>
     `).join("");
-      const pathsMarkup = state42.error ? `<div class="symbex-error" data-testid="symbex-error">${escapeHtml6(state42.error)}</div>` : renderPaths2(state42.result);
-      const summary = state42.result ? `${t("symbex.summary.paths")}<strong data-testid="symbex-path-count">${state42.result.paths.length}</strong>
+      const pathsMarkup = state43.error ? `<div class="symbex-error" data-testid="symbex-error">${escapeHtml6(state43.error)}</div>` : renderPaths2(state43.result);
+      const summary = state43.result ? `${t("symbex.summary.paths")}<strong data-testid="symbex-path-count">${state43.result.paths.length}</strong>
          <span class="symbex-divider">\xB7</span>
-         ${t("symbex.summary.feasible")}<strong data-testid="symbex-feasible-count">${state42.result.paths.filter((p) => p.feasible).length}</strong>
-         ${state42.result.truncated ? `<span class="symbex-divider">\xB7</span><span class="symbex-truncated">${t("symbex.summary.truncated")}</span>` : ""}` : "";
-      root42.innerHTML = `
+         ${t("symbex.summary.feasible")}<strong data-testid="symbex-feasible-count">${state43.result.paths.filter((p) => p.feasible).length}</strong>
+         ${state43.result.truncated ? `<span class="symbex-divider">\xB7</span><span class="symbex-truncated">${t("symbex.summary.truncated")}</span>` : ""}` : "";
+      root43.innerHTML = `
       <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="symbex-mobile-nav">
         <a href="#symbex-input-panel">${t("explorer.panel.input")}</a>
         <a href="#symbex-cfg-panel">${t("explorer.panel.cfg")}</a>
@@ -17760,7 +17851,7 @@ INVARSPEC !(x & y)`
             <label class="symbex-control">
               <span>${t("symbex.maxUnroll")}</span>
               <input type="number" min="0" max="6" step="1"
-                value="${state42.maxLoopUnroll}"
+                value="${state43.maxLoopUnroll}"
                 data-testid="symbex-max-unroll" />
             </label>
           </div>
@@ -17772,7 +17863,7 @@ INVARSPEC !(x & y)`
             data-testid="symbex-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml6(state42.sourceCode)}</textarea>
+            rows="14">${escapeHtml6(state43.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -17800,24 +17891,24 @@ INVARSPEC !(x & y)`
 
       <p class="symbex-hint">${t("symbex.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
     function renderCfgPane() {
       var _a2, _b2;
-      if (state42.cfgError) {
+      if (state43.cfgError) {
         return `<div class="symbex-cfg" data-testid="symbex-cfg">
-        <p class="symbex-cfg-error">${escapeHtml6(state42.cfgError)}</p>
+        <p class="symbex-cfg-error">${escapeHtml6(state43.cfgError)}</p>
       </div>`;
       }
-      if (!state42.cfg) return "";
-      const selected = (_b2 = (_a2 = state42.result) == null ? void 0 : _a2.paths) == null ? void 0 : _b2.find((p) => p.id === state42.selectedPathId);
-      const mapping = selected ? mapBranchesToCfg(state42.cfg, selected.branches) : { nodes: [], edges: [] };
-      const svg = renderCfgSvg(state42.cfg, mapping, {
+      if (!state43.cfg) return "";
+      const selected = (_b2 = (_a2 = state43.result) == null ? void 0 : _a2.paths) == null ? void 0 : _b2.find((p) => p.id === state43.selectedPathId);
+      const mapping = selected ? mapBranchesToCfg(state43.cfg, selected.branches) : { nodes: [], edges: [] };
+      const svg = renderCfgSvg(state43.cfg, mapping, {
         idPrefix: "symbex-cfg",
         ariaLabel: "Symbolic execution CFG",
-        zoom: state42.cfgZoom
+        zoom: state43.cfgZoom
       });
-      const zoomPct = Math.round(state42.cfgZoom * 100);
+      const zoomPct = Math.round(state43.cfgZoom * 100);
       return `
       <div class="symbex-cfg" data-testid="symbex-cfg">
         <div class="symbex-cfg-header">
@@ -17846,7 +17937,7 @@ INVARSPEC !(x & y)`
              <dd><code>${escapeHtml6(formatReturn(p.returnExpression, p.concreteReturn))}</code></dd>
            </dl>` : `<p class="symbex-infeasible">${t("symbex.infeasible")}</p>`;
         return `
-        <li class="symbex-path${p.feasible ? "" : " infeasible"}${state42.selectedPathId === p.id ? " selected" : ""}"
+        <li class="symbex-path${p.feasible ? "" : " infeasible"}${state43.selectedPathId === p.id ? " selected" : ""}"
           data-testid="symbex-${p.id}"
           data-symbex-path="${p.id}"
           tabindex="0"
@@ -17871,24 +17962,24 @@ INVARSPEC !(x & y)`
       if (concrete === null || concrete === void 0) return expr;
       return `${expr}  \u2192  ${concrete}`;
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a2, _b2, _c, _d;
-      root42.querySelectorAll("[data-symbex-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-symbex-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.symbexExample;
           const ex = symbolicExecutionExamples.find((x) => x.id === id);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.sourceCode = ex.sourceCode;
-          state42.selectedPathId = null;
+          state43.exampleId = ex.id;
+          state43.sourceCode = ex.sourceCode;
+          state43.selectedPathId = null;
           symbexQuiz.active = false;
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-symbex-path]").forEach((el) => {
+      root43.querySelectorAll("[data-symbex-path]").forEach((el) => {
         const select = () => {
-          state42.selectedPathId = el.dataset.symbexPath;
-          render42();
+          state43.selectedPathId = el.dataset.symbexPath;
+          render43();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -17898,92 +17989,92 @@ INVARSPEC !(x & y)`
           }
         });
       });
-      const editor = root42.querySelector('[data-testid="symbex-source"]');
+      const editor = root43.querySelector('[data-testid="symbex-source"]');
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state42.sourceCode = editor.value;
+          state43.sourceCode = editor.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
             renderPreservingFocus("symbex-source");
           }, 220);
         });
       }
-      const unroll = root42.querySelector('[data-testid="symbex-max-unroll"]');
+      const unroll = root43.querySelector('[data-testid="symbex-max-unroll"]');
       if (unroll) {
         unroll.addEventListener("change", () => {
           const n = Number(unroll.value);
           if (Number.isFinite(n) && n >= 0 && n <= 12) {
-            state42.maxLoopUnroll = n;
-            render42();
+            state43.maxLoopUnroll = n;
+            render43();
           }
         });
       }
-      root42.querySelectorAll("[data-symbex-zoom]").forEach((btn) => {
+      root43.querySelectorAll("[data-symbex-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.symbexZoom;
-          if (action === "in") state42.cfgZoom = Math.min(4, +(state42.cfgZoom + 0.25).toFixed(2));
-          else if (action === "out") state42.cfgZoom = Math.max(0.25, +(state42.cfgZoom - 0.25).toFixed(2));
-          else state42.cfgZoom = 1;
-          render42();
+          if (action === "in") state43.cfgZoom = Math.min(4, +(state43.cfgZoom + 0.25).toFixed(2));
+          else if (action === "out") state43.cfgZoom = Math.max(0.25, +(state43.cfgZoom - 0.25).toFixed(2));
+          else state43.cfgZoom = 1;
+          render43();
         });
       });
-      const sqStart = root42.querySelector('[data-testid="symbex-quiz-start"]');
+      const sqStart = root43.querySelector('[data-testid="symbex-quiz-start"]');
       if (sqStart) {
         sqStart.addEventListener("click", () => {
           symbexQuiz.active = true;
           symbexQuiz.phase = "question";
           symbexQuiz.answer = "";
-          render42();
+          render43();
         });
       }
-      const sqClose = root42.querySelector('[data-testid="symbex-quiz-close"]');
+      const sqClose = root43.querySelector('[data-testid="symbex-quiz-close"]');
       if (sqClose) {
         sqClose.addEventListener("click", () => {
           symbexQuiz.active = false;
-          render42();
+          render43();
         });
       }
-      const sqCheck = root42.querySelector('[data-testid="symbex-quiz-check"]');
+      const sqCheck = root43.querySelector('[data-testid="symbex-quiz-check"]');
       if (sqCheck) {
         sqCheck.addEventListener("click", () => {
-          const inp = root42.querySelector('[data-testid="symbex-quiz-input"]');
+          const inp = root43.querySelector('[data-testid="symbex-quiz-input"]');
           symbexQuiz.answer = inp ? inp.value : "";
           symbexQuiz.phase = "graded";
-          render42();
+          render43();
         });
       }
-      const sqReset = root42.querySelector('[data-testid="symbex-quiz-reset"]');
+      const sqReset = root43.querySelector('[data-testid="symbex-quiz-reset"]');
       if (sqReset) {
         sqReset.addEventListener("click", () => {
           symbexQuiz.phase = "question";
           symbexQuiz.answer = "";
-          render42();
+          render43();
         });
       }
-      (_a2 = root42.querySelector('[data-testid="symbex-lab-reflect-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a2 = root43.querySelector('[data-testid="symbex-lab-reflect-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         symbexLabReflect.active = true;
-        render42();
+        render43();
       });
-      (_b2 = root42.querySelector('[data-testid="symbex-lab-reflect-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      (_b2 = root43.querySelector('[data-testid="symbex-lab-reflect-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         var _a3, _b3;
-        symbexLabReflect.a1 = ((_a3 = root42.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || symbexLabReflect.a1;
-        symbexLabReflect.a2 = ((_b3 = root42.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || symbexLabReflect.a2;
+        symbexLabReflect.a1 = ((_a3 = root43.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || symbexLabReflect.a1;
+        symbexLabReflect.a2 = ((_b3 = root43.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || symbexLabReflect.a2;
         symbexLabReflect.active = false;
-        render42();
+        render43();
       });
-      (_c = root42.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _c.addEventListener("input", (e) => {
+      (_c = root43.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _c.addEventListener("input", (e) => {
         symbexLabReflect.a1 = e.target.value;
       });
-      (_d = root42.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _d.addEventListener("input", (e) => {
+      (_d = root43.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _d.addEventListener("input", (e) => {
         symbexLabReflect.a2 = e.target.value;
       });
-      const symbexLrShare = root42.querySelector('[data-testid="symbex-lab-reflect-share"]');
+      const symbexLrShare = root43.querySelector('[data-testid="symbex-lab-reflect-share"]');
       if (symbexLrShare) {
         symbexLrShare.addEventListener("click", async () => {
           var _a3, _b3;
-          const a1 = ((_a3 = root42.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
-          const a2 = ((_b3 = root42.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
+          const a1 = ((_a3 = root43.querySelector('[data-testid="symbex-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root43.querySelector('[data-testid="symbex-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "symbex",
@@ -18019,11 +18110,11 @@ INVARSPEC !(x & y)`
       }
     }
     function renderPreservingFocus(testid) {
-      const previously = root42.querySelector(`[data-testid="${testid}"]`);
+      const previously = root43.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render42();
-      const next = root42.querySelector(`[data-testid="${testid}"]`);
+      render43();
+      const next = root43.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
         if (typeof start === "number" && typeof end === "number" && next.setSelectionRange) {
@@ -18031,8 +18122,8 @@ INVARSPEC !(x & y)`
         }
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/concolicExecution.js
@@ -18226,15 +18317,15 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist3(state42) {
+  function persist3(state43) {
     var _a2;
     try {
       (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY7, JSON.stringify({
-        sourceCode: state42.sourceCode,
-        exampleId: state42.exampleId,
-        seedText: state42.seedText,
-        maxIterations: state42.maxIterations,
-        cfgZoom: state42.cfgZoom
+        sourceCode: state43.sourceCode,
+        exampleId: state43.exampleId,
+        seedText: state43.seedText,
+        maxIterations: state43.maxIterations,
+        cfgZoom: state43.cfgZoom
       }));
     } catch {
     }
@@ -18253,12 +18344,12 @@ INVARSPEC !(x & y)`
     return out;
   }
   function createConcolicExecutionExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "concolic-explorer";
-    root42.dataset.testid = "concolic-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "concolic-explorer";
+    root43.dataset.testid = "concolic-explorer";
     const saved = loadSaved3();
     const defaultExample = concolicExecutionExamples[0];
-    const state42 = {
+    const state43 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       seedText: (saved == null ? void 0 : saved.seedText) || defaultExample.seed || "",
@@ -18274,7 +18365,7 @@ INVARSPEC !(x & y)`
     function renderConcolicQuizPanel() {
       if (!concolicQuiz.active) return "";
       if (concolicQuiz.phase === "graded") {
-        const correct = state42.result ? state42.result.uniquePathCount : 0;
+        const correct = state43.result ? state43.result.uniquePathCount : 0;
         const userAns = parseInt(concolicQuiz.answer, 10);
         const ok = userAns === correct;
         const shareEncoded = encodeResult({ v: 1, explorer: "concolic", explorerLabel: t("quiz.concolic.title"), mode: "quiz", ts: Date.now(), lang: getLocale(), score: ok ? 1 : 0, total: 1, items: [{ q: t("quiz.concolic.prompt"), a: String(concolicQuiz.answer), expected: String(correct), ok }] });
@@ -18313,57 +18404,57 @@ INVARSPEC !(x & y)`
     }
     function recompute() {
       var _a2, _b2;
-      state42.result = null;
-      state42.error = null;
-      state42.cfg = null;
-      state42.cfgError = null;
+      state43.result = null;
+      state43.error = null;
+      state43.cfg = null;
+      state43.cfgError = null;
       try {
-        const initialInputs = parseSeed(state42.seedText);
-        state42.result = concolicExecute(state42.sourceCode, {
+        const initialInputs = parseSeed(state43.seedText);
+        state43.result = concolicExecute(state43.sourceCode, {
           initialInputs,
-          maxIterations: state42.maxIterations
+          maxIterations: state43.maxIterations
         });
       } catch (err) {
-        state42.error = err.message || String(err);
+        state43.error = err.message || String(err);
       }
       try {
-        state42.cfg = generateControlFlowGraphFromProgram({
-          sourceCode: state42.sourceCode,
+        state43.cfg = generateControlFlowGraphFromProgram({
+          sourceCode: state43.sourceCode,
           language: "javascript",
           title: "Concolic Execution CFG"
         });
       } catch (err) {
-        state42.cfgError = err.message || String(err);
+        state43.cfgError = err.message || String(err);
       }
-      if ((_b2 = (_a2 = state42.result) == null ? void 0 : _a2.iterations) == null ? void 0 : _b2.length) {
-        const stillExists = state42.result.iterations.some((it) => it.id === state42.selectedIterId);
+      if ((_b2 = (_a2 = state43.result) == null ? void 0 : _a2.iterations) == null ? void 0 : _b2.length) {
+        const stillExists = state43.result.iterations.some((it) => it.id === state43.selectedIterId);
         if (!stillExists) {
-          state42.selectedIterId = state42.result.iterations[0].id;
+          state43.selectedIterId = state43.result.iterations[0].id;
         }
       } else {
-        state42.selectedIterId = null;
+        state43.selectedIterId = null;
       }
-      persist3(state42);
+      persist3(state43);
     }
-    function render42() {
+    function render43() {
       recompute();
       const exampleButtons = concolicExecutionExamples.map((ex) => `
       <button type="button"
-        class="concolic-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+        class="concolic-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-concolic-example="${ex.id}"
         data-testid="concolic-example-${ex.id}"
         title="${escapeHtml7(pickField(ex, "description") || "")}">
         ${escapeHtml7(pickField(ex, "name") || ex.name)}
       </button>
     `).join("");
-      const body3 = state42.error ? `<div class="concolic-error" data-testid="concolic-error">${escapeHtml7(state42.error)}</div>` : renderIterations(state42.result);
-      const summary = state42.result ? `${t("concolic.summary.iterations")}<strong data-testid="concolic-iter-count">${state42.result.iterations.length}</strong>
+      const body3 = state43.error ? `<div class="concolic-error" data-testid="concolic-error">${escapeHtml7(state43.error)}</div>` : renderIterations(state43.result);
+      const summary = state43.result ? `${t("concolic.summary.iterations")}<strong data-testid="concolic-iter-count">${state43.result.iterations.length}</strong>
          <span class="concolic-divider">\xB7</span>
-         ${t("concolic.summary.uniquePaths")}<strong data-testid="concolic-path-count">${state42.result.uniquePathCount}</strong>
+         ${t("concolic.summary.uniquePaths")}<strong data-testid="concolic-path-count">${state43.result.uniquePathCount}</strong>
          <span class="concolic-divider">\xB7</span>
-         ${t("concolic.summary.uniqueInputs")}<strong>${state42.result.uniqueInputCount}</strong>
-         ${state42.result.truncated ? `<span class="concolic-divider">\xB7</span><span class="concolic-truncated">${t("concolic.summary.truncated")}</span>` : ""}` : "";
-      root42.innerHTML = `
+         ${t("concolic.summary.uniqueInputs")}<strong>${state43.result.uniqueInputCount}</strong>
+         ${state43.result.truncated ? `<span class="concolic-divider">\xB7</span><span class="concolic-truncated">${t("concolic.summary.truncated")}</span>` : ""}` : "";
+      root43.innerHTML = `
       <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="concolic-mobile-nav">
         <a href="#concolic-input-panel">${t("explorer.panel.input")}</a>
         <a href="#concolic-cfg-panel">${t("explorer.panel.cfg")}</a>
@@ -18379,14 +18470,14 @@ INVARSPEC !(x & y)`
           <div class="concolic-controls">
             <label class="concolic-control">
               <span>${t("concolic.seed")}</span>
-              <input type="text" value="${escapeHtml7(state42.seedText)}"
+              <input type="text" value="${escapeHtml7(state43.seedText)}"
                 data-testid="concolic-seed"
                 placeholder="a=1, b=1, c=1" />
             </label>
             <label class="concolic-control">
               <span>${t("concolic.maxIterations")}</span>
               <input type="number" min="1" max="64" step="1"
-                value="${state42.maxIterations}"
+                value="${state43.maxIterations}"
                 data-testid="concolic-max-iter" />
             </label>
           </div>
@@ -18398,7 +18489,7 @@ INVARSPEC !(x & y)`
             data-testid="concolic-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml7(state42.sourceCode)}</textarea>
+            rows="14">${escapeHtml7(state43.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -18424,24 +18515,24 @@ INVARSPEC !(x & y)`
 
       <p class="concolic-hint">${t("concolic.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
     function renderCfgPane() {
       var _a2, _b2;
-      if (state42.cfgError) {
+      if (state43.cfgError) {
         return `<div class="concolic-cfg" data-testid="concolic-cfg">
-        <p class="concolic-cfg-error">${escapeHtml7(state42.cfgError)}</p>
+        <p class="concolic-cfg-error">${escapeHtml7(state43.cfgError)}</p>
       </div>`;
       }
-      if (!state42.cfg) return "";
-      const selected = (_b2 = (_a2 = state42.result) == null ? void 0 : _a2.iterations) == null ? void 0 : _b2.find((it) => it.id === state42.selectedIterId);
-      const mapping = selected ? mapBranchesToCfg(state42.cfg, selected.branches) : { nodes: [], edges: [] };
-      const svg = renderCfgSvg(state42.cfg, mapping, {
+      if (!state43.cfg) return "";
+      const selected = (_b2 = (_a2 = state43.result) == null ? void 0 : _a2.iterations) == null ? void 0 : _b2.find((it) => it.id === state43.selectedIterId);
+      const mapping = selected ? mapBranchesToCfg(state43.cfg, selected.branches) : { nodes: [], edges: [] };
+      const svg = renderCfgSvg(state43.cfg, mapping, {
         idPrefix: "concolic-cfg",
         ariaLabel: "Concolic execution CFG",
-        zoom: state42.cfgZoom
+        zoom: state43.cfgZoom
       });
-      const zoomPct = Math.round(state42.cfgZoom * 100);
+      const zoomPct = Math.round(state43.cfgZoom * 100);
       return `
       <div class="concolic-cfg" data-testid="concolic-cfg">
         <div class="concolic-cfg-header">
@@ -18488,7 +18579,7 @@ INVARSPEC !(x & y)`
             `}
           </dl>`;
         return `
-        <li class="concolic-iter${state42.selectedIterId === it.id ? " selected" : ""}"
+        <li class="concolic-iter${state43.selectedIterId === it.id ? " selected" : ""}"
           data-testid="concolic-${it.id}"
           data-concolic-iter="${it.id}"
           tabindex="0"
@@ -18517,24 +18608,24 @@ INVARSPEC !(x & y)`
       if (concrete == null) return expr;
       return `${expr}  \u2192  ${concrete}`;
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-concolic-example]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-concolic-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.concolicExample;
           const ex = concolicExecutionExamples.find((x) => x.id === id);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.sourceCode = ex.sourceCode;
-          state42.seedText = ex.seed || "";
-          state42.selectedIterId = null;
+          state43.exampleId = ex.id;
+          state43.sourceCode = ex.sourceCode;
+          state43.seedText = ex.seed || "";
+          state43.selectedIterId = null;
           concolicQuiz.active = false;
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-concolic-iter]").forEach((el) => {
+      root43.querySelectorAll("[data-concolic-iter]").forEach((el) => {
         const select = () => {
-          state42.selectedIterId = el.dataset.concolicIter;
-          render42();
+          state43.selectedIterId = el.dataset.concolicIter;
+          render43();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -18544,83 +18635,83 @@ INVARSPEC !(x & y)`
           }
         });
       });
-      const editor = root42.querySelector('[data-testid="concolic-source"]');
+      const editor = root43.querySelector('[data-testid="concolic-source"]');
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state42.sourceCode = editor.value;
+          state43.sourceCode = editor.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => renderPreservingFocus("concolic-source"), 220);
         });
       }
-      const seed = root42.querySelector('[data-testid="concolic-seed"]');
+      const seed = root43.querySelector('[data-testid="concolic-seed"]');
       if (seed) {
         let timer = null;
         seed.addEventListener("input", () => {
-          state42.seedText = seed.value;
+          state43.seedText = seed.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => renderPreservingFocus("concolic-seed"), 220);
         });
       }
-      const iter = root42.querySelector('[data-testid="concolic-max-iter"]');
+      const iter = root43.querySelector('[data-testid="concolic-max-iter"]');
       if (iter) {
         iter.addEventListener("change", () => {
           const n = Number(iter.value);
           if (Number.isFinite(n) && n >= 1 && n <= 128) {
-            state42.maxIterations = n;
-            render42();
+            state43.maxIterations = n;
+            render43();
           }
         });
       }
-      root42.querySelectorAll("[data-concolic-zoom]").forEach((btn) => {
+      root43.querySelectorAll("[data-concolic-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.concolicZoom;
-          if (action === "in") state42.cfgZoom = Math.min(4, +(state42.cfgZoom + 0.25).toFixed(2));
-          else if (action === "out") state42.cfgZoom = Math.max(0.25, +(state42.cfgZoom - 0.25).toFixed(2));
-          else state42.cfgZoom = 1;
-          render42();
+          if (action === "in") state43.cfgZoom = Math.min(4, +(state43.cfgZoom + 0.25).toFixed(2));
+          else if (action === "out") state43.cfgZoom = Math.max(0.25, +(state43.cfgZoom - 0.25).toFixed(2));
+          else state43.cfgZoom = 1;
+          render43();
         });
       });
-      const cqStart = root42.querySelector('[data-testid="concolic-quiz-start"]');
+      const cqStart = root43.querySelector('[data-testid="concolic-quiz-start"]');
       if (cqStart) {
         cqStart.addEventListener("click", () => {
           concolicQuiz.active = true;
           concolicQuiz.phase = "question";
           concolicQuiz.answer = "";
-          render42();
+          render43();
         });
       }
-      const cqClose = root42.querySelector('[data-testid="concolic-quiz-close"]');
+      const cqClose = root43.querySelector('[data-testid="concolic-quiz-close"]');
       if (cqClose) {
         cqClose.addEventListener("click", () => {
           concolicQuiz.active = false;
-          render42();
+          render43();
         });
       }
-      const cqCheck = root42.querySelector('[data-testid="concolic-quiz-check"]');
+      const cqCheck = root43.querySelector('[data-testid="concolic-quiz-check"]');
       if (cqCheck) {
         cqCheck.addEventListener("click", () => {
-          const inp = root42.querySelector('[data-testid="concolic-quiz-input"]');
+          const inp = root43.querySelector('[data-testid="concolic-quiz-input"]');
           concolicQuiz.answer = inp ? inp.value : "";
           concolicQuiz.phase = "graded";
-          render42();
+          render43();
         });
       }
-      const cqReset = root42.querySelector('[data-testid="concolic-quiz-reset"]');
+      const cqReset = root43.querySelector('[data-testid="concolic-quiz-reset"]');
       if (cqReset) {
         cqReset.addEventListener("click", () => {
           concolicQuiz.phase = "question";
           concolicQuiz.answer = "";
-          render42();
+          render43();
         });
       }
     }
     function renderPreservingFocus(testid) {
-      const previously = root42.querySelector(`[data-testid="${testid}"]`);
+      const previously = root43.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render42();
-      const next = root42.querySelector(`[data-testid="${testid}"]`);
+      render43();
+      const next = root43.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
         if (typeof start === "number" && typeof end === "number" && next.setSelectionRange) {
@@ -18628,8 +18719,8 @@ INVARSPEC !(x & y)`
         }
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/fuzzTesting.js
@@ -18831,28 +18922,28 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist4(state42) {
+  function persist4(state43) {
     var _a2;
     try {
       (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(
         STORAGE_KEY8,
         JSON.stringify({
-          sourceCode: state42.sourceCode,
-          exampleId: state42.exampleId,
-          testCount: state42.testCount,
-          cfgZoom: state42.cfgZoom
+          sourceCode: state43.sourceCode,
+          exampleId: state43.exampleId,
+          testCount: state43.testCount,
+          cfgZoom: state43.cfgZoom
         })
       );
     } catch {
     }
   }
   function createFuzzTestingExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "fuzz-explorer";
-    root42.dataset.testid = "fuzz-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "fuzz-explorer";
+    root43.dataset.testid = "fuzz-explorer";
     const saved = loadSaved4();
     const defaultExample = fuzzTestingExamples[0];
-    const state42 = {
+    const state43 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       testCount: typeof (saved == null ? void 0 : saved.testCount) === "number" ? saved.testCount : 50,
@@ -18893,7 +18984,7 @@ INVARSPEC !(x & y)`
     }
     function renderFuzzQuizPanel() {
       if (!fuzzQuiz.active) return "";
-      const nodeCov = state42.totalNodes > 0 ? Math.round(state42.coveredNodes.length / state42.totalNodes * 100) : 0;
+      const nodeCov = state43.totalNodes > 0 ? Math.round(state43.coveredNodes.length / state43.totalNodes * 100) : 0;
       if (fuzzQuiz.phase === "graded") {
         const userAns = parseInt(fuzzQuiz.answer, 10);
         const ok = userAns === nodeCov;
@@ -18933,33 +19024,33 @@ INVARSPEC !(x & y)`
     }
     function recompute() {
       var _a2;
-      state42.result = null;
-      state42.cfg = null;
-      state42.cfgError = null;
-      state42.error = null;
-      state42.coveredNodes = [];
-      state42.coveredEdges = [];
-      state42.totalNodes = 0;
-      state42.totalEdges = 0;
+      state43.result = null;
+      state43.cfg = null;
+      state43.cfgError = null;
+      state43.error = null;
+      state43.coveredNodes = [];
+      state43.coveredEdges = [];
+      state43.totalNodes = 0;
+      state43.totalEdges = 0;
       try {
-        state42.result = fuzzTest(state42.sourceCode, state42.testCount);
+        state43.result = fuzzTest(state43.sourceCode, state43.testCount);
       } catch (err) {
-        state42.error = err instanceof Error ? err.message : String(err);
+        state43.error = err instanceof Error ? err.message : String(err);
       }
       try {
-        state42.cfg = generateControlFlowGraphFromProgram({
-          sourceCode: state42.sourceCode,
+        state43.cfg = generateControlFlowGraphFromProgram({
+          sourceCode: state43.sourceCode,
           language: "javascript",
           title: "Fuzz Testing CFG"
         });
       } catch (err) {
-        state42.cfgError = err instanceof Error ? err.message : String(err);
+        state43.cfgError = err instanceof Error ? err.message : String(err);
       }
-      const cfg = state42.cfg;
-      const result = state42.result;
+      const cfg = state43.cfg;
+      const result = state43.result;
       if (cfg && result) {
-        state42.totalNodes = cfg.nodes.length;
-        state42.totalEdges = cfg.edges.length;
+        state43.totalNodes = cfg.nodes.length;
+        state43.totalEdges = cfg.edges.length;
         const allNodes = /* @__PURE__ */ new Set();
         const allEdges = /* @__PURE__ */ new Set();
         for (const tc of result.testCases) {
@@ -18967,23 +19058,23 @@ INVARSPEC !(x & y)`
           for (const n of mapping.nodes) allNodes.add(n);
           for (const e of mapping.edges) allEdges.add(e);
         }
-        state42.coveredNodes = [...allNodes];
-        state42.coveredEdges = [...allEdges];
+        state43.coveredNodes = [...allNodes];
+        state43.coveredEdges = [...allEdges];
       }
       if ((_a2 = result == null ? void 0 : result.testCases) == null ? void 0 : _a2.length) {
-        const stillExists = result.testCases.some((tc) => tc.id === state42.selectedCaseId);
-        if (!stillExists) state42.selectedCaseId = null;
+        const stillExists = result.testCases.some((tc) => tc.id === state43.selectedCaseId);
+        if (!stillExists) state43.selectedCaseId = null;
       } else {
-        state42.selectedCaseId = null;
+        state43.selectedCaseId = null;
       }
-      persist4(state42);
+      persist4(state43);
     }
-    function render42() {
+    function render43() {
       recompute();
       const exampleButtons = fuzzTestingExamples.map(
         (ex) => `
       <button type="button"
-        class="fuzz-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+        class="fuzz-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-fuzz-example="${ex.id}"
         data-testid="fuzz-example-${ex.id}"
         title="${escapeHtml8(pickField(ex, "description"))}">
@@ -18991,12 +19082,12 @@ INVARSPEC !(x & y)`
       </button>
     `
       ).join("");
-      const result = state42.result;
-      const error = state42.error;
+      const result = state43.result;
+      const error = state43.error;
       const crashCount = (result == null ? void 0 : result.crashes) || 0;
-      const nodeCov = state42.totalNodes > 0 ? Math.round(state42.coveredNodes.length / state42.totalNodes * 100) : 0;
-      const edgeCov = state42.totalEdges > 0 ? Math.round(state42.coveredEdges.length / state42.totalEdges * 100) : 0;
-      const coverageMarkup = result && state42.cfg ? `<span class="fuzz-divider">\xB7</span>
+      const nodeCov = state43.totalNodes > 0 ? Math.round(state43.coveredNodes.length / state43.totalNodes * 100) : 0;
+      const edgeCov = state43.totalEdges > 0 ? Math.round(state43.coveredEdges.length / state43.totalEdges * 100) : 0;
+      const coverageMarkup = result && state43.cfg ? `<span class="fuzz-divider">\xB7</span>
          <span class="fuzz-coverage-badge" data-testid="fuzz-node-cov" title="Node coverage">N ${nodeCov}%</span>
          <span class="fuzz-coverage-badge" data-testid="fuzz-edge-cov" title="Edge coverage">E ${edgeCov}%</span>` : "";
       const summary = result ? `${t("fuzz.summary.tests")}<strong data-testid="fuzz-test-count">${result.totalTests}</strong>
@@ -19008,7 +19099,7 @@ INVARSPEC !(x & y)`
          ${result.truncated ? `<span class="fuzz-divider">\xB7</span><span class="fuzz-truncated">${t("fuzz.summary.truncated")}</span>` : ""}` : "";
       const testCasesMarkup = error ? `<div class="fuzz-error" data-testid="fuzz-error">${escapeHtml8(error)}</div>` : renderTestCases3(result);
       const FUZZ_THRESHOLD = 80;
-      const fuzzMetricEncoded = state42.result ? encodeResult({
+      const fuzzMetricEncoded = state43.result ? encodeResult({
         v: 1,
         explorer: "fuzz",
         explorerLabel: t("section.fuzz"),
@@ -19019,7 +19110,7 @@ INVARSPEC !(x & y)`
         total: 1,
         items: [{ q: t("lab.metric.fuzz.label", { pct: nodeCov }), a: `${nodeCov}%`, ok: nodeCov >= FUZZ_THRESHOLD }]
       }) : null;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="fuzz-mobile-nav">
         <a href="#fuzz-input-panel">${t("explorer.panel.input")}</a>
         <a href="#fuzz-cfg-panel">${t("explorer.panel.cfg")}</a>
@@ -19036,7 +19127,7 @@ INVARSPEC !(x & y)`
             <label class="fuzz-control">
               <span>${t("fuzz.testCount")}</span>
               <input type="number" min="10" max="500" step="10"
-                value="${state42.testCount}"
+                value="${state43.testCount}"
                 data-testid="fuzz-test-count-input" />
             </label>
             <button type="button"
@@ -19054,7 +19145,7 @@ INVARSPEC !(x & y)`
             data-testid="fuzz-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml8(state42.sourceCode)}</textarea>
+            rows="14">${escapeHtml8(state43.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -19072,8 +19163,8 @@ INVARSPEC !(x & y)`
           </header>
           <p class="fuzz-summary" data-testid="fuzz-summary">
             ${summary}
-            ${!fuzzQuiz.active && state42.result ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-quiz-start" style="margin-left:0.5rem">${t("quiz.start")}</button>` : ""}
-            ${state42.result && !fuzzLabReflect.active ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-lab-reflect-start" style="margin-left:0.5rem">${t("lab.reflect.start")}</button>` : ""}
+            ${!fuzzQuiz.active && state43.result ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-quiz-start" style="margin-left:0.5rem">${t("quiz.start")}</button>` : ""}
+            ${state43.result && !fuzzLabReflect.active ? `<button type="button" class="quiz-start-btn" data-testid="fuzz-lab-reflect-start" style="margin-left:0.5rem">${t("lab.reflect.start")}</button>` : ""}
             ${fuzzMetricEncoded ? `<button type="button" class="quiz-share-btn" data-share-payload="${fuzzMetricEncoded}" data-testid="fuzz-lab-metric" style="margin-left:0.5rem">\u{1F4CA} ${t("lab.metric.record")}</button>` : ""}
           </p>
           ${renderFuzzQuizPanel()}
@@ -19084,20 +19175,20 @@ INVARSPEC !(x & y)`
 
       <p class="fuzz-hint">${t("fuzz.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
     function renderCfgPane() {
-      if (state42.cfgError) {
+      if (state43.cfgError) {
         return `<div class="fuzz-cfg" data-testid="fuzz-cfg">
-        <p class="fuzz-cfg-error">${escapeHtml8(state42.cfgError)}</p>
+        <p class="fuzz-cfg-error">${escapeHtml8(state43.cfgError)}</p>
       </div>`;
       }
-      if (!state42.cfg) {
+      if (!state43.cfg) {
         return `<div class="fuzz-cfg" data-testid="fuzz-cfg"></div>`;
       }
-      const cfg = state42.cfg;
-      const result = state42.result;
-      const selectedCase = state42.selectedCaseId ? result == null ? void 0 : result.testCases.find((tc) => tc.id === state42.selectedCaseId) : null;
+      const cfg = state43.cfg;
+      const result = state43.result;
+      const selectedCase = state43.selectedCaseId ? result == null ? void 0 : result.testCases.find((tc) => tc.id === state43.selectedCaseId) : null;
       let highlight;
       let cfgSubtitle;
       if (selectedCase) {
@@ -19106,19 +19197,19 @@ INVARSPEC !(x & y)`
         cfgSubtitle = `<span class="fuzz-cfg-selected" data-testid="fuzz-cfg-selected">${escapeHtml8(selectedCase.id)}</span>`;
       } else {
         highlight = {
-          nodes: state42.coveredNodes,
-          edges: state42.coveredEdges
+          nodes: state43.coveredNodes,
+          edges: state43.coveredEdges
         };
-        const nodeCov = cfg.nodes.length > 0 ? Math.round(state42.coveredNodes.length / cfg.nodes.length * 100) : 0;
-        const edgeCov = cfg.edges.length > 0 ? Math.round(state42.coveredEdges.length / cfg.edges.length * 100) : 0;
+        const nodeCov = cfg.nodes.length > 0 ? Math.round(state43.coveredNodes.length / cfg.nodes.length * 100) : 0;
+        const edgeCov = cfg.edges.length > 0 ? Math.round(state43.coveredEdges.length / cfg.edges.length * 100) : 0;
         cfgSubtitle = result ? `<span class="fuzz-cfg-metric">N ${nodeCov}%  E ${edgeCov}%</span>` : "";
       }
       const svg = renderCfgSvg(cfg, highlight, {
         idPrefix: "fuzz-cfg",
         ariaLabel: "Fuzz testing CFG",
-        zoom: state42.cfgZoom
+        zoom: state43.cfgZoom
       });
-      const zoomPct = Math.round(state42.cfgZoom * 100);
+      const zoomPct = Math.round(state43.cfgZoom * 100);
       return `
       <div class="fuzz-cfg" data-testid="fuzz-cfg">
         <div class="fuzz-cfg-header">
@@ -19140,7 +19231,7 @@ INVARSPEC !(x & y)`
       }
       const items = result.testCases.slice(0, 50).map((tc) => {
         const statusClass = tc.crashed ? "crash" : "pass";
-        const isSelected = state42.selectedCaseId === tc.id;
+        const isSelected = state43.selectedCaseId === tc.id;
         const statusLabel = tc.crashed ? t("fuzz.crash") : t("fuzz.pass");
         const mutBadge = tc.mutated ? `<span class="fuzz-case-mut" title="${t("fuzz.mutated.title")}">${t("fuzz.mutated")}</span>` : "";
         return `
@@ -19168,24 +19259,24 @@ INVARSPEC !(x & y)`
       }).join("");
       return `<ol class="fuzz-cases" data-testid="fuzz-cases">${items}</ol>`;
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a2, _b2, _c, _d;
-      root42.querySelectorAll("[data-fuzz-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-fuzz-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.fuzzExample;
           const ex = fuzzTestingExamples.find((x) => x.id === id);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.sourceCode = ex.sourceCode;
-          state42.selectedCaseId = null;
+          state43.exampleId = ex.id;
+          state43.sourceCode = ex.sourceCode;
+          state43.selectedCaseId = null;
           fuzzQuiz.active = false;
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-fuzz-case]").forEach((el) => {
+      root43.querySelectorAll("[data-fuzz-case]").forEach((el) => {
         const selectCase = () => {
           const id = el.dataset.fuzzCase;
-          state42.selectedCaseId = state42.selectedCaseId === id ? null : id;
+          state43.selectedCaseId = state43.selectedCaseId === id ? null : id;
           renderLight();
         };
         el.addEventListener("click", selectCase);
@@ -19196,11 +19287,11 @@ INVARSPEC !(x & y)`
           }
         });
       });
-      const editor = root42.querySelector('[data-testid="fuzz-source"]');
+      const editor = root43.querySelector('[data-testid="fuzz-source"]');
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state42.sourceCode = editor.value;
+          state43.sourceCode = editor.value;
           if (timer) {
             globalThis.clearTimeout(timer);
           }
@@ -19209,88 +19300,88 @@ INVARSPEC !(x & y)`
           }, 220);
         });
       }
-      const countInput = root42.querySelector('[data-testid="fuzz-test-count-input"]');
+      const countInput = root43.querySelector('[data-testid="fuzz-test-count-input"]');
       if (countInput) {
         countInput.addEventListener("change", () => {
           const n = Number(countInput.value);
           if (Number.isFinite(n) && n >= 10 && n <= 500) {
-            state42.testCount = n;
-            render42();
+            state43.testCount = n;
+            render43();
           }
         });
       }
-      const runBtn = root42.querySelector('[data-testid="fuzz-run-btn"]');
+      const runBtn = root43.querySelector('[data-testid="fuzz-run-btn"]');
       if (runBtn) {
         runBtn.addEventListener("click", () => {
-          render42();
+          render43();
         });
       }
-      root42.querySelectorAll("[data-fuzz-zoom]").forEach((btn) => {
+      root43.querySelectorAll("[data-fuzz-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.fuzzZoom;
-          const zoom = state42.cfgZoom;
-          if (action === "in") state42.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
-          else if (action === "out") state42.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
-          else state42.cfgZoom = 1;
-          render42();
+          const zoom = state43.cfgZoom;
+          if (action === "in") state43.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
+          else if (action === "out") state43.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
+          else state43.cfgZoom = 1;
+          render43();
         });
       });
-      const fqStart = root42.querySelector('[data-testid="fuzz-quiz-start"]');
+      const fqStart = root43.querySelector('[data-testid="fuzz-quiz-start"]');
       if (fqStart) {
         fqStart.addEventListener("click", () => {
           fuzzQuiz.active = true;
           fuzzQuiz.phase = "question";
           fuzzQuiz.answer = "";
-          render42();
+          render43();
         });
       }
-      const fqClose = root42.querySelector('[data-testid="fuzz-quiz-close"]');
+      const fqClose = root43.querySelector('[data-testid="fuzz-quiz-close"]');
       if (fqClose) {
         fqClose.addEventListener("click", () => {
           fuzzQuiz.active = false;
-          render42();
+          render43();
         });
       }
-      const fqCheck = root42.querySelector('[data-testid="fuzz-quiz-check"]');
+      const fqCheck = root43.querySelector('[data-testid="fuzz-quiz-check"]');
       if (fqCheck) {
         fqCheck.addEventListener("click", () => {
-          const inp = root42.querySelector('[data-testid="fuzz-quiz-input"]');
+          const inp = root43.querySelector('[data-testid="fuzz-quiz-input"]');
           fuzzQuiz.answer = inp ? inp.value : "";
           fuzzQuiz.phase = "graded";
-          render42();
+          render43();
         });
       }
-      const fqReset = root42.querySelector('[data-testid="fuzz-quiz-reset"]');
+      const fqReset = root43.querySelector('[data-testid="fuzz-quiz-reset"]');
       if (fqReset) {
         fqReset.addEventListener("click", () => {
           fuzzQuiz.phase = "question";
           fuzzQuiz.answer = "";
-          render42();
+          render43();
         });
       }
-      (_a2 = root42.querySelector('[data-testid="fuzz-lab-reflect-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a2 = root43.querySelector('[data-testid="fuzz-lab-reflect-start"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         fuzzLabReflect.active = true;
-        render42();
+        render43();
       });
-      (_b2 = root42.querySelector('[data-testid="fuzz-lab-reflect-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+      (_b2 = root43.querySelector('[data-testid="fuzz-lab-reflect-close"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         var _a3, _b3;
-        fuzzLabReflect.a1 = ((_a3 = root42.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || fuzzLabReflect.a1;
-        fuzzLabReflect.a2 = ((_b3 = root42.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || fuzzLabReflect.a2;
+        fuzzLabReflect.a1 = ((_a3 = root43.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || fuzzLabReflect.a1;
+        fuzzLabReflect.a2 = ((_b3 = root43.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || fuzzLabReflect.a2;
         fuzzLabReflect.active = false;
-        render42();
+        render43();
       });
-      (_c = root42.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _c.addEventListener("input", (e) => {
+      (_c = root43.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _c.addEventListener("input", (e) => {
         fuzzLabReflect.a1 = e.target.value;
       });
-      (_d = root42.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _d.addEventListener("input", (e) => {
+      (_d = root43.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _d.addEventListener("input", (e) => {
         fuzzLabReflect.a2 = e.target.value;
       });
-      const fuzzLrShare = root42.querySelector('[data-testid="fuzz-lab-reflect-share"]');
+      const fuzzLrShare = root43.querySelector('[data-testid="fuzz-lab-reflect-share"]');
       if (fuzzLrShare) {
         fuzzLrShare.addEventListener("click", async () => {
           var _a3, _b3;
-          const a1 = ((_a3 = root42.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
-          const a2 = ((_b3 = root42.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
+          const a1 = ((_a3 = root43.querySelector('[data-testid="fuzz-lab-reflect-a1"]')) == null ? void 0 : _a3.value) || "";
+          const a2 = ((_b3 = root43.querySelector('[data-testid="fuzz-lab-reflect-a2"]')) == null ? void 0 : _b3.value) || "";
           const url = buildShareUrl(encodeResult({
             v: 1,
             explorer: "fuzz",
@@ -19326,11 +19417,11 @@ INVARSPEC !(x & y)`
       }
     }
     function renderPreservingFocus(testid) {
-      const previously = root42.querySelector(`[data-testid="${testid}"]`);
+      const previously = root43.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render42();
-      const next = root42.querySelector(`[data-testid="${testid}"]`);
+      render43();
+      const next = root43.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
         if (typeof start === "number" && typeof end === "number") {
@@ -19339,31 +19430,31 @@ INVARSPEC !(x & y)`
       }
     }
     function renderLight() {
-      const cfgPaneEl = root42.querySelector(".fuzz-cfg-pane");
+      const cfgPaneEl = root43.querySelector(".fuzz-cfg-pane");
       if (cfgPaneEl) {
         cfgPaneEl.innerHTML = renderCfgPane();
       }
-      root42.querySelectorAll("[data-fuzz-case]").forEach((el) => {
+      root43.querySelectorAll("[data-fuzz-case]").forEach((el) => {
         const id = el.dataset.fuzzCase;
-        if (id === state42.selectedCaseId) {
+        if (id === state43.selectedCaseId) {
           el.classList.add("selected");
         } else {
           el.classList.remove("selected");
         }
       });
-      root42.querySelectorAll("[data-fuzz-zoom]").forEach((btn) => {
+      root43.querySelectorAll("[data-fuzz-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.fuzzZoom;
-          const zoom = state42.cfgZoom;
-          if (action === "in") state42.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
-          else if (action === "out") state42.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
-          else state42.cfgZoom = 1;
+          const zoom = state43.cfgZoom;
+          if (action === "in") state43.cfgZoom = Math.min(4, +(zoom + 0.25).toFixed(2));
+          else if (action === "out") state43.cfgZoom = Math.max(0.25, +(zoom - 0.25).toFixed(2));
+          else state43.cfgZoom = 1;
           renderLight();
         });
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/testGeneration.js
@@ -19593,25 +19684,25 @@ INVARSPEC !(x & y)`
       return null;
     }
   }
-  function persist5(state42) {
+  function persist5(state43) {
     var _a2;
     try {
       (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY9, JSON.stringify({
-        exampleId: state42.exampleId,
-        sourceCode: state42.sourceCode,
-        criterion: state42.criterion,
-        cfgZoom: state42.cfgZoom
+        exampleId: state43.exampleId,
+        sourceCode: state43.sourceCode,
+        criterion: state43.criterion,
+        cfgZoom: state43.cfgZoom
       }));
     } catch {
     }
   }
   function createTestGenerationExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "testgen-explorer";
-    root42.dataset.testid = "testgen-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "testgen-explorer";
+    root43.dataset.testid = "testgen-explorer";
     const saved = loadSaved5();
     const defaultExample = symbolicExecutionExamples[0];
-    const state42 = {
+    const state43 = {
       exampleId: (saved == null ? void 0 : saved.exampleId) || defaultExample.id,
       sourceCode: (saved == null ? void 0 : saved.sourceCode) || defaultExample.sourceCode,
       criterion: (saved == null ? void 0 : saved.criterion) || DEFAULT_CRITERION,
@@ -19622,29 +19713,29 @@ INVARSPEC !(x & y)`
     };
     function recompute() {
       var _a2, _b2, _c, _d;
-      state42.result = generateTestsFromCoverage({
-        sourceCode: state42.sourceCode,
-        criterion: state42.criterion
+      state43.result = generateTestsFromCoverage({
+        sourceCode: state43.sourceCode,
+        criterion: state43.criterion
       });
-      if ((_b2 = (_a2 = state42.result) == null ? void 0 : _a2.requirements) == null ? void 0 : _b2.length) {
-        const exists = state42.result.requirements.some((r) => r.id === state42.selectedRequirementId);
-        if (!exists) state42.selectedRequirementId = state42.result.requirements[0].id;
+      if ((_b2 = (_a2 = state43.result) == null ? void 0 : _a2.requirements) == null ? void 0 : _b2.length) {
+        const exists = state43.result.requirements.some((r) => r.id === state43.selectedRequirementId);
+        if (!exists) state43.selectedRequirementId = state43.result.requirements[0].id;
       } else {
-        state42.selectedRequirementId = null;
+        state43.selectedRequirementId = null;
       }
-      if ((_d = (_c = state42.result) == null ? void 0 : _c.selectedTests) == null ? void 0 : _d.length) {
-        const exists = state42.result.selectedTests.some((t4) => t4.pathId === state42.selectedTestPathId);
-        if (!exists) state42.selectedTestPathId = state42.result.selectedTests[0].pathId;
+      if ((_d = (_c = state43.result) == null ? void 0 : _c.selectedTests) == null ? void 0 : _d.length) {
+        const exists = state43.result.selectedTests.some((t4) => t4.pathId === state43.selectedTestPathId);
+        if (!exists) state43.selectedTestPathId = state43.result.selectedTests[0].pathId;
       } else {
-        state42.selectedTestPathId = null;
+        state43.selectedTestPathId = null;
       }
-      persist5(state42);
+      persist5(state43);
     }
-    function render42() {
+    function render43() {
       recompute();
       const exampleButtons = symbolicExecutionExamples.map((ex) => `
       <button type="button"
-        class="testgen-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+        class="testgen-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-testgen-example="${ex.id}"
         data-testid="testgen-example-${ex.id}"
         title="${escapeHtml9(pickField(ex, "description") || "")}">
@@ -19652,11 +19743,11 @@ INVARSPEC !(x & y)`
       </button>
     `).join("");
       const criterionOptions = CRITERIA.map((c) => `
-      <option value="${c.id}"${state42.criterion === c.id ? " selected" : ""}>
+      <option value="${c.id}"${state43.criterion === c.id ? " selected" : ""}>
         ${escapeHtml9(t(c.labelKey))}
       </option>
     `).join("");
-      root42.innerHTML = `
+      root43.innerHTML = `
       <nav class="explorer-mobile-nav" aria-label="${t("explorer.mobileNav")}" data-testid="testgen-mobile-nav">
         <a href="#testgen-input-panel">${t("explorer.panel.input")}</a>
         <a href="#testgen-cfg-panel">${t("explorer.panel.cfg")}</a>
@@ -19683,7 +19774,7 @@ INVARSPEC !(x & y)`
             data-testid="testgen-source"
             spellcheck="false"
             autocomplete="off"
-            rows="14">${escapeHtml9(state42.sourceCode)}</textarea>
+            rows="14">${escapeHtml9(state43.sourceCode)}</textarea>
         </div>
       </section>
 
@@ -19715,10 +19806,10 @@ INVARSPEC !(x & y)`
 
       <p class="testgen-hint">${t("testgen.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
     function renderSummary3() {
-      const r = state42.result;
+      const r = state43.result;
       if (!r || r.error) return "";
       return `
       <p class="testgen-summary" data-testid="testgen-summary">
@@ -19732,19 +19823,19 @@ INVARSPEC !(x & y)`
     `;
     }
     function renderError() {
-      const r = state42.result;
+      const r = state43.result;
       if (!(r == null ? void 0 : r.error)) return "";
       return `<div class="testgen-error" data-testid="testgen-error">${escapeHtml9(r.error)}</div>`;
     }
     function renderRequirements() {
-      const r = state42.result;
+      const r = state43.result;
       if (!r || r.error) return "";
       if (!r.requirementCoverage.length) {
         return `<p class="testgen-empty">${t("testgen.empty")}</p>`;
       }
       const items = r.requirementCoverage.map((rc) => {
         const cls = rc.feasible ? "feasible" : "infeasible";
-        const active = state42.selectedRequirementId === rc.requirementId ? " selected" : "";
+        const active = state43.selectedRequirementId === rc.requirementId ? " selected" : "";
         const witness = rc.feasible && rc.representativeWitness ? formatConcreteCall(r.function.name, r.function.params, rc.representativeWitness) : `<span class="testgen-no-witness">${t("testgen.requirements.noWitness")}</span>`;
         return `
         <li class="testgen-req ${cls}${active}"
@@ -19765,7 +19856,7 @@ INVARSPEC !(x & y)`
     }
     function buildVitestFile() {
       var _a2, _b2;
-      const r = state42.result;
+      const r = state43.result;
       if (!r || r.error || !r.selectedTests.length) return null;
       const fn = ((_a2 = r.function) == null ? void 0 : _a2.name) || "fn";
       const params = ((_b2 = r.function) == null ? void 0 : _b2.params) || [];
@@ -19785,14 +19876,14 @@ INVARSPEC !(x & y)`
 import { ${fn} } from './${fn}.js';
 
 // Generated by stvisual TestGenerationExplorer
-// criterion: ${state42.criterion}
+// criterion: ${state43.criterion}
 describe('${fn} \u2013 generated tests', () => {
 ${cases}
 });
 `;
     }
     function renderSelectedTests() {
-      const r = state42.result;
+      const r = state43.result;
       if (!r || r.error) return "";
       if (!r.selectedTests.length) {
         return `<p class="testgen-empty">${t("testgen.tests.empty")}</p>`;
@@ -19802,7 +19893,7 @@ ${cases}
       const items = r.selectedTests.map((tc, i) => {
         const call = formatConcreteCall(r.function.name, r.function.params, tc.witness);
         const ret = formatExpectedReturn(tc.concreteReturn);
-        const active = state42.selectedTestPathId === tc.pathId ? " selected" : "";
+        const active = state43.selectedTestPathId === tc.pathId ? " selected" : "";
         const covers = tc.coveredRequirementIds.join(", ");
         return `
         <li class="testgen-test${active}"
@@ -19822,7 +19913,7 @@ ${cases}
       return `${downloadBtn}<ol class="testgen-test-list" data-testid="testgen-test-list">${items}</ol>`;
     }
     function renderCfgPane() {
-      const r = state42.result;
+      const r = state43.result;
       if (!r) return "";
       if (r.error && !r.cfg) {
         return `<div class="testgen-cfg" data-testid="testgen-cfg">
@@ -19832,13 +19923,13 @@ ${cases}
       if (!r.cfg) return "";
       let mapping = { nodes: [], edges: [] };
       let selectedLabel = t("testgen.cfg.none");
-      const selectedTest = r.selectedTests.find((tc) => tc.pathId === state42.selectedTestPathId);
+      const selectedTest = r.selectedTests.find((tc) => tc.pathId === state43.selectedTestPathId);
       if (selectedTest) {
         const wp = r.witnessedPaths.find((w) => w.id === selectedTest.pathId);
         if (wp) mapping = { nodes: wp.cfgNodes, edges: wp.cfgEdges };
         selectedLabel = `T${r.selectedTests.indexOf(selectedTest) + 1} (${selectedTest.pathId})`;
-      } else if (state42.selectedRequirementId) {
-        const req = r.requirements.find((q) => q.id === state42.selectedRequirementId);
+      } else if (state43.selectedRequirementId) {
+        const req = r.requirements.find((q) => q.id === state43.selectedRequirementId);
         if (req) {
           mapping = {
             nodes: req.nodes || (req.path ? [...new Set(req.path)] : []),
@@ -19850,9 +19941,9 @@ ${cases}
       const svg = renderCfgSvg(r.cfg, mapping, {
         idPrefix: "testgen-cfg",
         ariaLabel: "Test generation CFG",
-        zoom: state42.cfgZoom
+        zoom: state43.cfgZoom
       });
-      const zoomPct = Math.round(state42.cfgZoom * 100);
+      const zoomPct = Math.round(state43.cfgZoom * 100);
       return `
       <div class="testgen-cfg" data-testid="testgen-cfg">
         <div class="testgen-cfg-header">
@@ -19868,33 +19959,33 @@ ${cases}
       </div>
     `;
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-testgen-example]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-testgen-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.testgenExample;
           const ex = symbolicExecutionExamples.find((x) => x.id === id);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.sourceCode = ex.sourceCode;
-          state42.selectedRequirementId = null;
-          state42.selectedTestPathId = null;
-          render42();
+          state43.exampleId = ex.id;
+          state43.sourceCode = ex.sourceCode;
+          state43.selectedRequirementId = null;
+          state43.selectedTestPathId = null;
+          render43();
         });
       });
-      const criterionSelect = root42.querySelector('[data-testid="testgen-criterion"]');
+      const criterionSelect = root43.querySelector('[data-testid="testgen-criterion"]');
       if (criterionSelect) {
         criterionSelect.addEventListener("change", () => {
-          state42.criterion = criterionSelect.value;
-          state42.selectedRequirementId = null;
-          state42.selectedTestPathId = null;
-          render42();
+          state43.criterion = criterionSelect.value;
+          state43.selectedRequirementId = null;
+          state43.selectedTestPathId = null;
+          render43();
         });
       }
-      root42.querySelectorAll("[data-testgen-req]").forEach((el) => {
+      root43.querySelectorAll("[data-testgen-req]").forEach((el) => {
         const select = () => {
-          state42.selectedRequirementId = el.dataset.testgenReq;
-          state42.selectedTestPathId = null;
-          render42();
+          state43.selectedRequirementId = el.dataset.testgenReq;
+          state43.selectedTestPathId = null;
+          render43();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -19904,10 +19995,10 @@ ${cases}
           }
         });
       });
-      root42.querySelectorAll("[data-testgen-test]").forEach((el) => {
+      root43.querySelectorAll("[data-testgen-test]").forEach((el) => {
         const select = () => {
-          state42.selectedTestPathId = el.dataset.testgenTest;
-          render42();
+          state43.selectedTestPathId = el.dataset.testgenTest;
+          render43();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (event) => {
@@ -19917,24 +20008,24 @@ ${cases}
           }
         });
       });
-      const editor = root42.querySelector('[data-testid="testgen-source"]');
+      const editor = root43.querySelector('[data-testid="testgen-source"]');
       if (editor) {
         let timer = null;
         editor.addEventListener("input", () => {
-          state42.sourceCode = editor.value;
+          state43.sourceCode = editor.value;
           if (timer) clearTimeout(timer);
           timer = setTimeout(() => {
             renderPreservingFocus("testgen-source");
           }, 280);
         });
       }
-      const downloadBtn = root42.querySelector('[data-testid="testgen-download-btn"]');
+      const downloadBtn = root43.querySelector('[data-testid="testgen-download-btn"]');
       if (downloadBtn) {
         downloadBtn.addEventListener("click", () => {
           var _a2, _b2;
           const content = buildVitestFile();
           if (!content) return;
-          const fn = ((_b2 = (_a2 = state42.result) == null ? void 0 : _a2.function) == null ? void 0 : _b2.name) || "generated";
+          const fn = ((_b2 = (_a2 = state43.result) == null ? void 0 : _a2.function) == null ? void 0 : _b2.name) || "generated";
           const blob = new Blob([content], { type: "text/javascript" });
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
@@ -19946,22 +20037,22 @@ ${cases}
           URL.revokeObjectURL(url);
         });
       }
-      root42.querySelectorAll("[data-testgen-zoom]").forEach((btn) => {
+      root43.querySelectorAll("[data-testgen-zoom]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const action = btn.dataset.testgenZoom;
-          if (action === "in") state42.cfgZoom = Math.min(4, +(state42.cfgZoom + 0.25).toFixed(2));
-          else if (action === "out") state42.cfgZoom = Math.max(0.25, +(state42.cfgZoom - 0.25).toFixed(2));
-          else state42.cfgZoom = 1;
-          render42();
+          if (action === "in") state43.cfgZoom = Math.min(4, +(state43.cfgZoom + 0.25).toFixed(2));
+          else if (action === "out") state43.cfgZoom = Math.max(0.25, +(state43.cfgZoom - 0.25).toFixed(2));
+          else state43.cfgZoom = 1;
+          render43();
         });
       });
     }
     function renderPreservingFocus(testid) {
-      const previously = root42.querySelector(`[data-testid="${testid}"]`);
+      const previously = root43.querySelector(`[data-testid="${testid}"]`);
       const start = previously == null ? void 0 : previously.selectionStart;
       const end = previously == null ? void 0 : previously.selectionEnd;
-      render42();
-      const next = root42.querySelector(`[data-testid="${testid}"]`);
+      render43();
+      const next = root43.querySelector(`[data-testid="${testid}"]`);
       if (next) {
         next.focus();
         if (typeof start === "number" && typeof end === "number" && next.setSelectionRange) {
@@ -19969,8 +20060,8 @@ ${cases}
         }
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/blackboxTesting.js
@@ -20242,13 +20333,13 @@ ${cases}
       return null;
     }
   }
-  function persist6(state42) {
+  function persist6(state43) {
     var _a2;
     try {
       (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY10, JSON.stringify({
-        exampleId: state42.exampleId,
-        params: state42.params,
-        robust: state42.robust
+        exampleId: state43.exampleId,
+        params: state43.params,
+        robust: state43.robust
       }));
     } catch {
     }
@@ -20260,24 +20351,24 @@ ${cases}
   }
   function createBoundaryValueExplorer() {
     var _a2, _b2, _c;
-    const root42 = document.createElement("div");
-    root42.className = "bva-explorer";
-    root42.dataset.testid = "bva-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "bva-explorer";
+    root43.dataset.testid = "bva-explorer";
     const saved = loadSaved6();
     const defaultEx = EXAMPLES[0];
-    const state42 = {
+    const state43 = {
       exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
       params: (_b2 = saved == null ? void 0 : saved.params) != null ? _b2 : defaultEx.params.map((p) => ({ ...p })),
       robust: (_c = saved == null ? void 0 : saved.robust) != null ? _c : false
     };
     const quiz = { active: false, paramIdx: 0, answers: ["", "", "", "", ""], phase: "question", result: null };
     function getTests() {
-      const valid = state42.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
+      const valid = state43.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
       if (!valid.length) return [];
-      return state42.robust ? generateRobustBvaTests(valid) : generateBvaTests(valid);
+      return state43.robust ? generateRobustBvaTests(valid) : generateBvaTests(valid);
     }
     function validParams() {
-      return state42.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
+      return state43.params.filter((p) => p.name && isFinite(p.min) && isFinite(p.max) && p.min < p.max);
     }
     function pickQuizParam() {
       const vp = validParams();
@@ -20296,7 +20387,7 @@ ${cases}
       const correct = expected.map((e, i) => userNums[i] === e);
       quiz.result = { expected, correct, score: correct.filter(Boolean).length };
       quiz.phase = "graded";
-      render42();
+      render43();
     }
     function renderQuizPanel() {
       var _a3;
@@ -20343,7 +20434,7 @@ ${cases}
     </div>`;
     }
     function renderParamRows() {
-      return state42.params.map((p, i) => `
+      return state43.params.map((p, i) => `
       <tr>
         <td><input class="bva-param-name" data-idx="${i}" value="${escapeHtml10(p.name)}"
             placeholder="param" aria-label="${t("bva.param.name")}" data-testid="bva-param-name-${i}"/></td>
@@ -20352,7 +20443,7 @@ ${cases}
         <td><input class="bva-param-num" type="number" data-idx="${i}" data-field="max"
             value="${p.max}" aria-label="${t("bva.param.max")}" data-testid="bva-param-max-${i}"/></td>
         <td><button class="bva-del-btn" data-del="${i}" aria-label="${t("common.remove")}"
-            data-testid="bva-del-${i}" ${state42.params.length <= 1 ? "disabled" : ""}>\xD7</button></td>
+            data-testid="bva-del-${i}" ${state43.params.length <= 1 ? "disabled" : ""}>\xD7</button></td>
       </tr>
     `).join("");
     }
@@ -20360,7 +20451,7 @@ ${cases}
       if (!tests.length) {
         return `<p class="bva-empty" data-testid="bva-empty">${t("bva.empty")}</p>`;
       }
-      const paramNames = state42.params.filter((p) => p.name).map((p) => p.name);
+      const paramNames = state43.params.filter((p) => p.name).map((p) => p.name);
       const headerCols = paramNames.map((n) => `<th>${escapeHtml10(n)}</th>`).join("");
       const rows = tests.map((tc) => {
         const valCells = paramNames.map((n) => {
@@ -20381,19 +20472,19 @@ ${cases}
       </table>
     `;
     }
-    function render42() {
+    function render43() {
       const exBtns = EXAMPLES.map((ex) => `
-      <button type="button" class="bva-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="bva-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-bva-example="${ex.id}" data-testid="bva-example-${ex.id}">${escapeHtml10(ex.name)}</button>
     `).join("");
       const tests = getTests();
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="bva-panel">
         <div class="bva-toolbar">
           <div class="bva-examples" data-testid="bva-examples">${exBtns}</div>
           <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
             <label class="bva-robust-label">
-              <input type="checkbox" data-testid="bva-robust-toggle" ${state42.robust ? "checked" : ""}/>
+              <input type="checkbox" data-testid="bva-robust-toggle" ${state43.robust ? "checked" : ""}/>
               ${t("bva.robust")}
             </label>
             <button type="button" class="quiz-start-btn" data-testid="bva-quiz-start">${t("quiz.start")}</button>
@@ -20413,7 +20504,7 @@ ${cases}
               <tbody>${renderParamRows()}</tbody>
             </table>
             <button type="button" class="bva-add-btn" data-testid="bva-add-param"
-              ${state42.params.length >= PARAM_LIMIT ? "disabled" : ""}>
+              ${state43.params.length >= PARAM_LIMIT ? "disabled" : ""}>
               + ${t("bva.param.add")}
             </button>
             <p class="bva-hint">${t("bva.hint")}</p>
@@ -20430,89 +20521,89 @@ ${cases}
         ${renderQuizPanel()}
       </div>
     `;
-      bindEvents41();
-      persist6(state42);
+      bindEvents42();
+      persist6(state43);
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a3, _b3, _c2, _d, _e, _f;
-      root42.querySelectorAll("[data-bva-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-bva-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES.find((e) => e.id === btn.dataset.bvaExample);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.params = ex.params.map((p) => ({ ...p }));
-          render42();
+          state43.exampleId = ex.id;
+          state43.params = ex.params.map((p) => ({ ...p }));
+          render43();
         });
       });
-      (_a3 = root42.querySelector('[data-testid="bva-robust-toggle"]')) == null ? void 0 : _a3.addEventListener("change", (e) => {
-        state42.robust = e.target.checked;
-        render42();
+      (_a3 = root43.querySelector('[data-testid="bva-robust-toggle"]')) == null ? void 0 : _a3.addEventListener("change", (e) => {
+        state43.robust = e.target.checked;
+        render43();
       });
-      root42.querySelectorAll(".bva-param-name").forEach((input) => {
+      root43.querySelectorAll(".bva-param-name").forEach((input) => {
         input.addEventListener("input", (e) => {
           const idx = Number(e.target.dataset.idx);
-          state42.params[idx].name = e.target.value;
+          state43.params[idx].name = e.target.value;
           const tests = getTests();
-          const resultsPane = root42.querySelector('[data-testid="bva-results"]');
+          const resultsPane = root43.querySelector('[data-testid="bva-results"]');
           if (resultsPane) {
             resultsPane.innerHTML = `<h3>${t("bva.results.title")}
             <span class="bva-count">${tests.length} ${t("bva.results.count")}</span>
           </h3>${renderTestTable(tests)}`;
           }
-          persist6(state42);
+          persist6(state43);
         });
       });
-      root42.querySelectorAll(".bva-param-num").forEach((input) => {
+      root43.querySelectorAll(".bva-param-num").forEach((input) => {
         input.addEventListener("change", (e) => {
           const idx = Number(e.target.dataset.idx);
           const field = e.target.dataset.field;
-          state42.params[idx][field] = Number(e.target.value);
+          state43.params[idx][field] = Number(e.target.value);
           const tests = getTests();
-          const resultsPane = root42.querySelector('[data-testid="bva-results"]');
+          const resultsPane = root43.querySelector('[data-testid="bva-results"]');
           if (resultsPane) {
             resultsPane.innerHTML = `<h3>${t("bva.results.title")}
             <span class="bva-count">${tests.length} ${t("bva.results.count")}</span>
           </h3>${renderTestTable(tests)}`;
           }
-          persist6(state42);
+          persist6(state43);
         });
       });
-      root42.querySelectorAll("[data-del]").forEach((btn) => {
+      root43.querySelectorAll("[data-del]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.del);
-          state42.params.splice(idx, 1);
-          render42();
+          state43.params.splice(idx, 1);
+          render43();
         });
       });
-      (_b3 = root42.querySelector('[data-testid="bva-add-param"]')) == null ? void 0 : _b3.addEventListener("click", () => {
-        if (state42.params.length >= PARAM_LIMIT) return;
-        state42.params.push({ name: `p${state42.params.length + 1}`, min: 0, max: 100 });
-        render42();
+      (_b3 = root43.querySelector('[data-testid="bva-add-param"]')) == null ? void 0 : _b3.addEventListener("click", () => {
+        if (state43.params.length >= PARAM_LIMIT) return;
+        state43.params.push({ name: `p${state43.params.length + 1}`, min: 0, max: 100 });
+        render43();
       });
-      (_c2 = root42.querySelector('[data-testid="bva-quiz-start"]')) == null ? void 0 : _c2.addEventListener("click", () => {
+      (_c2 = root43.querySelector('[data-testid="bva-quiz-start"]')) == null ? void 0 : _c2.addEventListener("click", () => {
         quiz.active = true;
         pickQuizParam();
-        render42();
+        render43();
       });
-      (_d = root42.querySelector('[data-testid="bva-quiz-close"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      (_d = root43.querySelector('[data-testid="bva-quiz-close"]')) == null ? void 0 : _d.addEventListener("click", () => {
         quiz.active = false;
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-qi]").forEach((input) => {
+      root43.querySelectorAll("[data-qi]").forEach((input) => {
         input.addEventListener("input", (e) => {
           quiz.answers[Number(e.target.dataset.qi)] = e.target.value;
         });
       });
-      (_e = root42.querySelector('[data-testid="bva-quiz-check"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      (_e = root43.querySelector('[data-testid="bva-quiz-check"]')) == null ? void 0 : _e.addEventListener("click", () => {
         gradeQuiz();
       });
-      (_f = root42.querySelector('[data-testid="bva-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      (_f = root43.querySelector('[data-testid="bva-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
         pickQuizParam();
-        render42();
+        render43();
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/EquivalenceClassExplorer.js
@@ -20606,25 +20697,25 @@ ${cases}
       return null;
     }
   }
-  function persist7(state42) {
+  function persist7(state43) {
     var _a2;
     try {
       (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY11, JSON.stringify({
-        exampleId: state42.exampleId,
-        params: state42.params,
-        mode: state42.mode
+        exampleId: state43.exampleId,
+        params: state43.params,
+        mode: state43.mode
       }));
     } catch {
     }
   }
   function createEquivalenceClassExplorer() {
     var _a2, _b2, _c;
-    const root42 = document.createElement("div");
-    root42.className = "ec-explorer";
-    root42.dataset.testid = "ec-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "ec-explorer";
+    root43.dataset.testid = "ec-explorer";
     const saved = loadSaved7();
     const defaultEx = EXAMPLES2[0];
-    const state42 = {
+    const state43 = {
       exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
       params: (_b2 = saved == null ? void 0 : saved.params) != null ? _b2 : defaultEx.params.map((p) => ({ ...p, classes: p.classes.map((c) => ({ ...c })) })),
       mode: (_c = saved == null ? void 0 : saved.mode) != null ? _c : "wect"
@@ -20632,12 +20723,12 @@ ${cases}
     };
     const quiz = { active: false, wectAnswer: "", sectAnswer: "", phase: "question", result: null };
     function getTests() {
-      const valid = state42.params.filter((p) => p.name && p.classes.length);
+      const valid = state43.params.filter((p) => p.name && p.classes.length);
       if (!valid.length) return [];
-      return state42.mode === "sect" ? generateSectTests(valid) : generateWectTests(valid);
+      return state43.mode === "sect" ? generateSectTests(valid) : generateWectTests(valid);
     }
     function gradeEcQuiz() {
-      const valid = state42.params.filter((p) => p.name && p.classes.length);
+      const valid = state43.params.filter((p) => p.name && p.classes.length);
       const wectCount = generateWectTests(valid).length;
       const sectCount = generateSectTests(valid).length;
       const wectUser = Number(quiz.wectAnswer);
@@ -20649,7 +20740,7 @@ ${cases}
         sectCorrect: sectUser === sectCount
       };
       quiz.phase = "graded";
-      render42();
+      render43();
     }
     function renderQuizPanel() {
       if (!quiz.active) return "";
@@ -20719,13 +20810,13 @@ ${cases}
     `;
     }
     function renderParams() {
-      return state42.params.map((p, i) => `
+      return state43.params.map((p, i) => `
       <div class="ec-param-block" data-testid="ec-param-${i}">
         <div class="ec-param-header">
           <input class="ec-param-name-input" data-pidx="${i}" value="${escapeHtml11(p.name)}"
               placeholder="${t("ec.param.name")}" data-testid="ec-param-name-${i}"/>
           <button class="ec-del-param-btn" data-del-param="${i}" aria-label="${t("common.remove")}"
-              data-testid="ec-del-param-${i}" ${state42.params.length <= 1 ? "disabled" : ""}>\xD7</button>
+              data-testid="ec-del-param-${i}" ${state43.params.length <= 1 ? "disabled" : ""}>\xD7</button>
         </div>
         ${renderClassTable(i, p.classes)}
       </div>
@@ -20735,7 +20826,7 @@ ${cases}
       if (!tests.length) {
         return `<p class="ec-empty" data-testid="ec-empty">${t("ec.empty")}</p>`;
       }
-      const paramNames = state42.params.map((p) => p.name);
+      const paramNames = state43.params.map((p) => p.name);
       const headerCols = paramNames.map((n) => `<th>${escapeHtml11(n)}</th>`).join("");
       const rows = tests.map((tc) => {
         const valCells = paramNames.map((n) => {
@@ -20759,21 +20850,21 @@ ${cases}
       </table>
     `;
     }
-    function render42() {
+    function render43() {
       const tests = getTests();
       const exBtns = EXAMPLES2.map((ex) => `
-      <button type="button" class="ec-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="ec-example-btn${state43.exampleId === ex.id ? " active" : ""}"
           data-ec-example="${ex.id}" data-testid="ec-example-${ex.id}">${escapeHtml11(ex.name)}</button>
     `).join("");
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="ec-panel">
         <div class="ec-toolbar">
           <div class="ec-examples" data-testid="ec-examples">${exBtns}</div>
           <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
             <div class="ec-mode-toggle" role="group">
-              <button type="button" class="ec-mode-btn${state42.mode === "wect" ? " active" : ""}"
+              <button type="button" class="ec-mode-btn${state43.mode === "wect" ? " active" : ""}"
                   data-mode="wect" data-testid="ec-mode-wect">WECT</button>
-              <button type="button" class="ec-mode-btn${state42.mode === "sect" ? " active" : ""}"
+              <button type="button" class="ec-mode-btn${state43.mode === "sect" ? " active" : ""}"
                   data-mode="sect" data-testid="ec-mode-sect">SECT</button>
             </div>
             <button type="button" class="quiz-start-btn" data-testid="ec-quiz-start">${t("quiz.start")}</button>
@@ -20785,7 +20876,7 @@ ${cases}
             <h3>${t("ec.params.title")}</h3>
             <div class="ec-params-list">${renderParams()}</div>
             <button class="ec-add-param-btn" data-testid="ec-add-param"
-                ${state42.params.length >= 5 ? "disabled" : ""}>
+                ${state43.params.length >= 5 ? "disabled" : ""}>
               + ${t("ec.param.add")}
             </button>
             <p class="ec-hint">${t("ec.hint")}</p>
@@ -20802,132 +20893,132 @@ ${cases}
         ${renderQuizPanel()}
       </div>
     `;
-      bindEvents41();
-      persist7(state42);
+      bindEvents42();
+      persist7(state43);
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a3, _b3, _c2, _d, _e, _f, _g;
-      root42.querySelectorAll("[data-ec-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-ec-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES2.find((e) => e.id === btn.dataset.ecExample);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.params = ex.params.map((p) => ({
+          state43.exampleId = ex.id;
+          state43.params = ex.params.map((p) => ({
             ...p,
             classes: p.classes.map((c) => ({ ...c }))
           }));
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-mode]").forEach((btn) => {
+      root43.querySelectorAll("[data-mode]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.mode = btn.dataset.mode;
-          render42();
+          state43.mode = btn.dataset.mode;
+          render43();
         });
       });
-      root42.querySelectorAll(".ec-param-name-input").forEach((input) => {
+      root43.querySelectorAll(".ec-param-name-input").forEach((input) => {
         input.addEventListener("input", (e) => {
-          state42.params[Number(e.target.dataset.pidx)].name = e.target.value;
+          state43.params[Number(e.target.dataset.pidx)].name = e.target.value;
           refreshResults();
-          persist7(state42);
+          persist7(state43);
         });
       });
-      root42.querySelectorAll(".ec-class-name").forEach((input) => {
+      root43.querySelectorAll(".ec-class-name").forEach((input) => {
         input.addEventListener("input", (e) => {
           const pi = Number(e.target.dataset.pidx), ci = Number(e.target.dataset.cidx);
-          state42.params[pi].classes[ci].name = e.target.value;
+          state43.params[pi].classes[ci].name = e.target.value;
           refreshResults();
-          persist7(state42);
+          persist7(state43);
         });
       });
-      root42.querySelectorAll(".ec-class-rep").forEach((input) => {
+      root43.querySelectorAll(".ec-class-rep").forEach((input) => {
         input.addEventListener("change", (e) => {
           const pi = Number(e.target.dataset.pidx), ci = Number(e.target.dataset.cidx);
           const v = e.target.value;
-          state42.params[pi].classes[ci].representative = isNaN(Number(v)) ? v : Number(v);
+          state43.params[pi].classes[ci].representative = isNaN(Number(v)) ? v : Number(v);
           refreshResults();
-          persist7(state42);
+          persist7(state43);
         });
       });
-      root42.querySelectorAll(".ec-class-kind").forEach((sel) => {
+      root43.querySelectorAll(".ec-class-kind").forEach((sel) => {
         sel.addEventListener("change", (e) => {
           const pi = Number(e.target.dataset.pidx), ci = Number(e.target.dataset.cidx);
-          state42.params[pi].classes[ci].kind = e.target.value;
+          state43.params[pi].classes[ci].kind = e.target.value;
           refreshResults();
-          persist7(state42);
+          persist7(state43);
         });
       });
-      root42.querySelectorAll("[data-del-class]").forEach((btn) => {
+      root43.querySelectorAll("[data-del-class]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const pi = Number(btn.dataset.pidx), ci = Number(btn.dataset.cidx);
-          state42.params[pi].classes.splice(ci, 1);
-          render42();
+          state43.params[pi].classes.splice(ci, 1);
+          render43();
         });
       });
-      root42.querySelectorAll("[data-add-class]").forEach((btn) => {
+      root43.querySelectorAll("[data-add-class]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const pi = Number(btn.dataset.pidx);
-          state42.params[pi].classes.push({ name: "new class", kind: "valid", representative: 0 });
-          render42();
+          state43.params[pi].classes.push({ name: "new class", kind: "valid", representative: 0 });
+          render43();
         });
       });
-      root42.querySelectorAll("[data-del-param]").forEach((btn) => {
+      root43.querySelectorAll("[data-del-param]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.params.splice(Number(btn.dataset.delParam), 1);
-          render42();
+          state43.params.splice(Number(btn.dataset.delParam), 1);
+          render43();
         });
       });
-      (_a3 = root42.querySelector('[data-testid="ec-add-param"]')) == null ? void 0 : _a3.addEventListener("click", () => {
-        if (state42.params.length >= 5) return;
-        state42.params.push({
-          name: `param${state42.params.length + 1}`,
+      (_a3 = root43.querySelector('[data-testid="ec-add-param"]')) == null ? void 0 : _a3.addEventListener("click", () => {
+        if (state43.params.length >= 5) return;
+        state43.params.push({
+          name: `param${state43.params.length + 1}`,
           classes: [
             { name: "valid", kind: "valid", representative: 1 },
             { name: "invalid", kind: "invalid", representative: -1 }
           ]
         });
-        render42();
+        render43();
       });
-      (_b3 = root42.querySelector('[data-testid="ec-quiz-start"]')) == null ? void 0 : _b3.addEventListener("click", () => {
+      (_b3 = root43.querySelector('[data-testid="ec-quiz-start"]')) == null ? void 0 : _b3.addEventListener("click", () => {
         quiz.active = true;
         quiz.wectAnswer = "";
         quiz.sectAnswer = "";
         quiz.phase = "question";
         quiz.result = null;
-        render42();
+        render43();
       });
-      (_c2 = root42.querySelector('[data-testid="ec-quiz-close"]')) == null ? void 0 : _c2.addEventListener("click", () => {
+      (_c2 = root43.querySelector('[data-testid="ec-quiz-close"]')) == null ? void 0 : _c2.addEventListener("click", () => {
         quiz.active = false;
-        render42();
+        render43();
       });
-      (_d = root42.querySelector('[data-testid="ec-quiz-wect"]')) == null ? void 0 : _d.addEventListener("input", (e) => {
+      (_d = root43.querySelector('[data-testid="ec-quiz-wect"]')) == null ? void 0 : _d.addEventListener("input", (e) => {
         quiz.wectAnswer = e.target.value;
       });
-      (_e = root42.querySelector('[data-testid="ec-quiz-sect"]')) == null ? void 0 : _e.addEventListener("input", (e) => {
+      (_e = root43.querySelector('[data-testid="ec-quiz-sect"]')) == null ? void 0 : _e.addEventListener("input", (e) => {
         quiz.sectAnswer = e.target.value;
       });
-      (_f = root42.querySelector('[data-testid="ec-quiz-check"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      (_f = root43.querySelector('[data-testid="ec-quiz-check"]')) == null ? void 0 : _f.addEventListener("click", () => {
         gradeEcQuiz();
       });
-      (_g = root42.querySelector('[data-testid="ec-quiz-reset"]')) == null ? void 0 : _g.addEventListener("click", () => {
+      (_g = root43.querySelector('[data-testid="ec-quiz-reset"]')) == null ? void 0 : _g.addEventListener("click", () => {
         quiz.wectAnswer = "";
         quiz.sectAnswer = "";
         quiz.phase = "question";
         quiz.result = null;
-        render42();
+        render43();
       });
     }
     function refreshResults() {
       const tests = getTests();
-      const pane = root42.querySelector('[data-testid="ec-results"]');
+      const pane = root43.querySelector('[data-testid="ec-results"]');
       if (pane) {
         pane.innerHTML = `<h3>${t("ec.results.title")}
         <span class="ec-count">${tests.length} ${t("ec.results.count")}</span>
       </h3>${renderResultTable(tests)}`;
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/data/ispExamples.js
@@ -21236,9 +21327,9 @@ ${cases}
     });
   }
   function createInputSpacePartitioningExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "isp-explorer";
-    root42.dataset.testid = "isp-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "isp-explorer";
+    root43.dataset.testid = "isp-explorer";
     let exampleId = ISP_EXAMPLES[0].id;
     let idm = idmFromExample(ISP_EXAMPLES[0]);
     let criterion = "acoc";
@@ -21413,8 +21504,8 @@ ${cases}
       <button type="button" data-testid="isp-quiz-submit" ${!quiz.answer ? "disabled" : ""}>${esc2(t("quiz.submit"))}</button>
     </div>`;
     }
-    function render42() {
-      root42.innerHTML = `
+    function render43() {
+      root43.innerHTML = `
       <div class="isp-wrap">
         ${renderExampleChips5()}
         ${renderIdm()}
@@ -21429,55 +21520,55 @@ ${cases}
           ${renderQuiz40()}
         </section>
       </div>`;
-      bindEvents41();
+      bindEvents42();
     }
     function findChar(cid) {
       return idm.find((c) => c.id === cid);
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a2, _b2, _c, _d, _e;
-      root42.querySelectorAll("[data-isp-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-isp-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = ISP_EXAMPLES.find((e) => e.id === btn.dataset.ispExample);
           if (!ex || ex.id === exampleId) return;
           exampleId = ex.id;
           idm = idmFromExample(ex);
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-isp-criterion]").forEach((btn) => {
+      root43.querySelectorAll("[data-isp-criterion]").forEach((btn) => {
         btn.addEventListener("click", () => {
           criterion = btn.dataset.ispCriterion;
-          render42();
+          render43();
         });
       });
-      (_a2 = root42.querySelector("[data-isp-twise-t]")) == null ? void 0 : _a2.addEventListener("change", (e) => {
+      (_a2 = root43.querySelector("[data-isp-twise-t]")) == null ? void 0 : _a2.addEventListener("change", (e) => {
         const v = parseInt(e.target.value, 10);
         twiseTVal = Number.isFinite(v) ? Math.max(2, Math.min(v, idm.length)) : 2;
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-isp-char-name]").forEach((inp) => {
+      root43.querySelectorAll("[data-isp-char-name]").forEach((inp) => {
         inp.addEventListener("change", () => {
           const c = findChar(inp.dataset.ispCharName);
           if (c) {
             c.name = inp.value;
-            render42();
+            render43();
           }
         });
       });
-      (_b2 = root42.querySelector("[data-isp-add-char]")) == null ? void 0 : _b2.addEventListener("click", () => {
+      (_b2 = root43.querySelector("[data-isp-add-char]")) == null ? void 0 : _b2.addEventListener("click", () => {
         const b1 = { id: uid(), label: "block 1" };
         const b2 = { id: uid(), label: "block 2" };
         idm.push({ id: uid(), name: "new characteristic", blocks: [b1, b2], baseBlockIds: [b1.id] });
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-isp-char-remove]").forEach((btn) => {
+      root43.querySelectorAll("[data-isp-char-remove]").forEach((btn) => {
         btn.addEventListener("click", () => {
           idm = idm.filter((c) => c.id !== btn.dataset.ispCharRemove);
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-isp-add-block]").forEach((inp) => {
+      root43.querySelectorAll("[data-isp-add-block]").forEach((inp) => {
         inp.addEventListener("change", () => {
           const cid = inp.dataset.ispAddBlock;
           const label = inp.value.trim();
@@ -21488,10 +21579,10 @@ ${cases}
           } else {
             blockDraft[cid] = inp.value;
           }
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-isp-block-remove]").forEach((btn) => {
+      root43.querySelectorAll("[data-isp-block-remove]").forEach((btn) => {
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const [cid, bid] = btn.dataset.ispBlockRemove.split(":");
@@ -21500,10 +21591,10 @@ ${cases}
           c.blocks = c.blocks.filter((b) => b.id !== bid);
           c.baseBlockIds = c.baseBlockIds.filter((id) => id !== bid);
           if (c.baseBlockIds.length === 0) c.baseBlockIds = [c.blocks[0].id];
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll(".isp-block--base-interactive").forEach((span) => {
+      root43.querySelectorAll(".isp-block--base-interactive").forEach((span) => {
         span.addEventListener("click", () => {
           const [cid, bid] = span.dataset.ispBlock.split(":");
           const c = findChar(cid);
@@ -21514,35 +21605,35 @@ ${cases}
             c.baseBlockIds = c.baseBlockIds.includes(bid) ? c.baseBlockIds.filter((id) => id !== bid) : [...c.baseBlockIds, bid];
             if (c.baseBlockIds.length === 0) c.baseBlockIds = [bid];
           }
-          render42();
+          render43();
         });
       });
-      (_c = root42.querySelector('[data-testid="isp-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      (_c = root43.querySelector('[data-testid="isp-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
         quiz.active = true;
         quiz.phase = "question";
         quiz.answer = "";
-        render42();
+        render43();
       });
-      root42.querySelectorAll('input[name="isp-quiz"]').forEach((inp) => {
+      root43.querySelectorAll('input[name="isp-quiz"]').forEach((inp) => {
         inp.addEventListener("change", () => {
           quiz.answer = inp.value;
-          render42();
+          render43();
         });
       });
-      (_d = root42.querySelector('[data-testid="isp-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      (_d = root43.querySelector('[data-testid="isp-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
         quiz.phase = "done";
-        render42();
+        render43();
       });
-      (_e = root42.querySelector('[data-testid="isp-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      (_e = root43.querySelector('[data-testid="isp-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
         quiz.active = false;
         quiz.phase = "idle";
         quiz.answer = "";
-        render42();
+        render43();
       });
     }
-    onLocaleChange(() => render42());
-    render42();
-    return root42;
+    onLocaleChange(() => render43());
+    render43();
+    return root43;
   }
 
   // src/components/DecisionTableExplorer.js
@@ -21631,21 +21722,21 @@ ${cases}
       return null;
     }
   }
-  function persist8(state42) {
+  function persist8(state43) {
     var _a2;
     try {
-      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY12, JSON.stringify({ exampleId: state42.exampleId, conditions: state42.conditions, actions: state42.actions, rules: state42.rules }));
+      (_a2 = globalThis.localStorage) == null ? void 0 : _a2.setItem(STORAGE_KEY12, JSON.stringify({ exampleId: state43.exampleId, conditions: state43.conditions, actions: state43.actions, rules: state43.rules }));
     } catch {
     }
   }
   function createDecisionTableExplorer() {
     var _a2;
-    const root42 = document.createElement("div");
-    root42.className = "dt-explorer";
-    root42.dataset.testid = "dt-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "dt-explorer";
+    root43.dataset.testid = "dt-explorer";
     const saved = loadSaved8();
     const defaultEx = EXAMPLES3[0];
-    const state42 = {
+    const state43 = {
       exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
       conditions: (saved == null ? void 0 : saved.conditions) ? deepClone(saved.conditions) : deepClone(defaultEx.conditions),
       actions: (saved == null ? void 0 : saved.actions) ? deepClone(saved.actions) : deepClone(defaultEx.actions),
@@ -21657,7 +21748,7 @@ ${cases}
     const dtQuiz = { active: false, phase: "question", ansCovered: "", ansDup: "", result: null };
     function renderDtQuizPanel() {
       if (!dtQuiz.active) return "";
-      const validation = validateDecisionTable(state42.conditions, state42.rules);
+      const validation = validateDecisionTable(state43.conditions, state43.rules);
       const isGraded = dtQuiz.phase === "graded";
       const covCorrect = isGraded && parseInt(dtQuiz.ansCovered, 10) === validation.covered;
       const dupCorrect = isGraded && parseInt(dtQuiz.ansDup, 10) === validation.duplicate.length;
@@ -21696,19 +21787,19 @@ ${cases}
     `;
     }
     function renderTable() {
-      const tests = generateDecisionTableTests(state42.conditions, state42.actions, state42.rules);
-      const validation = validateDecisionTable(state42.conditions, state42.rules);
-      const condHead = state42.conditions.map((c) => `<th class="dt-cond-head">${esc3(c.name)}</th>`).join("");
-      const actHead = state42.actions.map((a) => `<th class="dt-act-head">${esc3(a.name)}</th>`).join("");
+      const tests = generateDecisionTableTests(state43.conditions, state43.actions, state43.rules);
+      const validation = validateDecisionTable(state43.conditions, state43.rules);
+      const condHead = state43.conditions.map((c) => `<th class="dt-cond-head">${esc3(c.name)}</th>`).join("");
+      const actHead = state43.actions.map((a) => `<th class="dt-act-head">${esc3(a.name)}</th>`).join("");
       const rows = tests.map((tc, i) => {
-        const rule = state42.rules[i];
-        const condCells = state42.conditions.map((c) => {
+        const rule = state43.rules[i];
+        const condCells = state43.conditions.map((c) => {
           var _a3;
           const val = (_a3 = tc.conditions[c.id]) != null ? _a3 : "\u2013";
           const cls = val === "T" || val === "Y" ? " dt-val-true" : val === "F" || val === "N" ? " dt-val-false" : " dt-val-dc";
           return `<td class="dt-cell${cls}">${esc3(val)}</td>`;
         }).join("");
-        const actCells = state42.actions.map((a) => {
+        const actCells = state43.actions.map((a) => {
           const fires = tc.actions.includes(a.id);
           return `<td class="dt-cell${fires ? " dt-act-fire" : ""}">${fires ? "\u2713" : ""}</td>`;
         }).join("");
@@ -21719,7 +21810,7 @@ ${cases}
         ${actCells}
         <td>
           <button class="dt-del-rule-btn" data-del-rule="${i}" aria-label="${t("common.remove")}"
-            ${state42.rules.length <= 1 ? "disabled" : ""}>\xD7</button>
+            ${state43.rules.length <= 1 ? "disabled" : ""}>\xD7</button>
         </td>
       </tr>`;
       }).join("");
@@ -21746,31 +21837,31 @@ ${cases}
     </div>`;
     }
     function renderConditions() {
-      return state42.conditions.map((c, i) => `
+      return state43.conditions.map((c, i) => `
       <div class="dt-cond-block" data-testid="dt-cond-${i}">
         <input class="dt-cond-name" data-cidx="${i}" value="${esc3(c.name)}"
           placeholder="${t("dt.condition.name")}" data-testid="dt-cond-name-${i}"/>
         <button class="dt-del-cond-btn" data-del-cond="${i}" aria-label="${t("common.remove")}"
-          ${state42.conditions.length <= 1 ? "disabled" : ""} data-testid="dt-del-cond-${i}">\xD7</button>
+          ${state43.conditions.length <= 1 ? "disabled" : ""} data-testid="dt-del-cond-${i}">\xD7</button>
       </div>
     `).join("");
     }
     function renderActions() {
-      return state42.actions.map((a, i) => `
+      return state43.actions.map((a, i) => `
       <div class="dt-act-block" data-testid="dt-action-${i}">
         <input class="dt-act-name" data-aidx="${i}" value="${esc3(a.name)}"
           placeholder="${t("dt.action.name")}" data-testid="dt-act-name-${i}"/>
         <button class="dt-del-act-btn" data-del-act="${i}" aria-label="${t("common.remove")}"
-          ${state42.actions.length <= 1 ? "disabled" : ""} data-testid="dt-del-act-${i}">\xD7</button>
+          ${state43.actions.length <= 1 ? "disabled" : ""} data-testid="dt-del-act-${i}">\xD7</button>
       </div>
     `).join("");
     }
-    function render42() {
+    function render43() {
       const exBtns = EXAMPLES3.map((ex) => `
-      <button type="button" class="dt-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="dt-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-dt-example="${ex.id}" data-testid="dt-example-${ex.id}">${esc3(ex.name)}</button>
     `).join("");
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="dt-panel">
         <div class="dt-toolbar">
           <div class="dt-examples" data-testid="dt-examples">${exBtns}</div>
@@ -21782,7 +21873,7 @@ ${cases}
               <h4>${t("dt.conditions.title")}</h4>
               <div class="dt-cond-list">${renderConditions()}</div>
               <button class="dt-add-cond-btn" data-testid="dt-add-cond"
-                ${state42.conditions.length >= 6 ? "disabled" : ""}>
+                ${state43.conditions.length >= 6 ? "disabled" : ""}>
                 + ${t("dt.condition.add")}
               </button>
             </div>
@@ -21790,7 +21881,7 @@ ${cases}
               <h4>${t("dt.actions.title")}</h4>
               <div class="dt-act-list">${renderActions()}</div>
               <button class="dt-add-act-btn" data-testid="dt-add-act"
-                ${state42.actions.length >= 6 ? "disabled" : ""}>
+                ${state43.actions.length >= 6 ? "disabled" : ""}>
                 + ${t("dt.action.add")}
               </button>
             </div>
@@ -21799,7 +21890,7 @@ ${cases}
 
           <div class="dt-results-pane" data-testid="dt-results">
             <h3>${t("dt.results.title")}
-              <span class="dt-count">${state42.rules.length} ${t("dt.results.count")}</span>
+              <span class="dt-count">${state43.rules.length} ${t("dt.results.count")}</span>
             </h3>
             ${renderTable()}
             ${renderDtQuizPanel()}
@@ -21807,161 +21898,161 @@ ${cases}
         </div>
       </div>
     `;
-      bindEvents41();
-      persist8(state42);
+      bindEvents42();
+      persist8(state43);
     }
     function addDefaultRule() {
       const conditions = {};
-      for (const c of state42.conditions) conditions[c.id] = "T";
-      state42.rules.push({ id: `r${nextRuleId++}`, conditions, actions: [] });
+      for (const c of state43.conditions) conditions[c.id] = "T";
+      state43.rules.push({ id: `r${nextRuleId++}`, conditions, actions: [] });
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a3, _b2, _c, _d, _e, _f, _g;
-      root42.querySelectorAll("[data-dt-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-dt-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES3.find((e) => e.id === btn.dataset.dtExample);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.conditions = deepClone(ex.conditions);
-          state42.actions = deepClone(ex.actions);
-          state42.rules = deepClone(ex.rules);
-          render42();
+          state43.exampleId = ex.id;
+          state43.conditions = deepClone(ex.conditions);
+          state43.actions = deepClone(ex.actions);
+          state43.rules = deepClone(ex.rules);
+          render43();
         });
       });
-      root42.querySelectorAll(".dt-cond-name").forEach((inp) => {
+      root43.querySelectorAll(".dt-cond-name").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state42.conditions[Number(e.target.dataset.cidx)].name = e.target.value;
+          state43.conditions[Number(e.target.dataset.cidx)].name = e.target.value;
           refreshResults();
-          persist8(state42);
+          persist8(state43);
         });
       });
-      root42.querySelectorAll(".dt-act-name").forEach((inp) => {
+      root43.querySelectorAll(".dt-act-name").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state42.actions[Number(e.target.dataset.aidx)].name = e.target.value;
+          state43.actions[Number(e.target.dataset.aidx)].name = e.target.value;
           refreshResults();
-          persist8(state42);
+          persist8(state43);
         });
       });
-      root42.querySelectorAll("[data-del-cond]").forEach((btn) => {
+      root43.querySelectorAll("[data-del-cond]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.delCond);
-          const cid = state42.conditions[idx].id;
-          state42.conditions.splice(idx, 1);
-          for (const r of state42.rules) delete r.conditions[cid];
-          render42();
+          const cid = state43.conditions[idx].id;
+          state43.conditions.splice(idx, 1);
+          for (const r of state43.rules) delete r.conditions[cid];
+          render43();
         });
       });
-      root42.querySelectorAll("[data-del-act]").forEach((btn) => {
+      root43.querySelectorAll("[data-del-act]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.delAct);
-          const aid = state42.actions[idx].id;
-          state42.actions.splice(idx, 1);
-          for (const r of state42.rules) r.actions = r.actions.filter((a) => a !== aid);
-          render42();
+          const aid = state43.actions[idx].id;
+          state43.actions.splice(idx, 1);
+          for (const r of state43.rules) r.actions = r.actions.filter((a) => a !== aid);
+          render43();
         });
       });
-      (_a3 = root42.querySelector('[data-testid="dt-add-cond"]')) == null ? void 0 : _a3.addEventListener("click", () => {
-        if (state42.conditions.length >= 6) return;
+      (_a3 = root43.querySelector('[data-testid="dt-add-cond"]')) == null ? void 0 : _a3.addEventListener("click", () => {
+        if (state43.conditions.length >= 6) return;
         const id = `c${nextCondId++}`;
-        state42.conditions.push({ id, name: `Condition ${state42.conditions.length + 1}`, values: ["T", "F"] });
-        for (const r of state42.rules) r.conditions[id] = "T";
-        render42();
+        state43.conditions.push({ id, name: `Condition ${state43.conditions.length + 1}`, values: ["T", "F"] });
+        for (const r of state43.rules) r.conditions[id] = "T";
+        render43();
       });
-      (_b2 = root42.querySelector('[data-testid="dt-add-act"]')) == null ? void 0 : _b2.addEventListener("click", () => {
-        if (state42.actions.length >= 6) return;
+      (_b2 = root43.querySelector('[data-testid="dt-add-act"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+        if (state43.actions.length >= 6) return;
         const id = `a${nextActId++}`;
-        state42.actions.push({ id, name: `Action ${state42.actions.length + 1}` });
-        render42();
+        state43.actions.push({ id, name: `Action ${state43.actions.length + 1}` });
+        render43();
       });
-      (_c = root42.querySelector('[data-testid="dt-add-rule"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      (_c = root43.querySelector('[data-testid="dt-add-rule"]')) == null ? void 0 : _c.addEventListener("click", () => {
         addDefaultRule();
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-del-rule]").forEach((btn) => {
+      root43.querySelectorAll("[data-del-rule]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.rules.splice(Number(btn.dataset.delRule), 1);
-          render42();
+          state43.rules.splice(Number(btn.dataset.delRule), 1);
+          render43();
         });
       });
-      root42.querySelectorAll(".dt-cell.dt-val-true, .dt-cell.dt-val-false, .dt-cell.dt-val-dc").forEach((td) => {
+      root43.querySelectorAll(".dt-cell.dt-val-true, .dt-cell.dt-val-false, .dt-cell.dt-val-dc").forEach((td) => {
         td.addEventListener("click", () => {
           var _a4, _b3;
           const row = td.closest("tr");
           if (!row) return;
-          const ruleIdx = [...root42.querySelectorAll("tbody tr")].indexOf(row);
+          const ruleIdx = [...root43.querySelectorAll("tbody tr")].indexOf(row);
           const allCells = [...row.querySelectorAll('.dt-cell[class*="dt-val"]')];
           const colIdx = allCells.indexOf(td);
           if (ruleIdx < 0 || colIdx < 0) return;
-          const cid = (_a4 = state42.conditions[colIdx]) == null ? void 0 : _a4.id;
+          const cid = (_a4 = state43.conditions[colIdx]) == null ? void 0 : _a4.id;
           if (!cid) return;
-          const cur = state42.rules[ruleIdx].conditions[cid];
+          const cur = state43.rules[ruleIdx].conditions[cid];
           const cycle = { "T": "F", "F": "\u2013", "\u2013": "T" };
-          state42.rules[ruleIdx].conditions[cid] = (_b3 = cycle[cur]) != null ? _b3 : "T";
+          state43.rules[ruleIdx].conditions[cid] = (_b3 = cycle[cur]) != null ? _b3 : "T";
           refreshResults();
-          persist8(state42);
+          persist8(state43);
         });
       });
-      root42.querySelectorAll('.dt-cell.dt-act-fire, .dt-cell:not([class*="dt-val"]):not(.dt-separator):not(.dt-rule-label)').forEach((td) => {
+      root43.querySelectorAll('.dt-cell.dt-act-fire, .dt-cell:not([class*="dt-val"]):not(.dt-separator):not(.dt-rule-label)').forEach((td) => {
         var _a4;
         if (!td.closest("tbody")) return;
         const row = td.closest("tr");
         if (!row) return;
-        const ruleIdx = [...root42.querySelectorAll("tbody tr")].indexOf(row);
+        const ruleIdx = [...root43.querySelectorAll("tbody tr")].indexOf(row);
         if (ruleIdx < 0) return;
         const condCells = row.querySelectorAll('[class*="dt-val"]').length;
         const allTds = [...row.querySelectorAll("td")];
         const tdIdx = allTds.indexOf(td);
         const actColIdx = tdIdx - condCells - 2;
-        if (actColIdx < 0 || actColIdx >= state42.actions.length) return;
-        const aid = (_a4 = state42.actions[actColIdx]) == null ? void 0 : _a4.id;
+        if (actColIdx < 0 || actColIdx >= state43.actions.length) return;
+        const aid = (_a4 = state43.actions[actColIdx]) == null ? void 0 : _a4.id;
         if (!aid) return;
-        const r = state42.rules[ruleIdx];
+        const r = state43.rules[ruleIdx];
         if (r.actions.includes(aid)) r.actions = r.actions.filter((a) => a !== aid);
         else r.actions.push(aid);
         refreshResults();
-        persist8(state42);
+        persist8(state43);
       });
-      (_d = root42.querySelector('[data-testid="dt-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      (_d = root43.querySelector('[data-testid="dt-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
         dtQuiz.active = true;
         dtQuiz.phase = "question";
         dtQuiz.ansCovered = "";
         dtQuiz.ansDup = "";
-        render42();
+        render43();
       });
-      (_e = root42.querySelector('[data-testid="dt-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      (_e = root43.querySelector('[data-testid="dt-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
         dtQuiz.active = false;
-        render42();
+        render43();
       });
-      (_f = root42.querySelector('[data-testid="dt-quiz-check"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      (_f = root43.querySelector('[data-testid="dt-quiz-check"]')) == null ? void 0 : _f.addEventListener("click", () => {
         var _a4, _b3, _c2, _d2;
-        dtQuiz.ansCovered = (_b3 = (_a4 = root42.querySelector('[data-testid="dt-quiz-covered"]')) == null ? void 0 : _a4.value) != null ? _b3 : "";
-        dtQuiz.ansDup = (_d2 = (_c2 = root42.querySelector('[data-testid="dt-quiz-dup"]')) == null ? void 0 : _c2.value) != null ? _d2 : "";
+        dtQuiz.ansCovered = (_b3 = (_a4 = root43.querySelector('[data-testid="dt-quiz-covered"]')) == null ? void 0 : _a4.value) != null ? _b3 : "";
+        dtQuiz.ansDup = (_d2 = (_c2 = root43.querySelector('[data-testid="dt-quiz-dup"]')) == null ? void 0 : _c2.value) != null ? _d2 : "";
         dtQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      (_g = root42.querySelector('[data-testid="dt-quiz-reset"]')) == null ? void 0 : _g.addEventListener("click", () => {
+      (_g = root43.querySelector('[data-testid="dt-quiz-reset"]')) == null ? void 0 : _g.addEventListener("click", () => {
         dtQuiz.phase = "question";
         dtQuiz.ansCovered = "";
         dtQuiz.ansDup = "";
-        render42();
+        render43();
       });
     }
     function refreshResults() {
       var _a3;
-      const pane = root42.querySelector('[data-testid="dt-results"]');
+      const pane = root43.querySelector('[data-testid="dt-results"]');
       if (pane) {
         pane.innerHTML = `<h3>${t("dt.results.title")}
-        <span class="dt-count">${state42.rules.length} ${t("dt.results.count")}</span>
+        <span class="dt-count">${state43.rules.length} ${t("dt.results.count")}</span>
       </h3>${renderTable()}`;
         pane.querySelectorAll("[data-del-rule]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            state42.rules.splice(Number(btn.dataset.delRule), 1);
-            render42();
+            state43.rules.splice(Number(btn.dataset.delRule), 1);
+            render43();
           });
         });
         (_a3 = pane.querySelector('[data-testid="dt-add-rule"]')) == null ? void 0 : _a3.addEventListener("click", () => {
           addDefaultRule();
-          render42();
+          render43();
         });
         pane.querySelectorAll(".dt-cell.dt-val-true, .dt-cell.dt-val-false, .dt-cell.dt-val-dc").forEach((td) => {
           td.addEventListener("click", () => {
@@ -21971,19 +22062,19 @@ ${cases}
             const ruleIdx = [...pane.querySelectorAll("tbody tr")].indexOf(row);
             const colIdx = [...row.querySelectorAll('.dt-cell[class*="dt-val"]')].indexOf(td);
             if (ruleIdx < 0 || colIdx < 0) return;
-            const cid = (_a4 = state42.conditions[colIdx]) == null ? void 0 : _a4.id;
+            const cid = (_a4 = state43.conditions[colIdx]) == null ? void 0 : _a4.id;
             if (!cid) return;
-            const cur = state42.rules[ruleIdx].conditions[cid];
+            const cur = state43.rules[ruleIdx].conditions[cid];
             const cycle = { "T": "F", "F": "\u2013", "\u2013": "T" };
-            state42.rules[ruleIdx].conditions[cid] = (_b2 = cycle[cur]) != null ? _b2 : "T";
+            state43.rules[ruleIdx].conditions[cid] = (_b2 = cycle[cur]) != null ? _b2 : "T";
             refreshResults();
-            persist8(state42);
+            persist8(state43);
           });
         });
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/StateTransitionExplorer.js
@@ -22067,12 +22158,12 @@ ${cases}
   }
   function createStateTransitionExplorer() {
     var _a2, _b2;
-    const root42 = document.createElement("div");
-    root42.className = "st-explorer";
-    root42.dataset.testid = "st-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "st-explorer";
+    root43.dataset.testid = "st-explorer";
     const saved = loadSaved9();
     const defaultEx = EXAMPLES4[0];
-    const state42 = {
+    const state43 = {
       exampleId: (_a2 = saved == null ? void 0 : saved.exampleId) != null ? _a2 : defaultEx.id,
       states: (saved == null ? void 0 : saved.states) ? deepClone2(saved.states) : deepClone2(defaultEx.states),
       transitions: (saved == null ? void 0 : saved.transitions) ? deepClone2(saved.transitions) : deepClone2(defaultEx.transitions),
@@ -22086,7 +22177,7 @@ ${cases}
       if (!stQuiz.active) return "";
       const tests = getTests();
       const count = tests.length;
-      const modeLabel2 = state42.mode === "sequence" ? t("st.mode.sequence") : t("st.mode.transition");
+      const modeLabel2 = state43.mode === "sequence" ? t("st.mode.sequence") : t("st.mode.transition");
       const isGraded = stQuiz.phase === "graded";
       const correct = isGraded && parseInt(stQuiz.answer, 10) === count;
       return `
@@ -22117,15 +22208,15 @@ ${cases}
     `;
     }
     function getTests() {
-      if (!state42.states.length || !state42.transitions.length) return [];
-      return state42.mode === "sequence" ? generateStSequenceTests(state42.states, state42.transitions) : generateStTransitionTests(state42.states, state42.transitions);
+      if (!state43.states.length || !state43.transitions.length) return [];
+      return state43.mode === "sequence" ? generateStSequenceTests(state43.states, state43.transitions) : generateStTransitionTests(state43.states, state43.transitions);
     }
     function renderDiagram() {
       const W = 520, H = 220, R2 = 28;
-      const n = state42.states.length;
+      const n = state43.states.length;
       if (!n) return "";
       const cx = W / 2, cy = H / 2, radius = Math.min(W, H) / 2 - R2 - 16;
-      const positions = state42.states.map((s, i) => {
+      const positions = state43.states.map((s, i) => {
         const angle = 2 * Math.PI * i / n - Math.PI / 2;
         return { id: s.id, x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) };
       });
@@ -22134,7 +22225,7 @@ ${cases}
       let defs = `<defs><marker id="${arrowId}" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
       <path d="M0,0 L0,6 L8,3 z" fill="#6366f1"/>
     </marker></defs>`;
-      const edges = state42.transitions.map((tr, i) => {
+      const edges = state43.transitions.map((tr, i) => {
         const from = pos[tr.from];
         const to = pos[tr.to];
         if (!from || !to) return "";
@@ -22156,7 +22247,7 @@ ${cases}
         fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#${arrowId})"/>
         <text x="${mx2}" y="${my2 - 4}" text-anchor="middle" font-size="10" fill="#374151">${esc4(tr.event)}</text>`;
       }).join("");
-      const nodes = state42.states.map((s) => {
+      const nodes = state43.states.map((s) => {
         const p = pos[s.id];
         if (!p) return "";
         const stroke = s.initial ? "#0f4c81" : "#9ca3af";
@@ -22170,21 +22261,21 @@ ${cases}
     </svg>`;
     }
     function renderStateList() {
-      return state42.states.map((s, i) => `
+      return state43.states.map((s, i) => `
       <div class="st-state-row" data-testid="st-state-${i}">
         ${s.initial ? `<span class="st-initial-dot" title="${t("st.initial")}">\u25CF</span>` : `<span class="st-initial-dot st-initial-dot--empty" title="${t("st.set.initial")}" data-set-initial="${i}">\u25CB</span>`}
         <input class="st-state-name" data-sidx="${i}" value="${esc4(s.name)}"
           placeholder="${t("st.state.name")}" data-testid="st-state-name-${i}"/>
         <button class="st-del-btn" data-del-state="${i}" aria-label="${t("common.remove")}"
-          ${state42.states.length <= 1 ? "disabled" : ""} data-testid="st-del-state-${i}">\xD7</button>
+          ${state43.states.length <= 1 ? "disabled" : ""} data-testid="st-del-state-${i}">\xD7</button>
       </div>
     `).join("");
     }
     function renderTransitionList() {
-      return state42.transitions.map((tr, i) => {
+      return state43.transitions.map((tr, i) => {
         var _a3;
-        const fromNames = state42.states.map((s) => `<option value="${esc4(s.id)}"${tr.from === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
-        const toNames = state42.states.map((s) => `<option value="${esc4(s.id)}"${tr.to === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
+        const fromNames = state43.states.map((s) => `<option value="${esc4(s.id)}"${tr.from === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
+        const toNames = state43.states.map((s) => `<option value="${esc4(s.id)}"${tr.to === s.id ? " selected" : ""}>${esc4(s.name)}</option>`).join("");
         return `<tr class="st-tr-row" data-testid="st-transition-${i}">
         <td><select class="st-from-sel" data-tidx="${i}" data-testid="st-from-${i}">${fromNames}</select></td>
         <td>\u2192</td>
@@ -22194,13 +22285,13 @@ ${cases}
         <td><input class="st-action-inp" data-tidx="${i}" value="${esc4((_a3 = tr.action) != null ? _a3 : "")}"
           placeholder="${t("st.transition.action")}" data-testid="st-action-${i}"/></td>
         <td><button class="st-del-btn" data-del-tr="${i}" aria-label="${t("common.remove")}"
-          ${state42.transitions.length <= 1 ? "disabled" : ""} data-testid="st-del-tr-${i}">\xD7</button></td>
+          ${state43.transitions.length <= 1 ? "disabled" : ""} data-testid="st-del-tr-${i}">\xD7</button></td>
       </tr>`;
       }).join("");
     }
     function renderTestTable(tests) {
       if (!tests.length) return `<p class="st-empty" data-testid="st-empty">${t("st.empty")}</p>`;
-      if (state42.mode === "sequence") {
+      if (state43.mode === "sequence") {
         const rows2 = tests.map((tc) => `
         <tr class="st-test-row" data-testid="st-test-${tc.id}">
           <td class="st-test-label">${esc4(tc.label)}</td>
@@ -22237,20 +22328,20 @@ ${cases}
       <tbody>${rows}</tbody>
     </table>`;
     }
-    function render42() {
+    function render43() {
       const tests = getTests();
       const exBtns = EXAMPLES4.map((ex) => `
-      <button type="button" class="st-example-btn${state42.exampleId === ex.id ? " active" : ""}"
+      <button type="button" class="st-example-btn${state43.exampleId === ex.id ? " active" : ""}"
         data-st-example="${ex.id}" data-testid="st-example-${ex.id}">${esc4(ex.name)}</button>
     `).join("");
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="st-panel">
         <div class="st-toolbar">
           <div class="st-examples" data-testid="st-examples">${exBtns}</div>
           <div class="st-mode-toggle" role="group">
-            <button type="button" class="st-mode-btn${state42.mode === "transition" ? " active" : ""}"
+            <button type="button" class="st-mode-btn${state43.mode === "transition" ? " active" : ""}"
               data-mode="transition" data-testid="st-mode-transition">${t("st.mode.transition")}</button>
-            <button type="button" class="st-mode-btn${state42.mode === "sequence" ? " active" : ""}"
+            <button type="button" class="st-mode-btn${state43.mode === "sequence" ? " active" : ""}"
               data-mode="sequence" data-testid="st-mode-sequence">${t("st.mode.sequence")}</button>
             <button type="button" class="quiz-start-btn" data-testid="st-quiz-start">${t("quiz.start")}</button>
           </div>
@@ -22266,7 +22357,7 @@ ${cases}
               <h4>${t("st.states.title")}</h4>
               <div class="st-state-list">${renderStateList()}</div>
               <button class="st-add-state-btn" data-testid="st-add-state"
-                ${state42.states.length >= 8 ? "disabled" : ""}>
+                ${state43.states.length >= 8 ? "disabled" : ""}>
                 + ${t("st.state.add")}
               </button>
             </div>
@@ -22275,7 +22366,7 @@ ${cases}
               <h4>${t("st.transitions.title")}</h4>
               <table class="st-tr-table"><tbody>${renderTransitionList()}</tbody></table>
               <button class="st-add-tr-btn" data-testid="st-add-transition"
-                ${state42.transitions.length >= 16 ? "disabled" : ""}>
+                ${state43.transitions.length >= 16 ? "disabled" : ""}>
                 + ${t("st.transition.add")}
               </button>
             </div>
@@ -22291,128 +22382,128 @@ ${cases}
         </div>
       </div>
     `;
-      bindEvents41();
-      persist9(state42);
+      bindEvents42();
+      persist9(state43);
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a3, _b3, _c, _d, _e, _f;
-      root42.querySelectorAll("[data-st-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-st-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const ex = EXAMPLES4.find((e) => e.id === btn.dataset.stExample);
           if (!ex) return;
-          state42.exampleId = ex.id;
-          state42.states = deepClone2(ex.states);
-          state42.transitions = deepClone2(ex.transitions);
-          render42();
+          state43.exampleId = ex.id;
+          state43.states = deepClone2(ex.states);
+          state43.transitions = deepClone2(ex.transitions);
+          render43();
         });
       });
-      root42.querySelectorAll("[data-mode]").forEach((btn) => {
+      root43.querySelectorAll("[data-mode]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.mode = btn.dataset.mode;
-          render42();
+          state43.mode = btn.dataset.mode;
+          render43();
         });
       });
-      root42.querySelectorAll(".st-state-name").forEach((inp) => {
+      root43.querySelectorAll(".st-state-name").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state42.states[Number(e.target.dataset.sidx)].name = e.target.value;
+          state43.states[Number(e.target.dataset.sidx)].name = e.target.value;
           refreshResults();
-          persist9(state42);
+          persist9(state43);
         });
       });
-      root42.querySelectorAll("[data-set-initial]").forEach((dot) => {
+      root43.querySelectorAll("[data-set-initial]").forEach((dot) => {
         dot.addEventListener("click", () => {
           const idx = Number(dot.dataset.setInitial);
-          state42.states.forEach((s, i) => {
+          state43.states.forEach((s, i) => {
             s.initial = i === idx;
           });
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-del-state]").forEach((btn) => {
+      root43.querySelectorAll("[data-del-state]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.delState);
-          const sid = state42.states[idx].id;
-          state42.states.splice(idx, 1);
-          state42.transitions = state42.transitions.filter((tr) => tr.from !== sid && tr.to !== sid);
-          if (state42.states.length && !state42.states.some((s) => s.initial)) state42.states[0].initial = true;
-          render42();
+          const sid = state43.states[idx].id;
+          state43.states.splice(idx, 1);
+          state43.transitions = state43.transitions.filter((tr) => tr.from !== sid && tr.to !== sid);
+          if (state43.states.length && !state43.states.some((s) => s.initial)) state43.states[0].initial = true;
+          render43();
         });
       });
-      (_a3 = root42.querySelector('[data-testid="st-add-state"]')) == null ? void 0 : _a3.addEventListener("click", () => {
-        if (state42.states.length >= 8) return;
-        state42.states.push({ id: `s${nextSId++}`, name: `State ${state42.states.length + 1}` });
-        render42();
+      (_a3 = root43.querySelector('[data-testid="st-add-state"]')) == null ? void 0 : _a3.addEventListener("click", () => {
+        if (state43.states.length >= 8) return;
+        state43.states.push({ id: `s${nextSId++}`, name: `State ${state43.states.length + 1}` });
+        render43();
       });
-      root42.querySelectorAll(".st-from-sel, .st-to-sel").forEach((sel) => {
+      root43.querySelectorAll(".st-from-sel, .st-to-sel").forEach((sel) => {
         sel.addEventListener("change", (e) => {
           const idx = Number(e.target.dataset.tidx);
           const field = e.target.classList.contains("st-from-sel") ? "from" : "to";
-          state42.transitions[idx][field] = e.target.value;
+          state43.transitions[idx][field] = e.target.value;
           refreshResults();
-          persist9(state42);
+          persist9(state43);
         });
       });
-      root42.querySelectorAll(".st-event-inp").forEach((inp) => {
+      root43.querySelectorAll(".st-event-inp").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state42.transitions[Number(e.target.dataset.tidx)].event = e.target.value;
+          state43.transitions[Number(e.target.dataset.tidx)].event = e.target.value;
           refreshResults();
-          persist9(state42);
+          persist9(state43);
         });
       });
-      root42.querySelectorAll(".st-action-inp").forEach((inp) => {
+      root43.querySelectorAll(".st-action-inp").forEach((inp) => {
         inp.addEventListener("input", (e) => {
-          state42.transitions[Number(e.target.dataset.tidx)].action = e.target.value;
+          state43.transitions[Number(e.target.dataset.tidx)].action = e.target.value;
           refreshResults();
-          persist9(state42);
+          persist9(state43);
         });
       });
-      root42.querySelectorAll("[data-del-tr]").forEach((btn) => {
+      root43.querySelectorAll("[data-del-tr]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.transitions.splice(Number(btn.dataset.delTr), 1);
-          render42();
+          state43.transitions.splice(Number(btn.dataset.delTr), 1);
+          render43();
         });
       });
-      (_b3 = root42.querySelector('[data-testid="st-add-transition"]')) == null ? void 0 : _b3.addEventListener("click", () => {
+      (_b3 = root43.querySelector('[data-testid="st-add-transition"]')) == null ? void 0 : _b3.addEventListener("click", () => {
         var _a4, _b4, _c2, _d2;
-        if (state42.transitions.length >= 16) return;
-        const from = (_b4 = (_a4 = state42.states[0]) == null ? void 0 : _a4.id) != null ? _b4 : "";
-        const to = (_d2 = (_c2 = state42.states[1]) == null ? void 0 : _c2.id) != null ? _d2 : from;
-        state42.transitions.push({ id: `t${nextTId++}`, from, to, event: "event", action: "" });
-        render42();
+        if (state43.transitions.length >= 16) return;
+        const from = (_b4 = (_a4 = state43.states[0]) == null ? void 0 : _a4.id) != null ? _b4 : "";
+        const to = (_d2 = (_c2 = state43.states[1]) == null ? void 0 : _c2.id) != null ? _d2 : from;
+        state43.transitions.push({ id: `t${nextTId++}`, from, to, event: "event", action: "" });
+        render43();
       });
-      (_c = root42.querySelector('[data-testid="st-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      (_c = root43.querySelector('[data-testid="st-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
         stQuiz.active = true;
         stQuiz.phase = "question";
         stQuiz.answer = "";
-        render42();
+        render43();
       });
-      (_d = root42.querySelector('[data-testid="st-quiz-close"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      (_d = root43.querySelector('[data-testid="st-quiz-close"]')) == null ? void 0 : _d.addEventListener("click", () => {
         stQuiz.active = false;
-        render42();
+        render43();
       });
-      (_e = root42.querySelector('[data-testid="st-quiz-check"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      (_e = root43.querySelector('[data-testid="st-quiz-check"]')) == null ? void 0 : _e.addEventListener("click", () => {
         var _a4, _b4;
-        stQuiz.answer = (_b4 = (_a4 = root42.querySelector('[data-testid="st-quiz-answer"]')) == null ? void 0 : _a4.value) != null ? _b4 : "";
+        stQuiz.answer = (_b4 = (_a4 = root43.querySelector('[data-testid="st-quiz-answer"]')) == null ? void 0 : _a4.value) != null ? _b4 : "";
         stQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      (_f = root42.querySelector('[data-testid="st-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      (_f = root43.querySelector('[data-testid="st-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
         stQuiz.phase = "question";
         stQuiz.answer = "";
-        render42();
+        render43();
       });
     }
     function refreshResults() {
       const tests = getTests();
-      const pane = root42.querySelector('[data-testid="st-results"]');
+      const pane = root43.querySelector('[data-testid="st-results"]');
       if (pane) {
         pane.innerHTML = `<h3>${t("st.results.title")}
         <span class="st-count">${tests.length} ${t("st.results.count")}</span>
       </h3>${renderTestTable(tests)}`;
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/metamorphicTesting.js
@@ -22886,9 +22977,9 @@ function linearSearch(arr, target) {
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function createMetamorphicTestingExplorer() {
-    const root42 = document.createElement("div");
-    root42.dataset.testid = "mt-explorer";
-    let state42 = {
+    const root43 = document.createElement("div");
+    root43.dataset.testid = "mt-explorer";
+    let state43 = {
       exampleId: metamorphicExamples[0].id,
       relationId: metamorphicExamples[0].relations[0].id,
       results: null
@@ -22939,25 +23030,25 @@ function linearSearch(arr, target) {
     }
     function getExample() {
       var _a2;
-      return (_a2 = metamorphicExamples.find((e) => e.id === state42.exampleId)) != null ? _a2 : metamorphicExamples[0];
+      return (_a2 = metamorphicExamples.find((e) => e.id === state43.exampleId)) != null ? _a2 : metamorphicExamples[0];
     }
     function getRelation() {
       var _a2;
       const ex = getExample();
-      return (_a2 = ex.relations.find((r) => r.id === state42.relationId)) != null ? _a2 : ex.relations[0];
+      return (_a2 = ex.relations.find((r) => r.id === state43.relationId)) != null ? _a2 : ex.relations[0];
     }
-    function render42() {
+    function render43() {
       const ex = getExample();
       const rel = getRelation();
       const isZh = getLocale() === "zh";
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="mt-layout">
         <div class="mt-sidebar">
           <h3 class="mt-section-title">${t("mt.examples.title")}</h3>
           <div class="mt-example-btns" data-testid="mt-examples">
             ${metamorphicExamples.map((e) => `
               <button type="button"
-                class="mt-example-btn${e.id === state42.exampleId ? " active" : ""}"
+                class="mt-example-btn${e.id === state43.exampleId ? " active" : ""}"
                 data-testid="mt-example-${e.id}"
                 data-example="${e.id}"
               >${e.name}</button>
@@ -22968,7 +23059,7 @@ function linearSearch(arr, target) {
           <div class="mt-relation-list" data-testid="mt-relations">
             ${ex.relations.map((r) => `
               <button type="button"
-                class="mt-rel-btn${r.id === state42.relationId ? " active" : ""}"
+                class="mt-rel-btn${r.id === state43.relationId ? " active" : ""}"
                 data-testid="mt-rel-${r.id}"
                 data-rel="${r.id}"
               >
@@ -23005,12 +23096,12 @@ function linearSearch(arr, target) {
           ${renderMtQuizPanel()}
 
           <div class="mt-results" data-testid="mt-results">
-            ${state42.results ? renderResults(state42.results) : `<p class="mt-hint">${t("mt.hint")}</p>`}
+            ${state43.results ? renderResults(state43.results) : `<p class="mt-hint">${t("mt.hint")}</p>`}
           </div>
         </div>
       </div>
     `;
-      bindEvents41();
+      bindEvents42();
     }
     function renderResults(results) {
       const passing = results.filter((r) => r.holds).length;
@@ -23051,40 +23142,40 @@ function linearSearch(arr, target) {
       </div>
     `;
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a2;
-      root42.querySelectorAll("[data-example]").forEach((btn) => {
+      root43.querySelectorAll("[data-example]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.exampleId = btn.dataset.example;
+          state43.exampleId = btn.dataset.example;
           const ex = getExample();
-          state42.relationId = ex.relations[0].id;
-          state42.results = null;
+          state43.relationId = ex.relations[0].id;
+          state43.results = null;
           mtQuiz.active = false;
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-rel]").forEach((btn) => {
+      root43.querySelectorAll("[data-rel]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.relationId = btn.dataset.rel;
-          state42.results = null;
+          state43.relationId = btn.dataset.rel;
+          state43.results = null;
           mtQuiz.active = false;
-          render42();
+          render43();
         });
       });
-      const generateBtn = root42.querySelector('[data-testid="mt-generate"]');
+      const generateBtn = root43.querySelector('[data-testid="mt-generate"]');
       if (generateBtn) {
         generateBtn.addEventListener("click", () => {
           const ex = getExample();
           const rel = getRelation();
-          state42.results = generateMrTests(ex, rel, 8);
-          const resultsEl = root42.querySelector('[data-testid="mt-results"]');
-          if (resultsEl) resultsEl.innerHTML = renderResults(state42.results);
+          state43.results = generateMrTests(ex, rel, 8);
+          const resultsEl = root43.querySelector('[data-testid="mt-results"]');
+          if (resultsEl) resultsEl.innerHTML = renderResults(state43.results);
         });
       }
-      (_a2 = root42.querySelector('[data-testid="mt-bridge-groupth"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a2 = root43.querySelector('[data-testid="mt-bridge-groupth"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         scrollToSection("section-groupth");
       });
-      const mqStart = root42.querySelector('[data-testid="mt-quiz-start"]');
+      const mqStart = root43.querySelector('[data-testid="mt-quiz-start"]');
       if (mqStart) {
         mqStart.addEventListener("click", () => {
           const ex = getExample();
@@ -23093,26 +23184,26 @@ function linearSearch(arr, target) {
           mtQuiz.active = true;
           mtQuiz.phase = "question";
           mtQuiz.answer = "";
-          render42();
+          render43();
         });
       }
-      const mqClose = root42.querySelector('[data-testid="mt-quiz-close"]');
+      const mqClose = root43.querySelector('[data-testid="mt-quiz-close"]');
       if (mqClose) {
         mqClose.addEventListener("click", () => {
           mtQuiz.active = false;
-          render42();
+          render43();
         });
       }
-      const mqCheck = root42.querySelector('[data-testid="mt-quiz-check"]');
+      const mqCheck = root43.querySelector('[data-testid="mt-quiz-check"]');
       if (mqCheck) {
         mqCheck.addEventListener("click", () => {
-          const inp = root42.querySelector('[data-testid="mt-quiz-input"]');
+          const inp = root43.querySelector('[data-testid="mt-quiz-input"]');
           mtQuiz.answer = inp ? inp.value : "";
           mtQuiz.phase = "graded";
-          render42();
+          render43();
         });
       }
-      const mqReset = root42.querySelector('[data-testid="mt-quiz-reset"]');
+      const mqReset = root43.querySelector('[data-testid="mt-quiz-reset"]');
       if (mqReset) {
         mqReset.addEventListener("click", () => {
           const ex = getExample();
@@ -23120,12 +23211,12 @@ function linearSearch(arr, target) {
           mtQuiz.autoResults = generateMrTests(ex, rel, 8);
           mtQuiz.phase = "question";
           mtQuiz.answer = "";
-          render42();
+          render43();
         });
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/ExploratoryTestingExplorer.js
@@ -23170,10 +23261,10 @@ function linearSearch(arr, target) {
     }
   }
   function createExploratoryTestingExplorer() {
-    const root42 = document.createElement("div");
-    root42.dataset.testid = "et-explorer";
+    const root43 = document.createElement("div");
+    root43.dataset.testid = "et-explorer";
     const saved = loadSaved10();
-    let state42 = saved != null ? saved : {
+    let state43 = saved != null ? saved : {
       charter: "",
       timebox: 60,
       sfdipot: [],
@@ -23182,20 +23273,20 @@ function linearSearch(arr, target) {
       timerRemaining: 60 * 60,
       timerEnd: null
     };
-    state42.timerRunning = false;
-    state42.timerEnd = null;
-    if (!state42.timerRemaining || state42.timerRemaining <= 0) {
-      state42.timerRemaining = (state42.timebox || 60) * 60;
+    state43.timerRunning = false;
+    state43.timerEnd = null;
+    if (!state43.timerRemaining || state43.timerRemaining <= 0) {
+      state43.timerRemaining = (state43.timebox || 60) * 60;
     }
     let timerInterval = null;
     function save2() {
       persist10({
-        charter: state42.charter,
-        timebox: state42.timebox,
-        sfdipot: state42.sfdipot,
-        notes: state42.notes,
+        charter: state43.charter,
+        timebox: state43.timebox,
+        sfdipot: state43.sfdipot,
+        notes: state43.notes,
         timerRunning: false,
-        timerRemaining: state42.timerRemaining,
+        timerRemaining: state43.timerRemaining,
         timerEnd: null
       });
     }
@@ -23205,64 +23296,64 @@ function linearSearch(arr, target) {
       return `${m}:${s}`;
     }
     function tickTimer() {
-      if (!state42.timerRunning) return;
+      if (!state43.timerRunning) return;
       const now = Date.now();
-      state42.timerRemaining = Math.max(0, Math.round((state42.timerEnd - now) / 1e3));
-      const display = root42.querySelector('[data-testid="et-timer-display"]');
-      if (display) display.textContent = formatTime(state42.timerRemaining);
-      const bar = root42.querySelector('[data-testid="et-timer-bar"]');
+      state43.timerRemaining = Math.max(0, Math.round((state43.timerEnd - now) / 1e3));
+      const display = root43.querySelector('[data-testid="et-timer-display"]');
+      if (display) display.textContent = formatTime(state43.timerRemaining);
+      const bar = root43.querySelector('[data-testid="et-timer-bar"]');
       if (bar) {
-        const total = (state42.timebox || 60) * 60;
-        bar.style.width = `${state42.timerRemaining / total * 100}%`;
-        bar.className = `et-timer-bar${state42.timerRemaining < 60 ? " et-timer-bar--warn" : ""}`;
+        const total = (state43.timebox || 60) * 60;
+        bar.style.width = `${state43.timerRemaining / total * 100}%`;
+        bar.className = `et-timer-bar${state43.timerRemaining < 60 ? " et-timer-bar--warn" : ""}`;
       }
-      if (state42.timerRemaining <= 0) {
+      if (state43.timerRemaining <= 0) {
         stopTimer();
-        const display2 = root42.querySelector('[data-testid="et-timer-display"]');
+        const display2 = root43.querySelector('[data-testid="et-timer-display"]');
         if (display2) display2.textContent = t("et.timer.done");
       }
     }
     function startTimer() {
-      if (state42.timerRunning) return;
-      if (state42.timerRemaining <= 0) state42.timerRemaining = (state42.timebox || 60) * 60;
-      state42.timerRunning = true;
-      state42.timerEnd = Date.now() + state42.timerRemaining * 1e3;
-      const startBtn = root42.querySelector('[data-testid="et-timer-start"]');
-      const stopBtn = root42.querySelector('[data-testid="et-timer-stop"]');
+      if (state43.timerRunning) return;
+      if (state43.timerRemaining <= 0) state43.timerRemaining = (state43.timebox || 60) * 60;
+      state43.timerRunning = true;
+      state43.timerEnd = Date.now() + state43.timerRemaining * 1e3;
+      const startBtn = root43.querySelector('[data-testid="et-timer-start"]');
+      const stopBtn = root43.querySelector('[data-testid="et-timer-stop"]');
       if (startBtn) startBtn.disabled = true;
       if (stopBtn) stopBtn.disabled = false;
       timerInterval = setInterval(tickTimer, 500);
     }
     function stopTimer() {
-      state42.timerRunning = false;
-      state42.timerEnd = null;
+      state43.timerRunning = false;
+      state43.timerEnd = null;
       if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
       }
-      const startBtn = root42.querySelector('[data-testid="et-timer-start"]');
-      const stopBtn = root42.querySelector('[data-testid="et-timer-stop"]');
+      const startBtn = root43.querySelector('[data-testid="et-timer-start"]');
+      const stopBtn = root43.querySelector('[data-testid="et-timer-stop"]');
       if (startBtn) startBtn.disabled = false;
       if (stopBtn) stopBtn.disabled = true;
     }
     function resetTimer() {
       stopTimer();
-      state42.timerRemaining = (state42.timebox || 60) * 60;
-      const display = root42.querySelector('[data-testid="et-timer-display"]');
-      if (display) display.textContent = formatTime(state42.timerRemaining);
-      const bar = root42.querySelector('[data-testid="et-timer-bar"]');
+      state43.timerRemaining = (state43.timebox || 60) * 60;
+      const display = root43.querySelector('[data-testid="et-timer-display"]');
+      if (display) display.textContent = formatTime(state43.timerRemaining);
+      const bar = root43.querySelector('[data-testid="et-timer-bar"]');
       if (bar) {
         bar.style.width = "100%";
         bar.className = "et-timer-bar";
       }
       save2();
     }
-    function render42() {
+    function render43() {
       const isZh = getLocale() === "zh";
-      const total = (state42.timebox || 60) * 60;
-      const barPct = state42.timerRemaining / total * 100;
-      const notesByType = (type) => state42.notes.filter((n) => n.type === type);
-      root42.innerHTML = `
+      const total = (state43.timebox || 60) * 60;
+      const barPct = state43.timerRemaining / total * 100;
+      const notesByType = (type) => state43.notes.filter((n) => n.type === type);
+      root43.innerHTML = `
       <div class="et-layout">
 
         <!-- LEFT: Charter + SFDIPOT -->
@@ -23275,7 +23366,7 @@ function linearSearch(arr, target) {
               data-testid="et-charter"
               rows="4"
               placeholder="${t("et.charter.placeholder")}"
-            >${escapeHtml13(state42.charter)}</textarea>
+            >${escapeHtml13(state43.charter)}</textarea>
           </section>
 
           <section class="et-card" data-testid="et-sfdipot-section">
@@ -23283,10 +23374,10 @@ function linearSearch(arr, target) {
             <p class="et-card-hint">${t("et.sfdipot.hint")}</p>
             <div class="et-sfdipot-list">
               ${SFDIPOT_ITEMS.map((item) => `
-                <label class="et-sfdipot-item${state42.sfdipot.includes(item.id) ? " checked" : ""}"
+                <label class="et-sfdipot-item${state43.sfdipot.includes(item.id) ? " checked" : ""}"
                   data-testid="et-sfdipot-${item.id}">
                   <input type="checkbox" value="${item.id}"
-                    ${state42.sfdipot.includes(item.id) ? "checked" : ""}
+                    ${state43.sfdipot.includes(item.id) ? "checked" : ""}
                     data-sfdipot="${item.id}">
                   <span class="et-sfdipot-letter">${item.id.replace("2", "")}</span>
                   <span class="et-sfdipot-desc">
@@ -23317,16 +23408,16 @@ function linearSearch(arr, target) {
             <h3 class="et-card-title">${t("et.timer.title")}</h3>
             <div class="et-timebox-row">
               <label for="et-timebox">${t("et.timer.timebox")}</label>
-              <input id="et-timebox" type="number" min="1" max="240" value="${state42.timebox}"
+              <input id="et-timebox" type="number" min="1" max="240" value="${state43.timebox}"
                 class="et-timebox-input" data-testid="et-timebox-input">
               <span>${t("et.timer.minutes")}</span>
             </div>
             <div class="et-timer-track">
-              <div class="et-timer-bar${state42.timerRemaining < 60 ? " et-timer-bar--warn" : ""}"
+              <div class="et-timer-bar${state43.timerRemaining < 60 ? " et-timer-bar--warn" : ""}"
                 data-testid="et-timer-bar"
                 style="width:${barPct}%"></div>
             </div>
-            <div class="et-timer-display" data-testid="et-timer-display">${formatTime(state42.timerRemaining)}</div>
+            <div class="et-timer-display" data-testid="et-timer-display">${formatTime(state43.timerRemaining)}</div>
             <div class="et-timer-btns">
               <button type="button" class="et-timer-btn et-timer-btn--start"
                 data-testid="et-timer-start">${t("et.timer.start")}</button>
@@ -23359,7 +23450,7 @@ function linearSearch(arr, target) {
             </div>
 
             <div class="et-notes-list" data-testid="et-notes-list">
-              ${state42.notes.length === 0 ? `<p class="et-notes-empty">${t("et.notes.empty")}</p>` : state42.notes.map((note, i) => `
+              ${state43.notes.length === 0 ? `<p class="et-notes-empty">${t("et.notes.empty")}</p>` : state43.notes.map((note, i) => `
                   <div class="et-note-item et-note-item--${note.type}" data-testid="et-note-${i}">
                     <span class="et-note-badge et-note-badge--${note.type}">${t(`et.note.${note.type}`)}</span>
                     <span class="et-note-body">${escapeHtml13(note.text)}</span>
@@ -23370,7 +23461,7 @@ function linearSearch(arr, target) {
                 `).join("")}
             </div>
 
-            ${state42.notes.length > 0 ? `
+            ${state43.notes.length > 0 ? `
               <div class="et-notes-actions">
                 <button type="button" class="et-clear-btn" data-testid="et-clear-notes">
                   ${t("et.notes.clear")}
@@ -23385,26 +23476,26 @@ function linearSearch(arr, target) {
 
       </div>
     `;
-      bindEvents41();
+      bindEvents42();
     }
     function addNote() {
-      const typeEl = root42.querySelector('[data-testid="et-note-type"]');
-      const textEl = root42.querySelector('[data-testid="et-note-text"]');
+      const typeEl = root43.querySelector('[data-testid="et-note-type"]');
+      const textEl = root43.querySelector('[data-testid="et-note-text"]');
       if (!typeEl || !textEl) return;
       const text = textEl.value.trim();
       if (!text) return;
       const now = /* @__PURE__ */ new Date();
       const time = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
-      state42.notes.unshift({ type: typeEl.value, text, time });
+      state43.notes.unshift({ type: typeEl.value, text, time });
       save2();
-      render42();
-      const newText = root42.querySelector('[data-testid="et-note-text"]');
+      render43();
+      const newText = root43.querySelector('[data-testid="et-note-text"]');
       if (newText) newText.focus();
     }
     function exportNotes() {
-      const lines = [`# Exploratory Test Session`, `Charter: ${state42.charter}`, ""];
+      const lines = [`# Exploratory Test Session`, `Charter: ${state43.charter}`, ""];
       for (const ty of NOTE_TYPES) {
-        const items = state42.notes.filter((n) => n.type === ty);
+        const items = state43.notes.filter((n) => n.type === ty);
         if (items.length) {
           lines.push(`## ${ty.toUpperCase()}`);
           items.forEach((n) => lines.push(`- [${n.time}] ${n.text}`));
@@ -23417,45 +23508,45 @@ function linearSearch(arr, target) {
       a.download = "session-notes.md";
       a.click();
     }
-    function bindEvents41() {
-      const charterEl = root42.querySelector('[data-testid="et-charter"]');
+    function bindEvents42() {
+      const charterEl = root43.querySelector('[data-testid="et-charter"]');
       if (charterEl) {
         charterEl.addEventListener("input", () => {
-          state42.charter = charterEl.value;
+          state43.charter = charterEl.value;
           save2();
         });
       }
-      root42.querySelectorAll("[data-sfdipot]").forEach((cb) => {
+      root43.querySelectorAll("[data-sfdipot]").forEach((cb) => {
         cb.addEventListener("change", () => {
           if (cb.checked) {
-            if (!state42.sfdipot.includes(cb.value)) state42.sfdipot.push(cb.value);
+            if (!state43.sfdipot.includes(cb.value)) state43.sfdipot.push(cb.value);
           } else {
-            state42.sfdipot = state42.sfdipot.filter((v) => v !== cb.value);
+            state43.sfdipot = state43.sfdipot.filter((v) => v !== cb.value);
           }
           const label = cb.closest("label");
           if (label) label.classList.toggle("checked", cb.checked);
           save2();
         });
       });
-      const timeboxInput = root42.querySelector('[data-testid="et-timebox-input"]');
+      const timeboxInput = root43.querySelector('[data-testid="et-timebox-input"]');
       if (timeboxInput) {
         timeboxInput.addEventListener("change", () => {
           const v = parseInt(timeboxInput.value, 10);
           if (v > 0) {
-            state42.timebox = v;
+            state43.timebox = v;
             resetTimer();
           }
         });
       }
-      const startBtn = root42.querySelector('[data-testid="et-timer-start"]');
-      const stopBtn = root42.querySelector('[data-testid="et-timer-stop"]');
-      const resetBtn = root42.querySelector('[data-testid="et-timer-reset"]');
+      const startBtn = root43.querySelector('[data-testid="et-timer-start"]');
+      const stopBtn = root43.querySelector('[data-testid="et-timer-stop"]');
+      const resetBtn = root43.querySelector('[data-testid="et-timer-reset"]');
       if (startBtn) startBtn.addEventListener("click", startTimer);
       if (stopBtn) stopBtn.addEventListener("click", stopTimer);
       if (resetBtn) resetBtn.addEventListener("click", resetTimer);
-      const addBtn = root42.querySelector('[data-testid="et-note-add"]');
+      const addBtn = root43.querySelector('[data-testid="et-note-add"]');
       if (addBtn) addBtn.addEventListener("click", addNote);
-      const textEl = root42.querySelector('[data-testid="et-note-text"]');
+      const textEl = root43.querySelector('[data-testid="et-note-text"]');
       if (textEl) {
         textEl.addEventListener("keydown", (e) => {
           if (e.key === "Enter") {
@@ -23464,29 +23555,29 @@ function linearSearch(arr, target) {
           }
         });
       }
-      root42.querySelectorAll("[data-delete]").forEach((btn) => {
+      root43.querySelectorAll("[data-delete]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const idx = parseInt(btn.dataset.delete, 10);
-          state42.notes.splice(idx, 1);
+          state43.notes.splice(idx, 1);
           save2();
-          render42();
+          render43();
         });
       });
-      const clearBtn = root42.querySelector('[data-testid="et-clear-notes"]');
+      const clearBtn = root43.querySelector('[data-testid="et-clear-notes"]');
       if (clearBtn) {
         clearBtn.addEventListener("click", () => {
           if (window.confirm(t("et.notes.confirm.clear"))) {
-            state42.notes = [];
+            state43.notes = [];
             save2();
-            render42();
+            render43();
           }
         });
       }
-      const exportBtn = root42.querySelector('[data-testid="et-export-notes"]');
+      const exportBtn = root43.querySelector('[data-testid="et-export-notes"]');
       if (exportBtn) exportBtn.addEventListener("click", exportNotes);
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/TestDoublesExplorer.js
@@ -24062,9 +24153,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     }
   ];
   function createTestDoublesExplorer() {
-    const root42 = document.createElement("div");
-    root42.dataset.testid = "td-explorer";
-    let state42 = {
+    const root43 = document.createElement("div");
+    root43.dataset.testid = "td-explorer";
+    let state43 = {
       typeId: "dummy",
       scenarioId: "order",
       result: null
@@ -24120,16 +24211,16 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     }
     function getType() {
       var _a2;
-      return (_a2 = DOUBLE_TYPES.find((d) => d.id === state42.typeId)) != null ? _a2 : DOUBLE_TYPES[0];
+      return (_a2 = DOUBLE_TYPES.find((d) => d.id === state43.typeId)) != null ? _a2 : DOUBLE_TYPES[0];
     }
     function getScenario() {
       var _a2;
       const ty = getType();
-      return (_a2 = ty.scenarios.find((s) => s.id === state42.scenarioId)) != null ? _a2 : ty.scenarios[0];
+      return (_a2 = ty.scenarios.find((s) => s.id === state43.scenarioId)) != null ? _a2 : ty.scenarios[0];
     }
     function getCode() {
       var _a2;
-      return (_a2 = SCENARIO_CODE[`${state42.typeId}/${state42.scenarioId}`]) != null ? _a2 : {};
+      return (_a2 = SCENARIO_CODE[`${state43.typeId}/${state43.scenarioId}`]) != null ? _a2 : {};
     }
     function formatArg(v) {
       if (v === null || v === void 0) return String(v);
@@ -24185,13 +24276,13 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       </div>
     `;
     }
-    function render42() {
+    function render43() {
       var _a2, _b2, _c;
       const isZh = getLocale() === "zh";
       const ty = getType();
       const code = getCode();
       const scen = getScenario();
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="td-layout">
         <!-- Sidebar: double types -->
         <div class="td-sidebar">
@@ -24199,7 +24290,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           <div class="td-type-list" data-testid="td-types">
             ${DOUBLE_TYPES.map((d) => `
               <button type="button"
-                class="td-type-btn${d.id === state42.typeId ? " active" : ""}"
+                class="td-type-btn${d.id === state43.typeId ? " active" : ""}"
                 data-testid="td-type-${d.id}"
                 data-type="${d.id}"
                 style="--td-color:${d.color}"
@@ -24211,14 +24302,14 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           </div>
 
           <div class="td-type-info" data-testid="td-type-info">
-            <p class="td-type-def">${t(`td.def.${state42.typeId}`)}</p>
-            <p class="td-type-when"><strong>${t("td.whenToUse")}</strong> ${t(`td.when.${state42.typeId}`)}</p>
+            <p class="td-type-def">${t(`td.def.${state43.typeId}`)}</p>
+            <p class="td-type-when"><strong>${t("td.whenToUse")}</strong> ${t(`td.when.${state43.typeId}`)}</p>
           </div>
 
           <div class="td-comparison">
             <h4 class="td-comparison-title">${t("td.comparison.title")}</h4>
             ${DOUBLE_TYPES.map((d) => `
-              <div class="td-comparison-row${d.id === state42.typeId ? " active" : ""}">
+              <div class="td-comparison-row${d.id === state43.typeId ? " active" : ""}">
                 <span class="td-comparison-dot" style="background:${d.color}"></span>
                 <span class="td-comparison-name">${t(`td.type.${d.id}`)}</span>
                 <span class="td-comparison-trait">${t(`td.trait.${d.id}`)}</span>
@@ -24234,10 +24325,10 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
             <span class="td-scenario-label">${t("td.scenarios.label")}</span>
             ${ty.scenarios.map((s) => `
               <button type="button"
-                class="td-scenario-btn${s.id === state42.scenarioId ? " active" : ""}"
+                class="td-scenario-btn${s.id === state43.scenarioId ? " active" : ""}"
                 data-testid="td-scenario-${s.id}"
                 data-scenario="${s.id}"
-              >${t(`td.scenario.${state42.typeId}.${s.id}`)}</button>
+              >${t(`td.scenario.${state43.typeId}.${s.id}`)}</button>
             `).join("")}
           </div>
 
@@ -24248,7 +24339,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
               <pre class="td-pre"><code>${escapeHtml14((_a2 = code.sutCode) != null ? _a2 : "")}</code></pre>
             </div>
             <div class="td-code-panel">
-              <div class="td-code-header td-code-header--double">${t(`td.type.${state42.typeId}`)}</div>
+              <div class="td-code-header td-code-header--double">${t(`td.type.${state43.typeId}`)}</div>
               <pre class="td-pre"><code>${escapeHtml14((_b2 = code.doubleCode) != null ? _b2 : "")}</code></pre>
             </div>
             <div class="td-code-panel">
@@ -24269,46 +24360,46 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
 
           <!-- Results -->
           <div class="td-result-panel" data-testid="td-result">
-            ${state42.result ? renderResult3(state42.result) : `<p class="td-hint">${t("td.hint")}</p>`}
+            ${state43.result ? renderResult3(state43.result) : `<p class="td-hint">${t("td.hint")}</p>`}
           </div>
         </div>
       </div>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-type]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-type]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.typeId = btn.dataset.type;
+          state43.typeId = btn.dataset.type;
           const ty = getType();
-          state42.scenarioId = ty.scenarios[0].id;
-          state42.result = null;
-          render42();
+          state43.scenarioId = ty.scenarios[0].id;
+          state43.result = null;
+          render43();
         });
       });
-      root42.querySelectorAll("[data-scenario]").forEach((btn) => {
+      root43.querySelectorAll("[data-scenario]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          state42.scenarioId = btn.dataset.scenario;
-          state42.result = null;
-          render42();
+          state43.scenarioId = btn.dataset.scenario;
+          state43.result = null;
+          render43();
         });
       });
-      const runBtn = root42.querySelector('[data-testid="td-run"]');
+      const runBtn = root43.querySelector('[data-testid="td-run"]');
       if (runBtn) {
         runBtn.addEventListener("click", () => {
           try {
-            state42.result = getScenario().run();
+            state43.result = getScenario().run();
           } catch (e) {
-            state42.result = {
+            state43.result = {
               callLog: [],
               assertions: [{ desc: `Error: ${e.message}`, passed: false }]
             };
           }
-          const panel = root42.querySelector('[data-testid="td-result"]');
-          if (panel) panel.innerHTML = renderResult3(state42.result);
+          const panel = root43.querySelector('[data-testid="td-result"]');
+          if (panel) panel.innerHTML = renderResult3(state43.result);
         });
       }
-      const tqStart = root42.querySelector('[data-testid="td-quiz-start"]');
+      const tqStart = root43.querySelector('[data-testid="td-quiz-start"]');
       if (tqStart) {
         tqStart.addEventListener("click", () => {
           tdQuizScenarioIdx = Math.floor(Math.random() * TD_QUIZ_SCENARIOS.length);
@@ -24316,47 +24407,47 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           tdQuiz.phase = "question";
           tdQuiz.selected = "";
           tdQuiz.result = null;
-          render42();
+          render43();
         });
       }
-      const tqClose = root42.querySelector('[data-testid="td-quiz-close"]');
+      const tqClose = root43.querySelector('[data-testid="td-quiz-close"]');
       if (tqClose) {
         tqClose.addEventListener("click", () => {
           tdQuiz.active = false;
-          render42();
+          render43();
         });
       }
-      root42.querySelectorAll("[data-quiz-choice]").forEach((btn) => {
+      root43.querySelectorAll("[data-quiz-choice]").forEach((btn) => {
         btn.addEventListener("click", () => {
           tdQuiz.selected = btn.dataset.quizChoice;
-          const panel = root42.querySelector('[data-testid="td-quiz-panel"]');
+          const panel = root43.querySelector('[data-testid="td-quiz-panel"]');
           if (panel) {
-            root42.querySelectorAll("[data-quiz-choice]").forEach((b) => b.classList.toggle("active", b.dataset.quizChoice === tdQuiz.selected));
-            const checkBtn = root42.querySelector('[data-testid="td-quiz-check"]');
+            root43.querySelectorAll("[data-quiz-choice]").forEach((b) => b.classList.toggle("active", b.dataset.quizChoice === tdQuiz.selected));
+            const checkBtn = root43.querySelector('[data-testid="td-quiz-check"]');
             if (checkBtn) checkBtn.disabled = false;
           }
         });
       });
-      const tqCheck = root42.querySelector('[data-testid="td-quiz-check"]');
+      const tqCheck = root43.querySelector('[data-testid="td-quiz-check"]');
       if (tqCheck) {
         tqCheck.addEventListener("click", () => {
           tdQuiz.phase = "graded";
-          render42();
+          render43();
         });
       }
-      const tqReset = root42.querySelector('[data-testid="td-quiz-reset"]');
+      const tqReset = root43.querySelector('[data-testid="td-quiz-reset"]');
       if (tqReset) {
         tqReset.addEventListener("click", () => {
           tdQuizScenarioIdx = (tdQuizScenarioIdx + 1) % TD_QUIZ_SCENARIOS.length;
           tdQuiz.phase = "question";
           tdQuiz.selected = "";
           tdQuiz.result = null;
-          render42();
+          render43();
         });
       }
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/DefectCostExplorer.js
@@ -24416,11 +24507,11 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function createDefectCostExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "dce-root";
-    root42.dataset.testid = "defect-cost-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "dce-root";
+    root43.dataset.testid = "defect-cost-explorer";
     let selectedId = null;
-    function render42() {
+    function render43() {
       const isZh = getLocale() === "zh";
       const selected = PHASES.find((p) => p.id === selectedId) || null;
       const bars = PHASES.map((phase, i) => {
@@ -24457,7 +24548,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         </div>
       </div>
     ` : `<p class="dce-hint" data-testid="dce-hint">${t("dce.hint")}</p>`;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="dce-header">
         <h3 class="dce-title">${t("dce.title")}</h3>
         <p class="dce-subtitle">${t("dce.subtitle")}</p>
@@ -24473,10 +24564,10 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       <div class="dce-disclaimer">${t("dce.disclaimer")}</div>
       ${detailHtml}
     `;
-      root42.querySelectorAll("[data-dce-phase]").forEach((el) => {
+      root43.querySelectorAll("[data-dce-phase]").forEach((el) => {
         const select = () => {
           selectedId = selectedId === el.dataset.dcePhase ? null : el.dataset.dcePhase;
-          render42();
+          render43();
         };
         el.addEventListener("click", select);
         el.addEventListener("keydown", (e) => {
@@ -24487,8 +24578,8 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         });
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/VModelExplorer.js
@@ -24531,11 +24622,11 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function createVModelExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "vme-root";
-    root42.dataset.testid = "vmodel-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "vme-root";
+    root43.dataset.testid = "vmodel-explorer";
     let selectedId = null;
-    function render42() {
+    function render43() {
       const isZh = getLocale() === "zh";
       const selected = V_PAIRS.find((p) => p.id === selectedId) || (selectedId === "implementation" ? IMPL : null);
       const rows = V_PAIRS.map((pair, i) => {
@@ -24603,7 +24694,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         <p class="vme-detail-desc">${escapeHtml16(isZh ? t("vme.desc.implementation") : t("vme.desc.implementation.en"))}</p>
       </div>
     ` : `<p class="vme-hint" data-testid="vme-hint">${t("vme.hint")}</p>`;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="vme-header">
         <h3 class="vme-title">${t("vme.title")}</h3>
         <p class="vme-subtitle">${t("vme.subtitle")}</p>
@@ -24626,15 +24717,15 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       </div>
       ${detailHtml}
     `;
-      root42.querySelectorAll("[data-vme-id]").forEach((btn) => {
+      root43.querySelectorAll("[data-vme-id]").forEach((btn) => {
         btn.addEventListener("click", () => {
           selectedId = selectedId === btn.dataset.vmeId ? null : btn.dataset.vmeId;
-          render42();
+          render43();
         });
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/PyramidAdjusterExplorer.js
@@ -24669,9 +24760,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   }
   function createPyramidAdjusterExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "pya-root";
-    root42.dataset.testid = "pyramid-adjuster";
+    const root43 = document.createElement("div");
+    root43.className = "pya-root";
+    root43.dataset.testid = "pyramid-adjuster";
     let unit = 70;
     let integration = 20;
     let e2e = 10;
@@ -24705,7 +24796,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       const sum = unit + integration + e2e;
       if (sum !== 100) unit += 100 - sum;
     }
-    function render42() {
+    function render43() {
       const isZh = getLocale() === "zh";
       const traits = computeTraits(unit, integration, e2e);
       const pyramidLayers = LAYERS.map((layer) => {
@@ -24757,7 +24848,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         ${escapeHtml17(isZh ? t(`pya.preset.${p.id}`) : t(`pya.preset.${p.id}.en`))}
       </button>
     `).join("");
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="pya-header">
         <h3 class="pya-title">${t("pya.title")}</h3>
         <p class="pya-subtitle">${t("pya.subtitle")}</p>
@@ -24779,25 +24870,25 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
       </div>
       <p class="pya-disclaimer">${t("pya.disclaimer")}</p>
     `;
-      root42.querySelectorAll("[data-pya-layer]").forEach((input) => {
+      root43.querySelectorAll("[data-pya-layer]").forEach((input) => {
         input.addEventListener("input", () => {
           adjustRatios(input.dataset.pyaLayer, Number(input.value));
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-pya-preset]").forEach((btn) => {
+      root43.querySelectorAll("[data-pya-preset]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const p = PRESETS.find((x) => x.id === btn.dataset.pyaPreset);
           if (!p) return;
           unit = p.unit;
           integration = p.integration;
           e2e = p.e2e;
-          render42();
+          render43();
         });
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/PairwiseExplorer.js
@@ -24838,9 +24929,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     return preset.params.map((p) => ({ id: uid2(), name: p.name, values: [...p.values] }));
   }
   function createPairwiseExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "pairwise-explorer";
-    root42.dataset.testid = "pairwise-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "pairwise-explorer";
+    root43.dataset.testid = "pairwise-explorer";
     let params = freshParams(PRESETS2[1]);
     let newValueDraft = {};
     const pairwiseQuiz = { active: false, phase: "question", answer: "" };
@@ -24902,7 +24993,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         <button type="button" class="quiz-start-btn" data-testid="pairwise-quiz-check">${t("quiz.check")}</button>
       </div>`;
     }
-    function render42() {
+    function render43() {
       const { tests, exhaustive, pairCount, pairCoverage } = computeResults();
       const vp = validParams();
       const reductionPct = exhaustive > 0 && tests.length < exhaustive ? Math.round((1 - tests.length / exhaustive) * 100) : 0;
@@ -24972,7 +25063,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           <tbody>${tbodyRows}</tbody>
         </table>
       </div>` : `<p class="pairwise-empty">${t("pairwise.empty")}</p>`;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="pairwise-params-card">
         <p class="pairwise-params-title">${t("pairwise.params.title")}</p>
         <div class="pairwise-presets">${presetBtns}</div>
@@ -24997,45 +25088,45 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
 
       <p class="pairwise-hint">${t("pairwise.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-preset]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-preset]").forEach((btn) => {
         btn.addEventListener("click", () => {
           params = freshParams(PRESETS2[parseInt(btn.dataset.preset)]);
           newValueDraft = {};
-          render42();
+          render43();
         });
       });
-      root42.querySelector('[data-testid="pairwise-add-param"]').addEventListener("click", () => {
+      root43.querySelector('[data-testid="pairwise-add-param"]').addEventListener("click", () => {
         params.push({ id: uid2(), name: "", values: ["A", "B"] });
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-remove-param]").forEach((btn) => {
+      root43.querySelectorAll("[data-remove-param]").forEach((btn) => {
         btn.addEventListener("click", () => {
           params = params.filter((p) => p.id !== btn.dataset.removeParam);
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-param-name]").forEach((input) => {
+      root43.querySelectorAll("[data-param-name]").forEach((input) => {
         input.addEventListener("change", () => {
           const p = params.find((x) => x.id === input.dataset.paramName);
           if (p) {
             p.name = input.value;
-            render42();
+            render43();
           }
         });
       });
-      root42.querySelectorAll("[data-remove-val]").forEach((btn) => {
+      root43.querySelectorAll("[data-remove-val]").forEach((btn) => {
         btn.addEventListener("click", () => {
           const p = params.find((x) => x.id === btn.dataset.removeVal);
           if (p) {
             p.values.splice(parseInt(btn.dataset.valIdx), 1);
-            render42();
+            render43();
           }
         });
       });
-      root42.querySelectorAll("[data-new-val]").forEach((input) => {
+      root43.querySelectorAll("[data-new-val]").forEach((input) => {
         input.addEventListener("input", () => {
           newValueDraft[input.dataset.newVal] = input.value;
         });
@@ -25046,36 +25137,36 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
           }
         });
       });
-      root42.querySelectorAll("[data-add-val]").forEach((btn) => {
+      root43.querySelectorAll("[data-add-val]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const input = root42.querySelector(`[data-new-val="${btn.dataset.addVal}"]`);
+          const input = root43.querySelector(`[data-new-val="${btn.dataset.addVal}"]`);
           addValue(btn.dataset.addVal, input ? input.value : "");
         });
       });
-      const qStart = root42.querySelector('[data-testid="pairwise-quiz-start"]');
+      const qStart = root43.querySelector('[data-testid="pairwise-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         pairwiseQuiz.active = true;
         pairwiseQuiz.phase = "question";
         pairwiseQuiz.answer = "";
-        render42();
+        render43();
       });
-      const qClose = root42.querySelector('[data-testid="pairwise-quiz-close"]');
+      const qClose = root43.querySelector('[data-testid="pairwise-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         pairwiseQuiz.active = false;
-        render42();
+        render43();
       });
-      const qCheck = root42.querySelector('[data-testid="pairwise-quiz-check"]');
+      const qCheck = root43.querySelector('[data-testid="pairwise-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
-        const inp = root42.querySelector('[data-testid="pairwise-quiz-input"]');
+        const inp = root43.querySelector('[data-testid="pairwise-quiz-input"]');
         pairwiseQuiz.answer = inp ? inp.value : "";
         pairwiseQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      const qReset = root42.querySelector('[data-testid="pairwise-quiz-reset"]');
+      const qReset = root43.querySelector('[data-testid="pairwise-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         pairwiseQuiz.phase = "question";
         pairwiseQuiz.answer = "";
-        render42();
+        render43();
       });
     }
     function addValue(paramId, raw) {
@@ -25086,10 +25177,10 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         p.values.push(val);
       }
       delete newValueDraft[paramId];
-      render42();
+      render43();
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/CauseEffectExplorer.js
@@ -25101,9 +25192,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function createCauseEffectExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "ceg-explorer";
-    root42.dataset.testid = "ceg-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "ceg-explorer";
+    root43.dataset.testid = "ceg-explorer";
     let causes = [
       { id: uid3(), name: "C1", label: "User logged in" },
       { id: uid3(), name: "C2", label: "Cart not empty" },
@@ -25253,7 +25344,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         </div>
       </div>`;
     }
-    function render42() {
+    function render43() {
       const { validCauses, validEffects, rows } = buildTable();
       const activeCount = rows.filter((r) => r.active).length;
       const causeRows = causes.map((c, i) => `
@@ -25327,7 +25418,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         total: 1,
         items: [{ q: t("ceg.rows.active", { n: activeCount }), a: String(activeCount), ok: true }]
       }) : null;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="ceg-editors">
         <div class="ceg-editor-card">
           <p class="ceg-editor-title">${t("ceg.causes.title")}</p>
@@ -25363,110 +25454,110 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
 
       <p class="ceg-hint">${t("ceg.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelector('[data-testid="ceg-cause-add"]').addEventListener("click", () => {
+    function bindEvents42() {
+      root43.querySelector('[data-testid="ceg-cause-add"]').addEventListener("click", () => {
         const n = causes.length + 1;
         causes.push({ id: uid3(), name: `C${n}`, label: "" });
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-remove-cause]").forEach((btn) => {
+      root43.querySelectorAll("[data-remove-cause]").forEach((btn) => {
         btn.addEventListener("click", () => {
           causes = causes.filter((c) => c.id !== btn.dataset.removeCause);
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-cause-label]").forEach((input) => {
+      root43.querySelectorAll("[data-cause-label]").forEach((input) => {
         input.addEventListener("change", () => {
           const c = causes.find((x) => x.id === input.dataset.causeLabel);
           if (c) {
             c.label = input.value;
-            render42();
+            render43();
           }
         });
       });
-      root42.querySelector('[data-testid="ceg-effect-add"]').addEventListener("click", () => {
+      root43.querySelector('[data-testid="ceg-effect-add"]').addEventListener("click", () => {
         const n = effects.length + 1;
         effects.push({ id: uid3(), name: `E${n}`, label: "", formula: "" });
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-remove-effect]").forEach((btn) => {
+      root43.querySelectorAll("[data-remove-effect]").forEach((btn) => {
         btn.addEventListener("click", () => {
           effects = effects.filter((e) => e.id !== btn.dataset.removeEffect);
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-effect-label]").forEach((input) => {
+      root43.querySelectorAll("[data-effect-label]").forEach((input) => {
         input.addEventListener("change", () => {
           const e = effects.find((x) => x.id === input.dataset.effectLabel);
           if (e) {
             e.label = input.value;
-            render42();
+            render43();
           }
         });
       });
-      root42.querySelectorAll("[data-effect-formula]").forEach((input) => {
+      root43.querySelectorAll("[data-effect-formula]").forEach((input) => {
         input.addEventListener("input", () => {
           const e = effects.find((x) => x.id === input.dataset.effectFormula);
           if (e) {
             e.formula = input.value;
-            render42();
+            render43();
           }
         });
       });
-      const qStart = root42.querySelector('[data-testid="ceg-quiz-start"]');
+      const qStart = root43.querySelector('[data-testid="ceg-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         cegQuiz.active = true;
         cegQuiz.phase = "question";
         cegQuiz.answer = "";
-        render42();
+        render43();
       });
-      const qClose = root42.querySelector('[data-testid="ceg-quiz-close"]');
+      const qClose = root43.querySelector('[data-testid="ceg-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         cegQuiz.active = false;
-        render42();
+        render43();
       });
-      const qCheck = root42.querySelector('[data-testid="ceg-quiz-check"]');
+      const qCheck = root43.querySelector('[data-testid="ceg-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
-        const inp = root42.querySelector('[data-testid="ceg-quiz-input"]');
+        const inp = root43.querySelector('[data-testid="ceg-quiz-input"]');
         cegQuiz.answer = inp ? inp.value : "";
         cegQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      const qReset = root42.querySelector('[data-testid="ceg-quiz-reset"]');
+      const qReset = root43.querySelector('[data-testid="ceg-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         cegQuiz.phase = "question";
         cegQuiz.answer = "";
-        render42();
+        render43();
       });
-      const lrStart = root42.querySelector('[data-testid="ceg-lab-reflect-start"]');
+      const lrStart = root43.querySelector('[data-testid="ceg-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         cegLabReflect.active = true;
-        render42();
+        render43();
       });
-      const lrClose = root42.querySelector('[data-testid="ceg-lab-reflect-close"]');
+      const lrClose = root43.querySelector('[data-testid="ceg-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
-        const a1el = root42.querySelector('[data-testid="ceg-lab-reflect-a1"]');
-        const a2el = root42.querySelector('[data-testid="ceg-lab-reflect-a2"]');
+        const a1el = root43.querySelector('[data-testid="ceg-lab-reflect-a1"]');
+        const a2el = root43.querySelector('[data-testid="ceg-lab-reflect-a2"]');
         if (a1el) cegLabReflect.a1 = a1el.value;
         if (a2el) cegLabReflect.a2 = a2el.value;
         cegLabReflect.active = false;
-        render42();
+        render43();
       });
-      const lrA1 = root42.querySelector('[data-testid="ceg-lab-reflect-a1"]');
+      const lrA1 = root43.querySelector('[data-testid="ceg-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
         cegLabReflect.a1 = lrA1.value;
       });
-      const lrA2 = root42.querySelector('[data-testid="ceg-lab-reflect-a2"]');
+      const lrA2 = root43.querySelector('[data-testid="ceg-lab-reflect-a2"]');
       if (lrA2) lrA2.addEventListener("input", () => {
         cegLabReflect.a2 = lrA2.value;
       });
-      const lrShare = root42.querySelector('[data-testid="ceg-lab-reflect-share"]');
+      const lrShare = root43.querySelector('[data-testid="ceg-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
         var _a2, _b2, _c;
-        const a1 = ((_a2 = root42.querySelector('[data-testid="ceg-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || cegLabReflect.a1;
-        const a2 = ((_b2 = root42.querySelector('[data-testid="ceg-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || cegLabReflect.a2;
+        const a1 = ((_a2 = root43.querySelector('[data-testid="ceg-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || cegLabReflect.a1;
+        const a2 = ((_b2 = root43.querySelector('[data-testid="ceg-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || cegLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "ceg",
@@ -25489,8 +25580,8 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         }, 1800);
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/codeCoverage.js
@@ -25821,9 +25912,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
     maxOf3: [["1", "2", "3"], ["3", "2", "1"], ["2", "3", "1"]]
   };
   function createCodeCoverageExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "codecov-explorer";
-    root42.dataset.testid = "codecov-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "codecov-explorer";
+    root43.dataset.testid = "codecov-explorer";
     let activePresetId = COVERAGE_PRESETS[0].id;
     let testCases = DEFAULT_TESTS_BY_PRESET[activePresetId].map((args) => ({ id: uid4(), args: [...args], active: true }));
     let activeCriterion = "stmt";
@@ -25948,7 +26039,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         </div>
       </div>`;
     }
-    function render42() {
+    function render43() {
       const p = preset();
       const { results, stmt, branch, cond, mcdc } = computeCoverage3();
       const strongest = strongestCriterion(stmt, branch, cond, mcdc);
@@ -26014,7 +26105,7 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         total: 1,
         items: [{ q: `${t("codecov.crit.stmt")} ${stmt.pct}% \xB7 ${t("codecov.crit.branch")} ${branch.pct}% \xB7 ${t("codecov.crit.cond")} ${cond.pct}% \xB7 ${t("codecov.crit.mcdc")} ${mcdc.pct}%`, a: strongest, ok: true }]
       });
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="codecov-presets">
         <span class="codecov-preset-label">Program:</span>
         ${presetBtns}
@@ -26063,90 +26154,90 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
 
       <p class="codecov-hint">${t("codecov.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-preset]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-preset]").forEach((btn) => {
         btn.addEventListener("click", () => {
           activePresetId = btn.dataset.preset;
           testCases = (DEFAULT_TESTS_BY_PRESET[activePresetId] || [["0"]]).map((args) => ({ id: uid4(), args: [...args], active: true }));
           codecovQuiz.active = false;
           codecovLabReflect.active = false;
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-tc][data-arg]").forEach((input) => {
+      root43.querySelectorAll("[data-tc][data-arg]").forEach((input) => {
         input.addEventListener("change", () => {
           const tc = testCases.find((x) => x.id === input.dataset.tc);
           if (tc) {
             tc.args[parseInt(input.dataset.arg)] = input.value;
-            render42();
+            render43();
           }
         });
       });
-      root42.querySelectorAll("[data-remove-tc]").forEach((btn) => {
+      root43.querySelectorAll("[data-remove-tc]").forEach((btn) => {
         btn.addEventListener("click", () => {
           testCases = testCases.filter((tc) => tc.id !== btn.dataset.removeTc);
-          render42();
+          render43();
         });
       });
-      root42.querySelector('[data-testid="codecov-add-test"]').addEventListener("click", () => {
+      root43.querySelector('[data-testid="codecov-add-test"]').addEventListener("click", () => {
         const p = preset();
         testCases.push({ id: uid4(), args: p.params.map(() => "0"), active: true });
-        render42();
+        render43();
       });
-      const qStart = root42.querySelector('[data-testid="codecov-quiz-start"]');
+      const qStart = root43.querySelector('[data-testid="codecov-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         codecovQuiz.active = true;
         codecovQuiz.phase = "question";
         codecovQuiz.answer = "";
-        render42();
+        render43();
       });
-      const qClose = root42.querySelector('[data-testid="codecov-quiz-close"]');
+      const qClose = root43.querySelector('[data-testid="codecov-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         codecovQuiz.active = false;
-        render42();
+        render43();
       });
-      const qCheck = root42.querySelector('[data-testid="codecov-quiz-check"]');
+      const qCheck = root43.querySelector('[data-testid="codecov-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
-        const sel = root42.querySelector('[name="codecov-quiz"]:checked');
+        const sel = root43.querySelector('[name="codecov-quiz"]:checked');
         codecovQuiz.answer = sel ? sel.value : "";
         codecovQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      const qReset = root42.querySelector('[data-testid="codecov-quiz-reset"]');
+      const qReset = root43.querySelector('[data-testid="codecov-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         codecovQuiz.phase = "question";
         codecovQuiz.answer = "";
-        render42();
+        render43();
       });
-      const lrStart = root42.querySelector('[data-testid="codecov-lab-reflect-start"]');
+      const lrStart = root43.querySelector('[data-testid="codecov-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         codecovLabReflect.active = true;
-        render42();
+        render43();
       });
-      const lrClose = root42.querySelector('[data-testid="codecov-lab-reflect-close"]');
+      const lrClose = root43.querySelector('[data-testid="codecov-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
-        const a1el = root42.querySelector('[data-testid="codecov-lab-reflect-a1"]');
-        const a2el = root42.querySelector('[data-testid="codecov-lab-reflect-a2"]');
+        const a1el = root43.querySelector('[data-testid="codecov-lab-reflect-a1"]');
+        const a2el = root43.querySelector('[data-testid="codecov-lab-reflect-a2"]');
         if (a1el) codecovLabReflect.a1 = a1el.value;
         if (a2el) codecovLabReflect.a2 = a2el.value;
         codecovLabReflect.active = false;
-        render42();
+        render43();
       });
-      const lrA1 = root42.querySelector('[data-testid="codecov-lab-reflect-a1"]');
+      const lrA1 = root43.querySelector('[data-testid="codecov-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
         codecovLabReflect.a1 = lrA1.value;
       });
-      const lrA2 = root42.querySelector('[data-testid="codecov-lab-reflect-a2"]');
+      const lrA2 = root43.querySelector('[data-testid="codecov-lab-reflect-a2"]');
       if (lrA2) lrA2.addEventListener("input", () => {
         codecovLabReflect.a2 = lrA2.value;
       });
-      const lrShare = root42.querySelector('[data-testid="codecov-lab-reflect-share"]');
+      const lrShare = root43.querySelector('[data-testid="codecov-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
         var _a2, _b2, _c;
-        const a1 = ((_a2 = root42.querySelector('[data-testid="codecov-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || codecovLabReflect.a1;
-        const a2 = ((_b2 = root42.querySelector('[data-testid="codecov-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || codecovLabReflect.a2;
+        const a1 = ((_a2 = root43.querySelector('[data-testid="codecov-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || codecovLabReflect.a1;
+        const a2 = ((_b2 = root43.querySelector('[data-testid="codecov-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || codecovLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "codecov",
@@ -26169,8 +26260,8 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
         }, 1800);
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/IntegrationTestingExplorer.js
@@ -26310,9 +26401,9 @@ assert(callLog.filter(c => c.method === 'warn').length === 1);`
   var SVG_W2 = 400;
   var SVG_H2 = 280;
   function createIntegrationTestingExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "inttest-explorer";
-    root42.dataset.testid = "inttest-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "inttest-explorer";
+    root43.dataset.testid = "inttest-explorer";
     let activeStrategy = "topdown";
     let activeStep = 0;
     const inttestQuiz = { active: false, phase: "question", answer: "" };
@@ -26441,7 +26532,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         </div>
       </div>`;
     }
-    function render42() {
+    function render43() {
       const strategy = STRATEGIES[activeStrategy];
       const step2 = strategy.steps[activeStep];
       const locale = getLocale();
@@ -26481,7 +26572,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         total: 1,
         items: [{ q: `Strategy: ${t(strategy.key)} \xB7 Stubs: ${strategy.stubCount} \xB7 Drivers: ${strategy.driverCount}`, a: "", ok: true }]
       });
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="inttest-strategy-tabs" data-testid="inttest-strategy-tabs">
         ${stratTabs}
       </div>
@@ -26546,83 +26637,83 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
 
       <p class="inttest-hint">${t("codecov.hint").replace("MC/DC \u2287 Condition \u2287 Branch \u2287 Statement", "Big Bang \u2192 Top-down \u2192 Bottom-up \u2192 Sandwich: each adds more structure and isolation.")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-strategy]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-strategy]").forEach((btn) => {
         btn.addEventListener("click", () => {
           activeStrategy = btn.dataset.strategy;
           activeStep = 0;
-          render42();
+          render43();
         });
       });
-      const prevBtn = root42.querySelector('[data-testid="inttest-prev"]');
+      const prevBtn = root43.querySelector('[data-testid="inttest-prev"]');
       if (prevBtn) prevBtn.addEventListener("click", () => {
         if (activeStep > 0) {
           activeStep--;
-          render42();
+          render43();
         }
       });
-      const nextBtn = root42.querySelector('[data-testid="inttest-next"]');
+      const nextBtn = root43.querySelector('[data-testid="inttest-next"]');
       if (nextBtn) nextBtn.addEventListener("click", () => {
         const s = STRATEGIES[activeStrategy];
         if (activeStep < s.steps.length - 1) {
           activeStep++;
-          render42();
+          render43();
         }
       });
-      const qStart = root42.querySelector('[data-testid="inttest-quiz-start"]');
+      const qStart = root43.querySelector('[data-testid="inttest-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         inttestQuiz.active = true;
         inttestQuiz.phase = "question";
         inttestQuiz.answer = "";
-        render42();
+        render43();
       });
-      const qClose = root42.querySelector('[data-testid="inttest-quiz-close"]');
+      const qClose = root43.querySelector('[data-testid="inttest-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         inttestQuiz.active = false;
-        render42();
+        render43();
       });
-      const qCheck = root42.querySelector('[data-testid="inttest-quiz-check"]');
+      const qCheck = root43.querySelector('[data-testid="inttest-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
-        const inp = root42.querySelector('[data-testid="inttest-quiz-input"]');
+        const inp = root43.querySelector('[data-testid="inttest-quiz-input"]');
         inttestQuiz.answer = inp ? inp.value : "";
         inttestQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      const qReset = root42.querySelector('[data-testid="inttest-quiz-reset"]');
+      const qReset = root43.querySelector('[data-testid="inttest-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         inttestQuiz.phase = "question";
         inttestQuiz.answer = "";
-        render42();
+        render43();
       });
-      const lrStart = root42.querySelector('[data-testid="inttest-lab-reflect-start"]');
+      const lrStart = root43.querySelector('[data-testid="inttest-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         inttestLabReflect.active = true;
-        render42();
+        render43();
       });
-      const lrClose = root42.querySelector('[data-testid="inttest-lab-reflect-close"]');
+      const lrClose = root43.querySelector('[data-testid="inttest-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
-        const a1el = root42.querySelector('[data-testid="inttest-lab-reflect-a1"]');
-        const a2el = root42.querySelector('[data-testid="inttest-lab-reflect-a2"]');
+        const a1el = root43.querySelector('[data-testid="inttest-lab-reflect-a1"]');
+        const a2el = root43.querySelector('[data-testid="inttest-lab-reflect-a2"]');
         if (a1el) inttestLabReflect.a1 = a1el.value;
         if (a2el) inttestLabReflect.a2 = a2el.value;
         inttestLabReflect.active = false;
-        render42();
+        render43();
       });
-      const lrA1 = root42.querySelector('[data-testid="inttest-lab-reflect-a1"]');
+      const lrA1 = root43.querySelector('[data-testid="inttest-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
         inttestLabReflect.a1 = lrA1.value;
       });
-      const lrA2 = root42.querySelector('[data-testid="inttest-lab-reflect-a2"]');
+      const lrA2 = root43.querySelector('[data-testid="inttest-lab-reflect-a2"]');
       if (lrA2) lrA2.addEventListener("input", () => {
         inttestLabReflect.a2 = lrA2.value;
       });
-      const lrShare = root42.querySelector('[data-testid="inttest-lab-reflect-share"]');
+      const lrShare = root43.querySelector('[data-testid="inttest-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
         var _a2, _b2, _c;
-        const a1 = ((_a2 = root42.querySelector('[data-testid="inttest-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || inttestLabReflect.a1;
-        const a2 = ((_b2 = root42.querySelector('[data-testid="inttest-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || inttestLabReflect.a2;
+        const a1 = ((_a2 = root43.querySelector('[data-testid="inttest-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || inttestLabReflect.a1;
+        const a2 = ((_b2 = root43.querySelector('[data-testid="inttest-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || inttestLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "inttest",
@@ -26645,8 +26736,8 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         }, 1800);
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/utils/propertyTesting.js
@@ -26939,9 +27030,9 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     return String(v).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
   }
   function createPropertyBasedTestingExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "pbt-explorer";
-    root42.dataset.testid = "pbt-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "pbt-explorer";
+    root43.dataset.testid = "pbt-explorer";
     let activePresetId = PBT_PRESETS[0].id;
     let numTests = 100;
     let lastResult = null;
@@ -27021,7 +27112,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         </div>
       </div>`;
     }
-    function render42() {
+    function render43() {
       const p = preset();
       const presetBtns = PBT_PRESETS.map((pr) => {
         const isBug = pr.expectsCounterexample;
@@ -27083,7 +27174,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         total: 1,
         items: [{ q: `${activePresetId} \xB7 ${numTests} tests`, a: lastResult && lastResult.counterexample ? "fail" : "pass", ok: true }]
       });
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="pbt-presets" data-testid="pbt-preset-bar">${presetBtns}</div>
 
       <div class="pbt-main">
@@ -27133,84 +27224,84 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
 
       <p class="pbt-hint">${t("pbt.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelectorAll("[data-preset]").forEach((btn) => {
+    function bindEvents42() {
+      root43.querySelectorAll("[data-preset]").forEach((btn) => {
         btn.addEventListener("click", () => {
           activePresetId = btn.dataset.preset;
           lastResult = null;
-          render42();
+          render43();
         });
       });
-      const numInput = root42.querySelector('[data-testid="pbt-numtests-input"]');
+      const numInput = root43.querySelector('[data-testid="pbt-numtests-input"]');
       if (numInput) numInput.addEventListener("change", () => {
         const v = parseInt(numInput.value, 10);
         if (v >= 10 && v <= 500) numTests = v;
-        render42();
+        render43();
       });
-      const runBtn = root42.querySelector('[data-testid="pbt-run-btn"]');
+      const runBtn = root43.querySelector('[data-testid="pbt-run-btn"]');
       if (runBtn) runBtn.addEventListener("click", () => {
         const p = preset();
         lastResult = runPropertyTests(p, numTests);
-        render42();
+        render43();
       });
-      const qStart = root42.querySelector('[data-testid="pbt-quiz-start"]');
+      const qStart = root43.querySelector('[data-testid="pbt-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         pbtQuiz.active = true;
         pbtQuiz.phase = "question";
         pbtQuiz.gotAnswer = "";
         pbtQuiz.expectedAnswer = "";
-        render42();
+        render43();
       });
-      const qClose = root42.querySelector('[data-testid="pbt-quiz-close"]');
+      const qClose = root43.querySelector('[data-testid="pbt-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         pbtQuiz.active = false;
-        render42();
+        render43();
       });
-      const qCheck = root42.querySelector('[data-testid="pbt-quiz-check"]');
+      const qCheck = root43.querySelector('[data-testid="pbt-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
-        const gotEl = root42.querySelector('[data-testid="pbt-quiz-got"]');
-        const expEl = root42.querySelector('[data-testid="pbt-quiz-expected"]');
+        const gotEl = root43.querySelector('[data-testid="pbt-quiz-got"]');
+        const expEl = root43.querySelector('[data-testid="pbt-quiz-expected"]');
         pbtQuiz.gotAnswer = gotEl ? gotEl.value : "";
         pbtQuiz.expectedAnswer = expEl ? expEl.value : "";
         pbtQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      const qReset = root42.querySelector('[data-testid="pbt-quiz-reset"]');
+      const qReset = root43.querySelector('[data-testid="pbt-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         pbtQuiz.phase = "question";
         pbtQuiz.gotAnswer = "";
         pbtQuiz.expectedAnswer = "";
-        render42();
+        render43();
       });
-      const lrStart = root42.querySelector('[data-testid="pbt-lab-reflect-start"]');
+      const lrStart = root43.querySelector('[data-testid="pbt-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         pbtLabReflect.active = true;
-        render42();
+        render43();
       });
-      const lrClose = root42.querySelector('[data-testid="pbt-lab-reflect-close"]');
+      const lrClose = root43.querySelector('[data-testid="pbt-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
-        const a1el = root42.querySelector('[data-testid="pbt-lab-reflect-a1"]');
-        const a2el = root42.querySelector('[data-testid="pbt-lab-reflect-a2"]');
+        const a1el = root43.querySelector('[data-testid="pbt-lab-reflect-a1"]');
+        const a2el = root43.querySelector('[data-testid="pbt-lab-reflect-a2"]');
         if (a1el) pbtLabReflect.a1 = a1el.value;
         if (a2el) pbtLabReflect.a2 = a2el.value;
         pbtLabReflect.active = false;
-        render42();
+        render43();
       });
-      const lrA1 = root42.querySelector('[data-testid="pbt-lab-reflect-a1"]');
+      const lrA1 = root43.querySelector('[data-testid="pbt-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
         pbtLabReflect.a1 = lrA1.value;
       });
-      const lrA2 = root42.querySelector('[data-testid="pbt-lab-reflect-a2"]');
+      const lrA2 = root43.querySelector('[data-testid="pbt-lab-reflect-a2"]');
       if (lrA2) lrA2.addEventListener("input", () => {
         pbtLabReflect.a2 = lrA2.value;
       });
-      const lrShare = root42.querySelector('[data-testid="pbt-lab-reflect-share"]');
+      const lrShare = root43.querySelector('[data-testid="pbt-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
         var _a2, _b2, _c;
-        const a1 = ((_a2 = root42.querySelector('[data-testid="pbt-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || pbtLabReflect.a1;
-        const a2 = ((_b2 = root42.querySelector('[data-testid="pbt-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || pbtLabReflect.a2;
+        const a1 = ((_a2 = root43.querySelector('[data-testid="pbt-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || pbtLabReflect.a1;
+        const a2 = ((_b2 = root43.querySelector('[data-testid="pbt-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || pbtLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "pbt",
@@ -27233,8 +27324,8 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         }, 1800);
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/RiskBasedTestingExplorer.js
@@ -27254,9 +27345,9 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
   var HEAT_PAD = 32;
   var SVG_SIZE = 5 * HEAT_CELL + HEAT_PAD * 2;
   function createRiskBasedTestingExplorer() {
-    const root42 = document.createElement("div");
-    root42.className = "rbt-explorer";
-    root42.dataset.testid = "rbt-explorer";
+    const root43 = document.createElement("div");
+    root43.className = "rbt-explorer";
+    root43.dataset.testid = "rbt-explorer";
     let modules = [
       { id: uid5(), name: "Login", likelihood: 5, impact: 5 },
       { id: uid5(), name: "Payment", likelihood: 4, impact: 5 },
@@ -27376,7 +27467,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         </div>
       </div>`;
     }
-    function render42() {
+    function render43() {
       const moduleRows = modules.map((m, i) => `
       <div class="rbt-module-row" data-module-id="${m.id}">
         <input type="text" class="rbt-module-name-input" value="${escapeHtml23(m.name)}"
@@ -27417,7 +27508,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         total: 1,
         items: [{ q: `High-risk: ${highCount} \xB7 Modules: ${modules.length}`, a: String(highCount), ok: true }]
       });
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="rbt-modules-card">
         <p class="rbt-modules-title">${t("rbt.modules.title")}</p>
         <div data-testid="rbt-module-list">${moduleRows}</div>
@@ -27468,103 +27559,103 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
 
       <p class="rbt-hint">${t("rbt.hint")}</p>
     `;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
-      root42.querySelector('[data-testid="rbt-add-module"]').addEventListener("click", () => {
+    function bindEvents42() {
+      root43.querySelector('[data-testid="rbt-add-module"]').addEventListener("click", () => {
         modules.push({ id: uid5(), name: `Module${modules.length + 1}`, likelihood: 3, impact: 3 });
-        render42();
+        render43();
       });
-      root42.querySelectorAll("[data-remove-module]").forEach((btn) => {
+      root43.querySelectorAll("[data-remove-module]").forEach((btn) => {
         btn.addEventListener("click", () => {
           modules = modules.filter((m) => m.id !== btn.dataset.removeModule);
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-module-name]").forEach((input) => {
+      root43.querySelectorAll("[data-module-name]").forEach((input) => {
         input.addEventListener("change", () => {
           const m = modules.find((x) => x.id === input.dataset.moduleName);
           if (m) {
             m.name = input.value;
-            render42();
+            render43();
           }
         });
       });
-      root42.querySelectorAll("[data-module-likelihood]").forEach((slider) => {
+      root43.querySelectorAll("[data-module-likelihood]").forEach((slider) => {
         slider.addEventListener("input", () => {
           const m = modules.find((x) => x.id === slider.dataset.moduleLikelihood);
           if (m) {
             m.likelihood = parseInt(slider.value);
-            render42();
+            render43();
           }
         });
       });
-      root42.querySelectorAll("[data-module-impact]").forEach((slider) => {
+      root43.querySelectorAll("[data-module-impact]").forEach((slider) => {
         slider.addEventListener("input", () => {
           const m = modules.find((x) => x.id === slider.dataset.moduleImpact);
           if (m) {
             m.impact = parseInt(slider.value);
-            render42();
+            render43();
           }
         });
       });
-      const filterSel = root42.querySelector('[data-testid="rbt-filter"]');
+      const filterSel = root43.querySelector('[data-testid="rbt-filter"]');
       if (filterSel) filterSel.addEventListener("change", () => {
         filter = filterSel.value;
-        render42();
+        render43();
       });
-      const qStart = root42.querySelector('[data-testid="rbt-quiz-start"]');
+      const qStart = root43.querySelector('[data-testid="rbt-quiz-start"]');
       if (qStart) qStart.addEventListener("click", () => {
         rbtQuiz.active = true;
         rbtQuiz.phase = "question";
         rbtQuiz.answer = "";
-        render42();
+        render43();
       });
-      const qClose = root42.querySelector('[data-testid="rbt-quiz-close"]');
+      const qClose = root43.querySelector('[data-testid="rbt-quiz-close"]');
       if (qClose) qClose.addEventListener("click", () => {
         rbtQuiz.active = false;
-        render42();
+        render43();
       });
-      const qCheck = root42.querySelector('[data-testid="rbt-quiz-check"]');
+      const qCheck = root43.querySelector('[data-testid="rbt-quiz-check"]');
       if (qCheck) qCheck.addEventListener("click", () => {
-        const inp = root42.querySelector('[data-testid="rbt-quiz-input"]');
+        const inp = root43.querySelector('[data-testid="rbt-quiz-input"]');
         rbtQuiz.answer = inp ? inp.value : "";
         rbtQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      const qReset = root42.querySelector('[data-testid="rbt-quiz-reset"]');
+      const qReset = root43.querySelector('[data-testid="rbt-quiz-reset"]');
       if (qReset) qReset.addEventListener("click", () => {
         rbtQuiz.phase = "question";
         rbtQuiz.answer = "";
-        render42();
+        render43();
       });
-      const lrStart = root42.querySelector('[data-testid="rbt-lab-reflect-start"]');
+      const lrStart = root43.querySelector('[data-testid="rbt-lab-reflect-start"]');
       if (lrStart) lrStart.addEventListener("click", () => {
         rbtLabReflect.active = true;
-        render42();
+        render43();
       });
-      const lrClose = root42.querySelector('[data-testid="rbt-lab-reflect-close"]');
+      const lrClose = root43.querySelector('[data-testid="rbt-lab-reflect-close"]');
       if (lrClose) lrClose.addEventListener("click", () => {
-        const a1el = root42.querySelector('[data-testid="rbt-lab-reflect-a1"]');
-        const a2el = root42.querySelector('[data-testid="rbt-lab-reflect-a2"]');
+        const a1el = root43.querySelector('[data-testid="rbt-lab-reflect-a1"]');
+        const a2el = root43.querySelector('[data-testid="rbt-lab-reflect-a2"]');
         if (a1el) rbtLabReflect.a1 = a1el.value;
         if (a2el) rbtLabReflect.a2 = a2el.value;
         rbtLabReflect.active = false;
-        render42();
+        render43();
       });
-      const lrA1 = root42.querySelector('[data-testid="rbt-lab-reflect-a1"]');
+      const lrA1 = root43.querySelector('[data-testid="rbt-lab-reflect-a1"]');
       if (lrA1) lrA1.addEventListener("input", () => {
         rbtLabReflect.a1 = lrA1.value;
       });
-      const lrA2 = root42.querySelector('[data-testid="rbt-lab-reflect-a2"]');
+      const lrA2 = root43.querySelector('[data-testid="rbt-lab-reflect-a2"]');
       if (lrA2) lrA2.addEventListener("input", () => {
         rbtLabReflect.a2 = lrA2.value;
       });
-      const lrShare = root42.querySelector('[data-testid="rbt-lab-reflect-share"]');
+      const lrShare = root43.querySelector('[data-testid="rbt-lab-reflect-share"]');
       if (lrShare) lrShare.addEventListener("click", () => {
         var _a2, _b2, _c;
-        const a1 = ((_a2 = root42.querySelector('[data-testid="rbt-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || rbtLabReflect.a1;
-        const a2 = ((_b2 = root42.querySelector('[data-testid="rbt-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || rbtLabReflect.a2;
+        const a1 = ((_a2 = root43.querySelector('[data-testid="rbt-lab-reflect-a1"]')) == null ? void 0 : _a2.value) || rbtLabReflect.a1;
+        const a2 = ((_b2 = root43.querySelector('[data-testid="rbt-lab-reflect-a2"]')) == null ? void 0 : _b2.value) || rbtLabReflect.a2;
         const url = buildShareUrl(encodeResult({
           v: 1,
           explorer: "rbt",
@@ -27587,8 +27678,8 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         }, 1800);
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
 
   // src/components/GroupTheoryExplorer.js
@@ -27628,8 +27719,8 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
     return Array.from({ length: n }, (_, i) => !!(mask & 1 << n - 1 - i));
   }
   function createGroupTheoryExplorer() {
-    const root42 = document.createElement("div");
-    root42.dataset.testid = "gth-explorer";
+    const root43 = document.createElement("div");
+    root43.dataset.testid = "gth-explorer";
     let formula = "A AND B";
     let activeTab = "orbits";
     let covP = 2;
@@ -27933,7 +28024,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         <button type="button" class="quiz-share-btn" data-share-payload="${reflectEncoded}" data-testid="gth-lab-reflect-share">\u{1F4CB} ${t("lab.reflect.record")}</button>
       </div>`;
     }
-    function render42() {
+    function render43() {
       const result = computeOrbits();
       const { vars, valid } = parseDNF(formula);
       let orbitContent = "";
@@ -27963,7 +28054,7 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         total: 1,
         items: [{ q: `Orbits: ${metricData.orbits}/${metricData.total} \xB7 |Aut(f)|=${metricData.autOrder}`, a: String(metricData.orbits), ok: true }]
       });
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="gth-explorer">
         <div class="gth-input-card">
           <label class="gth-label">${t("groupth.formula.label")}</label>
@@ -28008,30 +28099,30 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
 
         <p class="gth-hint">${t("groupth.hint")}</p>
       </div>`;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
-      const inp = root42.querySelector('[data-testid="gth-formula-input"]');
+      const inp = root43.querySelector('[data-testid="gth-formula-input"]');
       if (inp) {
         inp.addEventListener("change", () => {
           formula = inp.value;
-          render42();
+          render43();
         });
       }
-      root42.querySelectorAll(".gth-example-btn").forEach((btn) => {
+      root43.querySelectorAll(".gth-example-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           formula = btn.dataset.formula;
-          render42();
+          render43();
         });
       });
-      root42.querySelectorAll("[data-tab]").forEach((btn) => {
+      root43.querySelectorAll("[data-tab]").forEach((btn) => {
         btn.addEventListener("click", () => {
           activeTab = btn.dataset.tab;
-          render42();
+          render43();
         });
       });
-      const copyBtn = root42.querySelector('[data-testid="gth-copy"]');
+      const copyBtn = root43.querySelector('[data-testid="gth-copy"]');
       if (copyBtn) {
         copyBtn.addEventListener("click", () => {
           var _a3;
@@ -28054,66 +28145,66 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
           });
         });
       }
-      (_a2 = root42.querySelector('[data-testid="gth-bridge-mt"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      (_a2 = root43.querySelector('[data-testid="gth-bridge-mt"]')) == null ? void 0 : _a2.addEventListener("click", () => {
         var _a3, _b3;
         (_a3 = document.querySelector('[data-section="blackbox"]')) == null ? void 0 : _a3.click();
         (_b3 = document.querySelector('[data-blackbox-tab="mt"]')) == null ? void 0 : _b3.click();
       });
-      (_b2 = root42.querySelector('[data-testid="gth-cov-p"]')) == null ? void 0 : _b2.addEventListener("change", (e) => {
+      (_b2 = root43.querySelector('[data-testid="gth-cov-p"]')) == null ? void 0 : _b2.addEventListener("change", (e) => {
         covP = Number(e.target.value);
-        render42();
+        render43();
       });
-      const covKSlider = root42.querySelector('[data-testid="gth-cov-k"]');
+      const covKSlider = root43.querySelector('[data-testid="gth-cov-k"]');
       if (covKSlider) {
         covKSlider.addEventListener("input", (e) => {
           covK = Number(e.target.value);
-          const val = root42.querySelector('[data-testid="gth-cov-k-val"]');
+          const val = root43.querySelector('[data-testid="gth-cov-k-val"]');
           if (val) val.textContent = covK;
         });
-        covKSlider.addEventListener("change", () => render42());
+        covKSlider.addEventListener("change", () => render43());
       }
-      (_c = root42.querySelector('[data-testid="gth-cov-t"]')) == null ? void 0 : _c.addEventListener("change", (e) => {
+      (_c = root43.querySelector('[data-testid="gth-cov-t"]')) == null ? void 0 : _c.addEventListener("change", (e) => {
         covT = Number(e.target.value);
-        render42();
+        render43();
       });
-      (_d = root42.querySelector('[data-testid="gth-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", (e) => {
+      (_d = root43.querySelector('[data-testid="gth-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", (e) => {
         gthQuiz.tab = e.currentTarget.dataset.quizTab || activeTab;
         gthQuiz.active = true;
         gthQuiz.phase = "question";
         gthQuiz.answer = "";
-        render42();
+        render43();
       });
-      (_e = root42.querySelector('[data-testid="gth-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      (_e = root43.querySelector('[data-testid="gth-quiz-close"]')) == null ? void 0 : _e.addEventListener("click", () => {
         gthQuiz.active = false;
-        render42();
+        render43();
       });
-      (_f = root42.querySelector('[data-testid="gth-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      (_f = root43.querySelector('[data-testid="gth-quiz-reset"]')) == null ? void 0 : _f.addEventListener("click", () => {
         gthQuiz.phase = "question";
         gthQuiz.answer = "";
-        render42();
+        render43();
       });
-      (_g = root42.querySelector('[data-testid="gth-quiz-input"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
+      (_g = root43.querySelector('[data-testid="gth-quiz-input"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
         gthQuiz.answer = e.target.value;
       });
-      (_h = root42.querySelector('[data-testid="gth-quiz-submit"]')) == null ? void 0 : _h.addEventListener("click", () => {
+      (_h = root43.querySelector('[data-testid="gth-quiz-submit"]')) == null ? void 0 : _h.addEventListener("click", () => {
         gthQuiz.phase = "graded";
-        render42();
+        render43();
       });
-      (_i = root42.querySelector('[data-testid="gth-lab-reflect-start"]')) == null ? void 0 : _i.addEventListener("click", () => {
+      (_i = root43.querySelector('[data-testid="gth-lab-reflect-start"]')) == null ? void 0 : _i.addEventListener("click", () => {
         gthLabReflect.active = true;
-        render42();
+        render43();
       });
-      (_j = root42.querySelector('[data-testid="gth-lab-reflect-close"]')) == null ? void 0 : _j.addEventListener("click", () => {
+      (_j = root43.querySelector('[data-testid="gth-lab-reflect-close"]')) == null ? void 0 : _j.addEventListener("click", () => {
         gthLabReflect.active = false;
-        render42();
+        render43();
       });
-      (_k = root42.querySelector('[data-testid="gth-lab-reflect-text"]')) == null ? void 0 : _k.addEventListener("input", (e) => {
+      (_k = root43.querySelector('[data-testid="gth-lab-reflect-text"]')) == null ? void 0 : _k.addEventListener("input", (e) => {
         gthLabReflect.text = e.target.value;
       });
-      (_l = root42.querySelector('[data-testid="gth-lab-reflect-text2"]')) == null ? void 0 : _l.addEventListener("input", (e) => {
+      (_l = root43.querySelector('[data-testid="gth-lab-reflect-text2"]')) == null ? void 0 : _l.addEventListener("input", (e) => {
         gthLabReflect.text2 = e.target.value;
       });
-      root42.querySelectorAll("[data-share-payload]").forEach((btn) => {
+      root43.querySelectorAll("[data-share-payload]").forEach((btn) => {
         btn.addEventListener("click", () => {
           var _a3;
           const url = (window.__buildShareUrl__ || (() => btn.dataset.sharePayload))(btn.dataset.sharePayload);
@@ -28121,8 +28212,8 @@ ${badgeText ? `<text x="${n.x}" y="${n.y + 12}" text-anchor="middle" font-size="
         });
       });
     }
-    render42();
-    return root42;
+    render43();
+    return root43;
   }
   function _evalFormula(formula, env) {
     try {
@@ -31148,10 +31239,10 @@ CONFIRMED \u2014 real crash, not a harness artifact`,
     return journey.steps.reduce((p, s) => p * stepPassProbability(s), 1);
   }
   function simulateRuns(journey, runs, seed = 1) {
-    let state42 = seed;
+    let state43 = seed;
     function rand() {
-      state42 = state42 * 1103515245 + 12345 & 2147483647;
-      return state42 / 2147483647;
+      state43 = state43 * 1103515245 + 12345 & 2147483647;
+      return state43 / 2147483647;
     }
     const reached = journey.steps.map(() => 0);
     let fullPasses = 0;
@@ -37626,49 +37717,49 @@ ${items.join("\n")}
   function initialTddState() {
     return { phase: "start", hasFailingTest: false, allGreen: true, cycleCount: 0 };
   }
-  function isLegal(state42, action) {
-    if (action === "write-failing-test") return !state42.hasFailingTest;
-    if (action === "write-production-code") return state42.hasFailingTest;
+  function isLegal(state43, action) {
+    if (action === "write-failing-test") return !state43.hasFailingTest;
+    if (action === "write-production-code") return state43.hasFailingTest;
     if (action === "refactor") {
-      return state42.allGreen && !state42.hasFailingTest && state42.cycleCount > 0;
+      return state43.allGreen && !state43.hasFailingTest && state43.cycleCount > 0;
     }
     return false;
   }
-  function legalActions(state42) {
-    return new Set(ACTIONS.filter((a) => isLegal(state42, a)));
+  function legalActions(state43) {
+    return new Set(ACTIONS.filter((a) => isLegal(state43, a)));
   }
-  function reasonKey(state42, action) {
+  function reasonKey(state43, action) {
     if (action === "write-failing-test") return "tdd.rules.reason.alreadyRed";
     if (action === "write-production-code") return "tdd.rules.reason.noRed";
-    if (state42.hasFailingTest) return "tdd.rules.reason.notGreen";
+    if (state43.hasFailingTest) return "tdd.rules.reason.notGreen";
     return "tdd.rules.reason.nothingYet";
   }
-  function applyAction(state42, action) {
+  function applyAction(state43, action) {
     if (!ACTIONS.includes(action)) {
-      return { state: state42, blocked: true, reasonKey: "tdd.rules.reason.unknown" };
+      return { state: state43, blocked: true, reasonKey: "tdd.rules.reason.unknown" };
     }
-    if (!isLegal(state42, action)) {
-      return { state: state42, blocked: true, reasonKey: reasonKey(state42, action) };
+    if (!isLegal(state43, action)) {
+      return { state: state43, blocked: true, reasonKey: reasonKey(state43, action) };
     }
     if (action === "write-failing-test") {
       return {
-        state: { ...state42, phase: "red", hasFailingTest: true, allGreen: false },
+        state: { ...state43, phase: "red", hasFailingTest: true, allGreen: false },
         blocked: false
       };
     }
     if (action === "write-production-code") {
       return {
         state: {
-          ...state42,
+          ...state43,
           phase: "green",
           hasFailingTest: false,
           allGreen: true,
-          cycleCount: state42.cycleCount + 1
+          cycleCount: state43.cycleCount + 1
         },
         blocked: false
       };
     }
-    return { state: { ...state42, phase: "refactor" }, blocked: false };
+    return { state: { ...state43, phase: "refactor" }, blocked: false };
   }
 
   // src/components/TddRulesExplorer.js
@@ -40220,6 +40311,18 @@ ${items.join("\n")}
     // observable output per state (what a test can see from outside)
     outputs: { LOCKED: "red", UNLOCKED: "green", PASSED: "beep", JAMMED: "green", MAINT: "red" }
   };
+  var SEAM_SNIPPET = {
+    antipatterns: [
+      // global/singleton Config read — a hidden global input a test cannot set.
+      { id: "global", seam: "object", double: "stub" },
+      // hard-coded new PaymentGateway() — a dependency the test cannot swap.
+      { id: "newdep", seam: "object", double: "mock" },
+      // real Date.now() — the wall clock, which a test cannot pin.
+      { id: "clock", seam: "object", double: "fake" },
+      // real Math.random() — the RNG, which a test cannot make deterministic.
+      { id: "random", seam: "object", double: "stub" }
+    ]
+  };
 
   // src/components/ControllabilityObservabilityExplorer.js
   function reachableStates(sut) {
@@ -40261,8 +40364,8 @@ ${items.join("\n")}
     const total = sut.states.length;
     return { observable, total, ratio: observable.length / total };
   }
-  function withProbe(sut, state42, distinctOutput) {
-    return { ...sut, outputs: { ...sut.outputs, [state42]: distinctOutput } };
+  function withProbe(sut, state43, distinctOutput) {
+    return { ...sut, outputs: { ...sut.outputs, [state43]: distinctOutput } };
   }
   function driveTo(sut, target) {
     if (target === sut.start) return [];
@@ -40274,8 +40377,8 @@ ${items.join("\n")}
     const seen = /* @__PURE__ */ new Set([sut.start]);
     const queue = [{ state: sut.start, path: [] }];
     while (queue.length) {
-      const { state: state42, path } = queue.shift();
-      for (const edge of adj.get(state42) || []) {
+      const { state: state43, path } = queue.shift();
+      for (const edge of adj.get(state43) || []) {
         if (seen.has(edge.to)) continue;
         const nextPath = [...path, edge.on];
         if (edge.to === target) return nextPath;
@@ -40495,6 +40598,153 @@ ${items.join("\n")}
     return root36;
   }
 
+  // src/components/TestabilitySeamsExplorer.js
+  var CAPABILITY_KEY = {
+    global: "tsm.cap.global",
+    newdep: "tsm.cap.newdep",
+    clock: "tsm.cap.clock",
+    random: "tsm.cap.random"
+  };
+  function testabilityOf(appliedIds = []) {
+    const wanted = new Set(appliedIds);
+    const order = SEAM_SNIPPET.antipatterns.map((ap) => ap.id);
+    const applied = order.filter((id) => wanted.has(id));
+    const remaining = order.filter((id) => !wanted.has(id));
+    const capabilities = applied.map((id) => CAPABILITY_KEY[id]);
+    return {
+      score: applied.length / SEAM_SNIPPET.antipatterns.length,
+      applied,
+      remaining,
+      capabilities
+    };
+  }
+  var CODE_HEAD_BEFORE = "function charge(amount) {";
+  var CODE_HEAD_AFTER = "function charge(deps, amount) {";
+  var CODE_TAIL = "  return gw.charge(cfg.merchant, amount, at, id);";
+  var CODE_FRAGMENTS = {
+    global: { before: "  const cfg = Config.instance();", after: "  const cfg = deps.config;" },
+    newdep: { before: "  const gw = new PaymentGateway();", after: "  const gw = deps.gateway;" },
+    clock: { before: "  const at = Date.now();", after: "  const at = deps.clock.now();" },
+    random: { before: "  const id = Math.random().toString(36);", after: "  const id = deps.rng.id();" }
+  };
+  var state37 = {
+    applied: /* @__PURE__ */ new Set()
+    // ids of anti-patterns whose fix has been applied
+  };
+  var root37;
+  function esc24(value = "") {
+    return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+  }
+  function renderCode() {
+    const headApplied = SEAM_SNIPPET.antipatterns.every((ap) => state37.applied.has(ap.id));
+    const head = headApplied ? CODE_HEAD_AFTER : CODE_HEAD_BEFORE;
+    const lines = SEAM_SNIPPET.antipatterns.map((ap) => {
+      const on = state37.applied.has(ap.id);
+      const frag = CODE_FRAGMENTS[ap.id];
+      const code = on ? frag.after : frag.before;
+      const chipKey = on ? "tsm.status.applied" : `tsm.ap.${ap.id}.chip`;
+      const btnKey = on ? "tsm.toggle.revert" : "tsm.toggle.fix";
+      return `<div class="tsm-code-line${on ? " tsm-code-line--fixed" : " tsm-code-line--smell"}">
+      <code class="tsm-code-text">${esc24(code)}</code>
+      <span class="tsm-chip${on ? " tsm-chip--fixed" : ""}">${esc24(t(chipKey))}</span>
+      <button type="button" class="tsm-fix-btn${on ? " tsm-fix-btn--on" : ""}"
+        data-tsm-fix="${esc24(ap.id)}" data-testid="seams-fix-${esc24(ap.id)}"
+        aria-pressed="${on ? "true" : "false"}">${esc24(t(btnKey))}</button>
+    </div>`;
+    }).join("");
+    return `<div class="tsm-code" data-testid="seams-code">
+    <div class="tsm-code-line tsm-code-line--frame"><code class="tsm-code-text">${esc24(head)}</code></div>
+    ${lines}
+    <div class="tsm-code-line tsm-code-line--frame"><code class="tsm-code-text">${esc24(CODE_TAIL)}</code></div>
+    <div class="tsm-code-line tsm-code-line--frame"><code class="tsm-code-text">}</code></div>
+  </div>`;
+  }
+  function renderMeter2(model) {
+    const pct2 = Math.round(model.score * 100);
+    return `<div class="tsm-meter" data-testid="seams-meter">
+    <div class="tsm-meter-head">
+      <span class="tsm-meter-label">${esc24(t("tsm.meter.label"))}</span>
+      <span class="tsm-score" data-testid="seams-score">${pct2}%</span>
+    </div>
+    <div class="tsm-meter-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct2}">
+      <div class="tsm-meter-fill" style="width:${pct2}%"></div>
+    </div>
+    <p class="tsm-meter-caption">${esc24(t("tsm.meter.caption", { n: model.applied.length, total: SEAM_SNIPPET.antipatterns.length }))}</p>
+  </div>`;
+  }
+  function renderCapabilities(model) {
+    const items = model.capabilities.length ? model.capabilities.map((key3) => `<li class="tsm-cap-item">${esc24(t(key3))}</li>`).join("") : `<li class="tsm-cap-empty">${esc24(t("tsm.capabilities.empty"))}</li>`;
+    return `<div class="tsm-cap" data-testid="seams-capabilities">
+    <h3 class="tsm-cap-title">${esc24(t("tsm.capabilities.title"))}</h3>
+    <ul class="tsm-cap-list">${items}</ul>
+  </div>`;
+  }
+  function renderCrosswalk() {
+    const rows = SEAM_SNIPPET.antipatterns.map((ap) => {
+      const on = state37.applied.has(ap.id);
+      return `<tr class="tsm-xrow${on ? " tsm-xrow--applied" : ""}" data-testid="seams-xrow-${esc24(ap.id)}">
+      <td class="tsm-x-ap">${esc24(t(`tsm.ap.${ap.id}.name`))}</td>
+      <td class="tsm-x-seam">${esc24(t(`tsm.seam.${ap.seam}`))}</td>
+      <td class="tsm-x-double">${esc24(t(`tsm.double.${ap.double}`))}</td>
+      <td class="tsm-x-status">${esc24(on ? t("tsm.status.applied") : t("tsm.status.before"))}</td>
+    </tr>`;
+    }).join("");
+    return `<div class="tsm-xwalk" data-testid="seams-crosswalk">
+    <h3 class="tsm-xwalk-title">${esc24(t("tsm.crosswalk.title"))}</h3>
+    <table class="tsm-xtable">
+      <thead><tr>
+        <th>${esc24(t("tsm.crosswalk.antipattern"))}</th>
+        <th>${esc24(t("tsm.crosswalk.seam"))}</th>
+        <th>${esc24(t("tsm.crosswalk.double"))}</th>
+        <th>${esc24(t("tsm.crosswalk.status"))}</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <a class="tsm-doubles-link" href="?explorer=test-doubles" data-testid="seams-doubles-link">
+      ${esc24(t("tsm.doubles.link"))}
+    </a>
+  </div>`;
+  }
+  function render37() {
+    const model = testabilityOf([...state37.applied]);
+    const done = model.applied.length === SEAM_SNIPPET.antipatterns.length;
+    root37.innerHTML = `
+    <div class="tsm-wrap" data-testid="seams-explorer">
+      <h2 class="tsm-title">${esc24(t("tsm.title"))}</h2>
+      <p class="tsm-desc">${esc24(t("tsm.desc"))}</p>
+      <div class="tsm-body">
+        <div class="tsm-left">
+          <h3 class="tsm-col-title">${esc24(t("tsm.code.title"))}</h3>
+          ${renderCode()}
+        </div>
+        <div class="tsm-right">
+          ${renderMeter2(model)}
+          ${renderCapabilities(model)}
+          ${renderCrosswalk()}
+        </div>
+      </div>
+      ${done ? `<p class="tsm-capstone" data-testid="seams-capstone">${esc24(t("tsm.capstone"))}</p>` : ""}
+    </div>`;
+    bindEvents37();
+  }
+  function bindEvents37() {
+    root37.querySelectorAll("[data-tsm-fix]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.tsmFix;
+        if (state37.applied.has(id)) state37.applied.delete(id);
+        else state37.applied.add(id);
+        render37();
+      });
+    });
+  }
+  function createTestabilitySeamsExplorer() {
+    state37.applied = /* @__PURE__ */ new Set();
+    root37 = document.createElement("div");
+    onLocaleChange(() => render37());
+    render37();
+    return root37;
+  }
+
   // src/components/DefinitionGatesExplorer.js
   var CRITERIA4 = [
     { id: "dor-criteria", gate: "dor" },
@@ -40525,13 +40775,13 @@ ${items.join("\n")}
     }
     return { caught, leaked };
   }
-  var state37 = {
+  var state38 = {
     // Start with two criteria off, so a leak is visible immediately.
     enabled: new Set(CRITERIA4.map((c) => c.id).filter((id) => id !== "dor-data" && id !== "dod-review")),
     quiz: { active: false, phase: "idle", answer: "" },
     lab: { active: false, text: "" }
   };
-  var root37;
+  var root38;
   function renderGate(gate) {
     const crits = CRITERIA4.filter((c) => c.gate === gate);
     return `
@@ -40543,7 +40793,7 @@ ${items.join("\n")}
           <li>
             <label class="gate-crit">
               <input type="checkbox" data-crit="${c.id}" data-testid="gate-crit-${c.id}"
-                ${state37.enabled.has(c.id) ? "checked" : ""}>
+                ${state38.enabled.has(c.id) ? "checked" : ""}>
               ${t("gate.crit." + c.id)}
             </label>
           </li>`).join("")}
@@ -40551,7 +40801,7 @@ ${items.join("\n")}
     </div>`;
   }
   function renderResult2() {
-    const { caught, leaked } = evaluate2(state37.enabled);
+    const { caught, leaked } = evaluate2(state38.enabled);
     const issueRow = (issue, status) => `
     <li class="gate-issue gate-issue--${status}">
       <span class="gate-issue-icon">${status === "caught" ? "\u2705" : "\u26A0\uFE0F"}</span>
@@ -40586,11 +40836,11 @@ ${items.join("\n")}
     </div>`;
   }
   function renderQuiz36() {
-    if (!state37.quiz.active) {
+    if (!state38.quiz.active) {
       return `<button type="button" class="gate-quiz-start" data-testid="gate-quiz-start">${t("quiz.start")}</button>`;
     }
-    if (state37.quiz.phase === "done") {
-      const correct = state37.quiz.answer === "c";
+    if (state38.quiz.phase === "done") {
+      const correct = state38.quiz.answer === "c";
       const shareEncoded = encodeResult({
         v: 1,
         explorer: "gate",
@@ -40602,7 +40852,7 @@ ${items.join("\n")}
         total: 1,
         items: [{
           q: t("gate.quiz.prompt"),
-          a: state37.quiz.answer ? t("gate.quiz." + state37.quiz.answer) : "",
+          a: state38.quiz.answer ? t("gate.quiz." + state38.quiz.answer) : "",
           expected: t("gate.quiz.c"),
           ok: correct
         }]
@@ -40617,26 +40867,26 @@ ${items.join("\n")}
       <p class="gate-quiz-prompt">${t("gate.quiz.prompt")}</p>
       ${["a", "b", "c", "d"].map((k) => `
         <label class="gate-quiz-option">
-          <input type="radio" name="gate-quiz" value="${k}" ${state37.quiz.answer === k ? "checked" : ""}>
+          <input type="radio" name="gate-quiz" value="${k}" ${state38.quiz.answer === k ? "checked" : ""}>
           ${t("gate.quiz." + k)}
         </label>`).join("")}
       <button type="button" class="gate-quiz-submit" data-testid="gate-quiz-submit"
-        ${!state37.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
+        ${!state38.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
     </div>`;
   }
   function renderLab22() {
-    if (!state37.lab.active) {
+    if (!state38.lab.active) {
       return `<button type="button" class="gate-lab-start" data-testid="gate-lab-start">${t("lab.start")}</button>`;
     }
     return `
     <div class="gate-lab" data-testid="gate-lab">
       <p class="gate-lab-prompt">${t("gate.lab.prompt")}</p>
       <textarea class="gate-lab-textarea" data-testid="gate-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${state37.lab.text}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${state38.lab.text}</textarea>
     </div>`;
   }
-  function render37() {
-    root37.innerHTML = `
+  function render38() {
+    root38.innerHTML = `
     <div class="gate-wrap" data-testid="gate-wrap">
       <h2 class="gate-title">${t("gate.title")}</h2>
       <p class="gate-desc">${t("gate.desc")}</p>
@@ -40653,56 +40903,56 @@ ${items.join("\n")}
         ${renderLab22()}
       </section>
     </div>`;
-    bindEvents37();
+    bindEvents38();
   }
-  function bindEvents37() {
+  function bindEvents38() {
     var _a2, _b2, _c, _d, _e, _f;
-    root37.querySelectorAll("[data-crit]").forEach((inp) => {
+    root38.querySelectorAll("[data-crit]").forEach((inp) => {
       inp.addEventListener("change", () => {
-        if (inp.checked) state37.enabled.add(inp.dataset.crit);
-        else state37.enabled.delete(inp.dataset.crit);
-        render37();
+        if (inp.checked) state38.enabled.add(inp.dataset.crit);
+        else state38.enabled.delete(inp.dataset.crit);
+        render38();
       });
     });
-    (_a2 = root37.querySelector('[data-testid="gate-bridge-defectcost"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+    (_a2 = root38.querySelector('[data-testid="gate-bridge-defectcost"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       var _a3, _b3;
       (_a3 = document.querySelector('[data-section="flow"]')) == null ? void 0 : _a3.click();
       (_b3 = document.querySelector('[data-flow-tab="defectCost"]')) == null ? void 0 : _b3.click();
     });
-    (_b2 = root37.querySelector('[data-testid="gate-bridge-bdd"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+    (_b2 = root38.querySelector('[data-testid="gate-bridge-bdd"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       var _a3, _b3;
       (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
       (_b3 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _b3.click();
     });
-    (_c = root37.querySelector('[data-testid="gate-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      state37.quiz = { active: true, phase: "question", answer: "" };
-      render37();
+    (_c = root38.querySelector('[data-testid="gate-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      state38.quiz = { active: true, phase: "question", answer: "" };
+      render38();
     });
-    root37.querySelectorAll('input[name="gate-quiz"]').forEach((inp) => {
+    root38.querySelectorAll('input[name="gate-quiz"]').forEach((inp) => {
       inp.addEventListener("change", () => {
-        state37.quiz.answer = inp.value;
-        render37();
+        state38.quiz.answer = inp.value;
+        render38();
       });
     });
-    (_d = root37.querySelector('[data-testid="gate-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
-      state37.quiz.phase = "done";
-      render37();
+    (_d = root38.querySelector('[data-testid="gate-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      state38.quiz.phase = "done";
+      render38();
     });
-    (_e = root37.querySelector('[data-testid="gate-lab-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
-      state37.lab.active = true;
-      render37();
+    (_e = root38.querySelector('[data-testid="gate-lab-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      state38.lab.active = true;
+      render38();
     });
-    (_f = root37.querySelector('[data-testid="gate-lab-text"]')) == null ? void 0 : _f.addEventListener("input", (e) => {
-      state37.lab.text = e.target.value;
+    (_f = root38.querySelector('[data-testid="gate-lab-text"]')) == null ? void 0 : _f.addEventListener("input", (e) => {
+      state38.lab.text = e.target.value;
     });
   }
   function createDefinitionGatesExplorer() {
-    state37.enabled = new Set(CRITERIA4.map((c) => c.id).filter((id) => id !== "dor-data" && id !== "dod-review"));
-    state37.quiz = { active: false, phase: "idle", answer: "" };
-    state37.lab = { active: false, text: "" };
-    root37 = document.createElement("div");
-    render37();
-    return root37;
+    state38.enabled = new Set(CRITERIA4.map((c) => c.id).filter((id) => id !== "dor-data" && id !== "dod-review"));
+    state38.quiz = { active: false, phase: "idle", answer: "" };
+    state38.lab = { active: false, text: "" };
+    root38 = document.createElement("div");
+    render38();
+    return root38;
   }
 
   // src/components/ExampleMappingExplorer.js
@@ -40713,25 +40963,25 @@ ${items.join("\n")}
   ];
   var QUESTIONS = ["q1", "q2", "q3"];
   var ROLES = ["ba", "dev", "tester"];
-  var state38 = {
+  var state39 = {
     role: "ba",
     resolved: /* @__PURE__ */ new Set(),
     activeExample: "e1",
     quiz: { active: false, phase: "idle", answer: "" },
     lab: { active: false, text: "" }
   };
-  var root38;
+  var root39;
   function openQuestionCount() {
-    return QUESTIONS.filter((q) => !state38.resolved.has(q)).length;
+    return QUESTIONS.filter((q) => !state39.resolved.has(q)).length;
   }
   function renderRoles() {
     return `
     <div class="emap-roles" data-testid="emap-roles">
       ${ROLES.map((r) => `
         <button type="button"
-          class="emap-role ${state38.role === r ? "emap-role--active" : ""}"
+          class="emap-role ${state39.role === r ? "emap-role--active" : ""}"
           data-role="${r}" data-testid="emap-role-${r}">${t("emap.role." + r)}</button>`).join("")}
-      <p class="emap-role-note">${t("emap.role." + state38.role + ".note")}</p>
+      <p class="emap-role-note">${t("emap.role." + state39.role + ".note")}</p>
     </div>`;
   }
   function renderMap() {
@@ -40751,7 +41001,7 @@ ${items.join("\n")}
             <div class="emap-examples">
               ${rule.examples.map((ex) => `
                 <button type="button"
-                  class="emap-card emap-card--example ${state38.activeExample === ex ? "emap-card--active" : ""}"
+                  class="emap-card emap-card--example ${state39.activeExample === ex ? "emap-card--active" : ""}"
                   data-example="${ex}" data-testid="emap-ex-${ex}">
                   <span class="emap-card-kind">${t("emap.kind.example")}</span>
                   ${t("emap.ex." + ex)}
@@ -40762,7 +41012,7 @@ ${items.join("\n")}
       <div class="emap-questions" data-testid="emap-questions">
         <span class="emap-card-kind">${t("emap.kind.question")}</span>
         ${QUESTIONS.map((q) => {
-      const done = state38.resolved.has(q);
+      const done = state39.resolved.has(q);
       return `<button type="button"
             class="emap-card emap-card--question ${done ? "emap-card--resolved" : ""}"
             data-question="${q}" data-testid="emap-q-${q}">
@@ -40782,7 +41032,7 @@ ${items.join("\n")}
     </div>`;
   }
   function renderGherkin() {
-    const ex = state38.activeExample;
+    const ex = state39.activeExample;
     return `
     <div class="emap-gherkin" data-testid="emap-gherkin">
       <h3>${t("emap.gherkin.title")}</h3>
@@ -40800,11 +41050,11 @@ ${items.join("\n")}
     </div>`;
   }
   function renderQuiz37() {
-    if (!state38.quiz.active) {
+    if (!state39.quiz.active) {
       return `<button type="button" class="emap-quiz-start" data-testid="emap-quiz-start">${t("quiz.start")}</button>`;
     }
-    if (state38.quiz.phase === "done") {
-      const correct = state38.quiz.answer === "c";
+    if (state39.quiz.phase === "done") {
+      const correct = state39.quiz.answer === "c";
       const shareEncoded = encodeResult({
         v: 1,
         explorer: "emap",
@@ -40816,7 +41066,7 @@ ${items.join("\n")}
         total: 1,
         items: [{
           q: t("emap.quiz.prompt"),
-          a: state38.quiz.answer ? t("emap.quiz." + state38.quiz.answer) : "",
+          a: state39.quiz.answer ? t("emap.quiz." + state39.quiz.answer) : "",
           expected: t("emap.quiz.c"),
           ok: correct
         }]
@@ -40831,26 +41081,26 @@ ${items.join("\n")}
       <p class="emap-quiz-prompt">${t("emap.quiz.prompt")}</p>
       ${["a", "b", "c", "d"].map((k) => `
         <label class="emap-quiz-option">
-          <input type="radio" name="emap-quiz" value="${k}" ${state38.quiz.answer === k ? "checked" : ""}>
+          <input type="radio" name="emap-quiz" value="${k}" ${state39.quiz.answer === k ? "checked" : ""}>
           ${t("emap.quiz." + k)}
         </label>`).join("")}
       <button type="button" class="emap-quiz-submit" data-testid="emap-quiz-submit"
-        ${!state38.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
+        ${!state39.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
     </div>`;
   }
   function renderLab23() {
-    if (!state38.lab.active) {
+    if (!state39.lab.active) {
       return `<button type="button" class="emap-lab-start" data-testid="emap-lab-start">${t("lab.start")}</button>`;
     }
     return `
     <div class="emap-lab" data-testid="emap-lab">
       <p class="emap-lab-prompt">${t("emap.lab.prompt")}</p>
       <textarea class="emap-lab-textarea" data-testid="emap-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${state38.lab.text}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${state39.lab.text}</textarea>
     </div>`;
   }
-  function render38() {
-    root38.innerHTML = `
+  function render39() {
+    root39.innerHTML = `
     <div class="emap-wrap" data-testid="emap-wrap">
       <h2 class="emap-title">${t("emap.title")}</h2>
       <p class="emap-desc">${t("emap.desc")}</p>
@@ -40866,71 +41116,71 @@ ${items.join("\n")}
         ${renderLab23()}
       </section>
     </div>`;
-    bindEvents38();
+    bindEvents39();
   }
-  function bindEvents38() {
+  function bindEvents39() {
     var _a2, _b2, _c, _d, _e, _f;
-    root38.querySelectorAll("[data-role]").forEach((btn) => {
+    root39.querySelectorAll("[data-role]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        state38.role = btn.dataset.role;
-        render38();
+        state39.role = btn.dataset.role;
+        render39();
       });
     });
-    root38.querySelectorAll("[data-example]").forEach((btn) => {
+    root39.querySelectorAll("[data-example]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        state38.activeExample = btn.dataset.example;
-        render38();
+        state39.activeExample = btn.dataset.example;
+        render39();
       });
     });
-    root38.querySelectorAll("[data-question]").forEach((btn) => {
+    root39.querySelectorAll("[data-question]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const q = btn.dataset.question;
-        if (state38.resolved.has(q)) state38.resolved.delete(q);
-        else state38.resolved.add(q);
-        render38();
+        if (state39.resolved.has(q)) state39.resolved.delete(q);
+        else state39.resolved.add(q);
+        render39();
       });
     });
-    (_a2 = root38.querySelector('[data-testid="emap-bridge-bdd"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+    (_a2 = root39.querySelector('[data-testid="emap-bridge-bdd"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       var _a3, _b3;
       (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
       (_b3 = document.querySelector('[data-acceptance-tab="gherkin"]')) == null ? void 0 : _b3.click();
     });
-    (_b2 = root38.querySelector('[data-testid="emap-bridge-gates"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+    (_b2 = root39.querySelector('[data-testid="emap-bridge-gates"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       var _a3, _b3;
       (_a3 = document.querySelector('[data-section="agile"]')) == null ? void 0 : _a3.click();
       (_b3 = document.querySelector('[data-agile-tab="gates"]')) == null ? void 0 : _b3.click();
     });
-    (_c = root38.querySelector('[data-testid="emap-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      state38.quiz = { active: true, phase: "question", answer: "" };
-      render38();
+    (_c = root39.querySelector('[data-testid="emap-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      state39.quiz = { active: true, phase: "question", answer: "" };
+      render39();
     });
-    root38.querySelectorAll('input[name="emap-quiz"]').forEach((inp) => {
+    root39.querySelectorAll('input[name="emap-quiz"]').forEach((inp) => {
       inp.addEventListener("change", () => {
-        state38.quiz.answer = inp.value;
-        render38();
+        state39.quiz.answer = inp.value;
+        render39();
       });
     });
-    (_d = root38.querySelector('[data-testid="emap-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
-      state38.quiz.phase = "done";
-      render38();
+    (_d = root39.querySelector('[data-testid="emap-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      state39.quiz.phase = "done";
+      render39();
     });
-    (_e = root38.querySelector('[data-testid="emap-lab-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
-      state38.lab.active = true;
-      render38();
+    (_e = root39.querySelector('[data-testid="emap-lab-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      state39.lab.active = true;
+      render39();
     });
-    (_f = root38.querySelector('[data-testid="emap-lab-text"]')) == null ? void 0 : _f.addEventListener("input", (e) => {
-      state38.lab.text = e.target.value;
+    (_f = root39.querySelector('[data-testid="emap-lab-text"]')) == null ? void 0 : _f.addEventListener("input", (e) => {
+      state39.lab.text = e.target.value;
     });
   }
   function createExampleMappingExplorer() {
-    state38.role = "ba";
-    state38.resolved = /* @__PURE__ */ new Set();
-    state38.activeExample = "e1";
-    state38.quiz = { active: false, phase: "idle", answer: "" };
-    state38.lab = { active: false, text: "" };
-    root38 = document.createElement("div");
-    render38();
-    return root38;
+    state39.role = "ba";
+    state39.resolved = /* @__PURE__ */ new Set();
+    state39.activeExample = "e1";
+    state39.quiz = { active: false, phase: "idle", answer: "" };
+    state39.lab = { active: false, text: "" };
+    root39 = document.createElement("div");
+    render39();
+    return root39;
   }
 
   // src/components/ContinuousTestingPipelineExplorer.js
@@ -40943,31 +41193,31 @@ ${items.join("\n")}
   var TIER_RANK = { commit: 0, pr: 1, nightly: 2 };
   var COMMIT_BUDGET = 120;
   var IMPACT_FRACTION = 0.15;
-  var state39 = {
+  var state40 = {
     tierOf: { unit: "commit", integration: "pr", e2e: "nightly" },
     flaky: 0,
     impact: false,
     quiz: { active: false, phase: "idle", answer: "" },
     lab: { active: false, text: "" }
   };
-  var root39;
+  var root40;
   function typesAtTier(tier) {
-    return TEST_TYPES.filter((tt) => TIER_RANK[state39.tierOf[tt.id]] <= TIER_RANK[tier]);
+    return TEST_TYPES.filter((tt) => TIER_RANK[state40.tierOf[tt.id]] <= TIER_RANK[tier]);
   }
   function tierStats(tier) {
     const types = typesAtTier(tier);
     let tests = 0;
     let seconds = 0;
     for (const tt of types) {
-      const factor = tier === "commit" && state39.impact ? IMPACT_FRACTION : 1;
+      const factor = tier === "commit" && state40.impact ? IMPACT_FRACTION : 1;
       tests += tt.count * factor;
       seconds += tt.count * tt.time * factor;
     }
     return { tests: Math.round(tests), seconds };
   }
   function falseFailureRate(n) {
-    if (!state39.flaky) return 0;
-    return 1 - Math.pow(1 - state39.flaky / 100, n);
+    if (!state40.flaky) return 0;
+    return 1 - Math.pow(1 - state40.flaky / 100, n);
   }
   function fmtTime(s) {
     if (s < 1) return s.toFixed(2) + "s";
@@ -40991,14 +41241,14 @@ ${items.join("\n")}
               <td>${fmtTime(tt.time)}</td>
               <td>
                 <select data-tier-of="${tt.id}" data-testid="ctp-tier-${tt.id}">
-                  ${TIERS.map((tr) => `<option value="${tr}" ${state39.tierOf[tt.id] === tr ? "selected" : ""}>${t("ctp.tier." + tr)}</option>`).join("")}
+                  ${TIERS.map((tr) => `<option value="${tr}" ${state40.tierOf[tt.id] === tr ? "selected" : ""}>${t("ctp.tier." + tr)}</option>`).join("")}
                 </select>
               </td>
             </tr>`).join("")}
         </tbody>
       </table>
       <label class="ctp-impact-toggle">
-        <input type="checkbox" data-testid="ctp-impact" ${state39.impact ? "checked" : ""}>
+        <input type="checkbox" data-testid="ctp-impact" ${state40.impact ? "checked" : ""}>
         ${t("ctp.impact.label")}
       </label>
     </div>`;
@@ -41032,7 +41282,7 @@ ${items.join("\n")}
         <span>${t("ctp.flaky.label")}</span>
         ${[0, 2, 5].map((f) => `
           <button type="button"
-            class="ctp-flaky-btn ${state39.flaky === f ? "ctp-flaky-btn--active" : ""}"
+            class="ctp-flaky-btn ${state40.flaky === f ? "ctp-flaky-btn--active" : ""}"
             data-flaky="${f}" data-testid="ctp-flaky-${f}">${f}%</button>`).join("")}
       </div>
       <p class="ctp-flaky-result ${rate > 0.3 ? "ctp-flaky-result--bad" : ""}">
@@ -41050,11 +41300,11 @@ ${items.join("\n")}
     </div>`;
   }
   function renderQuiz38() {
-    if (!state39.quiz.active) {
+    if (!state40.quiz.active) {
       return `<button type="button" class="ctp-quiz-start" data-testid="ctp-quiz-start">${t("quiz.start")}</button>`;
     }
-    if (state39.quiz.phase === "done") {
-      const correct = state39.quiz.answer === "c";
+    if (state40.quiz.phase === "done") {
+      const correct = state40.quiz.answer === "c";
       const shareEncoded = encodeResult({
         v: 1,
         explorer: "ctp",
@@ -41066,7 +41316,7 @@ ${items.join("\n")}
         total: 1,
         items: [{
           q: t("ctp.quiz.prompt"),
-          a: state39.quiz.answer ? t("ctp.quiz." + state39.quiz.answer) : "",
+          a: state40.quiz.answer ? t("ctp.quiz." + state40.quiz.answer) : "",
           expected: t("ctp.quiz.c"),
           ok: correct
         }]
@@ -41081,26 +41331,26 @@ ${items.join("\n")}
       <p class="ctp-quiz-prompt">${t("ctp.quiz.prompt")}</p>
       ${["a", "b", "c", "d"].map((k) => `
         <label class="ctp-quiz-option">
-          <input type="radio" name="ctp-quiz" value="${k}" ${state39.quiz.answer === k ? "checked" : ""}>
+          <input type="radio" name="ctp-quiz" value="${k}" ${state40.quiz.answer === k ? "checked" : ""}>
           ${t("ctp.quiz." + k)}
         </label>`).join("")}
       <button type="button" class="ctp-quiz-submit" data-testid="ctp-quiz-submit"
-        ${!state39.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
+        ${!state40.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
     </div>`;
   }
   function renderLab24() {
-    if (!state39.lab.active) {
+    if (!state40.lab.active) {
       return `<button type="button" class="ctp-lab-start" data-testid="ctp-lab-start">${t("lab.start")}</button>`;
     }
     return `
     <div class="ctp-lab" data-testid="ctp-lab">
       <p class="ctp-lab-prompt">${t("ctp.lab.prompt")}</p>
       <textarea class="ctp-lab-textarea" data-testid="ctp-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${state39.lab.text}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${state40.lab.text}</textarea>
     </div>`;
   }
-  function render39() {
-    root39.innerHTML = `
+  function render40() {
+    root40.innerHTML = `
     <div class="ctp-wrap" data-testid="ctp-wrap">
       <h2 class="ctp-title">${t("ctp.title")}</h2>
       <p class="ctp-desc">${t("ctp.desc")}</p>
@@ -41115,67 +41365,67 @@ ${items.join("\n")}
         ${renderLab24()}
       </section>
     </div>`;
-    bindEvents39();
+    bindEvents40();
   }
-  function bindEvents39() {
+  function bindEvents40() {
     var _a2, _b2, _c, _d, _e, _f, _g;
-    root39.querySelectorAll("[data-tier-of]").forEach((sel) => {
+    root40.querySelectorAll("[data-tier-of]").forEach((sel) => {
       sel.addEventListener("change", () => {
-        state39.tierOf[sel.dataset.tierOf] = sel.value;
-        render39();
+        state40.tierOf[sel.dataset.tierOf] = sel.value;
+        render40();
       });
     });
-    (_a2 = root39.querySelector('[data-testid="ctp-impact"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
-      state39.impact = e.target.checked;
-      render39();
+    (_a2 = root40.querySelector('[data-testid="ctp-impact"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
+      state40.impact = e.target.checked;
+      render40();
     });
-    root39.querySelectorAll("[data-flaky]").forEach((btn) => {
+    root40.querySelectorAll("[data-flaky]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        state39.flaky = Number(btn.dataset.flaky);
-        render39();
+        state40.flaky = Number(btn.dataset.flaky);
+        render40();
       });
     });
-    (_b2 = root39.querySelector('[data-testid="ctp-bridge-pyramid"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+    (_b2 = root40.querySelector('[data-testid="ctp-bridge-pyramid"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       var _a3, _b3;
       (_a3 = document.querySelector('[data-section="types"]')) == null ? void 0 : _a3.click();
       (_b3 = document.querySelector('[data-types-tab="adjuster"]')) == null ? void 0 : _b3.click();
     });
-    (_c = root39.querySelector('[data-testid="ctp-bridge-flaky"]')) == null ? void 0 : _c.addEventListener("click", () => {
+    (_c = root40.querySelector('[data-testid="ctp-bridge-flaky"]')) == null ? void 0 : _c.addEventListener("click", () => {
       var _a3, _b3;
       (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
       (_b3 = document.querySelector('[data-acceptance-tab="flaky"]')) == null ? void 0 : _b3.click();
     });
-    (_d = root39.querySelector('[data-testid="ctp-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
-      state39.quiz = { active: true, phase: "question", answer: "" };
-      render39();
+    (_d = root40.querySelector('[data-testid="ctp-quiz-start"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      state40.quiz = { active: true, phase: "question", answer: "" };
+      render40();
     });
-    root39.querySelectorAll('input[name="ctp-quiz"]').forEach((inp) => {
+    root40.querySelectorAll('input[name="ctp-quiz"]').forEach((inp) => {
       inp.addEventListener("change", () => {
-        state39.quiz.answer = inp.value;
-        render39();
+        state40.quiz.answer = inp.value;
+        render40();
       });
     });
-    (_e = root39.querySelector('[data-testid="ctp-quiz-submit"]')) == null ? void 0 : _e.addEventListener("click", () => {
-      state39.quiz.phase = "done";
-      render39();
+    (_e = root40.querySelector('[data-testid="ctp-quiz-submit"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      state40.quiz.phase = "done";
+      render40();
     });
-    (_f = root39.querySelector('[data-testid="ctp-lab-start"]')) == null ? void 0 : _f.addEventListener("click", () => {
-      state39.lab.active = true;
-      render39();
+    (_f = root40.querySelector('[data-testid="ctp-lab-start"]')) == null ? void 0 : _f.addEventListener("click", () => {
+      state40.lab.active = true;
+      render40();
     });
-    (_g = root39.querySelector('[data-testid="ctp-lab-text"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
-      state39.lab.text = e.target.value;
+    (_g = root40.querySelector('[data-testid="ctp-lab-text"]')) == null ? void 0 : _g.addEventListener("input", (e) => {
+      state40.lab.text = e.target.value;
     });
   }
   function createContinuousTestingPipelineExplorer() {
-    state39.tierOf = { unit: "commit", integration: "pr", e2e: "nightly" };
-    state39.flaky = 0;
-    state39.impact = false;
-    state39.quiz = { active: false, phase: "idle", answer: "" };
-    state39.lab = { active: false, text: "" };
-    root39 = document.createElement("div");
-    render39();
-    return root39;
+    state40.tierOf = { unit: "commit", integration: "pr", e2e: "nightly" };
+    state40.flaky = 0;
+    state40.impact = false;
+    state40.quiz = { active: false, phase: "idle", answer: "" };
+    state40.lab = { active: false, text: "" };
+    root40 = document.createElement("div");
+    render40();
+    return root40;
   }
 
   // src/components/RegressionDebtExplorer.js
@@ -41242,12 +41492,12 @@ ${items.join("\n")}
     const row = rows.find((r) => r.cost > r.value);
     return row ? row.sprint : null;
   }
-  var state40 = {
+  var state41 = {
     strategies: { prune: false, quarantine: false, riskBased: false },
     quiz: { active: false, phase: "idle", answer: "" },
     lab: { active: false, text: "" }
   };
-  var root40;
+  var root41;
   var STRATEGIES2 = ["prune", "quarantine", "riskBased"];
   function fmtTime2(s) {
     return s < 90 ? Math.round(s) + "s" : Math.floor(s / 60) + "m " + Math.round(s % 60) + "s";
@@ -41259,7 +41509,7 @@ ${items.join("\n")}
       ${STRATEGIES2.map((s) => `
         <label class="rdebt-strat">
           <input type="checkbox" data-strategy="${s}" data-testid="rdebt-strat-${s}"
-            ${state40.strategies[s] ? "checked" : ""}>
+            ${state41.strategies[s] ? "checked" : ""}>
           ${t("rdebt.strat." + s)}
         </label>`).join("")}
     </div>`;
@@ -41317,11 +41567,11 @@ ${items.join("\n")}
     </div>`;
   }
   function renderQuiz39() {
-    if (!state40.quiz.active) {
+    if (!state41.quiz.active) {
       return `<button type="button" class="rdebt-quiz-start" data-testid="rdebt-quiz-start">${t("quiz.start")}</button>`;
     }
-    if (state40.quiz.phase === "done") {
-      const correct = state40.quiz.answer === "c";
+    if (state41.quiz.phase === "done") {
+      const correct = state41.quiz.answer === "c";
       const shareEncoded = encodeResult({
         v: 1,
         explorer: "rdebt",
@@ -41333,7 +41583,7 @@ ${items.join("\n")}
         total: 1,
         items: [{
           q: t("rdebt.quiz.prompt"),
-          a: state40.quiz.answer ? t("rdebt.quiz." + state40.quiz.answer) : "",
+          a: state41.quiz.answer ? t("rdebt.quiz." + state41.quiz.answer) : "",
           expected: t("rdebt.quiz.c"),
           ok: correct
         }]
@@ -41348,27 +41598,27 @@ ${items.join("\n")}
       <p class="rdebt-quiz-prompt">${t("rdebt.quiz.prompt")}</p>
       ${["a", "b", "c", "d"].map((k) => `
         <label class="rdebt-quiz-option">
-          <input type="radio" name="rdebt-quiz" value="${k}" ${state40.quiz.answer === k ? "checked" : ""}>
+          <input type="radio" name="rdebt-quiz" value="${k}" ${state41.quiz.answer === k ? "checked" : ""}>
           ${t("rdebt.quiz." + k)}
         </label>`).join("")}
       <button type="button" class="rdebt-quiz-submit" data-testid="rdebt-quiz-submit"
-        ${!state40.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
+        ${!state41.quiz.answer ? "disabled" : ""}>${t("quiz.submit")}</button>
     </div>`;
   }
   function renderLab25() {
-    if (!state40.lab.active) {
+    if (!state41.lab.active) {
       return `<button type="button" class="rdebt-lab-start" data-testid="rdebt-lab-start">${t("lab.start")}</button>`;
     }
     return `
     <div class="rdebt-lab" data-testid="rdebt-lab">
       <p class="rdebt-lab-prompt">${t("rdebt.lab.prompt")}</p>
       <textarea class="rdebt-lab-textarea" data-testid="rdebt-lab-text" rows="5"
-        placeholder="${t("lab.reflect.placeholder")}">${state40.lab.text}</textarea>
+        placeholder="${t("lab.reflect.placeholder")}">${state41.lab.text}</textarea>
     </div>`;
   }
-  function render40() {
-    const rows = simulate(state40.strategies);
-    root40.innerHTML = `
+  function render41() {
+    const rows = simulate(state41.strategies);
+    root41.innerHTML = `
     <div class="rdebt-wrap" data-testid="rdebt-wrap">
       <h2 class="rdebt-title">${t("rdebt.title")}</h2>
       <p class="rdebt-desc">${t("rdebt.desc")}</p>
@@ -41383,54 +41633,54 @@ ${items.join("\n")}
         ${renderLab25()}
       </section>
     </div>`;
-    bindEvents40();
+    bindEvents41();
   }
-  function bindEvents40() {
+  function bindEvents41() {
     var _a2, _b2, _c, _d, _e, _f;
-    root40.querySelectorAll("[data-strategy]").forEach((inp) => {
+    root41.querySelectorAll("[data-strategy]").forEach((inp) => {
       inp.addEventListener("change", () => {
-        state40.strategies[inp.dataset.strategy] = inp.checked;
-        render40();
+        state41.strategies[inp.dataset.strategy] = inp.checked;
+        render41();
       });
     });
-    (_a2 = root40.querySelector('[data-testid="rdebt-bridge-rbt"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+    (_a2 = root41.querySelector('[data-testid="rdebt-bridge-rbt"]')) == null ? void 0 : _a2.addEventListener("click", () => {
       var _a3;
       (_a3 = document.querySelector('[data-section="rbt"]')) == null ? void 0 : _a3.click();
     });
-    (_b2 = root40.querySelector('[data-testid="rdebt-bridge-flaky"]')) == null ? void 0 : _b2.addEventListener("click", () => {
+    (_b2 = root41.querySelector('[data-testid="rdebt-bridge-flaky"]')) == null ? void 0 : _b2.addEventListener("click", () => {
       var _a3, _b3;
       (_a3 = document.querySelector('[data-section="acceptance"]')) == null ? void 0 : _a3.click();
       (_b3 = document.querySelector('[data-acceptance-tab="flaky"]')) == null ? void 0 : _b3.click();
     });
-    (_c = root40.querySelector('[data-testid="rdebt-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
-      state40.quiz = { active: true, phase: "question", answer: "" };
-      render40();
+    (_c = root41.querySelector('[data-testid="rdebt-quiz-start"]')) == null ? void 0 : _c.addEventListener("click", () => {
+      state41.quiz = { active: true, phase: "question", answer: "" };
+      render41();
     });
-    root40.querySelectorAll('input[name="rdebt-quiz"]').forEach((inp) => {
+    root41.querySelectorAll('input[name="rdebt-quiz"]').forEach((inp) => {
       inp.addEventListener("change", () => {
-        state40.quiz.answer = inp.value;
-        render40();
+        state41.quiz.answer = inp.value;
+        render41();
       });
     });
-    (_d = root40.querySelector('[data-testid="rdebt-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
-      state40.quiz.phase = "done";
-      render40();
+    (_d = root41.querySelector('[data-testid="rdebt-quiz-submit"]')) == null ? void 0 : _d.addEventListener("click", () => {
+      state41.quiz.phase = "done";
+      render41();
     });
-    (_e = root40.querySelector('[data-testid="rdebt-lab-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
-      state40.lab.active = true;
-      render40();
+    (_e = root41.querySelector('[data-testid="rdebt-lab-start"]')) == null ? void 0 : _e.addEventListener("click", () => {
+      state41.lab.active = true;
+      render41();
     });
-    (_f = root40.querySelector('[data-testid="rdebt-lab-text"]')) == null ? void 0 : _f.addEventListener("input", (e) => {
-      state40.lab.text = e.target.value;
+    (_f = root41.querySelector('[data-testid="rdebt-lab-text"]')) == null ? void 0 : _f.addEventListener("input", (e) => {
+      state41.lab.text = e.target.value;
     });
   }
   function createRegressionDebtExplorer() {
-    state40.strategies = { prune: false, quarantine: false, riskBased: false };
-    state40.quiz = { active: false, phase: "idle", answer: "" };
-    state40.lab = { active: false, text: "" };
-    root40 = document.createElement("div");
-    render40();
-    return root40;
+    state41.strategies = { prune: false, quarantine: false, riskBased: false };
+    state41.quiz = { active: false, phase: "idle", answer: "" };
+    state41.lab = { active: false, text: "" };
+    root41 = document.createElement("div");
+    render41();
+    return root41;
   }
 
   // src/data/slideDecks.generated.js
@@ -43713,6 +43963,13 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       series: ["foundations"],
       difficulty: "intermediate",
       source: [TEXTBOOK]
+    },
+    TestabilitySeamsExplorer: {
+      level: ["meta"],
+      technique: ["process"],
+      series: ["foundations"],
+      difficulty: "intermediate",
+      source: [TEXTBOOK]
     }
   };
   var SECTION_EXPLORERS = {
@@ -43781,7 +44038,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     tdd: ["TddCycleExplorer", "TddRulesExplorer"],
     exploit: ["ExploitOverflowExplorer", "ExploitSqliExplorer", "ExploitCmdiExplorer", "ExploitPathExplorer"],
     sbst: ["SbstBranchExplorer", "SbstCompareExplorer", "SbstSuiteExplorer"],
-    testability: ["ControllabilityObservabilityExplorer"]
+    testability: ["ControllabilityObservabilityExplorer", "TestabilitySeamsExplorer"]
   };
   function getSectionTags(sectionId) {
     var _a2, _b2, _c, _d, _e;
@@ -43820,18 +44077,18 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   ];
   var EMPTY_FILTER = () => ({ level: [], technique: [], series: [], difficulty: [] });
   function createTagFilterBar({ initial, onChange } = {}) {
-    const state42 = {
+    const state43 = {
       filter: normalizeFilter(initial),
       listener: typeof onChange === "function" ? onChange : () => {
       }
     };
-    const root42 = document.createElement("div");
-    root42.className = "tag-filter-bar";
-    root42.dataset.testid = "tag-filter-bar";
-    function render42() {
+    const root43 = document.createElement("div");
+    root43.className = "tag-filter-bar";
+    root43.dataset.testid = "tag-filter-bar";
+    function render43() {
       var _a2;
-      const totalActive = Object.values(state42.filter).reduce((n, arr) => n + arr.length, 0);
-      root42.innerHTML = `
+      const totalActive = Object.values(state43.filter).reduce((n, arr) => n + arr.length, 0);
+      root43.innerHTML = `
       <div class="tag-filter-bar__header">
         <span class="tag-filter-bar__title">${t("filter.title")}</span>
         <button type="button" class="tag-filter-bar__clear"
@@ -43845,7 +44102,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           <span class="tag-filter-row__label">${t("filter.dim." + dim.id)}</span>
           <div class="tag-filter-row__chips">
             ${dim.values.map((v) => {
-        const active = state42.filter[dim.id].includes(v);
+        const active = state43.filter[dim.id].includes(v);
         return `
                 <button type="button"
                   class="tag-chip${active ? " tag-chip--active" : ""}"
@@ -43858,40 +44115,40 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           </div>
         </div>
       `).join("")}`;
-      root42.querySelectorAll("[data-dim][data-value]").forEach((btn) => {
+      root43.querySelectorAll("[data-dim][data-value]").forEach((btn) => {
         btn.addEventListener("click", () => toggle(btn.dataset.dim, btn.dataset.value));
       });
-      (_a2 = root42.querySelector('[data-testid="tag-filter-clear"]')) == null ? void 0 : _a2.addEventListener("click", () => clear());
+      (_a2 = root43.querySelector('[data-testid="tag-filter-clear"]')) == null ? void 0 : _a2.addEventListener("click", () => clear());
     }
     function toggle(dim, value) {
       var _a2;
-      const arr = (_a2 = state42.filter[dim]) != null ? _a2 : [];
+      const arr = (_a2 = state43.filter[dim]) != null ? _a2 : [];
       const i = arr.indexOf(value);
       if (i === -1) arr.push(value);
       else arr.splice(i, 1);
-      state42.filter[dim] = arr;
-      render42();
-      state42.listener(getFilter());
+      state43.filter[dim] = arr;
+      render43();
+      state43.listener(getFilter());
     }
     function clear() {
-      state42.filter = EMPTY_FILTER();
-      render42();
-      state42.listener(getFilter());
+      state43.filter = EMPTY_FILTER();
+      render43();
+      state43.listener(getFilter());
     }
     function getFilter() {
       return {
-        level: [...state42.filter.level],
-        technique: [...state42.filter.technique],
-        series: [...state42.filter.series],
-        difficulty: [...state42.filter.difficulty]
+        level: [...state43.filter.level],
+        technique: [...state43.filter.technique],
+        series: [...state43.filter.series],
+        difficulty: [...state43.filter.difficulty]
       };
     }
     function setFilter(next) {
-      state42.filter = normalizeFilter(next);
-      render42();
+      state43.filter = normalizeFilter(next);
+      render43();
     }
-    render42();
-    return { element: root42, getFilter, setFilter, clear };
+    render43();
+    return { element: root43, getFilter, setFilter, clear };
   }
   function normalizeFilter(input) {
     const out = EMPTY_FILTER();
@@ -43931,7 +44188,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         "VModelExplorer",
         "TestingTypesTable",
         "PyramidAdjusterExplorer",
-        "ControllabilityObservabilityExplorer"
+        "ControllabilityObservabilityExplorer",
+        "TestabilitySeamsExplorer"
       ]
     },
     {
@@ -44076,16 +44334,16 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   // src/components/CoursePackBar.js
   function createCoursePackBar({ initial, onApplyFilter } = {}) {
     const validInitial = COURSE_PACKS.some((p) => p.id === initial);
-    const state42 = { activeId: validInitial ? initial : null };
-    const root42 = document.createElement("div");
-    root42.className = "course-pack-bar";
-    root42.dataset.testid = "course-pack-bar";
-    function render42() {
+    const state43 = { activeId: validInitial ? initial : null };
+    const root43 = document.createElement("div");
+    root43.className = "course-pack-bar";
+    root43.dataset.testid = "course-pack-bar";
+    function render43() {
       var _a2;
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="course-pack-bar__header">
         <span class="course-pack-bar__title">${t("pack.title")}</span>
-        ${state42.activeId ? `
+        ${state43.activeId ? `
           <button type="button"
             class="course-pack-bar__export"
             data-testid="course-pack-export">
@@ -44095,7 +44353,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       <div class="course-pack-bar__chips">
         ${COURSE_PACKS.map((pack) => {
         const count = getCoursePackExplorers(pack.id).length;
-        const active = state42.activeId === pack.id;
+        const active = state43.activeId === pack.id;
         return `
             <button type="button"
               class="course-pack-chip${active ? " course-pack-chip--active" : ""}"
@@ -44108,36 +44366,36 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             </button>`;
       }).join("")}
       </div>
-      ${state42.activeId ? `
+      ${state43.activeId ? `
         <p class="course-pack-bar__desc" data-testid="course-pack-desc">
-          ${t(COURSE_PACKS.find((p) => p.id === state42.activeId).descKey)}
+          ${t(COURSE_PACKS.find((p) => p.id === state43.activeId).descKey)}
         </p>` : ""}`;
-      root42.querySelectorAll("[data-pack]").forEach((btn) => {
+      root43.querySelectorAll("[data-pack]").forEach((btn) => {
         btn.addEventListener("click", () => choose(btn.dataset.pack));
       });
-      (_a2 = root42.querySelector('[data-testid="course-pack-export"]')) == null ? void 0 : _a2.addEventListener("click", () => {
-        if (state42.activeId) downloadCoursePackMarkdown(state42.activeId);
+      (_a2 = root43.querySelector('[data-testid="course-pack-export"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+        if (state43.activeId) downloadCoursePackMarkdown(state43.activeId);
       });
     }
     function choose(packId) {
-      if (state42.activeId === packId) {
-        state42.activeId = null;
+      if (state43.activeId === packId) {
+        state43.activeId = null;
         onApplyFilter == null ? void 0 : onApplyFilter(null);
       } else {
-        state42.activeId = packId;
+        state43.activeId = packId;
         onApplyFilter == null ? void 0 : onApplyFilter(getCoursePackFilter(packId));
       }
-      render42();
+      render43();
     }
     function clear() {
-      state42.activeId = null;
-      render42();
+      state43.activeId = null;
+      render43();
     }
     function getActiveId() {
-      return state42.activeId;
+      return state43.activeId;
     }
-    render42();
-    return { element: root42, choose, clear, getActiveId };
+    render43();
+    return { element: root43, choose, clear, getActiveId };
   }
 
   // src/utils/unitTitles.js
@@ -44294,9 +44552,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     return `${score != null ? score : 0} / ${total}`;
   }
   function createTeacherDashboard() {
-    const root42 = document.createElement("div");
-    root42.dataset.testid = "teacher-dashboard";
-    root42.className = "td-overlay";
+    const root43 = document.createElement("div");
+    root43.dataset.testid = "teacher-dashboard";
+    root43.className = "td-overlay";
     const client2 = createCloudIntegrationClient();
     const disabled = Boolean(client2.isMaccount);
     let classCode = "";
@@ -44312,9 +44570,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       if (!filterExplorer) return results;
       return results.filter((r) => r.explorer === filterExplorer);
     }
-    function render42() {
+    function render43() {
       if (disabled) {
-        root42.innerHTML = `
+        root43.innerHTML = `
         <div class="td-panel" role="dialog" aria-modal="true" aria-label="${t("td.title")}" data-testid="td-panel">
           <div class="td-header">
             <div class="td-header-left">
@@ -44324,14 +44582,14 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           </div>
           <p class="td-disabled-notice" data-testid="td-disabled-notice">${t("dashboard.disabled")}</p>
         </div>`;
-        root42.querySelector('[data-testid="td-close"]').addEventListener("click", () => {
-          root42.hidden = true;
+        root43.querySelector('[data-testid="td-close"]').addEventListener("click", () => {
+          root43.hidden = true;
         });
         return;
       }
       const filtered = filteredResults();
       const explorerOpts = explorerOptions();
-      root42.innerHTML = `
+      root43.innerHTML = `
       <div class="td-panel" role="dialog" aria-modal="true" aria-label="${t("td.title")}" data-testid="td-panel">
         <div class="td-header">
           <div class="td-header-left">
@@ -44404,25 +44662,25 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           </table>
         </div>` : ""}
       </div>`;
-      bindEvents41();
+      bindEvents42();
     }
-    function bindEvents41() {
+    function bindEvents42() {
       var _a2;
-      root42.querySelector('[data-testid="td-close"]').addEventListener("click", () => {
-        root42.hidden = true;
+      root43.querySelector('[data-testid="td-close"]').addEventListener("click", () => {
+        root43.hidden = true;
       });
-      root42.querySelector('[data-testid="td-load-btn"]').addEventListener("click", async () => {
-        const inp = root42.querySelector('[data-testid="td-code-input"]');
+      root43.querySelector('[data-testid="td-load-btn"]').addEventListener("click", async () => {
+        const inp = root43.querySelector('[data-testid="td-code-input"]');
         classCode = ((inp == null ? void 0 : inp.value) || "").trim().toUpperCase();
         if (!classCode) {
           errorMsg = t("td.err.noCode");
-          render42();
+          render43();
           return;
         }
         loading = true;
         errorMsg = "";
         results = [];
-        render42();
+        render43();
         try {
           results = await client2.loadCourseResults(classCode);
           filterExplorer = "";
@@ -44430,21 +44688,21 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           errorMsg = err.message || t("td.err.loadFailed");
         }
         loading = false;
-        render42();
+        render43();
       });
-      (_a2 = root42.querySelector('[data-testid="td-filter-explorer"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
+      (_a2 = root43.querySelector('[data-testid="td-filter-explorer"]')) == null ? void 0 : _a2.addEventListener("change", (e) => {
         filterExplorer = e.target.value;
-        render42();
+        render43();
       });
     }
-    render42();
+    render43();
     window.addEventListener("stvisual:open-teacher-dashboard", (e) => {
       var _a2;
       classCode = ((_a2 = e.detail) == null ? void 0 : _a2.classCode) || classCode;
-      root42.hidden = false;
-      render42();
+      root43.hidden = false;
+      render43();
     });
-    return root42;
+    return root43;
   }
 
   // src/data/sectionTaxonomy.js
@@ -44734,6 +44992,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         sbstcompare: createSbstCompareExplorer(),
         sbstsuite: createSbstSuiteExplorer(),
         testabilityco: createControllabilityObservabilityExplorer(),
+        testabilityseams: createTestabilitySeamsExplorer(),
         definitiongates: createDefinitionGatesExplorer(),
         examplemapping: createExampleMappingExplorer(),
         ctpipeline: createContinuousTestingPipelineExplorer(),
@@ -45440,13 +45699,15 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       const testabilityPanels = document.createElement("div");
       testabilityPanels.className = "syntax-tab-panels";
       testabilitySlot.appendChild(testabilityPanels);
-      const testabilityTabDefs = ["co"];
+      const testabilityTabDefs = ["co", "seams"];
       for (const tabId of testabilityTabDefs) {
         const panel = document.createElement("div");
         panel.className = "syntax-tab-panel";
         panel.dataset.testabilityPanel = tabId;
         if (tabId === "co") {
           panel.appendChild(components.testabilityco);
+        } else if (tabId === "seams") {
+          panel.appendChild(components.testabilityseams);
         }
         testabilityPanels.appendChild(panel);
       }
@@ -45463,7 +45724,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         saved: savedTestabilityTab
       });
       const testabilityTabItems = [
-        { id: "co", key: "testability.tab.co" }
+        { id: "co", key: "testability.tab.co" },
+        { id: "seams", key: "testability.tab.seams" }
       ];
       function renderTestabilityTabs() {
         testabilityTabBar.innerHTML = testabilityTabItems.map((tab) => `
@@ -45851,14 +46113,14 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       function syncUrl(mode = "replace") {
         var _a4, _b4, _c3, _d3, _e3;
         try {
-          const state42 = {
+          const state43 = {
             section: activeSection,
             tab: getCurrentTabForSection(activeSection),
             pack: (_a4 = packBar == null ? void 0 : packBar.getActiveId()) != null ? _a4 : null,
             filter: activeFilter,
             lang: langInUrl ? getLocale() : void 0
           };
-          const qs = serializeLocation(state42);
+          const qs = serializeLocation(state43);
           const rawHash = globalThis.location.hash || "";
           const hash = /^#section-[a-z0-9-]+$/.test(rawHash) ? "" : rawHash;
           const url = `${globalThis.location.pathname}${qs}${hash}`;
@@ -46310,7 +46572,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     SbstBranchExplorer: createSbstBranchExplorer,
     SbstCompareExplorer: createSbstCompareExplorer,
     SbstSuiteExplorer: createSbstSuiteExplorer,
-    ControllabilityObservabilityExplorer: createControllabilityObservabilityExplorer
+    ControllabilityObservabilityExplorer: createControllabilityObservabilityExplorer,
+    TestabilitySeamsExplorer: createTestabilitySeamsExplorer
   };
 
   // src/utils/vizFocus.js
@@ -46322,7 +46585,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   var fullscreenListenersWired = false;
   var latestExitFocus = () => {
   };
-  function initVizFocus({ root: root42 = document } = {}) {
+  function initVizFocus({ root: root43 = document } = {}) {
     const body3 = document.body;
     let exitBtn = document.getElementById("viz-focus-exit");
     if (body3.dataset.vizFocusWired === "1" && exitBtn) return;
@@ -46386,7 +46649,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       }
     }
     latestExitFocus = exitFocus;
-    root42.addEventListener("click", (e) => {
+    root43.addEventListener("click", (e) => {
       var _a2, _b2;
       if ((_b2 = (_a2 = e.target) == null ? void 0 : _a2.closest) == null ? void 0 : _b2.call(_a2, ".viz-focus-toggle")) {
         body3.classList.contains("viz-focus") ? exitFocus() : enterFocus();
@@ -232459,7 +232722,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const v = t(k);
     return v !== k ? v : fb || k;
   }
-  function esc24(s) {
+  function esc25(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function deckFor(id, lg, difficulty, seed) {
@@ -232496,7 +232759,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         <h2 id="quiz-viewer-title"></h2>
         <div class="quizviewer-head-tools">
           <button type="button" id="quiz-lang-toggle" class="btn secondary" data-testid="quiz-lang-toggle"></button>
-          <button type="button" class="btn secondary" data-quiz-close data-testid="quiz-close" aria-label="${esc24(t2("common.close", "Close"))}">\xD7</button>
+          <button type="button" class="btn secondary" data-quiz-close data-testid="quiz-close" aria-label="${esc25(t2("common.close", "Close"))}">\xD7</button>
         </div>
       </header>
       <div id="quiz-viewer-body" class="quizviewer-body"></div>
@@ -232611,7 +232874,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const stale = !done && (!a.given || a.given.length !== deck.length);
     const meta = done ? `${a.correct}/${a.total}` : `${t2("quiz.question", "Q")} ${(a.idx || 0) + 1}/${a.total}`;
     const badge = done ? t2("quiz.review", "Review") : stale ? t2("quiz.inprogress", "In progress") : t2("quiz.resume", "Resume");
-    const inner = `<span class="qr-mode">${esc24(modeLabel(a.mode))}</span> <span class="qr-score">${esc24(meta)}</span> <span class="qr-time">${esc24(fmtTime3(a.finishedAt || a.startedAt))}</span> <span class="qr-act">${esc24(badge)}</span>`;
+    const inner = `<span class="qr-mode">${esc25(modeLabel(a.mode))}</span> <span class="qr-score">${esc25(meta)}</span> <span class="qr-time">${esc25(fmtTime3(a.finishedAt || a.startedAt))}</span> <span class="qr-act">${esc25(badge)}</span>`;
     if (done) return `<li><button type="button" class="quiz-recent-row" data-act="review" data-id="${a.id}" data-testid="quiz-recent-review">${inner}</button></li>`;
     if (stale) return `<li><span class="quiz-recent-row stale">${inner}</span></li>`;
     return `<li><button type="button" class="quiz-recent-row" data-act="resume" data-id="${a.id}" data-testid="quiz-recent-resume">${inner}</button></li>`;
@@ -232628,11 +232891,11 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const count = bucketCount(st.difficulty);
     const ready = difficultyReady(QUIZ_RENDERED, st.quizId, st.lang, st.difficulty, st.difficulty === "mixed" ? 0 : void 0);
     body.innerHTML = `<div class="quiz-start">
-      <div class="quiz-diff" role="radiogroup" aria-label="${esc24(t2("quiz.difficulty", "Difficulty"))}" data-testid="quiz-diff">
-        ${diffs.map((d) => `<label class="quiz-diff-opt"><input type="radio" name="qdiff" value="${d}"${st.difficulty === d ? " checked" : ""}> ${esc24(t2("quiz.diff." + d, d))}</label>`).join("")}
+      <div class="quiz-diff" role="radiogroup" aria-label="${esc25(t2("quiz.difficulty", "Difficulty"))}" data-testid="quiz-diff">
+        ${diffs.map((d) => `<label class="quiz-diff-opt"><input type="radio" name="qdiff" value="${d}"${st.difficulty === d ? " checked" : ""}> ${esc25(t2("quiz.diff." + d, d))}</label>`).join("")}
       </div>
       <p class="quiz-count">${count} ${t2("quiz.questions", "questions")}</p>
-      <div class="quiz-mode" role="radiogroup" aria-label="${esc24(t2("quiz.mode", "Mode"))}">
+      <div class="quiz-mode" role="radiogroup" aria-label="${esc25(t2("quiz.mode", "Mode"))}">
         <label class="quiz-mode-opt"><input type="radio" name="qmode" value="practice"${st.mode === "practice" ? " checked" : ""}> ${t2("quiz.practice", "Practice")}</label>
         <label class="quiz-mode-opt"><input type="radio" name="qmode" value="test"${st.mode === "test" ? " checked" : ""}> ${t2("quiz.test", "Test")}</label>
       </div>
@@ -232645,7 +232908,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   }
   function renderAnswers(q, given, disabled, res) {
     if (q.type === "shortanswer") {
-      return `<input type="text" class="quiz-sa" data-testid="quiz-sa" value="${esc24(given || "")}"${disabled ? " disabled" : ""}>`;
+      return `<input type="text" class="quiz-sa" data-testid="quiz-sa" value="${esc25(given || "")}"${disabled ? " disabled" : ""}>`;
     }
     const multi = q.type === "multichoice" && !q.single;
     return q.answers.map((a, idx) => {
@@ -232957,14 +233220,14 @@ make grade      # your suite + branch coverage, with the missing lines named
   var overlay3 = null;
   var body2 = null;
   var lang = "en";
-  var state41 = null;
+  var state42 = null;
   var cloudClient = null;
   var authSubscribed = false;
   function t3(k, fb) {
     const v = t(k);
     return v !== k ? v : fb || k;
   }
-  function esc25(s) {
+  function esc26(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   function has2(unitId) {
@@ -232984,10 +233247,10 @@ make grade      # your suite + branch coverage, with the missing lines named
     overlay3.innerHTML = `
     <div class="quizviewer-panel labviewer-panel" role="dialog" aria-modal="true" tabindex="-1">
       <header class="quizviewer-head">
-        <h2>${esc25(t3("btn.lab", "Lab"))}</h2>
+        <h2>${esc26(t3("btn.lab", "Lab"))}</h2>
         <div class="quizviewer-head-tools">
           <button type="button" id="lab-lang-toggle" class="btn secondary" data-testid="lab-lang-toggle"></button>
-          <button type="button" class="btn secondary" data-lab-close data-testid="lab-close" aria-label="${esc25(t3("common.close", "Close"))}">\xD7</button>
+          <button type="button" class="btn secondary" data-lab-close data-testid="lab-close" aria-label="${esc26(t3("common.close", "Close"))}">\xD7</button>
         </div>
       </header>
       <div id="lab-viewer-body"></div>
@@ -233003,13 +233266,13 @@ make grade      # your suite + branch coverage, with the missing lines named
     });
     overlay3.querySelector("#lab-lang-toggle").addEventListener("click", () => {
       lang = lang === "zh" ? "en" : "zh";
-      render41();
+      render42();
     });
     if (!authSubscribed) {
       authSubscribed = true;
       try {
         (_b2 = (_a2 = client()).subscribeAuthState) == null ? void 0 : _b2.call(_a2, () => {
-          if (state41) render41();
+          if (state42) render42();
         });
       } catch {
       }
@@ -233017,8 +233280,8 @@ make grade      # your suite + branch coverage, with the missing lines named
   }
   function sampleBlock(s, i) {
     return `<div class="lab-sample">
-    <div class="lab-sample-col"><strong>#${i + 1} in</strong><pre><code>${esc25(s.in)}</code></pre></div>
-    <div class="lab-sample-col"><strong>out</strong><pre><code>${esc25(s.out)}</code></pre></div>
+    <div class="lab-sample-col"><strong>#${i + 1} in</strong><pre><code>${esc26(s.in)}</code></pre></div>
+    <div class="lab-sample-col"><strong>out</strong><pre><code>${esc26(s.out)}</code></pre></div>
   </div>`;
   }
   function judgeUrlOf(lab) {
@@ -233031,7 +233294,7 @@ make grade      # your suite + branch coverage, with the missing lines named
     if (c && c.isConfigured && !user) {
       return `<button type="button" class="btn secondary" data-testid="lab-judge-signin">${t3("lab.judgeSignin", "Sign in to practice on judge")}</button>`;
     }
-    return `<a class="btn secondary" data-testid="lab-judge" href="${esc25(judgeUrlOf(lab))}" target="_blank" rel="noopener">${t3("lab.judgePractice", "Practice on judge")}</a>`;
+    return `<a class="btn secondary" data-testid="lab-judge" href="${esc26(judgeUrlOf(lab))}" target="_blank" rel="noopener">${t3("lab.judgePractice", "Practice on judge")}</a>`;
   }
   function wireJudge() {
     var _a2;
@@ -233043,10 +233306,10 @@ make grade      # your suite + branch coverage, with the missing lines named
       }
     });
   }
-  function render41() {
+  function render42() {
     var _a2, _b2;
-    if (!state41) return;
-    const lab = state41.lab;
+    if (!state42) return;
+    const lab = state42.lab;
     const title = lang === "zh" ? lab.titleZh : lab.titleEn;
     const stmt = lab.statementHtml[lang] || lab.statementHtml.en;
     const meta = [];
@@ -233059,7 +233322,7 @@ make grade      # your suite + branch coverage, with the missing lines named
     } catch {
       user = null;
     }
-    body2.innerHTML = `<div class="lab-head"><h3>${esc25(title)}</h3><div class="lab-meta">${meta.map(esc25).join(" \xB7 ")}</div></div>
+    body2.innerHTML = `<div class="lab-head"><h3>${esc26(title)}</h3><div class="lab-meta">${meta.map(esc26).join(" \xB7 ")}</div></div>
      <div class="lab-statement" data-testid="lab-statement">${stmt}</div>
      <h4>${t3("lab.samples", "Samples")}</h4>
      <div class="lab-samples" data-testid="lab-samples">${lab.samples.map(sampleBlock).join("")}</div>
@@ -233072,8 +233335,8 @@ make grade      # your suite + branch coverage, with the missing lines named
     if (!(arr == null ? void 0 : arr.length)) return;
     ensureRefs2();
     lang = getLocale() === "zh" ? "zh" : "en";
-    state41 = { unitId, lab: arr[0] };
-    render41();
+    state42 = { unitId, lab: arr[0] };
+    render42();
     overlay3.hidden = false;
     document.body.style.overflow = "hidden";
     overlay3.querySelector(".quizviewer-panel").focus();
@@ -233083,7 +233346,7 @@ make grade      # your suite + branch coverage, with the missing lines named
       overlay3.hidden = true;
       document.body.style.overflow = "";
     }
-    state41 = null;
+    state42 = null;
   }
   var LabViewer = { open: open2, close: close2, has: has2 };
 
@@ -233212,14 +233475,14 @@ make grade      # your suite + branch coverage, with the missing lines named
   }
   function renderApp(container) {
     var _a2, _b2, _c, _d;
-    const state42 = parseAppLocation(
+    const state43 = parseAppLocation(
       (_b2 = (_a2 = globalThis.location) == null ? void 0 : _a2.search) != null ? _b2 : "",
       (_d = (_c = globalThis.location) == null ? void 0 : _c.hash) != null ? _d : ""
     );
-    if (state42.lang) setLocale(state42.lang, { persist: false });
-    if (state42.unknownExplorer) showUnitNotFound(state42.unknownExplorer);
-    if (state42.explorer && state42.view !== "all") {
-      renderUnitView(container, state42);
+    if (state43.lang) setLocale(state43.lang, { persist: false });
+    if (state43.unknownExplorer) showUnitNotFound(state43.unknownExplorer);
+    if (state43.explorer && state43.view !== "all") {
+      renderUnitView(container, state43);
       return;
     }
     renderIntegratedApp(container);
@@ -233228,8 +233491,8 @@ make grade      # your suite + branch coverage, with the missing lines named
   // src/main.js
   var _a, _b;
   (_b = (_a = createCloudIntegrationClient()).handleRedirect) == null ? void 0 : _b.call(_a);
-  var root41 = document.getElementById("root");
-  if (root41) {
-    renderApp(root41);
+  var root42 = document.getElementById("root");
+  if (root42) {
+    renderApp(root42);
   }
 })();

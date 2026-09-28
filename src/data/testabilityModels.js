@@ -27,3 +27,26 @@ export const TURNSTILE_SUT = {
   // observable output per state (what a test can see from outside)
   outputs: { LOCKED: 'red', UNLOCKED: 'green', PASSED: 'beep', JAMMED: 'green', MAINT: 'red' },
 };
+
+// Design-for-testability seams (Feathers). One worked snippet — a `charge()`
+// function — with four named anti-patterns, each of which pins a real
+// dependency into the code so a test cannot substitute it. Each carries the
+// Feathers seam type that removes it and the test double the seam then enables.
+//
+// The before/after code fragments are kept as short literals in the component's
+// CODE_FRAGMENTS map (keyed by these ids); the human-readable names, fixes and
+// unlocked capabilities live in i18n under `tsm.*`. This object stays pure data
+// with no dependencies so both the explorer and its tests import one source of
+// truth.
+export const SEAM_SNIPPET = {
+  antipatterns: [
+    // global/singleton Config read — a hidden global input a test cannot set.
+    { id: 'global', seam: 'object', double: 'stub' },
+    // hard-coded new PaymentGateway() — a dependency the test cannot swap.
+    { id: 'newdep', seam: 'object', double: 'mock' },
+    // real Date.now() — the wall clock, which a test cannot pin.
+    { id: 'clock', seam: 'object', double: 'fake' },
+    // real Math.random() — the RNG, which a test cannot make deterministic.
+    { id: 'random', seam: 'object', double: 'stub' },
+  ],
+};

@@ -30,6 +30,7 @@ describe('unit → slide-deck mapping', () => {
   // lands. Testability Phase 1 ships the explorer; its deck arrives in Phase 4.
   const PENDING_DECK_UNITS = new Set([
     'controllability-observability',
+    'testability-seams',
   ]);
 
   it('every explorer unit resolves to a real deck (no unit left without slides)', () => {

@@ -81,6 +81,7 @@ export const EXPLORER_UNITS = [
   { id: 'sbst-compare',           componentName: 'SbstCompareExplorer' },
   { id: 'sbst-suite',             componentName: 'SbstSuiteExplorer' },
   { id: 'controllability-observability', componentName: 'ControllabilityObservabilityExplorer' },
+  { id: 'testability-seams',      componentName: 'TestabilitySeamsExplorer' },
 ];
 
 export const UNIT_BY_ID = new Map(EXPLORER_UNITS.map((u) => [u.id, u]));

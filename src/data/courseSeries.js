@@ -31,7 +31,7 @@ export const COURSE_PACKS = [
     // pyramid → testability (controllability & observability).
     order: ['TestingMethodTree', 'TestingFlow', 'DefectCostExplorer',
             'VModelExplorer', 'TestingTypesTable', 'PyramidAdjusterExplorer',
-            'ControllabilityObservabilityExplorer'],
+            'ControllabilityObservabilityExplorer', 'TestabilitySeamsExplorer'],
   },
   {
     id: 'coverage',

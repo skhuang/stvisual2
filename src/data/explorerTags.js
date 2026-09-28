@@ -393,6 +393,10 @@ export const EXPLORER_TAGS = {
     level: ['meta'], technique: ['process'], series: ['foundations'],
     difficulty: 'intermediate', source: [TEXTBOOK],
   },
+  TestabilitySeamsExplorer: {
+    level: ['meta'], technique: ['process'], series: ['foundations'],
+    difficulty: 'intermediate', source: [TEXTBOOK],
+  },
 };
 
 // ── Section ↔ Explorer mapping (used by K2 Overview filter) ────────
@@ -467,7 +471,7 @@ export const SECTION_EXPLORERS = {
   tdd: ['TddCycleExplorer', 'TddRulesExplorer'],
   exploit: ['ExploitOverflowExplorer', 'ExploitSqliExplorer', 'ExploitCmdiExplorer', 'ExploitPathExplorer'],
   sbst: ['SbstBranchExplorer', 'SbstCompareExplorer', 'SbstSuiteExplorer'],
-  testability: ['ControllabilityObservabilityExplorer'],
+  testability: ['ControllabilityObservabilityExplorer', 'TestabilitySeamsExplorer'],
 };
 
 // ── Helpers ────────────────────────────────────────────────────────
