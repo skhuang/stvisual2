@@ -64,6 +64,7 @@ import { createExploitPathExplorer }     from '../components/ExploitPathExplorer
 import { createSbstBranchExplorer }  from '../components/SbstBranchExplorer.js';
 import { createSbstCompareExplorer } from '../components/SbstCompareExplorer.js';
 import { createSbstSuiteExplorer }   from '../components/SbstSuiteExplorer.js';
+import { createControllabilityObservabilityExplorer } from '../components/ControllabilityObservabilityExplorer.js';
 import { createDefinitionGatesExplorer } from '../components/DefinitionGatesExplorer.js';
 import { createExampleMappingExplorer } from '../components/ExampleMappingExplorer.js';
 import { createContinuousTestingPipelineExplorer } from '../components/ContinuousTestingPipelineExplorer.js';
@@ -235,6 +236,7 @@ export function renderIntegratedApp(container) {
           <section data-testid="section-inttest" tabindex="-1" aria-labelledby="section-inttest-title"><h2 id="section-inttest-title">${t('section.inttest.title')}</h2><div data-slot="inttest"></div></section>
           <section data-testid="section-advanced" tabindex="-1" aria-labelledby="section-advanced-title"><h2 id="section-advanced-title">${t('section.advanced.title')}</h2><div data-slot="advanced"></div></section>
           <section data-testid="section-rbt" tabindex="-1" aria-labelledby="section-rbt-title"><h2 id="section-rbt-title">${t('section.rbt.title')}</h2><div data-slot="rbt"></div></section>
+          <section data-testid="section-testability" tabindex="-1" aria-labelledby="section-testability-title"><h2 id="section-testability-title">${t('section.testability.title')}</h2><div data-slot="testability"></div></section>
         </main>
 
         <div class="cloud-drawer" data-testid="cloud-settings-drawer" hidden>
@@ -351,6 +353,7 @@ export function renderIntegratedApp(container) {
       sbstbranch:  createSbstBranchExplorer(),
       sbstcompare: createSbstCompareExplorer(),
       sbstsuite:   createSbstSuiteExplorer(),
+      testabilityco: createControllabilityObservabilityExplorer(),
       definitiongates: createDefinitionGatesExplorer(),
       examplemapping: createExampleMappingExplorer(),
       ctpipeline: createContinuousTestingPipelineExplorer(),
@@ -1045,6 +1048,69 @@ export function renderIntegratedApp(container) {
     renderSbstTabs();
     updateSbstPanels();
 
+    // --- Testability: tabbed (Phase 1 ships 'co'; seams/metrics/score later) ---
+    const testabilitySlot = container.querySelector('[data-slot="testability"]');
+    const testabilityTabBar = document.createElement('nav');
+    testabilityTabBar.className = 'syntax-tab-row';
+    testabilityTabBar.dataset.testid = 'testability-tab-row';
+    testabilityTabBar.setAttribute('role', 'tablist');
+    testabilitySlot.appendChild(testabilityTabBar);
+    const testabilityPanels = document.createElement('div');
+    testabilityPanels.className = 'syntax-tab-panels';
+    testabilitySlot.appendChild(testabilityPanels);
+
+    const testabilityTabDefs = ['co'];
+    for (const tabId of testabilityTabDefs) {
+      const panel = document.createElement('div');
+      panel.className = 'syntax-tab-panel';
+      panel.dataset.testabilityPanel = tabId;
+      if (tabId === 'co') {
+        panel.appendChild(components.testabilityco);
+      }
+      testabilityPanels.appendChild(panel);
+    }
+
+    const TESTABILITY_TAB_KEY = 'stvisual.testabilityActiveTab';
+    let savedTestabilityTab = null;
+    try { savedTestabilityTab = globalThis.localStorage?.getItem(TESTABILITY_TAB_KEY); } catch {}
+    let activeTestabilityTab = resolveInitialTab({
+      sectionId: 'testability',
+      urlSection: urlState.section,
+      urlTab: urlState.tab,
+      saved: savedTestabilityTab,
+    });
+
+    const testabilityTabItems = [
+      { id: 'co', key: 'testability.tab.co' },
+    ];
+
+    function renderTestabilityTabs() {
+      testabilityTabBar.innerHTML = testabilityTabItems.map((tab) => `
+        <button type="button"
+          class="syntax-tab-btn${activeTestabilityTab === tab.id ? ' active' : ''}"
+          data-testability-tab="${tab.id}"
+          role="tab"
+          aria-selected="${activeTestabilityTab === tab.id ? 'true' : 'false'}"
+        >${t(tab.key)}</button>
+      `).join('');
+      testabilityTabBar.querySelectorAll('[data-testability-tab]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeTestabilityTab = btn.dataset.testabilityTab;
+          try { globalThis.localStorage?.setItem(TESTABILITY_TAB_KEY, activeTestabilityTab); } catch {}
+          renderTestabilityTabs();
+          updateTestabilityPanels();
+          if (activeSection === 'testability') syncUrl();
+        });
+      });
+    }
+    function updateTestabilityPanels() {
+      testabilityPanels.querySelectorAll('[data-testability-panel]').forEach((panel) => {
+        panel.style.display = panel.dataset.testabilityPanel === activeTestabilityTab ? '' : 'none';
+      });
+    }
+    renderTestabilityTabs();
+    updateTestabilityPanels();
+
     // --- Test-Driven Development: tabbed (O1 cycle / O2 rules — both live) ---
     const tddSlot = container.querySelector('[data-slot="tdd"]');
     const tddTabBar = document.createElement('nav');
@@ -1445,6 +1511,7 @@ export function renderIntegratedApp(container) {
         case 'tdd':        return activeTddTab;
         case 'exploit':    return activeExploitTab;
         case 'sbst':       return activeSbstTab;
+        case 'testability': return activeTestabilityTab;
         case 'flow':       return activeFlowTab;
         case 'types':      return activeTypesTab;
         default: return undefined;

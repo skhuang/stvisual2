@@ -13,7 +13,7 @@ const EXPECTED_SECTION_IDS = [
   'syntax',
   'symbex', 'concolic', 'fuzz', 'testgen', 'exploit', 'sbst',
   'tdd', 'acceptance', 'agile', 'inttest',
-  'advanced', 'rbt',
+  'advanced', 'rbt', 'testability',
 ];
 
 describe('Section taxonomy', () => {

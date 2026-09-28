@@ -1,0 +1,89 @@
+/* Controllability & Observability Explorer (Testability section, tab `co`) */
+
+.co-wrap { display: flex; flex-direction: column; gap: 0.75rem; }
+.co-title { margin: 0; font-size: 1.25rem; color: var(--app-text, #1f2a44); }
+.co-desc { margin: 0; color: var(--app-text-muted, #6b7280); font-size: 0.92rem; }
+
+.co-modes { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.co-mode-btn {
+  padding: 0.4rem 0.9rem; border: 1px solid var(--app-border, #d1d5db);
+  border-radius: var(--app-radius-sm, 6px); background: var(--app-surface, #fff);
+  color: var(--app-text, #1f2a44); cursor: pointer; font-size: 0.9rem;
+}
+.co-mode-btn--active {
+  background: var(--app-primary-strong, #4f46e5); color: #fff;
+  border-color: var(--app-primary-strong, #4f46e5);
+}
+
+.co-body {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 1rem; align-items: start;
+}
+@media (max-width: 720px) { .co-body { grid-template-columns: 1fr; } }
+
+.co-graph-wrap {
+  border: 1px solid var(--app-border, #e5e7eb);
+  border-radius: var(--app-radius-md, 8px);
+  background: var(--app-surface-subtle, #f8fafc); padding: 0.5rem;
+}
+.co-graph { width: 100%; height: auto; display: block; }
+
+/* Nodes */
+.co-node circle {
+  fill: var(--app-surface, #fff); stroke: var(--app-text-muted, #9ca3af); stroke-width: 1.5;
+}
+.co-node-label { fill: var(--app-text, #1f2a44); font-weight: 600; }
+.co-node-out { fill: var(--app-text-muted, #6b7280); }
+.co-start-mark { fill: var(--app-text-muted, #6b7280); }
+.co-node--reachable circle { fill: var(--app-primary-soft, #e0e7ff); stroke: var(--app-primary-strong, #4f46e5); }
+.co-node--unreachable circle { fill: var(--app-surface, #fff); stroke: var(--app-text-muted, #9ca3af); opacity: 0.75; }
+.co-node--onpath circle { stroke: var(--app-primary-strong, #4f46e5); stroke-width: 3; }
+.co-node--target circle { stroke: var(--app-success, #16a34a); stroke-width: 3.5; }
+.co-node--observable circle { fill: var(--app-success-soft, #dcfce7); stroke: var(--app-success, #16a34a); }
+.co-node--shared circle { fill: var(--app-warning-soft, #fef3c7); stroke: var(--app-warning, #d97706); stroke-dasharray: 6 4; }
+
+/* Panels */
+.co-panel { display: flex; flex-direction: column; gap: 0.6rem; }
+.co-panel-lead { margin: 0; font-size: 0.9rem; color: var(--app-text-muted, #6b7280); }
+
+.co-target-picker { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+.co-picker-label { font-size: 0.85rem; color: var(--app-text-muted, #6b7280); margin-right: 0.25rem; }
+.co-target-btn {
+  padding: 0.25rem 0.6rem; border: 1px solid var(--app-border, #d1d5db);
+  border-radius: var(--app-radius-sm, 6px); background: var(--app-surface, #fff);
+  cursor: pointer; font-size: 0.82rem; color: var(--app-text, #1f2a44);
+}
+.co-target-btn--active { background: var(--app-primary-strong, #4f46e5); color: #fff; border-color: var(--app-primary-strong, #4f46e5); }
+
+.co-drive { margin: 0; font-size: 0.9rem; }
+.co-drive--ok { color: var(--app-text, #1f2a44); }
+.co-drive--bad { color: var(--app-danger, #dc2626); font-weight: 600; }
+.co-seq { display: inline-flex; gap: 0.25rem; margin-left: 0.4rem; flex-wrap: wrap; }
+.co-seq-step {
+  padding: 0.1rem 0.4rem; border-radius: var(--app-radius-sm, 6px);
+  background: var(--app-primary-soft, #e0e7ff); color: var(--app-primary-strong, #4f46e5);
+  font-family: ui-monospace, monospace; font-size: 0.8rem;
+}
+
+.co-readout {
+  border-top: 1px dashed var(--app-border, #e5e7eb); padding-top: 0.5rem;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem;
+}
+.co-ratio { font-size: 1.1rem; font-weight: 700; color: var(--app-primary-strong, #4f46e5); }
+.co-readout-note { flex-basis: 100%; margin: 0; font-size: 0.82rem; color: var(--app-text-muted, #6b7280); }
+
+.co-out-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+.co-out-row {
+  display: grid; grid-template-columns: auto auto 1fr auto; gap: 0.4rem; align-items: center;
+  padding: 0.3rem 0.5rem; border-radius: var(--app-radius-sm, 6px); font-size: 0.85rem;
+}
+.co-out-row--observable { background: var(--app-success-soft, #dcfce7); }
+.co-out-row--shared { background: var(--app-warning-soft, #fef3c7); }
+.co-out-state { font-weight: 600; color: var(--app-text, #1f2a44); }
+.co-out-value { font-family: ui-monospace, monospace; }
+.co-out-tag { font-size: 0.75rem; color: var(--app-text-muted, #6b7280); }
+
+.co-probe {
+  display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem;
+  cursor: pointer; color: var(--app-text, #1f2a44);
+}

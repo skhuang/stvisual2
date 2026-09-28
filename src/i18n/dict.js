@@ -885,6 +885,31 @@ export const messages = {
     'sbst.suite.quiz.option.random': 'It assigns a random weight to each branch outcome each generation, ensuring the GA does not overfit to a single goal.',
     'sbst.suite.quiz.option.coverage': 'It directly counts the number of covered branches, so it is equivalent to maximising a coverage percentage.',
 
+    // ── Testability ──
+    'section.testability': 'Testability',
+    'section.testability.title': 'Testability',
+    'testability.tab.co': 'Controllability & Observability',
+    // Controllability & Observability Explorer
+    'tco.title': 'Controllability & Observability',
+    'tco.desc': 'Testability = controllability (can a test drive the system into the state it needs?) + observability (can a test see the effect it needs to check?). Explore both on an explicit coin-turnstile state machine.',
+    'tco.start': 'start',
+    'tco.graph.aria': 'Turnstile state machine: nodes are states, labelled edges are input transitions.',
+    'tco.mode.controllability': 'Controllability',
+    'tco.mode.observability': 'Observability',
+    'tco.controllability.lead': 'Pick a target state, then read the shortest input sequence that drives the system there. Some states no input can reach — that is the controllability gap.',
+    'tco.target.pick': 'Target state:',
+    'tco.drive.reached': 'Reached {target} in {steps} step(s):',
+    'tco.drive.alreadyStart': 'already the start state',
+    'tco.drive.unreachable': '{target} is unreachable — no input sequence drives the system there.',
+    'tco.controllability.readout': 'Controllable states {n}/{total}',
+    'tco.controllability.gap': 'Unreachable by input: {states}. JAMMED is reachable only by a fault, MAINT only by a maintenance key — neither is one of the test’s inputs.',
+    'tco.observability.lead': 'A fault landing in a state is only detectable when that state’s output is unique. States that share an output are indistinguishable from outside — the observability gap.',
+    'tco.obs.unique': 'unique — observable',
+    'tco.obs.shared': 'shared — invisible',
+    'tco.probe.label': 'Add a probe to JAMMED (distinct output)',
+    'tco.observability.readout': 'Observable states {n}/{total}',
+    'tco.observability.gap': 'Shared outputs hide faults in: {states}. A jam looks identical to unlocked (both output “green”) until you add a probe.',
+
     // ── Test-Driven Development (O-series) ──
     'section.tdd': 'TDD',
     'section.tdd.title': 'Test-Driven Development',
@@ -4106,6 +4131,31 @@ export const messages = {
     'sbst.suite.quiz.option.singleGoal': '它與單一分支適應度完全相同；唯一差別是遺傳演算法同時演化多個個體。',
     'sbst.suite.quiz.option.random': '它每代對各分支結果隨機賦予權重，確保遺傳演算法不過度擬合單一目標。',
     'sbst.suite.quiz.option.coverage': '它直接計算已覆蓋分支數，因此等同於最大化覆蓋率百分比。',
+
+    // ── 可測試性 ──
+    'section.testability': '可測試性',
+    'section.testability.title': '可測試性',
+    'testability.tab.co': '可控制性與可觀察性',
+    // 可控制性與可觀察性探索器
+    'tco.title': '可控制性與可觀察性',
+    'tco.desc': '可測試性 = 可控制性（測試能否把系統驅動到所需的狀態？）＋ 可觀察性（測試能否看見需要檢查的效果？）。以一個明確的投幣旋轉閘門狀態機同時探索兩者。',
+    'tco.start': '起始',
+    'tco.graph.aria': '旋轉閘門狀態機：節點為狀態，標註的邊為輸入轉移。',
+    'tco.mode.controllability': '可控制性',
+    'tco.mode.observability': '可觀察性',
+    'tco.controllability.lead': '選一個目標狀態，讀出把系統驅動到該狀態的最短輸入序列。有些狀態任何輸入都到不了——這就是可控制性缺口。',
+    'tco.target.pick': '目標狀態：',
+    'tco.drive.reached': '以 {steps} 步到達 {target}：',
+    'tco.drive.alreadyStart': '本身即為起始狀態',
+    'tco.drive.unreachable': '{target} 無法到達——沒有任何輸入序列能把系統驅動至此。',
+    'tco.controllability.readout': '可控制狀態 {n}/{total}',
+    'tco.controllability.gap': '輸入無法到達：{states}。JAMMED 只能經由故障到達，MAINT 只能經由維護鑰匙到達——兩者都不在測試的輸入之中。',
+    'tco.observability.lead': '只有當某狀態的輸出是唯一的，落在該狀態的故障才可被偵測。共用輸出的狀態從外部無法區分——這就是可觀察性缺口。',
+    'tco.obs.unique': '唯一——可觀察',
+    'tco.obs.shared': '共用——不可見',
+    'tco.probe.label': '為 JAMMED 加上探針（給予不同輸出）',
+    'tco.observability.readout': '可觀察狀態 {n}/{total}',
+    'tco.observability.gap': '共用輸出隱藏了下列狀態的故障：{states}。在加上探針之前，卡住（jam）看起來與已解鎖完全相同（兩者都輸出「green」）。',
 
     // ── 測試驅動開發（O 系列）──
     'section.tdd': 'TDD',

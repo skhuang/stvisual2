@@ -27,9 +27,11 @@ export const COURSE_PACKS = [
     titleKey: 'pack.foundations.title',
     descKey: 'pack.foundations.desc',
     filter: { series: ['foundations'] },
-    // Pedagogical sequence: method map → flow → cost → V-model → types → pyramid.
+    // Pedagogical sequence: method map → flow → cost → V-model → types →
+    // pyramid → testability (controllability & observability).
     order: ['TestingMethodTree', 'TestingFlow', 'DefectCostExplorer',
-            'VModelExplorer', 'TestingTypesTable', 'PyramidAdjusterExplorer'],
+            'VModelExplorer', 'TestingTypesTable', 'PyramidAdjusterExplorer',
+            'ControllabilityObservabilityExplorer'],
   },
   {
     id: 'coverage',

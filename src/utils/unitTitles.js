@@ -23,6 +23,7 @@ const TAB_LABEL_PREFIX = {
   sbst:       'sbst.tab',
   graph:      'graph.tab',
   logic:      'logic.tab',
+  testability: 'testability.tab',
 };
 
 // Best available human title for a unit: the tab label (recovered via
