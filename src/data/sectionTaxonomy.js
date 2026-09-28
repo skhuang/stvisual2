@@ -22,7 +22,7 @@ export const SECTION_TAXONOMY = [
   { id: 'process',      labelKey: 'taxonomy.process',
     sectionIds: ['tdd', 'acceptance', 'agile', 'inttest'] },
   { id: 'strategy',     labelKey: 'taxonomy.strategy',
-    sectionIds: ['advanced', 'rbt'] },
+    sectionIds: ['advanced', 'rbt', 'testability'] },
 ];
 
 // Flat section-id order derived from the taxonomy. Drives nav-button order

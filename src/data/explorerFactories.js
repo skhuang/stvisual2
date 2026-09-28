@@ -68,6 +68,7 @@ import { createExploitPathExplorer } from '../components/ExploitPathExplorer.js'
 import { createSbstBranchExplorer } from '../components/SbstBranchExplorer.js';
 import { createSbstCompareExplorer } from '../components/SbstCompareExplorer.js';
 import { createSbstSuiteExplorer } from '../components/SbstSuiteExplorer.js';
+import { createControllabilityObservabilityExplorer } from '../components/ControllabilityObservabilityExplorer.js';
 
 export const FACTORY_BY_COMPONENT = {
   TestingMethodTree: createTestingMethodTree,
@@ -146,4 +147,5 @@ export const FACTORY_BY_COMPONENT = {
   SbstBranchExplorer: createSbstBranchExplorer,
   SbstCompareExplorer: createSbstCompareExplorer,
   SbstSuiteExplorer: createSbstSuiteExplorer,
+  ControllabilityObservabilityExplorer: createControllabilityObservabilityExplorer,
 };
