@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Design-for-Testability Seams/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是接縫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依 Michael Feathers 的定義，<em>接縫（seam）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個能在「不修改該處程式碼」的情況下改變程式行為的位置</text><feedback><text>正確——接縫讓你能替換行為（例如置換某個相依），而不必修改該處的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>刻意注入程式碼、用來測試測試套件的缺陷</text><feedback><text>那是植入的錯誤／突變體，不是接縫。</text></feedback></answer>
+    <answer fraction="0"><text>一行永遠含有錯誤的程式碼</text><feedback><text>接縫是可替換行為的位置，而非必定有錯的程式。</text></feedback></answer>
+    <answer fraction="0"><text>網路上兩個微服務之間的邊界</text><feedback><text>接縫是程式碼層級可改變行為的位置，不是網路邊界。</text></feedback></answer>
+    <generalfeedback><text>Feathers 將接縫定義為「一個能在不修改該處的情況下改變程式行為的位置」。注入相依就會產生這樣的接縫：測試可以在該處放入替身（double），而不必動到函式本體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是相依注入</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>相依注入（dependency injection，DI）</em>的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從外部把相依傳進來（例如作為參數），而不是在函式內部建立或讀取它</text><feedback><text>正確——協作者是被提供給程式碼，而非在其內部以 new 建立或抓取。</text></feedback></answer>
+    <answer fraction="0"><text>把錯誤注入正在執行的程式，觀察它如何應對</text><feedback><text>那是錯誤注入（fault injection），不是相依注入。</text></feedback></answer>
+    <answer fraction="0"><text>把某個全域變數複製到每個需要它的函式裡</text><feedback><text>取用全域正是 DI 所要取代的；DI 會明確地把相依傳進來。</text></feedback></answer>
+    <answer fraction="0"><text>從程式碼自動產生測試案例</text><feedback><text>那是測試生成，與相依如何被提供無關。</text></feedback></answer>
+    <generalfeedback><text>相依注入從外部（通常作為參數）提供函式的協作者，而非讓函式以 <code>new</code> 建立或從全域讀取。這會產生一個接縫，讓測試能在該處替換替身。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是測試替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試替身（test double）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在測試期間代替真實相依而放入的替身物件</text><feedback><text>正確——stub、mock、fake 都是測試替身，用來取代受測時的真實協作者。</text></feedback></answer>
+    <answer fraction="0"><text>並行執行的第二份測試副本</text><feedback><text>那不是替身；替身取代的是相依，而非測試本身。</text></feedback></answer>
+    <answer fraction="0"><text>某個相依的正式（生產）實作</text><feedback><text>替身是<em>代替</em>真實實作的東西，它不是真貨。</text></feedback></answer>
+    <answer fraction="0"><text>量測程式碼覆蓋率的工具</text><feedback><text>那是覆蓋率工具，不是測試替身。</text></feedback></answer>
+    <generalfeedback><text>測試替身是任何被放到真實相依位置上的物件，好讓受測程式能被孤立地執行——stub、mock、fake、dummy、spy 都是常見種類。每個可測試性接縫都是可放入替身的位置。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何讀取全域單例會傷害可測試性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>charge()</code> 中，<code>const cfg = Config.instance();</code> 讀取了全域單例。為何這會傷害可測試性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是測試無法設定或替換的隱藏輸入，因為它在函式內部被抓取</text><feedback><text>正確——測試沒有接縫可提供不同的 config；相依被釘死在程式碼裡。</text></feedback></answer>
+    <answer fraction="0"><text>單例比注入的物件執行得更慢</text><feedback><text>問題在於控制力，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>全域讀取在測試中一定會拋出例外</text><feedback><text>它不會拋例外；問題是測試無法替換該值。</text></feedback></answer>
+    <answer fraction="0"><text>它會讓函式回傳錯誤的型別</text><feedback><text>它不會改變回傳型別；它移除了測試對 config 的控制。</text></feedback></answer>
+    <generalfeedback><text>讀取全域單例把一個隱藏輸入直接拉進函式。因為測試從不把它傳進來，就沒有接縫可替換測試用的 config——降低了可控制性（controllability）。修法是注入一個 config 參數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何寫死的 new 會傷害可測試性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>charge()</code> 中，<code>const gw = new PaymentGateway();</code> 直接建立了它的協作者。為何這會傷害可測試性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相依在函式內部被建立，因此測試無法把它換成替身</text><feedback><text>正確——寫死 <code>new</code> 把真實 gateway 釘死；沒有接縫可替換。</text></feedback></answer>
+    <answer fraction="0"><text>在測試程式中使用 <code>new</code> 是語法錯誤</text><feedback><text><code>new</code> 是合法的；問題在於協作者無法被替換。</text></feedback></answer>
+    <answer fraction="0"><text>建構子不能被呼叫超過一次</text><feedback><text>可以；問題在於測試無法取代被建立的物件。</text></feedback></answer>
+    <answer fraction="0"><text>它讓函式使用的記憶體加倍</text><feedback><text>關注點是可替換性，而非記憶體。</text></feedback></answer>
+    <generalfeedback><text>在 <code>charge()</code> 內以 <code>new</code> 建立 gateway，會把程式綁死到真實實作。測試無法伸手取代它，於是真實 gateway（網路、副作用）就會執行。注入該協作者才會開出可放替身的接縫。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何真實時鐘會傷害可測試性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>charge()</code> 中，<code>const at = Date.now();</code> 讀取了真實的牆上時鐘（wall clock）。為何這會傷害可測試性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>時間每次執行都不同，因此測試無法把它固定住以對固定時間戳進行斷言</text><feedback><text>正確——真實時鐘是測試無法控制的非決定性（nondeterministic）輸入。</text></feedback></answer>
+    <answer fraction="0"><text><code>Date.now()</code> 回傳難以解析的字串</text><feedback><text>它回傳的是數字；真正的問題是該值不可控。</text></feedback></answer>
+    <answer fraction="0"><text>讀取時鐘會刪除先前的時間戳</text><feedback><text>並不會；問題是非決定性，而非資料遺失。</text></feedback></answer>
+    <answer fraction="0"><text>時鐘只在生產建置中可用</text><feedback><text>在測試中也可用；只是沒有接縫就無法把它的值固定。</text></feedback></answer>
+    <generalfeedback><text>牆上時鐘是非決定性來源：<code>Date.now()</code> 每次執行都不同，測試永遠無法對精確時間戳斷言。注入一個時鐘（clock）能讓測試替換成回傳固定時間的 fake。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何真實亂數會傷害可測試性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <code>charge()</code> 中，<code>const id = Math.random().toString(36);</code> 使用了真實的亂數產生器（RNG）。為何這會傷害可測試性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>值每次執行都不同，因此測試無法讓產生的 id 具決定性</text><feedback><text>正確——真實亂數是測試無法控制的非決定性輸入。</text></feedback></answer>
+    <answer fraction="0"><text><code>Math.random()</code> 在測試中呼叫太慢</text><feedback><text>問題不在速度，而在決定性。</text></feedback></answer>
+    <answer fraction="0"><text>亂數永遠是負數</text><feedback><text><code>Math.random()</code> 回傳 [0,1) 的值；問題是它不可控。</text></feedback></answer>
+    <answer fraction="0"><text>呼叫它會改變 config 單例</text><feedback><text>它不會動到 config；它只是產生一個不可控的值。</text></feedback></answer>
+    <generalfeedback><text>RNG 是非決定性來源：<code>Math.random()</code> 每次執行產生不同的 id，因此測試無法對 id 斷言。注入一個帶種子的 rng（seeded rng）能讓測試替換成決定性的產生器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>全域單例 Config 的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>移除 <code>charge()</code> 中<em>全域單例 Config</em> 反模式的接縫是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入一個 config 參數（把 config 傳進來，例如 <code>deps.config</code>）</text><feedback><text>正確——從外部提供 config 會開出測試可控制的接縫。</text></feedback></answer>
+    <answer fraction="0"><text>把單例快取到一個模組層級變數</text><feedback><text>那仍是讀取全域；並不會讓測試替換 config。</text></feedback></answer>
+    <answer fraction="0"><text>把 <code>Config.instance()</code> 改名為 <code>Config.get()</code></text><feedback><text>改名對可替換性毫無改變。</text></feedback></answer>
+    <answer fraction="0"><text>把讀取包在 try/catch 裡</text><feedback><text>錯誤處理不會為 config 開出接縫。</text></feedback></answer>
+    <generalfeedback><text>修法是相依注入：把 config 作為參數傳入（<code>deps.config</code>），而不是讀取全域單例。這會把被釘死的相依變成可替換的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>寫死 gateway 的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>移除<em>寫死的 <code>new PaymentGateway()</code></em> 反模式的接縫是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入 gateway 協作者（把它傳進來，例如 <code>deps.gateway</code>）</text><feedback><text>正確——從外部提供協作者能讓測試替換替身。</text></feedback></answer>
+    <answer fraction="0"><text>把 <code>new PaymentGateway()</code> 呼叫移到函式最上面</text><feedback><text>位置無關緊要；它仍在內部被建立，無法被替換。</text></feedback></answer>
+    <answer fraction="0"><text>讓 <code>PaymentGateway</code> 成為 <code>Config</code> 的子類別</text><feedback><text>改變繼承關係不會開出可替換的接縫。</text></feedback></answer>
+    <answer fraction="0"><text>為了可靠而把 gateway 呼叫兩次</text><feedback><text>那既未移除寫死的建立，也無助於替換。</text></feedback></answer>
+    <generalfeedback><text>修法是注入 gateway 協作者（<code>deps.gateway</code>），而不是以 <code>new</code> 建立它。這個注入點就是物件接縫（object seam），測試可在此放入替身。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>真實時鐘的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>移除<em>真實時鐘 <code>Date.now()</code></em> 反模式的接縫是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入一個時鐘（把 clock 傳進來，例如 <code>deps.clock.now()</code>）</text><feedback><text>正確——從外部提供時鐘能讓測試把時間固定住。</text></feedback></answer>
+    <answer fraction="0"><text>把 <code>Date.now()</code> 四捨五入到最接近的秒</text><feedback><text>四捨五入仍是讀取真實、不可控的時鐘。</text></feedback></answer>
+    <answer fraction="0"><text>把時間戳存到一個全域變數</text><feedback><text>全域仍不是測試所提供的東西；它不會產生接縫。</text></feedback></answer>
+    <answer fraction="0"><text>每個程式只呼叫 <code>Date.now()</code> 一次</text><feedback><text>只呼叫一次，該值仍不可被測試控制。</text></feedback></answer>
+    <generalfeedback><text>修法是注入一個時鐘（<code>deps.clock.now()</code>），而不是直接呼叫 <code>Date.now()</code>，開出一個接縫讓測試替換成回傳固定時間的 fake 時鐘。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>真實亂數的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>移除<em>真實 <code>Math.random()</code></em> 反模式的接縫是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入一個帶種子的 rng（把產生器傳進來，例如 <code>deps.rng.id()</code>）</text><feedback><text>正確——提供帶種子的 rng 能讓測試使 id 具決定性。</text></feedback></answer>
+    <answer fraction="0"><text>把 <code>Math.random()</code> 乘上一個常數</text><feedback><text>把亂數縮放後仍是亂數且不可控。</text></feedback></answer>
+    <answer fraction="0"><text>在迴圈中呼叫 <code>Math.random()</code> 並取平均</text><feedback><text>對真實亂數取平均仍是非決定性的。</text></feedback></answer>
+    <answer fraction="0"><text>把數字轉成帶固定前綴的字串</text><feedback><text>亂數部分仍不可控；沒有產生接縫。</text></feedback></answer>
+    <generalfeedback><text>修法是注入一個帶種子的 rng（<code>deps.rng.id()</code>），而不是呼叫 <code>Math.random()</code>，開出一個接縫讓測試替換成決定性的產生器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為可測試性而設計的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在這段程式中，<em>為可測試性而設計（design for testability）</em>指的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>移除被釘死的相依，讓每一個都能被測試替換</text><feedback><text>正確——接縫把寫死的相依變成測試可放入替身的位置。</text></feedback></answer>
+    <answer fraction="0"><text>在每個測試中寫更多斷言</text><feedback><text>斷言有用，但這裡的可測試性在於讓相依可被替換。</text></feedback></answer>
+    <answer fraction="0"><text>把相依從函式中完全刪除</text><feedback><text>相依仍會被使用；它們是被注入，而非被刪除。</text></feedback></answer>
+    <answer fraction="0"><text>更頻繁地執行測試</text><feedback><text>執行頻率與把程式設計成可替換無關。</text></feedback></answer>
+    <generalfeedback><text>為可測試性而設計，意即套用接縫，把每個被釘死的相依（全域 config、寫死的 gateway、真實時鐘、真實 RNG）變成測試可替換的東西。可替換的相依正是可測試單元的本質。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>每個修法都是可放入替身的接縫</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>charge()</code> 中的四個修法，每一個都是一個 Feathers 接縫，能讓測試替換測試替身（double）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——注入 config、gateway、clock 或 rng，每一個都開出一個接縫讓測試放入替身。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>每個注入<em>就是</em>接縫：它產生一個位置，讓測試能以替身代替真實相依。</text></feedback></answer>
+    <generalfeedback><text>此處每個修法都是相依注入，也就是一個接縫。接縫是位置；測試替身是放到該位置上的替代物。這正是接縫探索器與測試替身主題交叉連結的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>被釘死的相依有幾個</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>charge()</code> 這段程式含有幾個被釘死（不可測試）的相依？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——全域 config、寫死的 gateway、真實時鐘，以及真實 RNG</text><feedback><text>正確——這是四個反模式，各由一個接縫移除。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>反模式有四個，不是兩個。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>別忘了讀取全域 config；總共有四個。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>這段程式恰好釘死四個相依，不是五個。</text></feedback></answer>
+    <generalfeedback><text><code>charge()</code> 釘死四個相依：<code>Config.instance()</code>、<code>new PaymentGateway()</code>、<code>Date.now()</code> 與 <code>Math.random()</code>。可測試性儀表讀數為 applied/4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四個修法的接縫類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>charge()</code> 中的四個修法屬於哪一種 Feathers 接縫？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>物件接縫（object seam）</text><feedback><text>正確——每個修法都是（透過注入的參數）替換不同的物件，因此四個都是物件接縫。</text></feedback></answer>
+    <answer fraction="0"><text>前置處理接縫（preprocessing seam）</text><feedback><text>此處沒有使用巨集／前置處理替換；這些是物件接縫。</text></feedback></answer>
+    <answer fraction="0"><text>連結接縫（link seam）</text><feedback><text>沒有在連結時進行替換；替換是靠把物件傳進來達成的。</text></feedback></answer>
+    <answer fraction="0"><text>編譯接縫（compile seam）</text><feedback><text>替換是在執行時透過注入的物件完成，因此這些是物件接縫。</text></feedback></answer>
+    <generalfeedback><text>在 Feathers 的分類（前置處理／連結／物件接縫）中，此處四個修法都是靠參數把不同的物件傳進來——皆為物件接縫。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Design-for-Testability Seams/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 config 所啟用的替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入 config 參數（<em>global</em> 修法）之後，在此模型中這個接縫通常啟用哪一種測試替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>stub（樁）</text><feedback><text>正確——config 接縫啟用一個回傳固定設定的 stub。</text></feedback></answer>
+    <answer fraction="0"><text>mock（模擬）</text><feedback><text>gateway 修法啟用 mock；此處 config 修法啟用的是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>fake（假物件）</text><feedback><text>clock 修法啟用 fake；此處 config 修法啟用的是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>不可能有替身</text><feedback><text>一旦被注入，config 就能被 stub 替換。</text></feedback></answer>
+    <generalfeedback><text>在此 fixture 中，全域 config 接縫對應到 <strong>stub</strong>：測試透過注入的參數提供固定的 config 值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 gateway 所啟用的替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入 gateway 協作者（<em>newdep</em> 修法）之後，在此模型中這個接縫啟用哪一種測試替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>mock（模擬）</text><feedback><text>正確——gateway 接縫對應到 mock，可驗證呼叫並強制失敗。</text></feedback></answer>
+    <answer fraction="0"><text>stub（樁）</text><feedback><text>config 與 rng 修法對應到 stub；此處 gateway 修法對應到 mock。</text></feedback></answer>
+    <answer fraction="0"><text>fake（假物件）</text><feedback><text>clock 修法對應到 fake；此處 gateway 修法對應到 mock。</text></feedback></answer>
+    <answer fraction="0"><text>dummy（虛擬物件）</text><feedback><text>gateway 會被實際使用，所以不是 dummy；此接縫啟用的是 mock。</text></feedback></answer>
+    <generalfeedback><text>在此 fixture 中，gateway 接縫對應到 <strong>mock</strong>：注入該協作者讓測試能驗證 gateway 如何被呼叫，並強制它失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 clock 所啟用的替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入一個時鐘（<em>clock</em> 修法）之後，在此模型中這個接縫啟用哪一種測試替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>fake（假物件）</text><feedback><text>正確——clock 接縫對應到一個回傳固定時間的 fake 時鐘。</text></feedback></answer>
+    <answer fraction="0"><text>stub（樁）</text><feedback><text>在此 fixture 中，clock 對應到 fake，而非 stub。</text></feedback></answer>
+    <answer fraction="0"><text>mock（模擬）</text><feedback><text>gateway 修法對應到 mock；此處 clock 修法對應到 fake。</text></feedback></answer>
+    <answer fraction="0"><text>spy（間諜物件）</text><feedback><text>clock 接縫對應到 fake 時鐘，而非 spy。</text></feedback></answer>
+    <generalfeedback><text>在此 fixture 中，clock 接縫對應到 <strong>fake</strong>：一個可運作、回傳固定且可控時間的時鐘實作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 rng 所啟用的替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入一個帶種子的 rng（<em>random</em> 修法）之後，在此模型中這個接縫啟用哪一種測試替身？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>stub（樁）</text><feedback><text>正確——rng 接縫對應到一個回傳固定、決定性 id 的 stub。</text></feedback></answer>
+    <answer fraction="0"><text>mock（模擬）</text><feedback><text>gateway 修法對應到 mock；此處 rng 修法對應到 stub。</text></feedback></answer>
+    <answer fraction="0"><text>fake（假物件）</text><feedback><text>clock 修法對應到 fake；此處 rng 修法對應到 stub。</text></feedback></answer>
+    <answer fraction="0"><text>dummy（虛擬物件）</text><feedback><text>rng 會被實際呼叫且必須回傳值，因此是 stub 而非 dummy。</text></feedback></answer>
+    <generalfeedback><text>在此 fixture 中，rng 接縫對應到 <strong>stub</strong>：測試提供固定、決定性的值，使產生的 id 被固定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 clock 所解鎖的能力</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入一個時鐘為測試解鎖了哪一項能力？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對固定的時間戳進行斷言</text><feedback><text>正確——fake 時鐘讓測試能把時間固定住並對其斷言。</text></feedback></answer>
+    <answer fraction="0"><text>強制 gateway 失敗</text><feedback><text>那是靠注入 gateway 解鎖，不是 clock。</text></feedback></answer>
+    <answer fraction="0"><text>讓產生的 id 具決定性</text><feedback><text>那是靠注入帶種子的 rng 解鎖，不是 clock。</text></feedback></answer>
+    <answer fraction="0"><text>不動全域即可提供測試用的設定</text><feedback><text>那是靠注入 config 解鎖，不是 clock。</text></feedback></answer>
+    <generalfeedback><text>注入一個時鐘讓測試能替換成回傳固定時間的 fake，因此測試可以<em>對固定的時間戳進行斷言</em>。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 gateway 所解鎖的能力</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入 gateway 協作者為測試解鎖了哪一項能力？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>強制 gateway 失敗</text><feedback><text>正確——注入 gateway 後，測試可替換成回傳或拋出失敗的替身。</text></feedback></answer>
+    <answer fraction="0"><text>對固定的時間戳進行斷言</text><feedback><text>那是靠注入 clock 解鎖，不是 gateway。</text></feedback></answer>
+    <answer fraction="0"><text>讓產生的 id 具決定性</text><feedback><text>那是靠注入帶種子的 rng 解鎖，不是 gateway。</text></feedback></answer>
+    <answer fraction="0"><text>不動全域即可提供測試用的設定</text><feedback><text>那是靠注入 config 解鎖，不是 gateway。</text></feedback></answer>
+    <generalfeedback><text>注入 gateway 讓測試能放入替身，因此可以<em>強制 gateway 失敗</em>，並檢查 <code>charge()</code> 如何處理該錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 config 所解鎖的能力</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入 config 參數為測試解鎖了哪一項能力？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不動全域即可提供測試用的設定</text><feedback><text>正確——config 以參數傳入，測試可直接設定它。</text></feedback></answer>
+    <answer fraction="0"><text>對固定的時間戳進行斷言</text><feedback><text>那是靠注入 clock 解鎖，不是 config。</text></feedback></answer>
+    <answer fraction="0"><text>強制 gateway 失敗</text><feedback><text>那是靠注入 gateway 解鎖，不是 config。</text></feedback></answer>
+    <answer fraction="0"><text>讓產生的 id 具決定性</text><feedback><text>那是靠注入帶種子的 rng 解鎖，不是 config。</text></feedback></answer>
+    <generalfeedback><text>注入 config 參數讓測試能<em>不動全域即提供測試用的設定</em>——沒有共享單例需要在測試之間重置。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 rng 所解鎖的能力</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入一個帶種子的 rng 為測試解鎖了哪一項能力？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓產生的 id 具決定性</text><feedback><text>正確——帶種子的 rng 讓測試能固定值，使 id 可重現。</text></feedback></answer>
+    <answer fraction="0"><text>對固定的時間戳進行斷言</text><feedback><text>那是靠注入 clock 解鎖，不是 rng。</text></feedback></answer>
+    <answer fraction="0"><text>強制 gateway 失敗</text><feedback><text>那是靠注入 gateway 解鎖，不是 rng。</text></feedback></answer>
+    <answer fraction="0"><text>不動全域即可提供測試用的設定</text><feedback><text>那是靠注入 config 解鎖，不是 rng。</text></feedback></answer>
+    <generalfeedback><text>注入帶種子的 rng 讓測試能替換成決定性的產生器，因此可以<em>讓產生的 id 具決定性</em>並對其斷言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何注入屬於物件接縫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何把相依作為參數注入屬於<em>物件接縫（object seam）</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相依以物件參照的形式傳入，因此測試能在該處傳入不同的物件，而不必修改 <code>charge()</code></text><feedback><text>正確——替換發生在注入點置換物件，而非變更程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>因為它改變了 <code>charge()</code> 的回傳型別</text><feedback><text>回傳型別未變；物件接縫在於替換協作者物件。</text></feedback></answer>
+    <answer fraction="0"><text>因為它為函式新增了一個決策分支</text><feedback><text>沒有新增分支；接縫是那個可替換的物件參數。</text></feedback></answer>
+    <answer fraction="0"><text>因為它在連結時替換該物件</text><feedback><text>連結時替換會是連結接縫；此處物件是在執行時傳入的。</text></feedback></answer>
+    <generalfeedback><text>物件接縫是一個能藉由替換不同物件來改變行為的位置。把協作者作為參數傳入，使該處可被替換——測試提供一個替身物件，而不必動到函式本體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>將 clock 反模式對應到修法與替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於<em>真實時鐘 <code>Date.now()</code></em> 反模式，對應的修法與所啟用的替身是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入一個時鐘（物件接縫）&#8594; 啟用 fake</text><feedback><text>正確——clock 接縫啟用的正是回傳固定時間的 fake 時鐘。</text></feedback></answer>
+    <answer fraction="0"><text>注入一個時鐘（物件接縫）&#8594; 啟用 mock</text><feedback><text>在此 fixture 中 clock 對應到 fake，而非 mock。</text></feedback></answer>
+    <answer fraction="0"><text>注入 gateway（物件接縫）&#8594; 啟用 fake</text><feedback><text>gateway 是另一個反模式（newdep），啟用的是 mock。</text></feedback></answer>
+    <answer fraction="0"><text>注入帶種子的 rng（物件接縫）&#8594; 啟用 fake</text><feedback><text>rng 是另一個反模式（random），啟用的是 stub。</text></feedback></answer>
+    <generalfeedback><text>clock 反模式對應到：注入一個時鐘（物件接縫），啟用回傳固定時間的 <strong>fake</strong> 時鐘。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個修法啟用 mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試想驗證 <code>charge()</code> 確實呼叫了 payment gateway。哪個反模式的修法能啟用使此事成為可能的 <em>mock</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>寫死的 <code>new PaymentGateway()</code>——注入 gateway 協作者</text><feedback><text>正確——gateway 接縫啟用可驗證互動的 mock。</text></feedback></answer>
+    <answer fraction="0"><text>全域單例 Config——注入 config 參數</text><feedback><text>config 接縫啟用的是 stub，而非 mock。</text></feedback></answer>
+    <answer fraction="0"><text>真實時鐘——注入一個時鐘</text><feedback><text>clock 接縫啟用的是 fake，而非 mock。</text></feedback></answer>
+    <answer fraction="0"><text>真實 RNG——注入帶種子的 rng</text><feedback><text>rng 接縫啟用的是 stub，而非 mock。</text></feedback></answer>
+    <generalfeedback><text>在此 fixture 中只有 gateway 接縫對應到 mock。mock 驗證預期的互動，因此注入 gateway 才是讓測試能斷言「呼叫確實發生」的修法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套用一個修法後的分數</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>testabilityOf</code> 以 applied/4 回報分數。若學習者只套用 clock 修法，分數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>25%（1/4）</text><feedback><text>正確——四個相依中有一個現在可被替換。</text></feedback></answer>
+    <answer fraction="0"><text>50%（2/4）</text><feedback><text>只套用了一個修法，因此分數是 1/4，而非 2/4。</text></feedback></answer>
+    <answer fraction="0"><text>100%（4/4）</text><feedback><text>仍有三個相依被釘死；分數是 1/4。</text></feedback></answer>
+    <answer fraction="0"><text>0%（0/4）</text><feedback><text>已套用一個修法，因此分數大於零：1/4。</text></feedback></answer>
+    <generalfeedback><text>儀表讀數為 applied/4。套用一個修法得到 1/4 = 25%。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>注入 clock 會啟用 mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此模型中，注入一個時鐘會啟用 <em>mock</em> 替身。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>在此 fixture 中並非如此——clock 接縫對應到 fake（回傳固定時間的可運作時鐘），而非 mock。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——clock 接縫啟用的是 fake；mock 是 gateway 接縫所啟用的。</text></feedback></answer>
+    <generalfeedback><text>替身對應為 global &#8594; stub、newdep &#8594; mock、clock &#8594; fake、random &#8594; stub。注入時鐘啟用回傳固定時間的 fake 時鐘；mock 只由注入 gateway 啟用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個修法固定成決定性的 id</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試需要 <code>charge()</code> 產生的 id 在每次執行都相同。需要哪個修法？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入帶種子的 rng（random 修法）</text><feedback><text>正確——帶種子的 rng 讓產生的 id 具決定性。</text></feedback></answer>
+    <answer fraction="0"><text>注入一個時鐘（clock 修法）</text><feedback><text>固定的時鐘固定的是時間戳，而非亂數 id。</text></feedback></answer>
+    <answer fraction="0"><text>注入 gateway（newdep 修法）</text><feedback><text>gateway 接縫關乎扣款呼叫，而非 id。</text></feedback></answer>
+    <answer fraction="0"><text>注入 config（global 修法）</text><feedback><text>config 接縫提供設定，而非 id 的值。</text></feedback></answer>
+    <generalfeedback><text>id 來自 <code>Math.random()</code>。注入帶種子的 rng 讓測試能替換成決定性的產生器，使 id 可重現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪兩個修法都啟用 stub</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此 fixture 中，哪<strong>兩個</strong>反模式的修法都啟用 <em>stub</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>全域單例 Config 與真實的 <code>Math.random()</code></text><feedback><text>正確——config 接縫與 rng 接縫都對應到 stub。</text></feedback></answer>
+    <answer fraction="0"><text>寫死的 gateway 與真實時鐘</text><feedback><text>gateway 對應到 mock、clock 對應到 fake，都不是 stub。</text></feedback></answer>
+    <answer fraction="0"><text>真實時鐘與真實的 <code>Math.random()</code></text><feedback><text>clock 對應到 fake；這一組只有 rng 對應到 stub。</text></feedback></answer>
+    <answer fraction="0"><text>全域單例 Config 與寫死的 gateway</text><feedback><text>config 對應到 stub，但 gateway 對應到 mock。</text></feedback></answer>
+    <generalfeedback><text>替身對應為 global &#8594; stub、newdep &#8594; mock、clock &#8594; fake、random &#8594; stub。兩個啟用 stub 的修法是 config 與 rng。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Design-for-Testability Seams/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>套用兩個修法後的分數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>學習者套用了 <em>global</em> 修法與 <em>clock</em> 修法，其他不動。<code>testabilityOf</code> 回報的分數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%（2/4）</text><feedback><text>正確——四個相依中有兩個現在可被替換。</text></feedback></answer>
+    <answer fraction="0"><text>25%（1/4）</text><feedback><text>套用了兩個相異修法，因此分數是 2/4，而非 1/4。</text></feedback></answer>
+    <answer fraction="0"><text>75%（3/4）</text><feedback><text>只套用了兩個修法；gateway 與 rng 仍被釘死。</text></feedback></answer>
+    <answer fraction="0"><text>100%（4/4）</text><feedback><text>仍有兩個相依被釘死，因此分數是 2/4。</text></feedback></answer>
+    <generalfeedback><text>分數 = applied/4。套用 global 與 clock 修法使四個相依中的兩個可被替換：2/4 = 50%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套用三個修法後的分數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>學習者套用了 <em>global</em>、<em>newdep</em> 與 <em>clock</em> 修法，但保留 <code>Math.random()</code> 不動。<code>testabilityOf</code> 回報的分數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75%（3/4）</text><feedback><text>正確——四個相依中有三個可被替換；只剩 rng 被釘死。</text></feedback></answer>
+    <answer fraction="0"><text>50%（2/4）</text><feedback><text>套用了三個修法，因此分數是 3/4，而非 2/4。</text></feedback></answer>
+    <answer fraction="0"><text>100%（4/4）</text><feedback><text>rng 仍被釘死，因此分數是 3/4，尚未滿分。</text></feedback></answer>
+    <answer fraction="0"><text>25%（1/4）</text><feedback><text>套用了三個相異修法；分數是 3/4。</text></feedback></answer>
+    <generalfeedback><text>分數 = applied/4。注入 config、gateway 與 clock 後，四個相依中的三個可被替換：3/4 = 75%。RNG 仍釘死著 id。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套用全部四個修法後的狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當四個接縫全部套用時，分數為 100%，而 <code>charge()</code> 成為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個近乎純粹的單元，其 config、gateway、時鐘與 RNG 皆由測試完全掌控</text><feedback><text>正確——每個相依現在都可被替換，因此測試掌控所有輸入。</text></feedback></answer>
+    <answer fraction="0"><text>一個不再使用 config、gateway、時鐘或 RNG 的函式</text><feedback><text>它仍使用這四者；只是被注入而非釘死。</text></feedback></answer>
+    <answer fraction="0"><text>保證不含任何錯誤</text><feedback><text>可測試性使它易於測試，而非自動無錯。</text></feedback></answer>
+    <answer fraction="0"><text>無法在生產環境執行</text><feedback><text>提供真實相依時它在生產環境運作良好；測試則提供替身。</text></feedback></answer>
+    <generalfeedback><text>套用四個物件接縫後，每個相依都可被替換。<code>charge()</code> 現在是近乎純粹的單元：測試注入 config、gateway、clock 與 rng，因此掌控每個輸入並能觀察每個效果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些修法移除非決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一組修法能移除 <code>charge()</code> 的<em>非決定性（nondeterminism）</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入時鐘與 rng</text><feedback><text>正確——牆上時鐘與 RNG 是兩個非決定性來源。</text></feedback></answer>
+    <answer fraction="0"><text>注入 config 與 gateway</text><feedback><text>那些改善可替換性，但兩者都不是非決定性來源。</text></feedback></answer>
+    <answer fraction="0"><text>只注入 gateway</text><feedback><text>gateway 不是非決定性來源；非決定性來源是時鐘與 rng。</text></feedback></answer>
+    <answer fraction="0"><text>只注入 config</text><feedback><text>config 是隱藏輸入，而非非決定性來源。</text></feedback></answer>
+    <generalfeedback><text>此程式中的非決定性來源正是時鐘（<code>Date.now()</code>）與 RNG（<code>Math.random()</code>）。兩者都注入後即以測試可控的值取代，使 <code>charge()</code> 具決定性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何注入 clock 與 rng 會移除非決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何注入時鐘與 rng 也讓 <code>charge()</code> 變得具決定性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者原本都是會變動的輸入；一旦由測試提供，相同輸入就永遠產生相同輸出</text><feedback><text>正確——以固定值取代兩個非決定性來源，就消除了每次執行間的變動。</text></feedback></answer>
+    <answer fraction="0"><text>注入會把時間戳與 id 從輸出中完全刪除</text><feedback><text>它們仍會被產生；只是現在由測試提供。</text></feedback></answer>
+    <answer fraction="0"><text>帶種子的 rng 比 <code>Math.random()</code> 執行更快</text><feedback><text>速度無關；決定性來自可控、固定的值。</text></feedback></answer>
+    <answer fraction="0"><text>時鐘與 rng 不再被呼叫</text><feedback><text>它們仍會被呼叫——呼叫在注入的替身上，回傳固定值。</text></feedback></answer>
+    <generalfeedback><text>時鐘與 RNG 是唯一會每次執行變動的輸入。注入它們讓測試能把兩者都固定，因此 <code>charge()</code> 成為其輸入的決定性函式——可測試且可重現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>注入 config 是否移除非決定性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>注入 config 參數（<em>global</em> 修法）是否移除了 <code>charge()</code> 的非決定性？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不——config 是隱藏輸入，而非非決定性輸入；注入它改善可控制性，但非決定性來自時鐘與 RNG</text><feedback><text>正確——移除全域有助於可替換性，但只有 clock 與 rng 修法才移除非決定性。</text></feedback></answer>
+    <answer fraction="0"><text>是——全域單例是非決定性的主要來源</text><feedback><text>單例是隱藏但穩定的輸入；非決定性來源是時鐘與 rng。</text></feedback></answer>
+    <answer fraction="0"><text>是——每次注入都會移除一些非決定性</text><feedback><text>注入普遍改善可替換性，但只有時鐘與 rng 來源是非決定性的。</text></feedback></answer>
+    <answer fraction="0"><text>不——注入 config 其實會增加非決定性</text><feedback><text>它不會增加非決定性；它移除了一個隱藏的全域輸入。</text></feedback></answer>
+    <generalfeedback><text>並非每個可測試性問題都是非決定性。全域 config 是傷害可控制性的隱藏輸入；注入它使 config 可被替換。但此程式的非決定性明確來自時鐘與 RNG。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>接縫與替身之別</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此模型中，<em>接縫（seam）</em>與<em>測試替身（double）</em>的差別是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>接縫是「可進行替換的位置」（注入點）；替身是「放到該處的替代物件」</text><feedback><text>正確——接縫是「在哪裡」；替身是「放什麼」。</text></feedback></answer>
+    <answer fraction="0"><text>接縫是替代物件；替身是它所放入的位置</text><feedback><text>這把兩者顛倒了：接縫是位置，替身是替代物。</text></feedback></answer>
+    <answer fraction="0"><text>兩者是同一件事的兩個名稱</text><feedback><text>兩者不同：一個是程式碼中的位置，另一個是物件。</text></feedback></answer>
+    <answer fraction="0"><text>接縫是一種斷言；替身是一種迴圈</text><feedback><text>兩者都不是斷言或迴圈；接縫是替換點，替身是替代物件。</text></feedback></answer>
+    <generalfeedback><text>接縫是程式碼中可替換行為的位置（此處是注入的參數——物件接縫）。測試替身是測試放到該接縫裡的具體替代物（stub／mock／fake）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個 stub、不同問題</text></name>
+    <questiontext format="html"><text><![CDATA[<p>config 修法與 rng 修法都透過物件接縫啟用 <em>stub</em>，卻處理不同的可測試性問題。它們的共同點與差異是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相同的替身（stub）與相同的接縫類型（物件），但 config 移除隱藏的全域輸入，rng 移除非決定性來源</text><feedback><text>正確——接縫類型與替身相同，底層問題不同。</text></feedback></answer>
+    <answer fraction="0"><text>不同的替身與不同的接縫類型，處理相同的問題</text><feedback><text>兩者都透過物件接縫啟用 stub；不同的是問題，而非替身或接縫。</text></feedback></answer>
+    <answer fraction="0"><text>相同的替身，但 config 修法是連結接縫、rng 修法是物件接縫</text><feedback><text>兩者都是物件接縫；都不是連結接縫。</text></feedback></answer>
+    <answer fraction="0"><text>它們在各方面都完全相同</text><feedback><text>它們共用接縫類型與替身，但處理不同的問題（隱藏輸入 vs 非決定性）。</text></feedback></answer>
+    <generalfeedback><text>兩者都透過物件接縫對應到 stub，顯示接縫類型與替身可以相同。然而 config 處理的是隱藏的全域輸入（可控制性），rng 處理的是非決定性——同一種工具解決不同的可測試性問題。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>newdep 加 random 的分數與能力</text></name>
+    <questiontext format="html"><text><![CDATA[<p>學習者只套用 <em>newdep</em> 與 <em>random</em> 修法。得到的分數與解鎖的能力為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50%（2/4）；強制 gateway 失敗，以及讓產生的 id 具決定性</text><feedback><text>正確——兩個修法得到 2/4，解鎖 gateway 與 rng 的能力。</text></feedback></answer>
+    <answer fraction="0"><text>50%（2/4）；對固定的時間戳進行斷言，以及提供測試用的設定</text><feedback><text>那些是 clock 與 config 的能力，此處並未套用。</text></feedback></answer>
+    <answer fraction="0"><text>75%（3/4）；強制 gateway 失敗，以及讓產生的 id 具決定性</text><feedback><text>只套用了兩個修法，因此分數是 2/4，而非 3/4。</text></feedback></answer>
+    <answer fraction="0"><text>25%（1/4）；強制 gateway 失敗</text><feedback><text>套用了兩個相異修法，因此分數是 2/4，且解鎖兩項能力。</text></feedback></answer>
+    <generalfeedback><text>兩個已套用的修法得到 2/4 = 50%。newdep 修法解鎖「強制 gateway 失敗」，random 修法解鎖「讓產生的 id 具決定性」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何可替換性等於可測試性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何讓每個相依都可被替換，就使 <code>charge()</code> 可被測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一旦每個相依都能被替換，測試就能控制所有輸入並觀察所有效果，而這正是可測試性所要求的</text><feedback><text>正確——可替換的相依同時賦予測試可控制性與可觀察性。</text></feedback></answer>
+    <answer fraction="0"><text>因為可替換的程式總是執行得更快</text><feedback><text>重點不在速度，而在控制與觀察。</text></feedback></answer>
+    <answer fraction="0"><text>因為被注入的相依永遠不含錯誤</text><feedback><text>它們仍可能有錯；注入只是讓單元在測試中可被控制。</text></feedback></answer>
+    <answer fraction="0"><text>因為函式從此完全不需要相依</text><feedback><text>它仍有相依；只是改由測試提供。</text></feedback></answer>
+    <generalfeedback><text>可測試性即可控制性加可觀察性。當每個相依都可被替換時，測試就能驅動所有輸入（config、gateway 行為、時間、id）並觀察其效果——因此可替換性正是使單元可被測試的關鍵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>只移除隱藏輸入的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個單一修法移除了隱藏輸入，卻<strong>不</strong>移除非決定性，也<strong>不</strong>解鎖「強制失敗」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入 config 參數（global 修法）</text><feedback><text>正確——它移除隱藏的全域輸入；它不是非決定性來源，而強制失敗是 gateway 的能力。</text></feedback></answer>
+    <answer fraction="0"><text>注入一個時鐘（clock 修法）</text><feedback><text>clock 修法會移除非決定性，因此不符合。</text></feedback></answer>
+    <answer fraction="0"><text>注入帶種子的 rng（random 修法）</text><feedback><text>rng 修法會移除非決定性，因此不符合。</text></feedback></answer>
+    <answer fraction="0"><text>注入 gateway（newdep 修法）</text><feedback><text>gateway 修法正是解鎖「強制失敗」的那一個，因此不符合。</text></feedback></answer>
+    <generalfeedback><text>global-config 修法移除隱藏輸入（改善可控制性）。它不是非決定性來源之一（時鐘、rng），而強制失敗由 gateway 修法解鎖——因此 config 修法是唯一符合的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>固定時間與決定性 id 所需的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試必須同時對固定時間戳與決定性 id 進行斷言。需要哪些修法，得到的分數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入時鐘與注入帶種子的 rng；分數 50%（2/4）</text><feedback><text>正確——時鐘固定時間、rng 固定 id；四個相依中兩個可被替換。</text></feedback></answer>
+    <answer fraction="0"><text>注入 config 與注入 gateway；分數 50%（2/4）</text><feedback><text>那些解鎖 config 與強制失敗，而非固定時間或決定性 id。</text></feedback></answer>
+    <answer fraction="0"><text>只注入時鐘；分數 25%（1/4）</text><feedback><text>時鐘固定時間但不固定 id；還需要 rng。</text></feedback></answer>
+    <answer fraction="0"><text>四個全注入；分數 100%（4/4）</text><feedback><text>這兩項斷言只需時鐘與 rng；那是 2/4。</text></feedback></answer>
+    <generalfeedback><text>固定時間戳需要 clock 修法；決定性 id 需要 rng 修法。恰好套用這兩個得到 2/4 = 50%。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>分數與順序無關</text></name>
+    <questiontext format="html"><text><![CDATA[<p>先套用 clock 修法再套用 global 修法，與先套用 global 修法再套用 clock 修法，得到的分數相同。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——<code>testabilityOf</code> 計算的是已套用修法的集合，因此順序無關：兩種順序都是 2/4。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>分數只取決於套用了哪些修法，而非順序；兩種順序都得到 2/4。</text></feedback></answer>
+    <generalfeedback><text>分數 = applied/4，由已套用修法的集合計算（去重，並按 fixture 順序）。學習者切換它們的順序不改變結果：兩個相異修法無論如何都是 2/4 = 50%。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>gateway 的 mock 與 stub</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試想<em>驗證</em> <code>charge()</code> 以正確引數呼叫了 gateway，而不只是收到一個固定回傳值。這需要哪種替身，由哪個修法啟用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個 mock，由注入 gateway 協作者啟用</text><feedback><text>正確——mock 驗證互動；stub 只會回傳固定值。</text></feedback></answer>
+    <answer fraction="0"><text>一個 stub，由注入 gateway 協作者啟用</text><feedback><text>stub 回傳固定值但不驗證呼叫；此處 gateway 接縫對應到 mock。</text></feedback></answer>
+    <answer fraction="0"><text>一個 fake，由注入時鐘啟用</text><feedback><text>fake 時鐘固定時間；它不驗證 gateway 呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>一個 stub，由注入帶種子的 rng 啟用</text><feedback><text>rng stub 固定 id；與 gateway 呼叫無關。</text></feedback></answer>
+    <generalfeedback><text>驗證互動（正確的方法、正確的引數）是行為驗證，正是 mock 的職責。在此 fixture 中 gateway 接縫對應到 mock，因此注入 gateway 是啟用它的修法。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一種接縫類型、三種替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p>四個修法都是物件接縫，卻啟用三種不同的替身（stub、mock、fake）。這說明了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>接縫類型（在哪裡替換）與替身（替換成什麼）彼此獨立；同一種接縫可依測試目標容納不同的替身</text><feedback><text>正確——物件接縫提供替換點；選 stub、mock 或 fake 取決於測試需要。</text></feedback></answer>
+    <answer fraction="0"><text>每種接縫類型只能啟用一種替身</text><feedback><text>正好相反：此處同一種接縫（物件）容納了 stub、mock 與 fake。</text></feedback></answer>
+    <answer fraction="0"><text>物件接縫只能啟用 stub</text><feedback><text>此處物件接縫也啟用了 mock 與 fake。</text></feedback></answer>
+    <answer fraction="0"><text>替身決定接縫類型</text><feedback><text>兩者獨立；同一個物件接縫容納不同的替身。</text></feedback></answer>
+    <generalfeedback><text>接縫類型與替身類型彼此正交。四個修法都用同一種物件接縫，但測試依目標挑選替身——config／id 用 stub（固定值）、驗證 gateway 呼叫用 mock、可運作的固定時鐘用 fake。</text></generalfeedback>
+  </question>
+</quiz>

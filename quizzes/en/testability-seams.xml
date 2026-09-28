@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Design-for-Testability Seams/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a seam is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Michael Feathers' sense, a <em>seam</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A place where you can change a program's behaviour without editing the code in that place</text><feedback><text>Correct — a seam lets you substitute behaviour (e.g. swap a dependency) without modifying the code at that point.</text></feedback></answer>
+    <answer fraction="0"><text>A defect deliberately injected into the code to test the test suite</text><feedback><text>That is a seeded fault/mutant, not a seam.</text></feedback></answer>
+    <answer fraction="0"><text>A line of code that always contains a bug</text><feedback><text>A seam is a point of substitutable behaviour, not a guaranteed bug.</text></feedback></answer>
+    <answer fraction="0"><text>A boundary between two microservices on the network</text><feedback><text>A seam is a code-level place to alter behaviour, not a network boundary.</text></feedback></answer>
+    <generalfeedback><text>Feathers defines a seam as a place where you can alter a program's behaviour without editing in that place. Injecting a dependency creates such a seam: a test can substitute a double there without touching the function's body.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What dependency injection is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Dependency injection (DI)</em> means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Passing a dependency in from outside (e.g. as a parameter) instead of creating or reading it inside the function</text><feedback><text>Correct — the collaborator is supplied to the code rather than constructed or fetched inside it.</text></feedback></answer>
+    <answer fraction="0"><text>Injecting a fault into a running program to see how it copes</text><feedback><text>That is fault injection, not dependency injection.</text></feedback></answer>
+    <answer fraction="0"><text>Copying a global variable into every function that needs it</text><feedback><text>Reaching for a global is exactly what DI replaces; DI passes the dependency in explicitly.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically generating test cases from the code</text><feedback><text>That is test generation, unrelated to how a dependency is supplied.</text></feedback></answer>
+    <generalfeedback><text>Dependency injection supplies a function's collaborators from outside — typically as parameters — instead of having the function build them with <code>new</code> or read them from a global. This creates a seam where a test can substitute a double.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test double is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test double</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A stand-in object substituted for a real dependency during a test</text><feedback><text>Correct — stubs, mocks and fakes are all test doubles that replace a real collaborator under test.</text></feedback></answer>
+    <answer fraction="0"><text>A second copy of the test that runs in parallel</text><feedback><text>That is not a double; a double replaces a dependency, not the test itself.</text></feedback></answer>
+    <answer fraction="0"><text>The production implementation of a dependency</text><feedback><text>A double stands in <em>for</em> the real implementation; it is not the real thing.</text></feedback></answer>
+    <answer fraction="0"><text>A tool that measures code coverage</text><feedback><text>That is a coverage tool, not a test double.</text></feedback></answer>
+    <generalfeedback><text>A test double is any object put in place of a real dependency so the code under test can be exercised in isolation — stub, mock, fake, dummy and spy are the common kinds. Each testability seam is a place where a double can be dropped in.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a global singleton read hurts testability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>charge()</code>, the line <code>const cfg = Config.instance();</code> reads a global singleton. Why does this hurt testability?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is a hidden input the test cannot set or substitute, because it is fetched inside the function</text><feedback><text>Correct — a test has no seam to supply a different config; the dependency is pinned inside the code.</text></feedback></answer>
+    <answer fraction="0"><text>Singletons run slower than injected objects</text><feedback><text>The problem is control, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>Global reads always throw an exception under test</text><feedback><text>They do not throw; the issue is that the test cannot substitute the value.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the function return the wrong type</text><feedback><text>It does not change the return type; it removes the test's control over config.</text></feedback></answer>
+    <generalfeedback><text>Reading a global singleton pulls a hidden input straight into the function. Because the test never passes it in, there is no seam to substitute a test config — reducing controllability. The fix is to inject a config parameter.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a hard-coded new hurts testability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>charge()</code>, the line <code>const gw = new PaymentGateway();</code> constructs its collaborator directly. Why does this hurt testability?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The dependency is created inside the function, so a test cannot swap it for a double</text><feedback><text>Correct — hard-coding <code>new</code> pins the real gateway; there is no seam to substitute one.</text></feedback></answer>
+    <answer fraction="0"><text>Using <code>new</code> is a syntax error in test code</text><feedback><text><code>new</code> is valid; the problem is that the collaborator cannot be substituted.</text></feedback></answer>
+    <answer fraction="0"><text>Constructors cannot be called more than once</text><feedback><text>They can; the issue is the test cannot replace the constructed object.</text></feedback></answer>
+    <answer fraction="0"><text>It doubles the memory the function uses</text><feedback><text>The concern is substitutability, not memory.</text></feedback></answer>
+    <generalfeedback><text>Constructing the gateway with <code>new</code> inside <code>charge()</code> binds the code to the real implementation. A test cannot reach in to replace it, so the real gateway (network, side effects) runs. Injecting the collaborator opens a seam for a double.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the real clock hurts testability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>charge()</code>, the line <code>const at = Date.now();</code> reads the real wall clock. Why does this hurt testability?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The time changes on every run, so a test cannot pin it to assert on a fixed timestamp</text><feedback><text>Correct — the real clock is a nondeterministic input the test cannot control.</text></feedback></answer>
+    <answer fraction="0"><text><code>Date.now()</code> returns a string that is hard to parse</text><feedback><text>It returns a number; the real issue is that the value is uncontrollable.</text></feedback></answer>
+    <answer fraction="0"><text>Reading the clock deletes the previous timestamp</text><feedback><text>It does not; the problem is nondeterminism, not data loss.</text></feedback></answer>
+    <answer fraction="0"><text>The clock is only available in production builds</text><feedback><text>It is available under test too; but its value cannot be pinned without a seam.</text></feedback></answer>
+    <generalfeedback><text>The wall clock is a nondeterministic source: <code>Date.now()</code> differs on every run, so a test can never assert on an exact timestamp. Injecting a clock lets a test substitute a fake that returns a fixed time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why real randomness hurts testability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>charge()</code>, the line <code>const id = Math.random().toString(36);</code> uses the real RNG. Why does this hurt testability?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The value differs on every run, so a test cannot make the generated id deterministic</text><feedback><text>Correct — real randomness is a nondeterministic input the test cannot control.</text></feedback></answer>
+    <answer fraction="0"><text><code>Math.random()</code> is too slow to call inside a test</text><feedback><text>Speed is not the issue; determinism is.</text></feedback></answer>
+    <answer fraction="0"><text>Random numbers are always negative</text><feedback><text><code>Math.random()</code> returns a value in [0,1); the problem is it is not controllable.</text></feedback></answer>
+    <answer fraction="0"><text>Calling it changes the config singleton</text><feedback><text>It does not touch config; it just produces an uncontrollable value.</text></feedback></answer>
+    <generalfeedback><text>The RNG is a nondeterministic source: <code>Math.random()</code> yields a different id each run, so a test cannot assert on the id. Injecting a seeded rng lets a test substitute a deterministic generator.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for the global singleton Config</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the seam that removes the <em>global singleton Config</em> anti-pattern in <code>charge()</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject a config parameter (pass the config in, e.g. <code>deps.config</code>)</text><feedback><text>Correct — supplying the config from outside opens a seam a test can control.</text></feedback></answer>
+    <answer fraction="0"><text>Cache the singleton in a module-level variable</text><feedback><text>That still reads a global; it does not let a test substitute the config.</text></feedback></answer>
+    <answer fraction="0"><text>Rename <code>Config.instance()</code> to <code>Config.get()</code></text><feedback><text>Renaming changes nothing about substitutability.</text></feedback></answer>
+    <answer fraction="0"><text>Wrap the read in a try/catch</text><feedback><text>Error handling does not create a seam for the config.</text></feedback></answer>
+    <generalfeedback><text>The fix is dependency injection: pass the config in as a parameter (<code>deps.config</code>) instead of reading the global singleton. That turns the pinned dependency into a substitutable one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for the hard-coded gateway</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the seam that removes the <em>hard-coded <code>new PaymentGateway()</code></em> anti-pattern?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject the gateway collaborator (pass it in, e.g. <code>deps.gateway</code>)</text><feedback><text>Correct — supplying the collaborator from outside lets a test substitute a double.</text></feedback></answer>
+    <answer fraction="0"><text>Move the <code>new PaymentGateway()</code> call to the top of the function</text><feedback><text>Its position does not matter; it is still constructed inside and cannot be swapped.</text></feedback></answer>
+    <answer fraction="0"><text>Make <code>PaymentGateway</code> a subclass of <code>Config</code></text><feedback><text>Changing the inheritance does not open a seam for substitution.</text></feedback></answer>
+    <answer fraction="0"><text>Call the gateway twice for reliability</text><feedback><text>That neither removes the hard-coded construction nor helps substitution.</text></feedback></answer>
+    <generalfeedback><text>The fix is to inject the gateway collaborator (<code>deps.gateway</code>) instead of constructing it with <code>new</code>. The injection point is the object seam where a test drops in a double.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for the real clock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the seam that removes the <em>real clock <code>Date.now()</code></em> anti-pattern?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject a clock (pass a clock in, e.g. <code>deps.clock.now()</code>)</text><feedback><text>Correct — supplying the clock from outside lets a test pin the time.</text></feedback></answer>
+    <answer fraction="0"><text>Round <code>Date.now()</code> to the nearest second</text><feedback><text>Rounding still reads the real, uncontrollable clock.</text></feedback></answer>
+    <answer fraction="0"><text>Store the timestamp in a global variable</text><feedback><text>A global is still not something the test supplies; it does not create a seam.</text></feedback></answer>
+    <answer fraction="0"><text>Call <code>Date.now()</code> only once per program</text><feedback><text>Calling it once still leaves the value uncontrollable by a test.</text></feedback></answer>
+    <generalfeedback><text>The fix is to inject a clock (<code>deps.clock.now()</code>) rather than calling <code>Date.now()</code> directly, opening a seam where a test substitutes a fake clock with a fixed time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for real randomness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the seam that removes the <em>real <code>Math.random()</code></em> anti-pattern?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject a seeded rng (pass a generator in, e.g. <code>deps.rng.id()</code>)</text><feedback><text>Correct — supplying a seeded rng lets a test make the id deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Multiply <code>Math.random()</code> by a constant</text><feedback><text>Scaling a random value is still random and uncontrollable.</text></feedback></answer>
+    <answer fraction="0"><text>Call <code>Math.random()</code> in a loop and average the results</text><feedback><text>Averaging real randomness is still nondeterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Convert the number to a string with a fixed prefix</text><feedback><text>The random part remains uncontrollable; no seam is created.</text></feedback></answer>
+    <generalfeedback><text>The fix is to inject a seeded rng (<code>deps.rng.id()</code>) instead of calling <code>Math.random()</code>, opening a seam where a test substitutes a deterministic generator.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What design-for-testability means</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Design for testability</em> in this snippet means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Removing the pinned dependencies so each one becomes substitutable by a test</text><feedback><text>Correct — the seams turn hard-coded dependencies into places a test can supply a double.</text></feedback></answer>
+    <answer fraction="0"><text>Writing more assertions in each test</text><feedback><text>Assertions are useful, but testability here is about making dependencies substitutable.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting the dependencies from the function entirely</text><feedback><text>The dependencies are still used; they are injected, not deleted.</text></feedback></answer>
+    <answer fraction="0"><text>Running the tests more often</text><feedback><text>Frequency of runs is unrelated to designing the code for substitutability.</text></feedback></answer>
+    <generalfeedback><text>Designing for testability means applying seams that turn each pinned dependency (global config, hard-coded gateway, real clock, real RNG) into something a test can substitute. Substitutable dependencies are the essence of a testable unit.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Each fix is a seam enabling a double</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Each of the four fixes in <code>charge()</code> is a Feathers seam that lets a test substitute a test double.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — injecting the config, gateway, clock or rng each opens a seam where a test drops in a double.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Each injection <em>is</em> a seam: it creates a place where a test can substitute a double for the real dependency.</text></feedback></answer>
+    <generalfeedback><text>Every fix here is dependency injection, which is a seam. The seam is the place; the test double is the substitute placed there. This is why the seams explorer cross-links the test-doubles topic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How many pinned dependencies</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many pinned (untestable) dependencies does the <code>charge()</code> snippet contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — the global config, the hard-coded gateway, the real clock, and the real RNG</text><feedback><text>Correct — those are the four anti-patterns, each removed by one seam.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There are four anti-patterns, not two.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Do not forget the global config read; there are four in total.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>The snippet pins exactly four dependencies, not five.</text></feedback></answer>
+    <generalfeedback><text><code>charge()</code> pins four dependencies: <code>Config.instance()</code>, <code>new PaymentGateway()</code>, <code>Date.now()</code>, and <code>Math.random()</code>. The testability meter reads applied/4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seam type of all four fixes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All four fixes in <code>charge()</code> are which kind of Feathers seam?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Object seams</text><feedback><text>Correct — each fix substitutes a different object (via an injected parameter), so all four are object seams.</text></feedback></answer>
+    <answer fraction="0"><text>Preprocessing seams</text><feedback><text>No macro/preprocessor substitution is used here; the seams are object seams.</text></feedback></answer>
+    <answer fraction="0"><text>Link seams</text><feedback><text>Nothing is substituted at link time; substitution happens by passing an object in.</text></feedback></answer>
+    <answer fraction="0"><text>Compile seams</text><feedback><text>The substitution is at runtime via an injected object, so these are object seams.</text></feedback></answer>
+    <generalfeedback><text>In Feathers' taxonomy (preprocessing / link / object seams), all four fixes here work by passing a different object in through a parameter — object seams.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Design-for-Testability Seams/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Double enabled by injecting config</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting the config parameter (the <em>global</em> fix), which test double does the seam typically enable in this model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A stub</text><feedback><text>Correct — the config seam enables a stub that returns canned settings.</text></feedback></answer>
+    <answer fraction="0"><text>A mock</text><feedback><text>The gateway fix enables a mock; the config fix enables a stub here.</text></feedback></answer>
+    <answer fraction="0"><text>A fake</text><feedback><text>The clock fix enables a fake; the config fix enables a stub here.</text></feedback></answer>
+    <answer fraction="0"><text>No double is possible</text><feedback><text>Once injected, the config can be substituted by a stub.</text></feedback></answer>
+    <generalfeedback><text>In this fixture the global-config seam maps to a <strong>stub</strong>: a test supplies canned config values through the injected parameter.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Double enabled by injecting the gateway</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting the gateway collaborator (the <em>newdep</em> fix), which test double does the seam enable in this model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A mock</text><feedback><text>Correct — the gateway seam maps to a mock, which can verify the call and force a failure.</text></feedback></answer>
+    <answer fraction="0"><text>A stub</text><feedback><text>The config and RNG fixes map to stubs; the gateway fix maps to a mock here.</text></feedback></answer>
+    <answer fraction="0"><text>A fake</text><feedback><text>The clock fix maps to a fake; the gateway fix maps to a mock here.</text></feedback></answer>
+    <answer fraction="0"><text>A dummy</text><feedback><text>The gateway is actively used, so it is not a dummy; this seam enables a mock.</text></feedback></answer>
+    <generalfeedback><text>In this fixture the gateway seam maps to a <strong>mock</strong>: injecting the collaborator lets a test verify how the gateway is called and force it to fail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Double enabled by injecting the clock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting a clock (the <em>clock</em> fix), which test double does the seam enable in this model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A fake</text><feedback><text>Correct — the clock seam maps to a fake clock returning a fixed time.</text></feedback></answer>
+    <answer fraction="0"><text>A stub</text><feedback><text>In this fixture the clock maps to a fake, not a stub.</text></feedback></answer>
+    <answer fraction="0"><text>A mock</text><feedback><text>The gateway fix maps to a mock; the clock fix maps to a fake here.</text></feedback></answer>
+    <answer fraction="0"><text>A spy</text><feedback><text>The clock seam maps to a fake clock, not a spy.</text></feedback></answer>
+    <generalfeedback><text>In this fixture the clock seam maps to a <strong>fake</strong>: a working clock implementation that returns a fixed, controllable time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Double enabled by injecting the rng</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting a seeded rng (the <em>random</em> fix), which test double does the seam enable in this model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A stub</text><feedback><text>Correct — the rng seam maps to a stub that returns a fixed, deterministic id.</text></feedback></answer>
+    <answer fraction="0"><text>A mock</text><feedback><text>The gateway fix maps to a mock; the rng fix maps to a stub here.</text></feedback></answer>
+    <answer fraction="0"><text>A fake</text><feedback><text>The clock fix maps to a fake; the rng fix maps to a stub here.</text></feedback></answer>
+    <answer fraction="0"><text>A dummy</text><feedback><text>The rng is actually called and must return a value, so it is a stub, not a dummy.</text></feedback></answer>
+    <generalfeedback><text>In this fixture the rng seam maps to a <strong>stub</strong>: a test supplies canned, deterministic values so the generated id is fixed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Capability unlocked by injecting the clock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which capability does injecting a clock unlock for a test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Assert on a fixed timestamp</text><feedback><text>Correct — a fake clock lets the test pin the time and assert on it.</text></feedback></answer>
+    <answer fraction="0"><text>Force the gateway to fail</text><feedback><text>That is unlocked by injecting the gateway, not the clock.</text></feedback></answer>
+    <answer fraction="0"><text>Make the generated id deterministic</text><feedback><text>That is unlocked by injecting the seeded rng, not the clock.</text></feedback></answer>
+    <answer fraction="0"><text>Supply a test config without touching globals</text><feedback><text>That is unlocked by injecting the config, not the clock.</text></feedback></answer>
+    <generalfeedback><text>Injecting a clock lets a test substitute a fake that returns a fixed time, so the test can <em>assert on a fixed timestamp</em>.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Capability unlocked by injecting the gateway</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which capability does injecting the gateway collaborator unlock for a test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Force the gateway to fail</text><feedback><text>Correct — with the gateway injected, a test can substitute a double that returns or throws a failure.</text></feedback></answer>
+    <answer fraction="0"><text>Assert on a fixed timestamp</text><feedback><text>That is unlocked by injecting the clock, not the gateway.</text></feedback></answer>
+    <answer fraction="0"><text>Make the generated id deterministic</text><feedback><text>That is unlocked by injecting the seeded rng, not the gateway.</text></feedback></answer>
+    <answer fraction="0"><text>Supply a test config without touching globals</text><feedback><text>That is unlocked by injecting the config, not the gateway.</text></feedback></answer>
+    <generalfeedback><text>Injecting the gateway lets a test drop in a double, so it can <em>force the gateway to fail</em> and check how <code>charge()</code> handles the error.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Capability unlocked by injecting config</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which capability does injecting the config parameter unlock for a test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Supply a test config without touching globals</text><feedback><text>Correct — the config arrives as a parameter, so a test sets it directly.</text></feedback></answer>
+    <answer fraction="0"><text>Assert on a fixed timestamp</text><feedback><text>That is unlocked by injecting the clock, not the config.</text></feedback></answer>
+    <answer fraction="0"><text>Force the gateway to fail</text><feedback><text>That is unlocked by injecting the gateway, not the config.</text></feedback></answer>
+    <answer fraction="0"><text>Make the generated id deterministic</text><feedback><text>That is unlocked by injecting the seeded rng, not the config.</text></feedback></answer>
+    <generalfeedback><text>Injecting the config parameter lets a test <em>supply a test config without touching globals</em> — no shared singleton to reset between tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Capability unlocked by injecting the rng</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which capability does injecting a seeded rng unlock for a test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Make the generated id deterministic</text><feedback><text>Correct — a seeded rng lets a test fix the value, so the id is repeatable.</text></feedback></answer>
+    <answer fraction="0"><text>Assert on a fixed timestamp</text><feedback><text>That is unlocked by injecting the clock, not the rng.</text></feedback></answer>
+    <answer fraction="0"><text>Force the gateway to fail</text><feedback><text>That is unlocked by injecting the gateway, not the rng.</text></feedback></answer>
+    <answer fraction="0"><text>Supply a test config without touching globals</text><feedback><text>That is unlocked by injecting the config, not the rng.</text></feedback></answer>
+    <generalfeedback><text>Injecting a seeded rng lets a test substitute a deterministic generator, so it can <em>make the generated id deterministic</em> and assert on it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why injection is an object seam</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is injecting a dependency as a parameter an <em>object seam</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The dependency arrives as an object reference, so a test can pass a different object there without editing <code>charge()</code></text><feedback><text>Correct — substitution happens by swapping the object at the injection point, not by changing the code.</text></feedback></answer>
+    <answer fraction="0"><text>Because it changes the return type of <code>charge()</code></text><feedback><text>The return type is unchanged; an object seam is about swapping the collaborator object.</text></feedback></answer>
+    <answer fraction="0"><text>Because it adds a new decision branch to the function</text><feedback><text>No branch is added; the seam is the substitutable object parameter.</text></feedback></answer>
+    <answer fraction="0"><text>Because it replaces the object at link time</text><feedback><text>Link-time substitution would be a link seam; here the object is passed in at runtime.</text></feedback></answer>
+    <generalfeedback><text>An object seam is a place where you can change behaviour by substituting a different object. Passing the collaborator in as a parameter makes that point substitutable — a test supplies a double object without touching the function body.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match the clock anti-pattern to fix and double</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the <em>real clock <code>Date.now()</code></em> anti-pattern, the matching fix and enabled double are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject a clock (object seam) &#8594; enables a fake</text><feedback><text>Correct — a fake clock returning a fixed time is what the clock seam enables.</text></feedback></answer>
+    <answer fraction="0"><text>Inject a clock (object seam) &#8594; enables a mock</text><feedback><text>The clock maps to a fake, not a mock, in this fixture.</text></feedback></answer>
+    <answer fraction="0"><text>Inject the gateway (object seam) &#8594; enables a fake</text><feedback><text>The gateway is a different anti-pattern (newdep) and enables a mock.</text></feedback></answer>
+    <answer fraction="0"><text>Inject a seeded rng (object seam) &#8594; enables a fake</text><feedback><text>The rng is a different anti-pattern (random) and enables a stub.</text></feedback></answer>
+    <generalfeedback><text>The clock anti-pattern maps to: inject a clock (an object seam) enabling a <strong>fake</strong> clock with a fixed time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which fix enables a mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test wants to verify that <code>charge()</code> actually calls the payment gateway. Which anti-pattern's fix enables the <em>mock</em> that makes this possible?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The hard-coded <code>new PaymentGateway()</code> — inject the gateway collaborator</text><feedback><text>Correct — the gateway seam enables a mock that verifies the interaction.</text></feedback></answer>
+    <answer fraction="0"><text>The global singleton Config — inject a config parameter</text><feedback><text>The config seam enables a stub, not a mock.</text></feedback></answer>
+    <answer fraction="0"><text>The real clock — inject a clock</text><feedback><text>The clock seam enables a fake, not a mock.</text></feedback></answer>
+    <answer fraction="0"><text>The real RNG — inject a seeded rng</text><feedback><text>The rng seam enables a stub, not a mock.</text></feedback></answer>
+    <generalfeedback><text>Only the gateway seam maps to a mock in this fixture. A mock verifies expected interactions, so injecting the gateway is what lets a test assert the call was made.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Score after one fix</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>testabilityOf</code> reports score as applied/4. If a learner applies only the clock fix, what is the score?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>25% (1/4)</text><feedback><text>Correct — one of the four dependencies is now substitutable.</text></feedback></answer>
+    <answer fraction="0"><text>50% (2/4)</text><feedback><text>Only one fix is applied, so the score is 1/4, not 2/4.</text></feedback></answer>
+    <answer fraction="0"><text>100% (4/4)</text><feedback><text>Three dependencies are still pinned; the score is 1/4.</text></feedback></answer>
+    <answer fraction="0"><text>0% (0/4)</text><feedback><text>One fix is applied, so the score is above zero: 1/4.</text></feedback></answer>
+    <generalfeedback><text>The meter reads applied/4. One applied fix gives 1/4 = 25%.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Injecting the clock enables a mock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this model, injecting a clock enables a <em>mock</em> double.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Not in this fixture — the clock seam maps to a fake (a working clock with a fixed time), not a mock.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — the clock seam enables a fake; the mock is what the gateway seam enables.</text></feedback></answer>
+    <generalfeedback><text>The double mapping is global &#8594; stub, newdep &#8594; mock, clock &#8594; fake, random &#8594; stub. Injecting the clock enables a fake clock with a fixed time; a mock is enabled only by injecting the gateway.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which fix pins to a deterministic id</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test needs the id produced by <code>charge()</code> to be the same on every run. Which fix is required?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject a seeded rng (the random fix)</text><feedback><text>Correct — a seeded rng makes the generated id deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Inject a clock (the clock fix)</text><feedback><text>A fixed clock pins the timestamp, not the random id.</text></feedback></answer>
+    <answer fraction="0"><text>Inject the gateway (the newdep fix)</text><feedback><text>The gateway seam is about the payment call, not the id.</text></feedback></answer>
+    <answer fraction="0"><text>Inject the config (the global fix)</text><feedback><text>The config seam supplies settings, not the id value.</text></feedback></answer>
+    <generalfeedback><text>The id comes from <code>Math.random()</code>. Injecting a seeded rng lets a test substitute a deterministic generator so the id repeats.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which two fixes both enable a stub</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this fixture, which <strong>two</strong> anti-patterns have fixes that both enable a <em>stub</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The global singleton Config and the real <code>Math.random()</code></text><feedback><text>Correct — both the config seam and the rng seam map to a stub.</text></feedback></answer>
+    <answer fraction="0"><text>The hard-coded gateway and the real clock</text><feedback><text>The gateway maps to a mock and the clock maps to a fake, not stubs.</text></feedback></answer>
+    <answer fraction="0"><text>The real clock and the real <code>Math.random()</code></text><feedback><text>The clock maps to a fake; only the rng of this pair maps to a stub.</text></feedback></answer>
+    <answer fraction="0"><text>The global singleton Config and the hard-coded gateway</text><feedback><text>The config maps to a stub, but the gateway maps to a mock.</text></feedback></answer>
+    <generalfeedback><text>The double mapping is global &#8594; stub, newdep &#8594; mock, clock &#8594; fake, random &#8594; stub. The two stub-enabling fixes are the config and the rng.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Design-for-Testability Seams/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Score after two fixes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A learner applies the <em>global</em> fix and the <em>clock</em> fix, and nothing else. What score does <code>testabilityOf</code> report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50% (2/4)</text><feedback><text>Correct — two of the four dependencies are now substitutable.</text></feedback></answer>
+    <answer fraction="0"><text>25% (1/4)</text><feedback><text>Two distinct fixes are applied, so the score is 2/4, not 1/4.</text></feedback></answer>
+    <answer fraction="0"><text>75% (3/4)</text><feedback><text>Only two fixes are applied; the gateway and rng are still pinned.</text></feedback></answer>
+    <answer fraction="0"><text>100% (4/4)</text><feedback><text>Two dependencies remain pinned, so the score is 2/4.</text></feedback></answer>
+    <generalfeedback><text>Score = applied/4. Applying the global and clock fixes makes 2 of 4 dependencies substitutable: 2/4 = 50%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Score after three fixes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A learner applies the <em>global</em>, <em>newdep</em>, and <em>clock</em> fixes but leaves <code>Math.random()</code> as is. What score does <code>testabilityOf</code> report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>75% (3/4)</text><feedback><text>Correct — three of four dependencies are substitutable; only the rng remains pinned.</text></feedback></answer>
+    <answer fraction="0"><text>50% (2/4)</text><feedback><text>Three fixes are applied, so the score is 3/4, not 2/4.</text></feedback></answer>
+    <answer fraction="0"><text>100% (4/4)</text><feedback><text>The rng is still pinned, so the score is 3/4, not full.</text></feedback></answer>
+    <answer fraction="0"><text>25% (1/4)</text><feedback><text>Three distinct fixes are applied; the score is 3/4.</text></feedback></answer>
+    <generalfeedback><text>Score = applied/4. With the config, gateway and clock injected, 3 of 4 dependencies are substitutable: 3/4 = 75%. The RNG still pins the id.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State after all four fixes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When all four seams are applied, the score is 100% and <code>charge()</code> becomes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A pure-ish unit whose config, gateway, clock and RNG a test fully controls</text><feedback><text>Correct — every dependency is now substitutable, so the test controls all inputs.</text></feedback></answer>
+    <answer fraction="0"><text>A function that no longer uses a config, gateway, clock or RNG</text><feedback><text>It still uses all four; they are injected rather than pinned.</text></feedback></answer>
+    <answer fraction="0"><text>Guaranteed to be free of all bugs</text><feedback><text>Testability makes it easy to test, not automatically bug-free.</text></feedback></answer>
+    <answer fraction="0"><text>Impossible to run in production</text><feedback><text>It runs fine in production with real dependencies supplied; tests supply doubles.</text></feedback></answer>
+    <generalfeedback><text>Applying all four object seams makes every dependency substitutable. <code>charge()</code> is now a pure-ish unit: the test injects config, gateway, clock and rng, so it controls every input and can observe every effect.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which fixes remove nondeterminism</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which subset of fixes removes the <em>nondeterminism</em> from <code>charge()</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Injecting the clock and the rng</text><feedback><text>Correct — the wall clock and the RNG are the two nondeterministic sources.</text></feedback></answer>
+    <answer fraction="0"><text>Injecting the config and the gateway</text><feedback><text>Those improve substitutability but neither is a nondeterministic source.</text></feedback></answer>
+    <answer fraction="0"><text>Injecting only the gateway</text><feedback><text>The gateway is not a nondeterministic source; the clock and rng are.</text></feedback></answer>
+    <answer fraction="0"><text>Injecting only the config</text><feedback><text>The config is a hidden input, not a nondeterministic source.</text></feedback></answer>
+    <generalfeedback><text>The nondeterminism sources in this code are exactly the clock (<code>Date.now()</code>) and the RNG (<code>Math.random()</code>). Injecting both replaces them with test-controlled values, making <code>charge()</code> deterministic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why injecting clock and rng removes nondeterminism</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does injecting the clock and the rng also make <code>charge()</code> deterministic?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both were varying inputs; once the test supplies them, the same inputs always produce the same output</text><feedback><text>Correct — replacing the two nondeterministic sources with fixed values removes the run-to-run variation.</text></feedback></answer>
+    <answer fraction="0"><text>Injection deletes the timestamp and id from the output entirely</text><feedback><text>They are still produced; they are just now supplied by the test.</text></feedback></answer>
+    <answer fraction="0"><text>A seeded rng runs faster than <code>Math.random()</code></text><feedback><text>Speed is irrelevant; determinism comes from controllable, fixed values.</text></feedback></answer>
+    <answer fraction="0"><text>The clock and rng stop being called</text><feedback><text>They are still called — on the injected doubles, which return fixed values.</text></feedback></answer>
+    <generalfeedback><text>The clock and RNG were the only run-to-run varying inputs. Injecting them lets the test pin both, so <code>charge()</code> becomes a deterministic function of its inputs — testable and repeatable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Does injecting config remove nondeterminism</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Does injecting the config parameter (the <em>global</em> fix) remove nondeterminism from <code>charge()</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — the config is a hidden input, not a nondeterministic one; injecting it improves controllability but the nondeterminism comes from the clock and RNG</text><feedback><text>Correct — removing the global helps substitutability, but only the clock and rng fixes remove nondeterminism.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the global singleton is the main source of nondeterminism</text><feedback><text>A singleton is a hidden but stable input; the nondeterministic sources are the clock and rng.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — every injection removes some nondeterminism</text><feedback><text>Injection improves substitutability generally, but only the clock and rng sources are nondeterministic.</text></feedback></answer>
+    <answer fraction="0"><text>No — injecting config actually adds nondeterminism</text><feedback><text>It does not add nondeterminism; it removes a hidden global input.</text></feedback></answer>
+    <generalfeedback><text>Not every testability problem is nondeterminism. The global config is a hidden input that hurts controllability; injecting it makes the config substitutable. But the code's nondeterminism comes specifically from the clock and the RNG.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seam versus double</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the difference between the <em>seam</em> and the <em>test double</em> in this model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The seam is the place where substitution is possible (the injection point); the double is the substitute object placed there</text><feedback><text>Correct — the seam is the where; the double is the what.</text></feedback></answer>
+    <answer fraction="0"><text>The seam is the substitute object; the double is the place it goes</text><feedback><text>This reverses them: the seam is the place, the double is the substitute.</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for the same thing</text><feedback><text>They are distinct: one is a location in the code, the other is an object.</text></feedback></answer>
+    <answer fraction="0"><text>The seam is a kind of assertion; the double is a kind of loop</text><feedback><text>Neither is an assertion or a loop; the seam is a substitution point and the double is a stand-in object.</text></feedback></answer>
+    <generalfeedback><text>The seam is a place in the code where behaviour can be substituted (here, an injected parameter — an object seam). The test double is the concrete stand-in (stub/mock/fake) a test drops into that seam.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Two stubs, different problems</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The config fix and the rng fix both enable a <em>stub</em> via an object seam, yet they address different testability problems. What do they share and how do they differ?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Same double (stub) and same seam type (object), but the config removes a hidden global input while the rng removes a nondeterministic source</text><feedback><text>Correct — identical seam type and double, different underlying problem.</text></feedback></answer>
+    <answer fraction="0"><text>Different doubles and different seam types, addressing the same problem</text><feedback><text>Both enable a stub via an object seam; the problems differ, not the double or seam.</text></feedback></answer>
+    <answer fraction="0"><text>Same double, but the config fix is a link seam and the rng fix is an object seam</text><feedback><text>Both are object seams; neither is a link seam.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical in every respect</text><feedback><text>They share seam type and double but tackle different problems (hidden input vs nondeterminism).</text></feedback></answer>
+    <generalfeedback><text>Both map to a stub through an object seam, showing the seam type and double can coincide. Yet the config addresses a hidden global input (controllability) while the rng addresses nondeterminism — the same tool solving different testability problems.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Score and capabilities for newdep plus random</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A learner applies only the <em>newdep</em> and <em>random</em> fixes. What score and which unlocked capabilities result?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50% (2/4); force the gateway to fail, and make the generated id deterministic</text><feedback><text>Correct — two fixes give 2/4, unlocking the gateway and rng capabilities.</text></feedback></answer>
+    <answer fraction="0"><text>50% (2/4); assert on a fixed timestamp, and supply a test config</text><feedback><text>Those are the clock and config capabilities, which were not applied here.</text></feedback></answer>
+    <answer fraction="0"><text>75% (3/4); force the gateway to fail, and make the generated id deterministic</text><feedback><text>Only two fixes are applied, so the score is 2/4, not 3/4.</text></feedback></answer>
+    <answer fraction="0"><text>25% (1/4); force the gateway to fail</text><feedback><text>Two distinct fixes are applied, so the score is 2/4 and two capabilities are unlocked.</text></feedback></answer>
+    <generalfeedback><text>Two applied fixes give 2/4 = 50%. The newdep fix unlocks "force the gateway to fail" and the random fix unlocks "make the generated id deterministic".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why substitutability equals testability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does making every dependency substitutable make <code>charge()</code> testable?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Once each dependency can be substituted, a test can control all inputs and observe all effects, which is what testability requires</text><feedback><text>Correct — substitutable dependencies give the test both controllability and observability.</text></feedback></answer>
+    <answer fraction="0"><text>Because substitutable code always runs faster</text><feedback><text>Speed is not the point; control and observation are.</text></feedback></answer>
+    <answer fraction="0"><text>Because injected dependencies never contain bugs</text><feedback><text>They can still have bugs; injection just makes the unit controllable in a test.</text></feedback></answer>
+    <answer fraction="0"><text>Because the function then needs no dependencies at all</text><feedback><text>It still has dependencies; they are simply supplied by the test.</text></feedback></answer>
+    <generalfeedback><text>Testability is controllability plus observability. When every dependency is substitutable, a test can drive all inputs (config, gateway behaviour, time, id) and observe the effects — so substitutability is precisely what makes the unit testable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix that only removes a hidden input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which single fix removes a hidden input but does <strong>not</strong> remove nondeterminism and does <strong>not</strong> enable forcing a failure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject the config parameter (the global fix)</text><feedback><text>Correct — it removes the hidden global input; it is not a nondeterministic source, and forcing a failure is the gateway's capability.</text></feedback></answer>
+    <answer fraction="0"><text>Inject a clock (the clock fix)</text><feedback><text>The clock fix removes nondeterminism, so it does not fit.</text></feedback></answer>
+    <answer fraction="0"><text>Inject a seeded rng (the random fix)</text><feedback><text>The rng fix removes nondeterminism, so it does not fit.</text></feedback></answer>
+    <answer fraction="0"><text>Inject the gateway (the newdep fix)</text><feedback><text>The gateway fix is exactly the one that enables forcing a failure, so it does not fit.</text></feedback></answer>
+    <generalfeedback><text>The global-config fix removes a hidden input (improving controllability). It is not one of the nondeterminism sources (clock, rng), and forcing a failure is unlocked by the gateway fix — so the config fix uniquely matches.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fixes for a fixed time and deterministic id</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test must assert on both a fixed timestamp and a deterministic id. Which fixes are needed, and what score results?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject the clock and inject the seeded rng; score 50% (2/4)</text><feedback><text>Correct — the clock pins the time, the rng pins the id; two of four dependencies are substitutable.</text></feedback></answer>
+    <answer fraction="0"><text>Inject the config and inject the gateway; score 50% (2/4)</text><feedback><text>Those unlock config and failure-forcing, not a fixed time or deterministic id.</text></feedback></answer>
+    <answer fraction="0"><text>Inject the clock only; score 25% (1/4)</text><feedback><text>The clock pins the time but not the id; the rng is also needed.</text></feedback></answer>
+    <answer fraction="0"><text>Inject all four; score 100% (4/4)</text><feedback><text>Only the clock and rng are required for these two assertions; that is 2/4.</text></feedback></answer>
+    <generalfeedback><text>A fixed timestamp needs the clock fix; a deterministic id needs the rng fix. Applying exactly those two gives 2/4 = 50%.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Score is order-independent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Applying the clock fix then the global fix yields the same score as applying the global fix then the clock fix.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — <code>testabilityOf</code> counts the set of applied fixes, so order does not matter: either way it is 2/4.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The score depends only on which fixes are applied, not the order; both orders give 2/4.</text></feedback></answer>
+    <generalfeedback><text>Score = applied/4, computed from the set of applied fixes (deduped, in fixture order). The order in which the learner toggles them does not change the result: two distinct fixes give 2/4 = 50% either way.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mock versus stub for the gateway</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test wants to <em>verify</em> that <code>charge()</code> calls the gateway with the right arguments, not merely receive a canned return value. Which double, enabled by which fix, does this need?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A mock, enabled by injecting the gateway collaborator</text><feedback><text>Correct — a mock verifies interactions; a stub would only return canned values.</text></feedback></answer>
+    <answer fraction="0"><text>A stub, enabled by injecting the gateway collaborator</text><feedback><text>A stub returns canned values but does not verify the call; the gateway seam here maps to a mock.</text></feedback></answer>
+    <answer fraction="0"><text>A fake, enabled by injecting a clock</text><feedback><text>A fake clock pins time; it does not verify a gateway call.</text></feedback></answer>
+    <answer fraction="0"><text>A stub, enabled by injecting a seeded rng</text><feedback><text>The rng stub fixes the id; it says nothing about the gateway call.</text></feedback></answer>
+    <generalfeedback><text>Verifying the interaction (right method, right arguments) is behaviour verification, the job of a mock. In this fixture the gateway seam maps to a mock, so injecting the gateway is the enabling fix.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>One seam type, three doubles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>All four fixes are object seams, yet they enable three different doubles (stub, mock, fake). What does this show?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The seam type (where you substitute) is independent of the double (what you substitute); one seam kind can host different doubles depending on the test's goal</text><feedback><text>Correct — object seams provide the substitution point; the choice of stub, mock or fake depends on what the test needs.</text></feedback></answer>
+    <answer fraction="0"><text>Each seam type can enable only one kind of double</text><feedback><text>The opposite: one seam type (object) here hosts stubs, a mock, and a fake.</text></feedback></answer>
+    <answer fraction="0"><text>Object seams can only ever enable stubs</text><feedback><text>Here object seams also enable a mock and a fake.</text></feedback></answer>
+    <answer fraction="0"><text>The double determines the seam type</text><feedback><text>They are independent; the same object seam hosts different doubles.</text></feedback></answer>
+    <generalfeedback><text>Seam type and double type are orthogonal. All four fixes use the same object seam, but the test picks the double — stub for canned config/id, mock to verify the gateway call, fake for a working fixed clock — according to its goal.</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testability Metrics/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Cyclomatic complexity definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this module the <strong>cyclomatic complexity</strong> of a unit is computed from its decision count as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>decisions + 1</text><feedback><text>Correct — cyclomatic(unit) = decisions + 1, so a unit with 0 decisions has complexity 1.</text></feedback></answer>
+    <answer fraction="0"><text>decisions - 1</text><feedback><text>No — the formula adds one to the decision count, giving decisions + 1.</text></feedback></answer>
+    <answer fraction="0"><text>2 * decisions</text><feedback><text>No — complexity is decisions + 1, not twice the decisions.</text></feedback></answer>
+    <answer fraction="0"><text>the number of responsibilities</text><feedback><text>That is the cohesion penalty; cyclomatic complexity is decisions + 1.</text></feedback></answer>
+    <generalfeedback><text>Cyclomatic complexity here is M = decisions + 1: a straight-line unit (0 decisions) scores 1, and each decision adds one independent path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fan-out definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>fan-out</strong> of a unit in the call graph is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>the number of other units it calls (its callees)</text><feedback><text>Correct — fan-out counts the outgoing call edges from the unit.</text></feedback></answer>
+    <answer fraction="0"><text>the number of units that call it (its callers)</text><feedback><text>That is fan-in, not fan-out.</text></feedback></answer>
+    <answer fraction="0"><text>the number of decisions it contains</text><feedback><text>That feeds cyclomatic complexity, not fan-out.</text></feedback></answer>
+    <answer fraction="0"><text>the number of responsibilities it declares</text><feedback><text>That is the cohesion penalty, not fan-out.</text></feedback></answer>
+    <generalfeedback><text>Fan-out = outgoing call edges (callees). It counts how many collaborators the unit depends on.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fan-in definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>fan-in</strong> of a unit in the call graph is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>the number of units that call it (its callers)</text><feedback><text>Correct — fan-in counts the incoming call edges to the unit.</text></feedback></answer>
+    <answer fraction="0"><text>the number of other units it calls (its callees)</text><feedback><text>That is fan-out, not fan-in.</text></feedback></answer>
+    <answer fraction="0"><text>the number of decisions it contains</text><feedback><text>Decisions feed cyclomatic complexity, not fan-in.</text></feedback></answer>
+    <answer fraction="0"><text>the total number of call edges in the module</text><feedback><text>Fan-in is per unit — only the edges pointing at it — not the module total.</text></feedback></answer>
+    <generalfeedback><text>Fan-in = incoming call edges (callers). It counts how many units depend on this one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cohesion penalty definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this module the <strong>cohesion penalty</strong> of a unit equals:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>the number of responsibilities it declares</text><feedback><text>Correct — cohesionPenalty(unit) = responsibilities.length; more responsibilities means lower cohesion and a higher penalty.</text></feedback></answer>
+    <answer fraction="0"><text>the number of decisions it contains</text><feedback><text>Decisions drive cyclomatic complexity, not the cohesion penalty.</text></feedback></answer>
+    <answer fraction="0"><text>the number of units it calls</text><feedback><text>That is fan-out, not the cohesion penalty.</text></feedback></answer>
+    <answer fraction="0"><text>one divided by the responsibility count</text><feedback><text>No — the penalty is simply the responsibility count itself (higher = worse).</text></feedback></answer>
+    <generalfeedback><text>The cohesion proxy here is LCOM-style and simplified: the penalty is just the count of declared responsibilities. A unit doing many unrelated things is less cohesive and scores a higher penalty.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why high fan-out is harder to test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does a <strong>high fan-out</strong> make a unit harder to test in isolation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each collaborator it calls must be stubbed, faked, or mocked in a test</text><feedback><text>Correct — more callees means more test doubles to stand in for the dependencies.</text></feedback></answer>
+    <answer fraction="0"><text>It automatically has more decisions to cover</text><feedback><text>Fan-out and decisions are independent; fan-out is about collaborators, not branches.</text></feedback></answer>
+    <answer fraction="0"><text>It is called by more units, so more callers must be set up</text><feedback><text>That describes fan-in; fan-out is about the units it calls.</text></feedback></answer>
+    <answer fraction="0"><text>Its return value cannot be observed</text><feedback><text>Fan-out is about dependencies to substitute, not observability of the return value.</text></feedback></answer>
+    <generalfeedback><text>High fan-out means many collaborators. To test the unit in isolation you must supply a double for each one, so setup cost grows with fan-out.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why high complexity is harder to test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does a <strong>high cyclomatic complexity</strong> make a unit harder to test thoroughly?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>There are more independent paths, so more test cases are needed to cover them</text><feedback><text>Correct — cyclomatic complexity approximates the number of independent paths to exercise.</text></feedback></answer>
+    <answer fraction="0"><text>There are more collaborators to stub</text><feedback><text>That is the effect of fan-out, not cyclomatic complexity.</text></feedback></answer>
+    <answer fraction="0"><text>The unit declares more responsibilities</text><feedback><text>That is cohesion; complexity is about decisions and paths.</text></feedback></answer>
+    <answer fraction="0"><text>More units call it</text><feedback><text>That is fan-in; complexity is about the branching inside the unit.</text></feedback></answer>
+    <generalfeedback><text>Cyclomatic complexity = decisions + 1 estimates the independent paths through the code. More paths means more test cases to reach adequate coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why low cohesion is harder to test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does a unit with <strong>many unrelated responsibilities</strong> (low cohesion) tend to be harder to test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It does several unrelated things, so tests need broad, mixed setup and lose focus</text><feedback><text>Correct — low cohesion pulls the unit in many directions, so each test must arrange several unrelated concerns.</text></feedback></answer>
+    <answer fraction="0"><text>It always has zero fan-out</text><feedback><text>Cohesion and fan-out are independent; low cohesion does not force fan-out to zero.</text></feedback></answer>
+    <answer fraction="0"><text>Its cyclomatic complexity is always 1</text><feedback><text>Cohesion says nothing about the decision count; complexity is measured separately.</text></feedback></answer>
+    <answer fraction="0"><text>It can never be called by another unit</text><feedback><text>Cohesion does not restrict fan-in; it is about how many concerns the unit mixes.</text></feedback></answer>
+    <generalfeedback><text>A unit with many responsibilities mixes unrelated concerns, so tests must set up and check several things at once — harder to write and less focused. Splitting responsibilities raises cohesion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read cyclomatic complexity of formatMoney</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the checkout module, <code>formatMoney</code> has <strong>0</strong> decisions. What is its cyclomatic complexity?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — cyclomatic = decisions + 1 = 0 + 1 = 1.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>The formula adds one, so 0 decisions gives complexity 1, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>0 + 1 = 1; a value of 2 would need 1 decision.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>0 + 1 = 1, not 3.</text></feedback></answer>
+    <generalfeedback><text>formatMoney is a straight-line helper: 0 decisions, so cyclomatic complexity = 0 + 1 = 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read cyclomatic complexity of checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the checkout module, <code>checkout</code> has <strong>6</strong> decisions. What is its cyclomatic complexity?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — cyclomatic = decisions + 1 = 6 + 1 = 7.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>The formula adds one, so 6 decisions gives 7, not 6.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>6 + 1 = 7, not 5.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>The rule is decisions + 1 = 7, not 2 * decisions.</text></feedback></answer>
+    <generalfeedback><text>checkout has 6 decisions, so cyclomatic complexity = 6 + 1 = 7 — the highest in the module.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read fan-out of checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the module, <code>checkout</code> calls <code>validateCart</code>, <code>applyDiscount</code>, <code>chargePayment</code>, and <code>sendReceipt</code>. What is checkout's <strong>fan-out</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — checkout has four outgoing call edges, so fan-out = 4.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>checkout calls four collaborators, so fan-out is 4, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>There are four callees listed, so fan-out is 4.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Only four units are called; fan-out = 4.</text></feedback></answer>
+    <generalfeedback><text>Fan-out counts outgoing call edges. checkout calls four units, so its fan-out is 4 — the highest in the module.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read fan-in of formatMoney</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the module, <code>applyDiscount</code>, <code>chargePayment</code>, and <code>sendReceipt</code> each call <code>formatMoney</code>. What is formatMoney's <strong>fan-in</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — three units call formatMoney, so fan-in = 3.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Three units call it, so fan-in is 3, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Three callers are listed, so fan-in is 3.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Only three units call formatMoney; fan-in = 3.</text></feedback></answer>
+    <generalfeedback><text>Fan-in counts incoming call edges. formatMoney is called by three units, so its fan-in is 3 — the highest in the module.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read cohesion penalty of checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> declares <strong>4</strong> responsibilities (orchestrate-flow, coordinate-steps, handle-errors, audit-log). What is its cohesion penalty?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the cohesion penalty is the responsibility count, which is 4.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>The penalty equals the responsibility count (4), not 1.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>checkout declares four responsibilities, so the penalty is 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Four responsibilities give a penalty of 4, not 2.</text></feedback></answer>
+    <generalfeedback><text>Cohesion penalty = responsibility count. checkout mixes four responsibilities, so its penalty is 4.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Fan-out counts callees</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A unit's fan-out counts the collaborators it calls (its callees).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — fan-out is the number of outgoing call edges, i.e. the callees.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Fan-out does count callees; it is the callers that fan-in counts.</text></feedback></answer>
+    <generalfeedback><text>Fan-out = outgoing edges (callees); fan-in = incoming edges (callers). More callees means more collaborators to stub in a test.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>More responsibilities means lower cohesion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A unit that declares more unrelated responsibilities is treated as having lower cohesion and a higher cohesion penalty.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the penalty equals the responsibility count, so more responsibilities means a higher penalty and lower cohesion.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>More responsibilities does lower cohesion here: the penalty is the responsibility count, so it rises with each added responsibility.</text></feedback></answer>
+    <generalfeedback><text>The cohesion proxy penalizes units that mix many responsibilities: penalty = responsibility count, so more responsibilities = lower cohesion = higher penalty.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Hardness score formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How is a unit's <strong>testability hardness score</strong> combined from its metrics?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>score = cyclomatic + 2 * fanOut + cohesionPenalty</text><feedback><text>Correct — fan-out is weighted 2, while cyclomatic and cohesion penalty each contribute with weight 1.</text></feedback></answer>
+    <answer fraction="0"><text>score = cyclomatic + fanIn + cohesionPenalty</text><feedback><text>No — the score uses fan-out (weighted 2), not fan-in.</text></feedback></answer>
+    <answer fraction="0"><text>score = cyclomatic * fanOut * cohesionPenalty</text><feedback><text>No — the signals are added (with fan-out weighted 2), not multiplied.</text></feedback></answer>
+    <answer fraction="0"><text>score = 2 * cyclomatic + fanOut + cohesionPenalty</text><feedback><text>No — it is fan-out that carries the weight 2, not cyclomatic complexity.</text></feedback></answer>
+    <generalfeedback><text>score = cyclomatic + 2 * fanOut + cohesionPenalty. Fan-out is doubled because each collaborator both adds a path and a test double. Fan-in is reported but not part of the score.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Metrics/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute cyclomatic complexity of chargePayment</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>chargePayment</code> has <strong>4</strong> decisions. Compute its cyclomatic complexity.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 4 + 1 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The formula adds one: 4 + 1 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>4 + 1 = 5, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>It is decisions + 1 = 5, not 2 * decisions.</text></feedback></answer>
+    <generalfeedback><text>cyclomatic(chargePayment) = decisions + 1 = 4 + 1 = 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute cyclomatic complexity of validateCart</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>validateCart</code> has <strong>3</strong> decisions. Compute its cyclomatic complexity.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 3 + 1 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The formula adds one: 3 + 1 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>3 + 1 = 4, not 2.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>It is decisions + 1 = 4, not 2 * decisions.</text></feedback></answer>
+    <generalfeedback><text>cyclomatic(validateCart) = decisions + 1 = 3 + 1 = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute fan-out of chargePayment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the module, <code>chargePayment</code> calls only <code>formatMoney</code>. What is chargePayment's <strong>fan-out</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — one outgoing call edge, so fan-out = 1.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>It calls formatMoney, so fan-out is 1, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only one callee is listed, so fan-out is 1.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>chargePayment calls a single unit; fan-out = 1.</text></feedback></answer>
+    <generalfeedback><text>chargePayment has one outgoing edge (to formatMoney), so its fan-out is 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute fan-in of validateCart</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the module, the only unit that calls <code>validateCart</code> is <code>checkout</code>. What is validateCart's <strong>fan-in</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — one incoming call edge (from checkout), so fan-in = 1.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>checkout calls it, so fan-in is 1, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only checkout calls it, so fan-in is 1.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>There is a single caller; fan-in = 1.</text></feedback></answer>
+    <generalfeedback><text>validateCart is called only by checkout, so its fan-in is 1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute cohesion penalty of validateCart</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>validateCart</code> declares <strong>2</strong> responsibilities (check-stock, check-address). What is its cohesion penalty?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — the penalty is the responsibility count, which is 2.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Two responsibilities give a penalty of 2, not 1.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>validateCart declares two responsibilities, so the penalty is 2.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The count is 2, so the penalty is 2.</text></feedback></answer>
+    <generalfeedback><text>Cohesion penalty = responsibility count = 2 for validateCart.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which unit is hardest to test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Across the module, which unit is the <strong>hardest to test</strong>, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout — it is high on every signal (cyclomatic 7, fan-out 4, cohesion 4)</text><feedback><text>Correct — checkout is an orchestrator: most decisions, most collaborators, and the most responsibilities.</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney — because it is called by three units</text><feedback><text>High fan-in does not make formatMoney hard; it is a trivial pure helper (the easiest unit).</text></feedback></answer>
+    <answer fraction="0"><text>validateCart — because it calls the most collaborators</text><feedback><text>validateCart has fan-out 0; checkout is the one that calls four collaborators.</text></feedback></answer>
+    <answer fraction="0"><text>chargePayment — because it has the highest cyclomatic complexity</text><feedback><text>checkout has the highest complexity (7); chargePayment is 5, and checkout leads on every signal.</text></feedback></answer>
+    <generalfeedback><text>checkout is the hard-to-test orchestrator: cyclomatic 7, fan-out 4, cohesion 4, giving the top hardness score in the module.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fan-out and the number of test doubles</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To test a unit with <strong>fan-out 4</strong> in isolation, roughly how many collaborators must you replace with test doubles?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>About 4 — one double per collaborator it calls</text><feedback><text>Correct — each callee is a dependency you must stub, fake, or mock.</text></feedback></answer>
+    <answer fraction="0"><text>0 — fan-out has no effect on doubles</text><feedback><text>Fan-out is exactly the count of collaborators to substitute.</text></feedback></answer>
+    <answer fraction="0"><text>1 — one double covers all collaborators</text><feedback><text>Each distinct collaborator generally needs its own double; fan-out 4 means about 4.</text></feedback></answer>
+    <answer fraction="0"><text>8 — twice the fan-out</text><feedback><text>The score weights fan-out by 2, but the number of collaborators to double is the fan-out itself, 4.</text></feedback></answer>
+    <generalfeedback><text>Fan-out counts collaborators, and isolation testing needs a double for each, so fan-out 4 means about four doubles. (The score doubles fan-out's weight to reflect that each collaborator adds both a path and a double.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Complexity and the number of test cases</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A unit's cyclomatic complexity is 5. What does that most directly tell you about testing it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Roughly 5 independent paths need exercising, so about that many test cases</text><feedback><text>Correct — cyclomatic complexity approximates the number of independent paths to cover.</text></feedback></answer>
+    <answer fraction="0"><text>It must be called by 5 other units</text><feedback><text>That would be fan-in; complexity is about internal paths.</text></feedback></answer>
+    <answer fraction="0"><text>It declares 5 responsibilities</text><feedback><text>That would be the cohesion penalty; complexity counts decisions + 1.</text></feedback></answer>
+    <answer fraction="0"><text>It calls 5 collaborators</text><feedback><text>That would be fan-out; complexity is about branching, not calls.</text></feedback></answer>
+    <generalfeedback><text>Cyclomatic complexity approximates the number of independent paths, which is a lower bound on the tests needed to cover the branching logic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match metric to test-difficulty effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing of metric to its main test-difficulty effect is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>fan-out → number of collaborators to stub; cyclomatic → number of paths to cover</text><feedback><text>Correct — fan-out drives the doubles, cyclomatic drives the paths/test cases.</text></feedback></answer>
+    <answer fraction="0"><text>fan-out → number of paths to cover; cyclomatic → number of collaborators to stub</text><feedback><text>Reversed — fan-out is about collaborators, cyclomatic about paths.</text></feedback></answer>
+    <answer fraction="0"><text>fan-in → number of collaborators to stub; cohesion → number of paths</text><feedback><text>Fan-in is callers (not doubles), and cohesion is about mixed responsibilities, not paths.</text></feedback></answer>
+    <answer fraction="0"><text>cohesion → number of collaborators to stub; fan-out → responsibilities mixed</text><feedback><text>Reversed — fan-out drives collaborators; cohesion counts responsibilities.</text></feedback></answer>
+    <generalfeedback><text>Each metric maps to a distinct cost: fan-out to test doubles, cyclomatic to paths/test cases, cohesion penalty to unrelated setup. Fan-in (callers) affects ripple risk but is not part of the hardness score.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which unit is easiest to test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which unit is the <strong>easiest to test</strong>, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>formatMoney — a pure helper with 0 decisions, fan-out 0, and one responsibility</text><feedback><text>Correct — nothing to stub, one path, one job: the lowest hardness in the module.</text></feedback></answer>
+    <answer fraction="0"><text>checkout — because it is the entry point</text><feedback><text>checkout is the hardest, not the easiest — it leads on every signal.</text></feedback></answer>
+    <answer fraction="0"><text>chargePayment — because it has few responsibilities</text><feedback><text>chargePayment still has 4 decisions and a collaborator; formatMoney is trivially testable.</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney — because it has the highest fan-in</text><feedback><text>formatMoney is easiest despite its fan-in; fan-in does not make a unit hard to test, and its own metrics are minimal.</text></feedback></answer>
+    <generalfeedback><text>formatMoney has 0 decisions (complexity 1), fan-out 0, and one responsibility — a pure helper that is trivially testable. Its high fan-in does not affect how hard it is to test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compare two units by their metrics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compare <code>chargePayment</code> (cyclomatic 5, fan-out 1, cohesion 2) and <code>sendReceipt</code> (cyclomatic 4, fan-out 1, cohesion 1). Which is harder to test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>chargePayment — it has higher complexity and a higher cohesion penalty at the same fan-out</text><feedback><text>Correct — with equal fan-out, chargePayment leads on both complexity and cohesion, so it is harder.</text></feedback></answer>
+    <answer fraction="0"><text>sendReceipt — because a receipt is user-facing</text><feedback><text>Hardness here is structural; on the metrics chargePayment is harder.</text></feedback></answer>
+    <answer fraction="0"><text>They are exactly equal</text><feedback><text>They share fan-out but chargePayment has more complexity and cohesion penalty, so it is harder.</text></feedback></answer>
+    <answer fraction="0"><text>sendReceipt — because it has lower cohesion</text><feedback><text>sendReceipt has the lower cohesion penalty (1 vs 2), which makes it easier, not harder.</text></feedback></answer>
+    <generalfeedback><text>Both have fan-out 1, but chargePayment has cyclomatic 5 vs 4 and cohesion 2 vs 1, so it is the harder unit (score 9 vs 7).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fan-in versus fan-out for stubbing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which metric tells you how many collaborators you must <strong>stub or fake</strong> to test a unit in isolation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fan-out — the callees the unit depends on</text><feedback><text>Correct — you must substitute the units it calls, which is its fan-out.</text></feedback></answer>
+    <answer fraction="0"><text>Fan-in — the callers that depend on it</text><feedback><text>Fan-in is who calls the unit; it does not tell you what to stub inside the test.</text></feedback></answer>
+    <answer fraction="0"><text>Cyclomatic complexity</text><feedback><text>That tells you the paths to cover, not the collaborators to substitute.</text></feedback></answer>
+    <answer fraction="0"><text>Cohesion penalty</text><feedback><text>That counts responsibilities, not collaborators to stub.</text></feedback></answer>
+    <generalfeedback><text>To test a unit in isolation you replace what it calls — its callees — so fan-out is the number of doubles. Fan-in (callers) matters for ripple/impact, not for stubbing this unit.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret checkout's fan-in of 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> has a <strong>fan-in of 0</strong>. What does that indicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No other unit in the module calls it — it is the top-level entry point</text><feedback><text>Correct — fan-in 0 means nothing calls checkout; it is the module's orchestrating entry point.</text></feedback></answer>
+    <answer fraction="0"><text>It calls no other units</text><feedback><text>That would be fan-out 0; checkout actually has fan-out 4. Fan-in 0 means nothing calls it.</text></feedback></answer>
+    <answer fraction="0"><text>It has no decisions</text><feedback><text>Fan-in is about callers, not decisions; checkout has 6 decisions.</text></feedback></answer>
+    <answer fraction="0"><text>It is dead code</text><feedback><text>An entry point legitimately has no in-module callers; it is invoked from outside, not dead.</text></feedback></answer>
+    <generalfeedback><text>Fan-in 0 means no unit in the module calls checkout — it is the top-level entry point (invoked from outside). It still has fan-out 4 because it orchestrates the others.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute cyclomatic complexity of sendReceipt</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>sendReceipt</code> has <strong>3</strong> decisions. Compute its cyclomatic complexity.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 3 + 1 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>The formula adds one: 3 + 1 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>3 + 1 = 4, not 5; 5 would need 4 decisions.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>3 + 1 = 4, not 2.</text></feedback></answer>
+    <generalfeedback><text>cyclomatic(sendReceipt) = decisions + 1 = 3 + 1 = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which unit needs more test doubles</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> has fan-out 4 and <code>applyDiscount</code> has fan-out 1. To test each in isolation, which needs more collaborators replaced by test doubles?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout — about 4 doubles versus about 1 for applyDiscount</text><feedback><text>Correct — fan-out is the count of collaborators to substitute, so higher fan-out means more doubles.</text></feedback></answer>
+    <answer fraction="0"><text>applyDiscount — because it is simpler overall</text><feedback><text>Simpler overall, yes, but it has the lower fan-out (1), so it needs fewer doubles, not more.</text></feedback></answer>
+    <answer fraction="0"><text>They need the same number, since both are units</text><feedback><text>The number of doubles tracks fan-out: 4 for checkout versus 1 for applyDiscount.</text></feedback></answer>
+    <answer fraction="0"><text>applyDiscount — because it has a higher fan-in</text><feedback><text>Fan-in does not determine doubles; fan-out does, and checkout's is higher.</text></feedback></answer>
+    <generalfeedback><text>Isolation testing replaces each collaborator a unit calls, so the number of doubles equals fan-out: checkout (4) needs far more than applyDiscount (1).</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Metrics/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the hardness score of checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> has cyclomatic 7, fan-out 4, and cohesion penalty 4. Using score = cyclomatic + 2 * fanOut + cohesionPenalty, what is its hardness score?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>19</text><feedback><text>Correct — 7 + 2*4 + 4 = 7 + 8 + 4 = 19.</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>That forgets to double the fan-out: 7 + 4 + 4 = 15. With the weight, 7 + 8 + 4 = 19.</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 would double something else; the correct sum is 7 + 8 + 4 = 19.</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>11 ignores cohesion; the sum is 7 + 8 + 4 = 19.</text></feedback></answer>
+    <generalfeedback><text>score(checkout) = 7 + 2*4 + 4 = 19, the highest in the module.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the hardness score of chargePayment</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>chargePayment</code> has cyclomatic 5, fan-out 1, and cohesion penalty 2. What is its hardness score?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — 5 + 2*1 + 2 = 5 + 2 + 2 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>That forgets to double the fan-out: 5 + 1 + 2 = 8. With the weight it is 5 + 2 + 2 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is sendReceipt's score; chargePayment is 5 + 2 + 2 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>The sum is 5 + 2 + 2 = 9, not 10.</text></feedback></answer>
+    <generalfeedback><text>score(chargePayment) = 5 + 2*1 + 2 = 9, second-hardest behind checkout (19).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Break the score tie between applyDiscount and validateCart</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Both <code>applyDiscount</code> and <code>validateCart</code> have a hardness score of <strong>6</strong>. In the ranking, which appears first and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>applyDiscount — ties are broken by id in ascending order, and "applyDiscount" sorts before "validateCart"</text><feedback><text>Correct — equal scores are ordered by id ascending, so applyDiscount comes first.</text></feedback></answer>
+    <answer fraction="0"><text>validateCart — because it has more responsibilities</text><feedback><text>The tie is broken by id, not by any metric; applyDiscount sorts first.</text></feedback></answer>
+    <answer fraction="0"><text>applyDiscount — because it has higher cyclomatic complexity</text><feedback><text>validateCart actually has higher complexity (4 vs 3); the tie-break is purely id-ascending.</text></feedback></answer>
+    <answer fraction="0"><text>Their order is random</text><feedback><text>The ranking is deterministic: equal scores sort by id ascending.</text></feedback></answer>
+    <generalfeedback><text>The ranking sorts by score descending, then by id ascending. With equal scores of 6, "applyDiscount" &lt; "validateCart" alphabetically, so applyDiscount is listed first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Full hardness ranking of the module</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the correct hardness ranking (hardest first) for the checkout module?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout, chargePayment, sendReceipt, applyDiscount, validateCart, formatMoney</text><feedback><text>Correct — scores 19, 9, 7, 6, 6, 2, with applyDiscount before validateCart on the id tie-break.</text></feedback></answer>
+    <answer fraction="0"><text>checkout, chargePayment, sendReceipt, validateCart, applyDiscount, formatMoney</text><feedback><text>Close, but the 6-6 tie breaks by id ascending, so applyDiscount precedes validateCart.</text></feedback></answer>
+    <answer fraction="0"><text>checkout, sendReceipt, chargePayment, validateCart, applyDiscount, formatMoney</text><feedback><text>chargePayment (9) outranks sendReceipt (7), so chargePayment must come second.</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney, applyDiscount, validateCart, sendReceipt, chargePayment, checkout</text><feedback><text>That is ascending order; the ranking is hardest first, so checkout leads.</text></feedback></answer>
+    <generalfeedback><text>Scores: checkout 19, chargePayment 9, sendReceipt 7, applyDiscount 6, validateCart 6, formatMoney 2. Descending by score, then ascending by id for the 6-6 tie, gives checkout, chargePayment, sendReceipt, applyDiscount, validateCart, formatMoney.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret the reason for the hardest unit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>checkout</code> the metrics are cyclomatic 7, fan-out 4, cohesion 4. The reason picks the largest <em>weighted</em> contribution. Which contributor dominates?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fan-out — its weighted contribution is 2*4 = 8, larger than complexity 7 or cohesion 4</text><feedback><text>Correct — after weighting, fan-out (8) beats complexity (7) and cohesion (4), so the reason is "dominated by fan-out — an orchestrator."</text></feedback></answer>
+    <answer fraction="0"><text>Complexity — because 7 is the biggest raw number</text><feedback><text>The reason uses weighted contributions: fan-out's 2*4 = 8 exceeds the raw complexity of 7.</text></feedback></answer>
+    <answer fraction="0"><text>Cohesion — because it has 4 responsibilities</text><feedback><text>Cohesion contributes 4, less than fan-out's weighted 8; fan-out dominates.</text></feedback></answer>
+    <answer fraction="0"><text>Fan-in — because it is the entry point</text><feedback><text>Fan-in is not part of the score or the reason; the dominant weighted contributor is fan-out.</text></feedback></answer>
+    <generalfeedback><text>Weighted contributions for checkout: complexity 7, fan-out 2*4 = 8, cohesion 4. The largest is fan-out, so the reason names it — checkout is a fan-out-dominated orchestrator, even though its raw complexity (7) is also high.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Highest-leverage fix for checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given that checkout is dominated by fan-out, what is the single highest-leverage fix the module recommends?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Split it — extract a collaborator so no single unit orchestrates everything</text><feedback><text>Correct — the fix targets the dominant contributor (fan-out), so it recommends splitting/extracting to reduce orchestration.</text></feedback></answer>
+    <answer fraction="0"><text>Add more callers so its fan-in rises</text><feedback><text>Fan-in is not part of hardness; adding callers does nothing to reduce checkout's score.</text></feedback></answer>
+    <answer fraction="0"><text>Merge all its collaborators back into checkout</text><feedback><text>That would raise fan-out and complexity, making it harder, not easier.</text></feedback></answer>
+    <answer fraction="0"><text>Rename its responsibilities</text><feedback><text>Renaming does not change any metric; the leverage is in reducing fan-out by splitting.</text></feedback></answer>
+    <generalfeedback><text>The highest-leverage fix addresses the dominant contributor. Since fan-out dominates checkout, the recommendation is to split it and extract a collaborator so orchestration is spread out.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of adding checkout to formatMoney dependency</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Starting from the base module, you <strong>add a dependency</strong> <code>checkout to formatMoney</code>. checkout's fan-out goes from 4 to 5. What is checkout's new hardness score?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>21</text><feedback><text>Correct — 7 + 2*5 + 4 = 7 + 10 + 4 = 21 (up from 19).</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>Each unit of fan-out adds 2 to the score, so 19 + 2 = 21, not 20.</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>Fan-out rose, so the score rises: 7 + 10 + 4 = 21.</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>7 + 2*5 + 4 = 21, not 23.</text></feedback></answer>
+    <generalfeedback><text>Adding an outgoing edge raises the caller's fan-out by 1, and each fan-out unit is weighted 2, so checkout's score climbs from 19 to 7 + 2*5 + 4 = 21. checkout stays the hardest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Adding a dependency raises the caller's score</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You add a dependency <code>validateCart to formatMoney</code>. validateCart's fan-out goes from 0 to 1. Its cyclomatic (4) and cohesion (2) are unchanged. What is validateCart's new hardness score?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 4 + 2*1 + 2 = 8 (up from 6).</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 was the old score; adding a callee raises fan-out, so it becomes 4 + 2 + 2 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>Fan-out is weighted 2, so the score rises by 2 (from 6 to 8), not 1.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>4 + 2*1 + 2 = 8, not 10.</text></feedback></answer>
+    <generalfeedback><text>Adding an outgoing edge gives validateCart fan-out 1, weighted 2, so its score rises from 6 to 4 + 2*1 + 2 = 8 — enough to overtake sendReceipt (7).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>New hardest unit after splitting checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You <strong>split</strong> the hardest unit <code>checkout</code> into <code>checkout-a</code> and <code>checkout-b</code>. After the split, checkout-a scores 12 and checkout-b scores 10. Which unit is now the hardest, and how does its score compare with checkout's original 19?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout-a, at 12 — the top hardness dropped from 19 to 12</text><feedback><text>Correct — splitting lowered the worst-case per-unit hardness from 19 to 12.</text></feedback></answer>
+    <answer fraction="0"><text>chargePayment, at 9 — it is now the hardest</text><feedback><text>checkout-a (12) and checkout-b (10) both exceed chargePayment (9), so chargePayment is not the hardest.</text></feedback></answer>
+    <answer fraction="0"><text>checkout-a, still at 19 — splitting changes nothing</text><feedback><text>The split halves complexity and distributes edges, so checkout-a scores 12, not 19.</text></feedback></answer>
+    <answer fraction="0"><text>checkout-b, at 10 — it is the hardest</text><feedback><text>checkout-a (12) is higher than checkout-b (10), so checkout-a is the hardest.</text></feedback></answer>
+    <generalfeedback><text>After splitting, checkout-a (12) is hardest and checkout-b is 10. The worst per-unit hardness fell from 19 to 12: splitting trades one very hard unit for two smaller ones.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cyclomatic complexity of checkout-a after the split</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The split rule sends ceil(d/2) decisions to the primary unit. checkout had <strong>6</strong> decisions. What is <code>checkout-a</code>'s cyclomatic complexity after the split?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — ceil(6/2) = 3 decisions, so cyclomatic = 3 + 1 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 was checkout's complexity before the split; after splitting the decisions halve to 3, giving 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is checkout-a's decision count; cyclomatic adds one, giving 4.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>The decisions are halved (6 to 3), so cyclomatic = 3 + 1 = 4.</text></feedback></answer>
+    <generalfeedback><text>checkout-a gets ceil(6/2) = 3 decisions, so cyclomatic = 3 + 1 = 4 (checkout-b also gets floor(6/2) = 3 decisions). Halving the decisions is what lowers complexity.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The coupling-versus-complexity trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Splitting a big unit into two smaller ones lowers each unit's complexity, but what does it cost structurally?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It adds a new collaborator and a new call edge, raising overall coupling</text><feedback><text>Correct — the extracted helper is a new unit the primary must call, so total coupling (edges) goes up even as per-unit complexity falls.</text></feedback></answer>
+    <answer fraction="0"><text>It increases the number of decisions in the module</text><feedback><text>Splitting distributes the existing decisions; it does not create new ones.</text></feedback></answer>
+    <answer fraction="0"><text>It removes all fan-in from the module</text><feedback><text>Incoming edges are redirected, not removed; the module still has fan-in.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — smaller units are strictly better on every metric</text><feedback><text>There is a real trade-off: lower per-unit complexity but more units and more coupling to manage.</text></feedback></answer>
+    <generalfeedback><text>Extraction is a trade: complexity per unit drops, but you gain a unit and at least one new call edge (a to b), so overall coupling rises. Testability is about balancing complexity against coupling, not maximizing one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why fan-out is weighted more than complexity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the score, fan-out is multiplied by 2 while cyclomatic and cohesion carry weight 1. What does this weighting emphasize?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That each collaborator is doubly costly — it adds both a path to cover and a double to build</text><feedback><text>Correct — the doubled weight reflects that coupling to a collaborator hurts isolation testing on two fronts.</text></feedback></answer>
+    <answer fraction="0"><text>That fan-out is the only metric that matters</text><feedback><text>All three signals contribute; fan-out is merely weighted more heavily.</text></feedback></answer>
+    <answer fraction="0"><text>That complexity should be ignored</text><feedback><text>Complexity still counts with weight 1; it is not ignored.</text></feedback></answer>
+    <answer fraction="0"><text>That fan-in is twice as important as fan-out</text><feedback><text>Fan-in is not in the score at all; it is fan-out that is doubled.</text></feedback></answer>
+    <generalfeedback><text>Fan-out is weighted 2 because each outgoing dependency adds both an extra path through the caller and a collaborator that must be substituted with a double — so coupling is penalized more than complexity or cohesion alone.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Receiving a dependency does not change the callee's score</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding a dependency <code>validateCart to formatMoney</code> raises formatMoney's fan-in from 3 to 4, but leaves formatMoney's hardness score unchanged at 2.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — fan-in is not part of score = cyclomatic + 2*fanOut + cohesionPenalty, so formatMoney's score stays 2.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The score uses fan-out, not fan-in, so a new incoming edge leaves formatMoney's score at 2.</text></feedback></answer>
+    <generalfeedback><text>The hardness score depends on fan-out (weight 2), cyclomatic, and cohesion — not fan-in. Receiving another caller raises formatMoney's fan-in to 4 but its score stays 2; only the caller (which gains fan-out) gets harder.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Ranking change after adding validateCart to formatMoney</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After adding <code>validateCart to formatMoney</code>, validateCart's score becomes 8 while sendReceipt stays at 7. How does the ranking near the top change?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>validateCart rises above sendReceipt into third place, behind checkout (19) and chargePayment (9)</text><feedback><text>Correct — at 8, validateCart now outranks sendReceipt (7) and sits third.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing changes; validateCart stays below sendReceipt</text><feedback><text>validateCart went from 6 to 8, so it now overtakes sendReceipt's 7.</text></feedback></answer>
+    <answer fraction="0"><text>validateCart becomes the hardest unit</text><feedback><text>checkout (19) is still far ahead; validateCart at 8 only reaches third.</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney rises because its fan-in increased</text><feedback><text>formatMoney's score is unchanged at 2 — fan-in is not part of the score.</text></feedback></answer>
+    <generalfeedback><text>The new edge gives validateCart fan-out 1 and score 8, overtaking sendReceipt (7). The top order becomes checkout (19), chargePayment (9), validateCart (8), sendReceipt (7). formatMoney is unaffected.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which change lowers the module's maximum hardness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You want to reduce the <strong>worst-case</strong> per-unit hardness in the module. Which action does that?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Split the hardest unit checkout, dropping its top score from 19 to 12</text><feedback><text>Correct — splitting halves complexity and distributes edges, lowering the maximum hardness to 12.</text></feedback></answer>
+    <answer fraction="0"><text>Add a dependency from checkout to formatMoney</text><feedback><text>That raises checkout's fan-out and score to 21 — the opposite of what you want.</text></feedback></answer>
+    <answer fraction="0"><text>Add a dependency into checkout to raise its fan-in</text><feedback><text>Fan-in is not part of the score, so this does not lower the maximum hardness.</text></feedback></answer>
+    <answer fraction="0"><text>Rename checkout's responsibilities</text><feedback><text>Renaming changes no metric; the count of responsibilities and every other signal is unchanged.</text></feedback></answer>
+    <generalfeedback><text>Adding dependencies only raises fan-out and scores. Splitting the hardest unit is what lowers the peak: checkout's 19 becomes checkout-a 12 and checkout-b 10, so the module's maximum hardness falls to 12.</text></generalfeedback>
+  </question>
+</quiz>

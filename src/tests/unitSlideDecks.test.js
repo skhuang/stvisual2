@@ -25,20 +25,9 @@ describe('unit → slide-deck mapping', () => {
     expect(slideDeckIdForUnit('boundary-value')).toBe('boundary-value'); // exact match, no override
   });
 
-  // Units whose slide deck is scheduled for a later phase. The Slides button is
-  // gated by hasSlideDeck, so these simply show no Slides button until the deck
-  // lands. Testability Phase 1 ships the explorer; its deck arrives in Phase 4.
-  const PENDING_DECK_UNITS = new Set([
-    'controllability-observability',
-    'testability-seams',
-    'testability-metrics',
-    'testability-scorecard',
-  ]);
-
   it('every explorer unit resolves to a real deck (no unit left without slides)', () => {
     const missing = EXPLORER_UNITS
       .map((u) => u.id)
-      .filter((id) => !PENDING_DECK_UNITS.has(id))
       .filter((id) => !deckIds.has(slideDeckIdForUnit(id)));
     expect(missing, `units with no slide deck: ${missing.join(', ')}`).toEqual([]);
   });

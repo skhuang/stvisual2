@@ -42522,8 +42522,8 @@ ${items.join("\n")}
       "section": "blackbox",
       "titleEn": "Software Testing Visualization #19 \u2014 Boundary Value Analysis",
       "titleZh": "\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #19 \u2014 \u908A\u754C\u503C\u5206\u6790",
-      "en": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: Software Testing Visualization #19 \u2014 Boundary Value Analysis\ndescription: Why bugs cluster at the edges \u2014 5-point and robustness boundary value analysis, and how to derive test inputs from input ranges.\nlang: en\n---\n\n# Boundary Value Analysis\n### Bugs live at the edges\n\nSoftware Testing Visualization series #19\nCompanion tool: `/section-blackbox` ([BoundaryValueExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js))\n\n<!-- First black-box technique of the series. The whole lecture rests on one empirical fact: defects cluster at boundaries. -->\n\n---\n\n## Why this lecture exists\n\n- A variable with range `1\u201312` has thousands of possible values \u2014 you cannot test them all.\n- But defects are **not uniformly distributed**: they cluster at the **boundaries**.\n- Off-by-one errors, `<` vs `<=`, `==` instead of `>=` \u2014 all live at the edge.\n- BVA spends your test budget where the bugs actually are.\n\n---\n\n## The core idea\n\nFor each input range, the dangerous values are the **edges**, not the middle.\n\n```\n   \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\n  min       (typical)          max\n```\n\nA test in the middle exercises the \"happy\" path. A test *at* `min` or `max` \u2014 and just *outside* \u2014 exercises the code that **decides** the range.\n\n> Conceptual anchor: test the *decision*, not the *region*.\n\n---\n\n## 5-point boundary value analysis\n\nFor a range `[min, max]`, pick five values per variable:\n\n| Point | Value | Tests |\n| --- | --- | --- |\n| Below min | `min \u2212 1` | the lower guard |\n| At min | `min` | inclusive lower edge |\n| Nominal | a typical mid value | the normal case |\n| At max | `max` | inclusive upper edge |\n| Above max | `max + 1` | the upper guard |\n\nHold all *other* variables at their nominal value while you vary one.\n\n---\n\n## Robustness BVA\n\nStandard 5-point BVA already includes the just-outside values.\n**Robustness BVA** makes the out-of-range cases first-class \u2014 it explicitly asks: *what does the program do with invalid input?*\n\n- Does `day = 32` raise an error, clamp, or silently corrupt?\n- Robustness testing treats `min\u22121` and `max+1` as **required** tests, not optional.\n\nThis matters most where input is untrusted (user forms, APIs).\n\n---\n\n## Worked example: `NextDate(month, day)`\n\nRanges: `month \u2208 [1,12]`, `day \u2208 [1,31]`.\n\nVary `month`, hold `day` nominal (= 15):\n\n| month | expected |\n| --- | --- |\n| 0 | invalid |\n| 1 | January 16 |\n| 6 | June 16 |\n| 12 | December 16 |\n| 13 | invalid |\n\nThen repeat, varying `day` and holding `month` nominal. 5 points \xD7 2 variables.\n\n---\n\n## How many tests?\n\nFor *n* variables, each with a range:\n\n- **5-point BVA:** `4n + 1` tests \u2014 vary one variable through its 5 points, others nominal; the single all-nominal test is shared.\n- BVA does **not** test boundary *combinations* (both at max at once) \u2014 that is the job of pairwise testing (#23).\n\nBVA is cheap and linear in *n* \u2014 its discipline is *one variable at a time*.\n\n---\n\n## Strengths and limits\n\n**Strengths**\n- Tiny, targeted suites that hit the highest-defect-density inputs.\n- Pairs naturally with equivalence partitioning (#20) \u2014 pick boundaries *of each partition*.\n\n**Limits**\n- Assumes the input is an *ordered range* \u2014 useless for unordered/categorical input.\n- Misses defects that need *combinations* of extreme values.\n- A range with no real ordering (an enum) has no meaningful boundary.\n\n---\n\n## Tool demonstration\n\nIn `/section-blackbox`, open the **Boundary Value Explorer**:\n\n1. Choose an example (`NextDate`, `triangle`).\n2. Toggle between **5-point** and **robustness** BVA.\n3. Read the generated points for each variable \u2014 note which are in/out of range.\n4. Add a variable and watch the test count grow as `4n + 1`.\n\n---\n\n## Tool \u2014 boundary points per parameter\n\n![w:980](./slide-assets/bva-overview-en.png)\n\nEach parameter's 5 boundary points; the suite count grows as 4n+1.\n\n---\n\n## Tool \u2014 the generated BVA suite\n\n![w:980](./slide-assets/bva-table-en.png)\n\nEvery row is one boundary case \u2014 min, min+1, nominal, max\u22121, max.\n\n---\n\n\n## Summary\n\n- Defects cluster at **boundaries** \u2014 test the edges, not the middle.\n- **5-point BVA:** below-min, min, nominal, max, above-max \u2014 one variable at a time.\n- **Robustness BVA** promotes the out-of-range cases to required tests.\n- Cost is `4n + 1`; combinations of extremes are out of scope \u2014 see pairwise (#23).\n\n**In-class exercise:** for an `age` field accepting `18\u201365`, list the 5 BVA values. What does your system do with `17` and `66`?\n\n---\n\n## Further reading\n\n- Course specification \u2014 black-box design chapter ([Specification.zh-TW.md](https://github.com/skhuang/stvisual/blob/main/docs/Specification.zh-TW.md))\n- Jorgensen, *Software Testing: A Craftsman's Approach* \u2014 boundary value testing\n- Tool source: [BoundaryValueExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js)\n- Next: **#20 Equivalence Partitioning** \u2014 choosing *which* values, not just the edges\n",
-      "zh": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: \u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #19 \u2014 \u908A\u754C\u503C\u5206\u6790\ndescription: \u70BA\u4EC0\u9EBC bug \u805A\u96C6\u5728\u908A\u7DE3 \u2014 5 \u9EDE\u8207\u7A69\u5065\u6027\u908A\u754C\u503C\u5206\u6790\uFF0C\u4EE5\u53CA\u5982\u4F55\u5F9E\u8F38\u5165\u7BC4\u570D\u63A8\u5C0E\u6E2C\u8A66\u8F38\u5165\u3002\nlang: zh-TW\n---\n\n# \u908A\u754C\u503C\u5206\u6790\n### Bug \u4F4F\u5728\u908A\u7DE3\n\n\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316\u7CFB\u5217 #19\n\u642D\u914D\u5DE5\u5177\uFF1A`/section-blackbox`\uFF08[BoundaryValueExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js)\uFF09\n\n<!-- \u672C\u7CFB\u5217\u7B2C\u4E00\u500B\u9ED1\u76D2\u6280\u8853\u3002\u6574\u5802\u8AB2\u5EFA\u7ACB\u5728\u4E00\u500B\u7D93\u9A57\u4E8B\u5BE6\u4E0A\uFF1A\u7F3A\u9677\u805A\u96C6\u5728\u908A\u754C\u3002 -->\n\n---\n\n## \u70BA\u4EC0\u9EBC\u6709\u9019\u4E00\u8B1B\n\n- \u4E00\u500B\u7BC4\u570D\u70BA `1\u201312` \u7684\u8B8A\u6578\uFF0C\u6709\u6578\u5343\u500B\u53EF\u80FD\u503C \u2014\u2014 \u4F60\u7121\u6CD5\u5168\u90E8\u6E2C\u3002\n- \u4F46\u7F3A\u9677**\u4E26\u975E\u5747\u52FB\u5206\u5E03**\uFF1A\u5B83\u5011\u805A\u96C6\u5728**\u908A\u754C**\u3002\n- \u5DEE\u4E00\u932F\u8AA4\u3001`<` \u5C0D `<=`\u3001\u628A `==` \u5BEB\u6210 `>=` \u2014\u2014 \u5168\u90FD\u4F4F\u5728\u908A\u7DE3\u3002\n- \u908A\u754C\u503C\u5206\u6790\u628A\u4F60\u7684\u6E2C\u8A66\u9810\u7B97\u82B1\u5728 bug \u771F\u6B63\u6240\u5728\u4E4B\u8655\u3002\n\n---\n\n## \u6838\u5FC3\u89C0\u5FF5\n\n\u5C0D\u6BCF\u500B\u8F38\u5165\u7BC4\u570D\uFF0C\u5371\u96AA\u7684\u503C\u662F**\u908A\u7DE3**\uFF0C\u4E0D\u662F\u4E2D\u9593\u3002\n\n```\n   \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\n  min       \uFF08\u5178\u578B\u503C\uFF09           max\n```\n\n\u4E2D\u9593\u7684\u6E2C\u8A66\u64CD\u7DF4\u7684\u662F\u300C\u5FEB\u6A02\u8DEF\u5F91\u300D\u3002\u4E00\u500B*\u4F4D\u65BC* `min` \u6216 `max`\u3001\u4EE5\u53CA\u525B\u597D*\u5728\u7BC4\u570D\u5916*\u7684\u6E2C\u8A66\uFF0C\u64CD\u7DF4\u7684\u624D\u662F**\u6C7A\u5B9A**\u7BC4\u570D\u7684\u90A3\u6BB5\u7A0B\u5F0F\u78BC\u3002\n\n> \u89C0\u5FF5\u652F\u9EDE\uFF1A\u6E2C\u90A3\u500B*\u6C7A\u7B56*\uFF0C\u800C\u975E\u90A3\u500B*\u5340\u57DF*\u3002\n\n---\n\n## 5 \u9EDE\u908A\u754C\u503C\u5206\u6790\n\n\u5C0D\u4E00\u500B\u7BC4\u570D `[min, max]`\uFF0C\u6BCF\u500B\u8B8A\u6578\u6311\u4E94\u500B\u503C\uFF1A\n\n| \u9EDE | \u503C | \u6E2C\u4EC0\u9EBC |\n| --- | --- | --- |\n| \u4F4E\u65BC min | `min \u2212 1` | \u4E0B\u754C\u5B88\u885B |\n| \u5728 min | `min` | \u542B\u7AEF\u9EDE\u7684\u4E0B\u7DE3 |\n| \u6A19\u7A31\u503C | \u4E00\u500B\u5178\u578B\u7684\u4E2D\u9593\u503C | \u6B63\u5E38\u6848\u4F8B |\n| \u5728 max | `max` | \u542B\u7AEF\u9EDE\u7684\u4E0A\u7DE3 |\n| \u9AD8\u65BC max | `max + 1` | \u4E0A\u754C\u5B88\u885B |\n\n\u8B8A\u52D5\u67D0\u4E00\u500B\u8B8A\u6578\u6642\uFF0C\u628A*\u5176\u4ED6\u6240\u6709*\u8B8A\u6578\u56FA\u5B9A\u5728\u6A19\u7A31\u503C\u3002\n\n---\n\n## \u7A69\u5065\u6027\u908A\u754C\u503C\u5206\u6790\uFF08Robustness BVA\uFF09\n\n\u6A19\u6E96 5 \u9EDE BVA \u5DF2\u7D93\u5305\u542B\u4E86\u525B\u597D\u7BC4\u570D\u5916\u7684\u503C\u3002\n**\u7A69\u5065\u6027 BVA** \u628A\u8D85\u51FA\u7BC4\u570D\u7684\u6848\u4F8B\u8B8A\u6210\u4E00\u7B49\u516C\u6C11 \u2014\u2014 \u5B83\u660E\u78BA\u554F\uFF1A*\u7A0B\u5F0F\u62FF\u5230\u7121\u6548\u8F38\u5165\u6642\u6703\u600E\u6A23\uFF1F*\n\n- `day = 32` \u6703\u4E1F\u51FA\u932F\u8AA4\u3001\u593E\u64E0\uFF08clamp\uFF09\u3001\u9084\u662F\u7121\u8072\u5730\u628A\u8CC7\u6599\u5F04\u58DE\uFF1F\n- \u7A69\u5065\u6027\u6E2C\u8A66\u628A `min\u22121` \u8207 `max+1` \u8996\u70BA**\u5FC5\u8981**\u6E2C\u8A66\uFF0C\u800C\u975E\u9078\u7528\u3002\n\n\u9019\u5728\u8F38\u5165\u4E0D\u53EF\u4FE1\u4EFB\u4E4B\u8655\uFF08\u4F7F\u7528\u8005\u8868\u55AE\u3001API\uFF09\u6700\u70BA\u95DC\u9375\u3002\n\n---\n\n## \u4F8B\u984C\uFF1A`NextDate(month, day)`\n\n\u7BC4\u570D\uFF1A`month \u2208 [1,12]`\u3001`day \u2208 [1,31]`\u3002\n\n\u8B8A\u52D5 `month`\uFF0C\u628A `day` \u56FA\u5B9A\u5728\u6A19\u7A31\u503C\uFF08= 15\uFF09\uFF1A\n\n| month | \u9810\u671F |\n| --- | --- |\n| 0 | \u7121\u6548 |\n| 1 | 1 \u6708 16 \u65E5 |\n| 6 | 6 \u6708 16 \u65E5 |\n| 12 | 12 \u6708 16 \u65E5 |\n| 13 | \u7121\u6548 |\n\n\u63A5\u8457\u91CD\u8907\uFF0C\u9019\u6B21\u8B8A\u52D5 `day`\u3001\u628A `month` \u56FA\u5B9A\u5728\u6A19\u7A31\u503C\u30025 \u9EDE \xD7 2 \u8B8A\u6578\u3002\n\n---\n\n## \u8981\u5E7E\u500B\u6E2C\u8A66\uFF1F\n\n\u5C0D *n* \u500B\u5404\u6709\u7BC4\u570D\u7684\u8B8A\u6578\uFF1A\n\n- **5 \u9EDE BVA\uFF1A** `4n + 1` \u500B\u6E2C\u8A66 \u2014\u2014 \u8B93\u4E00\u500B\u8B8A\u6578\u8D70\u904E\u5B83\u7684 5 \u9EDE\u3001\u5176\u4ED6\u6A19\u7A31\uFF1B\u90A3\u500B\u5168\u6A19\u7A31\u7684\u6E2C\u8A66\u662F\u5171\u7528\u7684\u3002\n- BVA **\u4E0D**\u6E2C\u908A\u754C*\u7D44\u5408*\uFF08\u540C\u6642\u5169\u500B\u90FD\u5728 max\uFF09\u2014\u2014 \u90A3\u662F\u6210\u5C0D\u6E2C\u8A66\uFF08#23\uFF09\u7684\u5DE5\u4F5C\u3002\n\nBVA \u4FBF\u5B9C\u3001\u4E14\u5C0D *n* \u662F\u7DDA\u6027\u7684 \u2014\u2014 \u5B83\u7684\u7D00\u5F8B\u662F*\u4E00\u6B21\u53EA\u52D5\u4E00\u500B\u8B8A\u6578*\u3002\n\n---\n\n## \u512A\u9EDE\u8207\u9650\u5236\n\n**\u512A\u9EDE**\n- \u5957\u4EF6\u5C0F\u800C\u7CBE\u6E96\uFF0C\u547D\u4E2D\u7F3A\u9677\u5BC6\u5EA6\u6700\u9AD8\u7684\u8F38\u5165\u3002\n- \u8207\u7B49\u50F9\u985E\u5206\u5272\uFF08#20\uFF09\u5929\u7136\u642D\u914D \u2014\u2014 \u6311*\u6BCF\u500B\u5206\u5272\u7684*\u908A\u754C\u3002\n\n**\u9650\u5236**\n- \u5047\u8A2D\u8F38\u5165\u662F*\u6709\u5E8F\u7BC4\u570D* \u2014\u2014 \u5C0D\u7121\u5E8F\uFF0F\u985E\u5225\u578B\u8F38\u5165\u6C92\u7528\u3002\n- \u6F0F\u6389\u9700\u8981\u6975\u7AEF\u503C*\u7D44\u5408*\u7684\u7F3A\u9677\u3002\n- \u6C92\u6709\u771F\u6B63\u9806\u5E8F\u7684\u7BC4\u570D\uFF08\u4E00\u500B\u5217\u8209\uFF09\u6C92\u6709\u6709\u610F\u7FA9\u7684\u908A\u754C\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A\n\n\u5728 `/section-blackbox` \u958B\u555F**\u908A\u754C\u503C\u63A2\u7D22\u5668**\uFF1A\n\n1. \u9078\u4E00\u500B\u4F8B\u5B50\uFF08`NextDate`\u3001`triangle`\uFF09\u3002\n2. \u5728 **5 \u9EDE**\u8207**\u7A69\u5065\u6027** BVA \u4E4B\u9593\u5207\u63DB\u3002\n3. \u770B\u6BCF\u500B\u8B8A\u6578\u751F\u6210\u7684\u9EDE \u2014\u2014 \u6CE8\u610F\u54EA\u4E9B\u5728\u7BC4\u570D\u5167\uFF0F\u5916\u3002\n4. \u52A0\u4E00\u500B\u8B8A\u6578\uFF0C\u770B\u8457\u6E2C\u8A66\u6578\u4F9D `4n + 1` \u6210\u9577\u3002\n\n---\n\n## \u5DE5\u5177 \u2014\u2014 \u5404\u53C3\u6578\u7684\u908A\u754C\u9EDE\n\n![w:980](./slide-assets/bva-overview.png)\n\n\u6BCF\u500B\u53C3\u6578\u7684 5 \u500B\u908A\u754C\u9EDE\uFF1B\u5957\u4EF6\u6578\u4F9D 4n+1 \u6210\u9577\u3002\n\n---\n\n## \u5DE5\u5177 \u2014\u2014 \u751F\u6210\u7684 BVA \u5957\u4EF6\n\n![w:980](./slide-assets/bva-table.png)\n\n\u6BCF\u4E00\u5217\u5C31\u662F\u4E00\u500B\u908A\u754C\u6848\u4F8B \u2014\u2014 min\u3001min+1\u3001nominal\u3001max\u22121\u3001max\u3002\n\n---\n\n\n## \u5C0F\u7D50\n\n- \u7F3A\u9677\u805A\u96C6\u5728**\u908A\u754C** \u2014\u2014 \u6E2C\u908A\u7DE3\uFF0C\u4E0D\u6E2C\u4E2D\u9593\u3002\n- **5 \u9EDE BVA\uFF1A** \u4F4E\u65BC min\u3001min\u3001\u6A19\u7A31\u3001max\u3001\u9AD8\u65BC max \u2014\u2014 \u4E00\u6B21\u4E00\u500B\u8B8A\u6578\u3002\n- **\u7A69\u5065\u6027 BVA** \u628A\u8D85\u51FA\u7BC4\u570D\u7684\u6848\u4F8B\u5347\u683C\u70BA\u5FC5\u8981\u6E2C\u8A66\u3002\n- \u6210\u672C\u662F `4n + 1`\uFF1B\u6975\u7AEF\u503C\u7684\u7D44\u5408\u4E0D\u5728\u7BC4\u570D\u5167 \u2014\u2014 \u898B\u6210\u5C0D\u6E2C\u8A66\uFF08#23\uFF09\u3002\n\n**\u8AB2\u5802\u7DF4\u7FD2\uFF1A** \u5C0D\u4E00\u500B\u63A5\u53D7 `18\u201365` \u7684 `age` \u6B04\u4F4D\uFF0C\u5217\u51FA 5 \u500B BVA \u503C\u3002\u4F60\u7684\u7CFB\u7D71\u62FF\u5230 `17` \u8207 `66` \u6703\u600E\u6A23\uFF1F\n\n---\n\n## \u5EF6\u4F38\u95B1\u8B80\n\n- \u8AB2\u7A0B\u898F\u683C \u2014\u2014 \u9ED1\u76D2\u8A2D\u8A08\u7AE0\u7BC0\uFF08[Specification.zh-TW.md](https://github.com/skhuang/stvisual/blob/main/docs/Specification.zh-TW.md)\uFF09\n- Jorgensen, *Software Testing: A Craftsman's Approach* \u2014\u2014 \u908A\u754C\u503C\u6E2C\u8A66\n- \u5DE5\u5177\u539F\u59CB\u78BC\uFF1A[BoundaryValueExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js)\n- \u4E0B\u4E00\u8B1B\uFF1A**#20 \u7B49\u50F9\u985E\u5206\u5272** \u2014\u2014 \u9078*\u54EA\u4E9B*\u503C\uFF0C\u800C\u4E0D\u53EA\u662F\u908A\u7DE3\n"
+      "en": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: Software Testing Visualization #19 \u2014 Boundary Value Analysis\ndescription: Why bugs cluster at the edges \u2014 5-point and robustness boundary value analysis, and how to derive test inputs from input ranges.\nlang: en\n---\n\n# Boundary Value Analysis\n### Bugs live at the edges\n\nSoftware Testing Visualization series #19\nCompanion tool: `/section-blackbox` ([BoundaryValueExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js))\n\n<!-- First black-box technique of the series. The whole lecture rests on one empirical fact: defects cluster at boundaries. -->\n\n---\n\n## Why this lecture exists\n\n- A 32-bit `int` input has over 4 billion possible values \u2014 you cannot test them all.\n- But defects are **not uniformly distributed**: they cluster at the **boundaries**.\n- Off-by-one errors, `<` vs `<=`, `==` instead of `>=` \u2014 all live at the edge.\n- BVA spends your test budget where the bugs actually are.\n\n---\n\n## The core idea\n\nFor each input range, the dangerous values are the **edges**, not the middle.\n\n```\n   \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\n  min       (typical)          max\n```\n\nA test in the middle exercises the \"happy\" path. A test *at* `min` or `max` \u2014 and just *outside* \u2014 exercises the code that **decides** the range.\n\n> Conceptual anchor: test the *decision*, not the *region*.\n\n---\n\n## 5-point boundary value analysis\n\nFor a range `[min, max]`, pick five values per variable:\n\n| Point | Value | Tests |\n| --- | --- | --- |\n| Below min | `min \u2212 1` | the lower guard |\n| At min | `min` | inclusive lower edge |\n| Nominal | a typical mid value | the normal case |\n| At max | `max` | inclusive upper edge |\n| Above max | `max + 1` | the upper guard |\n\nHold all *other* variables at their nominal value while you vary one.\n\n---\n\n## Robustness BVA\n\nStandard 5-point BVA already includes the just-outside values.\n**Robustness BVA** makes the out-of-range cases first-class \u2014 it explicitly asks: *what does the program do with invalid input?*\n\n- Does `day = 32` raise an error, clamp, or silently corrupt?\n- Robustness testing treats `min\u22121` and `max+1` as **required** tests, not optional.\n\nThis matters most where input is untrusted (user forms, APIs).\n\n---\n\n## Worked example: `NextDate(month, day)`\n\nRanges: `month \u2208 [1,12]`, `day \u2208 [1,31]`.\n\nVary `month`, hold `day` nominal (= 15):\n\n| month | expected |\n| --- | --- |\n| 0 | invalid |\n| 1 | January 16 |\n| 6 | June 16 |\n| 12 | December 16 |\n| 13 | invalid |\n\nThen repeat, varying `day` and holding `month` nominal. 5 points \xD7 2 variables.\n\n---\n\n## How many tests?\n\nFor *n* variables, each with a range:\n\n- **5-point BVA:** `4n + 1` tests \u2014 vary one variable through its 5 points, others nominal; the single all-nominal test is shared.\n- BVA does **not** test boundary *combinations* (both at max at once) \u2014 that is the job of pairwise testing (#23).\n\nBVA is cheap and linear in *n* \u2014 its discipline is *one variable at a time*.\n\n---\n\n## Strengths and limits\n\n**Strengths**\n- Tiny, targeted suites that hit the highest-defect-density inputs.\n- Pairs naturally with equivalence partitioning (#20) \u2014 pick boundaries *of each partition*.\n\n**Limits**\n- Assumes the input is an *ordered range* \u2014 useless for unordered/categorical input.\n- Misses defects that need *combinations* of extreme values.\n- A range with no real ordering (an enum) has no meaningful boundary.\n\n---\n\n## Tool demonstration\n\nIn `/section-blackbox`, open the **Boundary Value Explorer**:\n\n1. Choose an example (`NextDate`, `triangle`).\n2. Toggle between **5-point** and **robustness** BVA.\n3. Read the generated points for each variable \u2014 note which are in/out of range.\n4. Add a variable and watch the test count grow as `4n + 1`.\n\n---\n\n## Tool \u2014 boundary points per parameter\n\n![w:980](./slide-assets/bva-overview-en.png)\n\nEach parameter's 5 boundary points; the suite count grows as 4n+1.\n\n---\n\n## Tool \u2014 the generated BVA suite\n\n![w:980](./slide-assets/bva-table-en.png)\n\nEvery row is one boundary case \u2014 min, min+1, nominal, max\u22121, max.\n\n---\n\n\n## Summary\n\n- Defects cluster at **boundaries** \u2014 test the edges, not the middle.\n- **5-point BVA:** below-min, min, nominal, max, above-max \u2014 one variable at a time.\n- **Robustness BVA** promotes the out-of-range cases to required tests.\n- Cost is `4n + 1`; combinations of extremes are out of scope \u2014 see pairwise (#23).\n\n**In-class exercise:** for an `age` field accepting `18\u201365`, list the 5 BVA values. What does your system do with `17` and `66`?\n\n---\n\n## Further reading\n\n- Course specification \u2014 black-box design chapter ([Specification.zh-TW.md](https://github.com/skhuang/stvisual/blob/main/docs/Specification.zh-TW.md))\n- Jorgensen, *Software Testing: A Craftsman's Approach* \u2014 boundary value testing\n- Tool source: [BoundaryValueExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js)\n- Next: **#20 Equivalence Partitioning** \u2014 choosing *which* values, not just the edges\n",
+      "zh": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: \u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #19 \u2014 \u908A\u754C\u503C\u5206\u6790\ndescription: \u70BA\u4EC0\u9EBC bug \u805A\u96C6\u5728\u908A\u7DE3 \u2014 5 \u9EDE\u8207\u7A69\u5065\u6027\u908A\u754C\u503C\u5206\u6790\uFF0C\u4EE5\u53CA\u5982\u4F55\u5F9E\u8F38\u5165\u7BC4\u570D\u63A8\u5C0E\u6E2C\u8A66\u8F38\u5165\u3002\nlang: zh-TW\n---\n\n# \u908A\u754C\u503C\u5206\u6790\n### Bug \u4F4F\u5728\u908A\u7DE3\n\n\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316\u7CFB\u5217 #19\n\u642D\u914D\u5DE5\u5177\uFF1A`/section-blackbox`\uFF08[BoundaryValueExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js)\uFF09\n\n<!-- \u672C\u7CFB\u5217\u7B2C\u4E00\u500B\u9ED1\u76D2\u6280\u8853\u3002\u6574\u5802\u8AB2\u5EFA\u7ACB\u5728\u4E00\u500B\u7D93\u9A57\u4E8B\u5BE6\u4E0A\uFF1A\u7F3A\u9677\u805A\u96C6\u5728\u908A\u754C\u3002 -->\n\n---\n\n## \u70BA\u4EC0\u9EBC\u6709\u9019\u4E00\u8B1B\n\n- \u4E00\u500B 32 \u4F4D\u5143 `int` \u8F38\u5165\u6709\u8D85\u904E 40 \u5104\u500B\u53EF\u80FD\u503C \u2014\u2014 \u4F60\u7121\u6CD5\u5168\u90E8\u6E2C\u3002\n- \u4F46\u7F3A\u9677**\u4E26\u975E\u5747\u52FB\u5206\u5E03**\uFF1A\u5B83\u5011\u805A\u96C6\u5728**\u908A\u754C**\u3002\n- \u5DEE\u4E00\u932F\u8AA4\u3001`<` \u5C0D `<=`\u3001\u628A `==` \u5BEB\u6210 `>=` \u2014\u2014 \u5168\u90FD\u4F4F\u5728\u908A\u7DE3\u3002\n- \u908A\u754C\u503C\u5206\u6790\u628A\u4F60\u7684\u6E2C\u8A66\u9810\u7B97\u82B1\u5728 bug \u771F\u6B63\u6240\u5728\u4E4B\u8655\u3002\n\n---\n\n## \u6838\u5FC3\u89C0\u5FF5\n\n\u5C0D\u6BCF\u500B\u8F38\u5165\u7BC4\u570D\uFF0C\u5371\u96AA\u7684\u503C\u662F**\u908A\u7DE3**\uFF0C\u4E0D\u662F\u4E2D\u9593\u3002\n\n```\n   \u25CF\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25CF\n  min       \uFF08\u5178\u578B\u503C\uFF09           max\n```\n\n\u4E2D\u9593\u7684\u6E2C\u8A66\u64CD\u7DF4\u7684\u662F\u300C\u5FEB\u6A02\u8DEF\u5F91\u300D\u3002\u4E00\u500B*\u4F4D\u65BC* `min` \u6216 `max`\u3001\u4EE5\u53CA\u525B\u597D*\u5728\u7BC4\u570D\u5916*\u7684\u6E2C\u8A66\uFF0C\u64CD\u7DF4\u7684\u624D\u662F**\u6C7A\u5B9A**\u7BC4\u570D\u7684\u90A3\u6BB5\u7A0B\u5F0F\u78BC\u3002\n\n> \u89C0\u5FF5\u652F\u9EDE\uFF1A\u6E2C\u90A3\u500B*\u6C7A\u7B56*\uFF0C\u800C\u975E\u90A3\u500B*\u5340\u57DF*\u3002\n\n---\n\n## 5 \u9EDE\u908A\u754C\u503C\u5206\u6790\n\n\u5C0D\u4E00\u500B\u7BC4\u570D `[min, max]`\uFF0C\u6BCF\u500B\u8B8A\u6578\u6311\u4E94\u500B\u503C\uFF1A\n\n| \u9EDE | \u503C | \u6E2C\u4EC0\u9EBC |\n| --- | --- | --- |\n| \u4F4E\u65BC min | `min \u2212 1` | \u4E0B\u754C\u5B88\u885B |\n| \u5728 min | `min` | \u542B\u7AEF\u9EDE\u7684\u4E0B\u7DE3 |\n| \u6A19\u7A31\u503C | \u4E00\u500B\u5178\u578B\u7684\u4E2D\u9593\u503C | \u6B63\u5E38\u6848\u4F8B |\n| \u5728 max | `max` | \u542B\u7AEF\u9EDE\u7684\u4E0A\u7DE3 |\n| \u9AD8\u65BC max | `max + 1` | \u4E0A\u754C\u5B88\u885B |\n\n\u8B8A\u52D5\u67D0\u4E00\u500B\u8B8A\u6578\u6642\uFF0C\u628A*\u5176\u4ED6\u6240\u6709*\u8B8A\u6578\u56FA\u5B9A\u5728\u6A19\u7A31\u503C\u3002\n\n---\n\n## \u7A69\u5065\u6027\u908A\u754C\u503C\u5206\u6790\uFF08Robustness BVA\uFF09\n\n\u6A19\u6E96 5 \u9EDE BVA \u5DF2\u7D93\u5305\u542B\u4E86\u525B\u597D\u7BC4\u570D\u5916\u7684\u503C\u3002\n**\u7A69\u5065\u6027 BVA** \u628A\u8D85\u51FA\u7BC4\u570D\u7684\u6848\u4F8B\u8B8A\u6210\u4E00\u7B49\u516C\u6C11 \u2014\u2014 \u5B83\u660E\u78BA\u554F\uFF1A*\u7A0B\u5F0F\u62FF\u5230\u7121\u6548\u8F38\u5165\u6642\u6703\u600E\u6A23\uFF1F*\n\n- `day = 32` \u6703\u4E1F\u51FA\u932F\u8AA4\u3001\u593E\u64E0\uFF08clamp\uFF09\u3001\u9084\u662F\u7121\u8072\u5730\u628A\u8CC7\u6599\u5F04\u58DE\uFF1F\n- \u7A69\u5065\u6027\u6E2C\u8A66\u628A `min\u22121` \u8207 `max+1` \u8996\u70BA**\u5FC5\u8981**\u6E2C\u8A66\uFF0C\u800C\u975E\u9078\u7528\u3002\n\n\u9019\u5728\u8F38\u5165\u4E0D\u53EF\u4FE1\u4EFB\u4E4B\u8655\uFF08\u4F7F\u7528\u8005\u8868\u55AE\u3001API\uFF09\u6700\u70BA\u95DC\u9375\u3002\n\n---\n\n## \u4F8B\u984C\uFF1A`NextDate(month, day)`\n\n\u7BC4\u570D\uFF1A`month \u2208 [1,12]`\u3001`day \u2208 [1,31]`\u3002\n\n\u8B8A\u52D5 `month`\uFF0C\u628A `day` \u56FA\u5B9A\u5728\u6A19\u7A31\u503C\uFF08= 15\uFF09\uFF1A\n\n| month | \u9810\u671F |\n| --- | --- |\n| 0 | \u7121\u6548 |\n| 1 | 1 \u6708 16 \u65E5 |\n| 6 | 6 \u6708 16 \u65E5 |\n| 12 | 12 \u6708 16 \u65E5 |\n| 13 | \u7121\u6548 |\n\n\u63A5\u8457\u91CD\u8907\uFF0C\u9019\u6B21\u8B8A\u52D5 `day`\u3001\u628A `month` \u56FA\u5B9A\u5728\u6A19\u7A31\u503C\u30025 \u9EDE \xD7 2 \u8B8A\u6578\u3002\n\n---\n\n## \u8981\u5E7E\u500B\u6E2C\u8A66\uFF1F\n\n\u5C0D *n* \u500B\u5404\u6709\u7BC4\u570D\u7684\u8B8A\u6578\uFF1A\n\n- **5 \u9EDE BVA\uFF1A** `4n + 1` \u500B\u6E2C\u8A66 \u2014\u2014 \u8B93\u4E00\u500B\u8B8A\u6578\u8D70\u904E\u5B83\u7684 5 \u9EDE\u3001\u5176\u4ED6\u6A19\u7A31\uFF1B\u90A3\u500B\u5168\u6A19\u7A31\u7684\u6E2C\u8A66\u662F\u5171\u7528\u7684\u3002\n- BVA **\u4E0D**\u6E2C\u908A\u754C*\u7D44\u5408*\uFF08\u540C\u6642\u5169\u500B\u90FD\u5728 max\uFF09\u2014\u2014 \u90A3\u662F\u6210\u5C0D\u6E2C\u8A66\uFF08#23\uFF09\u7684\u5DE5\u4F5C\u3002\n\nBVA \u4FBF\u5B9C\u3001\u4E14\u5C0D *n* \u662F\u7DDA\u6027\u7684 \u2014\u2014 \u5B83\u7684\u7D00\u5F8B\u662F*\u4E00\u6B21\u53EA\u52D5\u4E00\u500B\u8B8A\u6578*\u3002\n\n---\n\n## \u512A\u9EDE\u8207\u9650\u5236\n\n**\u512A\u9EDE**\n- \u5957\u4EF6\u5C0F\u800C\u7CBE\u6E96\uFF0C\u547D\u4E2D\u7F3A\u9677\u5BC6\u5EA6\u6700\u9AD8\u7684\u8F38\u5165\u3002\n- \u8207\u7B49\u50F9\u985E\u5206\u5272\uFF08#20\uFF09\u5929\u7136\u642D\u914D \u2014\u2014 \u6311*\u6BCF\u500B\u5206\u5272\u7684*\u908A\u754C\u3002\n\n**\u9650\u5236**\n- \u5047\u8A2D\u8F38\u5165\u662F*\u6709\u5E8F\u7BC4\u570D* \u2014\u2014 \u5C0D\u7121\u5E8F\uFF0F\u985E\u5225\u578B\u8F38\u5165\u6C92\u7528\u3002\n- \u6F0F\u6389\u9700\u8981\u6975\u7AEF\u503C*\u7D44\u5408*\u7684\u7F3A\u9677\u3002\n- \u6C92\u6709\u771F\u6B63\u9806\u5E8F\u7684\u7BC4\u570D\uFF08\u4E00\u500B\u5217\u8209\uFF09\u6C92\u6709\u6709\u610F\u7FA9\u7684\u908A\u754C\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A\n\n\u5728 `/section-blackbox` \u958B\u555F**\u908A\u754C\u503C\u63A2\u7D22\u5668**\uFF1A\n\n1. \u9078\u4E00\u500B\u4F8B\u5B50\uFF08`NextDate`\u3001`triangle`\uFF09\u3002\n2. \u5728 **5 \u9EDE**\u8207**\u7A69\u5065\u6027** BVA \u4E4B\u9593\u5207\u63DB\u3002\n3. \u770B\u6BCF\u500B\u8B8A\u6578\u751F\u6210\u7684\u9EDE \u2014\u2014 \u6CE8\u610F\u54EA\u4E9B\u5728\u7BC4\u570D\u5167\uFF0F\u5916\u3002\n4. \u52A0\u4E00\u500B\u8B8A\u6578\uFF0C\u770B\u8457\u6E2C\u8A66\u6578\u4F9D `4n + 1` \u6210\u9577\u3002\n\n---\n\n## \u5DE5\u5177 \u2014\u2014 \u5404\u53C3\u6578\u7684\u908A\u754C\u9EDE\n\n![w:980](./slide-assets/bva-overview.png)\n\n\u6BCF\u500B\u53C3\u6578\u7684 5 \u500B\u908A\u754C\u9EDE\uFF1B\u5957\u4EF6\u6578\u4F9D 4n+1 \u6210\u9577\u3002\n\n---\n\n## \u5DE5\u5177 \u2014\u2014 \u751F\u6210\u7684 BVA \u5957\u4EF6\n\n![w:980](./slide-assets/bva-table.png)\n\n\u6BCF\u4E00\u5217\u5C31\u662F\u4E00\u500B\u908A\u754C\u6848\u4F8B \u2014\u2014 min\u3001min+1\u3001nominal\u3001max\u22121\u3001max\u3002\n\n---\n\n\n## \u5C0F\u7D50\n\n- \u7F3A\u9677\u805A\u96C6\u5728**\u908A\u754C** \u2014\u2014 \u6E2C\u908A\u7DE3\uFF0C\u4E0D\u6E2C\u4E2D\u9593\u3002\n- **5 \u9EDE BVA\uFF1A** \u4F4E\u65BC min\u3001min\u3001\u6A19\u7A31\u3001max\u3001\u9AD8\u65BC max \u2014\u2014 \u4E00\u6B21\u4E00\u500B\u8B8A\u6578\u3002\n- **\u7A69\u5065\u6027 BVA** \u628A\u8D85\u51FA\u7BC4\u570D\u7684\u6848\u4F8B\u5347\u683C\u70BA\u5FC5\u8981\u6E2C\u8A66\u3002\n- \u6210\u672C\u662F `4n + 1`\uFF1B\u6975\u7AEF\u503C\u7684\u7D44\u5408\u4E0D\u5728\u7BC4\u570D\u5167 \u2014\u2014 \u898B\u6210\u5C0D\u6E2C\u8A66\uFF08#23\uFF09\u3002\n\n**\u8AB2\u5802\u7DF4\u7FD2\uFF1A** \u5C0D\u4E00\u500B\u63A5\u53D7 `18\u201365` \u7684 `age` \u6B04\u4F4D\uFF0C\u5217\u51FA 5 \u500B BVA \u503C\u3002\u4F60\u7684\u7CFB\u7D71\u62FF\u5230 `17` \u8207 `66` \u6703\u600E\u6A23\uFF1F\n\n---\n\n## \u5EF6\u4F38\u95B1\u8B80\n\n- \u8AB2\u7A0B\u898F\u683C \u2014\u2014 \u9ED1\u76D2\u8A2D\u8A08\u7AE0\u7BC0\uFF08[Specification.zh-TW.md](https://github.com/skhuang/stvisual/blob/main/docs/Specification.zh-TW.md)\uFF09\n- Jorgensen, *Software Testing: A Craftsman's Approach* \u2014\u2014 \u908A\u754C\u503C\u6E2C\u8A66\n- \u5DE5\u5177\u539F\u59CB\u78BC\uFF1A[BoundaryValueExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/BoundaryValueExplorer.js)\n- \u4E0B\u4E00\u8B1B\uFF1A**#20 \u7B49\u50F9\u985E\u5206\u5272** \u2014\u2014 \u9078*\u54EA\u4E9B*\u503C\uFF0C\u800C\u4E0D\u53EA\u662F\u908A\u7DE3\n"
     },
     {
       "id": "equivalence-partitioning",
@@ -43447,6 +43447,42 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       "titleZh": "\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #65 \u2014 \u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66",
       "en": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: Software Testing Visualization #65 \u2014 Search-Based Software Testing\ndescription: Test generation as optimisation \u2014 the branch-distance + approach-level fitness function, the random / hill-climbing / genetic-algorithm metaheuristics, and whole-test-suite evolution.\nlang: en\n---\n\n# Search-Based Software Testing\n### *Let a fitness function search for the tests*\n\nSoftware Testing Visualization series #65 \xB7 Search-Based Testing\nCompanion tool: `/section-sbst` \u2192 GA Branch Search ([SbstBranchExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/SbstBranchExplorer.js)) \xB7 Metaheuristic Comparison ([SbstCompareExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/SbstCompareExplorer.js)) \xB7 Whole-Suite Evolution ([SbstSuiteExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/SbstSuiteExplorer.js))\n\n<!-- Opening deck for the Search-Based Software Testing section. SBST reframes test generation as an optimisation problem: a metaheuristic search over the input space, guided by a fitness function that measures how close an input is to covering a target. The deck covers the fitness function (branch distance + approach level), the random / hill-climbing / genetic-algorithm metaheuristics, and whole-test-suite generation. -->\n\n---\n\n## Test generation as search\n\nMost of this course generates tests by **enumerating coverage requirements** \u2014 list the branches, then find an input for each one. Search-based software testing (SBST) takes a different stance: it treats test generation as an **optimisation problem**.\n\nFix one coverage goal \u2014 say, a particular branch. The **search space** is the set of all possible input vectors to the function under test. Somewhere in that space sit the inputs that cover the goal. SBST hands the search space to a **metaheuristic**: an algorithm that samples candidates, scores them, and steers toward better ones.\n\nThe contrast with the coverage-driven `testgen` section (deck #12) is the *direction* of work. There, the engine reasons forward from the program structure to a test. Here, the engine searches the input space and lets a numeric score \u2014 the fitness function \u2014 tell it whether it is getting warmer or colder.\n\n<!-- The reframing is the whole point of the section: stop enumerating requirements and start optimising. Draw the search space on the board as a landscape and the coverage goal as a target region inside it. Stress that SBST does not need to understand the program's logic the way symbolic execution does \u2014 it only needs to *run* the program and *measure* the result. That is its great strength (it scales to code symbolic execution chokes on) and its great weakness (with no gradient it is blind). Deck #12 is the natural contrast: requirement-driven vs. search-driven. -->\n\n---\n\n## The fitness function\n\nA search is only as good as its **gradient**. If every non-covering input scores the same, the metaheuristic is reduced to blind guessing. The job of the **fitness function** is to give the search a smooth slope to descend.\n\nFor a single branch goal, fitness measures **how close an input came to covering that branch**. It has two components added together:\n\n- **approach level** \u2014 how many enclosing decisions the execution still had to get right, and\n- **branch distance** \u2014 at the decision where execution diverged, how close the predicate was to flipping the other way.\n\nThe convention is **lower is closer**: a fitness of 0 means the input covers the goal, and larger values mean further away. The search's task is simply to **minimise** this number.\n\n<!-- Hammer the gradient idea: coverage alone \u2014 covered / not covered \u2014 is a flat function with no slope, so a search guided only by coverage cannot improve. The fitness function turns that cliff into a ramp. The two-part structure (approach level for *how far through the nesting*, branch distance for *how close the last predicate was*) is the standard Wegener/McMinn formulation and every later slide depends on it. Emphasise the minimise-to-zero convention so the demo curves later make sense. -->\n\n---\n\n## Branch distance\n\n**Branch distance** asks, at a single decision: *how close was the predicate to taking the other outcome?* It turns a true/false test into a continuous number.\n\nThe Korel/Tracey formulas give one rule per relational operator. For a predicate that needs to become true:\n\n- `a == b` \u2192 distance `|a \u2212 b|`\n- `a != b` \u2192 distance `0` if `a \u2260 b`, else `K`\n- `a < b` \u2192 distance `a \u2212 b + K` if `a \u2265 b`, else `0`\n- `a <= b` \u2192 distance `a \u2212 b` if `a > b`, else `0`\n\nwhere `K` is a small positive constant so a *just-barely-false* predicate still scores above zero. Boolean connectives compose: `&&` adds (or takes the worst of) its operands, `||` takes the minimum.\n\nA raw distance can be any size, so it is **normalised** into `[0, 1)` with `d / (d + 1)` before it is combined with the approach level \u2014 keeping every decision on the same scale.\n\n<!-- Put one formula on the board and work a number through it: for a < b with a = 7, b = 3, the distance is 7 - 3 + K = 4 + K, and as a drops toward 3 the distance shrinks toward K, then hits 0 the instant a < b. That shrinking number *is* the gradient the search rides. The K constant is the subtle bit \u2014 without it a predicate one step from flipping would tie with one already flipped. Normalisation matters because approach level counts in whole decisions, so branch distance must be capped below 1 to never outweigh a single level. -->\n\n---\n\n## Approach level\n\n**Branch distance** only describes the *one* decision where execution went wrong. **Approach level** describes *how far through the nest of decisions* the execution got before that happened.\n\nA target branch is usually guarded by several enclosing decisions \u2014 to reach it, execution must take the right outcome at each one. The approach level counts **how many of those enclosing decisions the execution still diverged from**: if it took the wrong outcome at the very first guard, the approach level is high; if it sailed through every guard but the last, the approach level is low.\n\nThe two combine into one cost:\n\n**cost = approach level + normalised branch distance at the first point of divergence**\n\nSo progress shows up two ways. Get *deeper* into the nest and the approach level drops by a whole integer. Get *closer* at the decision where you are still stuck and the fractional branch-distance term shrinks. Either way the cost goes down, and the search has a slope to follow.\n\n<!-- The mental picture: approach level is the coarse, integer part of the gradient (which guard am I stuck at) and branch distance is the fine, fractional part (how close am I to clearing that guard). Because branch distance is normalised below 1, clearing a whole guard always beats any amount of fractional progress \u2014 the cost is lexicographic in disguise. This composite is what makes deeply nested targets searchable: without approach level every failure outside the final guard would look equally bad. -->\n\n---\n\n## Random search \u2014 the baseline\n\nThe simplest metaheuristic is **random search**: sample inputs uniformly from the search space, evaluate each one's fitness, and keep the best seen so far.\n\nRandom search is **unguided**. It computes the fitness of every candidate but never *uses* that signal to choose the next sample \u2014 each draw is independent of the last. It throws away the gradient the fitness function worked to provide.\n\nThat makes it a useful **baseline**, and occasionally enough on its own. If the inputs that cover a goal occupy a sizeable fraction of the search space, a handful of random draws will land one. But the moment a target sits behind nested guards \u2014 so the covering region is a vanishingly small sliver \u2014 random search **stalls**: the odds of stumbling onto the sliver by chance are negligible.\n\n<!-- Random search is the control group for the whole section: any guided metaheuristic must beat it or it is not earning its complexity. Make the key admission explicit \u2014 random search *does* evaluate fitness, it just ignores it for sampling. The takeaway is the contrast set up for the next slides: easy targets fall to random search; nested targets need a search that actually climbs the gradient. -->\n\n---\n\n## Hill climbing\n\n**Hill climbing** is the first genuinely guided metaheuristic. It picks one starting input, examines the **neighbours** of that input \u2014 the candidates a small step away \u2014 evaluates their fitness, and moves to the **best improving neighbour**. Repeat from the new point until no neighbour is better.\n\nNow the fitness gradient is doing real work: each move is a deliberate step downhill in cost, so on a smooth fitness landscape hill climbing converges far faster than random sampling.\n\nIts weakness is structural. Hill climbing follows a **single trajectory** from a single start. When that trajectory reaches a point where every neighbour is worse \u2014 a **local optimum** \u2014 it stops, even if that point does not cover the goal. A non-covering local optimum is a dead end, and a lone climber has no way out of it.\n\n<!-- This is the first taste of the central tension of the section: a guided search is much faster than random, but a *single* guided search is brittle. Draw a fitness landscape with two valleys \u2014 the climber rolls into whichever one its start point sits above and gets stuck there. Random restarts patch this a little, but the real fix is a population, which is the next slide. Define local optimum carefully: it is local to the neighbourhood, not the global best. -->\n\n---\n\n## Genetic algorithms\n\nA **genetic algorithm** (GA) replaces the lone climber with a whole **population** of candidate inputs, evolved over successive **generations**. Each generation applies four operators:\n\n- **selection** \u2014 pick parents, biased toward fitter individuals; **tournament selection** draws a small random group and keeps its best.\n- **crossover** \u2014 combine two parents into offspring that mix their input values, recombining partial solutions.\n- **mutation** \u2014 randomly perturb some offspring values, injecting fresh variation so the search can reach inputs no parent held.\n- **elitism** \u2014 carry the best individual(s) unchanged into the next generation, so the best fitness can never get worse.\n\nBecause a population holds **many individuals scattered across the search space**, the GA explores **many regions at once** instead of committing to a single trajectory. That breadth is what the next slide builds on.\n\n<!-- Walk the four operators as a cycle: select \u2192 cross over \u2192 mutate \u2192 keep the elite, then repeat. Tournament selection is the workhorse \u2014 explain that it tunes selection pressure via the tournament size. Elitism is the safety rail: without it a good solution can be lost to an unlucky crossover. The phrase to leave ringing is \"many regions at once\" \u2014 that population breadth is precisely the property hill climbing lacks, and the reason the GA escapes traps. -->\n\n---\n\n## Escaping local optima\n\nWhy does the GA succeed where hill climbing gets stuck? Two mechanisms, both consequences of holding a **population**.\n\nFirst, **diversity**. The population is spread across the search space, so different individuals sit in different basins of the fitness landscape. One unlucky basin traps the individuals inside it \u2014 but not the whole search. While some individuals stall at a local optimum, others are still descending elsewhere.\n\nSecond, **crossover recombines partial solutions**. A nested target often needs several input values to all be right at once. One parent may have value A correct, another value B; crossover can produce a child with **both** \u2014 a jump across the landscape that no single-step neighbour move could make.\n\nA hill climber has neither: one point, one trajectory, only small steps. The GA's population and crossover are exactly what let it climb out of the basins that trap a lone climber.\n\n<!-- This slide is the payoff of slides 6-8 and the conceptual heart of the section. Make the contrast sharp: hill climbing fails not because it is poorly tuned but because *one trajectory of small steps* is structurally incapable of escaping a basin. The GA escapes for two distinct reasons \u2014 keep them separate. Crossover is the genuinely surprising one: it is a *large* move built from two *good* parents, which is why it can cross a fitness valley that a mutation-sized step cannot. The Metaheuristic Comparison demo makes this visible. -->\n\n---\n\n## Whole-test-suite generation\n\nEverything so far optimised toward **one branch goal at a time**. That has a known failure mode: effort spent on an easy goal is wasted, and a goal whose fitness landscape is flat starves while the search fixates on it.\n\n**Whole-test-suite generation** changes what an individual *is*. Instead of one individual = one test aimed at one branch, **one individual = an entire test suite**, and its fitness is the **total coverage over all branch goals at once** \u2014 summed branch distances across every uncovered goal in the program.\n\nThe GA now evolves whole suites. Coverage of every branch improves together, and the search naturally reallocates effort from goals already covered to goals still open. This is the **EvoSuite** formulation. It runs in two stages: first **evolve** a suite toward full coverage, then **minimise** it \u2014 drop redundant tests that cover nothing the rest of the suite does not already cover.\n\n<!-- Two ideas land here. First, the redefinition of \"individual\" \u2014 students who have only seen one-goal-at-a-time SBST find this genuinely surprising, so spell it out: the search variable is now a set of tests. Second, why it is better \u2014 a single global fitness sums all goals, so a flat sub-goal can no longer stall the whole search and effort flows where it helps. Name EvoSuite explicitly and stress that minimisation is a *separate post-pass*: evolution maximises coverage, minimisation then trims size without losing it. -->\n\n---\n\n## Tools & foundations\n\nSBST is a mature field with production tools and a clear research lineage.\n\n- **EvoSuite** is the reference implementation of whole-test-suite generation. It generates JUnit test suites for Java classes using exactly the genetic-algorithm-over-suites formulation of the previous slide, and is widely used in both research and practice.\n- **Korel's branch-distance work** (1990) gave the search its gradient: the per-operator distance formulas that turn a true/false predicate into a continuous, minimisable number. Without it there is nothing for a metaheuristic to descend.\n- **McMinn's SBST survey** (2004) is the standard map of the field \u2014 it consolidated the fitness-function design, the metaheuristics, and the open problems into one reference, and named the area \"search-based software testing.\"\n\nThese three together \u2014 a fitness function, a metaheuristic, and a whole-suite formulation \u2014 are the foundations the companion tool makes interactive.\n\n<!-- Use this slide to anchor the abstractions in real artefacts. EvoSuite is the one students can download and run today, so point at it as proof the section is not theoretical. Korel and McMinn are the historical bookends: Korel supplies the gradient, McMinn supplies the synthesis and the name. The Further Reading slide cites all three, so this is a preview of where to go deeper. -->\n\n---\n\n## Tool demonstration \u2014 GA branch search \xB7 start\n\n<!-- This is the first demo slide. Introduce the three-tab section here: /section-sbst has GA Branch Search (one branch goal, GA vs. random baseline), Metaheuristic Comparison (random vs. hill climbing vs. GA on one goal), and Whole-Suite Evolution (suites as individuals, then minimisation). Walk the room through opening /section-sbst and selecting the GA Branch Search tab before advancing. -->\n\nIn `/section-sbst`, open the **GA Branch Search** tab.\n\n![w:1000](./slide-assets/sbst-branch-start-en.png)\n\nGeneration 0: a random initial population, with each individual's fitness cost shown \u2014 approach level plus normalised branch distance toward the nested target branch.\n\n---\n\n## Tool demonstration \u2014 GA branch search \xB7 covered\n\n![w:1000](./slide-assets/sbst-branch-covered-en.png)\n\nAfter running the search to coverage \u2014 an evolved individual reaches **cost 0** and covers the nested target branch, while the random-search baseline lags well behind.\n\n---\n\n## Tool demonstration \u2014 metaheuristic comparison\n\n![w:1000](./slide-assets/sbst-compare-curves-en.png)\n\nThe **Metaheuristic Comparison** tab \u2014 the best-cost curves for random search, hill climbing, and the genetic algorithm overlaid on a single coverage goal, so their convergence rates can be read off directly.\n\n---\n\n## Tool demonstration \u2014 the local-optimum trap\n\n![w:1000](./slide-assets/sbst-compare-stuck-en.png)\n\nOn the multimodal example, **hill climbing settles on a non-covering local optimum** \u2014 its curve flattens above zero \u2014 while the genetic algorithm's population escapes the basin and drives the cost to zero, covering the target.\n\n---\n\n## Tool demonstration \u2014 whole-suite \xB7 start\n\n![w:1000](./slide-assets/sbst-suite-start-en.png)\n\nThe **Whole-Suite Evolution** tab \u2014 an early generation where each individual is an entire test suite, and total branch coverage across the program is still low.\n\n---\n\n## Tool demonstration \u2014 whole-suite \xB7 covered\n\n![w:1000](./slide-assets/sbst-suite-covered-en.png)\n\nAfter evolution \u2014 the suite reaches **full branch coverage**, the summed branch distance across all goals having been driven to zero.\n\n---\n\n## Tool demonstration \u2014 whole-suite \xB7 minimised\n\n![w:1000](./slide-assets/sbst-suite-minimised-en.png)\n\nThe **minimisation** pass drops redundant tests \u2014 those covering nothing the rest of the suite does not already cover \u2014 leaving a small suite that keeps full coverage.\n\n---\n\n## Summary\n\n- **SBST reframes test generation as optimisation**: fix a coverage goal, treat the input space as a search space, and hand it to a metaheuristic that minimises a fitness function \u2014 rather than enumerating coverage requirements (deck #12).\n- A coverage signal alone is a flat function with no gradient; the **fitness function** supplies the slope, and the convention is *lower is closer, 0 means covered*.\n- **Fitness = approach level + normalised branch distance**: approach level is the integer count of enclosing decisions still diverged from; branch distance is the per-operator Korel/Tracey measure of how close the failing predicate was to flipping, normalised into `[0, 1)`.\n- The **three metaheuristics**: random search ignores the gradient (a baseline), hill climbing follows it from one start (fast but trappable), the genetic algorithm evolves a population with selection, crossover, mutation, and elitism.\n- A hill climber gets stuck in a **local optimum**; the GA escapes because population diversity covers many basins and crossover recombines partial solutions into large jumps.\n- **Whole-test-suite generation** (EvoSuite) makes an individual an entire suite and fitness the total coverage over all goals, then runs a separate **minimisation** pass to trim redundant tests without losing coverage.\n\n**In-class exercise:** for a target branch nested behind two guards, compute the fitness cost (approach level + normalised branch distance) of a given input, then explain why a hill climber starting from it could stall and a genetic algorithm would not.\n\n---\n\n## Further reading\n\n- Course specification \u2014 Search-based testing visualization design ([2026-05-21-search-based-testing-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-05-21-search-based-testing-design.md))\n- McMinn, P. (2004) *Search-Based Software Test Data Generation: A Survey* \u2014 the standard survey of the field; fitness functions, metaheuristics, and open problems.\n- Korel, B. (1990) *Automated Software Test Data Generation* \u2014 introduced the branch-distance formulation that gives the search its gradient.\n- The EvoSuite project \u2014 the reference implementation of whole-test-suite generation for Java.\n- Tool source: [SbstBranchExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/SbstBranchExplorer.js), [SbstCompareExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/SbstCompareExplorer.js), [SbstSuiteExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/SbstSuiteExplorer.js), [searchBasedTesting.js](https://github.com/skhuang/stvisual/blob/main/src/utils/searchBasedTesting.js)\n- Next in series: future decks in the Search-Based Software Testing section.\n",
       "zh": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: \u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #65 \u2014 \u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66\ndescription: \u628A\u6E2C\u8A66\u751F\u6210\u8996\u70BA\u6700\u4F73\u5316\u554F\u984C\u2014\u2014\u5206\u652F\u8DDD\u96E2 + \u903C\u8FD1\u5C64\u7D1A\u7684\u9069\u61C9\u5EA6\u51FD\u5F0F\u3001\u96A8\u6A5F\uFF0F\u722C\u5C71\uFF0F\u57FA\u56E0\u6F14\u7B97\u6CD5\u7B49\u5143\u555F\u767C\u5F0F\uFF0C\u4EE5\u53CA\u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u6F14\u5316\u3002\nlang: zh-TW\n---\n\n# \u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66\n### *\u8B93\u9069\u61C9\u5EA6\u51FD\u5F0F\u53BB\u641C\u5C0B\u6E2C\u8A66*\n\n\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316\u7CFB\u5217 #65 \xB7 \u641C\u5C0B\u5F0F\u6E2C\u8A66\n\u642D\u914D\u5DE5\u5177\uFF1A`/section-sbst` \u2192 \u57FA\u56E0\u6F14\u7B97\u6CD5\u5206\u652F\u641C\u5C0B\uFF08[SbstBranchExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/SbstBranchExplorer.js)\uFF09\xB7 \u5143\u555F\u767C\u5F0F\u6BD4\u8F03\uFF08[SbstCompareExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/SbstCompareExplorer.js)\uFF09\xB7 \u6574\u9AD4\u5957\u4EF6\u6F14\u5316\uFF08[SbstSuiteExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/SbstSuiteExplorer.js)\uFF09\n\n<!-- \u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66\u7AE0\u7BC0\u7684\u7B2C\u4E00\u8B1B\u3002SBST \u628A\u6E2C\u8A66\u751F\u6210\u91CD\u65B0\u6846\u5B9A\u70BA\u4E00\u500B\u6700\u4F73\u5316\u554F\u984C\uFF1A\u5C0D\u8F38\u5165\u7A7A\u9593\u9032\u884C\u5143\u555F\u767C\u5F0F\u641C\u5C0B\uFF0C\u4E26\u7531\u4E00\u500B\u8861\u91CF\u8F38\u5165\u6709\u591A\u63A5\u8FD1\u8986\u84CB\u76EE\u6A19\u7684\u9069\u61C9\u5EA6\u51FD\u5F0F\u4F86\u5F15\u5C0E\u3002\u672C\u8B1B\u6DB5\u84CB\u9069\u61C9\u5EA6\u51FD\u5F0F\uFF08\u5206\u652F\u8DDD\u96E2 + \u903C\u8FD1\u5C64\u7D1A\uFF09\u3001\u96A8\u6A5F\uFF0F\u722C\u5C71\uFF0F\u57FA\u56E0\u6F14\u7B97\u6CD5\u7B49\u5143\u555F\u767C\u5F0F\uFF0C\u4EE5\u53CA\u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u751F\u6210\u3002 -->\n\n---\n\n## \u628A\u6E2C\u8A66\u751F\u6210\u8996\u70BA\u641C\u5C0B\n\n\u672C\u8AB2\u7A0B\u591A\u6578\u5167\u5BB9\u662F\u900F\u904E**\u5217\u8209\u8986\u84CB\u9700\u6C42**\u4F86\u751F\u6210\u6E2C\u8A66\u2014\u2014\u628A\u5206\u652F\u5217\u51FA\u4F86\uFF0C\u518D\u70BA\u6BCF\u4E00\u500B\u627E\u4E00\u500B\u8F38\u5165\u3002\u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66\uFF08SBST\uFF09\u63A1\u53D6\u4E0D\u540C\u7ACB\u5834\uFF1A\u5B83\u628A\u6E2C\u8A66\u751F\u6210\u7576\u6210\u4E00\u500B**\u6700\u4F73\u5316\u554F\u984C**\u3002\n\n\u56FA\u5B9A\u4E00\u500B\u8986\u84CB\u76EE\u6A19\u2014\u2014\u6BD4\u65B9\u8AAA\u67D0\u500B\u7279\u5B9A\u5206\u652F\u3002**\u641C\u5C0B\u7A7A\u9593**\u5C31\u662F\u53D7\u6E2C\u51FD\u5F0F\u6240\u6709\u53EF\u80FD\u8F38\u5165\u5411\u91CF\u7684\u96C6\u5408\u3002\u8986\u84CB\u8A72\u76EE\u6A19\u7684\u8F38\u5165\uFF0C\u5C31\u5750\u843D\u5728\u90A3\u500B\u7A7A\u9593\u4E2D\u7684\u67D0\u8655\u3002SBST \u628A\u641C\u5C0B\u7A7A\u9593\u4EA4\u7D66\u4E00\u500B**\u5143\u555F\u767C\u5F0F**\uFF1A\u4E00\u500B\u6703\u53D6\u6A23\u5019\u9078\u3001\u70BA\u5B83\u5011\u8A55\u5206\u3001\u4E26\u671D\u8F03\u4F73\u8005\u5F15\u5C0E\u7684\u6F14\u7B97\u6CD5\u3002\n\n\u5B83\u8207\u8986\u84CB\u9A45\u52D5\u7684 `testgen` \u7AE0\u7BC0\uFF08\u7B2C #12 \u8B1B\uFF09\u7684\u5C0D\u6BD4\uFF0C\u5728\u65BC\u5DE5\u4F5C\u7684*\u65B9\u5411*\u3002\u5728\u90A3\u88E1\uFF0C\u5F15\u64CE\u5F9E\u7A0B\u5F0F\u7D50\u69CB\u5411\u524D\u63A8\u7406\u51FA\u4E00\u500B\u6E2C\u8A66\u3002\u5728\u9019\u88E1\uFF0C\u5F15\u64CE\u641C\u5C0B\u8F38\u5165\u7A7A\u9593\uFF0C\u4E26\u8B93\u4E00\u500B\u6578\u503C\u5206\u6578\u2014\u2014\u9069\u61C9\u5EA6\u51FD\u5F0F\u2014\u2014\u544A\u8A34\u5B83\u662F\u8D8A\u4F86\u8D8A\u71B1\u9084\u662F\u8D8A\u4F86\u8D8A\u51B7\u3002\n\n<!-- \u9019\u500B\u91CD\u65B0\u6846\u5B9A\u662F\u6574\u500B\u7AE0\u7BC0\u7684\u91CD\u9EDE\uFF1A\u5225\u518D\u5217\u8209\u9700\u6C42\uFF0C\u958B\u59CB\u6700\u4F73\u5316\u3002\u5728\u9ED1\u677F\u4E0A\u628A\u641C\u5C0B\u7A7A\u9593\u756B\u6210\u4E00\u7247\u5730\u666F\uFF0C\u628A\u8986\u84CB\u76EE\u6A19\u756B\u6210\u5176\u4E2D\u7684\u4E00\u584A\u76EE\u6A19\u5340\u57DF\u3002\u5F37\u8ABF SBST \u4E0D\u9700\u8981\u50CF\u7B26\u865F\u57F7\u884C\u90A3\u6A23\u7406\u89E3\u7A0B\u5F0F\u7684\u908F\u8F2F\u2014\u2014\u5B83\u53EA\u9700\u8981*\u57F7\u884C*\u7A0B\u5F0F\u4E26*\u8861\u91CF*\u7D50\u679C\u3002\u9019\u65E2\u662F\u5B83\u7684\u5DE8\u5927\u512A\u52E2\uFF08\u5B83\u80FD\u64F4\u5C55\u5230\u7B26\u865F\u57F7\u884C\u5361\u4F4F\u7684\u7A0B\u5F0F\u78BC\uFF09\uFF0C\u4E5F\u662F\u5B83\u7684\u5DE8\u5927\u5F31\u9EDE\uFF08\u6C92\u6709\u68AF\u5EA6\u6642\u5B83\u5C31\u662F\u76F2\u7684\uFF09\u3002\u7B2C #12 \u8B1B\u662F\u81EA\u7136\u7684\u5C0D\u6BD4\uFF1A\u9700\u6C42\u9A45\u52D5 vs. \u641C\u5C0B\u9A45\u52D5\u3002 -->\n\n---\n\n## \u9069\u61C9\u5EA6\u51FD\u5F0F\n\n\u4E00\u500B\u641C\u5C0B\u7684\u597D\u58DE\uFF0C\u53D6\u6C7A\u65BC\u5B83\u7684**\u68AF\u5EA6**\u3002\u5982\u679C\u6BCF\u4E00\u500B\u672A\u8986\u84CB\u7684\u8F38\u5165\u90FD\u5F97\u5230\u76F8\u540C\u5206\u6578\uFF0C\u5143\u555F\u767C\u5F0F\u5C31\u9000\u5316\u6210\u76F2\u76EE\u731C\u6E2C\u3002**\u9069\u61C9\u5EA6\u51FD\u5F0F**\u7684\u5DE5\u4F5C\uFF0C\u5C31\u662F\u7D66\u641C\u5C0B\u4E00\u9053\u53EF\u4EE5\u4E0B\u964D\u7684\u5E73\u6ED1\u659C\u5761\u3002\n\n\u5C0D\u65BC\u55AE\u4E00\u5206\u652F\u76EE\u6A19\uFF0C\u9069\u61C9\u5EA6\u8861\u91CF**\u4E00\u500B\u8F38\u5165\u6709\u591A\u63A5\u8FD1\u8986\u84CB\u90A3\u500B\u5206\u652F**\u3002\u5B83\u7531\u5169\u500B\u76F8\u52A0\u7684\u6210\u5206\u69CB\u6210\uFF1A\n\n- **\u903C\u8FD1\u5C64\u7D1A\uFF08approach level\uFF09**\u2014\u2014\u57F7\u884C\u9084\u9700\u8981\u505A\u5C0D\u591A\u5C11\u500B\u5305\u570D\u5B83\u7684\u6C7A\u7B56\uFF0C\u4EE5\u53CA\n- **\u5206\u652F\u8DDD\u96E2\uFF08branch distance\uFF09**\u2014\u2014\u5728\u57F7\u884C\u504F\u96E2\u7684\u90A3\u500B\u6C7A\u7B56\u8655\uFF0C\u8FF0\u8A5E\u6709\u591A\u63A5\u8FD1\u7FFB\u5411\u53E6\u4E00\u908A\u3002\n\n\u6163\u4F8B\u662F**\u8D8A\u4F4E\u8D8A\u63A5\u8FD1**\uFF1A\u9069\u61C9\u5EA6\u70BA 0 \u8868\u793A\u8F38\u5165\u8986\u84CB\u4E86\u76EE\u6A19\uFF0C\u6578\u503C\u8D8A\u5927\u8868\u793A\u8D8A\u9060\u3002\u641C\u5C0B\u7684\u4EFB\u52D9\u5C31\u662F\u55AE\u7D14\u5730**\u6700\u5C0F\u5316**\u9019\u500B\u6578\u5B57\u3002\n\n<!-- \u628A\u68AF\u5EA6\u7684\u6982\u5FF5\u6572\u9032\u8166\u4E2D\uFF1A\u55AE\u9760\u8986\u84CB\u2014\u2014\u8986\u84CB\uFF0F\u672A\u8986\u84CB\u2014\u2014\u662F\u4E00\u500B\u6C92\u6709\u659C\u7387\u7684\u5E73\u5766\u51FD\u5F0F\uFF0C\u56E0\u6B64\u53EA\u9760\u8986\u84CB\u5F15\u5C0E\u7684\u641C\u5C0B\u7121\u6CD5\u6539\u5584\u3002\u9069\u61C9\u5EA6\u51FD\u5F0F\u628A\u90A3\u9053\u65B7\u5D16\u8B8A\u6210\u4E00\u9053\u659C\u5761\u3002\u5169\u90E8\u5206\u7684\u7D50\u69CB\uFF08\u903C\u8FD1\u5C64\u7D1A\u8868\u793A*\u7A7F\u904E\u4E86\u591A\u5C11\u5C64\u5DE2\u72C0*\uFF0C\u5206\u652F\u8DDD\u96E2\u8868\u793A*\u6700\u5F8C\u90A3\u500B\u8FF0\u8A5E\u6709\u591A\u63A5\u8FD1*\uFF09\u662F\u6A19\u6E96\u7684 Wegener\uFF0FMcMinn \u516C\u5F0F\uFF0C\u5F8C\u9762\u6BCF\u4E00\u5F35\u6295\u5F71\u7247\u90FD\u4F9D\u8CF4\u5B83\u3002\u5F37\u8ABF\u6700\u5C0F\u5316\u81F3\u96F6\u7684\u6163\u4F8B\uFF0C\u9019\u6A23\u5F8C\u9762\u7684\u6F14\u793A\u66F2\u7DDA\u624D\u8B1B\u5F97\u901A\u3002 -->\n\n---\n\n## \u5206\u652F\u8DDD\u96E2\n\n**\u5206\u652F\u8DDD\u96E2**\u5728\u55AE\u4E00\u6C7A\u7B56\u8655\u554F\uFF1A*\u8FF0\u8A5E\u6709\u591A\u63A5\u8FD1\u63A1\u53D6\u53E6\u4E00\u500B\u7D50\u679C\uFF1F* \u5B83\u628A\u4E00\u500B\u771F\uFF0F\u5047\u7684\u6E2C\u8A66\u8B8A\u6210\u4E00\u500B\u9023\u7E8C\u7684\u6578\u5B57\u3002\n\nKorel\uFF0FTracey \u516C\u5F0F\u70BA\u6BCF\u4E00\u500B\u95DC\u4FC2\u904B\u7B97\u5B50\u7D66\u51FA\u4E00\u689D\u898F\u5247\u3002\u5C0D\u65BC\u4E00\u500B\u9700\u8981\u8B8A\u70BA\u771F\u7684\u8FF0\u8A5E\uFF1A\n\n- `a == b` \u2192 \u8DDD\u96E2 `|a \u2212 b|`\n- `a != b` \u2192 \u82E5 `a \u2260 b` \u8DDD\u96E2 `0`\uFF0C\u5426\u5247\u70BA `K`\n- `a < b` \u2192 \u82E5 `a \u2265 b` \u8DDD\u96E2 `a \u2212 b + K`\uFF0C\u5426\u5247\u70BA `0`\n- `a <= b` \u2192 \u82E5 `a > b` \u8DDD\u96E2 `a \u2212 b`\uFF0C\u5426\u5247\u70BA `0`\n\n\u5176\u4E2D `K` \u662F\u4E00\u500B\u5C0F\u7684\u6B63\u5E38\u6578\uFF0C\u8B93\u4E00\u500B*\u53EA\u5DEE\u4E00\u9EDE\u5C31\u70BA\u5047*\u7684\u8FF0\u8A5E\u4ECD\u5F97\u5230\u5927\u65BC\u96F6\u7684\u5206\u6578\u3002\u5E03\u6797\u9023\u63A5\u8A5E\u6703\u7D44\u5408\uFF1A`&&` \u628A\u904B\u7B97\u5143\u76F8\u52A0\uFF08\u6216\u53D6\u5176\u6700\u5DEE\u8005\uFF09\uFF0C`||` \u53D6\u6700\u5C0F\u503C\u3002\n\n\u539F\u59CB\u8DDD\u96E2\u53EF\u4EE5\u662F\u4EFB\u610F\u5927\u5C0F\uFF0C\u56E0\u6B64\u5728\u8207\u903C\u8FD1\u5C64\u7D1A\u7D50\u5408\u4E4B\u524D\uFF0C\u6703\u7528 `d / (d + 1)` **\u6B63\u898F\u5316**\u5230 `[0, 1)`\u2014\u2014\u8B93\u6BCF\u4E00\u500B\u6C7A\u7B56\u90FD\u5728\u540C\u4E00\u500B\u5C3A\u5EA6\u4E0A\u3002\n\n<!-- \u5728\u9ED1\u677F\u4E0A\u653E\u4E00\u689D\u516C\u5F0F\u4E26\u5E36\u4E00\u500B\u6578\u5B57\u8D70\u904E\u5B83\uFF1A\u5C0D\u65BC a < b\uFF0C\u7576 a = 7\u3001b = 3 \u6642\uFF0C\u8DDD\u96E2\u662F 7 \u2212 3 + K = 4 + K\uFF0C\u800C\u7576 a \u671D 3 \u4E0B\u964D\u6642\u8DDD\u96E2\u671D K \u7E2E\u5C0F\uFF0C\u63A5\u8457\u5728 a < b \u7684\u90A3\u4E00\u523B\u547D\u4E2D 0\u3002\u90A3\u500B\u7E2E\u5C0F\u7684\u6578\u5B57*\u5C31\u662F*\u641C\u5C0B\u6240\u9A0E\u4E58\u7684\u68AF\u5EA6\u3002K \u5E38\u6578\u662F\u5FAE\u5999\u4E4B\u8655\u2014\u2014\u5C11\u4E86\u5B83\uFF0C\u4E00\u500B\u96E2\u7FFB\u8F49\u53EA\u5DEE\u4E00\u6B65\u7684\u8FF0\u8A5E\u6703\u8207\u4E00\u500B\u5DF2\u7FFB\u8F49\u7684\u4E26\u5217\u3002\u6B63\u898F\u5316\u4E4B\u6240\u4EE5\u91CD\u8981\uFF0C\u662F\u56E0\u70BA\u903C\u8FD1\u5C64\u7D1A\u4EE5\u6574\u500B\u6C7A\u7B56\u70BA\u55AE\u4F4D\u8A08\u6578\uFF0C\u6240\u4EE5\u5206\u652F\u8DDD\u96E2\u5FC5\u9808\u88AB\u9650\u5236\u5728 1 \u4EE5\u4E0B\uFF0C\u624D\u6C38\u9060\u4E0D\u6703\u58D3\u904E\u55AE\u7368\u4E00\u500B\u5C64\u7D1A\u3002 -->\n\n---\n\n## \u903C\u8FD1\u5C64\u7D1A\n\n**\u5206\u652F\u8DDD\u96E2**\u53EA\u63CF\u8FF0\u57F7\u884C\u51FA\u932F\u7684*\u90A3\u4E00\u500B*\u6C7A\u7B56\u3002**\u903C\u8FD1\u5C64\u7D1A**\u63CF\u8FF0\u57F7\u884C\u5728\u51FA\u932F\u4E4B\u524D*\u7A7F\u904E\u5DE2\u72C0\u6C7A\u7B56\u6709\u591A\u6DF1*\u3002\n\n\u4E00\u500B\u76EE\u6A19\u5206\u652F\u901A\u5E38\u88AB\u6578\u500B\u5305\u570D\u5B83\u7684\u6C7A\u7B56\u6240\u5B88\u885B\u2014\u2014\u8981\u62B5\u9054\u5B83\uFF0C\u57F7\u884C\u5FC5\u9808\u5728\u6BCF\u4E00\u500B\u5B88\u885B\u8655\u63A1\u53D6\u6B63\u78BA\u7684\u7D50\u679C\u3002\u903C\u8FD1\u5C64\u7D1A\u8A08\u7B97**\u57F7\u884C\u4ECD\u7136\u504F\u96E2\u4E86\u90A3\u4E9B\u5305\u570D\u6C7A\u7B56\u4E2D\u7684\u591A\u5C11\u500B**\uFF1A\u5982\u679C\u5B83\u5728\u6700\u524D\u9762\u7684\u5B88\u885B\u5C31\u63A1\u53D6\u4E86\u932F\u8AA4\u7D50\u679C\uFF0C\u903C\u8FD1\u5C64\u7D1A\u5C31\u9AD8\uFF1B\u5982\u679C\u5B83\u9806\u5229\u901A\u904E\u4E86\u9664\u6700\u5F8C\u4E00\u500B\u4EE5\u5916\u7684\u6BCF\u4E00\u500B\u5B88\u885B\uFF0C\u903C\u8FD1\u5C64\u7D1A\u5C31\u4F4E\u3002\n\n\u5169\u8005\u7D50\u5408\u6210\u4E00\u500B\u6210\u672C\uFF1A\n\n**\u6210\u672C = \u903C\u8FD1\u5C64\u7D1A + \u7B2C\u4E00\u500B\u504F\u96E2\u9EDE\u8655\u7684\u6B63\u898F\u5316\u5206\u652F\u8DDD\u96E2**\n\n\u65BC\u662F\u9032\u5C55\u6709\u5169\u7A2E\u986F\u73FE\u65B9\u5F0F\u3002*\u66F4\u6DF1*\u5730\u9032\u5165\u5DE2\u72C0\uFF0C\u903C\u8FD1\u5C64\u7D1A\u5C31\u964D\u4F4E\u4E00\u6574\u500B\u6574\u6578\u3002\u5728\u4F60\u4ECD\u7136\u5361\u4F4F\u7684\u90A3\u500B\u6C7A\u7B56\u8655*\u66F4\u63A5\u8FD1*\uFF0C\u5206\u652F\u8DDD\u96E2\u90A3\u4E00\u500B\u5206\u6578\u9805\u5C31\u7E2E\u5C0F\u3002\u7121\u8AD6\u54EA\u4E00\u7A2E\uFF0C\u6210\u672C\u90FD\u4E0B\u964D\uFF0C\u641C\u5C0B\u4E5F\u5C31\u6709\u4E86\u4E00\u9053\u53EF\u4EE5\u8DDF\u96A8\u7684\u659C\u5761\u3002\n\n<!-- \u5FC3\u667A\u5716\u50CF\uFF1A\u903C\u8FD1\u5C64\u7D1A\u662F\u68AF\u5EA6\u7C97\u7565\u7684\u6574\u6578\u90E8\u5206\uFF08\u6211\u5361\u5728\u54EA\u4E00\u500B\u5B88\u885B\uFF09\uFF0C\u5206\u652F\u8DDD\u96E2\u662F\u7CBE\u7D30\u7684\u5206\u6578\u90E8\u5206\uFF08\u6211\u96E2\u6E05\u6389\u90A3\u500B\u5B88\u885B\u6709\u591A\u8FD1\uFF09\u3002\u56E0\u70BA\u5206\u652F\u8DDD\u96E2\u88AB\u6B63\u898F\u5316\u5230 1 \u4EE5\u4E0B\uFF0C\u6E05\u6389\u4E00\u6574\u500B\u5B88\u885B\u6C38\u9060\u52DD\u904E\u4EFB\u4F55\u5E45\u5EA6\u7684\u5206\u6578\u9032\u5C55\u2014\u2014\u9019\u500B\u6210\u672C\u5176\u5BE6\u662F\u507D\u88DD\u7684\u5B57\u5178\u5E8F\u3002\u9019\u500B\u8907\u5408\u91CF\u6B63\u662F\u8B93\u6DF1\u5C64\u5DE2\u72C0\u76EE\u6A19\u53EF\u88AB\u641C\u5C0B\u7684\u539F\u56E0\uFF1A\u5C11\u4E86\u903C\u8FD1\u5C64\u7D1A\uFF0C\u6700\u7D42\u5B88\u885B\u4E4B\u5916\u7684\u6BCF\u4E00\u6B21\u5931\u6557\u770B\u8D77\u4F86\u90FD\u540C\u6A23\u7CDF\u3002 -->\n\n---\n\n## \u96A8\u6A5F\u641C\u5C0B \u2014 \u57FA\u6E96\u7DDA\n\n\u6700\u7C21\u55AE\u7684\u5143\u555F\u767C\u5F0F\u662F**\u96A8\u6A5F\u641C\u5C0B**\uFF1A\u5F9E\u641C\u5C0B\u7A7A\u9593\u4E2D\u5747\u52FB\u5730\u53D6\u6A23\u8F38\u5165\uFF0C\u8A55\u4F30\u6BCF\u4E00\u500B\u7684\u9069\u61C9\u5EA6\uFF0C\u4E26\u4FDD\u7559\u81F3\u4ECA\u898B\u904E\u7684\u6700\u4F73\u8005\u3002\n\n\u96A8\u6A5F\u641C\u5C0B\u662F**\u7121\u5F15\u5C0E\u7684**\u3002\u5B83\u8A08\u7B97\u6BCF\u4E00\u500B\u5019\u9078\u7684\u9069\u61C9\u5EA6\uFF0C\u537B\u5F9E\u4E0D*\u4F7F\u7528*\u90A3\u500B\u8A0A\u865F\u4F86\u9078\u64C7\u4E0B\u4E00\u500B\u6A23\u672C\u2014\u2014\u6BCF\u4E00\u6B21\u62BD\u53D6\u90FD\u8207\u4E0A\u4E00\u6B21\u7368\u7ACB\u3002\u5B83\u4E1F\u68C4\u4E86\u9069\u61C9\u5EA6\u51FD\u5F0F\u8F9B\u82E6\u63D0\u4F9B\u7684\u68AF\u5EA6\u3002\n\n\u9019\u4F7F\u5B83\u6210\u70BA\u4E00\u500B\u6709\u7528\u7684**\u57FA\u6E96\u7DDA**\uFF0C\u5076\u723E\u5B83\u81EA\u5DF1\u5C31\u8DB3\u5920\u3002\u5982\u679C\u8986\u84CB\u67D0\u76EE\u6A19\u7684\u8F38\u5165\u4F54\u64DA\u4E86\u641C\u5C0B\u7A7A\u9593\u76F8\u7576\u7684\u4E00\u90E8\u5206\uFF0C\u5C11\u6578\u5E7E\u6B21\u96A8\u6A5F\u62BD\u53D6\u5C31\u6703\u843D\u4E2D\u4E00\u500B\u3002\u4F46\u4E00\u65E6\u76EE\u6A19\u5750\u843D\u5728\u5DE2\u72C0\u5B88\u885B\u4E4B\u5F8C\u2014\u2014\u4F7F\u5F97\u8986\u84CB\u5340\u57DF\u6210\u70BA\u4E00\u689D\u8DA8\u8FD1\u65BC\u96F6\u7684\u7D30\u7E2B\u2014\u2014\u96A8\u6A5F\u641C\u5C0B\u5C31**\u505C\u6EEF**\uFF1A\u9760\u904B\u6C23\u7D46\u4E2D\u90A3\u689D\u7D30\u7E2B\u7684\u6A5F\u7387\u5FAE\u4E0D\u8DB3\u9053\u3002\n\n<!-- \u96A8\u6A5F\u641C\u5C0B\u662F\u6574\u500B\u7AE0\u7BC0\u7684\u5C0D\u7167\u7D44\uFF1A\u4EFB\u4F55\u6709\u5F15\u5C0E\u7684\u5143\u555F\u767C\u5F0F\u90FD\u5FC5\u9808\u52DD\u904E\u5B83\uFF0C\u5426\u5247\u5B83\u5C31\u4E0D\u503C\u5F97\u5B83\u7684\u8907\u96DC\u5EA6\u3002\u628A\u95DC\u9375\u7684\u627F\u8A8D\u8B1B\u660E\u767D\u2014\u2014\u96A8\u6A5F\u641C\u5C0B*\u78BA\u5BE6*\u8A55\u4F30\u9069\u61C9\u5EA6\uFF0C\u5B83\u53EA\u662F\u5728\u53D6\u6A23\u6642\u5FFD\u7565\u5B83\u3002\u8981\u5E36\u8D70\u7684\u91CD\u9EDE\u662F\u70BA\u63A5\u4E0B\u4F86\u5E7E\u5F35\u6295\u5F71\u7247\u92EA\u8A2D\u7684\u5C0D\u6BD4\uFF1A\u5BB9\u6613\u7684\u76EE\u6A19\u6557\u65BC\u96A8\u6A5F\u641C\u5C0B\uFF1B\u5DE2\u72C0\u76EE\u6A19\u9700\u8981\u4E00\u500B\u771F\u6B63\u722C\u4E0A\u68AF\u5EA6\u7684\u641C\u5C0B\u3002 -->\n\n---\n\n## \u722C\u5C71\u6CD5\n\n**\u722C\u5C71\u6CD5**\u662F\u7B2C\u4E00\u500B\u771F\u6B63\u6709\u5F15\u5C0E\u7684\u5143\u555F\u767C\u5F0F\u3002\u5B83\u6311\u4E00\u500B\u8D77\u59CB\u8F38\u5165\uFF0C\u6AA2\u8996\u90A3\u500B\u8F38\u5165\u7684**\u9130\u5C45**\u2014\u2014\u53EA\u5DEE\u4E00\u5C0F\u6B65\u7684\u5019\u9078\u2014\u2014\u8A55\u4F30\u5B83\u5011\u7684\u9069\u61C9\u5EA6\uFF0C\u4E26\u79FB\u52D5\u5230**\u6700\u4F73\u7684\u6539\u5584\u9130\u5C45**\u3002\u5F9E\u65B0\u7684\u9EDE\u91CD\u8907\uFF0C\u76F4\u5230\u6C92\u6709\u4EFB\u4F55\u9130\u5C45\u66F4\u597D\u3002\n\n\u73FE\u5728\u9069\u61C9\u5EA6\u68AF\u5EA6\u771F\u6B63\u6D3E\u4E0A\u7528\u5834\u4E86\uFF1A\u6BCF\u4E00\u6B21\u79FB\u52D5\u90FD\u662F\u5728\u6210\u672C\u4E0A\u523B\u610F\u5411\u4E0B\u8D70\u7684\u4E00\u6B65\uFF0C\u56E0\u6B64\u5728\u5E73\u6ED1\u7684\u9069\u61C9\u5EA6\u5730\u666F\u4E0A\uFF0C\u722C\u5C71\u6CD5\u7684\u6536\u6582\u9060\u5FEB\u65BC\u96A8\u6A5F\u53D6\u6A23\u3002\n\n\u5B83\u7684\u5F31\u9EDE\u662F\u7D50\u69CB\u6027\u7684\u3002\u722C\u5C71\u6CD5\u5F9E\u55AE\u4E00\u8D77\u9EDE\u8DDF\u96A8**\u55AE\u4E00\u8ECC\u8DE1**\u3002\u7576\u90A3\u689D\u8ECC\u8DE1\u62B5\u9054\u4E00\u500B\u6BCF\u4E00\u500B\u9130\u5C45\u90FD\u66F4\u7CDF\u7684\u9EDE\u2014\u2014\u4E00\u500B**\u5C40\u90E8\u6700\u4F73\u89E3**\u2014\u2014\u5B83\u5C31\u505C\u6B62\uFF0C\u5373\u4F7F\u90A3\u500B\u9EDE\u4E26\u4E0D\u8986\u84CB\u76EE\u6A19\u3002\u4E00\u500B\u672A\u8986\u84CB\u7684\u5C40\u90E8\u6700\u4F73\u89E3\u662F\u4E00\u689D\u6B7B\u8DEF\uFF0C\u800C\u5B64\u7368\u7684\u722C\u5C71\u8005\u6C92\u6709\u8FA6\u6CD5\u812B\u96E2\u5B83\u3002\n\n<!-- \u9019\u662F\u672C\u7AE0\u7BC0\u6838\u5FC3\u5F35\u529B\u7684\u7B2C\u4E00\u6B21\u5690\u5473\uFF1A\u6709\u5F15\u5C0E\u7684\u641C\u5C0B\u6BD4\u96A8\u6A5F\u5FEB\u5F97\u591A\uFF0C\u4F46*\u55AE\u4E00*\u6709\u5F15\u5C0E\u7684\u641C\u5C0B\u5F88\u8106\u5F31\u3002\u756B\u4E00\u500B\u6709\u5169\u500B\u5C71\u8C37\u7684\u9069\u61C9\u5EA6\u5730\u666F\u2014\u2014\u722C\u5C71\u8005\u6EFE\u9032\u5B83\u8D77\u9EDE\u4E0A\u65B9\u6240\u5728\u7684\u90A3\u4E00\u500B\u4E26\u5361\u5728\u90A3\u88E1\u3002\u96A8\u6A5F\u91CD\u555F\u7A0D\u5FAE\u88DC\u6551\u9019\u9EDE\uFF0C\u4F46\u771F\u6B63\u7684\u4FEE\u5FA9\u662F\u65CF\u7FA4\uFF0C\u9019\u662F\u4E0B\u4E00\u5F35\u6295\u5F71\u7247\u3002\u4ED4\u7D30\u5B9A\u7FA9\u5C40\u90E8\u6700\u4F73\u89E3\uFF1A\u5B83\u662F\u76F8\u5C0D\u65BC\u9130\u57DF\u7684\u5C40\u90E8\uFF0C\u800C\u975E\u5168\u57DF\u6700\u4F73\u3002 -->\n\n---\n\n## \u57FA\u56E0\u6F14\u7B97\u6CD5\n\n**\u57FA\u56E0\u6F14\u7B97\u6CD5**\uFF08GA\uFF09\u4EE5\u4E00\u6574\u500B\u5019\u9078\u8F38\u5165\u7684**\u65CF\u7FA4**\u53D6\u4EE3\u5B64\u7368\u7684\u722C\u5C71\u8005\uFF0C\u4E26\u5728\u9023\u7E8C\u7684**\u4E16\u4EE3**\u4E2D\u6F14\u5316\u3002\u6BCF\u4E00\u500B\u4E16\u4EE3\u5957\u7528\u56DB\u500B\u904B\u7B97\u5B50\uFF1A\n\n- **\u9078\u64C7\uFF08selection\uFF09**\u2014\u2014\u6311\u9078\u89AA\u4EE3\uFF0C\u504F\u5411\u8F03\u9069\u61C9\u7684\u500B\u9AD4\uFF1B**\u9326\u6A19\u8CFD\u9078\u64C7**\u62BD\u53D6\u4E00\u5C0F\u7D44\u96A8\u6A5F\u500B\u9AD4\u4E26\u4FDD\u7559\u5176\u4E2D\u6700\u4F73\u8005\u3002\n- **\u4EA4\u914D\uFF08crossover\uFF09**\u2014\u2014\u628A\u5169\u500B\u89AA\u4EE3\u7D50\u5408\u6210\u6DF7\u5408\u5176\u8F38\u5165\u503C\u7684\u5B50\u4EE3\uFF0C\u91CD\u7D44\u90E8\u5206\u89E3\u3002\n- **\u7A81\u8B8A\uFF08mutation\uFF09**\u2014\u2014\u96A8\u6A5F\u64FE\u52D5\u67D0\u4E9B\u5B50\u4EE3\u7684\u503C\uFF0C\u6CE8\u5165\u65B0\u9BAE\u7684\u8B8A\u7570\uFF0C\u4F7F\u641C\u5C0B\u80FD\u62B5\u9054\u6C92\u6709\u4EFB\u4F55\u89AA\u4EE3\u6301\u6709\u7684\u8F38\u5165\u3002\n- **\u83C1\u82F1\u4FDD\u7559\uFF08elitism\uFF09**\u2014\u2014\u628A\u6700\u4F73\u500B\u9AD4\u539F\u5C01\u4E0D\u52D5\u5730\u5E36\u9032\u4E0B\u4E00\u500B\u4E16\u4EE3\uFF0C\u4F7F\u6700\u4F73\u9069\u61C9\u5EA6\u6C38\u9060\u4E0D\u6703\u8B8A\u5DEE\u3002\n\n\u7531\u65BC\u4E00\u500B\u65CF\u7FA4\u6301\u6709**\u6563\u4F48\u5728\u641C\u5C0B\u7A7A\u9593\u5404\u8655\u7684\u8A31\u591A\u500B\u9AD4**\uFF0CGA \u540C\u6642\u63A2\u7D22**\u8A31\u591A\u5340\u57DF**\uFF0C\u800C\u975E\u6295\u8EAB\u65BC\u55AE\u4E00\u8ECC\u8DE1\u3002\u90A3\u4EFD\u5EE3\u5EA6\u6B63\u662F\u4E0B\u4E00\u5F35\u6295\u5F71\u7247\u6240\u5EFA\u7ACB\u4E4B\u7269\u3002\n\n<!-- \u628A\u56DB\u500B\u904B\u7B97\u5B50\u7576\u6210\u4E00\u500B\u5FAA\u74B0\u8D70\u904E\uFF1A\u9078\u64C7 \u2192 \u4EA4\u914D \u2192 \u7A81\u8B8A \u2192 \u4FDD\u7559\u83C1\u82F1\uFF0C\u7136\u5F8C\u91CD\u8907\u3002\u9326\u6A19\u8CFD\u9078\u64C7\u662F\u4E3B\u529B\u2014\u2014\u8AAA\u660E\u5B83\u900F\u904E\u9326\u6A19\u8CFD\u5927\u5C0F\u4F86\u8ABF\u6574\u9078\u64C7\u58D3\u529B\u3002\u83C1\u82F1\u4FDD\u7559\u662F\u5B89\u5168\u8B77\u6B04\uFF1A\u5C11\u4E86\u5B83\uFF0C\u4E00\u500B\u597D\u7684\u89E3\u53EF\u80FD\u56E0\u4E00\u6B21\u4E0D\u5E78\u7684\u4EA4\u914D\u800C\u6D41\u5931\u3002\u8981\u7559\u5728\u8033\u908A\u8FF4\u97FF\u7684\u8A5E\u662F\u300C\u540C\u6642\u63A2\u7D22\u8A31\u591A\u5340\u57DF\u300D\u2014\u2014\u90A3\u4EFD\u65CF\u7FA4\u5EE3\u5EA6\u6B63\u662F\u722C\u5C71\u6CD5\u6240\u7F3A\u4E4F\u7684\u6027\u8CEA\uFF0C\u4E5F\u662F GA \u812B\u96E2\u9677\u9631\u7684\u539F\u56E0\u3002 -->\n\n---\n\n## \u812B\u96E2\u5C40\u90E8\u6700\u4F73\u89E3\n\n\u70BA\u4EC0\u9EBC GA \u80FD\u5728\u722C\u5C71\u6CD5\u5361\u4F4F\u4E4B\u8655\u6210\u529F\uFF1F\u5169\u500B\u6A5F\u5236\uFF0C\u90FD\u662F\u6301\u6709\u4E00\u500B**\u65CF\u7FA4**\u7684\u5F8C\u679C\u3002\n\n\u7B2C\u4E00\uFF0C**\u591A\u6A23\u6027**\u3002\u65CF\u7FA4\u6563\u4F48\u5728\u641C\u5C0B\u7A7A\u9593\u5404\u8655\uFF0C\u56E0\u6B64\u4E0D\u540C\u7684\u500B\u9AD4\u5750\u843D\u5728\u9069\u61C9\u5EA6\u5730\u666F\u7684\u4E0D\u540C\u76C6\u5730\u4E2D\u3002\u4E00\u500B\u4E0D\u5E78\u7684\u76C6\u5730\u56F0\u4F4F\u5176\u4E2D\u7684\u500B\u9AD4\u2014\u2014\u4F46\u4E0D\u6703\u56F0\u4F4F\u6574\u500B\u641C\u5C0B\u3002\u7576\u67D0\u4E9B\u500B\u9AD4\u5728\u67D0\u500B\u5C40\u90E8\u6700\u4F73\u89E3\u505C\u6EEF\u6642\uFF0C\u5176\u4ED6\u500B\u9AD4\u4ECD\u5728\u5225\u8655\u4E0B\u964D\u3002\n\n\u7B2C\u4E8C\uFF0C**\u4EA4\u914D\u91CD\u7D44\u90E8\u5206\u89E3**\u3002\u4E00\u500B\u5DE2\u72C0\u76EE\u6A19\u5F80\u5F80\u9700\u8981\u597D\u5E7E\u500B\u8F38\u5165\u503C\u540C\u6642\u6B63\u78BA\u3002\u4E00\u500B\u89AA\u4EE3\u53EF\u80FD\u503C A \u6B63\u78BA\uFF0C\u53E6\u4E00\u500B\u503C B \u6B63\u78BA\uFF1B\u4EA4\u914D\u80FD\u7522\u751F\u4E00\u500B**\u5169\u8005\u7686\u6709**\u7684\u5B50\u4EE3\u2014\u2014\u9019\u662F\u4E00\u6B21\u8DE8\u8D8A\u5730\u666F\u7684\u8DF3\u8E8D\uFF0C\u662F\u4EFB\u4F55\u55AE\u6B65\u9130\u5C45\u79FB\u52D5\u90FD\u505A\u4E0D\u5230\u7684\u3002\n\n\u722C\u5C71\u8005\u5169\u8005\u7686\u7121\uFF1A\u4E00\u500B\u9EDE\u3001\u4E00\u689D\u8ECC\u8DE1\u3001\u53EA\u6709\u5C0F\u6B65\u3002GA \u7684\u65CF\u7FA4\u8207\u4EA4\u914D\uFF0C\u6B63\u662F\u8B93\u5B83\u722C\u51FA\u90A3\u4E9B\u56F0\u4F4F\u5B64\u7368\u722C\u5C71\u8005\u7684\u76C6\u5730\u4E4B\u7269\u3002\n\n<!-- \u9019\u5F35\u6295\u5F71\u7247\u662F\u7B2C 6 \u5230 8 \u5F35\u7684\u56DE\u5831\uFF0C\u4E5F\u662F\u672C\u7AE0\u7BC0\u7684\u6982\u5FF5\u6838\u5FC3\u3002\u628A\u5C0D\u6BD4\u756B\u5F97\u9BAE\u660E\uFF1A\u722C\u5C71\u6CD5\u5931\u6557\u4E0D\u662F\u56E0\u70BA\u5B83\u8ABF\u6821\u4E0D\u4F73\uFF0C\u800C\u662F\u56E0\u70BA*\u4E00\u689D\u7531\u5C0F\u6B65\u69CB\u6210\u7684\u8ECC\u8DE1*\u5728\u7D50\u69CB\u4E0A\u5C31\u7121\u6CD5\u812B\u96E2\u4E00\u500B\u76C6\u5730\u3002GA \u56E0\u5169\u500B\u4E0D\u540C\u7684\u7406\u7531\u812B\u96E2\u2014\u2014\u628A\u5B83\u5011\u5206\u958B\u3002\u4EA4\u914D\u662F\u771F\u6B63\u4EE4\u4EBA\u9A5A\u8A1D\u7684\u90A3\u500B\uFF1A\u5B83\u662F\u4E00\u6B21\u7531\u5169\u500B*\u597D*\u89AA\u4EE3\u69CB\u6210\u7684*\u5927*\u79FB\u52D5\uFF0C\u9019\u6B63\u662F\u5B83\u80FD\u8DE8\u8D8A\u4E00\u9053\u7A81\u8B8A\u5927\u5C0F\u7684\u6B65\u4F10\u8DE8\u4E0D\u904E\u7684\u9069\u61C9\u5EA6\u5C71\u8C37\u7684\u539F\u56E0\u3002\u5143\u555F\u767C\u5F0F\u6BD4\u8F03\u6F14\u793A\u8B93\u9019\u9EDE\u8B8A\u5F97\u53EF\u898B\u3002 -->\n\n---\n\n## \u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u751F\u6210\n\n\u5230\u76EE\u524D\u70BA\u6B62\u7684\u4E00\u5207\uFF0C\u90FD\u662F**\u4E00\u6B21\u671D\u4E00\u500B\u5206\u652F\u76EE\u6A19**\u6700\u4F73\u5316\u3002\u90A3\u6709\u4E00\u500B\u5DF2\u77E5\u7684\u5931\u6548\u6A21\u5F0F\uFF1A\u82B1\u5728\u5BB9\u6613\u76EE\u6A19\u4E0A\u7684\u529F\u592B\u88AB\u6D6A\u8CBB\u4E86\uFF0C\u800C\u4E00\u500B\u9069\u61C9\u5EA6\u5730\u666F\u5E73\u5766\u7684\u76EE\u6A19\uFF0C\u6703\u5728\u641C\u5C0B\u57F7\u8457\u65BC\u5B83\u6642\u6328\u9913\u3002\n\n**\u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u751F\u6210**\u6539\u8B8A\u4E86\u4E00\u500B\u500B\u9AD4*\u662F\u4EC0\u9EBC*\u3002\u4E0D\u518D\u662F\u4E00\u500B\u500B\u9AD4 = \u4E00\u500B\u7784\u6E96\u4E00\u500B\u5206\u652F\u7684\u6E2C\u8A66\uFF0C\u800C\u662F**\u4E00\u500B\u500B\u9AD4 = \u4E00\u6574\u500B\u6E2C\u8A66\u5957\u4EF6**\uFF0C\u800C\u5B83\u7684\u9069\u61C9\u5EA6\u662F**\u540C\u6642\u5C0D\u6240\u6709\u5206\u652F\u76EE\u6A19\u7684\u7E3D\u8986\u84CB**\u2014\u2014\u5C0D\u7A0B\u5F0F\u4E2D\u6BCF\u4E00\u500B\u672A\u8986\u84CB\u76EE\u6A19\u7684\u5206\u652F\u8DDD\u96E2\u7E3D\u548C\u3002\n\nGA \u73FE\u5728\u6F14\u5316\u6574\u500B\u5957\u4EF6\u3002\u6BCF\u4E00\u500B\u5206\u652F\u7684\u8986\u84CB\u4E00\u8D77\u6539\u5584\uFF0C\u641C\u5C0B\u81EA\u7136\u5730\u628A\u529F\u592B\u5F9E\u5DF2\u8986\u84CB\u7684\u76EE\u6A19\u91CD\u65B0\u5206\u914D\u7D66\u4ECD\u958B\u653E\u7684\u76EE\u6A19\u3002\u9019\u5C31\u662F **EvoSuite** \u7684\u516C\u5F0F\u3002\u5B83\u5206\u5169\u500B\u968E\u6BB5\u57F7\u884C\uFF1A\u5148**\u6F14\u5316**\u4E00\u500B\u5957\u4EF6\u671D\u5411\u5B8C\u6574\u8986\u84CB\uFF0C\u518D**\u6700\u5C0F\u5316**\u5B83\u2014\u2014\u4E1F\u6389\u90A3\u4E9B\u8986\u84CB\u4E0D\u4E86\u5957\u4EF6\u5176\u9918\u90E8\u5206\u5C1A\u672A\u8986\u84CB\u4E4B\u7269\u7684\u5197\u9918\u6E2C\u8A66\u3002\n\n<!-- \u9019\u88E1\u6709\u5169\u500B\u6982\u5FF5\u843D\u5730\u3002\u7B2C\u4E00\uFF0C\u300C\u500B\u9AD4\u300D\u7684\u91CD\u65B0\u5B9A\u7FA9\u2014\u2014\u53EA\u770B\u904E\u4E00\u6B21\u4E00\u500B\u76EE\u6A19\u7684 SBST \u7684\u5B78\u751F\u6703\u89BA\u5F97\u9019\u771F\u7684\u4EE4\u4EBA\u9A5A\u8A1D\uFF0C\u6240\u4EE5\u628A\u5B83\u8AAA\u6E05\u695A\uFF1A\u641C\u5C0B\u8B8A\u6578\u73FE\u5728\u662F\u4E00\u7D44\u6E2C\u8A66\u3002\u7B2C\u4E8C\uFF0C\u5B83\u70BA\u4EC0\u9EBC\u66F4\u597D\u2014\u2014\u55AE\u4E00\u7684\u5168\u57DF\u9069\u61C9\u5EA6\u628A\u6240\u6709\u76EE\u6A19\u76F8\u52A0\uFF0C\u56E0\u6B64\u4E00\u500B\u5E73\u5766\u7684\u5B50\u76EE\u6A19\u518D\u4E5F\u7121\u6CD5\u5361\u4F4F\u6574\u500B\u641C\u5C0B\uFF0C\u529F\u592B\u6D41\u5411\u6709\u5E6B\u52A9\u4E4B\u8655\u3002\u660E\u78BA\u9EDE\u540D EvoSuite\uFF0C\u4E26\u5F37\u8ABF\u6700\u5C0F\u5316\u662F\u4E00\u500B*\u7368\u7ACB\u7684\u5F8C\u8655\u7406*\uFF1A\u6F14\u5316\u6700\u5927\u5316\u8986\u84CB\uFF0C\u6700\u5C0F\u5316\u63A5\u8457\u5728\u4E0D\u55AA\u5931\u8986\u84CB\u7684\u524D\u63D0\u4E0B\u4FEE\u526A\u5927\u5C0F\u3002 -->\n\n---\n\n## \u5DE5\u5177\u8207\u57FA\u790E\n\nSBST \u662F\u4E00\u500B\u6210\u719F\u7684\u9818\u57DF\uFF0C\u64C1\u6709\u6B63\u5F0F\u7522\u54C1\u5DE5\u5177\u8207\u6E05\u695A\u7684\u7814\u7A76\u8108\u7D61\u3002\n\n- **EvoSuite** \u662F\u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u751F\u6210\u7684\u53C3\u8003\u5BE6\u4F5C\u3002\u5B83\u4F7F\u7528\u524D\u4E00\u5F35\u6295\u5F71\u7247\u4E2D\u90A3\u5957\u300C\u5C0D\u5957\u4EF6\u505A\u57FA\u56E0\u6F14\u7B97\u6CD5\u300D\u7684\u516C\u5F0F\uFF0C\u70BA Java \u985E\u5225\u751F\u6210 JUnit \u6E2C\u8A66\u5957\u4EF6\uFF0C\u4E26\u5728\u7814\u7A76\u8207\u5BE6\u52D9\u4E2D\u5EE3\u6CDB\u4F7F\u7528\u3002\n- **Korel \u7684\u5206\u652F\u8DDD\u96E2\u5DE5\u4F5C**\uFF081990\uFF09\u7D66\u4E86\u641C\u5C0B\u5B83\u7684\u68AF\u5EA6\uFF1A\u90A3\u4E9B\u628A\u771F\uFF0F\u5047\u8FF0\u8A5E\u8B8A\u6210\u4E00\u500B\u9023\u7E8C\u3001\u53EF\u6700\u5C0F\u5316\u6578\u5B57\u7684\u9010\u904B\u7B97\u5B50\u8DDD\u96E2\u516C\u5F0F\u3002\u5C11\u4E86\u5B83\uFF0C\u5143\u555F\u767C\u5F0F\u5C31\u6C92\u6709\u6771\u897F\u53EF\u4EE5\u4E0B\u964D\u3002\n- **McMinn \u7684 SBST \u7D9C\u8FF0**\uFF082004\uFF09\u662F\u9019\u500B\u9818\u57DF\u7684\u6A19\u6E96\u5730\u5716\u2014\u2014\u5B83\u628A\u9069\u61C9\u5EA6\u51FD\u5F0F\u8A2D\u8A08\u3001\u5143\u555F\u767C\u5F0F\u8207\u958B\u653E\u554F\u984C\u6574\u5408\u6210\u4E00\u4EFD\u53C3\u8003\u6587\u737B\uFF0C\u4E26\u628A\u9019\u500B\u9818\u57DF\u547D\u540D\u70BA\u300C\u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66\u300D\u3002\n\n\u9019\u4E09\u8005\u5408\u8D77\u4F86\u2014\u2014\u4E00\u500B\u9069\u61C9\u5EA6\u51FD\u5F0F\u3001\u4E00\u500B\u5143\u555F\u767C\u5F0F\uFF0C\u4EE5\u53CA\u4E00\u5957\u6574\u9AD4\u5957\u4EF6\u516C\u5F0F\u2014\u2014\u5C31\u662F\u642D\u914D\u5DE5\u5177\u8B93\u5B83\u8B8A\u5F97\u53EF\u4E92\u52D5\u7684\u57FA\u790E\u3002\n\n<!-- \u7528\u9019\u5F35\u6295\u5F71\u7247\u628A\u62BD\u8C61\u6982\u5FF5\u9328\u5B9A\u5728\u771F\u5BE6\u7684\u6210\u54C1\u4E0A\u3002EvoSuite \u662F\u5B78\u751F\u4ECA\u5929\u5C31\u80FD\u4E0B\u8F09\u4E26\u57F7\u884C\u7684\u90A3\u500B\uFF0C\u6240\u4EE5\u628A\u5B83\u6307\u51FA\u4F86\uFF0C\u4F5C\u70BA\u672C\u7AE0\u7BC0\u4E26\u975E\u7406\u8AD6\u7684\u8B49\u660E\u3002Korel \u8207 McMinn \u662F\u6B77\u53F2\u7684\u5169\u7AEF\uFF1AKorel \u63D0\u4F9B\u68AF\u5EA6\uFF0CMcMinn \u63D0\u4F9B\u7D9C\u5408\u8207\u540D\u7A31\u3002\u5EF6\u4F38\u95B1\u8B80\u6295\u5F71\u7247\u5F15\u7528\u4E86\u9019\u4E09\u8005\uFF0C\u6240\u4EE5\u9019\u662F\u4E00\u500B\u6DF1\u5165\u4F55\u8655\u7684\u9810\u544A\u3002 -->\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u57FA\u56E0\u6F14\u7B97\u6CD5\u5206\u652F\u641C\u5C0B \xB7 \u8D77\u9EDE\n\n<!-- \u9019\u662F\u7B2C\u4E00\u5F35\u6F14\u793A\u6295\u5F71\u7247\u3002\u5728\u6B64\u4ECB\u7D39\u9019\u500B\u4E09\u5206\u9801\u7684\u7AE0\u7BC0\uFF1A/section-sbst \u6709\u57FA\u56E0\u6F14\u7B97\u6CD5\u5206\u652F\u641C\u5C0B\uFF08\u4E00\u500B\u5206\u652F\u76EE\u6A19\uFF0CGA vs. \u96A8\u6A5F\u57FA\u6E96\u7DDA\uFF09\u3001\u5143\u555F\u767C\u5F0F\u6BD4\u8F03\uFF08\u96A8\u6A5F vs. \u722C\u5C71\u6CD5 vs. GA \u5728\u4E00\u500B\u76EE\u6A19\u4E0A\uFF09\uFF0C\u4EE5\u53CA\u6574\u9AD4\u5957\u4EF6\u6F14\u5316\uFF08\u5957\u4EF6\u4F5C\u70BA\u500B\u9AD4\uFF0C\u63A5\u8457\u6700\u5C0F\u5316\uFF09\u3002\u5728\u524D\u9032\u4E4B\u524D\uFF0C\u5E36\u5168\u73ED\u958B\u555F /section-sbst \u4E26\u9078\u53D6\u57FA\u56E0\u6F14\u7B97\u6CD5\u5206\u652F\u641C\u5C0B\u5206\u9801\u3002 -->\n\n\u5728 `/section-sbst` \u958B\u555F**\u57FA\u56E0\u6F14\u7B97\u6CD5\u5206\u652F\u641C\u5C0B**\u5206\u9801\u3002\n\n![w:1000](./slide-assets/sbst-branch-start.png)\n\n\u7B2C 0 \u4E16\u4EE3\uFF1A\u4E00\u500B\u96A8\u6A5F\u7684\u521D\u59CB\u65CF\u7FA4\uFF0C\u4E26\u986F\u793A\u6BCF\u4E00\u500B\u500B\u9AD4\u7684\u9069\u61C9\u5EA6\u6210\u672C\u2014\u2014\u671D\u5411\u5DE2\u72C0\u76EE\u6A19\u5206\u652F\u7684\u903C\u8FD1\u5C64\u7D1A\u52A0\u4E0A\u6B63\u898F\u5316\u5206\u652F\u8DDD\u96E2\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u57FA\u56E0\u6F14\u7B97\u6CD5\u5206\u652F\u641C\u5C0B \xB7 \u5DF2\u8986\u84CB\n\n![w:1000](./slide-assets/sbst-branch-covered.png)\n\n\u628A\u641C\u5C0B\u57F7\u884C\u5230\u8986\u84CB\u4E4B\u5F8C\u2014\u2014\u4E00\u500B\u6F14\u5316\u51FA\u7684\u500B\u9AD4\u62B5\u9054**\u6210\u672C 0** \u4E26\u8986\u84CB\u4E86\u5DE2\u72C0\u76EE\u6A19\u5206\u652F\uFF0C\u800C\u96A8\u6A5F\u641C\u5C0B\u57FA\u6E96\u7DDA\u5247\u5927\u5E45\u843D\u5F8C\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u5143\u555F\u767C\u5F0F\u6BD4\u8F03\n\n![w:1000](./slide-assets/sbst-compare-curves.png)\n\n**\u5143\u555F\u767C\u5F0F\u6BD4\u8F03**\u5206\u9801\u2014\u2014\u96A8\u6A5F\u641C\u5C0B\u3001\u722C\u5C71\u6CD5\u8207\u57FA\u56E0\u6F14\u7B97\u6CD5\u7684\u6700\u4F73\u6210\u672C\u66F2\u7DDA\u758A\u5728\u55AE\u4E00\u8986\u84CB\u76EE\u6A19\u4E0A\uFF0C\u65BC\u662F\u5B83\u5011\u7684\u6536\u6582\u901F\u7387\u53EF\u4EE5\u76F4\u63A5\u8B80\u51FA\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u5C40\u90E8\u6700\u4F73\u89E3\u9677\u9631\n\n![w:1000](./slide-assets/sbst-compare-stuck.png)\n\n\u5728\u591A\u5CF0\u7BC4\u4F8B\u4E0A\uFF0C**\u722C\u5C71\u6CD5\u505C\u5728\u4E00\u500B\u672A\u8986\u84CB\u7684\u5C40\u90E8\u6700\u4F73\u89E3**\u2014\u2014\u5B83\u7684\u66F2\u7DDA\u5728\u96F6\u4E4B\u4E0A\u8B8A\u5E73\u2014\u2014\u800C\u57FA\u56E0\u6F14\u7B97\u6CD5\u7684\u65CF\u7FA4\u812B\u96E2\u4E86\u76C6\u5730\uFF0C\u628A\u6210\u672C\u9A45\u81F3\u96F6\uFF0C\u8986\u84CB\u4E86\u76EE\u6A19\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u6574\u9AD4\u5957\u4EF6 \xB7 \u8D77\u9EDE\n\n![w:1000](./slide-assets/sbst-suite-start.png)\n\n**\u6574\u9AD4\u5957\u4EF6\u6F14\u5316**\u5206\u9801\u2014\u2014\u4E00\u500B\u65E9\u671F\u4E16\u4EE3\uFF0C\u5176\u4E2D\u6BCF\u4E00\u500B\u500B\u9AD4\u90FD\u662F\u4E00\u6574\u500B\u6E2C\u8A66\u5957\u4EF6\uFF0C\u800C\u5C0D\u7A0B\u5F0F\u7684\u7E3D\u5206\u652F\u8986\u84CB\u4ECD\u7136\u504F\u4F4E\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u6574\u9AD4\u5957\u4EF6 \xB7 \u5DF2\u8986\u84CB\n\n![w:1000](./slide-assets/sbst-suite-covered.png)\n\n\u6F14\u5316\u4E4B\u5F8C\u2014\u2014\u5957\u4EF6\u62B5\u9054**\u5B8C\u6574\u5206\u652F\u8986\u84CB**\uFF0C\u5C0D\u6240\u6709\u76EE\u6A19\u7684\u5206\u652F\u8DDD\u96E2\u7E3D\u548C\u5DF2\u88AB\u9A45\u81F3\u96F6\u3002\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u6574\u9AD4\u5957\u4EF6 \xB7 \u5DF2\u6700\u5C0F\u5316\n\n![w:1000](./slide-assets/sbst-suite-minimised.png)\n\n**\u6700\u5C0F\u5316**\u8655\u7406\u4E1F\u6389\u4E86\u5197\u9918\u6E2C\u8A66\u2014\u2014\u90A3\u4E9B\u8986\u84CB\u4E0D\u4E86\u5957\u4EF6\u5176\u9918\u90E8\u5206\u5C1A\u672A\u8986\u84CB\u4E4B\u7269\u7684\u6E2C\u8A66\u2014\u2014\u7559\u4E0B\u4E00\u500B\u4FDD\u6709\u5B8C\u6574\u8986\u84CB\u7684\u5C0F\u5957\u4EF6\u3002\n\n---\n\n## \u5C0F\u7D50\n\n- **SBST \u628A\u6E2C\u8A66\u751F\u6210\u91CD\u65B0\u6846\u5B9A\u70BA\u6700\u4F73\u5316**\uFF1A\u56FA\u5B9A\u4E00\u500B\u8986\u84CB\u76EE\u6A19\uFF0C\u628A\u8F38\u5165\u7A7A\u9593\u8996\u70BA\u641C\u5C0B\u7A7A\u9593\uFF0C\u4E26\u4EA4\u7D66\u4E00\u500B\u6700\u5C0F\u5316\u9069\u61C9\u5EA6\u51FD\u5F0F\u7684\u5143\u555F\u767C\u5F0F\u2014\u2014\u800C\u975E\u5217\u8209\u8986\u84CB\u9700\u6C42\uFF08\u7B2C #12 \u8B1B\uFF09\u3002\n- \u55AE\u9760\u8986\u84CB\u8A0A\u865F\u662F\u4E00\u500B\u6C92\u6709\u68AF\u5EA6\u7684\u5E73\u5766\u51FD\u5F0F\uFF1B**\u9069\u61C9\u5EA6\u51FD\u5F0F**\u63D0\u4F9B\u659C\u5761\uFF0C\u6163\u4F8B\u662F*\u8D8A\u4F4E\u8D8A\u63A5\u8FD1\uFF0C0 \u8868\u793A\u5DF2\u8986\u84CB*\u3002\n- **\u9069\u61C9\u5EA6 = \u903C\u8FD1\u5C64\u7D1A + \u6B63\u898F\u5316\u5206\u652F\u8DDD\u96E2**\uFF1A\u903C\u8FD1\u5C64\u7D1A\u662F\u4ECD\u504F\u96E2\u7684\u5305\u570D\u6C7A\u7B56\u7684\u6574\u6578\u8A08\u6578\uFF1B\u5206\u652F\u8DDD\u96E2\u662F\u9010\u904B\u7B97\u5B50\u7684 Korel\uFF0FTracey \u5EA6\u91CF\uFF0C\u8861\u91CF\u5931\u6557\u8FF0\u8A5E\u6709\u591A\u63A5\u8FD1\u7FFB\u8F49\uFF0C\u4E26\u6B63\u898F\u5316\u5230 `[0, 1)`\u3002\n- **\u4E09\u500B\u5143\u555F\u767C\u5F0F**\uFF1A\u96A8\u6A5F\u641C\u5C0B\u5FFD\u7565\u68AF\u5EA6\uFF08\u4E00\u500B\u57FA\u6E96\u7DDA\uFF09\uFF0C\u722C\u5C71\u6CD5\u5F9E\u55AE\u4E00\u8D77\u9EDE\u8DDF\u96A8\u5B83\uFF08\u5FEB\u4F46\u6703\u88AB\u56F0\uFF09\uFF0C\u57FA\u56E0\u6F14\u7B97\u6CD5\u4EE5\u9078\u64C7\u3001\u4EA4\u914D\u3001\u7A81\u8B8A\u8207\u83C1\u82F1\u4FDD\u7559\u6F14\u5316\u4E00\u500B\u65CF\u7FA4\u3002\n- \u722C\u5C71\u8005\u6703\u5361\u5728\u4E00\u500B**\u5C40\u90E8\u6700\u4F73\u89E3**\uFF1BGA \u4E4B\u6240\u4EE5\u80FD\u812B\u96E2\uFF0C\u662F\u56E0\u70BA\u65CF\u7FA4\u591A\u6A23\u6027\u6DB5\u84CB\u8A31\u591A\u76C6\u5730\uFF0C\u4E14\u4EA4\u914D\u628A\u90E8\u5206\u89E3\u91CD\u7D44\u6210\u5927\u8DF3\u8E8D\u3002\n- **\u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u751F\u6210**\uFF08EvoSuite\uFF09\u8B93\u4E00\u500B\u500B\u9AD4\u6210\u70BA\u4E00\u6574\u500B\u5957\u4EF6\u3001\u8B93\u9069\u61C9\u5EA6\u6210\u70BA\u5C0D\u6240\u6709\u76EE\u6A19\u7684\u7E3D\u8986\u84CB\uFF0C\u518D\u57F7\u884C\u4E00\u500B\u7368\u7ACB\u7684**\u6700\u5C0F\u5316**\u8655\u7406\uFF0C\u5728\u4E0D\u55AA\u5931\u8986\u84CB\u7684\u524D\u63D0\u4E0B\u4FEE\u526A\u5197\u9918\u6E2C\u8A66\u3002\n- **\u8AB2\u5802\u7DF4\u7FD2\uFF1A** \u5C0D\u65BC\u4E00\u500B\u5DE2\u72C0\u5728\u5169\u500B\u5B88\u885B\u4E4B\u5F8C\u7684\u76EE\u6A19\u5206\u652F\uFF0C\u8A08\u7B97\u67D0\u500B\u7D66\u5B9A\u8F38\u5165\u7684\u9069\u61C9\u5EA6\u6210\u672C\uFF08\u903C\u8FD1\u5C64\u7D1A + \u6B63\u898F\u5316\u5206\u652F\u8DDD\u96E2\uFF09\uFF0C\u518D\u89E3\u91CB\u70BA\u4EC0\u9EBC\u5F9E\u5B83\u51FA\u767C\u7684\u722C\u5C71\u8005\u53EF\u80FD\u505C\u6EEF\uFF0C\u800C\u57FA\u56E0\u6F14\u7B97\u6CD5\u5247\u4E0D\u6703\u3002\n\n---\n\n## \u5EF6\u4F38\u95B1\u8B80\n\n- \u8AB2\u7A0B\u898F\u683C \u2014\u2014 \u641C\u5C0B\u5F0F\u6E2C\u8A66\u8996\u89BA\u5316\u8A2D\u8A08\uFF08[2026-05-21-search-based-testing-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-05-21-search-based-testing-design.md)\uFF09\n- McMinn, P. (2004)\u300ASearch-Based Software Test Data Generation: A Survey\u300B\u2014\u2014 \u9019\u500B\u9818\u57DF\u7684\u6A19\u6E96\u7D9C\u8FF0\uFF1B\u9069\u61C9\u5EA6\u51FD\u5F0F\u3001\u5143\u555F\u767C\u5F0F\u8207\u958B\u653E\u554F\u984C\u3002\n- Korel, B. (1990)\u300AAutomated Software Test Data Generation\u300B\u2014\u2014 \u5F15\u5165\u4E86\u7D66\u641C\u5C0B\u68AF\u5EA6\u7684\u5206\u652F\u8DDD\u96E2\u516C\u5F0F\u3002\n- EvoSuite \u5C08\u6848 \u2014\u2014 Java \u6574\u9AD4\u6E2C\u8A66\u5957\u4EF6\u751F\u6210\u7684\u53C3\u8003\u5BE6\u4F5C\u3002\n- \u5DE5\u5177\u539F\u59CB\u78BC\uFF1A[SbstBranchExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/SbstBranchExplorer.js)\u3001[SbstCompareExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/SbstCompareExplorer.js)\u3001[SbstSuiteExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/SbstSuiteExplorer.js)\u3001[searchBasedTesting.js](https://github.com/skhuang/stvisual/blob/main/src/utils/searchBasedTesting.js)\n- \u4E0B\u4E00\u8B1B\uFF1A\u641C\u5C0B\u5F0F\u8EDF\u9AD4\u6E2C\u8A66\u7AE0\u7BC0\u7684\u5F8C\u7E8C\u8B1B\u6B21\u3002\n"
+    },
+    {
+      "id": "controllability-observability",
+      "num": 66,
+      "section": "testability",
+      "titleEn": "Software Testing Visualization #66 \u2014 Controllability & Observability",
+      "titleZh": "\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #66 \u2014 \u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u6E2C\u6027",
+      "en": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: Software Testing Visualization #66 \u2014 Controllability & Observability\ndescription: Testability as controllability + observability \u2014 driving the SUT into the state a test needs, seeing the effect it must check, and why observability is a design choice, worked on a turnstile finite-state model.\nlang: en\n---\n\n# Controllability & Observability\n### *Testability = can you drive it, and can you see it?*\n\nSoftware Testing Visualization series #66 \xB7 Testability\nCompanion tool: `?explorer=controllability-observability` \u2192 Controllability & Observability Explorer ([ControllabilityObservabilityExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/ControllabilityObservabilityExplorer.js))\n\n<!-- Opening deck for the Testability section. Testability is classically defined (Freedman; Binder; control-theory roots) as controllability + observability. This deck grounds both halves in one explicit finite-state model \u2014 a coin turnstile \u2014 so every number on screen is reproducible: controllability 3/5, observability 1/5, and a single probe lifting observability to 3/5. The companion explorer is Explorer 1 of the four-part testability family. -->\n\n---\n\n## What makes code testable?\n\nBefore we can generate a test, run it, and trust its verdict, the code has to *let* us. **Testability** is the property that measures how easily it does.\n\nThe classical definition \u2014 from Freedman, from Binder, with roots in control theory \u2014 splits testability into two independent halves:\n\n- **Controllability** \u2014 can a test **drive** the software into the state or input it needs to exercise?\n- **Observability** \u2014 can a test **see** the effect it needs to check?\n\nA test needs *both*. If you cannot steer the code into the situation you want to test, you never reach the behaviour. If you can reach it but cannot observe the result, you cannot tell pass from fail. This deck makes each half concrete on one small model.\n\n<!-- Establish the frame first: testability is not vague \"clean code\" virtue \u2014 it is two measurable, separable capabilities. Controllability is about the *input* side (getting in), observability about the *output* side (reading back out). The whole deck is a two-column argument: one column per half, each grounded in the same turnstile so students see they are orthogonal. Name the lineage \u2014 Freedman, Binder, control theory \u2014 so students know this is a definition, not our invention. -->\n\n---\n\n## The turnstile \u2014 one model, both lessons\n\nWe use a single, deliberately tiny System-Under-Test: a **coin turnstile**, modelled as a deterministic finite-state machine.\n\n| Part | Value |\n| --- | --- |\n| Inputs (the test's levers) | `coin`, `push`, `reset` |\n| States | `LOCKED`, `UNLOCKED`, `PASSED`, `JAMMED`, `MAINT` |\n| Start state | `LOCKED` |\n| Observable output per state | `LOCKED\u2192red`, `UNLOCKED\u2192green`, `PASSED\u2192beep`, `JAMMED\u2192green`, `MAINT\u2192red` |\n\nThe transitions are exactly: `coin` unlocks, `push` when unlocked passes you through, `reset` relocks \u2014 plus a couple of self-loops. Crucially, **no input edge leads into `JAMMED` or `MAINT`**: a jam is a fault, and maintenance needs a physical key the test does not hold.\n\n<!-- Introduce the fixture that every later slide reads from \u2014 it is TURNSTILE_SUT in src/data/testabilityModels.js, one source of truth shared by the explorer and its unit tests. Stress the two deliberately hand-picked gaps: JAMMED and MAINT have no incoming input-driven edge (a controllability trap), and JAMMED shares output 'green' with UNLOCKED (an observability trap). Everything downstream is a consequence of these two design choices in the model. -->\n\n---\n\n## Controllability \u2014 the definition\n\n**Controllability** asks: starting from the initial state, using only the inputs a test can supply, which states can the test **actually reach**?\n\nCompute it by breadth-first search over the transition relation from the start state, following only input-driven edges:\n\n```\nreachable(SUT) = BFS from start over trans      # inputs only\ncontrollability = |reachable| / |states|\n```\n\nAny state the search never reaches is a **controllability gap**: no sequence of test inputs can put the SUT there, so no test can exercise the behaviour that lives in that state. A gap is not a missing test \u2014 it is a state the tests are *structurally unable* to visit.\n\n<!-- This is the exported reachableStates(sut) / controllability(sut) engine. Keep the message crisp: controllability is a reachability question answered by BFS, and its value is a ratio. The teaching payload is the notion of a gap \u2014 an unreachable state is worse than an untested one, because no amount of test-writing effort can cover it until the design changes. Set up the number the next slide reveals. -->\n\n---\n\n## Controllability on the turnstile \u2014 3/5\n\nRun the reachability search from `LOCKED`:\n\n- `LOCKED` \u2014 start\n- `LOCKED --coin--> UNLOCKED`\n- `UNLOCKED --push--> PASSED`\n\nReachable set = **{ LOCKED, UNLOCKED, PASSED }** \u2192 **controllability 3/5 = 60%**.\n\n`JAMMED` and `MAINT` are the **gap**. No input (`coin`/`push`/`reset`) drives the SUT into either: `JAMMED` is entered only by a fault, `MAINT` only by a maintenance key that is not one of the test's inputs. A test suite simply *cannot* place the turnstile in those states \u2014 the \"jam handling\" and \"maintenance\" behaviours are unreachable from the outside.\n\n<!-- Walk the BFS out loud so the 3/5 is earned, not asserted. The two unreachable states are the entire point of the model. Ask the room: how would you make JAMMED controllable? (Add a test-only input edge \u2014 a fault-injection hook \u2014 which is exactly a design-for-testability seam, previewing Explorer 2.) The ratio 3/5 = 60% must match the explorer's readout exactly. -->\n\n---\n\n## Observability \u2014 the definition\n\n**Observability** asks the mirror question: if a fault lands in a given state, can a test **tell** \u2014 does that state produce a distinguishable output?\n\nA state is observable when its output value is **unique** across all states. If two states share an output, an observer looking only at the output cannot tell them apart, so a fault that swaps one for the other is invisible.\n\n```\nobservable(SUT) = states whose output is UNIQUE among all states\nobservability = |observable| / |states|\n```\n\nShared outputs, swallowed errors, and missing return values all collapse distinct internal situations into one external signal \u2014 and every collapse hides a potential fault.\n\n<!-- This is observableStates(sut) / observability(sut). The definition used here is deliberately simple and exact: an output shared by two states makes both unobservable, because the outside world cannot distinguish them. Connect to real code: two error paths that both return null, or both log the same message, are the same failure mode as two states sharing 'green'. Observability is the output side of the coin, orthogonal to controllability. -->\n\n---\n\n## Observability on the turnstile \u2014 1/5\n\nTally the outputs:\n\n| Output | States with it | Unique? |\n| --- | --- | --- |\n| `red` | LOCKED, MAINT | shared |\n| `green` | UNLOCKED, JAMMED | shared |\n| `beep` | PASSED | unique |\n\nOnly **PASSED \u2192 `beep`** is unique \u2192 **observability 1/5 = 20%**.\n\nThe damning case is `green`: **`JAMMED` looks identical to `UNLOCKED`**. From the outside a jammed turnstile and a working, unlocked one emit the same signal \u2014 so a test can never catch a jam by watching the output. The fault is real, but it is invisible.\n\n<!-- The base observability is deliberately dismal (1/5) to make the design-choice slide land hard. The JAMMED/UNLOCKED collision is the concrete lesson: this is the classic \"two failure modes, one output\" bug that survives every test because no assertion can separate them. 1/5 = 20% must match the explorer. Note the asymmetry with controllability: JAMMED is both uncontrollable AND unobservable, which is why real jams slip through. -->\n\n---\n\n## Observability is a design choice\n\nObservability is not fixed by the problem \u2014 it is something the **developer designs in**. Add a distinguishing output and previously-hidden states become visible.\n\nIn the explorer, toggle **\"add a probe\"**: it gives `JAMMED` its own distinct output, `grind`, instead of reusing `green`. Recount:\n\n| Output | States | Unique? |\n| --- | --- | --- |\n| `red` | LOCKED, MAINT | shared |\n| `green` | UNLOCKED | **now unique** |\n| `beep` | PASSED | unique |\n| `grind` | JAMMED | **now unique** |\n\nObservability jumps from **1/5 to 3/5 = 60%** \u2014 one probe fixed *two* states, because separating `JAMMED` also un-shared `UNLOCKED`'s `green`.\n\n<!-- The pivotal slide: observability is a lever, not a fate. A probe is any added return value, log line, status field, or test-only accessor that makes an internal state distinguishable. The double win is worth pausing on: adding one distinct output for JAMMED also rescues UNLOCKED, because green was only ambiguous due to the collision \u2014 so the count goes 1/5 \u2192 3/5, not 1/5 \u2192 2/5. This is exactly the withProbe(sut, 'JAMMED', 'grind') path in the engine; the numbers must match. -->\n\n---\n\n## Worked example \u2014 driving to PASSED\n\nPut both halves together for one concrete test goal: **verify the pass-through behaviour** (state `PASSED`, output `beep`).\n\n- **Controllability**: is `PASSED` reachable? Yes. Shortest drive from `LOCKED`:\n\n  ```\n  coin   \u2192  UNLOCKED\n  push   \u2192  PASSED\n  ```\n\n  Two inputs \u2014 the test's setup sequence writes itself.\n\n- **Observability**: once there, can the test check it? Yes \u2014 `PASSED` emits `beep`, the one unique output, so the assertion `expect(output).toBe('beep')` distinguishes it from every other state.\n\n`PASSED` is fully testable because it is both reachable *and* distinguishable. Contrast `JAMMED`: unreachable by input **and** (before the probe) indistinguishable from `UNLOCKED` \u2014 untestable on both axes.\n\n<!-- Tie the deck together with one end-to-end test-design story. driveTo(sut,'PASSED') = [coin, push] is the exported BFS; that sequence is literally the arrange step of a real test. beep being unique is what makes the assert step possible. The contrast with JAMMED shows the two axes are independent but both required: a state needs controllability to arrange and observability to assert. This is the mental model students should carry into writing real tests. -->\n\n---\n\n## Why both matter for test design\n\nEvery test has an **arrange** step and an **assert** step, and they map exactly onto the two halves:\n\n- **Arrange needs controllability.** The setup drives the SUT into the state under test. An uncontrollable state has no arrange step that reaches it \u2014 the test cannot even begin.\n- **Assert needs observability.** The check reads an output and compares it. An unobservable state has no output that distinguishes pass from fail \u2014 the assertion is meaningless.\n\nSo when a unit is \"hard to test\", ask *which half* is failing. Can't set up the scenario? Controllability \u2014 add a seam or a test-only input. Can't verify the result? Observability \u2014 add a return value, a probe, a status field. Naming the half turns a vague complaint into a concrete design fix.\n\n<!-- The actionable takeaway: the arrange/assert structure of every test is the controllability/observability split in disguise. This gives students a diagnostic: when they hit an untestable unit, decompose the difficulty into the two axes and each axis points at a specific remedy. Preview the rest of the section \u2014 Explorer 2 (seams) is the controllability remedy toolkit, and probes/return values are the observability remedy. -->\n\n---\n\n## Tool demonstration \u2014 controllability mode\n\nOpen the companion explorer at `?explorer=controllability-observability` and stay on the **Controllability** tab.\n\n- Pick a **target state** from the buttons. Choose `PASSED`: the graph highlights the drive path and the readout shows `reached PASSED in 2 steps` with the sequence `coin \xB7 push`.\n- The readout reports **controllability 3/5** and names the gap: `JAMMED, MAINT unreachable`.\n- Now pick `JAMMED`: the readout flips to **unreachable** \u2014 no input sequence drives the SUT there. Reachable nodes are drawn solid; the two gap states are dashed.\n\n<!-- First demo slide. Have the class drive to PASSED and read the coin\xB7push sequence off the screen, then try JAMMED to see the unreachable verdict. The solid-vs-dashed rendering makes the gap visible at a glance. Keep the numbers anchored: 3/5, and the exact drive sequence coin\xB7push. No image asset is bundled for this deck, so this slide narrates the live tool instead. -->\n\n---\n\n## Tool demonstration \u2014 observability mode\n\nSwitch to the **Observability** tab in the same explorer.\n\n- The output list shows each state \u2192 its output, tagged **unique** or **shared**. Only `PASSED \u2192 beep` is unique; the readout reads **observability 1/5**, gap `LOCKED, UNLOCKED, JAMMED, MAINT`.\n- Tick **\"add a probe\"**. `JAMMED` gets its own output `grind`; `UNLOCKED`'s `green` is no longer shared. The readout climbs to **observability 3/5** live.\n- Untick it to watch observability fall back to 1/5 \u2014 the design choice, made and unmade in one click.\n\n<!-- Second demo slide. The probe toggle is the money interaction of the whole deck: students see 1/5 \u2192 3/5 happen in real time and, if watching closely, notice one probe fixed two states. Point out the tag column (unique/shared) so they connect the ratio to the shared-output collisions. Again narrated rather than screenshotted, since this deck ships without image assets. -->\n\n---\n\n## Summary\n\n- **Testability = controllability + observability** \u2014 the classical two-part definition. A test needs both: one to reach the behaviour, one to check it.\n- **Controllability** = can a test drive the SUT into a needed state? Measured by reachability (BFS) from the start over input-driven edges. On the turnstile: reachable **{ LOCKED, UNLOCKED, PASSED } = 3/5**; `JAMMED` and `MAINT` are the gap \u2014 no input reaches them.\n- **Observability** = can a test see the effect? Measured by how many states have a **unique** output. On the turnstile only `PASSED \u2192 beep` is unique, so base observability is **1/5**; `JAMMED` shares `green` with `UNLOCKED`, so a jam is invisible.\n- **Observability is a design choice.** Adding one probe (`JAMMED \u2192 grind`) lifts observability to **3/5**, because distinguishing `JAMMED` also un-shares `UNLOCKED`'s output.\n- **Both map onto every test**: arrange needs controllability, assert needs observability. When a unit is hard to test, name the failing half \u2014 and the remedy follows.\n\n**In-class exercise:** for the turnstile, give the shortest input sequence that drives it to `PASSED` (answer: `coin \xB7 push`), then explain why a fault that lands in `JAMMED` escapes every test before a probe is added, and exactly which two states one `grind` probe makes observable.\n\n---\n\n## Further reading\n\n- Course specification \u2014 Testability visualization design, Explorer 1 ([2026-09-28-testability-visualization-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-09-28-testability-visualization-design.md))\n- Freedman, R. S. (1991) *Testability of Software Components* \u2014 the controllability + observability definition of testability.\n- Binder, R. V. (1994) *Design for Testability in Object-Oriented Systems* \u2014 testability as a design property, with controllability and observability as its axes.\n- Feathers, M. (2004) *Working Effectively with Legacy Code* \u2014 seams: the practical controllability levers (previewed by the next deck).\n- Tool source: [ControllabilityObservabilityExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/ControllabilityObservabilityExplorer.js), [testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js)\n- Next in series: Design-for-Testability Seams (deck #67) \u2014 turning uncontrollable dependencies into substitutable ones.\n",
+      "zh": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: \u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #66 \u2014 \u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u6E2C\u6027\ndescription: \u628A\u53EF\u6E2C\u8A66\u6027\u8996\u70BA\u53EF\u63A7\u5236\u6027 + \u53EF\u89C0\u6E2C\u6027\u2014\u2014\u628A SUT \u9A45\u52D5\u5230\u6E2C\u8A66\u6240\u9700\u7684\u72C0\u614B\u3001\u770B\u898B\u5B83\u5FC5\u9808\u6AA2\u67E5\u7684\u6548\u679C\uFF0C\u4EE5\u53CA\u70BA\u4F55\u53EF\u89C0\u6E2C\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7\uFF0C\u4E26\u4EE5\u65CB\u8F49\u9598\u9580\u6709\u9650\u72C0\u614B\u6A21\u578B\u9010\u6B65\u6F14\u7DF4\u3002\nlang: zh-TW\n---\n\n# \u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u6E2C\u6027\n### *\u53EF\u6E2C\u8A66\u6027 = \u4F60\u9A45\u52D5\u5F97\u4E86\u5B83\u55CE\uFF0C\u4F60\u770B\u5F97\u898B\u5B83\u55CE\uFF1F*\n\n\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316\u7CFB\u5217 #66 \xB7 \u53EF\u6E2C\u8A66\u6027\n\u642D\u914D\u5DE5\u5177\uFF1A`?explorer=controllability-observability` \u2192 \u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u6E2C\u6027\u63A2\u7D22\u5668\uFF08[ControllabilityObservabilityExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/ControllabilityObservabilityExplorer.js)\uFF09\n\n<!-- \u53EF\u6E2C\u8A66\u6027\u7AE0\u7BC0\u7684\u7B2C\u4E00\u8B1B\u3002\u53EF\u6E2C\u8A66\u6027\u7684\u7D93\u5178\u5B9A\u7FA9\uFF08Freedman\uFF1BBinder\uFF1B\u6E90\u65BC\u63A7\u5236\u7406\u8AD6\uFF09\u662F\u53EF\u63A7\u5236\u6027 + \u53EF\u89C0\u6E2C\u6027\u3002\u672C\u8B1B\u628A\u5169\u534A\u90FD\u9328\u5B9A\u5728\u4E00\u500B\u660E\u78BA\u7684\u6709\u9650\u72C0\u614B\u6A21\u578B\u4E0A\u2014\u2014\u4E00\u500B\u6295\u5E63\u65CB\u8F49\u9598\u9580\u2014\u2014\u4F7F\u87A2\u5E55\u4E0A\u6BCF\u4E00\u500B\u6578\u5B57\u90FD\u53EF\u91CD\u73FE\uFF1A\u53EF\u63A7\u5236\u6027 3/5\u3001\u53EF\u89C0\u6E2C\u6027 1/5\uFF0C\u4EE5\u53CA\u4E00\u500B\u63A2\u91DD\u628A\u53EF\u89C0\u6E2C\u6027\u63D0\u5347\u5230 3/5\u3002\u642D\u914D\u7684\u63A2\u7D22\u5668\u662F\u56DB\u90E8\u66F2\u53EF\u6E2C\u8A66\u6027\u5BB6\u65CF\u7684\u7B2C 1 \u500B\u3002 -->\n\n---\n\n## \u662F\u4EC0\u9EBC\u8B93\u7A0B\u5F0F\u78BC\u53EF\u6E2C\u8A66\uFF1F\n\n\u5728\u6211\u5011\u80FD\u5920\u751F\u6210\u4E00\u500B\u6E2C\u8A66\u3001\u57F7\u884C\u5B83\u3001\u4E26\u4FE1\u4EFB\u5B83\u7684\u5224\u5B9A\u4E4B\u524D\uFF0C\u7A0B\u5F0F\u78BC\u5FC5\u9808*\u8B93*\u6211\u5011\u505A\u5F97\u5230\u3002**\u53EF\u6E2C\u8A66\u6027**\u5C31\u662F\u8861\u91CF\u5B83\u505A\u5230\u6709\u591A\u5BB9\u6613\u7684\u6027\u8CEA\u3002\n\n\u7D93\u5178\u7684\u5B9A\u7FA9\u2014\u2014\u4F86\u81EA Freedman\u3001\u4F86\u81EA Binder\uFF0C\u6E90\u982D\u5728\u63A7\u5236\u7406\u8AD6\u2014\u2014\u628A\u53EF\u6E2C\u8A66\u6027\u62C6\u6210\u5169\u500B\u7368\u7ACB\u7684\u4E00\u534A\uFF1A\n\n- **\u53EF\u63A7\u5236\u6027\uFF08controllability\uFF09**\u2014\u2014\u6E2C\u8A66\u80FD\u4E0D\u80FD\u628A\u8EDF\u9AD4**\u9A45\u52D5**\u5230\u5B83\u9700\u8981\u6F14\u7DF4\u7684\u72C0\u614B\u6216\u8F38\u5165\uFF1F\n- **\u53EF\u89C0\u6E2C\u6027\uFF08observability\uFF09**\u2014\u2014\u6E2C\u8A66\u80FD\u4E0D\u80FD**\u770B\u898B**\u5B83\u9700\u8981\u6AA2\u67E5\u7684\u6548\u679C\uFF1F\n\n\u4E00\u500B\u6E2C\u8A66*\u5169\u8005\u90FD\u9700\u8981*\u3002\u5982\u679C\u4F60\u7121\u6CD5\u628A\u7A0B\u5F0F\u78BC\u5C0E\u5411\u4F60\u60F3\u6E2C\u8A66\u7684\u60C5\u5883\uFF0C\u4F60\u5C31\u6C38\u9060\u5230\u4E0D\u4E86\u90A3\u500B\u884C\u70BA\u3002\u5982\u679C\u4F60\u5230\u5F97\u4E86\u537B\u7121\u6CD5\u89C0\u6E2C\u7D50\u679C\uFF0C\u4F60\u5C31\u5206\u4E0D\u51FA\u901A\u904E\u8207\u5931\u6557\u3002\u672C\u8B1B\u5728\u4E00\u500B\u5C0F\u6A21\u578B\u4E0A\u628A\u6BCF\u4E00\u534A\u90FD\u5177\u9AD4\u5316\u3002\n\n<!-- \u5148\u5EFA\u7ACB\u6846\u67B6\uFF1A\u53EF\u6E2C\u8A66\u6027\u4E0D\u662F\u6A21\u7CCA\u7684\u300C\u4E7E\u6DE8\u7A0B\u5F0F\u78BC\u300D\u7F8E\u5FB7\u2014\u2014\u5B83\u662F\u5169\u500B\u53EF\u8861\u91CF\u3001\u53EF\u5206\u96E2\u7684\u80FD\u529B\u3002\u53EF\u63A7\u5236\u6027\u95DC\u4E4E*\u8F38\u5165*\u7AEF\uFF08\u9032\u5F97\u53BB\uFF09\uFF0C\u53EF\u89C0\u6E2C\u6027\u95DC\u4E4E*\u8F38\u51FA*\u7AEF\uFF08\u8B80\u5F97\u56DE\u4F86\uFF09\u3002\u6574\u4EFD\u8B1B\u7FA9\u662F\u4E00\u500B\u5169\u6B04\u7684\u8AD6\u8B49\uFF1A\u4E00\u6B04\u4E00\u534A\uFF0C\u5404\u81EA\u9328\u5B9A\u5728\u540C\u4E00\u500B\u65CB\u8F49\u9598\u9580\u4E0A\uFF0C\u8B93\u5B78\u751F\u770B\u898B\u5B83\u5011\u662F\u6B63\u4EA4\u7684\u3002\u9EDE\u540D\u8108\u7D61\u2014\u2014Freedman\u3001Binder\u3001\u63A7\u5236\u7406\u8AD6\u2014\u2014\u8B93\u5B78\u751F\u77E5\u9053\u9019\u662F\u4E00\u500B\u5B9A\u7FA9\uFF0C\u800C\u975E\u6211\u5011\u7684\u767C\u660E\u3002 -->\n\n---\n\n## \u65CB\u8F49\u9598\u9580 \u2014 \u4E00\u500B\u6A21\u578B\uFF0C\u5169\u500B\u8AB2\u984C\n\n\u6211\u5011\u4F7F\u7528\u4E00\u500B\u523B\u610F\u6975\u5C0F\u7684\u53D7\u6E2C\u7CFB\u7D71\uFF08SUT\uFF09\uFF1A\u4E00\u500B**\u6295\u5E63\u65CB\u8F49\u9598\u9580**\uFF0C\u5EFA\u6A21\u70BA\u4E00\u500B\u78BA\u5B9A\u6027\u6709\u9650\u72C0\u614B\u6A5F\u3002\n\n| \u90E8\u5206 | \u503C |\n| --- | --- |\n| \u8F38\u5165\uFF08\u6E2C\u8A66\u7684\u64CD\u7E31\u687F\uFF09 | `coin`\u3001`push`\u3001`reset` |\n| \u72C0\u614B | `LOCKED`\u3001`UNLOCKED`\u3001`PASSED`\u3001`JAMMED`\u3001`MAINT` |\n| \u8D77\u59CB\u72C0\u614B | `LOCKED` |\n| \u6BCF\u500B\u72C0\u614B\u7684\u53EF\u89C0\u6E2C\u8F38\u51FA | `LOCKED\u2192red`\u3001`UNLOCKED\u2192green`\u3001`PASSED\u2192beep`\u3001`JAMMED\u2192green`\u3001`MAINT\u2192red` |\n\n\u8F49\u79FB\u6070\u597D\u662F\uFF1A`coin` \u89E3\u9396\uFF0C`push` \u5728\u89E3\u9396\u6642\u8B93\u4F60\u901A\u904E\uFF0C`reset` \u91CD\u65B0\u4E0A\u9396\u2014\u2014\u5916\u52A0\u5E7E\u500B\u81EA\u8FF4\u5708\u3002\u95DC\u9375\u662F\uFF0C**\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u908A\u901A\u5F80 `JAMMED` \u6216 `MAINT`**\uFF1A\u5361\u4F4F\u662F\u4E00\u500B\u6545\u969C\uFF0C\u800C\u7DAD\u8B77\u9700\u8981\u4E00\u628A\u6E2C\u8A66\u624B\u4E0A\u6C92\u6709\u7684\u5BE6\u9AD4\u9470\u5319\u3002\n\n<!-- \u4ECB\u7D39\u5F8C\u9762\u6BCF\u5F35\u6295\u5F71\u7247\u90FD\u6703\u8B80\u53D6\u7684\u56FA\u5B9A\u88DD\u7F6E\u2014\u2014\u5B83\u5C31\u662F src/data/testabilityModels.js \u88E1\u7684 TURNSTILE_SUT\uFF0C\u662F\u63A2\u7D22\u5668\u8207\u5176\u55AE\u5143\u6E2C\u8A66\u5171\u7528\u7684\u552F\u4E00\u771F\u76F8\u4F86\u6E90\u3002\u5F37\u8ABF\u5169\u500B\u523B\u610F\u624B\u6311\u7684\u7F3A\u53E3\uFF1AJAMMED \u8207 MAINT \u6C92\u6709\u9032\u5165\u7684\u8F38\u5165\u9A45\u52D5\u908A\uFF08\u53EF\u63A7\u5236\u6027\u9677\u9631\uFF09\uFF0C\u800C JAMMED \u8207 UNLOCKED \u5171\u7528\u8F38\u51FA 'green'\uFF08\u53EF\u89C0\u6E2C\u6027\u9677\u9631\uFF09\u3002\u5F8C\u7E8C\u4E00\u5207\u90FD\u662F\u9019\u5169\u500B\u6A21\u578B\u8A2D\u8A08\u9078\u64C7\u7684\u5F8C\u679C\u3002 -->\n\n---\n\n## \u53EF\u63A7\u5236\u6027 \u2014 \u5B9A\u7FA9\n\n**\u53EF\u63A7\u5236\u6027**\u554F\uFF1A\u5F9E\u521D\u59CB\u72C0\u614B\u51FA\u767C\uFF0C\u53EA\u7528\u6E2C\u8A66\u80FD\u63D0\u4F9B\u7684\u8F38\u5165\uFF0C\u6E2C\u8A66**\u5BE6\u969B\u4E0A\u5230\u5F97\u4E86**\u54EA\u4E9B\u72C0\u614B\uFF1F\n\n\u7528\u5EE3\u5EA6\u512A\u5148\u641C\u5C0B\uFF08BFS\uFF09\u5F9E\u8D77\u59CB\u72C0\u614B\u6CBF\u8457\u8F49\u79FB\u95DC\u4FC2\u8A08\u7B97\u5B83\uFF0C\u53EA\u8DDF\u96A8\u8F38\u5165\u9A45\u52D5\u7684\u908A\uFF1A\n\n```\nreachable(SUT) = \u5F9E start \u6CBF trans \u505A BFS      # \u53EA\u7528\u8F38\u5165\n\u53EF\u63A7\u5236\u6027 = |reachable| / |states|\n```\n\n\u641C\u5C0B\u6C38\u9060\u5230\u4E0D\u4E86\u7684\u4EFB\u4F55\u72C0\u614B\u5C31\u662F\u4E00\u500B**\u53EF\u63A7\u5236\u6027\u7F3A\u53E3**\uFF1A\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165\u5E8F\u5217\u80FD\u628A SUT \u653E\u5230\u90A3\u88E1\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u6F14\u7DF4\u4F4F\u5728\u90A3\u500B\u72C0\u614B\u88E1\u7684\u884C\u70BA\u3002\u7F3A\u53E3\u4E0D\u662F\u4E00\u500B\u6F0F\u6389\u7684\u6E2C\u8A66\u2014\u2014\u5B83\u662F\u4E00\u500B\u6E2C\u8A66\u5728*\u7D50\u69CB\u4E0A\u7121\u6CD5\u9020\u8A2A*\u7684\u72C0\u614B\u3002\n\n<!-- \u9019\u5C31\u662F\u532F\u51FA\u7684 reachableStates(sut) / controllability(sut) \u5F15\u64CE\u3002\u8A0A\u606F\u8981\u4FD0\u843D\uFF1A\u53EF\u63A7\u5236\u6027\u662F\u4E00\u500B\u7531 BFS \u56DE\u7B54\u7684\u53EF\u9054\u6027\u554F\u984C\uFF0C\u5176\u503C\u662F\u4E00\u500B\u6BD4\u7387\u3002\u6559\u5B78\u91CD\u9EDE\u662F\u300C\u7F3A\u53E3\u300D\u7684\u6982\u5FF5\u2014\u2014\u4E00\u500B\u4E0D\u53EF\u9054\u7684\u72C0\u614B\u6BD4\u4E00\u500B\u672A\u6E2C\u8A66\u7684\u72C0\u614B\u66F4\u7CDF\uFF0C\u56E0\u70BA\u5728\u8A2D\u8A08\u6539\u8B8A\u4E4B\u524D\uFF0C\u518D\u591A\u7684\u5BEB\u6E2C\u8A66\u529F\u592B\u90FD\u7121\u6CD5\u8986\u84CB\u5B83\u3002\u70BA\u4E0B\u4E00\u5F35\u8981\u63ED\u66C9\u7684\u6578\u5B57\u92EA\u8DEF\u3002 -->\n\n---\n\n## \u65CB\u8F49\u9598\u9580\u4E0A\u7684\u53EF\u63A7\u5236\u6027 \u2014 3/5\n\n\u5F9E `LOCKED` \u57F7\u884C\u53EF\u9054\u6027\u641C\u5C0B\uFF1A\n\n- `LOCKED` \u2014 \u8D77\u9EDE\n- `LOCKED --coin--> UNLOCKED`\n- `UNLOCKED --push--> PASSED`\n\n\u53EF\u9054\u96C6\u5408 = **{ LOCKED, UNLOCKED, PASSED }** \u2192 **\u53EF\u63A7\u5236\u6027 3/5 = 60%**\u3002\n\n`JAMMED` \u8207 `MAINT` \u5C31\u662F**\u7F3A\u53E3**\u3002\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\uFF08`coin`/`push`/`reset`\uFF09\u80FD\u628A SUT \u9A45\u52D5\u9032\u9019\u5169\u8005\uFF1A`JAMMED` \u53EA\u7531\u6545\u969C\u9032\u5165\uFF0C`MAINT` \u53EA\u7531\u4E00\u628A\u4E0D\u5C6C\u65BC\u6E2C\u8A66\u8F38\u5165\u7684\u7DAD\u8B77\u9470\u5319\u9032\u5165\u3002\u4E00\u500B\u6E2C\u8A66\u5957\u4EF6\u5C31\u662F*\u7121\u6CD5*\u628A\u65CB\u8F49\u9598\u9580\u653E\u5230\u90A3\u4E9B\u72C0\u614B\u2014\u2014\u300C\u5361\u4F4F\u8655\u7406\u300D\u8207\u300C\u7DAD\u8B77\u300D\u884C\u70BA\u5F9E\u5916\u90E8\u662F\u4E0D\u53EF\u9054\u7684\u3002\n\n<!-- \u628A BFS \u5927\u8072\u8D70\u4E00\u904D\uFF0C\u8B93 3/5 \u662F\u6399\u4F86\u7684\u3001\u800C\u975E\u65B7\u8A00\u7684\u3002\u5169\u500B\u4E0D\u53EF\u9054\u72C0\u614B\u6B63\u662F\u9019\u500B\u6A21\u578B\u7684\u91CD\u9EDE\u3002\u554F\u5168\u73ED\uFF1A\u4F60\u6703\u600E\u9EBC\u8B93 JAMMED \u8B8A\u5F97\u53EF\u63A7\u5236\uFF1F\uFF08\u52A0\u4E00\u689D\u53EA\u7D66\u6E2C\u8A66\u7528\u7684\u8F38\u5165\u908A\u2014\u2014\u4E00\u500B\u6545\u969C\u6CE8\u5165\u639B\u9264\u2014\u2014\u9019\u6B63\u662F\u4E00\u500B\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u505A\u7684\u63A5\u7E2B\uFF0C\u9810\u544A\u7B2C 2 \u500B\u63A2\u7D22\u5668\u3002\uFF09\u6BD4\u7387 3/5 = 60% \u5FC5\u9808\u8207\u63A2\u7D22\u5668\u7684\u8B80\u6578\u5B8C\u5168\u4E00\u81F4\u3002 -->\n\n---\n\n## \u53EF\u89C0\u6E2C\u6027 \u2014 \u5B9A\u7FA9\n\n**\u53EF\u89C0\u6E2C\u6027**\u554F\u4E00\u500B\u93E1\u50CF\u7684\u554F\u984C\uFF1A\u5982\u679C\u4E00\u500B\u6545\u969C\u843D\u5728\u67D0\u500B\u72C0\u614B\uFF0C\u6E2C\u8A66**\u5206\u8FA8\u5F97\u51FA\u4F86\u55CE**\u2014\u2014\u90A3\u500B\u72C0\u614B\u662F\u5426\u7522\u751F\u4E00\u500B\u53EF\u5340\u5206\u7684\u8F38\u51FA\uFF1F\n\n\u7576\u4E00\u500B\u72C0\u614B\u7684\u8F38\u51FA\u503C\u5728\u6240\u6709\u72C0\u614B\u4E2D\u662F**\u552F\u4E00**\u7684\uFF0C\u5B83\u5C31\u662F\u53EF\u89C0\u6E2C\u7684\u3002\u5982\u679C\u5169\u500B\u72C0\u614B\u5171\u7528\u4E00\u500B\u8F38\u51FA\uFF0C\u53EA\u770B\u8F38\u51FA\u7684\u89C0\u6E2C\u8005\u5C31\u7121\u6CD5\u5340\u5206\u5B83\u5011\uFF0C\u56E0\u6B64\u4E00\u500B\u628A\u5176\u4E2D\u4E00\u500B\u63DB\u6210\u53E6\u4E00\u500B\u7684\u6545\u969C\u5C31\u662F\u4E0D\u53EF\u898B\u7684\u3002\n\n```\nobservable(SUT) = \u8F38\u51FA\u5728\u6240\u6709\u72C0\u614B\u4E2D\u70BA\u552F\u4E00\u7684\u90A3\u4E9B\u72C0\u614B\n\u53EF\u89C0\u6E2C\u6027 = |observable| / |states|\n```\n\n\u5171\u7528\u7684\u8F38\u51FA\u3001\u88AB\u541E\u6389\u7684\u932F\u8AA4\u3001\u7F3A\u5931\u7684\u56DE\u50B3\u503C\uFF0C\u90FD\u6703\u628A\u4E0D\u540C\u7684\u5167\u90E8\u60C5\u5883\u584C\u7E2E\u6210\u4E00\u500B\u5916\u90E8\u8A0A\u865F\u2014\u2014\u800C\u6BCF\u4E00\u6B21\u584C\u7E2E\u90FD\u85CF\u8D77\u4E00\u500B\u6F5B\u5728\u6545\u969C\u3002\n\n<!-- \u9019\u662F observableStates(sut) / observability(sut)\u3002\u9019\u88E1\u7528\u7684\u5B9A\u7FA9\u523B\u610F\u7C21\u55AE\u800C\u7CBE\u78BA\uFF1A\u4E00\u500B\u88AB\u5169\u500B\u72C0\u614B\u5171\u7528\u7684\u8F38\u51FA\u4F7F\u5169\u8005\u90FD\u4E0D\u53EF\u89C0\u6E2C\uFF0C\u56E0\u70BA\u5916\u754C\u7121\u6CD5\u5340\u5206\u5B83\u5011\u3002\u9023\u7D50\u5230\u771F\u5BE6\u7A0B\u5F0F\u78BC\uFF1A\u5169\u689D\u90FD\u56DE\u50B3 null\u3001\u6216\u90FD\u8A18\u9304\u76F8\u540C\u8A0A\u606F\u7684\u932F\u8AA4\u8DEF\u5F91\uFF0C\u6B63\u662F\u5169\u500B\u72C0\u614B\u5171\u7528 'green' \u7684\u540C\u4E00\u7A2E\u5931\u6548\u6A21\u5F0F\u3002\u53EF\u89C0\u6E2C\u6027\u662F\u786C\u5E63\u7684\u8F38\u51FA\u9762\uFF0C\u8207\u53EF\u63A7\u5236\u6027\u6B63\u4EA4\u3002 -->\n\n---\n\n## \u65CB\u8F49\u9598\u9580\u4E0A\u7684\u53EF\u89C0\u6E2C\u6027 \u2014 1/5\n\n\u6E05\u9EDE\u8F38\u51FA\uFF1A\n\n| \u8F38\u51FA | \u5177\u6B64\u8F38\u51FA\u7684\u72C0\u614B | \u552F\u4E00\uFF1F |\n| --- | --- | --- |\n| `red` | LOCKED\u3001MAINT | \u5171\u7528 |\n| `green` | UNLOCKED\u3001JAMMED | \u5171\u7528 |\n| `beep` | PASSED | \u552F\u4E00 |\n\n\u53EA\u6709 **PASSED \u2192 `beep`** \u662F\u552F\u4E00\u7684 \u2192 **\u53EF\u89C0\u6E2C\u6027 1/5 = 20%**\u3002\n\n\u6700\u8981\u547D\u7684\u6848\u4F8B\u662F `green`\uFF1A**`JAMMED` \u770B\u8D77\u4F86\u8207 `UNLOCKED` \u4E00\u6A21\u4E00\u6A23**\u3002\u5F9E\u5916\u90E8\u770B\uFF0C\u4E00\u500B\u5361\u4F4F\u7684\u65CB\u8F49\u9598\u9580\u8207\u4E00\u500B\u6B63\u5E38\u89E3\u9396\u7684\u9598\u9580\u767C\u51FA\u76F8\u540C\u7684\u8A0A\u865F\u2014\u2014\u56E0\u6B64\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u9760\u770B\u8F38\u51FA\u4F86\u6293\u5230\u5361\u4F4F\u3002\u6545\u969C\u662F\u771F\u7684\uFF0C\u4F46\u5B83\u662F\u4E0D\u53EF\u898B\u7684\u3002\n\n<!-- \u57FA\u790E\u53EF\u89C0\u6E2C\u6027\u523B\u610F\u4F4E\u5230\u4E0D\u884C\uFF081/5\uFF09\uFF0C\u597D\u8B93\u8A2D\u8A08\u9078\u64C7\u90A3\u5F35\u6295\u5F71\u7247\u91CD\u91CD\u843D\u5730\u3002JAMMED/UNLOCKED \u7684\u78B0\u649E\u5C31\u662F\u90A3\u500B\u5177\u9AD4\u8AB2\u984C\uFF1A\u9019\u662F\u7D93\u5178\u7684\u300C\u5169\u7A2E\u5931\u6548\u6A21\u5F0F\u3001\u4E00\u500B\u8F38\u51FA\u300D\u81ED\u87F2\uFF0C\u5B83\u71AC\u904E\u6BCF\u4E00\u500B\u6E2C\u8A66\uFF0C\u56E0\u70BA\u6C92\u6709\u4EFB\u4F55\u65B7\u8A00\u80FD\u628A\u5B83\u5011\u5206\u958B\u30021/5 = 20% \u5FC5\u9808\u8207\u63A2\u7D22\u5668\u4E00\u81F4\u3002\u7559\u610F\u8207\u53EF\u63A7\u5236\u6027\u7684\u4E0D\u5C0D\u7A31\uFF1AJAMMED \u65E2\u4E0D\u53EF\u63A7\u5236*\u53C8*\u4E0D\u53EF\u89C0\u6E2C\uFF0C\u9019\u6B63\u662F\u70BA\u4F55\u771F\u5BE6\u7684\u5361\u4F4F\u6703\u6E9C\u904E\u53BB\u3002 -->\n\n---\n\n## \u53EF\u89C0\u6E2C\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7\n\n\u53EF\u89C0\u6E2C\u6027\u4E0D\u662F\u88AB\u554F\u984C\u56FA\u5B9A\u4F4F\u7684\u2014\u2014\u5B83\u662F\u958B\u767C\u8005**\u8A2D\u8A08\u9032\u53BB**\u7684\u6771\u897F\u3002\u52A0\u4E00\u500B\u53EF\u5340\u5206\u7684\u8F38\u51FA\uFF0C\u5148\u524D\u96B1\u85CF\u7684\u72C0\u614B\u5C31\u8B8A\u5F97\u53EF\u898B\u3002\n\n\u5728\u63A2\u7D22\u5668\u88E1\uFF0C\u5207\u63DB**\u300C\u52A0\u4E00\u500B\u63A2\u91DD\u300D**\uFF1A\u5B83\u7D66 `JAMMED` \u4E00\u500B\u81EA\u5DF1\u7684\u7368\u7279\u8F38\u51FA `grind`\uFF0C\u800C\u975E\u6CBF\u7528 `green`\u3002\u91CD\u65B0\u6E05\u9EDE\uFF1A\n\n| \u8F38\u51FA | \u72C0\u614B | \u552F\u4E00\uFF1F |\n| --- | --- | --- |\n| `red` | LOCKED\u3001MAINT | \u5171\u7528 |\n| `green` | UNLOCKED | **\u73FE\u5728\u552F\u4E00** |\n| `beep` | PASSED | \u552F\u4E00 |\n| `grind` | JAMMED | **\u73FE\u5728\u552F\u4E00** |\n\n\u53EF\u89C0\u6E2C\u6027\u5F9E **1/5 \u8DF3\u5230 3/5 = 60%**\u2014\u2014\u4E00\u500B\u63A2\u91DD\u4FEE\u597D\u4E86*\u5169\u500B*\u72C0\u614B\uFF0C\u56E0\u70BA\u628A `JAMMED` \u5206\u96E2\u51FA\u4F86\uFF0C\u4E5F\u8B93 `UNLOCKED` \u7684 `green` \u4E0D\u518D\u5171\u7528\u3002\n\n<!-- \u6A1E\u7D10\u7684\u4E00\u5F35\uFF1A\u53EF\u89C0\u6E2C\u6027\u662F\u4E00\u6839\u69D3\u687F\uFF0C\u4E0D\u662F\u5BBF\u547D\u3002\u63A2\u91DD\u662F\u4EFB\u4F55\u52A0\u4E0A\u53BB\u7684\u56DE\u50B3\u503C\u3001\u65E5\u8A8C\u884C\u3001\u72C0\u614B\u6B04\u4F4D\u3001\u6216\u53EA\u7D66\u6E2C\u8A66\u7528\u7684\u5B58\u53D6\u5668\uFF0C\u8B93\u4E00\u500B\u5167\u90E8\u72C0\u614B\u8B8A\u5F97\u53EF\u5340\u5206\u3002\u9019\u500B\u96D9\u8D0F\u503C\u5F97\u505C\u4E0B\u4F86\u8B1B\uFF1A\u70BA JAMMED \u52A0\u4E00\u500B\u7368\u7279\u8F38\u51FA\u4E5F\u6551\u56DE\u4E86 UNLOCKED\uFF0C\u56E0\u70BA green \u4E4B\u6240\u4EE5\u6A21\u7A1C\u5169\u53EF\uFF0C\u5C31\u53EA\u662F\u56E0\u70BA\u90A3\u500B\u78B0\u649E\u2014\u2014\u6240\u4EE5\u8A08\u6578\u8D70 1/5 \u2192 3/5\uFF0C\u800C\u975E 1/5 \u2192 2/5\u3002\u9019\u6B63\u662F\u5F15\u64CE\u88E1 withProbe(sut, 'JAMMED', 'grind') \u7684\u8DEF\u5F91\uFF1B\u6578\u5B57\u5FC5\u9808\u4E00\u81F4\u3002 -->\n\n---\n\n## \u9010\u6B65\u6F14\u7DF4 \u2014 \u9A45\u52D5\u5230 PASSED\n\n\u628A\u5169\u534A\u5408\u8D77\u4F86\uFF0C\u91DD\u5C0D\u4E00\u500B\u5177\u9AD4\u7684\u6E2C\u8A66\u76EE\u6A19\uFF1A**\u9A57\u8B49\u901A\u904E\u884C\u70BA**\uFF08\u72C0\u614B `PASSED`\uFF0C\u8F38\u51FA `beep`\uFF09\u3002\n\n- **\u53EF\u63A7\u5236\u6027**\uFF1A`PASSED` \u53EF\u9054\u55CE\uFF1F\u53EF\u4EE5\u3002\u5F9E `LOCKED` \u51FA\u767C\u7684\u6700\u77ED\u9A45\u52D5\uFF1A\n\n  ```\n  coin   \u2192  UNLOCKED\n  push   \u2192  PASSED\n  ```\n\n  \u5169\u500B\u8F38\u5165\u2014\u2014\u6E2C\u8A66\u7684\u8A2D\u5B9A\u5E8F\u5217\u81EA\u5DF1\u5C31\u5BEB\u51FA\u4F86\u4E86\u3002\n\n- **\u53EF\u89C0\u6E2C\u6027**\uFF1A\u5230\u4E86\u90A3\u88E1\u4E4B\u5F8C,\u6E2C\u8A66\u6AA2\u67E5\u5F97\u4E86\u55CE\uFF1F\u53EF\u4EE5\u2014\u2014`PASSED` \u767C\u51FA `beep`\uFF0C\u90A3\u500B\u552F\u4E00\u7684\u8F38\u51FA\uFF0C\u56E0\u6B64\u65B7\u8A00 `expect(output).toBe('beep')` \u628A\u5B83\u8207\u5176\u4ED6\u6BCF\u4E00\u500B\u72C0\u614B\u5340\u5206\u958B\u4F86\u3002\n\n`PASSED` \u5B8C\u5168\u53EF\u6E2C\u8A66\uFF0C\u56E0\u70BA\u5B83\u65E2\u53EF\u9054*\u53C8*\u53EF\u5340\u5206\u3002\u5C0D\u6BD4 `JAMMED`\uFF1A\u9760\u8F38\u5165\u4E0D\u53EF\u9054\uFF0C**\u800C\u4E14**\uFF08\u5728\u52A0\u63A2\u91DD\u4E4B\u524D\uFF09\u8207 `UNLOCKED` \u4E0D\u53EF\u5340\u5206\u2014\u2014\u5728\u5169\u500B\u8EF8\u4E0A\u90FD\u4E0D\u53EF\u6E2C\u8A66\u3002\n\n<!-- \u7528\u4E00\u500B\u7AEF\u5230\u7AEF\u7684\u6E2C\u8A66\u8A2D\u8A08\u6545\u4E8B\u628A\u6574\u4EFD\u8B1B\u7FA9\u7D81\u8D77\u4F86\u3002driveTo(sut,'PASSED') = [coin, push] \u662F\u532F\u51FA\u7684 BFS\uFF1B\u90A3\u500B\u5E8F\u5217\u5C31\u662F\u4E00\u500B\u771F\u5BE6\u6E2C\u8A66\u7684 arrange \u6B65\u9A5F\u3002beep \u662F\u552F\u4E00\u7684,\u6B63\u662F\u8B93 assert \u6B65\u9A5F\u6210\u70BA\u53EF\u80FD\u7684\u539F\u56E0\u3002\u8207 JAMMED \u7684\u5C0D\u6BD4\u986F\u793A\u5169\u500B\u8EF8\u662F\u7368\u7ACB\u7684\u4F46\u7F3A\u4E00\u4E0D\u53EF\uFF1A\u4E00\u500B\u72C0\u614B\u9700\u8981\u53EF\u63A7\u5236\u6027\u4F86 arrange\u3001\u9700\u8981\u53EF\u89C0\u6E2C\u6027\u4F86 assert\u3002\u9019\u662F\u5B78\u751F\u5BEB\u771F\u5BE6\u6E2C\u8A66\u6642\u8A72\u5E36\u8457\u7684\u5FC3\u667A\u6A21\u578B\u3002 -->\n\n---\n\n## \u70BA\u4F55\u5169\u8005\u5C0D\u6E2C\u8A66\u8A2D\u8A08\u90FD\u91CD\u8981\n\n\u6BCF\u4E00\u500B\u6E2C\u8A66\u90FD\u6709\u4E00\u500B **arrange\uFF08\u5B89\u6392\uFF09** \u6B65\u9A5F\u8207\u4E00\u500B **assert\uFF08\u65B7\u8A00\uFF09** \u6B65\u9A5F\uFF0C\u800C\u5B83\u5011\u6070\u597D\u5C0D\u6620\u5230\u5169\u534A\uFF1A\n\n- **Arrange \u9700\u8981\u53EF\u63A7\u5236\u6027\u3002** \u8A2D\u5B9A\u628A SUT \u9A45\u52D5\u5230\u53D7\u6E2C\u72C0\u614B\u3002\u4E00\u500B\u4E0D\u53EF\u63A7\u5236\u7684\u72C0\u614B\u6C92\u6709\u80FD\u5230\u9054\u5B83\u7684 arrange \u6B65\u9A5F\u2014\u2014\u6E2C\u8A66\u6839\u672C\u7121\u5F9E\u958B\u59CB\u3002\n- **Assert \u9700\u8981\u53EF\u89C0\u6E2C\u6027\u3002** \u6AA2\u67E5\u8B80\u53D6\u4E00\u500B\u8F38\u51FA\u4E26\u6BD4\u5C0D\u3002\u4E00\u500B\u4E0D\u53EF\u89C0\u6E2C\u7684\u72C0\u614B\u6C92\u6709\u80FD\u5340\u5206\u901A\u904E\u8207\u5931\u6557\u7684\u8F38\u51FA\u2014\u2014\u65B7\u8A00\u6BEB\u7121\u610F\u7FA9\u3002\n\n\u6240\u4EE5\u7576\u4E00\u500B\u55AE\u5143\u300C\u96E3\u4EE5\u6E2C\u8A66\u300D\u6642\uFF0C\u554F*\u662F\u54EA\u4E00\u534A*\u51FA\u4E86\u554F\u984C\u3002\u5B89\u6392\u4E0D\u4E86\u60C5\u5883\uFF1F\u53EF\u63A7\u5236\u6027\u2014\u2014\u52A0\u4E00\u500B\u63A5\u7E2B\u6216\u4E00\u500B\u53EA\u7D66\u6E2C\u8A66\u7528\u7684\u8F38\u5165\u3002\u9A57\u8B49\u4E0D\u4E86\u7D50\u679C\uFF1F\u53EF\u89C0\u6E2C\u6027\u2014\u2014\u52A0\u4E00\u500B\u56DE\u50B3\u503C\u3001\u4E00\u500B\u63A2\u91DD\u3001\u4E00\u500B\u72C0\u614B\u6B04\u4F4D\u3002\u9EDE\u540D\u90A3\u4E00\u534A\uFF0C\u5C31\u628A\u4E00\u500B\u6A21\u7CCA\u7684\u62B1\u6028\u8B8A\u6210\u4E00\u500B\u5177\u9AD4\u7684\u8A2D\u8A08\u4FEE\u5FA9\u3002\n\n<!-- \u53EF\u884C\u52D5\u7684\u91CD\u9EDE\uFF1A\u6BCF\u4E00\u500B\u6E2C\u8A66\u7684 arrange/assert \u7D50\u69CB\u5C31\u662F\u53EF\u63A7\u5236\u6027/\u53EF\u89C0\u6E2C\u6027\u7684\u5206\u91CE\u5728\u507D\u88DD\u3002\u9019\u7D66\u5B78\u751F\u4E00\u500B\u8A3A\u65B7\u6CD5\uFF1A\u7576\u4ED6\u5011\u649E\u4E0A\u4E00\u500B\u4E0D\u53EF\u6E2C\u8A66\u7684\u55AE\u5143,\u628A\u56F0\u96E3\u5206\u89E3\u6210\u5169\u500B\u8EF8\uFF0C\u6BCF\u500B\u8EF8\u90FD\u6307\u5411\u4E00\u500B\u5177\u9AD4\u7684\u88DC\u6551\u3002\u9810\u544A\u672C\u7AE0\u7BC0\u5176\u9918\u90E8\u5206\u2014\u2014\u7B2C 2 \u500B\u63A2\u7D22\u5668\uFF08\u63A5\u7E2B\uFF09\u662F\u53EF\u63A7\u5236\u6027\u7684\u88DC\u6551\u5DE5\u5177\u7BB1\uFF0C\u800C\u63A2\u91DD\uFF0F\u56DE\u50B3\u503C\u662F\u53EF\u89C0\u6E2C\u6027\u7684\u88DC\u6551\u3002 -->\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u53EF\u63A7\u5236\u6027\u6A21\u5F0F\n\n\u5728 `?explorer=controllability-observability` \u958B\u555F\u642D\u914D\u7684\u63A2\u7D22\u5668\uFF0C\u505C\u5728**\u53EF\u63A7\u5236\u6027**\u5206\u9801\u3002\n\n- \u5F9E\u6309\u9215\u4E2D\u6311\u4E00\u500B**\u76EE\u6A19\u72C0\u614B**\u3002\u9078 `PASSED`\uFF1A\u5716\u9AD8\u4EAE\u9A45\u52D5\u8DEF\u5F91\uFF0C\u8B80\u6578\u986F\u793A `2 \u6B65\u62B5\u9054 PASSED`\uFF0C\u5E8F\u5217\u70BA `coin \xB7 push`\u3002\n- \u8B80\u6578\u56DE\u5831**\u53EF\u63A7\u5236\u6027 3/5**\uFF0C\u4E26\u9EDE\u540D\u7F3A\u53E3\uFF1A`JAMMED\u3001MAINT \u4E0D\u53EF\u9054`\u3002\n- \u73FE\u5728\u6311 `JAMMED`\uFF1A\u8B80\u6578\u7FFB\u6210**\u4E0D\u53EF\u9054**\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u5E8F\u5217\u80FD\u628A SUT \u9A45\u52D5\u5230\u90A3\u88E1\u3002\u53EF\u9054\u7BC0\u9EDE\u756B\u6210\u5BE6\u7DDA\uFF1B\u5169\u500B\u7F3A\u53E3\u72C0\u614B\u756B\u6210\u865B\u7DDA\u3002\n\n<!-- \u7B2C\u4E00\u5F35\u6F14\u793A\u6295\u5F71\u7247\u3002\u8B93\u5168\u73ED\u9A45\u52D5\u5230 PASSED \u4E26\u5F9E\u87A2\u5E55\u8B80\u51FA coin\xB7push \u5E8F\u5217\uFF0C\u518D\u8A66 JAMMED \u770B\u4E0D\u53EF\u9054\u7684\u5224\u5B9A\u3002\u5BE6\u7DDA vs \u865B\u7DDA\u7684\u5448\u73FE\u8B93\u7F3A\u53E3\u4E00\u773C\u53EF\u898B\u3002\u628A\u6578\u5B57\u91D8\u7262\uFF1A3/5\uFF0C\u4EE5\u53CA\u78BA\u5207\u7684\u9A45\u52D5\u5E8F\u5217 coin\xB7push\u3002\u672C\u8B1B\u6C92\u6709\u9644\u5E36\u5716\u7247\u7D20\u6750\uFF0C\u56E0\u6B64\u9019\u5F35\u6295\u5F71\u7247\u6539\u70BA\u6558\u8FF0\u73FE\u5834\u7684\u5DE5\u5177\u3002 -->\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u53EF\u89C0\u6E2C\u6027\u6A21\u5F0F\n\n\u5728\u540C\u4E00\u500B\u63A2\u7D22\u5668\u5207\u63DB\u5230**\u53EF\u89C0\u6E2C\u6027**\u5206\u9801\u3002\n\n- \u8F38\u51FA\u6E05\u55AE\u986F\u793A\u6BCF\u500B\u72C0\u614B \u2192 \u5B83\u7684\u8F38\u51FA\uFF0C\u6A19\u8A18\u70BA**\u552F\u4E00**\u6216**\u5171\u7528**\u3002\u53EA\u6709 `PASSED \u2192 beep` \u662F\u552F\u4E00\u7684\uFF1B\u8B80\u6578\u986F\u793A**\u53EF\u89C0\u6E2C\u6027 1/5**\uFF0C\u7F3A\u53E3 `LOCKED\u3001UNLOCKED\u3001JAMMED\u3001MAINT`\u3002\n- \u52FE\u9078**\u300C\u52A0\u4E00\u500B\u63A2\u91DD\u300D**\u3002`JAMMED` \u5F97\u5230\u81EA\u5DF1\u7684\u8F38\u51FA `grind`\uFF1B`UNLOCKED` \u7684 `green` \u4E0D\u518D\u5171\u7528\u3002\u8B80\u6578\u5373\u6642\u6500\u5347\u5230**\u53EF\u89C0\u6E2C\u6027 3/5**\u3002\n- \u53D6\u6D88\u52FE\u9078,\u770B\u53EF\u89C0\u6E2C\u6027\u6389\u56DE 1/5\u2014\u2014\u9019\u500B\u8A2D\u8A08\u9078\u64C7\uFF0C\u4E00\u9375\u4E4B\u9593\u505A\u4E86\u53C8\u6536\u56DE\u3002\n\n<!-- \u7B2C\u4E8C\u5F35\u6F14\u793A\u6295\u5F71\u7247\u3002\u63A2\u91DD\u5207\u63DB\u662F\u6574\u4EFD\u8B1B\u7FA9\u6700\u95DC\u9375\u7684\u4E92\u52D5\uFF1A\u5B78\u751F\u5373\u6642\u770B\u898B 1/5 \u2192 3/5 \u767C\u751F\uFF0C\u82E5\u4ED4\u7D30\u770B,\u9084\u6703\u6CE8\u610F\u5230\u4E00\u500B\u63A2\u91DD\u4FEE\u597D\u4E86\u5169\u500B\u72C0\u614B\u3002\u6307\u51FA\u6A19\u8A18\u6B04\uFF08\u552F\u4E00/\u5171\u7528\uFF09\uFF0C\u8B93\u4ED6\u5011\u628A\u6BD4\u7387\u9023\u5230\u5171\u7528\u8F38\u51FA\u7684\u78B0\u649E\u3002\u540C\u6A23\u662F\u6558\u8FF0\u800C\u975E\u622A\u5716\uFF0C\u56E0\u70BA\u672C\u8B1B\u51FA\u8CA8\u6642\u4E0D\u542B\u5716\u7247\u7D20\u6750\u3002 -->\n\n---\n\n## \u5C0F\u7D50\n\n- **\u53EF\u6E2C\u8A66\u6027 = \u53EF\u63A7\u5236\u6027 + \u53EF\u89C0\u6E2C\u6027**\u2014\u2014\u7D93\u5178\u7684\u5169\u90E8\u5206\u5B9A\u7FA9\u3002\u4E00\u500B\u6E2C\u8A66\u5169\u8005\u90FD\u9700\u8981\uFF1A\u4E00\u500B\u7528\u4F86\u62B5\u9054\u884C\u70BA\uFF0C\u4E00\u500B\u7528\u4F86\u6AA2\u67E5\u5B83\u3002\n- **\u53EF\u63A7\u5236\u6027** = \u6E2C\u8A66\u80FD\u5426\u628A SUT \u9A45\u52D5\u5230\u9700\u8981\u7684\u72C0\u614B\uFF1F\u4EE5\u5F9E\u8D77\u9EDE\u6CBF\u8F38\u5165\u9A45\u52D5\u908A\u7684\u53EF\u9054\u6027\uFF08BFS\uFF09\u8861\u91CF\u3002\u5728\u65CB\u8F49\u9598\u9580\u4E0A\uFF1A\u53EF\u9054 **{ LOCKED, UNLOCKED, PASSED } = 3/5**\uFF1B`JAMMED` \u8207 `MAINT` \u662F\u7F3A\u53E3\u2014\u2014\u6C92\u6709\u8F38\u5165\u5230\u5F97\u4E86\u3002\n- **\u53EF\u89C0\u6E2C\u6027** = \u6E2C\u8A66\u80FD\u5426\u770B\u898B\u6548\u679C\uFF1F\u4EE5\u6709\u591A\u5C11\u72C0\u614B\u5177\u6709**\u552F\u4E00**\u8F38\u51FA\u4F86\u8861\u91CF\u3002\u5728\u65CB\u8F49\u9598\u9580\u4E0A\u53EA\u6709 `PASSED \u2192 beep` \u662F\u552F\u4E00\u7684\uFF0C\u6240\u4EE5\u57FA\u790E\u53EF\u89C0\u6E2C\u6027\u662F **1/5**\uFF1B`JAMMED` \u8207 `UNLOCKED` \u5171\u7528 `green`\uFF0C\u56E0\u6B64\u5361\u4F4F\u662F\u4E0D\u53EF\u898B\u7684\u3002\n- **\u53EF\u89C0\u6E2C\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7\u3002** \u52A0\u4E00\u500B\u63A2\u91DD\uFF08`JAMMED \u2192 grind`\uFF09\u628A\u53EF\u89C0\u6E2C\u6027\u63D0\u5347\u5230 **3/5**\uFF0C\u56E0\u70BA\u5340\u5206 `JAMMED` \u4E5F\u8B93 `UNLOCKED` \u7684\u8F38\u51FA\u4E0D\u518D\u5171\u7528\u3002\n- **\u5169\u8005\u90FD\u5C0D\u6620\u5230\u6BCF\u4E00\u500B\u6E2C\u8A66**\uFF1Aarrange \u9700\u8981\u53EF\u63A7\u5236\u6027\uFF0Cassert \u9700\u8981\u53EF\u89C0\u6E2C\u6027\u3002\u7576\u4E00\u500B\u55AE\u5143\u96E3\u4EE5\u6E2C\u8A66,\u9EDE\u540D\u51FA\u554F\u984C\u7684\u90A3\u4E00\u534A\u2014\u2014\u88DC\u6551\u5C31\u96A8\u4E4B\u800C\u4F86\u3002\n\n**\u8AB2\u5802\u7DF4\u7FD2\uFF1A** \u5C0D\u65BC\u65CB\u8F49\u9598\u9580\uFF0C\u7D66\u51FA\u628A\u5B83\u9A45\u52D5\u5230 `PASSED` \u7684\u6700\u77ED\u8F38\u5165\u5E8F\u5217\uFF08\u7B54\u6848\uFF1A`coin \xB7 push`\uFF09\uFF0C\u518D\u89E3\u91CB\u70BA\u4F55\u4E00\u500B\u843D\u5728 `JAMMED` \u7684\u6545\u969C\u5728\u52A0\u63A2\u91DD\u4E4B\u524D\u6703\u9003\u904E\u6BCF\u4E00\u500B\u6E2C\u8A66\uFF0C\u4EE5\u53CA\u4E00\u500B `grind` \u63A2\u91DD\u7A76\u7ADF\u8B93\u54EA\u5169\u500B\u72C0\u614B\u8B8A\u5F97\u53EF\u89C0\u6E2C\u3002\n\n---\n\n## \u5EF6\u4F38\u95B1\u8B80\n\n- \u8AB2\u7A0B\u898F\u683C \u2014\u2014 \u53EF\u6E2C\u8A66\u6027\u8996\u89BA\u5316\u8A2D\u8A08\uFF0C\u63A2\u7D22\u5668 1\uFF08[2026-09-28-testability-visualization-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-09-28-testability-visualization-design.md)\uFF09\n- Freedman, R. S. (1991)\u300ATestability of Software Components\u300B\u2014\u2014 \u53EF\u6E2C\u8A66\u6027\u7684\u53EF\u63A7\u5236\u6027 + \u53EF\u89C0\u6E2C\u6027\u5B9A\u7FA9\u3002\n- Binder, R. V. (1994)\u300ADesign for Testability in Object-Oriented Systems\u300B\u2014\u2014 \u628A\u53EF\u6E2C\u8A66\u6027\u7576\u6210\u4E00\u500B\u8A2D\u8A08\u6027\u8CEA,\u4EE5\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u6E2C\u6027\u70BA\u5176\u8EF8\u3002\n- Feathers, M. (2004)\u300AWorking Effectively with Legacy Code\u300B\u2014\u2014 \u63A5\u7E2B\uFF1A\u5BE6\u52D9\u4E0A\u7684\u53EF\u63A7\u5236\u6027\u69D3\u687F\uFF08\u7531\u4E0B\u4E00\u8B1B\u9810\u544A\uFF09\u3002\n- \u5DE5\u5177\u539F\u59CB\u78BC\uFF1A[ControllabilityObservabilityExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/ControllabilityObservabilityExplorer.js)\u3001[testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js)\n- \u4E0B\u4E00\u8B1B\uFF1A\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u505A\u7684\u63A5\u7E2B\uFF08\u7B2C #67 \u8B1B\uFF09\u2014\u2014 \u628A\u4E0D\u53EF\u63A7\u5236\u7684\u4F9D\u8CF4\u8B8A\u6210\u53EF\u66FF\u63DB\u7684\u3002\n"
+    },
+    {
+      "id": "testability-seams",
+      "num": 67,
+      "section": "testability",
+      "titleEn": "Software Testing Visualization #67 \u2014 Design-for-Testability Seams",
+      "titleZh": "\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #67 \u2014 \u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u63A5\u7E2B",
+      "en": '---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: Software Testing Visualization #67 \u2014 Design-for-Testability Seams\ndescription: Testability is a design choice \u2014 the four hard-coded dependencies that make charge() untestable, the Feathers object seams that make each one substitutable, and the test double each seam unlocks.\nlang: en\n---\n\n# Design-for-Testability Seams\n\n### *Make every dependency substitutable*\n\nSoftware Testing Visualization series #67 \xB7 Design-for-Testability Seams\nCompanion tool: `?explorer=testability-seams` \u2192 Seams Explorer ([TestabilitySeamsExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilitySeamsExplorer.js))\n\n<!-- Opening deck for the design-for-testability seams unit. The claim is that testability is not luck, it is a design property you can add on purpose. We take one small untestable charge() function, find the four dependencies it pins straight into its body, and remove each one with a Feathers seam. Every fix names the seam type and the test double it unlocks, cross-linking the test-doubles unit rather than re-teaching it. The companion Seams Explorer lets the learner apply each fix and watch the testability meter climb. -->\n\n---\n\n## What makes code untestable\n\nA unit is untestable when a test cannot **control its inputs** or **observe its outputs**. The most common cause is a **hard-coded dependency**: the code reaches out and grabs a collaborator itself, so no test can put a different one in its place.\n\nLook for the tell-tale shapes:\n\n- a **global or singleton** read \u2014 a hidden input the test cannot set,\n- a **`new`** of a concrete collaborator \u2014 a dependency the test cannot swap,\n- a call to the **real clock** \u2014 a value the test cannot pin,\n- a call to the **real RNG** \u2014 a value the test cannot make deterministic.\n\nEach of these **pins** a real dependency into the function body. The behaviour under test is now entangled with the real world, and a unit test has no seam to reach in through.\n\n<!-- Ground the whole deck in the controllability/observability framing from earlier in the section: a hard-coded dependency is a controllability failure \u2014 you cannot feed the unit the input you want. Stress that none of these four are bugs; the code runs correctly. They are *design* choices that happen to make the code hostile to testing. The four shapes here map one-to-one onto the four anti-patterns in the worked snippet on the next slides, so name them precisely. -->\n\n---\n\n## Feathers\' notion of a seam\n\nMichael Feathers (*Working Effectively with Legacy Code*) gives the key vocabulary: a **seam** is a place where you can **change the behaviour of your program without editing in that place** \u2014 you alter it from outside, through the seam.\n\nEvery seam has an **enabling point**: the spot where you choose which behaviour runs. For an **object seam**, the enabling point is a parameter or field \u2014 the caller decides which object to pass in, and the code under test uses whatever it is handed.\n\nThat is the whole design move of this deck: turn each hard-coded dependency into an **object seam**, so a test can hand in a substitute at the enabling point instead of the real thing.\n\n<!-- Define seam carefully \u2014 students conflate it with "refactoring" or "interface". A seam is specifically a point of behavioural substitution *plus* an enabling point that selects the behaviour. Feathers catalogues several kinds (preprocessing seams, link seams, object seams); this deck uses only the object seam, because in a language with parameters and fields it is the cleanest and needs no build-system trickery. The enabling point for an object seam is just "the argument you pass" \u2014 keep it that concrete. -->\n\n---\n\n## The untestable `charge()`\n\n```js\nfunction charge(amount) {\n  const cfg = Config.instance();          // global singleton read\n  const gw  = new PaymentGateway();        // hard-coded new\n  const at  = Date.now();                  // real clock\n  const id  = Math.random().toString(36);  // real RNG\n  return gw.charge(cfg.merchant, amount, at, id);\n}\n```\n\nFour dependencies, four anti-patterns, all pinned into the body. A test that calls `charge(100)` gets the **real** config, the **real** gateway, the **wall-clock** time, and a **random** id \u2014 none of which it chose, and none of which it can check against.\n\nThe testability meter reads **0/4**: nothing here is substitutable yet.\n\n<!-- This is the specimen the rest of the deck operates on \u2014 it is exactly the snippet the Seams Explorer renders (CODE_FRAGMENTS in the component). Walk the four lines and connect each to the anti-pattern shapes from the previous slide. Point out that the function *works* \u2014 it charges the card \u2014 which is why the untestability is easy to miss in review. The 0/4 meter is the explorer\'s testability score = fixes applied / 4; every following slide moves it up by one. -->\n\n---\n\n## Fix 1 \u2014 global singleton Config \u2192 inject config\n\n```js\n// before                              // after\nconst cfg = Config.instance();         function charge(deps, amount) {\n                                       const cfg = deps.config;\n```\n\nThe global read is a **hidden input**: `Config.instance()` reaches into shared state the test never chose. Passing `config` as part of `deps` turns it into an **object seam** \u2014 the test supplies its own config at the enabling point.\n\n- **Seam type:** object seam\n- **Enables (double):** **stub** \u2014 a canned config with the exact values the test wants\n- **Capability unlocked:** *supply a test config without touching globals*\n\nMeter \u2192 **1/4**.\n\n<!-- The stub here is a test double that just returns fixed data \u2014 a config object with a known merchant id. The point is that the test no longer has to mutate global state (which leaks between tests and forces ordering) to set up its scenario. This is the object seam in its simplest form: replace a global lookup with a parameter. Keep the anti-pattern \u2192 seam \u2192 double mapping exact: global read \u2192 object seam \u2192 stub. -->\n\n---\n\n## Fix 2 \u2014 hard-coded `new PaymentGateway()` \u2192 inject collaborator\n\n```js\n// before                              // after\nconst gw = new PaymentGateway();       const gw = deps.gateway;\n```\n\nThe `new` **welds a concrete collaborator** into `charge()`: every test hits the real payment gateway. Injecting the gateway as a collaborator (behind an interface) makes it an **object seam** \u2014 the test hands in whichever gateway it needs.\n\n- **Seam type:** object seam\n- **Enables (double):** **mock** \u2014 a gateway that records the call and can be told to fail\n- **Capability unlocked:** *force the gateway to fail*\n\nMeter \u2192 **2/4**.\n\n<!-- This is the classic "new is glue" problem \u2014 a direct constructor call is the hardest dependency to break because it names a concrete type. Injecting behind an interface is the fix. The double is a *mock* because the interesting tests here are about the *interaction*: was charge() called with the right arguments, and does it handle a gateway failure? A mock verifies the call and can be programmed to throw \u2014 you cannot make the real gateway fail on demand. Mapping: hard-coded new \u2192 object seam \u2192 mock. -->\n\n---\n\n## Fix 3 \u2014 real `Date.now()` \u2192 inject a clock\n\n```js\n// before                    // after\nconst at = Date.now();       const at = deps.clock.now();\n```\n\n`Date.now()` is the **wall clock** \u2014 a fresh value every run, which the test can neither predict nor pin. Injecting a `clock` object makes it an **object seam**: the test passes a clock frozen at a known instant.\n\n- **Seam type:** object seam\n- **Enables (double):** **fake** \u2014 a working clock whose `now()` returns a fixed time\n- **Capability unlocked:** *assert on a fixed timestamp*\n\nMeter \u2192 **3/4**.\n\n<!-- Non-determinism source #1: the clock. A test that reads the real time can never assert an exact timestamp, so it either skips the check or does something fragile like a range assertion. A *fake* clock is a real, working object (not just canned returns) whose behaviour is controllable \u2014 Date pinned to, say, 2026-01-01. Fake is the right double name here because it is a lightweight working implementation, not a recorder. Mapping: real clock \u2192 object seam \u2192 fake. -->\n\n---\n\n## Fix 4 \u2014 real `Math.random()` \u2192 inject a seeded rng\n\n```js\n// before                                  // after\nconst id = Math.random().toString(36);     const id = deps.rng.id();\n```\n\n`Math.random()` is the second **non-determinism source** \u2014 a different id every run, so the test cannot know what `charge()` produced. Injecting a seeded `rng` makes it an **object seam**: the test supplies an rng that yields a known sequence.\n\n- **Seam type:** object seam\n- **Enables (double):** **stub** \u2014 an rng returning a fixed, known id\n- **Capability unlocked:** *make the generated id deterministic*\n\nMeter \u2192 **4/4**.\n\n<!-- Non-determinism source #2: the RNG. Same story as the clock \u2014 randomness in the unit means the test cannot predict the output. A seeded/stubbed rng returns a fixed id, so the generated transaction id is now assertable. Double is a *stub* (canned return value) rather than a mock, because the test only needs the value, not to verify the call. That the clock is a fake and the rng a stub, though both remove non-determinism, is a nice illustration that the double you reach for depends on what the test needs to do. Mapping: real RNG \u2192 object seam \u2192 stub. -->\n\n---\n\n## Seam \u2192 double crosswalk\n\n| Anti-pattern | Seam type | Enables (double) | Capability unlocked |\n| --- | --- | --- | --- |\n| Global singleton `Config` | object seam | **stub** | supply a test config without touching globals |\n| Hard-coded `new PaymentGateway()` | object seam | **mock** | force the gateway to fail |\n| Real clock `Date.now()` | object seam | **fake** | assert on a fixed timestamp |\n| Real `Math.random()` | object seam | **stub** | make the generated id deterministic |\n\nEvery seam is the same *kind* \u2014 an object seam \u2014 but each unlocks a **different test double**, chosen by what that test needs to do. \u2192 *See the matching test double* in the **Test Doubles** unit (deck #27).\n\n<!-- This is the crosswalk table the explorer renders on the right, and the conceptual core of the deck: one seam type, four different doubles. Resist the urge to re-teach stubs/mocks/fakes here \u2014 that is deck #27\'s job, and the explorer deliberately links out rather than re-explaining. The teaching point is the *selection*: a seam gives you the ability to substitute; which double you drop in is a separate decision driven by the assertion you want to make (value \u2192 stub, interaction/failure \u2192 mock, working-but-controlled \u2192 fake). -->\n\n---\n\n## Design-for-testability = substitutable dependencies\n\nThe four fixes are one idea applied four times: **make each dependency substitutable**. That is what design-for-testability *is* \u2014 not writing more tests, but shaping the code so a test can control every input and observe every output.\n\nThe **testability meter** measures exactly this: `score = fixes applied / 4`. It is not a code-quality opinion; it is the fraction of the unit\'s real-world dependencies a test can now replace.\n\nAt **4/4**, `charge()` is a **pure-ish unit**: its config, gateway, clock, and RNG all arrive through `deps`, so a test drives all of them and checks the one line of real logic that remains.\n\n<!-- Land the thesis: testability is a design property, added deliberately, and it is measurable. The meter (testabilityOf \u2192 applied.length / antipatterns.length) is deterministic and unit-tested precisely so the lesson is exact, not a matter of taste. "Pure-ish" is the honest word \u2014 charge() still has one side effect (the gateway call), but every input is now injected, so it behaves like a pure function of deps + amount for the purposes of a test. This is the same move as dependency injection frameworks make, just done by hand and named. -->\n\n---\n\n## Tool demonstration \u2014 the Seams Explorer\n\nOpen the companion tool at `?explorer=testability-seams`.\n\n- The **left column** shows `charge()` as read-only annotated code, one *Apply seam* toggle per pinned dependency, each tagged with its anti-pattern chip.\n- **Apply a seam** and that line rewrites to its injected `deps.\u2026` form, the **Testability** meter climbs, and the unlocked capability appears under *What a test can now do*.\n- The **right column** carries the seam / double crosswalk and a link out to the matching test double.\n- Apply all four and the **capstone** fires: every dependency is now substitutable.\n\nTry reverting one fix and watch the meter and its capability disappear \u2014 testability is reversible, and so is the damage of pinning a dependency back in.\n\n<!-- Drive the explorer live if you can. The narrative arc is 0/4 \u2192 4/4: start with the fully pinned function, apply the fixes one at a time, and read the capability list growing on the right. The revert action is worth demonstrating because it makes the meter\'s meaning concrete \u2014 each toggle is worth exactly one quarter, and un-fixing re-pins the dependency. End on the capstone message so the class sees the "pure-ish unit" payoff stated by the tool itself. -->\n\n---\n\n## Summary\n\n- **Untestable code = hard-coded dependencies.** A global read, a `new`, the real clock, and the real RNG each pin a real-world dependency into the unit, so a test can neither control the input nor observe the output.\n- A **seam** (Feathers) is a place to change behaviour without editing there; an **object seam** does it through a parameter or field \u2014 the enabling point where a test hands in a substitute.\n- The four fixes are all the *same* seam \u2014 an **object seam** \u2014 but each unlocks a *different* **test double**: config \u2192 **stub**, gateway \u2192 **mock**, clock \u2192 **fake**, rng \u2192 **stub**.\n- Each fix unlocks a concrete **capability**: supply a test config without globals, force the gateway to fail, assert a fixed timestamp, make the id deterministic.\n- **Design-for-testability = making dependencies substitutable**; the **testability meter** measures it as *fixes applied / 4*, and 4/4 leaves a pure-ish unit fully under test control.\n\n**In-class exercise:** take a function of your own that calls the clock, a global, or `new`. For each dependency name the seam that would remove it and the test double it would enable, then write the one assertion that becomes possible once you do.\n\n---\n\n## Further reading\n\n- Course specification \u2014 Testability visualization design ([2026-09-28-testability-visualization-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-09-28-testability-visualization-design.md))\n- Feathers, M. (2004) *Working Effectively with Legacy Code* \u2014 the source of the seam / enabling-point vocabulary and the object seam used throughout this deck.\n- Companion unit \u2014 **Test Doubles** (deck #27): stubs, mocks, fakes, and when to reach for each \u2014 the doubles this deck\'s seams unlock.\n- Tool source: [TestabilitySeamsExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilitySeamsExplorer.js), fixtures in [testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js) (`SEAM_SNIPPET`).\n- Next in series: **Testability Metrics** and the **Testability Scorecard** \u2014 measuring structural hardness and aggregating the testability signals.\n',
+      "zh": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: \u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #67 \u2014 \u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u63A5\u7E2B\ndescription: \u53EF\u6E2C\u8A66\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7\u2014\u2014\u8B93 charge() \u7121\u6CD5\u88AB\u6E2C\u8A66\u7684\u56DB\u500B\u5BEB\u6B7B\u76F8\u4F9D\u3001\u628A\u6BCF\u4E00\u500B\u8B8A\u6210\u53EF\u66FF\u63DB\u7684 Feathers \u7269\u4EF6\u63A5\u7E2B\uFF0C\u4EE5\u53CA\u6BCF\u9053\u63A5\u7E2B\u6240\u89E3\u9396\u7684\u6E2C\u8A66\u66FF\u8EAB\u3002\nlang: zh-TW\n---\n\n# \u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u63A5\u7E2B\n\n### *\u8B93\u6BCF\u4E00\u500B\u76F8\u4F9D\u90FD\u53EF\u88AB\u66FF\u63DB*\n\n\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316\u7CFB\u5217 #67 \xB7 \u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u63A5\u7E2B\n\u642D\u914D\u5DE5\u5177\uFF1A`?explorer=testability-seams` \u2192 \u63A5\u7E2B\u63A2\u7D22\u5668\uFF08[TestabilitySeamsExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilitySeamsExplorer.js)\uFF09\n\n<!-- \u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u63A5\u7E2B\u55AE\u5143\u7B2C\u4E00\u8B1B\u3002\u4E3B\u5F35\u662F\uFF1A\u53EF\u6E2C\u8A66\u6027\u4E0D\u662F\u904B\u6C23\uFF0C\u800C\u662F\u4E00\u7A2E\u4F60\u53EF\u4EE5\u523B\u610F\u52A0\u4E0A\u7684\u8A2D\u8A08\u6027\u8CEA\u3002\u6211\u5011\u62FF\u4E00\u500B\u5C0F\u5C0F\u3001\u7121\u6CD5\u88AB\u6E2C\u8A66\u7684 charge() \u51FD\u5F0F\uFF0C\u627E\u51FA\u5B83\u76F4\u63A5\u91D8\u6B7B\u5728\u51FD\u5F0F\u9AD4\u88E1\u7684\u56DB\u500B\u76F8\u4F9D\uFF0C\u518D\u7528 Feathers \u7684\u63A5\u7E2B\u9010\u4E00\u79FB\u9664\u3002\u6BCF\u4E00\u6B21\u4FEE\u6B63\u90FD\u9EDE\u540D\u63A5\u7E2B\u578B\u5225\u8207\u5B83\u89E3\u9396\u7684\u6E2C\u8A66\u66FF\u8EAB\uFF0C\u4E26\u4EA4\u53C9\u9023\u7D50\u5230\u6E2C\u8A66\u66FF\u8EAB\u55AE\u5143\uFF0C\u800C\u975E\u91CD\u65B0\u6559\u4E00\u6B21\u3002\u642D\u914D\u7684\u63A5\u7E2B\u63A2\u7D22\u5668\u8B93\u5B78\u7FD2\u8005\u5957\u7528\u6BCF\u500B\u4FEE\u6B63\uFF0C\u770B\u8457\u53EF\u6E2C\u8A66\u6027\u5100\u8868\u5F80\u4E0A\u722C\u3002 -->\n\n---\n\n## \u4EC0\u9EBC\u8B93\u7A0B\u5F0F\u78BC\u7121\u6CD5\u88AB\u6E2C\u8A66\n\n\u4E00\u500B\u55AE\u5143\u4E4B\u6240\u4EE5\u7121\u6CD5\u88AB\u6E2C\u8A66\uFF0C\u662F\u56E0\u70BA\u6E2C\u8A66\u7121\u6CD5**\u63A7\u5236\u5B83\u7684\u8F38\u5165**\u6216**\u89C0\u5BDF\u5B83\u7684\u8F38\u51FA**\u3002\u6700\u5E38\u898B\u7684\u539F\u56E0\u662F**\u5BEB\u6B7B\u7684\u76F8\u4F9D\uFF08hard-coded dependency\uFF09**\uFF1A\u7A0B\u5F0F\u78BC\u81EA\u5DF1\u4F38\u624B\u53BB\u6293\u4E00\u500B\u5354\u4F5C\u8005\uFF0C\u65BC\u662F\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u628A\u53E6\u4E00\u500B\u653E\u5230\u5B83\u7684\u4F4D\u7F6E\u3002\n\n\u7559\u610F\u9019\u4E9B\u6D29\u6F0F\u5E95\u7D30\u7684\u5F62\u72C0\uFF1A\n\n- \u8B80\u53D6**\u5168\u57DF\u6216\u55AE\u4F8B\uFF08singleton\uFF09**\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u7121\u6CD5\u8A2D\u5B9A\u7684\u96B1\u85CF\u8F38\u5165\uFF0C\n- \u5C0D\u4E00\u500B\u5177\u9AD4\u5354\u4F5C\u8005\u505A **`new`**\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u7121\u6CD5\u66FF\u63DB\u7684\u76F8\u4F9D\uFF0C\n- \u547C\u53EB**\u771F\u5BE6\u6642\u9418**\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u7121\u6CD5\u91D8\u4F4F\u7684\u503C\uFF0C\n- \u547C\u53EB**\u771F\u5BE6\u4E82\u6578\uFF08RNG\uFF09**\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u7121\u6CD5\u4F7F\u5176\u5177\u6C7A\u5B9A\u6027\u7684\u503C\u3002\n\n\u4EE5\u4E0A\u6BCF\u4E00\u500B\u90FD\u628A\u4E00\u500B\u771F\u5BE6\u76F8\u4F9D**\u91D8\u6B7B**\u9032\u51FD\u5F0F\u9AD4\u3002\u53D7\u6E2C\u884C\u70BA\u65BC\u662F\u8207\u771F\u5BE6\u4E16\u754C\u7CFE\u7E8F\u5728\u4E00\u8D77\uFF0C\u55AE\u5143\u6E2C\u8A66\u6C92\u6709\u4EFB\u4F55\u63A5\u7E2B\u53EF\u4EE5\u4F38\u624B\u9032\u53BB\u3002\n\n<!-- \u628A\u6574\u4EFD\u6295\u5F71\u7247\u6263\u56DE\u672C\u7AE0\u7BC0\u7A0D\u65E9\u7684\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u6846\u67B6\uFF1A\u5BEB\u6B7B\u7684\u76F8\u4F9D\u662F\u53EF\u63A7\u5236\u6027\u7684\u5931\u6557\u2014\u2014\u4F60\u7121\u6CD5\u9935\u7D66\u55AE\u5143\u4F60\u60F3\u8981\u7684\u8F38\u5165\u3002\u5F37\u8ABF\u9019\u56DB\u500B\u90FD\u4E0D\u662F bug\uFF1B\u7A0B\u5F0F\u78BC\u8DD1\u5F97\u6B63\u78BA\u3002\u5B83\u5011\u662F\u6070\u597D\u4F7F\u7A0B\u5F0F\u78BC\u5C0D\u6E2C\u8A66\u5145\u6EFF\u6575\u610F\u7684*\u8A2D\u8A08*\u9078\u64C7\u3002\u9019\u88E1\u7684\u56DB\u500B\u5F62\u72C0\u8207\u5F8C\u9762\u5E7E\u5F35\u6295\u5F71\u7247\u4E2D\u53D7\u6E2C\u7247\u6BB5\u7684\u56DB\u500B\u53CD\u6A23\u5F0F\u4E00\u4E00\u5C0D\u61C9\uFF0C\u6240\u4EE5\u8981\u7CBE\u78BA\u9EDE\u540D\u3002 -->\n\n---\n\n## Feathers \u7684\u63A5\u7E2B\u6982\u5FF5\n\nMichael Feathers\uFF08\u300AWorking Effectively with Legacy Code\u300B\uFF09\u7D66\u4E86\u95DC\u9375\u8A5E\u5F59\uFF1A**\u63A5\u7E2B\uFF08seam\uFF09**\u662F\u4E00\u500B\u4F60\u53EF\u4EE5**\u4E0D\u5728\u8A72\u8655\u7DE8\u8F2F\u5C31\u6539\u8B8A\u7A0B\u5F0F\u884C\u70BA**\u7684\u5730\u65B9\u2014\u2014\u4F60\u5F9E\u5916\u90E8\u3001\u900F\u904E\u63A5\u7E2B\u6539\u8B8A\u5B83\u3002\n\n\u6BCF\u4E00\u9053\u63A5\u7E2B\u90FD\u6709\u4E00\u500B**\u555F\u7528\u9EDE\uFF08enabling point\uFF09**\uFF1A\u4F60\u5728\u6B64\u9078\u64C7\u8981\u8DD1\u54EA\u500B\u884C\u70BA\u7684\u4F4D\u7F6E\u3002\u5C0D\u65BC**\u7269\u4EF6\u63A5\u7E2B\uFF08object seam\uFF09**\uFF0C\u555F\u7528\u9EDE\u662F\u4E00\u500B\u53C3\u6578\u6216\u6B04\u4F4D\u2014\u2014\u547C\u53EB\u8005\u6C7A\u5B9A\u8981\u50B3\u5165\u54EA\u500B\u7269\u4EF6,\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u5C31\u4F7F\u7528\u5B83\u88AB\u4EA4\u5230\u624B\u4E0A\u7684\u90A3\u4E00\u500B\u3002\n\n\u9019\u6B63\u662F\u672C\u8B1B\u6574\u500B\u8A2D\u8A08\u52D5\u4F5C\uFF1A\u628A\u6BCF\u4E00\u500B\u5BEB\u6B7B\u76F8\u4F9D\u8B8A\u6210\u4E00\u9053**\u7269\u4EF6\u63A5\u7E2B**,\u8B93\u6E2C\u8A66\u80FD\u5728\u555F\u7528\u9EDE\u4EA4\u5165\u4E00\u500B\u66FF\u8EAB\uFF0C\u800C\u4E0D\u662F\u771F\u7684\u90A3\u4E00\u500B\u3002\n\n<!-- \u4ED4\u7D30\u5B9A\u7FA9\u63A5\u7E2B\u2014\u2014\u5B78\u751F\u5E38\u628A\u5B83\u8207\u300C\u91CD\u69CB\u300D\u6216\u300C\u4ECB\u9762\u300D\u6DF7\u70BA\u4E00\u8AC7\u3002\u63A5\u7E2B\u7279\u6307\u4E00\u500B\u884C\u70BA\u66FF\u63DB\u7684\u9EDE\uFF0C*\u5916\u52A0*\u4E00\u500B\u9078\u64C7\u8A72\u884C\u70BA\u7684\u555F\u7528\u9EDE\u3002Feathers \u7DE8\u5217\u4E86\u597D\u5E7E\u7A2E\uFF08\u524D\u8655\u7406\u63A5\u7E2B\u3001\u9023\u7D50\u63A5\u7E2B\u3001\u7269\u4EF6\u63A5\u7E2B\uFF09\uFF1B\u672C\u8B1B\u53EA\u7528\u7269\u4EF6\u63A5\u7E2B\uFF0C\u56E0\u70BA\u5728\u4E00\u500B\u6709\u53C3\u6578\u8207\u6B04\u4F4D\u7684\u8A9E\u8A00\u88E1\uFF0C\u5B83\u6700\u4E7E\u6DE8\u4E14\u4E0D\u9700\u8981\u5EFA\u7F6E\u7CFB\u7D71\u7684\u82B1\u62DB\u3002\u7269\u4EF6\u63A5\u7E2B\u7684\u555F\u7528\u9EDE\u5C31\u662F\u300C\u4F60\u50B3\u5165\u7684\u5F15\u6578\u300D\u2014\u2014\u4FDD\u6301\u9019\u9EBC\u5177\u9AD4\u3002 -->\n\n---\n\n## \u7121\u6CD5\u88AB\u6E2C\u8A66\u7684 `charge()`\n\n```js\nfunction charge(amount) {\n  const cfg = Config.instance();          // \u8B80\u53D6\u5168\u57DF\u55AE\u4F8B\n  const gw  = new PaymentGateway();        // \u5BEB\u6B7B\u7684 new\n  const at  = Date.now();                  // \u771F\u5BE6\u6642\u9418\n  const id  = Math.random().toString(36);  // \u771F\u5BE6\u4E82\u6578\n  return gw.charge(cfg.merchant, amount, at, id);\n}\n```\n\n\u56DB\u500B\u76F8\u4F9D\u3001\u56DB\u500B\u53CD\u6A23\u5F0F\uFF0C\u5168\u90FD\u91D8\u6B7B\u5728\u51FD\u5F0F\u9AD4\u88E1\u3002\u4E00\u500B\u547C\u53EB `charge(100)` \u7684\u6E2C\u8A66\uFF0C\u62FF\u5230\u7684\u662F**\u771F\u5BE6**\u7684 config\u3001**\u771F\u5BE6**\u7684 gateway\u3001**\u7246\u4E0A\u6642\u9418**\u7684\u6642\u9593\uFF0C\u4EE5\u53CA\u4E00\u500B**\u96A8\u6A5F**\u7684 id\u2014\u2014\u6C92\u6709\u4E00\u500B\u662F\u5B83\u9078\u7684\uFF0C\u4E5F\u6C92\u6709\u4E00\u500B\u662F\u5B83\u80FD\u62FF\u4F86\u6AA2\u67E5\u7684\u3002\n\n\u53EF\u6E2C\u8A66\u6027\u5100\u8868\u8B80\u4F5C **0/4**\uFF1A\u9019\u88E1\u9084\u6C92\u6709\u4EFB\u4F55\u6771\u897F\u53EF\u88AB\u66FF\u63DB\u3002\n\n<!-- \u9019\u662F\u672C\u8B1B\u5176\u9918\u90E8\u5206\u64CD\u4F5C\u7684\u6A23\u672C\u2014\u2014\u5B83\u6B63\u662F\u63A5\u7E2B\u63A2\u7D22\u5668\u6240\u6E32\u67D3\u7684\u7247\u6BB5\uFF08\u5143\u4EF6\u4E2D\u7684 CODE_FRAGMENTS\uFF09\u3002\u8D70\u904E\u9019\u56DB\u884C\uFF0C\u628A\u6BCF\u4E00\u884C\u9023\u5230\u4E0A\u4E00\u5F35\u6295\u5F71\u7247\u7684\u53CD\u6A23\u5F0F\u5F62\u72C0\u3002\u6307\u51FA\u9019\u500B\u51FD\u5F0F*\u80FD\u904B\u4F5C*\u2014\u2014\u5B83\u78BA\u5BE6\u5237\u4E86\u5361\u2014\u2014\u9019\u6B63\u662F\u70BA\u4EC0\u9EBC\u5728\u5BE9\u67E5\u6642\u5F88\u5BB9\u6613\u6F0F\u6389\u5B83\u7684\u4E0D\u53EF\u6E2C\u8A66\u6027\u30020/4 \u5100\u8868\u5C31\u662F\u63A2\u7D22\u5668\u7684\u53EF\u6E2C\u8A66\u6027\u5206\u6578 = \u5DF2\u5957\u7528\u4FEE\u6B63 / 4\uFF1B\u63A5\u4E0B\u4F86\u6BCF\u4E00\u5F35\u6295\u5F71\u7247\u90FD\u628A\u5B83\u5F80\u4E0A\u63A8\u4E00\u683C\u3002 -->\n\n---\n\n## \u4FEE\u6B63 1 \u2014 \u5168\u57DF\u55AE\u4F8B Config \u2192 \u6CE8\u5165 config\n\n```js\n// \u4E4B\u524D                                 // \u4E4B\u5F8C\nconst cfg = Config.instance();         function charge(deps, amount) {\n                                       const cfg = deps.config;\n```\n\n\u8B80\u53D6\u5168\u57DF\u662F\u4E00\u500B**\u96B1\u85CF\u8F38\u5165**\uFF1A`Config.instance()` \u4F38\u9032\u4E86\u6E2C\u8A66\u5F9E\u672A\u9078\u64C7\u7684\u5171\u4EAB\u72C0\u614B\u3002\u628A `config` \u7576\u6210 `deps` \u7684\u4E00\u90E8\u5206\u50B3\u5165\uFF0C\u5C31\u628A\u5B83\u8B8A\u6210\u4E00\u9053**\u7269\u4EF6\u63A5\u7E2B**\u2014\u2014\u6E2C\u8A66\u5728\u555F\u7528\u9EDE\u63D0\u4F9B\u81EA\u5DF1\u7684 config\u3002\n\n- **\u63A5\u7E2B\u578B\u5225\uFF1A** \u7269\u4EF6\u63A5\u7E2B\n- **\u53EF\u555F\u7528\uFF08\u66FF\u8EAB\uFF09\uFF1A** **stub\uFF08\u6A01\uFF09**\u2014\u2014\u4E00\u500B\u5E36\u6709\u6E2C\u8A66\u6240\u8981\u7684\u78BA\u5207\u503C\u7684\u73FE\u6210 config\n- **\u89E3\u9396\u80FD\u529B\uFF1A** *\u4E0D\u52D5\u5168\u57DF\u5373\u53EF\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A*\n\n\u5100\u8868 \u2192 **1/4**\u3002\n\n<!-- \u9019\u88E1\u7684 stub \u662F\u4E00\u500B\u53EA\u56DE\u50B3\u56FA\u5B9A\u8CC7\u6599\u7684\u6E2C\u8A66\u66FF\u8EAB\u2014\u2014\u4E00\u500B\u5E36\u6709\u5DF2\u77E5\u5546\u5BB6 id \u7684 config \u7269\u4EF6\u3002\u91CD\u9EDE\u662F\u6E2C\u8A66\u4E0D\u518D\u9700\u8981\u53BB\u6539\u52D5\u5168\u57DF\u72C0\u614B\uFF08\u90A3\u6703\u5728\u6E2C\u8A66\u4E4B\u9593\u6D29\u6F0F\u4E26\u5F37\u52A0\u57F7\u884C\u9806\u5E8F\uFF09\u4F86\u67B6\u8A2D\u5B83\u7684\u60C5\u5883\u3002\u9019\u662F\u7269\u4EF6\u63A5\u7E2B\u6700\u55AE\u7D14\u7684\u5F62\u5F0F\uFF1A\u628A\u4E00\u6B21\u5168\u57DF\u67E5\u627E\u63DB\u6210\u4E00\u500B\u53C3\u6578\u3002\u4FDD\u6301\u53CD\u6A23\u5F0F \u2192 \u63A5\u7E2B \u2192 \u66FF\u8EAB\u7684\u5C0D\u61C9\u7CBE\u78BA\uFF1A\u8B80\u53D6\u5168\u57DF \u2192 \u7269\u4EF6\u63A5\u7E2B \u2192 stub\u3002 -->\n\n---\n\n## \u4FEE\u6B63 2 \u2014 \u5BEB\u6B7B\u7684 `new PaymentGateway()` \u2192 \u6CE8\u5165\u5354\u4F5C\u8005\n\n```js\n// \u4E4B\u524D                                 // \u4E4B\u5F8C\nconst gw = new PaymentGateway();       const gw = deps.gateway;\n```\n\n\u90A3\u500B `new` \u628A\u4E00\u500B\u5177\u9AD4\u5354\u4F5C\u8005**\u710A\u9032** `charge()`\uFF1A\u6BCF\u4E00\u500B\u6E2C\u8A66\u90FD\u6703\u6253\u5230\u771F\u7684\u4ED8\u6B3E gateway\u3002\u628A gateway \u7576\u6210\u5354\u4F5C\u8005\u6CE8\u5165\uFF08\u85CF\u5728\u4ECB\u9762\u4E4B\u5F8C\uFF09\u4F7F\u5B83\u6210\u70BA\u4E00\u9053**\u7269\u4EF6\u63A5\u7E2B**\u2014\u2014\u6E2C\u8A66\u4EA4\u5165\u5B83\u6240\u9700\u8981\u7684\u90A3\u500B gateway\u3002\n\n- **\u63A5\u7E2B\u578B\u5225\uFF1A** \u7269\u4EF6\u63A5\u7E2B\n- **\u53EF\u555F\u7528\uFF08\u66FF\u8EAB\uFF09\uFF1A** **mock\uFF08\u6A21\u64EC\uFF09**\u2014\u2014\u4E00\u500B\u8A18\u9304\u547C\u53EB\u3001\u4E14\u53EF\u88AB\u6307\u793A\u5931\u6557\u7684 gateway\n- **\u89E3\u9396\u80FD\u529B\uFF1A** *\u5F37\u5236 gateway \u5931\u6557*\n\n\u5100\u8868 \u2192 **2/4**\u3002\n\n<!-- \u9019\u662F\u7D93\u5178\u7684\u300Cnew \u5C31\u662F\u81A0\u6C34\u300D\u554F\u984C\u2014\u2014\u76F4\u63A5\u547C\u53EB\u5EFA\u69CB\u5B50\u662F\u6700\u96E3\u6253\u7834\u7684\u76F8\u4F9D\uFF0C\u56E0\u70BA\u5B83\u9EDE\u540D\u4E86\u4E00\u500B\u5177\u9AD4\u578B\u5225\u3002\u85CF\u5728\u4ECB\u9762\u4E4B\u5F8C\u6CE8\u5165\u5C31\u662F\u4FEE\u6B63\u3002\u66FF\u8EAB\u662F *mock*\uFF0C\u56E0\u70BA\u9019\u88E1\u6709\u8DA3\u7684\u6E2C\u8A66\u662F\u95DC\u65BC*\u4E92\u52D5*\u7684\uFF1Acharge() \u662F\u5426\u4EE5\u6B63\u78BA\u7684\u5F15\u6578\u88AB\u547C\u53EB\uFF0C\u4EE5\u53CA\u5B83\u662F\u5426\u8655\u7406 gateway \u7684\u5931\u6557\uFF1Fmock \u9A57\u8B49\u547C\u53EB\u4E26\u53EF\u88AB\u8A2D\u5B9A\u70BA\u62CB\u51FA\u2014\u2014\u4F60\u7121\u6CD5\u8B93\u771F\u7684 gateway \u96A8\u4F60\u6307\u4EE4\u5931\u6557\u3002\u5C0D\u61C9\uFF1A\u5BEB\u6B7B new \u2192 \u7269\u4EF6\u63A5\u7E2B \u2192 mock\u3002 -->\n\n---\n\n## \u4FEE\u6B63 3 \u2014 \u771F\u5BE6 `Date.now()` \u2192 \u6CE8\u5165\u4E00\u500B\u6642\u9418\n\n```js\n// \u4E4B\u524D                       // \u4E4B\u5F8C\nconst at = Date.now();       const at = deps.clock.now();\n```\n\n`Date.now()` \u662F**\u7246\u4E0A\u6642\u9418**\u2014\u2014\u6BCF\u6B21\u57F7\u884C\u90FD\u662F\u4E00\u500B\u5168\u65B0\u7684\u503C\uFF0C\u6E2C\u8A66\u65E2\u7121\u6CD5\u9810\u6E2C\u4E5F\u7121\u6CD5\u91D8\u4F4F\u3002\u6CE8\u5165\u4E00\u500B `clock` \u7269\u4EF6\u4F7F\u5B83\u6210\u70BA\u4E00\u9053**\u7269\u4EF6\u63A5\u7E2B**\uFF1A\u6E2C\u8A66\u50B3\u5165\u4E00\u500B\u51CD\u7D50\u5728\u5DF2\u77E5\u6642\u523B\u7684\u6642\u9418\u3002\n\n- **\u63A5\u7E2B\u578B\u5225\uFF1A** \u7269\u4EF6\u63A5\u7E2B\n- **\u53EF\u555F\u7528\uFF08\u66FF\u8EAB\uFF09\uFF1A** **fake\uFF08\u5047\u7269\u4EF6\uFF09**\u2014\u2014\u4E00\u500B `now()` \u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684\u53EF\u904B\u4F5C\u6642\u9418\n- **\u89E3\u9396\u80FD\u529B\uFF1A** *\u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00*\n\n\u5100\u8868 \u2192 **3/4**\u3002\n\n<!-- \u975E\u6C7A\u5B9A\u6027\u4F86\u6E90 #1\uFF1A\u6642\u9418\u3002\u4E00\u500B\u8B80\u53D6\u771F\u5BE6\u6642\u9593\u7684\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u65B7\u8A00\u4E00\u500B\u78BA\u5207\u7684\u6642\u9593\u6233\uFF0C\u6240\u4EE5\u5B83\u8981\u561B\u8DF3\u904E\u6AA2\u67E5\uFF0C\u8981\u561B\u505A\u51FA\u50CF\u7BC4\u570D\u65B7\u8A00\u90A3\u6A23\u8106\u5F31\u7684\u6771\u897F\u3002\u4E00\u500B *fake* \u6642\u9418\u662F\u4E00\u500B\u771F\u5BE6\u3001\u53EF\u904B\u4F5C\u7684\u7269\u4EF6\uFF08\u4E0D\u53EA\u662F\u73FE\u6210\u56DE\u50B3\u503C\uFF09\uFF0C\u5176\u884C\u70BA\u53EF\u88AB\u63A7\u5236\u2014\u2014Date \u91D8\u5728\u6BD4\u65B9\u8AAA 2026-01-01\u3002fake \u5728\u6B64\u662F\u6B63\u78BA\u7684\u66FF\u8EAB\u540D\u7A31\uFF0C\u56E0\u70BA\u5B83\u662F\u4E00\u500B\u8F15\u91CF\u7684\u53EF\u904B\u4F5C\u5BE6\u4F5C\uFF0C\u800C\u975E\u4E00\u500B\u8A18\u9304\u5668\u3002\u5C0D\u61C9\uFF1A\u771F\u5BE6\u6642\u9418 \u2192 \u7269\u4EF6\u63A5\u7E2B \u2192 fake\u3002 -->\n\n---\n\n## \u4FEE\u6B63 4 \u2014 \u771F\u5BE6 `Math.random()` \u2192 \u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng\n\n```js\n// \u4E4B\u524D                                     // \u4E4B\u5F8C\nconst id = Math.random().toString(36);     const id = deps.rng.id();\n```\n\n`Math.random()` \u662F\u7B2C\u4E8C\u500B**\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90**\u2014\u2014\u6BCF\u6B21\u57F7\u884C\u90FD\u662F\u4E0D\u540C\u7684 id\uFF0C\u6240\u4EE5\u6E2C\u8A66\u7121\u5F9E\u5F97\u77E5 `charge()` \u7522\u751F\u4E86\u4EC0\u9EBC\u3002\u6CE8\u5165\u4E00\u500B\u5E36\u7A2E\u5B50\u7684 `rng` \u4F7F\u5B83\u6210\u70BA\u4E00\u9053**\u7269\u4EF6\u63A5\u7E2B**\uFF1A\u6E2C\u8A66\u63D0\u4F9B\u4E00\u500B\u6703\u7522\u51FA\u5DF2\u77E5\u5E8F\u5217\u7684 rng\u3002\n\n- **\u63A5\u7E2B\u578B\u5225\uFF1A** \u7269\u4EF6\u63A5\u7E2B\n- **\u53EF\u555F\u7528\uFF08\u66FF\u8EAB\uFF09\uFF1A** **stub\uFF08\u6A01\uFF09**\u2014\u2014\u4E00\u500B\u56DE\u50B3\u56FA\u5B9A\u3001\u5DF2\u77E5 id \u7684 rng\n- **\u89E3\u9396\u80FD\u529B\uFF1A** *\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027*\n\n\u5100\u8868 \u2192 **4/4**\u3002\n\n<!-- \u975E\u6C7A\u5B9A\u6027\u4F86\u6E90 #2\uFF1A\u4E82\u6578\u3002\u8207\u6642\u9418\u540C\u4E00\u5957\u6545\u4E8B\u2014\u2014\u55AE\u5143\u88E1\u7684\u96A8\u6A5F\u6027\u4EE3\u8868\u6E2C\u8A66\u7121\u6CD5\u9810\u6E2C\u8F38\u51FA\u3002\u4E00\u500B\u5E36\u7A2E\u5B50\uFF0F\u88AB stub \u7684 rng \u56DE\u50B3\u4E00\u500B\u56FA\u5B9A id\uFF0C\u65BC\u662F\u7522\u751F\u7684\u4EA4\u6613 id \u73FE\u5728\u53EF\u88AB\u65B7\u8A00\u3002\u66FF\u8EAB\u662F *stub*\uFF08\u73FE\u6210\u56DE\u50B3\u503C\uFF09\u800C\u975E mock\uFF0C\u56E0\u70BA\u6E2C\u8A66\u53EA\u9700\u8981\u90A3\u500B\u503C\uFF0C\u4E0D\u9700\u8981\u9A57\u8B49\u547C\u53EB\u3002\u6642\u9418\u662F fake\u3001rng \u662F stub\uFF0C\u5118\u7BA1\u5169\u8005\u90FD\u79FB\u9664\u4E86\u975E\u6C7A\u5B9A\u6027\uFF0C\u9019\u6B63\u597D\u8AAA\u660E\u4F60\u4F38\u624B\u53BB\u62FF\u7684\u66FF\u8EAB\u53D6\u6C7A\u65BC\u6E2C\u8A66\u9700\u8981\u505A\u4EC0\u9EBC\u3002\u5C0D\u61C9\uFF1A\u771F\u5BE6\u4E82\u6578 \u2192 \u7269\u4EF6\u63A5\u7E2B \u2192 stub\u3002 -->\n\n---\n\n## \u63A5\u7E2B \u2192 \u66FF\u8EAB\u5C0D\u7167\n\n| \u53CD\u6A23\u5F0F | \u63A5\u7E2B\u578B\u5225 | \u53EF\u555F\u7528\uFF08\u66FF\u8EAB\uFF09 | \u89E3\u9396\u80FD\u529B |\n| --- | --- | --- | --- |\n| \u5168\u57DF\u55AE\u4F8B `Config` | \u7269\u4EF6\u63A5\u7E2B | **stub** | \u4E0D\u52D5\u5168\u57DF\u5373\u53EF\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A |\n| \u5BEB\u6B7B\u7684 `new PaymentGateway()` | \u7269\u4EF6\u63A5\u7E2B | **mock** | \u5F37\u5236 gateway \u5931\u6557 |\n| \u771F\u5BE6\u6642\u9418 `Date.now()` | \u7269\u4EF6\u63A5\u7E2B | **fake** | \u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00 |\n| \u771F\u5BE6 `Math.random()` | \u7269\u4EF6\u63A5\u7E2B | **stub** | \u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027 |\n\n\u6BCF\u4E00\u9053\u63A5\u7E2B\u90FD\u662F\u540C\u4E00*\u7A2E*\u2014\u2014\u7269\u4EF6\u63A5\u7E2B\u2014\u2014\u4F46\u6BCF\u4E00\u9053\u89E3\u9396\u4E00\u500B**\u4E0D\u540C\u7684\u6E2C\u8A66\u66FF\u8EAB**\uFF0C\u7531\u90A3\u500B\u6E2C\u8A66\u9700\u8981\u505A\u4EC0\u9EBC\u4F86\u6311\u9078\u3002\u2192 \u5728**\u6E2C\u8A66\u66FF\u8EAB**\u55AE\u5143\uFF08\u7B2C #27 \u8B1B\uFF09\u4E2D*\u67E5\u770B\u5C0D\u61C9\u7684\u6E2C\u8A66\u66FF\u8EAB*\u3002\n\n<!-- \u9019\u662F\u63A2\u7D22\u5668\u5728\u53F3\u5074\u6E32\u67D3\u7684\u5C0D\u7167\u8868\uFF0C\u4E5F\u662F\u672C\u8B1B\u7684\u6982\u5FF5\u6838\u5FC3\uFF1A\u4E00\u7A2E\u63A5\u7E2B\u578B\u5225\uFF0C\u56DB\u7A2E\u4E0D\u540C\u7684\u66FF\u8EAB\u3002\u5FCD\u4F4F\u5728\u9019\u88E1\u91CD\u65B0\u6559 stub\uFF0Fmock\uFF0Ffake \u7684\u885D\u52D5\u2014\u2014\u90A3\u662F\u7B2C #27 \u8B1B\u7684\u5DE5\u4F5C\uFF0C\u63A2\u7D22\u5668\u523B\u610F\u9023\u7D50\u51FA\u53BB\u800C\u975E\u91CD\u65B0\u89E3\u91CB\u3002\u6559\u5B78\u91CD\u9EDE\u662F\u90A3\u500B*\u9078\u64C7*\uFF1A\u63A5\u7E2B\u7D66\u4F60\u66FF\u63DB\u7684\u80FD\u529B\uFF1B\u4F60\u653E\u5165\u54EA\u4E00\u500B\u66FF\u8EAB\u662F\u53E6\u4E00\u500B\u6C7A\u5B9A\uFF0C\u7531\u4F60\u60F3\u505A\u7684\u65B7\u8A00\u9A45\u52D5\uFF08\u503C \u2192 stub\u3001\u4E92\u52D5\uFF0F\u5931\u6557 \u2192 mock\u3001\u53EF\u904B\u4F5C\u4F46\u53D7\u63A7 \u2192 fake\uFF09\u3002 -->\n\n---\n\n## \u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08 = \u53EF\u66FF\u63DB\u7684\u76F8\u4F9D\n\n\u9019\u56DB\u500B\u4FEE\u6B63\u662F\u540C\u4E00\u500B\u6982\u5FF5\u5957\u7528\u56DB\u6B21\uFF1A**\u8B93\u6BCF\u4E00\u500B\u76F8\u4F9D\u90FD\u53EF\u88AB\u66FF\u63DB**\u3002\u9019\u5C31\u662F\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08*\u7684\u672C\u8CEA*\u2014\u2014\u4E0D\u662F\u5BEB\u66F4\u591A\u6E2C\u8A66\uFF0C\u800C\u662F\u628A\u7A0B\u5F0F\u78BC\u5851\u9020\u6210\u8B93\u6E2C\u8A66\u80FD\u63A7\u5236\u6BCF\u4E00\u500B\u8F38\u5165\u3001\u89C0\u5BDF\u6BCF\u4E00\u500B\u8F38\u51FA\u3002\n\n**\u53EF\u6E2C\u8A66\u6027\u5100\u8868**\u8861\u91CF\u7684\u6B63\u662F\u9019\u4EF6\u4E8B\uFF1A`\u5206\u6578 = \u5DF2\u5957\u7528\u4FEE\u6B63 / 4`\u3002\u5B83\u4E0D\u662F\u4E00\u500B\u7A0B\u5F0F\u78BC\u54C1\u8CEA\u7684\u610F\u898B\uFF1B\u5B83\u662F\u9019\u500B\u55AE\u5143\u771F\u5BE6\u4E16\u754C\u76F8\u4F9D\u4E2D\uFF0C\u6E2C\u8A66\u73FE\u5728\u80FD\u66FF\u63DB\u7684\u6BD4\u4F8B\u3002\n\n\u5728 **4/4** \u6642\uFF0C`charge()` \u662F\u4E00\u500B**\u8FD1\u4E4E\u7D14\u7CB9\u7684\u55AE\u5143**\uFF1A\u5B83\u7684 config\u3001gateway\u3001\u6642\u9418\u8207\u4E82\u6578\u5168\u90FD\u900F\u904E `deps` \u62B5\u9054\uFF0C\u65BC\u662F\u6E2C\u8A66\u9A45\u52D5\u5B83\u5011\u5168\u90E8\uFF0C\u4E26\u6AA2\u67E5\u5269\u4E0B\u7684\u90A3\u4E00\u884C\u771F\u6B63\u908F\u8F2F\u3002\n\n<!-- \u843D\u5730\u9019\u500B\u8AD6\u9EDE\uFF1A\u53EF\u6E2C\u8A66\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u6027\u8CEA\uFF0C\u88AB\u523B\u610F\u52A0\u4E0A\uFF0C\u800C\u4E14\u53EF\u88AB\u5EA6\u91CF\u3002\u5100\u8868\uFF08testabilityOf \u2192 applied.length / antipatterns.length\uFF09\u662F\u6C7A\u5B9A\u6027\u7684\u4E14\u6709\u55AE\u5143\u6E2C\u8A66\uFF0C\u6B63\u662F\u70BA\u4E86\u8B93\u9019\u4E00\u8AB2\u7CBE\u78BA\uFF0C\u800C\u975E\u54C1\u5473\u554F\u984C\u3002\u300C\u8FD1\u4E4E\u7D14\u7CB9\u300D\u662F\u8AA0\u5BE6\u7684\u7528\u8A5E\u2014\u2014charge() \u4ECD\u6709\u4E00\u500B\u526F\u4F5C\u7528\uFF08gateway \u547C\u53EB\uFF09\uFF0C\u4F46\u6BCF\u4E00\u500B\u8F38\u5165\u73FE\u5728\u90FD\u88AB\u6CE8\u5165\uFF0C\u6240\u4EE5\u5C31\u6E2C\u8A66\u7684\u76EE\u7684\u800C\u8A00\uFF0C\u5B83\u8868\u73FE\u5F97\u50CF\u4E00\u500B deps + amount \u7684\u7D14\u51FD\u5F0F\u3002\u9019\u8207\u4F9D\u8CF4\u6CE8\u5165\u6846\u67B6\u6240\u505A\u7684\u52D5\u4F5C\u76F8\u540C\uFF0C\u53EA\u662F\u5F92\u624B\u505A\u4E26\u547D\u540D\u800C\u5DF2\u3002 -->\n\n---\n\n## \u5DE5\u5177\u6F14\u793A \u2014 \u63A5\u7E2B\u63A2\u7D22\u5668\n\n\u5728 `?explorer=testability-seams` \u958B\u555F\u642D\u914D\u5DE5\u5177\u3002\n\n- **\u5DE6\u6B04**\u628A `charge()` \u986F\u793A\u70BA\u552F\u8B80\u7684\u8A3B\u89E3\u7A0B\u5F0F\u78BC\uFF0C\u6BCF\u500B\u88AB\u91D8\u6B7B\u7684\u76F8\u4F9D\u6709\u4E00\u500B*\u5957\u7528\u63A5\u7E2B*\u958B\u95DC\uFF0C\u5404\u81EA\u6A19\u6709\u5B83\u7684\u53CD\u6A23\u5F0F\u6A19\u7C64\u3002\n- **\u5957\u7528\u4E00\u9053\u63A5\u7E2B**\uFF0C\u90A3\u4E00\u884C\u5C31\u6539\u5BEB\u70BA\u5B83\u6CE8\u5165\u5F8C\u7684 `deps.\u2026` \u5F62\u5F0F\uFF0C**\u53EF\u6E2C\u8A66\u6027**\u5100\u8868\u5F80\u4E0A\u722C\uFF0C\u89E3\u9396\u7684\u80FD\u529B\u51FA\u73FE\u5728*\u6E2C\u8A66\u73FE\u5728\u80FD\u505A\u5230\u4EC0\u9EBC*\u4E4B\u4E0B\u3002\n- **\u53F3\u6B04**\u627F\u8F09\u63A5\u7E2B\uFF0F\u66FF\u8EAB\u5C0D\u7167\u8868\uFF0C\u4EE5\u53CA\u4E00\u500B\u9023\u5411\u5C0D\u61C9\u6E2C\u8A66\u66FF\u8EAB\u7684\u9023\u7D50\u3002\n- \u5957\u7528\u5168\u90E8\u56DB\u500B\uFF0C**\u6536\u5C3E\u8A0A\u606F**\u89F8\u767C\uFF1A\u6BCF\u4E00\u500B\u76F8\u4F9D\u73FE\u5728\u90FD\u53EF\u88AB\u66FF\u63DB\u3002\n\n\u8A66\u8457\u9084\u539F\u4E00\u500B\u4FEE\u6B63\uFF0C\u770B\u8457\u5100\u8868\u8207\u5B83\u7684\u80FD\u529B\u6D88\u5931\u2014\u2014\u53EF\u6E2C\u8A66\u6027\u662F\u53EF\u9006\u7684\uFF0C\u628A\u4E00\u500B\u76F8\u4F9D\u91D8\u56DE\u53BB\u6240\u9020\u6210\u7684\u640D\u5BB3\u4E5F\u662F\u3002\n\n<!-- \u82E5\u53EF\u4EE5\u5C31\u73FE\u5834\u64CD\u4F5C\u63A2\u7D22\u5668\u3002\u6558\u4E8B\u5F27\u7DDA\u662F 0/4 \u2192 4/4\uFF1A\u5F9E\u5B8C\u5168\u88AB\u91D8\u6B7B\u7684\u51FD\u5F0F\u958B\u59CB\uFF0C\u4E00\u6B21\u5957\u7528\u4E00\u500B\u4FEE\u6B63\uFF0C\u8B80\u8457\u53F3\u5074\u7684\u80FD\u529B\u6E05\u55AE\u589E\u9577\u3002\u9084\u539F\u52D5\u4F5C\u503C\u5F97\u6F14\u793A\uFF0C\u56E0\u70BA\u5B83\u8B93\u5100\u8868\u7684\u610F\u7FA9\u8B8A\u5F97\u5177\u9AD4\u2014\u2014\u6BCF\u4E00\u500B\u958B\u95DC\u6070\u597D\u503C\u56DB\u5206\u4E4B\u4E00\uFF0C\u53D6\u6D88\u4FEE\u6B63\u5C31\u628A\u76F8\u4F9D\u91D8\u56DE\u53BB\u3002\u4EE5\u6536\u5C3E\u8A0A\u606F\u4F5C\u7D50,\u8B93\u5168\u73ED\u770B\u5230\u7531\u5DE5\u5177\u81EA\u5DF1\u9673\u8FF0\u7684\u300C\u8FD1\u4E4E\u7D14\u7CB9\u7684\u55AE\u5143\u300D\u56DE\u5831\u3002 -->\n\n---\n\n## \u5C0F\u7D50\n\n- **\u7121\u6CD5\u88AB\u6E2C\u8A66\u7684\u7A0B\u5F0F\u78BC = \u5BEB\u6B7B\u7684\u76F8\u4F9D\u3002** \u8B80\u53D6\u5168\u57DF\u3001\u4E00\u500B `new`\u3001\u771F\u5BE6\u6642\u9418\u3001\u771F\u5BE6\u4E82\u6578\uFF0C\u5404\u81EA\u628A\u4E00\u500B\u771F\u5BE6\u4E16\u754C\u76F8\u4F9D\u91D8\u9032\u55AE\u5143\uFF0C\u4F7F\u6E2C\u8A66\u65E2\u7121\u6CD5\u63A7\u5236\u8F38\u5165\u4E5F\u7121\u6CD5\u89C0\u5BDF\u8F38\u51FA\u3002\n- **\u63A5\u7E2B**\uFF08Feathers\uFF09\u662F\u4E00\u500B\u4E0D\u5728\u8A72\u8655\u7DE8\u8F2F\u5C31\u80FD\u6539\u8B8A\u884C\u70BA\u7684\u5730\u65B9\uFF1B**\u7269\u4EF6\u63A5\u7E2B**\u900F\u904E\u4E00\u500B\u53C3\u6578\u6216\u6B04\u4F4D\u505A\u5230\u2014\u2014\u90A3\u500B\u555F\u7528\u9EDE\u5C31\u662F\u6E2C\u8A66\u4EA4\u5165\u66FF\u8EAB\u4E4B\u8655\u3002\n- \u9019\u56DB\u500B\u4FEE\u6B63\u5168\u662F*\u540C\u4E00\u9053*\u63A5\u7E2B\u2014\u2014**\u7269\u4EF6\u63A5\u7E2B**\u2014\u2014\u4F46\u6BCF\u4E00\u500B\u89E3\u9396\u4E00\u500B*\u4E0D\u540C\u7684***\u6E2C\u8A66\u66FF\u8EAB**\uFF1Aconfig \u2192 **stub**\u3001gateway \u2192 **mock**\u3001\u6642\u9418 \u2192 **fake**\u3001rng \u2192 **stub**\u3002\n- \u6BCF\u4E00\u500B\u4FEE\u6B63\u89E3\u9396\u4E00\u9805\u5177\u9AD4**\u80FD\u529B**\uFF1A\u4E0D\u52D5\u5168\u57DF\u63D0\u4F9B\u6E2C\u8A66\u8A2D\u5B9A\u3001\u5F37\u5236 gateway \u5931\u6557\u3001\u65B7\u8A00\u56FA\u5B9A\u6642\u9593\u6233\u3001\u8B93 id \u5177\u6C7A\u5B9A\u6027\u3002\n- **\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08 = \u8B93\u76F8\u4F9D\u53EF\u88AB\u66FF\u63DB**\uFF1B**\u53EF\u6E2C\u8A66\u6027\u5100\u8868**\u4EE5*\u5DF2\u5957\u7528\u4FEE\u6B63 / 4* \u5EA6\u91CF\u5B83\uFF0C4/4 \u7559\u4E0B\u4E00\u500B\u5B8C\u5168\u5728\u6E2C\u8A66\u638C\u63A7\u4E4B\u4E0B\u7684\u8FD1\u4E4E\u7D14\u7CB9\u55AE\u5143\u3002\n\n**\u8AB2\u5802\u7DF4\u7FD2\uFF1A** \u62FF\u4E00\u500B\u4F60\u81EA\u5DF1\u3001\u6703\u547C\u53EB\u6642\u9418\u3001\u5168\u57DF\u6216 `new` \u7684\u51FD\u5F0F\u3002\u70BA\u6BCF\u4E00\u500B\u76F8\u4F9D\uFF0C\u9EDE\u540D\u80FD\u79FB\u9664\u5B83\u7684\u63A5\u7E2B\u8207\u5B83\u6703\u555F\u7528\u7684\u6E2C\u8A66\u66FF\u8EAB\uFF0C\u63A5\u8457\u5BEB\u4E0B\u4F60\u505A\u5B8C\u4E4B\u5F8C\u8B8A\u5F97\u53EF\u80FD\u7684\u90A3\u4E00\u689D\u65B7\u8A00\u3002\n\n---\n\n## \u5EF6\u4F38\u95B1\u8B80\n\n- \u8AB2\u7A0B\u898F\u683C \u2014\u2014 \u53EF\u6E2C\u8A66\u6027\u8996\u89BA\u5316\u8A2D\u8A08\uFF08[2026-09-28-testability-visualization-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-09-28-testability-visualization-design.md)\uFF09\n- Feathers, M. (2004)\u300AWorking Effectively with Legacy Code\u300B\u2014\u2014 \u672C\u8B1B\u901A\u7BC7\u6240\u7528\u7684\u63A5\u7E2B\uFF0F\u555F\u7528\u9EDE\u8A5E\u5F59\u8207\u7269\u4EF6\u63A5\u7E2B\u7684\u4F86\u6E90\u3002\n- \u642D\u914D\u55AE\u5143 \u2014\u2014 **\u6E2C\u8A66\u66FF\u8EAB**\uFF08\u7B2C #27 \u8B1B\uFF09\uFF1Astub\u3001mock\u3001fake \u4EE5\u53CA\u4F55\u6642\u8A72\u4F38\u624B\u53BB\u62FF\u54EA\u4E00\u500B\u2014\u2014\u672C\u8B1B\u63A5\u7E2B\u6240\u89E3\u9396\u7684\u90A3\u4E9B\u66FF\u8EAB\u3002\n- \u5DE5\u5177\u539F\u59CB\u78BC\uFF1A[TestabilitySeamsExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilitySeamsExplorer.js)\u3001\u4F4D\u65BC [testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js) \u7684\u8CC7\u6599\uFF08`SEAM_SNIPPET`\uFF09\u3002\n- \u4E0B\u4E00\u8B1B\uFF1A**\u53EF\u6E2C\u8A66\u6027\u6307\u6A19**\u8207**\u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361**\u2014\u2014\u5EA6\u91CF\u7D50\u69CB\u6027\u96E3\u5EA6\u4E26\u532F\u7E3D\u5404\u9805\u53EF\u6E2C\u8A66\u6027\u8A0A\u865F\u3002\n"
+    },
+    {
+      "id": "testability-metrics",
+      "num": 68,
+      "section": "testability",
+      "titleEn": "Software Testing Visualization #68 \u2014 Testability Metrics",
+      "titleZh": "\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #68 \u2014 \u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF",
+      "en": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: Software Testing Visualization #68 \u2014 Testability Metrics\ndescription: Structural metrics that predict test difficulty \u2014 cyclomatic complexity, coupling (fan-in / fan-out), and cohesion \u2014 combined into one hardness score, and how splitting a unit or cutting coupling makes code easier to test.\nlang: en\n---\n\n# Testability Metrics\n\n### *Structure predicts how hard a unit is to test*\n\nSoftware Testing Visualization series #68 \xB7 Testability\nCompanion tool: `?explorer=testability-metrics` \u2192 Testability Metrics Heatmap ([TestabilityMetricsExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityMetricsExplorer.js))\n\n<!-- Deck in the Testability section. Before this deck, testability was argued qualitatively \u2014 controllability, observability, seams. This one makes it *measurable*: three structural signals (cyclomatic complexity, coupling, cohesion) are combined into a single hardness score that ranks the units of a small checkout module by how hard each is to test in isolation. The companion tool is a heatmap + call graph the class can perturb (add a dependency, split the hardest unit) and watch the ranking move. -->\n\n---\n\n## Structure predicts test difficulty\n\nSome units are simply harder to test than others, and you can often tell **before writing a single test** just by looking at their shape. Testability metrics turn that intuition into numbers.\n\nThree **structural signals** each capture a different reason a unit resists testing:\n\n- **cyclomatic complexity** \u2014 how many independent paths a test must cover,\n- **coupling** \u2014 how many other units it depends on or is depended on by, and\n- **cohesion** \u2014 how many unrelated responsibilities it carries at once.\n\nNone of these run the code or need a single test case; they are read straight off the **structure** \u2014 the control flow, the call graph, and the responsibility set. That is what makes them cheap enough to compute for every unit and use as a map for where testing pain will concentrate.\n\n<!-- The framing move for the whole deck: testability is not only a qualitative property (seams, controllability) but a *structural* one you can measure statically. Stress that all three signals are read from structure, not from execution \u2014 no tests need exist yet. That is the point: the metrics tell you where the hard tests will be, so you can act before the pain arrives. The next three slides take each signal in turn. -->\n\n---\n\n## Cyclomatic complexity\n\n**Cyclomatic complexity** counts the number of **linearly independent paths** through a unit \u2014 a lower bound on the test cases you need to exercise every branch.\n\nThe explorer computes it from an explicit decision count:\n\n**M = decisions + 1**\n\nEvery `if`, `while`, `for`, `case`, or short-circuit `&&`/`||` is a decision that forks the control flow and doubles down on the paths a thorough test suite must cover. A unit with 6 decisions has cyclomatic complexity **7**; a straight-line unit with no decisions has complexity **1**.\n\nMore decisions means more paths, and more paths means more test cases just to reach every branch. Complexity is the part of test difficulty that comes from a unit's **internal logic**.\n\n<!-- M = decisions + 1 is the engine's exact rule (cyclomatic(unit) in the component). Tie it to the practical meaning: complexity is a *lower bound* on branch-covering tests, so it reads directly as \"how many tests, minimum.\" Contrast the two extremes that appear later \u2014 checkout at 7 vs formatMoney at 1 \u2014 so the number feels concrete. This is the internal-logic axis of difficulty; the next two slides are the external, relational axes. -->\n\n---\n\n## Coupling \u2014 fan-in and fan-out\n\n**Coupling** measures a unit's entanglement with the rest of the module, read straight off the **call graph**:\n\n- **fan-in** = how many units *call* this one (its callers), and\n- **fan-out** = how many units this one *calls* (its collaborators).\n\nFor testing in isolation, **fan-out is the expensive direction**. Each collaborator a unit calls is a dependency a test must **stub, mock, or fake** to isolate the unit under test. A unit that calls four collaborators needs four doubles in place before a single assertion can run \u2014 so the hardness model weights fan-out **\xD72**.\n\nHigh fan-in is a different signal: a heavily-called unit is a shared, reused helper, so its own tests pay dividends across every caller. The checkout module's `formatMoney` has fan-in 3 and fan-out 0 \u2014 called everywhere, depends on nothing.\n\n<!-- coupling(module) returns {fanIn, fanOut} per unit from the call edges. The load-bearing asymmetry: fan-out is what makes isolation expensive (every callee is a test double you must build), which is exactly why the score weights fanOut \xD72 while cohesion and complexity carry weight 1. Fan-in is not a testability penalty \u2014 it is a reuse signal. formatMoney is the poster child: fan-in 3, fan-out 0, so its own unit tests protect three callers at once. -->\n\n---\n\n## Cohesion\n\n**Cohesion** asks whether a unit does *one* thing or *many*. A cohesive unit has a single, focused responsibility; a low-cohesion unit bundles several unrelated jobs into one place.\n\nThe explorer models this with a simple, explicit proxy: each unit declares a **responsibility set**, and the **cohesion penalty equals the number of responsibilities** (an LCOM-style measure, simplified).\n\nLow cohesion hurts testability because unrelated responsibilities cannot be set up or asserted independently \u2014 one test has to arrange the state for *all* of them at once, and a change to any one responsibility can break tests aimed at the others. `checkout` declares four responsibilities (orchestrate-flow, coordinate-steps, handle-errors, audit-log); `formatMoney` declares just one (format).\n\n<!-- cohesionPenalty(unit) = unit.responsibilities.length \u2014 the third weighted contribution (weight 1). Frame low cohesion as the \"can't set up in isolation\" tax: many responsibilities means one test has to arrange all of them, and they interfere. Keep the two anchors visible \u2014 checkout's four responsibilities vs formatMoney's one \u2014 so the contrast carries into the ranking table. -->\n\n---\n\n## The hardness model\n\nThe three signals combine into one **hardness score** per unit:\n\n**score = cyclomatic + 2\xB7fanOut + cohesionPenalty**\n\nThe weighting encodes the lesson: **fan-out is the costliest** for isolation (weight 2 \u2014 every collaborator is a test double you must build), while complexity and cohesion each contribute at weight 1.\n\n| Signal | Contribution | Why it makes testing harder |\n|---|---|---|\n| Cyclomatic | `cyclomatic` | more independent paths to cover |\n| Fan-out | `2\xB7fanOut` | more collaborators to stub / fake |\n| Cohesion | `cohesionPenalty` | more unrelated responsibilities to arrange |\n\nThe score is a **single number to rank by**: sort the units descending and the top of the list is where testing effort \u2014 and refactoring leverage \u2014 should go first.\n\n<!-- The exact formula from testabilityHardness(): score = cyclomatic + 2*fanOut + cohesionPenalty. Do not skip the weighting rationale \u2014 it is the one design choice in the model, and it says isolation cost (fan-out) dominates. The score is deliberately a single scalar so units can be totally ordered; that ordering is what the heatmap colours and what the \"hardest unit\" readout reads off. Next slide instantiates it on the checkout module. -->\n\n---\n\n## The checkout module \u2014 a worked ranking\n\nSix units of a small e-commerce checkout, scored and ranked (score DESC, ties broken by id):\n\n| Unit | Cyclomatic | Fan-in | Fan-out | Cohesion | **Score** |\n|---|---|---|---|---|---|\n| `checkout` | 7 | 0 | 4 | 4 | **19** |\n| `chargePayment` | 5 | 1 | 1 | 2 | **9** |\n| `sendReceipt` | 4 | 1 | 1 | 1 | **7** |\n| `applyDiscount` | 3 | 1 | 1 | 1 | **6** |\n| `validateCart` | 4 | 1 | 0 | 2 | **6** |\n| `formatMoney` | 1 | 3 | 0 | 1 | **2** |\n\n`applyDiscount` and `validateCart` tie at 6; the ranking breaks the tie by **id ascending**, so `applyDiscount` sorts first. Each number is re-derivable from the module's decisions, call edges, and responsibility sets.\n\n<!-- These are the exact fixture numbers (METRICS_MODULE + testabilityHardness). Walk one row live to prove the formula: checkout = 7 + 2\xB74 + 4 = 19; formatMoney = 1 + 2\xB70 + 1 = 2. Point out the deliberate 6-6 tie between applyDiscount and validateCart and that the ranking resolves it by id ascending \u2014 a detail the tool's ordering depends on. The spread from 19 down to 2 is the whole story: one orchestrator dominates. -->\n\n---\n\n## Hardest vs. easiest\n\nThe ranking separates the module into a clear top and bottom.\n\n**`checkout` is the hardest \u2014 score 19.** It is a classic **orchestrator**: 6 decisions (cyclomatic 7), it calls **four** collaborators (fan-out 4, contributing 8 \u2014 the largest single term), and it carries four responsibilities. To test it in isolation you must stand up four test doubles *and* cover many paths *and* arrange four responsibilities at once. Its dominant contributor is **fan-out** \u2014 the coupling term.\n\n**`formatMoney` is the easiest \u2014 score 2.** A pure helper: no decisions (cyclomatic 1), calls nothing (fan-out 0), one responsibility. It needs a couple of example inputs and nothing else \u2014 no doubles, no setup.\n\nThe gap between 19 and 2 is exactly the gap between an orchestrator and a leaf helper.\n\n<!-- checkout's dominant term is 2\xB7fanOut = 8, which is why the tool reports its highest-leverage fix as \"split it \u2014 extract a collaborator.\" formatMoney is the deliberate opposite: everything that makes checkout hard is absent. The teaching point is that the score names *which* structural property dominates each unit, so the fix is targeted, not generic. This sets up the split demo. -->\n\n---\n\n## Splitting lowers hardness\n\nThe hardest unit is fixed by **splitting** it \u2014 extracting a collaborator so no single unit orchestrates everything. The explorer's `splitUnit(checkout)` does this deterministically: it halves the decisions, partitions the responsibilities, and distributes the outgoing calls across the two halves.\n\n| After split | Cyclomatic | Fan-out | Cohesion | **Score** |\n|---|---|---|---|---|\n| `checkout-a` | 4 | 3 | 2 | **12** |\n| `checkout-b` | 4 | 2 | 2 | **10** |\n\nThe module's worst score drops from **19 \u2192 12**. Where one unit demanded four doubles and many paths, two smaller units each demand fewer of both. Neither half is as hard to test as the original whole.\n\n<!-- These come straight from splitUnit: decisions 6 \u2192 ceil/floor = 3 & 3 (cyclomatic 4 each), responsibilities partitioned even/odd (2 & 2), the four outgoing edges dealt even\u2192a / odd\u2192b, plus one internal a\u2192b edge (so checkout-a fan-out = 3, checkout-b = 2). Max hardness 19 \u2192 12 is the headline. The lesson: complexity, coupling, and cohesion all drop per-unit when responsibilities are separated \u2014 splitting attacks all three axes at once. -->\n\n---\n\n## The coupling\u2013complexity trade-off\n\nSplitting is not free, and the metrics make the cost visible.\n\n- **Within each unit**, everything improves: `checkout-a` and `checkout-b` each have lower complexity, lower fan-out, and fewer responsibilities than the original `checkout`.\n- **Across the module**, coupling *rises*: there is now an extra unit and an extra call edge (`checkout-a \u2192 checkout-b`). You have traded one hard unit for two easier units **plus a new dependency**.\n\nAdding a dependency shows the same trade-off from the other side. In the tool, **add a dependency** raises the caller's fan-out, which raises its score \u2014 a live reminder that every new collaborator is another test double someone will have to build.\n\nThe metrics do not say \"never couple\"; they say **know what each dependency costs** and spend coupling where it buys real structure.\n\n<!-- addDependency(module, from, to) adds one call edge, raising the source's fanOut and therefore its score \u2014 the tool lets the class feel that a new dependency is a new testability tax. Pair it with the split result: splitting lowers per-unit hardness but adds a unit and an edge, so total module coupling goes up. That is the genuine trade-off \u2014 you cannot minimise complexity and coupling simultaneously, so the metrics are for making the trade *deliberately*, not for driving either signal to zero. -->\n\n---\n\n## Targeting refactoring with metrics\n\nThe point of a single hardness score is **prioritisation**. The tool reads off the top of the ranking and names one action:\n\n> **Hardest unit: `checkout` (score 19).** Highest-leverage fix: *split it \u2014 extract a collaborator so no one unit orchestrates everything.*\n\nThe fix is chosen from the unit's **dominant contributor** \u2014 the largest of the three weighted terms. Fan-out dominates `checkout`, so the advice is to split; a complexity-dominated unit would be told to reduce branching, and a cohesion-dominated one to separate responsibilities.\n\nUsed this way, the metrics turn \"this code feels untestable\" into a ranked worklist: fix the top unit, re-score, and let the ranking point at the next one. Refactoring effort flows to where it most lowers the cost of testing.\n\n<!-- highestLeverageFix(module) picks the hardest unit and maps its dominant contributor to a fix key: fanout \u2192 split, complexity \u2192 reduce branching, cohesion \u2192 separate responsibilities. Stress the loop: score \u2192 fix the top \u2192 re-score \u2192 next. This is the payoff of making testability numeric \u2014 it becomes an ordered backlog instead of a vibe. The single highest-leverage fix framing keeps the class from gold-plating every unit at once. -->\n\n---\n\n## Companion tool\n\nOpen `?explorer=testability-metrics` \u2014 the **Testability Metrics Heatmap**.\n\n- **Heatmap** \u2014 the six units coloured by hardness (darker = harder). Click a unit for its metric breakdown and the reason its score is what it is.\n- **Call graph** \u2014 the same module as an SVG dependency graph; an arrow from A to B means A calls B. Click a node to select it too.\n- **Add a dependency** \u2014 pick a caller and a callee, add the edge, and watch the caller's fan-out and score rise.\n- **Split the hardest unit** \u2014 one click applies `splitUnit` to the current hardest unit; the ranking and heatmap update live (`checkout`'s 19 becomes a 12 and a 10).\n- **Reset** returns the module to the original six-unit checkout.\n\nEverything on screen is derived from one source of truth \u2014 the same pure engine (`cyclomatic`, `coupling`, `cohesionPenalty`, `testabilityHardness`) covered in this deck.\n\n<!-- Live-demo script. Start on the heatmap, click checkout to show the breakdown and the fan-out-dominated reason. Switch attention to the call graph so the fan-out of checkout is visible as four outgoing arrows. Then add a dependency (e.g. validateCart \u2192 formatMoney) and note validateCart's score climb. Finally hit \"split the hardest unit\" and read the new ranking \u2014 checkout gone, replaced by checkout-a (12) and checkout-b (10). Reset to restore. Emphasise that the numbers on screen match the tables in this deck because both come from the same engine. -->\n\n---\n\n## Summary\n\n- **Testability is measurable from structure.** Three signals \u2014 cyclomatic complexity, coupling, and cohesion \u2014 predict how hard a unit is to test *before any test is written*.\n- **Cyclomatic complexity = decisions + 1**: more independent paths to cover. **Fan-out** = collaborators to stub/fake (the expensive direction); **fan-in** = a reuse signal, not a penalty. **Cohesion penalty** = number of responsibilities to arrange at once.\n- **Hardness score = cyclomatic + 2\xB7fanOut + cohesionPenalty** \u2014 one number to rank by, weighting fan-out \xD72 because isolation cost dominates.\n- On the checkout module, **`checkout` is hardest (7, fanOut 4, cohesion 4 \u2192 19)** as an orchestrator, and **`formatMoney` is easiest (\u2192 2)** as a pure leaf helper.\n- **Splitting the orchestrator** (`splitUnit(checkout)`) drops the worst score **19 \u2192 12** by lowering complexity, fan-out, and cohesion per unit \u2014 at the cost of one more unit and one more edge: the **coupling\u2013complexity trade-off**.\n- Use the **dominant contributor** to pick the **single highest-leverage fix**, then re-score \u2014 refactoring flows to where it most lowers the cost of testing.\n\n**In-class exercise:** by hand, re-derive `chargePayment`'s score (cyclomatic 5, fan-out 1, cohesion 2), confirm it is 9, name its dominant contributor, and state the fix the model would recommend.\n\n---\n\n## Further reading\n\n- Course specification \u2014 Testability visualization design ([2026-09-28-testability-visualization-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-09-28-testability-visualization-design.md))\n- McCabe, T. (1976) *A Complexity Measure* \u2014 the original cyclomatic complexity metric.\n- Chidamber, S. & Kemerer, C. (1994) *A Metrics Suite for Object-Oriented Design* \u2014 coupling and cohesion (including LCOM) as measurable design properties.\n- Feathers, M. (2004) *Working Effectively with Legacy Code* \u2014 seams and why structure governs testability.\n- Tool source: [TestabilityMetricsExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityMetricsExplorer.js), [testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js)\n- Neighbours in series: #67 Design for Testability, and the Testability scorecard capstone.\n",
+      "zh": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: \u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #68 \u2014 \u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF\ndescription: \u7528\u7D50\u69CB\u5EA6\u91CF\u9810\u6E2C\u6E2C\u8A66\u96E3\u5EA6\u2014\u2014\u5FAA\u74B0\u8907\u96DC\u5EA6\u3001\u8026\u5408\uFF08\u6247\u5165\uFF0F\u6247\u51FA\uFF09\u8207\u5167\u805A\u2014\u2014\u5408\u6210\u55AE\u4E00\u96E3\u5EA6\u5206\u6578\uFF0C\u4E26\u793A\u7BC4\u62C6\u5206\u55AE\u5143\u6216\u964D\u4F4E\u8026\u5408\u5982\u4F55\u8B93\u7A0B\u5F0F\u78BC\u66F4\u6613\u6E2C\u8A66\u3002\nlang: zh-TW\n---\n\n# \u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF\n\n### *\u7D50\u69CB\u9810\u6E2C\u4E00\u500B\u55AE\u5143\u6709\u591A\u96E3\u6E2C\u8A66*\n\n\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316\u7CFB\u5217 #68 \xB7 \u53EF\u6E2C\u8A66\u6027\n\u642D\u914D\u5DE5\u5177\uFF1A`?explorer=testability-metrics` \u2192 \u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF\u71B1\u5716\uFF08[TestabilityMetricsExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityMetricsExplorer.js)\uFF09\n\n<!-- \u53EF\u6E2C\u8A66\u6027\u7AE0\u7BC0\u7684\u4E00\u8B1B\u3002\u5728\u6B64\u4E4B\u524D\uFF0C\u53EF\u6E2C\u8A66\u6027\u591A\u662F\u8CEA\u6027\u8AD6\u8FF0\u2014\u2014\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u3002\u9019\u4E00\u8B1B\u628A\u5B83\u8B8A\u6210*\u53EF\u91CF\u6E2C\u7684*\uFF1A\u4E09\u500B\u7D50\u69CB\u8A0A\u865F\uFF08\u5FAA\u74B0\u8907\u96DC\u5EA6\u3001\u8026\u5408\u3001\u5167\u805A\uFF09\u5408\u6210\u55AE\u4E00\u96E3\u5EA6\u5206\u6578\uFF0C\u4F9D\u300C\u7368\u7ACB\u6E2C\u8A66\u6709\u591A\u96E3\u300D\u628A\u4E00\u500B\u5C0F\u578B\u7D50\u5E33\u6A21\u7D44\u7684\u5404\u55AE\u5143\u6392\u540D\u3002\u642D\u914D\u5DE5\u5177\u662F\u4E00\u5F35\u71B1\u5716 + \u547C\u53EB\u5716\uFF0C\u5168\u73ED\u53EF\u4EE5\u64FE\u52D5\u5B83\uFF08\u52A0\u5165\u76F8\u4F9D\u3001\u62C6\u5206\u6700\u96E3\u7684\u55AE\u5143\uFF09\uFF0C\u4E26\u89C0\u5BDF\u6392\u540D\u8B8A\u52D5\u3002 -->\n\n---\n\n## \u7D50\u69CB\u9810\u6E2C\u6E2C\u8A66\u96E3\u5EA6\n\n\u6709\u4E9B\u55AE\u5143\u5C31\u662F\u6BD4\u5176\u4ED6\u55AE\u5143\u96E3\u6E2C\u8A66\uFF0C\u800C\u4E14\u4F60\u5F80\u5F80**\u5728\u5BEB\u4E0B\u7B2C\u4E00\u500B\u6E2C\u8A66\u4E4B\u524D**\uFF0C\u5149\u770B\u5B83\u5011\u7684\u5F62\u72C0\u5C31\u80FD\u5224\u65B7\u3002\u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF\u628A\u9019\u7A2E\u76F4\u89BA\u5316\u70BA\u6578\u5B57\u3002\n\n\u4E09\u500B**\u7D50\u69CB\u8A0A\u865F**\u5404\u81EA\u6355\u6349\u4E00\u500B\u55AE\u5143\u6297\u62D2\u6E2C\u8A66\u7684\u4E0D\u540C\u539F\u56E0\uFF1A\n\n- **\u5FAA\u74B0\u8907\u96DC\u5EA6**\u2014\u2014\u6E2C\u8A66\u5FC5\u9808\u6DB5\u84CB\u591A\u5C11\u689D\u7368\u7ACB\u8DEF\u5F91\uFF0C\n- **\u8026\u5408**\u2014\u2014\u5B83\u4F9D\u8CF4\u591A\u5C11\u5176\u4ED6\u55AE\u5143\u3001\u6216\u88AB\u591A\u5C11\u55AE\u5143\u4F9D\u8CF4\uFF0C\u4EE5\u53CA\n- **\u5167\u805A**\u2014\u2014\u5B83\u540C\u6642\u627F\u8F09\u591A\u5C11\u9805\u4E0D\u76F8\u95DC\u7684\u8077\u8CAC\u3002\n\n\u9019\u4E9B\u90FD\u4E0D\u9700\u57F7\u884C\u7A0B\u5F0F\u78BC\u3001\u4E5F\u4E0D\u9700\u4EFB\u4F55\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\uFF1B\u5B83\u5011\u76F4\u63A5\u5F9E**\u7D50\u69CB**\u8B80\u51FA\u2014\u2014\u63A7\u5236\u6D41\u7A0B\u3001\u547C\u53EB\u5716\u8207\u8077\u8CAC\u96C6\u5408\u3002\u9019\u6B63\u662F\u5B83\u5011\u4FBF\u5B9C\u5230\u80FD\u70BA\u6BCF\u500B\u55AE\u5143\u8A08\u7B97\u3001\u4E26\u62FF\u4F86\u7576\u4F5C\u300C\u6E2C\u8A66\u75DB\u9EDE\u6703\u96C6\u4E2D\u5728\u54EA\u88E1\u300D\u5730\u5716\u7684\u539F\u56E0\u3002\n\n<!-- \u6574\u4EFD\u6295\u5F71\u7247\u7684\u6846\u5B9A\u52D5\u4F5C\uFF1A\u53EF\u6E2C\u8A66\u6027\u4E0D\u53EA\u662F\u8CEA\u6027\u6027\u8CEA\uFF08\u63A5\u7E2B\u3001\u53EF\u63A7\u5236\u6027\uFF09\uFF0C\u66F4\u662F\u4E00\u500B\u4F60\u53EF\u4EE5\u975C\u614B\u91CF\u6E2C\u7684*\u7D50\u69CB*\u6027\u8CEA\u3002\u5F37\u8ABF\u4E09\u500B\u8A0A\u865F\u90FD\u662F\u5F9E\u7D50\u69CB\u8B80\u51FA\u3001\u800C\u975E\u5F9E\u57F7\u884C\u2014\u2014\u6B64\u6642\u5C1A\u4E0D\u9700\u8981\u4EFB\u4F55\u6E2C\u8A66\u5B58\u5728\u3002\u9019\u6B63\u662F\u91CD\u9EDE\uFF1A\u5EA6\u91CF\u544A\u8A34\u4F60\u96E3\u6E2C\u7684\u6E2C\u8A66\u6703\u51FA\u73FE\u5728\u54EA\uFF0C\u8B93\u4F60\u5728\u75DB\u82E6\u5230\u4F86\u524D\u5C31\u80FD\u884C\u52D5\u3002\u63A5\u4E0B\u4F86\u4E09\u5F35\u6295\u5F71\u7247\u5404\u53D6\u4E00\u500B\u8A0A\u865F\u3002 -->\n\n---\n\n## \u5FAA\u74B0\u8907\u96DC\u5EA6\n\n**\u5FAA\u74B0\u8907\u96DC\u5EA6**\u8A08\u7B97\u7A7F\u904E\u4E00\u500B\u55AE\u5143\u7684**\u7DDA\u6027\u7368\u7ACB\u8DEF\u5F91**\u6578\u91CF\u2014\u2014\u9019\u662F\u4F60\u8981\u6F14\u7DF4\u5230\u6BCF\u500B\u5206\u652F\u6240\u9700\u6E2C\u8A66\u6848\u4F8B\u7684\u4E0B\u754C\u3002\n\n\u63A2\u7D22\u5DE5\u5177\u7531\u660E\u78BA\u7684\u6C7A\u7B56\u8A08\u6578\u7B97\u51FA\u5B83\uFF1A\n\n**M = \u6C7A\u7B56\u6578 + 1**\n\n\u6BCF\u4E00\u500B `if`\u3001`while`\u3001`for`\u3001`case`\uFF0C\u6216\u77ED\u8DEF\u7684 `&&`\uFF0F`||` \u90FD\u662F\u4E00\u500B\u6C7A\u7B56\uFF0C\u5B83\u8B93\u63A7\u5236\u6D41\u7A0B\u5206\u5C94\uFF0C\u4E26\u8B93\u4E00\u500B\u5FB9\u5E95\u7684\u6E2C\u8A66\u5957\u4EF6\u5FC5\u9808\u6DB5\u84CB\u7684\u8DEF\u5F91\u52A0\u500D\u3002\u4E00\u500B\u6709 6 \u500B\u6C7A\u7B56\u7684\u55AE\u5143\uFF0C\u5FAA\u74B0\u8907\u96DC\u5EA6\u662F **7**\uFF1B\u4E00\u500B\u6C92\u6709\u6C7A\u7B56\u7684\u76F4\u7DDA\u55AE\u5143\uFF0C\u8907\u96DC\u5EA6\u662F **1**\u3002\n\n\u6C7A\u7B56\u8D8A\u591A\u4EE3\u8868\u8DEF\u5F91\u8D8A\u591A\uFF0C\u8DEF\u5F91\u8D8A\u591A\u4EE3\u8868\u5149\u662F\u62B5\u9054\u6BCF\u500B\u5206\u652F\u5C31\u9700\u8981\u8D8A\u591A\u6E2C\u8A66\u6848\u4F8B\u3002\u8907\u96DC\u5EA6\u662F\u6E2C\u8A66\u96E3\u5EA6\u4E2D\u6E90\u81EA\u55AE\u5143**\u5167\u90E8\u908F\u8F2F**\u7684\u90A3\u4E00\u90E8\u5206\u3002\n\n<!-- M = \u6C7A\u7B56\u6578 + 1 \u662F\u5F15\u64CE\u7684\u7CBE\u78BA\u898F\u5247\uFF08\u5143\u4EF6\u4E2D\u7684 cyclomatic(unit)\uFF09\u3002\u628A\u5B83\u7E6B\u5230\u5BE6\u52D9\u610F\u7FA9\uFF1A\u8907\u96DC\u5EA6\u662F\u6DB5\u84CB\u5206\u652F\u6240\u9700\u6E2C\u8A66\u7684*\u4E0B\u754C*\uFF0C\u56E0\u6B64\u53EF\u76F4\u63A5\u8B80\u6210\u300C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\u300D\u3002\u5C0D\u7167\u7A0D\u5F8C\u51FA\u73FE\u7684\u5169\u500B\u6975\u7AEF\u2014\u2014checkout \u7684 7 vs formatMoney \u7684 1\u2014\u2014\u8B93\u6578\u5B57\u6709\u5BE6\u611F\u3002\u9019\u662F\u96E3\u5EA6\u7684\u5167\u90E8\u908F\u8F2F\u8EF8\uFF1B\u63A5\u4E0B\u4F86\u5169\u5F35\u662F\u5916\u90E8\u7684\u3001\u95DC\u4FC2\u6027\u7684\u8EF8\u3002 -->\n\n---\n\n## \u8026\u5408 \u2014 \u6247\u5165\u8207\u6247\u51FA\n\n**\u8026\u5408**\u8861\u91CF\u4E00\u500B\u55AE\u5143\u8207\u6A21\u7D44\u5176\u9918\u90E8\u5206\u7684\u7CFE\u7E8F\u7A0B\u5EA6\uFF0C\u76F4\u63A5\u5F9E**\u547C\u53EB\u5716**\u8B80\u51FA\uFF1A\n\n- **\u6247\u5165\uFF08fan-in\uFF09** = \u6709\u591A\u5C11\u55AE\u5143*\u547C\u53EB*\u9019\u4E00\u500B\uFF08\u5B83\u7684\u547C\u53EB\u8005\uFF09\uFF0C\u4EE5\u53CA\n- **\u6247\u51FA\uFF08fan-out\uFF09** = \u9019\u4E00\u500B*\u547C\u53EB*\u4E86\u591A\u5C11\u55AE\u5143\uFF08\u5B83\u7684\u5354\u4F5C\u8005\uFF09\u3002\n\n\u5C0D\u65BC\u7368\u7ACB\u6E2C\u8A66\u800C\u8A00\uFF0C**\u6247\u51FA\u662F\u6602\u8CB4\u7684\u65B9\u5411**\u3002\u4E00\u500B\u55AE\u5143\u547C\u53EB\u7684\u6BCF\u4E00\u500B\u5354\u4F5C\u8005\uFF0C\u90FD\u662F\u6E2C\u8A66\u70BA\u4E86\u9694\u96E2\u53D7\u6E2C\u55AE\u5143\u800C\u5FC5\u9808**\u66FF\u63DB\uFF08stub\u3001mock \u6216 fake\uFF09**\u7684\u76F8\u4F9D\u3002\u4E00\u500B\u547C\u53EB\u56DB\u500B\u5354\u4F5C\u8005\u7684\u55AE\u5143\uFF0C\u5F97\u5148\u64FA\u597D\u56DB\u500B\u6E2C\u8A66\u66FF\u8EAB\uFF0C\u624D\u8DD1\u5F97\u4E86\u55AE\u4E00\u500B\u65B7\u8A00\u2014\u2014\u56E0\u6B64\u96E3\u5EA6\u6A21\u578B\u7D66\u6247\u51FA **\xD72** \u7684\u6B0A\u91CD\u3002\n\n\u9AD8\u6247\u5165\u662F\u53E6\u4E00\u7A2E\u8A0A\u865F\uFF1A\u4E00\u500B\u88AB\u5927\u91CF\u547C\u53EB\u7684\u55AE\u5143\uFF0C\u662F\u5171\u7528\u3001\u88AB\u91CD\u7528\u7684\u8F14\u52A9\u51FD\u5F0F\uFF0C\u56E0\u6B64\u70BA\u5B83\u81EA\u5DF1\u5BEB\u7684\u6E2C\u8A66\u6703\u5728\u6BCF\u4E00\u500B\u547C\u53EB\u8005\u8EAB\u4E0A\u5E36\u4F86\u56DE\u5831\u3002\u7D50\u5E33\u6A21\u7D44\u7684 `formatMoney` \u6247\u5165\u70BA 3\u3001\u6247\u51FA\u70BA 0\u2014\u2014\u5230\u8655\u88AB\u547C\u53EB\uFF0C\u537B\u4E0D\u4F9D\u8CF4\u4EFB\u4F55\u6771\u897F\u3002\n\n<!-- coupling(module) \u7531\u547C\u53EB\u908A\u7B97\u51FA\u6BCF\u500B\u55AE\u5143\u7684 {fanIn, fanOut}\u3002\u627F\u8F09\u91CD\u91CF\u7684\u4E0D\u5C0D\u7A31\u6027\uFF1A\u6247\u51FA\u624D\u662F\u8B93\u9694\u96E2\u8B8A\u8CB4\u7684\u539F\u56E0\uFF08\u6BCF\u500B\u88AB\u547C\u53EB\u8005\u90FD\u662F\u4F60\u5FC5\u9808\u5EFA\u7684\u6E2C\u8A66\u66FF\u8EAB\uFF09\uFF0C\u9019\u6B63\u662F\u5206\u6578\u7D66 fanOut \xD72\u3001\u800C\u5167\u805A\u8207\u8907\u96DC\u5EA6\u53EA\u7D66\u6B0A\u91CD 1 \u7684\u7406\u7531\u3002\u6247\u5165\u4E0D\u662F\u53EF\u6E2C\u8A66\u6027\u61F2\u7F70\u2014\u2014\u5B83\u662F\u91CD\u7528\u8A0A\u865F\u3002formatMoney \u662F\u6700\u4F73\u7BC4\u4F8B\uFF1A\u6247\u5165 3\u3001\u6247\u51FA 0\uFF0C\u56E0\u6B64\u5B83\u81EA\u5DF1\u7684\u55AE\u5143\u6E2C\u8A66\u4E00\u6B21\u4FDD\u8B77\u4E09\u500B\u547C\u53EB\u8005\u3002 -->\n\n---\n\n## \u5167\u805A\n\n**\u5167\u805A**\u554F\u7684\u662F\u4E00\u500B\u55AE\u5143\u505A*\u4E00\u4EF6*\u4E8B\u3001\u9084\u662F*\u8A31\u591A*\u4E8B\u3002\u4E00\u500B\u9AD8\u5167\u805A\u7684\u55AE\u5143\u6709\u55AE\u4E00\u3001\u805A\u7126\u7684\u8077\u8CAC\uFF1B\u4E00\u500B\u4F4E\u5167\u805A\u7684\u55AE\u5143\u5247\u628A\u6578\u4EF6\u4E0D\u76F8\u95DC\u7684\u5DE5\u4F5C\u7D81\u5728\u4E00\u8655\u3002\n\n\u63A2\u7D22\u5DE5\u5177\u7528\u4E00\u500B\u7C21\u55AE\u3001\u660E\u78BA\u7684\u4EE3\u7406\u4F86\u5EFA\u6A21\u5B83\uFF1A\u6BCF\u500B\u55AE\u5143\u5BA3\u544A\u4E00\u500B**\u8077\u8CAC\u96C6\u5408**\uFF0C\u800C**\u5167\u805A\u61F2\u7F70\u7B49\u65BC\u8077\u8CAC\u7684\u6578\u91CF**\uFF08\u4E00\u7A2E LCOM \u5F0F\u3001\u7D93\u7C21\u5316\u7684\u5EA6\u91CF\uFF09\u3002\n\n\u4F4E\u5167\u805A\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027\uFF0C\u56E0\u70BA\u4E0D\u76F8\u95DC\u7684\u8077\u8CAC\u7121\u6CD5\u5404\u81EA\u7368\u7ACB\u5730\u8A2D\u5B9A\u6216\u65B7\u8A00\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u5FC5\u9808*\u4E00\u6B21*\u70BA\u5B83\u5011*\u5168\u90E8*\u5B89\u6392\u72C0\u614B\uFF0C\u800C\u4EFB\u4E00\u8077\u8CAC\u7684\u66F4\u52D5\u90FD\u53EF\u80FD\u5F04\u58DE\u7784\u6E96\u5176\u4ED6\u8077\u8CAC\u7684\u6E2C\u8A66\u3002`checkout` \u5BA3\u544A\u4E86\u56DB\u9805\u8077\u8CAC\uFF08orchestrate-flow\u3001coordinate-steps\u3001handle-errors\u3001audit-log\uFF09\uFF1B`formatMoney` \u53EA\u5BA3\u544A\u4E00\u9805\uFF08format\uFF09\u3002\n\n<!-- cohesionPenalty(unit) = unit.responsibilities.length\u2014\u2014\u7B2C\u4E09\u500B\u52A0\u6B0A\u8CA2\u737B\uFF08\u6B0A\u91CD 1\uFF09\u3002\u628A\u4F4E\u5167\u805A\u6846\u6210\u300C\u7121\u6CD5\u7368\u7ACB\u8A2D\u5B9A\u300D\u7684\u7A05\uFF1A\u8077\u8CAC\u591A\u4EE3\u8868\u4E00\u500B\u6E2C\u8A66\u5FC5\u9808\u628A\u5B83\u5011\u5168\u90E8\u5B89\u6392\u597D\uFF0C\u800C\u4E14\u5B83\u5011\u4E92\u76F8\u5E72\u64FE\u3002\u8B93\u5169\u500B\u9328\u9EDE\u4FDD\u6301\u53EF\u898B\u2014\u2014checkout \u7684\u56DB\u9805\u8077\u8CAC vs formatMoney \u7684\u4E00\u9805\u2014\u2014\u597D\u8B93\u5C0D\u6BD4\u5EF6\u7E8C\u5230\u6392\u540D\u8868\u3002 -->\n\n---\n\n## \u96E3\u5EA6\u6A21\u578B\n\n\u4E09\u500B\u8A0A\u865F\u5408\u6210\u6BCF\u500B\u55AE\u5143\u7684\u4E00\u500B**\u96E3\u5EA6\u5206\u6578**\uFF1A\n\n**\u5206\u6578 = \u5FAA\u74B0\u8907\u96DC\u5EA6 + 2\xB7\u6247\u51FA + \u5167\u805A\u61F2\u7F70**\n\n\u9019\u500B\u6B0A\u91CD\u628A\u6559\u8A13\u7DE8\u78BC\u9032\u53BB\uFF1A**\u6247\u51FA\u5C0D\u9694\u96E2\u6700\u6602\u8CB4**\uFF08\u6B0A\u91CD 2\u2014\u2014\u6BCF\u500B\u5354\u4F5C\u8005\u90FD\u662F\u4F60\u5FC5\u9808\u5EFA\u7684\u6E2C\u8A66\u66FF\u8EAB\uFF09\uFF0C\u800C\u8907\u96DC\u5EA6\u8207\u5167\u805A\u5404\u4EE5\u6B0A\u91CD 1 \u8CA2\u737B\u3002\n\n| \u8A0A\u865F | \u8CA2\u737B | \u70BA\u4EC0\u9EBC\u8B93\u6E2C\u8A66\u66F4\u96E3 |\n|---|---|---|\n| \u5FAA\u74B0\u8907\u96DC\u5EA6 | `cyclomatic` | \u66F4\u591A\u7368\u7ACB\u8DEF\u5F91\u8981\u6DB5\u84CB |\n| \u6247\u51FA | `2\xB7fanOut` | \u66F4\u591A\u5354\u4F5C\u8005\u8981 stub\uFF0Ffake |\n| \u5167\u805A | `cohesionPenalty` | \u66F4\u591A\u4E0D\u76F8\u95DC\u8077\u8CAC\u8981\u5B89\u6392 |\n\n\u5206\u6578\u662F\u4E00\u500B**\u7528\u4F86\u6392\u540D\u7684\u55AE\u4E00\u6578\u5B57**\uFF1A\u628A\u55AE\u5143\u905E\u6E1B\u6392\u5E8F\uFF0C\u6E05\u55AE\u9802\u7AEF\u5C31\u662F\u6E2C\u8A66\u529F\u592B\u2014\u2014\u8207\u91CD\u69CB\u69D3\u687F\u2014\u2014\u8A72\u5148\u6295\u5165\u4E4B\u8655\u3002\n\n<!-- \u4F86\u81EA testabilityHardness() \u7684\u7CBE\u78BA\u516C\u5F0F\uFF1Ascore = cyclomatic + 2*fanOut + cohesionPenalty\u3002\u5225\u8DF3\u904E\u6B0A\u91CD\u7684\u7406\u7531\u2014\u2014\u5B83\u662F\u6A21\u578B\u4E2D\u552F\u4E00\u7684\u8A2D\u8A08\u9078\u64C7\uFF0C\u8AAA\u7684\u662F\u9694\u96E2\u6210\u672C\uFF08\u6247\u51FA\uFF09\u4E3B\u5C0E\u4E00\u5207\u3002\u5206\u6578\u523B\u610F\u662F\u55AE\u4E00\u7D14\u91CF\uFF0C\u597D\u8B93\u55AE\u5143\u53EF\u4EE5\u88AB\u5168\u5E8F\u6392\u5217\uFF1B\u9019\u500B\u6392\u5E8F\u6B63\u662F\u71B1\u5716\u4E0A\u8272\u8207\u300C\u6700\u96E3\u55AE\u5143\u300D\u8B80\u6578\u6240\u4F9D\u64DA\u4E4B\u7269\u3002\u4E0B\u4E00\u5F35\u628A\u5B83\u5BE6\u4F8B\u5316\u5728\u7D50\u5E33\u6A21\u7D44\u4E0A\u3002 -->\n\n---\n\n## \u7D50\u5E33\u6A21\u7D44 \u2014 \u4E00\u500B\u5BE6\u4F5C\u904E\u7684\u6392\u540D\n\n\u4E00\u500B\u5C0F\u578B\u96FB\u5546\u7D50\u5E33\u7684\u516D\u500B\u55AE\u5143\uFF0C\u5DF2\u8A08\u5206\u4E26\u6392\u540D\uFF08\u5206\u6578\u905E\u6E1B\uFF0C\u540C\u5206\u4EE5 id \u6C7A\u52DD\uFF09\uFF1A\n\n| \u55AE\u5143 | \u5FAA\u74B0\u8907\u96DC\u5EA6 | \u6247\u5165 | \u6247\u51FA | \u5167\u805A | **\u5206\u6578** |\n|---|---|---|---|---|---|\n| `checkout` | 7 | 0 | 4 | 4 | **19** |\n| `chargePayment` | 5 | 1 | 1 | 2 | **9** |\n| `sendReceipt` | 4 | 1 | 1 | 1 | **7** |\n| `applyDiscount` | 3 | 1 | 1 | 1 | **6** |\n| `validateCart` | 4 | 1 | 0 | 2 | **6** |\n| `formatMoney` | 1 | 3 | 0 | 1 | **2** |\n\n`applyDiscount` \u8207 `validateCart` \u540C\u70BA 6 \u5206\uFF1B\u6392\u540D\u4EE5 **id \u905E\u589E**\u6C7A\u52DD\uFF0C\u56E0\u6B64 `applyDiscount` \u6392\u5728\u524D\u9762\u3002\u6BCF\u4E00\u500B\u6578\u5B57\u90FD\u80FD\u5F9E\u6A21\u7D44\u7684\u6C7A\u7B56\u3001\u547C\u53EB\u908A\u8207\u8077\u8CAC\u96C6\u5408\u91CD\u65B0\u63A8\u5C0E\u51FA\u4F86\u3002\n\n<!-- \u9019\u4E9B\u662F\u7CBE\u78BA\u7684 fixture \u6578\u5B57\uFF08METRICS_MODULE + testabilityHardness\uFF09\u3002\u73FE\u5834\u8D70\u4E00\u5217\u4EE5\u8B49\u660E\u516C\u5F0F\uFF1Acheckout = 7 + 2\xB74 + 4 = 19\uFF1BformatMoney = 1 + 2\xB70 + 1 = 2\u3002\u6307\u51FA applyDiscount \u8207 validateCart \u4E4B\u9593\u523B\u610F\u8A2D\u8A08\u7684 6-6 \u540C\u5206\uFF0C\u4EE5\u53CA\u6392\u540D\u4EE5 id \u905E\u589E\u89E3\u6C7A\u5B83\u2014\u2014\u9019\u662F\u5DE5\u5177\u6392\u5E8F\u6240\u4F9D\u8CF4\u7684\u7D30\u7BC0\u3002\u5F9E 19 \u4E00\u8DEF\u964D\u5230 2 \u7684\u843D\u5DEE\u5C31\u662F\u6574\u500B\u6545\u4E8B\uFF1A\u4E00\u500B\u5354\u8ABF\u8005\u4E3B\u5C0E\u5168\u5C40\u3002 -->\n\n---\n\n## \u6700\u96E3 vs. \u6700\u6613\n\n\u6392\u540D\u628A\u6A21\u7D44\u6E05\u695A\u5730\u5206\u51FA\u9802\u7AEF\u8207\u5E95\u7AEF\u3002\n\n**`checkout` \u662F\u6700\u96E3\u7684\u2014\u2014\u5206\u6578 19\u3002** \u5B83\u662F\u5178\u578B\u7684**\u5354\u8ABF\u8005\uFF08orchestrator\uFF09**\uFF1A6 \u500B\u6C7A\u7B56\uFF08\u5FAA\u74B0\u8907\u96DC\u5EA6 7\uFF09\u3001\u5B83\u547C\u53EB**\u56DB\u500B**\u5354\u4F5C\u8005\uFF08\u6247\u51FA 4\uFF0C\u8CA2\u737B 8\u2014\u2014\u6700\u5927\u7684\u55AE\u4E00\u9805\uFF09\u3001\u4E26\u627F\u8F09\u56DB\u9805\u8077\u8CAC\u3002\u8981\u7368\u7ACB\u6E2C\u8A66\u5B83\uFF0C\u4F60\u5FC5\u9808\u7ACB\u8D77\u56DB\u500B\u6E2C\u8A66\u66FF\u8EAB\uFF0C*\u800C\u4E14*\u6DB5\u84CB\u8A31\u591A\u8DEF\u5F91\uFF0C*\u800C\u4E14*\u4E00\u6B21\u5B89\u6392\u56DB\u9805\u8077\u8CAC\u3002\u5B83\u7684\u4E3B\u5C0E\u8CA2\u737B\u662F**\u6247\u51FA**\u2014\u2014\u8026\u5408\u9805\u3002\n\n**`formatMoney` \u662F\u6700\u6613\u7684\u2014\u2014\u5206\u6578 2\u3002** \u4E00\u500B\u7D14\u8F14\u52A9\u51FD\u5F0F\uFF1A\u6C92\u6709\u6C7A\u7B56\uFF08\u5FAA\u74B0\u8907\u96DC\u5EA6 1\uFF09\u3001\u4E0D\u547C\u53EB\u4EFB\u4F55\u6771\u897F\uFF08\u6247\u51FA 0\uFF09\u3001\u4E00\u9805\u8077\u8CAC\u3002\u5B83\u53EA\u9700\u8981\u5E7E\u500B\u7BC4\u4F8B\u8F38\u5165\u3001\u5225\u7121\u4ED6\u7269\u2014\u2014\u4E0D\u9700\u66FF\u8EAB\u3001\u4E0D\u9700\u8A2D\u5B9A\u3002\n\n19 \u8207 2 \u4E4B\u9593\u7684\u843D\u5DEE\uFF0C\u6B63\u662F\u5354\u8ABF\u8005\u8207\u8449\u7AEF\u8F14\u52A9\u51FD\u5F0F\u4E4B\u9593\u7684\u843D\u5DEE\u3002\n\n<!-- checkout \u7684\u4E3B\u5C0E\u9805\u662F 2\xB7fanOut = 8\uFF0C\u9019\u6B63\u662F\u5DE5\u5177\u628A\u5B83\u7684\u6700\u9AD8\u69D3\u687F\u4FEE\u6B63\u5831\u6210\u300C\u62C6\u5206\u5B83\u2014\u2014\u62BD\u51FA\u4E00\u500B\u5354\u4F5C\u8005\u300D\u7684\u539F\u56E0\u3002formatMoney \u662F\u523B\u610F\u7684\u76F8\u53CD\uFF1A\u4E00\u5207\u8B93 checkout \u96E3\u7684\u6027\u8CEA\u5B83\u90FD\u6C92\u6709\u3002\u6559\u5B78\u91CD\u9EDE\u662F\u5206\u6578\u6703\u9EDE\u540D*\u54EA\u4E00\u500B*\u7D50\u69CB\u6027\u8CEA\u4E3B\u5C0E\u6BCF\u500B\u55AE\u5143\uFF0C\u56E0\u6B64\u4FEE\u6B63\u662F\u91DD\u5C0D\u6027\u7684\u3001\u800C\u975E\u901A\u7528\u7684\u3002\u9019\u70BA\u62C6\u5206\u6F14\u793A\u92EA\u8DEF\u3002 -->\n\n---\n\n## \u62C6\u5206\u6703\u964D\u4F4E\u96E3\u5EA6\n\n\u6700\u96E3\u7684\u55AE\u5143\u900F\u904E**\u62C6\u5206**\u5B83\u4F86\u4FEE\u6B63\u2014\u2014\u62BD\u51FA\u4E00\u500B\u5354\u4F5C\u8005\uFF0C\u8B93\u6C92\u6709\u55AE\u4E00\u55AE\u5143\u5354\u8ABF\u4E00\u5207\u3002\u63A2\u7D22\u5DE5\u5177\u7684 `splitUnit(checkout)` \u4EE5\u78BA\u5B9A\u6027\u7684\u65B9\u5F0F\u505A\u9019\u4EF6\u4E8B\uFF1A\u5B83\u628A\u6C7A\u7B56\u6E1B\u534A\u3001\u5207\u5206\u8077\u8CAC\uFF0C\u4E26\u628A\u51FA\u5411\u547C\u53EB\u5206\u914D\u5230\u5169\u534A\u4E4B\u9593\u3002\n\n| \u62C6\u5206\u5F8C | \u5FAA\u74B0\u8907\u96DC\u5EA6 | \u6247\u51FA | \u5167\u805A | **\u5206\u6578** |\n|---|---|---|---|---|\n| `checkout-a` | 4 | 3 | 2 | **12** |\n| `checkout-b` | 4 | 2 | 2 | **10** |\n\n\u6A21\u7D44\u7684\u6700\u5DEE\u5206\u6578\u5F9E **19 \u2192 12** \u4E0B\u964D\u3002\u539F\u672C\u4E00\u500B\u55AE\u5143\u8981\u56DB\u500B\u66FF\u8EAB\u8207\u8A31\u591A\u8DEF\u5F91\uFF0C\u73FE\u5728\u5169\u500B\u8F03\u5C0F\u7684\u55AE\u5143\u5404\u81EA\u9700\u8981\u66F4\u5C11\u7684\u5169\u8005\u3002\u4EFB\u4E00\u534A\u90FD\u4E0D\u50CF\u539F\u672C\u7684\u6574\u9AD4\u90A3\u9EBC\u96E3\u6E2C\u8A66\u3002\n\n<!-- \u9019\u4E9B\u76F4\u63A5\u4F86\u81EA splitUnit\uFF1A\u6C7A\u7B56 6 \u2192 ceil/floor = 3 \u8207 3\uFF08\u5404\u5FAA\u74B0\u8907\u96DC\u5EA6 4\uFF09\uFF0C\u8077\u8CAC\u4EE5\u5947\u5076\u7D22\u5F15\u5207\u5206\uFF082 \u8207 2\uFF09\uFF0C\u56DB\u689D\u51FA\u5411\u908A\u4EE5\u5076\u2192a\uFF0F\u5947\u2192b \u767C\u6D3E\uFF0C\u518D\u52A0\u4E00\u689D\u5167\u90E8 a\u2192b \u908A\uFF08\u56E0\u6B64 checkout-a \u6247\u51FA = 3\u3001checkout-b = 2\uFF09\u3002\u6700\u5927\u96E3\u5EA6 19 \u2192 12 \u662F\u982D\u689D\u3002\u6559\u8A13\uFF1A\u7576\u8077\u8CAC\u88AB\u5206\u96E2\u6642\uFF0C\u8907\u96DC\u5EA6\u3001\u8026\u5408\u8207\u5167\u805A\u90FD\u5728\u6BCF\u500B\u55AE\u5143\u4E0A\u4E0B\u964D\u2014\u2014\u62C6\u5206\u4E00\u6B21\u653B\u64CA\u5168\u90E8\u4E09\u500B\u8EF8\u3002 -->\n\n---\n\n## \u8026\u5408\u2013\u8907\u96DC\u5EA6\u7684\u53D6\u6368\n\n\u62C6\u5206\u4E26\u975E\u514D\u8CBB\uFF0C\u800C\u5EA6\u91CF\u8B93\u6210\u672C\u8B8A\u5F97\u53EF\u898B\u3002\n\n- **\u5728\u6BCF\u500B\u55AE\u5143\u4E4B\u5167**\uFF0C\u4E00\u5207\u90FD\u6539\u5584\uFF1A`checkout-a` \u8207 `checkout-b` \u5404\u81EA\u6BD4\u539F\u672C\u7684 `checkout` \u6709\u66F4\u4F4E\u7684\u8907\u96DC\u5EA6\u3001\u66F4\u4F4E\u7684\u6247\u51FA\u3001\u66F4\u5C11\u7684\u8077\u8CAC\u3002\n- **\u5728\u6574\u500B\u6A21\u7D44\u4E4B\u9593**\uFF0C\u8026\u5408*\u4E0A\u5347*\uFF1A\u73FE\u5728\u591A\u4E86\u4E00\u500B\u55AE\u5143\u3001\u591A\u4E86\u4E00\u689D\u547C\u53EB\u908A\uFF08`checkout-a \u2192 checkout-b`\uFF09\u3002\u4F60\u7528\u4E00\u500B\u96E3\u7684\u55AE\u5143\u63DB\u4F86\u4E86\u5169\u500B\u8F03\u6613\u7684\u55AE\u5143**\u52A0\u4E0A\u4E00\u689D\u65B0\u76F8\u4F9D**\u3002\n\n\u52A0\u5165\u4E00\u689D\u76F8\u4F9D\u5F9E\u53E6\u4E00\u9762\u5C55\u793A\u540C\u6A23\u7684\u53D6\u6368\u3002\u5728\u5DE5\u5177\u4E2D\uFF0C**\u52A0\u5165\u76F8\u4F9D**\u6703\u63D0\u9AD8\u547C\u53EB\u8005\u7684\u6247\u51FA\uFF0C\u9032\u800C\u63D0\u9AD8\u5B83\u7684\u5206\u6578\u2014\u2014\u4E00\u500B\u6D3B\u751F\u751F\u7684\u63D0\u9192\uFF1A\u6BCF\u4E00\u500B\u65B0\u5354\u4F5C\u8005\u90FD\u662F\u53C8\u4E00\u500B\u6709\u4EBA\u5F97\u5EFA\u7684\u6E2C\u8A66\u66FF\u8EAB\u3002\n\n\u5EA6\u91CF\u4E26\u4E0D\u662F\u8AAA\u300C\u6C38\u9060\u5225\u8026\u5408\u300D\uFF1B\u5B83\u8AAA\u7684\u662F**\u77E5\u9053\u6BCF\u4E00\u689D\u76F8\u4F9D\u7684\u6210\u672C**\uFF0C\u4E26\u628A\u8026\u5408\u82B1\u5728\u80FD\u8CB7\u5230\u771F\u6B63\u7D50\u69CB\u4E4B\u8655\u3002\n\n<!-- addDependency(module, from, to) \u52A0\u5165\u4E00\u689D\u547C\u53EB\u908A\uFF0C\u63D0\u9AD8\u4F86\u6E90\u7684 fanOut \u56E0\u800C\u63D0\u9AD8\u5176\u5206\u6578\u2014\u2014\u5DE5\u5177\u8B93\u5168\u73ED\u611F\u53D7\u5230\u4E00\u689D\u65B0\u76F8\u4F9D\u5C31\u662F\u4E00\u7B46\u65B0\u7684\u53EF\u6E2C\u8A66\u6027\u7A05\u3002\u628A\u5B83\u8207\u62C6\u5206\u7D50\u679C\u914D\u5C0D\uFF1A\u62C6\u5206\u964D\u4F4E\u6BCF\u500B\u55AE\u5143\u7684\u96E3\u5EA6\uFF0C\u537B\u52A0\u4E86\u4E00\u500B\u55AE\u5143\u8207\u4E00\u689D\u908A\uFF0C\u56E0\u6B64\u6574\u500B\u6A21\u7D44\u7684\u8026\u5408\u4E0A\u5347\u3002\u9019\u5C31\u662F\u771F\u6B63\u7684\u53D6\u6368\u2014\u2014\u4F60\u7121\u6CD5\u540C\u6642\u6700\u5C0F\u5316\u8907\u96DC\u5EA6\u8207\u8026\u5408\uFF0C\u6240\u4EE5\u5EA6\u91CF\u662F\u7528\u4F86*\u523B\u610F\u5730*\u505A\u53D6\u6368\uFF0C\u800C\u975E\u628A\u4EFB\u4E00\u8A0A\u865F\u903C\u5230\u96F6\u3002 -->\n\n---\n\n## \u7528\u5EA6\u91CF\u9396\u5B9A\u91CD\u69CB\n\n\u55AE\u4E00\u96E3\u5EA6\u5206\u6578\u7684\u91CD\u9EDE\u5728\u65BC**\u6392\u5B9A\u512A\u5148\u9806\u5E8F**\u3002\u5DE5\u5177\u8B80\u51FA\u6392\u540D\u9802\u7AEF\uFF0C\u4E26\u9EDE\u540D\u4E00\u500B\u884C\u52D5\uFF1A\n\n> **\u6700\u96E3\u55AE\u5143\uFF1A`checkout`\uFF08\u5206\u6578 19\uFF09\u3002** \u6700\u9AD8\u69D3\u687F\u7684\u4FEE\u6B63\uFF1A*\u62C6\u5206\u5B83\u2014\u2014\u62BD\u51FA\u4E00\u500B\u5354\u4F5C\u8005\uFF0C\u8B93\u6C92\u6709\u55AE\u4E00\u55AE\u5143\u5354\u8ABF\u4E00\u5207\u3002*\n\n\u9019\u500B\u4FEE\u6B63\u662F\u5F9E\u55AE\u5143\u7684**\u4E3B\u5C0E\u8CA2\u737B**\u2014\u2014\u4E09\u500B\u52A0\u6B0A\u9805\u4E2D\u6700\u5927\u8005\u2014\u2014\u9078\u51FA\u7684\u3002\u6247\u51FA\u4E3B\u5C0E `checkout`\uFF0C\u6240\u4EE5\u5EFA\u8B70\u662F\u62C6\u5206\uFF1B\u4E00\u500B\u7531\u8907\u96DC\u5EA6\u4E3B\u5C0E\u7684\u55AE\u5143\u6703\u88AB\u544A\u77E5\u964D\u4F4E\u5206\u652F\uFF0C\u4E00\u500B\u7531\u4F4E\u5167\u805A\u4E3B\u5C0E\u7684\u5247\u6703\u88AB\u544A\u77E5\u5206\u96E2\u8077\u8CAC\u3002\n\n\u5982\u6B64\u904B\u7528\uFF0C\u5EA6\u91CF\u628A\u300C\u9019\u6BB5\u7A0B\u5F0F\u78BC\u611F\u89BA\u4E0D\u53EF\u6E2C\u300D\u8B8A\u6210\u4E00\u4EFD\u6392\u597D\u5E8F\u7684\u5DE5\u4F5C\u6E05\u55AE\uFF1A\u4FEE\u6B63\u9802\u7AEF\u7684\u55AE\u5143\u3001\u91CD\u65B0\u8A08\u5206\uFF0C\u8B93\u6392\u540D\u6307\u5411\u4E0B\u4E00\u500B\u3002\u91CD\u69CB\u529F\u592B\u6D41\u5411\u6700\u80FD\u964D\u4F4E\u6E2C\u8A66\u6210\u672C\u4E4B\u8655\u3002\n\n<!-- highestLeverageFix(module) \u6311\u51FA\u6700\u96E3\u7684\u55AE\u5143\uFF0C\u4E26\u628A\u5B83\u7684\u4E3B\u5C0E\u8CA2\u737B\u6620\u5230\u4E00\u500B\u4FEE\u6B63\u9375\uFF1Afanout \u2192 \u62C6\u5206\uFF0Ccomplexity \u2192 \u964D\u4F4E\u5206\u652F\uFF0Ccohesion \u2192 \u5206\u96E2\u8077\u8CAC\u3002\u5F37\u8ABF\u9019\u500B\u8FF4\u5708\uFF1A\u8A08\u5206 \u2192 \u4FEE\u6B63\u9802\u7AEF \u2192 \u91CD\u65B0\u8A08\u5206 \u2192 \u4E0B\u4E00\u500B\u3002\u9019\u662F\u628A\u53EF\u6E2C\u8A66\u6027\u6578\u503C\u5316\u7684\u56DE\u5831\u2014\u2014\u5B83\u8B8A\u6210\u4E00\u4EFD\u6709\u5E8F\u5F85\u8FA6\uFF0C\u800C\u975E\u4E00\u7A2E\u611F\u89BA\u3002\u300C\u55AE\u4E00\u6700\u9AD8\u69D3\u687F\u4FEE\u6B63\u300D\u7684\u6846\u5B9A\uFF0C\u8B93\u5168\u73ED\u4E0D\u6703\u4E00\u6B21\u904E\u5EA6\u6253\u78E8\u6BCF\u500B\u55AE\u5143\u3002 -->\n\n---\n\n## \u642D\u914D\u5DE5\u5177\n\n\u958B\u555F `?explorer=testability-metrics` \u2014\u2014**\u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF\u71B1\u5716**\u3002\n\n- **\u71B1\u5716**\u2014\u2014\u516D\u500B\u55AE\u5143\u4F9D\u96E3\u5EA6\u4E0A\u8272\uFF08\u8D8A\u6DF1\uFF1D\u8D8A\u96E3\uFF09\u3002\u9EDE\u4E00\u500B\u55AE\u5143\u770B\u5B83\u7684\u5EA6\u91CF\u62C6\u89E3\uFF0C\u4EE5\u53CA\u5B83\u5206\u6578\u4E4B\u6240\u4EE5\u5982\u6B64\u7684\u539F\u56E0\u3002\n- **\u547C\u53EB\u5716**\u2014\u2014\u540C\u4E00\u500B\u6A21\u7D44\u756B\u6210 SVG \u76F8\u4F9D\u5716\uFF1B\u7531 A \u6307\u5411 B \u7684\u7BAD\u982D\u8868\u793A A \u547C\u53EB B\u3002\u9EDE\u4E00\u500B\u7BC0\u9EDE\u4E5F\u80FD\u9078\u53D6\u5B83\u3002\n- **\u52A0\u5165\u76F8\u4F9D**\u2014\u2014\u6311\u4E00\u500B\u547C\u53EB\u8005\u8207\u4E00\u500B\u88AB\u547C\u53EB\u8005\uFF0C\u52A0\u5165\u8A72\u908A\uFF0C\u89C0\u5BDF\u547C\u53EB\u8005\u7684\u6247\u51FA\u8207\u5206\u6578\u4E0A\u5347\u3002\n- **\u62C6\u5206\u6700\u96E3\u7684\u55AE\u5143**\u2014\u2014\u4E00\u9375\u5C0D\u7576\u524D\u6700\u96E3\u7684\u55AE\u5143\u5957\u7528 `splitUnit`\uFF1B\u6392\u540D\u8207\u71B1\u5716\u5373\u6642\u66F4\u65B0\uFF08`checkout` \u7684 19 \u8B8A\u6210\u4E00\u500B 12 \u8207\u4E00\u500B 10\uFF09\u3002\n- **\u91CD\u8A2D**\u628A\u6A21\u7D44\u9084\u539F\u70BA\u539F\u672C\u7684\u516D\u55AE\u5143\u7D50\u5E33\u3002\n\n\u756B\u9762\u4E0A\u7684\u4E00\u5207\u90FD\u6E90\u81EA\u55AE\u4E00\u771F\u76F8\u4F86\u6E90\u2014\u2014\u8207\u672C\u8B1B\u6DB5\u84CB\u7684\u76F8\u540C\u7D14\u5F15\u64CE\uFF08`cyclomatic`\u3001`coupling`\u3001`cohesionPenalty`\u3001`testabilityHardness`\uFF09\u3002\n\n<!-- \u73FE\u5834\u6F14\u793A\u8173\u672C\u3002\u5F9E\u71B1\u5716\u958B\u59CB\uFF0C\u9EDE checkout \u5C55\u793A\u62C6\u89E3\u8207\u7531\u6247\u51FA\u4E3B\u5C0E\u7684\u539F\u56E0\u3002\u628A\u6CE8\u610F\u529B\u5207\u5230\u547C\u53EB\u5716\uFF0C\u8B93 checkout \u7684\u6247\u51FA\u4EE5\u56DB\u689D\u51FA\u5411\u7BAD\u982D\u53EF\u898B\u3002\u63A5\u8457\u52A0\u5165\u4E00\u689D\u76F8\u4F9D\uFF08\u4F8B\u5982 validateCart \u2192 formatMoney\uFF09\uFF0C\u4E26\u7559\u610F validateCart \u7684\u5206\u6578\u6500\u5347\u3002\u6700\u5F8C\u6309\u4E0B\u300C\u62C6\u5206\u6700\u96E3\u7684\u55AE\u5143\u300D\u4E26\u8B80\u51FA\u65B0\u6392\u540D\u2014\u2014checkout \u6D88\u5931\uFF0C\u63DB\u6210 checkout-a\uFF0812\uFF09\u8207 checkout-b\uFF0810\uFF09\u3002\u91CD\u8A2D\u4EE5\u9084\u539F\u3002\u5F37\u8ABF\u756B\u9762\u4E0A\u7684\u6578\u5B57\u8207\u672C\u8B1B\u8868\u683C\u76F8\u7B26\uFF0C\u56E0\u70BA\u5169\u8005\u90FD\u4F86\u81EA\u540C\u4E00\u500B\u5F15\u64CE\u3002 -->\n\n---\n\n## \u5C0F\u7D50\n\n- **\u53EF\u6E2C\u8A66\u6027\u53EF\u5F9E\u7D50\u69CB\u91CF\u6E2C\u3002** \u4E09\u500B\u8A0A\u865F\u2014\u2014\u5FAA\u74B0\u8907\u96DC\u5EA6\u3001\u8026\u5408\u3001\u5167\u805A\u2014\u2014\u5728*\u4EFB\u4F55\u6E2C\u8A66\u88AB\u5BEB\u4E0B\u4E4B\u524D*\u5C31\u9810\u6E2C\u4E00\u500B\u55AE\u5143\u6709\u591A\u96E3\u6E2C\u8A66\u3002\n- **\u5FAA\u74B0\u8907\u96DC\u5EA6 = \u6C7A\u7B56\u6578 + 1**\uFF1A\u66F4\u591A\u7368\u7ACB\u8DEF\u5F91\u8981\u6DB5\u84CB\u3002**\u6247\u51FA** = \u8981 stub\uFF0Ffake \u7684\u5354\u4F5C\u8005\uFF08\u6602\u8CB4\u7684\u65B9\u5411\uFF09\uFF1B**\u6247\u5165** = \u91CD\u7528\u8A0A\u865F\uFF0C\u4E0D\u662F\u61F2\u7F70\u3002**\u5167\u805A\u61F2\u7F70** = \u8981\u4E00\u6B21\u5B89\u6392\u7684\u8077\u8CAC\u6578\u91CF\u3002\n- **\u96E3\u5EA6\u5206\u6578 = \u5FAA\u74B0\u8907\u96DC\u5EA6 + 2\xB7\u6247\u51FA + \u5167\u805A\u61F2\u7F70**\u2014\u2014\u4E00\u500B\u7528\u4F86\u6392\u540D\u7684\u6578\u5B57\uFF0C\u7D66\u6247\u51FA \xD72 \u7684\u6B0A\u91CD\uFF0C\u56E0\u70BA\u9694\u96E2\u6210\u672C\u4E3B\u5C0E\u4E00\u5207\u3002\n- \u5728\u7D50\u5E33\u6A21\u7D44\u4E0A\uFF0C**`checkout` \u6700\u96E3\uFF087\u3001\u6247\u51FA 4\u3001\u5167\u805A 4 \u2192 19\uFF09**\uFF0C\u662F\u4E00\u500B\u5354\u8ABF\u8005\uFF1B\u800C **`formatMoney` \u6700\u6613\uFF08\u2192 2\uFF09**\uFF0C\u662F\u4E00\u500B\u7D14\u8449\u7AEF\u8F14\u52A9\u51FD\u5F0F\u3002\n- **\u62C6\u5206\u5354\u8ABF\u8005**\uFF08`splitUnit(checkout)`\uFF09\u628A\u6700\u5DEE\u5206\u6578\u5F9E **19 \u2192 12** \u964D\u4E0B\uFF0C\u9760\u7684\u662F\u964D\u4F4E\u6BCF\u500B\u55AE\u5143\u7684\u8907\u96DC\u5EA6\u3001\u6247\u51FA\u8207\u5167\u805A\u2014\u2014\u4EE3\u50F9\u662F\u591A\u4E00\u500B\u55AE\u5143\u3001\u591A\u4E00\u689D\u908A\uFF1A\u9019\u5C31\u662F**\u8026\u5408\u2013\u8907\u96DC\u5EA6\u7684\u53D6\u6368**\u3002\n- \u7528**\u4E3B\u5C0E\u8CA2\u737B**\u6311\u51FA**\u55AE\u4E00\u6700\u9AD8\u69D3\u687F\u4FEE\u6B63**\uFF0C\u518D\u91CD\u65B0\u8A08\u5206\u2014\u2014\u91CD\u69CB\u6D41\u5411\u6700\u80FD\u964D\u4F4E\u6E2C\u8A66\u6210\u672C\u4E4B\u8655\u3002\n\n**\u8AB2\u5802\u7DF4\u7FD2\uFF1A** \u7528\u624B\u91CD\u65B0\u63A8\u5C0E `chargePayment` \u7684\u5206\u6578\uFF08\u5FAA\u74B0\u8907\u96DC\u5EA6 5\u3001\u6247\u51FA 1\u3001\u5167\u805A 2\uFF09\uFF0C\u78BA\u8A8D\u5B83\u662F 9\uFF0C\u9EDE\u540D\u5B83\u7684\u4E3B\u5C0E\u8CA2\u737B\uFF0C\u4E26\u8AAA\u51FA\u6A21\u578B\u6703\u5EFA\u8B70\u7684\u4FEE\u6B63\u3002\n\n---\n\n## \u5EF6\u4F38\u95B1\u8B80\n\n- \u8AB2\u7A0B\u898F\u683C \u2014\u2014 \u53EF\u6E2C\u8A66\u6027\u8996\u89BA\u5316\u8A2D\u8A08\uFF08[2026-09-28-testability-visualization-design.md](https://github.com/skhuang/stvisual/blob/main/docs/superpowers/specs/2026-09-28-testability-visualization-design.md)\uFF09\n- McCabe, T. (1976)\u300AA Complexity Measure\u300B\u2014\u2014 \u5FAA\u74B0\u8907\u96DC\u5EA6\u5EA6\u91CF\u7684\u539F\u59CB\u51FA\u8655\u3002\n- Chidamber, S. & Kemerer, C. (1994)\u300AA Metrics Suite for Object-Oriented Design\u300B\u2014\u2014 \u628A\u8026\u5408\u8207\u5167\u805A\uFF08\u542B LCOM\uFF09\u7576\u6210\u53EF\u91CF\u6E2C\u7684\u8A2D\u8A08\u6027\u8CEA\u3002\n- Feathers, M. (2004)\u300AWorking Effectively with Legacy Code\u300B\u2014\u2014 \u63A5\u7E2B\uFF0C\u4EE5\u53CA\u70BA\u4EC0\u9EBC\u7D50\u69CB\u4E3B\u5BB0\u53EF\u6E2C\u8A66\u6027\u3002\n- \u5DE5\u5177\u539F\u59CB\u78BC\uFF1A[TestabilityMetricsExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityMetricsExplorer.js)\u3001[testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js)\n- \u7CFB\u5217\u9130\u5C45\uFF1A#67 \u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\uFF0C\u4EE5\u53CA\u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\u58D3\u8EF8\u8B1B\u3002\n"
+    },
+    {
+      "id": "testability-scorecard",
+      "num": 69,
+      "section": "testability",
+      "titleEn": "Software Testing Visualization #69 \u2014 Testability Scorecard",
+      "titleZh": "\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #69 \u2014 \u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361",
+      "en": '---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: Software Testing Visualization #69 \u2014 Testability Scorecard\ndescription: The capstone of the Testability section \u2014 aggregating five normalized testability signals (controllability, observability, seam coverage, structural, determinism) into one overall grade, prioritizing the weakest, and watching fixes cascade.\nlang: en\n---\n\n# Testability Scorecard\n### *Five signals, one diagnosis, one grade*\n\nSoftware Testing Visualization series #69 \xB7 Testability Scorecard\nCompanion tool: `?explorer=testability-scorecard` \u2192 Testability Scorecard ([TestabilityScorecardExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityScorecardExplorer.js))\n\n<!-- Closing deck for the Testability section. The scorecard is the capstone: it does not derive anything new \u2014 it COMPOSES the three sibling explorers (controllability/observability, seams, structural metrics) plus the nondeterminism catalogue into five normalized signals, averages them into one A\u2013F grade, and turns the lowest signals into a prioritized, deep-linked fix list. The deck walks the aggregation, the exact fixture readout, the grade thresholds, the fix cascade, and how the scorecard drives design-for-testability work. -->\n\n---\n\n## The capstone \u2014 one diagnosis from many signals\n\nEach earlier deck in this section taught **one** testability property in isolation: whether a test can *drive* the code (controllability), whether it can *see* the result (observability), whether it can *substitute* dependencies (seams), how *tangled* the structure is (metrics), and whether runs *repeat* (nondeterminism).\n\nThe scorecard is the **capstone**. It answers the question those decks leave open: *given all of these at once, how testable is this unit \u2014 and what should I fix first?*\n\nCrucially, it **re-derives nothing**. It composes the sibling explorers\' pure engines over one shared fixture, normalizes each into a signal on the same scale, and averages them into a single overall grade. One source of truth, five readings, one number.\n\n<!-- The framing to establish: the scorecard is an aggregator, not a new analysis. Stress "composes, does not re-derive" \u2014 controllability() and observability() come from the controllability-observability explorer, testabilityOf() from the seams explorer, testabilityHardness() from the metrics explorer, and the nondeterminism count from the fixture. The value it adds is a single comparable diagnosis plus a prioritized worklist. Contrast with the isolated decks: each was a microscope on one property; this is the dashboard over all five. -->\n\n---\n\n## The five signals\n\nThe scorecard reads exactly **five** signals, each normalized to `[0, 1]` where **higher = more testable**:\n\n- **controllability** \u2014 the fraction of states a test can *drive* the SUT into.\n- **observability** \u2014 the fraction of states a test can *distinguish* from the outside.\n- **seam coverage** \u2014 the fraction of dependency anti-patterns broken by an injected seam.\n- **structural** \u2014 how far the hardest unit sits below the worst-case hardness cap.\n- **determinism** \u2014 the fraction of nondeterminism sources that have been removed.\n\nPutting every property on the same `0..1, higher-is-better` axis is what makes them **comparable** \u2014 a controllability of 0.6 and a determinism of 0.5 can now sit in the same ranking, and the search for "the weakest link" becomes a plain sort.\n\n<!-- Enumerate the five and, more importantly, the normalization convention. Some signals are naturally ratios (controllability, observability, seam coverage); the other two are turned into ratios: structural is 1 - hardest/CAP so a low-complexity module scores high, and determinism is 1 - present/TOTAL so removing a nondeterminism source raises it. The single shared scale is the whole trick \u2014 it is what lets an arithmetic mean and a "lowest signal" ranking mean anything across properties measured in different units. -->\n\n---\n\n## Normalization \u2014 higher = more testable\n\nTwo signals are not natural ratios, so the scorecard converts them:\n\n- **structural** `= clamp(1 \u2212 hardest / 25, 0, 1)`. `testabilityHardness()` scores the hardest unit; `25` is the worst-case cap (`STRUCT_CAP`). A structurally simple module scores near 1; the fixture\'s hardest unit scores 19, giving **1 \u2212 19/25 = 0.24**.\n- **determinism** `= clamp(1 \u2212 present / 4, 0, 1)`. `4` is the full catalogue of nondeterminism sources (`DET_TOTAL`). Remove a source and the signal rises; with 2 of 4 present, **1 \u2212 2/4 = 0.5**.\n\nThe sign convention is deliberate and uniform: **more testable is always a bigger number**. Complexity and nondeterminism are taxes, so they enter as `1 \u2212 tax`, keeping them on the same "up is good" axis as the ratios.\n\n<!-- This is the slide that makes the numbers reproducible. Write both formulas on the board and plug the fixture in: hardest = 19, cap = 25 \u2192 0.24; present = 2, total = 4 \u2192 0.5. Stress the inversion \u2014 the raw structural and nondeterminism measures are "bad when high", so they are flipped to "good when high" before averaging. Without a uniform direction the mean would add apples to anti-apples. -->\n\n---\n\n## The fixture readout\n\nThe bundled fixture \u2014 a coin turnstile SUT, an e-commerce checkout module, no seams applied, no probes, two nondeterminism sources \u2014 grades out as:\n\n| Signal | Score | Where it comes from |\n|---|---|---|\n| controllability | **0.6** | states a test can drive into |\n| observability | **0.2** | states distinguishable from outside |\n| seam coverage | **0** | no anti-pattern seams injected yet |\n| structural | **0.24** | 1 \u2212 19/25 |\n| determinism | **0.5** | 1 \u2212 2/4 |\n\nOverall = mean = (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = **0.308** \u2192 grade **F**.\n\n<!-- Walk the table row by row and then the arithmetic mean. Every number is exact and comes straight from the fixture and the engines \u2014 controllability 0.6 and observability 0.2 from the turnstile\'s reachable/distinguishable states, seam 0 because appliedSeams starts empty, structural 0.24 and determinism 0.5 from the formulas on the previous slide. The mean 0.308 is the overall; the badge shows 31%. Emphasise that an F here is the *honest starting point* \u2014 the fixture is deliberately untestable so the fixes have somewhere to go. -->\n\n---\n\n## Grade thresholds\n\nThe overall (mean) score maps to a letter grade, checked **high \u2192 low**:\n\n| Grade | Overall \u2265 |\n|---|---|\n| A | 0.85 |\n| B | 0.70 |\n| C | 0.55 |\n| D | 0.40 |\n| F | otherwise |\n\nAt **0.308**, the fixture falls below the D cut of 0.40, so it lands at **F**. The grade is a blunt, at-a-glance summary; the per-signal bars underneath it are where the actual diagnosis lives.\n\n<!-- The thresholds are the GRADE_THRESHOLDS table verbatim; checked top-down, the first min the overall clears wins. Point out that a single very weak signal can hold the whole grade down through the mean \u2014 here seam 0 and observability 0.2 are dragging 0.308 well under the 0.40 D line. The grade is a headline; the signal bars are the story. This sets up prioritization: to move the grade, move the lowest bars. -->\n\n---\n\n## Prioritizing the lowest signals\n\nA single grade tells you *how bad*, not *what to do*. So the scorecard ranks the signals **ascending by score** (ties broken by a fixed signal order) and surfaces the **three lowest** as a prioritized fix list.\n\nFor the fixture, the bottom three are:\n\n1. **seam coverage \u2014 0** \u2192 inject a seam (Testability Seams explorer)\n2. **observability \u2014 0.2** \u2192 add an output probe (Controllability & Observability explorer)\n3. **structural \u2014 0.24** \u2192 decompose the orchestrator (Testability Metrics explorer)\n\nFix the worst link first: because the grade is a mean, lifting a `0` or a `0.2` moves the overall far more than polishing a signal that is already high.\n\n<!-- The topFixes logic: sort perSignal by score ascending, tie-break by SIGNAL_ORDER, take three. For the fixture that is seam (0), observability (0.2), structural (0.24) \u2014 controllability 0.6 and determinism 0.5 are healthier and drop off the list. The pedagogy: the mean rewards raising the floor, not the ceiling, so the worklist is deliberately the weakest signals. Each item is actionable and deep-linked to the explorer that teaches the fix, which is the next slide. -->\n\n---\n\n## Fixes cascade\n\nSome fixes move **more than one** signal at once \u2014 the scorecard makes that visible by re-grading live as you toggle fixes on.\n\n- **Inject the clock seam and the RNG seam.** Each injects a seam (raising **seam coverage**) *and* removes a nondeterminism source (raising **determinism** toward 1). Two signals rise together, and the overall crosses 0.40: **F \u2192 D**.\n- **Inject all four seams** (config, gateway, clock, RNG). Seam coverage reaches **1.0**, determinism is already **1.0**, and the overall clears 0.55: **F \u2192 C**.\n\nThis is the scorecard\'s core lesson: the highest-leverage fixes are the ones a *single* design change lets **multiple** signals share.\n\n<!-- Demonstrate the cascade live in the tool. inject-clock and inject-rng each do double duty: the seam is added to appliedSeams (seam coverage 0 \u2192 0.5 for two of four) and the matching source is filtered out of nondeterminism (determinism 0.5 \u2192 1.0). Overall becomes (0.6+0.2+0.5+0.24+1.0)/5 = 0.508 \u2192 D. Turn on all four seams and seam coverage is 1.0: (0.6+0.2+1.0+0.24+1.0)/5 = 0.608 \u2192 C. The takeaway is leverage \u2014 one seam-injection habit pays off in two signals at once, which is exactly the kind of design change worth prioritizing. -->\n\n---\n\n## Every signal links back to its teacher\n\nThe scorecard is a **hub**, not a dead end. Each fix in the prioritized list carries a deep link to the explorer that teaches that signal \u2014 so a diagnosis becomes a guided path to the lesson that fixes it:\n\n| Signal | Links to |\n|---|---|\n| controllability | Controllability & Observability |\n| observability | Controllability & Observability |\n| seam coverage | Testability Seams |\n| structural | Testability Metrics |\n| determinism | **Flaky Diagnosis** (nondeterminism \u2192 flaky testing) |\n\nSo a low determinism score does not just say "you have nondeterminism" \u2014 it hands you the flaky-testing explorer that shows *why* an unpinned clock or RNG makes a test flaky, and how a seam removes it.\n\n<!-- These are the SIGNAL_META deep links. The one worth calling out is determinism \u2192 flaky-diagnosis: nondeterminism is the mechanism behind flaky tests, so the scorecard routes a weak determinism signal to the explorer that teaches flakiness directly. The design point: the capstone closes the loop \u2014 every weakness it reports is one click from the tool that taught the fix, turning the whole section into a navigable diagnostic system rather than five separate lessons. -->\n\n---\n\n## Driving design-for-testability work\n\nRead end to end, the scorecard turns "make this more testable" from a vague aspiration into a **measurable loop**:\n\n1. **Grade** the unit \u2014 get one honest number and five bars.\n2. **Prioritize** \u2014 the three lowest signals are the worklist, worst first.\n3. **Fix** \u2014 follow each deep link, apply the seam / probe / decomposition.\n4. **Re-grade** \u2014 watch the cascade lift multiple signals and the grade climb.\n\nThe fixture\'s journey \u2014 **F (0.308)** \u2192 inject clock + RNG \u2192 **D** \u2192 all four seams \u2192 **C** \u2014 is exactly this loop in miniature. Design-for-testability stops being folklore and becomes a scoreboard you can move.\n\n<!-- Land the section here. The scorecard\'s real product is not the grade but the loop: measure, prioritize, fix, re-measure. Trace the fixture\'s arc F \u2192 D \u2192 C as proof the loop moves the number. Connect to practice: on real code, wire these five signals into CI and the scorecard becomes a testability budget \u2014 a gate that fails when a change drops the grade, and a worklist that tells the team which single design change buys the most testability. -->\n\n---\n\n## Summary\n\n- The **scorecard is the capstone** of the Testability section: it **composes** the three sibling explorers plus the nondeterminism catalogue into one diagnosis, and **re-derives nothing**.\n- **Five signals**, each normalized to `[0, 1]` with **higher = more testable**: controllability, observability, seam coverage, structural, determinism.\n- **structural = 1 \u2212 19/25 = 0.24** and **determinism = 1 \u2212 2/4 = 0.5** \u2014 complexity and nondeterminism enter as `1 \u2212 tax` so "up is good" holds uniformly.\n- The **fixture reads** controllability 0.6, observability 0.2, seam 0, structural 0.24, determinism 0.5 \u2192 overall **0.308** \u2192 grade **F**.\n- **Grades** map the mean high\u2192low: A \u2265 0.85, B \u2265 0.70, C \u2265 0.55, D \u2265 0.40, else F.\n- **Prioritize the lowest** three signals (seam 0, observability 0.2, structural 0.24); a mean rewards raising the floor.\n- **Fixes cascade**: inject clock + RNG raises seam coverage *and* determinism \u2192 **F \u2192 D**; injecting all four seams \u2192 **C**. Each signal deep-links to its explorer, with determinism \u2192 flaky diagnosis.\n\n**In-class exercise:** starting from the F fixture, list the toggle order that reaches grade C with the fewest fixes, and for each toggle name every signal it moves and by how much.\n\n---\n\n## Further reading\n\n- Course specification \u2014 Testability visualization design (Explorer 4: Testability Scorecard).\n- Feathers, M. (2004) *Working Effectively with Legacy Code* \u2014 seams and the dependency-breaking techniques behind the seam-coverage signal.\n- Freeman & Pryce (2009) *Growing Object-Oriented Software, Guided by Tests* \u2014 design-for-testability as an ongoing discipline, not a one-off audit.\n- Companion explorers: Controllability & Observability, Testability Seams, Testability Metrics, Flaky Diagnosis \u2014 the four lessons this scorecard aggregates.\n- Tool source: [TestabilityScorecardExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityScorecardExplorer.js), [testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js)\n- Previous in series: the four Testability-section explorers this capstone composes.\n',
+      "zh": "---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\ntitle: \u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316 #69 \u2014 \u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\ndescription: \u53EF\u6E2C\u8A66\u6027\u7AE0\u7BC0\u7684\u7E3D\u7D50\u8B1B\u2014\u2014\u628A\u4E94\u500B\u6B63\u898F\u5316\u7684\u53EF\u6E2C\u8A66\u6027\u8A0A\u865F\uFF08\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u8986\u84CB\u3001\u7D50\u69CB\u3001\u78BA\u5B9A\u6027\uFF09\u805A\u5408\u6210\u55AE\u4E00\u7E3D\u9AD4\u7B49\u7B2C\uFF0C\u512A\u5148\u8655\u7406\u6700\u5F31\u8005\uFF0C\u4E26\u89C0\u5BDF\u4FEE\u5FA9\u5982\u4F55\u9023\u9396\u3002\nlang: zh-TW\n---\n\n# \u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\n### *\u4E94\u500B\u8A0A\u865F\u3001\u4E00\u6B21\u8A3A\u65B7\u3001\u4E00\u500B\u7B49\u7B2C*\n\n\u8EDF\u9AD4\u6E2C\u8A66\u8996\u89BA\u5316\u7CFB\u5217 #69 \xB7 \u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\n\u642D\u914D\u5DE5\u5177\uFF1A`?explorer=testability-scorecard` \u2192 \u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\uFF08[TestabilityScorecardExplorer](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityScorecardExplorer.js)\uFF09\n\n<!-- \u53EF\u6E2C\u8A66\u6027\u7AE0\u7BC0\u7684\u6536\u5C3E\u8B1B\u3002\u8A08\u5206\u5361\u662F\u7E3D\u7D50\uFF1A\u5B83\u4E0D\u63A8\u5C0E\u4EFB\u4F55\u65B0\u6771\u897F\u2014\u2014\u5B83\u628A\u4E09\u500B\u59CA\u59B9\u63A2\u7D22\u5668\uFF08\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u3001\u7D50\u69CB\u5EA6\u91CF\uFF09\u52A0\u4E0A\u975E\u78BA\u5B9A\u6027\u76EE\u9304\u7D44\u5408\u6210\u4E94\u500B\u6B63\u898F\u5316\u8A0A\u865F\uFF0C\u53D6\u5E73\u5747\u5F97\u51FA\u55AE\u4E00 A\u2013F \u7B49\u7B2C\uFF0C\u4E26\u628A\u6700\u4F4E\u7684\u8A0A\u865F\u8F49\u6210\u4E00\u4EFD\u6709\u512A\u5148\u5E8F\u3001\u53EF\u6DF1\u9023\u7D50\u7684\u4FEE\u5FA9\u6E05\u55AE\u3002\u672C\u8B1B\u8D70\u904E\u805A\u5408\u65B9\u5F0F\u3001\u78BA\u5207\u7684\u56FA\u5B9A\u88DD\u7F6E\u8B80\u6578\u3001\u7B49\u7B2C\u9580\u6ABB\u3001\u4FEE\u5FA9\u9023\u9396\uFF0C\u4EE5\u53CA\u8A08\u5206\u5361\u5982\u4F55\u9A45\u52D5\u300C\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u300D\u7684\u5DE5\u4F5C\u3002 -->\n\n---\n\n## \u7E3D\u7D50 \u2014 \u5F9E\u773E\u591A\u8A0A\u865F\u5F97\u51FA\u55AE\u4E00\u8A3A\u65B7\n\n\u672C\u7AE0\u7BC0\u5148\u524D\u6BCF\u4E00\u8B1B\u5404\u81EA\u5B64\u7ACB\u5730\u6559\u4E00\u500B\u53EF\u6E2C\u8A66\u6027\u6027\u8CEA\uFF1A\u6E2C\u8A66\u80FD\u5426*\u9A45\u52D5*\u7A0B\u5F0F\u78BC\uFF08\u53EF\u63A7\u5236\u6027\uFF09\u3001\u80FD\u5426*\u770B\u898B*\u7D50\u679C\uFF08\u53EF\u89C0\u5BDF\u6027\uFF09\u3001\u80FD\u5426*\u66FF\u63DB*\u76F8\u4F9D\uFF08\u63A5\u7E2B\uFF09\u3001\u7D50\u69CB\u6709\u591A*\u7CFE\u7E8F*\uFF08\u5EA6\u91CF\uFF09\uFF0C\u4EE5\u53CA\u57F7\u884C\u662F\u5426*\u53EF\u91CD\u73FE*\uFF08\u975E\u78BA\u5B9A\u6027\uFF09\u3002\n\n\u8A08\u5206\u5361\u662F**\u7E3D\u7D50**\u3002\u5B83\u56DE\u7B54\u90A3\u4E9B\u8B1B\u6B21\u7559\u4E0B\u7684\u554F\u984C\uFF1A*\u628A\u9019\u4E9B\u5168\u90E8\u540C\u6642\u64FA\u5728\u4E00\u8D77\uFF0C\u9019\u500B\u55AE\u5143\u6709\u591A\u53EF\u6E2C\u8A66\u2014\u2014\u800C\u6211\u8A72\u5148\u4FEE\u4EC0\u9EBC\uFF1F*\n\n\u95DC\u9375\u5728\u65BC\uFF0C\u5B83**\u4E0D\u91CD\u65B0\u63A8\u5C0E\u4EFB\u4F55\u6771\u897F**\u3002\u5B83\u5728\u4E00\u4EFD\u5171\u4EAB\u7684\u56FA\u5B9A\u88DD\u7F6E\u4E0A\u7D44\u5408\u59CA\u59B9\u63A2\u7D22\u5668\u7684\u7D14\u5F15\u64CE\uFF0C\u628A\u6BCF\u4E00\u500B\u6B63\u898F\u5316\u6210\u540C\u4E00\u5C3A\u5EA6\u4E0A\u7684\u8A0A\u865F\uFF0C\u518D\u53D6\u5E73\u5747\u5F97\u5230\u55AE\u4E00\u7E3D\u9AD4\u7B49\u7B2C\u3002\u4E00\u500B\u771F\u7406\u4F86\u6E90\u3001\u4E94\u500B\u8B80\u6578\u3001\u4E00\u500B\u6578\u5B57\u3002\n\n<!-- \u8981\u5EFA\u7ACB\u7684\u6846\u67B6\uFF1A\u8A08\u5206\u5361\u662F\u805A\u5408\u5668\uFF0C\u4E0D\u662F\u65B0\u7684\u5206\u6790\u3002\u5F37\u8ABF\u300C\u7D44\u5408\uFF0C\u4E0D\u91CD\u65B0\u63A8\u5C0E\u300D\u2014\u2014controllability() \u8207 observability() \u4F86\u81EA\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u63A2\u7D22\u5668\uFF0CtestabilityOf() \u4F86\u81EA\u63A5\u7E2B\u63A2\u7D22\u5668\uFF0CtestabilityHardness() \u4F86\u81EA\u5EA6\u91CF\u63A2\u7D22\u5668\uFF0C\u800C\u975E\u78BA\u5B9A\u6027\u8A08\u6578\u4F86\u81EA\u56FA\u5B9A\u88DD\u7F6E\u3002\u5B83\u589E\u6DFB\u7684\u50F9\u503C\u662F\u55AE\u4E00\u53EF\u6BD4\u8F03\u7684\u8A3A\u65B7\u52A0\u4E0A\u4E00\u4EFD\u6709\u512A\u5148\u5E8F\u7684\u5DE5\u4F5C\u6E05\u55AE\u3002\u8207\u5B64\u7ACB\u7684\u8B1B\u6B21\u5C0D\u6BD4\uFF1A\u6BCF\u4E00\u8B1B\u90FD\u662F\u5C0D\u67D0\u4E00\u6027\u8CEA\u7684\u986F\u5FAE\u93E1\uFF1B\u9019\u4E00\u8B1B\u662F\u4FEF\u77B0\u5168\u90E8\u4E94\u8005\u7684\u5100\u8868\u677F\u3002 -->\n\n---\n\n## \u4E94\u500B\u8A0A\u865F\n\n\u8A08\u5206\u5361\u8B80\u53D6\u6070\u597D**\u4E94\u500B**\u8A0A\u865F\uFF0C\u6BCF\u4E00\u500B\u90FD\u6B63\u898F\u5316\u5230 `[0, 1]`\uFF0C\u5176\u4E2D**\u8D8A\u9AD8 = \u8D8A\u53EF\u6E2C\u8A66**\uFF1A\n\n- **\u53EF\u63A7\u5236\u6027**\u2014\u2014\u6E2C\u8A66\u80FD\u628A\u53D7\u6E2C\u7CFB\u7D71*\u9A45\u52D5*\u9032\u5165\u7684\u72C0\u614B\u6BD4\u4F8B\u3002\n- **\u53EF\u89C0\u5BDF\u6027**\u2014\u2014\u6E2C\u8A66\u80FD\u5F9E\u5916\u90E8*\u5206\u8FA8*\u7684\u72C0\u614B\u6BD4\u4F8B\u3002\n- **\u63A5\u7E2B\u8986\u84CB**\u2014\u2014\u88AB\u6CE8\u5165\u63A5\u7E2B\u6240\u6253\u7834\u7684\u76F8\u4F9D\u53CD\u6A21\u5F0F\u6BD4\u4F8B\u3002\n- **\u7D50\u69CB**\u2014\u2014\u6700\u96E3\u7684\u55AE\u5143\u96E2\u6700\u58DE\u60C5\u6CC1\u786C\u5EA6\u4E0A\u9650\u9084\u5DEE\u591A\u9060\u3002\n- **\u78BA\u5B9A\u6027**\u2014\u2014\u5DF2\u88AB\u79FB\u9664\u7684\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u6BD4\u4F8B\u3002\n\n\u628A\u6BCF\u4E00\u500B\u6027\u8CEA\u90FD\u653E\u5230\u540C\u4E00\u689D `0..1\u3001\u8D8A\u9AD8\u8D8A\u597D` \u7684\u8EF8\u4E0A\uFF0C\u6B63\u662F\u8B93\u5B83\u5011**\u53EF\u6BD4\u8F03**\u7684\u539F\u56E0\u2014\u2014\u53EF\u63A7\u5236\u6027 0.6 \u8207\u78BA\u5B9A\u6027 0.5 \u73FE\u5728\u80FD\u5750\u5728\u540C\u4E00\u500B\u6392\u540D\u4E2D\uFF0C\u800C\u5C0B\u627E\u300C\u6700\u5F31\u74B0\u7BC0\u300D\u4E5F\u5C31\u8B8A\u6210\u4E00\u6B21\u55AE\u7D14\u7684\u6392\u5E8F\u3002\n\n<!-- \u5217\u8209\u4E94\u8005\uFF0C\u66F4\u91CD\u8981\u7684\u662F\u6B63\u898F\u5316\u6163\u4F8B\u3002\u6709\u4E9B\u8A0A\u865F\u5929\u751F\u5C31\u662F\u6BD4\u4F8B\uFF08\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u8986\u84CB\uFF09\uFF1B\u53E6\u5916\u5169\u500B\u88AB\u8F49\u6210\u6BD4\u4F8B\uFF1A\u7D50\u69CB\u662F 1 \u2212 \u6700\u96E3/\u4E0A\u9650\uFF0C\u6240\u4EE5\u4F4E\u8907\u96DC\u5EA6\u6A21\u7D44\u5F97\u9AD8\u5206\uFF1B\u78BA\u5B9A\u6027\u662F 1 \u2212 \u73FE\u5B58/\u7E3D\u6578\uFF0C\u6240\u4EE5\u79FB\u9664\u4E00\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u5C31\u628A\u5B83\u62C9\u9AD8\u3002\u5171\u4EAB\u7684\u55AE\u4E00\u5C3A\u5EA6\u662F\u6574\u500B\u8A23\u7AC5\u2014\u2014\u5B83\u8B93\u7B97\u8853\u5E73\u5747\u8207\u300C\u6700\u4F4E\u8A0A\u865F\u300D\u6392\u540D\u5728\u4EE5\u4E0D\u540C\u55AE\u4F4D\u8861\u91CF\u7684\u6027\u8CEA\u4E4B\u9593\u4ECD\u7136\u6709\u610F\u7FA9\u3002 -->\n\n---\n\n## \u6B63\u898F\u5316 \u2014 \u8D8A\u9AD8 = \u8D8A\u53EF\u6E2C\u8A66\n\n\u6709\u5169\u500B\u8A0A\u865F\u4E0D\u662F\u5929\u751F\u7684\u6BD4\u4F8B\uFF0C\u56E0\u6B64\u8A08\u5206\u5361\u628A\u5B83\u5011\u63DB\u7B97\uFF1A\n\n- **\u7D50\u69CB** `= clamp(1 \u2212 \u6700\u96E3 / 25, 0, 1)`\u3002`testabilityHardness()` \u70BA\u6700\u96E3\u7684\u55AE\u5143\u8A55\u5206\uFF1B`25` \u662F\u6700\u58DE\u60C5\u6CC1\u4E0A\u9650\uFF08`STRUCT_CAP`\uFF09\u3002\u7D50\u69CB\u55AE\u7D14\u7684\u6A21\u7D44\u5F97\u5206\u63A5\u8FD1 1\uFF1B\u56FA\u5B9A\u88DD\u7F6E\u6700\u96E3\u7684\u55AE\u5143\u5F97 19\uFF0C\u65BC\u662F **1 \u2212 19/25 = 0.24**\u3002\n- **\u78BA\u5B9A\u6027** `= clamp(1 \u2212 \u73FE\u5B58 / 4, 0, 1)`\u3002`4` \u662F\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u7684\u5B8C\u6574\u76EE\u9304\uFF08`DET_TOTAL`\uFF09\u3002\u79FB\u9664\u4E00\u500B\u4F86\u6E90\uFF0C\u8A0A\u865F\u5C31\u4E0A\u5347\uFF1B\u73FE\u5B58 4 \u500B\u4E2D\u7684 2 \u500B\uFF0C\u65BC\u662F **1 \u2212 2/4 = 0.5**\u3002\n\n\u7B26\u865F\u6163\u4F8B\u662F\u523B\u610F\u4E14\u4E00\u81F4\u7684\uFF1A**\u8D8A\u53EF\u6E2C\u8A66\u6C38\u9060\u662F\u8D8A\u5927\u7684\u6578\u5B57**\u3002\u8907\u96DC\u5EA6\u8207\u975E\u78BA\u5B9A\u6027\u662F\u7A05\uFF0C\u6240\u4EE5\u4EE5 `1 \u2212 \u7A05` \u7684\u5F62\u5F0F\u9032\u5165\uFF0C\u8B93\u5B83\u5011\u8207\u5404\u6BD4\u4F8B\u4FDD\u6301\u5728\u540C\u4E00\u689D\u300C\u5411\u4E0A\u70BA\u597D\u300D\u7684\u8EF8\u4E0A\u3002\n\n<!-- \u9019\u662F\u8B93\u6578\u5B57\u53EF\u91CD\u73FE\u7684\u6295\u5F71\u7247\u3002\u628A\u5169\u689D\u516C\u5F0F\u5BEB\u5728\u9ED1\u677F\u4E0A\u4E26\u4EE3\u5165\u56FA\u5B9A\u88DD\u7F6E\uFF1A\u6700\u96E3 = 19\u3001\u4E0A\u9650 = 25 \u2192 0.24\uFF1B\u73FE\u5B58 = 2\u3001\u7E3D\u6578 = 4 \u2192 0.5\u3002\u5F37\u8ABF\u53CD\u8F49\u2014\u2014\u539F\u59CB\u7684\u7D50\u69CB\u8207\u975E\u78BA\u5B9A\u6027\u5EA6\u91CF\u300C\u9AD8\u6642\u70BA\u58DE\u300D\uFF0C\u6240\u4EE5\u5728\u53D6\u5E73\u5747\u4E4B\u524D\u88AB\u7FFB\u6210\u300C\u9AD8\u6642\u70BA\u597D\u300D\u3002\u5C11\u4E86\u7D71\u4E00\u7684\u65B9\u5411\uFF0C\u5E73\u5747\u5C31\u6703\u628A\u860B\u679C\u52A0\u5230\u53CD\u860B\u679C\u4E0A\u3002 -->\n\n---\n\n## \u56FA\u5B9A\u88DD\u7F6E\u8B80\u6578\n\n\u96A8\u9644\u7684\u56FA\u5B9A\u88DD\u7F6E\u2014\u2014\u4E00\u500B\u6295\u5E63\u65CB\u8F49\u67F5\u9580 SUT\u3001\u4E00\u500B\u96FB\u5546\u7D50\u5E33\u6A21\u7D44\u3001\u5C1A\u672A\u5957\u7528\u4EFB\u4F55\u63A5\u7E2B\u3001\u6C92\u6709\u63A2\u91DD\u3001\u5169\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u2014\u2014\u8A55\u5206\u7D50\u679C\u70BA\uFF1A\n\n| \u8A0A\u865F | \u5206\u6578 | \u4F86\u81EA\u4F55\u8655 |\n|---|---|---|\n| \u53EF\u63A7\u5236\u6027 | **0.6** | \u6E2C\u8A66\u80FD\u9A45\u52D5\u9032\u5165\u7684\u72C0\u614B |\n| \u53EF\u89C0\u5BDF\u6027 | **0.2** | \u80FD\u5F9E\u5916\u90E8\u5206\u8FA8\u7684\u72C0\u614B |\n| \u63A5\u7E2B\u8986\u84CB | **0** | \u5C1A\u672A\u6CE8\u5165\u4EFB\u4F55\u53CD\u6A21\u5F0F\u63A5\u7E2B |\n| \u7D50\u69CB | **0.24** | 1 \u2212 19/25 |\n| \u78BA\u5B9A\u6027 | **0.5** | 1 \u2212 2/4 |\n\n\u7E3D\u9AD4 = \u5E73\u5747 = (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = **0.308** \u2192 \u7B49\u7B2C **F**\u3002\n\n<!-- \u9010\u5217\u8D70\u904E\u8868\u683C\uFF0C\u7136\u5F8C\u662F\u7B97\u8853\u5E73\u5747\u3002\u6BCF\u4E00\u500B\u6578\u5B57\u90FD\u662F\u7CBE\u78BA\u7684\uFF0C\u76F4\u63A5\u4F86\u81EA\u56FA\u5B9A\u88DD\u7F6E\u8207\u5F15\u64CE\u2014\u2014\u53EF\u63A7\u5236\u6027 0.6 \u8207\u53EF\u89C0\u5BDF\u6027 0.2 \u4F86\u81EA\u67F5\u9580\u7684\u53EF\u9054\uFF0F\u53EF\u5206\u8FA8\u72C0\u614B\uFF0C\u63A5\u7E2B 0 \u662F\u56E0\u70BA appliedSeams \u4E00\u958B\u59CB\u70BA\u7A7A\uFF0C\u7D50\u69CB 0.24 \u8207\u78BA\u5B9A\u6027 0.5 \u4F86\u81EA\u4E0A\u4E00\u5F35\u6295\u5F71\u7247\u7684\u516C\u5F0F\u3002\u5E73\u5747 0.308 \u662F\u7E3D\u9AD4\uFF1B\u5FBD\u7AE0\u986F\u793A 31%\u3002\u5F37\u8ABF\u9019\u88E1\u7684 F \u662F*\u8AA0\u5BE6\u7684\u8D77\u9EDE*\u2014\u2014\u56FA\u5B9A\u88DD\u7F6E\u523B\u610F\u8A2D\u8A08\u6210\u4E0D\u53EF\u6E2C\u8A66\uFF0C\u597D\u8B93\u4FEE\u5FA9\u6709\u9032\u6B65\u7684\u7A7A\u9593\u3002 -->\n\n---\n\n## \u7B49\u7B2C\u9580\u6ABB\n\n\u7E3D\u9AD4\uFF08\u5E73\u5747\uFF09\u5206\u6578\u5C0D\u61C9\u5230\u4E00\u500B\u5B57\u6BCD\u7B49\u7B2C\uFF0C\u7531**\u9AD8\u5230\u4F4E**\u6AA2\u67E5\uFF1A\n\n| \u7B49\u7B2C | \u7E3D\u9AD4 \u2265 |\n|---|---|\n| A | 0.85 |\n| B | 0.70 |\n| C | 0.55 |\n| D | 0.40 |\n| F | \u5176\u9918 |\n\n\u5728 **0.308** \u6642\uFF0C\u56FA\u5B9A\u88DD\u7F6E\u4F4E\u65BC D \u7684\u9580\u6ABB 0.40\uFF0C\u6240\u4EE5\u843D\u5728 **F**\u3002\u7B49\u7B2C\u662F\u4E00\u500B\u7C97\u7565\u3001\u4E00\u773C\u53EF\u898B\u7684\u6458\u8981\uFF1B\u5E95\u4E0B\u7684\u9010\u8A0A\u865F\u9577\u689D\u624D\u662F\u771F\u6B63\u7684\u8A3A\u65B7\u6240\u5728\u3002\n\n<!-- \u9580\u6ABB\u5C31\u662F GRADE_THRESHOLDS \u8868\u683C\u7684\u539F\u6587\uFF1B\u7531\u4E0A\u5F80\u4E0B\u6AA2\u67E5\uFF0C\u7E3D\u9AD4\u8D8A\u904E\u7684\u7B2C\u4E00\u500B min \u52DD\u51FA\u3002\u6307\u51FA\u55AE\u4E00\u6975\u5F31\u8A0A\u865F\u53EF\u4EE5\u900F\u904E\u5E73\u5747\u628A\u6574\u500B\u7B49\u7B2C\u58D3\u4F4E\u2014\u2014\u9019\u88E1\u63A5\u7E2B 0 \u8207\u53EF\u89C0\u5BDF\u6027 0.2 \u628A 0.308 \u62D6\u5230\u9060\u4F4E\u65BC 0.40 \u7684 D \u7DDA\u4E4B\u4E0B\u3002\u7B49\u7B2C\u662F\u982D\u689D\uFF1B\u8A0A\u865F\u9577\u689D\u624D\u662F\u5167\u6587\u3002\u9019\u70BA\u512A\u5148\u5E8F\u92EA\u8DEF\uFF1A\u8981\u79FB\u52D5\u7B49\u7B2C\uFF0C\u5C31\u79FB\u52D5\u6700\u4F4E\u7684\u9577\u689D\u3002 -->\n\n---\n\n## \u512A\u5148\u8655\u7406\u6700\u4F4E\u7684\u8A0A\u865F\n\n\u55AE\u4E00\u7B49\u7B2C\u544A\u8A34\u4F60*\u6709\u591A\u7CDF*\uFF0C\u800C\u975E*\u8A72\u505A\u4EC0\u9EBC*\u3002\u6240\u4EE5\u8A08\u5206\u5361\u628A\u8A0A\u865F**\u4F9D\u5206\u6578\u905E\u589E\u6392\u5E8F**\uFF08\u5E73\u624B\u6642\u4EE5\u56FA\u5B9A\u7684\u8A0A\u865F\u9806\u5E8F\u6C7A\u52DD\uFF09\uFF0C\u4E26\u628A**\u6700\u4F4E\u7684\u4E09\u500B**\u5448\u73FE\u70BA\u4E00\u4EFD\u6709\u512A\u5148\u5E8F\u7684\u4FEE\u5FA9\u6E05\u55AE\u3002\n\n\u5C0D\u65BC\u56FA\u5B9A\u88DD\u7F6E\uFF0C\u6700\u4F4E\u7684\u4E09\u500B\u662F\uFF1A\n\n1. **\u63A5\u7E2B\u8986\u84CB \u2014 0** \u2192 \u6CE8\u5165\u4E00\u500B\u63A5\u7E2B\uFF08\u53EF\u6E2C\u8A66\u6027\u63A5\u7E2B\u63A2\u7D22\u5668\uFF09\n2. **\u53EF\u89C0\u5BDF\u6027 \u2014 0.2** \u2192 \u52A0\u4E00\u500B\u8F38\u51FA\u63A2\u91DD\uFF08\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u63A2\u7D22\u5668\uFF09\n3. **\u7D50\u69CB \u2014 0.24** \u2192 \u62C6\u89E3\u90A3\u500B\u5354\u8ABF\u8005\uFF08\u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF\u63A2\u7D22\u5668\uFF09\n\n\u5148\u4FEE\u6700\u5F31\u7684\u74B0\u7BC0\uFF1A\u56E0\u70BA\u7B49\u7B2C\u662F\u5E73\u5747\uFF0C\u628A\u4E00\u500B `0` \u6216 `0.2` \u62C9\u9AD8\uFF0C\u5C0D\u7E3D\u9AD4\u7684\u63A8\u52D5\u9060\u5927\u65BC\u6253\u78E8\u4E00\u500B\u5DF2\u7D93\u5F88\u9AD8\u7684\u8A0A\u865F\u3002\n\n<!-- topFixes \u908F\u8F2F\uFF1A\u628A perSignal \u4F9D\u5206\u6578\u905E\u589E\u6392\u5E8F\uFF0C\u4EE5 SIGNAL_ORDER \u6C7A\u52DD\uFF0C\u53D6\u4E09\u500B\u3002\u5C0D\u56FA\u5B9A\u88DD\u7F6E\u800C\u8A00\u5C31\u662F\u63A5\u7E2B\uFF080\uFF09\u3001\u53EF\u89C0\u5BDF\u6027\uFF080.2\uFF09\u3001\u7D50\u69CB\uFF080.24\uFF09\u2014\u2014\u53EF\u63A7\u5236\u6027 0.6 \u8207\u78BA\u5B9A\u6027 0.5 \u8F03\u5065\u5EB7\uFF0C\u843D\u5230\u6E05\u55AE\u4E4B\u5916\u3002\u6559\u5B78\u91CD\u9EDE\uFF1A\u5E73\u5747\u734E\u52F5\u62AC\u9AD8\u5730\u677F\u800C\u975E\u5929\u82B1\u677F\uFF0C\u6240\u4EE5\u5DE5\u4F5C\u6E05\u55AE\u523B\u610F\u662F\u6700\u5F31\u7684\u8A0A\u865F\u3002\u6BCF\u4E00\u9805\u90FD\u53EF\u884C\u52D5\uFF0C\u4E26\u6DF1\u9023\u7D50\u5230\u6559\u90A3\u500B\u4FEE\u5FA9\u7684\u63A2\u7D22\u5668\uFF0C\u9019\u662F\u4E0B\u4E00\u5F35\u6295\u5F71\u7247\u3002 -->\n\n---\n\n## \u4FEE\u5FA9\u9023\u9396\n\n\u6709\u4E9B\u4FEE\u5FA9\u6703**\u540C\u6642**\u79FB\u52D5\u4E0D\u6B62\u4E00\u500B\u8A0A\u865F\u2014\u2014\u8A08\u5206\u5361\u900F\u904E\u5728\u4F60\u5207\u63DB\u4FEE\u5FA9\u6642\u5373\u6642\u91CD\u65B0\u8A55\u5206\uFF0C\u628A\u9019\u9EDE\u8B8A\u5F97\u53EF\u898B\u3002\n\n- **\u6CE8\u5165\u6642\u9418\u63A5\u7E2B\u8207\u4E82\u6578\u63A5\u7E2B\u3002** \u6BCF\u4E00\u500B\u90FD\u6CE8\u5165\u4E00\u500B\u63A5\u7E2B\uFF08\u62C9\u9AD8**\u63A5\u7E2B\u8986\u84CB**\uFF09*\u4E26\u4E14*\u79FB\u9664\u4E00\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF08\u628A**\u78BA\u5B9A\u6027**\u62C9\u5411 1\uFF09\u3002\u5169\u500B\u8A0A\u865F\u4E00\u8D77\u4E0A\u5347\uFF0C\u7E3D\u9AD4\u8D8A\u904E 0.40\uFF1A**F \u2192 D**\u3002\n- **\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B**\uFF08\u8A2D\u5B9A\u3001\u9598\u9053\u3001\u6642\u9418\u3001\u4E82\u6578\uFF09\u3002\u63A5\u7E2B\u8986\u84CB\u9054\u5230 **1.0**\uFF0C\u78BA\u5B9A\u6027\u5DF2\u7D93\u662F **1.0**\uFF0C\u7E3D\u9AD4\u8D8A\u904E 0.55\uFF1A**F \u2192 C**\u3002\n\n\u9019\u5C31\u662F\u8A08\u5206\u5361\u7684\u6838\u5FC3\u8AB2\u984C\uFF1A\u69D3\u687F\u6700\u9AD8\u7684\u4FEE\u5FA9\uFF0C\u662F*\u55AE\u4E00*\u8A2D\u8A08\u8B8A\u66F4\u8B93**\u591A\u500B**\u8A0A\u865F\u80FD\u5171\u4EAB\u7684\u90A3\u4E9B\u3002\n\n<!-- \u5728\u5DE5\u5177\u4E2D\u5373\u6642\u6F14\u793A\u9023\u9396\u3002inject-clock \u8207 inject-rng \u5404\u81EA\u8EAB\u517C\u4E8C\u8077\uFF1A\u63A5\u7E2B\u88AB\u52A0\u5165 appliedSeams\uFF08\u63A5\u7E2B\u8986\u84CB 0 \u2192 \u56DB\u500B\u4E2D\u7684\u5169\u500B\u70BA 0.5\uFF09\uFF0C\u800C\u5C0D\u61C9\u7684\u4F86\u6E90\u88AB\u5F9E nondeterminism \u6FFE\u9664\uFF08\u78BA\u5B9A\u6027 0.5 \u2192 1.0\uFF09\u3002\u7E3D\u9AD4\u8B8A\u6210 (0.6+0.2+0.5+0.24+1.0)/5 = 0.508 \u2192 D\u3002\u6253\u958B\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\uFF0C\u63A5\u7E2B\u8986\u84CB\u70BA 1.0\uFF1A(0.6+0.2+1.0+0.24+1.0)/5 = 0.608 \u2192 C\u3002\u8981\u5E36\u8D70\u7684\u91CD\u9EDE\u662F\u69D3\u687F\u2014\u2014\u4E00\u500B\u6CE8\u5165\u63A5\u7E2B\u7684\u7FD2\u6163\u5728\u5169\u500B\u8A0A\u865F\u4E0A\u540C\u6642\u898B\u6548\uFF0C\u9019\u6B63\u662F\u503C\u5F97\u512A\u5148\u7684\u90A3\u7A2E\u8A2D\u8A08\u8B8A\u66F4\u3002 -->\n\n---\n\n## \u6BCF\u500B\u8A0A\u865F\u90FD\u9023\u56DE\u5B83\u7684\u8001\u5E2B\n\n\u8A08\u5206\u5361\u662F\u4E00\u500B**\u6A1E\u7D10**\uFF0C\u4E0D\u662F\u6B7B\u8DEF\u3002\u512A\u5148\u6E05\u55AE\u4E2D\u7684\u6BCF\u4E00\u9805\u4FEE\u5FA9\u90FD\u5E36\u8457\u4E00\u500B\u6DF1\u9023\u7D50\uFF0C\u6307\u5411\u6559\u90A3\u500B\u8A0A\u865F\u7684\u63A2\u7D22\u5668\u2014\u2014\u65BC\u662F\u4E00\u6B21\u8A3A\u65B7\u5C31\u8B8A\u6210\u4E00\u689D\u901A\u5F80\u4FEE\u5FA9\u5B83\u7684\u8AB2\u7A0B\u7684\u5F15\u5C0E\u8DEF\u5F91\uFF1A\n\n| \u8A0A\u865F | \u9023\u5230 |\n|---|---|\n| \u53EF\u63A7\u5236\u6027 | \u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027 |\n| \u53EF\u89C0\u5BDF\u6027 | \u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027 |\n| \u63A5\u7E2B\u8986\u84CB | \u53EF\u6E2C\u8A66\u6027\u63A5\u7E2B |\n| \u7D50\u69CB | \u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF |\n| \u78BA\u5B9A\u6027 | **\u4E0D\u7A69\u5B9A\u8A3A\u65B7**\uFF08\u975E\u78BA\u5B9A\u6027 \u2192 \u4E0D\u7A69\u5B9A\u6E2C\u8A66\uFF09 |\n\n\u6240\u4EE5\u4E00\u500B\u4F4E\u78BA\u5B9A\u6027\u5206\u6578\u4E0D\u53EA\u662F\u8AAA\u300C\u4F60\u6709\u975E\u78BA\u5B9A\u6027\u300D\u2014\u2014\u5B83\u628A\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u63A2\u7D22\u5668\u4EA4\u5230\u4F60\u624B\u4E0A\uFF0C\u8A72\u63A2\u7D22\u5668\u5C55\u793A*\u70BA\u4EC0\u9EBC*\u4E00\u500B\u672A\u56FA\u5B9A\u7684\u6642\u9418\u6216\u4E82\u6578\u6703\u8B93\u6E2C\u8A66\u8B8A\u5F97\u4E0D\u7A69\u5B9A\uFF0C\u4EE5\u53CA\u63A5\u7E2B\u5982\u4F55\u79FB\u9664\u5B83\u3002\n\n<!-- \u9019\u4E9B\u662F SIGNAL_META \u7684\u6DF1\u9023\u7D50\u3002\u503C\u5F97\u7279\u5225\u9EDE\u51FA\u7684\u662F\u78BA\u5B9A\u6027 \u2192 flaky-diagnosis\uFF1A\u975E\u78BA\u5B9A\u6027\u662F\u4E0D\u7A69\u5B9A\u6E2C\u8A66\u80CC\u5F8C\u7684\u6A5F\u5236\uFF0C\u6240\u4EE5\u8A08\u5206\u5361\u628A\u4E00\u500B\u5F31\u7684\u78BA\u5B9A\u6027\u8A0A\u865F\u5C0E\u5411\u76F4\u63A5\u6559\u4E0D\u7A69\u5B9A\u6027\u7684\u63A2\u7D22\u5668\u3002\u8A2D\u8A08\u8981\u9EDE\uFF1A\u7E3D\u7D50\u8B1B\u6536\u5408\u4E86\u8FF4\u5708\u2014\u2014\u5B83\u56DE\u5831\u7684\u6BCF\u4E00\u500B\u5F31\u9EDE\uFF0C\u90FD\u96E2\u6559\u90A3\u500B\u4FEE\u5FA9\u7684\u5DE5\u5177\u53EA\u5DEE\u4E00\u6B21\u9EDE\u64CA\uFF0C\u628A\u6574\u500B\u7AE0\u7BC0\u5F9E\u4E94\u5802\u5404\u81EA\u7368\u7ACB\u7684\u8AB2\u8B8A\u6210\u4E00\u500B\u53EF\u5C0E\u822A\u7684\u8A3A\u65B7\u7CFB\u7D71\u3002 -->\n\n---\n\n## \u9A45\u52D5\u300C\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u300D\u7684\u5DE5\u4F5C\n\n\u5F9E\u982D\u5230\u5C3E\u8B80\u4E0B\u4F86\uFF0C\u8A08\u5206\u5361\u628A\u300C\u8B93\u9019\u500B\u66F4\u53EF\u6E2C\u8A66\u300D\u5F9E\u4E00\u500B\u6A21\u7CCA\u7684\u9858\u671B\uFF0C\u8B8A\u6210\u4E00\u500B**\u53EF\u8861\u91CF\u7684\u8FF4\u5708**\uFF1A\n\n1. **\u8A55\u5206**\u9019\u500B\u55AE\u5143\u2014\u2014\u5F97\u5230\u4E00\u500B\u8AA0\u5BE6\u7684\u6578\u5B57\u8207\u4E94\u6839\u9577\u689D\u3002\n2. **\u6392\u5E8F**\u2014\u2014\u6700\u4F4E\u7684\u4E09\u500B\u8A0A\u865F\u5C31\u662F\u5DE5\u4F5C\u6E05\u55AE\uFF0C\u6700\u7CDF\u8005\u512A\u5148\u3002\n3. **\u4FEE\u5FA9**\u2014\u2014\u8DDF\u96A8\u6BCF\u4E00\u500B\u6DF1\u9023\u7D50\uFF0C\u5957\u7528\u63A5\u7E2B\uFF0F\u63A2\u91DD\uFF0F\u62C6\u89E3\u3002\n4. **\u91CD\u65B0\u8A55\u5206**\u2014\u2014\u770B\u8457\u9023\u9396\u62AC\u9AD8\u591A\u500B\u8A0A\u865F\u3001\u7B49\u7B2C\u722C\u5347\u3002\n\n\u56FA\u5B9A\u88DD\u7F6E\u7684\u65C5\u7A0B\u2014\u2014**F\uFF080.308\uFF09** \u2192 \u6CE8\u5165\u6642\u9418 + \u4E82\u6578 \u2192 **D** \u2192 \u5168\u90E8\u56DB\u500B\u63A5\u7E2B \u2192 **C**\u2014\u2014\u6B63\u662F\u9019\u500B\u8FF4\u5708\u7684\u7E2E\u5F71\u3002\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u4E0D\u518D\u662F\u53E3\u8033\u76F8\u50B3\u7684\u50B3\u8AAA\uFF0C\u800C\u8B8A\u6210\u4E00\u584A\u4F60\u80FD\u64A5\u52D5\u7684\u8A08\u5206\u677F\u3002\n\n<!-- \u5728\u6B64\u6536\u675F\u7AE0\u7BC0\u3002\u8A08\u5206\u5361\u771F\u6B63\u7684\u7522\u7269\u4E0D\u662F\u7B49\u7B2C\uFF0C\u800C\u662F\u90A3\u500B\u8FF4\u5708\uFF1A\u8861\u91CF\u3001\u6392\u5E8F\u3001\u4FEE\u5FA9\u3001\u518D\u8861\u91CF\u3002\u8FFD\u8E64\u56FA\u5B9A\u88DD\u7F6E\u7684\u5F27\u7DDA F \u2192 D \u2192 C\uFF0C\u4F5C\u70BA\u8FF4\u5708\u78BA\u5BE6\u80FD\u79FB\u52D5\u6578\u5B57\u7684\u8B49\u660E\u3002\u9023\u7D50\u5230\u5BE6\u52D9\uFF1A\u5728\u771F\u5BE6\u7A0B\u5F0F\u78BC\u4E0A\uFF0C\u628A\u9019\u4E94\u500B\u8A0A\u865F\u63A5\u9032 CI\uFF0C\u8A08\u5206\u5361\u5C31\u6210\u70BA\u4E00\u4EFD\u53EF\u6E2C\u8A66\u6027\u9810\u7B97\u2014\u2014\u4E00\u9053\u5728\u8B8A\u66F4\u4F7F\u7B49\u7B2C\u4E0B\u964D\u6642\u5931\u6557\u7684\u9598\u9580\uFF0C\u4EE5\u53CA\u4E00\u4EFD\u544A\u8A34\u5718\u968A\u54EA\u4E00\u500B\u8A2D\u8A08\u8B8A\u66F4\u8CB7\u5230\u6700\u591A\u53EF\u6E2C\u8A66\u6027\u7684\u5DE5\u4F5C\u6E05\u55AE\u3002 -->\n\n---\n\n## \u5C0F\u7D50\n\n- **\u8A08\u5206\u5361\u662F\u53EF\u6E2C\u8A66\u6027\u7AE0\u7BC0\u7684\u7E3D\u7D50**\uFF1A\u5B83**\u7D44\u5408**\u4E09\u500B\u59CA\u59B9\u63A2\u7D22\u5668\u52A0\u4E0A\u975E\u78BA\u5B9A\u6027\u76EE\u9304\u6210\u70BA\u4E00\u6B21\u8A3A\u65B7\uFF0C\u4E14**\u4E0D\u91CD\u65B0\u63A8\u5C0E\u4EFB\u4F55\u6771\u897F**\u3002\n- **\u4E94\u500B\u8A0A\u865F**\uFF0C\u6BCF\u4E00\u500B\u90FD\u6B63\u898F\u5316\u5230 `[0, 1]`\uFF0C**\u8D8A\u9AD8 = \u8D8A\u53EF\u6E2C\u8A66**\uFF1A\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u8986\u84CB\u3001\u7D50\u69CB\u3001\u78BA\u5B9A\u6027\u3002\n- **\u7D50\u69CB = 1 \u2212 19/25 = 0.24**\u3001**\u78BA\u5B9A\u6027 = 1 \u2212 2/4 = 0.5**\u2014\u2014\u8907\u96DC\u5EA6\u8207\u975E\u78BA\u5B9A\u6027\u4EE5 `1 \u2212 \u7A05` \u7684\u5F62\u5F0F\u9032\u5165\uFF0C\u8B93\u300C\u5411\u4E0A\u70BA\u597D\u300D\u4E00\u81F4\u6210\u7ACB\u3002\n- **\u56FA\u5B9A\u88DD\u7F6E\u8B80\u6578**\u70BA\u53EF\u63A7\u5236\u6027 0.6\u3001\u53EF\u89C0\u5BDF\u6027 0.2\u3001\u63A5\u7E2B 0\u3001\u7D50\u69CB 0.24\u3001\u78BA\u5B9A\u6027 0.5 \u2192 \u7E3D\u9AD4 **0.308** \u2192 \u7B49\u7B2C **F**\u3002\n- **\u7B49\u7B2C**\u628A\u5E73\u5747\u7531\u9AD8\u5230\u4F4E\u5C0D\u61C9\uFF1AA \u2265 0.85\u3001B \u2265 0.70\u3001C \u2265 0.55\u3001D \u2265 0.40\uFF0C\u5176\u9918\u70BA F\u3002\n- **\u512A\u5148\u8655\u7406\u6700\u4F4E\u7684**\u4E09\u500B\u8A0A\u865F\uFF08\u63A5\u7E2B 0\u3001\u53EF\u89C0\u5BDF\u6027 0.2\u3001\u7D50\u69CB 0.24\uFF09\uFF1B\u5E73\u5747\u734E\u52F5\u62AC\u9AD8\u5730\u677F\u3002\n- **\u4FEE\u5FA9\u9023\u9396**\uFF1A\u6CE8\u5165\u6642\u9418 + \u4E82\u6578\u540C\u6642\u62C9\u9AD8\u63A5\u7E2B\u8986\u84CB*\u8207*\u78BA\u5B9A\u6027 \u2192 **F \u2192 D**\uFF1B\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B \u2192 **C**\u3002\u6BCF\u500B\u8A0A\u865F\u90FD\u6DF1\u9023\u7D50\u5230\u5B83\u7684\u63A2\u7D22\u5668\uFF0C\u5176\u4E2D\u78BA\u5B9A\u6027 \u2192 \u4E0D\u7A69\u5B9A\u8A3A\u65B7\u3002\n\n**\u8AB2\u5802\u7DF4\u7FD2\uFF1A** \u5F9E F \u56FA\u5B9A\u88DD\u7F6E\u51FA\u767C\uFF0C\u5217\u51FA\u7528\u6700\u5C11\u4FEE\u5FA9\u62B5\u9054\u7B49\u7B2C C \u7684\u5207\u63DB\u9806\u5E8F\uFF0C\u4E26\u70BA\u6BCF\u4E00\u6B21\u5207\u63DB\u9EDE\u540D\u5B83\u79FB\u52D5\u7684\u6BCF\u4E00\u500B\u8A0A\u865F\u4EE5\u53CA\u79FB\u52D5\u4E86\u591A\u5C11\u3002\n\n---\n\n## \u5EF6\u4F38\u95B1\u8B80\n\n- \u8AB2\u7A0B\u898F\u683C\u2014\u2014\u53EF\u6E2C\u8A66\u6027\u8996\u89BA\u5316\u8A2D\u8A08\uFF08\u63A2\u7D22\u5668 4\uFF1A\u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\uFF09\u3002\n- Feathers, M. (2004)\u300AWorking Effectively with Legacy Code\u300B\u2014\u2014\u63A5\u7E2B\u8207\u63A5\u7E2B\u8986\u84CB\u8A0A\u865F\u80CC\u5F8C\u7684\u6253\u7834\u76F8\u4F9D\u6280\u8853\u3002\n- Freeman & Pryce (2009)\u300AGrowing Object-Oriented Software, Guided by Tests\u300B\u2014\u2014\u628A\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u8996\u70BA\u6301\u7E8C\u7684\u7D00\u5F8B\uFF0C\u800C\u975E\u4E00\u6B21\u6027\u7684\u7A3D\u6838\u3002\n- \u642D\u914D\u63A2\u7D22\u5668\uFF1A\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u3001\u53EF\u6E2C\u8A66\u6027\u63A5\u7E2B\u3001\u53EF\u6E2C\u8A66\u6027\u5EA6\u91CF\u3001\u4E0D\u7A69\u5B9A\u8A3A\u65B7\u2014\u2014\u672C\u8A08\u5206\u5361\u6240\u805A\u5408\u7684\u56DB\u5802\u8AB2\u3002\n- \u5DE5\u5177\u539F\u59CB\u78BC\uFF1A[TestabilityScorecardExplorer.js](https://github.com/skhuang/stvisual/blob/main/src/components/TestabilityScorecardExplorer.js)\u3001[testabilityModels.js](https://github.com/skhuang/stvisual/blob/main/src/data/testabilityModels.js)\n- \u7CFB\u5217\u524D\u4E00\u8B1B\uFF1A\u672C\u7E3D\u7D50\u6240\u7D44\u5408\u7684\u56DB\u500B\u53EF\u6E2C\u8A66\u6027\u7AE0\u7BC0\u63A2\u7D22\u5668\u3002\n"
     }
   ];
 
@@ -72760,6 +72796,2560 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             ],
             "generalFeedback": "can-i-deploy \u67E5\u8A62 broker \u4E2D\u300C\u5019\u9078\u7248\u672C\u300D\u8207\u300C\u5B83\u5FC5\u9808\u5354\u540C\u7684\u7248\u672C\u300D\u4E4B\u9593\u7684\u9A57\u8B49\u7D50\u679C\u3002\u4E00\u9805\u5931\u6557\u4EE3\u8868\u767C\u5E03\u6703\u7834\u58DE\u4E00\u500B\u4ECD\u5728\u90E8\u7F72\u4E2D\u7684\u6D88\u8CBB\u8005\u5951\u7D04\uFF0C\u56E0\u6B64\u61C9\u66AB\u7DE9\u6B64\u6B21\u90E8\u7F72\u3002",
             "single": true
+          }
+        ]
+      }
+    },
+    "controllability-observability": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What controllability is",
+            "text": "<p>In the testability sense, what does <strong>controllability</strong> measure?</p>",
+            "answers": [
+              {
+                "text": "How well a test can DRIVE the system into the states/inputs it needs to exercise",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 controllability is the "drive it there" half of testability.'
+              },
+              {
+                "text": "How well a test can SEE the effects it needs to check",
+                "fraction": 0,
+                "feedback": "That is observability, the other half of testability."
+              },
+              {
+                "text": "How many states the model has",
+                "fraction": 0,
+                "feedback": "A raw state count is not controllability; controllability is about reachability by inputs."
+              },
+              {
+                "text": "How many transitions are covered by a test suite",
+                "fraction": 0,
+                "feedback": "That is transition coverage, a different idea from controllability."
+              }
+            ],
+            "generalFeedback": "Controllability asks whether a test can drive the software into the states and inputs it must exercise. Hidden state, unreachable branches, and hard-coded dependencies all reduce it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What observability is",
+            "text": "<p>In the testability sense, what does <strong>observability</strong> measure?</p>",
+            "answers": [
+              {
+                "text": "How well a test can DRIVE the system into a chosen state",
+                "fraction": 0,
+                "feedback": "That is controllability, not observability."
+              },
+              {
+                "text": "How well a test can SEE the effects/outputs it needs to check",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 observability is the "can I see it" half of testability.'
+              },
+              {
+                "text": "How many inputs the system accepts",
+                "fraction": 0,
+                "feedback": "The number of inputs is not observability; observability is about distinguishable outputs."
+              },
+              {
+                "text": "How fast the test suite runs",
+                "fraction": 0,
+                "feedback": "Speed is unrelated to observability."
+              }
+            ],
+            "generalFeedback": "Observability asks whether a test can see the effects it needs to check. Side effects, swallowed errors, and missing/return outputs that collide with other states all reduce it.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Testability equals controllability plus observability",
+            "text": "<p>Testability is classically defined as <strong>controllability + observability</strong> \u2014 a system is testable to the degree a test can both drive it into the needed states and observe the resulting effects.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both halves are required; either one alone is not enough."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Testability is exactly controllability together with observability."
+              }
+            ],
+            "generalFeedback": "The classical definition (control-theory roots; Freedman; Binder) is testability = controllability + observability. You must be able to drive the SUT to the situation you want AND see the effect to check it."
+          },
+          {
+            "type": "multichoice",
+            "name": "What a reachable state is",
+            "text": "<p>In the turnstile model, what is a <strong>reachable</strong> state?</p>",
+            "answers": [
+              {
+                "text": "A state that some sequence of test inputs, starting from the start state, can drive the SUT into",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 reachability here means "an input sequence from the start gets you there".'
+              },
+              {
+                "text": "A state whose output value is unique",
+                "fraction": 0,
+                "feedback": "That describes an observable state, not a reachable one."
+              },
+              {
+                "text": "Only the start state",
+                "fraction": 0,
+                "feedback": "The start state is reachable, but so is any state an input sequence can enter."
+              },
+              {
+                "text": "Any state that has a self-loop",
+                "fraction": 0,
+                "feedback": "Self-loops are unrelated to whether a state can be reached from the start."
+              }
+            ],
+            "generalFeedback": "reachableStates(sut) does a BFS from the start over the input-driven transitions. A state is reachable when some input sequence from the start arrives there.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an unreachable state is",
+            "text": "<p>What does it mean that a state is <strong>unreachable</strong> by the test in this model?</p>",
+            "answers": [
+              {
+                "text": "The state has no observable output",
+                "fraction": 0,
+                "feedback": "Reachability is about input-driven transitions, not about outputs."
+              },
+              {
+                "text": "The state is the start state",
+                "fraction": 0,
+                "feedback": "The start state is always reachable; unreachable is the opposite."
+              },
+              {
+                "text": "No sequence of test inputs from the start can drive the SUT into it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no input path leads there, so a test cannot set it up."
+              },
+              {
+                "text": "The state has more than one outgoing transition",
+                "fraction": 0,
+                "feedback": "Having outgoing transitions does not make a state unreachable."
+              }
+            ],
+            "generalFeedback": "An unreachable state has no input-driven path into it from the start, so a test cannot drive the SUT there. In the turnstile, JAMMED and MAINT are unreachable by the test's inputs \u2014 the controllability gap.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an observable output is",
+            "text": "<p>In this model, what is an <strong>observable output</strong>?</p>",
+            "answers": [
+              {
+                "text": "An internal state variable the test cannot read",
+                "fraction": 0,
+                "feedback": "The point of an output is that it CAN be seen from outside; a hidden variable is the opposite."
+              },
+              {
+                "text": "A value a test can see from outside the SUT (such as 'red', 'green', or 'beep')",
+                "fraction": 100,
+                "feedback": "Correct \u2014 outputs are the externally visible projection a test checks."
+              },
+              {
+                "text": "The input event that triggers a transition",
+                "fraction": 0,
+                "feedback": "That is an input (coin/push/reset), not an output."
+              },
+              {
+                "text": "A transition edge in the state graph",
+                "fraction": 0,
+                "feedback": "An edge is a transition; an output is the visible value of a state."
+              }
+            ],
+            "generalFeedback": "Each state maps to an observable output in sut.outputs \u2014 the value a test can see from outside (e.g. LOCKED\u2192'red', PASSED\u2192'beep'). Observability is measured over these outputs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Turnstile start state",
+            "text": "<p>In <code>TURNSTILE_SUT</code>, which state is the <strong>start</strong> state?</p>",
+            "answers": [
+              {
+                "text": "LOCKED",
+                "fraction": 100,
+                "feedback": "Correct \u2014 start is LOCKED."
+              },
+              {
+                "text": "UNLOCKED",
+                "fraction": 0,
+                "feedback": "UNLOCKED is reached from LOCKED by coin; it is not the start."
+              },
+              {
+                "text": "PASSED",
+                "fraction": 0,
+                "feedback": "PASSED is reached via coin then push; it is not the start."
+              },
+              {
+                "text": "MAINT",
+                "fraction": 0,
+                "feedback": "MAINT is not even reachable by inputs, let alone the start."
+              }
+            ],
+            "generalFeedback": "TURNSTILE_SUT.start is 'LOCKED'. All reachability and driveTo computations begin there.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Turnstile state count",
+            "text": "<p>How many <strong>states</strong> does <code>TURNSTILE_SUT</code> have?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is the number of input-reachable states, not the total."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "There are 5 states, not 4."
+              },
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 LOCKED, UNLOCKED, PASSED, JAMMED, MAINT."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "There are only 5 states in the model."
+              }
+            ],
+            "generalFeedback": "states = [LOCKED, UNLOCKED, PASSED, JAMMED, MAINT] \u2014 5 in total. This 5 is the denominator of both the controllability and observability ratios.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Turnstile inputs",
+            "text": "<p>What are the test's <strong>inputs</strong> (levers) in <code>TURNSTILE_SUT</code>?</p>",
+            "answers": [
+              {
+                "text": "coin, push, reset",
+                "fraction": 100,
+                "feedback": "Correct \u2014 those are the three inputs the test can send."
+              },
+              {
+                "text": "coin, push",
+                "fraction": 0,
+                "feedback": "reset is also an input; there are three."
+              },
+              {
+                "text": "red, green, beep",
+                "fraction": 0,
+                "feedback": "Those are outputs, not inputs."
+              },
+              {
+                "text": "coin, push, reset, key",
+                "fraction": 0,
+                "feedback": "There is no 'key' input; a maintenance key is exactly what the model does NOT expose to the test."
+              }
+            ],
+            "generalFeedback": "inputs = [coin, push, reset]. There is deliberately no maintenance-key input, which is why MAINT cannot be driven to by the test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Output of PASSED",
+            "text": "<p>What is the observable <strong>output</strong> of the <code>PASSED</code> state?</p>",
+            "answers": [
+              {
+                "text": "green",
+                "fraction": 0,
+                "feedback": "green is the output of UNLOCKED and JAMMED, not PASSED."
+              },
+              {
+                "text": "beep",
+                "fraction": 100,
+                "feedback": "Correct \u2014 PASSED\u2192'beep'."
+              },
+              {
+                "text": "red",
+                "fraction": 0,
+                "feedback": "red is the output of LOCKED and MAINT, not PASSED."
+              },
+              {
+                "text": "grind",
+                "fraction": 0,
+                "feedback": "'grind' is only added by a probe onto JAMMED; PASSED's output is 'beep'."
+              }
+            ],
+            "generalFeedback": "outputs[PASSED] = 'beep'. It is the only unique output in the base model, so PASSED is the one observable state before any probe is added.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Output of LOCKED",
+            "text": "<p>What is the observable <strong>output</strong> of the <code>LOCKED</code> state?</p>",
+            "answers": [
+              {
+                "text": "red",
+                "fraction": 100,
+                "feedback": "Correct \u2014 LOCKED\u2192'red' (shared with MAINT)."
+              },
+              {
+                "text": "green",
+                "fraction": 0,
+                "feedback": "green belongs to UNLOCKED and JAMMED, not LOCKED."
+              },
+              {
+                "text": "beep",
+                "fraction": 0,
+                "feedback": "beep belongs to PASSED, not LOCKED."
+              },
+              {
+                "text": "grind",
+                "fraction": 0,
+                "feedback": "'grind' is a probe output on JAMMED; LOCKED's output is 'red'."
+              }
+            ],
+            "generalFeedback": "outputs[LOCKED] = 'red'. Because MAINT is also 'red', LOCKED's output is not unique, so LOCKED is not observable in the base model.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Unique output in the base model",
+            "text": "<p>In the base turnstile (before any probe), which output value is <strong>unique</strong> to a single state?</p>",
+            "answers": [
+              {
+                "text": "red",
+                "fraction": 0,
+                "feedback": "red is shared by LOCKED and MAINT, so it is not unique."
+              },
+              {
+                "text": "green",
+                "fraction": 0,
+                "feedback": "green is shared by UNLOCKED and JAMMED, so it is not unique."
+              },
+              {
+                "text": "grind",
+                "fraction": 0,
+                "feedback": "'grind' does not exist in the base model; it only appears once a probe is added."
+              },
+              {
+                "text": "beep",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only PASSED emits 'beep', so it is the single unique output."
+              }
+            ],
+            "generalFeedback": "Counting outputs: red\u2192{LOCKED, MAINT}, green\u2192{UNLOCKED, JAMMED}, beep\u2192{PASSED}. Only 'beep' appears once, so PASSED is the only observable state (observability 1/5).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When a fault is observable",
+            "text": "<p>In this engine, when is a state's fault considered <strong>observable</strong>?</p>",
+            "answers": [
+              {
+                "text": "When the state's output value is unique \u2014 no other state shares it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a unique output lets an observer distinguish that state, so a fault landing there is visible."
+              },
+              {
+                "text": "When the state is reachable from the start",
+                "fraction": 0,
+                "feedback": "Reachability is controllability; observability is about distinguishable outputs."
+              },
+              {
+                "text": "When the state is the start state",
+                "fraction": 0,
+                "feedback": "Being the start has nothing to do with whether a fault there is observable."
+              },
+              {
+                "text": "When the state has a self-loop",
+                "fraction": 0,
+                "feedback": "Self-loops do not determine observability."
+              }
+            ],
+            "generalFeedback": "observableStates(sut) keeps a state only when its output value is unique across all states. A shared output means an observer cannot tell those states apart, so a fault there is invisible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read the controllability ratio",
+            "text": "<p>What is <code>controllability(TURNSTILE_SUT).ratio</code> for the base turnstile?</p>",
+            "answers": [
+              {
+                "text": "5/5 (100%)",
+                "fraction": 0,
+                "feedback": "Two states (JAMMED, MAINT) are unreachable, so it is not 5/5."
+              },
+              {
+                "text": "3/5 (60%)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 LOCKED, UNLOCKED, PASSED are reachable; JAMMED and MAINT are not."
+              },
+              {
+                "text": "1/5 (20%)",
+                "fraction": 0,
+                "feedback": "1/5 is the base observability, not controllability."
+              },
+              {
+                "text": "2/5 (40%)",
+                "fraction": 0,
+                "feedback": "Three states are reachable, giving 3/5, not 2/5."
+              }
+            ],
+            "generalFeedback": "reachableStates = {LOCKED, UNLOCKED, PASSED} = 3 of 5, so controllability ratio = 3/5 = 60%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read the observability ratio",
+            "text": "<p>What is <code>observability(TURNSTILE_SUT).ratio</code> for the base turnstile (before any probe)?</p>",
+            "answers": [
+              {
+                "text": "3/5 (60%)",
+                "fraction": 0,
+                "feedback": "3/5 is what observability becomes AFTER a probe, not the base value."
+              },
+              {
+                "text": "5/5 (100%)",
+                "fraction": 0,
+                "feedback": "Only one state has a unique output in the base model, so it is not 5/5."
+              },
+              {
+                "text": "1/5 (20%)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only PASSED has a unique output ('beep')."
+              },
+              {
+                "text": "2/5 (40%)",
+                "fraction": 0,
+                "feedback": "Only one output (beep) is unique in the base model, so it is 1/5."
+              }
+            ],
+            "generalFeedback": "Only PASSED\u2192'beep' is unique; red and green are each shared by two states. So observableStates = {PASSED} = 1 of 5, observability = 1/5 = 20%.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Which states are reachable",
+            "text": "<p>Starting from LOCKED and using only the inputs coin/push/reset, which set of states can the test reach?</p>",
+            "answers": [
+              {
+                "text": "{LOCKED, UNLOCKED, PASSED}",
+                "fraction": 100,
+                "feedback": "Correct \u2014 coin reaches UNLOCKED, push reaches PASSED, reset returns to LOCKED; JAMMED and MAINT are never entered."
+              },
+              {
+                "text": "{LOCKED, UNLOCKED, PASSED, JAMMED, MAINT}",
+                "fraction": 0,
+                "feedback": "JAMMED and MAINT have no input-driven edge into them, so they are not reachable."
+              },
+              {
+                "text": "{LOCKED, UNLOCKED}",
+                "fraction": 0,
+                "feedback": "PASSED is also reachable via coin then push."
+              },
+              {
+                "text": "{LOCKED, UNLOCKED, PASSED, JAMMED}",
+                "fraction": 0,
+                "feedback": "JAMMED is entered only by a fault, not by any input, so it is not reachable."
+              }
+            ],
+            "generalFeedback": "BFS from LOCKED over the input edges reaches UNLOCKED (coin) and PASSED (coin, push), and reset only returns to LOCKED. No edge leads into JAMMED or MAINT, so the reachable set is exactly {LOCKED, UNLOCKED, PASSED}.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why JAMMED is unreachable",
+            "text": "<p>Why can the test not drive the turnstile into <code>JAMMED</code>?</p>",
+            "answers": [
+              {
+                "text": "No input-driven transition leads INTO JAMMED \u2014 it is entered only by a fault, not by any test input",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with no incoming input edge, no input sequence can arrive at JAMMED."
+              },
+              {
+                "text": "Because JAMMED has no outgoing transitions",
+                "fraction": 0,
+                "feedback": "JAMMED does have an outgoing edge (reset\u2192LOCKED); the problem is that nothing leads in."
+              },
+              {
+                "text": "Because JAMMED shares its output with UNLOCKED",
+                "fraction": 0,
+                "feedback": "That shared output is the observability gap, not the reason JAMMED is unreachable."
+              },
+              {
+                "text": "Because JAMMED is the start state",
+                "fraction": 0,
+                "feedback": "LOCKED is the start; JAMMED is not."
+              }
+            ],
+            "generalFeedback": "Reachability depends on edges INTO a state. The only edge touching JAMMED is JAMMED--reset-->LOCKED (outgoing). Since no input drives anything into JAMMED, a fault is the only way in \u2014 the controllability gap.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why MAINT is unreachable",
+            "text": "<p>Why can the test not drive the turnstile into <code>MAINT</code>?</p>",
+            "answers": [
+              {
+                "text": "Because MAINT shares the output 'red' with LOCKED",
+                "fraction": 0,
+                "feedback": "The shared output is an observability issue; it does not explain unreachability."
+              },
+              {
+                "text": "No transition leads into MAINT \u2014 it is entered only by a maintenance key, which is not one of the test's inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MAINT has no incoming input edge, so no input sequence reaches it."
+              },
+              {
+                "text": "Because MAINT has a self-loop that traps the machine",
+                "fraction": 0,
+                "feedback": "MAINT has no edges at all in the model; there is no self-loop involved."
+              },
+              {
+                "text": "Because reset always leads away from MAINT",
+                "fraction": 0,
+                "feedback": "There is no reset edge from MAINT; the point is nothing leads INTO it."
+              }
+            ],
+            "generalFeedback": "MAINT is entered only by a maintenance key, which is deliberately NOT among inputs = [coin, push, reset]. With no input edge into MAINT, it is unreachable by the test \u2014 part of the controllability gap.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo PASSED",
+            "text": "<p>What input sequence does <code>driveTo(TURNSTILE_SUT, 'PASSED')</code> return (the shortest path from the start)?</p>",
+            "answers": [
+              {
+                "text": "coin, push",
+                "fraction": 100,
+                "feedback": "Correct \u2014 LOCKED--coin-->UNLOCKED--push-->PASSED."
+              },
+              {
+                "text": "push, coin",
+                "fraction": 0,
+                "feedback": "push in LOCKED just stays in LOCKED; the order must be coin then push."
+              },
+              {
+                "text": "coin, push, reset",
+                "fraction": 0,
+                "feedback": "reset would leave PASSED and return to LOCKED; the shortest path stops at PASSED after coin, push."
+              },
+              {
+                "text": "push",
+                "fraction": 0,
+                "feedback": "push alone from LOCKED loops back to LOCKED and never reaches PASSED."
+              }
+            ],
+            "generalFeedback": "BFS from LOCKED: coin reaches UNLOCKED, then push reaches PASSED. The shortest driving sequence is [coin, push] \u2014 2 steps.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo UNLOCKED",
+            "text": "<p>What input sequence does <code>driveTo(TURNSTILE_SUT, 'UNLOCKED')</code> return?</p>",
+            "answers": [
+              {
+                "text": "push",
+                "fraction": 0,
+                "feedback": "push in LOCKED stays in LOCKED; it does not reach UNLOCKED."
+              },
+              {
+                "text": "coin",
+                "fraction": 100,
+                "feedback": "Correct \u2014 LOCKED--coin-->UNLOCKED in a single step."
+              },
+              {
+                "text": "coin, push",
+                "fraction": 0,
+                "feedback": "That reaches PASSED; UNLOCKED is reached by coin alone."
+              },
+              {
+                "text": "reset",
+                "fraction": 0,
+                "feedback": "reset is not defined from LOCKED and does not reach UNLOCKED."
+              }
+            ],
+            "generalFeedback": "From the start LOCKED, a single coin drives the SUT to UNLOCKED, so driveTo returns [coin].",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo MAINT result",
+            "text": "<p>What does <code>driveTo(TURNSTILE_SUT, 'MAINT')</code> return?</p>",
+            "answers": [
+              {
+                "text": "null \u2014 no input sequence can reach MAINT",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MAINT is unreachable by inputs, so driveTo returns null."
+              },
+              {
+                "text": "An empty array []",
+                "fraction": 0,
+                "feedback": "[] is returned only when the target is the start state; MAINT is unreachable, so the result is null."
+              },
+              {
+                "text": "[reset]",
+                "fraction": 0,
+                "feedback": "reset does not lead into MAINT; no input sequence does."
+              },
+              {
+                "text": "[key]",
+                "fraction": 0,
+                "feedback": "There is no 'key' input in the model; driveTo returns null."
+              }
+            ],
+            "generalFeedback": "driveTo does a BFS over input edges and returns null when the target cannot be reached. MAINT has no incoming input edge, so the result is null \u2014 the controllability gap made concrete.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo the start state",
+            "text": "<p>What does <code>driveTo(TURNSTILE_SUT, 'LOCKED')</code> return, given LOCKED is the start state?</p>",
+            "answers": [
+              {
+                "text": "null",
+                "fraction": 0,
+                "feedback": "null means unreachable; LOCKED is the start, so it is trivially reachable."
+              },
+              {
+                "text": "[reset]",
+                "fraction": 0,
+                "feedback": "You are already at LOCKED, so no input is needed."
+              },
+              {
+                "text": "An empty array [] \u2014 you are already there, no inputs needed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 driveTo returns [] when the target is the start state."
+              },
+              {
+                "text": "[coin]",
+                "fraction": 0,
+                "feedback": "coin would leave LOCKED; to be AT the start no input is required, so []."
+              }
+            ],
+            "generalFeedback": "The first line of driveTo is: if target === start return []. Since LOCKED is the start, the shortest driving sequence is the empty sequence.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why a fault in JAMMED is invisible",
+            "text": "<p>In the base model, why would a fault that lands in <code>JAMMED</code> be invisible to a test watching the output?</p>",
+            "answers": [
+              {
+                "text": "Because JAMMED emits 'beep', the same as PASSED",
+                "fraction": 0,
+                "feedback": "JAMMED emits 'green', not 'beep'; beep is unique to PASSED."
+              },
+              {
+                "text": "Because JAMMED's output 'green' is shared with UNLOCKED, so the observer cannot tell them apart",
+                "fraction": 100,
+                "feedback": "Correct \u2014 colliding outputs make the two states indistinguishable, hiding the fault."
+              },
+              {
+                "text": "Because JAMMED is the start state",
+                "fraction": 0,
+                "feedback": "LOCKED is the start; JAMMED is not, and that is unrelated to visibility."
+              },
+              {
+                "text": "Because JAMMED has no output at all",
+                "fraction": 0,
+                "feedback": "JAMMED does have an output ('green'); the issue is that it collides with UNLOCKED."
+              }
+            ],
+            "generalFeedback": "JAMMED\u2192'green' and UNLOCKED\u2192'green'. When a fault drops the SUT into JAMMED, the output still reads 'green', identical to a normal UNLOCKED, so the observer cannot detect the jam \u2014 the observability gap.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which states share 'red'",
+            "text": "<p>Which two states share the output value <code>'red'</code>?</p>",
+            "answers": [
+              {
+                "text": "LOCKED and MAINT",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both map to 'red', so neither is observable in the base model."
+              },
+              {
+                "text": "UNLOCKED and JAMMED",
+                "fraction": 0,
+                "feedback": "Those two share 'green', not 'red'."
+              },
+              {
+                "text": "LOCKED and UNLOCKED",
+                "fraction": 0,
+                "feedback": "LOCKED is 'red' but UNLOCKED is 'green'; they do not share."
+              },
+              {
+                "text": "PASSED and MAINT",
+                "fraction": 0,
+                "feedback": "PASSED is 'beep' and MAINT is 'red'; they do not share."
+              }
+            ],
+            "generalFeedback": "outputs: LOCKED\u2192'red', MAINT\u2192'red'. Because 'red' is shared, neither LOCKED nor MAINT is observable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which states share 'green'",
+            "text": "<p>Which two states share the output value <code>'green'</code>?</p>",
+            "answers": [
+              {
+                "text": "LOCKED and MAINT",
+                "fraction": 0,
+                "feedback": "Those two share 'red', not 'green'."
+              },
+              {
+                "text": "PASSED and JAMMED",
+                "fraction": 0,
+                "feedback": "PASSED is 'beep'; only JAMMED (with UNLOCKED) is 'green'."
+              },
+              {
+                "text": "UNLOCKED and JAMMED",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both map to 'green', which is exactly why a jam looks like a normal unlock."
+              },
+              {
+                "text": "LOCKED and UNLOCKED",
+                "fraction": 0,
+                "feedback": "LOCKED is 'red', UNLOCKED is 'green'; they do not share."
+              }
+            ],
+            "generalFeedback": "outputs: UNLOCKED\u2192'green', JAMMED\u2192'green'. The collision on 'green' is the observability gap that hides a jam.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a probe does",
+            "text": "<p>What does adding a <strong>probe</strong> (<code>withProbe</code>) do in this explorer?</p>",
+            "answers": [
+              {
+                "text": "It gives a state a distinct output so a previously-shared output becomes unique, raising observability \u2014 returning a new SUT without mutating the original",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 withProbe returns a new outputs map; it is the "observability is a design choice" lever.'
+              },
+              {
+                "text": "It adds a new input transition so an unreachable state becomes reachable",
+                "fraction": 0,
+                "feedback": "That would change controllability; a probe only changes outputs."
+              },
+              {
+                "text": "It deletes an unreachable state from the model",
+                "fraction": 0,
+                "feedback": "A probe adds a distinguishing output; it removes nothing."
+              },
+              {
+                "text": "It changes which state is the start state",
+                "fraction": 0,
+                "feedback": "The start state is unchanged; a probe only affects outputs."
+              }
+            ],
+            "generalFeedback": "withProbe(sut, state, distinctOutput) returns { ...sut, outputs: { ...sut.outputs, [state]: distinctOutput } } \u2014 a NEW SUT whose target state now emits a distinct value, so its output stops colliding and it becomes observable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of probing JAMMED",
+            "text": "<p>After a probe gives <code>JAMMED</code> its own distinct output, which states become observable that were not before?</p>",
+            "answers": [
+              {
+                "text": "Only JAMMED",
+                "fraction": 0,
+                "feedback": "UNLOCKED also becomes unique, because 'green' no longer collides once JAMMED has a distinct output."
+              },
+              {
+                "text": "UNLOCKED and JAMMED both become unique",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the probe un-collides 'green', so UNLOCKED and JAMMED are each now the sole owner of their output."
+              },
+              {
+                "text": "LOCKED and MAINT",
+                "fraction": 0,
+                "feedback": "Those still share 'red'; the JAMMED probe does not touch them."
+              },
+              {
+                "text": "All five states",
+                "fraction": 0,
+                "feedback": "LOCKED and MAINT still collide on 'red', so not all five are observable."
+              }
+            ],
+            "generalFeedback": "Before: UNLOCKED and JAMMED both 'green' (neither observable). Probing JAMMED to a distinct value leaves UNLOCKED as the only 'green' and JAMMED as the only holder of the new value, so BOTH become observable \u2014 observability rises from 1/5 to 3/5 (PASSED, UNLOCKED, JAMMED).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Activity that exercises controllability",
+            "text": "<p>Which activity exercises <strong>controllability</strong> rather than observability?</p>",
+            "answers": [
+              {
+                "text": "Checking that PASSED emits 'beep'",
+                "fraction": 0,
+                "feedback": "Checking an output is observability."
+              },
+              {
+                "text": "Reading the output value of LOCKED",
+                "fraction": 0,
+                "feedback": "Reading an output is observability."
+              },
+              {
+                "text": "Distinguishing JAMMED from UNLOCKED by their outputs",
+                "fraction": 0,
+                "feedback": "Telling states apart by output is observability."
+              },
+              {
+                "text": "Driving the turnstile to PASSED by sending coin then push",
+                "fraction": 100,
+                "feedback": "Correct \u2014 building an input sequence to reach a target state is controllability."
+              }
+            ],
+            "generalFeedback": "Controllability is the drive-it-there half: sending inputs to reach a chosen state. Inspecting or distinguishing outputs is observability.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Activity that exercises observability",
+            "text": "<p>Which activity exercises <strong>observability</strong> rather than controllability?</p>",
+            "answers": [
+              {
+                "text": "Checking that PASSED's output 'beep' is distinct from every other state's output",
+                "fraction": 100,
+                "feedback": "Correct \u2014 verifying that an output distinguishes a state is observability."
+              },
+              {
+                "text": "Sending coin to move LOCKED to UNLOCKED",
+                "fraction": 0,
+                "feedback": "Sending an input to change state is controllability."
+              },
+              {
+                "text": "Finding an input path that reaches PASSED",
+                "fraction": 0,
+                "feedback": "Finding a driving path is controllability."
+              },
+              {
+                "text": "Driving the SUT to a chosen target state",
+                "fraction": 0,
+                "feedback": "Driving to a target is controllability."
+              }
+            ],
+            "generalFeedback": "Observability is the see-it half: checking that outputs let you tell states apart. Sending inputs or finding paths is controllability.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Controllability if MAINT became reachable",
+            "text": "<p>Suppose a maintenance-key input were added that drives the SUT into <code>MAINT</code> (which has no outgoing edges). What would the controllability ratio become?</p>",
+            "answers": [
+              {
+                "text": "5/5 (100%)",
+                "fraction": 0,
+                "feedback": "JAMMED would still be unreachable, so it cannot be 5/5."
+              },
+              {
+                "text": "3/5 (60%)",
+                "fraction": 0,
+                "feedback": "That is the current value; adding a reachable MAINT raises it."
+              },
+              {
+                "text": "4/5 (80%)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MAINT joins the reachable set {LOCKED, UNLOCKED, PASSED}, giving 4 of 5; JAMMED is still unreachable."
+              },
+              {
+                "text": "2/5 (40%)",
+                "fraction": 0,
+                "feedback": "Adding a reachable state increases, not decreases, controllability."
+              }
+            ],
+            "generalFeedback": "Reachable would become {LOCKED, UNLOCKED, PASSED, MAINT} = 4. MAINT has no outgoing edges so it opens no further states, and JAMMED is still unreachable. So controllability = 4/5 = 80%.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Trace a multi-step input sequence",
+            "text": "<p>Starting at LOCKED, the test sends the sequence <code>coin, push, reset, coin</code>. What is the final state?</p>",
+            "answers": [
+              {
+                "text": "PASSED",
+                "fraction": 0,
+                "feedback": "PASSED is reached after coin, push, but reset then coin move on to UNLOCKED."
+              },
+              {
+                "text": "UNLOCKED",
+                "fraction": 100,
+                "feedback": "Correct \u2014 LOCKED\u2192UNLOCKED\u2192PASSED\u2192LOCKED\u2192UNLOCKED."
+              },
+              {
+                "text": "LOCKED",
+                "fraction": 0,
+                "feedback": "reset returns to LOCKED, but the final coin then moves to UNLOCKED."
+              },
+              {
+                "text": "JAMMED",
+                "fraction": 0,
+                "feedback": "No input reaches JAMMED; the sequence cannot end there."
+              }
+            ],
+            "generalFeedback": "Trace: LOCKED--coin-->UNLOCKED--push-->PASSED--reset-->LOCKED--coin-->UNLOCKED. The final state is UNLOCKED.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why JAMMED's outgoing edge does not help",
+            "text": "<p>JAMMED has the edge <code>JAMMED--reset--&gt;LOCKED</code>. Why does that edge still not let the test reach JAMMED?</p>",
+            "answers": [
+              {
+                "text": "Reachability needs an edge INTO JAMMED; an outgoing edge lets you leave JAMMED but never arrive there",
+                "fraction": 100,
+                "feedback": "Correct \u2014 you can only take JAMMED--reset-->LOCKED if you are already in JAMMED, which the test cannot achieve."
+              },
+              {
+                "text": "Because reset is not one of the inputs",
+                "fraction": 0,
+                "feedback": "reset IS an input; the issue is direction \u2014 no edge leads into JAMMED."
+              },
+              {
+                "text": "Because JAMMED shares 'green' with UNLOCKED",
+                "fraction": 0,
+                "feedback": "That is the observability gap; it is unrelated to whether JAMMED can be reached."
+              },
+              {
+                "text": "Because the edge comes after PASSED in the graph",
+                "fraction": 0,
+                "feedback": "Ordering in the graph does not affect reachability; incoming edges do."
+              }
+            ],
+            "generalFeedback": "BFS follows edges in their direction. JAMMED--reset-->LOCKED is outgoing, usable only once you are in JAMMED. Since no edge points INTO JAMMED, the test can never get there \u2014 the outgoing edge is irrelevant to reachability.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why driveTo PASSED needs two steps",
+            "text": "<p>Why is the shortest driving sequence to PASSED exactly two steps (<code>coin, push</code>) and not one?</p>",
+            "answers": [
+              {
+                "text": "PASSED is entered only by push from UNLOCKED, and UNLOCKED is entered only by coin from LOCKED \u2014 so you must do coin then push",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the only path into PASSED forces this two-step chain."
+              },
+              {
+                "text": "Because reset must be sent before push",
+                "fraction": 0,
+                "feedback": "reset is not on the path to PASSED; coin then push is the route."
+              },
+              {
+                "text": "Because PASSED has a self-loop that must be entered twice",
+                "fraction": 0,
+                "feedback": "PASSED has no self-loop; the two steps come from the chain LOCKED\u2192UNLOCKED\u2192PASSED."
+              },
+              {
+                "text": "Because JAMMED blocks the direct path",
+                "fraction": 0,
+                "feedback": "JAMMED is not on any input path; it does not block anything."
+              }
+            ],
+            "generalFeedback": "The only edge into PASSED is UNLOCKED--push-->PASSED, and the only edge into UNLOCKED is LOCKED--coin-->UNLOCKED. From the start LOCKED that forces the chain coin, push \u2014 two steps, the minimum.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret controllability 3/5",
+            "text": "<p>What does a controllability of <strong>3/5</strong> tell you about the turnstile?</p>",
+            "answers": [
+              {
+                "text": "A test can drive the SUT into 3 of the 5 modeled states; the other 2 (JAMMED, MAINT) are out of its reach",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3/5 counts input-reachable states over total states."
+              },
+              {
+                "text": "3 of the 5 outputs are unique",
+                "fraction": 0,
+                "feedback": "That describes observability, not controllability."
+              },
+              {
+                "text": "3 of the 5 transitions are exercised by the test suite",
+                "fraction": 0,
+                "feedback": "Controllability counts reachable states, not exercised transitions."
+              },
+              {
+                "text": "3 of the 5 inputs are valid",
+                "fraction": 0,
+                "feedback": "All inputs are valid; the ratio is over states, not inputs."
+              }
+            ],
+            "generalFeedback": "controllability.ratio = |reachable| / |states| = 3/5. It means the test can set up 3 of the 5 states; JAMMED and MAINT cannot be reached by any input sequence.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret observability 1/5",
+            "text": "<p>What does an observability of <strong>1/5</strong> tell you about the base turnstile?</p>",
+            "answers": [
+              {
+                "text": "3 of the 5 states are reachable",
+                "fraction": 0,
+                "feedback": "That is controllability, and the number would be 3/5, not 1/5."
+              },
+              {
+                "text": "Only 1 of the 5 states (PASSED) has a distinguishable output; a fault in any of the other 4 can be confused with another state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1/5 counts states with a unique output."
+              },
+              {
+                "text": "Exactly 1 of the 5 transitions is covered",
+                "fraction": 0,
+                "feedback": "Observability counts distinguishable-output states, not covered transitions."
+              },
+              {
+                "text": "1 of the 5 inputs is never used",
+                "fraction": 0,
+                "feedback": "The ratio is over states with unique outputs, not over inputs."
+              }
+            ],
+            "generalFeedback": "observability.ratio = |observable| / |states| = 1/5. Only PASSED\u2192'beep' is unique; LOCKED/MAINT collide on 'red' and UNLOCKED/JAMMED on 'green', so a fault in any of those four is indistinguishable at the output.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret the 1/5 to 3/5 jump",
+            "text": "<p>Adding a single probe raises observability from <strong>1/5 to 3/5</strong>. What accounts for the jump of two, not one?</p>",
+            "answers": [
+              {
+                "text": "The probe makes JAMMED reachable by the test's inputs",
+                "fraction": 0,
+                "feedback": "That would be controllability; a probe changes outputs, not reachability."
+              },
+              {
+                "text": "The probe adds two new states to the model",
+                "fraction": 0,
+                "feedback": "A probe changes one state's output; it adds no states."
+              },
+              {
+                "text": "Giving JAMMED a distinct output un-collides 'green', so UNLOCKED and JAMMED each become unique, joining PASSED \u2014 3 of 5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 resolving one collision makes BOTH members of the pair unique at once."
+              },
+              {
+                "text": "The probe removes MAINT from the model",
+                "fraction": 0,
+                "feedback": "Nothing is removed; the gain comes from un-colliding the 'green' pair."
+              }
+            ],
+            "generalFeedback": "'green' was shared by UNLOCKED and JAMMED, so neither was observable. Probing JAMMED to a distinct value leaves UNLOCKED as the sole 'green' AND makes JAMMED unique \u2014 two states flip to observable at once, so 1/5 becomes 3/5 (PASSED, UNLOCKED, JAMMED).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Observability is a design choice",
+            "text": "<p>Which lever raises <strong>observability</strong> without changing the state graph \u2014 making observability a design choice?</p>",
+            "answers": [
+              {
+                "text": "Adding a probe / return value that gives a state its own distinct output",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exposing more distinguishing output is a design decision that raises observability."
+              },
+              {
+                "text": "Adding an input transition into an unreachable state",
+                "fraction": 0,
+                "feedback": "That changes the state graph and raises controllability, not observability."
+              },
+              {
+                "text": "Removing a state from the model",
+                "fraction": 0,
+                "feedback": "Deleting states does not add distinguishing outputs; it is not the observability lever."
+              },
+              {
+                "text": "Changing which state is the start state",
+                "fraction": 0,
+                "feedback": "The start state affects reachability, not how distinguishable the outputs are."
+              }
+            ],
+            "generalFeedback": "Observability is a design choice: by adding probes or return values that give states distinct outputs, a developer makes previously indistinguishable states visible \u2014 without altering the transition structure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: which property is lacking (1)",
+            "text": "<p>A test needs the turnstile to be in <code>JAMMED</code> to check jam handling, but no sequence of inputs can drive it there. Which testability property is lacking?</p>",
+            "answers": [
+              {
+                "text": "Controllability",
+                "fraction": 100,
+                "feedback": "Correct \u2014 being unable to drive the SUT into the needed state is a controllability problem."
+              },
+              {
+                "text": "Observability",
+                "fraction": 0,
+                "feedback": "Observability is about seeing outputs; here the problem is getting INTO the state."
+              },
+              {
+                "text": "Both equally",
+                "fraction": 0,
+                "feedback": "The described obstacle is purely about reaching the state, i.e. controllability."
+              },
+              {
+                "text": "Neither",
+                "fraction": 0,
+                "feedback": "There is a real gap: the state cannot be set up, which is a controllability failure."
+              }
+            ],
+            "generalFeedback": "Not being able to set the SUT into the state you must exercise is the definition of a controllability gap. JAMMED is unreachable by inputs, so the test cannot even begin.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: which property is lacking (2)",
+            "text": "<p>A test can reach UNLOCKED, but a real jam (JAMMED) would emit the same <code>'green'</code>, so the test cannot tell a jam apart from a normal unlock. Which testability property is lacking?</p>",
+            "answers": [
+              {
+                "text": "Controllability",
+                "fraction": 0,
+                "feedback": "The state can be reached; the problem is that the output does not distinguish it."
+              },
+              {
+                "text": "Observability",
+                "fraction": 100,
+                "feedback": "Correct \u2014 indistinguishable outputs are an observability gap."
+              },
+              {
+                "text": "Both equally",
+                "fraction": 0,
+                "feedback": "The obstacle described is purely about seeing/distinguishing the effect, i.e. observability."
+              },
+              {
+                "text": "Neither",
+                "fraction": 0,
+                "feedback": "There is a real gap: the fault cannot be seen at the output, which is an observability failure."
+              }
+            ],
+            "generalFeedback": "When two states share an output, a test cannot tell which one it is in. Being unable to see the effect you must check is an observability gap \u2014 here 'green' hides a jam behind a normal unlock.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Does the JAMMED probe make it reachable",
+            "text": "<p>After a probe gives JAMMED a distinct output (observability up), can the test now drive the SUT into JAMMED to exercise a real jam?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 JAMMED is still unreachable by inputs; the probe raised observability, not controllability",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two properties are orthogonal; a probe only changes outputs."
+              },
+              {
+                "text": "Yes \u2014 the probe adds a transition that reaches JAMMED",
+                "fraction": 0,
+                "feedback": "A probe changes an output, not the transition graph, so no new path is created."
+              },
+              {
+                "text": "Yes \u2014 probes always make states reachable",
+                "fraction": 0,
+                "feedback": "Probes affect observability only; they never change reachability."
+              },
+              {
+                "text": "No \u2014 because the probe also removed JAMMED from the model",
+                "fraction": 0,
+                "feedback": "The probe removes nothing; JAMMED remains, just now with a distinct output."
+              }
+            ],
+            "generalFeedback": "A probe edits outputs (observability). It does not add any input edge into JAMMED, so JAMMED stays unreachable \u2014 the test can now SEE a jam if one occurred, but still cannot DRIVE the SUT into one. Controllability and observability are independent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which states still collide after the JAMMED probe",
+            "text": "<p>After the probe gives JAMMED a distinct output (observability now 3/5), which states still share an output and remain unobservable?</p>",
+            "answers": [
+              {
+                "text": "UNLOCKED and JAMMED",
+                "fraction": 0,
+                "feedback": "The probe just un-collided those two; they are now observable."
+              },
+              {
+                "text": "None \u2014 all five are now observable",
+                "fraction": 0,
+                "feedback": "LOCKED and MAINT still share 'red', so two remain unobservable."
+              },
+              {
+                "text": "LOCKED and MAINT (both still 'red')",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the JAMMED probe did not touch the 'red' collision."
+              },
+              {
+                "text": "PASSED and LOCKED",
+                "fraction": 0,
+                "feedback": "PASSED is unique ('beep'); it does not collide with LOCKED."
+              }
+            ],
+            "generalFeedback": "After probing JAMMED: outputs are red\u2192{LOCKED, MAINT}, green\u2192{UNLOCKED}, beep\u2192{PASSED}, plus JAMMED's new value. Observable = {UNLOCKED, PASSED, JAMMED} = 3/5; LOCKED and MAINT still collide on 'red'.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Observability after a second probe",
+            "text": "<p>Starting from the 3/5 state (after the JAMMED probe), you add one more probe giving <code>MAINT</code> a distinct output. What does observability become?</p>",
+            "answers": [
+              {
+                "text": "4/5 (80%)",
+                "fraction": 0,
+                "feedback": "Resolving the 'red' collision makes BOTH LOCKED and MAINT unique at once, so it jumps past 4/5."
+              },
+              {
+                "text": "3/5 (60%)",
+                "fraction": 0,
+                "feedback": "That is the value before this second probe; adding it raises observability further."
+              },
+              {
+                "text": "2/5 (40%)",
+                "fraction": 0,
+                "feedback": "Adding a distinguishing output raises, not lowers, observability."
+              },
+              {
+                "text": "5/5 (100%)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 un-colliding 'red' makes LOCKED the sole 'red' and MAINT unique, so all five states are now observable."
+              }
+            ],
+            "generalFeedback": "Just as with 'green', 'red' was shared by exactly two states. Giving MAINT a distinct output leaves LOCKED as the only 'red' and makes MAINT unique \u2014 both flip to observable, so 3/5 becomes 5/5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which change raises controllability",
+            "text": "<p>Which single change would raise the <strong>controllability</strong> of the turnstile?</p>",
+            "answers": [
+              {
+                "text": "Give JAMMED a distinct output",
+                "fraction": 0,
+                "feedback": "That raises observability, not controllability."
+              },
+              {
+                "text": "Add an input-driven transition leading INTO JAMMED or MAINT",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a new incoming input edge makes an unreachable state reachable, raising controllability."
+              },
+              {
+                "text": "Add a return value that exposes PASSED",
+                "fraction": 0,
+                "feedback": "PASSED is already reachable AND observable; adding an output does not change controllability."
+              },
+              {
+                "text": "Rename an output value",
+                "fraction": 0,
+                "feedback": "Renaming an output cannot change which states are reachable."
+              }
+            ],
+            "generalFeedback": "Controllability depends on the transition structure. Only adding an input-driven edge INTO an unreachable state (JAMMED or MAINT) can raise it; changing outputs affects observability instead.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Controllability and observability are independent",
+            "text": "<p>Controllability and observability are independent: raising one (for example by adding a probe) does not necessarily raise the other.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a probe raises observability but leaves reachability (controllability) unchanged, and vice versa."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "They are orthogonal: a probe on JAMMED raises observability yet JAMMED stays unreachable."
+              }
+            ],
+            "generalFeedback": "The two halves of testability are separate levers. Probes change outputs (observability); new input edges change reachability (controllability). Improving one does not automatically improve the other \u2014 the JAMMED probe raises observability while controllability of JAMMED stays zero."
+          },
+          {
+            "type": "shortanswer",
+            "name": "Shortest steps to drive to PASSED",
+            "text": "<p>How many input steps does the shortest sequence that drives <code>TURNSTILE_SUT</code> from the start to <code>PASSED</code> take? Answer with a single integer.</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 driveTo returns [coin, push], a length-2 sequence."
+              }
+            ],
+            "generalFeedback": "The only route into PASSED is LOCKED--coin-->UNLOCKED--push-->PASSED, so the shortest driving sequence has exactly 2 steps.",
+            "usecase": false
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u53EF\u63A7\u5236\u6027",
+            "text": "<p>\u5728\u53EF\u6E2C\u8A66\u6027\u7684\u610F\u7FA9\u4E0B\uFF0C<strong>\u53EF\u63A7\u5236\u6027\uFF08controllability\uFF09</strong>\u8861\u91CF\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u80FD\u591A\u5927\u7A0B\u5EA6\u5730\u628A\u7CFB\u7D71\u300C\u9A45\u52D5\u300D\u5230\u5B83\u9700\u8981\u57F7\u884C\u7684\u72C0\u614B\uFF0F\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u63A7\u5236\u6027\u662F\u53EF\u6E2C\u8A66\u6027\u4E2D\u300C\u628A\u5B83\u958B\u5230\u90A3\u88E1\u300D\u7684\u90A3\u4E00\u534A\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u80FD\u591A\u5927\u7A0B\u5EA6\u5730\u300C\u770B\u898B\u300D\u5B83\u9700\u8981\u6AA2\u67E5\u7684\u6548\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EF\u89C0\u5BDF\u6027\uFF08observability\uFF09\uFF0C\u53EF\u6E2C\u8A66\u6027\u7684\u53E6\u4E00\u534A\u3002"
+              },
+              {
+                "text": "\u6A21\u578B\u6709\u591A\u5C11\u500B\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u55AE\u7D14\u7684\u72C0\u614B\u6578\u91CF\u4E0D\u662F\u53EF\u63A7\u5236\u6027\uFF1B\u53EF\u63A7\u5236\u6027\u95DC\u4E4E\u7531\u8F38\u5165\u53EF\u9054\u7684\u7A0B\u5EA6\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5957\u4EF6\u6DB5\u84CB\u4E86\u591A\u5C11\u500B\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8F49\u79FB\u6DB5\u84CB\uFF0C\u8207\u53EF\u63A7\u5236\u6027\u662F\u4E0D\u540C\u7684\u6982\u5FF5\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u63A7\u5236\u6027\u554F\u7684\u662F\uFF1A\u6E2C\u8A66\u80FD\u5426\u628A\u8EDF\u9AD4\u9A45\u52D5\u5230\u5B83\u5FC5\u9808\u57F7\u884C\u7684\u72C0\u614B\u8207\u8F38\u5165\u3002\u96B1\u85CF\u72C0\u614B\u3001\u4E0D\u53EF\u9054\u7684\u5206\u652F\u3001\u5BEB\u6B7B\u7684\u76F8\u4F9D\u90FD\u6703\u964D\u4F4E\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u53EF\u89C0\u5BDF\u6027",
+            "text": "<p>\u5728\u53EF\u6E2C\u8A66\u6027\u7684\u610F\u7FA9\u4E0B\uFF0C<strong>\u53EF\u89C0\u5BDF\u6027\uFF08observability\uFF09</strong>\u8861\u91CF\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u80FD\u591A\u5927\u7A0B\u5EA6\u5730\u628A\u7CFB\u7D71\u300C\u9A45\u52D5\u300D\u5230\u9078\u5B9A\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EF\u63A7\u5236\u6027\uFF0C\u4E0D\u662F\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u80FD\u591A\u5927\u7A0B\u5EA6\u5730\u300C\u770B\u898B\u300D\u5B83\u9700\u8981\u6AA2\u67E5\u7684\u6548\u679C\uFF0F\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u89C0\u5BDF\u6027\u662F\u53EF\u6E2C\u8A66\u6027\u4E2D\u300C\u6211\u80FD\u5426\u770B\u898B\u5B83\u300D\u7684\u90A3\u4E00\u534A\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u63A5\u53D7\u591A\u5C11\u7A2E\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u8F38\u5165\u7684\u6578\u91CF\u4E0D\u662F\u53EF\u89C0\u5BDF\u6027\uFF1B\u53EF\u89C0\u5BDF\u6027\u95DC\u4E4E\u53EF\u5340\u5206\u7684\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5957\u4EF6\u8DD1\u5F97\u591A\u5FEB",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u8207\u53EF\u89C0\u5BDF\u6027\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u89C0\u5BDF\u6027\u554F\u7684\u662F\uFF1A\u6E2C\u8A66\u80FD\u5426\u770B\u898B\u5B83\u5FC5\u9808\u6AA2\u67E5\u7684\u6548\u679C\u3002\u526F\u4F5C\u7528\u3001\u88AB\u541E\u6389\u7684\u932F\u8AA4\u3001\u4EE5\u53CA\u8207\u5176\u4ED6\u72C0\u614B\u76F8\u649E\u7684\u7F3A\u5931\uFF0F\u56DE\u50B3\u8F38\u51FA\u90FD\u6703\u964D\u4F4E\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u53EF\u6E2C\u8A66\u6027\u7B49\u65BC\u53EF\u63A7\u5236\u6027\u52A0\u53EF\u89C0\u5BDF\u6027",
+            "text": "<p>\u53EF\u6E2C\u8A66\u6027\u7684\u7D93\u5178\u5B9A\u7FA9\u662F <strong>controllability + observability\uFF08\u53EF\u63A7\u5236\u6027 + \u53EF\u89C0\u5BDF\u6027\uFF09</strong>\u2014\u2014\u4E00\u500B\u7CFB\u7D71\u7684\u53EF\u6E2C\u8A66\u7A0B\u5EA6\uFF0C\u53D6\u6C7A\u65BC\u6E2C\u8A66\u80FD\u5426\u65E2\u628A\u5B83\u9A45\u52D5\u5230\u6240\u9700\u72C0\u614B\uFF0C\u53C8\u80FD\u89C0\u5BDF\u5230\u7522\u751F\u7684\u6548\u679C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u534A\u90FD\u5FC5\u9808\u5177\u5099\uFF0C\u55AE\u6709\u5176\u4E2D\u4E00\u534A\u4E26\u4E0D\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u53EF\u6E2C\u8A66\u6027\u6B63\u662F\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u5408\u5728\u4E00\u8D77\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D93\u5178\u5B9A\u7FA9\uFF08\u6E90\u81EA\u63A7\u5236\u7406\u8AD6\uFF1BFreedman\uFF1BBinder\uFF09\u70BA testability = controllability + observability\u3002\u4F60\u5FC5\u9808\u80FD\u628A SUT \u9A45\u52D5\u5230\u60F3\u8981\u7684\u60C5\u6CC1\uFF0C\u4E26\u4E14\u80FD\u770B\u898B\u6548\u679C\u4EE5\u9032\u884C\u6AA2\u67E5\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u53EF\u9054\u72C0\u614B",
+            "text": "<p>\u5728\u65CB\u8F49\u67F5\u9580\u6A21\u578B\u4E2D\uFF0C<strong>\u53EF\u9054\uFF08reachable\uFF09</strong>\u72C0\u614B\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u8D77\u59CB\u72C0\u614B\u958B\u59CB\uFF0C\u5B58\u5728\u67D0\u500B\u6E2C\u8A66\u8F38\u5165\u5E8F\u5217\u80FD\u628A SUT \u9A45\u52D5\u5230\u7684\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u88E1\u7684\u53EF\u9054\u6307\u300C\u5F9E\u8D77\u59CB\u51FA\u767C\u7684\u67D0\u500B\u8F38\u5165\u5E8F\u5217\u80FD\u5230\u9054\u90A3\u88E1\u300D\u3002"
+              },
+              {
+                "text": "\u8F38\u51FA\u503C\u552F\u4E00\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u53EF\u89C0\u5BDF\u72C0\u614B\uFF0C\u4E0D\u662F\u53EF\u9054\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u8D77\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u72C0\u614B\u53EF\u9054\uFF0C\u4F46\u4EFB\u4F55\u8F38\u5165\u5E8F\u5217\u80FD\u9032\u5165\u7684\u72C0\u614B\u4E5F\u90FD\u53EF\u9054\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u5177\u6709\u81EA\u8FF4\u5708\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u81EA\u8FF4\u5708\u8207\u80FD\u5426\u5F9E\u8D77\u59CB\u62B5\u9054\u67D0\u72C0\u614B\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "reachableStates(sut) \u5F9E\u8D77\u59CB\u72C0\u614B\u5C0D\u300C\u7531\u8F38\u5165\u9A45\u52D5\u7684\u8F49\u79FB\u300D\u505A BFS\u3002\u7576\u67D0\u500B\u8F38\u5165\u5E8F\u5217\u80FD\u5F9E\u8D77\u59CB\u62B5\u9054\u67D0\u72C0\u614B\u6642\uFF0C\u8A72\u72C0\u614B\u5373\u70BA\u53EF\u9054\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u4E0D\u53EF\u9054\u72C0\u614B",
+            "text": "<p>\u5728\u6B64\u6A21\u578B\u4E2D\uFF0C\u67D0\u72C0\u614B\u5C0D\u6E2C\u8A66\u800C\u8A00<strong>\u4E0D\u53EF\u9054\uFF08unreachable\uFF09</strong>\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u72C0\u614B\u6C92\u6709\u53EF\u89C0\u5BDF\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u53EF\u9054\u6027\u95DC\u4E4E\u7531\u8F38\u5165\u9A45\u52D5\u7684\u8F49\u79FB\uFF0C\u800C\u975E\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u8A72\u72C0\u614B\u662F\u8D77\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u72C0\u614B\u4E00\u5B9A\u53EF\u9054\uFF1B\u4E0D\u53EF\u9054\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u5F9E\u8D77\u59CB\u51FA\u767C\u7684\u6E2C\u8A66\u8F38\u5165\u5E8F\u5217\u80FD\u628A SUT \u9A45\u52D5\u5230\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u8F38\u5165\u8DEF\u5F91\u901A\u5F80\u90A3\u88E1\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u5C07\u5176\u8A2D\u5B9A\u8D77\u4F86\u3002"
+              },
+              {
+                "text": "\u8A72\u72C0\u614B\u6709\u8D85\u904E\u4E00\u689D\u7684\u5916\u5411\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u6709\u5916\u5411\u8F49\u79FB\u4E26\u4E0D\u6703\u4F7F\u4E00\u500B\u72C0\u614B\u8B8A\u5F97\u4E0D\u53EF\u9054\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u53EF\u9054\u72C0\u614B\u6C92\u6709\u7531\u8F38\u5165\u9A45\u52D5\u3001\u5F9E\u8D77\u59CB\u901A\u5F80\u5B83\u7684\u8DEF\u5F91\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u628A SUT \u9A45\u52D5\u5230\u90A3\u88E1\u3002\u5728\u65CB\u8F49\u67F5\u9580\u4E2D\uFF0CJAMMED \u8207 MAINT \u5C0D\u6E2C\u8A66\u7684\u8F38\u5165\u800C\u8A00\u4E0D\u53EF\u9054\u2014\u2014\u5373\u53EF\u63A7\u5236\u6027\u7F3A\u53E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u53EF\u89C0\u5BDF\u8F38\u51FA",
+            "text": "<p>\u5728\u6B64\u6A21\u578B\u4E2D\uFF0C\u4EC0\u9EBC\u662F<strong>\u53EF\u89C0\u5BDF\u8F38\u51FA\uFF08observable output\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u7121\u6CD5\u8B80\u53D6\u7684\u5167\u90E8\u72C0\u614B\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u8F38\u51FA\u7684\u91CD\u9EDE\u6B63\u662F\u5B83\u300C\u80FD\u300D\u5F9E\u5916\u90E8\u88AB\u770B\u898B\uFF1B\u96B1\u85CF\u8B8A\u6578\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u80FD\u5F9E SUT \u5916\u90E8\u770B\u898B\u7684\u503C\uFF08\u4F8B\u5982 'red'\u3001'green'\u3001'beep'\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F38\u51FA\u662F\u6E2C\u8A66\u6AA2\u67E5\u7684\u3001\u53EF\u5F9E\u5916\u90E8\u89C0\u5BDF\u7684\u6295\u5F71\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u8F49\u79FB\u7684\u8F38\u5165\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8F38\u5165\uFF08coin/push/reset\uFF09\uFF0C\u4E0D\u662F\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u5716\u4E2D\u7684\u4E00\u689D\u8F49\u79FB\u908A",
+                "fraction": 0,
+                "feedback": "\u908A\u662F\u8F49\u79FB\uFF1B\u8F38\u51FA\u662F\u72C0\u614B\u7684\u53EF\u898B\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u72C0\u614B\u5728 sut.outputs \u4E2D\u5C0D\u61C9\u4E00\u500B\u53EF\u89C0\u5BDF\u8F38\u51FA\u2014\u2014\u6E2C\u8A66\u80FD\u5F9E\u5916\u90E8\u770B\u898B\u7684\u503C\uFF08\u4F8B\u5982 LOCKED\u2192'red'\u3001PASSED\u2192'beep'\uFF09\u3002\u53EF\u89C0\u5BDF\u6027\u5C31\u662F\u5728\u9019\u4E9B\u8F38\u51FA\u4E0A\u8861\u91CF\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65CB\u8F49\u67F5\u9580\u7684\u8D77\u59CB\u72C0\u614B",
+            "text": "<p>\u5728 <code>TURNSTILE_SUT</code> \u4E2D\uFF0C\u54EA\u4E00\u500B\u662F<strong>\u8D77\u59CB\uFF08start\uFF09</strong>\u72C0\u614B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "LOCKED",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8D77\u59CB\u70BA LOCKED\u3002"
+              },
+              {
+                "text": "UNLOCKED",
+                "fraction": 0,
+                "feedback": "UNLOCKED \u7531 LOCKED \u6536\u5230 coin \u62B5\u9054\uFF1B\u5B83\u4E0D\u662F\u8D77\u59CB\u3002"
+              },
+              {
+                "text": "PASSED",
+                "fraction": 0,
+                "feedback": "PASSED \u7D93 coin \u518D push \u62B5\u9054\uFF1B\u5B83\u4E0D\u662F\u8D77\u59CB\u3002"
+              },
+              {
+                "text": "MAINT",
+                "fraction": 0,
+                "feedback": "MAINT \u9023\u7531\u8F38\u5165\u90FD\u4E0D\u53EF\u9054\uFF0C\u66F4\u4E0D\u6703\u662F\u8D77\u59CB\u3002"
+              }
+            ],
+            "generalFeedback": "TURNSTILE_SUT.start \u662F 'LOCKED'\u3002\u6240\u6709\u53EF\u9054\u6027\u8207 driveTo \u7684\u8A08\u7B97\u90FD\u5F9E\u9019\u88E1\u958B\u59CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65CB\u8F49\u67F5\u9580\u7684\u72C0\u614B\u6578",
+            "text": "<p><code>TURNSTILE_SUT</code> \u6709\u5E7E\u500B<strong>\u72C0\u614B</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u7531\u8F38\u5165\u53EF\u9054\u7684\u72C0\u614B\u6578\uFF0C\u4E0D\u662F\u7E3D\u6578\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u5171\u6709 5 \u500B\u72C0\u614B\uFF0C\u4E0D\u662F 4 \u500B\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LOCKED\u3001UNLOCKED\u3001PASSED\u3001JAMMED\u3001MAINT\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u6A21\u578B\u4E2D\u53EA\u6709 5 \u500B\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "states = [LOCKED, UNLOCKED, PASSED, JAMMED, MAINT]\u2014\u2014\u5171 5 \u500B\u3002\u9019\u500B 5 \u662F\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u5169\u500B\u6BD4\u7387\u7684\u5206\u6BCD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65CB\u8F49\u67F5\u9580\u7684\u8F38\u5165",
+            "text": "<p>\u5728 <code>TURNSTILE_SUT</code> \u4E2D\uFF0C\u6E2C\u8A66\u7684<strong>\u8F38\u5165</strong>\uFF08\u53EF\u64CD\u4F5C\u7684\u69D3\u687F\uFF09\u6709\u54EA\u4E9B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "coin\u3001push\u3001reset",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u6E2C\u8A66\u80FD\u767C\u9001\u7684\u4E09\u7A2E\u8F38\u5165\u3002"
+              },
+              {
+                "text": "coin\u3001push",
+                "fraction": 0,
+                "feedback": "reset \u4E5F\u662F\u8F38\u5165\uFF1B\u5171\u6709\u4E09\u7A2E\u3002"
+              },
+              {
+                "text": "red\u3001green\u3001beep",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u8F38\u51FA\uFF0C\u4E0D\u662F\u8F38\u5165\u3002"
+              },
+              {
+                "text": "coin\u3001push\u3001reset\u3001key",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709 'key' \u8F38\u5165\uFF1B\u7DAD\u8B77\u9470\u5319\u6B63\u662F\u6A21\u578B\u300C\u4E0D\u300D\u63D0\u4F9B\u7D66\u6E2C\u8A66\u7684\u6771\u897F\u3002"
+              }
+            ],
+            "generalFeedback": "inputs = [coin, push, reset]\u3002\u523B\u610F\u6C92\u6709\u7DAD\u8B77\u9470\u5319\u8F38\u5165\uFF0C\u9019\u6B63\u662F MAINT \u7121\u6CD5\u88AB\u6E2C\u8A66\u9A45\u52D5\u62B5\u9054\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PASSED \u7684\u8F38\u51FA",
+            "text": "<p><code>PASSED</code> \u72C0\u614B\u7684\u53EF\u89C0\u5BDF<strong>\u8F38\u51FA</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "green",
+                "fraction": 0,
+                "feedback": "green \u662F UNLOCKED \u8207 JAMMED \u7684\u8F38\u51FA\uFF0C\u4E0D\u662F PASSED\u3002"
+              },
+              {
+                "text": "beep",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014PASSED\u2192'beep'\u3002"
+              },
+              {
+                "text": "red",
+                "fraction": 0,
+                "feedback": "red \u662F LOCKED \u8207 MAINT \u7684\u8F38\u51FA\uFF0C\u4E0D\u662F PASSED\u3002"
+              },
+              {
+                "text": "grind",
+                "fraction": 0,
+                "feedback": "'grind' \u53EA\u6709\u5728\u5C0D JAMMED \u52A0\u4E0A\u63A2\u91DD\u6642\u624D\u51FA\u73FE\uFF1BPASSED \u7684\u8F38\u51FA\u662F 'beep'\u3002"
+              }
+            ],
+            "generalFeedback": "outputs[PASSED] = 'beep'\u3002\u5B83\u5728\u57FA\u790E\u6A21\u578B\u4E2D\u662F\u552F\u4E00\u5177\u6709\u7368\u7279\u8F38\u51FA\u7684\u72C0\u614B\uFF0C\u56E0\u6B64\u5728\u52A0\u5165\u4EFB\u4F55\u63A2\u91DD\u524D\uFF0CPASSED \u662F\u552F\u4E00\u53EF\u89C0\u5BDF\u7684\u72C0\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "LOCKED \u7684\u8F38\u51FA",
+            "text": "<p><code>LOCKED</code> \u72C0\u614B\u7684\u53EF\u89C0\u5BDF<strong>\u8F38\u51FA</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "red",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LOCKED\u2192'red'\uFF08\u8207 MAINT \u5171\u7528\uFF09\u3002"
+              },
+              {
+                "text": "green",
+                "fraction": 0,
+                "feedback": "green \u5C6C\u65BC UNLOCKED \u8207 JAMMED\uFF0C\u4E0D\u662F LOCKED\u3002"
+              },
+              {
+                "text": "beep",
+                "fraction": 0,
+                "feedback": "beep \u5C6C\u65BC PASSED\uFF0C\u4E0D\u662F LOCKED\u3002"
+              },
+              {
+                "text": "grind",
+                "fraction": 0,
+                "feedback": "'grind' \u662F\u52A0\u5728 JAMMED \u4E0A\u7684\u63A2\u91DD\u8F38\u51FA\uFF1BLOCKED \u7684\u8F38\u51FA\u662F 'red'\u3002"
+              }
+            ],
+            "generalFeedback": "outputs[LOCKED] = 'red'\u3002\u7531\u65BC MAINT \u4E5F\u662F 'red'\uFF0CLOCKED \u7684\u8F38\u51FA\u4E26\u4E0D\u552F\u4E00\uFF0C\u56E0\u6B64 LOCKED \u5728\u57FA\u790E\u6A21\u578B\u4E2D\u4E0D\u53EF\u89C0\u5BDF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57FA\u790E\u6A21\u578B\u4E2D\u552F\u4E00\u7684\u8F38\u51FA",
+            "text": "<p>\u5728\u57FA\u790E\u65CB\u8F49\u67F5\u9580\uFF08\u5C1A\u672A\u52A0\u4EFB\u4F55\u63A2\u91DD\uFF09\u4E2D\uFF0C\u54EA\u4E00\u500B\u8F38\u51FA\u503C\u662F\u67D0\u55AE\u4E00\u72C0\u614B<strong>\u7368\u6709</strong>\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "red",
+                "fraction": 0,
+                "feedback": "red \u7531 LOCKED \u8207 MAINT \u5171\u7528\uFF0C\u4E26\u4E0D\u552F\u4E00\u3002"
+              },
+              {
+                "text": "green",
+                "fraction": 0,
+                "feedback": "green \u7531 UNLOCKED \u8207 JAMMED \u5171\u7528\uFF0C\u4E26\u4E0D\u552F\u4E00\u3002"
+              },
+              {
+                "text": "grind",
+                "fraction": 0,
+                "feedback": "'grind' \u5728\u57FA\u790E\u6A21\u578B\u4E2D\u4E0D\u5B58\u5728\uFF1B\u5B83\u53EA\u5728\u52A0\u5165\u63A2\u91DD\u5F8C\u624D\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "beep",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709 PASSED \u767C\u51FA 'beep'\uFF0C\u6240\u4EE5\u5B83\u662F\u552F\u4E00\u7368\u6709\u7684\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A08\u7B97\u8F38\u51FA\uFF1Ared\u2192{LOCKED, MAINT}\u3001green\u2192{UNLOCKED, JAMMED}\u3001beep\u2192{PASSED}\u3002\u53EA\u6709 'beep' \u51FA\u73FE\u4E00\u6B21\uFF0C\u56E0\u6B64 PASSED \u662F\u552F\u4E00\u53EF\u89C0\u5BDF\u7684\u72C0\u614B\uFF08\u53EF\u89C0\u5BDF\u6027 1/5\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u6642\u7F3A\u9677\u53EF\u89C0\u5BDF",
+            "text": "<p>\u5728\u6B64\u5F15\u64CE\u4E2D\uFF0C\u4E00\u500B\u72C0\u614B\u7684\u7F3A\u9677\u4F55\u6642\u88AB\u8996\u70BA<strong>\u53EF\u89C0\u5BDF</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u8A72\u72C0\u614B\u7684\u8F38\u51FA\u503C\u552F\u4E00\u2014\u2014\u6C92\u6709\u5176\u4ED6\u72C0\u614B\u8207\u4E4B\u76F8\u540C\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u4E00\u8F38\u51FA\u80FD\u8B93\u89C0\u5BDF\u8005\u5340\u5206\u8A72\u72C0\u614B\uFF0C\u56E0\u6B64\u843D\u5728\u8A72\u72C0\u614B\u7684\u7F3A\u9677\u53EF\u898B\u3002"
+              },
+              {
+                "text": "\u7576\u8A72\u72C0\u614B\u5F9E\u8D77\u59CB\u53EF\u9054\u6642",
+                "fraction": 0,
+                "feedback": "\u53EF\u9054\u6027\u662F\u53EF\u63A7\u5236\u6027\uFF1B\u53EF\u89C0\u5BDF\u6027\u95DC\u4E4E\u53EF\u5340\u5206\u7684\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u7576\u8A72\u72C0\u614B\u662F\u8D77\u59CB\u72C0\u614B\u6642",
+                "fraction": 0,
+                "feedback": "\u662F\u5426\u70BA\u8D77\u59CB\u8207\u8A72\u8655\u7F3A\u9677\u662F\u5426\u53EF\u89C0\u5BDF\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u7576\u8A72\u72C0\u614B\u5177\u6709\u81EA\u8FF4\u5708\u6642",
+                "fraction": 0,
+                "feedback": "\u81EA\u8FF4\u5708\u4E26\u4E0D\u6C7A\u5B9A\u53EF\u89C0\u5BDF\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "observableStates(sut) \u53EA\u4FDD\u7559\u8F38\u51FA\u503C\u5728\u6240\u6709\u72C0\u614B\u4E2D\u552F\u4E00\u7684\u72C0\u614B\u3002\u5171\u7528\u7684\u8F38\u51FA\u4EE3\u8868\u89C0\u5BDF\u8005\u7121\u6CD5\u5340\u5206\u90A3\u4E9B\u72C0\u614B\uFF0C\u56E0\u6B64\u8A72\u8655\u7684\u7F3A\u9677\u4E0D\u53EF\u898B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u51FA\u53EF\u63A7\u5236\u6027\u6BD4\u7387",
+            "text": "<p>\u5C0D\u57FA\u790E\u65CB\u8F49\u67F5\u9580\uFF0C<code>controllability(TURNSTILE_SUT).ratio</code> \u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5/5\uFF08100%\uFF09",
+                "fraction": 0,
+                "feedback": "\u6709\u5169\u500B\u72C0\u614B\uFF08JAMMED\u3001MAINT\uFF09\u4E0D\u53EF\u9054\uFF0C\u6240\u4EE5\u4E0D\u662F 5/5\u3002"
+              },
+              {
+                "text": "3/5\uFF0860%\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LOCKED\u3001UNLOCKED\u3001PASSED \u53EF\u9054\uFF1BJAMMED \u8207 MAINT \u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "1/5\uFF0820%\uFF09",
+                "fraction": 0,
+                "feedback": "1/5 \u662F\u57FA\u790E\u7684\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "2/5\uFF0840%\uFF09",
+                "fraction": 0,
+                "feedback": "\u6709\u4E09\u500B\u72C0\u614B\u53EF\u9054\uFF0C\u5F97 3/5\uFF0C\u4E0D\u662F 2/5\u3002"
+              }
+            ],
+            "generalFeedback": "reachableStates = {LOCKED, UNLOCKED, PASSED} = 5 \u500B\u4E2D\u7684 3 \u500B\uFF0C\u56E0\u6B64\u53EF\u63A7\u5236\u6027\u6BD4\u7387 = 3/5 = 60%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u51FA\u53EF\u89C0\u5BDF\u6027\u6BD4\u7387",
+            "text": "<p>\u5C0D\u57FA\u790E\u65CB\u8F49\u67F5\u9580\uFF08\u5C1A\u672A\u52A0\u4EFB\u4F55\u63A2\u91DD\uFF09\uFF0C<code>observability(TURNSTILE_SUT).ratio</code> \u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3/5\uFF0860%\uFF09",
+                "fraction": 0,
+                "feedback": "3/5 \u662F\u52A0\u5165\u63A2\u91DD\u300C\u4E4B\u5F8C\u300D\u7684\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u57FA\u790E\u503C\u3002"
+              },
+              {
+                "text": "5/5\uFF08100%\uFF09",
+                "fraction": 0,
+                "feedback": "\u57FA\u790E\u6A21\u578B\u4E2D\u53EA\u6709\u4E00\u500B\u72C0\u614B\u7684\u8F38\u51FA\u552F\u4E00\uFF0C\u6240\u4EE5\u4E0D\u662F 5/5\u3002"
+              },
+              {
+                "text": "1/5\uFF0820%\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709 PASSED \u5177\u6709\u552F\u4E00\u8F38\u51FA\uFF08'beep'\uFF09\u3002"
+              },
+              {
+                "text": "2/5\uFF0840%\uFF09",
+                "fraction": 0,
+                "feedback": "\u57FA\u790E\u6A21\u578B\u4E2D\u53EA\u6709\u4E00\u500B\u8F38\u51FA\uFF08beep\uFF09\u552F\u4E00\uFF0C\u6240\u4EE5\u662F 1/5\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709 PASSED\u2192'beep' \u552F\u4E00\uFF1Bred \u8207 green \u5404\u81EA\u88AB\u5169\u500B\u72C0\u614B\u5171\u7528\u3002\u56E0\u6B64 observableStates = {PASSED} = 5 \u500B\u4E2D\u7684 1 \u500B\uFF0C\u53EF\u89C0\u5BDF\u6027 = 1/5 = 20%\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E9B\u72C0\u614B\u53EF\u9054",
+            "text": "<p>\u5F9E LOCKED \u958B\u59CB\uFF0C\u53EA\u4F7F\u7528\u8F38\u5165 coin/push/reset\uFF0C\u6E2C\u8A66\u80FD\u5230\u9054\u54EA\u4E00\u7D44\u72C0\u614B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "{LOCKED, UNLOCKED, PASSED}",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014coin \u5230 UNLOCKED\uFF0Cpush \u5230 PASSED\uFF0Creset \u56DE\u5230 LOCKED\uFF1BJAMMED \u8207 MAINT \u5F9E\u672A\u88AB\u9032\u5165\u3002"
+              },
+              {
+                "text": "{LOCKED, UNLOCKED, PASSED, JAMMED, MAINT}",
+                "fraction": 0,
+                "feedback": "JAMMED \u8207 MAINT \u6C92\u6709\u7531\u8F38\u5165\u9A45\u52D5\u3001\u901A\u5F80\u5B83\u5011\u7684\u908A\uFF0C\u56E0\u6B64\u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "{LOCKED, UNLOCKED}",
+                "fraction": 0,
+                "feedback": "PASSED \u4E5F\u53EF\u7D93\u7531 coin \u518D push \u62B5\u9054\u3002"
+              },
+              {
+                "text": "{LOCKED, UNLOCKED, PASSED, JAMMED}",
+                "fraction": 0,
+                "feedback": "JAMMED \u53EA\u7531\u6545\u969C\u9032\u5165\uFF0C\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u80FD\u5230\u9054\uFF0C\u56E0\u6B64\u4E0D\u53EF\u9054\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E LOCKED \u5C0D\u8F38\u5165\u908A\u505A BFS\uFF0C\u53EF\u5230\u9054 UNLOCKED\uFF08coin\uFF09\u8207 PASSED\uFF08coin, push\uFF09\uFF0C\u800C reset \u53EA\u6703\u56DE\u5230 LOCKED\u3002\u6C92\u6709\u908A\u901A\u5F80 JAMMED \u6216 MAINT\uFF0C\u56E0\u6B64\u53EF\u9054\u96C6\u5408\u6B63\u597D\u662F {LOCKED, UNLOCKED, PASSED}\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 JAMMED \u4E0D\u53EF\u9054",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6E2C\u8A66\u7121\u6CD5\u628A\u65CB\u8F49\u67F5\u9580\u9A45\u52D5\u5230 <code>JAMMED</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u7531\u8F38\u5165\u9A45\u52D5\u3001\u901A\u5F80 JAMMED \u7684\u8F49\u79FB\u2014\u2014\u5B83\u53EA\u7531\u6545\u969C\u9032\u5165\uFF0C\u800C\u975E\u4EFB\u4F55\u6E2C\u8A66\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u5165\u5411\u7684\u8F38\u5165\u908A\uFF0C\u5C31\u6C92\u6709\u8F38\u5165\u5E8F\u5217\u80FD\u62B5\u9054 JAMMED\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u6C92\u6709\u5916\u5411\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "JAMMED \u78BA\u5BE6\u6709\u4E00\u689D\u5916\u5411\u908A\uFF08reset\u2192LOCKED\uFF09\uFF1B\u554F\u984C\u5728\u65BC\u6C92\u6709\u908A\u901A\u5F80\u5B83\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u8207 UNLOCKED \u5171\u7528\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u500B\u5171\u7528\u8F38\u51FA\u662F\u53EF\u89C0\u5BDF\u6027\u7F3A\u53E3\uFF0C\u4E0D\u662F JAMMED \u4E0D\u53EF\u9054\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u662F\u8D77\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u662F LOCKED\uFF1BJAMMED \u4E0D\u662F\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u9054\u6027\u53D6\u6C7A\u65BC\u901A\u5F80\u67D0\u72C0\u614B\u7684\u5165\u5411\u908A\u3002\u552F\u4E00\u89F8\u53CA JAMMED \u7684\u908A\u662F JAMMED--reset-->LOCKED\uFF08\u5916\u5411\uFF09\u3002\u65E2\u7136\u6C92\u6709\u8F38\u5165\u80FD\u9A45\u52D5\u4EFB\u4F55\u6771\u897F\u9032\u5165 JAMMED\uFF0C\u6545\u969C\u4FBF\u662F\u552F\u4E00\u7684\u5165\u53E3\u2014\u2014\u5373\u53EF\u63A7\u5236\u6027\u7F3A\u53E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 MAINT \u4E0D\u53EF\u9054",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6E2C\u8A66\u7121\u6CD5\u628A\u65CB\u8F49\u67F5\u9580\u9A45\u52D5\u5230 <code>MAINT</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA MAINT \u8207 LOCKED \u5171\u7528\u8F38\u51FA 'red'",
+                "fraction": 0,
+                "feedback": "\u5171\u7528\u8F38\u51FA\u662F\u53EF\u89C0\u5BDF\u6027\u554F\u984C\uFF1B\u5B83\u7121\u6CD5\u89E3\u91CB\u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u8F49\u79FB\u901A\u5F80 MAINT\u2014\u2014\u5B83\u53EA\u7531\u7DAD\u8B77\u9470\u5319\u9032\u5165\uFF0C\u800C\u90A3\u4E0D\u662F\u6E2C\u8A66\u7684\u8F38\u5165\u4E4B\u4E00",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MAINT \u6C92\u6709\u5165\u5411\u7684\u8F38\u5165\u908A\uFF0C\u56E0\u6B64\u6C92\u6709\u8F38\u5165\u5E8F\u5217\u80FD\u5230\u9054\u5B83\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA MAINT \u6709\u4E00\u500B\u56F0\u4F4F\u72C0\u614B\u6A5F\u7684\u81EA\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "MAINT \u5728\u6A21\u578B\u4E2D\u6839\u672C\u6C92\u6709\u4EFB\u4F55\u908A\uFF1B\u4E0D\u6D89\u53CA\u81EA\u8FF4\u5708\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA reset \u7E3D\u662F\u5C0E\u5411\u96E2\u958B MAINT",
+                "fraction": 0,
+                "feedback": "MAINT \u6C92\u6709 reset \u908A\uFF1B\u91CD\u9EDE\u662F\u6C92\u6709\u6771\u897F\u901A\u5F80\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "MAINT \u53EA\u7531\u7DAD\u8B77\u9470\u5319\u9032\u5165\uFF0C\u800C\u5B83\u523B\u610F\u4E0D\u5728 inputs = [coin, push, reset] \u4E4B\u4E2D\u3002\u65E2\u7136\u6C92\u6709\u8F38\u5165\u908A\u901A\u5F80 MAINT\uFF0C\u5B83\u5C0D\u6E2C\u8A66\u800C\u8A00\u4E0D\u53EF\u9054\u2014\u2014\u5C6C\u65BC\u53EF\u63A7\u5236\u6027\u7F3A\u53E3\u7684\u4E00\u90E8\u5206\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo PASSED",
+            "text": "<p><code>driveTo(TURNSTILE_SUT, 'PASSED')</code> \u6703\u56DE\u50B3\u54EA\u4E00\u500B\u8F38\u5165\u5E8F\u5217\uFF08\u5F9E\u8D77\u59CB\u51FA\u767C\u7684\u6700\u77ED\u8DEF\u5F91\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "coin\u3001push",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LOCKED--coin-->UNLOCKED--push-->PASSED\u3002"
+              },
+              {
+                "text": "push\u3001coin",
+                "fraction": 0,
+                "feedback": "\u5728 LOCKED \u767C\u9001 push \u53EA\u6703\u505C\u7559\u5728 LOCKED\uFF1B\u9806\u5E8F\u5FC5\u9808\u662F\u5148 coin \u518D push\u3002"
+              },
+              {
+                "text": "coin\u3001push\u3001reset",
+                "fraction": 0,
+                "feedback": "reset \u6703\u96E2\u958B PASSED \u56DE\u5230 LOCKED\uFF1B\u6700\u77ED\u8DEF\u5F91\u5728 coin\u3001push \u5F8C\u5373\u505C\u5728 PASSED\u3002"
+              },
+              {
+                "text": "push",
+                "fraction": 0,
+                "feedback": "\u5728 LOCKED \u53EA\u767C\u9001 push \u6703\u8FF4\u5708\u56DE LOCKED\uFF0C\u6C38\u9060\u5230\u4E0D\u4E86 PASSED\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E LOCKED \u505A BFS\uFF1Acoin \u5230 UNLOCKED\uFF0C\u63A5\u8457 push \u5230 PASSED\u3002\u6700\u77ED\u7684\u9A45\u52D5\u5E8F\u5217\u662F [coin, push]\u2014\u20142 \u6B65\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo UNLOCKED",
+            "text": "<p><code>driveTo(TURNSTILE_SUT, 'UNLOCKED')</code> \u6703\u56DE\u50B3\u54EA\u4E00\u500B\u8F38\u5165\u5E8F\u5217\uFF1F</p>",
+            "answers": [
+              {
+                "text": "push",
+                "fraction": 0,
+                "feedback": "\u5728 LOCKED \u767C\u9001 push \u6703\u505C\u7559\u5728 LOCKED\uFF1B\u5230\u4E0D\u4E86 UNLOCKED\u3002"
+              },
+              {
+                "text": "coin",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LOCKED--coin-->UNLOCKED\uFF0C\u4E00\u6B65\u5230\u4F4D\u3002"
+              },
+              {
+                "text": "coin\u3001push",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u5230\u9054 PASSED\uFF1BUNLOCKED \u53EA\u9700 coin \u4E00\u6B65\u3002"
+              },
+              {
+                "text": "reset",
+                "fraction": 0,
+                "feedback": "reset \u5728 LOCKED \u672A\u5B9A\u7FA9\uFF0C\u4E14\u5230\u4E0D\u4E86 UNLOCKED\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E\u8D77\u59CB LOCKED\uFF0C\u55AE\u4E00 coin \u5C31\u80FD\u628A SUT \u9A45\u52D5\u5230 UNLOCKED\uFF0C\u56E0\u6B64 driveTo \u56DE\u50B3 [coin]\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo MAINT \u7684\u7D50\u679C",
+            "text": "<p><code>driveTo(TURNSTILE_SUT, 'MAINT')</code> \u6703\u56DE\u50B3\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "null\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u5E8F\u5217\u80FD\u5230\u9054 MAINT",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MAINT \u7531\u8F38\u5165\u4E0D\u53EF\u9054\uFF0C\u56E0\u6B64 driveTo \u56DE\u50B3 null\u3002"
+              },
+              {
+                "text": "\u7A7A\u9663\u5217 []",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u7576\u76EE\u6A19\u662F\u8D77\u59CB\u72C0\u614B\u6642\u624D\u56DE\u50B3 []\uFF1BMAINT \u4E0D\u53EF\u9054\uFF0C\u6240\u4EE5\u7D50\u679C\u662F null\u3002"
+              },
+              {
+                "text": "[reset]",
+                "fraction": 0,
+                "feedback": "reset \u4E0D\u6703\u901A\u5F80 MAINT\uFF1B\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u5E8F\u5217\u53EF\u4EE5\u3002"
+              },
+              {
+                "text": "[key]",
+                "fraction": 0,
+                "feedback": "\u6A21\u578B\u4E2D\u6C92\u6709 'key' \u8F38\u5165\uFF1BdriveTo \u56DE\u50B3 null\u3002"
+              }
+            ],
+            "generalFeedback": "driveTo \u5C0D\u8F38\u5165\u908A\u505A BFS\uFF0C\u7576\u76EE\u6A19\u7121\u6CD5\u5230\u9054\u6642\u56DE\u50B3 null\u3002MAINT \u6C92\u6709\u5165\u5411\u7684\u8F38\u5165\u908A\uFF0C\u56E0\u6B64\u7D50\u679C\u662F null\u2014\u2014\u9019\u628A\u53EF\u63A7\u5236\u6027\u7F3A\u53E3\u5177\u9AD4\u5316\u4E86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "driveTo \u5230\u8D77\u59CB\u72C0\u614B",
+            "text": "<p>\u5DF2\u77E5 LOCKED \u662F\u8D77\u59CB\u72C0\u614B\uFF0C<code>driveTo(TURNSTILE_SUT, 'LOCKED')</code> \u6703\u56DE\u50B3\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "null",
+                "fraction": 0,
+                "feedback": "null \u4EE3\u8868\u4E0D\u53EF\u9054\uFF1BLOCKED \u662F\u8D77\u59CB\uFF0C\u56E0\u6B64\u986F\u7136\u53EF\u9054\u3002"
+              },
+              {
+                "text": "[reset]",
+                "fraction": 0,
+                "feedback": "\u4F60\u5DF2\u7D93\u5728 LOCKED\uFF0C\u56E0\u6B64\u4E0D\u9700\u8981\u4EFB\u4F55\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u7A7A\u9663\u5217 []\u2014\u2014\u4F60\u5DF2\u7D93\u5728\u90A3\u88E1\uFF0C\u4E0D\u9700\u4EFB\u4F55\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u76EE\u6A19\u662F\u8D77\u59CB\u72C0\u614B\u6642\uFF0CdriveTo \u56DE\u50B3 []\u3002"
+              },
+              {
+                "text": "[coin]",
+                "fraction": 0,
+                "feedback": "coin \u6703\u96E2\u958B LOCKED\uFF1B\u8981\u300C\u8655\u65BC\u300D\u8D77\u59CB\u4E26\u4E0D\u9700\u8981\u4EFB\u4F55\u8F38\u5165\uFF0C\u6240\u4EE5\u662F []\u3002"
+              }
+            ],
+            "generalFeedback": "driveTo \u7684\u7B2C\u4E00\u884C\u662F\uFF1Aif target === start return []\u3002\u65E2\u7136 LOCKED \u662F\u8D77\u59CB\uFF0C\u6700\u77ED\u7684\u9A45\u52D5\u5E8F\u5217\u5C31\u662F\u7A7A\u5E8F\u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 JAMMED \u7684\u7F3A\u9677\u4E0D\u53EF\u898B",
+            "text": "<p>\u5728\u57FA\u790E\u6A21\u578B\u4E2D\uFF0C\u70BA\u4EC0\u9EBC\u4E00\u500B\u843D\u5728 <code>JAMMED</code> \u7684\u7F3A\u9677\uFF0C\u5C0D\u76E3\u770B\u8F38\u51FA\u7684\u6E2C\u8A66\u800C\u8A00\u662F\u4E0D\u53EF\u898B\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA JAMMED \u767C\u51FA 'beep'\uFF0C\u8207 PASSED \u76F8\u540C",
+                "fraction": 0,
+                "feedback": "JAMMED \u767C\u51FA 'green'\uFF0C\u4E0D\u662F 'beep'\uFF1Bbeep \u662F PASSED \u7368\u6709\u7684\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u7684\u8F38\u51FA 'green' \u8207 UNLOCKED \u5171\u7528\uFF0C\u89C0\u5BDF\u8005\u7121\u6CD5\u5340\u5206\u5169\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76F8\u649E\u7684\u8F38\u51FA\u4F7F\u9019\u5169\u500B\u72C0\u614B\u7121\u6CD5\u5340\u5206\uFF0C\u56E0\u800C\u96B1\u85CF\u4E86\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u662F\u8D77\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u662F LOCKED\uFF1BJAMMED \u4E0D\u662F\uFF0C\u800C\u4E14\u9019\u8207\u53EF\u898B\u6027\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u6839\u672C\u6C92\u6709\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "JAMMED \u78BA\u5BE6\u6709\u8F38\u51FA\uFF08'green'\uFF09\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u8207 UNLOCKED \u76F8\u649E\u3002"
+              }
+            ],
+            "generalFeedback": "JAMMED\u2192'green' \u4E14 UNLOCKED\u2192'green'\u3002\u7576\u7F3A\u9677\u628A SUT \u843D\u5165 JAMMED \u6642\uFF0C\u8F38\u51FA\u4ECD\u8B80\u4F5C 'green'\uFF0C\u8207\u6B63\u5E38\u7684 UNLOCKED \u5B8C\u5168\u76F8\u540C\uFF0C\u89C0\u5BDF\u8005\u56E0\u6B64\u7121\u6CD5\u5075\u6E2C\u5230\u5361\u4F4F\u2014\u2014\u5373\u53EF\u89C0\u5BDF\u6027\u7F3A\u53E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E9B\u72C0\u614B\u5171\u7528 'red'",
+            "text": "<p>\u54EA\u5169\u500B\u72C0\u614B\u5171\u7528\u8F38\u51FA\u503C <code>'red'</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "LOCKED \u8207 MAINT",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u90FD\u5C0D\u61C9 'red'\uFF0C\u56E0\u6B64\u5728\u57FA\u790E\u6A21\u578B\u4E2D\u90FD\u4E0D\u53EF\u89C0\u5BDF\u3002"
+              },
+              {
+                "text": "UNLOCKED \u8207 JAMMED",
+                "fraction": 0,
+                "feedback": "\u90A3\u5169\u500B\u5171\u7528 'green'\uFF0C\u4E0D\u662F 'red'\u3002"
+              },
+              {
+                "text": "LOCKED \u8207 UNLOCKED",
+                "fraction": 0,
+                "feedback": "LOCKED \u662F 'red' \u4F46 UNLOCKED \u662F 'green'\uFF1B\u4E26\u4E0D\u5171\u7528\u3002"
+              },
+              {
+                "text": "PASSED \u8207 MAINT",
+                "fraction": 0,
+                "feedback": "PASSED \u662F 'beep'\uFF0CMAINT \u662F 'red'\uFF1B\u4E26\u4E0D\u5171\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "outputs\uFF1ALOCKED\u2192'red'\u3001MAINT\u2192'red'\u3002\u7531\u65BC 'red' \u88AB\u5171\u7528\uFF0CLOCKED \u8207 MAINT \u90FD\u4E0D\u53EF\u89C0\u5BDF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E9B\u72C0\u614B\u5171\u7528 'green'",
+            "text": "<p>\u54EA\u5169\u500B\u72C0\u614B\u5171\u7528\u8F38\u51FA\u503C <code>'green'</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "LOCKED \u8207 MAINT",
+                "fraction": 0,
+                "feedback": "\u90A3\u5169\u500B\u5171\u7528 'red'\uFF0C\u4E0D\u662F 'green'\u3002"
+              },
+              {
+                "text": "PASSED \u8207 JAMMED",
+                "fraction": 0,
+                "feedback": "PASSED \u662F 'beep'\uFF1B\u53EA\u6709 JAMMED\uFF08\u8207 UNLOCKED\uFF09\u662F 'green'\u3002"
+              },
+              {
+                "text": "UNLOCKED \u8207 JAMMED",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u90FD\u5C0D\u61C9 'green'\uFF0C\u9019\u6B63\u662F\u5361\u4F4F\u770B\u8D77\u4F86\u50CF\u6B63\u5E38\u89E3\u9396\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "LOCKED \u8207 UNLOCKED",
+                "fraction": 0,
+                "feedback": "LOCKED \u662F 'red'\uFF0CUNLOCKED \u662F 'green'\uFF1B\u4E26\u4E0D\u5171\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "outputs\uFF1AUNLOCKED\u2192'green'\u3001JAMMED\u2192'green'\u3002'green' \u4E0A\u7684\u76F8\u649E\u5C31\u662F\u96B1\u85CF\u5361\u4F4F\u7684\u53EF\u89C0\u5BDF\u6027\u7F3A\u53E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A2\u91DD\u7684\u4F5C\u7528",
+            "text": "<p>\u5728\u6B64\u63A2\u7D22\u5668\u4E2D\uFF0C\u52A0\u5165<strong>\u63A2\u91DD\uFF08<code>withProbe</code>\uFF09</strong>\u6703\u505A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8CE6\u4E88\u67D0\u72C0\u614B\u4E00\u500B\u7368\u7279\u8F38\u51FA\uFF0C\u4F7F\u539F\u672C\u5171\u7528\u7684\u8F38\u51FA\u8B8A\u5F97\u552F\u4E00\uFF0C\u5F9E\u800C\u63D0\u9AD8\u53EF\u89C0\u5BDF\u6027\u2014\u2014\u56DE\u50B3\u4E00\u500B\u65B0\u7684 SUT \u800C\u4E0D\u6539\u52D5\u539F\u59CB\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014withProbe \u56DE\u50B3\u4E00\u4EFD\u65B0\u7684 outputs \u5C0D\u7167\u8868\uFF1B\u5B83\u662F\u300C\u53EF\u89C0\u5BDF\u6027\u662F\u8A2D\u8A08\u9078\u64C7\u300D\u7684\u69D3\u687F\u3002"
+              },
+              {
+                "text": "\u52A0\u5165\u4E00\u689D\u65B0\u7684\u8F38\u5165\u8F49\u79FB\uFF0C\u4F7F\u4E0D\u53EF\u9054\u72C0\u614B\u8B8A\u5F97\u53EF\u9054",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u6539\u8B8A\u53EF\u63A7\u5236\u6027\uFF1B\u63A2\u91DD\u53EA\u6539\u8B8A\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u5F9E\u6A21\u578B\u4E2D\u522A\u9664\u4E00\u500B\u4E0D\u53EF\u9054\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u52A0\u5165\u4E00\u500B\u53EF\u5340\u5206\u7684\u8F38\u51FA\uFF1B\u5B83\u4E0D\u522A\u9664\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u6539\u8B8A\u54EA\u4E00\u500B\u72C0\u614B\u662F\u8D77\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u72C0\u614B\u4E0D\u8B8A\uFF1B\u63A2\u91DD\u53EA\u5F71\u97FF\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "withProbe(sut, state, distinctOutput) \u56DE\u50B3 { ...sut, outputs: { ...sut.outputs, [state]: distinctOutput } }\u2014\u2014\u4E00\u500B\u300C\u65B0\u300D\u7684 SUT\uFF0C\u5176\u76EE\u6A19\u72C0\u614B\u73FE\u5728\u767C\u51FA\u4E00\u500B\u7368\u7279\u503C\uFF0C\u56E0\u6B64\u5176\u8F38\u51FA\u4E0D\u518D\u76F8\u649E\uFF0C\u8A72\u72C0\u614B\u8B8A\u5F97\u53EF\u89C0\u5BDF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D JAMMED \u52A0\u63A2\u91DD\u7684\u6548\u679C",
+            "text": "<p>\u7576\u63A2\u91DD\u8CE6\u4E88 <code>JAMMED</code> \u4E00\u500B\u7368\u7279\u8F38\u51FA\u5F8C\uFF0C\u54EA\u4E9B\u539F\u672C\u4E0D\u53EF\u89C0\u5BDF\u7684\u72C0\u614B\u8B8A\u5F97\u53EF\u89C0\u5BDF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u6709 JAMMED",
+                "fraction": 0,
+                "feedback": "UNLOCKED \u4E5F\u6703\u8B8A\u5F97\u552F\u4E00\uFF0C\u56E0\u70BA\u4E00\u65E6 JAMMED \u6709\u4E86\u7368\u7279\u8F38\u51FA\uFF0C'green' \u5C31\u4E0D\u518D\u76F8\u649E\u3002"
+              },
+              {
+                "text": "UNLOCKED \u8207 JAMMED \u5169\u8005\u90FD\u8B8A\u5F97\u552F\u4E00",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A2\u91DD\u6D88\u9664\u4E86 'green' \u7684\u76F8\u649E\uFF0C\u56E0\u6B64 UNLOCKED \u8207 JAMMED \u5404\u81EA\u6210\u70BA\u5176\u8F38\u51FA\u7684\u552F\u4E00\u64C1\u6709\u8005\u3002"
+              },
+              {
+                "text": "LOCKED \u8207 MAINT",
+                "fraction": 0,
+                "feedback": "\u90A3\u5169\u500B\u4ECD\u5171\u7528 'red'\uFF1BJAMMED \u63A2\u91DD\u4E26\u672A\u89F8\u53CA\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5168\u90E8\u4E94\u500B\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "LOCKED \u8207 MAINT \u4ECD\u5728 'red' \u4E0A\u76F8\u649E\uFF0C\u56E0\u6B64\u4E26\u975E\u5168\u90E8\u4E94\u500B\u90FD\u53EF\u89C0\u5BDF\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E4B\u524D\uFF1AUNLOCKED \u8207 JAMMED \u90FD\u662F 'green'\uFF08\u90FD\u4E0D\u53EF\u89C0\u5BDF\uFF09\u3002\u628A JAMMED \u63A2\u91DD\u6210\u7368\u7279\u503C\u5F8C\uFF0CUNLOCKED \u6210\u70BA\u552F\u4E00\u7684 'green'\uFF0CJAMMED \u6210\u70BA\u65B0\u503C\u7684\u552F\u4E00\u64C1\u6709\u8005\uFF0C\u56E0\u6B64\u300C\u5169\u8005\u300D\u90FD\u8B8A\u5F97\u53EF\u89C0\u5BDF\u2014\u2014\u53EF\u89C0\u5BDF\u6027\u7531 1/5 \u5347\u70BA 3/5\uFF08PASSED\u3001UNLOCKED\u3001JAMMED\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C6C\u65BC\u53EF\u63A7\u5236\u6027\u7684\u6D3B\u52D5",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u6D3B\u52D5\u5C6C\u65BC<strong>\u53EF\u63A7\u5236\u6027</strong>\u800C\u975E\u53EF\u89C0\u5BDF\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6AA2\u67E5 PASSED \u662F\u5426\u767C\u51FA 'beep'",
+                "fraction": 0,
+                "feedback": "\u6AA2\u67E5\u8F38\u51FA\u5C6C\u65BC\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u8B80\u53D6 LOCKED \u7684\u8F38\u51FA\u503C",
+                "fraction": 0,
+                "feedback": "\u8B80\u53D6\u8F38\u51FA\u5C6C\u65BC\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u4F9D\u8F38\u51FA\u5340\u5206 JAMMED \u8207 UNLOCKED",
+                "fraction": 0,
+                "feedback": "\u4F9D\u8F38\u51FA\u628A\u72C0\u614B\u5206\u8FA8\u958B\u4F86\u5C6C\u65BC\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u767C\u9001 coin \u518D push \u628A\u65CB\u8F49\u67F5\u9580\u9A45\u52D5\u5230 PASSED",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EFA\u69CB\u8F38\u5165\u5E8F\u5217\u4EE5\u5230\u9054\u76EE\u6A19\u72C0\u614B\u5C6C\u65BC\u53EF\u63A7\u5236\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u63A7\u5236\u6027\u662F\u300C\u628A\u5B83\u958B\u5230\u90A3\u88E1\u300D\u7684\u90A3\u4E00\u534A\uFF1A\u767C\u9001\u8F38\u5165\u4EE5\u5230\u9054\u9078\u5B9A\u72C0\u614B\u3002\u6AA2\u8996\u6216\u5340\u5206\u8F38\u51FA\u5247\u5C6C\u65BC\u53EF\u89C0\u5BDF\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C6C\u65BC\u53EF\u89C0\u5BDF\u6027\u7684\u6D3B\u52D5",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u6D3B\u52D5\u5C6C\u65BC<strong>\u53EF\u89C0\u5BDF\u6027</strong>\u800C\u975E\u53EF\u63A7\u5236\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6AA2\u67E5 PASSED \u7684\u8F38\u51FA 'beep' \u662F\u5426\u8207\u5176\u4ED6\u6BCF\u500B\u72C0\u614B\u7684\u8F38\u51FA\u90FD\u4E0D\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u8B49\u67D0\u8F38\u51FA\u80FD\u5426\u5340\u5206\u67D0\u72C0\u614B\u5C6C\u65BC\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u767C\u9001 coin \u628A LOCKED \u79FB\u5230 UNLOCKED",
+                "fraction": 0,
+                "feedback": "\u767C\u9001\u8F38\u5165\u4EE5\u6539\u8B8A\u72C0\u614B\u5C6C\u65BC\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u627E\u5230\u4E00\u689D\u5230\u9054 PASSED \u7684\u8F38\u5165\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u627E\u5230\u9A45\u52D5\u8DEF\u5F91\u5C6C\u65BC\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u628A SUT \u9A45\u52D5\u5230\u9078\u5B9A\u7684\u76EE\u6A19\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u9A45\u52D5\u5230\u76EE\u6A19\u5C6C\u65BC\u53EF\u63A7\u5236\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u89C0\u5BDF\u6027\u662F\u300C\u770B\u898B\u5B83\u300D\u7684\u90A3\u4E00\u534A\uFF1A\u6AA2\u67E5\u8F38\u51FA\u80FD\u5426\u8B93\u4F60\u5206\u8FA8\u72C0\u614B\u3002\u767C\u9001\u8F38\u5165\u6216\u5C0B\u627E\u8DEF\u5F91\u5247\u5C6C\u65BC\u53EF\u63A7\u5236\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u82E5 MAINT \u8B8A\u5F97\u53EF\u9054\u6642\u7684\u53EF\u63A7\u5236\u6027",
+            "text": "<p>\u5047\u8A2D\u52A0\u5165\u4E00\u500B\u7DAD\u8B77\u9470\u5319\u8F38\u5165\uFF0C\u80FD\u628A SUT \u9A45\u52D5\u5230 <code>MAINT</code>\uFF08\u5B83\u6C92\u6709\u5916\u5411\u908A\uFF09\u3002\u53EF\u63A7\u5236\u6027\u6BD4\u7387\u6703\u8B8A\u6210\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5/5\uFF08100%\uFF09",
+                "fraction": 0,
+                "feedback": "JAMMED \u4ECD\u4E0D\u53EF\u9054\uFF0C\u56E0\u6B64\u4E0D\u53EF\u80FD\u662F 5/5\u3002"
+              },
+              {
+                "text": "3/5\uFF0860%\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76EE\u524D\u7684\u503C\uFF1B\u52A0\u5165\u53EF\u9054\u7684 MAINT \u6703\u63D0\u9AD8\u5B83\u3002"
+              },
+              {
+                "text": "4/5\uFF0880%\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MAINT \u52A0\u5165\u53EF\u9054\u96C6\u5408 {LOCKED, UNLOCKED, PASSED}\uFF0C\u5F97 5 \u4E2D 4\uFF1BJAMMED \u4ECD\u4E0D\u53EF\u9054\u3002"
+              },
+              {
+                "text": "2/5\uFF0840%\uFF09",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u4E00\u500B\u53EF\u9054\u72C0\u614B\u6703\u63D0\u9AD8\u800C\u975E\u964D\u4F4E\u53EF\u63A7\u5236\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u9054\u96C6\u5408\u6703\u8B8A\u6210 {LOCKED, UNLOCKED, PASSED, MAINT} = 4\u3002MAINT \u6C92\u6709\u5916\u5411\u908A\uFF0C\u56E0\u6B64\u4E0D\u6703\u958B\u555F\u66F4\u591A\u72C0\u614B\uFF0C\u800C JAMMED \u4ECD\u4E0D\u53EF\u9054\u3002\u6240\u4EE5\u53EF\u63A7\u5236\u6027 = 4/5 = 80%\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8FFD\u8E64\u591A\u6B65\u8F38\u5165\u5E8F\u5217",
+            "text": "<p>\u5F9E LOCKED \u958B\u59CB\uFF0C\u6E2C\u8A66\u767C\u9001\u5E8F\u5217 <code>coin, push, reset, coin</code>\u3002\u6700\u7D42\u72C0\u614B\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "PASSED",
+                "fraction": 0,
+                "feedback": "coin\u3001push \u4E4B\u5F8C\u6703\u5230 PASSED\uFF0C\u4F46\u63A5\u8457\u7684 reset \u518D coin \u6703\u524D\u9032\u5230 UNLOCKED\u3002"
+              },
+              {
+                "text": "UNLOCKED",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LOCKED\u2192UNLOCKED\u2192PASSED\u2192LOCKED\u2192UNLOCKED\u3002"
+              },
+              {
+                "text": "LOCKED",
+                "fraction": 0,
+                "feedback": "reset \u56DE\u5230 LOCKED\uFF0C\u4F46\u6700\u5F8C\u7684 coin \u53C8\u79FB\u5230 UNLOCKED\u3002"
+              },
+              {
+                "text": "JAMMED",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u8F38\u5165\u80FD\u5230\u9054 JAMMED\uFF1B\u5E8F\u5217\u4E0D\u53EF\u80FD\u505C\u5728\u90A3\u88E1\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FFD\u8E64\uFF1ALOCKED--coin-->UNLOCKED--push-->PASSED--reset-->LOCKED--coin-->UNLOCKED\u3002\u6700\u7D42\u72C0\u614B\u662F UNLOCKED\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 JAMMED \u7684\u5916\u5411\u908A\u6C92\u6709\u5E6B\u52A9",
+            "text": "<p>JAMMED \u6709\u4E00\u689D\u908A <code>JAMMED--reset--&gt;LOCKED</code>\u3002\u70BA\u4EC0\u9EBC\u9019\u689D\u908A\u4ECD\u7121\u6CD5\u8B93\u6E2C\u8A66\u5230\u9054 JAMMED\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u9054\u6027\u9700\u8981\u901A\u5F80 JAMMED \u7684\u5165\u5411\u908A\uFF1B\u5916\u5411\u908A\u53EA\u80FD\u8B93\u4F60\u96E2\u958B JAMMED\uFF0C\u6C38\u9060\u7121\u6CD5\u62B5\u9054\u90A3\u88E1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709\u7576\u4F60\u5DF2\u5728 JAMMED \u6642\uFF0C\u624D\u80FD\u8D70 JAMMED--reset-->LOCKED\uFF0C\u800C\u9019\u6B63\u662F\u6E2C\u8A66\u8FA6\u4E0D\u5230\u7684\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA reset \u4E0D\u662F\u8F38\u5165\u4E4B\u4E00",
+                "fraction": 0,
+                "feedback": "reset\u300C\u662F\u300D\u8F38\u5165\uFF1B\u554F\u984C\u5728\u65BC\u65B9\u5411\u2014\u2014\u6C92\u6709\u908A\u901A\u5F80 JAMMED\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u8207 UNLOCKED \u5171\u7528 'green'",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EF\u89C0\u5BDF\u6027\u7F3A\u53E3\uFF1B\u8207 JAMMED \u80FD\u5426\u88AB\u5230\u9054\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9019\u689D\u908A\u5728\u5716\u4E2D\u6392\u5728 PASSED \u4E4B\u5F8C",
+                "fraction": 0,
+                "feedback": "\u5716\u4E2D\u7684\u6392\u5E8F\u4E0D\u5F71\u97FF\u53EF\u9054\u6027\uFF1B\u5165\u5411\u908A\u624D\u6703\u3002"
+              }
+            ],
+            "generalFeedback": "BFS \u4F9D\u908A\u7684\u65B9\u5411\u524D\u9032\u3002JAMMED--reset-->LOCKED \u662F\u5916\u5411\u908A\uFF0C\u53EA\u6709\u5728\u4F60\u5DF2\u8655\u65BC JAMMED \u6642\u624D\u53EF\u7528\u3002\u65E2\u7136\u6C92\u6709\u908A\u300C\u6307\u5411\u300DJAMMED\uFF0C\u6E2C\u8A66\u5C31\u6C38\u9060\u5230\u4E0D\u4E86\u2014\u2014\u9019\u689D\u5916\u5411\u908A\u8207\u53EF\u9054\u6027\u7121\u95DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 driveTo PASSED \u9700\u8981\u5169\u6B65",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5230\u9054 PASSED \u7684\u6700\u77ED\u9A45\u52D5\u5E8F\u5217\u6070\u597D\u662F\u5169\u6B65\uFF08<code>coin, push</code>\uFF09\u800C\u975E\u4E00\u6B65\uFF1F</p>",
+            "answers": [
+              {
+                "text": "PASSED \u53EA\u7531 UNLOCKED \u767C\u9001 push \u9032\u5165\uFF0C\u800C UNLOCKED \u53EA\u7531 LOCKED \u767C\u9001 coin \u9032\u5165\u2014\u2014\u6240\u4EE5\u5FC5\u9808\u5148 coin \u518D push",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901A\u5F80 PASSED \u7684\u552F\u4E00\u8DEF\u5F91\u8FEB\u4F7F\u9019\u689D\u5169\u6B65\u93C8\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA push \u4E4B\u524D\u5FC5\u9808\u5148\u767C\u9001 reset",
+                "fraction": 0,
+                "feedback": "reset \u4E0D\u5728\u5F80 PASSED \u7684\u8DEF\u5F91\u4E0A\uFF1B\u8DEF\u7DDA\u662F coin \u518D push\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA PASSED \u6709\u4E00\u500B\u5FC5\u9808\u9032\u5165\u5169\u6B21\u7684\u81EA\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "PASSED \u6C92\u6709\u81EA\u8FF4\u5708\uFF1B\u5169\u6B65\u4F86\u81EA LOCKED\u2192UNLOCKED\u2192PASSED \u9019\u689D\u93C8\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA JAMMED \u64CB\u4F4F\u4E86\u76F4\u63A5\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "JAMMED \u4E0D\u5728\u4EFB\u4F55\u8F38\u5165\u8DEF\u5F91\u4E0A\uFF1B\u5B83\u4E0D\u6703\u64CB\u4F4F\u4EFB\u4F55\u6771\u897F\u3002"
+              }
+            ],
+            "generalFeedback": "\u901A\u5F80 PASSED \u7684\u552F\u4E00\u908A\u662F UNLOCKED--push-->PASSED\uFF0C\u800C\u901A\u5F80 UNLOCKED \u7684\u552F\u4E00\u908A\u662F LOCKED--coin-->UNLOCKED\u3002\u5F9E\u8D77\u59CB LOCKED \u51FA\u767C\uFF0C\u9019\u8FEB\u4F7F coin\u3001push \u9019\u689D\u93C8\u2014\u2014\u5169\u6B65\uFF0C\u5373\u6700\u5C0F\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u53EF\u63A7\u5236\u6027 3/5",
+            "text": "<p>\u53EF\u63A7\u5236\u6027\u70BA <strong>3/5</strong> \u544A\u8A34\u4F60\u95DC\u65BC\u65CB\u8F49\u67F5\u9580\u7684\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u80FD\u628A SUT \u9A45\u52D5\u5230 5 \u500B\u6A21\u578B\u72C0\u614B\u4E2D\u7684 3 \u500B\uFF1B\u53E6\u5916 2 \u500B\uFF08JAMMED\u3001MAINT\uFF09\u5728\u5176\u80FD\u529B\u7BC4\u570D\u4E4B\u5916",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143/5 \u662F\u300C\u7531\u8F38\u5165\u53EF\u9054\u7684\u72C0\u614B\u300D\u9664\u4EE5\u300C\u7E3D\u72C0\u614B\u6578\u300D\u3002"
+              },
+              {
+                "text": "5 \u500B\u8F38\u51FA\u4E2D\u6709 3 \u500B\u662F\u552F\u4E00\u7684",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5957\u4EF6\u57F7\u884C\u4E86 5 \u500B\u8F49\u79FB\u4E2D\u7684 3 \u500B",
+                "fraction": 0,
+                "feedback": "\u53EF\u63A7\u5236\u6027\u8A08\u7B97\u53EF\u9054\u72C0\u614B\uFF0C\u800C\u975E\u57F7\u884C\u904E\u7684\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "5 \u500B\u8F38\u5165\u4E2D\u6709 3 \u500B\u662F\u6709\u6548\u7684",
+                "fraction": 0,
+                "feedback": "\u6240\u6709\u8F38\u5165\u90FD\u6709\u6548\uFF1B\u6BD4\u7387\u662F\u5C0D\u72C0\u614B\u8A08\u7B97\uFF0C\u800C\u975E\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "controllability.ratio = |reachable| / |states| = 3/5\u3002\u5B83\u4EE3\u8868\u6E2C\u8A66\u80FD\u8A2D\u5B9A 5 \u500B\u72C0\u614B\u4E2D\u7684 3 \u500B\uFF1BJAMMED \u8207 MAINT \u7121\u6CD5\u7531\u4EFB\u4F55\u8F38\u5165\u5E8F\u5217\u5230\u9054\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u53EF\u89C0\u5BDF\u6027 1/5",
+            "text": "<p>\u53EF\u89C0\u5BDF\u6027\u70BA <strong>1/5</strong> \u544A\u8A34\u4F60\u95DC\u65BC\u57FA\u790E\u65CB\u8F49\u67F5\u9580\u7684\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5 \u500B\u72C0\u614B\u4E2D\u6709 3 \u500B\u53EF\u9054",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EF\u63A7\u5236\u6027\uFF0C\u800C\u4E14\u6578\u5B57\u6703\u662F 3/5\uFF0C\u4E0D\u662F 1/5\u3002"
+              },
+              {
+                "text": "5 \u500B\u72C0\u614B\u4E2D\u53EA\u6709 1 \u500B\uFF08PASSED\uFF09\u5177\u6709\u53EF\u5340\u5206\u7684\u8F38\u51FA\uFF1B\u843D\u5728\u5176\u4ED6 4 \u500B\u4E2D\u4EFB\u4E00\u500B\u7684\u7F3A\u9677\u90FD\u53EF\u80FD\u8207\u53E6\u4E00\u72C0\u614B\u6DF7\u6DC6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141/5 \u8A08\u7B97\u7684\u662F\u5177\u6709\u552F\u4E00\u8F38\u51FA\u7684\u72C0\u614B\u6578\u3002"
+              },
+              {
+                "text": "5 \u500B\u8F49\u79FB\u4E2D\u6070\u6709 1 \u500B\u88AB\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u53EF\u89C0\u5BDF\u6027\u8A08\u7B97\u7684\u662F\u5177\u53EF\u5340\u5206\u8F38\u51FA\u7684\u72C0\u614B\uFF0C\u800C\u975E\u88AB\u6DB5\u84CB\u7684\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "5 \u500B\u8F38\u5165\u4E2D\u6709 1 \u500B\u5F9E\u672A\u88AB\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "\u6BD4\u7387\u662F\u5C0D\u300C\u5177\u552F\u4E00\u8F38\u51FA\u7684\u72C0\u614B\u300D\u8A08\u7B97\uFF0C\u800C\u975E\u5C0D\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "observability.ratio = |observable| / |states| = 1/5\u3002\u53EA\u6709 PASSED\u2192'beep' \u552F\u4E00\uFF1BLOCKED/MAINT \u5728 'red' \u4E0A\u76F8\u649E\uFF0CUNLOCKED/JAMMED \u5728 'green' \u4E0A\u76F8\u649E\uFF0C\u56E0\u6B64\u9019\u56DB\u500B\u4E2D\u4EFB\u4E00\u500B\u7684\u7F3A\u9677\u5728\u8F38\u51FA\u4E0A\u90FD\u7121\u6CD5\u5340\u5206\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80 1/5 \u8E8D\u5347\u5230 3/5",
+            "text": "<p>\u52A0\u5165\u55AE\u4E00\u63A2\u91DD\u4F7F\u53EF\u89C0\u5BDF\u6027\u5F9E <strong>1/5 \u5347\u5230 3/5</strong>\u3002\u70BA\u4F55\u662F\u8E8D\u5347 2 \u800C\u975E 1\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63A2\u91DD\u4F7F JAMMED \u80FD\u88AB\u6E2C\u8A66\u7684\u8F38\u5165\u5230\u9054",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u53EF\u63A7\u5236\u6027\uFF1B\u63A2\u91DD\u6539\u8B8A\u7684\u662F\u8F38\u51FA\uFF0C\u4E0D\u662F\u53EF\u9054\u6027\u3002"
+              },
+              {
+                "text": "\u63A2\u91DD\u70BA\u6A21\u578B\u52A0\u5165\u4E86\u5169\u500B\u65B0\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u6539\u8B8A\u4E00\u500B\u72C0\u614B\u7684\u8F38\u51FA\uFF1B\u5B83\u4E0D\u52A0\u5165\u4EFB\u4F55\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u8CE6\u4E88 JAMMED \u7368\u7279\u8F38\u51FA\u6D88\u9664\u4E86 'green' \u7684\u76F8\u649E\uFF0C\u56E0\u6B64 UNLOCKED \u8207 JAMMED \u5404\u81EA\u8B8A\u5F97\u552F\u4E00\uFF0C\u52A0\u5165 PASSED\u2014\u2014\u5171 5 \u4E2D 3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u89E3\u6C7A\u4E00\u6B21\u76F8\u649E\u6703\u4E00\u6B21\u8B93\u8A72\u5C0D\u7684\u300C\u5169\u500B\u300D\u6210\u54E1\u90FD\u8B8A\u552F\u4E00\u3002"
+              },
+              {
+                "text": "\u63A2\u91DD\u5F9E\u6A21\u578B\u4E2D\u79FB\u9664\u4E86 MAINT",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u79FB\u9664\u4EFB\u4F55\u6771\u897F\uFF1B\u589E\u76CA\u4F86\u81EA\u6D88\u9664 'green' \u9019\u4E00\u5C0D\u7684\u76F8\u649E\u3002"
+              }
+            ],
+            "generalFeedback": "'green' \u539F\u672C\u7531 UNLOCKED \u8207 JAMMED \u5171\u7528\uFF0C\u56E0\u6B64\u5169\u8005\u90FD\u4E0D\u53EF\u89C0\u5BDF\u3002\u628A JAMMED \u63A2\u91DD\u6210\u7368\u7279\u503C\u5F8C\uFF0CUNLOCKED \u6210\u70BA\u552F\u4E00\u7684 'green'\uFF0C\u300C\u4E26\u4E14\u300DJAMMED \u8B8A\u5F97\u552F\u4E00\u2014\u2014\u5169\u500B\u72C0\u614B\u540C\u6642\u7FFB\u8F49\u70BA\u53EF\u89C0\u5BDF\uFF0C\u6240\u4EE5 1/5 \u8B8A\u6210 3/5\uFF08PASSED\u3001UNLOCKED\u3001JAMMED\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u89C0\u5BDF\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7",
+            "text": "<p>\u54EA\u4E00\u500B\u69D3\u687F\u80FD\u5728<strong>\u4E0D\u6539\u8B8A\u72C0\u614B\u5716</strong>\u7684\u60C5\u6CC1\u4E0B\u63D0\u9AD8<strong>\u53EF\u89C0\u5BDF\u6027</strong>\u2014\u2014\u4F7F\u53EF\u89C0\u5BDF\u6027\u6210\u70BA\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u52A0\u5165\u63A2\u91DD\uFF0F\u56DE\u50B3\u503C\uFF0C\u8CE6\u4E88\u67D0\u72C0\u614B\u5B83\u81EA\u5DF1\u7684\u7368\u7279\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63ED\u9732\u66F4\u591A\u53EF\u5340\u5206\u7684\u8F38\u51FA\u662F\u4E00\u9805\u63D0\u9AD8\u53EF\u89C0\u5BDF\u6027\u7684\u8A2D\u8A08\u6C7A\u7B56\u3002"
+              },
+              {
+                "text": "\u52A0\u5165\u4E00\u689D\u901A\u5F80\u4E0D\u53EF\u9054\u72C0\u614B\u7684\u8F38\u5165\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u6539\u8B8A\u72C0\u614B\u5716\u4E26\u63D0\u9AD8\u53EF\u63A7\u5236\u6027\uFF0C\u800C\u975E\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u5F9E\u6A21\u578B\u4E2D\u79FB\u9664\u4E00\u500B\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u72C0\u614B\u4E0D\u6703\u589E\u52A0\u53EF\u5340\u5206\u7684\u8F38\u51FA\uFF1B\u90A3\u4E0D\u662F\u53EF\u89C0\u5BDF\u6027\u7684\u69D3\u687F\u3002"
+              },
+              {
+                "text": "\u6539\u8B8A\u54EA\u4E00\u500B\u72C0\u614B\u662F\u8D77\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u72C0\u614B\u5F71\u97FF\u53EF\u9054\u6027\uFF0C\u800C\u975E\u8F38\u51FA\u7684\u53EF\u5340\u5206\u7A0B\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u89C0\u5BDF\u6027\u662F\u4E00\u7A2E\u8A2D\u8A08\u9078\u64C7\uFF1A\u85C9\u7531\u52A0\u5165\u8CE6\u4E88\u72C0\u614B\u7368\u7279\u8F38\u51FA\u7684\u63A2\u91DD\u6216\u56DE\u50B3\u503C\uFF0C\u958B\u767C\u8005\u80FD\u8B93\u539F\u672C\u7121\u6CD5\u5340\u5206\u7684\u72C0\u614B\u8B8A\u5F97\u53EF\u898B\u2014\u2014\u800C\u4E0D\u6539\u52D5\u8F49\u79FB\u7D50\u69CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u7F3A\u5C11\u54EA\u4E00\u7A2E\u6027\u8CEA\uFF081\uFF09",
+            "text": "<p>\u67D0\u6E2C\u8A66\u9700\u8981\u65CB\u8F49\u67F5\u9580\u8655\u65BC <code>JAMMED</code> \u4EE5\u6AA2\u67E5\u5361\u4F4F\u7684\u8655\u7406\uFF0C\u4F46\u6C92\u6709\u4EFB\u4F55\u8F38\u5165\u5E8F\u5217\u80FD\u628A\u5B83\u9A45\u52D5\u5230\u90A3\u88E1\u3002\u7F3A\u5C11\u54EA\u4E00\u7A2E\u53EF\u6E2C\u8A66\u6027\u6027\u8CEA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u63A7\u5236\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7121\u6CD5\u628A SUT \u9A45\u52D5\u5230\u6240\u9700\u72C0\u614B\uFF0C\u662F\u53EF\u63A7\u5236\u6027\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u53EF\u89C0\u5BDF\u6027",
+                "fraction": 0,
+                "feedback": "\u53EF\u89C0\u5BDF\u6027\u95DC\u4E4E\u770B\u898B\u8F38\u51FA\uFF1B\u6B64\u8655\u7684\u554F\u984C\u662F\u300C\u9032\u5165\u300D\u90A3\u500B\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7A0B\u5EA6\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u6240\u8FF0\u7684\u963B\u7919\u7D14\u7CB9\u662F\u95DC\u65BC\u5230\u9054\u8A72\u72C0\u614B\uFF0C\u5373\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u975E",
+                "fraction": 0,
+                "feedback": "\u78BA\u6709\u5BE6\u8CEA\u7F3A\u53E3\uFF1A\u8A72\u72C0\u614B\u7121\u6CD5\u88AB\u8A2D\u5B9A\u8D77\u4F86\uFF0C\u9019\u662F\u53EF\u63A7\u5236\u6027\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u7121\u6CD5\u628A SUT \u8A2D\u5B9A\u5230\u4F60\u5FC5\u9808\u57F7\u884C\u7684\u72C0\u614B\uFF0C\u6B63\u662F\u53EF\u63A7\u5236\u6027\u7F3A\u53E3\u7684\u5B9A\u7FA9\u3002JAMMED \u7531\u8F38\u5165\u4E0D\u53EF\u9054\uFF0C\u56E0\u6B64\u6E2C\u8A66\u9023\u958B\u59CB\u90FD\u8FA6\u4E0D\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u7F3A\u5C11\u54EA\u4E00\u7A2E\u6027\u8CEA\uFF082\uFF09",
+            "text": "<p>\u67D0\u6E2C\u8A66\u80FD\u5230\u9054 UNLOCKED\uFF0C\u4F46\u771F\u6B63\u7684\u5361\u4F4F\uFF08JAMMED\uFF09\u6703\u767C\u51FA\u76F8\u540C\u7684 <code>'green'</code>\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u628A\u5361\u4F4F\u8207\u6B63\u5E38\u89E3\u9396\u5206\u8FA8\u958B\u4F86\u3002\u7F3A\u5C11\u54EA\u4E00\u7A2E\u53EF\u6E2C\u8A66\u6027\u6027\u8CEA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u63A7\u5236\u6027",
+                "fraction": 0,
+                "feedback": "\u8A72\u72C0\u614B\u53EF\u4EE5\u5230\u9054\uFF1B\u554F\u984C\u5728\u65BC\u8F38\u51FA\u7121\u6CD5\u5340\u5206\u5B83\u3002"
+              },
+              {
+                "text": "\u53EF\u89C0\u5BDF\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7121\u6CD5\u5340\u5206\u7684\u8F38\u51FA\u662F\u53EF\u89C0\u5BDF\u6027\u7F3A\u53E3\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7A0B\u5EA6\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u6240\u8FF0\u7684\u963B\u7919\u7D14\u7CB9\u662F\u95DC\u65BC\u770B\u898B\uFF0F\u5340\u5206\u6548\u679C\uFF0C\u5373\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u975E",
+                "fraction": 0,
+                "feedback": "\u78BA\u6709\u5BE6\u8CEA\u7F3A\u53E3\uFF1A\u7F3A\u9677\u7121\u6CD5\u5728\u8F38\u51FA\u4E0A\u88AB\u770B\u898B\uFF0C\u9019\u662F\u53EF\u89C0\u5BDF\u6027\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5169\u500B\u72C0\u614B\u5171\u7528\u4E00\u500B\u8F38\u51FA\u6642\uFF0C\u6E2C\u8A66\u7121\u6CD5\u5F97\u77E5\u81EA\u5DF1\u8655\u65BC\u54EA\u4E00\u500B\u3002\u7121\u6CD5\u770B\u898B\u4F60\u5FC5\u9808\u6AA2\u67E5\u7684\u6548\u679C\uFF0C\u5C31\u662F\u53EF\u89C0\u5BDF\u6027\u7F3A\u53E3\u2014\u2014\u6B64\u8655 'green' \u628A\u5361\u4F4F\u85CF\u5728\u6B63\u5E38\u89E3\u9396\u7684\u80CC\u5F8C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "JAMMED \u63A2\u91DD\u662F\u5426\u4F7F\u5176\u53EF\u9054",
+            "text": "<p>\u5728\u63A2\u91DD\u8CE6\u4E88 JAMMED \u7368\u7279\u8F38\u51FA\uFF08\u53EF\u89C0\u5BDF\u6027\u63D0\u9AD8\uFF09\u4E4B\u5F8C\uFF0C\u6E2C\u8A66\u73FE\u5728\u80FD\u5426\u628A SUT \u9A45\u52D5\u5230 JAMMED \u4EE5\u57F7\u884C\u771F\u6B63\u7684\u5361\u4F4F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u80FD\u2014\u2014JAMMED \u7531\u8F38\u5165\u4ECD\u4E0D\u53EF\u9054\uFF1B\u63A2\u91DD\u63D0\u9AD8\u7684\u662F\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u5169\u7A2E\u6027\u8CEA\u5F7C\u6B64\u6B63\u4EA4\uFF1B\u63A2\u91DD\u53EA\u6539\u8B8A\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u80FD\u2014\u2014\u63A2\u91DD\u52A0\u5165\u4E86\u4E00\u689D\u5230\u9054 JAMMED \u7684\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u6539\u8B8A\u8F38\u51FA\uFF0C\u800C\u975E\u8F49\u79FB\u5716\uFF0C\u56E0\u6B64\u4E0D\u6703\u7522\u751F\u65B0\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u80FD\u2014\u2014\u63A2\u91DD\u7E3D\u662F\u80FD\u4F7F\u72C0\u614B\u8B8A\u5F97\u53EF\u9054",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u53EA\u5F71\u97FF\u53EF\u89C0\u5BDF\u6027\uFF1B\u5B83\u5011\u7D55\u4E0D\u6539\u8B8A\u53EF\u9054\u6027\u3002"
+              },
+              {
+                "text": "\u4E0D\u80FD\u2014\u2014\u56E0\u70BA\u63A2\u91DD\u4E5F\u628A JAMMED \u5F9E\u6A21\u578B\u4E2D\u79FB\u9664\u4E86",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u4E0D\u79FB\u9664\u4EFB\u4F55\u6771\u897F\uFF1BJAMMED \u4ECD\u5728\uFF0C\u53EA\u662F\u73FE\u5728\u6709\u4E86\u7368\u7279\u8F38\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A2\u91DD\u7DE8\u8F2F\u7684\u662F\u8F38\u51FA\uFF08\u53EF\u89C0\u5BDF\u6027\uFF09\u3002\u5B83\u4E0D\u52A0\u5165\u4EFB\u4F55\u901A\u5F80 JAMMED \u7684\u8F38\u5165\u908A\uFF0C\u56E0\u6B64 JAMMED \u4ECD\u4E0D\u53EF\u9054\u2014\u2014\u6E2C\u8A66\u73FE\u5728\u82E5\u771F\u767C\u751F\u5361\u4F4F\u4FBF\u80FD\u300C\u770B\u898B\u300D\uFF0C\u4F46\u4ECD\u7121\u6CD5\u300C\u9A45\u52D5\u300DSUT \u9032\u5165\u5361\u4F4F\u3002\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u5F7C\u6B64\u7368\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "JAMMED \u63A2\u91DD\u5F8C\u4ECD\u76F8\u649E\u7684\u72C0\u614B",
+            "text": "<p>\u5728\u63A2\u91DD\u8CE6\u4E88 JAMMED \u7368\u7279\u8F38\u51FA\u5F8C\uFF08\u53EF\u89C0\u5BDF\u6027\u73FE\u70BA 3/5\uFF09\uFF0C\u54EA\u4E9B\u72C0\u614B\u4ECD\u5171\u7528\u8F38\u51FA\u800C\u7DAD\u6301\u4E0D\u53EF\u89C0\u5BDF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "UNLOCKED \u8207 JAMMED",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u525B\u6D88\u9664\u4E86\u9019\u5169\u500B\u7684\u76F8\u649E\uFF1B\u5B83\u5011\u73FE\u5728\u53EF\u89C0\u5BDF\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u5168\u90E8\u4E94\u500B\u73FE\u5728\u90FD\u53EF\u89C0\u5BDF",
+                "fraction": 0,
+                "feedback": "LOCKED \u8207 MAINT \u4ECD\u5171\u7528 'red'\uFF0C\u6240\u4EE5\u6709\u5169\u500B\u7DAD\u6301\u4E0D\u53EF\u89C0\u5BDF\u3002"
+              },
+              {
+                "text": "LOCKED \u8207 MAINT\uFF08\u5169\u8005\u4ECD\u70BA 'red'\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014JAMMED \u63A2\u91DD\u4E26\u672A\u89F8\u53CA 'red' \u7684\u76F8\u649E\u3002"
+              },
+              {
+                "text": "PASSED \u8207 LOCKED",
+                "fraction": 0,
+                "feedback": "PASSED \u662F\u552F\u4E00\u7684\uFF08'beep'\uFF09\uFF1B\u5B83\u4E0D\u8207 LOCKED \u76F8\u649E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D JAMMED \u52A0\u63A2\u91DD\u5F8C\uFF1A\u8F38\u51FA\u70BA red\u2192{LOCKED, MAINT}\u3001green\u2192{UNLOCKED}\u3001beep\u2192{PASSED}\uFF0C\u518D\u52A0\u4E0A JAMMED \u7684\u65B0\u503C\u3002\u53EF\u89C0\u5BDF = {UNLOCKED, PASSED, JAMMED} = 3/5\uFF1BLOCKED \u8207 MAINT \u4ECD\u5728 'red' \u4E0A\u76F8\u649E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u518D\u52A0\u4E00\u500B\u63A2\u91DD\u5F8C\u7684\u53EF\u89C0\u5BDF\u6027",
+            "text": "<p>\u5F9E 3/5 \u7684\u72C0\u614B\uFF08JAMMED \u63A2\u91DD\u4E4B\u5F8C\uFF09\u51FA\u767C\uFF0C\u4F60\u518D\u52A0\u4E00\u500B\u63A2\u91DD\u8CE6\u4E88 <code>MAINT</code> \u4E00\u500B\u7368\u7279\u8F38\u51FA\u3002\u53EF\u89C0\u5BDF\u6027\u6703\u8B8A\u6210\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4/5\uFF0880%\uFF09",
+                "fraction": 0,
+                "feedback": "\u89E3\u6C7A 'red' \u7684\u76F8\u649E\u6703\u4E00\u6B21\u8B93 LOCKED \u8207 MAINT \u90FD\u8B8A\u552F\u4E00\uFF0C\u6240\u4EE5\u6703\u8E8D\u904E 4/5\u3002"
+              },
+              {
+                "text": "3/5\uFF0860%\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52A0\u7B2C\u4E8C\u500B\u63A2\u91DD\u4E4B\u524D\u7684\u503C\uFF1B\u52A0\u4E0A\u5B83\u6703\u9032\u4E00\u6B65\u63D0\u9AD8\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "2/5\uFF0840%\uFF09",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u4E00\u500B\u53EF\u5340\u5206\u7684\u8F38\u51FA\u6703\u63D0\u9AD8\u800C\u975E\u964D\u4F4E\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "5/5\uFF08100%\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D88\u9664 'red' \u7684\u76F8\u649E\u4F7F LOCKED \u6210\u70BA\u552F\u4E00\u7684 'red' \u4E14 MAINT \u8B8A\u552F\u4E00\uFF0C\u56E0\u6B64\u5168\u90E8\u4E94\u500B\u72C0\u614B\u73FE\u5728\u90FD\u53EF\u89C0\u5BDF\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C31\u50CF 'green' \u4E00\u6A23\uFF0C'red' \u539F\u672C\u6070\u597D\u88AB\u5169\u500B\u72C0\u614B\u5171\u7528\u3002\u8CE6\u4E88 MAINT \u7368\u7279\u8F38\u51FA\u5F8C\uFF0CLOCKED \u6210\u70BA\u552F\u4E00\u7684 'red'\uFF0CMAINT \u4E5F\u8B8A\u552F\u4E00\u2014\u2014\u5169\u8005\u90FD\u7FFB\u8F49\u70BA\u53EF\u89C0\u5BDF\uFF0C\u6240\u4EE5 3/5 \u8B8A\u6210 5/5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u9805\u6539\u8B8A\u80FD\u63D0\u9AD8\u53EF\u63A7\u5236\u6027",
+            "text": "<p>\u54EA\u4E00\u9805\u55AE\u4E00\u6539\u8B8A\u80FD\u63D0\u9AD8\u65CB\u8F49\u67F5\u9580\u7684<strong>\u53EF\u63A7\u5236\u6027</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8CE6\u4E88 JAMMED \u4E00\u500B\u7368\u7279\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u63D0\u9AD8\u7684\u662F\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u52A0\u5165\u4E00\u689D\u7531\u8F38\u5165\u9A45\u52D5\u3001\u901A\u5F80 JAMMED \u6216 MAINT \u7684\u8F49\u79FB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u65B0\u7684\u5165\u5411\u8F38\u5165\u908A\u80FD\u4F7F\u4E0D\u53EF\u9054\u72C0\u614B\u8B8A\u5F97\u53EF\u9054\uFF0C\u5F9E\u800C\u63D0\u9AD8\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u52A0\u5165\u4E00\u500B\u63ED\u9732 PASSED \u7684\u56DE\u50B3\u503C",
+                "fraction": 0,
+                "feedback": "PASSED \u5DF2\u7D93\u65E2\u53EF\u9054\u300C\u53C8\u300D\u53EF\u89C0\u5BDF\uFF1B\u52A0\u5165\u8F38\u51FA\u4E0D\u6703\u6539\u8B8A\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u91CD\u65B0\u547D\u540D\u4E00\u500B\u8F38\u51FA\u503C",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u547D\u540D\u8F38\u51FA\u7121\u6CD5\u6539\u8B8A\u54EA\u4E9B\u72C0\u614B\u53EF\u9054\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u63A7\u5236\u6027\u53D6\u6C7A\u65BC\u8F49\u79FB\u7D50\u69CB\u3002\u53EA\u6709\u52A0\u5165\u4E00\u689D\u7531\u8F38\u5165\u9A45\u52D5\u3001\u901A\u5F80\u4E0D\u53EF\u9054\u72C0\u614B\uFF08JAMMED \u6216 MAINT\uFF09\u7684\u908A\u624D\u80FD\u63D0\u9AD8\u5B83\uFF1B\u6539\u8B8A\u8F38\u51FA\u5F71\u97FF\u7684\u662F\u53EF\u89C0\u5BDF\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u5F7C\u6B64\u7368\u7ACB",
+            "text": "<p>\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u5F7C\u6B64\u7368\u7ACB\uFF1A\u63D0\u9AD8\u5176\u4E2D\u4E00\u8005\uFF08\u4F8B\u5982\u52A0\u5165\u63A2\u91DD\uFF09\u4E26\u4E0D\u5FC5\u7136\u63D0\u9AD8\u53E6\u4E00\u8005\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A2\u91DD\u63D0\u9AD8\u53EF\u89C0\u5BDF\u6027\uFF0C\u537B\u8B93\u53EF\u9054\u6027\uFF08\u53EF\u63A7\u5236\u6027\uFF09\u7DAD\u6301\u4E0D\u8B8A\uFF0C\u53CD\u4E4B\u4EA6\u7136\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5F7C\u6B64\u6B63\u4EA4\uFF1A\u5C0D JAMMED \u52A0\u63A2\u91DD\u63D0\u9AD8\u53EF\u89C0\u5BDF\u6027\uFF0C\u4F46 JAMMED \u4ECD\u4E0D\u53EF\u9054\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u6E2C\u8A66\u6027\u7684\u5169\u534A\u662F\u5206\u958B\u7684\u69D3\u687F\u3002\u63A2\u91DD\u6539\u8B8A\u8F38\u51FA\uFF08\u53EF\u89C0\u5BDF\u6027\uFF09\uFF1B\u65B0\u7684\u8F38\u5165\u908A\u6539\u8B8A\u53EF\u9054\u6027\uFF08\u53EF\u63A7\u5236\u6027\uFF09\u3002\u63D0\u9AD8\u5176\u4E00\u4E0D\u6703\u81EA\u52D5\u63D0\u9AD8\u53E6\u4E00\u2014\u2014JAMMED \u63A2\u91DD\u63D0\u9AD8\u53EF\u89C0\u5BDF\u6027\uFF0C\u800C JAMMED \u7684\u53EF\u63A7\u5236\u6027\u4ECD\u70BA\u96F6\u3002"
+          },
+          {
+            "type": "shortanswer",
+            "name": "\u9A45\u52D5\u5230 PASSED \u7684\u6700\u77ED\u6B65\u6578",
+            "text": "<p>\u628A <code>TURNSTILE_SUT</code> \u5F9E\u8D77\u59CB\u9A45\u52D5\u5230 <code>PASSED</code> \u7684\u6700\u77ED\u5E8F\u5217\u9700\u8981\u5E7E\u500B\u8F38\u5165\u6B65\u9A5F\uFF1F\u8ACB\u4EE5\u55AE\u4E00\u6574\u6578\u56DE\u7B54\u3002</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014driveTo \u56DE\u50B3 [coin, push]\uFF0C\u4E00\u500B\u9577\u5EA6\u70BA 2 \u7684\u5E8F\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u901A\u5F80 PASSED \u7684\u552F\u4E00\u8DEF\u7DDA\u662F LOCKED--coin-->UNLOCKED--push-->PASSED\uFF0C\u56E0\u6B64\u6700\u77ED\u7684\u9A45\u52D5\u5E8F\u5217\u6070\u6709 2 \u6B65\u3002",
+            "usecase": false
           }
         ]
       }
@@ -215313,6 +217903,7736 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               }
             ],
             "generalFeedback": "\u7576\u6E2C\u8A66\u5931\u6557\u65BC\u591A\u500B\u7DAD\u5EA6\u6642\uFF0C\u4E3B\u8981\u7684\u662F\u6700\u6839\u672C\u7684\u963B\u7919\u2014\u2014\u90A3\u500B\u4F7F\u5176\u4ED6\u7DAD\u5EA6\u7121\u6CD5\u8A55\u4F30\u6216\u4FEE\u6B63\u7684\u5931\u6557\u3002\u7121\u6CD5\u7DE8\u8B6F\u7684\u6E2C\u8A66\u4E0D\u80FD\u57F7\u884C\u6216\u88AB\u5BE9\u67E5\uFF0C\u56E0\u6B64\u53EF\u7DE8\u8B6F\u662F\u4E3B\u8981\uFF1B\u98A8\u683C\u554F\u984C\u53EA\u6709\u5728\u6E2C\u8A66\u80FD\u5EFA\u7F6E\u5F8C\u624D\u8B8A\u5F97\u76F8\u95DC\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
+    "testability-metrics": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Cyclomatic complexity definition",
+            "text": "<p>In this module the <strong>cyclomatic complexity</strong> of a unit is computed from its decision count as:</p>",
+            "answers": [
+              {
+                "text": "decisions + 1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cyclomatic(unit) = decisions + 1, so a unit with 0 decisions has complexity 1."
+              },
+              {
+                "text": "decisions - 1",
+                "fraction": 0,
+                "feedback": "No \u2014 the formula adds one to the decision count, giving decisions + 1."
+              },
+              {
+                "text": "2 * decisions",
+                "fraction": 0,
+                "feedback": "No \u2014 complexity is decisions + 1, not twice the decisions."
+              },
+              {
+                "text": "the number of responsibilities",
+                "fraction": 0,
+                "feedback": "That is the cohesion penalty; cyclomatic complexity is decisions + 1."
+              }
+            ],
+            "generalFeedback": "Cyclomatic complexity here is M = decisions + 1: a straight-line unit (0 decisions) scores 1, and each decision adds one independent path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fan-out definition",
+            "text": "<p>The <strong>fan-out</strong> of a unit in the call graph is:</p>",
+            "answers": [
+              {
+                "text": "the number of other units it calls (its callees)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-out counts the outgoing call edges from the unit."
+              },
+              {
+                "text": "the number of units that call it (its callers)",
+                "fraction": 0,
+                "feedback": "That is fan-in, not fan-out."
+              },
+              {
+                "text": "the number of decisions it contains",
+                "fraction": 0,
+                "feedback": "That feeds cyclomatic complexity, not fan-out."
+              },
+              {
+                "text": "the number of responsibilities it declares",
+                "fraction": 0,
+                "feedback": "That is the cohesion penalty, not fan-out."
+              }
+            ],
+            "generalFeedback": "Fan-out = outgoing call edges (callees). It counts how many collaborators the unit depends on.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fan-in definition",
+            "text": "<p>The <strong>fan-in</strong> of a unit in the call graph is:</p>",
+            "answers": [
+              {
+                "text": "the number of units that call it (its callers)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-in counts the incoming call edges to the unit."
+              },
+              {
+                "text": "the number of other units it calls (its callees)",
+                "fraction": 0,
+                "feedback": "That is fan-out, not fan-in."
+              },
+              {
+                "text": "the number of decisions it contains",
+                "fraction": 0,
+                "feedback": "Decisions feed cyclomatic complexity, not fan-in."
+              },
+              {
+                "text": "the total number of call edges in the module",
+                "fraction": 0,
+                "feedback": "Fan-in is per unit \u2014 only the edges pointing at it \u2014 not the module total."
+              }
+            ],
+            "generalFeedback": "Fan-in = incoming call edges (callers). It counts how many units depend on this one.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Cohesion penalty definition",
+            "text": "<p>In this module the <strong>cohesion penalty</strong> of a unit equals:</p>",
+            "answers": [
+              {
+                "text": "the number of responsibilities it declares",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cohesionPenalty(unit) = responsibilities.length; more responsibilities means lower cohesion and a higher penalty."
+              },
+              {
+                "text": "the number of decisions it contains",
+                "fraction": 0,
+                "feedback": "Decisions drive cyclomatic complexity, not the cohesion penalty."
+              },
+              {
+                "text": "the number of units it calls",
+                "fraction": 0,
+                "feedback": "That is fan-out, not the cohesion penalty."
+              },
+              {
+                "text": "one divided by the responsibility count",
+                "fraction": 0,
+                "feedback": "No \u2014 the penalty is simply the responsibility count itself (higher = worse)."
+              }
+            ],
+            "generalFeedback": "The cohesion proxy here is LCOM-style and simplified: the penalty is just the count of declared responsibilities. A unit doing many unrelated things is less cohesive and scores a higher penalty.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why high fan-out is harder to test",
+            "text": "<p>Why does a <strong>high fan-out</strong> make a unit harder to test in isolation?</p>",
+            "answers": [
+              {
+                "text": "Each collaborator it calls must be stubbed, faked, or mocked in a test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 more callees means more test doubles to stand in for the dependencies."
+              },
+              {
+                "text": "It automatically has more decisions to cover",
+                "fraction": 0,
+                "feedback": "Fan-out and decisions are independent; fan-out is about collaborators, not branches."
+              },
+              {
+                "text": "It is called by more units, so more callers must be set up",
+                "fraction": 0,
+                "feedback": "That describes fan-in; fan-out is about the units it calls."
+              },
+              {
+                "text": "Its return value cannot be observed",
+                "fraction": 0,
+                "feedback": "Fan-out is about dependencies to substitute, not observability of the return value."
+              }
+            ],
+            "generalFeedback": "High fan-out means many collaborators. To test the unit in isolation you must supply a double for each one, so setup cost grows with fan-out.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why high complexity is harder to test",
+            "text": "<p>Why does a <strong>high cyclomatic complexity</strong> make a unit harder to test thoroughly?</p>",
+            "answers": [
+              {
+                "text": "There are more independent paths, so more test cases are needed to cover them",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cyclomatic complexity approximates the number of independent paths to exercise."
+              },
+              {
+                "text": "There are more collaborators to stub",
+                "fraction": 0,
+                "feedback": "That is the effect of fan-out, not cyclomatic complexity."
+              },
+              {
+                "text": "The unit declares more responsibilities",
+                "fraction": 0,
+                "feedback": "That is cohesion; complexity is about decisions and paths."
+              },
+              {
+                "text": "More units call it",
+                "fraction": 0,
+                "feedback": "That is fan-in; complexity is about the branching inside the unit."
+              }
+            ],
+            "generalFeedback": "Cyclomatic complexity = decisions + 1 estimates the independent paths through the code. More paths means more test cases to reach adequate coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why low cohesion is harder to test",
+            "text": "<p>Why does a unit with <strong>many unrelated responsibilities</strong> (low cohesion) tend to be harder to test?</p>",
+            "answers": [
+              {
+                "text": "It does several unrelated things, so tests need broad, mixed setup and lose focus",
+                "fraction": 100,
+                "feedback": "Correct \u2014 low cohesion pulls the unit in many directions, so each test must arrange several unrelated concerns."
+              },
+              {
+                "text": "It always has zero fan-out",
+                "fraction": 0,
+                "feedback": "Cohesion and fan-out are independent; low cohesion does not force fan-out to zero."
+              },
+              {
+                "text": "Its cyclomatic complexity is always 1",
+                "fraction": 0,
+                "feedback": "Cohesion says nothing about the decision count; complexity is measured separately."
+              },
+              {
+                "text": "It can never be called by another unit",
+                "fraction": 0,
+                "feedback": "Cohesion does not restrict fan-in; it is about how many concerns the unit mixes."
+              }
+            ],
+            "generalFeedback": "A unit with many responsibilities mixes unrelated concerns, so tests must set up and check several things at once \u2014 harder to write and less focused. Splitting responsibilities raises cohesion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read cyclomatic complexity of formatMoney",
+            "text": "<p>In the checkout module, <code>formatMoney</code> has <strong>0</strong> decisions. What is its cyclomatic complexity?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cyclomatic = decisions + 1 = 0 + 1 = 1."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "The formula adds one, so 0 decisions gives complexity 1, not 0."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "0 + 1 = 1; a value of 2 would need 1 decision."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "0 + 1 = 1, not 3."
+              }
+            ],
+            "generalFeedback": "formatMoney is a straight-line helper: 0 decisions, so cyclomatic complexity = 0 + 1 = 1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read cyclomatic complexity of checkout",
+            "text": "<p>In the checkout module, <code>checkout</code> has <strong>6</strong> decisions. What is its cyclomatic complexity?</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cyclomatic = decisions + 1 = 6 + 1 = 7."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "The formula adds one, so 6 decisions gives 7, not 6."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "6 + 1 = 7, not 5."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "The rule is decisions + 1 = 7, not 2 * decisions."
+              }
+            ],
+            "generalFeedback": "checkout has 6 decisions, so cyclomatic complexity = 6 + 1 = 7 \u2014 the highest in the module.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read fan-out of checkout",
+            "text": "<p>In the module, <code>checkout</code> calls <code>validateCart</code>, <code>applyDiscount</code>, <code>chargePayment</code>, and <code>sendReceipt</code>. What is checkout's <strong>fan-out</strong>?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 checkout has four outgoing call edges, so fan-out = 4."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "checkout calls four collaborators, so fan-out is 4, not 0."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "There are four callees listed, so fan-out is 4."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Only four units are called; fan-out = 4."
+              }
+            ],
+            "generalFeedback": "Fan-out counts outgoing call edges. checkout calls four units, so its fan-out is 4 \u2014 the highest in the module.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read fan-in of formatMoney",
+            "text": "<p>In the module, <code>applyDiscount</code>, <code>chargePayment</code>, and <code>sendReceipt</code> each call <code>formatMoney</code>. What is formatMoney's <strong>fan-in</strong>?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 three units call formatMoney, so fan-in = 3."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "Three units call it, so fan-in is 3, not 0."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Three callers are listed, so fan-in is 3."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "Only three units call formatMoney; fan-in = 3."
+              }
+            ],
+            "generalFeedback": "Fan-in counts incoming call edges. formatMoney is called by three units, so its fan-in is 3 \u2014 the highest in the module.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read cohesion penalty of checkout",
+            "text": "<p><code>checkout</code> declares <strong>4</strong> responsibilities (orchestrate-flow, coordinate-steps, handle-errors, audit-log). What is its cohesion penalty?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the cohesion penalty is the responsibility count, which is 4."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "The penalty equals the responsibility count (4), not 1."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "checkout declares four responsibilities, so the penalty is 4."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Four responsibilities give a penalty of 4, not 2."
+              }
+            ],
+            "generalFeedback": "Cohesion penalty = responsibility count. checkout mixes four responsibilities, so its penalty is 4.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Fan-out counts callees",
+            "text": "<p>A unit's fan-out counts the collaborators it calls (its callees).</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-out is the number of outgoing call edges, i.e. the callees."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Fan-out does count callees; it is the callers that fan-in counts."
+              }
+            ],
+            "generalFeedback": "Fan-out = outgoing edges (callees); fan-in = incoming edges (callers). More callees means more collaborators to stub in a test."
+          },
+          {
+            "type": "truefalse",
+            "name": "More responsibilities means lower cohesion",
+            "text": "<p>A unit that declares more unrelated responsibilities is treated as having lower cohesion and a higher cohesion penalty.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the penalty equals the responsibility count, so more responsibilities means a higher penalty and lower cohesion."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "More responsibilities does lower cohesion here: the penalty is the responsibility count, so it rises with each added responsibility."
+              }
+            ],
+            "generalFeedback": "The cohesion proxy penalizes units that mix many responsibilities: penalty = responsibility count, so more responsibilities = lower cohesion = higher penalty."
+          },
+          {
+            "type": "multichoice",
+            "name": "Hardness score formula",
+            "text": "<p>How is a unit's <strong>testability hardness score</strong> combined from its metrics?</p>",
+            "answers": [
+              {
+                "text": "score = cyclomatic + 2 * fanOut + cohesionPenalty",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-out is weighted 2, while cyclomatic and cohesion penalty each contribute with weight 1."
+              },
+              {
+                "text": "score = cyclomatic + fanIn + cohesionPenalty",
+                "fraction": 0,
+                "feedback": "No \u2014 the score uses fan-out (weighted 2), not fan-in."
+              },
+              {
+                "text": "score = cyclomatic * fanOut * cohesionPenalty",
+                "fraction": 0,
+                "feedback": "No \u2014 the signals are added (with fan-out weighted 2), not multiplied."
+              },
+              {
+                "text": "score = 2 * cyclomatic + fanOut + cohesionPenalty",
+                "fraction": 0,
+                "feedback": "No \u2014 it is fan-out that carries the weight 2, not cyclomatic complexity."
+              }
+            ],
+            "generalFeedback": "score = cyclomatic + 2 * fanOut + cohesionPenalty. Fan-out is doubled because each collaborator both adds a path and a test double. Fan-in is reported but not part of the score.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Compute cyclomatic complexity of chargePayment",
+            "text": "<p><code>chargePayment</code> has <strong>4</strong> decisions. Compute its cyclomatic complexity.</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 + 1 = 5."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "The formula adds one: 4 + 1 = 5."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "4 + 1 = 5, not 3."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "It is decisions + 1 = 5, not 2 * decisions."
+              }
+            ],
+            "generalFeedback": "cyclomatic(chargePayment) = decisions + 1 = 4 + 1 = 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute cyclomatic complexity of validateCart",
+            "text": "<p><code>validateCart</code> has <strong>3</strong> decisions. Compute its cyclomatic complexity.</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 + 1 = 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The formula adds one: 3 + 1 = 4."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "3 + 1 = 4, not 2."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "It is decisions + 1 = 4, not 2 * decisions."
+              }
+            ],
+            "generalFeedback": "cyclomatic(validateCart) = decisions + 1 = 3 + 1 = 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute fan-out of chargePayment",
+            "text": "<p>In the module, <code>chargePayment</code> calls only <code>formatMoney</code>. What is chargePayment's <strong>fan-out</strong>?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one outgoing call edge, so fan-out = 1."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "It calls formatMoney, so fan-out is 1, not 0."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Only one callee is listed, so fan-out is 1."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "chargePayment calls a single unit; fan-out = 1."
+              }
+            ],
+            "generalFeedback": "chargePayment has one outgoing edge (to formatMoney), so its fan-out is 1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute fan-in of validateCart",
+            "text": "<p>In the module, the only unit that calls <code>validateCart</code> is <code>checkout</code>. What is validateCart's <strong>fan-in</strong>?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one incoming call edge (from checkout), so fan-in = 1."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "checkout calls it, so fan-in is 1, not 0."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Only checkout calls it, so fan-in is 1."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "There is a single caller; fan-in = 1."
+              }
+            ],
+            "generalFeedback": "validateCart is called only by checkout, so its fan-in is 1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute cohesion penalty of validateCart",
+            "text": "<p><code>validateCart</code> declares <strong>2</strong> responsibilities (check-stock, check-address). What is its cohesion penalty?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the penalty is the responsibility count, which is 2."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "Two responsibilities give a penalty of 2, not 1."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "validateCart declares two responsibilities, so the penalty is 2."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The count is 2, so the penalty is 2."
+              }
+            ],
+            "generalFeedback": "Cohesion penalty = responsibility count = 2 for validateCart.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which unit is hardest to test",
+            "text": "<p>Across the module, which unit is the <strong>hardest to test</strong>, and why?</p>",
+            "answers": [
+              {
+                "text": "checkout \u2014 it is high on every signal (cyclomatic 7, fan-out 4, cohesion 4)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 checkout is an orchestrator: most decisions, most collaborators, and the most responsibilities."
+              },
+              {
+                "text": "formatMoney \u2014 because it is called by three units",
+                "fraction": 0,
+                "feedback": "High fan-in does not make formatMoney hard; it is a trivial pure helper (the easiest unit)."
+              },
+              {
+                "text": "validateCart \u2014 because it calls the most collaborators",
+                "fraction": 0,
+                "feedback": "validateCart has fan-out 0; checkout is the one that calls four collaborators."
+              },
+              {
+                "text": "chargePayment \u2014 because it has the highest cyclomatic complexity",
+                "fraction": 0,
+                "feedback": "checkout has the highest complexity (7); chargePayment is 5, and checkout leads on every signal."
+              }
+            ],
+            "generalFeedback": "checkout is the hard-to-test orchestrator: cyclomatic 7, fan-out 4, cohesion 4, giving the top hardness score in the module.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fan-out and the number of test doubles",
+            "text": "<p>To test a unit with <strong>fan-out 4</strong> in isolation, roughly how many collaborators must you replace with test doubles?</p>",
+            "answers": [
+              {
+                "text": "About 4 \u2014 one double per collaborator it calls",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each callee is a dependency you must stub, fake, or mock."
+              },
+              {
+                "text": "0 \u2014 fan-out has no effect on doubles",
+                "fraction": 0,
+                "feedback": "Fan-out is exactly the count of collaborators to substitute."
+              },
+              {
+                "text": "1 \u2014 one double covers all collaborators",
+                "fraction": 0,
+                "feedback": "Each distinct collaborator generally needs its own double; fan-out 4 means about 4."
+              },
+              {
+                "text": "8 \u2014 twice the fan-out",
+                "fraction": 0,
+                "feedback": "The score weights fan-out by 2, but the number of collaborators to double is the fan-out itself, 4."
+              }
+            ],
+            "generalFeedback": "Fan-out counts collaborators, and isolation testing needs a double for each, so fan-out 4 means about four doubles. (The score doubles fan-out's weight to reflect that each collaborator adds both a path and a double.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Complexity and the number of test cases",
+            "text": "<p>A unit's cyclomatic complexity is 5. What does that most directly tell you about testing it?</p>",
+            "answers": [
+              {
+                "text": "Roughly 5 independent paths need exercising, so about that many test cases",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cyclomatic complexity approximates the number of independent paths to cover."
+              },
+              {
+                "text": "It must be called by 5 other units",
+                "fraction": 0,
+                "feedback": "That would be fan-in; complexity is about internal paths."
+              },
+              {
+                "text": "It declares 5 responsibilities",
+                "fraction": 0,
+                "feedback": "That would be the cohesion penalty; complexity counts decisions + 1."
+              },
+              {
+                "text": "It calls 5 collaborators",
+                "fraction": 0,
+                "feedback": "That would be fan-out; complexity is about branching, not calls."
+              }
+            ],
+            "generalFeedback": "Cyclomatic complexity approximates the number of independent paths, which is a lower bound on the tests needed to cover the branching logic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Match metric to test-difficulty effect",
+            "text": "<p>Which pairing of metric to its main test-difficulty effect is correct?</p>",
+            "answers": [
+              {
+                "text": "fan-out \u2192 number of collaborators to stub; cyclomatic \u2192 number of paths to cover",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-out drives the doubles, cyclomatic drives the paths/test cases."
+              },
+              {
+                "text": "fan-out \u2192 number of paths to cover; cyclomatic \u2192 number of collaborators to stub",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 fan-out is about collaborators, cyclomatic about paths."
+              },
+              {
+                "text": "fan-in \u2192 number of collaborators to stub; cohesion \u2192 number of paths",
+                "fraction": 0,
+                "feedback": "Fan-in is callers (not doubles), and cohesion is about mixed responsibilities, not paths."
+              },
+              {
+                "text": "cohesion \u2192 number of collaborators to stub; fan-out \u2192 responsibilities mixed",
+                "fraction": 0,
+                "feedback": "Reversed \u2014 fan-out drives collaborators; cohesion counts responsibilities."
+              }
+            ],
+            "generalFeedback": "Each metric maps to a distinct cost: fan-out to test doubles, cyclomatic to paths/test cases, cohesion penalty to unrelated setup. Fan-in (callers) affects ripple risk but is not part of the hardness score.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which unit is easiest to test",
+            "text": "<p>Which unit is the <strong>easiest to test</strong>, and why?</p>",
+            "answers": [
+              {
+                "text": "formatMoney \u2014 a pure helper with 0 decisions, fan-out 0, and one responsibility",
+                "fraction": 100,
+                "feedback": "Correct \u2014 nothing to stub, one path, one job: the lowest hardness in the module."
+              },
+              {
+                "text": "checkout \u2014 because it is the entry point",
+                "fraction": 0,
+                "feedback": "checkout is the hardest, not the easiest \u2014 it leads on every signal."
+              },
+              {
+                "text": "chargePayment \u2014 because it has few responsibilities",
+                "fraction": 0,
+                "feedback": "chargePayment still has 4 decisions and a collaborator; formatMoney is trivially testable."
+              },
+              {
+                "text": "formatMoney \u2014 because it has the highest fan-in",
+                "fraction": 0,
+                "feedback": "formatMoney is easiest despite its fan-in; fan-in does not make a unit hard to test, and its own metrics are minimal."
+              }
+            ],
+            "generalFeedback": "formatMoney has 0 decisions (complexity 1), fan-out 0, and one responsibility \u2014 a pure helper that is trivially testable. Its high fan-in does not affect how hard it is to test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compare two units by their metrics",
+            "text": "<p>Compare <code>chargePayment</code> (cyclomatic 5, fan-out 1, cohesion 2) and <code>sendReceipt</code> (cyclomatic 4, fan-out 1, cohesion 1). Which is harder to test?</p>",
+            "answers": [
+              {
+                "text": "chargePayment \u2014 it has higher complexity and a higher cohesion penalty at the same fan-out",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with equal fan-out, chargePayment leads on both complexity and cohesion, so it is harder."
+              },
+              {
+                "text": "sendReceipt \u2014 because a receipt is user-facing",
+                "fraction": 0,
+                "feedback": "Hardness here is structural; on the metrics chargePayment is harder."
+              },
+              {
+                "text": "They are exactly equal",
+                "fraction": 0,
+                "feedback": "They share fan-out but chargePayment has more complexity and cohesion penalty, so it is harder."
+              },
+              {
+                "text": "sendReceipt \u2014 because it has lower cohesion",
+                "fraction": 0,
+                "feedback": "sendReceipt has the lower cohesion penalty (1 vs 2), which makes it easier, not harder."
+              }
+            ],
+            "generalFeedback": "Both have fan-out 1, but chargePayment has cyclomatic 5 vs 4 and cohesion 2 vs 1, so it is the harder unit (score 9 vs 7).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fan-in versus fan-out for stubbing",
+            "text": "<p>Which metric tells you how many collaborators you must <strong>stub or fake</strong> to test a unit in isolation?</p>",
+            "answers": [
+              {
+                "text": "Fan-out \u2014 the callees the unit depends on",
+                "fraction": 100,
+                "feedback": "Correct \u2014 you must substitute the units it calls, which is its fan-out."
+              },
+              {
+                "text": "Fan-in \u2014 the callers that depend on it",
+                "fraction": 0,
+                "feedback": "Fan-in is who calls the unit; it does not tell you what to stub inside the test."
+              },
+              {
+                "text": "Cyclomatic complexity",
+                "fraction": 0,
+                "feedback": "That tells you the paths to cover, not the collaborators to substitute."
+              },
+              {
+                "text": "Cohesion penalty",
+                "fraction": 0,
+                "feedback": "That counts responsibilities, not collaborators to stub."
+              }
+            ],
+            "generalFeedback": "To test a unit in isolation you replace what it calls \u2014 its callees \u2014 so fan-out is the number of doubles. Fan-in (callers) matters for ripple/impact, not for stubbing this unit.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret checkout's fan-in of 0",
+            "text": "<p><code>checkout</code> has a <strong>fan-in of 0</strong>. What does that indicate?</p>",
+            "answers": [
+              {
+                "text": "No other unit in the module calls it \u2014 it is the top-level entry point",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-in 0 means nothing calls checkout; it is the module's orchestrating entry point."
+              },
+              {
+                "text": "It calls no other units",
+                "fraction": 0,
+                "feedback": "That would be fan-out 0; checkout actually has fan-out 4. Fan-in 0 means nothing calls it."
+              },
+              {
+                "text": "It has no decisions",
+                "fraction": 0,
+                "feedback": "Fan-in is about callers, not decisions; checkout has 6 decisions."
+              },
+              {
+                "text": "It is dead code",
+                "fraction": 0,
+                "feedback": "An entry point legitimately has no in-module callers; it is invoked from outside, not dead."
+              }
+            ],
+            "generalFeedback": "Fan-in 0 means no unit in the module calls checkout \u2014 it is the top-level entry point (invoked from outside). It still has fan-out 4 because it orchestrates the others.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute cyclomatic complexity of sendReceipt",
+            "text": "<p><code>sendReceipt</code> has <strong>3</strong> decisions. Compute its cyclomatic complexity.</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 + 1 = 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "The formula adds one: 3 + 1 = 4."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "3 + 1 = 4, not 5; 5 would need 4 decisions."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "3 + 1 = 4, not 2."
+              }
+            ],
+            "generalFeedback": "cyclomatic(sendReceipt) = decisions + 1 = 3 + 1 = 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which unit needs more test doubles",
+            "text": "<p><code>checkout</code> has fan-out 4 and <code>applyDiscount</code> has fan-out 1. To test each in isolation, which needs more collaborators replaced by test doubles?</p>",
+            "answers": [
+              {
+                "text": "checkout \u2014 about 4 doubles versus about 1 for applyDiscount",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-out is the count of collaborators to substitute, so higher fan-out means more doubles."
+              },
+              {
+                "text": "applyDiscount \u2014 because it is simpler overall",
+                "fraction": 0,
+                "feedback": "Simpler overall, yes, but it has the lower fan-out (1), so it needs fewer doubles, not more."
+              },
+              {
+                "text": "They need the same number, since both are units",
+                "fraction": 0,
+                "feedback": "The number of doubles tracks fan-out: 4 for checkout versus 1 for applyDiscount."
+              },
+              {
+                "text": "applyDiscount \u2014 because it has a higher fan-in",
+                "fraction": 0,
+                "feedback": "Fan-in does not determine doubles; fan-out does, and checkout's is higher."
+              }
+            ],
+            "generalFeedback": "Isolation testing replaces each collaborator a unit calls, so the number of doubles equals fan-out: checkout (4) needs far more than applyDiscount (1).",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Compute the hardness score of checkout",
+            "text": "<p><code>checkout</code> has cyclomatic 7, fan-out 4, and cohesion penalty 4. Using score = cyclomatic + 2 * fanOut + cohesionPenalty, what is its hardness score?</p>",
+            "answers": [
+              {
+                "text": "19",
+                "fraction": 100,
+                "feedback": "Correct \u2014 7 + 2*4 + 4 = 7 + 8 + 4 = 19."
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "That forgets to double the fan-out: 7 + 4 + 4 = 15. With the weight, 7 + 8 + 4 = 19."
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "23 would double something else; the correct sum is 7 + 8 + 4 = 19."
+              },
+              {
+                "text": "11",
+                "fraction": 0,
+                "feedback": "11 ignores cohesion; the sum is 7 + 8 + 4 = 19."
+              }
+            ],
+            "generalFeedback": "score(checkout) = 7 + 2*4 + 4 = 19, the highest in the module.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute the hardness score of chargePayment",
+            "text": "<p><code>chargePayment</code> has cyclomatic 5, fan-out 1, and cohesion penalty 2. What is its hardness score?</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "Correct \u2014 5 + 2*1 + 2 = 5 + 2 + 2 = 9."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "That forgets to double the fan-out: 5 + 1 + 2 = 8. With the weight it is 5 + 2 + 2 = 9."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is sendReceipt's score; chargePayment is 5 + 2 + 2 = 9."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "The sum is 5 + 2 + 2 = 9, not 10."
+              }
+            ],
+            "generalFeedback": "score(chargePayment) = 5 + 2*1 + 2 = 9, second-hardest behind checkout (19).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Break the score tie between applyDiscount and validateCart",
+            "text": "<p>Both <code>applyDiscount</code> and <code>validateCart</code> have a hardness score of <strong>6</strong>. In the ranking, which appears first and why?</p>",
+            "answers": [
+              {
+                "text": 'applyDiscount \u2014 ties are broken by id in ascending order, and "applyDiscount" sorts before "validateCart"',
+                "fraction": 100,
+                "feedback": "Correct \u2014 equal scores are ordered by id ascending, so applyDiscount comes first."
+              },
+              {
+                "text": "validateCart \u2014 because it has more responsibilities",
+                "fraction": 0,
+                "feedback": "The tie is broken by id, not by any metric; applyDiscount sorts first."
+              },
+              {
+                "text": "applyDiscount \u2014 because it has higher cyclomatic complexity",
+                "fraction": 0,
+                "feedback": "validateCart actually has higher complexity (4 vs 3); the tie-break is purely id-ascending."
+              },
+              {
+                "text": "Their order is random",
+                "fraction": 0,
+                "feedback": "The ranking is deterministic: equal scores sort by id ascending."
+              }
+            ],
+            "generalFeedback": 'The ranking sorts by score descending, then by id ascending. With equal scores of 6, "applyDiscount" < "validateCart" alphabetically, so applyDiscount is listed first.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Full hardness ranking of the module",
+            "text": "<p>What is the correct hardness ranking (hardest first) for the checkout module?</p>",
+            "answers": [
+              {
+                "text": "checkout, chargePayment, sendReceipt, applyDiscount, validateCart, formatMoney",
+                "fraction": 100,
+                "feedback": "Correct \u2014 scores 19, 9, 7, 6, 6, 2, with applyDiscount before validateCart on the id tie-break."
+              },
+              {
+                "text": "checkout, chargePayment, sendReceipt, validateCart, applyDiscount, formatMoney",
+                "fraction": 0,
+                "feedback": "Close, but the 6-6 tie breaks by id ascending, so applyDiscount precedes validateCart."
+              },
+              {
+                "text": "checkout, sendReceipt, chargePayment, validateCart, applyDiscount, formatMoney",
+                "fraction": 0,
+                "feedback": "chargePayment (9) outranks sendReceipt (7), so chargePayment must come second."
+              },
+              {
+                "text": "formatMoney, applyDiscount, validateCart, sendReceipt, chargePayment, checkout",
+                "fraction": 0,
+                "feedback": "That is ascending order; the ranking is hardest first, so checkout leads."
+              }
+            ],
+            "generalFeedback": "Scores: checkout 19, chargePayment 9, sendReceipt 7, applyDiscount 6, validateCart 6, formatMoney 2. Descending by score, then ascending by id for the 6-6 tie, gives checkout, chargePayment, sendReceipt, applyDiscount, validateCart, formatMoney.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret the reason for the hardest unit",
+            "text": "<p>For <code>checkout</code> the metrics are cyclomatic 7, fan-out 4, cohesion 4. The reason picks the largest <em>weighted</em> contribution. Which contributor dominates?</p>",
+            "answers": [
+              {
+                "text": "Fan-out \u2014 its weighted contribution is 2*4 = 8, larger than complexity 7 or cohesion 4",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 after weighting, fan-out (8) beats complexity (7) and cohesion (4), so the reason is "dominated by fan-out \u2014 an orchestrator."'
+              },
+              {
+                "text": "Complexity \u2014 because 7 is the biggest raw number",
+                "fraction": 0,
+                "feedback": "The reason uses weighted contributions: fan-out's 2*4 = 8 exceeds the raw complexity of 7."
+              },
+              {
+                "text": "Cohesion \u2014 because it has 4 responsibilities",
+                "fraction": 0,
+                "feedback": "Cohesion contributes 4, less than fan-out's weighted 8; fan-out dominates."
+              },
+              {
+                "text": "Fan-in \u2014 because it is the entry point",
+                "fraction": 0,
+                "feedback": "Fan-in is not part of the score or the reason; the dominant weighted contributor is fan-out."
+              }
+            ],
+            "generalFeedback": "Weighted contributions for checkout: complexity 7, fan-out 2*4 = 8, cohesion 4. The largest is fan-out, so the reason names it \u2014 checkout is a fan-out-dominated orchestrator, even though its raw complexity (7) is also high.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Highest-leverage fix for checkout",
+            "text": "<p>Given that checkout is dominated by fan-out, what is the single highest-leverage fix the module recommends?</p>",
+            "answers": [
+              {
+                "text": "Split it \u2014 extract a collaborator so no single unit orchestrates everything",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fix targets the dominant contributor (fan-out), so it recommends splitting/extracting to reduce orchestration."
+              },
+              {
+                "text": "Add more callers so its fan-in rises",
+                "fraction": 0,
+                "feedback": "Fan-in is not part of hardness; adding callers does nothing to reduce checkout's score."
+              },
+              {
+                "text": "Merge all its collaborators back into checkout",
+                "fraction": 0,
+                "feedback": "That would raise fan-out and complexity, making it harder, not easier."
+              },
+              {
+                "text": "Rename its responsibilities",
+                "fraction": 0,
+                "feedback": "Renaming does not change any metric; the leverage is in reducing fan-out by splitting."
+              }
+            ],
+            "generalFeedback": "The highest-leverage fix addresses the dominant contributor. Since fan-out dominates checkout, the recommendation is to split it and extract a collaborator so orchestration is spread out.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of adding checkout to formatMoney dependency",
+            "text": "<p>Starting from the base module, you <strong>add a dependency</strong> <code>checkout to formatMoney</code>. checkout's fan-out goes from 4 to 5. What is checkout's new hardness score?</p>",
+            "answers": [
+              {
+                "text": "21",
+                "fraction": 100,
+                "feedback": "Correct \u2014 7 + 2*5 + 4 = 7 + 10 + 4 = 21 (up from 19)."
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "Each unit of fan-out adds 2 to the score, so 19 + 2 = 21, not 20."
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "Fan-out rose, so the score rises: 7 + 10 + 4 = 21."
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "7 + 2*5 + 4 = 21, not 23."
+              }
+            ],
+            "generalFeedback": "Adding an outgoing edge raises the caller's fan-out by 1, and each fan-out unit is weighted 2, so checkout's score climbs from 19 to 7 + 2*5 + 4 = 21. checkout stays the hardest.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Adding a dependency raises the caller's score",
+            "text": "<p>You add a dependency <code>validateCart to formatMoney</code>. validateCart's fan-out goes from 0 to 1. Its cyclomatic (4) and cohesion (2) are unchanged. What is validateCart's new hardness score?</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 + 2*1 + 2 = 8 (up from 6)."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 was the old score; adding a callee raises fan-out, so it becomes 4 + 2 + 2 = 8."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "Fan-out is weighted 2, so the score rises by 2 (from 6 to 8), not 1."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "4 + 2*1 + 2 = 8, not 10."
+              }
+            ],
+            "generalFeedback": "Adding an outgoing edge gives validateCart fan-out 1, weighted 2, so its score rises from 6 to 4 + 2*1 + 2 = 8 \u2014 enough to overtake sendReceipt (7).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "New hardest unit after splitting checkout",
+            "text": "<p>You <strong>split</strong> the hardest unit <code>checkout</code> into <code>checkout-a</code> and <code>checkout-b</code>. After the split, checkout-a scores 12 and checkout-b scores 10. Which unit is now the hardest, and how does its score compare with checkout's original 19?</p>",
+            "answers": [
+              {
+                "text": "checkout-a, at 12 \u2014 the top hardness dropped from 19 to 12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 splitting lowered the worst-case per-unit hardness from 19 to 12."
+              },
+              {
+                "text": "chargePayment, at 9 \u2014 it is now the hardest",
+                "fraction": 0,
+                "feedback": "checkout-a (12) and checkout-b (10) both exceed chargePayment (9), so chargePayment is not the hardest."
+              },
+              {
+                "text": "checkout-a, still at 19 \u2014 splitting changes nothing",
+                "fraction": 0,
+                "feedback": "The split halves complexity and distributes edges, so checkout-a scores 12, not 19."
+              },
+              {
+                "text": "checkout-b, at 10 \u2014 it is the hardest",
+                "fraction": 0,
+                "feedback": "checkout-a (12) is higher than checkout-b (10), so checkout-a is the hardest."
+              }
+            ],
+            "generalFeedback": "After splitting, checkout-a (12) is hardest and checkout-b is 10. The worst per-unit hardness fell from 19 to 12: splitting trades one very hard unit for two smaller ones.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Cyclomatic complexity of checkout-a after the split",
+            "text": "<p>The split rule sends ceil(d/2) decisions to the primary unit. checkout had <strong>6</strong> decisions. What is <code>checkout-a</code>'s cyclomatic complexity after the split?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ceil(6/2) = 3 decisions, so cyclomatic = 3 + 1 = 4."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 was checkout's complexity before the split; after splitting the decisions halve to 3, giving 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is checkout-a's decision count; cyclomatic adds one, giving 4."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "The decisions are halved (6 to 3), so cyclomatic = 3 + 1 = 4."
+              }
+            ],
+            "generalFeedback": "checkout-a gets ceil(6/2) = 3 decisions, so cyclomatic = 3 + 1 = 4 (checkout-b also gets floor(6/2) = 3 decisions). Halving the decisions is what lowers complexity.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The coupling-versus-complexity trade-off",
+            "text": "<p>Splitting a big unit into two smaller ones lowers each unit's complexity, but what does it cost structurally?</p>",
+            "answers": [
+              {
+                "text": "It adds a new collaborator and a new call edge, raising overall coupling",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the extracted helper is a new unit the primary must call, so total coupling (edges) goes up even as per-unit complexity falls."
+              },
+              {
+                "text": "It increases the number of decisions in the module",
+                "fraction": 0,
+                "feedback": "Splitting distributes the existing decisions; it does not create new ones."
+              },
+              {
+                "text": "It removes all fan-in from the module",
+                "fraction": 0,
+                "feedback": "Incoming edges are redirected, not removed; the module still has fan-in."
+              },
+              {
+                "text": "Nothing \u2014 smaller units are strictly better on every metric",
+                "fraction": 0,
+                "feedback": "There is a real trade-off: lower per-unit complexity but more units and more coupling to manage."
+              }
+            ],
+            "generalFeedback": "Extraction is a trade: complexity per unit drops, but you gain a unit and at least one new call edge (a to b), so overall coupling rises. Testability is about balancing complexity against coupling, not maximizing one.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why fan-out is weighted more than complexity",
+            "text": "<p>In the score, fan-out is multiplied by 2 while cyclomatic and cohesion carry weight 1. What does this weighting emphasize?</p>",
+            "answers": [
+              {
+                "text": "That each collaborator is doubly costly \u2014 it adds both a path to cover and a double to build",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the doubled weight reflects that coupling to a collaborator hurts isolation testing on two fronts."
+              },
+              {
+                "text": "That fan-out is the only metric that matters",
+                "fraction": 0,
+                "feedback": "All three signals contribute; fan-out is merely weighted more heavily."
+              },
+              {
+                "text": "That complexity should be ignored",
+                "fraction": 0,
+                "feedback": "Complexity still counts with weight 1; it is not ignored."
+              },
+              {
+                "text": "That fan-in is twice as important as fan-out",
+                "fraction": 0,
+                "feedback": "Fan-in is not in the score at all; it is fan-out that is doubled."
+              }
+            ],
+            "generalFeedback": "Fan-out is weighted 2 because each outgoing dependency adds both an extra path through the caller and a collaborator that must be substituted with a double \u2014 so coupling is penalized more than complexity or cohesion alone.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Receiving a dependency does not change the callee's score",
+            "text": "<p>Adding a dependency <code>validateCart to formatMoney</code> raises formatMoney's fan-in from 3 to 4, but leaves formatMoney's hardness score unchanged at 2.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fan-in is not part of score = cyclomatic + 2*fanOut + cohesionPenalty, so formatMoney's score stays 2."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The score uses fan-out, not fan-in, so a new incoming edge leaves formatMoney's score at 2."
+              }
+            ],
+            "generalFeedback": "The hardness score depends on fan-out (weight 2), cyclomatic, and cohesion \u2014 not fan-in. Receiving another caller raises formatMoney's fan-in to 4 but its score stays 2; only the caller (which gains fan-out) gets harder."
+          },
+          {
+            "type": "multichoice",
+            "name": "Ranking change after adding validateCart to formatMoney",
+            "text": "<p>After adding <code>validateCart to formatMoney</code>, validateCart's score becomes 8 while sendReceipt stays at 7. How does the ranking near the top change?</p>",
+            "answers": [
+              {
+                "text": "validateCart rises above sendReceipt into third place, behind checkout (19) and chargePayment (9)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at 8, validateCart now outranks sendReceipt (7) and sits third."
+              },
+              {
+                "text": "Nothing changes; validateCart stays below sendReceipt",
+                "fraction": 0,
+                "feedback": "validateCart went from 6 to 8, so it now overtakes sendReceipt's 7."
+              },
+              {
+                "text": "validateCart becomes the hardest unit",
+                "fraction": 0,
+                "feedback": "checkout (19) is still far ahead; validateCart at 8 only reaches third."
+              },
+              {
+                "text": "formatMoney rises because its fan-in increased",
+                "fraction": 0,
+                "feedback": "formatMoney's score is unchanged at 2 \u2014 fan-in is not part of the score."
+              }
+            ],
+            "generalFeedback": "The new edge gives validateCart fan-out 1 and score 8, overtaking sendReceipt (7). The top order becomes checkout (19), chargePayment (9), validateCart (8), sendReceipt (7). formatMoney is unaffected.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which change lowers the module's maximum hardness",
+            "text": "<p>You want to reduce the <strong>worst-case</strong> per-unit hardness in the module. Which action does that?</p>",
+            "answers": [
+              {
+                "text": "Split the hardest unit checkout, dropping its top score from 19 to 12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 splitting halves complexity and distributes edges, lowering the maximum hardness to 12."
+              },
+              {
+                "text": "Add a dependency from checkout to formatMoney",
+                "fraction": 0,
+                "feedback": "That raises checkout's fan-out and score to 21 \u2014 the opposite of what you want."
+              },
+              {
+                "text": "Add a dependency into checkout to raise its fan-in",
+                "fraction": 0,
+                "feedback": "Fan-in is not part of the score, so this does not lower the maximum hardness."
+              },
+              {
+                "text": "Rename checkout's responsibilities",
+                "fraction": 0,
+                "feedback": "Renaming changes no metric; the count of responsibilities and every other signal is unchanged."
+              }
+            ],
+            "generalFeedback": "Adding dependencies only raises fan-out and scores. Splitting the hardest unit is what lowers the peak: checkout's 19 becomes checkout-a 12 and checkout-b 10, so the module's maximum hardness falls to 12.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u5FAA\u74B0\u8907\u96DC\u5EA6\u5B9A\u7FA9",
+            "text": "<p>\u5728\u672C\u6A21\u7D44\u4E2D\uFF0C\u55AE\u5143\u7684<strong>\u5FAA\u74B0\u8907\u96DC\u5EA6\uFF08cyclomatic complexity\uFF09</strong>\u662F\u7531\u5176\u5224\u5B9A\u6578\uFF08decisions\uFF09\u8A08\u7B97\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5224\u5B9A\u6578 + 1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014cyclomatic(unit) = decisions + 1\uFF0C\u6545\u5224\u5B9A\u6578\u70BA 0 \u7684\u55AE\u5143\u8907\u96DC\u5EA6\u70BA 1\u3002"
+              },
+              {
+                "text": "\u5224\u5B9A\u6578 - 1",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u516C\u5F0F\u662F\u52A0\u4E00\uFF0C\u5373 decisions + 1\u3002"
+              },
+              {
+                "text": "2 \xD7 \u5224\u5B9A\u6578",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u8907\u96DC\u5EA6\u662F decisions + 1\uFF0C\u800C\u975E\u5224\u5B9A\u6578\u7684\u5169\u500D\u3002"
+              },
+              {
+                "text": "\u8077\u8CAC\u7684\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5167\u805A\u61F2\u7F70\uFF1B\u5FAA\u74B0\u8907\u96DC\u5EA6\u662F decisions + 1\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8655\u5FAA\u74B0\u8907\u96DC\u5EA6\u70BA M = decisions + 1\uFF1A\u76F4\u7DDA\u5F0F\u55AE\u5143\uFF080 \u5224\u5B9A\uFF09\u5F97 1\uFF0C\u6BCF\u500B\u5224\u5B9A\u589E\u52A0\u4E00\u689D\u7368\u7ACB\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6247\u51FA\u5B9A\u7FA9",
+            "text": "<p>\u55AE\u5143\u5728\u547C\u53EB\u5716\u4E2D\u7684<strong>\u6247\u51FA\uFF08fan-out\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6240\u547C\u53EB\u7684\u5176\u4ED6\u55AE\u5143\u6578\u91CF\uFF08\u5B83\u7684\u88AB\u547C\u53EB\u8005 callee\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u51FA\u8A08\u7B97\u7531\u8A72\u55AE\u5143\u51FA\u53BB\u7684\u547C\u53EB\u908A\u3002"
+              },
+              {
+                "text": "\u547C\u53EB\u5B83\u7684\u55AE\u5143\u6578\u91CF\uFF08\u5B83\u7684\u547C\u53EB\u8005 caller\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6247\u5165\uFF08fan-in\uFF09\uFF0C\u4E0D\u662F\u6247\u51FA\u3002"
+              },
+              {
+                "text": "\u5B83\u6240\u542B\u7684\u5224\u5B9A\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u9935\u7D66\u5FAA\u74B0\u8907\u96DC\u5EA6\uFF0C\u4E0D\u662F\u6247\u51FA\u3002"
+              },
+              {
+                "text": "\u5B83\u6240\u5BA3\u544A\u7684\u8077\u8CAC\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5167\u805A\u61F2\u7F70\uFF0C\u4E0D\u662F\u6247\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u51FA\uFF1D\u51FA\u53BB\u7684\u547C\u53EB\u908A\uFF08\u88AB\u547C\u53EB\u8005\uFF09\u3002\u5B83\u8A08\u7B97\u8A72\u55AE\u5143\u4F9D\u8CF4\u591A\u5C11\u500B\u5354\u4F5C\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6247\u5165\u5B9A\u7FA9",
+            "text": "<p>\u55AE\u5143\u5728\u547C\u53EB\u5716\u4E2D\u7684<strong>\u6247\u5165\uFF08fan-in\uFF09</strong>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u547C\u53EB\u5B83\u7684\u55AE\u5143\u6578\u91CF\uFF08\u5B83\u7684\u547C\u53EB\u8005 caller\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u5165\u8A08\u7B97\u9032\u5165\u8A72\u55AE\u5143\u7684\u547C\u53EB\u908A\u3002"
+              },
+              {
+                "text": "\u5B83\u6240\u547C\u53EB\u7684\u5176\u4ED6\u55AE\u5143\u6578\u91CF\uFF08\u5B83\u7684\u88AB\u547C\u53EB\u8005 callee\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6247\u51FA\uFF08fan-out\uFF09\uFF0C\u4E0D\u662F\u6247\u5165\u3002"
+              },
+              {
+                "text": "\u5B83\u6240\u542B\u7684\u5224\u5B9A\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u9935\u7D66\u5FAA\u74B0\u8907\u96DC\u5EA6\uFF0C\u4E0D\u662F\u6247\u5165\u3002"
+              },
+              {
+                "text": "\u6A21\u7D44\u4E2D\u547C\u53EB\u908A\u7684\u7E3D\u6578",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u662F\u4EE5\u55AE\u5143\u70BA\u55AE\u4F4D\u2014\u2014\u53EA\u7B97\u6307\u5411\u5B83\u7684\u908A\u2014\u2014\u800C\u975E\u6A21\u7D44\u7E3D\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u5165\uFF1D\u9032\u5165\u7684\u547C\u53EB\u908A\uFF08\u547C\u53EB\u8005\uFF09\u3002\u5B83\u8A08\u7B97\u6709\u591A\u5C11\u55AE\u5143\u4F9D\u8CF4\u9019\u4E00\u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5167\u805A\u61F2\u7F70\u5B9A\u7FA9",
+            "text": "<p>\u5728\u672C\u6A21\u7D44\u4E2D\uFF0C\u55AE\u5143\u7684<strong>\u5167\u805A\u61F2\u7F70\uFF08cohesion penalty\uFF09</strong>\u7B49\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6240\u5BA3\u544A\u7684\u8077\u8CAC\u6578\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014cohesionPenalty(unit) = responsibilities.length\uFF1B\u8077\u8CAC\u8D8A\u591A\u4EE3\u8868\u5167\u805A\u8D8A\u4F4E\u3001\u61F2\u7F70\u8D8A\u9AD8\u3002"
+              },
+              {
+                "text": "\u5B83\u6240\u542B\u7684\u5224\u5B9A\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u9A45\u52D5\u5FAA\u74B0\u8907\u96DC\u5EA6\uFF0C\u4E0D\u662F\u5167\u805A\u61F2\u7F70\u3002"
+              },
+              {
+                "text": "\u5B83\u6240\u547C\u53EB\u7684\u55AE\u5143\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6247\u51FA\uFF0C\u4E0D\u662F\u5167\u805A\u61F2\u7F70\u3002"
+              },
+              {
+                "text": "\u4E00\u9664\u4EE5\u8077\u8CAC\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u61F2\u7F70\u5C31\u662F\u8077\u8CAC\u6578\u91CF\u672C\u8EAB\uFF08\u8D8A\u9AD8\u8D8A\u5DEE\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8655\u7684\u5167\u805A\u4EE3\u7406\u63A1 LCOM \u98A8\u683C\u4E14\u7C21\u5316\uFF1A\u61F2\u7F70\u5C31\u662F\u5BA3\u544A\u8077\u8CAC\u7684\u6578\u91CF\u3002\u505A\u8A31\u591A\u4E0D\u76F8\u95DC\u4E4B\u4E8B\u7684\u55AE\u5143\u8F03\u4E0D\u5167\u805A\uFF0C\u61F2\u7F70\u8F03\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9AD8\u6247\u51FA\u8F03\u96E3\u6E2C\u8A66",
+            "text": "<p>\u70BA\u4F55<strong>\u9AD8\u6247\u51FA</strong>\u6703\u4F7F\u55AE\u5143\u8F03\u96E3\u88AB\u9694\u96E2\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u547C\u53EB\u7684\u6BCF\u500B\u5354\u4F5C\u8005\u90FD\u5FC5\u9808\u5728\u6E2C\u8A66\u4E2D\u4EE5 stub\u3001fake \u6216 mock \u66FF\u63DB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u547C\u53EB\u8005\u8D8A\u591A\uFF0C\u9700\u8981\u7528\u4F86\u66FF\u4EE3\u4F9D\u8CF4\u7684\u6E2C\u8A66\u66FF\u8EAB\u5C31\u8D8A\u591A\u3002"
+              },
+              {
+                "text": "\u5B83\u81EA\u52D5\u6703\u6709\u66F4\u591A\u5224\u5B9A\u8981\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u6247\u51FA\u8207\u5224\u5B9A\u5F7C\u6B64\u7368\u7ACB\uFF1B\u6247\u51FA\u8AC7\u7684\u662F\u5354\u4F5C\u8005\uFF0C\u4E0D\u662F\u5206\u652F\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u66F4\u591A\u55AE\u5143\u547C\u53EB\uFF0C\u6240\u4EE5\u8981\u8A2D\u5B9A\u66F4\u591A\u547C\u53EB\u8005",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6247\u5165\uFF1B\u6247\u51FA\u8AC7\u7684\u662F\u5B83\u6240\u547C\u53EB\u7684\u55AE\u5143\u3002"
+              },
+              {
+                "text": "\u5B83\u7684\u56DE\u50B3\u503C\u7121\u6CD5\u88AB\u89C0\u5BDF",
+                "fraction": 0,
+                "feedback": "\u6247\u51FA\u8AC7\u7684\u662F\u8981\u66FF\u63DB\u7684\u4F9D\u8CF4\uFF0C\u800C\u975E\u56DE\u50B3\u503C\u7684\u53EF\u89C0\u5BDF\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u9AD8\u6247\u51FA\u4EE3\u8868\u5354\u4F5C\u8005\u773E\u591A\u3002\u8981\u9694\u96E2\u6E2C\u8A66\u8A72\u55AE\u5143\uFF0C\u4F60\u5FC5\u9808\u70BA\u6BCF\u500B\u5354\u4F5C\u8005\u63D0\u4F9B\u66FF\u8EAB\uFF0C\u6545\u8A2D\u5B9A\u6210\u672C\u96A8\u6247\u51FA\u589E\u9577\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9AD8\u8907\u96DC\u5EA6\u8F03\u96E3\u6E2C\u8A66",
+            "text": "<p>\u70BA\u4F55<strong>\u9AD8\u5FAA\u74B0\u8907\u96DC\u5EA6</strong>\u6703\u4F7F\u55AE\u5143\u8F03\u96E3\u88AB\u5FB9\u5E95\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7368\u7ACB\u8DEF\u5F91\u66F4\u591A\uFF0C\u56E0\u6B64\u9700\u8981\u66F4\u591A\u6E2C\u8A66\u6848\u4F8B\u4F86\u6DB5\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FAA\u74B0\u8907\u96DC\u5EA6\u8FD1\u4F3C\u8981\u57F7\u884C\u7684\u7368\u7ACB\u8DEF\u5F91\u6578\u3002"
+              },
+              {
+                "text": "\u6709\u66F4\u591A\u5354\u4F5C\u8005\u8981 stub",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6247\u51FA\u7684\u6548\u679C\uFF0C\u4E0D\u662F\u5FAA\u74B0\u8907\u96DC\u5EA6\u3002"
+              },
+              {
+                "text": "\u8A72\u55AE\u5143\u5BA3\u544A\u66F4\u591A\u8077\u8CAC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5167\u805A\uFF1B\u8907\u96DC\u5EA6\u8AC7\u7684\u662F\u5224\u5B9A\u8207\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u66F4\u591A\u55AE\u5143\u547C\u53EB\u5B83",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6247\u5165\uFF1B\u8907\u96DC\u5EA6\u8AC7\u7684\u662F\u55AE\u5143\u5167\u90E8\u7684\u5206\u652F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FAA\u74B0\u8907\u96DC\u5EA6\uFF1Ddecisions + 1\uFF0C\u4F30\u8A08\u7A7F\u904E\u7A0B\u5F0F\u78BC\u7684\u7368\u7ACB\u8DEF\u5F91\u6578\u3002\u8DEF\u5F91\u8D8A\u591A\uFF0C\u9054\u5230\u8DB3\u5920\u6DB5\u84CB\u6240\u9700\u7684\u6E2C\u8A66\u6848\u4F8B\u5C31\u8D8A\u591A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u4F4E\u5167\u805A\u8F03\u96E3\u6E2C\u8A66",
+            "text": "<p>\u70BA\u4F55<strong>\u8077\u8CAC\u773E\u591A\u4E14\u4E0D\u76F8\u95DC</strong>\uFF08\u4F4E\u5167\u805A\uFF09\u7684\u55AE\u5143\u5F80\u5F80\u8F03\u96E3\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u505A\u4E86\u6578\u4EF6\u4E0D\u76F8\u95DC\u7684\u4E8B\uFF0C\u6545\u6E2C\u8A66\u9700\u8981\u5EE3\u6CDB\u6DF7\u96DC\u7684\u8A2D\u5B9A\u4E26\u5931\u53BB\u7126\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F4E\u5167\u805A\u628A\u55AE\u5143\u62C9\u5F80\u591A\u500B\u65B9\u5411\uFF0C\u6BCF\u500B\u6E2C\u8A66\u90FD\u5F97\u5B89\u6392\u6578\u9805\u4E0D\u76F8\u95DC\u7684\u95DC\u5207\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u7684\u6247\u51FA\u4E00\u5B9A\u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "\u5167\u805A\u8207\u6247\u51FA\u5F7C\u6B64\u7368\u7ACB\uFF1B\u4F4E\u5167\u805A\u4E0D\u6703\u5F37\u8FEB\u6247\u51FA\u70BA\u96F6\u3002"
+              },
+              {
+                "text": "\u5B83\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u4E00\u5B9A\u662F 1",
+                "fraction": 0,
+                "feedback": "\u5167\u805A\u5C0D\u5224\u5B9A\u6578\u6BEB\u7121\u6307\u6D89\uFF1B\u8907\u96DC\u5EA6\u662F\u5206\u958B\u8861\u91CF\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u6C38\u9060\u4E0D\u6703\u88AB\u5176\u4ED6\u55AE\u5143\u547C\u53EB",
+                "fraction": 0,
+                "feedback": "\u5167\u805A\u4E0D\u9650\u5236\u6247\u5165\uFF1B\u5B83\u8AC7\u7684\u662F\u55AE\u5143\u6DF7\u96DC\u591A\u5C11\u95DC\u5207\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u8077\u8CAC\u773E\u591A\u7684\u55AE\u5143\u6DF7\u96DC\u4E0D\u76F8\u95DC\u7684\u95DC\u5207\u9EDE\uFF0C\u6545\u6E2C\u8A66\u5FC5\u9808\u4E00\u6B21\u8A2D\u5B9A\u4E26\u6AA2\u67E5\u591A\u4EF6\u4E8B\u2014\u2014\u8F03\u96E3\u64B0\u5BEB\u4E14\u8F03\u4E0D\u805A\u7126\u3002\u628A\u8077\u8CAC\u5206\u96E2\u53EF\u63D0\u9AD8\u5167\u805A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6 formatMoney \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6",
+            "text": "<p>\u5728 checkout \u6A21\u7D44\u4E2D\uFF0C<code>formatMoney</code> \u6709 <strong>0</strong> \u500B\u5224\u5B9A\u3002\u5B83\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014cyclomatic = decisions + 1 = 0 + 1 = 1\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u516C\u5F0F\u8981\u52A0\u4E00\uFF0C\u6545 0 \u5224\u5B9A\u5F97\u8907\u96DC\u5EA6 1\uFF0C\u800C\u975E 0\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "0 + 1 = 1\uFF1B\u8981\u5F97 2 \u9700 1 \u500B\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "0 + 1 = 1\uFF0C\u4E0D\u662F 3\u3002"
+              }
+            ],
+            "generalFeedback": "formatMoney \u662F\u76F4\u7DDA\u5F0F\u8F14\u52A9\u51FD\u5F0F\uFF1A0 \u5224\u5B9A\uFF0C\u6545\u5FAA\u74B0\u8907\u96DC\u5EA6 = 0 + 1 = 1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6 checkout \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6",
+            "text": "<p>\u5728 checkout \u6A21\u7D44\u4E2D\uFF0C<code>checkout</code> \u6709 <strong>6</strong> \u500B\u5224\u5B9A\u3002\u5B83\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014cyclomatic = decisions + 1 = 6 + 1 = 7\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u516C\u5F0F\u8981\u52A0\u4E00\uFF0C\u6545 6 \u5224\u5B9A\u5F97 7\uFF0C\u800C\u975E 6\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "6 + 1 = 7\uFF0C\u4E0D\u662F 5\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u662F decisions + 1 = 7\uFF0C\u800C\u975E 2 \xD7 \u5224\u5B9A\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "checkout \u6709 6 \u500B\u5224\u5B9A\uFF0C\u6545\u5FAA\u74B0\u8907\u96DC\u5EA6 = 6 + 1 = 7\u2014\u2014\u70BA\u6A21\u7D44\u4E2D\u6700\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6 checkout \u7684\u6247\u51FA",
+            "text": "<p>\u5728\u6A21\u7D44\u4E2D\uFF0C<code>checkout</code> \u547C\u53EB <code>validateCart</code>\u3001<code>applyDiscount</code>\u3001<code>chargePayment</code> \u8207 <code>sendReceipt</code>\u3002checkout \u7684<strong>\u6247\u51FA</strong>\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014checkout \u6709\u56DB\u689D\u51FA\u53BB\u7684\u547C\u53EB\u908A\uFF0C\u6545\u6247\u51FA = 4\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "checkout \u547C\u53EB\u56DB\u500B\u5354\u4F5C\u8005\uFF0C\u6545\u6247\u51FA\u662F 4\uFF0C\u4E0D\u662F 0\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5217\u51FA\u56DB\u500B\u88AB\u547C\u53EB\u8005\uFF0C\u6545\u6247\u51FA\u662F 4\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u53EA\u547C\u53EB\u56DB\u500B\u55AE\u5143\uFF1B\u6247\u51FA = 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u51FA\u8A08\u7B97\u51FA\u53BB\u7684\u547C\u53EB\u908A\u3002checkout \u547C\u53EB\u56DB\u500B\u55AE\u5143\uFF0C\u6545\u6247\u51FA\u70BA 4\u2014\u2014\u70BA\u6A21\u7D44\u4E2D\u6700\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6 formatMoney \u7684\u6247\u5165",
+            "text": "<p>\u5728\u6A21\u7D44\u4E2D\uFF0C<code>applyDiscount</code>\u3001<code>chargePayment</code> \u8207 <code>sendReceipt</code> \u5404\u81EA\u90FD\u547C\u53EB <code>formatMoney</code>\u3002formatMoney \u7684<strong>\u6247\u5165</strong>\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u500B\u55AE\u5143\u547C\u53EB formatMoney\uFF0C\u6545\u6247\u5165 = 3\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u55AE\u5143\u547C\u53EB\u5B83\uFF0C\u6545\u6247\u5165\u662F 3\uFF0C\u4E0D\u662F 0\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5217\u51FA\u4E09\u500B\u547C\u53EB\u8005\uFF0C\u6545\u6247\u5165\u662F 3\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u4E09\u500B\u55AE\u5143\u547C\u53EB formatMoney\uFF1B\u6247\u5165 = 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u5165\u8A08\u7B97\u9032\u5165\u7684\u547C\u53EB\u908A\u3002formatMoney \u88AB\u4E09\u500B\u55AE\u5143\u547C\u53EB\uFF0C\u6545\u6247\u5165\u70BA 3\u2014\u2014\u70BA\u6A21\u7D44\u4E2D\u6700\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6 checkout \u7684\u5167\u805A\u61F2\u7F70",
+            "text": "<p><code>checkout</code> \u5BA3\u544A\u4E86 <strong>4</strong> \u9805\u8077\u8CAC\uFF08orchestrate-flow\u3001coordinate-steps\u3001handle-errors\u3001audit-log\uFF09\u3002\u5B83\u7684\u5167\u805A\u61F2\u7F70\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5167\u805A\u61F2\u7F70\u5C31\u662F\u8077\u8CAC\u6578\u91CF\uFF0C\u5373 4\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u61F2\u7F70\u7B49\u65BC\u8077\u8CAC\u6578\u91CF\uFF084\uFF09\uFF0C\u4E0D\u662F 1\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "checkout \u5BA3\u544A\u56DB\u9805\u8077\u8CAC\uFF0C\u6545\u61F2\u7F70\u70BA 4\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u56DB\u9805\u8077\u8CAC\u5F97\u61F2\u7F70 4\uFF0C\u4E0D\u662F 2\u3002"
+              }
+            ],
+            "generalFeedback": "\u5167\u805A\u61F2\u7F70\uFF1D\u8077\u8CAC\u6578\u91CF\u3002checkout \u6DF7\u96DC\u56DB\u9805\u8077\u8CAC\uFF0C\u6545\u61F2\u7F70\u70BA 4\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6247\u51FA\u8A08\u7B97\u88AB\u547C\u53EB\u8005",
+            "text": "<p>\u55AE\u5143\u7684\u6247\u51FA\u8A08\u7B97\u5B83\u6240\u547C\u53EB\u7684\u5354\u4F5C\u8005\uFF08\u5B83\u7684\u88AB\u547C\u53EB\u8005 callee\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u51FA\u662F\u51FA\u53BB\u7684\u547C\u53EB\u908A\u6578\u91CF\uFF0C\u5373\u88AB\u547C\u53EB\u8005\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6247\u51FA\u78BA\u5BE6\u8A08\u7B97\u88AB\u547C\u53EB\u8005\uFF1B\u8A08\u7B97\u547C\u53EB\u8005\u7684\u662F\u6247\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u51FA\uFF1D\u51FA\u53BB\u7684\u908A\uFF08\u88AB\u547C\u53EB\u8005\uFF09\uFF1B\u6247\u5165\uFF1D\u9032\u5165\u7684\u908A\uFF08\u547C\u53EB\u8005\uFF09\u3002\u88AB\u547C\u53EB\u8005\u8D8A\u591A\uFF0C\u6E2C\u8A66\u4E2D\u8981 stub \u7684\u5354\u4F5C\u8005\u5C31\u8D8A\u591A\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8077\u8CAC\u8D8A\u591A\u5167\u805A\u8D8A\u4F4E",
+            "text": "<p>\u5BA3\u544A\u8D8A\u591A\u4E0D\u76F8\u95DC\u8077\u8CAC\u7684\u55AE\u5143\uFF0C\u88AB\u8996\u70BA\u5167\u805A\u8D8A\u4F4E\u3001\u5167\u805A\u61F2\u7F70\u8D8A\u9AD8\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u61F2\u7F70\u7B49\u65BC\u8077\u8CAC\u6578\u91CF\uFF0C\u6545\u8077\u8CAC\u8D8A\u591A\u4EE3\u8868\u61F2\u7F70\u8D8A\u9AD8\u3001\u5167\u805A\u8D8A\u4F4E\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u8077\u8CAC\u8D8A\u591A\u78BA\u5BE6\u4F7F\u5167\u805A\u8D8A\u4F4E\uFF1A\u61F2\u7F70\u5C31\u662F\u8077\u8CAC\u6578\u91CF\uFF0C\u6BCF\u589E\u4E00\u9805\u8077\u8CAC\u4FBF\u4E0A\u5347\u3002"
+              }
+            ],
+            "generalFeedback": "\u5167\u805A\u4EE3\u7406\u6703\u61F2\u7F70\u6DF7\u96DC\u773E\u591A\u8077\u8CAC\u7684\u55AE\u5143\uFF1A\u61F2\u7F70\uFF1D\u8077\u8CAC\u6578\u91CF\uFF0C\u6545\u8077\u8CAC\u8D8A\u591A\uFF1D\u5167\u805A\u8D8A\u4F4E\uFF1D\u61F2\u7F70\u8D8A\u9AD8\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96E3\u6E2C\u5EA6\u5206\u6578\u516C\u5F0F",
+            "text": "<p>\u55AE\u5143\u7684<strong>\u96E3\u6E2C\u5EA6\u5206\u6578\uFF08testability hardness score\uFF09</strong>\u5982\u4F55\u7531\u5404\u5EA6\u91CF\u7D44\u5408\u800C\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "score = cyclomatic + 2 * fanOut + cohesionPenalty",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u51FA\u52A0\u6B0A\u70BA 2\uFF0C\u800C\u5FAA\u74B0\u8907\u96DC\u5EA6\u8207\u5167\u805A\u61F2\u7F70\u5404\u4EE5\u6B0A\u91CD 1 \u8CA2\u737B\u3002"
+              },
+              {
+                "text": "score = cyclomatic + fanIn + cohesionPenalty",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5206\u6578\u7528\u6247\u51FA\uFF08\u52A0\u6B0A 2\uFF09\uFF0C\u800C\u975E\u6247\u5165\u3002"
+              },
+              {
+                "text": "score = cyclomatic * fanOut * cohesionPenalty",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5404\u8A0A\u865F\u662F\u76F8\u52A0\uFF08\u6247\u51FA\u52A0\u6B0A 2\uFF09\uFF0C\u4E0D\u662F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "score = 2 * cyclomatic + fanOut + cohesionPenalty",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5E36\u6B0A\u91CD 2 \u7684\u662F\u6247\u51FA\uFF0C\u4E0D\u662F\u5FAA\u74B0\u8907\u96DC\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "score = cyclomatic + 2 * fanOut + cohesionPenalty\u3002\u6247\u51FA\u88AB\u52A0\u500D\uFF0C\u56E0\u70BA\u6BCF\u500B\u5354\u4F5C\u8005\u65E2\u589E\u52A0\u4E00\u689D\u8DEF\u5F91\u53C8\u589E\u52A0\u4E00\u500B\u6E2C\u8A66\u66FF\u8EAB\u3002\u6247\u5165\u6709\u88AB\u56DE\u5831\uFF0C\u4F46\u4E0D\u8A08\u5165\u5206\u6578\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 chargePayment \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6",
+            "text": "<p><code>chargePayment</code> \u6709 <strong>4</strong> \u500B\u5224\u5B9A\u3002\u8A08\u7B97\u5B83\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u3002</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 + 1 = 5\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u516C\u5F0F\u8981\u52A0\u4E00\uFF1A4 + 1 = 5\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "4 + 1 = 5\uFF0C\u4E0D\u662F 3\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u662F decisions + 1 = 5\uFF0C\u800C\u975E 2 \xD7 \u5224\u5B9A\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "cyclomatic(chargePayment) = decisions + 1 = 4 + 1 = 5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 validateCart \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6",
+            "text": "<p><code>validateCart</code> \u6709 <strong>3</strong> \u500B\u5224\u5B9A\u3002\u8A08\u7B97\u5B83\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u3002</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 + 1 = 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u516C\u5F0F\u8981\u52A0\u4E00\uFF1A3 + 1 = 4\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "3 + 1 = 4\uFF0C\u4E0D\u662F 2\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u662F decisions + 1 = 4\uFF0C\u800C\u975E 2 \xD7 \u5224\u5B9A\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "cyclomatic(validateCart) = decisions + 1 = 3 + 1 = 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 chargePayment \u7684\u6247\u51FA",
+            "text": "<p>\u5728\u6A21\u7D44\u4E2D\uFF0C<code>chargePayment</code> \u53EA\u547C\u53EB <code>formatMoney</code>\u3002chargePayment \u7684<strong>\u6247\u51FA</strong>\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u51FA\u53BB\u7684\u547C\u53EB\u908A\uFF0C\u6545\u6247\u51FA = 1\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u5B83\u547C\u53EB formatMoney\uFF0C\u6545\u6247\u51FA\u662F 1\uFF0C\u4E0D\u662F 0\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u53EA\u5217\u51FA\u4E00\u500B\u88AB\u547C\u53EB\u8005\uFF0C\u6545\u6247\u51FA\u662F 1\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "chargePayment \u547C\u53EB\u55AE\u4E00\u55AE\u5143\uFF1B\u6247\u51FA = 1\u3002"
+              }
+            ],
+            "generalFeedback": "chargePayment \u6709\u4E00\u689D\u51FA\u53BB\u7684\u908A\uFF08\u5230 formatMoney\uFF09\uFF0C\u6545\u6247\u51FA\u70BA 1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 validateCart \u7684\u6247\u5165",
+            "text": "<p>\u5728\u6A21\u7D44\u4E2D\uFF0C\u552F\u4E00\u547C\u53EB <code>validateCart</code> \u7684\u55AE\u5143\u662F <code>checkout</code>\u3002validateCart \u7684<strong>\u6247\u5165</strong>\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u9032\u5165\u7684\u547C\u53EB\u908A\uFF08\u4F86\u81EA checkout\uFF09\uFF0C\u6545\u6247\u5165 = 1\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "checkout \u547C\u53EB\u5B83\uFF0C\u6545\u6247\u5165\u662F 1\uFF0C\u4E0D\u662F 0\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 checkout \u547C\u53EB\u5B83\uFF0C\u6545\u6247\u5165\u662F 1\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u55AE\u4E00\u547C\u53EB\u8005\uFF1B\u6247\u5165 = 1\u3002"
+              }
+            ],
+            "generalFeedback": "validateCart \u53EA\u88AB checkout \u547C\u53EB\uFF0C\u6545\u6247\u5165\u70BA 1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 validateCart \u7684\u5167\u805A\u61F2\u7F70",
+            "text": "<p><code>validateCart</code> \u5BA3\u544A <strong>2</strong> \u9805\u8077\u8CAC\uFF08check-stock\u3001check-address\uFF09\u3002\u5B83\u7684\u5167\u805A\u61F2\u7F70\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u61F2\u7F70\u5C31\u662F\u8077\u8CAC\u6578\u91CF\uFF0C\u5373 2\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u5169\u9805\u8077\u8CAC\u5F97\u61F2\u7F70 2\uFF0C\u4E0D\u662F 1\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "validateCart \u5BA3\u544A\u5169\u9805\u8077\u8CAC\uFF0C\u6545\u61F2\u7F70\u70BA 2\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u6578\u91CF\u70BA 2\uFF0C\u6545\u61F2\u7F70\u70BA 2\u3002"
+              }
+            ],
+            "generalFeedback": "\u5167\u805A\u61F2\u7F70\uFF1D\u8077\u8CAC\u6578\u91CF\uFF1DvalidateCart \u70BA 2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u55AE\u5143\u6700\u96E3\u6E2C\u8A66",
+            "text": "<p>\u5728\u6574\u500B\u6A21\u7D44\u4E2D\uFF0C\u54EA\u500B\u55AE\u5143<strong>\u6700\u96E3\u6E2C\u8A66</strong>\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "checkout\u2014\u2014\u5B83\u5728\u6BCF\u500B\u8A0A\u865F\u4E0A\u90FD\u504F\u9AD8\uFF08\u5FAA\u74B0\u8907\u96DC\u5EA6 7\u3001\u6247\u51FA 4\u3001\u5167\u805A 4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014checkout \u662F\u5354\u8ABF\u8005\uFF1A\u5224\u5B9A\u6700\u591A\u3001\u5354\u4F5C\u8005\u6700\u591A\u3001\u8077\u8CAC\u4E5F\u6700\u591A\u3002"
+              },
+              {
+                "text": "formatMoney\u2014\u2014\u56E0\u70BA\u5B83\u88AB\u4E09\u500B\u55AE\u5143\u547C\u53EB",
+                "fraction": 0,
+                "feedback": "\u9AD8\u6247\u5165\u4E0D\u6703\u8B93 formatMoney \u8B8A\u96E3\uFF1B\u5B83\u662F\u7C21\u55AE\u7684\u7D14\u8F14\u52A9\u51FD\u5F0F\uFF08\u6700\u5BB9\u6613\u7684\u55AE\u5143\uFF09\u3002"
+              },
+              {
+                "text": "validateCart\u2014\u2014\u56E0\u70BA\u5B83\u547C\u53EB\u6700\u591A\u5354\u4F5C\u8005",
+                "fraction": 0,
+                "feedback": "validateCart \u6247\u51FA\u70BA 0\uFF1B\u547C\u53EB\u56DB\u500B\u5354\u4F5C\u8005\u7684\u662F checkout\u3002"
+              },
+              {
+                "text": "chargePayment\u2014\u2014\u56E0\u70BA\u5B83\u5FAA\u74B0\u8907\u96DC\u5EA6\u6700\u9AD8",
+                "fraction": 0,
+                "feedback": "checkout \u7684\u8907\u96DC\u5EA6\u6700\u9AD8\uFF087\uFF09\uFF1BchargePayment \u662F 5\uFF0C\u800C checkout \u5728\u6BCF\u500B\u8A0A\u865F\u4E0A\u90FD\u9818\u5148\u3002"
+              }
+            ],
+            "generalFeedback": "checkout \u662F\u96E3\u6E2C\u8A66\u7684\u5354\u8ABF\u8005\uFF1A\u5FAA\u74B0\u8907\u96DC\u5EA6 7\u3001\u6247\u51FA 4\u3001\u5167\u805A 4\uFF0C\u5F97\u5230\u6A21\u7D44\u4E2D\u6700\u9AD8\u7684\u96E3\u6E2C\u5EA6\u5206\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6247\u51FA\u8207\u6E2C\u8A66\u66FF\u8EAB\u6578\u91CF",
+            "text": "<p>\u8981\u9694\u96E2\u6E2C\u8A66\u4E00\u500B<strong>\u6247\u51FA 4</strong> \u7684\u55AE\u5143\uFF0C\u5927\u81F4\u9700\u8981\u7528\u6E2C\u8A66\u66FF\u8EAB\u66FF\u63DB\u5E7E\u500B\u5354\u4F5C\u8005\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D04 4 \u500B\u2014\u2014\u5B83\u6240\u547C\u53EB\u7684\u6BCF\u500B\u5354\u4F5C\u8005\u5404\u4E00\u500B\u66FF\u8EAB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u88AB\u547C\u53EB\u8005\u90FD\u662F\u4F60\u5FC5\u9808 stub\u3001fake \u6216 mock \u7684\u4F9D\u8CF4\u3002"
+              },
+              {
+                "text": "0 \u500B\u2014\u2014\u6247\u51FA\u5C0D\u66FF\u8EAB\u7121\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u6247\u51FA\u6B63\u662F\u8981\u66FF\u63DB\u7684\u5354\u4F5C\u8005\u6578\u91CF\u3002"
+              },
+              {
+                "text": "1 \u500B\u2014\u2014\u4E00\u500B\u66FF\u8EAB\u5373\u53EF\u6DB5\u84CB\u6240\u6709\u5354\u4F5C\u8005",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u76F8\u7570\u5354\u4F5C\u8005\u901A\u5E38\u9700\u5404\u81EA\u7684\u66FF\u8EAB\uFF1B\u6247\u51FA 4 \u4EE3\u8868\u7D04 4 \u500B\u3002"
+              },
+              {
+                "text": "8 \u500B\u2014\u2014\u6247\u51FA\u7684\u5169\u500D",
+                "fraction": 0,
+                "feedback": "\u5206\u6578\u628A\u6247\u51FA\u52A0\u6B0A 2\uFF0C\u4F46\u8981\u66FF\u8EAB\u7684\u5354\u4F5C\u8005\u6578\u91CF\u662F\u6247\u51FA\u672C\u8EAB\uFF0C\u5373 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u51FA\u8A08\u7B97\u5354\u4F5C\u8005\uFF0C\u800C\u9694\u96E2\u6E2C\u8A66\u9700\u70BA\u6BCF\u500B\u63D0\u4F9B\u66FF\u8EAB\uFF0C\u6545\u6247\u51FA 4 \u4EE3\u8868\u7D04\u56DB\u500B\u66FF\u8EAB\u3002\uFF08\u5206\u6578\u628A\u6247\u51FA\u7684\u6B0A\u91CD\u52A0\u500D\uFF0C\u53CD\u6620\u6BCF\u500B\u5354\u4F5C\u8005\u540C\u6642\u589E\u52A0\u4E00\u689D\u8DEF\u5F91\u8207\u4E00\u500B\u66FF\u8EAB\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8907\u96DC\u5EA6\u8207\u6E2C\u8A66\u6848\u4F8B\u6578\u91CF",
+            "text": "<p>\u67D0\u55AE\u5143\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u70BA 5\u3002\u9019\u6700\u76F4\u63A5\u544A\u8A34\u4F60\u95DC\u65BC\u6E2C\u8A66\u5B83\u7684\u4EC0\u9EBC\u8CC7\u8A0A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5927\u7D04\u6709 5 \u689D\u7368\u7ACB\u8DEF\u5F91\u8981\u57F7\u884C\uFF0C\u6545\u9700\u7D04\u7565\u9019\u9EBC\u591A\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FAA\u74B0\u8907\u96DC\u5EA6\u8FD1\u4F3C\u8981\u6DB5\u84CB\u7684\u7368\u7ACB\u8DEF\u5F91\u6578\u3002"
+              },
+              {
+                "text": "\u5B83\u5FC5\u9808\u88AB 5 \u500B\u5176\u4ED6\u55AE\u5143\u547C\u53EB",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u6247\u5165\uFF1B\u8907\u96DC\u5EA6\u8AC7\u7684\u662F\u5167\u90E8\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5B83\u5BA3\u544A\u4E86 5 \u9805\u8077\u8CAC",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u5167\u805A\u61F2\u7F70\uFF1B\u8907\u96DC\u5EA6\u662F\u8A08\u7B97 decisions + 1\u3002"
+              },
+              {
+                "text": "\u5B83\u547C\u53EB 5 \u500B\u5354\u4F5C\u8005",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u6247\u51FA\uFF1B\u8907\u96DC\u5EA6\u8AC7\u7684\u662F\u5206\u652F\uFF0C\u4E0D\u662F\u547C\u53EB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FAA\u74B0\u8907\u96DC\u5EA6\u8FD1\u4F3C\u7368\u7ACB\u8DEF\u5F91\u6578\uFF0C\u662F\u6DB5\u84CB\u5206\u652F\u908F\u8F2F\u6240\u9700\u6E2C\u8A66\u7684\u4E0B\u754C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C07\u5EA6\u91CF\u5C0D\u61C9\u5230\u6E2C\u8A66\u56F0\u96E3\u6548\u679C",
+            "text": "<p>\u4E0B\u5217\u5EA6\u91CF\u8207\u5176\u4E3B\u8981\u6E2C\u8A66\u56F0\u96E3\u6548\u679C\u7684\u914D\u5C0D\uFF0C\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6247\u51FA \u2192 \u8981 stub \u7684\u5354\u4F5C\u8005\u6578\u91CF\uFF1B\u5FAA\u74B0\u8907\u96DC\u5EA6 \u2192 \u8981\u6DB5\u84CB\u7684\u8DEF\u5F91\u6578\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u51FA\u9A45\u52D5\u66FF\u8EAB\u6578\uFF0C\u5FAA\u74B0\u8907\u96DC\u5EA6\u9A45\u52D5\u8DEF\u5F91\uFF0F\u6E2C\u8A66\u6848\u4F8B\u6578\u3002"
+              },
+              {
+                "text": "\u6247\u51FA \u2192 \u8981\u6DB5\u84CB\u7684\u8DEF\u5F91\u6578\u91CF\uFF1B\u5FAA\u74B0\u8907\u96DC\u5EA6 \u2192 \u8981 stub \u7684\u5354\u4F5C\u8005\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u4E86\u2014\u2014\u6247\u51FA\u8AC7\u5354\u4F5C\u8005\uFF0C\u5FAA\u74B0\u8907\u96DC\u5EA6\u8AC7\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u6247\u5165 \u2192 \u8981 stub \u7684\u5354\u4F5C\u8005\u6578\u91CF\uFF1B\u5167\u805A \u2192 \u8DEF\u5F91\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u662F\u547C\u53EB\u8005\uFF08\u4E0D\u662F\u66FF\u8EAB\uFF09\uFF0C\u800C\u5167\u805A\u8AC7\u7684\u662F\u6DF7\u96DC\u8077\u8CAC\uFF0C\u4E0D\u662F\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5167\u805A \u2192 \u8981 stub \u7684\u5354\u4F5C\u8005\u6578\u91CF\uFF1B\u6247\u51FA \u2192 \u6DF7\u96DC\u7684\u8077\u8CAC",
+                "fraction": 0,
+                "feedback": "\u76F8\u53CD\u4E86\u2014\u2014\u6247\u51FA\u9A45\u52D5\u5354\u4F5C\u8005\uFF1B\u5167\u805A\u8A08\u7B97\u8077\u8CAC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5EA6\u91CF\u5C0D\u61C9\u4E00\u7A2E\u4E0D\u540C\u6210\u672C\uFF1A\u6247\u51FA\u5C0D\u6E2C\u8A66\u66FF\u8EAB\u3001\u5FAA\u74B0\u8907\u96DC\u5EA6\u5C0D\u8DEF\u5F91\uFF0F\u6E2C\u8A66\u6848\u4F8B\u3001\u5167\u805A\u61F2\u7F70\u5C0D\u4E0D\u76F8\u95DC\u7684\u8A2D\u5B9A\u3002\u6247\u5165\uFF08\u547C\u53EB\u8005\uFF09\u5F71\u97FF\u6CE2\u53CA\u98A8\u96AA\uFF0C\u4F46\u4E0D\u8A08\u5165\u96E3\u6E2C\u5EA6\u5206\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u55AE\u5143\u6700\u5BB9\u6613\u6E2C\u8A66",
+            "text": "<p>\u54EA\u500B\u55AE\u5143<strong>\u6700\u5BB9\u6613\u6E2C\u8A66</strong>\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "formatMoney\u2014\u2014\u7D14\u8F14\u52A9\u51FD\u5F0F\uFF0C0 \u5224\u5B9A\u3001\u6247\u51FA 0\u3001\u50C5\u4E00\u9805\u8077\u8CAC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u6771\u897F\u8981 stub\u3001\u53EA\u6709\u4E00\u689D\u8DEF\u5F91\u3001\u53EA\u505A\u4E00\u4EF6\u4E8B\uFF1A\u6A21\u7D44\u4E2D\u96E3\u6E2C\u5EA6\u6700\u4F4E\u3002"
+              },
+              {
+                "text": "checkout\u2014\u2014\u56E0\u70BA\u5B83\u662F\u9032\u5165\u9EDE",
+                "fraction": 0,
+                "feedback": "checkout \u662F\u6700\u96E3\u7684\uFF0C\u4E0D\u662F\u6700\u5BB9\u6613\u7684\u2014\u2014\u5B83\u5728\u6BCF\u500B\u8A0A\u865F\u4E0A\u90FD\u9818\u5148\u3002"
+              },
+              {
+                "text": "chargePayment\u2014\u2014\u56E0\u70BA\u5B83\u8077\u8CAC\u5C11",
+                "fraction": 0,
+                "feedback": "chargePayment \u4ECD\u6709 4 \u500B\u5224\u5B9A\u8207\u4E00\u500B\u5354\u4F5C\u8005\uFF1BformatMoney \u624D\u662F\u7C21\u55AE\u53EF\u6E2C\u7684\u3002"
+              },
+              {
+                "text": "formatMoney\u2014\u2014\u56E0\u70BA\u5B83\u7684\u6247\u5165\u6700\u9AD8",
+                "fraction": 0,
+                "feedback": "formatMoney \u5118\u7BA1\u6247\u5165\u9AD8\u4ECD\u6700\u5BB9\u6613\uFF1B\u6247\u5165\u4E0D\u6703\u8B93\u55AE\u5143\u96E3\u6E2C\uFF0C\u800C\u5B83\u81EA\u8EAB\u7684\u5EA6\u91CF\u90FD\u5F88\u5C0F\u3002"
+              }
+            ],
+            "generalFeedback": "formatMoney \u6709 0 \u5224\u5B9A\uFF08\u8907\u96DC\u5EA6 1\uFF09\u3001\u6247\u51FA 0\u3001\u50C5\u4E00\u9805\u8077\u8CAC\u2014\u2014\u662F\u7C21\u55AE\u53EF\u6E2C\u7684\u7D14\u8F14\u52A9\u51FD\u5F0F\u3002\u5B83\u7684\u9AD8\u6247\u5165\u4E0D\u5F71\u97FF\u5B83\u6709\u591A\u96E3\u6E2C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F9D\u5EA6\u91CF\u6BD4\u8F03\u5169\u500B\u55AE\u5143",
+            "text": "<p>\u6BD4\u8F03 <code>chargePayment</code>\uFF08\u5FAA\u74B0\u8907\u96DC\u5EA6 5\u3001\u6247\u51FA 1\u3001\u5167\u805A 2\uFF09\u8207 <code>sendReceipt</code>\uFF08\u5FAA\u74B0\u8907\u96DC\u5EA6 4\u3001\u6247\u51FA 1\u3001\u5167\u805A 1\uFF09\u3002\u54EA\u500B\u8F03\u96E3\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "chargePayment\u2014\u2014\u5728\u76F8\u540C\u6247\u51FA\u4E0B\uFF0C\u5B83\u7684\u8907\u96DC\u5EA6\u8F03\u9AD8\u3001\u5167\u805A\u61F2\u7F70\u4E5F\u8F03\u9AD8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u51FA\u76F8\u540C\uFF0CchargePayment \u5728\u8907\u96DC\u5EA6\u8207\u5167\u805A\u4E0A\u90FD\u9818\u5148\uFF0C\u6545\u8F03\u96E3\u3002"
+              },
+              {
+                "text": "sendReceipt\u2014\u2014\u56E0\u70BA\u6536\u64DA\u662F\u9762\u5411\u4F7F\u7528\u8005\u7684",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u7684\u96E3\u5EA6\u662F\u7D50\u69CB\u6027\u7684\uFF1B\u5C31\u5EA6\u91CF\u800C\u8A00 chargePayment \u8F03\u96E3\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u5B8C\u5168\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u6247\u51FA\u76F8\u540C\uFF0C\u4F46 chargePayment \u8907\u96DC\u5EA6\u8207\u5167\u805A\u61F2\u7F70\u90FD\u8F03\u9AD8\uFF0C\u6545\u8F03\u96E3\u3002"
+              },
+              {
+                "text": "sendReceipt\u2014\u2014\u56E0\u70BA\u5B83\u5167\u805A\u8F03\u4F4E",
+                "fraction": 0,
+                "feedback": "sendReceipt \u7684\u5167\u805A\u61F2\u7F70\u8F03\u4F4E\uFF081 \u5C0D 2\uFF09\uFF0C\u9019\u8B93\u5B83\u8F03\u5BB9\u6613\uFF0C\u800C\u975E\u8F03\u96E3\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u8005\u6247\u51FA\u90FD\u662F 1\uFF0C\u4F46 chargePayment \u5FAA\u74B0\u8907\u96DC\u5EA6 5 \u5C0D 4\u3001\u5167\u805A 2 \u5C0D 1\uFF0C\u6545\u70BA\u8F03\u96E3\u7684\u55AE\u5143\uFF08\u5206\u6578 9 \u5C0D 7\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C31 stub \u800C\u8A00\u7684\u6247\u5165\u5C0D\u6247\u51FA",
+            "text": "<p>\u54EA\u500B\u5EA6\u91CF\u544A\u8A34\u4F60\uFF0C\u9694\u96E2\u6E2C\u8A66\u4E00\u500B\u55AE\u5143\u6642\u5FC5\u9808<strong>stub \u6216 fake</strong> \u591A\u5C11\u500B\u5354\u4F5C\u8005\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6247\u51FA\u2014\u2014\u8A72\u55AE\u5143\u6240\u4F9D\u8CF4\u7684\u88AB\u547C\u53EB\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F60\u5FC5\u9808\u66FF\u63DB\u5B83\u6240\u547C\u53EB\u7684\u55AE\u5143\uFF0C\u4E5F\u5C31\u662F\u5B83\u7684\u6247\u51FA\u3002"
+              },
+              {
+                "text": "\u6247\u5165\u2014\u2014\u4F9D\u8CF4\u5B83\u7684\u547C\u53EB\u8005",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u662F\u8AB0\u547C\u53EB\u8A72\u55AE\u5143\uFF1B\u5B83\u4E0D\u6703\u544A\u8A34\u4F60\u6E2C\u8A66\u4E2D\u8A72 stub \u4EC0\u9EBC\u3002"
+              },
+              {
+                "text": "\u5FAA\u74B0\u8907\u96DC\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u544A\u8A34\u4F60\u8981\u6DB5\u84CB\u7684\u8DEF\u5F91\uFF0C\u4E0D\u662F\u8981\u66FF\u63DB\u7684\u5354\u4F5C\u8005\u3002"
+              },
+              {
+                "text": "\u5167\u805A\u61F2\u7F70",
+                "fraction": 0,
+                "feedback": "\u90A3\u8A08\u7B97\u8077\u8CAC\uFF0C\u4E0D\u662F\u8981 stub \u7684\u5354\u4F5C\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u9694\u96E2\u6E2C\u8A66\u4E00\u500B\u55AE\u5143\uFF0C\u4F60\u66FF\u63DB\u5B83\u6240\u547C\u53EB\u7684\u2014\u2014\u5B83\u7684\u88AB\u547C\u53EB\u8005\u2014\u2014\u6545\u6247\u51FA\u5C31\u662F\u66FF\u8EAB\u6578\u91CF\u3002\u6247\u5165\uFF08\u547C\u53EB\u8005\uFF09\u8207\u6CE2\u53CA\uFF0F\u885D\u64CA\u6709\u95DC\uFF0C\u800C\u975E\u8207 stub \u9019\u500B\u55AE\u5143\u6709\u95DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80 checkout \u6247\u5165\u70BA 0",
+            "text": "<p><code>checkout</code> \u7684<strong>\u6247\u5165\u70BA 0</strong>\u3002\u9019\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6A21\u7D44\u4E2D\u6C92\u6709\u5176\u4ED6\u55AE\u5143\u547C\u53EB\u5B83\u2014\u2014\u5B83\u662F\u9802\u5C64\u9032\u5165\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u5165 0 \u4EE3\u8868\u6C92\u6709\u6771\u897F\u547C\u53EB checkout\uFF1B\u5B83\u662F\u6A21\u7D44\u7684\u5354\u8ABF\u9032\u5165\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u4E0D\u547C\u53EB\u4EFB\u4F55\u5176\u4ED6\u55AE\u5143",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u6247\u51FA 0\uFF1Bcheckout \u5BE6\u969B\u4E0A\u6247\u51FA\u70BA 4\u3002\u6247\u5165 0 \u4EE3\u8868\u6C92\u6709\u6771\u897F\u547C\u53EB\u5B83\u3002"
+              },
+              {
+                "text": "\u5B83\u6C92\u6709\u5224\u5B9A",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u8AC7\u7684\u662F\u547C\u53EB\u8005\uFF0C\u4E0D\u662F\u5224\u5B9A\uFF1Bcheckout \u6709 6 \u500B\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u6B7B\u78BC",
+                "fraction": 0,
+                "feedback": "\u9032\u5165\u9EDE\u5408\u7406\u5730\u6C92\u6709\u6A21\u7D44\u5167\u547C\u53EB\u8005\uFF1B\u5B83\u7531\u5916\u90E8\u547C\u53EB\uFF0C\u4E26\u975E\u6B7B\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u5165 0 \u4EE3\u8868\u6A21\u7D44\u5167\u6C92\u6709\u55AE\u5143\u547C\u53EB checkout\u2014\u2014\u5B83\u662F\u9802\u5C64\u9032\u5165\u9EDE\uFF08\u7531\u5916\u90E8\u547C\u53EB\uFF09\u3002\u5B83\u6247\u51FA\u4ECD\u70BA 4\uFF0C\u56E0\u70BA\u5B83\u5354\u8ABF\u5176\u4ED6\u55AE\u5143\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 sendReceipt \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6",
+            "text": "<p><code>sendReceipt</code> \u6709 <strong>3</strong> \u500B\u5224\u5B9A\u3002\u8A08\u7B97\u5B83\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u3002</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 + 1 = 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u516C\u5F0F\u8981\u52A0\u4E00\uFF1A3 + 1 = 4\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "3 + 1 = 4\uFF0C\u4E0D\u662F 5\uFF1B\u8981\u5F97 5 \u9700 4 \u500B\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "3 + 1 = 4\uFF0C\u4E0D\u662F 2\u3002"
+              }
+            ],
+            "generalFeedback": "cyclomatic(sendReceipt) = decisions + 1 = 3 + 1 = 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u55AE\u5143\u9700\u8981\u66F4\u591A\u6E2C\u8A66\u66FF\u8EAB",
+            "text": "<p><code>checkout</code> \u6247\u51FA\u70BA 4\uFF0C<code>applyDiscount</code> \u6247\u51FA\u70BA 1\u3002\u8981\u9694\u96E2\u6E2C\u8A66\u5404\u55AE\u5143\uFF0C\u54EA\u500B\u9700\u8981\u4EE5\u6E2C\u8A66\u66FF\u8EAB\u66FF\u63DB\u8F03\u591A\u5354\u4F5C\u8005\uFF1F</p>",
+            "answers": [
+              {
+                "text": "checkout\u2014\u2014\u7D04 4 \u500B\u66FF\u8EAB\uFF0C\u800C applyDiscount \u7D04 1 \u500B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u51FA\u662F\u8981\u66FF\u63DB\u7684\u5354\u4F5C\u8005\u6578\u91CF\uFF0C\u6545\u6247\u51FA\u8D8A\u9AD8\u4EE3\u8868\u66FF\u8EAB\u8D8A\u591A\u3002"
+              },
+              {
+                "text": "applyDiscount\u2014\u2014\u56E0\u70BA\u5B83\u6574\u9AD4\u8F03\u7C21\u55AE",
+                "fraction": 0,
+                "feedback": "\u6574\u9AD4\u8F03\u7C21\u55AE\u6C92\u932F\uFF0C\u4F46\u5B83\u6247\u51FA\u8F03\u4F4E\uFF081\uFF09\uFF0C\u6545\u9700\u8981\u8F03\u5C11\u66FF\u8EAB\uFF0C\u800C\u975E\u8F03\u591A\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u9700\u8981\u4E00\u6A23\u591A\uFF0C\u56E0\u70BA\u90FD\u662F\u55AE\u5143",
+                "fraction": 0,
+                "feedback": "\u66FF\u8EAB\u6578\u91CF\u96A8\u6247\u51FA\uFF1Acheckout \u70BA 4\uFF0CapplyDiscount \u70BA 1\u3002"
+              },
+              {
+                "text": "applyDiscount\u2014\u2014\u56E0\u70BA\u5B83\u6247\u5165\u8F03\u9AD8",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u4E0D\u6C7A\u5B9A\u66FF\u8EAB\u6578\uFF1B\u6C7A\u5B9A\u7684\u662F\u6247\u51FA\uFF0C\u800C checkout \u7684\u8F03\u9AD8\u3002"
+              }
+            ],
+            "generalFeedback": "\u9694\u96E2\u6E2C\u8A66\u6703\u66FF\u63DB\u55AE\u5143\u6240\u547C\u53EB\u7684\u6BCF\u500B\u5354\u4F5C\u8005\uFF0C\u6545\u66FF\u8EAB\u6578\u91CF\u7B49\u65BC\u6247\u51FA\uFF1Acheckout\uFF084\uFF09\u9060\u591A\u65BC applyDiscount\uFF081\uFF09\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 checkout \u7684\u96E3\u6E2C\u5EA6\u5206\u6578",
+            "text": "<p><code>checkout</code> \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6 7\u3001\u6247\u51FA 4\u3001\u5167\u805A\u61F2\u7F70 4\u3002\u7528 score = cyclomatic + 2 * fanOut + cohesionPenalty\uFF0C\u5B83\u7684\u96E3\u6E2C\u5EA6\u5206\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20147 + 2*4 + 4 = 7 + 8 + 4 = 19\u3002"
+              },
+              {
+                "text": "15",
+                "fraction": 0,
+                "feedback": "\u90A3\u5FD8\u4E86\u628A\u6247\u51FA\u52A0\u500D\uFF1A7 + 4 + 4 = 15\u3002\u52A0\u4E0A\u6B0A\u91CD\u5F8C\u70BA 7 + 8 + 4 = 19\u3002"
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "23 \u662F\u628A\u5225\u7684\u6771\u897F\u52A0\u500D\u4E86\uFF1B\u6B63\u78BA\u7684\u7E3D\u548C\u662F 7 + 8 + 4 = 19\u3002"
+              },
+              {
+                "text": "11",
+                "fraction": 0,
+                "feedback": "11 \u5FFD\u7565\u4E86\u5167\u805A\uFF1B\u7E3D\u548C\u662F 7 + 8 + 4 = 19\u3002"
+              }
+            ],
+            "generalFeedback": "score(checkout) = 7 + 2*4 + 4 = 19\uFF0C\u70BA\u6A21\u7D44\u4E2D\u6700\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97 chargePayment \u7684\u96E3\u6E2C\u5EA6\u5206\u6578",
+            "text": "<p><code>chargePayment</code> \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6 5\u3001\u6247\u51FA 1\u3001\u5167\u805A\u61F2\u7F70 2\u3002\u5B83\u7684\u96E3\u6E2C\u5EA6\u5206\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 + 2*1 + 2 = 5 + 2 + 2 = 9\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u90A3\u5FD8\u4E86\u628A\u6247\u51FA\u52A0\u500D\uFF1A5 + 1 + 2 = 8\u3002\u52A0\u4E0A\u6B0A\u91CD\u5F8C\u70BA 5 + 2 + 2 = 9\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F sendReceipt \u7684\u5206\u6578\uFF1BchargePayment \u662F 5 + 2 + 2 = 9\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "\u7E3D\u548C\u662F 5 + 2 + 2 = 9\uFF0C\u4E0D\u662F 10\u3002"
+              }
+            ],
+            "generalFeedback": "score(chargePayment) = 5 + 2*1 + 2 = 9\uFF0C\u50C5\u6B21\u65BC checkout\uFF0819\uFF09\uFF0C\u6392\u7B2C\u4E8C\u96E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6253\u7834 applyDiscount \u8207 validateCart \u7684\u5206\u6578\u5E73\u624B",
+            "text": "<p><code>applyDiscount</code> \u8207 <code>validateCart</code> \u7684\u96E3\u6E2C\u5EA6\u5206\u6578\u90FD\u662F <strong>6</strong>\u3002\u5728\u6392\u540D\u4E2D\uFF0C\u54EA\u500B\u6392\u5728\u524D\u9762\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "applyDiscount\u2014\u2014\u5E73\u624B\u6642\u4EE5 id \u5347\u51AA\u6253\u7834\uFF0C\u800C\u300CapplyDiscount\u300D\u6392\u5728\u300CvalidateCart\u300D\u4E4B\u524D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u6578\u76F8\u540C\u6642\u4EE5 id \u5347\u51AA\u6392\u5E8F\uFF0C\u6545 applyDiscount \u5728\u524D\u3002"
+              },
+              {
+                "text": "validateCart\u2014\u2014\u56E0\u70BA\u5B83\u8077\u8CAC\u8F03\u591A",
+                "fraction": 0,
+                "feedback": "\u5E73\u624B\u662F\u4EE5 id \u6253\u7834\uFF0C\u4E0D\u662F\u4EE5\u4EFB\u4F55\u5EA6\u91CF\uFF1BapplyDiscount \u6392\u5728\u524D\u9762\u3002"
+              },
+              {
+                "text": "applyDiscount\u2014\u2014\u56E0\u70BA\u5B83\u5FAA\u74B0\u8907\u96DC\u5EA6\u8F03\u9AD8",
+                "fraction": 0,
+                "feedback": "validateCart \u7684\u8907\u96DC\u5EA6\u5176\u5BE6\u8F03\u9AD8\uFF084 \u5C0D 3\uFF09\uFF1B\u6253\u7834\u5E73\u624B\u7D14\u7CB9\u662F id \u5347\u51AA\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u7684\u9806\u5E8F\u662F\u96A8\u6A5F\u7684",
+                "fraction": 0,
+                "feedback": "\u6392\u540D\u662F\u6C7A\u5B9A\u6027\u7684\uFF1A\u5206\u6578\u76F8\u540C\u6642\u4EE5 id \u5347\u51AA\u6392\u5E8F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6392\u540D\u4EE5\u5206\u6578\u964D\u51AA\u3001\u518D\u4EE5 id \u5347\u51AA\u6392\u5E8F\u3002\u5206\u6578\u540C\u70BA 6 \u6642\uFF0C\u300CapplyDiscount\u300D\u6309\u5B57\u6BCD\u5E8F\u5C0F\u65BC\u300CvalidateCart\u300D\uFF0C\u6545 applyDiscount \u5217\u5728\u524D\u9762\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A21\u7D44\u7684\u5B8C\u6574\u96E3\u6E2C\u5EA6\u6392\u540D",
+            "text": "<p>checkout \u6A21\u7D44\u6B63\u78BA\u7684\u96E3\u6E2C\u5EA6\u6392\u540D\uFF08\u6700\u96E3\u5728\u524D\uFF09\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "checkout\u3001chargePayment\u3001sendReceipt\u3001applyDiscount\u3001validateCart\u3001formatMoney",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u6578 19\u30019\u30017\u30016\u30016\u30012\uFF0C\u4E14 id \u5E73\u624B\u6253\u7834\u4F7F applyDiscount \u5728 validateCart \u4E4B\u524D\u3002"
+              },
+              {
+                "text": "checkout\u3001chargePayment\u3001sendReceipt\u3001validateCart\u3001applyDiscount\u3001formatMoney",
+                "fraction": 0,
+                "feedback": "\u63A5\u8FD1\uFF0C\u4F46 6-6 \u5E73\u624B\u4EE5 id \u5347\u51AA\u6253\u7834\uFF0C\u6545 applyDiscount \u5728 validateCart \u4E4B\u524D\u3002"
+              },
+              {
+                "text": "checkout\u3001sendReceipt\u3001chargePayment\u3001validateCart\u3001applyDiscount\u3001formatMoney",
+                "fraction": 0,
+                "feedback": "chargePayment\uFF089\uFF09\u9AD8\u65BC sendReceipt\uFF087\uFF09\uFF0C\u6545 chargePayment \u5FC5\u9808\u6392\u7B2C\u4E8C\u3002"
+              },
+              {
+                "text": "formatMoney\u3001applyDiscount\u3001validateCart\u3001sendReceipt\u3001chargePayment\u3001checkout",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5347\u51AA\u9806\u5E8F\uFF1B\u6392\u540D\u662F\u6700\u96E3\u5728\u524D\uFF0C\u6545 checkout \u9818\u5148\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u6578\uFF1Acheckout 19\u3001chargePayment 9\u3001sendReceipt 7\u3001applyDiscount 6\u3001validateCart 6\u3001formatMoney 2\u3002\u4EE5\u5206\u6578\u964D\u51AA\u30016-6 \u5E73\u624B\u518D\u4EE5 id \u5347\u51AA\uFF0C\u5F97 checkout\u3001chargePayment\u3001sendReceipt\u3001applyDiscount\u3001validateCart\u3001formatMoney\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u6700\u96E3\u55AE\u5143\u7684\u539F\u56E0",
+            "text": "<p>\u5C0D <code>checkout</code>\uFF0C\u5EA6\u91CF\u70BA\u5FAA\u74B0\u8907\u96DC\u5EA6 7\u3001\u6247\u51FA 4\u3001\u5167\u805A 4\u3002\u539F\u56E0\u6703\u6311\u51FA\u6700\u5927\u7684<em>\u52A0\u6B0A</em>\u8CA2\u737B\u3002\u54EA\u500B\u8CA2\u737B\u8005\u4E3B\u5C0E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6247\u51FA\u2014\u2014\u5B83\u7684\u52A0\u6B0A\u8CA2\u737B\u662F 2*4 = 8\uFF0C\u5927\u65BC\u8907\u96DC\u5EA6 7 \u6216\u5167\u805A 4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52A0\u6B0A\u5F8C\uFF0C\u6247\u51FA\uFF088\uFF09\u52DD\u904E\u8907\u96DC\u5EA6\uFF087\uFF09\u8207\u5167\u805A\uFF084\uFF09\uFF0C\u6545\u539F\u56E0\u662F\u300C\u7531\u6247\u51FA\u4E3B\u5C0E\u2014\u2014\u4E00\u500B\u5354\u8ABF\u8005\u300D\u3002"
+              },
+              {
+                "text": "\u8907\u96DC\u5EA6\u2014\u2014\u56E0\u70BA 7 \u662F\u6700\u5927\u7684\u539F\u59CB\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u539F\u56E0\u4F7F\u7528\u52A0\u6B0A\u8CA2\u737B\uFF1A\u6247\u51FA\u7684 2*4 = 8 \u8D85\u904E\u539F\u59CB\u8907\u96DC\u5EA6 7\u3002"
+              },
+              {
+                "text": "\u5167\u805A\u2014\u2014\u56E0\u70BA\u5B83\u6709 4 \u9805\u8077\u8CAC",
+                "fraction": 0,
+                "feedback": "\u5167\u805A\u8CA2\u737B 4\uFF0C\u5C0F\u65BC\u6247\u51FA\u7684\u52A0\u6B0A 8\uFF1B\u4E3B\u5C0E\u7684\u662F\u6247\u51FA\u3002"
+              },
+              {
+                "text": "\u6247\u5165\u2014\u2014\u56E0\u70BA\u5B83\u662F\u9032\u5165\u9EDE",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u4E0D\u5728\u5206\u6578\u6216\u539F\u56E0\u4E4B\u5167\uFF1B\u4E3B\u5C0E\u7684\u52A0\u6B0A\u8CA2\u737B\u8005\u662F\u6247\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "checkout \u7684\u52A0\u6B0A\u8CA2\u737B\uFF1A\u8907\u96DC\u5EA6 7\u3001\u6247\u51FA 2*4 = 8\u3001\u5167\u805A 4\u3002\u6700\u5927\u7684\u662F\u6247\u51FA\uFF0C\u6545\u539F\u56E0\u6307\u540D\u5B83\u2014\u2014checkout \u662F\u7531\u6247\u51FA\u4E3B\u5C0E\u7684\u5354\u8ABF\u8005\uFF0C\u5373\u4F7F\u5176\u539F\u59CB\u8907\u96DC\u5EA6\uFF087\uFF09\u4E5F\u504F\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "checkout \u69D3\u687F\u6700\u9AD8\u7684\u4FEE\u6B63",
+            "text": "<p>\u65E2\u7136 checkout \u7531\u6247\u51FA\u4E3B\u5C0E\uFF0C\u6A21\u7D44\u5EFA\u8B70\u7684\u55AE\u4E00\u69D3\u687F\u6700\u9AD8\u4FEE\u6B63\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u62C6\u5206\u5B83\u2014\u2014\u62BD\u51FA\u5354\u4F5C\u8005\uFF0C\u8B93\u55AE\u4E00\u55AE\u5143\u4E0D\u518D\u5354\u8ABF\u4E00\u5207",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4FEE\u6B63\u91DD\u5C0D\u4E3B\u5C0E\u8CA2\u737B\u8005\uFF08\u6247\u51FA\uFF09\uFF0C\u6545\u5EFA\u8B70\u62C6\u5206\uFF0F\u62BD\u51FA\u4EE5\u6E1B\u5C11\u5354\u8ABF\u3002"
+              },
+              {
+                "text": "\u589E\u52A0\u66F4\u591A\u547C\u53EB\u8005\uFF0C\u8B93\u5B83\u7684\u6247\u5165\u4E0A\u5347",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u4E0D\u5C6C\u65BC\u96E3\u6E2C\u5EA6\uFF1B\u589E\u52A0\u547C\u53EB\u8005\u7121\u6CD5\u964D\u4F4E checkout \u7684\u5206\u6578\u3002"
+              },
+              {
+                "text": "\u628A\u5B83\u6240\u6709\u5354\u4F5C\u8005\u5408\u4F75\u56DE checkout",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u63D0\u9AD8\u6247\u51FA\u8207\u8907\u96DC\u5EA6\uFF0C\u8B93\u5B83\u66F4\u96E3\uFF0C\u800C\u975E\u66F4\u5BB9\u6613\u3002"
+              },
+              {
+                "text": "\u91CD\u65B0\u547D\u540D\u5B83\u7684\u8077\u8CAC",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u547D\u540D\u4E0D\u6539\u8B8A\u4EFB\u4F55\u5EA6\u91CF\uFF1B\u69D3\u687F\u5728\u65BC\u85C9\u62C6\u5206\u964D\u4F4E\u6247\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u69D3\u687F\u6700\u9AD8\u7684\u4FEE\u6B63\u91DD\u5C0D\u4E3B\u5C0E\u8CA2\u737B\u8005\u3002\u65E2\u7136\u6247\u51FA\u4E3B\u5C0E checkout\uFF0C\u5EFA\u8B70\u662F\u62C6\u5206\u5B83\u4E26\u62BD\u51FA\u5354\u4F5C\u8005\uFF0C\u8B93\u5354\u8ABF\u5206\u6563\u958B\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65B0\u589E checkout \u5230 formatMoney \u4F9D\u8CF4\u7684\u5F71\u97FF",
+            "text": "<p>\u5F9E\u57FA\u790E\u6A21\u7D44\u51FA\u767C\uFF0C\u4F60<strong>\u65B0\u589E\u4E00\u689D\u4F9D\u8CF4</strong> <code>checkout \u5230 formatMoney</code>\u3002checkout \u7684\u6247\u51FA\u7531 4 \u8B8A 5\u3002checkout \u7684\u65B0\u96E3\u6E2C\u5EA6\u5206\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20147 + 2*5 + 4 = 7 + 10 + 4 = 21\uFF08\u7531 19 \u4E0A\u5347\uFF09\u3002"
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "\u6BCF\u55AE\u4F4D\u6247\u51FA\u4F7F\u5206\u6578\u589E\u52A0 2\uFF0C\u6545 19 + 2 = 21\uFF0C\u4E0D\u662F 20\u3002"
+              },
+              {
+                "text": "19",
+                "fraction": 0,
+                "feedback": "\u6247\u51FA\u4E0A\u5347\uFF0C\u6545\u5206\u6578\u4E0A\u5347\uFF1A7 + 10 + 4 = 21\u3002"
+              },
+              {
+                "text": "23",
+                "fraction": 0,
+                "feedback": "7 + 2*5 + 4 = 21\uFF0C\u4E0D\u662F 23\u3002"
+              }
+            ],
+            "generalFeedback": "\u65B0\u589E\u4E00\u689D\u51FA\u53BB\u7684\u908A\u4F7F\u547C\u53EB\u8005\u6247\u51FA\u52A0 1\uFF0C\u800C\u6BCF\u55AE\u4F4D\u6247\u51FA\u52A0\u6B0A 2\uFF0C\u6545 checkout \u7684\u5206\u6578\u7531 19 \u5347\u81F3 7 + 2*5 + 4 = 21\u3002checkout \u4ECD\u662F\u6700\u96E3\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65B0\u589E\u4F9D\u8CF4\u4F7F\u547C\u53EB\u8005\u5206\u6578\u4E0A\u5347",
+            "text": "<p>\u4F60\u65B0\u589E\u4E00\u689D\u4F9D\u8CF4 <code>validateCart \u5230 formatMoney</code>\u3002validateCart \u7684\u6247\u51FA\u7531 0 \u8B8A 1\u3002\u5B83\u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\uFF084\uFF09\u8207\u5167\u805A\uFF082\uFF09\u4E0D\u8B8A\u3002validateCart \u7684\u65B0\u96E3\u6E2C\u5EA6\u5206\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 + 2*1 + 2 = 8\uFF08\u7531 6 \u4E0A\u5347\uFF09\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F\u820A\u5206\u6578\uFF1B\u65B0\u589E\u4E00\u500B\u88AB\u547C\u53EB\u8005\u4F7F\u6247\u51FA\u4E0A\u5347\uFF0C\u6545\u8B8A 4 + 2 + 2 = 8\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "\u6247\u51FA\u52A0\u6B0A 2\uFF0C\u6545\u5206\u6578\u4E0A\u5347 2\uFF08\u7531 6 \u5230 8\uFF09\uFF0C\u800C\u975E 1\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "4 + 2*1 + 2 = 8\uFF0C\u4E0D\u662F 10\u3002"
+              }
+            ],
+            "generalFeedback": "\u65B0\u589E\u4E00\u689D\u51FA\u53BB\u7684\u908A\u4F7F validateCart \u6247\u51FA\u70BA 1\u3001\u52A0\u6B0A 2\uFF0C\u6545\u5176\u5206\u6578\u7531 6 \u5347\u81F3 4 + 2*1 + 2 = 8\u2014\u2014\u8DB3\u4EE5\u8D85\u8D8A sendReceipt\uFF087\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u62C6\u5206 checkout \u5F8C\u7684\u65B0\u6700\u96E3\u55AE\u5143",
+            "text": "<p>\u4F60<strong>\u62C6\u5206</strong>\u6700\u96E3\u55AE\u5143 <code>checkout</code> \u70BA <code>checkout-a</code> \u8207 <code>checkout-b</code>\u3002\u62C6\u5206\u5F8C checkout-a \u5F97 12\u3001checkout-b \u5F97 10\u3002\u73FE\u5728\u54EA\u500B\u55AE\u5143\u6700\u96E3\uFF0C\u5176\u5206\u6578\u8207 checkout \u539F\u672C\u7684 19 \u76F8\u6BD4\u5982\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "checkout-a\uFF0C\u70BA 12\u2014\u2014\u6700\u9AD8\u96E3\u6E2C\u5EA6\u7531 19 \u964D\u5230 12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u62C6\u5206\u628A\u6700\u58DE\u60C5\u6CC1\u7684\u55AE\u5143\u96E3\u6E2C\u5EA6\u7531 19 \u964D\u5230 12\u3002"
+              },
+              {
+                "text": "chargePayment\uFF0C\u70BA 9\u2014\u2014\u5B83\u73FE\u5728\u6700\u96E3",
+                "fraction": 0,
+                "feedback": "checkout-a\uFF0812\uFF09\u8207 checkout-b\uFF0810\uFF09\u90FD\u8D85\u904E chargePayment\uFF089\uFF09\uFF0C\u6545 chargePayment \u4E0D\u662F\u6700\u96E3\u3002"
+              },
+              {
+                "text": "checkout-a\uFF0C\u4ECD\u70BA 19\u2014\u2014\u62C6\u5206\u6BEB\u7121\u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "\u62C6\u5206\u628A\u8907\u96DC\u5EA6\u6E1B\u534A\u4E26\u5206\u914D\u908A\uFF0C\u6545 checkout-a \u5F97 12\uFF0C\u4E0D\u662F 19\u3002"
+              },
+              {
+                "text": "checkout-b\uFF0C\u70BA 10\u2014\u2014\u5B83\u6700\u96E3",
+                "fraction": 0,
+                "feedback": "checkout-a\uFF0812\uFF09\u9AD8\u65BC checkout-b\uFF0810\uFF09\uFF0C\u6545 checkout-a \u6700\u96E3\u3002"
+              }
+            ],
+            "generalFeedback": "\u62C6\u5206\u5F8C checkout-a\uFF0812\uFF09\u6700\u96E3\uFF0Ccheckout-b \u70BA 10\u3002\u6700\u58DE\u7684\u55AE\u5143\u96E3\u6E2C\u5EA6\u7531 19 \u964D\u5230 12\uFF1A\u62C6\u5206\u4EE5\u5169\u500B\u8F03\u5C0F\u55AE\u5143\u63DB\u6389\u4E00\u500B\u6975\u96E3\u7684\u55AE\u5143\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u62C6\u5206\u5F8C checkout-a \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6",
+            "text": "<p>\u62C6\u5206\u898F\u5247\u628A ceil(d/2) \u500B\u5224\u5B9A\u5206\u7D66\u4E3B\u8981\u55AE\u5143\u3002checkout \u539F\u6709 <strong>6</strong> \u500B\u5224\u5B9A\u3002\u62C6\u5206\u5F8C <code>checkout-a</code> \u7684\u5FAA\u74B0\u8907\u96DC\u5EA6\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ceil(6/2) = 3 \u500B\u5224\u5B9A\uFF0C\u6545\u5FAA\u74B0\u8907\u96DC\u5EA6 = 3 + 1 = 4\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u62C6\u5206\u524D checkout \u7684\u8907\u96DC\u5EA6\uFF1B\u62C6\u5206\u5F8C\u5224\u5B9A\u6E1B\u534A\u70BA 3\uFF0C\u5F97 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F checkout-a \u7684\u5224\u5B9A\u6578\uFF1B\u5FAA\u74B0\u8907\u96DC\u5EA6\u8981\u52A0\u4E00\uFF0C\u5F97 4\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u5224\u5B9A\u6E1B\u534A\uFF086 \u5230 3\uFF09\uFF0C\u6545\u5FAA\u74B0\u8907\u96DC\u5EA6 = 3 + 1 = 4\u3002"
+              }
+            ],
+            "generalFeedback": "checkout-a \u5F97 ceil(6/2) = 3 \u500B\u5224\u5B9A\uFF0C\u6545\u5FAA\u74B0\u8907\u96DC\u5EA6 = 3 + 1 = 4\uFF08checkout-b \u4E5F\u5F97 floor(6/2) = 3 \u500B\u5224\u5B9A\uFF09\u3002\u5224\u5B9A\u6E1B\u534A\u6B63\u662F\u964D\u4F4E\u8907\u96DC\u5EA6\u4E4B\u8655\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8026\u5408\u8207\u8907\u96DC\u5EA6\u7684\u6B0A\u8861",
+            "text": "<p>\u628A\u4E00\u500B\u5927\u55AE\u5143\u62C6\u6210\u5169\u500B\u8F03\u5C0F\u7684\uFF0C\u6703\u964D\u4F4E\u5404\u55AE\u5143\u7684\u8907\u96DC\u5EA6\uFF0C\u4F46\u5728\u7D50\u69CB\u4E0A\u4ED8\u51FA\u4EC0\u9EBC\u4EE3\u50F9\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u589E\u52A0\u4E00\u500B\u65B0\u5354\u4F5C\u8005\u8207\u4E00\u689D\u65B0\u547C\u53EB\u908A\uFF0C\u63D0\u9AD8\u6574\u9AD4\u8026\u5408",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u62BD\u51FA\u7684\u8F14\u52A9\u55AE\u5143\u662F\u4E3B\u8981\u55AE\u5143\u5FC5\u9808\u547C\u53EB\u7684\u65B0\u55AE\u5143\uFF0C\u6545\u5373\u4F7F\u5404\u55AE\u5143\u8907\u96DC\u5EA6\u4E0B\u964D\uFF0C\u7E3D\u8026\u5408\uFF08\u908A\uFF09\u4ECD\u4E0A\u5347\u3002"
+              },
+              {
+                "text": "\u5B83\u589E\u52A0\u6A21\u7D44\u4E2D\u7684\u5224\u5B9A\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u62C6\u5206\u662F\u5206\u914D\u65E2\u6709\u5224\u5B9A\uFF1B\u4E26\u4E0D\u5275\u9020\u65B0\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u5B83\u79FB\u9664\u6A21\u7D44\u4E2D\u6240\u6709\u6247\u5165",
+                "fraction": 0,
+                "feedback": "\u9032\u5165\u7684\u908A\u662F\u88AB\u91CD\u65B0\u5C0E\u5411\uFF0C\u800C\u975E\u79FB\u9664\uFF1B\u6A21\u7D44\u4ECD\u6709\u6247\u5165\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EE3\u50F9\u2014\u2014\u8F03\u5C0F\u7684\u55AE\u5143\u5728\u6BCF\u500B\u5EA6\u91CF\u4E0A\u90FD\u56B4\u683C\u8F03\u512A",
+                "fraction": 0,
+                "feedback": "\u5B58\u5728\u771F\u5BE6\u6B0A\u8861\uFF1A\u5404\u55AE\u5143\u8907\u96DC\u5EA6\u8F03\u4F4E\uFF0C\u4F46\u55AE\u5143\u66F4\u591A\u3001\u8981\u7BA1\u7406\u7684\u8026\u5408\u4E5F\u66F4\u591A\u3002"
+              }
+            ],
+            "generalFeedback": "\u62BD\u51FA\u662F\u4E00\u7A2E\u53D6\u6368\uFF1A\u5404\u55AE\u5143\u8907\u96DC\u5EA6\u4E0B\u964D\uFF0C\u4F46\u4F60\u591A\u4E86\u4E00\u500B\u55AE\u5143\u8207\u81F3\u5C11\u4E00\u689D\u65B0\u547C\u53EB\u908A\uFF08a \u5230 b\uFF09\uFF0C\u6545\u6574\u9AD4\u8026\u5408\u4E0A\u5347\u3002\u96E3\u6E2C\u5EA6\u662F\u5728\u8907\u96DC\u5EA6\u8207\u8026\u5408\u9593\u53D6\u5F97\u5E73\u8861\uFF0C\u800C\u975E\u628A\u55AE\u4E00\u9805\u6700\u5927\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6247\u51FA\u7684\u52A0\u6B0A\u9AD8\u65BC\u8907\u96DC\u5EA6",
+            "text": "<p>\u5728\u5206\u6578\u4E2D\uFF0C\u6247\u51FA\u4E58\u4EE5 2\uFF0C\u800C\u5FAA\u74B0\u8907\u96DC\u5EA6\u8207\u5167\u805A\u5404\u5E36\u6B0A\u91CD 1\u3002\u9019\u500B\u52A0\u6B0A\u5F37\u8ABF\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u5354\u4F5C\u8005\u662F\u96D9\u91CD\u6210\u672C\u2014\u2014\u5B83\u65E2\u589E\u52A0\u4E00\u689D\u8981\u6DB5\u84CB\u7684\u8DEF\u5F91\uFF0C\u53C8\u589E\u52A0\u4E00\u500B\u8981\u5EFA\u7684\u66FF\u8EAB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52A0\u500D\u7684\u6B0A\u91CD\u53CD\u6620\u8026\u5408\u5230\u5354\u4F5C\u8005\u5728\u5169\u65B9\u9762\u90FD\u640D\u5BB3\u9694\u96E2\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6247\u51FA\u662F\u552F\u4E00\u91CD\u8981\u7684\u5EA6\u91CF",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u8A0A\u865F\u90FD\u6709\u8CA2\u737B\uFF1B\u6247\u51FA\u53EA\u662F\u52A0\u6B0A\u8F03\u91CD\u3002"
+              },
+              {
+                "text": "\u8907\u96DC\u5EA6\u61C9\u88AB\u5FFD\u7565",
+                "fraction": 0,
+                "feedback": "\u8907\u96DC\u5EA6\u4ECD\u4EE5\u6B0A\u91CD 1 \u8A08\u5165\uFF1B\u4E26\u672A\u88AB\u5FFD\u7565\u3002"
+              },
+              {
+                "text": "\u6247\u5165\u7684\u91CD\u8981\u6027\u662F\u6247\u51FA\u7684\u5169\u500D",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u6839\u672C\u4E0D\u5728\u5206\u6578\u4E2D\uFF1B\u88AB\u52A0\u500D\u7684\u662F\u6247\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u6247\u51FA\u52A0\u6B0A 2\uFF0C\u56E0\u70BA\u6BCF\u689D\u51FA\u53BB\u7684\u4F9D\u8CF4\u65E2\u70BA\u547C\u53EB\u8005\u589E\u52A0\u4E00\u689D\u984D\u5916\u8DEF\u5F91\uFF0C\u53C8\u589E\u52A0\u4E00\u500B\u5FC5\u9808\u4EE5\u66FF\u8EAB\u66FF\u63DB\u7684\u5354\u4F5C\u8005\u2014\u2014\u6545\u8026\u5408\u88AB\u61F2\u7F70\u5F97\u6BD4\u8907\u96DC\u5EA6\u6216\u5167\u805A\u55AE\u7368\u66F4\u91CD\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u63A5\u6536\u4F9D\u8CF4\u4E0D\u6539\u8B8A\u88AB\u547C\u53EB\u8005\u7684\u5206\u6578",
+            "text": "<p>\u65B0\u589E\u4F9D\u8CF4 <code>validateCart \u5230 formatMoney</code> \u6703\u4F7F formatMoney \u7684\u6247\u5165\u7531 3 \u5347\u5230 4\uFF0C\u4F46 formatMoney \u7684\u96E3\u6E2C\u5EA6\u5206\u6578\u4ECD\u70BA 2 \u4E0D\u8B8A\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6247\u5165\u4E0D\u5C6C\u65BC score = cyclomatic + 2*fanOut + cohesionPenalty\uFF0C\u6545 formatMoney \u7684\u5206\u6578\u7DAD\u6301 2\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5206\u6578\u7528\u6247\u51FA\uFF0C\u4E0D\u662F\u6247\u5165\uFF0C\u6545\u4E00\u689D\u65B0\u7684\u9032\u5165\u908A\u4F7F formatMoney \u7684\u5206\u6578\u7DAD\u6301\u5728 2\u3002"
+              }
+            ],
+            "generalFeedback": "\u96E3\u6E2C\u5EA6\u5206\u6578\u53D6\u6C7A\u65BC\u6247\u51FA\uFF08\u6B0A\u91CD 2\uFF09\u3001\u5FAA\u74B0\u8907\u96DC\u5EA6\u8207\u5167\u805A\u2014\u2014\u800C\u975E\u6247\u5165\u3002\u591A\u4E00\u500B\u547C\u53EB\u8005\u4F7F formatMoney \u7684\u6247\u5165\u5347\u5230 4\uFF0C\u4F46\u5206\u6578\u7DAD\u6301 2\uFF1B\u53EA\u6709\u547C\u53EB\u8005\uFF08\u6247\u51FA\u589E\u52A0\uFF09\u624D\u6703\u8B8A\u96E3\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65B0\u589E validateCart \u5230 formatMoney \u5F8C\u7684\u6392\u540D\u8B8A\u5316",
+            "text": "<p>\u65B0\u589E <code>validateCart \u5230 formatMoney</code> \u5F8C\uFF0CvalidateCart \u7684\u5206\u6578\u8B8A\u6210 8\uFF0C\u800C sendReceipt \u7DAD\u6301 7\u3002\u9802\u7AEF\u9644\u8FD1\u7684\u6392\u540D\u5982\u4F55\u6539\u8B8A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "validateCart \u5347\u5230 sendReceipt \u4E4B\u4E0A\uFF0C\u9032\u5165\u7B2C\u4E09\u540D\uFF0C\u4F4D\u65BC checkout\uFF0819\uFF09\u8207 chargePayment\uFF089\uFF09\u4E4B\u5F8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u6578\u70BA 8 \u7684 validateCart \u73FE\u5728\u8D85\u8D8A sendReceipt\uFF087\uFF09\uFF0C\u6392\u7B2C\u4E09\u3002"
+              },
+              {
+                "text": "\u6BEB\u7121\u6539\u8B8A\uFF1BvalidateCart \u4ECD\u5728 sendReceipt \u4E4B\u4E0B",
+                "fraction": 0,
+                "feedback": "validateCart \u7531 6 \u5347\u5230 8\uFF0C\u6545\u73FE\u5728\u8D85\u8D8A sendReceipt \u7684 7\u3002"
+              },
+              {
+                "text": "validateCart \u8B8A\u6210\u6700\u96E3\u55AE\u5143",
+                "fraction": 0,
+                "feedback": "checkout\uFF0819\uFF09\u4ECD\u9059\u9059\u9818\u5148\uFF1B\u5206\u6578 8 \u7684 validateCart \u53EA\u5230\u7B2C\u4E09\u3002"
+              },
+              {
+                "text": "formatMoney \u56E0\u6247\u5165\u589E\u52A0\u800C\u4E0A\u5347",
+                "fraction": 0,
+                "feedback": "formatMoney \u7684\u5206\u6578\u7DAD\u6301 2 \u4E0D\u8B8A\u2014\u2014\u6247\u5165\u4E0D\u5C6C\u65BC\u5206\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u65B0\u908A\u4F7F validateCart \u6247\u51FA\u70BA 1\u3001\u5206\u6578 8\uFF0C\u8D85\u8D8A sendReceipt\uFF087\uFF09\u3002\u9802\u7AEF\u9806\u5E8F\u8B8A\u70BA checkout\uFF0819\uFF09\u3001chargePayment\uFF089\uFF09\u3001validateCart\uFF088\uFF09\u3001sendReceipt\uFF087\uFF09\u3002formatMoney \u4E0D\u53D7\u5F71\u97FF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8B8A\u52D5\u964D\u4F4E\u6A21\u7D44\u7684\u6700\u9AD8\u96E3\u6E2C\u5EA6",
+            "text": "<p>\u4F60\u60F3\u964D\u4F4E\u6A21\u7D44\u4E2D<strong>\u6700\u58DE\u60C5\u6CC1</strong>\u7684\u55AE\u5143\u96E3\u6E2C\u5EA6\u3002\u54EA\u500B\u52D5\u4F5C\u80FD\u505A\u5230\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u62C6\u5206\u6700\u96E3\u55AE\u5143 checkout\uFF0C\u4F7F\u5176\u6700\u9AD8\u5206\u7531 19 \u964D\u5230 12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u62C6\u5206\u628A\u8907\u96DC\u5EA6\u6E1B\u534A\u4E26\u5206\u914D\u908A\uFF0C\u628A\u6700\u9AD8\u96E3\u6E2C\u5EA6\u964D\u5230 12\u3002"
+              },
+              {
+                "text": "\u65B0\u589E\u4E00\u689D\u7531 checkout \u5230 formatMoney \u7684\u4F9D\u8CF4",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u63D0\u9AD8 checkout \u7684\u6247\u51FA\u8207\u5206\u6578\u5230 21\u2014\u2014\u8207\u4F60\u7684\u76EE\u6A19\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u65B0\u589E\u4E00\u689D\u9032\u5165 checkout \u7684\u4F9D\u8CF4\u4EE5\u63D0\u9AD8\u5B83\u7684\u6247\u5165",
+                "fraction": 0,
+                "feedback": "\u6247\u5165\u4E0D\u5C6C\u65BC\u5206\u6578\uFF0C\u6545\u9019\u4E0D\u6703\u964D\u4F4E\u6700\u9AD8\u96E3\u6E2C\u5EA6\u3002"
+              },
+              {
+                "text": "\u91CD\u65B0\u547D\u540D checkout \u7684\u8077\u8CAC",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u547D\u540D\u4E0D\u6539\u8B8A\u4EFB\u4F55\u5EA6\u91CF\uFF1B\u8077\u8CAC\u6578\u91CF\u8207\u5176\u4ED6\u6BCF\u500B\u8A0A\u865F\u90FD\u4E0D\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "\u65B0\u589E\u4F9D\u8CF4\u53EA\u6703\u63D0\u9AD8\u6247\u51FA\u8207\u5206\u6578\u3002\u62C6\u5206\u6700\u96E3\u55AE\u5143\u624D\u6703\u964D\u4F4E\u5CF0\u503C\uFF1Acheckout \u7684 19 \u8B8A\u6210 checkout-a 12 \u8207 checkout-b 10\uFF0C\u6545\u6A21\u7D44\u7684\u6700\u9AD8\u96E3\u6E2C\u5EA6\u964D\u5230 12\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
+    "testability-scorecard": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What the scorecard aggregates",
+            "text": "<p>The testability scorecard aggregates:</p>",
+            "answers": [
+              {
+                "text": "Five normalized testability signals into one overall grade",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it rolls five signals into a single grade."
+              },
+              {
+                "text": "A single code-coverage percentage",
+                "fraction": 0,
+                "feedback": "Coverage is not what the scorecard aggregates; it combines five distinct signals."
+              },
+              {
+                "text": "The list of all currently failing test cases",
+                "fraction": 0,
+                "feedback": "The scorecard reports signals and a grade, not a list of failing tests."
+              },
+              {
+                "text": "The number of mutants killed by the suite",
+                "fraction": 0,
+                "feedback": "Mutation score belongs to a different topic; the scorecard aggregates five testability signals."
+              }
+            ],
+            "generalFeedback": "The capstone testability scorecard combines five normalized signals \u2014 controllability, observability, seam coverage, structural, and determinism \u2014 into one overall grade (A to F).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The five signals",
+            "text": "<p>Which five signals does the scorecard report?</p>",
+            "answers": [
+              {
+                "text": "controllability, observability, seam coverage, structural, determinism",
+                "fraction": 100,
+                "feedback": "Correct \u2014 these are the five normalized testability signals."
+              },
+              {
+                "text": "severity, priority, likelihood, impact, exposure",
+                "fraction": 0,
+                "feedback": "Those are risk-based-testing terms, not the scorecard's testability signals."
+              },
+              {
+                "text": "unit, integration, system, acceptance, regression",
+                "fraction": 0,
+                "feedback": "Those are test levels/types, not the scorecard's signals."
+              },
+              {
+                "text": "precision, recall, accuracy, F1, coverage",
+                "fraction": 0,
+                "feedback": "Those are classifier/coverage metrics, not the testability signals."
+              }
+            ],
+            "generalFeedback": "The scorecard's five signals are controllability, observability, seam coverage, structural, and determinism \u2014 each normalized so higher means more testable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Grade letters range",
+            "text": "<p>The overall grade is expressed as a letter in which range?</p>",
+            "answers": [
+              {
+                "text": "A to F (A, B, C, D, F)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the grade thresholds define A, B, C, D and F."
+              },
+              {
+                "text": "1 to 10",
+                "fraction": 0,
+                "feedback": "The grade is a letter, not a 1 to 10 number."
+              },
+              {
+                "text": "Pass or Fail only",
+                "fraction": 0,
+                "feedback": "The scorecard gives a graded letter, not a binary pass/fail."
+              },
+              {
+                "text": "0% to 100% with no letter",
+                "fraction": 0,
+                "feedback": "The overall percentage maps to a letter grade; the reported grade is a letter."
+              }
+            ],
+            "generalFeedback": "The overall mean is mapped to a letter through fixed thresholds: A at 0.85, B at 0.70, C at 0.55, D at 0.40, and F below that.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Composes the other explorers",
+            "text": "<p>How does the scorecard produce its numbers?</p>",
+            "answers": [
+              {
+                "text": "It composes the other three testability explorers' engines plus a nondeterminism signal, without re-deriving them",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it reuses the sibling engines rather than re-computing anything."
+              },
+              {
+                "text": "It re-implements every metric independently from scratch",
+                "fraction": 0,
+                "feedback": "The scorecard deliberately composes the existing engines; it does not re-derive them."
+              },
+              {
+                "text": "It asks the user to type each signal by hand",
+                "fraction": 0,
+                "feedback": "The signals are computed from the fixture, not typed in."
+              },
+              {
+                "text": "It reads the numbers from a static image",
+                "fraction": 0,
+                "feedback": "The numbers come from live composition of the sibling engines."
+              }
+            ],
+            "generalFeedback": "The scorecard is a capstone: it composes the controllability/observability, seams, and metrics engines and adds a nondeterminism signal, aggregating all five from one shared fixture.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Higher means more testable",
+            "text": "<p>For every signal on the scorecard, a higher normalized value means:</p>",
+            "answers": [
+              {
+                "text": "More testable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all five signals are normalized so higher = more testable."
+              },
+              {
+                "text": "Less testable",
+                "fraction": 0,
+                "feedback": "The signals are oriented so higher is better, not worse."
+              },
+              {
+                "text": "More lines of code",
+                "fraction": 0,
+                "feedback": "The signals measure testability, not code size."
+              },
+              {
+                "text": "Nothing \u2014 the direction is undefined",
+                "fraction": 0,
+                "feedback": "The direction is well defined: higher is more testable."
+              }
+            ],
+            "generalFeedback": "Every signal is normalized to a 0..1 scale with a consistent orientation: higher = more testable. This lets them be averaged into one overall score.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read controllability value",
+            "text": "<p>For the bundled fixture, the controllability signal is:</p>",
+            "answers": [
+              {
+                "text": "0.6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 of the 5 turnstile states are reachable, so 3/5 = 0.6."
+              },
+              {
+                "text": "0.2",
+                "fraction": 0,
+                "feedback": "0.2 is the observability signal, not controllability."
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 is the structural signal, not controllability."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 is the determinism signal, not controllability."
+              }
+            ],
+            "generalFeedback": "Controllability = reachable states / total states = 3/5 = 0.6 for the turnstile SUT.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read observability value",
+            "text": "<p>For the bundled fixture, the observability signal is:</p>",
+            "answers": [
+              {
+                "text": "0.2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only 1 of the 5 states has a unique observable output, so 1/5 = 0.2."
+              },
+              {
+                "text": "0.6",
+                "fraction": 0,
+                "feedback": "0.6 is the controllability signal, not observability."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 is the determinism signal, not observability."
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 is the structural signal, not observability."
+              }
+            ],
+            "generalFeedback": "Observability = states with a unique output / total states = 1/5 = 0.2; the shared outputs (two 'green', two 'red') hide states from an observer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read seam-coverage value",
+            "text": "<p>With nothing injected yet, the seam-coverage signal is:</p>",
+            "answers": [
+              {
+                "text": "0",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no seams applied means 0 of 4, so the signal is 0."
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 would be one of four seams injected; initially none are."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 would be two of four seams injected; initially none are."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "1 would be all four seams injected; initially none are."
+              }
+            ],
+            "generalFeedback": "Seam coverage = seams injected / total anti-patterns = 0/4 = 0 in the base fixture, because appliedSeams starts empty.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read determinism value",
+            "text": "<p>For the base fixture, the determinism signal is:</p>",
+            "answers": [
+              {
+                "text": "0.5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2 of 4 nondeterminism sources are present, so 1 - 2/4 = 0.5."
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 is the structural signal, not determinism."
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 is the determinism value after one source is removed, not the base value."
+              },
+              {
+                "text": "0.2",
+                "fraction": 0,
+                "feedback": "0.2 is the observability signal, not determinism."
+              }
+            ],
+            "generalFeedback": "Determinism = 1 - present/DET_TOTAL = 1 - 2/4 = 0.5; the fixture declares two sources (clock and random) out of the catalogue of four.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read structural value",
+            "text": "<p>For the base fixture, the structural signal is:</p>",
+            "answers": [
+              {
+                "text": "0.24",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the hardest unit scores 19, so 1 - 19/25 = 0.24."
+              },
+              {
+                "text": "0.6",
+                "fraction": 0,
+                "feedback": "0.6 is the controllability signal, not structural."
+              },
+              {
+                "text": "0.19",
+                "fraction": 0,
+                "feedback": "19 is the hardest unit's raw score, not the normalized structural signal 0.24."
+              },
+              {
+                "text": "0.76",
+                "fraction": 0,
+                "feedback": "0.76 is 19/25 (the hardness fraction); the signal is 1 - 0.76 = 0.24."
+              }
+            ],
+            "generalFeedback": "Structural = 1 - hardest/STRUCT_CAP = 1 - 19/25 = 0.24, where the checkout unit is the hardest at 19 and STRUCT_CAP = 25.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read the overall grade",
+            "text": "<p>The base fixture's overall grade is:</p>",
+            "answers": [
+              {
+                "text": "F",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the overall 0.308 falls below the D threshold of 0.40, so the grade is F."
+              },
+              {
+                "text": "A",
+                "fraction": 0,
+                "feedback": "A needs overall at least 0.85; the fixture is far below that."
+              },
+              {
+                "text": "C",
+                "fraction": 0,
+                "feedback": "C needs overall at least 0.55; the fixture's 0.308 is well below."
+              },
+              {
+                "text": "D",
+                "fraction": 0,
+                "feedback": "D needs overall at least 0.40; the fixture's 0.308 is below, so it is F."
+              }
+            ],
+            "generalFeedback": "The base overall is 0.308, below the lowest passing threshold (D at 0.40), so the grade is F.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How overall is computed",
+            "text": "<p>The overall score is computed as:</p>",
+            "answers": [
+              {
+                "text": "The arithmetic mean of the five signals",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the overall is the plain average of the five signal values."
+              },
+              {
+                "text": "The product of the five signals",
+                "fraction": 0,
+                "feedback": "The overall is the mean, not the product."
+              },
+              {
+                "text": "The maximum of the five signals",
+                "fraction": 0,
+                "feedback": "The overall is the mean, not the maximum."
+              },
+              {
+                "text": "The minimum of the five signals",
+                "fraction": 0,
+                "feedback": "The overall is the mean, not the minimum."
+              }
+            ],
+            "generalFeedback": "overall = (controllability + observability + seam + structural + determinism) / 5 \u2014 the arithmetic mean of the five equally weighted signals.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Scorecard re-derives from scratch",
+            "text": "<p>The scorecard re-derives every metric from scratch rather than reusing the other explorers' engines.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it composes the sibling engines and adds a nondeterminism signal; it does not re-derive anything."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "It does not re-derive; the whole point of the capstone is to compose the existing engines."
+              }
+            ],
+            "generalFeedback": "The scorecard reuses the controllability/observability, seams, and metrics engines as its source of truth, adding only the nondeterminism signal. It composes rather than re-derives."
+          },
+          {
+            "type": "multichoice",
+            "name": "Which signal is zero",
+            "text": "<p>In the base fixture, which signal is 0?</p>",
+            "answers": [
+              {
+                "text": "seam coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no seams are injected initially, so seam coverage is 0."
+              },
+              {
+                "text": "controllability",
+                "fraction": 0,
+                "feedback": "Controllability is 0.6, not 0."
+              },
+              {
+                "text": "determinism",
+                "fraction": 0,
+                "feedback": "Determinism is 0.5, not 0."
+              },
+              {
+                "text": "structural",
+                "fraction": 0,
+                "feedback": "Structural is 0.24, not 0."
+              }
+            ],
+            "generalFeedback": "Because appliedSeams starts empty, seam coverage = 0/4 = 0 \u2014 the only signal at zero in the base fixture.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Threshold for grade A",
+            "text": "<p>To earn grade A, the overall score must be at least:</p>",
+            "answers": [
+              {
+                "text": "0.85",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the A threshold is 0.85."
+              },
+              {
+                "text": "0.70",
+                "fraction": 0,
+                "feedback": "0.70 is the B threshold, not A."
+              },
+              {
+                "text": "0.55",
+                "fraction": 0,
+                "feedback": "0.55 is the C threshold, not A."
+              },
+              {
+                "text": "0.40",
+                "fraction": 0,
+                "feedback": "0.40 is the D threshold, not A."
+              }
+            ],
+            "generalFeedback": "The thresholds, checked high to low, are A at 0.85, B at 0.70, C at 0.55, D at 0.40, else F.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Why the base fixture is F",
+            "text": "<p>Why does the base fixture receive grade F?</p>",
+            "answers": [
+              {
+                "text": "Its overall (mean) 0.308 is below the D threshold of 0.40",
+                "fraction": 100,
+                "feedback": "Correct \u2014 0.308 is under 0.40, so the grade lands at F."
+              },
+              {
+                "text": "Because one signal is exactly 1.0",
+                "fraction": 0,
+                "feedback": "No signal is 1.0 in the base fixture; the grade comes from the low mean."
+              },
+              {
+                "text": "Because it has more than five signals",
+                "fraction": 0,
+                "feedback": "There are exactly five signals; the grade is driven by their mean."
+              },
+              {
+                "text": "Because the clock seam is already injected",
+                "fraction": 0,
+                "feedback": "No seams are injected initially; the low mean of 0.308 is the reason."
+              }
+            ],
+            "generalFeedback": "The five signals (0.6, 0.2, 0, 0.24, 0.5) average to 0.308, which is below the lowest passing threshold (D at 0.40), so the grade is F.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seam signal maps to which fix",
+            "text": "<p>The lowest signal \u2014 seam coverage \u2014 maps to which fix and teaching explorer?</p>",
+            "answers": [
+              {
+                "text": "Injecting a seam \u2014 the testability-seams explorer",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the seam-coverage fix deep-links to the testability-seams explorer."
+              },
+              {
+                "text": "Adding a probe \u2014 the controllability-observability explorer",
+                "fraction": 0,
+                "feedback": "That fix targets observability, not seam coverage."
+              },
+              {
+                "text": "Splitting a unit \u2014 the testability-metrics explorer",
+                "fraction": 0,
+                "feedback": "That targets the structural signal, not seam coverage."
+              },
+              {
+                "text": "Nothing \u2014 seam coverage has no fix",
+                "fraction": 0,
+                "feedback": "Seam coverage does have a fix: injecting a seam."
+              }
+            ],
+            "generalFeedback": "Each signal deep-links to the explorer that teaches it; seam coverage links to testability-seams, where injecting seams is taught.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the clock lifts two signals",
+            "text": "<p>Why does injecting the clock raise two signals at once?</p>",
+            "answers": [
+              {
+                "text": "It adds a seam (raising seam coverage) and removes a nondeterminism source (raising determinism)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the clock fix injects the clock seam and eliminates the clock source of nondeterminism."
+              },
+              {
+                "text": "It doubles the controllability count",
+                "fraction": 0,
+                "feedback": "Controllability is unaffected by injecting the clock."
+              },
+              {
+                "text": "It changes the structural hardness and the observability",
+                "fraction": 0,
+                "feedback": "Neither structural nor observability changes when the clock is injected."
+              },
+              {
+                "text": "It only raises determinism; the second rise is a display glitch",
+                "fraction": 0,
+                "feedback": "Both rises are real: seam coverage and determinism each increase."
+              }
+            ],
+            "generalFeedback": "Injecting the clock adds the clock seam (seam coverage 0 to 0.25) and removes 'clock' from the nondeterminism list (determinism 0.5 to 0.75) \u2014 one fix, two signals.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute the overall from five signals",
+            "text": "<p>Given signals 0.6, 0.2, 0, 0.24, 0.5, the overall score is:</p>",
+            "answers": [
+              {
+                "text": "0.308",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308."
+              },
+              {
+                "text": "1.54",
+                "fraction": 0,
+                "feedback": "1.54 is the sum; the overall is the mean, 1.54 / 5 = 0.308."
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 is one signal (structural), not the mean of all five."
+              },
+              {
+                "text": "0.4",
+                "fraction": 0,
+                "feedback": "0.4 is the D threshold, not the computed mean 0.308."
+              }
+            ],
+            "generalFeedback": "overall = mean = (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Determinism links to which explorer",
+            "text": "<p>The determinism signal deep-links to which explorer?</p>",
+            "answers": [
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 100,
+                "feedback": "Correct \u2014 nondeterminism is a flakiness tax, so determinism links to flaky-diagnosis."
+              },
+              {
+                "text": "testability-seams",
+                "fraction": 0,
+                "feedback": "That is where seam coverage links, not determinism."
+              },
+              {
+                "text": "testability-metrics",
+                "fraction": 0,
+                "feedback": "That is where the structural signal links, not determinism."
+              },
+              {
+                "text": "controllability-observability",
+                "fraction": 0,
+                "feedback": "That is where controllability and observability link, not determinism."
+              }
+            ],
+            "generalFeedback": "The determinism signal is about nondeterminism sources (clock/random), which cause flaky tests, so its deep-link points to the flaky-diagnosis explorer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Structural taught by which explorer",
+            "text": "<p>The structural signal is taught by which explorer?</p>",
+            "answers": [
+              {
+                "text": "testability-metrics",
+                "fraction": 100,
+                "feedback": "Correct \u2014 structural hardness comes from the metrics engine."
+              },
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 0,
+                "feedback": "That teaches the determinism signal, not structural."
+              },
+              {
+                "text": "testability-seams",
+                "fraction": 0,
+                "feedback": "That teaches seam coverage, not structural."
+              },
+              {
+                "text": "controllability-observability",
+                "fraction": 0,
+                "feedback": "That teaches controllability and observability, not structural."
+              }
+            ],
+            "generalFeedback": "The structural signal is derived from testabilityHardness on the metrics module, so it deep-links to the testability-metrics explorer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seam coverage taught by which explorer",
+            "text": "<p>The seam-coverage signal is taught by which explorer?</p>",
+            "answers": [
+              {
+                "text": "testability-seams",
+                "fraction": 100,
+                "feedback": "Correct \u2014 seam coverage comes from the seams engine."
+              },
+              {
+                "text": "testability-metrics",
+                "fraction": 0,
+                "feedback": "That teaches the structural signal, not seam coverage."
+              },
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 0,
+                "feedback": "That teaches the determinism signal, not seam coverage."
+              },
+              {
+                "text": "controllability-observability",
+                "fraction": 0,
+                "feedback": "That teaches controllability and observability, not seam coverage."
+              }
+            ],
+            "generalFeedback": "Seam coverage is computed by testabilityOf from the seams engine, so it deep-links to the testability-seams explorer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the top-fixes list contains",
+            "text": `<p>The scorecard's "top fixes" list contains:</p>`,
+            "answers": [
+              {
+                "text": "The three lowest signals, in ascending order",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the three weakest signals are listed lowest-first as the priority fixes."
+              },
+              {
+                "text": "The three highest signals, in descending order",
+                "fraction": 0,
+                "feedback": "Fixes target the weakest signals, not the strongest."
+              },
+              {
+                "text": "All five signals",
+                "fraction": 0,
+                "feedback": "Only the three lowest are listed as top fixes."
+              },
+              {
+                "text": "A random selection of two signals",
+                "fraction": 0,
+                "feedback": "The list is deterministic: the three lowest signals, ascending."
+              }
+            ],
+            "generalFeedback": "topFixes takes the three lowest signals sorted ascending by score (ties broken by fixed signal order), each linking to the explorer that teaches it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Highest-priority fix for the base fixture",
+            "text": "<p>For the base fixture, which fix is listed first (highest priority)?</p>",
+            "answers": [
+              {
+                "text": "The seam-coverage fix \u2014 its signal (0) is the lowest",
+                "fraction": 100,
+                "feedback": "Correct \u2014 seam coverage is 0, the lowest, so its fix ranks first."
+              },
+              {
+                "text": "The controllability fix \u2014 its signal (0.6) is the highest",
+                "fraction": 0,
+                "feedback": "The highest signal is the least urgent; fixes go to the lowest first."
+              },
+              {
+                "text": "The determinism fix \u2014 its signal (0.5) is in the middle",
+                "fraction": 0,
+                "feedback": "0.5 is not the lowest; seam coverage at 0 ranks ahead of it."
+              },
+              {
+                "text": "The structural fix \u2014 its signal (0.24) is the second lowest",
+                "fraction": 0,
+                "feedback": "Structural (0.24) is the third lowest; observability (0.2) is second and seam (0) is first."
+              }
+            ],
+            "generalFeedback": "Sorted ascending, the signals are seam 0, observability 0.2, structural 0.24, determinism 0.5, controllability 0.6 \u2014 so the seam-coverage fix is first.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seam signal after injecting the clock",
+            "text": "<p>After injecting the clock, the seam-coverage signal becomes:</p>",
+            "answers": [
+              {
+                "text": "0.25",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 of 4 seams injected gives 1/4 = 0.25."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "0 is the value before any seam is injected; injecting the clock raises it."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 would require two of four seams; only the clock is injected here."
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 is the determinism value after the clock fix, not the seam value."
+              }
+            ],
+            "generalFeedback": "Injecting the clock adds one seam of four: seam coverage = 1/4 = 0.25.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Determinism after injecting the clock",
+            "text": "<p>After injecting the clock, the determinism signal becomes:</p>",
+            "answers": [
+              {
+                "text": "0.75",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one of the two sources is removed, so 1 - 1/4 = 0.75."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 is the value before the clock source is removed."
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 is the seam-coverage value after the clock fix, not determinism."
+              },
+              {
+                "text": "1.0",
+                "fraction": 0,
+                "feedback": "1.0 would require removing both sources; only 'clock' is removed here."
+              }
+            ],
+            "generalFeedback": "Removing 'clock' leaves one source of four: determinism = 1 - 1/4 = 0.75.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Where determinism 0.5 comes from",
+            "text": "<p>The base determinism signal is 0.5 because:</p>",
+            "answers": [
+              {
+                "text": "2 of 4 nondeterminism sources are present: 1 - 2/4 = 0.5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 two of the four-source catalogue are present."
+              },
+              {
+                "text": "5 of 10 tests are flaky",
+                "fraction": 0,
+                "feedback": "The signal is not a flaky-test ratio; it is 1 - present/DET_TOTAL."
+              },
+              {
+                "text": "half the seams are injected",
+                "fraction": 0,
+                "feedback": "Determinism is unrelated to seam count; it counts nondeterminism sources."
+              },
+              {
+                "text": "the clock seam is already fixed",
+                "fraction": 0,
+                "feedback": "No seam is fixed initially; the value comes from 2 of 4 sources present."
+              }
+            ],
+            "generalFeedback": "determinism = 1 - present/DET_TOTAL = 1 - 2/4 = 0.5, with DET_TOTAL = 4 the full catalogue and two sources (clock, random) present.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The fixture's nondeterminism sources",
+            "text": "<p>The base fixture declares which nondeterminism sources?</p>",
+            "answers": [
+              {
+                "text": "clock and random",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fixture's nondeterminism list is ['clock', 'random']."
+              },
+              {
+                "text": "network and timing",
+                "fraction": 0,
+                "feedback": "Those are not the fixture's declared sources; it lists clock and random."
+              },
+              {
+                "text": "threads and disk",
+                "fraction": 0,
+                "feedback": "Those are not the fixture's declared sources; it lists clock and random."
+              },
+              {
+                "text": "animation and order",
+                "fraction": 0,
+                "feedback": "Those are not the fixture's declared sources; it lists clock and random."
+              }
+            ],
+            "generalFeedback": "The fixture's nondeterminism list is ['clock', 'random'] \u2014 the two sources removed by inject-clock and inject-rng respectively.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What adding a probe raises",
+            "text": "<p>Adding a probe raises which signal, and why?</p>",
+            "answers": [
+              {
+                "text": "Observability \u2014 it gives a shared-output state a unique output so a test can tell it apart",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a probe makes a previously hidden state distinguishable, raising observability."
+              },
+              {
+                "text": "Controllability \u2014 it adds a new input edge",
+                "fraction": 0,
+                "feedback": "A probe changes outputs, not the input-driven transitions that control reachability."
+              },
+              {
+                "text": "Structural \u2014 it lowers cyclomatic complexity",
+                "fraction": 0,
+                "feedback": "A probe does not touch the metrics module's structural hardness."
+              },
+              {
+                "text": "Seam coverage \u2014 it injects a dependency",
+                "fraction": 0,
+                "feedback": "Injecting a dependency is a seam fix; a probe instead affects observability."
+              }
+            ],
+            "generalFeedback": "A probe gives a shared-output state a unique output (via withProbe), so more states become distinguishable and observability rises.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which explorer both C and O link to",
+            "text": "<p>The controllability and observability signals both deep-link to which explorer?</p>",
+            "answers": [
+              {
+                "text": "controllability-observability",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both signals come from that one explorer's engine."
+              },
+              {
+                "text": "testability-seams",
+                "fraction": 0,
+                "feedback": "That teaches seam coverage, not controllability/observability."
+              },
+              {
+                "text": "testability-metrics",
+                "fraction": 0,
+                "feedback": "That teaches the structural signal, not controllability/observability."
+              },
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 0,
+                "feedback": "That teaches determinism, not controllability/observability."
+              }
+            ],
+            "generalFeedback": "Controllability and observability are both computed by the controllability-observability engine, so both deep-link to that explorer.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Overall after injecting the clock",
+            "text": "<p>After injecting the clock (seam becomes 0.25 and determinism becomes 0.75, the other three unchanged), the new overall is:</p>",
+            "answers": [
+              {
+                "text": "0.408",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (0.6 + 0.2 + 0.25 + 0.24 + 0.75) / 5 = 2.04 / 5 = 0.408."
+              },
+              {
+                "text": "0.308",
+                "fraction": 0,
+                "feedback": "0.308 is the overall before the fix; injecting the clock raises it to 0.408."
+              },
+              {
+                "text": "0.508",
+                "fraction": 0,
+                "feedback": "0.508 would require also injecting the RNG; the clock alone gives 0.408."
+              },
+              {
+                "text": "0.45",
+                "fraction": 0,
+                "feedback": "The exact mean is 2.04 / 5 = 0.408, not 0.45."
+              }
+            ],
+            "generalFeedback": "After the clock fix the signals are 0.6, 0.2, 0.25, 0.24, 0.75, summing to 2.04; the mean is 2.04 / 5 = 0.408.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Grade after injecting the clock",
+            "text": "<p>With the post-clock overall of 0.408, the grade becomes:</p>",
+            "answers": [
+              {
+                "text": "D",
+                "fraction": 100,
+                "feedback": "Correct \u2014 0.408 is at or above the D threshold (0.40) but below C (0.55), so it is D."
+              },
+              {
+                "text": "F",
+                "fraction": 0,
+                "feedback": "0.408 has crossed the 0.40 D threshold, so it is no longer F."
+              },
+              {
+                "text": "C",
+                "fraction": 0,
+                "feedback": "C needs at least 0.55; 0.408 is below that."
+              },
+              {
+                "text": "B",
+                "fraction": 0,
+                "feedback": "B needs at least 0.70; 0.408 is well below that."
+              }
+            ],
+            "generalFeedback": "gradeFor(0.408): it clears the D threshold of 0.40 but not the C threshold of 0.55, so the grade is D.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpreting the F to D jump",
+            "text": "<p>Injecting the clock moves the grade from F to D. The best explanation is:</p>",
+            "answers": [
+              {
+                "text": "One fix raised two signals, lifting the mean from 0.308 to 0.408, which crosses the 0.40 D threshold",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the clock fix bumps both seam coverage and determinism, pushing the mean past 0.40."
+              },
+              {
+                "text": "It raised controllability above 0.85",
+                "fraction": 0,
+                "feedback": "Controllability is unchanged at 0.6; the grade moved because of seam and determinism."
+              },
+              {
+                "text": "It removed a signal, so the mean of the rest is higher",
+                "fraction": 0,
+                "feedback": "No signal is removed; all five are still averaged."
+              },
+              {
+                "text": "The grade change is unrelated to the signal values",
+                "fraction": 0,
+                "feedback": "The grade is a direct function of the mean of the signal values."
+              }
+            ],
+            "generalFeedback": "The clock fix raises seam coverage (0 to 0.25) and determinism (0.5 to 0.75); the mean rises from 0.308 to 0.408, crossing the D threshold of 0.40 and lifting the grade from F to D.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The structural formula",
+            "text": "<p>The structural signal is computed as 1 - hardest/STRUCT_CAP. With the hardest unit (checkout) scoring 19 and STRUCT_CAP = 25, structural equals:</p>",
+            "answers": [
+              {
+                "text": "0.24 (1 - 19/25)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 19/25 = 0.76, and 1 - 0.76 = 0.24."
+              },
+              {
+                "text": "0.76",
+                "fraction": 0,
+                "feedback": "0.76 is 19/25, the hardness fraction; the signal is 1 minus that = 0.24."
+              },
+              {
+                "text": "0.19",
+                "fraction": 0,
+                "feedback": "0.19 confuses the raw score 19 with the normalized signal 0.24."
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 is 1 - 19/25 rounded loosely; the exact value is 0.24."
+              }
+            ],
+            "generalFeedback": "structural = 1 - hardest/STRUCT_CAP = 1 - 19/25 = 1 - 0.76 = 0.24, with checkout the hardest unit at 19.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why fix the lowest signal first",
+            "text": "<p>Why does the scorecard prioritize the lowest signal first?</p>",
+            "answers": [
+              {
+                "text": "It has the most room to improve and drags the mean down the most, so fixing it yields the biggest grade gain",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the weakest signal is both the biggest drag and the biggest opportunity."
+              },
+              {
+                "text": "It is always the cheapest to fix",
+                "fraction": 0,
+                "feedback": "Cost is not what the scorecard ranks on; it ranks by which signal is lowest."
+              },
+              {
+                "text": "The lowest signal is always determinism",
+                "fraction": 0,
+                "feedback": "The lowest signal varies; in the base fixture it is seam coverage, not determinism."
+              },
+              {
+                "text": "Lower signals are more testable, so they are safer to touch",
+                "fraction": 0,
+                "feedback": "Lower means less testable, not more; that is exactly why it needs the fix."
+              }
+            ],
+            "generalFeedback": "Because the overall is a mean, the lowest signal has the most headroom (0 to 1) and pulls the average down the most, so improving it produces the largest rise in the overall and grade.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nondeterminism and flaky testing",
+            "text": "<p>How does the nondeterminism signal relate to flaky testing?</p>",
+            "answers": [
+              {
+                "text": "Nondeterminism sources such as the clock and RNG make tests flaky, so the determinism signal links to the flaky-diagnosis explorer",
+                "fraction": 100,
+                "feedback": "Correct \u2014 unpinned clock/RNG are classic flakiness causes, tying determinism to flaky-diagnosis."
+              },
+              {
+                "text": "Nondeterminism only affects compile time, not tests",
+                "fraction": 0,
+                "feedback": "Nondeterminism affects test runs, making results non-repeatable (flaky)."
+              },
+              {
+                "text": "Flaky tests raise the structural signal",
+                "fraction": 0,
+                "feedback": "Flakiness relates to determinism, not the structural signal."
+              },
+              {
+                "text": "The determinism signal counts lines of code",
+                "fraction": 0,
+                "feedback": "Determinism counts nondeterminism sources, not lines of code."
+              }
+            ],
+            "generalFeedback": "Each nondeterminism source (a real clock, a real RNG) makes a test's outcome vary between runs \u2014 the definition of flakiness. So the determinism signal deep-links to the flaky-diagnosis explorer, and injecting the clock/RNG both raises determinism and removes a flakiness cause.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Determinism after clock and RNG",
+            "text": "<p>After injecting BOTH the clock and the RNG seams (removing both nondeterminism sources), the determinism signal is:</p>",
+            "answers": [
+              {
+                "text": "1.0 (1 - 0/4)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with zero sources present, determinism = 1 - 0/4 = 1.0."
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 is the value after removing only one source; removing both gives 1.0."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 is the base value with both sources present."
+              },
+              {
+                "text": "0.0",
+                "fraction": 0,
+                "feedback": "Removing sources raises determinism; with none present it is 1.0, not 0."
+              }
+            ],
+            "generalFeedback": "inject-clock removes 'clock' and inject-rng removes 'random', leaving zero of four sources: determinism = 1 - 0/4 = 1.0.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seam coverage after all four seams",
+            "text": "<p>After injecting all four seams (config, gateway, clock, rng), the seam-coverage signal is:</p>",
+            "answers": [
+              {
+                "text": "1.0",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 of 4 anti-patterns removed gives 4/4 = 1.0."
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 would be three of four seams; all four gives 1.0."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 would be two of four seams; all four gives 1.0."
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 would be one of four seams; all four gives 1.0."
+              }
+            ],
+            "generalFeedback": "Seam coverage = seams injected / 4. With all four (config, gateway, clock, rng) injected, it is 4/4 = 1.0.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Overall and grade after all four seams",
+            "text": "<p>With all four seams injected, the signals are controllability 0.6, observability 0.2, seam 1.0, structural 0.24, determinism 1.0 (clock and rng removed). The overall and grade are:</p>",
+            "answers": [
+              {
+                "text": "0.608 \u2192 C",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 3.04 / 5 = 0.608, which clears the C threshold of 0.55."
+              },
+              {
+                "text": "0.408 \u2192 D",
+                "fraction": 0,
+                "feedback": "0.408 is the overall after only the clock fix, not after all four seams."
+              },
+              {
+                "text": "0.708 \u2192 B",
+                "fraction": 0,
+                "feedback": "The exact mean is 3.04 / 5 = 0.608, not 0.708."
+              },
+              {
+                "text": "0.508 \u2192 D",
+                "fraction": 0,
+                "feedback": "0.508 is the mean when only clock and rng seams are applied (seam 0.5); all four seams give 0.608."
+              }
+            ],
+            "generalFeedback": "All four seams give seam 1.0 and (via clock and rng) determinism 1.0; the mean is (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 0.608, which is at or above the C threshold 0.55, so grade C.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why structural stays 0.24",
+            "text": "<p>You inject the config seam. Why does the structural signal stay at 0.24?</p>",
+            "answers": [
+              {
+                "text": "Structural hardness comes from a different engine (the metrics module); injecting a seam changes only seam coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 seams and structural are computed by independent engines."
+              },
+              {
+                "text": "Because structural is always frozen at 0.24 forever",
+                "fraction": 0,
+                "feedback": "Structural is not frozen in principle; it just does not respond to seam injection."
+              },
+              {
+                "text": "Because the config seam lowers cyclomatic complexity by exactly zero rounding",
+                "fraction": 0,
+                "feedback": "The config seam does not touch the metrics module at all, so no rounding is involved."
+              },
+              {
+                "text": "Because injecting a seam also injects structural debt",
+                "fraction": 0,
+                "feedback": "Injecting a seam has no effect on the structural signal in either direction."
+              }
+            ],
+            "generalFeedback": "Structural comes from testabilityHardness on the metrics module, while seam coverage comes from the seams engine. Injecting the config seam only changes appliedSeams, so structural stays 0.24.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of STRUCT_CAP",
+            "text": "<p>What does STRUCT_CAP = 25 represent in the structural signal?</p>",
+            "answers": [
+              {
+                "text": "The hardness score treated as worst-case; a unit scoring 25 would give structural 1 - 25/25 = 0",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 STRUCT_CAP is the "as bad as it gets" denominator for normalizing hardness.'
+              },
+              {
+                "text": "The maximum number of units allowed in a module",
+                "fraction": 0,
+                "feedback": "STRUCT_CAP normalizes the hardness score, not a unit count."
+              },
+              {
+                "text": "The passing grade threshold in percent",
+                "fraction": 0,
+                "feedback": "Grade thresholds are separate (0.85/0.70/0.55/0.40); STRUCT_CAP is the hardness denominator."
+              },
+              {
+                "text": "The number of nondeterminism sources",
+                "fraction": 0,
+                "feedback": "That is DET_TOTAL = 4; STRUCT_CAP = 25 normalizes structural hardness."
+              }
+            ],
+            "generalFeedback": "STRUCT_CAP = 25 is the hardness score treated as worst-case; structural = 1 - hardest/STRUCT_CAP, so a unit at 25 would give 0 and the fixture's 19 gives 0.24.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of DET_TOTAL",
+            "text": "<p>What does DET_TOTAL = 4 represent?</p>",
+            "answers": [
+              {
+                "text": "The full catalogue of nondeterminism sources the determinism signal is normalized against; 2 present gives 1 - 2/4 = 0.5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 DET_TOTAL is the denominator for the determinism signal."
+              },
+              {
+                "text": "The number of grade letters",
+                "fraction": 0,
+                "feedback": "There are five grade letters (A, B, C, D, F); DET_TOTAL = 4 is the nondeterminism catalogue size."
+              },
+              {
+                "text": "The number of seams times two",
+                "fraction": 0,
+                "feedback": "There are four seams; DET_TOTAL just happens to be 4 and denotes the nondeterminism catalogue, not a product."
+              },
+              {
+                "text": "The count of explorers composed",
+                "fraction": 0,
+                "feedback": "The scorecard composes three sibling engines; DET_TOTAL = 4 is the nondeterminism catalogue."
+              }
+            ],
+            "generalFeedback": "DET_TOTAL = 4 is the total catalogue of nondeterminism sources; determinism = 1 - present/DET_TOTAL, so the two present sources give 1 - 2/4 = 0.5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Clock versus config as a single fix",
+            "text": "<p>Why is injecting the clock a higher-leverage single fix than injecting the config seam?</p>",
+            "answers": [
+              {
+                "text": "inject-clock raises two signals (seam coverage and determinism); inject-config raises only seam coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the clock fix also removes a nondeterminism source, so it moves two signals."
+              },
+              {
+                "text": "inject-config raises three signals",
+                "fraction": 0,
+                "feedback": "inject-config raises only seam coverage; it does not touch the other signals."
+              },
+              {
+                "text": "inject-clock lowers structural hardness as well",
+                "fraction": 0,
+                "feedback": "Neither fix touches structural; the clock's extra effect is on determinism."
+              },
+              {
+                "text": "They have identical effect on the grade",
+                "fraction": 0,
+                "feedback": "They differ: the clock moves two signals, the config only one, so their grade effect differs."
+              }
+            ],
+            "generalFeedback": "inject-config adds only the config seam (seam coverage +0.25). inject-clock adds the clock seam (seam coverage +0.25) and removes the clock nondeterminism source (determinism +0.25), so it lifts the mean twice as much.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of one signal on the mean",
+            "text": "<p>Because the overall is a plain mean of five signals, raising any one signal from 0 to 1 changes the overall by:</p>",
+            "answers": [
+              {
+                "text": "0.2 (one fifth)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each signal contributes 1/5 of the mean, so a full 0-to-1 swing moves the overall by 0.2."
+              },
+              {
+                "text": "1.0",
+                "fraction": 0,
+                "feedback": "A single signal is only 1/5 of the mean; its full swing is 0.2, not 1.0."
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 would be a two-signal weighting; each single signal is worth 0.2 of the mean."
+              },
+              {
+                "text": "0 \u2014 individual signals do not affect the mean",
+                "fraction": 0,
+                "feedback": "Each signal does affect the mean, by 1/5 of its change."
+              }
+            ],
+            "generalFeedback": "The overall is the mean of five equally weighted signals, so each contributes 1/5 = 0.2. A signal moving from 0 to 1 raises the overall by 0.2.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Order the top-3 fixes",
+            "text": "<p>Given signals controllability 0.6, observability 0.2, seam 0, structural 0.24, determinism 0.5, the top-3 fixes, in priority order, are:</p>",
+            "answers": [
+              {
+                "text": "seam coverage, observability, structural",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ascending by score: seam 0, observability 0.2, structural 0.24."
+              },
+              {
+                "text": "controllability, determinism, structural",
+                "fraction": 0,
+                "feedback": "Those are not the three lowest; controllability (0.6) and determinism (0.5) are the two highest."
+              },
+              {
+                "text": "structural, observability, seam coverage",
+                "fraction": 0,
+                "feedback": "That is descending; the list goes lowest-first: seam, observability, structural."
+              },
+              {
+                "text": "determinism, controllability, observability",
+                "fraction": 0,
+                "feedback": "determinism (0.5) and controllability (0.6) are the strongest signals, not top fixes."
+              }
+            ],
+            "generalFeedback": "topFixes sorts ascending: seam 0 (testability-seams), observability 0.2 (controllability-observability), structural 0.24 (testability-metrics) \u2014 the three weakest signals, each linking to the explorer that teaches it.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u5206\u5361\u5F59\u7E3D\u4E86\u4EC0\u9EBC",
+            "text": "<p>\u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\uFF08testability scorecard\uFF09\u5F59\u7E3D\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u4E94\u500B\u6B63\u898F\u5316\u7684\u53EF\u6E2C\u8A66\u6027\u8A0A\u865F\u5F59\u7E3D\u6210\u4E00\u500B\u7E3D\u9AD4\u7B49\u7B2C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u628A\u4E94\u500B\u8A0A\u865F\u6574\u5408\u6210\u55AE\u4E00\u7B49\u7B2C\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u7684\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u767E\u5206\u6BD4",
+                "fraction": 0,
+                "feedback": "\u8A08\u5206\u5361\u5F59\u7E3D\u7684\u4E0D\u662F\u8986\u84CB\u7387\uFF1B\u5B83\u7D50\u5408\u4E94\u500B\u4E0D\u540C\u7684\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u76EE\u524D\u6240\u6709\u5931\u6557\u6E2C\u8A66\u6848\u4F8B\u7684\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u8A08\u5206\u5361\u56DE\u5831\u7684\u662F\u8A0A\u865F\u8207\u7B49\u7B2C\uFF0C\u4E0D\u662F\u5931\u6557\u6E2C\u8A66\u7684\u6E05\u55AE\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5957\u4EF6\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u5206\u6578\u5C6C\u65BC\u53E6\u4E00\u500B\u4E3B\u984C\uFF1B\u8A08\u5206\u5361\u5F59\u7E3D\u7684\u662F\u4E94\u500B\u53EF\u6E2C\u8A66\u6027\u8A0A\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u58D3\u8EF8\u7684\u53EF\u6E2C\u8A66\u6027\u8A08\u5206\u5361\u628A\u4E94\u500B\u6B63\u898F\u5316\u8A0A\u865F\u2014\u2014\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u8986\u84CB\u3001\u7D50\u69CB\u3001\u78BA\u5B9A\u6027\u2014\u2014\u5F59\u7E3D\u6210\u4E00\u500B\u7E3D\u9AD4\u7B49\u7B2C\uFF08A \u5230 F\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E94\u500B\u8A0A\u865F",
+            "text": "<p>\u8A08\u5206\u5361\u56DE\u5831\u54EA\u4E94\u500B\u8A0A\u865F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u8986\u84CB\u3001\u7D50\u69CB\u3001\u78BA\u5B9A\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u4E94\u500B\u6B63\u898F\u5316\u7684\u53EF\u6E2C\u8A66\u6027\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u56B4\u91CD\u5EA6\u3001\u512A\u5148\u5EA6\u3001\u53EF\u80FD\u6027\u3001\u885D\u64CA\u3001\u66B4\u9732\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u98A8\u96AA\u5F0F\u6E2C\u8A66\u7684\u540D\u8A5E\uFF0C\u4E0D\u662F\u8A08\u5206\u5361\u7684\u53EF\u6E2C\u8A66\u6027\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\u3001\u56DE\u6B78",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u6E2C\u8A66\u5C64\u7D1A\uFF0F\u985E\u578B\uFF0C\u4E0D\u662F\u8A08\u5206\u5361\u7684\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u7CBE\u78BA\u7387\u3001\u53EC\u56DE\u7387\u3001\u6E96\u78BA\u7387\u3001F1\u3001\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u5206\u985E\uFF0F\u8986\u84CB\u5EA6\u91CF\uFF0C\u4E0D\u662F\u53EF\u6E2C\u8A66\u6027\u8A0A\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A08\u5206\u5361\u7684\u4E94\u500B\u8A0A\u865F\u662F\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u8986\u84CB\u3001\u7D50\u69CB\u3001\u78BA\u5B9A\u6027\u2014\u2014\u6BCF\u500B\u90FD\u6B63\u898F\u5316\u70BA\u300C\u8D8A\u9AD8\u8D8A\u53EF\u6E2C\u8A66\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u7B2C\u5B57\u6BCD\u7684\u7BC4\u570D",
+            "text": "<p>\u7E3D\u9AD4\u7B49\u7B2C\u4EE5\u54EA\u500B\u7BC4\u570D\u7684\u5B57\u6BCD\u8868\u793A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "A \u5230 F\uFF08A\u3001B\u3001C\u3001D\u3001F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B49\u7B2C\u9580\u6ABB\u5B9A\u7FA9\u4E86 A\u3001B\u3001C\u3001D \u8207 F\u3002"
+              },
+              {
+                "text": "1 \u5230 10",
+                "fraction": 0,
+                "feedback": "\u7B49\u7B2C\u662F\u5B57\u6BCD\uFF0C\u4E0D\u662F 1 \u5230 10 \u7684\u6578\u5B57\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u901A\u904E\u6216\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u8A08\u5206\u5361\u7D66\u7684\u662F\u5206\u7D1A\u5B57\u6BCD\uFF0C\u4E0D\u662F\u4E8C\u5143\u7684\u901A\u904E\uFF0F\u5931\u6557\u3002"
+              },
+              {
+                "text": "0% \u5230 100%\uFF0C\u6C92\u6709\u5B57\u6BCD",
+                "fraction": 0,
+                "feedback": "\u7E3D\u9AD4\u767E\u5206\u6BD4\u6703\u5C0D\u61C9\u5230\u5B57\u6BCD\u7B49\u7B2C\uFF1B\u56DE\u5831\u7684\u7B49\u7B2C\u662F\u5B57\u6BCD\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E3D\u9AD4\u5E73\u5747\u900F\u904E\u56FA\u5B9A\u9580\u6ABB\u5C0D\u61C9\u5230\u5B57\u6BCD\uFF1AA \u70BA 0.85\u3001B \u70BA 0.70\u3001C \u70BA 0.55\u3001D \u70BA 0.40\uFF0C\u5176\u9918\u70BA F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D44\u5408\u5176\u4ED6\u63A2\u7D22\u5668",
+            "text": "<p>\u8A08\u5206\u5361\u5982\u4F55\u7522\u751F\u5B83\u7684\u6578\u5B57\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u7D44\u5408\u5176\u4ED6\u4E09\u500B\u53EF\u6E2C\u8A66\u6027\u63A2\u7D22\u5668\u7684\u5F15\u64CE\uFF0C\u518D\u52A0\u4E0A\u4E00\u500B\u975E\u78BA\u5B9A\u6027\u8A0A\u865F\uFF0C\u800C\u4E0D\u91CD\u65B0\u63A8\u5C0E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u91CD\u7528\u5144\u5F1F\u5F15\u64CE\uFF0C\u800C\u975E\u91CD\u65B0\u8A08\u7B97\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u5B83\u7368\u7ACB\u5730\u5F9E\u982D\u91CD\u65B0\u5BE6\u4F5C\u6BCF\u4E00\u500B\u5EA6\u91CF",
+                "fraction": 0,
+                "feedback": "\u8A08\u5206\u5361\u523B\u610F\u7D44\u5408\u65E2\u6709\u5F15\u64CE\uFF1B\u4E26\u4E0D\u91CD\u65B0\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "\u5B83\u8981\u6C42\u4F7F\u7528\u8005\u624B\u52D5\u9375\u5165\u6BCF\u500B\u8A0A\u865F",
+                "fraction": 0,
+                "feedback": "\u8A0A\u865F\u662F\u7531 fixture \u8A08\u7B97\u5F97\u51FA\uFF0C\u800C\u975E\u9375\u5165\u3002"
+              },
+              {
+                "text": "\u5B83\u5F9E\u4E00\u5F35\u975C\u614B\u5716\u7247\u8B80\u53D6\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u6578\u5B57\u4F86\u81EA\u5C0D\u5144\u5F1F\u5F15\u64CE\u7684\u5373\u6642\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A08\u5206\u5361\u662F\u58D3\u8EF8\uFF1A\u5B83\u7D44\u5408\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u3001\u5EA6\u91CF\u4E09\u500B\u5F15\u64CE\uFF0C\u518D\u52A0\u4E0A\u4E00\u500B\u975E\u78BA\u5B9A\u6027\u8A0A\u865F\uFF0C\u5F9E\u540C\u4E00\u4EFD fixture \u5F59\u7E3D\u5168\u90E8\u4E94\u500B\u8A0A\u865F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8D8A\u9AD8\u4EE3\u8868\u8D8A\u53EF\u6E2C\u8A66",
+            "text": "<p>\u5C0D\u8A08\u5206\u5361\u4E0A\u7684\u6BCF\u500B\u8A0A\u865F\uFF0C\u6B63\u898F\u5316\u503C\u8D8A\u9AD8\u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8D8A\u53EF\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E94\u500B\u8A0A\u865F\u90FD\u6B63\u898F\u5316\u70BA\u300C\u8D8A\u9AD8\uFF1D\u8D8A\u53EF\u6E2C\u8A66\u300D\u3002"
+              },
+              {
+                "text": "\u8D8A\u4E0D\u53EF\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8A0A\u865F\u7684\u65B9\u5411\u662F\u8D8A\u9AD8\u8D8A\u597D\uFF0C\u800C\u975E\u8D8A\u5DEE\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u884C\u6578\u8D8A\u591A",
+                "fraction": 0,
+                "feedback": "\u8A0A\u865F\u8861\u91CF\u53EF\u6E2C\u8A66\u6027\uFF0C\u4E0D\u662F\u7A0B\u5F0F\u78BC\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u610F\u7FA9\u2014\u2014\u65B9\u5411\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u65B9\u5411\u6709\u660E\u78BA\u5B9A\u7FA9\uFF1A\u8D8A\u9AD8\u8D8A\u53EF\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u8A0A\u865F\u90FD\u6B63\u898F\u5316\u5230 0..1 \u7684\u91CF\u8868\uFF0C\u65B9\u5411\u4E00\u81F4\uFF1A\u8D8A\u9AD8\uFF1D\u8D8A\u53EF\u6E2C\u8A66\u3002\u5982\u6B64\u624D\u80FD\u5E73\u5747\u6210\u4E00\u500B\u7E3D\u9AD4\u5206\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6\u53EF\u63A7\u5236\u6027\u503C",
+            "text": "<p>\u5C0D\u65BC\u5167\u5EFA\u7684 fixture\uFF0C\u53EF\u63A7\u5236\u6027\u8A0A\u865F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F49\u9598 5 \u500B\u72C0\u614B\u4E2D\u6709 3 \u500B\u53EF\u9054\uFF0C\u6545 3/5 = 0.6\u3002"
+              },
+              {
+                "text": "0.2",
+                "fraction": 0,
+                "feedback": "0.2 \u662F\u53EF\u89C0\u5BDF\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 \u662F\u7D50\u69CB\u8A0A\u865F\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u662F\u78BA\u5B9A\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u63A7\u5236\u6027 \uFF1D \u53EF\u9054\u72C0\u614B / \u7E3D\u72C0\u614B \uFF1D 3/5 = 0.6\uFF08\u8F49\u9598 SUT\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6\u53EF\u89C0\u5BDF\u6027\u503C",
+            "text": "<p>\u5C0D\u65BC\u5167\u5EFA\u7684 fixture\uFF0C\u53EF\u89C0\u5BDF\u6027\u8A0A\u865F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 \u500B\u72C0\u614B\u4E2D\u53EA\u6709 1 \u500B\u6709\u552F\u4E00\u7684\u53EF\u89C0\u5BDF\u8F38\u51FA\uFF0C\u6545 1/5 = 0.2\u3002"
+              },
+              {
+                "text": "0.6",
+                "fraction": 0,
+                "feedback": "0.6 \u662F\u53EF\u63A7\u5236\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u662F\u78BA\u5B9A\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 \u662F\u7D50\u69CB\u8A0A\u865F\uFF0C\u4E0D\u662F\u53EF\u89C0\u5BDF\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u89C0\u5BDF\u6027 \uFF1D \u5177\u552F\u4E00\u8F38\u51FA\u7684\u72C0\u614B / \u7E3D\u72C0\u614B \uFF1D 1/5 = 0.2\uFF1B\u5171\u7528\u7684\u8F38\u51FA\uFF08\u5169\u500B 'green'\u3001\u5169\u500B 'red'\uFF09\u4F7F\u89C0\u5BDF\u8005\u770B\u4E0D\u51FA\u90A3\u4E9B\u72C0\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6\u63A5\u7E2B\u8986\u84CB\u503C",
+            "text": "<p>\u5728\u5C1A\u672A\u6CE8\u5165\u4EFB\u4F55\u63A5\u7E2B\u6642\uFF0C\u63A5\u7E2B\u8986\u84CB\u8A0A\u865F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u5957\u7528\u4EFB\u4F55\u63A5\u7E2B\uFF0C\u5373 4 \u500B\u4E2D 0 \u500B\uFF0C\u6545\u8A0A\u865F\u70BA 0\u3002"
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 \u662F\u6CE8\u5165\u56DB\u500B\u63A5\u7E2B\u5176\u4E2D\u4E00\u500B\u7684\u503C\uFF1B\u521D\u59CB\u4E00\u500B\u90FD\u6C92\u6709\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u662F\u6CE8\u5165\u56DB\u500B\u4E2D\u5169\u500B\u7684\u503C\uFF1B\u521D\u59CB\u4E00\u500B\u90FD\u6C92\u6709\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "1 \u662F\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\u7684\u503C\uFF1B\u521D\u59CB\u4E00\u500B\u90FD\u6C92\u6709\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A5\u7E2B\u8986\u84CB \uFF1D \u5DF2\u6CE8\u5165\u63A5\u7E2B / \u53CD\u6A23\u5F0F\u7E3D\u6578 \uFF1D 0/4 = 0\uFF0C\u56E0\u70BA appliedSeams \u4E00\u958B\u59CB\u70BA\u7A7A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6\u78BA\u5B9A\u6027\u503C",
+            "text": "<p>\u5C0D\u65BC\u57FA\u790E fixture\uFF0C\u78BA\u5B9A\u6027\u8A0A\u865F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u4E2D\u6709 2 \u500B\u5B58\u5728\uFF0C\u6545 1 - 2/4 = 0.5\u3002"
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 \u662F\u7D50\u69CB\u8A0A\u865F\uFF0C\u4E0D\u662F\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 \u662F\u79FB\u9664\u4E00\u500B\u4F86\u6E90\u4E4B\u5F8C\u7684\u78BA\u5B9A\u6027\u503C\uFF0C\u4E0D\u662F\u57FA\u790E\u503C\u3002"
+              },
+              {
+                "text": "0.2",
+                "fraction": 0,
+                "feedback": "0.2 \u662F\u53EF\u89C0\u5BDF\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u78BA\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u5B9A\u6027 \uFF1D 1 - present/DET_TOTAL \uFF1D 1 - 2/4 = 0.5\uFF1Bfixture \u5728\u56DB\u500B\u4F86\u6E90\u7684\u76EE\u9304\u4E2D\u5BA3\u544A\u4E86\u5169\u500B\uFF08clock \u8207 random\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6\u7D50\u69CB\u503C",
+            "text": "<p>\u5C0D\u65BC\u57FA\u790E fixture\uFF0C\u7D50\u69CB\u8A0A\u865F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.24",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u96E3\u7684\u55AE\u5143\u5F97\u5206 19\uFF0C\u6545 1 - 19/25 = 0.24\u3002"
+              },
+              {
+                "text": "0.6",
+                "fraction": 0,
+                "feedback": "0.6 \u662F\u53EF\u63A7\u5236\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "0.19",
+                "fraction": 0,
+                "feedback": "19 \u662F\u6700\u96E3\u55AE\u5143\u7684\u539F\u59CB\u5206\u6578\uFF0C\u4E0D\u662F\u6B63\u898F\u5316\u5F8C\u7684\u7D50\u69CB\u8A0A\u865F 0.24\u3002"
+              },
+              {
+                "text": "0.76",
+                "fraction": 0,
+                "feedback": "0.76 \u662F 19/25\uFF08\u96E3\u5EA6\u6BD4\u4F8B\uFF09\uFF1B\u8A0A\u865F\u662F 1 - 0.76 = 0.24\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D50\u69CB \uFF1D 1 - hardest/STRUCT_CAP \uFF1D 1 - 19/25 = 0.24\uFF0C\u5176\u4E2D checkout \u55AE\u5143\u6700\u96E3\u70BA 19\uFF0CSTRUCT_CAP \uFF1D 25\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u53D6\u7E3D\u9AD4\u7B49\u7B2C",
+            "text": "<p>\u57FA\u790E fixture \u7684\u7E3D\u9AD4\u7B49\u7B2C\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E3D\u9AD4 0.308 \u4F4E\u65BC D \u9580\u6ABB 0.40\uFF0C\u6545\u7B49\u7B2C\u70BA F\u3002"
+              },
+              {
+                "text": "A",
+                "fraction": 0,
+                "feedback": "A \u9700\u8981\u7E3D\u9AD4\u81F3\u5C11 0.85\uFF1B\u6B64 fixture \u9060\u4F4E\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "C",
+                "fraction": 0,
+                "feedback": "C \u9700\u8981\u7E3D\u9AD4\u81F3\u5C11 0.55\uFF1B\u6B64 fixture \u7684 0.308 \u9060\u4F4E\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "D",
+                "fraction": 0,
+                "feedback": "D \u9700\u8981\u7E3D\u9AD4\u81F3\u5C11 0.40\uFF1B\u6B64 fixture \u7684 0.308 \u4F4E\u65BC\u6B64\uFF0C\u6545\u70BA F\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u790E\u7E3D\u9AD4\u70BA 0.308\uFF0C\u4F4E\u65BC\u6700\u4F4E\u53CA\u683C\u9580\u6ABB\uFF08D \u70BA 0.40\uFF09\uFF0C\u6545\u7B49\u7B2C\u70BA F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7E3D\u9AD4\u5982\u4F55\u8A08\u7B97",
+            "text": "<p>\u7E3D\u9AD4\u5206\u6578\u7684\u8A08\u7B97\u65B9\u5F0F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E94\u500B\u8A0A\u865F\u7684\u7B97\u8853\u5E73\u5747",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E3D\u9AD4\u662F\u4E94\u500B\u8A0A\u865F\u503C\u7684\u55AE\u7D14\u5E73\u5747\u3002"
+              },
+              {
+                "text": "\u4E94\u500B\u8A0A\u865F\u7684\u4E58\u7A4D",
+                "fraction": 0,
+                "feedback": "\u7E3D\u9AD4\u662F\u5E73\u5747\uFF0C\u4E0D\u662F\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "\u4E94\u500B\u8A0A\u865F\u7684\u6700\u5927\u503C",
+                "fraction": 0,
+                "feedback": "\u7E3D\u9AD4\u662F\u5E73\u5747\uFF0C\u4E0D\u662F\u6700\u5927\u503C\u3002"
+              },
+              {
+                "text": "\u4E94\u500B\u8A0A\u865F\u7684\u6700\u5C0F\u503C",
+                "fraction": 0,
+                "feedback": "\u7E3D\u9AD4\u662F\u5E73\u5747\uFF0C\u4E0D\u662F\u6700\u5C0F\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E3D\u9AD4 \uFF1D (\u53EF\u63A7\u5236\u6027 + \u53EF\u89C0\u5BDF\u6027 + \u63A5\u7E2B + \u7D50\u69CB + \u78BA\u5B9A\u6027) / 5\u2014\u2014\u4E94\u500B\u7B49\u6B0A\u8A0A\u865F\u7684\u7B97\u8853\u5E73\u5747\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8A08\u5206\u5361\u5F9E\u982D\u91CD\u65B0\u63A8\u5C0E",
+            "text": "<p>\u8A08\u5206\u5361\u6703\u5F9E\u982D\u91CD\u65B0\u63A8\u5C0E\u6BCF\u4E00\u500B\u5EA6\u91CF\uFF0C\u800C\u975E\u91CD\u7528\u5176\u4ED6\u63A2\u7D22\u5668\u7684\u5F15\u64CE\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u7D44\u5408\u5144\u5F1F\u5F15\u64CE\u4E26\u52A0\u4E0A\u4E00\u500B\u975E\u78BA\u5B9A\u6027\u8A0A\u865F\uFF1B\u4E0D\u91CD\u65B0\u63A8\u5C0E\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u91CD\u65B0\u63A8\u5C0E\uFF1B\u58D3\u8EF8\u7684\u91CD\u9EDE\u6B63\u662F\u7D44\u5408\u65E2\u6709\u5F15\u64CE\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A08\u5206\u5361\u4EE5\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u3001\u5EA6\u91CF\u5F15\u64CE\u4F5C\u70BA\u771F\u7406\u4F86\u6E90\uFF0C\u53EA\u984D\u5916\u52A0\u4E0A\u975E\u78BA\u5B9A\u6027\u8A0A\u865F\u3002\u5B83\u662F\u7D44\u5408\u800C\u975E\u91CD\u65B0\u63A8\u5C0E\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8A0A\u865F\u70BA\u96F6",
+            "text": "<p>\u5728\u57FA\u790E fixture \u4E2D\uFF0C\u54EA\u500B\u8A0A\u865F\u70BA 0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u7E2B\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u521D\u59CB\u672A\u6CE8\u5165\u4EFB\u4F55\u63A5\u7E2B\uFF0C\u6545\u63A5\u7E2B\u8986\u84CB\u70BA 0\u3002"
+              },
+              {
+                "text": "\u53EF\u63A7\u5236\u6027",
+                "fraction": 0,
+                "feedback": "\u53EF\u63A7\u5236\u6027\u662F 0.6\uFF0C\u4E0D\u662F 0\u3002"
+              },
+              {
+                "text": "\u78BA\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u78BA\u5B9A\u6027\u662F 0.5\uFF0C\u4E0D\u662F 0\u3002"
+              },
+              {
+                "text": "\u7D50\u69CB",
+                "fraction": 0,
+                "feedback": "\u7D50\u69CB\u662F 0.24\uFF0C\u4E0D\u662F 0\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA appliedSeams \u4E00\u958B\u59CB\u70BA\u7A7A\uFF0C\u63A5\u7E2B\u8986\u84CB \uFF1D 0/4 = 0\u2014\u2014\u662F\u57FA\u790E fixture \u4E2D\u552F\u4E00\u70BA\u96F6\u7684\u8A0A\u865F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u7B2C A \u7684\u9580\u6ABB",
+            "text": "<p>\u8981\u53D6\u5F97\u7B49\u7B2C A\uFF0C\u7E3D\u9AD4\u5206\u6578\u81F3\u5C11\u9808\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.85",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014A \u7684\u9580\u6ABB\u662F 0.85\u3002"
+              },
+              {
+                "text": "0.70",
+                "fraction": 0,
+                "feedback": "0.70 \u662F B \u7684\u9580\u6ABB\uFF0C\u4E0D\u662F A\u3002"
+              },
+              {
+                "text": "0.55",
+                "fraction": 0,
+                "feedback": "0.55 \u662F C \u7684\u9580\u6ABB\uFF0C\u4E0D\u662F A\u3002"
+              },
+              {
+                "text": "0.40",
+                "fraction": 0,
+                "feedback": "0.40 \u662F D \u7684\u9580\u6ABB\uFF0C\u4E0D\u662F A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u9AD8\u5230\u4F4E\u6AA2\u67E5\u7684\u9580\u6ABB\u70BA\uFF1AA \u70BA 0.85\u3001B \u70BA 0.70\u3001C \u70BA 0.55\u3001D \u70BA 0.40\uFF0C\u5176\u9918\u70BA F\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u57FA\u790E fixture \u662F F",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u57FA\u790E fixture \u5F97\u5230\u7B49\u7B2C F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u7684\u7E3D\u9AD4\uFF08\u5E73\u5747\uFF090.308 \u4F4E\u65BC D \u9580\u6ABB 0.40",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20140.308 \u4F4E\u65BC 0.40\uFF0C\u6545\u7B49\u7B2C\u843D\u5728 F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6709\u4E00\u500B\u8A0A\u865F\u6070\u597D\u662F 1.0",
+                "fraction": 0,
+                "feedback": "\u57FA\u790E fixture \u4E2D\u6C92\u6709\u8A0A\u865F\u70BA 1.0\uFF1B\u7B49\u7B2C\u4F86\u81EA\u504F\u4F4E\u7684\u5E73\u5747\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u6709\u8D85\u904E\u4E94\u500B\u8A0A\u865F",
+                "fraction": 0,
+                "feedback": "\u8A0A\u865F\u6070\u597D\u662F\u4E94\u500B\uFF1B\u7B49\u7B2C\u7531\u5176\u5E73\u5747\u9A45\u52D5\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6642\u9418\u63A5\u7E2B\u5DF2\u88AB\u6CE8\u5165",
+                "fraction": 0,
+                "feedback": "\u521D\u59CB\u672A\u6CE8\u5165\u4EFB\u4F55\u63A5\u7E2B\uFF1B\u539F\u56E0\u662F 0.308 \u7684\u4F4E\u5E73\u5747\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E94\u500B\u8A0A\u865F\uFF080.6\u30010.2\u30010\u30010.24\u30010.5\uFF09\u5E73\u5747\u70BA 0.308\uFF0C\u4F4E\u65BC\u6700\u4F4E\u53CA\u683C\u9580\u6ABB\uFF08D \u70BA 0.40\uFF09\uFF0C\u6545\u7B49\u7B2C\u70BA F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A5\u7E2B\u8A0A\u865F\u5C0D\u61C9\u5230\u54EA\u500B\u4FEE\u6B63",
+            "text": "<p>\u6700\u4F4E\u7684\u8A0A\u865F\u2014\u2014\u63A5\u7E2B\u8986\u84CB\u2014\u2014\u5C0D\u61C9\u5230\u54EA\u500B\u4FEE\u6B63\u8207\u6559\u5B78\u63A2\u7D22\u5668\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u63A5\u7E2B\u2014\u2014testability-seams \u63A2\u7D22\u5668",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u8986\u84CB\u7684\u4FEE\u6B63\u6DF1\u9023\u5230 testability-seams \u63A2\u7D22\u5668\u3002"
+              },
+              {
+                "text": "\u52A0\u5165\u63A2\u91DD\u2014\u2014controllability-observability \u63A2\u7D22\u5668",
+                "fraction": 0,
+                "feedback": "\u90A3\u500B\u4FEE\u6B63\u91DD\u5C0D\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u63A5\u7E2B\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u62C6\u5206\u55AE\u5143\u2014\u2014testability-metrics \u63A2\u7D22\u5668",
+                "fraction": 0,
+                "feedback": "\u90A3\u91DD\u5C0D\u7D50\u69CB\u8A0A\u865F\uFF0C\u4E0D\u662F\u63A5\u7E2B\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u63A5\u7E2B\u8986\u84CB\u6C92\u6709\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u63A5\u7E2B\u8986\u84CB\u78BA\u6709\u4FEE\u6B63\uFF1A\u6CE8\u5165\u63A5\u7E2B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u8A0A\u865F\u6DF1\u9023\u5230\u6559\u5B83\u7684\u63A2\u7D22\u5668\uFF1B\u63A5\u7E2B\u8986\u84CB\u9023\u5230 testability-seams\uFF0C\u90A3\u88E1\u6559\u5982\u4F55\u6CE8\u5165\u63A5\u7E2B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6642\u9418\u63D0\u5347\u5169\u500B\u8A0A\u865F",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6CE8\u5165\u6642\u9418\u6703\u540C\u6642\u63D0\u5347\u5169\u500B\u8A0A\u865F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u52A0\u5165\u4E00\u500B\u63A5\u7E2B\uFF08\u63D0\u5347\u63A5\u7E2B\u8986\u84CB\uFF09\u4E26\u79FB\u9664\u4E00\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF08\u63D0\u5347\u78BA\u5B9A\u6027\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6642\u9418\u4FEE\u6B63\u6CE8\u5165\u6642\u9418\u63A5\u7E2B\u4E26\u6D88\u9664 clock \u9019\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u3002"
+              },
+              {
+                "text": "\u5B83\u4F7F\u53EF\u63A7\u5236\u6027\u8A08\u6578\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u6642\u9418\u4E0D\u5F71\u97FF\u53EF\u63A7\u5236\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u6539\u8B8A\u7D50\u69CB\u96E3\u5EA6\u8207\u53EF\u89C0\u5BDF\u6027",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u6642\u9418\u6642\u7D50\u69CB\u8207\u53EF\u89C0\u5BDF\u6027\u90FD\u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u63D0\u5347\u78BA\u5B9A\u6027\uFF1B\u7B2C\u4E8C\u500B\u63D0\u5347\u662F\u986F\u793A\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u63D0\u5347\u90FD\u662F\u771F\u7684\uFF1A\u63A5\u7E2B\u8986\u84CB\u8207\u78BA\u5B9A\u6027\u5404\u81EA\u589E\u52A0\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE8\u5165\u6642\u9418\u6703\u52A0\u5165\u6642\u9418\u63A5\u7E2B\uFF08\u63A5\u7E2B\u8986\u84CB 0 \u5230 0.25\uFF09\u4E26\u5F9E\u975E\u78BA\u5B9A\u6027\u6E05\u55AE\u79FB\u9664 'clock'\uFF08\u78BA\u5B9A\u6027 0.5 \u5230 0.75\uFF09\u2014\u2014\u4E00\u500B\u4FEE\u6B63\uFF0C\u5169\u500B\u8A0A\u865F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u4E94\u500B\u8A0A\u865F\u8A08\u7B97\u7E3D\u9AD4",
+            "text": "<p>\u7D66\u5B9A\u8A0A\u865F 0.6\u30010.2\u30010\u30010.24\u30010.5\uFF0C\u7E3D\u9AD4\u5206\u6578\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.308",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308\u3002"
+              },
+              {
+                "text": "1.54",
+                "fraction": 0,
+                "feedback": "1.54 \u662F\u7E3D\u548C\uFF1B\u7E3D\u9AD4\u662F\u5E73\u5747\uFF0C1.54 / 5 = 0.308\u3002"
+              },
+              {
+                "text": "0.24",
+                "fraction": 0,
+                "feedback": "0.24 \u662F\u55AE\u4E00\u8A0A\u865F\uFF08\u7D50\u69CB\uFF09\uFF0C\u4E0D\u662F\u4E94\u8005\u7684\u5E73\u5747\u3002"
+              },
+              {
+                "text": "0.4",
+                "fraction": 0,
+                "feedback": "0.4 \u662F D \u9580\u6ABB\uFF0C\u4E0D\u662F\u7B97\u51FA\u7684\u5E73\u5747 0.308\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E3D\u9AD4 \uFF1D \u5E73\u5747 \uFF1D (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u78BA\u5B9A\u6027\u9023\u5230\u54EA\u500B\u63A2\u7D22\u5668",
+            "text": "<p>\u78BA\u5B9A\u6027\u8A0A\u865F\u6DF1\u9023\u5230\u54EA\u500B\u63A2\u7D22\u5668\uFF1F</p>",
+            "answers": [
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u78BA\u5B9A\u6027\u662F\u8106\u5F31\u6027\u7684\u7A05\uFF0C\u6545\u78BA\u5B9A\u6027\u9023\u5230 flaky-diagnosis\u3002"
+              },
+              {
+                "text": "testability-seams",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u63A5\u7E2B\u8986\u84CB\u9023\u53BB\u7684\u5730\u65B9\uFF0C\u4E0D\u662F\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "testability-metrics",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D50\u69CB\u8A0A\u865F\u9023\u53BB\u7684\u5730\u65B9\uFF0C\u4E0D\u662F\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "controllability-observability",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u9023\u53BB\u7684\u5730\u65B9\uFF0C\u4E0D\u662F\u78BA\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u5B9A\u6027\u8A0A\u865F\u95DC\u4E4E\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF08clock/random\uFF09\uFF0C\u5B83\u5011\u6703\u9020\u6210\u8106\u5F31\u6E2C\u8A66\uFF0C\u6545\u5176\u6DF1\u9023\u6307\u5411 flaky-diagnosis \u63A2\u7D22\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u69CB\u7531\u54EA\u500B\u63A2\u7D22\u5668\u6559",
+            "text": "<p>\u7D50\u69CB\u8A0A\u865F\u7531\u54EA\u500B\u63A2\u7D22\u5668\u6559\u6388\uFF1F</p>",
+            "answers": [
+              {
+                "text": "testability-metrics",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D50\u69CB\u96E3\u5EA6\u4F86\u81EA\u5EA6\u91CF\u5F15\u64CE\u3002"
+              },
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u78BA\u5B9A\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "testability-seams",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u63A5\u7E2B\u8986\u84CB\uFF0C\u4E0D\u662F\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "controllability-observability",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u7D50\u69CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D50\u69CB\u8A0A\u865F\u7531\u5EA6\u91CF\u6A21\u7D44\u4E0A\u7684 testabilityHardness \u5C0E\u51FA\uFF0C\u6545\u6DF1\u9023\u5230 testability-metrics \u63A2\u7D22\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A5\u7E2B\u8986\u84CB\u7531\u54EA\u500B\u63A2\u7D22\u5668\u6559",
+            "text": "<p>\u63A5\u7E2B\u8986\u84CB\u8A0A\u865F\u7531\u54EA\u500B\u63A2\u7D22\u5668\u6559\u6388\uFF1F</p>",
+            "answers": [
+              {
+                "text": "testability-seams",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u8986\u84CB\u4F86\u81EA\u63A5\u7E2B\u5F15\u64CE\u3002"
+              },
+              {
+                "text": "testability-metrics",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u7D50\u69CB\u8A0A\u865F\uFF0C\u4E0D\u662F\u63A5\u7E2B\u8986\u84CB\u3002"
+              },
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u78BA\u5B9A\u6027\u8A0A\u865F\uFF0C\u4E0D\u662F\u63A5\u7E2B\u8986\u84CB\u3002"
+              },
+              {
+                "text": "controllability-observability",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\uFF0C\u4E0D\u662F\u63A5\u7E2B\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A5\u7E2B\u8986\u84CB\u7531\u63A5\u7E2B\u5F15\u64CE\u7684 testabilityOf \u8A08\u7B97\uFF0C\u6545\u6DF1\u9023\u5230 testability-seams \u63A2\u7D22\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9802\u5C16\u4FEE\u6B63\u6E05\u55AE\u5305\u542B\u4EC0\u9EBC",
+            "text": "<p>\u8A08\u5206\u5361\u7684\u300C\u9802\u5C16\u4FEE\u6B63\uFF08top fixes\uFF09\u300D\u6E05\u55AE\u5305\u542B\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6700\u4F4E\u7684\u4E09\u500B\u8A0A\u865F\uFF0C\u7531\u5C0F\u5230\u5927\u6392\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5F31\u7684\u4E09\u500B\u8A0A\u865F\u4EE5\u6700\u4F4E\u8005\u512A\u5148\u5217\u70BA\u512A\u5148\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u6700\u9AD8\u7684\u4E09\u500B\u8A0A\u865F\uFF0C\u7531\u5927\u5230\u5C0F\u6392\u5217",
+                "fraction": 0,
+                "feedback": "\u4FEE\u6B63\u91DD\u5C0D\u6700\u5F31\u7684\u8A0A\u865F\uFF0C\u800C\u975E\u6700\u5F37\u7684\u3002"
+              },
+              {
+                "text": "\u5168\u90E8\u4E94\u500B\u8A0A\u865F",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u6700\u4F4E\u7684\u4E09\u500B\u88AB\u5217\u70BA\u9802\u5C16\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u6311\u9078\u7684\u5169\u500B\u8A0A\u865F",
+                "fraction": 0,
+                "feedback": "\u6E05\u55AE\u662F\u78BA\u5B9A\u6027\u7684\uFF1A\u6700\u4F4E\u7684\u4E09\u500B\u8A0A\u865F\uFF0C\u7531\u5C0F\u5230\u5927\u3002"
+              }
+            ],
+            "generalFeedback": "topFixes \u53D6\u6700\u4F4E\u7684\u4E09\u500B\u8A0A\u865F\uFF0C\u4F9D\u5206\u6578\u7531\u5C0F\u5230\u5927\u6392\u5E8F\uFF08\u5E73\u624B\u6642\u4EE5\u56FA\u5B9A\u8A0A\u865F\u9806\u5E8F\u6253\u7834\uFF09\uFF0C\u6BCF\u500B\u90FD\u9023\u5230\u6559\u5B83\u7684\u63A2\u7D22\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57FA\u790E fixture \u7684\u6700\u9AD8\u512A\u5148\u4FEE\u6B63",
+            "text": "<p>\u5C0D\u57FA\u790E fixture \u800C\u8A00\uFF0C\u54EA\u500B\u4FEE\u6B63\u88AB\u5217\u70BA\u7B2C\u4E00\uFF08\u6700\u9AD8\u512A\u5148\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u7E2B\u8986\u84CB\u7684\u4FEE\u6B63\u2014\u2014\u5176\u8A0A\u865F\uFF080\uFF09\u6700\u4F4E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u8986\u84CB\u70BA 0 \u662F\u6700\u4F4E\uFF0C\u6545\u5176\u4FEE\u6B63\u6392\u7B2C\u4E00\u3002"
+              },
+              {
+                "text": "\u53EF\u63A7\u5236\u6027\u7684\u4FEE\u6B63\u2014\u2014\u5176\u8A0A\u865F\uFF080.6\uFF09\u6700\u9AD8",
+                "fraction": 0,
+                "feedback": "\u6700\u9AD8\u7684\u8A0A\u865F\u6700\u4E0D\u6025\u8FEB\uFF1B\u4FEE\u6B63\u5148\u7D66\u6700\u4F4E\u8005\u3002"
+              },
+              {
+                "text": "\u78BA\u5B9A\u6027\u7684\u4FEE\u6B63\u2014\u2014\u5176\u8A0A\u865F\uFF080.5\uFF09\u5C45\u4E2D",
+                "fraction": 0,
+                "feedback": "0.5 \u4E0D\u662F\u6700\u4F4E\uFF1B\u63A5\u7E2B\u8986\u84CB 0 \u6392\u5728\u5B83\u524D\u9762\u3002"
+              },
+              {
+                "text": "\u7D50\u69CB\u7684\u4FEE\u6B63\u2014\u2014\u5176\u8A0A\u865F\uFF080.24\uFF09\u7B2C\u4E8C\u4F4E",
+                "fraction": 0,
+                "feedback": "\u7D50\u69CB\uFF080.24\uFF09\u662F\u7B2C\u4E09\u4F4E\uFF1B\u53EF\u89C0\u5BDF\u6027\uFF080.2\uFF09\u7B2C\u4E8C\u3001\u63A5\u7E2B\uFF080\uFF09\u7B2C\u4E00\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u5C0F\u5230\u5927\u6392\u5E8F\uFF0C\u8A0A\u865F\u70BA\u63A5\u7E2B 0\u3001\u53EF\u89C0\u5BDF\u6027 0.2\u3001\u7D50\u69CB 0.24\u3001\u78BA\u5B9A\u6027 0.5\u3001\u53EF\u63A7\u5236\u6027 0.6\u2014\u2014\u6545\u63A5\u7E2B\u8986\u84CB\u7684\u4FEE\u6B63\u6392\u7B2C\u4E00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165\u6642\u9418\u5F8C\u7684\u63A5\u7E2B\u8A0A\u865F",
+            "text": "<p>\u6CE8\u5165\u6642\u9418\u5F8C\uFF0C\u63A5\u7E2B\u8986\u84CB\u8A0A\u865F\u8B8A\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.25",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \u500B\u63A5\u7E2B\u6CE8\u5165 1 \u500B\uFF0C\u5373 1/4 = 0.25\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "0 \u662F\u6CE8\u5165\u4EFB\u4F55\u63A5\u7E2B\u4E4B\u524D\u7684\u503C\uFF1B\u6CE8\u5165\u6642\u9418\u6703\u63D0\u5347\u5B83\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u9700\u8981\u56DB\u500B\u63A5\u7E2B\u4E2D\u7684\u5169\u500B\uFF1B\u6B64\u8655\u53EA\u6CE8\u5165\u6642\u9418\u3002"
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 \u662F\u6642\u9418\u4FEE\u6B63\u5F8C\u7684\u78BA\u5B9A\u6027\u503C\uFF0C\u4E0D\u662F\u63A5\u7E2B\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE8\u5165\u6642\u9418\u65BC\u56DB\u500B\u63A5\u7E2B\u4E2D\u52A0\u5165\u4E00\u500B\uFF1A\u63A5\u7E2B\u8986\u84CB \uFF1D 1/4 = 0.25\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165\u6642\u9418\u5F8C\u7684\u78BA\u5B9A\u6027",
+            "text": "<p>\u6CE8\u5165\u6642\u9418\u5F8C\uFF0C\u78BA\u5B9A\u6027\u8A0A\u865F\u8B8A\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.75",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u79FB\u9664\u5169\u500B\u4F86\u6E90\u4E2D\u7684\u4E00\u500B\uFF0C\u6545 1 - 1/4 = 0.75\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u662F\u79FB\u9664 clock \u4F86\u6E90\u4E4B\u524D\u7684\u503C\u3002"
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 \u662F\u6642\u9418\u4FEE\u6B63\u5F8C\u7684\u63A5\u7E2B\u8986\u84CB\u503C\uFF0C\u4E0D\u662F\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "1.0",
+                "fraction": 0,
+                "feedback": "1.0 \u9700\u8981\u79FB\u9664\u5169\u500B\u4F86\u6E90\uFF1B\u6B64\u8655\u53EA\u79FB\u9664 'clock'\u3002"
+              }
+            ],
+            "generalFeedback": "\u79FB\u9664 'clock' \u5F8C\u56DB\u500B\u4F86\u6E90\u4E2D\u5269\u4E00\u500B\uFF1A\u78BA\u5B9A\u6027 \uFF1D 1 - 1/4 = 0.75\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u78BA\u5B9A\u6027 0.5 \u5F9E\u4F55\u800C\u4F86",
+            "text": "<p>\u57FA\u790E\u78BA\u5B9A\u6027\u8A0A\u865F\u70BA 0.5\uFF0C\u662F\u56E0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "4 \u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u4E2D\u6709 2 \u500B\u5B58\u5728\uFF1A1 - 2/4 = 0.5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DB\u4F86\u6E90\u76EE\u9304\u4E2D\u6709\u5169\u500B\u5B58\u5728\u3002"
+              },
+              {
+                "text": "10 \u500B\u6E2C\u8A66\u4E2D\u6709 5 \u500B\u8106\u5F31",
+                "fraction": 0,
+                "feedback": "\u6B64\u8A0A\u865F\u4E0D\u662F\u8106\u5F31\u6E2C\u8A66\u6BD4\u4F8B\uFF1B\u5B83\u662F 1 - present/DET_TOTAL\u3002"
+              },
+              {
+                "text": "\u4E00\u534A\u7684\u63A5\u7E2B\u5DF2\u88AB\u6CE8\u5165",
+                "fraction": 0,
+                "feedback": "\u78BA\u5B9A\u6027\u8207\u63A5\u7E2B\u6578\u76EE\u7121\u95DC\uFF1B\u5B83\u8A08\u7B97\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u3002"
+              },
+              {
+                "text": "\u6642\u9418\u63A5\u7E2B\u5DF2\u88AB\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u521D\u59CB\u672A\u4FEE\u6B63\u4EFB\u4F55\u63A5\u7E2B\uFF1B\u6B64\u503C\u4F86\u81EA 4 \u500B\u4F86\u6E90\u4E2D\u6709 2 \u500B\u5B58\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u5B9A\u6027 \uFF1D 1 - present/DET_TOTAL \uFF1D 1 - 2/4 = 0.5\uFF0C\u5176\u4E2D DET_TOTAL \uFF1D 4 \u662F\u5B8C\u6574\u76EE\u9304\uFF0C\u4E14\u6709\u5169\u500B\u4F86\u6E90\uFF08clock\u3001random\uFF09\u5B58\u5728\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "fixture \u7684\u975E\u78BA\u5B9A\u6027\u4F86\u6E90",
+            "text": "<p>\u57FA\u790E fixture \u5BA3\u544A\u4E86\u54EA\u4E9B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF1F</p>",
+            "answers": [
+              {
+                "text": "clock \u8207 random",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014fixture \u7684\u975E\u78BA\u5B9A\u6027\u6E05\u55AE\u662F ['clock', 'random']\u3002"
+              },
+              {
+                "text": "network \u8207 timing",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F fixture \u5BA3\u544A\u7684\u4F86\u6E90\uFF1B\u5B83\u5217\u7684\u662F clock \u8207 random\u3002"
+              },
+              {
+                "text": "threads \u8207 disk",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F fixture \u5BA3\u544A\u7684\u4F86\u6E90\uFF1B\u5B83\u5217\u7684\u662F clock \u8207 random\u3002"
+              },
+              {
+                "text": "animation \u8207 order",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F fixture \u5BA3\u544A\u7684\u4F86\u6E90\uFF1B\u5B83\u5217\u7684\u662F clock \u8207 random\u3002"
+              }
+            ],
+            "generalFeedback": "fixture \u7684\u975E\u78BA\u5B9A\u6027\u6E05\u55AE\u662F ['clock', 'random']\u2014\u2014\u5206\u5225\u7531 inject-clock \u8207 inject-rng \u79FB\u9664\u7684\u5169\u500B\u4F86\u6E90\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u52A0\u5165\u63A2\u91DD\u63D0\u5347\u4EC0\u9EBC",
+            "text": "<p>\u52A0\u5165\u4E00\u500B\u63A2\u91DD\u6703\u63D0\u5347\u54EA\u500B\u8A0A\u865F\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u89C0\u5BDF\u6027\u2014\u2014\u5B83\u7D66\u5171\u7528\u8F38\u51FA\u7684\u72C0\u614B\u4E00\u500B\u552F\u4E00\u8F38\u51FA\uFF0C\u4F7F\u6E2C\u8A66\u80FD\u5206\u8FA8\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A2\u91DD\u4F7F\u539F\u672C\u96B1\u85CF\u7684\u72C0\u614B\u8B8A\u5F97\u53EF\u5340\u5206\uFF0C\u63D0\u5347\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u53EF\u63A7\u5236\u6027\u2014\u2014\u5B83\u52A0\u5165\u4E00\u689D\u65B0\u7684\u8F38\u5165\u908A",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u6539\u8B8A\u7684\u662F\u8F38\u51FA\uFF0C\u4E0D\u662F\u6C7A\u5B9A\u53EF\u9054\u6027\u7684\u8F38\u5165\u9A45\u52D5\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u7D50\u69CB\u2014\u2014\u5B83\u964D\u4F4E\u5FAA\u74B0\u8907\u96DC\u5EA6",
+                "fraction": 0,
+                "feedback": "\u63A2\u91DD\u4E0D\u6703\u89F8\u53CA\u5EA6\u91CF\u6A21\u7D44\u7684\u7D50\u69CB\u96E3\u5EA6\u3002"
+              },
+              {
+                "text": "\u63A5\u7E2B\u8986\u84CB\u2014\u2014\u5B83\u6CE8\u5165\u4E00\u500B\u76F8\u4F9D",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u76F8\u4F9D\u662F\u63A5\u7E2B\u4FEE\u6B63\uFF1B\u63A2\u91DD\u5F71\u97FF\u7684\u662F\u53EF\u89C0\u5BDF\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A2\u91DD\uFF08\u900F\u904E withProbe\uFF09\u7D66\u5171\u7528\u8F38\u51FA\u7684\u72C0\u614B\u4E00\u500B\u552F\u4E00\u8F38\u51FA\uFF0C\u65BC\u662F\u66F4\u591A\u72C0\u614B\u8B8A\u5F97\u53EF\u5340\u5206\uFF0C\u53EF\u89C0\u5BDF\u6027\u4E0A\u5347\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u90FD\u9023\u5230\u54EA",
+            "text": "<p>\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u5169\u500B\u8A0A\u865F\u90FD\u6DF1\u9023\u5230\u54EA\u500B\u63A2\u7D22\u5668\uFF1F</p>",
+            "answers": [
+              {
+                "text": "controllability-observability",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u8A0A\u865F\u90FD\u4F86\u81EA\u8A72\u63A2\u7D22\u5668\u7684\u5F15\u64CE\u3002"
+              },
+              {
+                "text": "testability-seams",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u63A5\u7E2B\u8986\u84CB\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "testability-metrics",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u7D50\u69CB\u8A0A\u865F\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "flaky-diagnosis",
+                "fraction": 0,
+                "feedback": "\u90A3\u6559\u78BA\u5B9A\u6027\uFF0C\u4E0D\u662F\u53EF\u63A7\u5236\u6027\uFF0F\u53EF\u89C0\u5BDF\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u90FD\u7531 controllability-observability \u5F15\u64CE\u8A08\u7B97\uFF0C\u6545\u5169\u8005\u90FD\u6DF1\u9023\u5230\u8A72\u63A2\u7D22\u5668\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165\u6642\u9418\u5F8C\u7684\u7E3D\u9AD4",
+            "text": "<p>\u6CE8\u5165\u6642\u9418\u5F8C\uFF08\u63A5\u7E2B\u8B8A\u70BA 0.25\u3001\u78BA\u5B9A\u6027\u8B8A\u70BA 0.75\uFF0C\u5176\u9918\u4E09\u500B\u4E0D\u8B8A\uFF09\uFF0C\u65B0\u7684\u7E3D\u9AD4\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.408",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(0.6 + 0.2 + 0.25 + 0.24 + 0.75) / 5 = 2.04 / 5 = 0.408\u3002"
+              },
+              {
+                "text": "0.308",
+                "fraction": 0,
+                "feedback": "0.308 \u662F\u4FEE\u6B63\u4E4B\u524D\u7684\u7E3D\u9AD4\uFF1B\u6CE8\u5165\u6642\u9418\u5F8C\u5347\u70BA 0.408\u3002"
+              },
+              {
+                "text": "0.508",
+                "fraction": 0,
+                "feedback": "0.508 \u9700\u8981\u540C\u6642\u6CE8\u5165 RNG\uFF1B\u55AE\u6CE8\u5165\u6642\u9418\u5F97\u5230 0.408\u3002"
+              },
+              {
+                "text": "0.45",
+                "fraction": 0,
+                "feedback": "\u7CBE\u78BA\u5E73\u5747\u662F 2.04 / 5 = 0.408\uFF0C\u4E0D\u662F 0.45\u3002"
+              }
+            ],
+            "generalFeedback": "\u6642\u9418\u4FEE\u6B63\u5F8C\u8A0A\u865F\u70BA 0.6\u30010.2\u30010.25\u30010.24\u30010.75\uFF0C\u7E3D\u548C 2.04\uFF1B\u5E73\u5747\u70BA 2.04 / 5 = 0.408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165\u6642\u9418\u5F8C\u7684\u7B49\u7B2C",
+            "text": "<p>\u5728\u6CE8\u5165\u6642\u9418\u5F8C\u7E3D\u9AD4\u70BA 0.408 \u6642\uFF0C\u7B49\u7B2C\u8B8A\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20140.408 \u9054\u5230\u6216\u8D85\u904E D \u9580\u6ABB\uFF080.40\uFF09\u4F46\u4F4E\u65BC C\uFF080.55\uFF09\uFF0C\u6545\u70BA D\u3002"
+              },
+              {
+                "text": "F",
+                "fraction": 0,
+                "feedback": "0.408 \u5DF2\u8D8A\u904E 0.40 \u7684 D \u9580\u6ABB\uFF0C\u6545\u4E0D\u518D\u662F F\u3002"
+              },
+              {
+                "text": "C",
+                "fraction": 0,
+                "feedback": "C \u9700\u8981\u81F3\u5C11 0.55\uFF1B0.408 \u4F4E\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "B",
+                "fraction": 0,
+                "feedback": "B \u9700\u8981\u81F3\u5C11 0.70\uFF1B0.408 \u9060\u4F4E\u65BC\u6B64\u3002"
+              }
+            ],
+            "generalFeedback": "gradeFor(0.408)\uFF1A\u8D8A\u904E D \u9580\u6ABB 0.40 \u4F46\u672A\u9054 C \u9580\u6ABB 0.55\uFF0C\u6545\u7B49\u7B2C\u70BA D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A6E\u91CB F \u5230 D \u7684\u8DF3\u5347",
+            "text": "<p>\u6CE8\u5165\u6642\u9418\u4F7F\u7B49\u7B2C\u7531 F \u8B8A\u70BA D\u3002\u6700\u4F73\u7684\u89E3\u91CB\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u4FEE\u6B63\u63D0\u5347\u4E86\u5169\u500B\u8A0A\u865F\uFF0C\u628A\u5E73\u5747\u7531 0.308 \u62C9\u5230 0.408\uFF0C\u8D8A\u904E 0.40 \u7684 D \u9580\u6ABB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6642\u9418\u4FEE\u6B63\u540C\u6642\u63D0\u5347\u63A5\u7E2B\u8986\u84CB\u8207\u78BA\u5B9A\u6027\uFF0C\u628A\u5E73\u5747\u63A8\u904E 0.40\u3002"
+              },
+              {
+                "text": "\u5B83\u4F7F\u53EF\u63A7\u5236\u6027\u5347\u5230 0.85 \u4EE5\u4E0A",
+                "fraction": 0,
+                "feedback": "\u53EF\u63A7\u5236\u6027\u7DAD\u6301\u5728 0.6 \u4E0D\u8B8A\uFF1B\u7B49\u7B2C\u6539\u8B8A\u662F\u56E0\u70BA\u63A5\u7E2B\u8207\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u79FB\u9664\u4E86\u4E00\u500B\u8A0A\u865F\uFF0C\u4F7F\u5176\u9918\u7684\u5E73\u5747\u8F03\u9AD8",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u79FB\u9664\u4EFB\u4F55\u8A0A\u865F\uFF1B\u4E94\u500B\u4ECD\u5168\u90E8\u5E73\u5747\u3002"
+              },
+              {
+                "text": "\u7B49\u7B2C\u8B8A\u5316\u8207\u8A0A\u865F\u503C\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u7B49\u7B2C\u662F\u8A0A\u865F\u503C\u5E73\u5747\u7684\u76F4\u63A5\u51FD\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6642\u9418\u4FEE\u6B63\u63D0\u5347\u63A5\u7E2B\u8986\u84CB\uFF080 \u5230 0.25\uFF09\u8207\u78BA\u5B9A\u6027\uFF080.5 \u5230 0.75\uFF09\uFF1B\u5E73\u5747\u7531 0.308 \u5347\u5230 0.408\uFF0C\u8D8A\u904E D \u9580\u6ABB 0.40\uFF0C\u4F7F\u7B49\u7B2C\u7531 F \u5347\u70BA D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u69CB\u516C\u5F0F",
+            "text": "<p>\u7D50\u69CB\u8A0A\u865F\u7684\u8A08\u7B97\u70BA 1 - hardest/STRUCT_CAP\u3002\u7576\u6700\u96E3\u55AE\u5143\uFF08checkout\uFF09\u5F97\u5206 19 \u4E14 STRUCT_CAP \uFF1D 25 \u6642\uFF0C\u7D50\u69CB\u7B49\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.24\uFF081 - 19/25\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201419/25 = 0.76\uFF0C\u800C 1 - 0.76 = 0.24\u3002"
+              },
+              {
+                "text": "0.76",
+                "fraction": 0,
+                "feedback": "0.76 \u662F 19/25 \u7684\u96E3\u5EA6\u6BD4\u4F8B\uFF1B\u8A0A\u865F\u662F 1 \u6E1B\u53BB\u5B83 = 0.24\u3002"
+              },
+              {
+                "text": "0.19",
+                "fraction": 0,
+                "feedback": "0.19 \u628A\u539F\u59CB\u5206\u6578 19 \u8207\u6B63\u898F\u5316\u8A0A\u865F 0.24 \u6DF7\u6DC6\u4E86\u3002"
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 \u662F\u628A 1 - 19/25 \u7C97\u7565\u53D6\u6574\uFF1B\u7CBE\u78BA\u503C\u70BA 0.24\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D50\u69CB \uFF1D 1 - hardest/STRUCT_CAP \uFF1D 1 - 19/25 = 1 - 0.76 = 0.24\uFF0C\u5176\u4E2D checkout \u662F\u6700\u96E3\u55AE\u5143 19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5148\u4FEE\u6700\u4F4E\u8A0A\u865F",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u8A08\u5206\u5361\u512A\u5148\u4FEE\u6B63\u6700\u4F4E\u7684\u8A0A\u865F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6709\u6700\u5927\u7684\u6539\u5584\u7A7A\u9593\uFF0C\u4E14\u6700\u62D6\u4F4E\u5E73\u5747\uFF0C\u56E0\u6B64\u4FEE\u5B83\u80FD\u5E36\u4F86\u6700\u5927\u7684\u7B49\u7B2C\u63D0\u5347",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5F31\u7684\u8A0A\u865F\u65E2\u662F\u6700\u5927\u62D6\u7D2F\uFF0C\u4E5F\u662F\u6700\u5927\u6A5F\u6703\u3002"
+              },
+              {
+                "text": "\u5B83\u4E00\u5B9A\u6700\u4FBF\u5B9C\u4FEE",
+                "fraction": 0,
+                "feedback": "\u8A08\u5206\u5361\u4E0D\u4EE5\u6210\u672C\u6392\u5E8F\uFF1B\u5B83\u4F9D\u54EA\u500B\u8A0A\u865F\u6700\u4F4E\u6392\u5E8F\u3002"
+              },
+              {
+                "text": "\u6700\u4F4E\u7684\u8A0A\u865F\u4E00\u5B9A\u662F\u78BA\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u6700\u4F4E\u8A0A\u865F\u6703\u8B8A\u52D5\uFF1B\u57FA\u790E fixture \u4E2D\u662F\u63A5\u7E2B\u8986\u84CB\uFF0C\u4E0D\u662F\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u8F03\u4F4E\u7684\u8A0A\u865F\u8F03\u53EF\u6E2C\u8A66\uFF0C\u6240\u4EE5\u8F03\u5B89\u5168\u53BB\u52D5",
+                "fraction": 0,
+                "feedback": "\u8F03\u4F4E\u4EE3\u8868\u8F03\u4E0D\u53EF\u6E2C\u8A66\uFF0C\u800C\u975E\u8F03\u53EF\u6E2C\u8A66\uFF1B\u6B63\u56E0\u5982\u6B64\u624D\u9700\u8981\u4FEE\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u7E3D\u9AD4\u662F\u5E73\u5747\uFF0C\u6700\u4F4E\u7684\u8A0A\u865F\u6709\u6700\u5927\u7A7A\u9593\uFF080 \u5230 1\uFF09\u4E14\u6700\u62D6\u4F4E\u5E73\u5747\uFF0C\u6545\u6539\u5584\u5B83\u80FD\u8B93\u7E3D\u9AD4\u8207\u7B49\u7B2C\u4E0A\u5347\u6700\u591A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u78BA\u5B9A\u6027\u8207\u8106\u5F31\u6E2C\u8A66",
+            "text": "<p>\u975E\u78BA\u5B9A\u6027\u8A0A\u865F\u8207\u8106\u5F31\uFF08flaky\uFF09\u6E2C\u8A66\u6709\u4F55\u95DC\u806F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6642\u9418\u8207 RNG \u7B49\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u6703\u4F7F\u6E2C\u8A66\u8106\u5F31\uFF0C\u6545\u78BA\u5B9A\u6027\u8A0A\u865F\u9023\u5230 flaky-diagnosis \u63A2\u7D22\u5668",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u91D8\u4F4F\u7684 clock/RNG \u662F\u5178\u578B\u7684\u8106\u5F31\u6210\u56E0\uFF0C\u628A\u78BA\u5B9A\u6027\u7E6B\u5230 flaky-diagnosis\u3002"
+              },
+              {
+                "text": "\u975E\u78BA\u5B9A\u6027\u53EA\u5F71\u97FF\u7DE8\u8B6F\u6642\u9593\uFF0C\u4E0D\u5F71\u97FF\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u975E\u78BA\u5B9A\u6027\u5F71\u97FF\u6E2C\u8A66\u57F7\u884C\uFF0C\u4F7F\u7D50\u679C\u4E0D\u53EF\u91CD\u73FE\uFF08\u8106\u5F31\uFF09\u3002"
+              },
+              {
+                "text": "\u8106\u5F31\u6E2C\u8A66\u6703\u63D0\u5347\u7D50\u69CB\u8A0A\u865F",
+                "fraction": 0,
+                "feedback": "\u8106\u5F31\u6027\u95DC\u4E4E\u78BA\u5B9A\u6027\uFF0C\u4E0D\u662F\u7D50\u69CB\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u78BA\u5B9A\u6027\u8A0A\u865F\u8A08\u7B97\u7A0B\u5F0F\u78BC\u884C\u6578",
+                "fraction": 0,
+                "feedback": "\u78BA\u5B9A\u6027\u8A08\u7B97\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF0C\u4E0D\u662F\u7A0B\u5F0F\u78BC\u884C\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF08\u771F\u5BE6\u6642\u9418\u3001\u771F\u5BE6 RNG\uFF09\u90FD\u6703\u4F7F\u6E2C\u8A66\u7D50\u679C\u5728\u4E0D\u540C\u6B21\u57F7\u884C\u9593\u8B8A\u52D5\u2014\u2014\u6B63\u662F\u8106\u5F31\u6027\u7684\u5B9A\u7FA9\u3002\u6545\u78BA\u5B9A\u6027\u8A0A\u865F\u6DF1\u9023\u5230 flaky-diagnosis \u63A2\u7D22\u5668\uFF0C\u800C\u6CE8\u5165 clock/RNG \u65E2\u63D0\u5347\u78BA\u5B9A\u6027\u53C8\u79FB\u9664\u4E00\u500B\u8106\u5F31\u6210\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165\u6642\u9418\u8207 RNG \u5F8C\u7684\u78BA\u5B9A\u6027",
+            "text": "<p>\u5728\u540C\u6642\u6CE8\u5165\u6642\u9418\u8207 RNG \u63A5\u7E2B\uFF08\u79FB\u9664\u5169\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF09\u4E4B\u5F8C\uFF0C\u78BA\u5B9A\u6027\u8A0A\u865F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "1.0\uFF081 - 0/4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u4F86\u6E90\u5B58\u5728\u6642\uFF0C\u78BA\u5B9A\u6027 \uFF1D 1 - 0/4 = 1.0\u3002"
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 \u662F\u53EA\u79FB\u9664\u4E00\u500B\u4F86\u6E90\u5F8C\u7684\u503C\uFF1B\u79FB\u9664\u5169\u500B\u5F97\u5230 1.0\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u662F\u5169\u500B\u4F86\u6E90\u90FD\u5B58\u5728\u7684\u57FA\u790E\u503C\u3002"
+              },
+              {
+                "text": "0.0",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u4F86\u6E90\u6703\u63D0\u5347\u78BA\u5B9A\u6027\uFF1B\u6C92\u6709\u4F86\u6E90\u5B58\u5728\u6642\u70BA 1.0\uFF0C\u4E0D\u662F 0\u3002"
+              }
+            ],
+            "generalFeedback": "inject-clock \u79FB\u9664 'clock'\u3001inject-rng \u79FB\u9664 'random'\uFF0C\u56DB\u500B\u4F86\u6E90\u4E2D\u5269\u96F6\u500B\uFF1A\u78BA\u5B9A\u6027 \uFF1D 1 - 0/4 = 1.0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\u5F8C\u7684\u63A5\u7E2B\u8986\u84CB",
+            "text": "<p>\u5728\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\uFF08config\u3001gateway\u3001clock\u3001rng\uFF09\u4E4B\u5F8C\uFF0C\u63A5\u7E2B\u8986\u84CB\u8A0A\u865F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "1.0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \u500B\u53CD\u6A23\u5F0F\u4E2D\u79FB\u9664 4 \u500B\uFF0C\u5373 4/4 = 1.0\u3002"
+              },
+              {
+                "text": "0.75",
+                "fraction": 0,
+                "feedback": "0.75 \u662F\u56DB\u500B\u63A5\u7E2B\u4E2D\u7684\u4E09\u500B\uFF1B\u5168\u90E8\u56DB\u500B\u5F97\u5230 1.0\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u662F\u56DB\u500B\u63A5\u7E2B\u4E2D\u7684\u5169\u500B\uFF1B\u5168\u90E8\u56DB\u500B\u5F97\u5230 1.0\u3002"
+              },
+              {
+                "text": "0.25",
+                "fraction": 0,
+                "feedback": "0.25 \u662F\u56DB\u500B\u63A5\u7E2B\u4E2D\u7684\u4E00\u500B\uFF1B\u5168\u90E8\u56DB\u500B\u5F97\u5230 1.0\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A5\u7E2B\u8986\u84CB \uFF1D \u5DF2\u6CE8\u5165\u63A5\u7E2B / 4\u3002\u6CE8\u5165\u5168\u90E8\u56DB\u500B\uFF08config\u3001gateway\u3001clock\u3001rng\uFF09\u6642\u70BA 4/4 = 1.0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\u5F8C\u7684\u7E3D\u9AD4\u8207\u7B49\u7B2C",
+            "text": "<p>\u5728\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\u5F8C\uFF0C\u8A0A\u865F\u70BA\u53EF\u63A7\u5236\u6027 0.6\u3001\u53EF\u89C0\u5BDF\u6027 0.2\u3001\u63A5\u7E2B 1.0\u3001\u7D50\u69CB 0.24\u3001\u78BA\u5B9A\u6027 1.0\uFF08clock \u8207 rng \u7686\u79FB\u9664\uFF09\u3002\u7E3D\u9AD4\u8207\u7B49\u7B2C\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.608 \u2192 C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 3.04 / 5 = 0.608\uFF0C\u8D8A\u904E C \u9580\u6ABB 0.55\u3002"
+              },
+              {
+                "text": "0.408 \u2192 D",
+                "fraction": 0,
+                "feedback": "0.408 \u662F\u53EA\u505A\u6642\u9418\u4FEE\u6B63\u5F8C\u7684\u7E3D\u9AD4\uFF0C\u4E0D\u662F\u6CE8\u5165\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\u5F8C\u7684\u503C\u3002"
+              },
+              {
+                "text": "0.708 \u2192 B",
+                "fraction": 0,
+                "feedback": "\u7CBE\u78BA\u5E73\u5747\u662F 3.04 / 5 = 0.608\uFF0C\u4E0D\u662F 0.708\u3002"
+              },
+              {
+                "text": "0.508 \u2192 D",
+                "fraction": 0,
+                "feedback": "0.508 \u662F\u53EA\u5957\u7528 clock \u8207 rng \u63A5\u7E2B\uFF08\u63A5\u7E2B 0.5\uFF09\u6642\u7684\u5E73\u5747\uFF1B\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\u5F97\u5230 0.608\u3002"
+              }
+            ],
+            "generalFeedback": "\u5168\u90E8\u56DB\u500B\u63A5\u7E2B\u4F7F\u63A5\u7E2B\u70BA 1.0\uFF0C\u4E26\uFF08\u900F\u904E clock \u8207 rng\uFF09\u4F7F\u78BA\u5B9A\u6027\u70BA 1.0\uFF1B\u5E73\u5747\u70BA (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 0.608\uFF0C\u9054\u5230\u6216\u8D85\u904E C \u9580\u6ABB 0.55\uFF0C\u6545\u7B49\u7B2C\u70BA C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7D50\u69CB\u7DAD\u6301 0.24",
+            "text": "<p>\u4F60\u6CE8\u5165\u4E86 config \u63A5\u7E2B\u3002\u70BA\u4EC0\u9EBC\u7D50\u69CB\u8A0A\u865F\u7DAD\u6301\u5728 0.24\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D50\u69CB\u96E3\u5EA6\u4F86\u81EA\u4E0D\u540C\u7684\u5F15\u64CE\uFF08\u5EA6\u91CF\u6A21\u7D44\uFF09\uFF1B\u6CE8\u5165\u63A5\u7E2B\u53EA\u6539\u8B8A\u63A5\u7E2B\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u8207\u7D50\u69CB\u7531\u5404\u81EA\u7368\u7ACB\u7684\u5F15\u64CE\u8A08\u7B97\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7D50\u69CB\u6C38\u9060\u56FA\u5B9A\u5728 0.24",
+                "fraction": 0,
+                "feedback": "\u7D50\u69CB\u539F\u5247\u4E0A\u4E26\u975E\u56FA\u5B9A\uFF1B\u53EA\u662F\u5B83\u4E0D\u5C0D\u63A5\u7E2B\u6CE8\u5165\u8D77\u53CD\u61C9\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA config \u63A5\u7E2B\u4F7F\u5FAA\u74B0\u8907\u96DC\u5EA6\u964D\u4F4E\u6070\u70BA\u96F6\u7684\u53D6\u6574",
+                "fraction": 0,
+                "feedback": "config \u63A5\u7E2B\u5B8C\u5168\u4E0D\u89F8\u53CA\u5EA6\u91CF\u6A21\u7D44\uFF0C\u6545\u6C92\u6709\u53D6\u6574\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6CE8\u5165\u63A5\u7E2B\u4E5F\u6CE8\u5165\u4E86\u7D50\u69CB\u50B5",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u63A5\u7E2B\u5C0D\u7D50\u69CB\u8A0A\u865F\u6C92\u6709\u4EFB\u4F55\u65B9\u5411\u7684\u5F71\u97FF\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D50\u69CB\u4F86\u81EA\u5EA6\u91CF\u6A21\u7D44\u4E0A\u7684 testabilityHardness\uFF0C\u800C\u63A5\u7E2B\u8986\u84CB\u4F86\u81EA\u63A5\u7E2B\u5F15\u64CE\u3002\u6CE8\u5165 config \u63A5\u7E2B\u53EA\u6539\u8B8A appliedSeams\uFF0C\u6545\u7D50\u69CB\u7DAD\u6301 0.24\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "STRUCT_CAP \u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u7D50\u69CB\u8A0A\u865F\u4E2D\uFF0CSTRUCT_CAP \uFF1D 25 \u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u8996\u70BA\u6700\u58DE\u60C5\u6CC1\u7684\u96E3\u5EA6\u5206\u6578\uFF1B\u5F97\u5206 25 \u7684\u55AE\u5143\u6703\u5F97\u5230\u7D50\u69CB 1 - 25/25 = 0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014STRUCT_CAP \u662F\u6B63\u898F\u5316\u96E3\u5EA6\u6642\u300C\u6700\u7CDF\u300D\u7684\u5206\u6BCD\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6A21\u7D44\u5141\u8A31\u7684\u6700\u5927\u55AE\u5143\u6578",
+                "fraction": 0,
+                "feedback": "STRUCT_CAP \u6B63\u898F\u5316\u7684\u662F\u96E3\u5EA6\u5206\u6578\uFF0C\u4E0D\u662F\u55AE\u5143\u6578\u3002"
+              },
+              {
+                "text": "\u53CA\u683C\u7B49\u7B2C\u7684\u767E\u5206\u6BD4\u9580\u6ABB",
+                "fraction": 0,
+                "feedback": "\u7B49\u7B2C\u9580\u6ABB\u53E6\u6709\u5176\u503C\uFF080.85/0.70/0.55/0.40\uFF09\uFF1BSTRUCT_CAP \u662F\u96E3\u5EA6\u5206\u6BCD\u3002"
+              },
+              {
+                "text": "\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u7684\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F DET_TOTAL \uFF1D 4\uFF1BSTRUCT_CAP \uFF1D 25 \u6B63\u898F\u5316\u7D50\u69CB\u96E3\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "STRUCT_CAP \uFF1D 25 \u662F\u88AB\u8996\u70BA\u6700\u58DE\u60C5\u6CC1\u7684\u96E3\u5EA6\u5206\u6578\uFF1B\u7D50\u69CB \uFF1D 1 - hardest/STRUCT_CAP\uFF0C\u6545 25 \u7684\u55AE\u5143\u6703\u5F97\u5230 0\uFF0C\u800C fixture \u7684 19 \u5F97\u5230 0.24\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DET_TOTAL \u7684\u610F\u7FA9",
+            "text": "<p>DET_TOTAL \uFF1D 4 \u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u78BA\u5B9A\u6027\u8A0A\u865F\u6B63\u898F\u5316\u6240\u4F9D\u64DA\u7684\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u5B8C\u6574\u76EE\u9304\uFF1B\u5B58\u5728 2 \u500B\u6642 1 - 2/4 = 0.5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DET_TOTAL \u662F\u78BA\u5B9A\u6027\u8A0A\u865F\u7684\u5206\u6BCD\u3002"
+              },
+              {
+                "text": "\u7B49\u7B2C\u5B57\u6BCD\u7684\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u7B49\u7B2C\u5B57\u6BCD\u6709\u4E94\u500B\uFF08A\u3001B\u3001C\u3001D\u3001F\uFF09\uFF1BDET_TOTAL \uFF1D 4 \u662F\u975E\u78BA\u5B9A\u6027\u76EE\u9304\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u63A5\u7E2B\u6578\u76EE\u4E58\u4EE5\u4E8C",
+                "fraction": 0,
+                "feedback": "\u63A5\u7E2B\u6709\u56DB\u500B\uFF1BDET_TOTAL \u6070\u70BA 4 \u4E14\u4EE3\u8868\u975E\u78BA\u5B9A\u6027\u76EE\u9304\uFF0C\u4E0D\u662F\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "\u88AB\u7D44\u5408\u7684\u63A2\u7D22\u5668\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u8A08\u5206\u5361\u7D44\u5408\u4E09\u500B\u5144\u5F1F\u5F15\u64CE\uFF1BDET_TOTAL \uFF1D 4 \u662F\u975E\u78BA\u5B9A\u6027\u76EE\u9304\u3002"
+              }
+            ],
+            "generalFeedback": "DET_TOTAL \uFF1D 4 \u662F\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\u7684\u5B8C\u6574\u76EE\u9304\uFF1B\u78BA\u5B9A\u6027 \uFF1D 1 - present/DET_TOTAL\uFF0C\u6545\u5B58\u5728\u7684\u5169\u500B\u4F86\u6E90\u5F97\u5230 1 - 2/4 = 0.5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6642\u9418\u76F8\u5C0D\u65BC config \u4F5C\u70BA\u55AE\u4E00\u4FEE\u6B63",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6CE8\u5165\u6642\u9418\u662F\u6BD4\u6CE8\u5165 config \u63A5\u7E2B\u66F4\u9AD8\u69D3\u687F\u7684\u55AE\u4E00\u4FEE\u6B63\uFF1F</p>",
+            "answers": [
+              {
+                "text": "inject-clock \u63D0\u5347\u5169\u500B\u8A0A\u865F\uFF08\u63A5\u7E2B\u8986\u84CB\u8207\u78BA\u5B9A\u6027\uFF09\uFF1Binject-config \u53EA\u63D0\u5347\u63A5\u7E2B\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6642\u9418\u4FEE\u6B63\u4E5F\u79FB\u9664\u4E00\u500B\u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF0C\u6545\u5B83\u63A8\u52D5\u5169\u500B\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "inject-config \u63D0\u5347\u4E09\u500B\u8A0A\u865F",
+                "fraction": 0,
+                "feedback": "inject-config \u53EA\u63D0\u5347\u63A5\u7E2B\u8986\u84CB\uFF1B\u5B83\u4E0D\u89F8\u53CA\u5176\u4ED6\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "inject-clock \u4E5F\u964D\u4F4E\u7D50\u69CB\u96E3\u5EA6",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u4FEE\u6B63\u90FD\u4E0D\u89F8\u53CA\u7D50\u69CB\uFF1B\u6642\u9418\u7684\u984D\u5916\u6548\u679C\u5728\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5C0D\u7B49\u7B2C\u7684\u6548\u679C\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1A\u6642\u9418\u63A8\u52D5\u5169\u500B\u8A0A\u865F\u3001config \u53EA\u4E00\u500B\uFF0C\u6545\u5C0D\u7B49\u7B2C\u7684\u6548\u679C\u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "inject-config \u53EA\u52A0\u5165 config \u63A5\u7E2B\uFF08\u63A5\u7E2B\u8986\u84CB +0.25\uFF09\u3002inject-clock \u52A0\u5165\u6642\u9418\u63A5\u7E2B\uFF08\u63A5\u7E2B\u8986\u84CB +0.25\uFF09\u4E26\u79FB\u9664 clock \u975E\u78BA\u5B9A\u6027\u4F86\u6E90\uFF08\u78BA\u5B9A\u6027 +0.25\uFF09\uFF0C\u6545\u5B83\u628A\u5E73\u5747\u63D0\u5347\u5169\u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u55AE\u4E00\u8A0A\u865F\u5C0D\u5E73\u5747\u7684\u6548\u679C",
+            "text": "<p>\u56E0\u70BA\u7E3D\u9AD4\u662F\u4E94\u500B\u8A0A\u865F\u7684\u55AE\u7D14\u5E73\u5747\uFF0C\u628A\u4EFB\u4E00\u8A0A\u865F\u7531 0 \u63D0\u5347\u5230 1 \u6703\u4F7F\u7E3D\u9AD4\u6539\u8B8A\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.2\uFF08\u4E94\u5206\u4E4B\u4E00\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u8A0A\u865F\u5360\u5E73\u5747\u7684 1/5\uFF0C\u6545\u5B8C\u6574\u7531 0 \u5230 1 \u7684\u64FA\u52D5\u4F7F\u7E3D\u9AD4\u79FB\u52D5 0.2\u3002"
+              },
+              {
+                "text": "1.0",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u8A0A\u865F\u53EA\u5360\u5E73\u5747\u7684 1/5\uFF1B\u5176\u5B8C\u6574\u64FA\u52D5\u662F 0.2\uFF0C\u4E0D\u662F 1.0\u3002"
+              },
+              {
+                "text": "0.5",
+                "fraction": 0,
+                "feedback": "0.5 \u76F8\u7576\u65BC\u5169\u8A0A\u865F\u7684\u6B0A\u91CD\uFF1B\u6BCF\u500B\u55AE\u4E00\u8A0A\u865F\u5728\u5E73\u5747\u4E2D\u503C 0.2\u3002"
+              },
+              {
+                "text": "0\u2014\u2014\u500B\u5225\u8A0A\u865F\u4E0D\u5F71\u97FF\u5E73\u5747",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u8A0A\u865F\u90FD\u5F71\u97FF\u5E73\u5747\uFF0C\u5E45\u5EA6\u70BA\u5176\u8B8A\u5316\u7684 1/5\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E3D\u9AD4\u662F\u4E94\u500B\u7B49\u6B0A\u8A0A\u865F\u7684\u5E73\u5747\uFF0C\u6545\u6BCF\u500B\u8CA2\u737B 1/5 = 0.2\u3002\u4E00\u500B\u8A0A\u865F\u7531 0 \u5230 1 \u4F7F\u7E3D\u9AD4\u4E0A\u5347 0.2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u5E8F\u9802\u5C16\u4E09\u4FEE\u6B63",
+            "text": "<p>\u7D66\u5B9A\u8A0A\u865F\u53EF\u63A7\u5236\u6027 0.6\u3001\u53EF\u89C0\u5BDF\u6027 0.2\u3001\u63A5\u7E2B 0\u3001\u7D50\u69CB 0.24\u3001\u78BA\u5B9A\u6027 0.5\uFF0C\u9802\u5C16\u4E09\u500B\u4FEE\u6B63\u4F9D\u512A\u5148\u5E8F\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u7E2B\u8986\u84CB\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u7D50\u69CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F9D\u5206\u6578\u7531\u5C0F\u5230\u5927\uFF1A\u63A5\u7E2B 0\u3001\u53EF\u89C0\u5BDF\u6027 0.2\u3001\u7D50\u69CB 0.24\u3002"
+              },
+              {
+                "text": "\u53EF\u63A7\u5236\u6027\u3001\u78BA\u5B9A\u6027\u3001\u7D50\u69CB",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F\u6700\u4F4E\u7684\u4E09\u500B\uFF1B\u53EF\u63A7\u5236\u6027\uFF080.6\uFF09\u8207\u78BA\u5B9A\u6027\uFF080.5\uFF09\u662F\u6700\u9AD8\u7684\u5169\u500B\u3002"
+              },
+              {
+                "text": "\u7D50\u69CB\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u63A5\u7E2B\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7531\u5927\u5230\u5C0F\uFF1B\u6E05\u55AE\u662F\u6700\u4F4E\u8005\u512A\u5148\uFF1A\u63A5\u7E2B\u3001\u53EF\u89C0\u5BDF\u6027\u3001\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u78BA\u5B9A\u6027\u3001\u53EF\u63A7\u5236\u6027\u3001\u53EF\u89C0\u5BDF\u6027",
+                "fraction": 0,
+                "feedback": "\u78BA\u5B9A\u6027\uFF080.5\uFF09\u8207\u53EF\u63A7\u5236\u6027\uFF080.6\uFF09\u662F\u6700\u5F37\u7684\u8A0A\u865F\uFF0C\u4E0D\u662F\u9802\u5C16\u4FEE\u6B63\u3002"
+              }
+            ],
+            "generalFeedback": "topFixes \u7531\u5C0F\u5230\u5927\u6392\u5E8F\uFF1A\u63A5\u7E2B 0\uFF08testability-seams\uFF09\u3001\u53EF\u89C0\u5BDF\u6027 0.2\uFF08controllability-observability\uFF09\u3001\u7D50\u69CB 0.24\uFF08testability-metrics\uFF09\u2014\u2014\u6700\u5F31\u7684\u4E09\u500B\u8A0A\u865F\uFF0C\u6BCF\u500B\u9023\u5230\u6559\u5B83\u7684\u63A2\u7D22\u5668\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
+    "testability-seams": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a seam is",
+            "text": "<p>In Michael Feathers' sense, a <em>seam</em> is:</p>",
+            "answers": [
+              {
+                "text": "A place where you can change a program's behaviour without editing the code in that place",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a seam lets you substitute behaviour (e.g. swap a dependency) without modifying the code at that point."
+              },
+              {
+                "text": "A defect deliberately injected into the code to test the test suite",
+                "fraction": 0,
+                "feedback": "That is a seeded fault/mutant, not a seam."
+              },
+              {
+                "text": "A line of code that always contains a bug",
+                "fraction": 0,
+                "feedback": "A seam is a point of substitutable behaviour, not a guaranteed bug."
+              },
+              {
+                "text": "A boundary between two microservices on the network",
+                "fraction": 0,
+                "feedback": "A seam is a code-level place to alter behaviour, not a network boundary."
+              }
+            ],
+            "generalFeedback": "Feathers defines a seam as a place where you can alter a program's behaviour without editing in that place. Injecting a dependency creates such a seam: a test can substitute a double there without touching the function's body.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What dependency injection is",
+            "text": "<p><em>Dependency injection (DI)</em> means:</p>",
+            "answers": [
+              {
+                "text": "Passing a dependency in from outside (e.g. as a parameter) instead of creating or reading it inside the function",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the collaborator is supplied to the code rather than constructed or fetched inside it."
+              },
+              {
+                "text": "Injecting a fault into a running program to see how it copes",
+                "fraction": 0,
+                "feedback": "That is fault injection, not dependency injection."
+              },
+              {
+                "text": "Copying a global variable into every function that needs it",
+                "fraction": 0,
+                "feedback": "Reaching for a global is exactly what DI replaces; DI passes the dependency in explicitly."
+              },
+              {
+                "text": "Automatically generating test cases from the code",
+                "fraction": 0,
+                "feedback": "That is test generation, unrelated to how a dependency is supplied."
+              }
+            ],
+            "generalFeedback": "Dependency injection supplies a function's collaborators from outside \u2014 typically as parameters \u2014 instead of having the function build them withor read them from a global. This creates a seam where a test can substitute a double.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test double is",
+            "text": "<p>A <em>test double</em> is:</p>",
+            "answers": [
+              {
+                "text": "A stand-in object substituted for a real dependency during a test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 stubs, mocks and fakes are all test doubles that replace a real collaborator under test."
+              },
+              {
+                "text": "A second copy of the test that runs in parallel",
+                "fraction": 0,
+                "feedback": "That is not a double; a double replaces a dependency, not the test itself."
+              },
+              {
+                "text": "The production implementation of a dependency",
+                "fraction": 0,
+                "feedback": "A double stands inthe real implementation; it is not the real thing."
+              },
+              {
+                "text": "A tool that measures code coverage",
+                "fraction": 0,
+                "feedback": "That is a coverage tool, not a test double."
+              }
+            ],
+            "generalFeedback": "A test double is any object put in place of a real dependency so the code under test can be exercised in isolation \u2014 stub, mock, fake, dummy and spy are the common kinds. Each testability seam is a place where a double can be dropped in.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why a global singleton read hurts testability",
+            "text": "<p>In <code>charge()</code>, the line <code>const cfg = Config.instance();</code> reads a global singleton. Why does this hurt testability?</p>",
+            "answers": [
+              {
+                "text": "It is a hidden input the test cannot set or substitute, because it is fetched inside the function",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test has no seam to supply a different config; the dependency is pinned inside the code."
+              },
+              {
+                "text": "Singletons run slower than injected objects",
+                "fraction": 0,
+                "feedback": "The problem is control, not speed."
+              },
+              {
+                "text": "Global reads always throw an exception under test",
+                "fraction": 0,
+                "feedback": "They do not throw; the issue is that the test cannot substitute the value."
+              },
+              {
+                "text": "It makes the function return the wrong type",
+                "fraction": 0,
+                "feedback": "It does not change the return type; it removes the test's control over config."
+              }
+            ],
+            "generalFeedback": "Reading a global singleton pulls a hidden input straight into the function. Because the test never passes it in, there is no seam to substitute a test config \u2014 reducing controllability. The fix is to inject a config parameter.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why a hard-coded new hurts testability",
+            "text": "<p>In <code>charge()</code>, the line <code>const gw = new PaymentGateway();</code> constructs its collaborator directly. Why does this hurt testability?</p>",
+            "answers": [
+              {
+                "text": "The dependency is created inside the function, so a test cannot swap it for a double",
+                "fraction": 100,
+                "feedback": "Correct \u2014 hard-codingpins the real gateway; there is no seam to substitute one."
+              },
+              {
+                "text": "Usingis a syntax error in test code",
+                "fraction": 0,
+                "feedback": "is valid; the problem is that the collaborator cannot be substituted."
+              },
+              {
+                "text": "Constructors cannot be called more than once",
+                "fraction": 0,
+                "feedback": "They can; the issue is the test cannot replace the constructed object."
+              },
+              {
+                "text": "It doubles the memory the function uses",
+                "fraction": 0,
+                "feedback": "The concern is substitutability, not memory."
+              }
+            ],
+            "generalFeedback": "Constructing the gateway withinsidebinds the code to the real implementation. A test cannot reach in to replace it, so the real gateway (network, side effects) runs. Injecting the collaborator opens a seam for a double.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the real clock hurts testability",
+            "text": "<p>In <code>charge()</code>, the line <code>const at = Date.now();</code> reads the real wall clock. Why does this hurt testability?</p>",
+            "answers": [
+              {
+                "text": "The time changes on every run, so a test cannot pin it to assert on a fixed timestamp",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the real clock is a nondeterministic input the test cannot control."
+              },
+              {
+                "text": "returns a string that is hard to parse",
+                "fraction": 0,
+                "feedback": "It returns a number; the real issue is that the value is uncontrollable."
+              },
+              {
+                "text": "Reading the clock deletes the previous timestamp",
+                "fraction": 0,
+                "feedback": "It does not; the problem is nondeterminism, not data loss."
+              },
+              {
+                "text": "The clock is only available in production builds",
+                "fraction": 0,
+                "feedback": "It is available under test too; but its value cannot be pinned without a seam."
+              }
+            ],
+            "generalFeedback": "The wall clock is a nondeterministic source:differs on every run, so a test can never assert on an exact timestamp. Injecting a clock lets a test substitute a fake that returns a fixed time.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why real randomness hurts testability",
+            "text": "<p>In <code>charge()</code>, the line <code>const id = Math.random().toString(36);</code> uses the real RNG. Why does this hurt testability?</p>",
+            "answers": [
+              {
+                "text": "The value differs on every run, so a test cannot make the generated id deterministic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 real randomness is a nondeterministic input the test cannot control."
+              },
+              {
+                "text": "is too slow to call inside a test",
+                "fraction": 0,
+                "feedback": "Speed is not the issue; determinism is."
+              },
+              {
+                "text": "Random numbers are always negative",
+                "fraction": 0,
+                "feedback": "returns a value in [0,1); the problem is it is not controllable."
+              },
+              {
+                "text": "Calling it changes the config singleton",
+                "fraction": 0,
+                "feedback": "It does not touch config; it just produces an uncontrollable value."
+              }
+            ],
+            "generalFeedback": "The RNG is a nondeterministic source:yields a different id each run, so a test cannot assert on the id. Injecting a seeded rng lets a test substitute a deterministic generator.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for the global singleton Config",
+            "text": "<p>What is the seam that removes the <em>global singleton Config</em> anti-pattern in <code>charge()</code>?</p>",
+            "answers": [
+              {
+                "text": "Inject a config parameter (pass the config in, e.g.)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 supplying the config from outside opens a seam a test can control."
+              },
+              {
+                "text": "Cache the singleton in a module-level variable",
+                "fraction": 0,
+                "feedback": "That still reads a global; it does not let a test substitute the config."
+              },
+              {
+                "text": "Renameto",
+                "fraction": 0,
+                "feedback": "Renaming changes nothing about substitutability."
+              },
+              {
+                "text": "Wrap the read in a try/catch",
+                "fraction": 0,
+                "feedback": "Error handling does not create a seam for the config."
+              }
+            ],
+            "generalFeedback": "The fix is dependency injection: pass the config in as a parameter () instead of reading the global singleton. That turns the pinned dependency into a substitutable one.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for the hard-coded gateway",
+            "text": "<p>What is the seam that removes the <em>hard-coded <code>new PaymentGateway()</code></em> anti-pattern?</p>",
+            "answers": [
+              {
+                "text": "Inject the gateway collaborator (pass it in, e.g.)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 supplying the collaborator from outside lets a test substitute a double."
+              },
+              {
+                "text": "Move thecall to the top of the function",
+                "fraction": 0,
+                "feedback": "Its position does not matter; it is still constructed inside and cannot be swapped."
+              },
+              {
+                "text": "Makea subclass of",
+                "fraction": 0,
+                "feedback": "Changing the inheritance does not open a seam for substitution."
+              },
+              {
+                "text": "Call the gateway twice for reliability",
+                "fraction": 0,
+                "feedback": "That neither removes the hard-coded construction nor helps substitution."
+              }
+            ],
+            "generalFeedback": "The fix is to inject the gateway collaborator () instead of constructing it with. The injection point is the object seam where a test drops in a double.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for the real clock",
+            "text": "<p>What is the seam that removes the <em>real clock <code>Date.now()</code></em> anti-pattern?</p>",
+            "answers": [
+              {
+                "text": "Inject a clock (pass a clock in, e.g.)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 supplying the clock from outside lets a test pin the time."
+              },
+              {
+                "text": "Roundto the nearest second",
+                "fraction": 0,
+                "feedback": "Rounding still reads the real, uncontrollable clock."
+              },
+              {
+                "text": "Store the timestamp in a global variable",
+                "fraction": 0,
+                "feedback": "A global is still not something the test supplies; it does not create a seam."
+              },
+              {
+                "text": "Callonly once per program",
+                "fraction": 0,
+                "feedback": "Calling it once still leaves the value uncontrollable by a test."
+              }
+            ],
+            "generalFeedback": "The fix is to inject a clock () rather than callingdirectly, opening a seam where a test substitutes a fake clock with a fixed time.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for real randomness",
+            "text": "<p>What is the seam that removes the <em>real <code>Math.random()</code></em> anti-pattern?</p>",
+            "answers": [
+              {
+                "text": "Inject a seeded rng (pass a generator in, e.g.)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 supplying a seeded rng lets a test make the id deterministic."
+              },
+              {
+                "text": "Multiplyby a constant",
+                "fraction": 0,
+                "feedback": "Scaling a random value is still random and uncontrollable."
+              },
+              {
+                "text": "Callin a loop and average the results",
+                "fraction": 0,
+                "feedback": "Averaging real randomness is still nondeterministic."
+              },
+              {
+                "text": "Convert the number to a string with a fixed prefix",
+                "fraction": 0,
+                "feedback": "The random part remains uncontrollable; no seam is created."
+              }
+            ],
+            "generalFeedback": "The fix is to inject a seeded rng () instead of calling, opening a seam where a test substitutes a deterministic generator.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What design-for-testability means",
+            "text": "<p><em>Design for testability</em> in this snippet means:</p>",
+            "answers": [
+              {
+                "text": "Removing the pinned dependencies so each one becomes substitutable by a test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the seams turn hard-coded dependencies into places a test can supply a double."
+              },
+              {
+                "text": "Writing more assertions in each test",
+                "fraction": 0,
+                "feedback": "Assertions are useful, but testability here is about making dependencies substitutable."
+              },
+              {
+                "text": "Deleting the dependencies from the function entirely",
+                "fraction": 0,
+                "feedback": "The dependencies are still used; they are injected, not deleted."
+              },
+              {
+                "text": "Running the tests more often",
+                "fraction": 0,
+                "feedback": "Frequency of runs is unrelated to designing the code for substitutability."
+              }
+            ],
+            "generalFeedback": "Designing for testability means applying seams that turn each pinned dependency (global config, hard-coded gateway, real clock, real RNG) into something a test can substitute. Substitutable dependencies are the essence of a testable unit.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Each fix is a seam enabling a double",
+            "text": "<p>Each of the four fixes in <code>charge()</code> is a Feathers seam that lets a test substitute a test double.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 injecting the config, gateway, clock or rng each opens a seam where a test drops in a double."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Each injectiona seam: it creates a place where a test can substitute a double for the real dependency."
+              }
+            ],
+            "generalFeedback": "Every fix here is dependency injection, which is a seam. The seam is the place; the test double is the substitute placed there. This is why the seams explorer cross-links the test-doubles topic."
+          },
+          {
+            "type": "multichoice",
+            "name": "How many pinned dependencies",
+            "text": "<p>How many pinned (untestable) dependencies does the <code>charge()</code> snippet contain?</p>",
+            "answers": [
+              {
+                "text": "4 \u2014 the global config, the hard-coded gateway, the real clock, and the real RNG",
+                "fraction": 100,
+                "feedback": "Correct \u2014 those are the four anti-patterns, each removed by one seam."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "There are four anti-patterns, not two."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Do not forget the global config read; there are four in total."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "The snippet pins exactly four dependencies, not five."
+              }
+            ],
+            "generalFeedback": "pins four dependencies:,,, and. The testability meter reads applied/4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seam type of all four fixes",
+            "text": "<p>All four fixes in <code>charge()</code> are which kind of Feathers seam?</p>",
+            "answers": [
+              {
+                "text": "Object seams",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each fix substitutes a different object (via an injected parameter), so all four are object seams."
+              },
+              {
+                "text": "Preprocessing seams",
+                "fraction": 0,
+                "feedback": "No macro/preprocessor substitution is used here; the seams are object seams."
+              },
+              {
+                "text": "Link seams",
+                "fraction": 0,
+                "feedback": "Nothing is substituted at link time; substitution happens by passing an object in."
+              },
+              {
+                "text": "Compile seams",
+                "fraction": 0,
+                "feedback": "The substitution is at runtime via an injected object, so these are object seams."
+              }
+            ],
+            "generalFeedback": "In Feathers' taxonomy (preprocessing / link / object seams), all four fixes here work by passing a different object in through a parameter \u2014 object seams.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Double enabled by injecting config",
+            "text": "<p>After injecting the config parameter (the <em>global</em> fix), which test double does the seam typically enable in this model?</p>",
+            "answers": [
+              {
+                "text": "A stub",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the config seam enables a stub that returns canned settings."
+              },
+              {
+                "text": "A mock",
+                "fraction": 0,
+                "feedback": "The gateway fix enables a mock; the config fix enables a stub here."
+              },
+              {
+                "text": "A fake",
+                "fraction": 0,
+                "feedback": "The clock fix enables a fake; the config fix enables a stub here."
+              },
+              {
+                "text": "No double is possible",
+                "fraction": 0,
+                "feedback": "Once injected, the config can be substituted by a stub."
+              }
+            ],
+            "generalFeedback": "In this fixture the global-config seam maps to a: a test supplies canned config values through the injected parameter.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Double enabled by injecting the gateway",
+            "text": "<p>After injecting the gateway collaborator (the <em>newdep</em> fix), which test double does the seam enable in this model?</p>",
+            "answers": [
+              {
+                "text": "A mock",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the gateway seam maps to a mock, which can verify the call and force a failure."
+              },
+              {
+                "text": "A stub",
+                "fraction": 0,
+                "feedback": "The config and RNG fixes map to stubs; the gateway fix maps to a mock here."
+              },
+              {
+                "text": "A fake",
+                "fraction": 0,
+                "feedback": "The clock fix maps to a fake; the gateway fix maps to a mock here."
+              },
+              {
+                "text": "A dummy",
+                "fraction": 0,
+                "feedback": "The gateway is actively used, so it is not a dummy; this seam enables a mock."
+              }
+            ],
+            "generalFeedback": "In this fixture the gateway seam maps to a: injecting the collaborator lets a test verify how the gateway is called and force it to fail.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Double enabled by injecting the clock",
+            "text": "<p>After injecting a clock (the <em>clock</em> fix), which test double does the seam enable in this model?</p>",
+            "answers": [
+              {
+                "text": "A fake",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the clock seam maps to a fake clock returning a fixed time."
+              },
+              {
+                "text": "A stub",
+                "fraction": 0,
+                "feedback": "In this fixture the clock maps to a fake, not a stub."
+              },
+              {
+                "text": "A mock",
+                "fraction": 0,
+                "feedback": "The gateway fix maps to a mock; the clock fix maps to a fake here."
+              },
+              {
+                "text": "A spy",
+                "fraction": 0,
+                "feedback": "The clock seam maps to a fake clock, not a spy."
+              }
+            ],
+            "generalFeedback": "In this fixture the clock seam maps to a: a working clock implementation that returns a fixed, controllable time.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Double enabled by injecting the rng",
+            "text": "<p>After injecting a seeded rng (the <em>random</em> fix), which test double does the seam enable in this model?</p>",
+            "answers": [
+              {
+                "text": "A stub",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the rng seam maps to a stub that returns a fixed, deterministic id."
+              },
+              {
+                "text": "A mock",
+                "fraction": 0,
+                "feedback": "The gateway fix maps to a mock; the rng fix maps to a stub here."
+              },
+              {
+                "text": "A fake",
+                "fraction": 0,
+                "feedback": "The clock fix maps to a fake; the rng fix maps to a stub here."
+              },
+              {
+                "text": "A dummy",
+                "fraction": 0,
+                "feedback": "The rng is actually called and must return a value, so it is a stub, not a dummy."
+              }
+            ],
+            "generalFeedback": "In this fixture the rng seam maps to a: a test supplies canned, deterministic values so the generated id is fixed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Capability unlocked by injecting the clock",
+            "text": "<p>Which capability does injecting a clock unlock for a test?</p>",
+            "answers": [
+              {
+                "text": "Assert on a fixed timestamp",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a fake clock lets the test pin the time and assert on it."
+              },
+              {
+                "text": "Force the gateway to fail",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the gateway, not the clock."
+              },
+              {
+                "text": "Make the generated id deterministic",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the seeded rng, not the clock."
+              },
+              {
+                "text": "Supply a test config without touching globals",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the config, not the clock."
+              }
+            ],
+            "generalFeedback": "Injecting a clock lets a test substitute a fake that returns a fixed time, so the test can.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Capability unlocked by injecting the gateway",
+            "text": "<p>Which capability does injecting the gateway collaborator unlock for a test?</p>",
+            "answers": [
+              {
+                "text": "Force the gateway to fail",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with the gateway injected, a test can substitute a double that returns or throws a failure."
+              },
+              {
+                "text": "Assert on a fixed timestamp",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the clock, not the gateway."
+              },
+              {
+                "text": "Make the generated id deterministic",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the seeded rng, not the gateway."
+              },
+              {
+                "text": "Supply a test config without touching globals",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the config, not the gateway."
+              }
+            ],
+            "generalFeedback": "Injecting the gateway lets a test drop in a double, so it canand check howhandles the error.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Capability unlocked by injecting config",
+            "text": "<p>Which capability does injecting the config parameter unlock for a test?</p>",
+            "answers": [
+              {
+                "text": "Supply a test config without touching globals",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the config arrives as a parameter, so a test sets it directly."
+              },
+              {
+                "text": "Assert on a fixed timestamp",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the clock, not the config."
+              },
+              {
+                "text": "Force the gateway to fail",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the gateway, not the config."
+              },
+              {
+                "text": "Make the generated id deterministic",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the seeded rng, not the config."
+              }
+            ],
+            "generalFeedback": "Injecting the config parameter lets a test\u2014 no shared singleton to reset between tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Capability unlocked by injecting the rng",
+            "text": "<p>Which capability does injecting a seeded rng unlock for a test?</p>",
+            "answers": [
+              {
+                "text": "Make the generated id deterministic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a seeded rng lets a test fix the value, so the id is repeatable."
+              },
+              {
+                "text": "Assert on a fixed timestamp",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the clock, not the rng."
+              },
+              {
+                "text": "Force the gateway to fail",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the gateway, not the rng."
+              },
+              {
+                "text": "Supply a test config without touching globals",
+                "fraction": 0,
+                "feedback": "That is unlocked by injecting the config, not the rng."
+              }
+            ],
+            "generalFeedback": "Injecting a seeded rng lets a test substitute a deterministic generator, so it canand assert on it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why injection is an object seam",
+            "text": "<p>Why is injecting a dependency as a parameter an <em>object seam</em>?</p>",
+            "answers": [
+              {
+                "text": "The dependency arrives as an object reference, so a test can pass a different object there without editing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 substitution happens by swapping the object at the injection point, not by changing the code."
+              },
+              {
+                "text": "Because it changes the return type of",
+                "fraction": 0,
+                "feedback": "The return type is unchanged; an object seam is about swapping the collaborator object."
+              },
+              {
+                "text": "Because it adds a new decision branch to the function",
+                "fraction": 0,
+                "feedback": "No branch is added; the seam is the substitutable object parameter."
+              },
+              {
+                "text": "Because it replaces the object at link time",
+                "fraction": 0,
+                "feedback": "Link-time substitution would be a link seam; here the object is passed in at runtime."
+              }
+            ],
+            "generalFeedback": "An object seam is a place where you can change behaviour by substituting a different object. Passing the collaborator in as a parameter makes that point substitutable \u2014 a test supplies a double object without touching the function body.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Match the clock anti-pattern to fix and double",
+            "text": "<p>For the <em>real clock <code>Date.now()</code></em> anti-pattern, the matching fix and enabled double are:</p>",
+            "answers": [
+              {
+                "text": "Inject a clock (object seam) &#8594; enables a fake",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a fake clock returning a fixed time is what the clock seam enables."
+              },
+              {
+                "text": "Inject a clock (object seam) &#8594; enables a mock",
+                "fraction": 0,
+                "feedback": "The clock maps to a fake, not a mock, in this fixture."
+              },
+              {
+                "text": "Inject the gateway (object seam) &#8594; enables a fake",
+                "fraction": 0,
+                "feedback": "The gateway is a different anti-pattern (newdep) and enables a mock."
+              },
+              {
+                "text": "Inject a seeded rng (object seam) &#8594; enables a fake",
+                "fraction": 0,
+                "feedback": "The rng is a different anti-pattern (random) and enables a stub."
+              }
+            ],
+            "generalFeedback": "The clock anti-pattern maps to: inject a clock (an object seam) enabling aclock with a fixed time.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which fix enables a mock",
+            "text": "<p>A test wants to verify that <code>charge()</code> actually calls the payment gateway. Which anti-pattern's fix enables the <em>mock</em> that makes this possible?</p>",
+            "answers": [
+              {
+                "text": "The hard-coded\u2014 inject the gateway collaborator",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the gateway seam enables a mock that verifies the interaction."
+              },
+              {
+                "text": "The global singleton Config \u2014 inject a config parameter",
+                "fraction": 0,
+                "feedback": "The config seam enables a stub, not a mock."
+              },
+              {
+                "text": "The real clock \u2014 inject a clock",
+                "fraction": 0,
+                "feedback": "The clock seam enables a fake, not a mock."
+              },
+              {
+                "text": "The real RNG \u2014 inject a seeded rng",
+                "fraction": 0,
+                "feedback": "The rng seam enables a stub, not a mock."
+              }
+            ],
+            "generalFeedback": "Only the gateway seam maps to a mock in this fixture. A mock verifies expected interactions, so injecting the gateway is what lets a test assert the call was made.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Score after one fix",
+            "text": "<p><code>testabilityOf</code> reports score as applied/4. If a learner applies only the clock fix, what is the score?</p>",
+            "answers": [
+              {
+                "text": "25% (1/4)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one of the four dependencies is now substitutable."
+              },
+              {
+                "text": "50% (2/4)",
+                "fraction": 0,
+                "feedback": "Only one fix is applied, so the score is 1/4, not 2/4."
+              },
+              {
+                "text": "100% (4/4)",
+                "fraction": 0,
+                "feedback": "Three dependencies are still pinned; the score is 1/4."
+              },
+              {
+                "text": "0% (0/4)",
+                "fraction": 0,
+                "feedback": "One fix is applied, so the score is above zero: 1/4."
+              }
+            ],
+            "generalFeedback": "The meter reads applied/4. One applied fix gives 1/4 = 25%.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Injecting the clock enables a mock",
+            "text": "<p>In this model, injecting a clock enables a <em>mock</em> double.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Not in this fixture \u2014 the clock seam maps to a fake (a working clock with a fixed time), not a mock."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the clock seam enables a fake; the mock is what the gateway seam enables."
+              }
+            ],
+            "generalFeedback": "The double mapping is global &#8594; stub, newdep &#8594; mock, clock &#8594; fake, random &#8594; stub. Injecting the clock enables a fake clock with a fixed time; a mock is enabled only by injecting the gateway."
+          },
+          {
+            "type": "multichoice",
+            "name": "Which fix pins to a deterministic id",
+            "text": "<p>A test needs the id produced by <code>charge()</code> to be the same on every run. Which fix is required?</p>",
+            "answers": [
+              {
+                "text": "Inject a seeded rng (the random fix)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a seeded rng makes the generated id deterministic."
+              },
+              {
+                "text": "Inject a clock (the clock fix)",
+                "fraction": 0,
+                "feedback": "A fixed clock pins the timestamp, not the random id."
+              },
+              {
+                "text": "Inject the gateway (the newdep fix)",
+                "fraction": 0,
+                "feedback": "The gateway seam is about the payment call, not the id."
+              },
+              {
+                "text": "Inject the config (the global fix)",
+                "fraction": 0,
+                "feedback": "The config seam supplies settings, not the id value."
+              }
+            ],
+            "generalFeedback": "The id comes from. Injecting a seeded rng lets a test substitute a deterministic generator so the id repeats.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which two fixes both enable a stub",
+            "text": "<p>In this fixture, which <strong>two</strong> anti-patterns have fixes that both enable a <em>stub</em>?</p>",
+            "answers": [
+              {
+                "text": "The global singleton Config and the real",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both the config seam and the rng seam map to a stub."
+              },
+              {
+                "text": "The hard-coded gateway and the real clock",
+                "fraction": 0,
+                "feedback": "The gateway maps to a mock and the clock maps to a fake, not stubs."
+              },
+              {
+                "text": "The real clock and the real",
+                "fraction": 0,
+                "feedback": "The clock maps to a fake; only the rng of this pair maps to a stub."
+              },
+              {
+                "text": "The global singleton Config and the hard-coded gateway",
+                "fraction": 0,
+                "feedback": "The config maps to a stub, but the gateway maps to a mock."
+              }
+            ],
+            "generalFeedback": "The double mapping is global &#8594; stub, newdep &#8594; mock, clock &#8594; fake, random &#8594; stub. The two stub-enabling fixes are the config and the rng.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Score after two fixes",
+            "text": "<p>A learner applies the <em>global</em> fix and the <em>clock</em> fix, and nothing else. What score does <code>testabilityOf</code> report?</p>",
+            "answers": [
+              {
+                "text": "50% (2/4)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 two of the four dependencies are now substitutable."
+              },
+              {
+                "text": "25% (1/4)",
+                "fraction": 0,
+                "feedback": "Two distinct fixes are applied, so the score is 2/4, not 1/4."
+              },
+              {
+                "text": "75% (3/4)",
+                "fraction": 0,
+                "feedback": "Only two fixes are applied; the gateway and rng are still pinned."
+              },
+              {
+                "text": "100% (4/4)",
+                "fraction": 0,
+                "feedback": "Two dependencies remain pinned, so the score is 2/4."
+              }
+            ],
+            "generalFeedback": "Score = applied/4. Applying the global and clock fixes makes 2 of 4 dependencies substitutable: 2/4 = 50%.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Score after three fixes",
+            "text": "<p>A learner applies the <em>global</em>, <em>newdep</em>, and <em>clock</em> fixes but leaves <code>Math.random()</code> as is. What score does <code>testabilityOf</code> report?</p>",
+            "answers": [
+              {
+                "text": "75% (3/4)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 three of four dependencies are substitutable; only the rng remains pinned."
+              },
+              {
+                "text": "50% (2/4)",
+                "fraction": 0,
+                "feedback": "Three fixes are applied, so the score is 3/4, not 2/4."
+              },
+              {
+                "text": "100% (4/4)",
+                "fraction": 0,
+                "feedback": "The rng is still pinned, so the score is 3/4, not full."
+              },
+              {
+                "text": "25% (1/4)",
+                "fraction": 0,
+                "feedback": "Three distinct fixes are applied; the score is 3/4."
+              }
+            ],
+            "generalFeedback": "Score = applied/4. With the config, gateway and clock injected, 3 of 4 dependencies are substitutable: 3/4 = 75%. The RNG still pins the id.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "State after all four fixes",
+            "text": "<p>When all four seams are applied, the score is 100% and <code>charge()</code> becomes:</p>",
+            "answers": [
+              {
+                "text": "A pure-ish unit whose config, gateway, clock and RNG a test fully controls",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every dependency is now substitutable, so the test controls all inputs."
+              },
+              {
+                "text": "A function that no longer uses a config, gateway, clock or RNG",
+                "fraction": 0,
+                "feedback": "It still uses all four; they are injected rather than pinned."
+              },
+              {
+                "text": "Guaranteed to be free of all bugs",
+                "fraction": 0,
+                "feedback": "Testability makes it easy to test, not automatically bug-free."
+              },
+              {
+                "text": "Impossible to run in production",
+                "fraction": 0,
+                "feedback": "It runs fine in production with real dependencies supplied; tests supply doubles."
+              }
+            ],
+            "generalFeedback": "Applying all four object seams makes every dependency substitutable.is now a pure-ish unit: the test injects config, gateway, clock and rng, so it controls every input and can observe every effect.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which fixes remove nondeterminism",
+            "text": "<p>Which subset of fixes removes the <em>nondeterminism</em> from <code>charge()</code>?</p>",
+            "answers": [
+              {
+                "text": "Injecting the clock and the rng",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the wall clock and the RNG are the two nondeterministic sources."
+              },
+              {
+                "text": "Injecting the config and the gateway",
+                "fraction": 0,
+                "feedback": "Those improve substitutability but neither is a nondeterministic source."
+              },
+              {
+                "text": "Injecting only the gateway",
+                "fraction": 0,
+                "feedback": "The gateway is not a nondeterministic source; the clock and rng are."
+              },
+              {
+                "text": "Injecting only the config",
+                "fraction": 0,
+                "feedback": "The config is a hidden input, not a nondeterministic source."
+              }
+            ],
+            "generalFeedback": "The nondeterminism sources in this code are exactly the clock () and the RNG (). Injecting both replaces them with test-controlled values, makingdeterministic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why injecting clock and rng removes nondeterminism",
+            "text": "<p>Why does injecting the clock and the rng also make <code>charge()</code> deterministic?</p>",
+            "answers": [
+              {
+                "text": "Both were varying inputs; once the test supplies them, the same inputs always produce the same output",
+                "fraction": 100,
+                "feedback": "Correct \u2014 replacing the two nondeterministic sources with fixed values removes the run-to-run variation."
+              },
+              {
+                "text": "Injection deletes the timestamp and id from the output entirely",
+                "fraction": 0,
+                "feedback": "They are still produced; they are just now supplied by the test."
+              },
+              {
+                "text": "A seeded rng runs faster than",
+                "fraction": 0,
+                "feedback": "Speed is irrelevant; determinism comes from controllable, fixed values."
+              },
+              {
+                "text": "The clock and rng stop being called",
+                "fraction": 0,
+                "feedback": "They are still called \u2014 on the injected doubles, which return fixed values."
+              }
+            ],
+            "generalFeedback": "The clock and RNG were the only run-to-run varying inputs. Injecting them lets the test pin both, sobecomes a deterministic function of its inputs \u2014 testable and repeatable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Does injecting config remove nondeterminism",
+            "text": "<p>Does injecting the config parameter (the <em>global</em> fix) remove nondeterminism from <code>charge()</code>?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 the config is a hidden input, not a nondeterministic one; injecting it improves controllability but the nondeterminism comes from the clock and RNG",
+                "fraction": 100,
+                "feedback": "Correct \u2014 removing the global helps substitutability, but only the clock and rng fixes remove nondeterminism."
+              },
+              {
+                "text": "Yes \u2014 the global singleton is the main source of nondeterminism",
+                "fraction": 0,
+                "feedback": "A singleton is a hidden but stable input; the nondeterministic sources are the clock and rng."
+              },
+              {
+                "text": "Yes \u2014 every injection removes some nondeterminism",
+                "fraction": 0,
+                "feedback": "Injection improves substitutability generally, but only the clock and rng sources are nondeterministic."
+              },
+              {
+                "text": "No \u2014 injecting config actually adds nondeterminism",
+                "fraction": 0,
+                "feedback": "It does not add nondeterminism; it removes a hidden global input."
+              }
+            ],
+            "generalFeedback": "Not every testability problem is nondeterminism. The global config is a hidden input that hurts controllability; injecting it makes the config substitutable. But the code's nondeterminism comes specifically from the clock and the RNG.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Seam versus double",
+            "text": "<p>What is the difference between the <em>seam</em> and the <em>test double</em> in this model?</p>",
+            "answers": [
+              {
+                "text": "The seam is the place where substitution is possible (the injection point); the double is the substitute object placed there",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the seam is the where; the double is the what."
+              },
+              {
+                "text": "The seam is the substitute object; the double is the place it goes",
+                "fraction": 0,
+                "feedback": "This reverses them: the seam is the place, the double is the substitute."
+              },
+              {
+                "text": "They are two names for the same thing",
+                "fraction": 0,
+                "feedback": "They are distinct: one is a location in the code, the other is an object."
+              },
+              {
+                "text": "The seam is a kind of assertion; the double is a kind of loop",
+                "fraction": 0,
+                "feedback": "Neither is an assertion or a loop; the seam is a substitution point and the double is a stand-in object."
+              }
+            ],
+            "generalFeedback": "The seam is a place in the code where behaviour can be substituted (here, an injected parameter \u2014 an object seam). The test double is the concrete stand-in (stub/mock/fake) a test drops into that seam.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Two stubs, different problems",
+            "text": "<p>The config fix and the rng fix both enable a <em>stub</em> via an object seam, yet they address different testability problems. What do they share and how do they differ?</p>",
+            "answers": [
+              {
+                "text": "Same double (stub) and same seam type (object), but the config removes a hidden global input while the rng removes a nondeterministic source",
+                "fraction": 100,
+                "feedback": "Correct \u2014 identical seam type and double, different underlying problem."
+              },
+              {
+                "text": "Different doubles and different seam types, addressing the same problem",
+                "fraction": 0,
+                "feedback": "Both enable a stub via an object seam; the problems differ, not the double or seam."
+              },
+              {
+                "text": "Same double, but the config fix is a link seam and the rng fix is an object seam",
+                "fraction": 0,
+                "feedback": "Both are object seams; neither is a link seam."
+              },
+              {
+                "text": "They are identical in every respect",
+                "fraction": 0,
+                "feedback": "They share seam type and double but tackle different problems (hidden input vs nondeterminism)."
+              }
+            ],
+            "generalFeedback": "Both map to a stub through an object seam, showing the seam type and double can coincide. Yet the config addresses a hidden global input (controllability) while the rng addresses nondeterminism \u2014 the same tool solving different testability problems.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Score and capabilities for newdep plus random",
+            "text": "<p>A learner applies only the <em>newdep</em> and <em>random</em> fixes. What score and which unlocked capabilities result?</p>",
+            "answers": [
+              {
+                "text": "50% (2/4); force the gateway to fail, and make the generated id deterministic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 two fixes give 2/4, unlocking the gateway and rng capabilities."
+              },
+              {
+                "text": "50% (2/4); assert on a fixed timestamp, and supply a test config",
+                "fraction": 0,
+                "feedback": "Those are the clock and config capabilities, which were not applied here."
+              },
+              {
+                "text": "75% (3/4); force the gateway to fail, and make the generated id deterministic",
+                "fraction": 0,
+                "feedback": "Only two fixes are applied, so the score is 2/4, not 3/4."
+              },
+              {
+                "text": "25% (1/4); force the gateway to fail",
+                "fraction": 0,
+                "feedback": "Two distinct fixes are applied, so the score is 2/4 and two capabilities are unlocked."
+              }
+            ],
+            "generalFeedback": 'Two applied fixes give 2/4 = 50%. The newdep fix unlocks "force the gateway to fail" and the random fix unlocks "make the generated id deterministic".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why substitutability equals testability",
+            "text": "<p>Why does making every dependency substitutable make <code>charge()</code> testable?</p>",
+            "answers": [
+              {
+                "text": "Once each dependency can be substituted, a test can control all inputs and observe all effects, which is what testability requires",
+                "fraction": 100,
+                "feedback": "Correct \u2014 substitutable dependencies give the test both controllability and observability."
+              },
+              {
+                "text": "Because substitutable code always runs faster",
+                "fraction": 0,
+                "feedback": "Speed is not the point; control and observation are."
+              },
+              {
+                "text": "Because injected dependencies never contain bugs",
+                "fraction": 0,
+                "feedback": "They can still have bugs; injection just makes the unit controllable in a test."
+              },
+              {
+                "text": "Because the function then needs no dependencies at all",
+                "fraction": 0,
+                "feedback": "It still has dependencies; they are simply supplied by the test."
+              }
+            ],
+            "generalFeedback": "Testability is controllability plus observability. When every dependency is substitutable, a test can drive all inputs (config, gateway behaviour, time, id) and observe the effects \u2014 so substitutability is precisely what makes the unit testable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix that only removes a hidden input",
+            "text": "<p>Which single fix removes a hidden input but does <strong>not</strong> remove nondeterminism and does <strong>not</strong> enable forcing a failure?</p>",
+            "answers": [
+              {
+                "text": "Inject the config parameter (the global fix)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it removes the hidden global input; it is not a nondeterministic source, and forcing a failure is the gateway's capability."
+              },
+              {
+                "text": "Inject a clock (the clock fix)",
+                "fraction": 0,
+                "feedback": "The clock fix removes nondeterminism, so it does not fit."
+              },
+              {
+                "text": "Inject a seeded rng (the random fix)",
+                "fraction": 0,
+                "feedback": "The rng fix removes nondeterminism, so it does not fit."
+              },
+              {
+                "text": "Inject the gateway (the newdep fix)",
+                "fraction": 0,
+                "feedback": "The gateway fix is exactly the one that enables forcing a failure, so it does not fit."
+              }
+            ],
+            "generalFeedback": "The global-config fix removes a hidden input (improving controllability). It is not one of the nondeterminism sources (clock, rng), and forcing a failure is unlocked by the gateway fix \u2014 so the config fix uniquely matches.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fixes for a fixed time and deterministic id",
+            "text": "<p>A test must assert on both a fixed timestamp and a deterministic id. Which fixes are needed, and what score results?</p>",
+            "answers": [
+              {
+                "text": "Inject the clock and inject the seeded rng; score 50% (2/4)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the clock pins the time, the rng pins the id; two of four dependencies are substitutable."
+              },
+              {
+                "text": "Inject the config and inject the gateway; score 50% (2/4)",
+                "fraction": 0,
+                "feedback": "Those unlock config and failure-forcing, not a fixed time or deterministic id."
+              },
+              {
+                "text": "Inject the clock only; score 25% (1/4)",
+                "fraction": 0,
+                "feedback": "The clock pins the time but not the id; the rng is also needed."
+              },
+              {
+                "text": "Inject all four; score 100% (4/4)",
+                "fraction": 0,
+                "feedback": "Only the clock and rng are required for these two assertions; that is 2/4."
+              }
+            ],
+            "generalFeedback": "A fixed timestamp needs the clock fix; a deterministic id needs the rng fix. Applying exactly those two gives 2/4 = 50%.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Score is order-independent",
+            "text": "<p>Applying the clock fix then the global fix yields the same score as applying the global fix then the clock fix.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014counts the set of applied fixes, so order does not matter: either way it is 2/4."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The score depends only on which fixes are applied, not the order; both orders give 2/4."
+              }
+            ],
+            "generalFeedback": "Score = applied/4, computed from the set of applied fixes (deduped, in fixture order). The order in which the learner toggles them does not change the result: two distinct fixes give 2/4 = 50% either way."
+          },
+          {
+            "type": "multichoice",
+            "name": "Mock versus stub for the gateway",
+            "text": "<p>A test wants to <em>verify</em> that <code>charge()</code> calls the gateway with the right arguments, not merely receive a canned return value. Which double, enabled by which fix, does this need?</p>",
+            "answers": [
+              {
+                "text": "A mock, enabled by injecting the gateway collaborator",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a mock verifies interactions; a stub would only return canned values."
+              },
+              {
+                "text": "A stub, enabled by injecting the gateway collaborator",
+                "fraction": 0,
+                "feedback": "A stub returns canned values but does not verify the call; the gateway seam here maps to a mock."
+              },
+              {
+                "text": "A fake, enabled by injecting a clock",
+                "fraction": 0,
+                "feedback": "A fake clock pins time; it does not verify a gateway call."
+              },
+              {
+                "text": "A stub, enabled by injecting a seeded rng",
+                "fraction": 0,
+                "feedback": "The rng stub fixes the id; it says nothing about the gateway call."
+              }
+            ],
+            "generalFeedback": "Verifying the interaction (right method, right arguments) is behaviour verification, the job of a mock. In this fixture the gateway seam maps to a mock, so injecting the gateway is the enabling fix.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "One seam type, three doubles",
+            "text": "<p>All four fixes are object seams, yet they enable three different doubles (stub, mock, fake). What does this show?</p>",
+            "answers": [
+              {
+                "text": "The seam type (where you substitute) is independent of the double (what you substitute); one seam kind can host different doubles depending on the test's goal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 object seams provide the substitution point; the choice of stub, mock or fake depends on what the test needs."
+              },
+              {
+                "text": "Each seam type can enable only one kind of double",
+                "fraction": 0,
+                "feedback": "The opposite: one seam type (object) here hosts stubs, a mock, and a fake."
+              },
+              {
+                "text": "Object seams can only ever enable stubs",
+                "fraction": 0,
+                "feedback": "Here object seams also enable a mock and a fake."
+              },
+              {
+                "text": "The double determines the seam type",
+                "fraction": 0,
+                "feedback": "They are independent; the same object seam hosts different doubles."
+              }
+            ],
+            "generalFeedback": "Seam type and double type are orthogonal. All four fixes use the same object seam, but the test picks the double \u2014 stub for canned config/id, mock to verify the gateway call, fake for a working fixed clock \u2014 according to its goal.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u63A5\u7E2B",
+            "text": "<p>\u4F9D Michael Feathers \u7684\u5B9A\u7FA9\uFF0C<em>\u63A5\u7E2B\uFF08seam\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u80FD\u5728\u300C\u4E0D\u4FEE\u6539\u8A72\u8655\u7A0B\u5F0F\u78BC\u300D\u7684\u60C5\u6CC1\u4E0B\u6539\u8B8A\u7A0B\u5F0F\u884C\u70BA\u7684\u4F4D\u7F6E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u8B93\u4F60\u80FD\u66FF\u63DB\u884C\u70BA\uFF08\u4F8B\u5982\u7F6E\u63DB\u67D0\u500B\u76F8\u4F9D\uFF09\uFF0C\u800C\u4E0D\u5FC5\u4FEE\u6539\u8A72\u8655\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u523B\u610F\u6CE8\u5165\u7A0B\u5F0F\u78BC\u3001\u7528\u4F86\u6E2C\u8A66\u6E2C\u8A66\u5957\u4EF6\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u690D\u5165\u7684\u932F\u8AA4\uFF0F\u7A81\u8B8A\u9AD4\uFF0C\u4E0D\u662F\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u4E00\u884C\u6C38\u9060\u542B\u6709\u932F\u8AA4\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u63A5\u7E2B\u662F\u53EF\u66FF\u63DB\u884C\u70BA\u7684\u4F4D\u7F6E\uFF0C\u800C\u975E\u5FC5\u5B9A\u6709\u932F\u7684\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u7DB2\u8DEF\u4E0A\u5169\u500B\u5FAE\u670D\u52D9\u4E4B\u9593\u7684\u908A\u754C",
+                "fraction": 0,
+                "feedback": "\u63A5\u7E2B\u662F\u7A0B\u5F0F\u78BC\u5C64\u7D1A\u53EF\u6539\u8B8A\u884C\u70BA\u7684\u4F4D\u7F6E\uFF0C\u4E0D\u662F\u7DB2\u8DEF\u908A\u754C\u3002"
+              }
+            ],
+            "generalFeedback": "Feathers \u5C07\u63A5\u7E2B\u5B9A\u7FA9\u70BA\u300C\u4E00\u500B\u80FD\u5728\u4E0D\u4FEE\u6539\u8A72\u8655\u7684\u60C5\u6CC1\u4E0B\u6539\u8B8A\u7A0B\u5F0F\u884C\u70BA\u7684\u4F4D\u7F6E\u300D\u3002\u6CE8\u5165\u76F8\u4F9D\u5C31\u6703\u7522\u751F\u9019\u6A23\u7684\u63A5\u7E2B\uFF1A\u6E2C\u8A66\u53EF\u4EE5\u5728\u8A72\u8655\u653E\u5165\u66FF\u8EAB\uFF08double\uFF09\uFF0C\u800C\u4E0D\u5FC5\u52D5\u5230\u51FD\u5F0F\u672C\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u76F8\u4F9D\u6CE8\u5165",
+            "text": "<p><em>\u76F8\u4F9D\u6CE8\u5165\uFF08dependency injection\uFF0CDI\uFF09</em>\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u5916\u90E8\u628A\u76F8\u4F9D\u50B3\u9032\u4F86\uFF08\u4F8B\u5982\u4F5C\u70BA\u53C3\u6578\uFF09\uFF0C\u800C\u4E0D\u662F\u5728\u51FD\u5F0F\u5167\u90E8\u5EFA\u7ACB\u6216\u8B80\u53D6\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5354\u4F5C\u8005\u662F\u88AB\u63D0\u4F9B\u7D66\u7A0B\u5F0F\u78BC\uFF0C\u800C\u975E\u5728\u5176\u5167\u90E8\u4EE5 new \u5EFA\u7ACB\u6216\u6293\u53D6\u3002"
+              },
+              {
+                "text": "\u628A\u932F\u8AA4\u6CE8\u5165\u6B63\u5728\u57F7\u884C\u7684\u7A0B\u5F0F\uFF0C\u89C0\u5BDF\u5B83\u5982\u4F55\u61C9\u5C0D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u932F\u8AA4\u6CE8\u5165\uFF08fault injection\uFF09\uFF0C\u4E0D\u662F\u76F8\u4F9D\u6CE8\u5165\u3002"
+              },
+              {
+                "text": "\u628A\u67D0\u500B\u5168\u57DF\u8B8A\u6578\u8907\u88FD\u5230\u6BCF\u500B\u9700\u8981\u5B83\u7684\u51FD\u5F0F\u88E1",
+                "fraction": 0,
+                "feedback": "\u53D6\u7528\u5168\u57DF\u6B63\u662F DI \u6240\u8981\u53D6\u4EE3\u7684\uFF1BDI \u6703\u660E\u78BA\u5730\u628A\u76F8\u4F9D\u50B3\u9032\u4F86\u3002"
+              },
+              {
+                "text": "\u5F9E\u7A0B\u5F0F\u78BC\u81EA\u52D5\u7522\u751F\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u751F\u6210\uFF0C\u8207\u76F8\u4F9D\u5982\u4F55\u88AB\u63D0\u4F9B\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u4F9D\u6CE8\u5165\u5F9E\u5916\u90E8\uFF08\u901A\u5E38\u4F5C\u70BA\u53C3\u6578\uFF09\u63D0\u4F9B\u51FD\u5F0F\u7684\u5354\u4F5C\u8005\uFF0C\u800C\u975E\u8B93\u51FD\u5F0F\u4EE5\u5EFA\u7ACB\u6216\u5F9E\u5168\u57DF\u8B80\u53D6\u3002\u9019\u6703\u7522\u751F\u4E00\u500B\u63A5\u7E2B\uFF0C\u8B93\u6E2C\u8A66\u80FD\u5728\u8A72\u8655\u66FF\u63DB\u66FF\u8EAB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6E2C\u8A66\u66FF\u8EAB",
+            "text": "<p><em>\u6E2C\u8A66\u66FF\u8EAB\uFF08test double\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6E2C\u8A66\u671F\u9593\u4EE3\u66FF\u771F\u5BE6\u76F8\u4F9D\u800C\u653E\u5165\u7684\u66FF\u8EAB\u7269\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014stub\u3001mock\u3001fake \u90FD\u662F\u6E2C\u8A66\u66FF\u8EAB\uFF0C\u7528\u4F86\u53D6\u4EE3\u53D7\u6E2C\u6642\u7684\u771F\u5BE6\u5354\u4F5C\u8005\u3002"
+              },
+              {
+                "text": "\u4E26\u884C\u57F7\u884C\u7684\u7B2C\u4E8C\u4EFD\u6E2C\u8A66\u526F\u672C",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F\u66FF\u8EAB\uFF1B\u66FF\u8EAB\u53D6\u4EE3\u7684\u662F\u76F8\u4F9D\uFF0C\u800C\u975E\u6E2C\u8A66\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u76F8\u4F9D\u7684\u6B63\u5F0F\uFF08\u751F\u7522\uFF09\u5BE6\u4F5C",
+                "fraction": 0,
+                "feedback": "\u66FF\u8EAB\u662F\u771F\u5BE6\u5BE6\u4F5C\u7684\u6771\u897F\uFF0C\u5B83\u4E0D\u662F\u771F\u8CA8\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u5DE5\u5177\uFF0C\u4E0D\u662F\u6E2C\u8A66\u66FF\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u66FF\u8EAB\u662F\u4EFB\u4F55\u88AB\u653E\u5230\u771F\u5BE6\u76F8\u4F9D\u4F4D\u7F6E\u4E0A\u7684\u7269\u4EF6\uFF0C\u597D\u8B93\u53D7\u6E2C\u7A0B\u5F0F\u80FD\u88AB\u5B64\u7ACB\u5730\u57F7\u884C\u2014\u2014stub\u3001mock\u3001fake\u3001dummy\u3001spy \u90FD\u662F\u5E38\u898B\u7A2E\u985E\u3002\u6BCF\u500B\u53EF\u6E2C\u8A66\u6027\u63A5\u7E2B\u90FD\u662F\u53EF\u653E\u5165\u66FF\u8EAB\u7684\u4F4D\u7F6E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8B80\u53D6\u5168\u57DF\u55AE\u4F8B\u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027",
+            "text": "<p>\u5728 <code>charge()</code> \u4E2D\uFF0C<code>const cfg = Config.instance();</code> \u8B80\u53D6\u4E86\u5168\u57DF\u55AE\u4F8B\u3002\u70BA\u4F55\u9019\u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u662F\u6E2C\u8A66\u7121\u6CD5\u8A2D\u5B9A\u6216\u66FF\u63DB\u7684\u96B1\u85CF\u8F38\u5165\uFF0C\u56E0\u70BA\u5B83\u5728\u51FD\u5F0F\u5167\u90E8\u88AB\u6293\u53D6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u6C92\u6709\u63A5\u7E2B\u53EF\u63D0\u4F9B\u4E0D\u540C\u7684 config\uFF1B\u76F8\u4F9D\u88AB\u91D8\u6B7B\u5728\u7A0B\u5F0F\u78BC\u88E1\u3002"
+              },
+              {
+                "text": "\u55AE\u4F8B\u6BD4\u6CE8\u5165\u7684\u7269\u4EF6\u57F7\u884C\u5F97\u66F4\u6162",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u63A7\u5236\u529B\uFF0C\u800C\u975E\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u5168\u57DF\u8B80\u53D6\u5728\u6E2C\u8A66\u4E2D\u4E00\u5B9A\u6703\u62CB\u51FA\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u6703\u62CB\u4F8B\u5916\uFF1B\u554F\u984C\u662F\u6E2C\u8A66\u7121\u6CD5\u66FF\u63DB\u8A72\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u8B93\u51FD\u5F0F\u56DE\u50B3\u932F\u8AA4\u7684\u578B\u5225",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u6703\u6539\u8B8A\u56DE\u50B3\u578B\u5225\uFF1B\u5B83\u79FB\u9664\u4E86\u6E2C\u8A66\u5C0D config \u7684\u63A7\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B80\u53D6\u5168\u57DF\u55AE\u4F8B\u628A\u4E00\u500B\u96B1\u85CF\u8F38\u5165\u76F4\u63A5\u62C9\u9032\u51FD\u5F0F\u3002\u56E0\u70BA\u6E2C\u8A66\u5F9E\u4E0D\u628A\u5B83\u50B3\u9032\u4F86\uFF0C\u5C31\u6C92\u6709\u63A5\u7E2B\u53EF\u66FF\u63DB\u6E2C\u8A66\u7528\u7684 config\u2014\u2014\u964D\u4F4E\u4E86\u53EF\u63A7\u5236\u6027\uFF08controllability\uFF09\u3002\u4FEE\u6CD5\u662F\u6CE8\u5165\u4E00\u500B config \u53C3\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5BEB\u6B7B\u7684 new \u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027",
+            "text": "<p>\u5728 <code>charge()</code> \u4E2D\uFF0C<code>const gw = new PaymentGateway();</code> \u76F4\u63A5\u5EFA\u7ACB\u4E86\u5B83\u7684\u5354\u4F5C\u8005\u3002\u70BA\u4F55\u9019\u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u4F9D\u5728\u51FD\u5F0F\u5167\u90E8\u88AB\u5EFA\u7ACB\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u628A\u5B83\u63DB\u6210\u66FF\u8EAB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BEB\u6B7B\u628A\u771F\u5BE6 gateway \u91D8\u6B7B\uFF1B\u6C92\u6709\u63A5\u7E2B\u53EF\u66FF\u63DB\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u7A0B\u5F0F\u4E2D\u4F7F\u7528\u662F\u8A9E\u6CD5\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u662F\u5408\u6CD5\u7684\uFF1B\u554F\u984C\u5728\u65BC\u5354\u4F5C\u8005\u7121\u6CD5\u88AB\u66FF\u63DB\u3002"
+              },
+              {
+                "text": "\u5EFA\u69CB\u5B50\u4E0D\u80FD\u88AB\u547C\u53EB\u8D85\u904E\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u53EF\u4EE5\uFF1B\u554F\u984C\u5728\u65BC\u6E2C\u8A66\u7121\u6CD5\u53D6\u4EE3\u88AB\u5EFA\u7ACB\u7684\u7269\u4EF6\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u51FD\u5F0F\u4F7F\u7528\u7684\u8A18\u61B6\u9AD4\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u95DC\u6CE8\u9EDE\u662F\u53EF\u66FF\u63DB\u6027\uFF0C\u800C\u975E\u8A18\u61B6\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5167\u4EE5\u5EFA\u7ACB gateway\uFF0C\u6703\u628A\u7A0B\u5F0F\u7D81\u6B7B\u5230\u771F\u5BE6\u5BE6\u4F5C\u3002\u6E2C\u8A66\u7121\u6CD5\u4F38\u624B\u53D6\u4EE3\u5B83\uFF0C\u65BC\u662F\u771F\u5BE6 gateway\uFF08\u7DB2\u8DEF\u3001\u526F\u4F5C\u7528\uFF09\u5C31\u6703\u57F7\u884C\u3002\u6CE8\u5165\u8A72\u5354\u4F5C\u8005\u624D\u6703\u958B\u51FA\u53EF\u653E\u66FF\u8EAB\u7684\u63A5\u7E2B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u771F\u5BE6\u6642\u9418\u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027",
+            "text": "<p>\u5728 <code>charge()</code> \u4E2D\uFF0C<code>const at = Date.now();</code> \u8B80\u53D6\u4E86\u771F\u5BE6\u7684\u7246\u4E0A\u6642\u9418\uFF08wall clock\uFF09\u3002\u70BA\u4F55\u9019\u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6642\u9593\u6BCF\u6B21\u57F7\u884C\u90FD\u4E0D\u540C\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u628A\u5B83\u56FA\u5B9A\u4F4F\u4EE5\u5C0D\u56FA\u5B9A\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u771F\u5BE6\u6642\u9418\u662F\u6E2C\u8A66\u7121\u6CD5\u63A7\u5236\u7684\u975E\u6C7A\u5B9A\u6027\uFF08nondeterministic\uFF09\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u56DE\u50B3\u96E3\u4EE5\u89E3\u6790\u7684\u5B57\u4E32",
+                "fraction": 0,
+                "feedback": "\u5B83\u56DE\u50B3\u7684\u662F\u6578\u5B57\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u8A72\u503C\u4E0D\u53EF\u63A7\u3002"
+              },
+              {
+                "text": "\u8B80\u53D6\u6642\u9418\u6703\u522A\u9664\u5148\u524D\u7684\u6642\u9593\u6233",
+                "fraction": 0,
+                "feedback": "\u4E26\u4E0D\u6703\uFF1B\u554F\u984C\u662F\u975E\u6C7A\u5B9A\u6027\uFF0C\u800C\u975E\u8CC7\u6599\u907A\u5931\u3002"
+              },
+              {
+                "text": "\u6642\u9418\u53EA\u5728\u751F\u7522\u5EFA\u7F6E\u4E2D\u53EF\u7528",
+                "fraction": 0,
+                "feedback": "\u5728\u6E2C\u8A66\u4E2D\u4E5F\u53EF\u7528\uFF1B\u53EA\u662F\u6C92\u6709\u63A5\u7E2B\u5C31\u7121\u6CD5\u628A\u5B83\u7684\u503C\u56FA\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7246\u4E0A\u6642\u9418\u662F\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\uFF1A\u6BCF\u6B21\u57F7\u884C\u90FD\u4E0D\u540C\uFF0C\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u5C0D\u7CBE\u78BA\u6642\u9593\u6233\u65B7\u8A00\u3002\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08clock\uFF09\u80FD\u8B93\u6E2C\u8A66\u66FF\u63DB\u6210\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684 fake\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u771F\u5BE6\u4E82\u6578\u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027",
+            "text": "<p>\u5728 <code>charge()</code> \u4E2D\uFF0C<code>const id = Math.random().toString(36);</code> \u4F7F\u7528\u4E86\u771F\u5BE6\u7684\u4E82\u6578\u7522\u751F\u5668\uFF08RNG\uFF09\u3002\u70BA\u4F55\u9019\u6703\u50B7\u5BB3\u53EF\u6E2C\u8A66\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u503C\u6BCF\u6B21\u57F7\u884C\u90FD\u4E0D\u540C\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u771F\u5BE6\u4E82\u6578\u662F\u6E2C\u8A66\u7121\u6CD5\u63A7\u5236\u7684\u975E\u6C7A\u5B9A\u6027\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u4E2D\u547C\u53EB\u592A\u6162",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u901F\u5EA6\uFF0C\u800C\u5728\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u4E82\u6578\u6C38\u9060\u662F\u8CA0\u6578",
+                "fraction": 0,
+                "feedback": "\u56DE\u50B3 [0,1) \u7684\u503C\uFF1B\u554F\u984C\u662F\u5B83\u4E0D\u53EF\u63A7\u3002"
+              },
+              {
+                "text": "\u547C\u53EB\u5B83\u6703\u6539\u8B8A config \u55AE\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u6703\u52D5\u5230 config\uFF1B\u5B83\u53EA\u662F\u7522\u751F\u4E00\u500B\u4E0D\u53EF\u63A7\u7684\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "RNG \u662F\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\uFF1A\u6BCF\u6B21\u57F7\u884C\u7522\u751F\u4E0D\u540C\u7684 id\uFF0C\u56E0\u6B64\u6E2C\u8A66\u7121\u6CD5\u5C0D id \u65B7\u8A00\u3002\u6CE8\u5165\u4E00\u500B\u5E36\u7A2E\u5B50\u7684 rng\uFF08seeded rng\uFF09\u80FD\u8B93\u6E2C\u8A66\u66FF\u63DB\u6210\u6C7A\u5B9A\u6027\u7684\u7522\u751F\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5168\u57DF\u55AE\u4F8B Config \u7684\u4FEE\u6CD5",
+            "text": "<p>\u79FB\u9664 <code>charge()</code> \u4E2D<em>\u5168\u57DF\u55AE\u4F8B Config</em> \u53CD\u6A21\u5F0F\u7684\u63A5\u7E2B\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B config \u53C3\u6578\uFF08\u628A config \u50B3\u9032\u4F86\uFF0C\u4F8B\u5982\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u5916\u90E8\u63D0\u4F9B config \u6703\u958B\u51FA\u6E2C\u8A66\u53EF\u63A7\u5236\u7684\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u628A\u55AE\u4F8B\u5FEB\u53D6\u5230\u4E00\u500B\u6A21\u7D44\u5C64\u7D1A\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u4ECD\u662F\u8B80\u53D6\u5168\u57DF\uFF1B\u4E26\u4E0D\u6703\u8B93\u6E2C\u8A66\u66FF\u63DB config\u3002"
+              },
+              {
+                "text": "\u628A\u6539\u540D\u70BA",
+                "fraction": 0,
+                "feedback": "\u6539\u540D\u5C0D\u53EF\u66FF\u63DB\u6027\u6BEB\u7121\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u628A\u8B80\u53D6\u5305\u5728 try/catch \u88E1",
+                "fraction": 0,
+                "feedback": "\u932F\u8AA4\u8655\u7406\u4E0D\u6703\u70BA config \u958B\u51FA\u63A5\u7E2B\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FEE\u6CD5\u662F\u76F8\u4F9D\u6CE8\u5165\uFF1A\u628A config \u4F5C\u70BA\u53C3\u6578\u50B3\u5165\uFF08\uFF09\uFF0C\u800C\u4E0D\u662F\u8B80\u53D6\u5168\u57DF\u55AE\u4F8B\u3002\u9019\u6703\u628A\u88AB\u91D8\u6B7B\u7684\u76F8\u4F9D\u8B8A\u6210\u53EF\u66FF\u63DB\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5BEB\u6B7B gateway \u7684\u4FEE\u6CD5",
+            "text": "<p>\u79FB\u9664<em>\u5BEB\u6B7B\u7684 <code>new PaymentGateway()</code></em> \u53CD\u6A21\u5F0F\u7684\u63A5\u7E2B\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165 gateway \u5354\u4F5C\u8005\uFF08\u628A\u5B83\u50B3\u9032\u4F86\uFF0C\u4F8B\u5982\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u5916\u90E8\u63D0\u4F9B\u5354\u4F5C\u8005\u80FD\u8B93\u6E2C\u8A66\u66FF\u63DB\u66FF\u8EAB\u3002"
+              },
+              {
+                "text": "\u628A\u547C\u53EB\u79FB\u5230\u51FD\u5F0F\u6700\u4E0A\u9762",
+                "fraction": 0,
+                "feedback": "\u4F4D\u7F6E\u7121\u95DC\u7DCA\u8981\uFF1B\u5B83\u4ECD\u5728\u5167\u90E8\u88AB\u5EFA\u7ACB\uFF0C\u7121\u6CD5\u88AB\u66FF\u63DB\u3002"
+              },
+              {
+                "text": "\u8B93\u6210\u70BA\u7684\u5B50\u985E\u5225",
+                "fraction": 0,
+                "feedback": "\u6539\u8B8A\u7E7C\u627F\u95DC\u4FC2\u4E0D\u6703\u958B\u51FA\u53EF\u66FF\u63DB\u7684\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u53EF\u9760\u800C\u628A gateway \u547C\u53EB\u5169\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u65E2\u672A\u79FB\u9664\u5BEB\u6B7B\u7684\u5EFA\u7ACB\uFF0C\u4E5F\u7121\u52A9\u65BC\u66FF\u63DB\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FEE\u6CD5\u662F\u6CE8\u5165 gateway \u5354\u4F5C\u8005\uFF08\uFF09\uFF0C\u800C\u4E0D\u662F\u4EE5\u5EFA\u7ACB\u5B83\u3002\u9019\u500B\u6CE8\u5165\u9EDE\u5C31\u662F\u7269\u4EF6\u63A5\u7E2B\uFF08object seam\uFF09\uFF0C\u6E2C\u8A66\u53EF\u5728\u6B64\u653E\u5165\u66FF\u8EAB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u771F\u5BE6\u6642\u9418\u7684\u4FEE\u6CD5",
+            "text": "<p>\u79FB\u9664<em>\u771F\u5BE6\u6642\u9418 <code>Date.now()</code></em> \u53CD\u6A21\u5F0F\u7684\u63A5\u7E2B\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08\u628A clock \u50B3\u9032\u4F86\uFF0C\u4F8B\u5982\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u5916\u90E8\u63D0\u4F9B\u6642\u9418\u80FD\u8B93\u6E2C\u8A66\u628A\u6642\u9593\u56FA\u5B9A\u4F4F\u3002"
+              },
+              {
+                "text": "\u628A\u56DB\u6368\u4E94\u5165\u5230\u6700\u63A5\u8FD1\u7684\u79D2",
+                "fraction": 0,
+                "feedback": "\u56DB\u6368\u4E94\u5165\u4ECD\u662F\u8B80\u53D6\u771F\u5BE6\u3001\u4E0D\u53EF\u63A7\u7684\u6642\u9418\u3002"
+              },
+              {
+                "text": "\u628A\u6642\u9593\u6233\u5B58\u5230\u4E00\u500B\u5168\u57DF\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u5168\u57DF\u4ECD\u4E0D\u662F\u6E2C\u8A66\u6240\u63D0\u4F9B\u7684\u6771\u897F\uFF1B\u5B83\u4E0D\u6703\u7522\u751F\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u7A0B\u5F0F\u53EA\u547C\u53EB\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u53EA\u547C\u53EB\u4E00\u6B21\uFF0C\u8A72\u503C\u4ECD\u4E0D\u53EF\u88AB\u6E2C\u8A66\u63A7\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FEE\u6CD5\u662F\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08\uFF09\uFF0C\u800C\u4E0D\u662F\u76F4\u63A5\u547C\u53EB\uFF0C\u958B\u51FA\u4E00\u500B\u63A5\u7E2B\u8B93\u6E2C\u8A66\u66FF\u63DB\u6210\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684 fake \u6642\u9418\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u771F\u5BE6\u4E82\u6578\u7684\u4FEE\u6CD5",
+            "text": "<p>\u79FB\u9664<em>\u771F\u5BE6 <code>Math.random()</code></em> \u53CD\u6A21\u5F0F\u7684\u63A5\u7E2B\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B\u5E36\u7A2E\u5B50\u7684 rng\uFF08\u628A\u7522\u751F\u5668\u50B3\u9032\u4F86\uFF0C\u4F8B\u5982\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63D0\u4F9B\u5E36\u7A2E\u5B50\u7684 rng \u80FD\u8B93\u6E2C\u8A66\u4F7F id \u5177\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u628A\u4E58\u4E0A\u4E00\u500B\u5E38\u6578",
+                "fraction": 0,
+                "feedback": "\u628A\u4E82\u6578\u7E2E\u653E\u5F8C\u4ECD\u662F\u4E82\u6578\u4E14\u4E0D\u53EF\u63A7\u3002"
+              },
+              {
+                "text": "\u5728\u8FF4\u5708\u4E2D\u547C\u53EB\u4E26\u53D6\u5E73\u5747",
+                "fraction": 0,
+                "feedback": "\u5C0D\u771F\u5BE6\u4E82\u6578\u53D6\u5E73\u5747\u4ECD\u662F\u975E\u6C7A\u5B9A\u6027\u7684\u3002"
+              },
+              {
+                "text": "\u628A\u6578\u5B57\u8F49\u6210\u5E36\u56FA\u5B9A\u524D\u7DB4\u7684\u5B57\u4E32",
+                "fraction": 0,
+                "feedback": "\u4E82\u6578\u90E8\u5206\u4ECD\u4E0D\u53EF\u63A7\uFF1B\u6C92\u6709\u7522\u751F\u63A5\u7E2B\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FEE\u6CD5\u662F\u6CE8\u5165\u4E00\u500B\u5E36\u7A2E\u5B50\u7684 rng\uFF08\uFF09\uFF0C\u800C\u4E0D\u662F\u547C\u53EB\uFF0C\u958B\u51FA\u4E00\u500B\u63A5\u7E2B\u8B93\u6E2C\u8A66\u66FF\u63DB\u6210\u6C7A\u5B9A\u6027\u7684\u7522\u751F\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u9019\u6BB5\u7A0B\u5F0F\u4E2D\uFF0C<em>\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\uFF08design for testability\uFF09</em>\u6307\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u79FB\u9664\u88AB\u91D8\u6B7B\u7684\u76F8\u4F9D\uFF0C\u8B93\u6BCF\u4E00\u500B\u90FD\u80FD\u88AB\u6E2C\u8A66\u66FF\u63DB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u628A\u5BEB\u6B7B\u7684\u76F8\u4F9D\u8B8A\u6210\u6E2C\u8A66\u53EF\u653E\u5165\u66FF\u8EAB\u7684\u4F4D\u7F6E\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u500B\u6E2C\u8A66\u4E2D\u5BEB\u66F4\u591A\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u6709\u7528\uFF0C\u4F46\u9019\u88E1\u7684\u53EF\u6E2C\u8A66\u6027\u5728\u65BC\u8B93\u76F8\u4F9D\u53EF\u88AB\u66FF\u63DB\u3002"
+              },
+              {
+                "text": "\u628A\u76F8\u4F9D\u5F9E\u51FD\u5F0F\u4E2D\u5B8C\u5168\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u76F8\u4F9D\u4ECD\u6703\u88AB\u4F7F\u7528\uFF1B\u5B83\u5011\u662F\u88AB\u6CE8\u5165\uFF0C\u800C\u975E\u88AB\u522A\u9664\u3002"
+              },
+              {
+                "text": "\u66F4\u983B\u7E41\u5730\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u983B\u7387\u8207\u628A\u7A0B\u5F0F\u8A2D\u8A08\u6210\u53EF\u66FF\u63DB\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u70BA\u53EF\u6E2C\u8A66\u6027\u800C\u8A2D\u8A08\uFF0C\u610F\u5373\u5957\u7528\u63A5\u7E2B\uFF0C\u628A\u6BCF\u500B\u88AB\u91D8\u6B7B\u7684\u76F8\u4F9D\uFF08\u5168\u57DF config\u3001\u5BEB\u6B7B\u7684 gateway\u3001\u771F\u5BE6\u6642\u9418\u3001\u771F\u5BE6 RNG\uFF09\u8B8A\u6210\u6E2C\u8A66\u53EF\u66FF\u63DB\u7684\u6771\u897F\u3002\u53EF\u66FF\u63DB\u7684\u76F8\u4F9D\u6B63\u662F\u53EF\u6E2C\u8A66\u55AE\u5143\u7684\u672C\u8CEA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6BCF\u500B\u4FEE\u6CD5\u90FD\u662F\u53EF\u653E\u5165\u66FF\u8EAB\u7684\u63A5\u7E2B",
+            "text": "<p><code>charge()</code> \u4E2D\u7684\u56DB\u500B\u4FEE\u6CD5\uFF0C\u6BCF\u4E00\u500B\u90FD\u662F\u4E00\u500B Feathers \u63A5\u7E2B\uFF0C\u80FD\u8B93\u6E2C\u8A66\u66FF\u63DB\u6E2C\u8A66\u66FF\u8EAB\uFF08double\uFF09\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6CE8\u5165 config\u3001gateway\u3001clock \u6216 rng\uFF0C\u6BCF\u4E00\u500B\u90FD\u958B\u51FA\u4E00\u500B\u63A5\u7E2B\u8B93\u6E2C\u8A66\u653E\u5165\u66FF\u8EAB\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u6CE8\u5165\u63A5\u7E2B\uFF1A\u5B83\u7522\u751F\u4E00\u500B\u4F4D\u7F6E\uFF0C\u8B93\u6E2C\u8A66\u80FD\u4EE5\u66FF\u8EAB\u4EE3\u66FF\u771F\u5BE6\u76F8\u4F9D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8655\u6BCF\u500B\u4FEE\u6CD5\u90FD\u662F\u76F8\u4F9D\u6CE8\u5165\uFF0C\u4E5F\u5C31\u662F\u4E00\u500B\u63A5\u7E2B\u3002\u63A5\u7E2B\u662F\u4F4D\u7F6E\uFF1B\u6E2C\u8A66\u66FF\u8EAB\u662F\u653E\u5230\u8A72\u4F4D\u7F6E\u4E0A\u7684\u66FF\u4EE3\u7269\u3002\u9019\u6B63\u662F\u63A5\u7E2B\u63A2\u7D22\u5668\u8207\u6E2C\u8A66\u66FF\u8EAB\u4E3B\u984C\u4EA4\u53C9\u9023\u7D50\u7684\u539F\u56E0\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88AB\u91D8\u6B7B\u7684\u76F8\u4F9D\u6709\u5E7E\u500B",
+            "text": "<p><code>charge()</code> \u9019\u6BB5\u7A0B\u5F0F\u542B\u6709\u5E7E\u500B\u88AB\u91D8\u6B7B\uFF08\u4E0D\u53EF\u6E2C\u8A66\uFF09\u7684\u76F8\u4F9D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u5168\u57DF config\u3001\u5BEB\u6B7B\u7684 gateway\u3001\u771F\u5BE6\u6642\u9418\uFF0C\u4EE5\u53CA\u771F\u5BE6 RNG",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u56DB\u500B\u53CD\u6A21\u5F0F\uFF0C\u5404\u7531\u4E00\u500B\u63A5\u7E2B\u79FB\u9664\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u53CD\u6A21\u5F0F\u6709\u56DB\u500B\uFF0C\u4E0D\u662F\u5169\u500B\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5225\u5FD8\u4E86\u8B80\u53D6\u5168\u57DF config\uFF1B\u7E3D\u5171\u6709\u56DB\u500B\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u9019\u6BB5\u7A0B\u5F0F\u6070\u597D\u91D8\u6B7B\u56DB\u500B\u76F8\u4F9D\uFF0C\u4E0D\u662F\u4E94\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u91D8\u6B7B\u56DB\u500B\u76F8\u4F9D\uFF1A\u3001\u3001\u8207\u3002\u53EF\u6E2C\u8A66\u6027\u5100\u8868\u8B80\u6578\u70BA applied/4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u4FEE\u6CD5\u7684\u63A5\u7E2B\u985E\u578B",
+            "text": "<p><code>charge()</code> \u4E2D\u7684\u56DB\u500B\u4FEE\u6CD5\u5C6C\u65BC\u54EA\u4E00\u7A2E Feathers \u63A5\u7E2B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7269\u4EF6\u63A5\u7E2B\uFF08object seam\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u4FEE\u6CD5\u90FD\u662F\uFF08\u900F\u904E\u6CE8\u5165\u7684\u53C3\u6578\uFF09\u66FF\u63DB\u4E0D\u540C\u7684\u7269\u4EF6\uFF0C\u56E0\u6B64\u56DB\u500B\u90FD\u662F\u7269\u4EF6\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u524D\u7F6E\u8655\u7406\u63A5\u7E2B\uFF08preprocessing seam\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u6C92\u6709\u4F7F\u7528\u5DE8\u96C6\uFF0F\u524D\u7F6E\u8655\u7406\u66FF\u63DB\uFF1B\u9019\u4E9B\u662F\u7269\u4EF6\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u9023\u7D50\u63A5\u7E2B\uFF08link seam\uFF09",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u5728\u9023\u7D50\u6642\u9032\u884C\u66FF\u63DB\uFF1B\u66FF\u63DB\u662F\u9760\u628A\u7269\u4EF6\u50B3\u9032\u4F86\u9054\u6210\u7684\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u63A5\u7E2B\uFF08compile seam\uFF09",
+                "fraction": 0,
+                "feedback": "\u66FF\u63DB\u662F\u5728\u57F7\u884C\u6642\u900F\u904E\u6CE8\u5165\u7684\u7269\u4EF6\u5B8C\u6210\uFF0C\u56E0\u6B64\u9019\u4E9B\u662F\u7269\u4EF6\u63A5\u7E2B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 Feathers \u7684\u5206\u985E\uFF08\u524D\u7F6E\u8655\u7406\uFF0F\u9023\u7D50\uFF0F\u7269\u4EF6\u63A5\u7E2B\uFF09\u4E2D\uFF0C\u6B64\u8655\u56DB\u500B\u4FEE\u6CD5\u90FD\u662F\u9760\u53C3\u6578\u628A\u4E0D\u540C\u7684\u7269\u4EF6\u50B3\u9032\u4F86\u2014\u2014\u7686\u70BA\u7269\u4EF6\u63A5\u7E2B\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 config \u6240\u555F\u7528\u7684\u66FF\u8EAB",
+            "text": "<p>\u6CE8\u5165 config \u53C3\u6578\uFF08<em>global</em> \u4FEE\u6CD5\uFF09\u4E4B\u5F8C\uFF0C\u5728\u6B64\u6A21\u578B\u4E2D\u9019\u500B\u63A5\u7E2B\u901A\u5E38\u555F\u7528\u54EA\u4E00\u7A2E\u6E2C\u8A66\u66FF\u8EAB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "stub\uFF08\u6A01\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014config \u63A5\u7E2B\u555F\u7528\u4E00\u500B\u56DE\u50B3\u56FA\u5B9A\u8A2D\u5B9A\u7684 stub\u3002"
+              },
+              {
+                "text": "mock\uFF08\u6A21\u64EC\uFF09",
+                "fraction": 0,
+                "feedback": "gateway \u4FEE\u6CD5\u555F\u7528 mock\uFF1B\u6B64\u8655 config \u4FEE\u6CD5\u555F\u7528\u7684\u662F stub\u3002"
+              },
+              {
+                "text": "fake\uFF08\u5047\u7269\u4EF6\uFF09",
+                "fraction": 0,
+                "feedback": "clock \u4FEE\u6CD5\u555F\u7528 fake\uFF1B\u6B64\u8655 config \u4FEE\u6CD5\u555F\u7528\u7684\u662F stub\u3002"
+              },
+              {
+                "text": "\u4E0D\u53EF\u80FD\u6709\u66FF\u8EAB",
+                "fraction": 0,
+                "feedback": "\u4E00\u65E6\u88AB\u6CE8\u5165\uFF0Cconfig \u5C31\u80FD\u88AB stub \u66FF\u63DB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6B64 fixture \u4E2D\uFF0C\u5168\u57DF config \u63A5\u7E2B\u5C0D\u61C9\u5230\uFF1A\u6E2C\u8A66\u900F\u904E\u6CE8\u5165\u7684\u53C3\u6578\u63D0\u4F9B\u56FA\u5B9A\u7684 config \u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 gateway \u6240\u555F\u7528\u7684\u66FF\u8EAB",
+            "text": "<p>\u6CE8\u5165 gateway \u5354\u4F5C\u8005\uFF08<em>newdep</em> \u4FEE\u6CD5\uFF09\u4E4B\u5F8C\uFF0C\u5728\u6B64\u6A21\u578B\u4E2D\u9019\u500B\u63A5\u7E2B\u555F\u7528\u54EA\u4E00\u7A2E\u6E2C\u8A66\u66FF\u8EAB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "mock\uFF08\u6A21\u64EC\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014gateway \u63A5\u7E2B\u5C0D\u61C9\u5230 mock\uFF0C\u53EF\u9A57\u8B49\u547C\u53EB\u4E26\u5F37\u5236\u5931\u6557\u3002"
+              },
+              {
+                "text": "stub\uFF08\u6A01\uFF09",
+                "fraction": 0,
+                "feedback": "config \u8207 rng \u4FEE\u6CD5\u5C0D\u61C9\u5230 stub\uFF1B\u6B64\u8655 gateway \u4FEE\u6CD5\u5C0D\u61C9\u5230 mock\u3002"
+              },
+              {
+                "text": "fake\uFF08\u5047\u7269\u4EF6\uFF09",
+                "fraction": 0,
+                "feedback": "clock \u4FEE\u6CD5\u5C0D\u61C9\u5230 fake\uFF1B\u6B64\u8655 gateway \u4FEE\u6CD5\u5C0D\u61C9\u5230 mock\u3002"
+              },
+              {
+                "text": "dummy\uFF08\u865B\u64EC\u7269\u4EF6\uFF09",
+                "fraction": 0,
+                "feedback": "gateway \u6703\u88AB\u5BE6\u969B\u4F7F\u7528\uFF0C\u6240\u4EE5\u4E0D\u662F dummy\uFF1B\u6B64\u63A5\u7E2B\u555F\u7528\u7684\u662F mock\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6B64 fixture \u4E2D\uFF0Cgateway \u63A5\u7E2B\u5C0D\u61C9\u5230\uFF1A\u6CE8\u5165\u8A72\u5354\u4F5C\u8005\u8B93\u6E2C\u8A66\u80FD\u9A57\u8B49 gateway \u5982\u4F55\u88AB\u547C\u53EB\uFF0C\u4E26\u5F37\u5236\u5B83\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 clock \u6240\u555F\u7528\u7684\u66FF\u8EAB",
+            "text": "<p>\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08<em>clock</em> \u4FEE\u6CD5\uFF09\u4E4B\u5F8C\uFF0C\u5728\u6B64\u6A21\u578B\u4E2D\u9019\u500B\u63A5\u7E2B\u555F\u7528\u54EA\u4E00\u7A2E\u6E2C\u8A66\u66FF\u8EAB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "fake\uFF08\u5047\u7269\u4EF6\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014clock \u63A5\u7E2B\u5C0D\u61C9\u5230\u4E00\u500B\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684 fake \u6642\u9418\u3002"
+              },
+              {
+                "text": "stub\uFF08\u6A01\uFF09",
+                "fraction": 0,
+                "feedback": "\u5728\u6B64 fixture \u4E2D\uFF0Cclock \u5C0D\u61C9\u5230 fake\uFF0C\u800C\u975E stub\u3002"
+              },
+              {
+                "text": "mock\uFF08\u6A21\u64EC\uFF09",
+                "fraction": 0,
+                "feedback": "gateway \u4FEE\u6CD5\u5C0D\u61C9\u5230 mock\uFF1B\u6B64\u8655 clock \u4FEE\u6CD5\u5C0D\u61C9\u5230 fake\u3002"
+              },
+              {
+                "text": "spy\uFF08\u9593\u8ADC\u7269\u4EF6\uFF09",
+                "fraction": 0,
+                "feedback": "clock \u63A5\u7E2B\u5C0D\u61C9\u5230 fake \u6642\u9418\uFF0C\u800C\u975E spy\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6B64 fixture \u4E2D\uFF0Cclock \u63A5\u7E2B\u5C0D\u61C9\u5230\uFF1A\u4E00\u500B\u53EF\u904B\u4F5C\u3001\u56DE\u50B3\u56FA\u5B9A\u4E14\u53EF\u63A7\u6642\u9593\u7684\u6642\u9418\u5BE6\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 rng \u6240\u555F\u7528\u7684\u66FF\u8EAB",
+            "text": "<p>\u6CE8\u5165\u4E00\u500B\u5E36\u7A2E\u5B50\u7684 rng\uFF08<em>random</em> \u4FEE\u6CD5\uFF09\u4E4B\u5F8C\uFF0C\u5728\u6B64\u6A21\u578B\u4E2D\u9019\u500B\u63A5\u7E2B\u555F\u7528\u54EA\u4E00\u7A2E\u6E2C\u8A66\u66FF\u8EAB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "stub\uFF08\u6A01\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014rng \u63A5\u7E2B\u5C0D\u61C9\u5230\u4E00\u500B\u56DE\u50B3\u56FA\u5B9A\u3001\u6C7A\u5B9A\u6027 id \u7684 stub\u3002"
+              },
+              {
+                "text": "mock\uFF08\u6A21\u64EC\uFF09",
+                "fraction": 0,
+                "feedback": "gateway \u4FEE\u6CD5\u5C0D\u61C9\u5230 mock\uFF1B\u6B64\u8655 rng \u4FEE\u6CD5\u5C0D\u61C9\u5230 stub\u3002"
+              },
+              {
+                "text": "fake\uFF08\u5047\u7269\u4EF6\uFF09",
+                "fraction": 0,
+                "feedback": "clock \u4FEE\u6CD5\u5C0D\u61C9\u5230 fake\uFF1B\u6B64\u8655 rng \u4FEE\u6CD5\u5C0D\u61C9\u5230 stub\u3002"
+              },
+              {
+                "text": "dummy\uFF08\u865B\u64EC\u7269\u4EF6\uFF09",
+                "fraction": 0,
+                "feedback": "rng \u6703\u88AB\u5BE6\u969B\u547C\u53EB\u4E14\u5FC5\u9808\u56DE\u50B3\u503C\uFF0C\u56E0\u6B64\u662F stub \u800C\u975E dummy\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6B64 fixture \u4E2D\uFF0Crng \u63A5\u7E2B\u5C0D\u61C9\u5230\uFF1A\u6E2C\u8A66\u63D0\u4F9B\u56FA\u5B9A\u3001\u6C7A\u5B9A\u6027\u7684\u503C\uFF0C\u4F7F\u7522\u751F\u7684 id \u88AB\u56FA\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 clock \u6240\u89E3\u9396\u7684\u80FD\u529B",
+            "text": "<p>\u6CE8\u5165\u4E00\u500B\u6642\u9418\u70BA\u6E2C\u8A66\u89E3\u9396\u4E86\u54EA\u4E00\u9805\u80FD\u529B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014fake \u6642\u9418\u8B93\u6E2C\u8A66\u80FD\u628A\u6642\u9593\u56FA\u5B9A\u4F4F\u4E26\u5C0D\u5176\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "\u5F37\u5236 gateway \u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 gateway \u89E3\u9396\uFF0C\u4E0D\u662F clock\u3002"
+              },
+              {
+                "text": "\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng \u89E3\u9396\uFF0C\u4E0D\u662F clock\u3002"
+              },
+              {
+                "text": "\u4E0D\u52D5\u5168\u57DF\u5373\u53EF\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 config \u89E3\u9396\uFF0C\u4E0D\u662F clock\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE8\u5165\u4E00\u500B\u6642\u9418\u8B93\u6E2C\u8A66\u80FD\u66FF\u63DB\u6210\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684 fake\uFF0C\u56E0\u6B64\u6E2C\u8A66\u53EF\u4EE5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 gateway \u6240\u89E3\u9396\u7684\u80FD\u529B",
+            "text": "<p>\u6CE8\u5165 gateway \u5354\u4F5C\u8005\u70BA\u6E2C\u8A66\u89E3\u9396\u4E86\u54EA\u4E00\u9805\u80FD\u529B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F37\u5236 gateway \u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6CE8\u5165 gateway \u5F8C\uFF0C\u6E2C\u8A66\u53EF\u66FF\u63DB\u6210\u56DE\u50B3\u6216\u62CB\u51FA\u5931\u6557\u7684\u66FF\u8EAB\u3002"
+              },
+              {
+                "text": "\u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 clock \u89E3\u9396\uFF0C\u4E0D\u662F gateway\u3002"
+              },
+              {
+                "text": "\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng \u89E3\u9396\uFF0C\u4E0D\u662F gateway\u3002"
+              },
+              {
+                "text": "\u4E0D\u52D5\u5168\u57DF\u5373\u53EF\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 config \u89E3\u9396\uFF0C\u4E0D\u662F gateway\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE8\u5165 gateway \u8B93\u6E2C\u8A66\u80FD\u653E\u5165\u66FF\u8EAB\uFF0C\u56E0\u6B64\u53EF\u4EE5\uFF0C\u4E26\u6AA2\u67E5\u5982\u4F55\u8655\u7406\u8A72\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 config \u6240\u89E3\u9396\u7684\u80FD\u529B",
+            "text": "<p>\u6CE8\u5165 config \u53C3\u6578\u70BA\u6E2C\u8A66\u89E3\u9396\u4E86\u54EA\u4E00\u9805\u80FD\u529B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u52D5\u5168\u57DF\u5373\u53EF\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014config \u4EE5\u53C3\u6578\u50B3\u5165\uFF0C\u6E2C\u8A66\u53EF\u76F4\u63A5\u8A2D\u5B9A\u5B83\u3002"
+              },
+              {
+                "text": "\u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 clock \u89E3\u9396\uFF0C\u4E0D\u662F config\u3002"
+              },
+              {
+                "text": "\u5F37\u5236 gateway \u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 gateway \u89E3\u9396\uFF0C\u4E0D\u662F config\u3002"
+              },
+              {
+                "text": "\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng \u89E3\u9396\uFF0C\u4E0D\u662F config\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE8\u5165 config \u53C3\u6578\u8B93\u6E2C\u8A66\u80FD\u2014\u2014\u6C92\u6709\u5171\u4EAB\u55AE\u4F8B\u9700\u8981\u5728\u6E2C\u8A66\u4E4B\u9593\u91CD\u7F6E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 rng \u6240\u89E3\u9396\u7684\u80FD\u529B",
+            "text": "<p>\u6CE8\u5165\u4E00\u500B\u5E36\u7A2E\u5B50\u7684 rng \u70BA\u6E2C\u8A66\u89E3\u9396\u4E86\u54EA\u4E00\u9805\u80FD\u529B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5E36\u7A2E\u5B50\u7684 rng \u8B93\u6E2C\u8A66\u80FD\u56FA\u5B9A\u503C\uFF0C\u4F7F id \u53EF\u91CD\u73FE\u3002"
+              },
+              {
+                "text": "\u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 clock \u89E3\u9396\uFF0C\u4E0D\u662F rng\u3002"
+              },
+              {
+                "text": "\u5F37\u5236 gateway \u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 gateway \u89E3\u9396\uFF0C\u4E0D\u662F rng\u3002"
+              },
+              {
+                "text": "\u4E0D\u52D5\u5168\u57DF\u5373\u53EF\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9760\u6CE8\u5165 config \u89E3\u9396\uFF0C\u4E0D\u662F rng\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng \u8B93\u6E2C\u8A66\u80FD\u66FF\u63DB\u6210\u6C7A\u5B9A\u6027\u7684\u7522\u751F\u5668\uFF0C\u56E0\u6B64\u53EF\u4EE5\u4E26\u5C0D\u5176\u65B7\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6CE8\u5165\u5C6C\u65BC\u7269\u4EF6\u63A5\u7E2B",
+            "text": "<p>\u70BA\u4F55\u628A\u76F8\u4F9D\u4F5C\u70BA\u53C3\u6578\u6CE8\u5165\u5C6C\u65BC<em>\u7269\u4EF6\u63A5\u7E2B\uFF08object seam\uFF09</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u4F9D\u4EE5\u7269\u4EF6\u53C3\u7167\u7684\u5F62\u5F0F\u50B3\u5165\uFF0C\u56E0\u6B64\u6E2C\u8A66\u80FD\u5728\u8A72\u8655\u50B3\u5165\u4E0D\u540C\u7684\u7269\u4EF6\uFF0C\u800C\u4E0D\u5FC5\u4FEE\u6539",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u66FF\u63DB\u767C\u751F\u5728\u6CE8\u5165\u9EDE\u7F6E\u63DB\u7269\u4EF6\uFF0C\u800C\u975E\u8B8A\u66F4\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u6539\u8B8A\u4E86\u7684\u56DE\u50B3\u578B\u5225",
+                "fraction": 0,
+                "feedback": "\u56DE\u50B3\u578B\u5225\u672A\u8B8A\uFF1B\u7269\u4EF6\u63A5\u7E2B\u5728\u65BC\u66FF\u63DB\u5354\u4F5C\u8005\u7269\u4EF6\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u70BA\u51FD\u5F0F\u65B0\u589E\u4E86\u4E00\u500B\u6C7A\u7B56\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u65B0\u589E\u5206\u652F\uFF1B\u63A5\u7E2B\u662F\u90A3\u500B\u53EF\u66FF\u63DB\u7684\u7269\u4EF6\u53C3\u6578\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u5728\u9023\u7D50\u6642\u66FF\u63DB\u8A72\u7269\u4EF6",
+                "fraction": 0,
+                "feedback": "\u9023\u7D50\u6642\u66FF\u63DB\u6703\u662F\u9023\u7D50\u63A5\u7E2B\uFF1B\u6B64\u8655\u7269\u4EF6\u662F\u5728\u57F7\u884C\u6642\u50B3\u5165\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u7269\u4EF6\u63A5\u7E2B\u662F\u4E00\u500B\u80FD\u85C9\u7531\u66FF\u63DB\u4E0D\u540C\u7269\u4EF6\u4F86\u6539\u8B8A\u884C\u70BA\u7684\u4F4D\u7F6E\u3002\u628A\u5354\u4F5C\u8005\u4F5C\u70BA\u53C3\u6578\u50B3\u5165\uFF0C\u4F7F\u8A72\u8655\u53EF\u88AB\u66FF\u63DB\u2014\u2014\u6E2C\u8A66\u63D0\u4F9B\u4E00\u500B\u66FF\u8EAB\u7269\u4EF6\uFF0C\u800C\u4E0D\u5FC5\u52D5\u5230\u51FD\u5F0F\u672C\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C07 clock \u53CD\u6A21\u5F0F\u5C0D\u61C9\u5230\u4FEE\u6CD5\u8207\u66FF\u8EAB",
+            "text": "<p>\u5C0D\u65BC<em>\u771F\u5BE6\u6642\u9418 <code>Date.now()</code></em> \u53CD\u6A21\u5F0F\uFF0C\u5C0D\u61C9\u7684\u4FEE\u6CD5\u8207\u6240\u555F\u7528\u7684\u66FF\u8EAB\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08\u7269\u4EF6\u63A5\u7E2B\uFF09&#8594; \u555F\u7528 fake",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014clock \u63A5\u7E2B\u555F\u7528\u7684\u6B63\u662F\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684 fake \u6642\u9418\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08\u7269\u4EF6\u63A5\u7E2B\uFF09&#8594; \u555F\u7528 mock",
+                "fraction": 0,
+                "feedback": "\u5728\u6B64 fixture \u4E2D clock \u5C0D\u61C9\u5230 fake\uFF0C\u800C\u975E mock\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165 gateway\uFF08\u7269\u4EF6\u63A5\u7E2B\uFF09&#8594; \u555F\u7528 fake",
+                "fraction": 0,
+                "feedback": "gateway \u662F\u53E6\u4E00\u500B\u53CD\u6A21\u5F0F\uFF08newdep\uFF09\uFF0C\u555F\u7528\u7684\u662F mock\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng\uFF08\u7269\u4EF6\u63A5\u7E2B\uFF09&#8594; \u555F\u7528 fake",
+                "fraction": 0,
+                "feedback": "rng \u662F\u53E6\u4E00\u500B\u53CD\u6A21\u5F0F\uFF08random\uFF09\uFF0C\u555F\u7528\u7684\u662F stub\u3002"
+              }
+            ],
+            "generalFeedback": "clock \u53CD\u6A21\u5F0F\u5C0D\u61C9\u5230\uFF1A\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08\u7269\u4EF6\u63A5\u7E2B\uFF09\uFF0C\u555F\u7528\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684\u6642\u9418\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u4FEE\u6CD5\u555F\u7528 mock",
+            "text": "<p>\u67D0\u6E2C\u8A66\u60F3\u9A57\u8B49 <code>charge()</code> \u78BA\u5BE6\u547C\u53EB\u4E86 payment gateway\u3002\u54EA\u500B\u53CD\u6A21\u5F0F\u7684\u4FEE\u6CD5\u80FD\u555F\u7528\u4F7F\u6B64\u4E8B\u6210\u70BA\u53EF\u80FD\u7684 <em>mock</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5BEB\u6B7B\u7684\u2014\u2014\u6CE8\u5165 gateway \u5354\u4F5C\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014gateway \u63A5\u7E2B\u555F\u7528\u53EF\u9A57\u8B49\u4E92\u52D5\u7684 mock\u3002"
+              },
+              {
+                "text": "\u5168\u57DF\u55AE\u4F8B Config\u2014\u2014\u6CE8\u5165 config \u53C3\u6578",
+                "fraction": 0,
+                "feedback": "config \u63A5\u7E2B\u555F\u7528\u7684\u662F stub\uFF0C\u800C\u975E mock\u3002"
+              },
+              {
+                "text": "\u771F\u5BE6\u6642\u9418\u2014\u2014\u6CE8\u5165\u4E00\u500B\u6642\u9418",
+                "fraction": 0,
+                "feedback": "clock \u63A5\u7E2B\u555F\u7528\u7684\u662F fake\uFF0C\u800C\u975E mock\u3002"
+              },
+              {
+                "text": "\u771F\u5BE6 RNG\u2014\u2014\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng",
+                "fraction": 0,
+                "feedback": "rng \u63A5\u7E2B\u555F\u7528\u7684\u662F stub\uFF0C\u800C\u975E mock\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6B64 fixture \u4E2D\u53EA\u6709 gateway \u63A5\u7E2B\u5C0D\u61C9\u5230 mock\u3002mock \u9A57\u8B49\u9810\u671F\u7684\u4E92\u52D5\uFF0C\u56E0\u6B64\u6CE8\u5165 gateway \u624D\u662F\u8B93\u6E2C\u8A66\u80FD\u65B7\u8A00\u300C\u547C\u53EB\u78BA\u5BE6\u767C\u751F\u300D\u7684\u4FEE\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5957\u7528\u4E00\u500B\u4FEE\u6CD5\u5F8C\u7684\u5206\u6578",
+            "text": "<p><code>testabilityOf</code> \u4EE5 applied/4 \u56DE\u5831\u5206\u6578\u3002\u82E5\u5B78\u7FD2\u8005\u53EA\u5957\u7528 clock \u4FEE\u6CD5\uFF0C\u5206\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "25%\uFF081/4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DB\u500B\u76F8\u4F9D\u4E2D\u6709\u4E00\u500B\u73FE\u5728\u53EF\u88AB\u66FF\u63DB\u3002"
+              },
+              {
+                "text": "50%\uFF082/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u53EA\u5957\u7528\u4E86\u4E00\u500B\u4FEE\u6CD5\uFF0C\u56E0\u6B64\u5206\u6578\u662F 1/4\uFF0C\u800C\u975E 2/4\u3002"
+              },
+              {
+                "text": "100%\uFF084/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u4ECD\u6709\u4E09\u500B\u76F8\u4F9D\u88AB\u91D8\u6B7B\uFF1B\u5206\u6578\u662F 1/4\u3002"
+              },
+              {
+                "text": "0%\uFF080/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u5DF2\u5957\u7528\u4E00\u500B\u4FEE\u6CD5\uFF0C\u56E0\u6B64\u5206\u6578\u5927\u65BC\u96F6\uFF1A1/4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5100\u8868\u8B80\u6578\u70BA applied/4\u3002\u5957\u7528\u4E00\u500B\u4FEE\u6CD5\u5F97\u5230 1/4 = 25%\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6CE8\u5165 clock \u6703\u555F\u7528 mock",
+            "text": "<p>\u5728\u6B64\u6A21\u578B\u4E2D\uFF0C\u6CE8\u5165\u4E00\u500B\u6642\u9418\u6703\u555F\u7528 <em>mock</em> \u66FF\u8EAB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u5728\u6B64 fixture \u4E2D\u4E26\u975E\u5982\u6B64\u2014\u2014clock \u63A5\u7E2B\u5C0D\u61C9\u5230 fake\uFF08\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684\u53EF\u904B\u4F5C\u6642\u9418\uFF09\uFF0C\u800C\u975E mock\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014clock \u63A5\u7E2B\u555F\u7528\u7684\u662F fake\uFF1Bmock \u662F gateway \u63A5\u7E2B\u6240\u555F\u7528\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u66FF\u8EAB\u5C0D\u61C9\u70BA global &#8594; stub\u3001newdep &#8594; mock\u3001clock &#8594; fake\u3001random &#8594; stub\u3002\u6CE8\u5165\u6642\u9418\u555F\u7528\u56DE\u50B3\u56FA\u5B9A\u6642\u9593\u7684 fake \u6642\u9418\uFF1Bmock \u53EA\u7531\u6CE8\u5165 gateway \u555F\u7528\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u4FEE\u6CD5\u56FA\u5B9A\u6210\u6C7A\u5B9A\u6027\u7684 id",
+            "text": "<p>\u67D0\u6E2C\u8A66\u9700\u8981 <code>charge()</code> \u7522\u751F\u7684 id \u5728\u6BCF\u6B21\u57F7\u884C\u90FD\u76F8\u540C\u3002\u9700\u8981\u54EA\u500B\u4FEE\u6CD5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng\uFF08random \u4FEE\u6CD5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5E36\u7A2E\u5B50\u7684 rng \u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08clock \u4FEE\u6CD5\uFF09",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u7684\u6642\u9418\u56FA\u5B9A\u7684\u662F\u6642\u9593\u6233\uFF0C\u800C\u975E\u4E82\u6578 id\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165 gateway\uFF08newdep \u4FEE\u6CD5\uFF09",
+                "fraction": 0,
+                "feedback": "gateway \u63A5\u7E2B\u95DC\u4E4E\u6263\u6B3E\u547C\u53EB\uFF0C\u800C\u975E id\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165 config\uFF08global \u4FEE\u6CD5\uFF09",
+                "fraction": 0,
+                "feedback": "config \u63A5\u7E2B\u63D0\u4F9B\u8A2D\u5B9A\uFF0C\u800C\u975E id \u7684\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "id \u4F86\u81EA\u3002\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng \u8B93\u6E2C\u8A66\u80FD\u66FF\u63DB\u6210\u6C7A\u5B9A\u6027\u7684\u7522\u751F\u5668\uFF0C\u4F7F id \u53EF\u91CD\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u5169\u500B\u4FEE\u6CD5\u90FD\u555F\u7528 stub",
+            "text": "<p>\u5728\u6B64 fixture \u4E2D\uFF0C\u54EA<strong>\u5169\u500B</strong>\u53CD\u6A21\u5F0F\u7684\u4FEE\u6CD5\u90FD\u555F\u7528 <em>stub</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5168\u57DF\u55AE\u4F8B Config \u8207\u771F\u5BE6\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014config \u63A5\u7E2B\u8207 rng \u63A5\u7E2B\u90FD\u5C0D\u61C9\u5230 stub\u3002"
+              },
+              {
+                "text": "\u5BEB\u6B7B\u7684 gateway \u8207\u771F\u5BE6\u6642\u9418",
+                "fraction": 0,
+                "feedback": "gateway \u5C0D\u61C9\u5230 mock\u3001clock \u5C0D\u61C9\u5230 fake\uFF0C\u90FD\u4E0D\u662F stub\u3002"
+              },
+              {
+                "text": "\u771F\u5BE6\u6642\u9418\u8207\u771F\u5BE6\u7684",
+                "fraction": 0,
+                "feedback": "clock \u5C0D\u61C9\u5230 fake\uFF1B\u9019\u4E00\u7D44\u53EA\u6709 rng \u5C0D\u61C9\u5230 stub\u3002"
+              },
+              {
+                "text": "\u5168\u57DF\u55AE\u4F8B Config \u8207\u5BEB\u6B7B\u7684 gateway",
+                "fraction": 0,
+                "feedback": "config \u5C0D\u61C9\u5230 stub\uFF0C\u4F46 gateway \u5C0D\u61C9\u5230 mock\u3002"
+              }
+            ],
+            "generalFeedback": "\u66FF\u8EAB\u5C0D\u61C9\u70BA global &#8594; stub\u3001newdep &#8594; mock\u3001clock &#8594; fake\u3001random &#8594; stub\u3002\u5169\u500B\u555F\u7528 stub \u7684\u4FEE\u6CD5\u662F config \u8207 rng\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u5957\u7528\u5169\u500B\u4FEE\u6CD5\u5F8C\u7684\u5206\u6578",
+            "text": "<p>\u5B78\u7FD2\u8005\u5957\u7528\u4E86 <em>global</em> \u4FEE\u6CD5\u8207 <em>clock</em> \u4FEE\u6CD5\uFF0C\u5176\u4ED6\u4E0D\u52D5\u3002<code>testabilityOf</code> \u56DE\u5831\u7684\u5206\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%\uFF082/4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DB\u500B\u76F8\u4F9D\u4E2D\u6709\u5169\u500B\u73FE\u5728\u53EF\u88AB\u66FF\u63DB\u3002"
+              },
+              {
+                "text": "25%\uFF081/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u5957\u7528\u4E86\u5169\u500B\u76F8\u7570\u4FEE\u6CD5\uFF0C\u56E0\u6B64\u5206\u6578\u662F 2/4\uFF0C\u800C\u975E 1/4\u3002"
+              },
+              {
+                "text": "75%\uFF083/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u53EA\u5957\u7528\u4E86\u5169\u500B\u4FEE\u6CD5\uFF1Bgateway \u8207 rng \u4ECD\u88AB\u91D8\u6B7B\u3002"
+              },
+              {
+                "text": "100%\uFF084/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u4ECD\u6709\u5169\u500B\u76F8\u4F9D\u88AB\u91D8\u6B7B\uFF0C\u56E0\u6B64\u5206\u6578\u662F 2/4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u6578 = applied/4\u3002\u5957\u7528 global \u8207 clock \u4FEE\u6CD5\u4F7F\u56DB\u500B\u76F8\u4F9D\u4E2D\u7684\u5169\u500B\u53EF\u88AB\u66FF\u63DB\uFF1A2/4 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5957\u7528\u4E09\u500B\u4FEE\u6CD5\u5F8C\u7684\u5206\u6578",
+            "text": "<p>\u5B78\u7FD2\u8005\u5957\u7528\u4E86 <em>global</em>\u3001<em>newdep</em> \u8207 <em>clock</em> \u4FEE\u6CD5\uFF0C\u4F46\u4FDD\u7559 <code>Math.random()</code> \u4E0D\u52D5\u3002<code>testabilityOf</code> \u56DE\u5831\u7684\u5206\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "75%\uFF083/4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DB\u500B\u76F8\u4F9D\u4E2D\u6709\u4E09\u500B\u53EF\u88AB\u66FF\u63DB\uFF1B\u53EA\u5269 rng \u88AB\u91D8\u6B7B\u3002"
+              },
+              {
+                "text": "50%\uFF082/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u5957\u7528\u4E86\u4E09\u500B\u4FEE\u6CD5\uFF0C\u56E0\u6B64\u5206\u6578\u662F 3/4\uFF0C\u800C\u975E 2/4\u3002"
+              },
+              {
+                "text": "100%\uFF084/4\uFF09",
+                "fraction": 0,
+                "feedback": "rng \u4ECD\u88AB\u91D8\u6B7B\uFF0C\u56E0\u6B64\u5206\u6578\u662F 3/4\uFF0C\u5C1A\u672A\u6EFF\u5206\u3002"
+              },
+              {
+                "text": "25%\uFF081/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u5957\u7528\u4E86\u4E09\u500B\u76F8\u7570\u4FEE\u6CD5\uFF1B\u5206\u6578\u662F 3/4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u6578 = applied/4\u3002\u6CE8\u5165 config\u3001gateway \u8207 clock \u5F8C\uFF0C\u56DB\u500B\u76F8\u4F9D\u4E2D\u7684\u4E09\u500B\u53EF\u88AB\u66FF\u63DB\uFF1A3/4 = 75%\u3002RNG \u4ECD\u91D8\u6B7B\u8457 id\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5957\u7528\u5168\u90E8\u56DB\u500B\u4FEE\u6CD5\u5F8C\u7684\u72C0\u614B",
+            "text": "<p>\u7576\u56DB\u500B\u63A5\u7E2B\u5168\u90E8\u5957\u7528\u6642\uFF0C\u5206\u6578\u70BA 100%\uFF0C\u800C <code>charge()</code> \u6210\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u8FD1\u4E4E\u7D14\u7CB9\u7684\u55AE\u5143\uFF0C\u5176 config\u3001gateway\u3001\u6642\u9418\u8207 RNG \u7686\u7531\u6E2C\u8A66\u5B8C\u5168\u638C\u63A7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u76F8\u4F9D\u73FE\u5728\u90FD\u53EF\u88AB\u66FF\u63DB\uFF0C\u56E0\u6B64\u6E2C\u8A66\u638C\u63A7\u6240\u6709\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u4E0D\u518D\u4F7F\u7528 config\u3001gateway\u3001\u6642\u9418\u6216 RNG \u7684\u51FD\u5F0F",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u4F7F\u7528\u9019\u56DB\u8005\uFF1B\u53EA\u662F\u88AB\u6CE8\u5165\u800C\u975E\u91D8\u6B7B\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u4E0D\u542B\u4EFB\u4F55\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u53EF\u6E2C\u8A66\u6027\u4F7F\u5B83\u6613\u65BC\u6E2C\u8A66\uFF0C\u800C\u975E\u81EA\u52D5\u7121\u932F\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u5728\u751F\u7522\u74B0\u5883\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u63D0\u4F9B\u771F\u5BE6\u76F8\u4F9D\u6642\u5B83\u5728\u751F\u7522\u74B0\u5883\u904B\u4F5C\u826F\u597D\uFF1B\u6E2C\u8A66\u5247\u63D0\u4F9B\u66FF\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5957\u7528\u56DB\u500B\u7269\u4EF6\u63A5\u7E2B\u5F8C\uFF0C\u6BCF\u500B\u76F8\u4F9D\u90FD\u53EF\u88AB\u66FF\u63DB\u3002\u73FE\u5728\u662F\u8FD1\u4E4E\u7D14\u7CB9\u7684\u55AE\u5143\uFF1A\u6E2C\u8A66\u6CE8\u5165 config\u3001gateway\u3001clock \u8207 rng\uFF0C\u56E0\u6B64\u638C\u63A7\u6BCF\u500B\u8F38\u5165\u4E26\u80FD\u89C0\u5BDF\u6BCF\u500B\u6548\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E9B\u4FEE\u6CD5\u79FB\u9664\u975E\u6C7A\u5B9A\u6027",
+            "text": "<p>\u54EA\u4E00\u7D44\u4FEE\u6CD5\u80FD\u79FB\u9664 <code>charge()</code> \u7684<em>\u975E\u6C7A\u5B9A\u6027\uFF08nondeterminism\uFF09</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u6642\u9418\u8207 rng",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7246\u4E0A\u6642\u9418\u8207 RNG \u662F\u5169\u500B\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165 config \u8207 gateway",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u6539\u5584\u53EF\u66FF\u63DB\u6027\uFF0C\u4F46\u5169\u8005\u90FD\u4E0D\u662F\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\u3002"
+              },
+              {
+                "text": "\u53EA\u6CE8\u5165 gateway",
+                "fraction": 0,
+                "feedback": "gateway \u4E0D\u662F\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\uFF1B\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\u662F\u6642\u9418\u8207 rng\u3002"
+              },
+              {
+                "text": "\u53EA\u6CE8\u5165 config",
+                "fraction": 0,
+                "feedback": "config \u662F\u96B1\u85CF\u8F38\u5165\uFF0C\u800C\u975E\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u7A0B\u5F0F\u4E2D\u7684\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\u6B63\u662F\u6642\u9418\uFF08\uFF09\u8207 RNG\uFF08\uFF09\u3002\u5169\u8005\u90FD\u6CE8\u5165\u5F8C\u5373\u4EE5\u6E2C\u8A66\u53EF\u63A7\u7684\u503C\u53D6\u4EE3\uFF0C\u4F7F\u5177\u6C7A\u5B9A\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u6CE8\u5165 clock \u8207 rng \u6703\u79FB\u9664\u975E\u6C7A\u5B9A\u6027",
+            "text": "<p>\u70BA\u4F55\u6CE8\u5165\u6642\u9418\u8207 rng \u4E5F\u8B93 <code>charge()</code> \u8B8A\u5F97\u5177\u6C7A\u5B9A\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u8005\u539F\u672C\u90FD\u662F\u6703\u8B8A\u52D5\u7684\u8F38\u5165\uFF1B\u4E00\u65E6\u7531\u6E2C\u8A66\u63D0\u4F9B\uFF0C\u76F8\u540C\u8F38\u5165\u5C31\u6C38\u9060\u7522\u751F\u76F8\u540C\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE5\u56FA\u5B9A\u503C\u53D6\u4EE3\u5169\u500B\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\uFF0C\u5C31\u6D88\u9664\u4E86\u6BCF\u6B21\u57F7\u884C\u9593\u7684\u8B8A\u52D5\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u6703\u628A\u6642\u9593\u6233\u8207 id \u5F9E\u8F38\u51FA\u4E2D\u5B8C\u5168\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4ECD\u6703\u88AB\u7522\u751F\uFF1B\u53EA\u662F\u73FE\u5728\u7531\u6E2C\u8A66\u63D0\u4F9B\u3002"
+              },
+              {
+                "text": "\u5E36\u7A2E\u5B50\u7684 rng \u6BD4\u57F7\u884C\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u7121\u95DC\uFF1B\u6C7A\u5B9A\u6027\u4F86\u81EA\u53EF\u63A7\u3001\u56FA\u5B9A\u7684\u503C\u3002"
+              },
+              {
+                "text": "\u6642\u9418\u8207 rng \u4E0D\u518D\u88AB\u547C\u53EB",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4ECD\u6703\u88AB\u547C\u53EB\u2014\u2014\u547C\u53EB\u5728\u6CE8\u5165\u7684\u66FF\u8EAB\u4E0A\uFF0C\u56DE\u50B3\u56FA\u5B9A\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6642\u9418\u8207 RNG \u662F\u552F\u4E00\u6703\u6BCF\u6B21\u57F7\u884C\u8B8A\u52D5\u7684\u8F38\u5165\u3002\u6CE8\u5165\u5B83\u5011\u8B93\u6E2C\u8A66\u80FD\u628A\u5169\u8005\u90FD\u56FA\u5B9A\uFF0C\u56E0\u6B64\u6210\u70BA\u5176\u8F38\u5165\u7684\u6C7A\u5B9A\u6027\u51FD\u5F0F\u2014\u2014\u53EF\u6E2C\u8A66\u4E14\u53EF\u91CD\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6CE8\u5165 config \u662F\u5426\u79FB\u9664\u975E\u6C7A\u5B9A\u6027",
+            "text": "<p>\u6CE8\u5165 config \u53C3\u6578\uFF08<em>global</em> \u4FEE\u6CD5\uFF09\u662F\u5426\u79FB\u9664\u4E86 <code>charge()</code> \u7684\u975E\u6C7A\u5B9A\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u2014\u2014config \u662F\u96B1\u85CF\u8F38\u5165\uFF0C\u800C\u975E\u975E\u6C7A\u5B9A\u6027\u8F38\u5165\uFF1B\u6CE8\u5165\u5B83\u6539\u5584\u53EF\u63A7\u5236\u6027\uFF0C\u4F46\u975E\u6C7A\u5B9A\u6027\u4F86\u81EA\u6642\u9418\u8207 RNG",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u79FB\u9664\u5168\u57DF\u6709\u52A9\u65BC\u53EF\u66FF\u63DB\u6027\uFF0C\u4F46\u53EA\u6709 clock \u8207 rng \u4FEE\u6CD5\u624D\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u5168\u57DF\u55AE\u4F8B\u662F\u975E\u6C7A\u5B9A\u6027\u7684\u4E3B\u8981\u4F86\u6E90",
+                "fraction": 0,
+                "feedback": "\u55AE\u4F8B\u662F\u96B1\u85CF\u4F46\u7A69\u5B9A\u7684\u8F38\u5165\uFF1B\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\u662F\u6642\u9418\u8207 rng\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u6BCF\u6B21\u6CE8\u5165\u90FD\u6703\u79FB\u9664\u4E00\u4E9B\u975E\u6C7A\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u666E\u904D\u6539\u5584\u53EF\u66FF\u63DB\u6027\uFF0C\u4F46\u53EA\u6709\u6642\u9418\u8207 rng \u4F86\u6E90\u662F\u975E\u6C7A\u5B9A\u6027\u7684\u3002"
+              },
+              {
+                "text": "\u4E0D\u2014\u2014\u6CE8\u5165 config \u5176\u5BE6\u6703\u589E\u52A0\u975E\u6C7A\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u6703\u589E\u52A0\u975E\u6C7A\u5B9A\u6027\uFF1B\u5B83\u79FB\u9664\u4E86\u4E00\u500B\u96B1\u85CF\u7684\u5168\u57DF\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E26\u975E\u6BCF\u500B\u53EF\u6E2C\u8A66\u6027\u554F\u984C\u90FD\u662F\u975E\u6C7A\u5B9A\u6027\u3002\u5168\u57DF config \u662F\u50B7\u5BB3\u53EF\u63A7\u5236\u6027\u7684\u96B1\u85CF\u8F38\u5165\uFF1B\u6CE8\u5165\u5B83\u4F7F config \u53EF\u88AB\u66FF\u63DB\u3002\u4F46\u6B64\u7A0B\u5F0F\u7684\u975E\u6C7A\u5B9A\u6027\u660E\u78BA\u4F86\u81EA\u6642\u9418\u8207 RNG\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A5\u7E2B\u8207\u66FF\u8EAB\u4E4B\u5225",
+            "text": "<p>\u5728\u6B64\u6A21\u578B\u4E2D\uFF0C<em>\u63A5\u7E2B\uFF08seam\uFF09</em>\u8207<em>\u6E2C\u8A66\u66FF\u8EAB\uFF08double\uFF09</em>\u7684\u5DEE\u5225\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u7E2B\u662F\u300C\u53EF\u9032\u884C\u66FF\u63DB\u7684\u4F4D\u7F6E\u300D\uFF08\u6CE8\u5165\u9EDE\uFF09\uFF1B\u66FF\u8EAB\u662F\u300C\u653E\u5230\u8A72\u8655\u7684\u66FF\u4EE3\u7269\u4EF6\u300D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u662F\u300C\u5728\u54EA\u88E1\u300D\uFF1B\u66FF\u8EAB\u662F\u300C\u653E\u4EC0\u9EBC\u300D\u3002"
+              },
+              {
+                "text": "\u63A5\u7E2B\u662F\u66FF\u4EE3\u7269\u4EF6\uFF1B\u66FF\u8EAB\u662F\u5B83\u6240\u653E\u5165\u7684\u4F4D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u985B\u5012\u4E86\uFF1A\u63A5\u7E2B\u662F\u4F4D\u7F6E\uFF0C\u66FF\u8EAB\u662F\u66FF\u4EE3\u7269\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u662F\u540C\u4E00\u4EF6\u4E8B\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4E0D\u540C\uFF1A\u4E00\u500B\u662F\u7A0B\u5F0F\u78BC\u4E2D\u7684\u4F4D\u7F6E\uFF0C\u53E6\u4E00\u500B\u662F\u7269\u4EF6\u3002"
+              },
+              {
+                "text": "\u63A5\u7E2B\u662F\u4E00\u7A2E\u65B7\u8A00\uFF1B\u66FF\u8EAB\u662F\u4E00\u7A2E\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u662F\u65B7\u8A00\u6216\u8FF4\u5708\uFF1B\u63A5\u7E2B\u662F\u66FF\u63DB\u9EDE\uFF0C\u66FF\u8EAB\u662F\u66FF\u4EE3\u7269\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A5\u7E2B\u662F\u7A0B\u5F0F\u78BC\u4E2D\u53EF\u66FF\u63DB\u884C\u70BA\u7684\u4F4D\u7F6E\uFF08\u6B64\u8655\u662F\u6CE8\u5165\u7684\u53C3\u6578\u2014\u2014\u7269\u4EF6\u63A5\u7E2B\uFF09\u3002\u6E2C\u8A66\u66FF\u8EAB\u662F\u6E2C\u8A66\u653E\u5230\u8A72\u63A5\u7E2B\u88E1\u7684\u5177\u9AD4\u66FF\u4EE3\u7269\uFF08stub\uFF0Fmock\uFF0Ffake\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B stub\u3001\u4E0D\u540C\u554F\u984C",
+            "text": "<p>config \u4FEE\u6CD5\u8207 rng \u4FEE\u6CD5\u90FD\u900F\u904E\u7269\u4EF6\u63A5\u7E2B\u555F\u7528 <em>stub</em>\uFF0C\u537B\u8655\u7406\u4E0D\u540C\u7684\u53EF\u6E2C\u8A66\u6027\u554F\u984C\u3002\u5B83\u5011\u7684\u5171\u540C\u9EDE\u8207\u5DEE\u7570\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u540C\u7684\u66FF\u8EAB\uFF08stub\uFF09\u8207\u76F8\u540C\u7684\u63A5\u7E2B\u985E\u578B\uFF08\u7269\u4EF6\uFF09\uFF0C\u4F46 config \u79FB\u9664\u96B1\u85CF\u7684\u5168\u57DF\u8F38\u5165\uFF0Crng \u79FB\u9664\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u7E2B\u985E\u578B\u8207\u66FF\u8EAB\u76F8\u540C\uFF0C\u5E95\u5C64\u554F\u984C\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u4E0D\u540C\u7684\u66FF\u8EAB\u8207\u4E0D\u540C\u7684\u63A5\u7E2B\u985E\u578B\uFF0C\u8655\u7406\u76F8\u540C\u7684\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u900F\u904E\u7269\u4EF6\u63A5\u7E2B\u555F\u7528 stub\uFF1B\u4E0D\u540C\u7684\u662F\u554F\u984C\uFF0C\u800C\u975E\u66FF\u8EAB\u6216\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u76F8\u540C\u7684\u66FF\u8EAB\uFF0C\u4F46 config \u4FEE\u6CD5\u662F\u9023\u7D50\u63A5\u7E2B\u3001rng \u4FEE\u6CD5\u662F\u7269\u4EF6\u63A5\u7E2B",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u7269\u4EF6\u63A5\u7E2B\uFF1B\u90FD\u4E0D\u662F\u9023\u7D50\u63A5\u7E2B\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5728\u5404\u65B9\u9762\u90FD\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5171\u7528\u63A5\u7E2B\u985E\u578B\u8207\u66FF\u8EAB\uFF0C\u4F46\u8655\u7406\u4E0D\u540C\u7684\u554F\u984C\uFF08\u96B1\u85CF\u8F38\u5165 vs \u975E\u6C7A\u5B9A\u6027\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u8005\u90FD\u900F\u904E\u7269\u4EF6\u63A5\u7E2B\u5C0D\u61C9\u5230 stub\uFF0C\u986F\u793A\u63A5\u7E2B\u985E\u578B\u8207\u66FF\u8EAB\u53EF\u4EE5\u76F8\u540C\u3002\u7136\u800C config \u8655\u7406\u7684\u662F\u96B1\u85CF\u7684\u5168\u57DF\u8F38\u5165\uFF08\u53EF\u63A7\u5236\u6027\uFF09\uFF0Crng \u8655\u7406\u7684\u662F\u975E\u6C7A\u5B9A\u6027\u2014\u2014\u540C\u4E00\u7A2E\u5DE5\u5177\u89E3\u6C7A\u4E0D\u540C\u7684\u53EF\u6E2C\u8A66\u6027\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "newdep \u52A0 random \u7684\u5206\u6578\u8207\u80FD\u529B",
+            "text": "<p>\u5B78\u7FD2\u8005\u53EA\u5957\u7528 <em>newdep</em> \u8207 <em>random</em> \u4FEE\u6CD5\u3002\u5F97\u5230\u7684\u5206\u6578\u8207\u89E3\u9396\u7684\u80FD\u529B\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "50%\uFF082/4\uFF09\uFF1B\u5F37\u5236 gateway \u5931\u6557\uFF0C\u4EE5\u53CA\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u4FEE\u6CD5\u5F97\u5230 2/4\uFF0C\u89E3\u9396 gateway \u8207 rng \u7684\u80FD\u529B\u3002"
+              },
+              {
+                "text": "50%\uFF082/4\uFF09\uFF1B\u5C0D\u56FA\u5B9A\u7684\u6642\u9593\u6233\u9032\u884C\u65B7\u8A00\uFF0C\u4EE5\u53CA\u63D0\u4F9B\u6E2C\u8A66\u7528\u7684\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F clock \u8207 config \u7684\u80FD\u529B\uFF0C\u6B64\u8655\u4E26\u672A\u5957\u7528\u3002"
+              },
+              {
+                "text": "75%\uFF083/4\uFF09\uFF1B\u5F37\u5236 gateway \u5931\u6557\uFF0C\u4EE5\u53CA\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u53EA\u5957\u7528\u4E86\u5169\u500B\u4FEE\u6CD5\uFF0C\u56E0\u6B64\u5206\u6578\u662F 2/4\uFF0C\u800C\u975E 3/4\u3002"
+              },
+              {
+                "text": "25%\uFF081/4\uFF09\uFF1B\u5F37\u5236 gateway \u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5957\u7528\u4E86\u5169\u500B\u76F8\u7570\u4FEE\u6CD5\uFF0C\u56E0\u6B64\u5206\u6578\u662F 2/4\uFF0C\u4E14\u89E3\u9396\u5169\u9805\u80FD\u529B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u5DF2\u5957\u7528\u7684\u4FEE\u6CD5\u5F97\u5230 2/4 = 50%\u3002newdep \u4FEE\u6CD5\u89E3\u9396\u300C\u5F37\u5236 gateway \u5931\u6557\u300D\uFF0Crandom \u4FEE\u6CD5\u89E3\u9396\u300C\u8B93\u7522\u751F\u7684 id \u5177\u6C7A\u5B9A\u6027\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u53EF\u66FF\u63DB\u6027\u7B49\u65BC\u53EF\u6E2C\u8A66\u6027",
+            "text": "<p>\u70BA\u4F55\u8B93\u6BCF\u500B\u76F8\u4F9D\u90FD\u53EF\u88AB\u66FF\u63DB\uFF0C\u5C31\u4F7F <code>charge()</code> \u53EF\u88AB\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u65E6\u6BCF\u500B\u76F8\u4F9D\u90FD\u80FD\u88AB\u66FF\u63DB\uFF0C\u6E2C\u8A66\u5C31\u80FD\u63A7\u5236\u6240\u6709\u8F38\u5165\u4E26\u89C0\u5BDF\u6240\u6709\u6548\u679C\uFF0C\u800C\u9019\u6B63\u662F\u53EF\u6E2C\u8A66\u6027\u6240\u8981\u6C42\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u66FF\u63DB\u7684\u76F8\u4F9D\u540C\u6642\u8CE6\u4E88\u6E2C\u8A66\u53EF\u63A7\u5236\u6027\u8207\u53EF\u89C0\u5BDF\u6027\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u53EF\u66FF\u63DB\u7684\u7A0B\u5F0F\u7E3D\u662F\u57F7\u884C\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u4E0D\u5728\u901F\u5EA6\uFF0C\u800C\u5728\u63A7\u5236\u8207\u89C0\u5BDF\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u88AB\u6CE8\u5165\u7684\u76F8\u4F9D\u6C38\u9060\u4E0D\u542B\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4ECD\u53EF\u80FD\u6709\u932F\uFF1B\u6CE8\u5165\u53EA\u662F\u8B93\u55AE\u5143\u5728\u6E2C\u8A66\u4E2D\u53EF\u88AB\u63A7\u5236\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u51FD\u5F0F\u5F9E\u6B64\u5B8C\u5168\u4E0D\u9700\u8981\u76F8\u4F9D",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u6709\u76F8\u4F9D\uFF1B\u53EA\u662F\u6539\u7531\u6E2C\u8A66\u63D0\u4F9B\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u6E2C\u8A66\u6027\u5373\u53EF\u63A7\u5236\u6027\u52A0\u53EF\u89C0\u5BDF\u6027\u3002\u7576\u6BCF\u500B\u76F8\u4F9D\u90FD\u53EF\u88AB\u66FF\u63DB\u6642\uFF0C\u6E2C\u8A66\u5C31\u80FD\u9A45\u52D5\u6240\u6709\u8F38\u5165\uFF08config\u3001gateway \u884C\u70BA\u3001\u6642\u9593\u3001id\uFF09\u4E26\u89C0\u5BDF\u5176\u6548\u679C\u2014\u2014\u56E0\u6B64\u53EF\u66FF\u63DB\u6027\u6B63\u662F\u4F7F\u55AE\u5143\u53EF\u88AB\u6E2C\u8A66\u7684\u95DC\u9375\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EA\u79FB\u9664\u96B1\u85CF\u8F38\u5165\u7684\u4FEE\u6CD5",
+            "text": "<p>\u54EA\u4E00\u500B\u55AE\u4E00\u4FEE\u6CD5\u79FB\u9664\u4E86\u96B1\u85CF\u8F38\u5165\uFF0C\u537B<strong>\u4E0D</strong>\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\uFF0C\u4E5F<strong>\u4E0D</strong>\u89E3\u9396\u300C\u5F37\u5236\u5931\u6557\u300D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165 config \u53C3\u6578\uFF08global \u4FEE\u6CD5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u79FB\u9664\u96B1\u85CF\u7684\u5168\u57DF\u8F38\u5165\uFF1B\u5B83\u4E0D\u662F\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\uFF0C\u800C\u5F37\u5236\u5931\u6557\u662F gateway \u7684\u80FD\u529B\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B\u6642\u9418\uFF08clock \u4FEE\u6CD5\uFF09",
+                "fraction": 0,
+                "feedback": "clock \u4FEE\u6CD5\u6703\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\uFF0C\u56E0\u6B64\u4E0D\u7B26\u5408\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng\uFF08random \u4FEE\u6CD5\uFF09",
+                "fraction": 0,
+                "feedback": "rng \u4FEE\u6CD5\u6703\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\uFF0C\u56E0\u6B64\u4E0D\u7B26\u5408\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165 gateway\uFF08newdep \u4FEE\u6CD5\uFF09",
+                "fraction": 0,
+                "feedback": "gateway \u4FEE\u6CD5\u6B63\u662F\u89E3\u9396\u300C\u5F37\u5236\u5931\u6557\u300D\u7684\u90A3\u4E00\u500B\uFF0C\u56E0\u6B64\u4E0D\u7B26\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "global-config \u4FEE\u6CD5\u79FB\u9664\u96B1\u85CF\u8F38\u5165\uFF08\u6539\u5584\u53EF\u63A7\u5236\u6027\uFF09\u3002\u5B83\u4E0D\u662F\u975E\u6C7A\u5B9A\u6027\u4F86\u6E90\u4E4B\u4E00\uFF08\u6642\u9418\u3001rng\uFF09\uFF0C\u800C\u5F37\u5236\u5931\u6557\u7531 gateway \u4FEE\u6CD5\u89E3\u9396\u2014\u2014\u56E0\u6B64 config \u4FEE\u6CD5\u662F\u552F\u4E00\u7B26\u5408\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56FA\u5B9A\u6642\u9593\u8207\u6C7A\u5B9A\u6027 id \u6240\u9700\u7684\u4FEE\u6CD5",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5FC5\u9808\u540C\u6642\u5C0D\u56FA\u5B9A\u6642\u9593\u6233\u8207\u6C7A\u5B9A\u6027 id \u9032\u884C\u65B7\u8A00\u3002\u9700\u8981\u54EA\u4E9B\u4FEE\u6CD5\uFF0C\u5F97\u5230\u7684\u5206\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u6642\u9418\u8207\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng\uFF1B\u5206\u6578 50%\uFF082/4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6642\u9418\u56FA\u5B9A\u6642\u9593\u3001rng \u56FA\u5B9A id\uFF1B\u56DB\u500B\u76F8\u4F9D\u4E2D\u5169\u500B\u53EF\u88AB\u66FF\u63DB\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165 config \u8207\u6CE8\u5165 gateway\uFF1B\u5206\u6578 50%\uFF082/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u89E3\u9396 config \u8207\u5F37\u5236\u5931\u6557\uFF0C\u800C\u975E\u56FA\u5B9A\u6642\u9593\u6216\u6C7A\u5B9A\u6027 id\u3002"
+              },
+              {
+                "text": "\u53EA\u6CE8\u5165\u6642\u9418\uFF1B\u5206\u6578 25%\uFF081/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u6642\u9418\u56FA\u5B9A\u6642\u9593\u4F46\u4E0D\u56FA\u5B9A id\uFF1B\u9084\u9700\u8981 rng\u3002"
+              },
+              {
+                "text": "\u56DB\u500B\u5168\u6CE8\u5165\uFF1B\u5206\u6578 100%\uFF084/4\uFF09",
+                "fraction": 0,
+                "feedback": "\u9019\u5169\u9805\u65B7\u8A00\u53EA\u9700\u6642\u9418\u8207 rng\uFF1B\u90A3\u662F 2/4\u3002"
+              }
+            ],
+            "generalFeedback": "\u56FA\u5B9A\u6642\u9593\u6233\u9700\u8981 clock \u4FEE\u6CD5\uFF1B\u6C7A\u5B9A\u6027 id \u9700\u8981 rng \u4FEE\u6CD5\u3002\u6070\u597D\u5957\u7528\u9019\u5169\u500B\u5F97\u5230 2/4 = 50%\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5206\u6578\u8207\u9806\u5E8F\u7121\u95DC",
+            "text": "<p>\u5148\u5957\u7528 clock \u4FEE\u6CD5\u518D\u5957\u7528 global \u4FEE\u6CD5\uFF0C\u8207\u5148\u5957\u7528 global \u4FEE\u6CD5\u518D\u5957\u7528 clock \u4FEE\u6CD5\uFF0C\u5F97\u5230\u7684\u5206\u6578\u76F8\u540C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A08\u7B97\u7684\u662F\u5DF2\u5957\u7528\u4FEE\u6CD5\u7684\u96C6\u5408\uFF0C\u56E0\u6B64\u9806\u5E8F\u7121\u95DC\uFF1A\u5169\u7A2E\u9806\u5E8F\u90FD\u662F 2/4\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5206\u6578\u53EA\u53D6\u6C7A\u65BC\u5957\u7528\u4E86\u54EA\u4E9B\u4FEE\u6CD5\uFF0C\u800C\u975E\u9806\u5E8F\uFF1B\u5169\u7A2E\u9806\u5E8F\u90FD\u5F97\u5230 2/4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u6578 = applied/4\uFF0C\u7531\u5DF2\u5957\u7528\u4FEE\u6CD5\u7684\u96C6\u5408\u8A08\u7B97\uFF08\u53BB\u91CD\uFF0C\u4E26\u6309 fixture \u9806\u5E8F\uFF09\u3002\u5B78\u7FD2\u8005\u5207\u63DB\u5B83\u5011\u7684\u9806\u5E8F\u4E0D\u6539\u8B8A\u7D50\u679C\uFF1A\u5169\u500B\u76F8\u7570\u4FEE\u6CD5\u7121\u8AD6\u5982\u4F55\u90FD\u662F 2/4 = 50%\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "gateway \u7684 mock \u8207 stub",
+            "text": "<p>\u67D0\u6E2C\u8A66\u60F3<em>\u9A57\u8B49</em> <code>charge()</code> \u4EE5\u6B63\u78BA\u5F15\u6578\u547C\u53EB\u4E86 gateway\uFF0C\u800C\u4E0D\u53EA\u662F\u6536\u5230\u4E00\u500B\u56FA\u5B9A\u56DE\u50B3\u503C\u3002\u9019\u9700\u8981\u54EA\u7A2E\u66FF\u8EAB\uFF0C\u7531\u54EA\u500B\u4FEE\u6CD5\u555F\u7528\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B mock\uFF0C\u7531\u6CE8\u5165 gateway \u5354\u4F5C\u8005\u555F\u7528",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014mock \u9A57\u8B49\u4E92\u52D5\uFF1Bstub \u53EA\u6703\u56DE\u50B3\u56FA\u5B9A\u503C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B stub\uFF0C\u7531\u6CE8\u5165 gateway \u5354\u4F5C\u8005\u555F\u7528",
+                "fraction": 0,
+                "feedback": "stub \u56DE\u50B3\u56FA\u5B9A\u503C\u4F46\u4E0D\u9A57\u8B49\u547C\u53EB\uFF1B\u6B64\u8655 gateway \u63A5\u7E2B\u5C0D\u61C9\u5230 mock\u3002"
+              },
+              {
+                "text": "\u4E00\u500B fake\uFF0C\u7531\u6CE8\u5165\u6642\u9418\u555F\u7528",
+                "fraction": 0,
+                "feedback": "fake \u6642\u9418\u56FA\u5B9A\u6642\u9593\uFF1B\u5B83\u4E0D\u9A57\u8B49 gateway \u547C\u53EB\u3002"
+              },
+              {
+                "text": "\u4E00\u500B stub\uFF0C\u7531\u6CE8\u5165\u5E36\u7A2E\u5B50\u7684 rng \u555F\u7528",
+                "fraction": 0,
+                "feedback": "rng stub \u56FA\u5B9A id\uFF1B\u8207 gateway \u547C\u53EB\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u8B49\u4E92\u52D5\uFF08\u6B63\u78BA\u7684\u65B9\u6CD5\u3001\u6B63\u78BA\u7684\u5F15\u6578\uFF09\u662F\u884C\u70BA\u9A57\u8B49\uFF0C\u6B63\u662F mock \u7684\u8077\u8CAC\u3002\u5728\u6B64 fixture \u4E2D gateway \u63A5\u7E2B\u5C0D\u61C9\u5230 mock\uFF0C\u56E0\u6B64\u6CE8\u5165 gateway \u662F\u555F\u7528\u5B83\u7684\u4FEE\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u7A2E\u63A5\u7E2B\u985E\u578B\u3001\u4E09\u7A2E\u66FF\u8EAB",
+            "text": "<p>\u56DB\u500B\u4FEE\u6CD5\u90FD\u662F\u7269\u4EF6\u63A5\u7E2B\uFF0C\u537B\u555F\u7528\u4E09\u7A2E\u4E0D\u540C\u7684\u66FF\u8EAB\uFF08stub\u3001mock\u3001fake\uFF09\u3002\u9019\u8AAA\u660E\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63A5\u7E2B\u985E\u578B\uFF08\u5728\u54EA\u88E1\u66FF\u63DB\uFF09\u8207\u66FF\u8EAB\uFF08\u66FF\u63DB\u6210\u4EC0\u9EBC\uFF09\u5F7C\u6B64\u7368\u7ACB\uFF1B\u540C\u4E00\u7A2E\u63A5\u7E2B\u53EF\u4F9D\u6E2C\u8A66\u76EE\u6A19\u5BB9\u7D0D\u4E0D\u540C\u7684\u66FF\u8EAB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7269\u4EF6\u63A5\u7E2B\u63D0\u4F9B\u66FF\u63DB\u9EDE\uFF1B\u9078 stub\u3001mock \u6216 fake \u53D6\u6C7A\u65BC\u6E2C\u8A66\u9700\u8981\u3002"
+              },
+              {
+                "text": "\u6BCF\u7A2E\u63A5\u7E2B\u985E\u578B\u53EA\u80FD\u555F\u7528\u4E00\u7A2E\u66FF\u8EAB",
+                "fraction": 0,
+                "feedback": "\u6B63\u597D\u76F8\u53CD\uFF1A\u6B64\u8655\u540C\u4E00\u7A2E\u63A5\u7E2B\uFF08\u7269\u4EF6\uFF09\u5BB9\u7D0D\u4E86 stub\u3001mock \u8207 fake\u3002"
+              },
+              {
+                "text": "\u7269\u4EF6\u63A5\u7E2B\u53EA\u80FD\u555F\u7528 stub",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u7269\u4EF6\u63A5\u7E2B\u4E5F\u555F\u7528\u4E86 mock \u8207 fake\u3002"
+              },
+              {
+                "text": "\u66FF\u8EAB\u6C7A\u5B9A\u63A5\u7E2B\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7368\u7ACB\uFF1B\u540C\u4E00\u500B\u7269\u4EF6\u63A5\u7E2B\u5BB9\u7D0D\u4E0D\u540C\u7684\u66FF\u8EAB\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A5\u7E2B\u985E\u578B\u8207\u66FF\u8EAB\u985E\u578B\u5F7C\u6B64\u6B63\u4EA4\u3002\u56DB\u500B\u4FEE\u6CD5\u90FD\u7528\u540C\u4E00\u7A2E\u7269\u4EF6\u63A5\u7E2B\uFF0C\u4F46\u6E2C\u8A66\u4F9D\u76EE\u6A19\u6311\u9078\u66FF\u8EAB\u2014\u2014config\uFF0Fid \u7528 stub\uFF08\u56FA\u5B9A\u503C\uFF09\u3001\u9A57\u8B49 gateway \u547C\u53EB\u7528 mock\u3001\u53EF\u904B\u4F5C\u7684\u56FA\u5B9A\u6642\u9418\u7528 fake\u3002",
             "single": true
           }
         ]

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testability Metrics/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>循環複雜度定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本模組中，單元的<strong>循環複雜度（cyclomatic complexity）</strong>是由其判定數（decisions）計算為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>判定數 + 1</text><feedback><text>正確——cyclomatic(unit) = decisions + 1，故判定數為 0 的單元複雜度為 1。</text></feedback></answer>
+    <answer fraction="0"><text>判定數 - 1</text><feedback><text>不對——公式是加一，即 decisions + 1。</text></feedback></answer>
+    <answer fraction="0"><text>2 × 判定數</text><feedback><text>不對——複雜度是 decisions + 1，而非判定數的兩倍。</text></feedback></answer>
+    <answer fraction="0"><text>職責的數量</text><feedback><text>那是內聚懲罰；循環複雜度是 decisions + 1。</text></feedback></answer>
+    <generalfeedback><text>此處循環複雜度為 M = decisions + 1：直線式單元（0 判定）得 1，每個判定增加一條獨立路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>扇出定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單元在呼叫圖中的<strong>扇出（fan-out）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它所呼叫的其他單元數量（它的被呼叫者 callee）</text><feedback><text>正確——扇出計算由該單元出去的呼叫邊。</text></feedback></answer>
+    <answer fraction="0"><text>呼叫它的單元數量（它的呼叫者 caller）</text><feedback><text>那是扇入（fan-in），不是扇出。</text></feedback></answer>
+    <answer fraction="0"><text>它所含的判定數量</text><feedback><text>那餵給循環複雜度，不是扇出。</text></feedback></answer>
+    <answer fraction="0"><text>它所宣告的職責數量</text><feedback><text>那是內聚懲罰，不是扇出。</text></feedback></answer>
+    <generalfeedback><text>扇出＝出去的呼叫邊（被呼叫者）。它計算該單元依賴多少個協作者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>扇入定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單元在呼叫圖中的<strong>扇入（fan-in）</strong>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>呼叫它的單元數量（它的呼叫者 caller）</text><feedback><text>正確——扇入計算進入該單元的呼叫邊。</text></feedback></answer>
+    <answer fraction="0"><text>它所呼叫的其他單元數量（它的被呼叫者 callee）</text><feedback><text>那是扇出（fan-out），不是扇入。</text></feedback></answer>
+    <answer fraction="0"><text>它所含的判定數量</text><feedback><text>判定餵給循環複雜度，不是扇入。</text></feedback></answer>
+    <answer fraction="0"><text>模組中呼叫邊的總數</text><feedback><text>扇入是以單元為單位——只算指向它的邊——而非模組總數。</text></feedback></answer>
+    <generalfeedback><text>扇入＝進入的呼叫邊（呼叫者）。它計算有多少單元依賴這一個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>內聚懲罰定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在本模組中，單元的<strong>內聚懲罰（cohesion penalty）</strong>等於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它所宣告的職責數量</text><feedback><text>正確——cohesionPenalty(unit) = responsibilities.length；職責越多代表內聚越低、懲罰越高。</text></feedback></answer>
+    <answer fraction="0"><text>它所含的判定數量</text><feedback><text>判定驅動循環複雜度，不是內聚懲罰。</text></feedback></answer>
+    <answer fraction="0"><text>它所呼叫的單元數量</text><feedback><text>那是扇出，不是內聚懲罰。</text></feedback></answer>
+    <answer fraction="0"><text>一除以職責數量</text><feedback><text>不對——懲罰就是職責數量本身（越高越差）。</text></feedback></answer>
+    <generalfeedback><text>此處的內聚代理採 LCOM 風格且簡化：懲罰就是宣告職責的數量。做許多不相關之事的單元較不內聚，懲罰較高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何高扇出較難測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何<strong>高扇出</strong>會使單元較難被隔離測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它呼叫的每個協作者都必須在測試中以 stub、fake 或 mock 替換</text><feedback><text>正確——被呼叫者越多，需要用來替代依賴的測試替身就越多。</text></feedback></answer>
+    <answer fraction="0"><text>它自動會有更多判定要涵蓋</text><feedback><text>扇出與判定彼此獨立；扇出談的是協作者，不是分支。</text></feedback></answer>
+    <answer fraction="0"><text>它被更多單元呼叫，所以要設定更多呼叫者</text><feedback><text>那描述的是扇入；扇出談的是它所呼叫的單元。</text></feedback></answer>
+    <answer fraction="0"><text>它的回傳值無法被觀察</text><feedback><text>扇出談的是要替換的依賴，而非回傳值的可觀察性。</text></feedback></answer>
+    <generalfeedback><text>高扇出代表協作者眾多。要隔離測試該單元，你必須為每個協作者提供替身，故設定成本隨扇出增長。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何高複雜度較難測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何<strong>高循環複雜度</strong>會使單元較難被徹底測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>獨立路徑更多，因此需要更多測試案例來涵蓋</text><feedback><text>正確——循環複雜度近似要執行的獨立路徑數。</text></feedback></answer>
+    <answer fraction="0"><text>有更多協作者要 stub</text><feedback><text>那是扇出的效果，不是循環複雜度。</text></feedback></answer>
+    <answer fraction="0"><text>該單元宣告更多職責</text><feedback><text>那是內聚；複雜度談的是判定與路徑。</text></feedback></answer>
+    <answer fraction="0"><text>更多單元呼叫它</text><feedback><text>那是扇入；複雜度談的是單元內部的分支。</text></feedback></answer>
+    <generalfeedback><text>循環複雜度＝decisions + 1，估計穿過程式碼的獨立路徑數。路徑越多，達到足夠涵蓋所需的測試案例就越多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何低內聚較難測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何<strong>職責眾多且不相關</strong>（低內聚）的單元往往較難測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它做了數件不相關的事，故測試需要廣泛混雜的設定並失去焦點</text><feedback><text>正確——低內聚把單元拉往多個方向，每個測試都得安排數項不相關的關切點。</text></feedback></answer>
+    <answer fraction="0"><text>它的扇出一定為零</text><feedback><text>內聚與扇出彼此獨立；低內聚不會強迫扇出為零。</text></feedback></answer>
+    <answer fraction="0"><text>它的循環複雜度一定是 1</text><feedback><text>內聚對判定數毫無指涉；複雜度是分開衡量的。</text></feedback></answer>
+    <answer fraction="0"><text>它永遠不會被其他單元呼叫</text><feedback><text>內聚不限制扇入；它談的是單元混雜多少關切點。</text></feedback></answer>
+    <generalfeedback><text>職責眾多的單元混雜不相關的關切點，故測試必須一次設定並檢查多件事——較難撰寫且較不聚焦。把職責分離可提高內聚。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 formatMoney 的循環複雜度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 checkout 模組中，<code>formatMoney</code> 有 <strong>0</strong> 個判定。它的循環複雜度為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——cyclomatic = decisions + 1 = 0 + 1 = 1。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>公式要加一，故 0 判定得複雜度 1，而非 0。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>0 + 1 = 1；要得 2 需 1 個判定。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>0 + 1 = 1，不是 3。</text></feedback></answer>
+    <generalfeedback><text>formatMoney 是直線式輔助函式：0 判定，故循環複雜度 = 0 + 1 = 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 checkout 的循環複雜度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 checkout 模組中，<code>checkout</code> 有 <strong>6</strong> 個判定。它的循環複雜度為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——cyclomatic = decisions + 1 = 6 + 1 = 7。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>公式要加一，故 6 判定得 7，而非 6。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>6 + 1 = 7，不是 5。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>規則是 decisions + 1 = 7，而非 2 × 判定數。</text></feedback></answer>
+    <generalfeedback><text>checkout 有 6 個判定，故循環複雜度 = 6 + 1 = 7——為模組中最高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 checkout 的扇出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模組中，<code>checkout</code> 呼叫 <code>validateCart</code>、<code>applyDiscount</code>、<code>chargePayment</code> 與 <code>sendReceipt</code>。checkout 的<strong>扇出</strong>為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——checkout 有四條出去的呼叫邊，故扇出 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>checkout 呼叫四個協作者，故扇出是 4，不是 0。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>列出四個被呼叫者，故扇出是 4。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>只呼叫四個單元；扇出 = 4。</text></feedback></answer>
+    <generalfeedback><text>扇出計算出去的呼叫邊。checkout 呼叫四個單元，故扇出為 4——為模組中最高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 formatMoney 的扇入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模組中，<code>applyDiscount</code>、<code>chargePayment</code> 與 <code>sendReceipt</code> 各自都呼叫 <code>formatMoney</code>。formatMoney 的<strong>扇入</strong>為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——三個單元呼叫 formatMoney，故扇入 = 3。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>三個單元呼叫它，故扇入是 3，不是 0。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>列出三個呼叫者，故扇入是 3。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>只有三個單元呼叫 formatMoney；扇入 = 3。</text></feedback></answer>
+    <generalfeedback><text>扇入計算進入的呼叫邊。formatMoney 被三個單元呼叫，故扇入為 3——為模組中最高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 checkout 的內聚懲罰</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> 宣告了 <strong>4</strong> 項職責（orchestrate-flow、coordinate-steps、handle-errors、audit-log）。它的內聚懲罰為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——內聚懲罰就是職責數量，即 4。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>懲罰等於職責數量（4），不是 1。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>checkout 宣告四項職責，故懲罰為 4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>四項職責得懲罰 4，不是 2。</text></feedback></answer>
+    <generalfeedback><text>內聚懲罰＝職責數量。checkout 混雜四項職責，故懲罰為 4。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>扇出計算被呼叫者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單元的扇出計算它所呼叫的協作者（它的被呼叫者 callee）。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——扇出是出去的呼叫邊數量，即被呼叫者。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>扇出確實計算被呼叫者；計算呼叫者的是扇入。</text></feedback></answer>
+    <generalfeedback><text>扇出＝出去的邊（被呼叫者）；扇入＝進入的邊（呼叫者）。被呼叫者越多，測試中要 stub 的協作者就越多。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>職責越多內聚越低</text></name>
+    <questiontext format="html"><text><![CDATA[<p>宣告越多不相關職責的單元，被視為內聚越低、內聚懲罰越高。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——懲罰等於職責數量，故職責越多代表懲罰越高、內聚越低。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此處職責越多確實使內聚越低：懲罰就是職責數量，每增一項職責便上升。</text></feedback></answer>
+    <generalfeedback><text>內聚代理會懲罰混雜眾多職責的單元：懲罰＝職責數量，故職責越多＝內聚越低＝懲罰越高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>難測度分數公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單元的<strong>難測度分數（testability hardness score）</strong>如何由各度量組合而成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>score = cyclomatic + 2 * fanOut + cohesionPenalty</text><feedback><text>正確——扇出加權為 2，而循環複雜度與內聚懲罰各以權重 1 貢獻。</text></feedback></answer>
+    <answer fraction="0"><text>score = cyclomatic + fanIn + cohesionPenalty</text><feedback><text>不對——分數用扇出（加權 2），而非扇入。</text></feedback></answer>
+    <answer fraction="0"><text>score = cyclomatic * fanOut * cohesionPenalty</text><feedback><text>不對——各訊號是相加（扇出加權 2），不是相乘。</text></feedback></answer>
+    <answer fraction="0"><text>score = 2 * cyclomatic + fanOut + cohesionPenalty</text><feedback><text>不對——帶權重 2 的是扇出，不是循環複雜度。</text></feedback></answer>
+    <generalfeedback><text>score = cyclomatic + 2 * fanOut + cohesionPenalty。扇出被加倍，因為每個協作者既增加一條路徑又增加一個測試替身。扇入有被回報，但不計入分數。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Metrics/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 chargePayment 的循環複雜度</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>chargePayment</code> 有 <strong>4</strong> 個判定。計算它的循環複雜度。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——4 + 1 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>公式要加一：4 + 1 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>4 + 1 = 5，不是 3。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>是 decisions + 1 = 5，而非 2 × 判定數。</text></feedback></answer>
+    <generalfeedback><text>cyclomatic(chargePayment) = decisions + 1 = 4 + 1 = 5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 validateCart 的循環複雜度</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>validateCart</code> 有 <strong>3</strong> 個判定。計算它的循環複雜度。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——3 + 1 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>公式要加一：3 + 1 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>3 + 1 = 4，不是 2。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>是 decisions + 1 = 4，而非 2 × 判定數。</text></feedback></answer>
+    <generalfeedback><text>cyclomatic(validateCart) = decisions + 1 = 3 + 1 = 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 chargePayment 的扇出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模組中，<code>chargePayment</code> 只呼叫 <code>formatMoney</code>。chargePayment 的<strong>扇出</strong>為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——一條出去的呼叫邊，故扇出 = 1。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>它呼叫 formatMoney，故扇出是 1，不是 0。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只列出一個被呼叫者，故扇出是 1。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>chargePayment 呼叫單一單元；扇出 = 1。</text></feedback></answer>
+    <generalfeedback><text>chargePayment 有一條出去的邊（到 formatMoney），故扇出為 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 validateCart 的扇入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在模組中，唯一呼叫 <code>validateCart</code> 的單元是 <code>checkout</code>。validateCart 的<strong>扇入</strong>為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——一條進入的呼叫邊（來自 checkout），故扇入 = 1。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>checkout 呼叫它，故扇入是 1，不是 0。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>只有 checkout 呼叫它，故扇入是 1。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>只有單一呼叫者；扇入 = 1。</text></feedback></answer>
+    <generalfeedback><text>validateCart 只被 checkout 呼叫，故扇入為 1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 validateCart 的內聚懲罰</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>validateCart</code> 宣告 <strong>2</strong> 項職責（check-stock、check-address）。它的內聚懲罰為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——懲罰就是職責數量，即 2。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>兩項職責得懲罰 2，不是 1。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>validateCart 宣告兩項職責，故懲罰為 2。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>數量為 2，故懲罰為 2。</text></feedback></answer>
+    <generalfeedback><text>內聚懲罰＝職責數量＝validateCart 為 2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個單元最難測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在整個模組中，哪個單元<strong>最難測試</strong>，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout——它在每個訊號上都偏高（循環複雜度 7、扇出 4、內聚 4）</text><feedback><text>正確——checkout 是協調者：判定最多、協作者最多、職責也最多。</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney——因為它被三個單元呼叫</text><feedback><text>高扇入不會讓 formatMoney 變難；它是簡單的純輔助函式（最容易的單元）。</text></feedback></answer>
+    <answer fraction="0"><text>validateCart——因為它呼叫最多協作者</text><feedback><text>validateCart 扇出為 0；呼叫四個協作者的是 checkout。</text></feedback></answer>
+    <answer fraction="0"><text>chargePayment——因為它循環複雜度最高</text><feedback><text>checkout 的複雜度最高（7）；chargePayment 是 5，而 checkout 在每個訊號上都領先。</text></feedback></answer>
+    <generalfeedback><text>checkout 是難測試的協調者：循環複雜度 7、扇出 4、內聚 4，得到模組中最高的難測度分數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>扇出與測試替身數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要隔離測試一個<strong>扇出 4</strong> 的單元，大致需要用測試替身替換幾個協作者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>約 4 個——它所呼叫的每個協作者各一個替身</text><feedback><text>正確——每個被呼叫者都是你必須 stub、fake 或 mock 的依賴。</text></feedback></answer>
+    <answer fraction="0"><text>0 個——扇出對替身無影響</text><feedback><text>扇出正是要替換的協作者數量。</text></feedback></answer>
+    <answer fraction="0"><text>1 個——一個替身即可涵蓋所有協作者</text><feedback><text>每個相異協作者通常需各自的替身；扇出 4 代表約 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>8 個——扇出的兩倍</text><feedback><text>分數把扇出加權 2，但要替身的協作者數量是扇出本身，即 4。</text></feedback></answer>
+    <generalfeedback><text>扇出計算協作者，而隔離測試需為每個提供替身，故扇出 4 代表約四個替身。（分數把扇出的權重加倍，反映每個協作者同時增加一條路徑與一個替身。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>複雜度與測試案例數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某單元的循環複雜度為 5。這最直接告訴你關於測試它的什麼資訊？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>大約有 5 條獨立路徑要執行，故需約略這麼多測試案例</text><feedback><text>正確——循環複雜度近似要涵蓋的獨立路徑數。</text></feedback></answer>
+    <answer fraction="0"><text>它必須被 5 個其他單元呼叫</text><feedback><text>那會是扇入；複雜度談的是內部路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它宣告了 5 項職責</text><feedback><text>那會是內聚懲罰；複雜度是計算 decisions + 1。</text></feedback></answer>
+    <answer fraction="0"><text>它呼叫 5 個協作者</text><feedback><text>那會是扇出；複雜度談的是分支，不是呼叫。</text></feedback></answer>
+    <generalfeedback><text>循環複雜度近似獨立路徑數，是涵蓋分支邏輯所需測試的下界。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>將度量對應到測試困難效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列度量與其主要測試困難效果的配對，何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>扇出 → 要 stub 的協作者數量；循環複雜度 → 要涵蓋的路徑數量</text><feedback><text>正確——扇出驅動替身數，循環複雜度驅動路徑／測試案例數。</text></feedback></answer>
+    <answer fraction="0"><text>扇出 → 要涵蓋的路徑數量；循環複雜度 → 要 stub 的協作者數量</text><feedback><text>相反了——扇出談協作者，循環複雜度談路徑。</text></feedback></answer>
+    <answer fraction="0"><text>扇入 → 要 stub 的協作者數量；內聚 → 路徑數量</text><feedback><text>扇入是呼叫者（不是替身），而內聚談的是混雜職責，不是路徑。</text></feedback></answer>
+    <answer fraction="0"><text>內聚 → 要 stub 的協作者數量；扇出 → 混雜的職責</text><feedback><text>相反了——扇出驅動協作者；內聚計算職責。</text></feedback></answer>
+    <generalfeedback><text>每個度量對應一種不同成本：扇出對測試替身、循環複雜度對路徑／測試案例、內聚懲罰對不相關的設定。扇入（呼叫者）影響波及風險，但不計入難測度分數。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個單元最容易測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個單元<strong>最容易測試</strong>，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>formatMoney——純輔助函式，0 判定、扇出 0、僅一項職責</text><feedback><text>正確——沒有東西要 stub、只有一條路徑、只做一件事：模組中難測度最低。</text></feedback></answer>
+    <answer fraction="0"><text>checkout——因為它是進入點</text><feedback><text>checkout 是最難的，不是最容易的——它在每個訊號上都領先。</text></feedback></answer>
+    <answer fraction="0"><text>chargePayment——因為它職責少</text><feedback><text>chargePayment 仍有 4 個判定與一個協作者；formatMoney 才是簡單可測的。</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney——因為它的扇入最高</text><feedback><text>formatMoney 儘管扇入高仍最容易；扇入不會讓單元難測，而它自身的度量都很小。</text></feedback></answer>
+    <generalfeedback><text>formatMoney 有 0 判定（複雜度 1）、扇出 0、僅一項職責——是簡單可測的純輔助函式。它的高扇入不影響它有多難測。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>依度量比較兩個單元</text></name>
+    <questiontext format="html"><text><![CDATA[<p>比較 <code>chargePayment</code>（循環複雜度 5、扇出 1、內聚 2）與 <code>sendReceipt</code>（循環複雜度 4、扇出 1、內聚 1）。哪個較難測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>chargePayment——在相同扇出下，它的複雜度較高、內聚懲罰也較高</text><feedback><text>正確——扇出相同，chargePayment 在複雜度與內聚上都領先，故較難。</text></feedback></answer>
+    <answer fraction="0"><text>sendReceipt——因為收據是面向使用者的</text><feedback><text>此處的難度是結構性的；就度量而言 chargePayment 較難。</text></feedback></answer>
+    <answer fraction="0"><text>兩者完全相等</text><feedback><text>兩者扇出相同，但 chargePayment 複雜度與內聚懲罰都較高，故較難。</text></feedback></answer>
+    <answer fraction="0"><text>sendReceipt——因為它內聚較低</text><feedback><text>sendReceipt 的內聚懲罰較低（1 對 2），這讓它較容易，而非較難。</text></feedback></answer>
+    <generalfeedback><text>兩者扇出都是 1，但 chargePayment 循環複雜度 5 對 4、內聚 2 對 1，故為較難的單元（分數 9 對 7）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>就 stub 而言的扇入對扇出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個度量告訴你，隔離測試一個單元時必須<strong>stub 或 fake</strong> 多少個協作者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>扇出——該單元所依賴的被呼叫者</text><feedback><text>正確——你必須替換它所呼叫的單元，也就是它的扇出。</text></feedback></answer>
+    <answer fraction="0"><text>扇入——依賴它的呼叫者</text><feedback><text>扇入是誰呼叫該單元；它不會告訴你測試中該 stub 什麼。</text></feedback></answer>
+    <answer fraction="0"><text>循環複雜度</text><feedback><text>那告訴你要涵蓋的路徑，不是要替換的協作者。</text></feedback></answer>
+    <answer fraction="0"><text>內聚懲罰</text><feedback><text>那計算職責，不是要 stub 的協作者。</text></feedback></answer>
+    <generalfeedback><text>要隔離測試一個單元，你替換它所呼叫的——它的被呼叫者——故扇出就是替身數量。扇入（呼叫者）與波及／衝擊有關，而非與 stub 這個單元有關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 checkout 扇入為 0</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> 的<strong>扇入為 0</strong>。這代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模組中沒有其他單元呼叫它——它是頂層進入點</text><feedback><text>正確——扇入 0 代表沒有東西呼叫 checkout；它是模組的協調進入點。</text></feedback></answer>
+    <answer fraction="0"><text>它不呼叫任何其他單元</text><feedback><text>那會是扇出 0；checkout 實際上扇出為 4。扇入 0 代表沒有東西呼叫它。</text></feedback></answer>
+    <answer fraction="0"><text>它沒有判定</text><feedback><text>扇入談的是呼叫者，不是判定；checkout 有 6 個判定。</text></feedback></answer>
+    <answer fraction="0"><text>它是死碼</text><feedback><text>進入點合理地沒有模組內呼叫者；它由外部呼叫，並非死碼。</text></feedback></answer>
+    <generalfeedback><text>扇入 0 代表模組內沒有單元呼叫 checkout——它是頂層進入點（由外部呼叫）。它扇出仍為 4，因為它協調其他單元。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 sendReceipt 的循環複雜度</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>sendReceipt</code> 有 <strong>3</strong> 個判定。計算它的循環複雜度。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——3 + 1 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>公式要加一：3 + 1 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>3 + 1 = 4，不是 5；要得 5 需 4 個判定。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>3 + 1 = 4，不是 2。</text></feedback></answer>
+    <generalfeedback><text>cyclomatic(sendReceipt) = decisions + 1 = 3 + 1 = 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個單元需要更多測試替身</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> 扇出為 4，<code>applyDiscount</code> 扇出為 1。要隔離測試各單元，哪個需要以測試替身替換較多協作者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout——約 4 個替身，而 applyDiscount 約 1 個</text><feedback><text>正確——扇出是要替換的協作者數量，故扇出越高代表替身越多。</text></feedback></answer>
+    <answer fraction="0"><text>applyDiscount——因為它整體較簡單</text><feedback><text>整體較簡單沒錯，但它扇出較低（1），故需要較少替身，而非較多。</text></feedback></answer>
+    <answer fraction="0"><text>兩者需要一樣多，因為都是單元</text><feedback><text>替身數量隨扇出：checkout 為 4，applyDiscount 為 1。</text></feedback></answer>
+    <answer fraction="0"><text>applyDiscount——因為它扇入較高</text><feedback><text>扇入不決定替身數；決定的是扇出，而 checkout 的較高。</text></feedback></answer>
+    <generalfeedback><text>隔離測試會替換單元所呼叫的每個協作者，故替身數量等於扇出：checkout（4）遠多於 applyDiscount（1）。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Metrics/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 checkout 的難測度分數</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>checkout</code> 的循環複雜度 7、扇出 4、內聚懲罰 4。用 score = cyclomatic + 2 * fanOut + cohesionPenalty，它的難測度分數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>19</text><feedback><text>正確——7 + 2*4 + 4 = 7 + 8 + 4 = 19。</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>那忘了把扇出加倍：7 + 4 + 4 = 15。加上權重後為 7 + 8 + 4 = 19。</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>23 是把別的東西加倍了；正確的總和是 7 + 8 + 4 = 19。</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>11 忽略了內聚；總和是 7 + 8 + 4 = 19。</text></feedback></answer>
+    <generalfeedback><text>score(checkout) = 7 + 2*4 + 4 = 19，為模組中最高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 chargePayment 的難測度分數</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>chargePayment</code> 的循環複雜度 5、扇出 1、內聚懲罰 2。它的難測度分數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——5 + 2*1 + 2 = 5 + 2 + 2 = 9。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>那忘了把扇出加倍：5 + 1 + 2 = 8。加上權重後為 5 + 2 + 2 = 9。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是 sendReceipt 的分數；chargePayment 是 5 + 2 + 2 = 9。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>總和是 5 + 2 + 2 = 9，不是 10。</text></feedback></answer>
+    <generalfeedback><text>score(chargePayment) = 5 + 2*1 + 2 = 9，僅次於 checkout（19），排第二難。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>打破 applyDiscount 與 validateCart 的分數平手</text></name>
+    <questiontext format="html"><text><![CDATA[<p><code>applyDiscount</code> 與 <code>validateCart</code> 的難測度分數都是 <strong>6</strong>。在排名中，哪個排在前面，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>applyDiscount——平手時以 id 升冪打破，而「applyDiscount」排在「validateCart」之前</text><feedback><text>正確——分數相同時以 id 升冪排序，故 applyDiscount 在前。</text></feedback></answer>
+    <answer fraction="0"><text>validateCart——因為它職責較多</text><feedback><text>平手是以 id 打破，不是以任何度量；applyDiscount 排在前面。</text></feedback></answer>
+    <answer fraction="0"><text>applyDiscount——因為它循環複雜度較高</text><feedback><text>validateCart 的複雜度其實較高（4 對 3）；打破平手純粹是 id 升冪。</text></feedback></answer>
+    <answer fraction="0"><text>它們的順序是隨機的</text><feedback><text>排名是決定性的：分數相同時以 id 升冪排序。</text></feedback></answer>
+    <generalfeedback><text>排名以分數降冪、再以 id 升冪排序。分數同為 6 時，「applyDiscount」按字母序小於「validateCart」，故 applyDiscount 列在前面。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模組的完整難測度排名</text></name>
+    <questiontext format="html"><text><![CDATA[<p>checkout 模組正確的難測度排名（最難在前）為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout、chargePayment、sendReceipt、applyDiscount、validateCart、formatMoney</text><feedback><text>正確——分數 19、9、7、6、6、2，且 id 平手打破使 applyDiscount 在 validateCart 之前。</text></feedback></answer>
+    <answer fraction="0"><text>checkout、chargePayment、sendReceipt、validateCart、applyDiscount、formatMoney</text><feedback><text>接近，但 6-6 平手以 id 升冪打破，故 applyDiscount 在 validateCart 之前。</text></feedback></answer>
+    <answer fraction="0"><text>checkout、sendReceipt、chargePayment、validateCart、applyDiscount、formatMoney</text><feedback><text>chargePayment（9）高於 sendReceipt（7），故 chargePayment 必須排第二。</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney、applyDiscount、validateCart、sendReceipt、chargePayment、checkout</text><feedback><text>那是升冪順序；排名是最難在前，故 checkout 領先。</text></feedback></answer>
+    <generalfeedback><text>分數：checkout 19、chargePayment 9、sendReceipt 7、applyDiscount 6、validateCart 6、formatMoney 2。以分數降冪、6-6 平手再以 id 升冪，得 checkout、chargePayment、sendReceipt、applyDiscount、validateCart、formatMoney。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀最難單元的原因</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對 <code>checkout</code>，度量為循環複雜度 7、扇出 4、內聚 4。原因會挑出最大的<em>加權</em>貢獻。哪個貢獻者主導？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>扇出——它的加權貢獻是 2*4 = 8，大於複雜度 7 或內聚 4</text><feedback><text>正確——加權後，扇出（8）勝過複雜度（7）與內聚（4），故原因是「由扇出主導——一個協調者」。</text></feedback></answer>
+    <answer fraction="0"><text>複雜度——因為 7 是最大的原始數字</text><feedback><text>原因使用加權貢獻：扇出的 2*4 = 8 超過原始複雜度 7。</text></feedback></answer>
+    <answer fraction="0"><text>內聚——因為它有 4 項職責</text><feedback><text>內聚貢獻 4，小於扇出的加權 8；主導的是扇出。</text></feedback></answer>
+    <answer fraction="0"><text>扇入——因為它是進入點</text><feedback><text>扇入不在分數或原因之內；主導的加權貢獻者是扇出。</text></feedback></answer>
+    <generalfeedback><text>checkout 的加權貢獻：複雜度 7、扇出 2*4 = 8、內聚 4。最大的是扇出，故原因指名它——checkout 是由扇出主導的協調者，即使其原始複雜度（7）也偏高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>checkout 槓桿最高的修正</text></name>
+    <questiontext format="html"><text><![CDATA[<p>既然 checkout 由扇出主導，模組建議的單一槓桿最高修正是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>拆分它——抽出協作者，讓單一單元不再協調一切</text><feedback><text>正確——修正針對主導貢獻者（扇出），故建議拆分／抽出以減少協調。</text></feedback></answer>
+    <answer fraction="0"><text>增加更多呼叫者，讓它的扇入上升</text><feedback><text>扇入不屬於難測度；增加呼叫者無法降低 checkout 的分數。</text></feedback></answer>
+    <answer fraction="0"><text>把它所有協作者合併回 checkout</text><feedback><text>那會提高扇出與複雜度，讓它更難，而非更容易。</text></feedback></answer>
+    <answer fraction="0"><text>重新命名它的職責</text><feedback><text>重新命名不改變任何度量；槓桿在於藉拆分降低扇出。</text></feedback></answer>
+    <generalfeedback><text>槓桿最高的修正針對主導貢獻者。既然扇出主導 checkout，建議是拆分它並抽出協作者，讓協調分散開來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>新增 checkout 到 formatMoney 依賴的影響</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從基礎模組出發，你<strong>新增一條依賴</strong> <code>checkout 到 formatMoney</code>。checkout 的扇出由 4 變 5。checkout 的新難測度分數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>21</text><feedback><text>正確——7 + 2*5 + 4 = 7 + 10 + 4 = 21（由 19 上升）。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>每單位扇出使分數增加 2，故 19 + 2 = 21，不是 20。</text></feedback></answer>
+    <answer fraction="0"><text>19</text><feedback><text>扇出上升，故分數上升：7 + 10 + 4 = 21。</text></feedback></answer>
+    <answer fraction="0"><text>23</text><feedback><text>7 + 2*5 + 4 = 21，不是 23。</text></feedback></answer>
+    <generalfeedback><text>新增一條出去的邊使呼叫者扇出加 1，而每單位扇出加權 2，故 checkout 的分數由 19 升至 7 + 2*5 + 4 = 21。checkout 仍是最難的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>新增依賴使呼叫者分數上升</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你新增一條依賴 <code>validateCart 到 formatMoney</code>。validateCart 的扇出由 0 變 1。它的循環複雜度（4）與內聚（2）不變。validateCart 的新難測度分數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——4 + 2*1 + 2 = 8（由 6 上升）。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是舊分數；新增一個被呼叫者使扇出上升，故變 4 + 2 + 2 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>扇出加權 2，故分數上升 2（由 6 到 8），而非 1。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>4 + 2*1 + 2 = 8，不是 10。</text></feedback></answer>
+    <generalfeedback><text>新增一條出去的邊使 validateCart 扇出為 1、加權 2，故其分數由 6 升至 4 + 2*1 + 2 = 8——足以超越 sendReceipt（7）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>拆分 checkout 後的新最難單元</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你<strong>拆分</strong>最難單元 <code>checkout</code> 為 <code>checkout-a</code> 與 <code>checkout-b</code>。拆分後 checkout-a 得 12、checkout-b 得 10。現在哪個單元最難，其分數與 checkout 原本的 19 相比如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>checkout-a，為 12——最高難測度由 19 降到 12</text><feedback><text>正確——拆分把最壞情況的單元難測度由 19 降到 12。</text></feedback></answer>
+    <answer fraction="0"><text>chargePayment，為 9——它現在最難</text><feedback><text>checkout-a（12）與 checkout-b（10）都超過 chargePayment（9），故 chargePayment 不是最難。</text></feedback></answer>
+    <answer fraction="0"><text>checkout-a，仍為 19——拆分毫無改變</text><feedback><text>拆分把複雜度減半並分配邊，故 checkout-a 得 12，不是 19。</text></feedback></answer>
+    <answer fraction="0"><text>checkout-b，為 10——它最難</text><feedback><text>checkout-a（12）高於 checkout-b（10），故 checkout-a 最難。</text></feedback></answer>
+    <generalfeedback><text>拆分後 checkout-a（12）最難，checkout-b 為 10。最壞的單元難測度由 19 降到 12：拆分以兩個較小單元換掉一個極難的單元。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>拆分後 checkout-a 的循環複雜度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>拆分規則把 ceil(d/2) 個判定分給主要單元。checkout 原有 <strong>6</strong> 個判定。拆分後 <code>checkout-a</code> 的循環複雜度為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——ceil(6/2) = 3 個判定，故循環複雜度 = 3 + 1 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是拆分前 checkout 的複雜度；拆分後判定減半為 3，得 4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是 checkout-a 的判定數；循環複雜度要加一，得 4。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>判定減半（6 到 3），故循環複雜度 = 3 + 1 = 4。</text></feedback></answer>
+    <generalfeedback><text>checkout-a 得 ceil(6/2) = 3 個判定，故循環複雜度 = 3 + 1 = 4（checkout-b 也得 floor(6/2) = 3 個判定）。判定減半正是降低複雜度之處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>耦合與複雜度的權衡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把一個大單元拆成兩個較小的，會降低各單元的複雜度，但在結構上付出什麼代價？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它增加一個新協作者與一條新呼叫邊，提高整體耦合</text><feedback><text>正確——抽出的輔助單元是主要單元必須呼叫的新單元，故即使各單元複雜度下降，總耦合（邊）仍上升。</text></feedback></answer>
+    <answer fraction="0"><text>它增加模組中的判定數量</text><feedback><text>拆分是分配既有判定；並不創造新判定。</text></feedback></answer>
+    <answer fraction="0"><text>它移除模組中所有扇入</text><feedback><text>進入的邊是被重新導向，而非移除；模組仍有扇入。</text></feedback></answer>
+    <answer fraction="0"><text>沒有代價——較小的單元在每個度量上都嚴格較優</text><feedback><text>存在真實權衡：各單元複雜度較低，但單元更多、要管理的耦合也更多。</text></feedback></answer>
+    <generalfeedback><text>抽出是一種取捨：各單元複雜度下降，但你多了一個單元與至少一條新呼叫邊（a 到 b），故整體耦合上升。難測度是在複雜度與耦合間取得平衡，而非把單一項最大化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何扇出的加權高於複雜度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在分數中，扇出乘以 2，而循環複雜度與內聚各帶權重 1。這個加權強調了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個協作者是雙重成本——它既增加一條要涵蓋的路徑，又增加一個要建的替身</text><feedback><text>正確——加倍的權重反映耦合到協作者在兩方面都損害隔離測試。</text></feedback></answer>
+    <answer fraction="0"><text>扇出是唯一重要的度量</text><feedback><text>三個訊號都有貢獻；扇出只是加權較重。</text></feedback></answer>
+    <answer fraction="0"><text>複雜度應被忽略</text><feedback><text>複雜度仍以權重 1 計入；並未被忽略。</text></feedback></answer>
+    <answer fraction="0"><text>扇入的重要性是扇出的兩倍</text><feedback><text>扇入根本不在分數中；被加倍的是扇出。</text></feedback></answer>
+    <generalfeedback><text>扇出加權 2，因為每條出去的依賴既為呼叫者增加一條額外路徑，又增加一個必須以替身替換的協作者——故耦合被懲罰得比複雜度或內聚單獨更重。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>接收依賴不改變被呼叫者的分數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>新增依賴 <code>validateCart 到 formatMoney</code> 會使 formatMoney 的扇入由 3 升到 4，但 formatMoney 的難測度分數仍為 2 不變。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——扇入不屬於 score = cyclomatic + 2*fanOut + cohesionPenalty，故 formatMoney 的分數維持 2。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>分數用扇出，不是扇入，故一條新的進入邊使 formatMoney 的分數維持在 2。</text></feedback></answer>
+    <generalfeedback><text>難測度分數取決於扇出（權重 2）、循環複雜度與內聚——而非扇入。多一個呼叫者使 formatMoney 的扇入升到 4，但分數維持 2；只有呼叫者（扇出增加）才會變難。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>新增 validateCart 到 formatMoney 後的排名變化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>新增 <code>validateCart 到 formatMoney</code> 後，validateCart 的分數變成 8，而 sendReceipt 維持 7。頂端附近的排名如何改變？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>validateCart 升到 sendReceipt 之上，進入第三名，位於 checkout（19）與 chargePayment（9）之後</text><feedback><text>正確——分數為 8 的 validateCart 現在超越 sendReceipt（7），排第三。</text></feedback></answer>
+    <answer fraction="0"><text>毫無改變；validateCart 仍在 sendReceipt 之下</text><feedback><text>validateCart 由 6 升到 8，故現在超越 sendReceipt 的 7。</text></feedback></answer>
+    <answer fraction="0"><text>validateCart 變成最難單元</text><feedback><text>checkout（19）仍遙遙領先；分數 8 的 validateCart 只到第三。</text></feedback></answer>
+    <answer fraction="0"><text>formatMoney 因扇入增加而上升</text><feedback><text>formatMoney 的分數維持 2 不變——扇入不屬於分數。</text></feedback></answer>
+    <generalfeedback><text>新邊使 validateCart 扇出為 1、分數 8，超越 sendReceipt（7）。頂端順序變為 checkout（19）、chargePayment（9）、validateCart（8）、sendReceipt（7）。formatMoney 不受影響。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個變動降低模組的最高難測度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你想降低模組中<strong>最壞情況</strong>的單元難測度。哪個動作能做到？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>拆分最難單元 checkout，使其最高分由 19 降到 12</text><feedback><text>正確——拆分把複雜度減半並分配邊，把最高難測度降到 12。</text></feedback></answer>
+    <answer fraction="0"><text>新增一條由 checkout 到 formatMoney 的依賴</text><feedback><text>那會提高 checkout 的扇出與分數到 21——與你的目標相反。</text></feedback></answer>
+    <answer fraction="0"><text>新增一條進入 checkout 的依賴以提高它的扇入</text><feedback><text>扇入不屬於分數，故這不會降低最高難測度。</text></feedback></answer>
+    <answer fraction="0"><text>重新命名 checkout 的職責</text><feedback><text>重新命名不改變任何度量；職責數量與其他每個訊號都不變。</text></feedback></answer>
+    <generalfeedback><text>新增依賴只會提高扇出與分數。拆分最難單元才會降低峰值：checkout 的 19 變成 checkout-a 12 與 checkout-b 10，故模組的最高難測度降到 12。</text></generalfeedback>
+  </question>
+</quiz>

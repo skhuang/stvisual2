@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Controllability &amp; Observability/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What controllability is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the testability sense, what does <strong>controllability</strong> measure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How well a test can DRIVE the system into the states/inputs it needs to exercise</text><feedback><text>Correct — controllability is the "drive it there" half of testability.</text></feedback></answer>
+    <answer fraction="0"><text>How well a test can SEE the effects it needs to check</text><feedback><text>That is observability, the other half of testability.</text></feedback></answer>
+    <answer fraction="0"><text>How many states the model has</text><feedback><text>A raw state count is not controllability; controllability is about reachability by inputs.</text></feedback></answer>
+    <answer fraction="0"><text>How many transitions are covered by a test suite</text><feedback><text>That is transition coverage, a different idea from controllability.</text></feedback></answer>
+    <generalfeedback><text>Controllability asks whether a test can drive the software into the states and inputs it must exercise. Hidden state, unreachable branches, and hard-coded dependencies all reduce it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What observability is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the testability sense, what does <strong>observability</strong> measure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>How well a test can DRIVE the system into a chosen state</text><feedback><text>That is controllability, not observability.</text></feedback></answer>
+    <answer fraction="100"><text>How well a test can SEE the effects/outputs it needs to check</text><feedback><text>Correct — observability is the "can I see it" half of testability.</text></feedback></answer>
+    <answer fraction="0"><text>How many inputs the system accepts</text><feedback><text>The number of inputs is not observability; observability is about distinguishable outputs.</text></feedback></answer>
+    <answer fraction="0"><text>How fast the test suite runs</text><feedback><text>Speed is unrelated to observability.</text></feedback></answer>
+    <generalfeedback><text>Observability asks whether a test can see the effects it needs to check. Side effects, swallowed errors, and missing/return outputs that collide with other states all reduce it.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Testability equals controllability plus observability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Testability is classically defined as <strong>controllability + observability</strong> — a system is testable to the degree a test can both drive it into the needed states and observe the resulting effects.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — both halves are required; either one alone is not enough.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Testability is exactly controllability together with observability.</text></feedback></answer>
+    <generalfeedback><text>The classical definition (control-theory roots; Freedman; Binder) is testability = controllability + observability. You must be able to drive the SUT to the situation you want AND see the effect to check it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a reachable state is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the turnstile model, what is a <strong>reachable</strong> state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A state that some sequence of test inputs, starting from the start state, can drive the SUT into</text><feedback><text>Correct — reachability here means "an input sequence from the start gets you there".</text></feedback></answer>
+    <answer fraction="0"><text>A state whose output value is unique</text><feedback><text>That describes an observable state, not a reachable one.</text></feedback></answer>
+    <answer fraction="0"><text>Only the start state</text><feedback><text>The start state is reachable, but so is any state an input sequence can enter.</text></feedback></answer>
+    <answer fraction="0"><text>Any state that has a self-loop</text><feedback><text>Self-loops are unrelated to whether a state can be reached from the start.</text></feedback></answer>
+    <generalfeedback><text>reachableStates(sut) does a BFS from the start over the input-driven transitions. A state is reachable when some input sequence from the start arrives there.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an unreachable state is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does it mean that a state is <strong>unreachable</strong> by the test in this model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>The state has no observable output</text><feedback><text>Reachability is about input-driven transitions, not about outputs.</text></feedback></answer>
+    <answer fraction="0"><text>The state is the start state</text><feedback><text>The start state is always reachable; unreachable is the opposite.</text></feedback></answer>
+    <answer fraction="100"><text>No sequence of test inputs from the start can drive the SUT into it</text><feedback><text>Correct — no input path leads there, so a test cannot set it up.</text></feedback></answer>
+    <answer fraction="0"><text>The state has more than one outgoing transition</text><feedback><text>Having outgoing transitions does not make a state unreachable.</text></feedback></answer>
+    <generalfeedback><text>An unreachable state has no input-driven path into it from the start, so a test cannot drive the SUT there. In the turnstile, JAMMED and MAINT are unreachable by the test's inputs — the controllability gap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an observable output is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this model, what is an <strong>observable output</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>An internal state variable the test cannot read</text><feedback><text>The point of an output is that it CAN be seen from outside; a hidden variable is the opposite.</text></feedback></answer>
+    <answer fraction="100"><text>A value a test can see from outside the SUT (such as 'red', 'green', or 'beep')</text><feedback><text>Correct — outputs are the externally visible projection a test checks.</text></feedback></answer>
+    <answer fraction="0"><text>The input event that triggers a transition</text><feedback><text>That is an input (coin/push/reset), not an output.</text></feedback></answer>
+    <answer fraction="0"><text>A transition edge in the state graph</text><feedback><text>An edge is a transition; an output is the visible value of a state.</text></feedback></answer>
+    <generalfeedback><text>Each state maps to an observable output in sut.outputs — the value a test can see from outside (e.g. LOCKED→'red', PASSED→'beep'). Observability is measured over these outputs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Turnstile start state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <code>TURNSTILE_SUT</code>, which state is the <strong>start</strong> state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LOCKED</text><feedback><text>Correct — start is LOCKED.</text></feedback></answer>
+    <answer fraction="0"><text>UNLOCKED</text><feedback><text>UNLOCKED is reached from LOCKED by coin; it is not the start.</text></feedback></answer>
+    <answer fraction="0"><text>PASSED</text><feedback><text>PASSED is reached via coin then push; it is not the start.</text></feedback></answer>
+    <answer fraction="0"><text>MAINT</text><feedback><text>MAINT is not even reachable by inputs, let alone the start.</text></feedback></answer>
+    <generalfeedback><text>TURNSTILE_SUT.start is 'LOCKED'. All reachability and driveTo computations begin there.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Turnstile state count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many <strong>states</strong> does <code>TURNSTILE_SUT</code> have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the number of input-reachable states, not the total.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>There are 5 states, not 4.</text></feedback></answer>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — LOCKED, UNLOCKED, PASSED, JAMMED, MAINT.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>There are only 5 states in the model.</text></feedback></answer>
+    <generalfeedback><text>states = [LOCKED, UNLOCKED, PASSED, JAMMED, MAINT] — 5 in total. This 5 is the denominator of both the controllability and observability ratios.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Turnstile inputs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What are the test's <strong>inputs</strong> (levers) in <code>TURNSTILE_SUT</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>coin, push, reset</text><feedback><text>Correct — those are the three inputs the test can send.</text></feedback></answer>
+    <answer fraction="0"><text>coin, push</text><feedback><text>reset is also an input; there are three.</text></feedback></answer>
+    <answer fraction="0"><text>red, green, beep</text><feedback><text>Those are outputs, not inputs.</text></feedback></answer>
+    <answer fraction="0"><text>coin, push, reset, key</text><feedback><text>There is no 'key' input; a maintenance key is exactly what the model does NOT expose to the test.</text></feedback></answer>
+    <generalfeedback><text>inputs = [coin, push, reset]. There is deliberately no maintenance-key input, which is why MAINT cannot be driven to by the test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Output of PASSED</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the observable <strong>output</strong> of the <code>PASSED</code> state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>green</text><feedback><text>green is the output of UNLOCKED and JAMMED, not PASSED.</text></feedback></answer>
+    <answer fraction="100"><text>beep</text><feedback><text>Correct — PASSED→'beep'.</text></feedback></answer>
+    <answer fraction="0"><text>red</text><feedback><text>red is the output of LOCKED and MAINT, not PASSED.</text></feedback></answer>
+    <answer fraction="0"><text>grind</text><feedback><text>'grind' is only added by a probe onto JAMMED; PASSED's output is 'beep'.</text></feedback></answer>
+    <generalfeedback><text>outputs[PASSED] = 'beep'. It is the only unique output in the base model, so PASSED is the one observable state before any probe is added.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Output of LOCKED</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the observable <strong>output</strong> of the <code>LOCKED</code> state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>red</text><feedback><text>Correct — LOCKED→'red' (shared with MAINT).</text></feedback></answer>
+    <answer fraction="0"><text>green</text><feedback><text>green belongs to UNLOCKED and JAMMED, not LOCKED.</text></feedback></answer>
+    <answer fraction="0"><text>beep</text><feedback><text>beep belongs to PASSED, not LOCKED.</text></feedback></answer>
+    <answer fraction="0"><text>grind</text><feedback><text>'grind' is a probe output on JAMMED; LOCKED's output is 'red'.</text></feedback></answer>
+    <generalfeedback><text>outputs[LOCKED] = 'red'. Because MAINT is also 'red', LOCKED's output is not unique, so LOCKED is not observable in the base model.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Unique output in the base model</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the base turnstile (before any probe), which output value is <strong>unique</strong> to a single state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>red</text><feedback><text>red is shared by LOCKED and MAINT, so it is not unique.</text></feedback></answer>
+    <answer fraction="0"><text>green</text><feedback><text>green is shared by UNLOCKED and JAMMED, so it is not unique.</text></feedback></answer>
+    <answer fraction="0"><text>grind</text><feedback><text>'grind' does not exist in the base model; it only appears once a probe is added.</text></feedback></answer>
+    <answer fraction="100"><text>beep</text><feedback><text>Correct — only PASSED emits 'beep', so it is the single unique output.</text></feedback></answer>
+    <generalfeedback><text>Counting outputs: red→{LOCKED, MAINT}, green→{UNLOCKED, JAMMED}, beep→{PASSED}. Only 'beep' appears once, so PASSED is the only observable state (observability 1/5).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When a fault is observable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this engine, when is a state's fault considered <strong>observable</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When the state's output value is unique — no other state shares it</text><feedback><text>Correct — a unique output lets an observer distinguish that state, so a fault landing there is visible.</text></feedback></answer>
+    <answer fraction="0"><text>When the state is reachable from the start</text><feedback><text>Reachability is controllability; observability is about distinguishable outputs.</text></feedback></answer>
+    <answer fraction="0"><text>When the state is the start state</text><feedback><text>Being the start has nothing to do with whether a fault there is observable.</text></feedback></answer>
+    <answer fraction="0"><text>When the state has a self-loop</text><feedback><text>Self-loops do not determine observability.</text></feedback></answer>
+    <generalfeedback><text>observableStates(sut) keeps a state only when its output value is unique across all states. A shared output means an observer cannot tell those states apart, so a fault there is invisible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the controllability ratio</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <code>controllability(TURNSTILE_SUT).ratio</code> for the base turnstile?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>5/5 (100%)</text><feedback><text>Two states (JAMMED, MAINT) are unreachable, so it is not 5/5.</text></feedback></answer>
+    <answer fraction="100"><text>3/5 (60%)</text><feedback><text>Correct — LOCKED, UNLOCKED, PASSED are reachable; JAMMED and MAINT are not.</text></feedback></answer>
+    <answer fraction="0"><text>1/5 (20%)</text><feedback><text>1/5 is the base observability, not controllability.</text></feedback></answer>
+    <answer fraction="0"><text>2/5 (40%)</text><feedback><text>Three states are reachable, giving 3/5, not 2/5.</text></feedback></answer>
+    <generalfeedback><text>reachableStates = {LOCKED, UNLOCKED, PASSED} = 3 of 5, so controllability ratio = 3/5 = 60%.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the observability ratio</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <code>observability(TURNSTILE_SUT).ratio</code> for the base turnstile (before any probe)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>3/5 (60%)</text><feedback><text>3/5 is what observability becomes AFTER a probe, not the base value.</text></feedback></answer>
+    <answer fraction="0"><text>5/5 (100%)</text><feedback><text>Only one state has a unique output in the base model, so it is not 5/5.</text></feedback></answer>
+    <answer fraction="100"><text>1/5 (20%)</text><feedback><text>Correct — only PASSED has a unique output ('beep').</text></feedback></answer>
+    <answer fraction="0"><text>2/5 (40%)</text><feedback><text>Only one output (beep) is unique in the base model, so it is 1/5.</text></feedback></answer>
+    <generalfeedback><text>Only PASSED→'beep' is unique; red and green are each shared by two states. So observableStates = {PASSED} = 1 of 5, observability = 1/5 = 20%.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Controllability &amp; Observability/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Which states are reachable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Starting from LOCKED and using only the inputs coin/push/reset, which set of states can the test reach?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>{LOCKED, UNLOCKED, PASSED}</text><feedback><text>Correct — coin reaches UNLOCKED, push reaches PASSED, reset returns to LOCKED; JAMMED and MAINT are never entered.</text></feedback></answer>
+    <answer fraction="0"><text>{LOCKED, UNLOCKED, PASSED, JAMMED, MAINT}</text><feedback><text>JAMMED and MAINT have no input-driven edge into them, so they are not reachable.</text></feedback></answer>
+    <answer fraction="0"><text>{LOCKED, UNLOCKED}</text><feedback><text>PASSED is also reachable via coin then push.</text></feedback></answer>
+    <answer fraction="0"><text>{LOCKED, UNLOCKED, PASSED, JAMMED}</text><feedback><text>JAMMED is entered only by a fault, not by any input, so it is not reachable.</text></feedback></answer>
+    <generalfeedback><text>BFS from LOCKED over the input edges reaches UNLOCKED (coin) and PASSED (coin, push), and reset only returns to LOCKED. No edge leads into JAMMED or MAINT, so the reachable set is exactly {LOCKED, UNLOCKED, PASSED}.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why JAMMED is unreachable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can the test not drive the turnstile into <code>JAMMED</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No input-driven transition leads INTO JAMMED — it is entered only by a fault, not by any test input</text><feedback><text>Correct — with no incoming input edge, no input sequence can arrive at JAMMED.</text></feedback></answer>
+    <answer fraction="0"><text>Because JAMMED has no outgoing transitions</text><feedback><text>JAMMED does have an outgoing edge (reset→LOCKED); the problem is that nothing leads in.</text></feedback></answer>
+    <answer fraction="0"><text>Because JAMMED shares its output with UNLOCKED</text><feedback><text>That shared output is the observability gap, not the reason JAMMED is unreachable.</text></feedback></answer>
+    <answer fraction="0"><text>Because JAMMED is the start state</text><feedback><text>LOCKED is the start; JAMMED is not.</text></feedback></answer>
+    <generalfeedback><text>Reachability depends on edges INTO a state. The only edge touching JAMMED is JAMMED--reset-->LOCKED (outgoing). Since no input drives anything into JAMMED, a fault is the only way in — the controllability gap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why MAINT is unreachable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can the test not drive the turnstile into <code>MAINT</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>Because MAINT shares the output 'red' with LOCKED</text><feedback><text>The shared output is an observability issue; it does not explain unreachability.</text></feedback></answer>
+    <answer fraction="100"><text>No transition leads into MAINT — it is entered only by a maintenance key, which is not one of the test's inputs</text><feedback><text>Correct — MAINT has no incoming input edge, so no input sequence reaches it.</text></feedback></answer>
+    <answer fraction="0"><text>Because MAINT has a self-loop that traps the machine</text><feedback><text>MAINT has no edges at all in the model; there is no self-loop involved.</text></feedback></answer>
+    <answer fraction="0"><text>Because reset always leads away from MAINT</text><feedback><text>There is no reset edge from MAINT; the point is nothing leads INTO it.</text></feedback></answer>
+    <generalfeedback><text>MAINT is entered only by a maintenance key, which is deliberately NOT among inputs = [coin, push, reset]. With no input edge into MAINT, it is unreachable by the test — part of the controllability gap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo PASSED</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What input sequence does <code>driveTo(TURNSTILE_SUT, 'PASSED')</code> return (the shortest path from the start)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>coin, push</text><feedback><text>Correct — LOCKED--coin-->UNLOCKED--push-->PASSED.</text></feedback></answer>
+    <answer fraction="0"><text>push, coin</text><feedback><text>push in LOCKED just stays in LOCKED; the order must be coin then push.</text></feedback></answer>
+    <answer fraction="0"><text>coin, push, reset</text><feedback><text>reset would leave PASSED and return to LOCKED; the shortest path stops at PASSED after coin, push.</text></feedback></answer>
+    <answer fraction="0"><text>push</text><feedback><text>push alone from LOCKED loops back to LOCKED and never reaches PASSED.</text></feedback></answer>
+    <generalfeedback><text>BFS from LOCKED: coin reaches UNLOCKED, then push reaches PASSED. The shortest driving sequence is [coin, push] — 2 steps.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo UNLOCKED</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What input sequence does <code>driveTo(TURNSTILE_SUT, 'UNLOCKED')</code> return?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>push</text><feedback><text>push in LOCKED stays in LOCKED; it does not reach UNLOCKED.</text></feedback></answer>
+    <answer fraction="100"><text>coin</text><feedback><text>Correct — LOCKED--coin-->UNLOCKED in a single step.</text></feedback></answer>
+    <answer fraction="0"><text>coin, push</text><feedback><text>That reaches PASSED; UNLOCKED is reached by coin alone.</text></feedback></answer>
+    <answer fraction="0"><text>reset</text><feedback><text>reset is not defined from LOCKED and does not reach UNLOCKED.</text></feedback></answer>
+    <generalfeedback><text>From the start LOCKED, a single coin drives the SUT to UNLOCKED, so driveTo returns [coin].</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo MAINT result</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <code>driveTo(TURNSTILE_SUT, 'MAINT')</code> return?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>null — no input sequence can reach MAINT</text><feedback><text>Correct — MAINT is unreachable by inputs, so driveTo returns null.</text></feedback></answer>
+    <answer fraction="0"><text>An empty array []</text><feedback><text>[] is returned only when the target is the start state; MAINT is unreachable, so the result is null.</text></feedback></answer>
+    <answer fraction="0"><text>[reset]</text><feedback><text>reset does not lead into MAINT; no input sequence does.</text></feedback></answer>
+    <answer fraction="0"><text>[key]</text><feedback><text>There is no 'key' input in the model; driveTo returns null.</text></feedback></answer>
+    <generalfeedback><text>driveTo does a BFS over input edges and returns null when the target cannot be reached. MAINT has no incoming input edge, so the result is null — the controllability gap made concrete.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>driveTo the start state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <code>driveTo(TURNSTILE_SUT, 'LOCKED')</code> return, given LOCKED is the start state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>null</text><feedback><text>null means unreachable; LOCKED is the start, so it is trivially reachable.</text></feedback></answer>
+    <answer fraction="0"><text>[reset]</text><feedback><text>You are already at LOCKED, so no input is needed.</text></feedback></answer>
+    <answer fraction="100"><text>An empty array [] — you are already there, no inputs needed</text><feedback><text>Correct — driveTo returns [] when the target is the start state.</text></feedback></answer>
+    <answer fraction="0"><text>[coin]</text><feedback><text>coin would leave LOCKED; to be AT the start no input is required, so [].</text></feedback></answer>
+    <generalfeedback><text>The first line of driveTo is: if target === start return []. Since LOCKED is the start, the shortest driving sequence is the empty sequence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a fault in JAMMED is invisible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the base model, why would a fault that lands in <code>JAMMED</code> be invisible to a test watching the output?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>Because JAMMED emits 'beep', the same as PASSED</text><feedback><text>JAMMED emits 'green', not 'beep'; beep is unique to PASSED.</text></feedback></answer>
+    <answer fraction="100"><text>Because JAMMED's output 'green' is shared with UNLOCKED, so the observer cannot tell them apart</text><feedback><text>Correct — colliding outputs make the two states indistinguishable, hiding the fault.</text></feedback></answer>
+    <answer fraction="0"><text>Because JAMMED is the start state</text><feedback><text>LOCKED is the start; JAMMED is not, and that is unrelated to visibility.</text></feedback></answer>
+    <answer fraction="0"><text>Because JAMMED has no output at all</text><feedback><text>JAMMED does have an output ('green'); the issue is that it collides with UNLOCKED.</text></feedback></answer>
+    <generalfeedback><text>JAMMED→'green' and UNLOCKED→'green'. When a fault drops the SUT into JAMMED, the output still reads 'green', identical to a normal UNLOCKED, so the observer cannot detect the jam — the observability gap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which states share 'red'</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which two states share the output value <code>'red'</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>LOCKED and MAINT</text><feedback><text>Correct — both map to 'red', so neither is observable in the base model.</text></feedback></answer>
+    <answer fraction="0"><text>UNLOCKED and JAMMED</text><feedback><text>Those two share 'green', not 'red'.</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED and UNLOCKED</text><feedback><text>LOCKED is 'red' but UNLOCKED is 'green'; they do not share.</text></feedback></answer>
+    <answer fraction="0"><text>PASSED and MAINT</text><feedback><text>PASSED is 'beep' and MAINT is 'red'; they do not share.</text></feedback></answer>
+    <generalfeedback><text>outputs: LOCKED→'red', MAINT→'red'. Because 'red' is shared, neither LOCKED nor MAINT is observable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which states share 'green'</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which two states share the output value <code>'green'</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>LOCKED and MAINT</text><feedback><text>Those two share 'red', not 'green'.</text></feedback></answer>
+    <answer fraction="0"><text>PASSED and JAMMED</text><feedback><text>PASSED is 'beep'; only JAMMED (with UNLOCKED) is 'green'.</text></feedback></answer>
+    <answer fraction="100"><text>UNLOCKED and JAMMED</text><feedback><text>Correct — both map to 'green', which is exactly why a jam looks like a normal unlock.</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED and UNLOCKED</text><feedback><text>LOCKED is 'red', UNLOCKED is 'green'; they do not share.</text></feedback></answer>
+    <generalfeedback><text>outputs: UNLOCKED→'green', JAMMED→'green'. The collision on 'green' is the observability gap that hides a jam.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a probe does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does adding a <strong>probe</strong> (<code>withProbe</code>) do in this explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It gives a state a distinct output so a previously-shared output becomes unique, raising observability — returning a new SUT without mutating the original</text><feedback><text>Correct — withProbe returns a new outputs map; it is the "observability is a design choice" lever.</text></feedback></answer>
+    <answer fraction="0"><text>It adds a new input transition so an unreachable state becomes reachable</text><feedback><text>That would change controllability; a probe only changes outputs.</text></feedback></answer>
+    <answer fraction="0"><text>It deletes an unreachable state from the model</text><feedback><text>A probe adds a distinguishing output; it removes nothing.</text></feedback></answer>
+    <answer fraction="0"><text>It changes which state is the start state</text><feedback><text>The start state is unchanged; a probe only affects outputs.</text></feedback></answer>
+    <generalfeedback><text>withProbe(sut, state, distinctOutput) returns { ...sut, outputs: { ...sut.outputs, [state]: distinctOutput } } — a NEW SUT whose target state now emits a distinct value, so its output stops colliding and it becomes observable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of probing JAMMED</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a probe gives <code>JAMMED</code> its own distinct output, which states become observable that were not before?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>Only JAMMED</text><feedback><text>UNLOCKED also becomes unique, because 'green' no longer collides once JAMMED has a distinct output.</text></feedback></answer>
+    <answer fraction="100"><text>UNLOCKED and JAMMED both become unique</text><feedback><text>Correct — the probe un-collides 'green', so UNLOCKED and JAMMED are each now the sole owner of their output.</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED and MAINT</text><feedback><text>Those still share 'red'; the JAMMED probe does not touch them.</text></feedback></answer>
+    <answer fraction="0"><text>All five states</text><feedback><text>LOCKED and MAINT still collide on 'red', so not all five are observable.</text></feedback></answer>
+    <generalfeedback><text>Before: UNLOCKED and JAMMED both 'green' (neither observable). Probing JAMMED to a distinct value leaves UNLOCKED as the only 'green' and JAMMED as the only holder of the new value, so BOTH become observable — observability rises from 1/5 to 3/5 (PASSED, UNLOCKED, JAMMED).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Activity that exercises controllability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which activity exercises <strong>controllability</strong> rather than observability?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>Checking that PASSED emits 'beep'</text><feedback><text>Checking an output is observability.</text></feedback></answer>
+    <answer fraction="0"><text>Reading the output value of LOCKED</text><feedback><text>Reading an output is observability.</text></feedback></answer>
+    <answer fraction="0"><text>Distinguishing JAMMED from UNLOCKED by their outputs</text><feedback><text>Telling states apart by output is observability.</text></feedback></answer>
+    <answer fraction="100"><text>Driving the turnstile to PASSED by sending coin then push</text><feedback><text>Correct — building an input sequence to reach a target state is controllability.</text></feedback></answer>
+    <generalfeedback><text>Controllability is the drive-it-there half: sending inputs to reach a chosen state. Inspecting or distinguishing outputs is observability.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Activity that exercises observability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which activity exercises <strong>observability</strong> rather than controllability?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Checking that PASSED's output 'beep' is distinct from every other state's output</text><feedback><text>Correct — verifying that an output distinguishes a state is observability.</text></feedback></answer>
+    <answer fraction="0"><text>Sending coin to move LOCKED to UNLOCKED</text><feedback><text>Sending an input to change state is controllability.</text></feedback></answer>
+    <answer fraction="0"><text>Finding an input path that reaches PASSED</text><feedback><text>Finding a driving path is controllability.</text></feedback></answer>
+    <answer fraction="0"><text>Driving the SUT to a chosen target state</text><feedback><text>Driving to a target is controllability.</text></feedback></answer>
+    <generalfeedback><text>Observability is the see-it half: checking that outputs let you tell states apart. Sending inputs or finding paths is controllability.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Controllability if MAINT became reachable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose a maintenance-key input were added that drives the SUT into <code>MAINT</code> (which has no outgoing edges). What would the controllability ratio become?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>5/5 (100%)</text><feedback><text>JAMMED would still be unreachable, so it cannot be 5/5.</text></feedback></answer>
+    <answer fraction="0"><text>3/5 (60%)</text><feedback><text>That is the current value; adding a reachable MAINT raises it.</text></feedback></answer>
+    <answer fraction="100"><text>4/5 (80%)</text><feedback><text>Correct — MAINT joins the reachable set {LOCKED, UNLOCKED, PASSED}, giving 4 of 5; JAMMED is still unreachable.</text></feedback></answer>
+    <answer fraction="0"><text>2/5 (40%)</text><feedback><text>Adding a reachable state increases, not decreases, controllability.</text></feedback></answer>
+    <generalfeedback><text>Reachable would become {LOCKED, UNLOCKED, PASSED, MAINT} = 4. MAINT has no outgoing edges so it opens no further states, and JAMMED is still unreachable. So controllability = 4/5 = 80%.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Controllability &amp; Observability/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Trace a multi-step input sequence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Starting at LOCKED, the test sends the sequence <code>coin, push, reset, coin</code>. What is the final state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>PASSED</text><feedback><text>PASSED is reached after coin, push, but reset then coin move on to UNLOCKED.</text></feedback></answer>
+    <answer fraction="100"><text>UNLOCKED</text><feedback><text>Correct — LOCKED→UNLOCKED→PASSED→LOCKED→UNLOCKED.</text></feedback></answer>
+    <answer fraction="0"><text>LOCKED</text><feedback><text>reset returns to LOCKED, but the final coin then moves to UNLOCKED.</text></feedback></answer>
+    <answer fraction="0"><text>JAMMED</text><feedback><text>No input reaches JAMMED; the sequence cannot end there.</text></feedback></answer>
+    <generalfeedback><text>Trace: LOCKED--coin-->UNLOCKED--push-->PASSED--reset-->LOCKED--coin-->UNLOCKED. The final state is UNLOCKED.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why JAMMED's outgoing edge does not help</text></name>
+    <questiontext format="html"><text><![CDATA[<p>JAMMED has the edge <code>JAMMED--reset--&gt;LOCKED</code>. Why does that edge still not let the test reach JAMMED?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reachability needs an edge INTO JAMMED; an outgoing edge lets you leave JAMMED but never arrive there</text><feedback><text>Correct — you can only take JAMMED--reset-->LOCKED if you are already in JAMMED, which the test cannot achieve.</text></feedback></answer>
+    <answer fraction="0"><text>Because reset is not one of the inputs</text><feedback><text>reset IS an input; the issue is direction — no edge leads into JAMMED.</text></feedback></answer>
+    <answer fraction="0"><text>Because JAMMED shares 'green' with UNLOCKED</text><feedback><text>That is the observability gap; it is unrelated to whether JAMMED can be reached.</text></feedback></answer>
+    <answer fraction="0"><text>Because the edge comes after PASSED in the graph</text><feedback><text>Ordering in the graph does not affect reachability; incoming edges do.</text></feedback></answer>
+    <generalfeedback><text>BFS follows edges in their direction. JAMMED--reset-->LOCKED is outgoing, usable only once you are in JAMMED. Since no edge points INTO JAMMED, the test can never get there — the outgoing edge is irrelevant to reachability.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why driveTo PASSED needs two steps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the shortest driving sequence to PASSED exactly two steps (<code>coin, push</code>) and not one?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>PASSED is entered only by push from UNLOCKED, and UNLOCKED is entered only by coin from LOCKED — so you must do coin then push</text><feedback><text>Correct — the only path into PASSED forces this two-step chain.</text></feedback></answer>
+    <answer fraction="0"><text>Because reset must be sent before push</text><feedback><text>reset is not on the path to PASSED; coin then push is the route.</text></feedback></answer>
+    <answer fraction="0"><text>Because PASSED has a self-loop that must be entered twice</text><feedback><text>PASSED has no self-loop; the two steps come from the chain LOCKED→UNLOCKED→PASSED.</text></feedback></answer>
+    <answer fraction="0"><text>Because JAMMED blocks the direct path</text><feedback><text>JAMMED is not on any input path; it does not block anything.</text></feedback></answer>
+    <generalfeedback><text>The only edge into PASSED is UNLOCKED--push-->PASSED, and the only edge into UNLOCKED is LOCKED--coin-->UNLOCKED. From the start LOCKED that forces the chain coin, push — two steps, the minimum.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret controllability 3/5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a controllability of <strong>3/5</strong> tell you about the turnstile?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test can drive the SUT into 3 of the 5 modeled states; the other 2 (JAMMED, MAINT) are out of its reach</text><feedback><text>Correct — 3/5 counts input-reachable states over total states.</text></feedback></answer>
+    <answer fraction="0"><text>3 of the 5 outputs are unique</text><feedback><text>That describes observability, not controllability.</text></feedback></answer>
+    <answer fraction="0"><text>3 of the 5 transitions are exercised by the test suite</text><feedback><text>Controllability counts reachable states, not exercised transitions.</text></feedback></answer>
+    <answer fraction="0"><text>3 of the 5 inputs are valid</text><feedback><text>All inputs are valid; the ratio is over states, not inputs.</text></feedback></answer>
+    <generalfeedback><text>controllability.ratio = |reachable| / |states| = 3/5. It means the test can set up 3 of the 5 states; JAMMED and MAINT cannot be reached by any input sequence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret observability 1/5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does an observability of <strong>1/5</strong> tell you about the base turnstile?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>3 of the 5 states are reachable</text><feedback><text>That is controllability, and the number would be 3/5, not 1/5.</text></feedback></answer>
+    <answer fraction="100"><text>Only 1 of the 5 states (PASSED) has a distinguishable output; a fault in any of the other 4 can be confused with another state</text><feedback><text>Correct — 1/5 counts states with a unique output.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly 1 of the 5 transitions is covered</text><feedback><text>Observability counts distinguishable-output states, not covered transitions.</text></feedback></answer>
+    <answer fraction="0"><text>1 of the 5 inputs is never used</text><feedback><text>The ratio is over states with unique outputs, not over inputs.</text></feedback></answer>
+    <generalfeedback><text>observability.ratio = |observable| / |states| = 1/5. Only PASSED→'beep' is unique; LOCKED/MAINT collide on 'red' and UNLOCKED/JAMMED on 'green', so a fault in any of those four is indistinguishable at the output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret the 1/5 to 3/5 jump</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding a single probe raises observability from <strong>1/5 to 3/5</strong>. What accounts for the jump of two, not one?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>The probe makes JAMMED reachable by the test's inputs</text><feedback><text>That would be controllability; a probe changes outputs, not reachability.</text></feedback></answer>
+    <answer fraction="0"><text>The probe adds two new states to the model</text><feedback><text>A probe changes one state's output; it adds no states.</text></feedback></answer>
+    <answer fraction="100"><text>Giving JAMMED a distinct output un-collides 'green', so UNLOCKED and JAMMED each become unique, joining PASSED — 3 of 5</text><feedback><text>Correct — resolving one collision makes BOTH members of the pair unique at once.</text></feedback></answer>
+    <answer fraction="0"><text>The probe removes MAINT from the model</text><feedback><text>Nothing is removed; the gain comes from un-colliding the 'green' pair.</text></feedback></answer>
+    <generalfeedback><text>'green' was shared by UNLOCKED and JAMMED, so neither was observable. Probing JAMMED to a distinct value leaves UNLOCKED as the sole 'green' AND makes JAMMED unique — two states flip to observable at once, so 1/5 becomes 3/5 (PASSED, UNLOCKED, JAMMED).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Observability is a design choice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which lever raises <strong>observability</strong> without changing the state graph — making observability a design choice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Adding a probe / return value that gives a state its own distinct output</text><feedback><text>Correct — exposing more distinguishing output is a design decision that raises observability.</text></feedback></answer>
+    <answer fraction="0"><text>Adding an input transition into an unreachable state</text><feedback><text>That changes the state graph and raises controllability, not observability.</text></feedback></answer>
+    <answer fraction="0"><text>Removing a state from the model</text><feedback><text>Deleting states does not add distinguishing outputs; it is not the observability lever.</text></feedback></answer>
+    <answer fraction="0"><text>Changing which state is the start state</text><feedback><text>The start state affects reachability, not how distinguishable the outputs are.</text></feedback></answer>
+    <generalfeedback><text>Observability is a design choice: by adding probes or return values that give states distinct outputs, a developer makes previously indistinguishable states visible — without altering the transition structure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: which property is lacking (1)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test needs the turnstile to be in <code>JAMMED</code> to check jam handling, but no sequence of inputs can drive it there. Which testability property is lacking?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Controllability</text><feedback><text>Correct — being unable to drive the SUT into the needed state is a controllability problem.</text></feedback></answer>
+    <answer fraction="0"><text>Observability</text><feedback><text>Observability is about seeing outputs; here the problem is getting INTO the state.</text></feedback></answer>
+    <answer fraction="0"><text>Both equally</text><feedback><text>The described obstacle is purely about reaching the state, i.e. controllability.</text></feedback></answer>
+    <answer fraction="0"><text>Neither</text><feedback><text>There is a real gap: the state cannot be set up, which is a controllability failure.</text></feedback></answer>
+    <generalfeedback><text>Not being able to set the SUT into the state you must exercise is the definition of a controllability gap. JAMMED is unreachable by inputs, so the test cannot even begin.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: which property is lacking (2)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test can reach UNLOCKED, but a real jam (JAMMED) would emit the same <code>'green'</code>, so the test cannot tell a jam apart from a normal unlock. Which testability property is lacking?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>Controllability</text><feedback><text>The state can be reached; the problem is that the output does not distinguish it.</text></feedback></answer>
+    <answer fraction="100"><text>Observability</text><feedback><text>Correct — indistinguishable outputs are an observability gap.</text></feedback></answer>
+    <answer fraction="0"><text>Both equally</text><feedback><text>The obstacle described is purely about seeing/distinguishing the effect, i.e. observability.</text></feedback></answer>
+    <answer fraction="0"><text>Neither</text><feedback><text>There is a real gap: the fault cannot be seen at the output, which is an observability failure.</text></feedback></answer>
+    <generalfeedback><text>When two states share an output, a test cannot tell which one it is in. Being unable to see the effect you must check is an observability gap — here 'green' hides a jam behind a normal unlock.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Does the JAMMED probe make it reachable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a probe gives JAMMED a distinct output (observability up), can the test now drive the SUT into JAMMED to exercise a real jam?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — JAMMED is still unreachable by inputs; the probe raised observability, not controllability</text><feedback><text>Correct — the two properties are orthogonal; a probe only changes outputs.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the probe adds a transition that reaches JAMMED</text><feedback><text>A probe changes an output, not the transition graph, so no new path is created.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — probes always make states reachable</text><feedback><text>Probes affect observability only; they never change reachability.</text></feedback></answer>
+    <answer fraction="0"><text>No — because the probe also removed JAMMED from the model</text><feedback><text>The probe removes nothing; JAMMED remains, just now with a distinct output.</text></feedback></answer>
+    <generalfeedback><text>A probe edits outputs (observability). It does not add any input edge into JAMMED, so JAMMED stays unreachable — the test can now SEE a jam if one occurred, but still cannot DRIVE the SUT into one. Controllability and observability are independent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which states still collide after the JAMMED probe</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After the probe gives JAMMED a distinct output (observability now 3/5), which states still share an output and remain unobservable?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>UNLOCKED and JAMMED</text><feedback><text>The probe just un-collided those two; they are now observable.</text></feedback></answer>
+    <answer fraction="0"><text>None — all five are now observable</text><feedback><text>LOCKED and MAINT still share 'red', so two remain unobservable.</text></feedback></answer>
+    <answer fraction="100"><text>LOCKED and MAINT (both still 'red')</text><feedback><text>Correct — the JAMMED probe did not touch the 'red' collision.</text></feedback></answer>
+    <answer fraction="0"><text>PASSED and LOCKED</text><feedback><text>PASSED is unique ('beep'); it does not collide with LOCKED.</text></feedback></answer>
+    <generalfeedback><text>After probing JAMMED: outputs are red→{LOCKED, MAINT}, green→{UNLOCKED}, beep→{PASSED}, plus JAMMED's new value. Observable = {UNLOCKED, PASSED, JAMMED} = 3/5; LOCKED and MAINT still collide on 'red'.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Observability after a second probe</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Starting from the 3/5 state (after the JAMMED probe), you add one more probe giving <code>MAINT</code> a distinct output. What does observability become?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>4/5 (80%)</text><feedback><text>Resolving the 'red' collision makes BOTH LOCKED and MAINT unique at once, so it jumps past 4/5.</text></feedback></answer>
+    <answer fraction="0"><text>3/5 (60%)</text><feedback><text>That is the value before this second probe; adding it raises observability further.</text></feedback></answer>
+    <answer fraction="0"><text>2/5 (40%)</text><feedback><text>Adding a distinguishing output raises, not lowers, observability.</text></feedback></answer>
+    <answer fraction="100"><text>5/5 (100%)</text><feedback><text>Correct — un-colliding 'red' makes LOCKED the sole 'red' and MAINT unique, so all five states are now observable.</text></feedback></answer>
+    <generalfeedback><text>Just as with 'green', 'red' was shared by exactly two states. Giving MAINT a distinct output leaves LOCKED as the only 'red' and makes MAINT unique — both flip to observable, so 3/5 becomes 5/5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which change raises controllability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which single change would raise the <strong>controllability</strong> of the turnstile?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="0"><text>Give JAMMED a distinct output</text><feedback><text>That raises observability, not controllability.</text></feedback></answer>
+    <answer fraction="100"><text>Add an input-driven transition leading INTO JAMMED or MAINT</text><feedback><text>Correct — a new incoming input edge makes an unreachable state reachable, raising controllability.</text></feedback></answer>
+    <answer fraction="0"><text>Add a return value that exposes PASSED</text><feedback><text>PASSED is already reachable AND observable; adding an output does not change controllability.</text></feedback></answer>
+    <answer fraction="0"><text>Rename an output value</text><feedback><text>Renaming an output cannot change which states are reachable.</text></feedback></answer>
+    <generalfeedback><text>Controllability depends on the transition structure. Only adding an input-driven edge INTO an unreachable state (JAMMED or MAINT) can raise it; changing outputs affects observability instead.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Controllability and observability are independent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Controllability and observability are independent: raising one (for example by adding a probe) does not necessarily raise the other.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a probe raises observability but leaves reachability (controllability) unchanged, and vice versa.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>They are orthogonal: a probe on JAMMED raises observability yet JAMMED stays unreachable.</text></feedback></answer>
+    <generalfeedback><text>The two halves of testability are separate levers. Probes change outputs (observability); new input edges change reachability (controllability). Improving one does not automatically improve the other — the JAMMED probe raises observability while controllability of JAMMED stays zero.</text></generalfeedback>
+  </question>
+  <question type="shortanswer">
+    <name><text>Shortest steps to drive to PASSED</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many input steps does the shortest sequence that drives <code>TURNSTILE_SUT</code> from the start to <code>PASSED</code> take? Answer with a single integer.</p>]]></text></questiontext>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — driveTo returns [coin, push], a length-2 sequence.</text></feedback></answer>
+    <generalfeedback><text>The only route into PASSED is LOCKED--coin-->UNLOCKED--push-->PASSED, so the shortest driving sequence has exactly 2 steps.</text></generalfeedback>
+  </question>
+</quiz>

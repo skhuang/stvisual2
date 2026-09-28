@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testability Scorecard/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the scorecard aggregates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The testability scorecard aggregates:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Five normalized testability signals into one overall grade</text><feedback><text>Correct — it rolls five signals into a single grade.</text></feedback></answer>
+    <answer fraction="0"><text>A single code-coverage percentage</text><feedback><text>Coverage is not what the scorecard aggregates; it combines five distinct signals.</text></feedback></answer>
+    <answer fraction="0"><text>The list of all currently failing test cases</text><feedback><text>The scorecard reports signals and a grade, not a list of failing tests.</text></feedback></answer>
+    <answer fraction="0"><text>The number of mutants killed by the suite</text><feedback><text>Mutation score belongs to a different topic; the scorecard aggregates five testability signals.</text></feedback></answer>
+    <generalfeedback><text>The capstone testability scorecard combines five normalized signals — controllability, observability, seam coverage, structural, and determinism — into one overall grade (A to F).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The five signals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which five signals does the scorecard report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>controllability, observability, seam coverage, structural, determinism</text><feedback><text>Correct — these are the five normalized testability signals.</text></feedback></answer>
+    <answer fraction="0"><text>severity, priority, likelihood, impact, exposure</text><feedback><text>Those are risk-based-testing terms, not the scorecard's testability signals.</text></feedback></answer>
+    <answer fraction="0"><text>unit, integration, system, acceptance, regression</text><feedback><text>Those are test levels/types, not the scorecard's signals.</text></feedback></answer>
+    <answer fraction="0"><text>precision, recall, accuracy, F1, coverage</text><feedback><text>Those are classifier/coverage metrics, not the testability signals.</text></feedback></answer>
+    <generalfeedback><text>The scorecard's five signals are controllability, observability, seam coverage, structural, and determinism — each normalized so higher means more testable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Grade letters range</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The overall grade is expressed as a letter in which range?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A to F (A, B, C, D, F)</text><feedback><text>Correct — the grade thresholds define A, B, C, D and F.</text></feedback></answer>
+    <answer fraction="0"><text>1 to 10</text><feedback><text>The grade is a letter, not a 1 to 10 number.</text></feedback></answer>
+    <answer fraction="0"><text>Pass or Fail only</text><feedback><text>The scorecard gives a graded letter, not a binary pass/fail.</text></feedback></answer>
+    <answer fraction="0"><text>0% to 100% with no letter</text><feedback><text>The overall percentage maps to a letter grade; the reported grade is a letter.</text></feedback></answer>
+    <generalfeedback><text>The overall mean is mapped to a letter through fixed thresholds: A at 0.85, B at 0.70, C at 0.55, D at 0.40, and F below that.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Composes the other explorers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the scorecard produce its numbers?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It composes the other three testability explorers' engines plus a nondeterminism signal, without re-deriving them</text><feedback><text>Correct — it reuses the sibling engines rather than re-computing anything.</text></feedback></answer>
+    <answer fraction="0"><text>It re-implements every metric independently from scratch</text><feedback><text>The scorecard deliberately composes the existing engines; it does not re-derive them.</text></feedback></answer>
+    <answer fraction="0"><text>It asks the user to type each signal by hand</text><feedback><text>The signals are computed from the fixture, not typed in.</text></feedback></answer>
+    <answer fraction="0"><text>It reads the numbers from a static image</text><feedback><text>The numbers come from live composition of the sibling engines.</text></feedback></answer>
+    <generalfeedback><text>The scorecard is a capstone: it composes the controllability/observability, seams, and metrics engines and adds a nondeterminism signal, aggregating all five from one shared fixture.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Higher means more testable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For every signal on the scorecard, a higher normalized value means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>More testable</text><feedback><text>Correct — all five signals are normalized so higher = more testable.</text></feedback></answer>
+    <answer fraction="0"><text>Less testable</text><feedback><text>The signals are oriented so higher is better, not worse.</text></feedback></answer>
+    <answer fraction="0"><text>More lines of code</text><feedback><text>The signals measure testability, not code size.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — the direction is undefined</text><feedback><text>The direction is well defined: higher is more testable.</text></feedback></answer>
+    <generalfeedback><text>Every signal is normalized to a 0..1 scale with a consistent orientation: higher = more testable. This lets them be averaged into one overall score.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read controllability value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the bundled fixture, the controllability signal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.6</text><feedback><text>Correct — 3 of the 5 turnstile states are reachable, so 3/5 = 0.6.</text></feedback></answer>
+    <answer fraction="0"><text>0.2</text><feedback><text>0.2 is the observability signal, not controllability.</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 is the structural signal, not controllability.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 is the determinism signal, not controllability.</text></feedback></answer>
+    <generalfeedback><text>Controllability = reachable states / total states = 3/5 = 0.6 for the turnstile SUT.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read observability value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the bundled fixture, the observability signal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.2</text><feedback><text>Correct — only 1 of the 5 states has a unique observable output, so 1/5 = 0.2.</text></feedback></answer>
+    <answer fraction="0"><text>0.6</text><feedback><text>0.6 is the controllability signal, not observability.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 is the determinism signal, not observability.</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 is the structural signal, not observability.</text></feedback></answer>
+    <generalfeedback><text>Observability = states with a unique output / total states = 1/5 = 0.2; the shared outputs (two 'green', two 'red') hide states from an observer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read seam-coverage value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With nothing injected yet, the seam-coverage signal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0</text><feedback><text>Correct — no seams applied means 0 of 4, so the signal is 0.</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 would be one of four seams injected; initially none are.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 would be two of four seams injected; initially none are.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>1 would be all four seams injected; initially none are.</text></feedback></answer>
+    <generalfeedback><text>Seam coverage = seams injected / total anti-patterns = 0/4 = 0 in the base fixture, because appliedSeams starts empty.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read determinism value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the base fixture, the determinism signal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.5</text><feedback><text>Correct — 2 of 4 nondeterminism sources are present, so 1 - 2/4 = 0.5.</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 is the structural signal, not determinism.</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 is the determinism value after one source is removed, not the base value.</text></feedback></answer>
+    <answer fraction="0"><text>0.2</text><feedback><text>0.2 is the observability signal, not determinism.</text></feedback></answer>
+    <generalfeedback><text>Determinism = 1 - present/DET_TOTAL = 1 - 2/4 = 0.5; the fixture declares two sources (clock and random) out of the catalogue of four.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read structural value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the base fixture, the structural signal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.24</text><feedback><text>Correct — the hardest unit scores 19, so 1 - 19/25 = 0.24.</text></feedback></answer>
+    <answer fraction="0"><text>0.6</text><feedback><text>0.6 is the controllability signal, not structural.</text></feedback></answer>
+    <answer fraction="0"><text>0.19</text><feedback><text>19 is the hardest unit's raw score, not the normalized structural signal 0.24.</text></feedback></answer>
+    <answer fraction="0"><text>0.76</text><feedback><text>0.76 is 19/25 (the hardness fraction); the signal is 1 - 0.76 = 0.24.</text></feedback></answer>
+    <generalfeedback><text>Structural = 1 - hardest/STRUCT_CAP = 1 - 19/25 = 0.24, where the checkout unit is the hardest at 19 and STRUCT_CAP = 25.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read the overall grade</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The base fixture's overall grade is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>F</text><feedback><text>Correct — the overall 0.308 falls below the D threshold of 0.40, so the grade is F.</text></feedback></answer>
+    <answer fraction="0"><text>A</text><feedback><text>A needs overall at least 0.85; the fixture is far below that.</text></feedback></answer>
+    <answer fraction="0"><text>C</text><feedback><text>C needs overall at least 0.55; the fixture's 0.308 is well below.</text></feedback></answer>
+    <answer fraction="0"><text>D</text><feedback><text>D needs overall at least 0.40; the fixture's 0.308 is below, so it is F.</text></feedback></answer>
+    <generalfeedback><text>The base overall is 0.308, below the lowest passing threshold (D at 0.40), so the grade is F.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How overall is computed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The overall score is computed as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The arithmetic mean of the five signals</text><feedback><text>Correct — the overall is the plain average of the five signal values.</text></feedback></answer>
+    <answer fraction="0"><text>The product of the five signals</text><feedback><text>The overall is the mean, not the product.</text></feedback></answer>
+    <answer fraction="0"><text>The maximum of the five signals</text><feedback><text>The overall is the mean, not the maximum.</text></feedback></answer>
+    <answer fraction="0"><text>The minimum of the five signals</text><feedback><text>The overall is the mean, not the minimum.</text></feedback></answer>
+    <generalfeedback><text>overall = (controllability + observability + seam + structural + determinism) / 5 — the arithmetic mean of the five equally weighted signals.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Scorecard re-derives from scratch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The scorecard re-derives every metric from scratch rather than reusing the other explorers' engines.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — it composes the sibling engines and adds a nondeterminism signal; it does not re-derive anything.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>It does not re-derive; the whole point of the capstone is to compose the existing engines.</text></feedback></answer>
+    <generalfeedback><text>The scorecard reuses the controllability/observability, seams, and metrics engines as its source of truth, adding only the nondeterminism signal. It composes rather than re-derives.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which signal is zero</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the base fixture, which signal is 0?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>seam coverage</text><feedback><text>Correct — no seams are injected initially, so seam coverage is 0.</text></feedback></answer>
+    <answer fraction="0"><text>controllability</text><feedback><text>Controllability is 0.6, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>determinism</text><feedback><text>Determinism is 0.5, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>structural</text><feedback><text>Structural is 0.24, not 0.</text></feedback></answer>
+    <generalfeedback><text>Because appliedSeams starts empty, seam coverage = 0/4 = 0 — the only signal at zero in the base fixture.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Threshold for grade A</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To earn grade A, the overall score must be at least:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.85</text><feedback><text>Correct — the A threshold is 0.85.</text></feedback></answer>
+    <answer fraction="0"><text>0.70</text><feedback><text>0.70 is the B threshold, not A.</text></feedback></answer>
+    <answer fraction="0"><text>0.55</text><feedback><text>0.55 is the C threshold, not A.</text></feedback></answer>
+    <answer fraction="0"><text>0.40</text><feedback><text>0.40 is the D threshold, not A.</text></feedback></answer>
+    <generalfeedback><text>The thresholds, checked high to low, are A at 0.85, B at 0.70, C at 0.55, D at 0.40, else F.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Scorecard/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the base fixture is F</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the base fixture receive grade F?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its overall (mean) 0.308 is below the D threshold of 0.40</text><feedback><text>Correct — 0.308 is under 0.40, so the grade lands at F.</text></feedback></answer>
+    <answer fraction="0"><text>Because one signal is exactly 1.0</text><feedback><text>No signal is 1.0 in the base fixture; the grade comes from the low mean.</text></feedback></answer>
+    <answer fraction="0"><text>Because it has more than five signals</text><feedback><text>There are exactly five signals; the grade is driven by their mean.</text></feedback></answer>
+    <answer fraction="0"><text>Because the clock seam is already injected</text><feedback><text>No seams are injected initially; the low mean of 0.308 is the reason.</text></feedback></answer>
+    <generalfeedback><text>The five signals (0.6, 0.2, 0, 0.24, 0.5) average to 0.308, which is below the lowest passing threshold (D at 0.40), so the grade is F.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seam signal maps to which fix</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The lowest signal — seam coverage — maps to which fix and teaching explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Injecting a seam — the testability-seams explorer</text><feedback><text>Correct — the seam-coverage fix deep-links to the testability-seams explorer.</text></feedback></answer>
+    <answer fraction="0"><text>Adding a probe — the controllability-observability explorer</text><feedback><text>That fix targets observability, not seam coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Splitting a unit — the testability-metrics explorer</text><feedback><text>That targets the structural signal, not seam coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — seam coverage has no fix</text><feedback><text>Seam coverage does have a fix: injecting a seam.</text></feedback></answer>
+    <generalfeedback><text>Each signal deep-links to the explorer that teaches it; seam coverage links to testability-seams, where injecting seams is taught.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the clock lifts two signals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does injecting the clock raise two signals at once?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It adds a seam (raising seam coverage) and removes a nondeterminism source (raising determinism)</text><feedback><text>Correct — the clock fix injects the clock seam and eliminates the clock source of nondeterminism.</text></feedback></answer>
+    <answer fraction="0"><text>It doubles the controllability count</text><feedback><text>Controllability is unaffected by injecting the clock.</text></feedback></answer>
+    <answer fraction="0"><text>It changes the structural hardness and the observability</text><feedback><text>Neither structural nor observability changes when the clock is injected.</text></feedback></answer>
+    <answer fraction="0"><text>It only raises determinism; the second rise is a display glitch</text><feedback><text>Both rises are real: seam coverage and determinism each increase.</text></feedback></answer>
+    <generalfeedback><text>Injecting the clock adds the clock seam (seam coverage 0 to 0.25) and removes 'clock' from the nondeterminism list (determinism 0.5 to 0.75) — one fix, two signals.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute the overall from five signals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given signals 0.6, 0.2, 0, 0.24, 0.5, the overall score is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.308</text><feedback><text>Correct — (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308.</text></feedback></answer>
+    <answer fraction="0"><text>1.54</text><feedback><text>1.54 is the sum; the overall is the mean, 1.54 / 5 = 0.308.</text></feedback></answer>
+    <answer fraction="0"><text>0.24</text><feedback><text>0.24 is one signal (structural), not the mean of all five.</text></feedback></answer>
+    <answer fraction="0"><text>0.4</text><feedback><text>0.4 is the D threshold, not the computed mean 0.308.</text></feedback></answer>
+    <generalfeedback><text>overall = mean = (0.6 + 0.2 + 0 + 0.24 + 0.5) / 5 = 1.54 / 5 = 0.308.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determinism links to which explorer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The determinism signal deep-links to which explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>flaky-diagnosis</text><feedback><text>Correct — nondeterminism is a flakiness tax, so determinism links to flaky-diagnosis.</text></feedback></answer>
+    <answer fraction="0"><text>testability-seams</text><feedback><text>That is where seam coverage links, not determinism.</text></feedback></answer>
+    <answer fraction="0"><text>testability-metrics</text><feedback><text>That is where the structural signal links, not determinism.</text></feedback></answer>
+    <answer fraction="0"><text>controllability-observability</text><feedback><text>That is where controllability and observability link, not determinism.</text></feedback></answer>
+    <generalfeedback><text>The determinism signal is about nondeterminism sources (clock/random), which cause flaky tests, so its deep-link points to the flaky-diagnosis explorer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Structural taught by which explorer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The structural signal is taught by which explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>testability-metrics</text><feedback><text>Correct — structural hardness comes from the metrics engine.</text></feedback></answer>
+    <answer fraction="0"><text>flaky-diagnosis</text><feedback><text>That teaches the determinism signal, not structural.</text></feedback></answer>
+    <answer fraction="0"><text>testability-seams</text><feedback><text>That teaches seam coverage, not structural.</text></feedback></answer>
+    <answer fraction="0"><text>controllability-observability</text><feedback><text>That teaches controllability and observability, not structural.</text></feedback></answer>
+    <generalfeedback><text>The structural signal is derived from testabilityHardness on the metrics module, so it deep-links to the testability-metrics explorer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seam coverage taught by which explorer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The seam-coverage signal is taught by which explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>testability-seams</text><feedback><text>Correct — seam coverage comes from the seams engine.</text></feedback></answer>
+    <answer fraction="0"><text>testability-metrics</text><feedback><text>That teaches the structural signal, not seam coverage.</text></feedback></answer>
+    <answer fraction="0"><text>flaky-diagnosis</text><feedback><text>That teaches the determinism signal, not seam coverage.</text></feedback></answer>
+    <answer fraction="0"><text>controllability-observability</text><feedback><text>That teaches controllability and observability, not seam coverage.</text></feedback></answer>
+    <generalfeedback><text>Seam coverage is computed by testabilityOf from the seams engine, so it deep-links to the testability-seams explorer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the top-fixes list contains</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The scorecard's "top fixes" list contains:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The three lowest signals, in ascending order</text><feedback><text>Correct — the three weakest signals are listed lowest-first as the priority fixes.</text></feedback></answer>
+    <answer fraction="0"><text>The three highest signals, in descending order</text><feedback><text>Fixes target the weakest signals, not the strongest.</text></feedback></answer>
+    <answer fraction="0"><text>All five signals</text><feedback><text>Only the three lowest are listed as top fixes.</text></feedback></answer>
+    <answer fraction="0"><text>A random selection of two signals</text><feedback><text>The list is deterministic: the three lowest signals, ascending.</text></feedback></answer>
+    <generalfeedback><text>topFixes takes the three lowest signals sorted ascending by score (ties broken by fixed signal order), each linking to the explorer that teaches it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Highest-priority fix for the base fixture</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the base fixture, which fix is listed first (highest priority)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The seam-coverage fix — its signal (0) is the lowest</text><feedback><text>Correct — seam coverage is 0, the lowest, so its fix ranks first.</text></feedback></answer>
+    <answer fraction="0"><text>The controllability fix — its signal (0.6) is the highest</text><feedback><text>The highest signal is the least urgent; fixes go to the lowest first.</text></feedback></answer>
+    <answer fraction="0"><text>The determinism fix — its signal (0.5) is in the middle</text><feedback><text>0.5 is not the lowest; seam coverage at 0 ranks ahead of it.</text></feedback></answer>
+    <answer fraction="0"><text>The structural fix — its signal (0.24) is the second lowest</text><feedback><text>Structural (0.24) is the third lowest; observability (0.2) is second and seam (0) is first.</text></feedback></answer>
+    <generalfeedback><text>Sorted ascending, the signals are seam 0, observability 0.2, structural 0.24, determinism 0.5, controllability 0.6 — so the seam-coverage fix is first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seam signal after injecting the clock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting the clock, the seam-coverage signal becomes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.25</text><feedback><text>Correct — 1 of 4 seams injected gives 1/4 = 0.25.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>0 is the value before any seam is injected; injecting the clock raises it.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 would require two of four seams; only the clock is injected here.</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 is the determinism value after the clock fix, not the seam value.</text></feedback></answer>
+    <generalfeedback><text>Injecting the clock adds one seam of four: seam coverage = 1/4 = 0.25.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determinism after injecting the clock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting the clock, the determinism signal becomes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.75</text><feedback><text>Correct — one of the two sources is removed, so 1 - 1/4 = 0.75.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 is the value before the clock source is removed.</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 is the seam-coverage value after the clock fix, not determinism.</text></feedback></answer>
+    <answer fraction="0"><text>1.0</text><feedback><text>1.0 would require removing both sources; only 'clock' is removed here.</text></feedback></answer>
+    <generalfeedback><text>Removing 'clock' leaves one source of four: determinism = 1 - 1/4 = 0.75.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where determinism 0.5 comes from</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The base determinism signal is 0.5 because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 of 4 nondeterminism sources are present: 1 - 2/4 = 0.5</text><feedback><text>Correct — two of the four-source catalogue are present.</text></feedback></answer>
+    <answer fraction="0"><text>5 of 10 tests are flaky</text><feedback><text>The signal is not a flaky-test ratio; it is 1 - present/DET_TOTAL.</text></feedback></answer>
+    <answer fraction="0"><text>half the seams are injected</text><feedback><text>Determinism is unrelated to seam count; it counts nondeterminism sources.</text></feedback></answer>
+    <answer fraction="0"><text>the clock seam is already fixed</text><feedback><text>No seam is fixed initially; the value comes from 2 of 4 sources present.</text></feedback></answer>
+    <generalfeedback><text>determinism = 1 - present/DET_TOTAL = 1 - 2/4 = 0.5, with DET_TOTAL = 4 the full catalogue and two sources (clock, random) present.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The fixture's nondeterminism sources</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The base fixture declares which nondeterminism sources?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>clock and random</text><feedback><text>Correct — the fixture's nondeterminism list is ['clock', 'random'].</text></feedback></answer>
+    <answer fraction="0"><text>network and timing</text><feedback><text>Those are not the fixture's declared sources; it lists clock and random.</text></feedback></answer>
+    <answer fraction="0"><text>threads and disk</text><feedback><text>Those are not the fixture's declared sources; it lists clock and random.</text></feedback></answer>
+    <answer fraction="0"><text>animation and order</text><feedback><text>Those are not the fixture's declared sources; it lists clock and random.</text></feedback></answer>
+    <generalfeedback><text>The fixture's nondeterminism list is ['clock', 'random'] — the two sources removed by inject-clock and inject-rng respectively.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What adding a probe raises</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding a probe raises which signal, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Observability — it gives a shared-output state a unique output so a test can tell it apart</text><feedback><text>Correct — a probe makes a previously hidden state distinguishable, raising observability.</text></feedback></answer>
+    <answer fraction="0"><text>Controllability — it adds a new input edge</text><feedback><text>A probe changes outputs, not the input-driven transitions that control reachability.</text></feedback></answer>
+    <answer fraction="0"><text>Structural — it lowers cyclomatic complexity</text><feedback><text>A probe does not touch the metrics module's structural hardness.</text></feedback></answer>
+    <answer fraction="0"><text>Seam coverage — it injects a dependency</text><feedback><text>Injecting a dependency is a seam fix; a probe instead affects observability.</text></feedback></answer>
+    <generalfeedback><text>A probe gives a shared-output state a unique output (via withProbe), so more states become distinguishable and observability rises.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which explorer both C and O link to</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The controllability and observability signals both deep-link to which explorer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>controllability-observability</text><feedback><text>Correct — both signals come from that one explorer's engine.</text></feedback></answer>
+    <answer fraction="0"><text>testability-seams</text><feedback><text>That teaches seam coverage, not controllability/observability.</text></feedback></answer>
+    <answer fraction="0"><text>testability-metrics</text><feedback><text>That teaches the structural signal, not controllability/observability.</text></feedback></answer>
+    <answer fraction="0"><text>flaky-diagnosis</text><feedback><text>That teaches determinism, not controllability/observability.</text></feedback></answer>
+    <generalfeedback><text>Controllability and observability are both computed by the controllability-observability engine, so both deep-link to that explorer.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testability Scorecard/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Overall after injecting the clock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting the clock (seam becomes 0.25 and determinism becomes 0.75, the other three unchanged), the new overall is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.408</text><feedback><text>Correct — (0.6 + 0.2 + 0.25 + 0.24 + 0.75) / 5 = 2.04 / 5 = 0.408.</text></feedback></answer>
+    <answer fraction="0"><text>0.308</text><feedback><text>0.308 is the overall before the fix; injecting the clock raises it to 0.408.</text></feedback></answer>
+    <answer fraction="0"><text>0.508</text><feedback><text>0.508 would require also injecting the RNG; the clock alone gives 0.408.</text></feedback></answer>
+    <answer fraction="0"><text>0.45</text><feedback><text>The exact mean is 2.04 / 5 = 0.408, not 0.45.</text></feedback></answer>
+    <generalfeedback><text>After the clock fix the signals are 0.6, 0.2, 0.25, 0.24, 0.75, summing to 2.04; the mean is 2.04 / 5 = 0.408.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Grade after injecting the clock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With the post-clock overall of 0.408, the grade becomes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>D</text><feedback><text>Correct — 0.408 is at or above the D threshold (0.40) but below C (0.55), so it is D.</text></feedback></answer>
+    <answer fraction="0"><text>F</text><feedback><text>0.408 has crossed the 0.40 D threshold, so it is no longer F.</text></feedback></answer>
+    <answer fraction="0"><text>C</text><feedback><text>C needs at least 0.55; 0.408 is below that.</text></feedback></answer>
+    <answer fraction="0"><text>B</text><feedback><text>B needs at least 0.70; 0.408 is well below that.</text></feedback></answer>
+    <generalfeedback><text>gradeFor(0.408): it clears the D threshold of 0.40 but not the C threshold of 0.55, so the grade is D.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting the F to D jump</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Injecting the clock moves the grade from F to D. The best explanation is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One fix raised two signals, lifting the mean from 0.308 to 0.408, which crosses the 0.40 D threshold</text><feedback><text>Correct — the clock fix bumps both seam coverage and determinism, pushing the mean past 0.40.</text></feedback></answer>
+    <answer fraction="0"><text>It raised controllability above 0.85</text><feedback><text>Controllability is unchanged at 0.6; the grade moved because of seam and determinism.</text></feedback></answer>
+    <answer fraction="0"><text>It removed a signal, so the mean of the rest is higher</text><feedback><text>No signal is removed; all five are still averaged.</text></feedback></answer>
+    <answer fraction="0"><text>The grade change is unrelated to the signal values</text><feedback><text>The grade is a direct function of the mean of the signal values.</text></feedback></answer>
+    <generalfeedback><text>The clock fix raises seam coverage (0 to 0.25) and determinism (0.5 to 0.75); the mean rises from 0.308 to 0.408, crossing the D threshold of 0.40 and lifting the grade from F to D.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The structural formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The structural signal is computed as 1 - hardest/STRUCT_CAP. With the hardest unit (checkout) scoring 19 and STRUCT_CAP = 25, structural equals:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.24 (1 - 19/25)</text><feedback><text>Correct — 19/25 = 0.76, and 1 - 0.76 = 0.24.</text></feedback></answer>
+    <answer fraction="0"><text>0.76</text><feedback><text>0.76 is 19/25, the hardness fraction; the signal is 1 minus that = 0.24.</text></feedback></answer>
+    <answer fraction="0"><text>0.19</text><feedback><text>0.19 confuses the raw score 19 with the normalized signal 0.24.</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 is 1 - 19/25 rounded loosely; the exact value is 0.24.</text></feedback></answer>
+    <generalfeedback><text>structural = 1 - hardest/STRUCT_CAP = 1 - 19/25 = 1 - 0.76 = 0.24, with checkout the hardest unit at 19.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why fix the lowest signal first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the scorecard prioritize the lowest signal first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It has the most room to improve and drags the mean down the most, so fixing it yields the biggest grade gain</text><feedback><text>Correct — the weakest signal is both the biggest drag and the biggest opportunity.</text></feedback></answer>
+    <answer fraction="0"><text>It is always the cheapest to fix</text><feedback><text>Cost is not what the scorecard ranks on; it ranks by which signal is lowest.</text></feedback></answer>
+    <answer fraction="0"><text>The lowest signal is always determinism</text><feedback><text>The lowest signal varies; in the base fixture it is seam coverage, not determinism.</text></feedback></answer>
+    <answer fraction="0"><text>Lower signals are more testable, so they are safer to touch</text><feedback><text>Lower means less testable, not more; that is exactly why it needs the fix.</text></feedback></answer>
+    <generalfeedback><text>Because the overall is a mean, the lowest signal has the most headroom (0 to 1) and pulls the average down the most, so improving it produces the largest rise in the overall and grade.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Nondeterminism and flaky testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the nondeterminism signal relate to flaky testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nondeterminism sources such as the clock and RNG make tests flaky, so the determinism signal links to the flaky-diagnosis explorer</text><feedback><text>Correct — unpinned clock/RNG are classic flakiness causes, tying determinism to flaky-diagnosis.</text></feedback></answer>
+    <answer fraction="0"><text>Nondeterminism only affects compile time, not tests</text><feedback><text>Nondeterminism affects test runs, making results non-repeatable (flaky).</text></feedback></answer>
+    <answer fraction="0"><text>Flaky tests raise the structural signal</text><feedback><text>Flakiness relates to determinism, not the structural signal.</text></feedback></answer>
+    <answer fraction="0"><text>The determinism signal counts lines of code</text><feedback><text>Determinism counts nondeterminism sources, not lines of code.</text></feedback></answer>
+    <generalfeedback><text>Each nondeterminism source (a real clock, a real RNG) makes a test's outcome vary between runs — the definition of flakiness. So the determinism signal deep-links to the flaky-diagnosis explorer, and injecting the clock/RNG both raises determinism and removes a flakiness cause.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Determinism after clock and RNG</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting BOTH the clock and the RNG seams (removing both nondeterminism sources), the determinism signal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.0 (1 - 0/4)</text><feedback><text>Correct — with zero sources present, determinism = 1 - 0/4 = 1.0.</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 is the value after removing only one source; removing both gives 1.0.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 is the base value with both sources present.</text></feedback></answer>
+    <answer fraction="0"><text>0.0</text><feedback><text>Removing sources raises determinism; with none present it is 1.0, not 0.</text></feedback></answer>
+    <generalfeedback><text>inject-clock removes 'clock' and inject-rng removes 'random', leaving zero of four sources: determinism = 1 - 0/4 = 1.0.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seam coverage after all four seams</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After injecting all four seams (config, gateway, clock, rng), the seam-coverage signal is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.0</text><feedback><text>Correct — 4 of 4 anti-patterns removed gives 4/4 = 1.0.</text></feedback></answer>
+    <answer fraction="0"><text>0.75</text><feedback><text>0.75 would be three of four seams; all four gives 1.0.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 would be two of four seams; all four gives 1.0.</text></feedback></answer>
+    <answer fraction="0"><text>0.25</text><feedback><text>0.25 would be one of four seams; all four gives 1.0.</text></feedback></answer>
+    <generalfeedback><text>Seam coverage = seams injected / 4. With all four (config, gateway, clock, rng) injected, it is 4/4 = 1.0.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Overall and grade after all four seams</text></name>
+    <questiontext format="html"><text><![CDATA[<p>With all four seams injected, the signals are controllability 0.6, observability 0.2, seam 1.0, structural 0.24, determinism 1.0 (clock and rng removed). The overall and grade are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.608 → C</text><feedback><text>Correct — (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 3.04 / 5 = 0.608, which clears the C threshold of 0.55.</text></feedback></answer>
+    <answer fraction="0"><text>0.408 → D</text><feedback><text>0.408 is the overall after only the clock fix, not after all four seams.</text></feedback></answer>
+    <answer fraction="0"><text>0.708 → B</text><feedback><text>The exact mean is 3.04 / 5 = 0.608, not 0.708.</text></feedback></answer>
+    <answer fraction="0"><text>0.508 → D</text><feedback><text>0.508 is the mean when only clock and rng seams are applied (seam 0.5); all four seams give 0.608.</text></feedback></answer>
+    <generalfeedback><text>All four seams give seam 1.0 and (via clock and rng) determinism 1.0; the mean is (0.6 + 0.2 + 1.0 + 0.24 + 1.0) / 5 = 0.608, which is at or above the C threshold 0.55, so grade C.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why structural stays 0.24</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You inject the config seam. Why does the structural signal stay at 0.24?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Structural hardness comes from a different engine (the metrics module); injecting a seam changes only seam coverage</text><feedback><text>Correct — seams and structural are computed by independent engines.</text></feedback></answer>
+    <answer fraction="0"><text>Because structural is always frozen at 0.24 forever</text><feedback><text>Structural is not frozen in principle; it just does not respond to seam injection.</text></feedback></answer>
+    <answer fraction="0"><text>Because the config seam lowers cyclomatic complexity by exactly zero rounding</text><feedback><text>The config seam does not touch the metrics module at all, so no rounding is involved.</text></feedback></answer>
+    <answer fraction="0"><text>Because injecting a seam also injects structural debt</text><feedback><text>Injecting a seam has no effect on the structural signal in either direction.</text></feedback></answer>
+    <generalfeedback><text>Structural comes from testabilityHardness on the metrics module, while seam coverage comes from the seams engine. Injecting the config seam only changes appliedSeams, so structural stays 0.24.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of STRUCT_CAP</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does STRUCT_CAP = 25 represent in the structural signal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The hardness score treated as worst-case; a unit scoring 25 would give structural 1 - 25/25 = 0</text><feedback><text>Correct — STRUCT_CAP is the "as bad as it gets" denominator for normalizing hardness.</text></feedback></answer>
+    <answer fraction="0"><text>The maximum number of units allowed in a module</text><feedback><text>STRUCT_CAP normalizes the hardness score, not a unit count.</text></feedback></answer>
+    <answer fraction="0"><text>The passing grade threshold in percent</text><feedback><text>Grade thresholds are separate (0.85/0.70/0.55/0.40); STRUCT_CAP is the hardness denominator.</text></feedback></answer>
+    <answer fraction="0"><text>The number of nondeterminism sources</text><feedback><text>That is DET_TOTAL = 4; STRUCT_CAP = 25 normalizes structural hardness.</text></feedback></answer>
+    <generalfeedback><text>STRUCT_CAP = 25 is the hardness score treated as worst-case; structural = 1 - hardest/STRUCT_CAP, so a unit at 25 would give 0 and the fixture's 19 gives 0.24.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of DET_TOTAL</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does DET_TOTAL = 4 represent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The full catalogue of nondeterminism sources the determinism signal is normalized against; 2 present gives 1 - 2/4 = 0.5</text><feedback><text>Correct — DET_TOTAL is the denominator for the determinism signal.</text></feedback></answer>
+    <answer fraction="0"><text>The number of grade letters</text><feedback><text>There are five grade letters (A, B, C, D, F); DET_TOTAL = 4 is the nondeterminism catalogue size.</text></feedback></answer>
+    <answer fraction="0"><text>The number of seams times two</text><feedback><text>There are four seams; DET_TOTAL just happens to be 4 and denotes the nondeterminism catalogue, not a product.</text></feedback></answer>
+    <answer fraction="0"><text>The count of explorers composed</text><feedback><text>The scorecard composes three sibling engines; DET_TOTAL = 4 is the nondeterminism catalogue.</text></feedback></answer>
+    <generalfeedback><text>DET_TOTAL = 4 is the total catalogue of nondeterminism sources; determinism = 1 - present/DET_TOTAL, so the two present sources give 1 - 2/4 = 0.5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Clock versus config as a single fix</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is injecting the clock a higher-leverage single fix than injecting the config seam?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>inject-clock raises two signals (seam coverage and determinism); inject-config raises only seam coverage</text><feedback><text>Correct — the clock fix also removes a nondeterminism source, so it moves two signals.</text></feedback></answer>
+    <answer fraction="0"><text>inject-config raises three signals</text><feedback><text>inject-config raises only seam coverage; it does not touch the other signals.</text></feedback></answer>
+    <answer fraction="0"><text>inject-clock lowers structural hardness as well</text><feedback><text>Neither fix touches structural; the clock's extra effect is on determinism.</text></feedback></answer>
+    <answer fraction="0"><text>They have identical effect on the grade</text><feedback><text>They differ: the clock moves two signals, the config only one, so their grade effect differs.</text></feedback></answer>
+    <generalfeedback><text>inject-config adds only the config seam (seam coverage +0.25). inject-clock adds the clock seam (seam coverage +0.25) and removes the clock nondeterminism source (determinism +0.25), so it lifts the mean twice as much.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of one signal on the mean</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because the overall is a plain mean of five signals, raising any one signal from 0 to 1 changes the overall by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.2 (one fifth)</text><feedback><text>Correct — each signal contributes 1/5 of the mean, so a full 0-to-1 swing moves the overall by 0.2.</text></feedback></answer>
+    <answer fraction="0"><text>1.0</text><feedback><text>A single signal is only 1/5 of the mean; its full swing is 0.2, not 1.0.</text></feedback></answer>
+    <answer fraction="0"><text>0.5</text><feedback><text>0.5 would be a two-signal weighting; each single signal is worth 0.2 of the mean.</text></feedback></answer>
+    <answer fraction="0"><text>0 — individual signals do not affect the mean</text><feedback><text>Each signal does affect the mean, by 1/5 of its change.</text></feedback></answer>
+    <generalfeedback><text>The overall is the mean of five equally weighted signals, so each contributes 1/5 = 0.2. A signal moving from 0 to 1 raises the overall by 0.2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order the top-3 fixes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given signals controllability 0.6, observability 0.2, seam 0, structural 0.24, determinism 0.5, the top-3 fixes, in priority order, are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>seam coverage, observability, structural</text><feedback><text>Correct — ascending by score: seam 0, observability 0.2, structural 0.24.</text></feedback></answer>
+    <answer fraction="0"><text>controllability, determinism, structural</text><feedback><text>Those are not the three lowest; controllability (0.6) and determinism (0.5) are the two highest.</text></feedback></answer>
+    <answer fraction="0"><text>structural, observability, seam coverage</text><feedback><text>That is descending; the list goes lowest-first: seam, observability, structural.</text></feedback></answer>
+    <answer fraction="0"><text>determinism, controllability, observability</text><feedback><text>determinism (0.5) and controllability (0.6) are the strongest signals, not top fixes.</text></feedback></answer>
+    <generalfeedback><text>topFixes sorts ascending: seam 0 (testability-seams), observability 0.2 (controllability-observability), structural 0.24 (testability-metrics) — the three weakest signals, each linking to the explorer that teaches it.</text></generalfeedback>
+  </question>
+</quiz>
