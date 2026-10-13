@@ -8941,6 +8941,25 @@
     }
     return { nodes, edges };
   }
+  function pathSourceLines(graph, path = []) {
+    const nodeById = new Map(graph.nodes.map((node2) => [node2.id, node2]));
+    const lines = /* @__PURE__ */ new Set();
+    for (const nodeId of path) {
+      const node2 = nodeById.get(nodeId);
+      if (node2 && Number.isFinite(node2.sourceLine)) lines.add(node2.sourceLine);
+    }
+    return [...lines].sort((a, b) => a - b);
+  }
+  function pathCoversRequirement(pathNodeSet, pathEdgeSet, requirement) {
+    if (!requirement) return false;
+    for (const nodeId of requirement.nodes || []) {
+      if (!pathNodeSet.has(nodeId)) return false;
+    }
+    for (const edgeId of requirement.edges || []) {
+      if (!pathEdgeSet.has(edgeId)) return false;
+    }
+    return true;
+  }
   function cloneGraph(graph) {
     return {
       ...graph,
@@ -9197,19 +9216,42 @@
     }
     return requirement.nodes.map((nodeId) => graph.nodes.find((node2) => node2.id === nodeId)).filter((node2) => node2 == null ? void 0 : node2.sourceLine).filter((node2, index, nodes) => nodes.findIndex((item) => item.id === node2.id) === index);
   }
-  function renderSourceCode(sourceCode, selectedSourceNodes) {
+  function renderSourceCode(sourceCode, selectedSourceNodes, pathLineColors = null) {
     if (!sourceCode) {
       return `<p class="graph-source-empty" data-testid="program-source-empty">${t("graph.source.empty")}</p>`;
     }
+    const pathMode = pathLineColors instanceof Map && pathLineColors.size > 0;
     const highlightedLines = new Set(selectedSourceNodes.map((node2) => node2.sourceLine));
     return `
     <pre class="graph-source-code" data-testid="program-source-code"><code>
-      ${sourceCode.split("\n").map((line, index) => `
-        <span class="graph-source-line${highlightedLines.has(index + 1) ? " graph-source-line--active" : ""}" data-testid="program-source-line-${index + 1}">
-          <span class="graph-source-line-number">${index + 1}</span>
+      ${sourceCode.split("\n").map((line, index) => {
+      const lineNumber = index + 1;
+      if (pathMode) {
+        const color = pathLineColors.get(lineNumber);
+        if (color) {
+          const shared = color === "shared";
+          const srcColor = shared ? SHARED_PATH_COLOR : color;
+          return `
+        <span class="graph-source-line graph-source-line--path${shared ? " graph-source-line--shared" : ""}" style="--src-color: ${srcColor}" data-path-src="${shared ? "shared" : "single"}" data-testid="program-source-line-${lineNumber}">
+          <span class="graph-source-line-number">${lineNumber}</span>
           <span class="graph-source-line-text">${escapeHtml(line) || "&nbsp;"}</span>
         </span>
-      `).join("")}
+      `;
+        }
+        return `
+        <span class="graph-source-line" data-testid="program-source-line-${lineNumber}">
+          <span class="graph-source-line-number">${lineNumber}</span>
+          <span class="graph-source-line-text">${escapeHtml(line) || "&nbsp;"}</span>
+        </span>
+      `;
+      }
+      return `
+        <span class="graph-source-line${highlightedLines.has(lineNumber) ? " graph-source-line--active" : ""}" data-testid="program-source-line-${lineNumber}">
+          <span class="graph-source-line-number">${lineNumber}</span>
+          <span class="graph-source-line-text">${escapeHtml(line) || "&nbsp;"}</span>
+        </span>
+      `;
+    }).join("")}
     </code></pre>
   `;
   }
@@ -9702,6 +9744,34 @@
         }
         return [...edgeCount.values(), ...nodeCount.values()].some((c) => c >= 2);
       })();
+      const pathSrcColorMap = /* @__PURE__ */ new Map();
+      const reqCoverColorMap = /* @__PURE__ */ new Map();
+      if (selPaths.length) {
+        const lineCount = /* @__PURE__ */ new Map();
+        const lineFirstColor = /* @__PURE__ */ new Map();
+        selPathIndices.forEach((i) => {
+          const color = PALETTE[i % PALETTE.length];
+          for (const line of pathSourceLines(graph, pathPlan.selectedPaths[i])) {
+            lineCount.set(line, (lineCount.get(line) || 0) + 1);
+            if (!lineFirstColor.has(line)) lineFirstColor.set(line, color);
+          }
+        });
+        for (const [line, count] of lineCount) {
+          pathSrcColorMap.set(line, count >= 2 ? "shared" : lineFirstColor.get(line));
+        }
+        for (const requirement of requirements) {
+          let coverCount = 0;
+          let coverColor = null;
+          selPaths.forEach((p, k) => {
+            if (pathCoversRequirement(p.nodes, p.edges, requirement)) {
+              coverCount += 1;
+              if (coverColor === null) coverColor = PALETTE[selPathIndices[k] % PALETTE.length];
+            }
+          });
+          if (coverCount === 1) reqCoverColorMap.set(requirement.id, coverColor);
+          else if (coverCount >= 2) reqCoverColorMap.set(requirement.id, "shared");
+        }
+      }
       const selectedSourceNodes = getSelectedSourceNodes(graph, selectedRequirement);
       const quizPanel = renderGraphQuizPanel(pathPlan, selectedCriterion);
       const labReflectPanel = renderGraphLabReflectPanel();
@@ -9764,7 +9834,7 @@
             <p>${t("graph.uploadFormatHelp")}</p>
           </div>
         </div>
-        ${renderSourceCode(activeProgram.sourceCode, selectedSourceNodes)}
+        ${renderSourceCode(activeProgram.sourceCode, selectedSourceNodes, pathSrcColorMap)}
       </div>
 
       <div class="graph-editor-card" data-testid="graph-editor-card">
@@ -9912,19 +9982,27 @@
             <h4>Test Requirements</h4>
             <p class="sidebar-text">${t("graph.req.help")}</p>
             <ul class="requirement-list" data-testid="requirement-list">
-              ${requirements.map((requirement) => `
+              ${requirements.map((requirement) => {
+        const cover = reqCoverColorMap.get(requirement.id);
+        const coverShared = cover === "shared";
+        const coverClass = cover ? ` graph-requirement--covered${coverShared ? " graph-requirement--shared" : ""}` : "";
+        const coverColor = coverShared ? SHARED_PATH_COLOR : cover;
+        const coverStyle = cover ? ` style="--req-cover-color: ${coverColor}"` : "";
+        const coverHook = cover ? ` data-path-cover="${coverShared ? "shared" : "single"}"` : "";
+        return `
                 <li>
                   <button
-                    class="requirement-item${(selectedRequirement == null ? void 0 : selectedRequirement.id) === requirement.id ? " active" : ""}"
+                    class="requirement-item${(selectedRequirement == null ? void 0 : selectedRequirement.id) === requirement.id ? " active" : ""}${coverClass}"
                     type="button"
                     data-testid="requirement-${requirement.id}"
-                    data-requirement-id="${requirement.id}"
+                    data-requirement-id="${requirement.id}"${coverStyle}${coverHook}
                   >
                     <span class="requirement-kind">${requirement.type}</span>
                     <strong>${requirement.displayText}</strong>
                   </button>
                 </li>
-              `).join("")}
+              `;
+      }).join("")}
             </ul>
           </div>
 

@@ -78,4 +78,48 @@ test.describe('Graph Coverage Browser Tests', () => {
     await expect(chip1).toHaveAttribute('aria-pressed', 'false');
     await expect(chip2).toHaveAttribute('aria-pressed', 'true');
   });
+
+  test('path selection highlights source lines and covered requirements (program with source)', async ({ page }) => {
+    await page.goto('/?explorer=graph-coverage');
+
+    // Switch to a program that carries source code (nodes get sourceLine).
+    await page.getByTestId('program-example-select').selectOption('triangle-problem');
+    await expect(page.getByTestId('program-source-code')).toBeVisible();
+
+    // A criterion that yields end-to-end test paths to toggle.
+    await page.getByTestId('criterion-complete-path').click();
+
+    const chip1 = page.getByTestId('test-path-1');
+    await expect(chip1).toBeVisible();
+    await chip1.click();
+    await expect(chip1).toHaveAttribute('aria-pressed', 'true');
+
+    // Source lines along the path are tinted in the path's color...
+    await expect(page.locator('[data-path-src]').first()).toBeAttached();
+    expect(await page.locator('[data-path-src]').count()).toBeGreaterThan(0);
+
+    // ...and at least one Test Requirements row shows a cover accent.
+    await expect(page.locator('[data-path-cover]').first()).toBeAttached();
+    expect(await page.locator('[data-path-cover]').count()).toBeGreaterThan(0);
+  });
+
+  test('path selection on the source-less default sample still marks covered requirements', async ({ page }) => {
+    await page.goto('/?explorer=graph-coverage');
+
+    // Default CFG Sample has no source code.
+    await expect(page.getByTestId('program-source-empty')).toBeVisible();
+
+    const chip1 = page.getByTestId('test-path-1');
+    await expect(chip1).toBeVisible();
+    await chip1.click();
+    await expect(chip1).toHaveAttribute('aria-pressed', 'true');
+
+    // Covered requirement rows still get the accent...
+    await expect(page.locator('[data-path-cover]').first()).toBeAttached();
+    expect(await page.locator('[data-path-cover]').count()).toBeGreaterThan(0);
+
+    // ...and the source panel keeps its empty-state message (no crash, no [data-path-src]).
+    await expect(page.getByTestId('program-source-empty')).toBeVisible();
+    expect(await page.locator('[data-path-src]').count()).toBe(0);
+  });
 });
