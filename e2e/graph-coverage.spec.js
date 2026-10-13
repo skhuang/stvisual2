@@ -46,4 +46,36 @@ test.describe('Graph Coverage Browser Tests', () => {
     await expect(page.getByTestId('test-path-list')).toContainText('S -> A -> T');
     await expect(page.getByTestId('test-path-meta')).toContainText('Covered Requirements: 3 / 3');
   });
+
+  test('highlights selected test paths on the graph (multi-select)', async ({ page }) => {
+    await page.goto('/?explorer=graph-coverage');
+
+    // complete-path yields multiple end-to-end paths to toggle.
+    await page.getByTestId('criterion-complete-path').click();
+
+    const chip1 = page.getByTestId('test-path-1');
+    const chip2 = page.getByTestId('test-path-2');
+    await expect(chip1).toBeVisible();
+    await expect(chip2).toBeVisible();
+
+    // Toggle the first path: chip becomes pressed, legend appears, and the
+    // canvas gains path-highlighted elements (stable data hook, color-agnostic).
+    await chip1.click();
+    await expect(chip1).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('graph-path-legend')).toBeVisible();
+    // SVG geometry: assert presence by count (raw <line>/<path> read as "hidden").
+    await expect(page.locator('[data-path-highlight]').first()).toBeAttached();
+    expect(await page.locator('[data-path-highlight]').count()).toBeGreaterThan(0);
+
+    // Toggle a second path: both chips pressed.
+    await chip2.click();
+    await expect(chip1).toHaveAttribute('aria-pressed', 'true');
+    await expect(chip2).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByTestId('graph-path-legend')).toBeVisible();
+
+    // Toggling the first path off un-presses it.
+    await chip1.click();
+    await expect(chip1).toHaveAttribute('aria-pressed', 'false');
+    await expect(chip2).toHaveAttribute('aria-pressed', 'true');
+  });
 });

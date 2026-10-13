@@ -3083,6 +3083,8 @@
       "graph.path.none": "No available paths",
       "graph.path.uncovered": "Not yet covered: {items}",
       "graph.path.allCovered": "All requirements mapped to test paths.",
+      "graph.path.legend": "Selected test paths",
+      "graph.path.shared": "shared",
       "graph.req.help": "When the criterion changes, this list recomputes the corresponding requirements.",
       "graph.detail.noSourceMap": "This requirement has no associated source-line mapping.",
       "graph.status.initial": "Pick a built-in program example, or upload a JSON graph spec / source-code file.",
@@ -6048,6 +6050,8 @@
       "graph.path.none": "\u7121\u53EF\u7528\u8DEF\u5F91",
       "graph.path.uncovered": "\u5C1A\u672A\u8986\u84CB\uFF1A{items}",
       "graph.path.allCovered": "\u5168\u90E8 requirement \u5DF2\u5C0D\u61C9\u5230 test paths",
+      "graph.path.legend": "\u5DF2\u9078\u53D6\u7684\u6E2C\u8A66\u8DEF\u5F91",
+      "graph.path.shared": "\u5171\u7528",
       "graph.req.help": "\u5207\u63DB criteria \u5F8C\uFF0C\u5217\u8868\u6703\u91CD\u7B97\u5C0D\u61C9\u5FC5\u9808\u8986\u84CB\u7684 requirement\u3002",
       "graph.detail.noSourceMap": "\u76EE\u524D requirement \u6C92\u6709\u53EF\u5C0D\u61C9\u7684\u7A0B\u5F0F\u78BC\u884C\u865F\u3002",
       "graph.status.initial": "\u53EF\u5207\u63DB\u56FA\u5B9A\u7A0B\u5F0F\u7BC4\u4F8B\uFF0C\u6216\u4E0A\u50B3 JSON graph spec\u3001\u7A0B\u5F0F\u78BC\u6A94\u6848\u3002",
@@ -8926,6 +8930,17 @@
     path: { criteria: ["prime-path", "edge-pair", "complete-path"], showDfg: false },
     dataflow: { criteria: ["all-defs", "all-uses", "all-du-paths"], showDfg: true }
   };
+  var PALETTE = ["#2563eb", "#16a34a", "#9333ea", "#db2777", "#0891b2", "#ca8a04"];
+  var SHARED_PATH_COLOR = "#475569";
+  function pathToHighlight(graph, path = []) {
+    const nodes = [...path];
+    const edges = [];
+    for (let i = 0; i < path.length - 1; i += 1) {
+      const edge = graph.edges.find((e) => e.from === path[i] && e.to === path[i + 1]);
+      if (edge) edges.push(edge.id);
+    }
+    return { nodes, edges };
+  }
   function cloneGraph(graph) {
     return {
       ...graph,
@@ -9245,10 +9260,74 @@
       height: Math.max(340, maxY - minY)
     };
   }
-  function createGraphCanvas(graph, requirement) {
+  function createGraphCanvas(graph, { requirement, paths = [] } = {}) {
     const highlightedNodes = new Set((requirement == null ? void 0 : requirement.nodes) || []);
     const highlightedEdges = new Set((requirement == null ? void 0 : requirement.edges) || []);
     const { minX, minY, width, height } = computeGraphBounds(graph);
+    const pathMode = paths.length > 0;
+    const edgePaths = (edgeId) => paths.filter((p) => p.edges.has(edgeId));
+    const nodePaths = (nodeId) => paths.filter((p) => p.nodes.has(nodeId));
+    const usedColors = [...new Set(paths.map((p) => p.color))];
+    const colorMarkerId = (color) => `arrow-p-${color.replace("#", "")}`;
+    const pathMarkers = usedColors.map((color) => `
+    <marker id="${colorMarkerId(color)}" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="${color}"></path>
+    </marker>
+  `).join("");
+    const sharedMarker = `
+    <marker id="arrow-shared" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="${SHARED_PATH_COLOR}"></path>
+    </marker>
+  `;
+    const edgeAttrs = (edgeId) => {
+      if (pathMode) {
+        const hits = edgePaths(edgeId);
+        if (hits.length === 0) {
+          return { className: "graph-edge", marker: "arrow-default", style: "", highlight: "" };
+        }
+        if (hits.length === 1) {
+          return {
+            className: "graph-edge graph-edge--path",
+            marker: colorMarkerId(hits[0].color),
+            style: ` style="stroke:${hits[0].color}"`,
+            highlight: ' data-path-highlight="single"'
+          };
+        }
+        return {
+          className: "graph-edge graph-edge--shared",
+          marker: "arrow-shared",
+          style: ` style="stroke:${SHARED_PATH_COLOR}"`,
+          highlight: ' data-path-highlight="shared"'
+        };
+      }
+      const active = highlightedEdges.has(edgeId);
+      return {
+        className: `graph-edge${active ? " graph-edge--active" : ""}`,
+        marker: active ? "arrow-active" : "arrow-default",
+        style: "",
+        highlight: ""
+      };
+    };
+    const nodeAttrs = (nodeId) => {
+      if (pathMode) {
+        const hits = nodePaths(nodeId);
+        if (hits.length === 0) return { className: "graph-node", style: "", highlight: "" };
+        if (hits.length === 1) {
+          return {
+            className: "graph-node graph-node--path",
+            style: ` style="--path-color:${hits[0].color}"`,
+            highlight: ' data-path-highlight="single"'
+          };
+        }
+        return {
+          className: "graph-node graph-node--shared",
+          style: ` style="--path-color:${SHARED_PATH_COLOR}"`,
+          highlight: ' data-path-highlight="shared"'
+        };
+      }
+      const active = highlightedNodes.has(nodeId);
+      return { className: `graph-node${active ? " graph-node--active" : ""}`, style: "", highlight: "" };
+    };
     return `
     <div class="graph-canvas" data-testid="graph-canvas">
       <svg viewBox="${minX} ${minY} ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t("graph.aria.canvas")}">
@@ -9259,11 +9338,13 @@
           <marker id="arrow-active" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
             <path d="M0,0 L7,3.5 L0,7 z" fill="#ea580c"></path>
           </marker>
+          ${pathMarkers}
+          ${pathMode ? sharedMarker : ""}
         </defs>
         ${graph.edges.map((edge) => {
       const fromNode = graph.nodes.find((node2) => node2.id === edge.from);
       const toNode = graph.nodes.find((node2) => node2.id === edge.to);
-      const active = highlightedEdges.has(edge.id);
+      const attrs = edgeAttrs(edge.id);
       const NODE_R4 = 28;
       const ARROW_GAP = 4;
       if (edge.control) {
@@ -9271,9 +9352,9 @@
         const start2 = trimToCircle(edge.control, fromNode, NODE_R4);
         return `
               <path
-                class="graph-edge${active ? " graph-edge--active" : ""}"
+                class="${attrs.className}"${attrs.style}${attrs.highlight}
                 d="M ${start2.x} ${start2.y} Q ${edge.control.x} ${edge.control.y} ${end2.x} ${end2.y}"
-                marker-end="url(#${active ? "arrow-active" : "arrow-default"})"
+                marker-end="url(#${attrs.marker})"
                 data-testid="graph-edge-${edge.id}"
               ></path>
             `;
@@ -9282,23 +9363,26 @@
       const start = trimToCircle(toNode, fromNode, NODE_R4);
       return `
             <line
-              class="graph-edge${active ? " graph-edge--active" : ""}"
+              class="${attrs.className}"${attrs.style}${attrs.highlight}
               x1="${start.x}"
               y1="${start.y}"
               x2="${end.x}"
               y2="${end.y}"
-              marker-end="url(#${active ? "arrow-active" : "arrow-default"})"
+              marker-end="url(#${attrs.marker})"
               data-testid="graph-edge-${edge.id}"
             ></line>
           `;
     }).join("")}
-        ${graph.nodes.map((node2) => `
-          <g class="graph-node${highlightedNodes.has(node2.id) ? " graph-node--active" : ""}" data-testid="graph-node-${node2.id}">
+        ${graph.nodes.map((node2) => {
+      const attrs = nodeAttrs(node2.id);
+      return `
+          <g class="${attrs.className}"${attrs.style}${attrs.highlight} data-testid="graph-node-${node2.id}">
             ${node2.sourceLine ? `<title>Line ${node2.sourceLine}: ${escapeHtml(node2.sourceText || node2.label)}</title>` : ""}
             <circle cx="${node2.x}" cy="${node2.y}" r="28"></circle>
             <text x="${node2.x}" y="${node2.y + 5}" text-anchor="middle">${node2.label}</text>
           </g>
-        `).join("")}
+        `;
+    }).join("")}
       </svg>
     </div>
   `;
@@ -9384,6 +9468,7 @@
     let baseGraph = cloneGraph(initialGraph);
     let criterionId = presetCfg ? presetCfg.criteria[0] : "node";
     let selectedRequirementId = null;
+    const selectedTestPathIndices = /* @__PURE__ */ new Set();
     let parseError = "";
     let sourceStatus = focus ? t("graph.status.exampleLoaded", { name: initialProgram.name }) : t("graph.status.initial");
     let activeProgram = initialProgram;
@@ -9548,6 +9633,7 @@
       parseError = "";
       sourceStatus = statusMessage;
       selectedRequirementId = null;
+      selectedTestPathIndices.clear();
       render45();
     }
     function scheduleAutoApply() {
@@ -9563,6 +9649,7 @@
           parseError = "";
           sourceStatus = t("graph.status.recomputed", { name: activeProgram.name });
           selectedRequirementId = null;
+          selectedTestPathIndices.clear();
           render45();
         } catch (error) {
           parseError = error.message;
@@ -9576,6 +9663,7 @@
       parseError = "";
       sourceStatus = t("graph.status.reset", { name: activeProgram.name });
       selectedRequirementId = null;
+      selectedTestPathIndices.clear();
       render45();
     }
     function getState() {
@@ -9597,6 +9685,23 @@
     function render45() {
       var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p;
       const { requirements, selectedRequirement, selectedCriterion, pathPlan } = getState();
+      for (const i of [...selectedTestPathIndices]) {
+        if (!pathPlan.selectedPaths[i]) selectedTestPathIndices.delete(i);
+      }
+      const selPathIndices = [...selectedTestPathIndices].sort((a, b) => a - b);
+      const selPaths = selPathIndices.map((i) => {
+        const h = pathToHighlight(graph, pathPlan.selectedPaths[i]);
+        return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: PALETTE[i % PALETTE.length] };
+      });
+      const hasShared = selPaths.length > 1 && (() => {
+        const edgeCount = /* @__PURE__ */ new Map();
+        const nodeCount = /* @__PURE__ */ new Map();
+        for (const p of selPaths) {
+          for (const e of p.edges) edgeCount.set(e, (edgeCount.get(e) || 0) + 1);
+          for (const n of p.nodes) nodeCount.set(n, (nodeCount.get(n) || 0) + 1);
+        }
+        return [...edgeCount.values(), ...nodeCount.values()].some((c) => c >= 2);
+      })();
       const selectedSourceNodes = getSelectedSourceNodes(graph, selectedRequirement);
       const quizPanel = renderGraphQuizPanel(pathPlan, selectedCriterion);
       const labReflectPanel = renderGraphLabReflectPanel();
@@ -9732,7 +9837,23 @@
 
       <div class="graph-coverage-layout">
         <div class="graph-main-panel">
-          ${createGraphCanvas(graph, selectedRequirement)}
+          ${createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths })}
+          ${selPaths.length ? `
+          <div class="graph-path-legend" data-testid="graph-path-legend">
+            ${selPathIndices.map((i) => `
+              <span class="graph-path-legend__item">
+                <span class="graph-path-legend__swatch" style="background:${PALETTE[i % PALETTE.length]}"></span>
+                T${i + 1}
+              </span>
+            `).join("")}
+            ${hasShared ? `
+              <span class="graph-path-legend__item">
+                <span class="graph-path-legend__swatch graph-path-legend__swatch--shared" style="background:${SHARED_PATH_COLOR}"></span>
+                ${t("graph.path.shared")}
+              </span>
+            ` : ""}
+          </div>
+          ` : ""}
           ${!focus || presetCfg.showDfg ? createDataFlowCanvas(graph) : ""}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t("graph.summary.current")}</span>
@@ -9760,9 +9881,24 @@
             </div>
             `}
             <ul class="test-path-list" data-testid="test-path-list">
-              ${pathPlan.selectedPaths.map((path, index) => `
-                <li data-testid="test-path-${index + 1}">T${index + 1}: ${path.join(" -> ")}</li>
-              `).join("") || `<li>${t("graph.path.none")}</li>`}
+              ${pathPlan.selectedPaths.map((path, index) => {
+        const selected = selectedTestPathIndices.has(index);
+        const color = PALETTE[index % PALETTE.length];
+        return `
+                <li>
+                  <button
+                    type="button"
+                    data-test-path-index="${index}"
+                    data-testid="test-path-${index + 1}"
+                    class="test-path-chip${selected ? " test-path-chip--active" : ""}"
+                    aria-pressed="${selected}"
+                  >
+                    <span class="test-path-chip__swatch" style="background:${color}"></span>
+                    <span class="test-path-chip__label">T${index + 1}: ${path.join(" -> ")}</span>
+                  </button>
+                </li>
+              `;
+      }).join("") || `<li>${t("graph.path.none")}</li>`}
             </ul>
             <p class="test-path-meta" data-testid="test-path-meta">
               Covered Requirements: ${pathPlan.requirementPaths.filter((item) => item.covered).length} / ${pathPlan.requirementPaths.length}
@@ -9914,12 +10050,21 @@
         button.addEventListener("click", () => {
           criterionId = button.dataset.criterion;
           selectedRequirementId = null;
+          selectedTestPathIndices.clear();
           render45();
         });
       });
       root45.querySelectorAll("[data-requirement-id]").forEach((button) => {
         button.addEventListener("click", () => {
           selectedRequirementId = button.dataset.requirementId;
+          render45();
+        });
+      });
+      root45.querySelectorAll("[data-test-path-index]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const i = Number(btn.dataset.testPathIndex);
+          if (selectedTestPathIndices.has(i)) selectedTestPathIndices.delete(i);
+          else selectedTestPathIndices.add(i);
           render45();
         });
       });
