@@ -24,11 +24,31 @@ export const GRAPH_PRESETS = {
 };
 
 // Accessible, high-contrast colors used to tint individual selected test
-// paths on the structural canvas. Color for a path is PALETTE[index % len],
+// paths on the structural canvas. Color for a path is pathColor(index),
 // stable per path index. Elements shared by >=2 selected paths use
 // SHARED_PATH_COLOR (drawn thicker + dashed) instead.
-export const PALETTE = ['#2563eb', '#16a34a', '#9333ea', '#db2777', '#0891b2', '#ca8a04'];
+// The first 12 are a curated, mutually-distinct, light/dark-friendly set;
+// beyond that pathColor() falls back to a deterministic golden-angle hue
+// rotation so any number of selected paths stay visually distinct (no cycle).
+export const PALETTE = [
+  '#2563eb', '#16a34a', '#9333ea', '#db2777', '#0891b2', '#ca8a04',
+  '#e11d48', '#4f46e5', '#0d9488', '#c2410c', '#7c3aed', '#65a30d',
+];
 export const SHARED_PATH_COLOR = '#475569';
+// Hue of SHARED_PATH_COLOR (~215°, slate) — the procedural fallback skips a
+// band around it so generated path colors never read as the "shared" color.
+const SHARED_HUE = 215;
+
+// Deterministic, index-stable color for a selected path. Uses the curated
+// PALETTE for the first entries, then evenly-spread HSL hues (golden angle)
+// for any further index so T13, T14, … remain distinct from each other and
+// from the shared slate.
+export function pathColor(index) {
+  if (index < PALETTE.length) return PALETTE[index];
+  let hue = ((index - PALETTE.length) * 137.508 + 20) % 360;
+  if (Math.abs(((hue - SHARED_HUE + 540) % 360) - 180) < 18) hue = (hue + 40) % 360;
+  return `hsl(${Math.round(hue)}, 70%, 45%)`;
+}
 
 // Pure: map a path (array of node ids) to the set of node ids and edge ids it
 // traverses. For each consecutive pair, find the matching directed edge and
@@ -996,7 +1016,7 @@ export function createGraphCoverageExplorer(opts = {}) {
     const selPathIndices = [...selectedTestPathIndices].sort((a, b) => a - b);
     const selPaths = selPathIndices.map((i) => {
       const h = pathToHighlight(graph, pathPlan.selectedPaths[i]);
-      return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: PALETTE[i % PALETTE.length] };
+      return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: pathColor(i) };
     });
     // Any node or edge shared by >=2 selected paths → show the "shared" legend row.
     const hasShared = selPaths.length > 1 && (() => {
@@ -1019,7 +1039,7 @@ export function createGraphCoverageExplorer(opts = {}) {
       const lineCount = new Map();
       const lineFirstColor = new Map();
       selPathIndices.forEach((i) => {
-        const color = PALETTE[i % PALETTE.length];
+        const color = pathColor(i);
         for (const line of pathSourceLines(graph, pathPlan.selectedPaths[i])) {
           lineCount.set(line, (lineCount.get(line) || 0) + 1);
           if (!lineFirstColor.has(line)) lineFirstColor.set(line, color);
@@ -1035,7 +1055,7 @@ export function createGraphCoverageExplorer(opts = {}) {
         selPaths.forEach((p, k) => {
           if (pathCoversRequirement(p.nodes, p.edges, requirement)) {
             coverCount += 1;
-            if (coverColor === null) coverColor = PALETTE[selPathIndices[k] % PALETTE.length];
+            if (coverColor === null) coverColor = pathColor(selPathIndices[k]);
           }
         });
         if (coverCount === 1) reqCoverColorMap.set(requirement.id, coverColor);
@@ -1179,7 +1199,7 @@ export function createGraphCoverageExplorer(opts = {}) {
           <div class="graph-path-legend" data-testid="graph-path-legend">
             ${selPathIndices.map((i) => `
               <span class="graph-path-legend__item">
-                <span class="graph-path-legend__swatch" style="background:${PALETTE[i % PALETTE.length]}"></span>
+                <span class="graph-path-legend__swatch" style="background:${pathColor(i)}"></span>
                 T${i + 1}
               </span>
             `).join('')}
@@ -1220,7 +1240,7 @@ export function createGraphCoverageExplorer(opts = {}) {
             <ul class="test-path-list" data-testid="test-path-list">
               ${pathPlan.selectedPaths.map((path, index) => {
                 const selected = selectedTestPathIndices.has(index);
-                const color = PALETTE[index % PALETTE.length];
+                const color = pathColor(index);
                 return `
                 <li>
                   <button
