@@ -23,6 +23,11 @@ export const GRAPH_PRESETS = {
   dataflow:   { criteria: ['all-defs', 'all-uses', 'all-du-paths'], showDfg: true },
 };
 
+// Data-flow criteria need per-node variable data (sourceText) to produce any
+// requirements. When the active graph has none (e.g. a user-uploaded abstract
+// graph with only labels), these yield 0 rows and we show an empty-state hint.
+export const DATAFLOW_CRITERIA = new Set(['all-defs', 'all-uses', 'all-du-paths']);
+
 // Accessible, high-contrast colors used to tint individual selected test
 // paths on the structural canvas. Color for a path is pathColor(index),
 // stable per path index. Elements shared by >=2 selected paths use
@@ -1270,6 +1275,9 @@ export function createGraphCoverageExplorer(opts = {}) {
           <div class="graph-sidebar-card">
             <h4>Test Requirements</h4>
             <p class="sidebar-text">${t('graph.req.help')}</p>
+            ${DATAFLOW_CRITERIA.has(criterionId) && requirements.length === 0
+              ? `<p class="graph-editor-status" data-testid="dataflow-empty-hint">${t('graph.dataflow.empty')}</p>`
+              : ''}
             <ul class="requirement-list" data-testid="requirement-list">
               ${requirements.map((requirement) => {
                 const cover = reqCoverColorMap.get(requirement.id);

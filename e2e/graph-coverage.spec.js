@@ -122,4 +122,18 @@ test.describe('Graph Coverage Browser Tests', () => {
     await expect(page.getByTestId('program-source-empty')).toBeVisible();
     expect(await page.locator('[data-path-src]').count()).toBe(0);
   });
+
+  test('data-flow criterion yields requirements on the default sample (real variable data)', async ({ page }) => {
+    await page.goto('/?explorer=graph-coverage');
+
+    // The default CFG sample now carries per-node variable data (sourceText),
+    // so the all-uses data-flow criterion produces concrete requirement rows.
+    await page.locator('[data-criterion="all-uses"]').click();
+
+    await expect(page.locator('[data-requirement-id]').first()).toBeAttached();
+    expect(await page.locator('[data-requirement-id]').count()).toBeGreaterThan(0);
+
+    // With variables present the empty-state hint must NOT appear.
+    await expect(page.getByTestId('dataflow-empty-hint')).toHaveCount(0);
+  });
 });
