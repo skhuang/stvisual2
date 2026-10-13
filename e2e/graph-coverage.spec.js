@@ -136,4 +136,31 @@ test.describe('Graph Coverage Browser Tests', () => {
     // With variables present the empty-state hint must NOT appear.
     await expect(page.getByTestId('dataflow-empty-hint')).toHaveCount(0);
   });
+
+  test('selecting a data-flow requirement highlights its def→use on the DFG and marks endpoints on the CFG', async ({ page }) => {
+    await page.goto('/?explorer=graph-coverage');
+
+    await page.locator('[data-criterion="all-uses"]').click();
+
+    const firstRequirement = page.locator('[data-requirement-id]').first();
+    await expect(firstRequirement).toBeAttached();
+    await firstRequirement.click();
+
+    // The DFG canvas now has exactly the active def→use edge marked.
+    const activeEdge = page.locator('[data-dfg-active="1"]');
+    await expect(activeEdge.first()).toBeAttached();
+    expect(await activeEdge.count()).toBe(1);
+
+    // The CFG canvas marks the def and use endpoints (color-agnostic class hooks).
+    await expect(page.locator('.graph-node--def').first()).toBeAttached();
+    expect(await page.locator('.graph-node--def').count()).toBeGreaterThan(0);
+    await expect(page.locator('.graph-node--use').first()).toBeAttached();
+    expect(await page.locator('.graph-node--use').count()).toBeGreaterThan(0);
+
+    // The def/use text badges are rendered on both canvases.
+    await expect(page.getByTestId('graph-node-def').first()).toBeAttached();
+    await expect(page.getByTestId('graph-node-use').first()).toBeAttached();
+    await expect(page.getByTestId('dfg-node-def').first()).toBeAttached();
+    await expect(page.getByTestId('dfg-node-use').first()).toBeAttached();
+  });
 });
