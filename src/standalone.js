@@ -3086,6 +3086,7 @@
       "graph.path.legend": "Selected test paths",
       "graph.path.shared": "shared",
       "graph.req.help": "When the criterion changes, this list recomputes the corresponding requirements.",
+      "graph.dataflow.empty": 'This graph has no variable data, so data-flow criteria produce no requirements. Pick a source-backed example such as "Data-Flow Demo" or "Triangle Problem".',
       "graph.detail.noSourceMap": "This requirement has no associated source-line mapping.",
       "graph.status.initial": "Pick a built-in program example, or upload a JSON graph spec / source-code file.",
       "graph.status.recomputed": "{name} recomputed from edited graph.",
@@ -6053,6 +6054,7 @@
       "graph.path.legend": "\u5DF2\u9078\u53D6\u7684\u6E2C\u8A66\u8DEF\u5F91",
       "graph.path.shared": "\u5171\u7528",
       "graph.req.help": "\u5207\u63DB criteria \u5F8C\uFF0C\u5217\u8868\u6703\u91CD\u7B97\u5C0D\u61C9\u5FC5\u9808\u8986\u84CB\u7684 requirement\u3002",
+      "graph.dataflow.empty": "\u6B64\u5716\u6C92\u6709\u8B8A\u6578\u8CC7\u6599\uFF0C\u8CC7\u6599\u6D41 criteria \u7121\u6CD5\u7522\u751F\u4EFB\u4F55 requirement\u3002\u8ACB\u6539\u9078\u6709\u539F\u59CB\u78BC\u7684\u7BC4\u4F8B\uFF0C\u4F8B\u5982\u300CData-Flow Demo\u300D\u6216\u300CTriangle Problem\u300D\u3002",
       "graph.detail.noSourceMap": "\u76EE\u524D requirement \u6C92\u6709\u53EF\u5C0D\u61C9\u7684\u7A0B\u5F0F\u78BC\u884C\u865F\u3002",
       "graph.status.initial": "\u53EF\u5207\u63DB\u56FA\u5B9A\u7A0B\u5F0F\u7BC4\u4F8B\uFF0C\u6216\u4E0A\u50B3 JSON graph spec\u3001\u7A0B\u5F0F\u78BC\u6A94\u6848\u3002",
       "graph.status.recomputed": "{name} \u5DF2\u4F9D\u7167\u7DE8\u8F2F\u5167\u5BB9\u91CD\u65B0\u8A08\u7B97\u3002",
@@ -6419,14 +6421,14 @@
     startNodeId: "S",
     endNodeId: "T",
     nodes: [
-      { id: "S", label: "Start", x: 80, y: 170, kind: "start" },
-      { id: "A", label: "A", x: 210, y: 170, kind: "decision" },
-      { id: "B", label: "B", x: 360, y: 80, kind: "node" },
-      { id: "C", label: "C", x: 360, y: 260, kind: "node" },
-      { id: "D", label: "D", x: 520, y: 170, kind: "decision" },
-      { id: "E", label: "E", x: 680, y: 80, kind: "node" },
-      { id: "F", label: "F", x: 680, y: 260, kind: "node" },
-      { id: "T", label: "End", x: 840, y: 170, kind: "end" }
+      { id: "S", label: "Start", x: 80, y: 170, kind: "start", sourceText: "function sample(x, y)" },
+      { id: "A", label: "A", x: 210, y: 170, kind: "decision", sourceText: "if (x > 0)" },
+      { id: "B", label: "B", x: 360, y: 80, kind: "node", sourceText: "sum = x + y" },
+      { id: "C", label: "C", x: 360, y: 260, kind: "node", sourceText: "sum = y - x" },
+      { id: "D", label: "D", x: 520, y: 170, kind: "decision", sourceText: "if (sum > y)" },
+      { id: "E", label: "E", x: 680, y: 80, kind: "node", sourceText: "y = sum * 2" },
+      { id: "F", label: "F", x: 680, y: 260, kind: "node", sourceText: "z = sum + y" },
+      { id: "T", label: "End", x: 840, y: 170, kind: "end", sourceText: "return z" }
     ],
     edges: [
       { id: "S-A", from: "S", to: "A" },
@@ -6499,6 +6501,21 @@
           { id: "R4-T", from: "R4", to: "T" }
         ]
       }
+    },
+    {
+      id: "dataflow-demo",
+      name: "Data-Flow Demo",
+      language: "javascript",
+      description: "A small function with clear def\u2192use chains (total, discount, net) for data-flow coverage.",
+      sourceCode: `function netFee(base, qty, rate) {
+  let total = base * qty;
+  let discount = 0;
+  if (total > 100) {
+    discount = total * rate;
+  }
+  let net = total - discount;
+  return net;
+}`
     },
     {
       id: "next-date",
@@ -8930,6 +8947,7 @@
     path: { criteria: ["prime-path", "edge-pair", "complete-path"], showDfg: false },
     dataflow: { criteria: ["all-defs", "all-uses", "all-du-paths"], showDfg: true }
   };
+  var DATAFLOW_CRITERIA = /* @__PURE__ */ new Set(["all-defs", "all-uses", "all-du-paths"]);
   var PALETTE = [
     "#2563eb",
     "#16a34a",
@@ -10001,6 +10019,7 @@
           <div class="graph-sidebar-card">
             <h4>Test Requirements</h4>
             <p class="sidebar-text">${t("graph.req.help")}</p>
+            ${DATAFLOW_CRITERIA.has(criterionId) && requirements.length === 0 ? `<p class="graph-editor-status" data-testid="dataflow-empty-hint">${t("graph.dataflow.empty")}</p>` : ""}
             <ul class="requirement-list" data-testid="requirement-list">
               ${requirements.map((requirement) => {
         const cover = reqCoverColorMap.get(requirement.id);

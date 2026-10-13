@@ -89,14 +89,14 @@ export const graphCoverageGraph = {
   startNodeId: 'S',
   endNodeId: 'T',
   nodes: [
-    { id: 'S', label: 'Start', x: 80, y: 170, kind: 'start' },
-    { id: 'A', label: 'A', x: 210, y: 170, kind: 'decision' },
-    { id: 'B', label: 'B', x: 360, y: 80, kind: 'node' },
-    { id: 'C', label: 'C', x: 360, y: 260, kind: 'node' },
-    { id: 'D', label: 'D', x: 520, y: 170, kind: 'decision' },
-    { id: 'E', label: 'E', x: 680, y: 80, kind: 'node' },
-    { id: 'F', label: 'F', x: 680, y: 260, kind: 'node' },
-    { id: 'T', label: 'End', x: 840, y: 170, kind: 'end' },
+    { id: 'S', label: 'Start', x: 80, y: 170, kind: 'start', sourceText: 'function sample(x, y)' },
+    { id: 'A', label: 'A', x: 210, y: 170, kind: 'decision', sourceText: 'if (x > 0)' },
+    { id: 'B', label: 'B', x: 360, y: 80, kind: 'node', sourceText: 'sum = x + y' },
+    { id: 'C', label: 'C', x: 360, y: 260, kind: 'node', sourceText: 'sum = y - x' },
+    { id: 'D', label: 'D', x: 520, y: 170, kind: 'decision', sourceText: 'if (sum > y)' },
+    { id: 'E', label: 'E', x: 680, y: 80, kind: 'node', sourceText: 'y = sum * 2' },
+    { id: 'F', label: 'F', x: 680, y: 260, kind: 'node', sourceText: 'z = sum + y' },
+    { id: 'T', label: 'End', x: 840, y: 170, kind: 'end', sourceText: 'return z' },
   ],
   edges: [
     { id: 'S-A', from: 'S', to: 'A' },
@@ -170,6 +170,21 @@ export const graphCoverageProgramExamples = [
         { id: 'R4-T', from: 'R4', to: 'T' },
       ],
     },
+  },
+  {
+    id: 'dataflow-demo',
+    name: 'Data-Flow Demo',
+    language: 'javascript',
+    description: 'A small function with clear def→use chains (total, discount, net) for data-flow coverage.',
+    sourceCode: `function netFee(base, qty, rate) {
+  let total = base * qty;
+  let discount = 0;
+  if (total > 100) {
+    discount = total * rate;
+  }
+  let net = total - discount;
+  return net;
+}`,
   },
   {
     id: 'next-date',

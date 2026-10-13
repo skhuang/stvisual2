@@ -192,6 +192,7 @@ describe('graphCoverage data', () => {
   it('包含真實程式範例', () => {
     expect(graphCoverageProgramExamples.map((item) => item.id)).toEqual([
       'triangle-problem',
+      'dataflow-demo',
       'next-date',
       'commission-problem',
       'next-date-leap-year',
