@@ -8930,8 +8930,28 @@
     path: { criteria: ["prime-path", "edge-pair", "complete-path"], showDfg: false },
     dataflow: { criteria: ["all-defs", "all-uses", "all-du-paths"], showDfg: true }
   };
-  var PALETTE = ["#2563eb", "#16a34a", "#9333ea", "#db2777", "#0891b2", "#ca8a04"];
+  var PALETTE = [
+    "#2563eb",
+    "#16a34a",
+    "#9333ea",
+    "#db2777",
+    "#0891b2",
+    "#ca8a04",
+    "#e11d48",
+    "#4f46e5",
+    "#0d9488",
+    "#c2410c",
+    "#7c3aed",
+    "#65a30d"
+  ];
   var SHARED_PATH_COLOR = "#475569";
+  var SHARED_HUE = 215;
+  function pathColor(index) {
+    if (index < PALETTE.length) return PALETTE[index];
+    let hue = ((index - PALETTE.length) * 137.508 + 20) % 360;
+    if (Math.abs((hue - SHARED_HUE + 540) % 360 - 180) < 18) hue = (hue + 40) % 360;
+    return `hsl(${Math.round(hue)}, 70%, 45%)`;
+  }
   function pathToHighlight(graph, path = []) {
     const nodes = [...path];
     const edges = [];
@@ -9733,7 +9753,7 @@
       const selPathIndices = [...selectedTestPathIndices].sort((a, b) => a - b);
       const selPaths = selPathIndices.map((i) => {
         const h = pathToHighlight(graph, pathPlan.selectedPaths[i]);
-        return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: PALETTE[i % PALETTE.length] };
+        return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: pathColor(i) };
       });
       const hasShared = selPaths.length > 1 && (() => {
         const edgeCount = /* @__PURE__ */ new Map();
@@ -9750,7 +9770,7 @@
         const lineCount = /* @__PURE__ */ new Map();
         const lineFirstColor = /* @__PURE__ */ new Map();
         selPathIndices.forEach((i) => {
-          const color = PALETTE[i % PALETTE.length];
+          const color = pathColor(i);
           for (const line of pathSourceLines(graph, pathPlan.selectedPaths[i])) {
             lineCount.set(line, (lineCount.get(line) || 0) + 1);
             if (!lineFirstColor.has(line)) lineFirstColor.set(line, color);
@@ -9765,7 +9785,7 @@
           selPaths.forEach((p, k) => {
             if (pathCoversRequirement(p.nodes, p.edges, requirement)) {
               coverCount += 1;
-              if (coverColor === null) coverColor = PALETTE[selPathIndices[k] % PALETTE.length];
+              if (coverColor === null) coverColor = pathColor(selPathIndices[k]);
             }
           });
           if (coverCount === 1) reqCoverColorMap.set(requirement.id, coverColor);
@@ -9912,7 +9932,7 @@
           <div class="graph-path-legend" data-testid="graph-path-legend">
             ${selPathIndices.map((i) => `
               <span class="graph-path-legend__item">
-                <span class="graph-path-legend__swatch" style="background:${PALETTE[i % PALETTE.length]}"></span>
+                <span class="graph-path-legend__swatch" style="background:${pathColor(i)}"></span>
                 T${i + 1}
               </span>
             `).join("")}
@@ -9953,7 +9973,7 @@
             <ul class="test-path-list" data-testid="test-path-list">
               ${pathPlan.selectedPaths.map((path, index) => {
         const selected = selectedTestPathIndices.has(index);
-        const color = PALETTE[index % PALETTE.length];
+        const color = pathColor(index);
         return `
                 <li>
                   <button

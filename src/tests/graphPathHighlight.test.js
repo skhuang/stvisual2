@@ -1,5 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { pathToHighlight } from '../components/GraphCoverageExplorer.js';
+import { pathToHighlight, pathColor, PALETTE, SHARED_PATH_COLOR } from '../components/GraphCoverageExplorer.js';
+
+describe('pathColor', () => {
+  it('returns the curated palette for the first entries, stable by index', () => {
+    PALETTE.forEach((c, i) => expect(pathColor(i)).toBe(c));
+    expect(pathColor(2)).toBe(pathColor(2)); // deterministic
+  });
+
+  it('gives distinct colors well past the palette length (T7+ and beyond the cliff)', () => {
+    const colors = Array.from({ length: 24 }, (_, i) => pathColor(i));
+    expect(new Set(colors).size).toBe(24); // all distinct — no repeat at index 12
+    colors.slice(PALETTE.length).forEach((c) => expect(c).not.toBe(SHARED_PATH_COLOR));
+  });
+});
 
 const graph = {
   nodes: [{ id: 'a' }, { id: 'b' }, { id: 'c' }],
