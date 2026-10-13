@@ -3067,6 +3067,8 @@
       "graph.dfg.help": "Definition-clear edges derived from each statement\u2019s assignments. Edges are labelled with the variable carried.",
       "graph.dfg.empty": "No definition\u2192use pair detected from the current source.",
       "graph.dfg.aria": "Data flow graph",
+      "graph.df.def": "def",
+      "graph.df.use": "use",
       "graph.aria.switcher": "Switch coverage criteria",
       "graph.customTitle": "Custom Control Flow Graph",
       "graph.source.empty": "This source only provides a graph; no source code snippet attached.",
@@ -6035,6 +6037,8 @@
       "graph.dfg.help": "\u4F9D\u6BCF\u500B\u53E5\u7684\u8CE6\u503C\u63A8\u5C0E\u5B9A\u7FA9\u8207\u4F7F\u7528\uFF0C\u6CBF CFG \u8D70\u5230\u672A\u88AB\u4E2D\u9593 def \u8986\u5BEB\u7684 use\u3002\u908A\u4E0A\u6A19\u793A\u8B8A\u6578\u540D\u3002",
       "graph.dfg.empty": "\u5F9E\u76EE\u524D\u539F\u59CB\u7A0B\u5F0F\u672A\u5075\u6E2C\u5230 def\u2192use \u95DC\u4FC2\u3002",
       "graph.dfg.aria": "\u8CC7\u6599\u6D41\u7A0B\u5716",
+      "graph.df.def": "\u5B9A\u7FA9",
+      "graph.df.use": "\u4F7F\u7528",
       "graph.aria.switcher": "coverage criteria \u5207\u63DB",
       "graph.customTitle": "\u81EA\u8A02\u63A7\u5236\u6D41\u7A0B\u5716",
       "graph.source.empty": "\u9019\u500B\u4F86\u6E90\u76EE\u524D\u53EA\u63D0\u4F9B graph\uFF0C\u6C92\u6709\u9644\u5E36\u7A0B\u5F0F\u78BC\u7247\u6BB5\u3002",
@@ -9345,6 +9349,12 @@
     const highlightedEdges = new Set((requirement == null ? void 0 : requirement.edges) || []);
     const { minX, minY, width, height } = computeGraphBounds(graph);
     const pathMode = paths.length > 0;
+    const isDataFlowReq = Boolean(
+      requirement && requirement.defNodeId && requirement.useNodeId && requirement.variable
+    );
+    const dfDefNodeId = isDataFlowReq ? requirement.defNodeId : null;
+    const dfUseNodeId = isDataFlowReq ? requirement.useNodeId : null;
+    const dfVariable = isDataFlowReq ? requirement.variable : null;
     const edgePaths = (edgeId) => paths.filter((p) => p.edges.has(edgeId));
     const nodePaths = (nodeId) => paths.filter((p) => p.nodes.has(nodeId));
     const usedColors = [...new Set(paths.map((p) => p.color))];
@@ -9455,11 +9465,20 @@
     }).join("")}
         ${graph.nodes.map((node2) => {
       const attrs = nodeAttrs(node2.id);
+      const isDef = isDataFlowReq && node2.id === dfDefNodeId;
+      const isUse = isDataFlowReq && node2.id === dfUseNodeId;
+      const endpointClass = `${isDef ? " graph-node--def" : ""}${isUse ? " graph-node--use" : ""}`;
+      const badge = (role, testid) => `
+            <g class="graph-node-badge graph-node-badge--${role}" data-testid="${testid}">
+              <text x="${node2.x}" y="${node2.y - 36}" text-anchor="middle">${escapeHtml(`${role === "def" ? t("graph.df.def") : t("graph.df.use")} ${dfVariable}`)}</text>
+            </g>`;
       return `
-          <g class="${attrs.className}"${attrs.style}${attrs.highlight} data-testid="graph-node-${node2.id}">
+          <g class="${attrs.className}${endpointClass}"${attrs.style}${attrs.highlight} data-testid="graph-node-${node2.id}">
             ${node2.sourceLine ? `<title>Line ${node2.sourceLine}: ${escapeHtml(node2.sourceText || node2.label)}</title>` : ""}
             <circle cx="${node2.x}" cy="${node2.y}" r="28"></circle>
             <text x="${node2.x}" y="${node2.y + 5}" text-anchor="middle">${node2.label}</text>
+            ${isDef ? badge("def", "graph-node-def") : ""}
+            ${isUse ? badge("use", "graph-node-use") : ""}
           </g>
         `;
     }).join("")}
@@ -9467,10 +9486,16 @@
     </div>
   `;
   }
-  function createDataFlowCanvas(graph) {
+  function createDataFlowCanvas(graph, selectedRequirement = null) {
     const dfg = buildDataFlowGraph(graph);
     const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
     const { minX, minY, width, height } = computeGraphBounds(graph, dfg.edges);
+    const isDataFlowReq = Boolean(
+      selectedRequirement && selectedRequirement.defNodeId && selectedRequirement.useNodeId && selectedRequirement.variable
+    );
+    const dfDefNodeId = isDataFlowReq ? selectedRequirement.defNodeId : null;
+    const dfUseNodeId = isDataFlowReq ? selectedRequirement.useNodeId : null;
+    const dfVariable = isDataFlowReq ? selectedRequirement.variable : null;
     const grouped = /* @__PURE__ */ new Map();
     for (const e of dfg.edges) {
       const key3 = `${e.from}->${e.to}`;
@@ -9489,16 +9514,28 @@
       const offset = 28 + group.length * 6;
       const cx = (a.x + b.x) / 2 + -dy / len * offset * sign;
       const cy = (a.y + b.y) / 2 + dx / len * offset * sign;
-      const labels = group.map((e) => e.variable).join(", ");
       const DFG_R = 24;
       const ARROW_GAP = 4;
       const start = trimToCircle({ x: cx, y: cy }, a, DFG_R);
       const end = trimToCircle({ x: cx, y: cy }, b, DFG_R + ARROW_GAP);
+      const groupVariables = group.map((e) => e.variable);
+      const isActive = isDataFlowReq && sample.from === dfDefNodeId && sample.to === dfUseNodeId && groupVariables.includes(dfVariable);
+      let groupClass = "graph-dfg-edge";
+      let hook = "";
+      let marker = "dfg-arrow";
+      if (isActive) {
+        groupClass += " graph-dfg-edge--active";
+        hook = ' data-dfg-active="1"';
+        marker = "dfg-arrow-active";
+      } else if (isDataFlowReq) {
+        groupClass += " graph-dfg-edge--dim";
+      }
+      const labelMarkup = isActive && groupVariables.length > 1 ? groupVariables.map((v) => v === dfVariable ? `<tspan class="graph-dfg-edge-var--active">${escapeHtml(v)}</tspan>` : escapeHtml(v)).join(", ") : escapeHtml(groupVariables.join(", "));
       return `
-      <g class="graph-dfg-edge" data-testid="dfg-edge-${escapeHtml(key3)}">
+      <g class="${groupClass}"${hook} data-testid="dfg-edge-${escapeHtml(key3)}">
         <path d="M ${start.x} ${start.y} Q ${cx} ${cy} ${end.x} ${end.y}"
-              marker-end="url(#dfg-arrow)"></path>
-        <text x="${cx}" y="${cy}" text-anchor="middle">${escapeHtml(labels)}</text>
+              marker-end="url(#${marker})"></path>
+        <text x="${cx}" y="${cy}" text-anchor="middle">${labelMarkup}</text>
       </g>
     `;
     }).join("");
@@ -9515,14 +9552,28 @@
             <marker id="dfg-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
               <path d="M0,0 L7,3.5 L0,7 z" fill="#0ea5e9"></path>
             </marker>
+            <marker id="dfg-arrow-active" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
+              <path d="M0,0 L7,3.5 L0,7 z" fill="#ea580c"></path>
+            </marker>
           </defs>
           ${edgeMarkup}
-          ${graph.nodes.map((node2) => `
-            <g class="graph-node graph-dfg-node" data-testid="dfg-node-${node2.id}">
+          ${graph.nodes.map((node2) => {
+      const isDef = isDataFlowReq && node2.id === dfDefNodeId;
+      const isUse = isDataFlowReq && node2.id === dfUseNodeId;
+      const endpointClass = `${isDef ? " graph-dfg-node--def" : ""}${isUse ? " graph-dfg-node--use" : ""}`;
+      const badge = (role, testid) => `
+              <g class="graph-node-badge graph-node-badge--${role}" data-testid="${testid}">
+                <text x="${node2.x}" y="${node2.y - 32}" text-anchor="middle">${escapeHtml(`${role === "def" ? t("graph.df.def") : t("graph.df.use")} ${dfVariable}`)}</text>
+              </g>`;
+      return `
+            <g class="graph-node graph-dfg-node${endpointClass}" data-testid="dfg-node-${node2.id}">
               <circle cx="${node2.x}" cy="${node2.y}" r="24"></circle>
               <text x="${node2.x}" y="${node2.y + 5}" text-anchor="middle">${node2.label}</text>
+              ${isDef ? badge("def", "dfg-node-def") : ""}
+              ${isUse ? badge("use", "dfg-node-use") : ""}
             </g>
-          `).join("")}
+          `;
+    }).join("")}
         </svg>
       </div>
       ${empty}
@@ -9962,7 +10013,7 @@
             ` : ""}
           </div>
           ` : ""}
-          ${!focus || presetCfg.showDfg ? createDataFlowCanvas(graph) : ""}
+          ${!focus || presetCfg.showDfg ? createDataFlowCanvas(graph, selectedRequirement) : ""}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t("graph.summary.current")}</span>
             <strong>${(selectedRequirement == null ? void 0 : selectedRequirement.label) || t("common.none")}</strong>

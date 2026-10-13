@@ -418,6 +418,56 @@
   font-style: italic;
 }
 
+/* Selected data-flow requirement: the active def→use edge is bold/colored,
+   every other edge group is dimmed. */
+.graph-dfg-edge--active path {
+  stroke: #ea580c;
+  stroke-width: 3.6;
+  stroke-dasharray: none;
+}
+.graph-dfg-edge--active text {
+  fill: #c2410c;
+  font-weight: 700;
+}
+.graph-dfg-edge-var--active {
+  fill: #c2410c;
+  font-weight: 800;
+  text-decoration: underline;
+}
+.graph-dfg-edge--dim {
+  opacity: 0.25;
+}
+
+/* def/use endpoint markers (shared by the CFG and DFG canvases). */
+.graph-dfg-node--def circle,
+.graph-node--def circle {
+  fill: #ecfdf5;
+  stroke: #059669;
+  stroke-width: 4;
+}
+.graph-dfg-node--use circle,
+.graph-node--use circle {
+  fill: #fff7ed;
+  stroke: #ea580c;
+  stroke-width: 4;
+}
+
+/* "def x" / "use x" text badges near the endpoints. */
+.graph-node-badge text {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+.graph-node-badge--def text {
+  fill: #047857;
+}
+.graph-node-badge--use text {
+  fill: #c2410c;
+}
+
 .graph-edge {
   stroke: #9aa8b6;
   stroke-width: 4;
@@ -581,6 +631,33 @@
 
   .graph-requirement--shared {
     --req-cover-color: #94a3b8;
+  }
+
+  /* Darken the badge/label halo so text reads on the dark DFG panel. */
+  .graph-node-badge text {
+    stroke: #0f172a;
+  }
+  .graph-node-badge--def text {
+    fill: #6ee7b7;
+  }
+  .graph-node-badge--use text {
+    fill: #fdba74;
+  }
+  .graph-dfg-edge--active text {
+    fill: #fdba74;
+  }
+  .graph-dfg-edge-var--active {
+    fill: #fdba74;
+  }
+  .graph-dfg-node--def circle,
+  .graph-node--def circle {
+    fill: rgba(5, 150, 105, 0.2);
+    stroke: #34d399;
+  }
+  .graph-dfg-node--use circle,
+  .graph-node--use circle {
+    fill: rgba(234, 88, 12, 0.2);
+    stroke: #fb923c;
   }
 }
 
