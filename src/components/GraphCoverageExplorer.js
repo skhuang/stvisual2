@@ -23,6 +23,26 @@ export const GRAPH_PRESETS = {
   dataflow:   { criteria: ['all-defs', 'all-uses', 'all-du-paths'], showDfg: true },
 };
 
+// Accessible, high-contrast colors used to tint individual selected test
+// paths on the structural canvas. Color for a path is PALETTE[index % len],
+// stable per path index. Elements shared by >=2 selected paths use
+// SHARED_PATH_COLOR (drawn thicker + dashed) instead.
+export const PALETTE = ['#2563eb', '#16a34a', '#9333ea', '#db2777', '#0891b2', '#ca8a04'];
+export const SHARED_PATH_COLOR = '#475569';
+
+// Pure: map a path (array of node ids) to the set of node ids and edge ids it
+// traverses. For each consecutive pair, find the matching directed edge and
+// collect its id (skipping pairs with no matching edge). No mutation.
+export function pathToHighlight(graph, path = []) {
+  const nodes = [...path];
+  const edges = [];
+  for (let i = 0; i < path.length - 1; i += 1) {
+    const edge = graph.edges.find((e) => e.from === path[i] && e.to === path[i + 1]);
+    if (edge) edges.push(edge.id);
+  }
+  return { nodes, edges };
+}
+
 function cloneGraph(graph) {
   return {
     ...graph,
@@ -425,10 +445,83 @@ function computeGraphBounds(graph, edgeList = graph.edges, padding = 60) {
   };
 }
 
-function createGraphCanvas(graph, requirement) {
+function createGraphCanvas(graph, { requirement, paths = [] } = {}) {
   const highlightedNodes = new Set(requirement?.nodes || []);
   const highlightedEdges = new Set(requirement?.edges || []);
   const { minX, minY, width, height } = computeGraphBounds(graph);
+  const pathMode = paths.length > 0;
+
+  // How many selected paths contain a given edge id / node id.
+  const edgePaths = (edgeId) => paths.filter((p) => p.edges.has(edgeId));
+  const nodePaths = (nodeId) => paths.filter((p) => p.nodes.has(nodeId));
+
+  // One arrowhead marker per palette color actually in use, plus a shared one.
+  const usedColors = [...new Set(paths.map((p) => p.color))];
+  const colorMarkerId = (color) => `arrow-p-${color.replace('#', '')}`;
+  const pathMarkers = usedColors.map((color) => `
+    <marker id="${colorMarkerId(color)}" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="${color}"></path>
+    </marker>
+  `).join('');
+  const sharedMarker = `
+    <marker id="arrow-shared" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="${SHARED_PATH_COLOR}"></path>
+    </marker>
+  `;
+
+  // Decide the visual treatment of an edge: default, requirement-fallback, a
+  // single path's color, or the shared style. Returns the attributes to splice
+  // onto the <line>/<path>.
+  const edgeAttrs = (edgeId) => {
+    if (pathMode) {
+      const hits = edgePaths(edgeId);
+      if (hits.length === 0) {
+        return { className: 'graph-edge', marker: 'arrow-default', style: '', highlight: '' };
+      }
+      if (hits.length === 1) {
+        return {
+          className: 'graph-edge graph-edge--path',
+          marker: colorMarkerId(hits[0].color),
+          style: ` style="stroke:${hits[0].color}"`,
+          highlight: ' data-path-highlight="single"',
+        };
+      }
+      return {
+        className: 'graph-edge graph-edge--shared',
+        marker: 'arrow-shared',
+        style: ` style="stroke:${SHARED_PATH_COLOR}"`,
+        highlight: ' data-path-highlight="shared"',
+      };
+    }
+    const active = highlightedEdges.has(edgeId);
+    return {
+      className: `graph-edge${active ? ' graph-edge--active' : ''}`,
+      marker: active ? 'arrow-active' : 'arrow-default',
+      style: '',
+      highlight: '',
+    };
+  };
+
+  const nodeAttrs = (nodeId) => {
+    if (pathMode) {
+      const hits = nodePaths(nodeId);
+      if (hits.length === 0) return { className: 'graph-node', style: '', highlight: '' };
+      if (hits.length === 1) {
+        return {
+          className: 'graph-node graph-node--path',
+          style: ` style="--path-color:${hits[0].color}"`,
+          highlight: ' data-path-highlight="single"',
+        };
+      }
+      return {
+        className: 'graph-node graph-node--shared',
+        style: ` style="--path-color:${SHARED_PATH_COLOR}"`,
+        highlight: ' data-path-highlight="shared"',
+      };
+    }
+    const active = highlightedNodes.has(nodeId);
+    return { className: `graph-node${active ? ' graph-node--active' : ''}`, style: '', highlight: '' };
+  };
 
   return `
     <div class="graph-canvas" data-testid="graph-canvas">
@@ -440,11 +533,13 @@ function createGraphCanvas(graph, requirement) {
           <marker id="arrow-active" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
             <path d="M0,0 L7,3.5 L0,7 z" fill="#ea580c"></path>
           </marker>
+          ${pathMarkers}
+          ${pathMode ? sharedMarker : ''}
         </defs>
         ${graph.edges.map((edge) => {
           const fromNode = graph.nodes.find((node) => node.id === edge.from);
           const toNode = graph.nodes.find((node) => node.id === edge.to);
-          const active = highlightedEdges.has(edge.id);
+          const attrs = edgeAttrs(edge.id);
           const NODE_R = 28;
           const ARROW_GAP = 4; // small visual gap so arrow tip sits at circle edge
 
@@ -454,9 +549,9 @@ function createGraphCanvas(graph, requirement) {
             const start = trimToCircle(edge.control, fromNode, NODE_R);
             return `
               <path
-                class="graph-edge${active ? ' graph-edge--active' : ''}"
+                class="${attrs.className}"${attrs.style}${attrs.highlight}
                 d="M ${start.x} ${start.y} Q ${edge.control.x} ${edge.control.y} ${end.x} ${end.y}"
-                marker-end="url(#${active ? 'arrow-active' : 'arrow-default'})"
+                marker-end="url(#${attrs.marker})"
                 data-testid="graph-edge-${edge.id}"
               ></path>
             `;
@@ -466,23 +561,26 @@ function createGraphCanvas(graph, requirement) {
           const start = trimToCircle(toNode, fromNode, NODE_R);
           return `
             <line
-              class="graph-edge${active ? ' graph-edge--active' : ''}"
+              class="${attrs.className}"${attrs.style}${attrs.highlight}
               x1="${start.x}"
               y1="${start.y}"
               x2="${end.x}"
               y2="${end.y}"
-              marker-end="url(#${active ? 'arrow-active' : 'arrow-default'})"
+              marker-end="url(#${attrs.marker})"
               data-testid="graph-edge-${edge.id}"
             ></line>
           `;
         }).join('')}
-        ${graph.nodes.map((node) => `
-          <g class="graph-node${highlightedNodes.has(node.id) ? ' graph-node--active' : ''}" data-testid="graph-node-${node.id}">
+        ${graph.nodes.map((node) => {
+          const attrs = nodeAttrs(node.id);
+          return `
+          <g class="${attrs.className}"${attrs.style}${attrs.highlight} data-testid="graph-node-${node.id}">
             ${node.sourceLine ? `<title>Line ${node.sourceLine}: ${escapeHtml(node.sourceText || node.label)}</title>` : ''}
             <circle cx="${node.x}" cy="${node.y}" r="28"></circle>
             <text x="${node.x}" y="${node.y + 5}" text-anchor="middle">${node.label}</text>
           </g>
-        `).join('')}
+        `;
+        }).join('')}
       </svg>
     </div>
   `;
@@ -585,6 +683,9 @@ export function createGraphCoverageExplorer(opts = {}) {
   let baseGraph = cloneGraph(initialGraph);
   let criterionId = presetCfg ? presetCfg.criteria[0] : 'node';
   let selectedRequirementId = null;
+  // Indices into pathPlan.selectedPaths that the user toggled "on" to overlay
+  // on the structural canvas (multi-select; each gets its own palette color).
+  const selectedTestPathIndices = new Set();
   let parseError = '';
   let sourceStatus = focus ? t('graph.status.exampleLoaded', { name: initialProgram.name }) : t('graph.status.initial');
   let activeProgram = initialProgram;
@@ -770,6 +871,7 @@ export function createGraphCoverageExplorer(opts = {}) {
     parseError = '';
     sourceStatus = statusMessage;
     selectedRequirementId = null;
+    selectedTestPathIndices.clear();
     render();
   }
 
@@ -787,6 +889,7 @@ export function createGraphCoverageExplorer(opts = {}) {
         parseError = '';
         sourceStatus = t('graph.status.recomputed', { name: activeProgram.name });
         selectedRequirementId = null;
+        selectedTestPathIndices.clear();
         render();
       } catch (error) {
         parseError = error.message;
@@ -801,6 +904,7 @@ export function createGraphCoverageExplorer(opts = {}) {
     parseError = '';
     sourceStatus = t('graph.status.reset', { name: activeProgram.name });
     selectedRequirementId = null;
+    selectedTestPathIndices.clear();
     render();
   }
 
@@ -824,6 +928,28 @@ export function createGraphCoverageExplorer(opts = {}) {
 
   function render() {
     const { requirements, selectedRequirement, selectedCriterion, pathPlan } = getState();
+
+    // Drop any toggled index that no longer maps to a path (e.g. after the path
+    // set shrank), then build the per-path highlight overlays in ascending order.
+    for (const i of [...selectedTestPathIndices]) {
+      if (!pathPlan.selectedPaths[i]) selectedTestPathIndices.delete(i);
+    }
+    const selPathIndices = [...selectedTestPathIndices].sort((a, b) => a - b);
+    const selPaths = selPathIndices.map((i) => {
+      const h = pathToHighlight(graph, pathPlan.selectedPaths[i]);
+      return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: PALETTE[i % PALETTE.length] };
+    });
+    // Any node or edge shared by >=2 selected paths → show the "shared" legend row.
+    const hasShared = selPaths.length > 1 && (() => {
+      const edgeCount = new Map();
+      const nodeCount = new Map();
+      for (const p of selPaths) {
+        for (const e of p.edges) edgeCount.set(e, (edgeCount.get(e) || 0) + 1);
+        for (const n of p.nodes) nodeCount.set(n, (nodeCount.get(n) || 0) + 1);
+      }
+      return [...edgeCount.values(), ...nodeCount.values()].some((c) => c >= 2);
+    })();
+
     const selectedSourceNodes = getSelectedSourceNodes(graph, selectedRequirement);
     const quizPanel = renderGraphQuizPanel(pathPlan, selectedCriterion);
     const labReflectPanel = renderGraphLabReflectPanel();
@@ -955,7 +1081,23 @@ export function createGraphCoverageExplorer(opts = {}) {
 
       <div class="graph-coverage-layout">
         <div class="graph-main-panel">
-          ${createGraphCanvas(graph, selectedRequirement)}
+          ${createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths })}
+          ${selPaths.length ? `
+          <div class="graph-path-legend" data-testid="graph-path-legend">
+            ${selPathIndices.map((i) => `
+              <span class="graph-path-legend__item">
+                <span class="graph-path-legend__swatch" style="background:${PALETTE[i % PALETTE.length]}"></span>
+                T${i + 1}
+              </span>
+            `).join('')}
+            ${hasShared ? `
+              <span class="graph-path-legend__item">
+                <span class="graph-path-legend__swatch graph-path-legend__swatch--shared" style="background:${SHARED_PATH_COLOR}"></span>
+                ${t('graph.path.shared')}
+              </span>
+            ` : ''}
+          </div>
+          ` : ''}
           ${(!focus || presetCfg.showDfg) ? createDataFlowCanvas(graph) : ''}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t('graph.summary.current')}</span>
@@ -983,9 +1125,24 @@ export function createGraphCoverageExplorer(opts = {}) {
             </div>
             `}
             <ul class="test-path-list" data-testid="test-path-list">
-              ${pathPlan.selectedPaths.map((path, index) => `
-                <li data-testid="test-path-${index + 1}">T${index + 1}: ${path.join(' -> ')}</li>
-              `).join('') || `<li>${t('graph.path.none')}</li>`}
+              ${pathPlan.selectedPaths.map((path, index) => {
+                const selected = selectedTestPathIndices.has(index);
+                const color = PALETTE[index % PALETTE.length];
+                return `
+                <li>
+                  <button
+                    type="button"
+                    data-test-path-index="${index}"
+                    data-testid="test-path-${index + 1}"
+                    class="test-path-chip${selected ? ' test-path-chip--active' : ''}"
+                    aria-pressed="${selected}"
+                  >
+                    <span class="test-path-chip__swatch" style="background:${color}"></span>
+                    <span class="test-path-chip__label">T${index + 1}: ${path.join(' -> ')}</span>
+                  </button>
+                </li>
+              `;
+              }).join('') || `<li>${t('graph.path.none')}</li>`}
             </ul>
             <p class="test-path-meta" data-testid="test-path-meta">
               Covered Requirements: ${pathPlan.requirementPaths.filter((item) => item.covered).length} / ${pathPlan.requirementPaths.length}
@@ -1159,6 +1316,7 @@ export function createGraphCoverageExplorer(opts = {}) {
       button.addEventListener('click', () => {
         criterionId = button.dataset.criterion;
         selectedRequirementId = null;
+        selectedTestPathIndices.clear();
         render();
       });
     });
@@ -1166,6 +1324,15 @@ export function createGraphCoverageExplorer(opts = {}) {
     root.querySelectorAll('[data-requirement-id]').forEach((button) => {
       button.addEventListener('click', () => {
         selectedRequirementId = button.dataset.requirementId;
+        render();
+      });
+    });
+
+    root.querySelectorAll('[data-test-path-index]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.testPathIndex);
+        if (selectedTestPathIndices.has(i)) selectedTestPathIndices.delete(i);
+        else selectedTestPathIndices.add(i);
         render();
       });
     });
