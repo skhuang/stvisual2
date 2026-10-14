@@ -7391,7 +7391,9 @@
   function tokensIn(text) {
     const found = [];
     for (const m of text.matchAll(IDENT_RE)) {
-      if (!KEYWORDS.has(m[0])) found.push(m[0]);
+      if (KEYWORDS.has(m[0])) continue;
+      if (/^\s*\(/.test(text.slice(m.index + m[0].length))) continue;
+      found.push(m[0]);
     }
     return found;
   }
@@ -7402,7 +7404,7 @@
     const defs = /* @__PURE__ */ new Set();
     const uses = /* @__PURE__ */ new Set();
     if (!node2) return { defs, uses };
-    const raw = node2.sourceText || node2.label || "";
+    const raw = node2.sourceText || "";
     const text = stripStringsAndComments(raw);
     const fn = text.match(/function\s+[A-Za-z_][\w]*\s*\(([^)]*)\)/) || text.match(/\(([^)]*)\)\s*=>/);
     if (fn) {
@@ -9240,16 +9242,62 @@
     };
   }
   function validateGraphObject(graphObject) {
-    const validated = parseGraphDraft(createDraftFromGraph(graphObject));
-    const sourceById = new Map(
-      (graphObject.nodes || []).filter((node2) => node2 && node2.sourceText).map((node2) => [node2.id, node2.sourceText])
-    );
-    const nodes = sourceById.size ? validated.nodes.map((node2) => sourceById.has(node2.id) ? { ...node2, sourceText: sourceById.get(node2.id) } : node2) : validated.nodes;
+    const rawNodes = Array.isArray(graphObject == null ? void 0 : graphObject.nodes) ? graphObject.nodes : [];
+    if (!rawNodes.length) {
+      throw new Error(t("graph.err.nodesEmpty"));
+    }
+    const nodes = rawNodes.map((node2, index) => {
+      if (!node2 || !node2.id || node2.label === void 0 || node2.label === null || node2.label === "") {
+        throw new Error(t("graph.err.nodeFmt", { line: index + 1 }));
+      }
+      const x = Number(node2.x);
+      const y = Number(node2.y);
+      if (!Number.isFinite(x) || !Number.isFinite(y)) {
+        throw new Error(t("graph.err.nodeCoord", { line: index + 1 }));
+      }
+      const result = { id: String(node2.id), label: String(node2.label), x, y, kind: node2.kind || "node" };
+      if (node2.sourceText) result.sourceText = node2.sourceText;
+      if (node2.sourceLine !== void 0 && node2.sourceLine !== null) result.sourceLine = node2.sourceLine;
+      return result;
+    });
+    const nodeIds = new Set(nodes.map((node2) => node2.id));
+    const rawEdges = Array.isArray(graphObject.edges) ? graphObject.edges : [];
+    if (!rawEdges.length) {
+      throw new Error(t("graph.err.edgesEmpty"));
+    }
+    const edges = rawEdges.map((edge, index) => {
+      var _a2, _b2;
+      const from = edge && edge.from;
+      const to = edge && edge.to;
+      if (!from || !to) {
+        throw new Error(t("graph.err.edgeMissing", { line: index + 1 }));
+      }
+      if (!nodeIds.has(from) || !nodeIds.has(to)) {
+        throw new Error(t("graph.err.edgeNode", { line: index + 1, from, to }));
+      }
+      const result = { id: edge.id || `${from}-${to}`, from, to };
+      const cx = Number((_a2 = edge.control) == null ? void 0 : _a2.x);
+      const cy = Number((_b2 = edge.control) == null ? void 0 : _b2.y);
+      if (Number.isFinite(cx) && Number.isFinite(cy)) {
+        result.control = { x: cx, y: cy };
+      }
+      return result;
+    });
+    const startNodeId = graphObject.startNodeId;
+    const endNodeId = graphObject.endNodeId;
+    if (!nodeIds.has(startNodeId)) {
+      throw new Error(t("graph.err.startMissing"));
+    }
+    if (!nodeIds.has(endNodeId)) {
+      throw new Error(t("graph.err.endMissing"));
+    }
     return {
-      ...validated,
+      id: graphObject.id || "custom-graph",
+      title: pickField(graphObject, "title") || t("graph.customTitle"),
       nodes,
-      id: graphObject.id || validated.id,
-      title: pickField(graphObject, "title") || validated.title
+      edges,
+      startNodeId,
+      endNodeId
     };
   }
   function focusProgramFor(graphObject) {

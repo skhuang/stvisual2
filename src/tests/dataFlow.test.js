@@ -43,6 +43,21 @@ describe('extractDefUse', () => {
     expect(defs.size).toBe(0);
     expect([...uses].sort()).toEqual(['a', 'b']);
   });
+
+  it('ignores a node with no sourceText (structural Start/End/Merge labels)', () => {
+    for (const label of ['Start', 'End', 'Merge', 'N4']) {
+      const { defs, uses } = extractDefUse({ id: 'x', label });
+      expect(defs.size, label).toBe(0);
+      expect(uses.size, label).toBe(0);
+    }
+  });
+
+  it('does not treat function-call names as variables', () => {
+    const { defs, uses } = extractDefUse({ sourceText: 'if (!isValidDate(year, month, day)) {' });
+    expect(defs.size).toBe(0);
+    expect([...uses].sort()).toEqual(['day', 'month', 'year']);
+    expect(uses.has('isValidDate')).toBe(false);
+  });
 });
 
 describe('buildDataFlowGraph', () => {

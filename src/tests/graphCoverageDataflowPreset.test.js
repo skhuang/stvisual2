@@ -44,4 +44,32 @@ describe('GraphCoverageExplorer dataflow preset renders variables', () => {
     // The all-defs criterion (default for this preset) yields requirements.
     expect(el.querySelectorAll('[data-requirement-id]').length).toBeGreaterThan(0);
   });
+
+  it('loads a comma-labelled program example (Next Date) with its real variables', () => {
+    const el = createGraphCoverageExplorer({ preset: 'dataflow' });
+    document.body.appendChild(el);
+    const select = el.querySelector('[data-testid="ex-select"]');
+    expect(select).toBeTruthy();
+    const option = [...select.options].find((o) => o.textContent.trim().startsWith('Next Date'));
+    expect(option, 'Next Date option present').toBeTruthy();
+
+    select.value = option.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+
+    // The real CFG loaded (not the generated fallback), labels with commas and
+    // all. Its title and variables must reflect Next Date.
+    expect(el.querySelector('.graph-coverage-header h3').textContent).toMatch(/Next Date/);
+    const dfgVars = new Set(
+      [...el.querySelectorAll('[data-testid^="dfg-edge-"] text')]
+        .flatMap((node) => node.textContent.split(',').map((s) => s.trim())),
+    );
+    expect(dfgVars.has('year')).toBe(true);
+    expect(dfgVars.has('month')).toBe(true);
+    expect(dfgVars.has('day')).toBe(true);
+    // No structural-label or call-name pollution.
+    for (const bogus of ['Start', 'End', 'Merge', 'isValidDate', 'daysInMonth']) {
+      expect(dfgVars.has(bogus), bogus).toBe(false);
+    }
+    el.remove();
+  });
 });

@@ -27,7 +27,11 @@ const IDENT_RE = /[A-Za-z_][A-Za-z0-9_]*/g;
 function tokensIn(text) {
   const found = [];
   for (const m of text.matchAll(IDENT_RE)) {
-    if (!KEYWORDS.has(m[0])) found.push(m[0]);
+    if (KEYWORDS.has(m[0])) continue;
+    // Skip function-call callees: an identifier immediately followed by `(`
+    // is a call name (e.g. isValidDate(...)), not a data-flow variable.
+    if (/^\s*\(/.test(text.slice(m.index + m[0].length))) continue;
+    found.push(m[0]);
   }
   return found;
 }
@@ -51,7 +55,12 @@ export function extractDefUse(node) {
   const uses = new Set();
   if (!node) return { defs, uses };
 
-  const raw = node.sourceText || node.label || '';
+  // Only the node's `sourceText` is program code. Structural nodes (Start,
+  // End, Merge) and topology-only graphs carry just a display `label`; using
+  // that as a fallback would mint bogus variables named "Start"/"Merge"/"End"
+  // (or bare node ids), polluting the data-flow requirements. So a node with
+  // no sourceText contributes no defs/uses.
+  const raw = node.sourceText || '';
   const text = stripStringsAndComments(raw);
 
   // Function parameters as definitions on the entry line.
