@@ -347,8 +347,22 @@ export function graphFromEdgesText(edgesText) {
 // survives validation.
 function validateGraphObject(graphObject) {
   const validated = parseGraphDraft(createDraftFromGraph(graphObject));
+  // The draft round-trip (serializeNodes → parseNodesText) only carries
+  // id/label/x/y, dropping each node's `sourceText`. Re-attach it by id so
+  // data-flow analysis still sees variable defs/uses — needed for the
+  // dataflow preset's generated and example graphs.
+  const sourceById = new Map(
+    (graphObject.nodes || [])
+      .filter((node) => node && node.sourceText)
+      .map((node) => [node.id, node.sourceText]),
+  );
+  const nodes = sourceById.size
+    ? validated.nodes.map((node) =>
+      sourceById.has(node.id) ? { ...node, sourceText: sourceById.get(node.id) } : node)
+    : validated.nodes;
   return {
     ...validated,
+    nodes,
     id: graphObject.id || validated.id,
     title: pickField(graphObject, 'title') || validated.title,
   };
@@ -850,8 +864,22 @@ export function createGraphCoverageExplorer(opts = {}) {
   const graphQuiz = { active: false, selectedPaths: new Set(), phase: 'question', result: null };
   const graphLabReflect = { active: false, a1: '', a2: '' };
 
+  // The dataflow preset needs variable def/use info, which the edges-only
+  // interchange (graphToEdgesText) cannot carry. For it, the example dropdown
+  // exchanges a JSON graph object (nodes keep their `sourceText`); other
+  // presets keep the compact edges-text format. A preset-scoped recent-store
+  // key keeps the two formats from mixing.
+  const exchangeObjects = Boolean(presetCfg && presetCfg.showDfg);
+  const exampleMethodId = exchangeObjects ? 'graph-dataflow' : 'graph';
+
+  function graphToExchangeText(graphObject) {
+    return exchangeObjects
+      ? JSON.stringify(graphObject)
+      : graphRandom.graphToEdgesText(graphObject);
+  }
+
   function exampleDefault() {
-    return graphRandom.graphToEdgesText(graphRandom.presetForDifficulty(getInputDifficulty()));
+    return graphToExchangeText(graphRandom.presetForDifficulty(getInputDifficulty()));
   }
 
   function applyEdgesText(edgesText) {
@@ -874,24 +902,37 @@ export function createGraphCoverageExplorer(opts = {}) {
     }
   }
 
-  // The dropdown's preset options are the real per-program CFGs (converted
-  // to edges-text), reusing the module-level resolveProgramGraph the
-  // "Program Example" select already uses. Falls back to skipping an
-  // example if its source fails to parse rather than blocking the row.
+  function applyExchangeText(text) {
+    if (!exchangeObjects) {
+      applyEdgesText(text);
+      return;
+    }
+    try {
+      applyGraphObject(JSON.parse(text));
+    } catch (error) {
+      parseError = error.message;
+      render();
+    }
+  }
+
+  // The dropdown's preset options are the real per-program CFGs, reusing the
+  // module-level resolveProgramGraph the "Program Example" select already
+  // uses. Falls back to skipping an example if its source fails to parse
+  // rather than blocking the row.
   const exampleControls = focus ? createExampleControls({
-    methodId: 'graph',
+    methodId: exampleMethodId,
     getDefaultText: exampleDefault,
     presets: graphCoverageProgramExamples.map((program) => {
       try {
-        return { value: graphRandom.graphToEdgesText(resolveProgramGraph(program)), label: program.name };
+        return { value: graphToExchangeText(resolveProgramGraph(program)), label: program.name };
       } catch {
         return null;
       }
     }).filter(Boolean),
     onLoad: (text) => {
-      applyEdgesText(text);
+      applyExchangeText(text);
       userEdited = true;
-      saveExample(localStorage, 'graph', text, exampleDefault(), 10);
+      saveExample(localStorage, exampleMethodId, text, exampleDefault(), 10);
       exampleControls.refresh();
     },
     onRandom: () => {
