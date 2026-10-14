@@ -345,26 +345,72 @@ export function graphFromEdgesText(edgesText) {
 // parseUploadedGraphSpec does for uploaded specs: round-trip it through the
 // existing draft parser, then re-tag the id/title so the original identity
 // survives validation.
+// Validate a graph OBJECT directly, applying the same shape/reference checks
+// as parseGraphDraft but WITHOUT the comma-delimited text round-trip.
+// serializeNodes → parseNodesText splits on commas, so it silently corrupts
+// any node whose `label` contains a comma (e.g. a CFG node labelled
+// "function nextDate(year, mon…"), and it drops `sourceText`/`kind` entirely.
+// Working on the object keeps every field intact (label, sourceText, kind,
+// coords), so program-example CFGs load correctly and keep their variables.
 function validateGraphObject(graphObject) {
-  const validated = parseGraphDraft(createDraftFromGraph(graphObject));
-  // The draft round-trip (serializeNodes → parseNodesText) only carries
-  // id/label/x/y, dropping each node's `sourceText`. Re-attach it by id so
-  // data-flow analysis still sees variable defs/uses — needed for the
-  // dataflow preset's generated and example graphs.
-  const sourceById = new Map(
-    (graphObject.nodes || [])
-      .filter((node) => node && node.sourceText)
-      .map((node) => [node.id, node.sourceText]),
-  );
-  const nodes = sourceById.size
-    ? validated.nodes.map((node) =>
-      sourceById.has(node.id) ? { ...node, sourceText: sourceById.get(node.id) } : node)
-    : validated.nodes;
+  const rawNodes = Array.isArray(graphObject?.nodes) ? graphObject.nodes : [];
+  if (!rawNodes.length) {
+    throw new Error(t('graph.err.nodesEmpty'));
+  }
+  const nodes = rawNodes.map((node, index) => {
+    if (!node || !node.id || node.label === undefined || node.label === null || node.label === '') {
+      throw new Error(t('graph.err.nodeFmt', { line: index + 1 }));
+    }
+    const x = Number(node.x);
+    const y = Number(node.y);
+    if (!Number.isFinite(x) || !Number.isFinite(y)) {
+      throw new Error(t('graph.err.nodeCoord', { line: index + 1 }));
+    }
+    const result = { id: String(node.id), label: String(node.label), x, y, kind: node.kind || 'node' };
+    if (node.sourceText) result.sourceText = node.sourceText;
+    if (node.sourceLine !== undefined && node.sourceLine !== null) result.sourceLine = node.sourceLine;
+    return result;
+  });
+
+  const nodeIds = new Set(nodes.map((node) => node.id));
+  const rawEdges = Array.isArray(graphObject.edges) ? graphObject.edges : [];
+  if (!rawEdges.length) {
+    throw new Error(t('graph.err.edgesEmpty'));
+  }
+  const edges = rawEdges.map((edge, index) => {
+    const from = edge && edge.from;
+    const to = edge && edge.to;
+    if (!from || !to) {
+      throw new Error(t('graph.err.edgeMissing', { line: index + 1 }));
+    }
+    if (!nodeIds.has(from) || !nodeIds.has(to)) {
+      throw new Error(t('graph.err.edgeNode', { line: index + 1, from, to }));
+    }
+    const result = { id: edge.id || `${from}-${to}`, from, to };
+    const cx = Number(edge.control?.x);
+    const cy = Number(edge.control?.y);
+    if (Number.isFinite(cx) && Number.isFinite(cy)) {
+      result.control = { x: cx, y: cy };
+    }
+    return result;
+  });
+
+  const startNodeId = graphObject.startNodeId;
+  const endNodeId = graphObject.endNodeId;
+  if (!nodeIds.has(startNodeId)) {
+    throw new Error(t('graph.err.startMissing'));
+  }
+  if (!nodeIds.has(endNodeId)) {
+    throw new Error(t('graph.err.endMissing'));
+  }
+
   return {
-    ...validated,
+    id: graphObject.id || 'custom-graph',
+    title: pickField(graphObject, 'title') || t('graph.customTitle'),
     nodes,
-    id: graphObject.id || validated.id,
-    title: pickField(graphObject, 'title') || validated.title,
+    edges,
+    startNodeId,
+    endNodeId,
   };
 }
 
