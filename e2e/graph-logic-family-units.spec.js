@@ -11,6 +11,12 @@ test('graph unit view: structural shows 2 criteria, no editor', async ({ page })
 test('graph dataflow shows DFG, path does not', async ({ page }) => {
   await page.goto('/?explorer=graph-dataflow');
   await expect(page.getByTestId('graph-dfg-card')).toBeVisible();
+  // The generated CFG carries variables: the DFG is non-empty and the
+  // all-defs criterion produces data-flow requirements (regression for the
+  // "data-flow coverage has no variables" bug).
+  await expect(page.getByTestId('graph-dfg-empty')).toHaveCount(0);
+  await expect(page.locator('[data-testid^="dfg-edge-"]').first()).toBeVisible();
+  await expect(page.locator('[data-requirement-id]').first()).toBeVisible();
   await page.goto('/?explorer=graph-path');
   await expect(page.getByTestId('graph-dfg-card')).toHaveCount(0);
 });

@@ -8851,12 +8851,57 @@
       edges: edges.map((e) => ({ id: `${e.from}-${e.to}`, from: e.from, to: e.to, ...e.control ? { control: e.control } : {} }))
     };
   }
+  function annotateSource(nodes, chain, siblingOf) {
+    const byId = new Map(nodes.map((n) => [n.id, n]));
+    const work = ["x", "y"];
+    const defVarOf = /* @__PURE__ */ new Map();
+    let assignIdx = 0;
+    let decisionIdx = 0;
+    const start = byId.get("S");
+    if (start) start.sourceText = "function run(x, y)";
+    for (let idx = 1; idx < chain.length - 1; idx++) {
+      const n = byId.get(chain[idx]);
+      if (!n) continue;
+      if (n.kind === "decision") {
+        const a = work[decisionIdx % work.length];
+        const b = work[(decisionIdx + 1) % work.length];
+        n.sourceText = `if (${a} > ${b})`;
+        decisionIdx++;
+      } else {
+        const a = work[assignIdx % work.length];
+        const b = work[(assignIdx + 1) % work.length];
+        const v = `v${assignIdx}`;
+        n.sourceText = `${v} = ${a} + ${b}`;
+        defVarOf.set(n.id, v);
+        work.push(v);
+        assignIdx++;
+      }
+    }
+    for (const [sibId, parallelId] of siblingOf) {
+      const n = byId.get(sibId);
+      if (!n) continue;
+      const parallelVar = defVarOf.get(parallelId);
+      if (parallelVar) {
+        n.sourceText = `${parallelVar} = x - y`;
+      } else {
+        const v = `v${assignIdx++}`;
+        n.sourceText = `${v} = x * y`;
+        work.push(v);
+      }
+    }
+    const end = byId.get("T");
+    if (end) {
+      const firstDef = defVarOf.values().next().value;
+      end.sourceText = `return ${firstDef || "x"}`;
+    }
+  }
   function build(midCount, branchCount, loopCount) {
     const mids = LETTERS.slice(0, midCount);
     const chain = ["S", ...mids, "T"];
     const nodes = chain.map((id, i) => node(id, i, 0, id === "S" ? "start" : id === "T" ? "end" : "node"));
     const edges = [];
     for (let i = 0; i < chain.length - 1; i++) edges.push({ from: chain[i], to: chain[i + 1] });
+    const siblingOf = /* @__PURE__ */ new Map();
     let sib = 0;
     for (let b = 0; b < branchCount && b + 1 < mids.length; b++) {
       const at = 1 + b;
@@ -8866,11 +8911,13 @@
       const forkNode = nodes.find((n) => n.id === from);
       if (forkNode && forkNode.kind === "node") forkNode.kind = "decision";
       edges.push({ from, to: sibId }, { from: sibId, to: rejoin });
+      siblingOf.set(sibId, chain[at]);
     }
     for (let l = 0; l < loopCount && mids.length >= 2; l++) {
       const hi = 1 + Math.min(mids.length - 1, 2 + l), lo = 1 + Math.min(mids.length - 2, l);
       if (hi > lo) edges.push({ from: chain[hi], to: chain[lo], control: { x: 80 + lo * 140, y: 40 } });
     }
+    annotateSource(nodes, chain, siblingOf);
     return graphFrom(nodes, edges);
   }
   function presetForDifficulty(tier) {
@@ -9194,8 +9241,13 @@
   }
   function validateGraphObject(graphObject) {
     const validated = parseGraphDraft(createDraftFromGraph(graphObject));
+    const sourceById = new Map(
+      (graphObject.nodes || []).filter((node2) => node2 && node2.sourceText).map((node2) => [node2.id, node2.sourceText])
+    );
+    const nodes = sourceById.size ? validated.nodes.map((node2) => sourceById.has(node2.id) ? { ...node2, sourceText: sourceById.get(node2.id) } : node2) : validated.nodes;
     return {
       ...validated,
+      nodes,
       id: graphObject.id || validated.id,
       title: pickField(graphObject, "title") || validated.title
     };
@@ -9609,8 +9661,13 @@
     let draft = createDraftFromGraph(initialGraph);
     const graphQuiz = { active: false, selectedPaths: /* @__PURE__ */ new Set(), phase: "question", result: null };
     const graphLabReflect = { active: false, a1: "", a2: "" };
+    const exchangeObjects = Boolean(presetCfg && presetCfg.showDfg);
+    const exampleMethodId = exchangeObjects ? "graph-dataflow" : "graph";
+    function graphToExchangeText(graphObject) {
+      return exchangeObjects ? JSON.stringify(graphObject) : graphToEdgesText(graphObject);
+    }
     function exampleDefault() {
-      return graphToEdgesText(presetForDifficulty(getInputDifficulty()));
+      return graphToExchangeText(presetForDifficulty(getInputDifficulty()));
     }
     function applyEdgesText(edgesText) {
       try {
@@ -9630,20 +9687,32 @@
         render45();
       }
     }
+    function applyExchangeText(text) {
+      if (!exchangeObjects) {
+        applyEdgesText(text);
+        return;
+      }
+      try {
+        applyGraphObject(JSON.parse(text));
+      } catch (error) {
+        parseError = error.message;
+        render45();
+      }
+    }
     const exampleControls = focus ? createExampleControls({
-      methodId: "graph",
+      methodId: exampleMethodId,
       getDefaultText: exampleDefault,
       presets: graphCoverageProgramExamples.map((program) => {
         try {
-          return { value: graphToEdgesText(resolveProgramGraph(program)), label: program.name };
+          return { value: graphToExchangeText(resolveProgramGraph(program)), label: program.name };
         } catch {
           return null;
         }
       }).filter(Boolean),
       onLoad: (text) => {
-        applyEdgesText(text);
+        applyExchangeText(text);
         userEdited = true;
-        save(localStorage, "graph", text, exampleDefault(), 10);
+        save(localStorage, exampleMethodId, text, exampleDefault(), 10);
         exampleControls.refresh();
       },
       onRandom: () => {
