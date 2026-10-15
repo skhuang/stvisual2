@@ -67,6 +67,23 @@ describe('GraphCoverageExplorer dataflow preset renders variables', () => {
     expect(card.compareDocumentPosition(firstReq) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
+  it('flags a definition with no reachable use as untestable (DU anomaly)', () => {
+    const el = createGraphCoverageExplorer({ preset: 'dataflow' });
+    const varTable = el.querySelector('[data-testid="graph-defuse-var-table"]');
+    // The default generated graph defines v2 at C but never uses it.
+    const v2Row = varTable.querySelector('[data-defuse-var="v2"]');
+    expect(v2Row, 'v2 row present').toBeTruthy();
+    expect(v2Row.getAttribute('data-defuse-untestable')).toBe('1');
+    expect(el.querySelector('[data-testid="defuse-untestable-v2"]')).toBeTruthy();
+    // A normal variable (x is used) is not flagged.
+    const xRow = varTable.querySelector('[data-defuse-var="x"]');
+    expect(xRow.getAttribute('data-defuse-untestable')).toBeNull();
+    // The explanatory note appears when at least one dead def exists.
+    expect(el.querySelector('[data-testid="graph-defuse-note"]')).toBeTruthy();
+    // The dead def is also marked in the per-node def column.
+    expect(el.querySelector('.graph-defuse-dead')).toBeTruthy();
+  });
+
   it('shows the def/use table in the full explorer only for data-flow criteria', () => {
     const el = createGraphCoverageExplorer();
     document.body.appendChild(el);

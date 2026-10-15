@@ -3081,6 +3081,9 @@
       "graph.defuse.colUsedAt": "Used at",
       "graph.defuse.none": "\u2014",
       "graph.defuse.empty": "No variables in the current source \u2014 nothing to list.",
+      "graph.defuse.untestable": "untestable",
+      "graph.defuse.untestableAria": "Untestable: no definition-clear path reaches a use",
+      "graph.defuse.untestableNote": "Flagged definitions have no definition-clear path to any use, so no data-flow requirement can cover them (a DU anomaly: defined but never used, or killed by a later redefinition).",
       "graph.aria.switcher": "Switch coverage criteria",
       "graph.customTitle": "Custom Control Flow Graph",
       "graph.source.empty": "This source only provides a graph; no source code snippet attached.",
@@ -6063,6 +6066,9 @@
       "graph.defuse.colUsedAt": "\u4F7F\u7528\u65BC",
       "graph.defuse.none": "\u2014",
       "graph.defuse.empty": "\u76EE\u524D\u539F\u59CB\u7A0B\u5F0F\u6C92\u6709\u8B8A\u6578\uFF0C\u7121\u53EF\u5217\u51FA\u3002",
+      "graph.defuse.untestable": "\u7121\u6CD5\u6E2C\u8A66",
+      "graph.defuse.untestableAria": "\u7121\u6CD5\u6E2C\u8A66\uFF1A\u6C92\u6709 def-clear \u8DEF\u5F91\u5230\u9054\u4EFB\u4F55 use",
+      "graph.defuse.untestableNote": "\u6A19\u793A\u7684\u5B9A\u7FA9\u6C92\u6709 def-clear \u8DEF\u5F91\u5230\u9054\u4EFB\u4F55 use\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u8CC7\u6599\u6D41\u8986\u84CB\u9700\u6C42\u80FD\u6DB5\u84CB\u5B83\uFF08DU \u7570\u5E38\uFF1A\u5B9A\u7FA9\u5F8C\u5F9E\u672A\u88AB\u4F7F\u7528\uFF0C\u6216\u5728\u88AB\u4F7F\u7528\u524D\u5C31\u88AB\u5F8C\u7E8C\u5B9A\u7FA9\u8986\u5BEB\uFF09\u3002",
       "graph.aria.switcher": "coverage criteria \u5207\u63DB",
       "graph.customTitle": "\u81EA\u8A02\u63A7\u5236\u6D41\u7A0B\u5716",
       "graph.source.empty": "\u9019\u500B\u4F86\u6E90\u76EE\u524D\u53EA\u63D0\u4F9B graph\uFF0C\u6C92\u6709\u9644\u5E36\u7A0B\u5F0F\u78BC\u7247\u6BB5\u3002",
@@ -9729,6 +9735,28 @@
     });
     const none = `<span class="graph-defuse-none">${t("graph.defuse.none")}</span>`;
     const setCell = (ids) => ids && ids.length ? ids.map((v) => escapeHtml(v)).join(", ") : none;
+    const coverableDefs = new Set(dfg.edges.map((e) => `${e.from}::${e.variable}`));
+    const isDeadDef = (nodeId, v) => !coverableDefs.has(`${nodeId}::${v}`);
+    let deadCount = 0;
+    const deadTag = `<sup class="graph-defuse-dead-tag" title="${t("graph.defuse.untestableAria")}" aria-label="${t("graph.defuse.untestableAria")}">\u26A0</sup>`;
+    const defVarsCell = (nodeId, vars) => {
+      if (!vars.length) return none;
+      return vars.map((v) => {
+        if (isDeadDef(nodeId, v)) {
+          deadCount += 1;
+          return `<span class="graph-defuse-dead">${escapeHtml(v)}${deadTag}</span>`;
+        }
+        return escapeHtml(v);
+      }).join(", ");
+    };
+    const defNodesCell = (v, nodeIds) => {
+      if (!nodeIds.length) return none;
+      return nodeIds.map((nodeId) => isDeadDef(nodeId, v) ? `<span class="graph-defuse-dead">${escapeHtml(nodeId)}${deadTag}</span>` : escapeHtml(nodeId)).join(", ");
+    };
+    const varUntestable = (v) => {
+      const defNodes = defsByVar.get(v) || [];
+      return defNodes.length > 0 && defNodes.every((nodeId) => isDeadDef(nodeId, v));
+    };
     const body3 = variables.length === 0 ? `<p class="graph-defuse-empty" data-testid="graph-defuse-empty">${t("graph.defuse.empty")}</p>` : `
       <div class="graph-defuse-grid">
         <div class="graph-defuse-block">
@@ -9743,7 +9771,7 @@
               ${nodeRows.map(({ node: node2, du }) => `
                 <tr data-defuse-node="${escapeHtml(node2.id)}">
                   <th scope="row">${escapeHtml(node2.id)}</th>
-                  <td>${setCell([...du.defs].sort())}</td>
+                  <td>${defVarsCell(node2.id, [...du.defs].sort())}</td>
                   <td>${setCell([...du.uses].sort())}</td>
                 </tr>`).join("")}
             </tbody>
@@ -9759,15 +9787,16 @@
             </tr></thead>
             <tbody>
               ${variables.map((v) => `
-                <tr data-defuse-var="${escapeHtml(v)}">
-                  <th scope="row">${escapeHtml(v)}</th>
-                  <td>${setCell(sortNodes(defsByVar.get(v)))}</td>
+                <tr data-defuse-var="${escapeHtml(v)}"${varUntestable(v) ? ' data-defuse-untestable="1"' : ""}>
+                  <th scope="row">${escapeHtml(v)}${varUntestable(v) ? ` <span class="graph-defuse-badge" data-testid="defuse-untestable-${escapeHtml(v)}">${t("graph.defuse.untestable")}</span>` : ""}</th>
+                  <td>${defNodesCell(v, sortNodes(defsByVar.get(v)))}</td>
                   <td>${setCell(sortNodes(usesByVar.get(v)))}</td>
                 </tr>`).join("")}
             </tbody>
           </table>
         </div>
       </div>`;
+    const note = deadCount > 0 ? `<p class="graph-defuse-note" data-testid="graph-defuse-note">${deadTag} ${t("graph.defuse.untestableNote")}</p>` : "";
     return `
     <div class="graph-defuse-card" data-testid="graph-defuse-card">
       <div class="graph-defuse-header">
@@ -9775,6 +9804,7 @@
         <p>${t("graph.defuse.help")}</p>
       </div>
       ${body3}
+      ${note}
     </div>
   `;
   }
