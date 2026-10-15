@@ -45,6 +45,42 @@ describe('GraphCoverageExplorer dataflow preset renders variables', () => {
     expect(el.querySelectorAll('[data-requirement-id]').length).toBeGreaterThan(0);
   });
 
+  it('lists def/use before the requirements (per-node + per-variable tables)', () => {
+    const el = createGraphCoverageExplorer({ preset: 'dataflow' });
+    const card = el.querySelector('[data-testid="graph-defuse-card"]');
+    expect(card).toBeTruthy();
+    expect(el.querySelector('[data-testid="graph-defuse-empty"]')).toBeNull();
+
+    const nodeTable = el.querySelector('[data-testid="graph-defuse-node-table"]');
+    const varTable = el.querySelector('[data-testid="graph-defuse-var-table"]');
+    expect(nodeTable).toBeTruthy();
+    expect(varTable).toBeTruthy();
+    // Per-node rows exist; per-variable rows include the params x and y.
+    expect(nodeTable.querySelectorAll('[data-defuse-node]').length).toBeGreaterThan(0);
+    const vars = [...varTable.querySelectorAll('[data-defuse-var]')].map((r) => r.getAttribute('data-defuse-var'));
+    expect(vars).toContain('x');
+    expect(vars).toContain('y');
+
+    // The def/use card comes before the Test Requirements list in the DOM.
+    const firstReq = el.querySelector('[data-requirement-id]');
+    expect(firstReq).toBeTruthy();
+    expect(card.compareDocumentPosition(firstReq) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('shows the def/use table in the full explorer only for data-flow criteria', () => {
+    const el = createGraphCoverageExplorer();
+    document.body.appendChild(el);
+    // Default criterion is "node" → no def/use table.
+    expect(el.querySelector('[data-testid="graph-defuse-card"]')).toBeNull();
+    // Switching to all-uses reveals it.
+    el.querySelector('[data-testid="criterion-all-uses"]').click();
+    expect(el.querySelector('[data-testid="graph-defuse-card"]')).toBeTruthy();
+    // Switching back to a structural criterion hides it again.
+    el.querySelector('[data-testid="criterion-node"]').click();
+    expect(el.querySelector('[data-testid="graph-defuse-card"]')).toBeNull();
+    el.remove();
+  });
+
   it('loads a comma-labelled program example (Next Date) with its real variables', () => {
     const el = createGraphCoverageExplorer({ preset: 'dataflow' });
     document.body.appendChild(el);
