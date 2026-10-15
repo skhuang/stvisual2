@@ -940,6 +940,40 @@ function createDefUseTable(graph) {
     return defNodes.length > 0 && defNodes.every((nodeId) => isDeadDef(nodeId, v));
   };
 
+  // The symmetric anomaly: a use (node n uses var v) with no definition-clear
+  // path from any def reaching it — i.e. no du-edge ends at n for v. That is a
+  // use-before-def / undefined-variable reference (a UR anomaly).
+  const coverableUses = new Set(dfg.edges.map((e) => `${e.to}::${e.variable}`));
+  const isUndefUse = (nodeId, v) => !coverableUses.has(`${nodeId}::${v}`);
+  let undefCount = 0;
+
+  const undefTag = `<sup class="graph-defuse-undef-tag" title="${t('graph.defuse.undefUseAria')}" aria-label="${t('graph.defuse.undefUseAria')}">⊘</sup>`;
+  // Cell of variable names (per-node use column): mark uses with no reaching def.
+  const useVarsCell = (nodeId, vars) => {
+    if (!vars.length) return none;
+    return vars.map((v) => {
+      if (isUndefUse(nodeId, v)) {
+        undefCount += 1;
+        return `<span class="graph-defuse-undef">${escapeHtml(v)}${undefTag}</span>`;
+      }
+      return escapeHtml(v);
+    }).join(', ');
+  };
+  // Cell of node ids (per-variable "Used at" column): mark use sites with no
+  // reaching definition.
+  const useNodesCell = (v, nodeIds) => {
+    if (!nodeIds.length) return none;
+    return nodeIds.map((nodeId) => (
+      isUndefUse(nodeId, v)
+        ? `<span class="graph-defuse-undef">${escapeHtml(nodeId)}${undefTag}</span>`
+        : escapeHtml(nodeId)
+    )).join(', ');
+  };
+  const varUndefined = (v) => {
+    const useNodes = usesByVar.get(v) || [];
+    return useNodes.length > 0 && useNodes.every((nodeId) => isUndefUse(nodeId, v));
+  };
+
   const body = variables.length === 0
     ? `<p class="graph-defuse-empty" data-testid="graph-defuse-empty">${t('graph.defuse.empty')}</p>`
     : `
@@ -957,7 +991,7 @@ function createDefUseTable(graph) {
                 <tr data-defuse-node="${escapeHtml(node.id)}">
                   <th scope="row">${escapeHtml(node.id)}</th>
                   <td>${defVarsCell(node.id, [...du.defs].sort())}</td>
-                  <td>${setCell([...du.uses].sort())}</td>
+                  <td>${useVarsCell(node.id, [...du.uses].sort())}</td>
                 </tr>`).join('')}
             </tbody>
           </table>
@@ -972,21 +1006,25 @@ function createDefUseTable(graph) {
             </tr></thead>
             <tbody>
               ${variables.map((v) => `
-                <tr data-defuse-var="${escapeHtml(v)}"${varUntestable(v) ? ' data-defuse-untestable="1"' : ''}>
+                <tr data-defuse-var="${escapeHtml(v)}"${varUntestable(v) ? ' data-defuse-untestable="1"' : ''}${varUndefined(v) ? ' data-defuse-undefined="1"' : ''}>
                   <th scope="row">${escapeHtml(v)}${varUntestable(v)
                     ? ` <span class="graph-defuse-badge" data-testid="defuse-untestable-${escapeHtml(v)}">${t('graph.defuse.untestable')}</span>`
+                    : ''}${varUndefined(v)
+                    ? ` <span class="graph-defuse-badge graph-defuse-badge--undef" data-testid="defuse-undefined-${escapeHtml(v)}">${t('graph.defuse.undefUse')}</span>`
                     : ''}</th>
                   <td>${defNodesCell(v, sortNodes(defsByVar.get(v)))}</td>
-                  <td>${setCell(sortNodes(usesByVar.get(v)))}</td>
+                  <td>${useNodesCell(v, sortNodes(usesByVar.get(v)))}</td>
                 </tr>`).join('')}
             </tbody>
           </table>
         </div>
       </div>`;
 
-  const note = deadCount > 0
+  const note = `${deadCount > 0
     ? `<p class="graph-defuse-note" data-testid="graph-defuse-note">${deadTag} ${t('graph.defuse.untestableNote')}</p>`
-    : '';
+    : ''}${undefCount > 0
+    ? `<p class="graph-defuse-note graph-defuse-note--undef" data-testid="graph-defuse-undef-note">${undefTag} ${t('graph.defuse.undefUseNote')}</p>`
+    : ''}`;
 
   return `
     <div class="graph-defuse-card" data-testid="graph-defuse-card">

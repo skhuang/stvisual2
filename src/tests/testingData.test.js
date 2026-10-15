@@ -199,6 +199,7 @@ describe('graphCoverage data', () => {
       'calendar-days',
       'quadrilateral-problem',
       'next-week',
+      'dataflow-anomaly-demo',
     ]);
     graphCoverageProgramExamples.forEach((item) => {
       expect(item.language).toBeTruthy();

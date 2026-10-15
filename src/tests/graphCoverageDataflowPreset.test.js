@@ -84,6 +84,30 @@ describe('GraphCoverageExplorer dataflow preset renders variables', () => {
     expect(el.querySelector('.graph-defuse-dead')).toBeTruthy();
   });
 
+  it('flags use-before-def / undefined-variable uses (UR anomaly) via the demo', () => {
+    const el = createGraphCoverageExplorer({ preset: 'dataflow' });
+    document.body.appendChild(el);
+    const select = el.querySelector('[data-testid="ex-select"]');
+    const option = [...select.options].find((o) => o.textContent.trim().startsWith('Data-Flow Anomaly'));
+    expect(option, 'anomaly demo option present').toBeTruthy();
+    select.value = option.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+
+    const varTable = el.querySelector('[data-testid="graph-defuse-var-table"]');
+    // `rate` is never defined → every use is undefined → row badge.
+    const rateRow = varTable.querySelector('[data-defuse-var="rate"]');
+    expect(rateRow, 'rate row present').toBeTruthy();
+    expect(rateRow.getAttribute('data-defuse-undefined')).toBe('1');
+    expect(el.querySelector('[data-testid="defuse-undefined-rate"]')).toBeTruthy();
+    // `total` is used before its def but also used after → not all uses bad → no row badge.
+    const totalRow = varTable.querySelector('[data-defuse-var="total"]');
+    expect(totalRow.getAttribute('data-defuse-undefined')).toBeNull();
+    // but at least one use site is marked, and the UR note is present.
+    expect(el.querySelector('.graph-defuse-undef')).toBeTruthy();
+    expect(el.querySelector('[data-testid="graph-defuse-undef-note"]')).toBeTruthy();
+    el.remove();
+  });
+
   it('shows the def/use table in the full explorer only for data-flow criteria', () => {
     const el = createGraphCoverageExplorer();
     document.body.appendChild(el);
