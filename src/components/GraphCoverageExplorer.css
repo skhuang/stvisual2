@@ -454,6 +454,38 @@
   font-size: 0.85rem;
   color: #64748b;
 }
+/* Untestable (uncoverable) definitions — a DU anomaly */
+.graph-defuse-dead {
+  color: #b45309;
+  text-decoration: underline dotted #f59e0b;
+  text-underline-offset: 2px;
+}
+.graph-defuse-dead-tag {
+  color: #d97706;
+  font-size: 0.7em;
+  margin-left: 1px;
+  cursor: help;
+}
+.graph-defuse-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  color: #b45309;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  vertical-align: middle;
+}
+.graph-defuse-note {
+  margin: 10px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #92700a;
+}
 .graph-dfg-edge path {
   stroke: #0ea5e9;
   stroke-width: 2.4;
