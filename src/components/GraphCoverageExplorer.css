@@ -486,6 +486,24 @@
   line-height: 1.5;
   color: #92700a;
 }
+/* Use-before-def / undefined-variable use — a UR anomaly */
+.graph-defuse-undef {
+  color: #be123c;
+  text-decoration: underline dotted #f43f5e;
+  text-underline-offset: 2px;
+}
+.graph-defuse-undef-tag {
+  color: #e11d48;
+  font-size: 0.7em;
+  margin-left: 1px;
+  cursor: help;
+}
+.graph-defuse-badge--undef {
+  color: #be123c;
+  background: #ffe4e6;
+  border-color: #fecdd3;
+}
+.graph-defuse-note--undef { color: #9f1239; }
 .graph-dfg-edge path {
   stroke: #0ea5e9;
   stroke-width: 2.4;

@@ -366,6 +366,18 @@ export const graphCoverageProgramExamples = [
   return { year: newYear, month: newMonth, day: newDay };
 }`,
   },
+  {
+    id: 'dataflow-anomaly-demo',
+    name: 'Data-Flow Anomaly Demo',
+    language: 'javascript',
+    description: 'A deliberately buggy routine: one variable is used before it is defined and another is never defined at all — to show the use-before-def / undefined-use anomalies.',
+    sourceCode: `function anomalyDemo(a, b) {
+  let x = a + total;
+  let total = b * 2;
+  let y = x + rate;
+  return y + total;
+}`,
+  },
 ];
 
 export const logicCoverageCriteria = [
