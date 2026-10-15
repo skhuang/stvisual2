@@ -3069,6 +3069,18 @@
       "graph.dfg.aria": "Data flow graph",
       "graph.df.def": "def",
       "graph.df.use": "use",
+      "graph.defuse.title": "Definitions & Uses",
+      "graph.defuse.help": "Extracted from each statement first; the coverage requirements below are derived from these def/use sets.",
+      "graph.defuse.byNode": "Per node",
+      "graph.defuse.byVar": "Per variable",
+      "graph.defuse.colNode": "Node",
+      "graph.defuse.colDef": "def(n)",
+      "graph.defuse.colUse": "use(n)",
+      "graph.defuse.colVar": "Variable",
+      "graph.defuse.colDefinedAt": "Defined at",
+      "graph.defuse.colUsedAt": "Used at",
+      "graph.defuse.none": "\u2014",
+      "graph.defuse.empty": "No variables in the current source \u2014 nothing to list.",
       "graph.aria.switcher": "Switch coverage criteria",
       "graph.customTitle": "Custom Control Flow Graph",
       "graph.source.empty": "This source only provides a graph; no source code snippet attached.",
@@ -6039,6 +6051,18 @@
       "graph.dfg.aria": "\u8CC7\u6599\u6D41\u7A0B\u5716",
       "graph.df.def": "\u5B9A\u7FA9",
       "graph.df.use": "\u4F7F\u7528",
+      "graph.defuse.title": "\u5B9A\u7FA9\u8207\u4F7F\u7528\u6E05\u55AE",
+      "graph.defuse.help": "\u5148\u5F9E\u6BCF\u500B\u53E5\u5B50\u62BD\u53D6 def/use\uFF1B\u4E0B\u65B9\u7684\u8986\u84CB\u9700\u6C42\uFF08requirement\uFF09\u90FD\u662F\u7531\u9019\u4E9B def/use \u96C6\u5408\u63A8\u5C0E\u51FA\u4F86\u7684\u3002",
+      "graph.defuse.byNode": "\u4F9D\u7BC0\u9EDE",
+      "graph.defuse.byVar": "\u4F9D\u8B8A\u6578",
+      "graph.defuse.colNode": "\u7BC0\u9EDE",
+      "graph.defuse.colDef": "def(n)",
+      "graph.defuse.colUse": "use(n)",
+      "graph.defuse.colVar": "\u8B8A\u6578",
+      "graph.defuse.colDefinedAt": "\u5B9A\u7FA9\u65BC",
+      "graph.defuse.colUsedAt": "\u4F7F\u7528\u65BC",
+      "graph.defuse.none": "\u2014",
+      "graph.defuse.empty": "\u76EE\u524D\u539F\u59CB\u7A0B\u5F0F\u6C92\u6709\u8B8A\u6578\uFF0C\u7121\u53EF\u5217\u51FA\u3002",
       "graph.aria.switcher": "coverage criteria \u5207\u63DB",
       "graph.customTitle": "\u81EA\u8A02\u63A7\u5236\u6D41\u7A0B\u5716",
       "graph.source.empty": "\u9019\u500B\u4F86\u6E90\u76EE\u524D\u53EA\u63D0\u4F9B graph\uFF0C\u6C92\u6709\u9644\u5E36\u7A0B\u5F0F\u78BC\u7247\u6BB5\u3002",
@@ -9680,6 +9704,80 @@
     </div>
   `;
   }
+  function createDefUseTable(graph) {
+    const dfg = buildDataFlowGraph(graph);
+    const order = new Map(graph.nodes.map((n, i) => [n.id, i]));
+    const nodeRows = graph.nodes.map((node2) => ({ node: node2, du: dfg.defUseByNode.get(node2.id) })).filter(({ du }) => du && (du.defs.size || du.uses.size));
+    const defsByVar = /* @__PURE__ */ new Map();
+    const usesByVar = /* @__PURE__ */ new Map();
+    for (const node2 of graph.nodes) {
+      const du = dfg.defUseByNode.get(node2.id);
+      if (!du) continue;
+      for (const v of du.defs) {
+        if (!defsByVar.has(v)) defsByVar.set(v, []);
+        defsByVar.get(v).push(node2.id);
+      }
+      for (const v of du.uses) {
+        if (!usesByVar.has(v)) usesByVar.set(v, []);
+        usesByVar.get(v).push(node2.id);
+      }
+    }
+    const variables = [.../* @__PURE__ */ new Set([...defsByVar.keys(), ...usesByVar.keys()])].sort();
+    const sortNodes = (ids = []) => [...ids].sort((a, b) => {
+      var _a2, _b2;
+      return ((_a2 = order.get(a)) != null ? _a2 : 0) - ((_b2 = order.get(b)) != null ? _b2 : 0);
+    });
+    const none = `<span class="graph-defuse-none">${t("graph.defuse.none")}</span>`;
+    const setCell = (ids) => ids && ids.length ? ids.map((v) => escapeHtml(v)).join(", ") : none;
+    const body3 = variables.length === 0 ? `<p class="graph-defuse-empty" data-testid="graph-defuse-empty">${t("graph.defuse.empty")}</p>` : `
+      <div class="graph-defuse-grid">
+        <div class="graph-defuse-block">
+          <h5>${t("graph.defuse.byNode")}</h5>
+          <table class="graph-defuse-table" data-testid="graph-defuse-node-table">
+            <thead><tr>
+              <th>${t("graph.defuse.colNode")}</th>
+              <th>${t("graph.defuse.colDef")}</th>
+              <th>${t("graph.defuse.colUse")}</th>
+            </tr></thead>
+            <tbody>
+              ${nodeRows.map(({ node: node2, du }) => `
+                <tr data-defuse-node="${escapeHtml(node2.id)}">
+                  <th scope="row">${escapeHtml(node2.id)}</th>
+                  <td>${setCell([...du.defs].sort())}</td>
+                  <td>${setCell([...du.uses].sort())}</td>
+                </tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+        <div class="graph-defuse-block">
+          <h5>${t("graph.defuse.byVar")}</h5>
+          <table class="graph-defuse-table" data-testid="graph-defuse-var-table">
+            <thead><tr>
+              <th>${t("graph.defuse.colVar")}</th>
+              <th>${t("graph.defuse.colDefinedAt")}</th>
+              <th>${t("graph.defuse.colUsedAt")}</th>
+            </tr></thead>
+            <tbody>
+              ${variables.map((v) => `
+                <tr data-defuse-var="${escapeHtml(v)}">
+                  <th scope="row">${escapeHtml(v)}</th>
+                  <td>${setCell(sortNodes(defsByVar.get(v)))}</td>
+                  <td>${setCell(sortNodes(usesByVar.get(v)))}</td>
+                </tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+    return `
+    <div class="graph-defuse-card" data-testid="graph-defuse-card">
+      <div class="graph-defuse-header">
+        <h4>${t("graph.defuse.title")}</h4>
+        <p>${t("graph.defuse.help")}</p>
+      </div>
+      ${body3}
+    </div>
+  `;
+  }
   function createGraphCoverageExplorer(opts = {}) {
     const root45 = document.createElement("div");
     const defaultGraph = cloneGraph(graphCoverageGraph);
@@ -10131,6 +10229,7 @@
           </div>
           ` : ""}
           ${!focus || presetCfg.showDfg ? createDataFlowCanvas(graph, selectedRequirement) : ""}
+          ${presetCfg && presetCfg.showDfg || DATAFLOW_CRITERIA.has(criterionId) ? createDefUseTable(graph) : ""}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t("graph.summary.current")}</span>
             <strong>${(selectedRequirement == null ? void 0 : selectedRequirement.label) || t("common.none")}</strong>

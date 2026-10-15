@@ -871,6 +871,92 @@ function createDataFlowCanvas(graph, selectedRequirement = null) {
   `;
 }
 
+// A table of each statement's def/use sets, plus a per-variable summary.
+// This is the derivation step that the all-defs/all-uses/all-du-paths
+// requirements come from, so it renders above the requirement list in the
+// data-flow views.
+function createDefUseTable(graph) {
+  const dfg = buildDataFlowGraph(graph);
+  const order = new Map(graph.nodes.map((n, i) => [n.id, i]));
+
+  // Per-node rows, in graph order, keeping only nodes that define or use.
+  const nodeRows = graph.nodes
+    .map((node) => ({ node, du: dfg.defUseByNode.get(node.id) }))
+    .filter(({ du }) => du && (du.defs.size || du.uses.size));
+
+  // Per-variable summary: where each variable is defined / used.
+  const defsByVar = new Map();
+  const usesByVar = new Map();
+  for (const node of graph.nodes) {
+    const du = dfg.defUseByNode.get(node.id);
+    if (!du) continue;
+    for (const v of du.defs) {
+      if (!defsByVar.has(v)) defsByVar.set(v, []);
+      defsByVar.get(v).push(node.id);
+    }
+    for (const v of du.uses) {
+      if (!usesByVar.has(v)) usesByVar.set(v, []);
+      usesByVar.get(v).push(node.id);
+    }
+  }
+  const variables = [...new Set([...defsByVar.keys(), ...usesByVar.keys()])].sort();
+  const sortNodes = (ids = []) => [...ids].sort((a, b) => (order.get(a) ?? 0) - (order.get(b) ?? 0));
+  const none = `<span class="graph-defuse-none">${t('graph.defuse.none')}</span>`;
+  const setCell = (ids) => (ids && ids.length ? ids.map((v) => escapeHtml(v)).join(', ') : none);
+
+  const body = variables.length === 0
+    ? `<p class="graph-defuse-empty" data-testid="graph-defuse-empty">${t('graph.defuse.empty')}</p>`
+    : `
+      <div class="graph-defuse-grid">
+        <div class="graph-defuse-block">
+          <h5>${t('graph.defuse.byNode')}</h5>
+          <table class="graph-defuse-table" data-testid="graph-defuse-node-table">
+            <thead><tr>
+              <th>${t('graph.defuse.colNode')}</th>
+              <th>${t('graph.defuse.colDef')}</th>
+              <th>${t('graph.defuse.colUse')}</th>
+            </tr></thead>
+            <tbody>
+              ${nodeRows.map(({ node, du }) => `
+                <tr data-defuse-node="${escapeHtml(node.id)}">
+                  <th scope="row">${escapeHtml(node.id)}</th>
+                  <td>${setCell([...du.defs].sort())}</td>
+                  <td>${setCell([...du.uses].sort())}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div class="graph-defuse-block">
+          <h5>${t('graph.defuse.byVar')}</h5>
+          <table class="graph-defuse-table" data-testid="graph-defuse-var-table">
+            <thead><tr>
+              <th>${t('graph.defuse.colVar')}</th>
+              <th>${t('graph.defuse.colDefinedAt')}</th>
+              <th>${t('graph.defuse.colUsedAt')}</th>
+            </tr></thead>
+            <tbody>
+              ${variables.map((v) => `
+                <tr data-defuse-var="${escapeHtml(v)}">
+                  <th scope="row">${escapeHtml(v)}</th>
+                  <td>${setCell(sortNodes(defsByVar.get(v)))}</td>
+                  <td>${setCell(sortNodes(usesByVar.get(v)))}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+
+  return `
+    <div class="graph-defuse-card" data-testid="graph-defuse-card">
+      <div class="graph-defuse-header">
+        <h4>${t('graph.defuse.title')}</h4>
+        <p>${t('graph.defuse.help')}</p>
+      </div>
+      ${body}
+    </div>
+  `;
+}
+
 export function createGraphCoverageExplorer(opts = {}) {
   const root = document.createElement('div');
   const defaultGraph = cloneGraph(graphCoverageGraph);
@@ -1373,6 +1459,7 @@ export function createGraphCoverageExplorer(opts = {}) {
           </div>
           ` : ''}
           ${(!focus || presetCfg.showDfg) ? createDataFlowCanvas(graph, selectedRequirement) : ''}
+          ${((presetCfg && presetCfg.showDfg) || DATAFLOW_CRITERIA.has(criterionId)) ? createDefUseTable(graph) : ''}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t('graph.summary.current')}</span>
             <strong>${selectedRequirement?.label || t('common.none')}</strong>
