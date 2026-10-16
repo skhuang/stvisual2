@@ -603,6 +603,18 @@
   transition: fill 0.2s ease, stroke 0.2s ease, transform 0.2s ease;
 }
 
+/* Drag-to-reposition affordance (CFG + DFG nodes). touch-action:none lets a
+   touch-drag move the node instead of scrolling the page. */
+.graph-node,
+.graph-dfg-node {
+  cursor: grab;
+  touch-action: none;
+}
+.graph-node:active,
+.graph-dfg-node:active {
+  cursor: grabbing;
+}
+
 .graph-node text {
   fill: #1e293b;
   font-size: 17px;

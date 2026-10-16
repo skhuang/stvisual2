@@ -9492,10 +9492,19 @@
       height: Math.max(340, maxY - minY)
     };
   }
-  function createGraphCanvas(graph, { requirement, paths = [] } = {}) {
+  function moveNode(graph, nodeId, x, y) {
+    var _a2;
+    const node2 = (_a2 = graph == null ? void 0 : graph.nodes) == null ? void 0 : _a2.find((n) => n.id === nodeId);
+    if (!node2) return false;
+    node2.x = Math.round(x);
+    node2.y = Math.round(y);
+    return true;
+  }
+  function createGraphCanvas(graph, { requirement, paths = [], viewBox = null } = {}) {
     const highlightedNodes = new Set((requirement == null ? void 0 : requirement.nodes) || []);
     const highlightedEdges = new Set((requirement == null ? void 0 : requirement.edges) || []);
     const { minX, minY, width, height } = computeGraphBounds(graph);
+    const viewBoxAttr = viewBox || `${minX} ${minY} ${width} ${height}`;
     const pathMode = paths.length > 0;
     const isDataFlowReq = Boolean(
       requirement && requirement.defNodeId && requirement.useNodeId && requirement.variable
@@ -9568,7 +9577,7 @@
     };
     return `
     <div class="graph-canvas" data-testid="graph-canvas">
-      <svg viewBox="${minX} ${minY} ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t("graph.aria.canvas")}">
+      <svg viewBox="${viewBoxAttr}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t("graph.aria.canvas")}">
         <defs>
           <marker id="arrow-default" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
             <path d="M0,0 L7,3.5 L0,7 z" fill="#9aa8b6"></path>
@@ -9634,10 +9643,11 @@
     </div>
   `;
   }
-  function createDataFlowCanvas(graph, selectedRequirement = null) {
+  function createDataFlowCanvas(graph, selectedRequirement = null, viewBox = null) {
     const dfg = buildDataFlowGraph(graph);
     const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
     const { minX, minY, width, height } = computeGraphBounds(graph, dfg.edges);
+    const viewBoxAttr = viewBox || `${minX} ${minY} ${width} ${height}`;
     const isDataFlowReq = Boolean(
       selectedRequirement && selectedRequirement.defNodeId && selectedRequirement.useNodeId && selectedRequirement.variable
     );
@@ -9695,7 +9705,7 @@
         <p>${t("graph.dfg.help")}</p>
       </div>
       <div class="graph-canvas graph-dfg-canvas" data-testid="graph-dfg-canvas">
-        <svg viewBox="${minX} ${minY} ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t("graph.dfg.aria")}">
+        <svg viewBox="${viewBoxAttr}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t("graph.dfg.aria")}">
           <defs>
             <marker id="dfg-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
               <path d="M0,0 L7,3.5 L0,7 z" fill="#0ea5e9"></path>
@@ -9875,6 +9885,10 @@
     let selectedCodeLanguage = "javascript";
     let autoApplyTimer = null;
     let draft = createDraftFromGraph(initialGraph);
+    let cfgViewBox = null;
+    let dfgViewBox = null;
+    let rebuildCfgCanvas = null;
+    let rebuildDfgCanvas = null;
     const graphQuiz = { active: false, selectedPaths: /* @__PURE__ */ new Set(), phase: "question", result: null };
     const graphLabReflect = { active: false, a1: "", a2: "" };
     const exchangeObjects = Boolean(presetCfg && presetCfg.showDfg);
@@ -10050,6 +10064,8 @@
       sourceStatus = statusMessage;
       selectedRequirementId = null;
       selectedTestPathIndices.clear();
+      cfgViewBox = null;
+      dfgViewBox = null;
       render45();
     }
     function scheduleAutoApply() {
@@ -10066,6 +10082,8 @@
           sourceStatus = t("graph.status.recomputed", { name: activeProgram.name });
           selectedRequirementId = null;
           selectedTestPathIndices.clear();
+          cfgViewBox = null;
+          dfgViewBox = null;
           render45();
         } catch (error) {
           parseError = error.message;
@@ -10080,7 +10098,84 @@
       sourceStatus = t("graph.status.reset", { name: activeProgram.name });
       selectedRequirementId = null;
       selectedTestPathIndices.clear();
+      cfgViewBox = null;
+      dfgViewBox = null;
       render45();
+    }
+    function pointerToUser(svg, clientX, clientY) {
+      const ctm = svg.getScreenCTM();
+      if (!ctm) return null;
+      const pt = svg.createSVGPoint();
+      pt.x = clientX;
+      pt.y = clientY;
+      return pt.matrixTransform(ctm.inverse());
+    }
+    function startNodeDrag(event, spec) {
+      if (event.button !== void 0 && event.button !== 0) return;
+      const nodeEl = event.target.closest(`[data-testid^="${spec.nodePrefix}"]`);
+      if (!nodeEl) return;
+      const nodeId = nodeEl.getAttribute("data-testid").slice(spec.nodePrefix.length);
+      const node2 = graph.nodes.find((n) => n.id === nodeId);
+      if (!node2) return;
+      const startSvg = nodeEl.ownerSVGElement;
+      const frozenViewBox = startSvg.getAttribute("viewBox");
+      const start = pointerToUser(startSvg, event.clientX, event.clientY);
+      if (!start) return;
+      event.preventDefault();
+      spec.setViewBox(frozenViewBox);
+      const offsetX = node2.x - start.x;
+      const offsetY = node2.y - start.y;
+      let moved = false;
+      const onMove = (ev) => {
+        const svg = root45.querySelector(`${spec.container} svg`);
+        if (!svg) return;
+        const user = pointerToUser(svg, ev.clientX, ev.clientY);
+        if (!user) return;
+        moveNode(graph, nodeId, user.x + offsetX, user.y + offsetY);
+        moved = true;
+        const rebuilt = document.createElement("div");
+        rebuilt.innerHTML = spec.rebuild(frozenViewBox);
+        const fresh = rebuilt.querySelector("svg");
+        if (fresh) {
+          svg.setAttribute("viewBox", frozenViewBox);
+          svg.innerHTML = fresh.innerHTML;
+        }
+      };
+      const onUp = () => {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onUp);
+        window.removeEventListener("pointercancel", onUp);
+        if (!moved) return;
+        if (!focus) draft = createDraftFromGraph(graph);
+        render45();
+      };
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+      window.addEventListener("pointercancel", onUp);
+    }
+    function bindGraphDragging() {
+      const specs = [
+        {
+          container: '[data-testid="graph-canvas"]',
+          nodePrefix: "graph-node-",
+          rebuild: (vb) => rebuildCfgCanvas(vb),
+          setViewBox: (vb) => {
+            cfgViewBox = vb;
+          }
+        },
+        {
+          container: '[data-testid="graph-dfg-card"]',
+          nodePrefix: "dfg-node-",
+          rebuild: (vb) => rebuildDfgCanvas(vb),
+          setViewBox: (vb) => {
+            dfgViewBox = vb;
+          }
+        }
+      ];
+      for (const spec of specs) {
+        const svg = root45.querySelector(`${spec.container} svg`);
+        if (svg) svg.addEventListener("pointerdown", (e) => startNodeDrag(e, spec));
+      }
     }
     function getState() {
       var _a2;
@@ -10109,6 +10204,8 @@
         const h = pathToHighlight(graph, pathPlan.selectedPaths[i]);
         return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: pathColor(i) };
       });
+      rebuildCfgCanvas = (vb) => createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths, viewBox: vb });
+      rebuildDfgCanvas = (vb) => createDataFlowCanvas(graph, selectedRequirement, vb);
       const hasShared = selPaths.length > 1 && (() => {
         const edgeCount = /* @__PURE__ */ new Map();
         const nodeCount = /* @__PURE__ */ new Map();
@@ -10281,7 +10378,7 @@
 
       <div class="graph-coverage-layout">
         <div class="graph-main-panel">
-          ${createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths })}
+          ${createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths, viewBox: cfgViewBox })}
           ${selPaths.length ? `
           <div class="graph-path-legend" data-testid="graph-path-legend">
             ${selPathIndices.map((i) => `
@@ -10298,7 +10395,7 @@
             ` : ""}
           </div>
           ` : ""}
-          ${!focus || presetCfg.showDfg ? createDataFlowCanvas(graph, selectedRequirement) : ""}
+          ${!focus || presetCfg.showDfg ? createDataFlowCanvas(graph, selectedRequirement, dfgViewBox) : ""}
           ${presetCfg && presetCfg.showDfg || DATAFLOW_CRITERIA.has(criterionId) ? createDefUseTable(graph) : ""}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t("graph.summary.current")}</span>
@@ -10413,6 +10510,7 @@
       if (focus && exampleControls) {
         (_a2 = root45.querySelector(".graph-criterion-row")) == null ? void 0 : _a2.prepend(exampleControls.element);
       }
+      bindGraphDragging();
       (_b2 = root45.querySelector('[data-testid="graph-reset-btn"]')) == null ? void 0 : _b2.addEventListener("click", () => {
         resetGraph();
       });

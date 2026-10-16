@@ -163,4 +163,35 @@ test.describe('Graph Coverage Browser Tests', () => {
     await expect(page.getByTestId('dfg-node-def').first()).toBeAttached();
     await expect(page.getByTestId('dfg-node-use').first()).toBeAttached();
   });
+
+  test('CFG nodes can be dragged to reposition, and the new coords persist', async ({ page }) => {
+    await page.goto('/?explorer=graph-coverage');
+
+    // Node D sits in the centre of the default graph — a reliable drag target.
+    const nodeD = page.getByTestId('graph-node-D').locator('circle');
+    await expect(nodeD).toBeAttached();
+    await nodeD.scrollIntoViewIfNeeded();
+    const before = await nodeD.evaluate((c) => ({ cx: +c.getAttribute('cx'), cy: +c.getAttribute('cy') }));
+
+    // Drag the node right+down on screen.
+    const box = await nodeD.boundingBox();
+    const startX = box.x + box.width / 2;
+    const startY = box.y + box.height / 2;
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    await page.mouse.move(startX + 100, startY + 40, { steps: 10 });
+    await page.mouse.up();
+
+    // After drop the node has moved (one authoritative re-render has happened).
+    const after = await page.getByTestId('graph-node-D').locator('circle')
+      .evaluate((c) => ({ cx: +c.getAttribute('cx'), cy: +c.getAttribute('cy') }));
+    expect(after.cx).toBeGreaterThan(before.cx);
+    expect(after.cy).toBeGreaterThan(before.cy);
+
+    // The move is synced into the Graph Editor's node coordinates.
+    const nodesText = await page.getByTestId('graph-nodes-input').inputValue();
+    const row = nodesText.split('\n').find((line) => line.startsWith('D,'));
+    expect(row).toBeTruthy();
+    expect(Number(row.split(',')[2])).toBe(after.cx);
+  });
 });

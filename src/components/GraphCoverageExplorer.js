@@ -589,10 +589,21 @@ function computeGraphBounds(graph, edgeList = graph.edges, padding = 60) {
   };
 }
 
-function createGraphCanvas(graph, { requirement, paths = [] } = {}) {
+// Reposition a node in place (used by drag-to-adjust). Coordinates are rounded
+// so the serialized Graph Editor text stays tidy. Returns true when a node moved.
+export function moveNode(graph, nodeId, x, y) {
+  const node = graph?.nodes?.find((n) => n.id === nodeId);
+  if (!node) return false;
+  node.x = Math.round(x);
+  node.y = Math.round(y);
+  return true;
+}
+
+function createGraphCanvas(graph, { requirement, paths = [], viewBox = null } = {}) {
   const highlightedNodes = new Set(requirement?.nodes || []);
   const highlightedEdges = new Set(requirement?.edges || []);
   const { minX, minY, width, height } = computeGraphBounds(graph);
+  const viewBoxAttr = viewBox || `${minX} ${minY} ${width} ${height}`;
   const pathMode = paths.length > 0;
 
   // Data-flow requirement: mark the def and use endpoints on the highlighted path.
@@ -677,7 +688,7 @@ function createGraphCanvas(graph, { requirement, paths = [] } = {}) {
 
   return `
     <div class="graph-canvas" data-testid="graph-canvas">
-      <svg viewBox="${minX} ${minY} ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t('graph.aria.canvas')}">
+      <svg viewBox="${viewBoxAttr}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t('graph.aria.canvas')}">
         <defs>
           <marker id="arrow-default" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
             <path d="M0,0 L7,3.5 L0,7 z" fill="#9aa8b6"></path>
@@ -747,10 +758,11 @@ function createGraphCanvas(graph, { requirement, paths = [] } = {}) {
   `;
 }
 
-function createDataFlowCanvas(graph, selectedRequirement = null) {
+function createDataFlowCanvas(graph, selectedRequirement = null, viewBox = null) {
   const dfg = buildDataFlowGraph(graph);
   const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
   const { minX, minY, width, height } = computeGraphBounds(graph, dfg.edges);
+  const viewBoxAttr = viewBox || `${minX} ${minY} ${width} ${height}`;
 
   // A data-flow requirement highlights its def→use edge and endpoints.
   const isDataFlowReq = Boolean(
@@ -837,7 +849,7 @@ function createDataFlowCanvas(graph, selectedRequirement = null) {
         <p>${t('graph.dfg.help')}</p>
       </div>
       <div class="graph-canvas graph-dfg-canvas" data-testid="graph-dfg-canvas">
-        <svg viewBox="${minX} ${minY} ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t('graph.dfg.aria')}">
+        <svg viewBox="${viewBoxAttr}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${t('graph.dfg.aria')}">
           <defs>
             <marker id="dfg-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
               <path d="M0,0 L7,3.5 L0,7 z" fill="#0ea5e9"></path>
@@ -1073,6 +1085,16 @@ export function createGraphCoverageExplorer(opts = {}) {
   let selectedCodeLanguage = 'javascript';
   let autoApplyTimer = null;
   let draft = createDraftFromGraph(initialGraph);
+  // Manual-layout state for drag-to-reposition. While a node is being dragged
+  // the active canvas's viewBox is frozen so the pointer tracks the node 1:1;
+  // once the user has moved anything, the override sticks so the layout stays
+  // put across re-renders (cleared when a new graph loads).
+  let cfgViewBox = null;
+  let dfgViewBox = null;
+  // Set each render() so the drag handler can regenerate a single canvas with
+  // the current requirement/path highlights without a full re-render.
+  let rebuildCfgCanvas = null;
+  let rebuildDfgCanvas = null;
 
   const graphQuiz = { active: false, selectedPaths: new Set(), phase: 'question', result: null };
   const graphLabReflect = { active: false, a1: '', a2: '' };
@@ -1279,6 +1301,8 @@ export function createGraphCoverageExplorer(opts = {}) {
     sourceStatus = statusMessage;
     selectedRequirementId = null;
     selectedTestPathIndices.clear();
+    cfgViewBox = null;
+    dfgViewBox = null;
     render();
   }
 
@@ -1297,6 +1321,8 @@ export function createGraphCoverageExplorer(opts = {}) {
         sourceStatus = t('graph.status.recomputed', { name: activeProgram.name });
         selectedRequirementId = null;
         selectedTestPathIndices.clear();
+        cfgViewBox = null;
+        dfgViewBox = null;
         render();
       } catch (error) {
         parseError = error.message;
@@ -1312,7 +1338,93 @@ export function createGraphCoverageExplorer(opts = {}) {
     sourceStatus = t('graph.status.reset', { name: activeProgram.name });
     selectedRequirementId = null;
     selectedTestPathIndices.clear();
+    cfgViewBox = null;
+    dfgViewBox = null;
     render();
+  }
+
+  // Drag-to-reposition: both the CFG and DFG canvases. While dragging, only the
+  // active canvas is regenerated (with its viewBox frozen so the pointer tracks
+  // the node 1:1); on drop the new coordinates are committed to the graph (and,
+  // outside focus mode, synced into the Graph Editor text) with one render().
+  function pointerToUser(svg, clientX, clientY) {
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return null;
+    const pt = svg.createSVGPoint();
+    pt.x = clientX;
+    pt.y = clientY;
+    return pt.matrixTransform(ctm.inverse());
+  }
+
+  function startNodeDrag(event, spec) {
+    if (event.button !== undefined && event.button !== 0) return;
+    const nodeEl = event.target.closest(`[data-testid^="${spec.nodePrefix}"]`);
+    if (!nodeEl) return;
+    const nodeId = nodeEl.getAttribute('data-testid').slice(spec.nodePrefix.length);
+    const node = graph.nodes.find((n) => n.id === nodeId);
+    if (!node) return;
+
+    const startSvg = nodeEl.ownerSVGElement;
+    const frozenViewBox = startSvg.getAttribute('viewBox');
+    const start = pointerToUser(startSvg, event.clientX, event.clientY);
+    if (!start) return;
+    event.preventDefault();
+
+    // Freeze this canvas's viewBox for the duration (and keep it afterwards).
+    spec.setViewBox(frozenViewBox);
+    const offsetX = node.x - start.x;
+    const offsetY = node.y - start.y;
+    let moved = false;
+
+    const onMove = (ev) => {
+      const svg = root.querySelector(`${spec.container} svg`);
+      if (!svg) return;
+      const user = pointerToUser(svg, ev.clientX, ev.clientY);
+      if (!user) return;
+      moveNode(graph, nodeId, user.x + offsetX, user.y + offsetY);
+      moved = true;
+      // Keep the same <svg> element (stable pointer target + getScreenCTM); only
+      // swap its inner content and hold the frozen viewBox.
+      const rebuilt = document.createElement('div');
+      rebuilt.innerHTML = spec.rebuild(frozenViewBox);
+      const fresh = rebuilt.querySelector('svg');
+      if (fresh) {
+        svg.setAttribute('viewBox', frozenViewBox);
+        svg.innerHTML = fresh.innerHTML;
+      }
+    };
+    const onUp = () => {
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
+      if (!moved) return;
+      if (!focus) draft = createDraftFromGraph(graph); // sync Graph Editor coords
+      render();
+    };
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
+  }
+
+  function bindGraphDragging() {
+    const specs = [
+      {
+        container: '[data-testid="graph-canvas"]',
+        nodePrefix: 'graph-node-',
+        rebuild: (vb) => rebuildCfgCanvas(vb),
+        setViewBox: (vb) => { cfgViewBox = vb; },
+      },
+      {
+        container: '[data-testid="graph-dfg-card"]',
+        nodePrefix: 'dfg-node-',
+        rebuild: (vb) => rebuildDfgCanvas(vb),
+        setViewBox: (vb) => { dfgViewBox = vb; },
+      },
+    ];
+    for (const spec of specs) {
+      const svg = root.querySelector(`${spec.container} svg`);
+      if (svg) svg.addEventListener('pointerdown', (e) => startNodeDrag(e, spec));
+    }
   }
 
   function getState() {
@@ -1346,6 +1458,9 @@ export function createGraphCoverageExplorer(opts = {}) {
       const h = pathToHighlight(graph, pathPlan.selectedPaths[i]);
       return { nodes: new Set(h.nodes), edges: new Set(h.edges), color: pathColor(i) };
     });
+    // Capture single-canvas rebuilders for the drag handler (see bindGraphDragging).
+    rebuildCfgCanvas = (vb) => createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths, viewBox: vb });
+    rebuildDfgCanvas = (vb) => createDataFlowCanvas(graph, selectedRequirement, vb);
     // Any node or edge shared by >=2 selected paths → show the "shared" legend row.
     const hasShared = selPaths.length > 1 && (() => {
       const edgeCount = new Map();
@@ -1522,7 +1637,7 @@ export function createGraphCoverageExplorer(opts = {}) {
 
       <div class="graph-coverage-layout">
         <div class="graph-main-panel">
-          ${createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths })}
+          ${createGraphCanvas(graph, { requirement: selectedRequirement, paths: selPaths, viewBox: cfgViewBox })}
           ${selPaths.length ? `
           <div class="graph-path-legend" data-testid="graph-path-legend">
             ${selPathIndices.map((i) => `
@@ -1539,7 +1654,7 @@ export function createGraphCoverageExplorer(opts = {}) {
             ` : ''}
           </div>
           ` : ''}
-          ${(!focus || presetCfg.showDfg) ? createDataFlowCanvas(graph, selectedRequirement) : ''}
+          ${(!focus || presetCfg.showDfg) ? createDataFlowCanvas(graph, selectedRequirement, dfgViewBox) : ''}
           ${((presetCfg && presetCfg.showDfg) || DATAFLOW_CRITERIA.has(criterionId)) ? createDefUseTable(graph) : ''}
           <div class="graph-selected-summary" data-testid="selected-requirement-summary">
             <span class="summary-label">${t('graph.summary.current')}</span>
@@ -1661,6 +1776,8 @@ export function createGraphCoverageExplorer(opts = {}) {
     if (focus && exampleControls) {
       root.querySelector('.graph-criterion-row')?.prepend(exampleControls.element);
     }
+
+    bindGraphDragging();
 
     root.querySelector('[data-testid="graph-reset-btn"]')?.addEventListener('click', () => {
       resetGraph();

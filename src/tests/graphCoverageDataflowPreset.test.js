@@ -1,7 +1,20 @@
 import { describe, it, expect } from 'vitest';
 import { presetForDifficulty, randomGraph } from '../data/graphCoverageRandom.js';
 import { buildDataFlowGraph } from '../utils/dataFlow.js';
-import { createGraphCoverageExplorer } from '../components/GraphCoverageExplorer.js';
+import { createGraphCoverageExplorer, moveNode } from '../components/GraphCoverageExplorer.js';
+
+describe('moveNode', () => {
+  it('repositions a node by id with rounded coordinates', () => {
+    const graph = { nodes: [{ id: 'A', label: 'A', x: 10, y: 20 }] };
+    expect(moveNode(graph, 'A', 33.6, 44.2)).toBe(true);
+    expect(graph.nodes[0]).toMatchObject({ x: 34, y: 44 });
+  });
+  it('returns false for an unknown node id and leaves the graph untouched', () => {
+    const graph = { nodes: [{ id: 'A', label: 'A', x: 10, y: 20 }] };
+    expect(moveNode(graph, 'Z', 1, 2)).toBe(false);
+    expect(graph.nodes[0]).toMatchObject({ x: 10, y: 20 });
+  });
+});
 
 describe('graph data-flow generator carries variables', () => {
   it('annotates every generated node with sourceText', () => {
